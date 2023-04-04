@@ -1,0 +1,30 @@
+version: '3'
+
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ..:/workspace:cached
+    depends_on:
+      - mongodb
+      - redis
+    links:
+      - mongodb
+      - redis
+    command: sleep infinity
+  mongodb:
+    image: mongo:4.4
+    restart: unless-stopped
+    volumes:
+      - ./../docker/data/mongodb:/data/db
+  redis:
+    image: redis
+    restart: unless-stopped
+  libretranslate:
+    image: libretranslate/libretranslate
+    container_name: ${COMPOSE_PROJECT_NAME}-libretranslate
+    restart: unless-stopped
+    ports:
+      - 5000:5000

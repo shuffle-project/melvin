@@ -1,0 +1,40 @@
+version: '3'
+
+services:
+  mongodb:
+    image: mongo:5
+    container_name: ${COMPOSE_PROJECT_NAME}-mongo
+    restart: unless-stopped
+    volumes:
+      - ./data/mongodb:/data/db
+    ports:
+      - 27017:27017
+  redis:
+    image: redis
+    container_name: ${COMPOSE_PROJECT_NAME}-redis
+    restart: unless-stopped
+    ports:
+      - 6379:6379
+  kurento:
+    container_name: ${COMPOSE_PROJECT_NAME}-kurento
+    image: kurento/kurento-media-server
+    ports:
+      - 8888:8888/tcp
+      - 5000-5050:5000-5050/udp
+    restart: unless-stopped
+    volumes:
+      - ../media/kurento/:/var/lib/kurento/:rw
+    environment:
+      - -GST_DEBUG="Kurento*:5"
+
+  # whisper:
+  #   container_name: ${COMPOSE_PROJECT_NAME}-whisper
+  #   build:
+  #     dockerfile: ../Dockerfile.whisper
+  #   ports:
+  #     - 5000:5000
+
+  # libretranslate:
+  #   image: libretranslate/libretranslate
+  #   container_name: ${COMPOSE_PROJECT_NAME}-libretranslate
+  #   restart: unless-stopped

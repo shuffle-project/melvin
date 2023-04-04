@@ -1,0 +1,55 @@
+environment: local
+baseUrl: http://localhost:3000
+
+mongodb:
+  uri: mongodb://localhost:27017/captioning
+
+redis:
+  host: localhost
+  port: 6379
+
+jwt:
+  secret: secret
+  issuer: http://localhost:3000
+  audience: http://localhost:4200
+
+basicAuth:
+  username: admin
+  password: secret
+
+email:
+  smtpServer: 'smtp.example.com'
+  smtpPort: 465
+  user: 'info@example.com'
+  password: 'secret'
+  mailFrom: info@example.com
+  mailFromName: Melvin
+
+initialUsers:
+  [
+    { name: 'John Doe', email: 'john.die@example.com' },
+    { name: 'Korbinian Kuhn', email: 'kuhnko@hdm-stuttgart.de' },
+    { name: 'Benedikt Reuter', email: 'reuter@hdm-stuttgart.de' },
+    { name: 'Niklas Egger', email: 'egger@hdm-stuttgart.de' },
+  ]
+
+# deepL:
+#   url: https://api-free.deepl.com/v2
+#   apikey: xxx
+
+# libreTranslate:
+#   url: http://libretranslate:5000
+
+# googleTranslate:
+#   url: https://translation.googleapis.com/language/translate/v2
+#   apikey: xxx
+
+# assemblyAi:
+#   url: https://api.assemblyai.com/v2
+#   apikey: xxx
+
+# googleSpeech:
+#   private_key: 'xxx'
+#   client_email: 'xxx'
+#   project_id: 'xxx'
+#   bucketName: 'xxx'

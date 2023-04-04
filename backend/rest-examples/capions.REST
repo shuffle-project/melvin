@@ -1,0 +1,42 @@
+
+### login
+
+# @name login
+POST http://localhost:3000/auth/login 
+content-type: application/json
+
+{
+    "email":"jane.doe@example.com",
+    "password":"secret"
+}
+
+###
+@authToken = {{login.response.body.token}}
+
+
+# Captions
+###
+GET http://localhost:3000/captions?transcriptionId=6200e99cc8487aecd998dee8
+Authorization: Bearer {{authToken}}
+
+###
+GET http://localhost:3000/captions/6200e9a04b4bbd70eed77ed0
+Authorization: Bearer {{authToken}}
+
+
+###
+POST http://localhost:3000/captions
+Authorization: Bearer {{authToken}}
+Content-Type: application/json
+
+{
+    "text":"test"
+}
+
+###
+PATCH http://localhost:3000/captions/6200e9a04b4bbd70eed77ed0
+Authorization: Bearer {{authToken}}
+
+###
+DELETE http://localhost:3000/captions/6200e9a04b4bbd70eed77ed0
+Authorization: Bearer {{authToken}}

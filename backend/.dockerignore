@@ -1,0 +1,10 @@
+.devcontainer
+.git
+coverage
+gist
+docker
+media
+node_modules
+rest-examples
+test
+.gitlab-ci.yml

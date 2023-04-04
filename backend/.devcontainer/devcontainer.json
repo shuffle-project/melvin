@@ -1,0 +1,17 @@
+{
+  "dockerComposeFile": ["./docker-compose.yml"],
+  "service": "backend",
+  "extensions": ["esbenp.prettier-vscode"],
+  "forwardPorts": [3000, 27017, 6379],
+  "workspaceFolder": "/workspace",
+  "settings": {
+    "terminal.integrated.profiles.linux": {
+      "zsh": {
+        "path": "/usr/bin/zsh"
+      }
+    },
+    "terminal.integrated.defaultProfile.linux": "zsh",
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  }
+}

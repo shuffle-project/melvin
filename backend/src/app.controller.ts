@@ -1,0 +1,23 @@
+import { Controller, Get, HttpStatus, UseGuards } from '@nestjs/common';
+import { ApiResponse } from '@nestjs/swagger';
+import { ConfigEntity, Hello } from './app.interfaces';
+import { AppService } from './app.service';
+import { JwtAuthGuard } from './resources/auth/guards/jwt-auth.guard';
+
+@Controller()
+export class AppController {
+  constructor(private readonly appService: AppService) {}
+
+  @Get()
+  @ApiResponse({ status: HttpStatus.OK, type: Hello })
+  getHello(): Hello {
+    return this.appService.getHello();
+  }
+
+  @Get('config')
+  @UseGuards(JwtAuthGuard)
+  @ApiResponse({ status: HttpStatus.OK, type: ConfigEntity })
+  getConfig(): ConfigEntity {
+    return this.appService.getConfig();
+  }
+}

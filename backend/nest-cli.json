@@ -1,0 +1,10 @@
+{
+  "collection": "@nestjs/schematics",
+  "sourceRoot": "src",
+  "assets": [
+    {
+      "include": "*.yml"
+    }
+  ],
+  "watchAssets": true
+}

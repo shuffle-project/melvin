@@ -1,0 +1,50 @@
+stages:
+  - dependencies
+  - test
+
+variables:
+  IMAGE: node:17-alpine
+
+install_dependencies:
+  image: $IMAGE
+  stage: dependencies
+  script:
+    - npm ci
+  cache:
+    key: $CI_COMMIT_REF_SLUG
+    paths:
+      - node_modules
+
+lint:
+  image: $IMAGE
+  stage: test
+  script:
+    - npm run lint
+  cache:
+    key: $CI_COMMIT_REF_SLUG
+    paths:
+      - node_modules
+    policy: pull
+
+test:
+  image: $IMAGE
+  stage: test
+  script:
+    - npm run test:coverage
+  coverage: /All\sfiles.*?\s+(\d+.\d+)/
+  cache:
+    key: $CI_COMMIT_REF_SLUG
+    paths:
+      - node_modules
+    policy: pull
+
+build:
+  image: $IMAGE
+  stage: test
+  script:
+    - npm run build
+  cache:
+    key: $CI_COMMIT_REF_SLUG
+    paths:
+      - node_modules
+    policy: pull

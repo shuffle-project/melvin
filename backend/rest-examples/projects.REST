@@ -1,0 +1,50 @@
+
+### login
+
+# @name login
+POST http://localhost:3000/auth/login 
+content-type: application/json
+
+{
+    "email":"jane.doe@example.com",
+    "password":"secret"
+}
+
+###
+@authToken = {{login.response.body.token}}
+
+# Project
+###
+GET http://localhost:3000/projects
+Authorization: Bearer {{authToken}}
+
+###
+POST http://localhost:3000/projects
+Authorization: Bearer {{authToken}}
+Content-Type: application/json
+
+{
+    "title": "test123",
+    "language": "de-DE"    
+}
+
+###
+GET http://localhost:3000/projects/6200e98c9f6b0de828dbe34a
+Authorization: Bearer {{authToken}}
+
+###
+PATCH http://localhost:3000/projects/6200e98c9f6b0de828dbe34a
+Authorization: Bearer {{authToken}}
+Content-Type: application/json
+
+{
+    "title":"testtitle"
+}
+
+###
+DELETE http://localhost:3000/projects/6200e98c9f6b0de828dbe34a
+Authorization: Bearer {{authToken}}
+
+###
+POST http://localhost:3000/projects/join/->inviteLink
+Authorization: Bearer {{authToken}}
