@@ -10,7 +10,7 @@ import {
   IsString,
 } from 'class-validator';
 import {
-  Document,
+  HydratedDocument,
   LeanDocument,
   PopulatedDoc,
   SchemaTypes,
@@ -28,7 +28,7 @@ import { Project } from './project.schema';
 import { Transcription } from './transcription.schema';
 import { User } from './user.schema';
 
-export type CaptionDocument = Caption & Document;
+export type CaptionDocument = HydratedDocument<Caption>;
 
 export type LeanCaptionDocument = LeanDocument<CaptionDocument>;
 

@@ -2,10 +2,10 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { ApiProperty } from '@nestjs/swagger';
 import { Exclude, Expose, Transform } from 'class-transformer';
 import { IsDate, IsInt } from 'class-validator';
-import { Document, LeanDocument, Types } from 'mongoose';
+import { HydratedDocument, LeanDocument, Types } from 'mongoose';
 import { EXAMPLE_ACTIVITY } from '../../../constants/example.constants';
 
-export type SettingsDocument = Settings & Document;
+export type SettingsDocument = HydratedDocument<Settings>;
 
 export type LeanSettingsDocument = LeanDocument<SettingsDocument>;
 

@@ -2,11 +2,11 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { ApiProperty } from '@nestjs/swagger';
 import { Exclude, Expose, Transform } from 'class-transformer';
 import { IsDate, IsEnum, IsMongoId, IsString } from 'class-validator';
-import { PopulatedDoc, SchemaTypes, Types } from 'mongoose';
+import { HydratedDocument, PopulatedDoc, SchemaTypes, Types } from 'mongoose';
 import { EXAMPLE_EXPORT } from '../../../constants/example.constants';
 import { Project } from './project.schema';
 
-export type ExportDocument = Export & Document;
+export type ExportDocument = HydratedDocument<Export>;
 
 enum ExportType {
   VIDEO = 'video',

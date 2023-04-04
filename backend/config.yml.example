@@ -27,7 +27,7 @@ email:
 
 initialUsers:
   [
-    { name: 'John Doe', email: 'john.die@example.com' },
+    { name: 'John Doe', email: 'john.doe@example.com' },
     { name: 'Korbinian Kuhn', email: 'kuhnko@hdm-stuttgart.de' },
     { name: 'Benedikt Reuter', email: 'reuter@hdm-stuttgart.de' },
     { name: 'Niklas Egger', email: 'egger@hdm-stuttgart.de' },

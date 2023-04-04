@@ -3,7 +3,7 @@ import { ApiProperty } from '@nestjs/swagger';
 import { Exclude, Expose, Transform, Type } from 'class-transformer';
 import { IsDate, IsMongoId, IsString } from 'class-validator';
 import {
-  Document,
+  HydratedDocument,
   LeanDocument,
   PopulatedDoc,
   SchemaTypes,
@@ -18,7 +18,7 @@ import {
 import { Project } from './project.schema';
 import { User } from './user.schema';
 
-export type TranscriptionDocument = Transcription & Document;
+export type TranscriptionDocument = HydratedDocument<Transcription>;
 
 export type LeanTranscriptionDocument = LeanDocument<TranscriptionDocument>;
 

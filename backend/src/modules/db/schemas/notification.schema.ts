@@ -3,7 +3,7 @@ import { ApiProperty } from '@nestjs/swagger';
 import { Exclude, Expose, Transform } from 'class-transformer';
 import { IsBoolean, IsDate, IsMongoId } from 'class-validator';
 import {
-  Document,
+  HydratedDocument,
   LeanDocument,
   PopulatedDoc,
   SchemaTypes,
@@ -17,7 +17,7 @@ import {
 import { Activity } from './activity.schema';
 import { User } from './user.schema';
 
-export type NotificationDocument = Notification & Document;
+export type NotificationDocument = HydratedDocument<Notification>;
 
 export type LeanNotificationDocument = LeanDocument<NotificationDocument>;
 

@@ -3,7 +3,7 @@ import { ApiProperty } from '@nestjs/swagger';
 import { Exclude, Expose, Transform } from 'class-transformer';
 import { IsBoolean, IsDate, IsEmail, IsEnum, IsString } from 'class-validator';
 import {
-  Document,
+  HydratedDocument,
   LeanDocument,
   PopulatedDoc,
   SchemaTypes,
@@ -13,7 +13,7 @@ import { EXAMPLE_USER } from '../../../constants/example.constants';
 import { UserRole } from '../../../resources/user/user.interfaces';
 import { Project } from './project.schema';
 
-export type UserDocument = User & Document;
+export type UserDocument = HydratedDocument<User>;
 
 export type LeanUserDocument = LeanDocument<UserDocument>;
 

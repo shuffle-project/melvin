@@ -10,7 +10,7 @@ import {
   ValidateNested,
 } from 'class-validator';
 import {
-  Document,
+  HydratedDocument,
   LeanDocument,
   PopulatedDoc,
   SchemaTypes,
@@ -26,7 +26,7 @@ import { Export } from './export.schema';
 import { Transcription } from './transcription.schema';
 import { User } from './user.schema';
 
-export type ProjectDocument = Project & Document;
+export type ProjectDocument = HydratedDocument<Project>;
 
 export type LeanProjectDocument = LeanDocument<ProjectDocument>;
 
