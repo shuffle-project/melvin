@@ -208,7 +208,7 @@ export class AuthService {
 
   createAccessToken(user: LeanUserDocument): string {
     const payload: JwtPayload = {
-      id: user._id,
+      id: user._id.toString(),
       role: user.role,
       name: user.name,
       email: user.email,
@@ -264,7 +264,7 @@ export class AuthService {
     }
 
     return {
-      id: user._id,
+      id: user._id.toString(),
       role: user.role,
     };
   }

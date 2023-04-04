@@ -341,7 +341,7 @@ export class UserTestService {
 
         // Send events
         this.events.captionCreated(project, entity);
-        this.events.userTestUpdated(project._id, caption.start);
+        this.events.userTestUpdated(project._id.toString(), caption.start);
       }, entry.start);
 
       handles.push(handle);

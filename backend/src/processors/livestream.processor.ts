@@ -39,10 +39,10 @@ export class LivestreamProcessor {
         const max = random(min, 100);
 
         await Promise.all([
-          this.projectService.update(systemUser, project._id, {
+          this.projectService.update(systemUser, project._id.toString(), {
             duration: project.duration + 1000,
           }),
-          this.livestreamQueue.add({ projectId: project._id }),
+          this.livestreamQueue.add({ projectId: project._id.toString() }),
           this.events.projectMediaWaveformUpdated(
             project,
             Array(100)

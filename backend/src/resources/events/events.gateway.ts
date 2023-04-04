@@ -240,7 +240,7 @@ export class EventsGateway implements OnGatewayConnection {
   // Actions
 
   async joinProjectRoom(authUser: AuthUser, project: LeanProjectDocument) {
-    const room = this._getProjectRoom(project._id);
+    const room = this._getProjectRoom(project._id.toString());
     await this._join(authUser.id, room);
     const activeUsers: EditorActiveUser[] = this._getActiveUsers(room);
 
@@ -333,7 +333,7 @@ export class EventsGateway implements OnGatewayConnection {
     project: LeanProjectDocument,
     transcription: TranscriptionEntity,
   ) {
-    const room = this._getProjectRoom(project._id);
+    const room = this._getProjectRoom(project._id.toString());
     this._broadcast([room], 'transcription:created', {
       transcription: instanceToPlain(transcription) as TranscriptionEntity,
     });
@@ -343,7 +343,7 @@ export class EventsGateway implements OnGatewayConnection {
     project: LeanProjectDocument,
     transcription: TranscriptionEntity,
   ) {
-    const room = this._getProjectRoom(project._id);
+    const room = this._getProjectRoom(project._id.toString());
     this._broadcast([room], 'transcription:updated', {
       transcription: instanceToPlain(transcription) as TranscriptionEntity,
     });
@@ -353,14 +353,14 @@ export class EventsGateway implements OnGatewayConnection {
     project: LeanProjectDocument,
     transcription: TranscriptionEntity,
   ) {
-    const room = this._getProjectRoom(project._id);
+    const room = this._getProjectRoom(project._id.toString());
     this._broadcast([room], 'transcription:removed', {
       transcriptionId: getObjectIdAsString(transcription._id),
     });
   }
 
   async captionCreated(project: LeanProjectDocument, caption: CaptionEntity) {
-    const room = this._getProjectRoom(project._id);
+    const room = this._getProjectRoom(project._id.toString());
     this._broadcast([room], 'caption:created', {
       caption: instanceToPlain(caption) as CaptionEntity,
     });
@@ -374,14 +374,14 @@ export class EventsGateway implements OnGatewayConnection {
   }
 
   async captionUpdated(project: LeanProjectDocument, caption: CaptionEntity) {
-    const room = this._getProjectRoom(project._id);
+    const room = this._getProjectRoom(project._id.toString());
     this._broadcast([room], 'caption:updated', {
       caption: instanceToPlain(caption) as CaptionEntity,
     });
   }
 
   async captionRemoved(project: LeanProjectDocument, caption: CaptionEntity) {
-    const room = this._getProjectRoom(project._id);
+    const room = this._getProjectRoom(project._id.toString());
     this._broadcast([room], 'caption:removed', {
       captionId: getObjectIdAsString(caption._id),
     });

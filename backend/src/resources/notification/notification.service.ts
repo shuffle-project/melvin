@@ -160,7 +160,7 @@ export class NotificationService {
     }
 
     // Send events
-    this.events.notificationsRemoved(authUser.id, [doc._id]);
+    this.events.notificationsRemoved(authUser.id, [doc._id.toString()]);
   }
 
   // bulk operations
