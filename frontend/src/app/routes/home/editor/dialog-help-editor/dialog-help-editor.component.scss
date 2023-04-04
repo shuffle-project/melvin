@@ -1,0 +1,26 @@
+.help-dialog-wrapper {
+  width: 500px;
+}
+
+.key-wrapper {
+  display: flex;
+  align-items: center;
+}
+
+.plus-symbol {
+  margin: 0px 5px;
+  font-size: 20px;
+}
+
+.key {
+  background-color: var(--color-dark-grey);
+  padding: 5px;
+  height: 30px;
+  min-width: 30px;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 500;
+  color: var(--color-white);
+}

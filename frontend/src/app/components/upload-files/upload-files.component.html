@@ -1,0 +1,66 @@
+<div class="dropzone" [class.invalid-input]="showError && touched">
+  <div>
+    <div class="input-ready-dropzone">
+      <div *ngIf="files.length !== 0">
+        <div *ngFor="let file of files" class="file">
+          <div class="file-content">
+            <mat-icon
+              *ngIf="
+                !(file.type.includes('audio') || file.type.includes('video'))
+              "
+              svgIcon="transcription-file"
+            ></mat-icon>
+            <mat-icon
+              *ngIf="file.type.includes('audio') || file.type.includes('video')"
+              svgIcon="video"
+            ></mat-icon>
+            <div>
+              {{ file.name }}
+            </div>
+          </div>
+          <button
+            mat-icon-button
+            (click)="onRemoveFile(file); $event.stopPropagation()"
+            i18n-matTooltip="@@dialogCreateProjectRemoveFileTooltip"
+            matTooltip="Remove file"
+          >
+            <mat-icon svgIcon="delete"></mat-icon>
+          </button>
+        </div>
+        <div class="file add-btn">
+          <div class="file-content">
+            <mat-icon svgIcon="add"></mat-icon>
+            <label i18n="@@dialogCreateProjectAddFilesButton" for="fileDropRef"
+              >Add more files
+            </label>
+          </div>
+        </div>
+      </div>
+      <div>
+        <input
+          (change)="onAddFiles($event)"
+          type="file"
+          #fileDropRef
+          id="fileDropRef"
+          multiple
+          required
+          accept=".vtt,.srt,audio/*,video/*"
+        />
+        <div *ngIf="files.length === 0">
+          <mat-icon svgIcon="upload"></mat-icon>
+          <div i18n="@@dialogCreateProjectDropzoneText">
+            Drag your audio, video and subtitle files here
+          </div>
+          <div i18n="@@dialogCreateProjectDropzoneText2">or</div>
+          <br />
+          <label
+            class="label-empty"
+            for="fileDropRef"
+            i18n="@@dialogCreateProjectChooseFile"
+            >Choose file
+          </label>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

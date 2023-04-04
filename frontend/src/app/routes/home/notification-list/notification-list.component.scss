@@ -1,0 +1,80 @@
+.header {
+  position: fixed;
+  width: 100%;
+  z-index: 1;
+}
+
+h1 {
+  margin-left: 10px;
+}
+
+.default-information-text {
+  padding-top: 100px;
+  font-size: 18px;
+  text-align: center;
+}
+
+.main-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.fixated-list-header {
+  margin-left: -400px;
+  margin-top: 60px;
+  width: 100%;
+  max-width: 800px;
+  position: fixed;
+  left: 50%;
+  z-index: 1;
+
+  @media only screen and (max-width: 800px) {
+    margin-left: 0px;
+    left: 0%;
+  }
+
+  .all-notifications-selector {
+    margin: 10px 20px;
+  }
+
+  .buttons-wrapper {
+    background-color: white;
+    display: flex;
+    justify-content: flex-end;
+    padding: 20px 0;
+
+    button {
+      margin-left: 10px;
+    }
+
+    .delete-notification-button {
+      background-color: var(--color-red);
+      color: white;
+    }
+
+    .read-notification-button {
+      background-color: var(--color-primary);
+      color: white;
+    }
+  }
+}
+
+.notifications-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 120px;
+}
+
+.list-wrapper {
+  width: 100%;
+  max-width: 800px;
+  margin: 40px 20px 20px 20px;
+
+  .date {
+    margin: 30px 0 10px 20px;
+    font-size: 18px;
+    font-weight: normal;
+  }
+}

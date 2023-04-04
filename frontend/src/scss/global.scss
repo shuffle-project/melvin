@@ -1,0 +1,39 @@
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, 'Helvetica Neue', sans-serif;
+  background: var(--color-white);
+}
+
+input,
+textarea {
+  font-family: Roboto, 'Helvetica Neue', sans-serif;
+}
+
+table {
+  width: 100%;
+}
+
+a {
+  color: var(--color-primary);
+}
+
+.clickable {
+  cursor: pointer;
+}
+
+.cursor-ew-resize {
+  cursor: ew-resize;
+}
+
+.cursor-not-allowed {
+  cursor: not-allowed;
+}
+
+.display-none {
+  display: none !important;
+}

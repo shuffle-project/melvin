@@ -1,0 +1,25 @@
+<div class="container" [class.visible]="showSpeaker">
+  <button
+    mat-stroked-button
+    [matMenuTriggerFor]="speakerMenu"
+    #speakerMenuTrigger="matMenuTrigger"
+    [matMenuTriggerData]="{ caption: caption }"
+    i18n-matTooltip="@@captionChangeSpeakerTooltip"
+    matTooltip="Change speaker"
+    matTooltipPosition="above"
+    [matTooltipShowDelay]="1000"
+  >
+    <div class="flex items-center">
+      <mat-icon svgIcon="speaker2" class="sm"></mat-icon>
+      <span class="name">
+        {{ speaker?.name }}
+      </span>
+    </div>
+  </button>
+</div>
+
+<mat-menu #speakerMenu="matMenu">
+  <ng-template matMenuContent let-caption="caption">
+    <app-edit-speaker-modal [caption]="caption"></app-edit-speaker-modal>
+  </ng-template>
+</mat-menu>

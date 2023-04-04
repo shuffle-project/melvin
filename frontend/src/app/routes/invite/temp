@@ -1,0 +1,71 @@
+<mat-spinner *ngIf="loading" strokeWidth="2" class="white"></mat-spinner>
+
+<mat-card *ngIf="!loading">
+  <ng-container *ngrxLet="invite$ as invite">
+    <!-- Invalid invite -->
+    <ng-container *ngIf="!invite">
+      <mat-card-subtitle>Einladung zum Projekt</mat-card-subtitle>
+
+      <mat-card-content>
+        <div class="error-container">
+          <mat-icon svgIcon="error" class="lg"></mat-icon>
+          <span>Der Einladungslink ist leider nichtmehr gültig.</span>
+        </div>
+      </mat-card-content>
+
+      <mat-card-actions>
+        <div class="flex justify-center">
+          <button mat-flat-button color="primary" (click)="onClickAbort()">
+            Zurück
+          </button>
+        </div>
+      </mat-card-actions>
+    </ng-container>
+
+    <!-- Valid invite -->
+    <ng-container *ngIf="invite">
+      <ng-container *ngrxLet="user$ as user">
+        <mat-card-subtitle>Einladung zum Projekt</mat-card-subtitle>
+        <mat-card-title>{{ invite.projectTitle }}</mat-card-title>
+        <mat-card-content>
+          <p>
+            Sie wurden von
+            <span class="bold">{{ invite.userName }}</span> zu einem Projekt
+            eingeladen.
+          </p>
+        </mat-card-content>
+
+        <mat-divider inset></mat-divider>
+
+        <!-- Authenticated User -->
+        <mat-card-actions *ngIf="user">
+          <div class="flex justify-between">
+            <button mat-button color="primary" (click)="onClickAbort()">
+              Abbrechen
+            </button>
+            <button mat-flat-button color="primary" (click)="onClickJoin()">
+              Projekt beitreten
+            </button>
+          </div>
+        </mat-card-actions>
+
+        <!-- Unauthenticated -->
+        <mat-card-actions *ngIf="!user">
+          <div class="flex justify-between">
+            <button mat-button color="primary" (click)="onClickAuth()">
+              Anmelden / Registrieren
+            </button>
+
+            <button
+              mat-flat-button
+              color="primary"
+              (click)="onClickJoinAsGuest()"
+            >
+              Als Gast beitreten
+            </button>
+          </div>
+        </mat-card-actions>
+      </ng-container>
+    </ng-container>
+  </ng-container>
+</mat-card>

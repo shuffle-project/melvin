@@ -1,0 +1,142 @@
+:root {
+  --color-white: #ffffff;
+  --color-white-rgb: 255, 255, 255;
+  --color-black: #000000;
+  --color-black-rgb: 0, 0, 0;
+  --color-text: #3e4847;
+
+  --color-primary: #227c9d;
+  --color-primary-rgb: 34, 124, 157;
+  --color-accent: #6bd9b1;
+  --color-accent-rgb: 107, 217, 177;
+
+  --color-gradient-green: #41c4ad;
+
+  --color-light: var(--color-white);
+  --color-dark: var(--color-black);
+
+  --color-background-grey: #f7f7f7;
+  --color-border-grey: #d2d2d2;
+
+  --color-light-grey: #c8c8c8;
+  --color-light-grey-rgb: 200, 200, 200;
+  --color-grey: #afafaf;
+  --color-grey-rgb: 175, 175, 175;
+  --color-dark-grey: #848484;
+  --color-dark-grey-rgb: 132, 132, 132;
+
+  // General colors
+  --color-red: #bf4a3e;
+  --color-red-rgb: 191, 74, 62;
+  --color-light-red: #e35a51;
+  --color-light-red-rgb: 227, 90, 81;
+  --color-blue: #387094;
+  --color-blue-rgb: 58, 112, 148;
+  --color-sky-blue: #83bed0;
+  --color-sky-blue-rgb: 131, 190, 208;
+  --color-light-blue: #77a9c7;
+  --color-light-blue-rgb: 119, 169, 199;
+  --color-green: #45826a;
+  --color-green-rgb: 69, 130, 106;
+  --color-olive-green: #a0c378;
+  --color-olive-green-rgb: 160, 195, 120;
+  --color-sea-green: #80b183;
+  --color-sea-green-rgb: 128, 177, 131;
+  --color-orange: #e17b45;
+  --color-orange-rgb: 225, 123, 69;
+  --color-yellow: #e1ad45;
+  --color-yellow-rgb: 225, 173, 69;
+  --color-light-yellow: #e4cb73;
+  --color-light-yellow-rgb: 228, 203, 115;
+  --color-gold: #e1b869;
+  --color-gold-rgb: 225, 184, 105;
+
+  // Editor user colors
+  --color-editor-user-unknown: var(--color-grey);
+  --color-editor-user-primary: var(--color-primary);
+  --color-editor-user-orange: #f76825;
+  --color-editor-user-turquoise: #0ba3a3;
+  --color-editor-user-red: #f7254c;
+  --color-editor-user-purple: #9d43ba;
+  --color-editor-user-green: #0ba339;
+  --color-editor-user-pink: #ca3483;
+  --color-editor-user-blue: #2592f7;
+
+  // primary palette
+  --color-primary-50: #e4eff3;
+  --color-primary-100: #bdd8e2;
+  --color-primary-200: #91bece;
+  --color-primary-300: #64a3ba;
+  --color-primary-400: #4390ac;
+  --color-primary-500: #227c9d;
+  --color-primary-600: #1e7495;
+  --color-primary-700: #19698b;
+  --color-primary-800: #145f81;
+  --color-primary-900: #0c4c6f;
+  --color-primary-A100: #a1daff;
+  --color-primary-A200: #6ec6ff;
+  --color-primary-A400: #3bb2ff;
+  --color-primary-A700: #22a9ff;
+
+  // accent palette
+  --color-accent-50: #e3f8f6;
+  --color-accent-100: #b9ede8;
+  --color-accent-200: #8be1d9;
+  --color-accent-300: #5dd5c9;
+  --color-accent-400: #3accbe;
+  --color-accent-500: #17c3b2;
+  --color-accent-600: #14bdab;
+  --color-accent-700: #11b5a2;
+  --color-accent-800: #0dae99;
+  --color-accent-900: #07a18a;
+  --color-accent-A100: #cdfff6;
+  --color-accent-A200: #9affee;
+  --color-accent-A400: #67ffe5;
+  --color-accent-A700: #4dffe1;
+
+  // warn palette
+  --color-warn-50: #f7e9e8;
+  --color-warn-100: #ecc9c5;
+  --color-warn-200: #dfa59f;
+  --color-warn-300: #d28078;
+  --color-warn-400: #c9655b;
+  --color-warn-500: #bf4a3e;
+  --color-warn-600: #b94338;
+  --color-warn-700: #b13a30;
+  --color-warn-800: #a93228;
+  --color-warn-900: #9b221b;
+  --color-warn-A100: #ffd5d3;
+  --color-warn-A200: #ffa4a0;
+  --color-warn-A400: #ff746d;
+  --color-warn-A700: #ff5b53;
+
+  --theme-gradient: linear-gradient(
+    135deg,
+    var(--color-gradient-green) 0%,
+    var(--color-gradient-green) 25%,
+    var(--color-primary) 100%
+  );
+
+  --color-waveform-cursor: var(--color-primary-900);
+  --color-waveform-played: var(--color-primary);
+  --color-waveform-unplayed: var(--color-dark-grey);
+  --color-waveform-zoomed-background: rgba(var(--color-primary-rgb), 0.1);
+}
+
+body.dark {
+  --color-white: #000000;
+  --color-white-rgb: 0, 0, 0;
+  --color-black: #ffffff;
+  --color-black-rgb: 255, 255, 255;
+  --color-text: #ffffff;
+
+  --color-background-grey: #222;
+  --color-border-grey: #444;
+
+  --color-light-grey: #333;
+  --color-light-grey-rgb: 51, 51, 51;
+  --color-grey: #555;
+  --color-grey-rgb: 85, 85, 85;
+  --color-dark-grey: #848484;
+  --color-dark-grey-rgb: 132, 132, 132;
+}

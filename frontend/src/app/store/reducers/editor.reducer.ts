@@ -1,0 +1,185 @@
+import { createReducer, on } from '@ngrx/store';
+import { EditorUserColor } from '../../constants/editor.constants';
+import { ProjectEntity } from '../../services/api/entities/project.entity';
+import { StorageKey } from '../../services/storage/storage-key.enum';
+import { StorageService } from '../../services/storage/storage.service';
+import * as editorActions from '../actions/editor.actions';
+import * as projectsActions from '../actions/projects.actions';
+import * as userTestActions from '../actions/user-test.actions';
+
+const storage = new StorageService();
+
+export interface EditorActiveUser {
+  id: string;
+  color: EditorUserColor;
+}
+
+export interface EditorState {
+  projectLoading: boolean;
+  project: ProjectEntity | null;
+  isPlaying: boolean;
+  isLiveInSync: boolean;
+  currentSpeed: number;
+  activeUsers: EditorActiveUser[];
+  volume: number;
+  subtitlesEnabledInVideo: boolean;
+  waveform: number[];
+  isCaptionTextValidationEnabled: boolean;
+}
+
+export const initalState: EditorState = {
+  projectLoading: false,
+  project: null,
+  isPlaying: false,
+  isLiveInSync: false,
+  currentSpeed: 1,
+  activeUsers: [],
+  volume: storage.getFromSessionStorage(StorageKey.MEDIA_VOLUME, 1) as number,
+  subtitlesEnabledInVideo: storage.getFromLocalStorage(
+    StorageKey.MEDIA_SUBTITLES_ENABLED,
+    false
+  ) as boolean,
+  waveform: [],
+  isCaptionTextValidationEnabled: storage.getFromLocalStorage(
+    StorageKey.CAPTION_TEXT_VALIDATION_ENABLED,
+    false
+  ) as boolean,
+};
+
+export const editorReducer = createReducer(
+  initalState,
+  // Play
+  on(
+    editorActions.playFromCaption,
+    editorActions.playFromMediaService,
+    (state) => ({
+      ...state,
+      isPlaying: true,
+    })
+  ),
+
+  // Pause
+  on(
+    editorActions.pauseFromVideoComponent,
+    userTestActions.stopFromWS,
+    (state) => ({
+      ...state,
+      isPlaying: false,
+    })
+  ),
+
+  // Toggle Play/Pause
+  on(
+    editorActions.togglePlayPauseFromEditor,
+    editorActions.togglePlayPauseFromVideo,
+    (state) => ({
+      ...state,
+      isPlaying: !state.isPlaying,
+      isLiveInSync: false,
+    })
+  ),
+
+  on(editorActions.backToLive, (state) => ({
+    ...state,
+    isPlaying: true,
+    isLiveInSync: true,
+    currentSpeed: 1,
+  })),
+  on(editorActions.changeSpeed, (state, action) => ({
+    ...state,
+    currentSpeed: action.speed,
+  })),
+  on(editorActions.changeVolumeFromVideoComponent, (state, action) => ({
+    ...state,
+    volume: action.volume,
+  })),
+  on(editorActions.toggleVolumeFromVideoComponent, (state) => ({
+    ...state,
+    volume: state.volume > 0 ? 0 : 1,
+  })),
+  on(editorActions.toggleSubtitles, (state) => ({
+    ...state,
+    subtitlesEnabledInVideo: !state.subtitlesEnabledInVideo,
+  })),
+  on(editorActions.updateActiveUsers, (state, action) => {
+    return {
+      ...state,
+      activeUsers: [...action.activeUsers],
+    };
+  }),
+  on(editorActions.findProject, (state) => {
+    return {
+      ...state,
+      projectLoading: true,
+    };
+  }),
+
+  on(editorActions.findProjectSuccess, (state, { project }) => {
+    return {
+      ...state,
+      project: { ...project },
+      projectLoading: false,
+    };
+  }),
+
+  on(
+    projectsActions.updateSuccess,
+    projectsActions.updateFromWS,
+    (state, { updatedProject }) => {
+      return {
+        ...state,
+        ...(updatedProject.id === state.project?.id
+          ? { project: updatedProject }
+          : {}),
+      };
+    }
+  ),
+
+  on(projectsActions.updateFromWSPartial, (state, { updatedProject }) => {
+    return {
+      ...state,
+      ...(updatedProject.id === state.project?.id
+        ? {
+            project: {
+              ...state.project,
+              ...updatedProject,
+              livestream: {
+                // dont overwrite nested
+                ...state.project?.livestream,
+                ...updatedProject.livestream,
+              },
+            } as ProjectEntity,
+          }
+        : {}),
+    };
+  }),
+
+  on(editorActions.getWaveformSuccess, (state, { values }) => {
+    return {
+      ...state,
+      waveform: values,
+    };
+  }),
+
+  on(editorActions.updateWaveformFromWS, (state, { projectId, values }) => {
+    return {
+      ...state,
+      waveform: [...state.waveform, ...values],
+    };
+  }),
+
+  on(editorActions.setCaptionTextValidationEnabled, (state, { enabled }) => {
+    return {
+      ...state,
+      isCaptionTextValidationEnabled: enabled,
+    };
+  }),
+
+  // User-Test
+  on(userTestActions.resumeFromUserTestEffect, (state) => {
+    return {
+      ...state,
+      isPlaying: true,
+    };
+  })
+);

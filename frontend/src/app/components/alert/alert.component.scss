@@ -1,0 +1,39 @@
+:host {
+  display: block;
+}
+
+.container {
+  padding: 10px;
+  border-radius: 5px;
+  margin: 20px 0;
+  border: 1px solid var(--border);
+  background: var(--background);
+
+  mat-icon {
+    color: red;
+  }
+
+  &.default {
+    --background: var(--color-background-grey);
+    --border: var(--color-border-grey);
+    --icon: var(--color-dark-grey);
+  }
+
+  &.success {
+    --background: rgba(var(--color-green-rgb), 0.2);
+    --border: rgba(var(--color-green-rgb), 0.7);
+    --icon: var(--color-green);
+  }
+
+  &.error {
+    --background: rgba(var(--color-red-rgb), 0.2);
+    --border: rgba(var(--color-red-rgb), 0.7);
+    --icon: var(--color-red);
+  }
+
+  &.info {
+    --border: rgba(var(--color-blue-rgb), 0.7);
+    --background: rgba(var(--color-blue-rgb), 0.2);
+    --icon: var(--color-blue);
+  }
+}

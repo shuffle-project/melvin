@@ -1,0 +1,48 @@
+<div class="container" [class.focused]="isFocused">
+  <div class="line" *ngIf="'captionTimeInput' | featureEnabled"></div>
+
+  <button
+    mat-icon-button
+    class="sm top"
+    [disabled]="captionInsertButtonDisabled"
+    [matTooltip]="captionInsertButtonTooltipText"
+    matTooltipPosition="above"
+    [matTooltipShowDelay]="captionInsertButtonDisabled ? 0 : 1000"
+    (click)="onCaptionInsertBefore()"
+  >
+    <mat-icon svgIcon="add"></mat-icon>
+  </button>
+
+  <form
+    *ngIf="'captionTimeInput' | featureEnabled"
+    [formGroup]="formGroup"
+    class="duration"
+  >
+    <input
+      formControlName="start"
+      (blur)="onBlur('start')"
+      [readonly]="!isFocused"
+      placeholder="HH:mm:ss"
+      [ngClass]="inputStartClassName || ''"
+    />
+    <input
+      formControlName="end"
+      (blur)="onBlur('end')"
+      [readonly]="!isFocused"
+      placeholder="HH:mm:ss"
+      [ngClass]="inputEndClassName || ''"
+    />
+  </form>
+
+  <button
+    mat-icon-button
+    class="sm bottom"
+    [disabled]="captionInsertButtonDisabled"
+    [matTooltip]="captionInsertButtonTooltipText"
+    matTooltipPosition="below"
+    [matTooltipShowDelay]="captionInsertButtonDisabled ? 0 : 1000"
+    (click)="onCaptionInsertAfter()"
+  >
+    <mat-icon svgIcon="add"></mat-icon>
+  </button>
+</div>

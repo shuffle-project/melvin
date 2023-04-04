@@ -1,0 +1,59 @@
+<ng-container *ngrxLet="isLoading$ as isLoading">
+  <!-- Loading -->
+  <mat-spinner *ngIf="isLoading"></mat-spinner>
+
+  <ng-container *ngIf="!isLoading">
+    <ng-container *ngrxLet="error$ as error">
+      <app-alert *ngIf="error" level="error">{{ error }}</app-alert>
+    </ng-container>
+
+    <ng-container *ngrxLet="message$ as message">
+      <app-alert *ngIf="message" level="success">{{ message }}</app-alert>
+    </ng-container>
+
+    <ng-container *ngrxLet="isPending$ as isPending">
+      <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+        <div>
+          <mat-form-field>
+            <mat-label>Title</mat-label>
+            <input matInput formControlName="title" />
+          </mat-form-field>
+        </div>
+
+        <div>
+          <mat-form-field>
+            <mat-label>Status</mat-label>
+            <mat-select formControlName="status">
+              <mat-option
+                *ngFor="let status of statuses"
+                [value]="status"
+                [disabled]="!isStatusSelectable(status)"
+                >{{ status | readableStatus }}</mat-option
+              >
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div>
+          <button
+            mat-flat-button
+            color="primary"
+            type="submit"
+            [disabled]="isPending"
+          >
+            <div class="flex items-center">
+              <mat-spinner
+                *ngIf="isPending"
+                strokeWidth="2"
+                diameter="20"
+                color="primary"
+                style="margin-right: 10px"
+              ></mat-spinner>
+              Anmelden
+            </div>
+          </button>
+        </div>
+      </form>
+    </ng-container>
+  </ng-container>
+</ng-container>

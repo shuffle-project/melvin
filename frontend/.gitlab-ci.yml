@@ -1,0 +1,58 @@
+stages:
+  - dependencies
+  - test
+  - build
+
+variables:
+  IMAGE: node:17-alpine
+
+install_dependencies:
+  image: $IMAGE
+  stage: dependencies
+  script:
+    - npm install
+  cache:
+    key: $CI_COMMIT_REF_SLUG
+    paths:
+      - node_modules
+
+# lint:
+#   image: $IMAGE
+#   stage: test
+#   script:
+#     - npm run lint
+#   cache:
+#     key: $CI_COMMIT_REF_SLUG
+#     paths:
+#       - node_modules
+#     policy: pull
+
+# test:
+#   image: $IMAGE
+#   stage: test
+#   before_script:
+#     - apk add chromium
+#     - export CHROME_BIN=/usr/bin/chromium-browser
+#   script:
+#     - npm install
+#     - npm run test:ci
+#   cache:
+#     key: $CI_COMMIT_REF_SLUG
+#     paths:
+#       - node_modules
+#     policy: pull
+
+build:
+  image: $IMAGE
+  stage: test
+  script:
+    - npm run build
+  #  artifacts:
+  #    paths:
+  #      - $CI_PROJECT_DIR/dist/editor-frontend
+  #    expire_in: 1 day
+  cache:
+    key: $CI_COMMIT_REF_SLUG
+    paths:
+      - node_modules
+    policy: pull

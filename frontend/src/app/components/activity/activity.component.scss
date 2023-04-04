@@ -1,0 +1,88 @@
+:host {
+  display: flex;
+}
+
+.container {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  padding: 5px 0;
+  margin: 5px 0;
+
+  --bg-color: var(--color-background-grey);
+  --border-color: var(--color-border-grey);
+  --icon-color: var(--color-text);
+
+  &.warn {
+    --bg-color: rgba(var(--color-red-rgb), 0.2);
+    --border-color: rgba(var(--color-red-rgb), 0.7);
+    --icon-color: var(--color-red);
+  }
+
+  &.info {
+    --bg-color: rgba(var(--color-blue-rgb), 0.2);
+    --border-color: rgba(var(--color-blue-rgb), 0.7);
+    --icon-color: var(--color-blue);
+  }
+
+  &.list {
+    background: var(--bg-color);
+    padding-right: 20px;
+    mat-icon {
+      color: var(--icon-color);
+    }
+  }
+
+  &.timeline {
+    background: var(--bg-color);
+    margin: 5px 0;
+    border-radius: 5px;
+    border: 1px solid var(--border-color);
+    mat-icon {
+      color: var(--icon-color);
+    }
+  }
+}
+
+.checkbox {
+  margin-left: 20px;
+}
+
+mat-icon {
+  margin: 10px;
+  margin-left: 20px;
+}
+
+.text-container {
+  display: flex;
+  flex-direction: column;
+  margin-left: 10px;
+  flex: 1;
+
+  .project-title {
+    color: rgba(var(--color-black-rgb), 0.6);
+  }
+
+  .description {
+    font-weight: 500;
+  }
+
+  &:hover {
+    .project-title {
+      color: var(--color-black);
+      text-decoration: underline;
+    }
+  }
+}
+
+app-avatar {
+  margin-right: 10px;
+}
+
+.time-ago {
+  color: rgba(var(--color-black-rgb), 0.6);
+}
+
+.user-name {
+  margin: 0 10px;
+}

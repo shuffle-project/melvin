@@ -1,0 +1,52 @@
+mat-dialog-content {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.title {
+  display: flex;
+  align-items: center;
+  h3 {
+    margin: 0;
+  }
+  mat-icon {
+    margin-right: 10px;
+  }
+}
+
+.user-row {
+  display: flex;
+  align-items: center;
+  margin: 5px 0;
+
+  app-avatar {
+    margin-right: 5px;
+  }
+
+  .user-text {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+
+    .user-name {
+      font-weight: 600;
+    }
+
+    .user-email {
+      color: rgba(0, 0, 0, 0.8);
+    }
+  }
+
+  .user-role {
+  }
+}
+
+input.link {
+  background: rgba(var(--color-green-rgb), 0.2);
+  color: var(--color-green);
+  padding-left: 10px;
+  padding-right: 10px;
+  margin-right: 10px;
+  border: none;
+  flex: 1;
+}

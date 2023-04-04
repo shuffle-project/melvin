@@ -1,0 +1,57 @@
+<form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+  <mat-form-field appearance="fill" class="flat">
+    <mat-icon svgIcon="email" matPrefix></mat-icon>
+    <input
+      formControlName="email"
+      matInput
+      i18n-placeholder="@@loginEmailPlaceholder"
+      placeholder="Email"
+      type="email"
+      name="email"
+      autocomplete="email"
+    />
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" class="flat">
+    <mat-icon svgIcon="lock" matPrefix></mat-icon>
+    <input
+      formControlName="password"
+      matInput
+      i18n-placeholder="@@loginPasswordPlaceholder"
+      placeholder="Password"
+      type="password"
+      name="password"
+      autocomplete="current-password"
+    />
+  </mat-form-field>
+
+  <mat-checkbox
+    formControlName="persistent"
+    i18n="@@loginStayLoggedInCheckboxLabel"
+    >Stay logged in</mat-checkbox
+  >
+
+  <div *ngIf="error$ | async as error">
+    {{ error }}
+  </div>
+
+  <div class="flex justify-center">
+    <button
+      mat-flat-button
+      type="submit"
+      [disabled]="!formGroup.valid || (loading$ | async)"
+      color="primary"
+    >
+      <div class="flex items-center" i18n="@@loginLoginButtonLabel">
+        <mat-spinner
+          *ngIf="loading$ | async"
+          strokeWidth="2"
+          diameter="20"
+          color="primary"
+          style="margin-right: 10px"
+        ></mat-spinner>
+        Login
+      </div>
+    </button>
+  </div>
+</form>

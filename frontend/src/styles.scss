@@ -1,0 +1,23 @@
+/* CSS Variables*/
+@import 'scss/variables.scss';
+
+/* Skeletons for loading animation */
+@import 'scss/skeletons.scss';
+
+/* Material theme, overrides and extensions*/
+@import 'scss/material/theme.scss';
+@import 'scss/material/mat-icon.scss';
+@import 'scss/material/mat-chip.scss';
+@import 'scss/material/mat-button.scss';
+@import 'scss/material/mat-form-field.scss';
+@import 'scss/material/mat-menu.scss';
+@import 'scss/material/mat-spinner.scss';
+@import 'scss/material/mat-snack-bar.scss';
+@import 'scss/material/mat-slider.scss';
+@import 'scss/material/expansion-panel.scss';
+
+/* Custom classes */
+@import 'scss/global.scss';
+@import 'scss/font.scss';
+@import 'scss/flex.scss';
+@import 'scss/caption.scss';

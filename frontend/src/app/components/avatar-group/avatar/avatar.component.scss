@@ -1,0 +1,36 @@
+.container {
+  width: 36px;
+  height: 36px;
+  background-color: var(--color-white);
+  border-radius: 50%;
+  position: relative;
+}
+
+.background-inner {
+  position: absolute;
+  inset: 2px;
+  border-radius: 50%;
+  background-color: var(--color-white);
+  overflow: hidden;
+}
+
+.inner {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--color-white);
+}
+
+.letters {
+  display: block;
+  font-weight: bold;
+  font-size: 16px;
+  color: var(--color-black);
+
+  &.editor-view {
+    font-size: 20px;
+    color: var(--color-white);
+  }
+}

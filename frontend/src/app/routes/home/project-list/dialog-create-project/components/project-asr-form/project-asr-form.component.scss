@@ -1,0 +1,17 @@
+.custom-fieldset {
+  margin-top: 20px;
+  padding: 20px 30px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.fieldset-hint {
+  font-size: 12px;
+  margin: 5px 0 0 15px;
+}
+
+.mat-form-field {
+  width: 45%;
+}

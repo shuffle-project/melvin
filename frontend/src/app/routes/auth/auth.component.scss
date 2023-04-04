@@ -1,0 +1,198 @@
+:host {
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: var(--theme-gradient);
+}
+
+.container {
+  box-sizing: border-box;
+  width: calc(100% - 40px);
+  max-width: 800px;
+  min-height: 400px;
+  margin: 20px;
+  background: var(--color-background-grey);
+  position: relative;
+  display: flex;
+  overflow: hidden;
+  animation: entryAnimation 2s;
+}
+
+@keyframes entryAnimation {
+  0% {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.logo-container {
+  z-index: 2;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 40%;
+  background: var(--color-light);
+  box-sizing: border-box;
+  transition: 1s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px;
+  app-logo {
+    margin-top: 30px;
+  }
+}
+
+.login-container,
+.register-container,
+.password-container {
+  box-sizing: border-box;
+  z-index: 1;
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: 60%;
+  transition: left 1s, top 1s;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  background: var(--color-background-grey);
+  overflow-x: hidden;
+}
+
+.login-container {
+  // background: azure;
+  button {
+    margin-top: 10px;
+  }
+}
+
+.register-container {
+  // background: antiquewhite;
+}
+
+.password-container {
+  // background: cornsilk;
+  left: 0;
+}
+
+.container {
+  &.login {
+    .logo-container {
+      left: 60%;
+    }
+    .register-container {
+      left: 60%;
+    }
+    .password-container {
+      left: -60%;
+    }
+  }
+
+  &.register {
+    .login-container {
+      left: 60%;
+    }
+    .register-container {
+      left: 40%;
+    }
+    .password-container {
+      left: -60%;
+    }
+  }
+
+  &.password {
+    .logo-container {
+      left: 60%;
+    }
+    .login-container {
+      left: -60%;
+    }
+    .register-container {
+      left: 60%;
+    }
+  }
+}
+
+@media screen and (min-width: 800px) {
+  .compact-only {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 799px) {
+  .large-only {
+    display: none;
+  }
+
+  .container {
+    min-height: 480px;
+  }
+
+  .logo-container {
+    top: 0;
+    left: 0 !important;
+    width: 100% !important;
+    height: 80px;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    app-logo {
+      margin: 0;
+    }
+  }
+
+  .login-container,
+  .register-container,
+  .password-container {
+    top: 80px !important;
+    height: calc(100% - 80px) !important;
+    width: 100% !important;
+  }
+
+  .container {
+    &.login {
+      .password-container {
+        left: -100%;
+      }
+      .register-container {
+        left: 100%;
+      }
+    }
+
+    &.register {
+      .login-container {
+        left: -100%;
+      }
+      .register-container {
+        left: 0;
+      }
+      .password-container {
+        left: -200%;
+      }
+    }
+
+    &.password {
+      .login-container {
+        left: 100%;
+      }
+      .register-container {
+        left: 200%;
+      }
+    }
+  }
+}

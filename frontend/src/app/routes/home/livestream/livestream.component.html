@@ -1,0 +1,37 @@
+<h2>Livestream</h2>
+<h3>Client</h3>
+
+<button (click)="livestreamService.start('6200e98c9f6b0de828dbe34a')">
+  Start
+</button>
+<button (click)="livestreamService.stop('6200e98c9f6b0de828dbe34a')">
+  Stop
+</button>
+<button (click)="livestreamService.pause('6200e98c9f6b0de828dbe34a')">
+  Pause
+</button>
+<button (click)="livestreamService.resume('6200e98c9f6b0de828dbe34a')">
+  Resume
+</button>
+
+<br />
+
+<button (click)="livestreamService.startRecording('6200e98c9f6b0de828dbe34a')">
+  Start Recording
+</button>
+<button (click)="livestreamService.stopRecording('6200e98c9f6b0de828dbe34a')">
+  Stop Recording
+</button>
+<button (click)="livestreamService.pauseRecording('6200e98c9f6b0de828dbe34a')">
+  Pause Recording
+</button>
+<button (click)="livestreamService.resumeRecording('6200e98c9f6b0de828dbe34a')">
+  Resume Recording
+</button>
+
+<br />
+
+<button (click)="connect()">Connect</button>
+<!-- <video [muted]="true" playsinline autoplay controls #clientVideo></video> -->
+<h3>Server</h3>
+<video [muted]="true" playsinline autoplay controls #serverVideo></video>

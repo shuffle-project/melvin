@@ -1,0 +1,43 @@
+<h1 i18n="@@editTranscriptionModalTitle" mat-dialog-title>
+  Edit transcription
+</h1>
+
+<form [formGroup]="transcriptionEditGroup" (ngSubmit)="onEditTranscription()">
+  <div class="main-wrapper">
+    <mat-form-field>
+      <mat-label i18n="@@editTranscriptionModalLanguageLabel"
+        >Language</mat-label
+      >
+      <mat-select formControlName="language">
+        <mat-option
+          *ngFor="let language of languages"
+          [value]="language.code"
+          >{{ language.name }}</mat-option
+        >
+      </mat-select>
+      <mat-error i18n="@@editTranscriptionModalLanguageError"
+        >Select a language</mat-error
+      >
+    </mat-form-field>
+
+    <mat-form-field class="title">
+      <mat-label i18n="@@editTranscriptionModalTitleLabel">Title</mat-label>
+      <input matInput formControlName="title" />
+      <mat-error i18n="@@editTranscriptionModalTitleError"
+        >Add a title to the transcription</mat-error
+      >
+    </mat-form-field>
+  </div>
+
+  <div class="submit-btn-wrapper">
+    <button
+      mat-raised-button
+      color="primary"
+      type="submit"
+      [disabled]="!transcriptionEditGroup.valid"
+      i18n="@@editTranscriptionModalSaveButton"
+    >
+      Save
+    </button>
+  </div>
+</form>

@@ -1,0 +1,7 @@
+<div *ngIf="!hidden && !isReady" class="sktn-waveform"></div>
+<canvas
+  [class.display-none]="hidden"
+  [class.cursor-ew-resize]="interactive"
+  [class.cursor-not-allowed]="!interactive"
+  #canvas
+></canvas>

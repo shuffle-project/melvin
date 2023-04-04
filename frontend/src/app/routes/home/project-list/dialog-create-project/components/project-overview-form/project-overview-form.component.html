@@ -1,0 +1,135 @@
+<!-- metadataGroup: Language and Title -->
+<table cellpadding="7">
+  <tr>
+    <th i18n="@@overviewFormTitleHeader">Title</th>
+    <td>
+      {{ metadataGroup.controls['title'].value }}
+    </td>
+  </tr>
+</table>
+<mat-divider
+  *ngIf="metadataGroup.controls.members.value.length !== 0"
+></mat-divider>
+
+<!-- Members -->
+<table
+  *ngIf="metadataGroup.controls.members.value.length !== 0"
+  cellpadding="7"
+>
+  <tr>
+    <th i18n="@@overviewFormMembersHeader" class="member-table-header">
+      Teammembers
+    </th>
+    <td>
+      <mat-chip-list #userChipList aria-label="Project members">
+        <mat-chip
+          *ngFor="let memberEntry of metadataGroup.controls.members.value"
+          [class.user-exists]="memberEntry.type === 'user'"
+          [matTooltip]="memberEntry.user ? memberEntry.user.email : ''"
+        >
+          <mat-icon
+            *ngIf="memberEntry.type === 'user'"
+            class="chip-icons"
+            svgIcon="account2"
+          ></mat-icon>
+          <mat-icon
+            *ngIf="memberEntry.type === 'valid email'"
+            class="chip-icons"
+            svgIcon="email"
+          ></mat-icon>
+
+          {{ onDisplayMember(memberEntry) }}
+        </mat-chip>
+      </mat-chip-list>
+    </td>
+  </tr>
+</table>
+<mat-divider></mat-divider>
+
+<!-- videoGroup files -->
+<table *ngIf="metadataGroup.value.sourceMode === 'video'" cellpadding="7">
+  <tr>
+    <th i18n="@@overviewFormFilesHeader">Files</th>
+    <td *ngFor="let file of videoGroup.value.uploadedFiles" class="files">
+      <div class="file">
+        <div class="file-content">
+          <p class="file-name">
+            {{ file.content?.name }} ({{ file.language?.toUpperCase() }})
+          </p>
+        </div>
+      </div>
+    </td>
+  </tr>
+</table>
+
+<!-- videoGroup generate ASR -->
+<div
+  *ngIf="
+    metadataGroup.value.sourceMode === 'video' &&
+    videoGroup.controls.asrGroup.value.activated
+  "
+  class="tables-wrapper"
+>
+  <mat-divider></mat-divider>
+  <table>
+    <tr>
+      <th i18n="@@overviewFormSubtitlesHeader">Subtitle Vendor</th>
+      <td>
+        {{ asrVendor }}
+      </td>
+    </tr>
+  </table>
+
+  <table>
+    <tr>
+      <th i18n="@@overviewFormSubtitleLanguageHeader">Subtitle Language</th>
+      <td>
+        {{ asrLanguage }}
+      </td>
+    </tr>
+  </table>
+</div>
+
+<!-- liveGroup general -->
+<div *ngIf="metadataGroup.value.sourceMode === 'live'" class="tables-wrapper">
+  <table>
+    <tr>
+      <th i18n="@@overviewFormURLHeader">Livestream URL</th>
+      <td>{{ liveGroup.value.url }}</td>
+    </tr>
+  </table>
+  <table>
+    <tr>
+      <th i18n="@@overviewFormURLLanguageHeader">Language</th>
+      <td>{{ livestreamLanguage }}</td>
+    </tr>
+  </table>
+</div>
+
+<!-- liveGroup generate ASR -->
+<div
+  *ngIf="
+    metadataGroup.value.sourceMode === 'live' &&
+    liveGroup.controls.asrGroup.value.activated
+  "
+  class="tables-wrapper"
+>
+  <mat-divider></mat-divider>
+  <table>
+    <tr>
+      <th i18n="@@overviewFormASRVEndorHeader">Subtitle Vendor</th>
+      <td>
+        {{ asrVendor }}
+      </td>
+    </tr>
+  </table>
+
+  <table>
+    <tr>
+      <th i18n="@@overviewFormASRLanguageHeader">Subtitle Language</th>
+      <td>
+        {{ asrLanguage }}
+      </td>
+    </tr>
+  </table>
+</div>

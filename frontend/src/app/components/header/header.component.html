@@ -1,0 +1,111 @@
+<header>
+  <div *ngrxLet="recentNotifications$ as notifications">
+    <div *ngrxLet="totalUnreadNotifications$ as totalUnreadNotifications">
+      <mat-toolbar>
+        <app-logo
+          class="clickable"
+          [routerLink]="['/home/projects']"
+        ></app-logo>
+
+        <ng-content></ng-content>
+
+        <div class="header-buttons">
+          <button
+            *ngIf="'notifications' | featureEnabled"
+            mat-icon-button
+            [mat-menu-trigger-for]="notificationMenu"
+          >
+            <mat-icon
+              svgIcon="bell"
+              [matBadge]="totalUnreadNotifications"
+              [matBadgeHidden]="totalUnreadNotifications === 0"
+            >
+            </mat-icon>
+          </button>
+
+          <button
+            *ngIf="isLoggedIn$ | ngrxPush"
+            mat-icon-button
+            [mat-menu-trigger-for]="usermenu"
+            (menuOpened)="isMenuOpen = true"
+            (onMenuClose)="isMenuOpen = false"
+          >
+            <mat-icon @fadeIn *ngIf="!isMenuOpen" svgIcon="menu"></mat-icon>
+
+            <mat-icon @fadeIn *ngIf="isMenuOpen" svgIcon="clear"></mat-icon>
+          </button>
+        </div>
+      </mat-toolbar>
+
+      <mat-menu #notificationMenu="matMenu" class="mat-menu">
+        <ng-template matMenuContent>
+          <div class="notification-menu">
+            <div class="notification-menu-header">
+              <div class="header-title" i18n="@@headerNotificationMenuTitle">
+                Notifications
+              </div>
+            </div>
+
+            <div class="notification-wrapper">
+              <div
+                class="notifications"
+                *ngFor="let notification of notifications"
+              >
+                <app-notification
+                  [viewType]="'popup'"
+                  [notification]="notification"
+                >
+                  <button
+                    (click)="onClickNotificationRead(notification.id, $event)"
+                    mat-icon-button
+                    class="read-notification-button"
+                    i18n-matTooltip="@@headerMarkAsReadButtonLabel"
+                    matTooltip="Mark as read"
+                  >
+                    <mat-icon
+                      matTooltip="Mark as read"
+                      svgIcon="clear"
+                    ></mat-icon>
+                  </button>
+                </app-notification>
+              </div>
+            </div>
+
+            <a
+              [matBadge]="totalUnreadNotifications"
+              [matBadgeHidden]="totalUnreadNotifications === 0"
+              matBadgeOverlap="false"
+              class="all-notifications-link"
+              routerLink="/home/notifications"
+              i18n="@@headerShowAllNotifications"
+            >
+              Show all notifications
+            </a>
+          </div>
+        </ng-template>
+      </mat-menu>
+
+      <mat-menu #usermenu="matMenu">
+        <button
+          mat-menu-item
+          (click)="openProfile()"
+          matTooltip="Go to your Profile"
+          i18n="@@headerMenuProfileButton"
+          i18n-matTooltip="@@headerMenuProfileButtonTooltip"
+        >
+          <mat-icon svgIcon="person"></mat-icon>Profile
+        </button>
+
+        <button
+          mat-menu-item
+          (click)="logout()"
+          matTooltip="Logout"
+          i18n="@@headerMenuLogoutButton"
+          i18n-matTooltip="@@headerMenuLogoutButtonTooltip"
+        >
+          <mat-icon svgIcon="logout"></mat-icon>Logout
+        </button>
+      </mat-menu>
+    </div>
+  </div>
+</header>

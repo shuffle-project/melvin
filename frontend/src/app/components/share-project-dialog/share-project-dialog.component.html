@@ -1,0 +1,96 @@
+<h2 mat-dialog-title>{{ project.title }}</h2>
+<mat-dialog-content>
+  <mat-spinner
+    *ngIf="isLoading"
+    strokeWidth="2"
+    diameter="20"
+    color="primary"
+  ></mat-spinner>
+  <ng-container *ngIf="!isLoading">
+    <mat-accordion>
+      <!-- Invite member -->
+      <mat-expansion-panel expanded="true">
+        <mat-expansion-panel-header>
+          <div class="title">
+            <mat-icon svgIcon="group_add"></mat-icon>
+            <h3 i18n="@@shareProjectWithPeopleHeader">Share with people</h3>
+          </div>
+        </mat-expansion-panel-header>
+
+        <!-- TODO -->
+        <span>Enter-Email Component</span>
+        <div class="flex flex-col">
+          <div *ngFor="let user of users" class="user-row">
+            <app-avatar [user]="user"></app-avatar>
+            <div class="user-text">
+              <span class="user-name">{{ user.name }}</span>
+              <span class="user-email">{{ user.email || 'Gast' }}</span>
+            </div>
+            <div
+              *ngIf="user.id === project.createdBy"
+              class="user-role"
+              i18n="@@shareProjectOwnerLabel"
+            >
+              Owner
+            </div>
+          </div>
+        </div>
+      </mat-expansion-panel>
+
+      <!-- Share with link -->
+      <mat-expansion-panel>
+        <mat-expansion-panel-header
+          ><div class="title">
+            <mat-icon svgIcon="link"></mat-icon>
+            <h3 i18n="@@shareProjectRetrieveLinkHeader">Retrieve link</h3>
+          </div>
+        </mat-expansion-panel-header>
+
+        <div class="flex flex-col">
+          <p i18n="@@shareProjectInviteLinkWarningText">
+            <b>Any person</b> who has this link can join the project
+            <b>registered or anonymously</b>.
+          </p>
+          <div class="flex">
+            <input matInput [value]="inviteLink" class="link" readonly />
+            <div>
+              <button
+                mat-button
+                (click)="onClickCopyLink()"
+                color="primary"
+                i18n="@@shareProjectCopyLinkLabel"
+              >
+                Copy link
+              </button>
+            </div>
+          </div>
+          <div style="margin-top: 40px">
+            <p i18n="@@shareProjectGenerateNewLinkForProjectMessage">
+              If you want to <b>revoke access</b> for the current link, you can
+              generate a new link:
+            </p>
+            <button
+              mat-button
+              (click)="onClickUpdate()"
+              i18n="@@shareProjectChangeAccessLinkButtonLabel"
+            >
+              Change access link
+            </button>
+          </div>
+        </div>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </ng-container>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button
+    mat-flat-button
+    color="primary"
+    [mat-dialog-close]="true"
+    cdkFocusInitial
+    i18n="@@shareProjectDoneButtonLabel"
+  >
+    Done
+  </button>
+</mat-dialog-actions>

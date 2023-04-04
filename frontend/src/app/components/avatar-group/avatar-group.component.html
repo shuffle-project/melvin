@@ -1,0 +1,30 @@
+<div
+  class="container"
+  [matMenuTriggerFor]="usersMenu"
+  [matMenuTriggerData]="{ users: users }"
+  [style.width.px]="width"
+>
+  <app-avatar
+    *ngFor="let user of avatars"
+    [outlineColor]="outlineColor"
+    [editorView]="editorView"
+    [user]="user"
+  ></app-avatar>
+
+  <div
+    *ngIf="users.length > 3"
+    class="more-badge"
+    [style.border-color]="outlineColor"
+  >
+    +{{ moreCount }}
+  </div>
+</div>
+
+<mat-menu #usersMenu="matMenu">
+  <ng-template matMenuContent let-users="users">
+    <div class="list-user" *ngFor="let user of users">
+      <app-avatar [user]="user" [editorView]="editorView"></app-avatar>
+      <span class="name">{{ user.name }}</span>
+    </div>
+  </ng-template>
+</mat-menu>

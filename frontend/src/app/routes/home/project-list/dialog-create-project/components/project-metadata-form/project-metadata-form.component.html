@@ -1,0 +1,93 @@
+<form [formGroup]="metadataGroup">
+  <fieldset class="custom-fieldset">
+    <legend i18n="@@metadaFormGeneralFieldsetLabel">General Info</legend>
+    <div>
+      <mat-form-field class="title-form-field">
+        <mat-label i18n="@@metadataFormTitleInputLabel">Titel</mat-label>
+        <input matInput formControlName="title" />
+        <button
+          mat-icon-button
+          matSuffix
+          aria-label="Clear title"
+          matTooltip="Clear title"
+          (click)="onClearTitleField()"
+        >
+          <mat-icon svgIcon="clear"> </mat-icon>
+        </button>
+        <mat-error i18n="@@metadataFormTitleInputError"
+          >Please add a title</mat-error
+        >
+      </mat-form-field>
+    </div>
+    <div class="add-user-wrapper">
+      <mat-form-field>
+        <mat-label i18n="@@metadataFormAddMemberLabel"
+          >Add team members</mat-label
+        >
+        <mat-chip-list
+          #userChipList
+          aria-label="User selection"
+          formControlName="members"
+          [errorStateMatcher]="errorStateMatcher"
+        >
+          <mat-chip
+            *ngFor="let memberEntry of this.metadataGroup.value.members"
+            [class.user-exists]="memberEntry.type === 'user'"
+            [class.invalid-email]="memberEntry.type === 'invalid email'"
+            (removed)="onRemoveMember(memberEntry)"
+            [matTooltip]="memberEntry?.user?.email ?? ''"
+          >
+            <mat-icon
+              *ngIf="memberEntry.type === 'user'"
+              class="chip-icons"
+              svgIcon="account2"
+            ></mat-icon>
+            <mat-icon
+              *ngIf="memberEntry.type === 'valid email'"
+              class="chip-icons"
+              svgIcon="email"
+            ></mat-icon>
+            <mat-icon
+              *ngIf="memberEntry.type === 'invalid email'"
+              class="chip-icons"
+              svgIcon="warning"
+            ></mat-icon>
+            {{ onDisplayMember(memberEntry) }}
+            <button matChipRemove>
+              <mat-icon svgIcon="clear"></mat-icon>
+            </button>
+          </mat-chip>
+          <input
+            type="text"
+            #userInput
+            [formControl]="userControl"
+            matInput
+            [matAutocomplete]="auto"
+            [matChipInputFor]="userChipList"
+            [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+            (matChipInputTokenEnd)="onAddMemberThroughInput($event)"
+          />
+        </mat-chip-list>
+
+        <mat-error i18n="@@metadataFormAddMemberError">
+          User unknown or e-mail address invalid</mat-error
+        >
+
+        <mat-autocomplete
+          #auto="matAutocomplete"
+          (optionSelected)="onAddMemberThroughSelect($event)"
+        >
+          <mat-option *ngFor="let user of users" [value]="user">
+            <span class="user-name">{{ user.name }}</span>
+            <br />
+            <span class="user-email">{{ user.email }}</span>
+          </mat-option>
+        </mat-autocomplete>
+        <mat-hint i18n="@@metadataFormAddMemberHint">
+          Enter the email addresses of your team members. Addresses that are not
+          associated with an account will be invited to the project via email.
+        </mat-hint>
+      </mat-form-field>
+    </div>
+  </fieldset>
+</form>

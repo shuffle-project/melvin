@@ -1,0 +1,29 @@
+:host {
+  width: 100%;
+}
+
+.captions {
+  width: 100%;
+  background: var(--color-white);
+  height: 30px;
+  display: absolute;
+
+  .waveform-caption {
+    position: absolute;
+    box-sizing: border-box;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin: 0 1px;
+    padding: 4px;
+    height: 30px;
+    line-height: 22px;
+    vertical-align: middle;
+
+    &.selected,
+    &.locked {
+      line-height: 20px;
+      padding-left: 3px;
+    }
+  }
+}

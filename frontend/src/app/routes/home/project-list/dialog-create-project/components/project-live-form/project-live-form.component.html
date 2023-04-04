@@ -1,0 +1,36 @@
+<app-project-metadata-form [metadataGroup]="metadataGroup">
+</app-project-metadata-form>
+
+<form [formGroup]="liveGroup">
+  <fieldset class="custom-fieldset">
+    <legend i18n="@@liveFormFieldsetLegend">Livestream settings</legend>
+    <mat-form-field
+      *ngrxLet="languages$ as languages"
+      [formGroup]="getFormGroup(liveGroup.controls.settings)"
+    >
+      <mat-label i18n="@@liveFormLanguageInputLabel">Language</mat-label>
+      <mat-select formControlName="language">
+        <div *ngFor="let language of languages">
+          <mat-option [value]="language.code">
+            {{ language.name }}
+          </mat-option>
+        </div>
+      </mat-select>
+      <mat-error i18n="@@liveFormLanguageInputError"
+        >Please select a language</mat-error
+      >
+    </mat-form-field>
+  </fieldset>
+
+  <app-project-asr-form [asrGroup]="getFormGroup(liveGroup.controls.asrGroup)">
+  </app-project-asr-form>
+
+  <app-alert
+    *ngIf="notIdenticalLanguages"
+    level="info"
+    i18n="@@liveFormDifferentLanguagesInfo"
+    >The specified language of the video/audio file is different from the
+    language used for automatic subtitle generation. Are you sure you want to
+    proceed?</app-alert
+  >
+</form>

@@ -1,0 +1,15 @@
+@import '~@fontsource/roboto/latin.css';
+
+.bold {
+  font-weight: 500;
+}
+
+.text-ellipsis {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.nowrap {
+  white-space: nowrap;
+}

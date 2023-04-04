@@ -1,0 +1,4 @@
+<router-outlet></router-outlet>
+<div *ngIf="!(isInitialized$ | ngrxPush)" class="loading">
+  <mat-spinner strokeWidth="2" class="white"></mat-spinner>
+</div>

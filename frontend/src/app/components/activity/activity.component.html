@@ -1,0 +1,54 @@
+<div [ngSwitch]="viewType" class="container" [ngClass]="[level, viewType]">
+  <ng-container *ngSwitchCase="'list'">
+    <mat-icon [svgIcon]="icon"></mat-icon>
+    <div
+      class="text-container clickable"
+      [routerLink]="['/home/editor/' + activity.project.id]"
+    >
+      <span class="project-title">{{ activity.project.title }}</span>
+      <div class="description" [innerHTML]="description"></div>
+    </div>
+    <app-avatar
+      [user]="activity.createdBy"
+      [outlineColor]="'transparent'"
+    ></app-avatar>
+    <span class="time-ago">{{ activity.createdAt | timeDiff }}</span>
+    <div class="checkbox">
+      <div *ngIf="false; else ngContent"></div>
+    </div>
+  </ng-container>
+
+  <ng-container *ngSwitchCase="'popup'">
+    <mat-icon [svgIcon]="icon"></mat-icon>
+    <div
+      class="text-container clickable"
+      [routerLink]="['/home/editor/' + activity.project.id]"
+    >
+      <span class="project-title">{{ activity.project.title }}</span>
+      <div class="description" [innerHTML]="description"></div>
+      <div>
+        <span class="time-ago">{{ activity.createdAt | timeDiff }}</span>
+        <span class="user-name">von {{ activity.createdBy.name }}</span>
+      </div>
+    </div>
+    <div *ngIf="false; else ngContent"></div>
+  </ng-container>
+
+  <ng-container *ngSwitchCase="'timeline'">
+    <mat-icon [svgIcon]="icon"></mat-icon>
+    <div class="text-container">
+      <div class="description" [innerHTML]="description"></div>
+    </div>
+    <div class="flex items-center">
+      <span class="user-name">{{ activity.createdBy.name }}</span>
+      <app-avatar
+        [user]="activity.createdBy"
+        [outlineColor]="'transparent'"
+      ></app-avatar>
+    </div>
+  </ng-container>
+</div>
+
+<ng-template #ngContent>
+  <ng-content></ng-content>
+</ng-template>

@@ -1,0 +1,17 @@
+snack-bar-container.info {
+  .mat-simple-snackbar-action {
+    color: var(--color-primary);
+  }
+}
+
+snack-bar-container.success {
+  .mat-simple-snackbar-action {
+    color: var(--color-green);
+  }
+}
+
+snack-bar-container.error {
+  .mat-simple-snackbar-action {
+    color: var(--color-warn);
+  }
+}

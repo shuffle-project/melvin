@@ -1,0 +1,48 @@
+.container {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-top: 3px;
+
+  button {
+    background: var(--color-white);
+    min-width: unset;
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    margin-left: 3px;
+    opacity: 0;
+    pointer-events: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    mat-icon {
+      height: 20px;
+      width: 20px;
+      line-height: 20px;
+    }
+  }
+
+  button.flag.active {
+    color: var(--color-red);
+  }
+
+  &:not(.focused) {
+    button.flag.active {
+      border-color: transparent;
+      background: transparent;
+      opacity: 1;
+    }
+  }
+
+  &.focused {
+    button {
+      pointer-events: all;
+      opacity: 1;
+    }
+    button.flag.active {
+      border-color: var(--color-red);
+    }
+  }
+}

@@ -1,0 +1,23 @@
+mat-form-field.flat {
+  .mat-form-field-underline {
+    display: none !important;
+  }
+  .mat-form-field-flex {
+    padding-top: 0;
+    align-items: center;
+    background: var(--color-background-grey);
+    mat-icon {
+      opacity: 0.5;
+    }
+  }
+  .mat-form-field-prefix {
+    margin-right: 10px;
+  }
+  .mat-form-field-infix {
+    padding-top: 0;
+  }
+  ::placeholder {
+    color: var(--color-black);
+    opacity: 0.5;
+  }
+}

@@ -1,0 +1,81 @@
+.transcription-header {
+  padding-left: 12px;
+  padding-right: 4px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.transcription-info {
+  padding-left: 12px;
+  padding-right: 16px;
+
+  .title {
+    width: 100%;
+    height: 60px;
+    overflow: hidden;
+    font-size: 16px;
+    font-weight: 600;
+  }
+
+  .created-by {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    .name {
+      margin-left: 5px;
+      width: 100%;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+  }
+
+  .dates {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 2px;
+
+    .mat-icon {
+      margin-right: 3px;
+    }
+  }
+
+  .date {
+    display: flex;
+    align-items: center;
+  }
+
+  .type {
+    margin-top: 15px;
+    color: rgba(var(--color-black-rgb), 0.6);
+
+    .overflow-hidden {
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+  }
+}
+
+.btn-add-transcription {
+  background-color: var(--color-primary);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 600;
+  font-size: 20px;
+  color: white;
+  text-align: center;
+
+  p {
+    margin: 4px;
+  }
+
+  .mat-icon {
+    transform: scale(1.5);
+    margin-top: 15px;
+  }
+}

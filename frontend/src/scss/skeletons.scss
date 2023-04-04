@@ -1,0 +1,116 @@
+@keyframes skeleton-opacity-animation {
+  0% {
+    opacity: 0.6;
+  }
+  100% {
+    opacity: 0.3;
+  }
+}
+
+@mixin skeleton-opacity {
+  --skeleton-color: var(--color-light-grey);
+  animation: skeleton-opacity-animation 1s cubic-bezier(0.45, 0.05, 0.46, 0.93)
+    infinite alternate;
+}
+
+@keyframes skeleton-background-color-animation {
+  0% {
+    background-color: rgba(var(--color-light-grey-rgb), 0.3);
+  }
+  100% {
+    background-color: rgba(var(--color-light-grey-rgb), 0.5);
+  }
+}
+
+@mixin skeleton-background-color {
+  --skeleton-color: var(--color-light-grey);
+  animation: skeleton-background-color-animation 1s
+    cubic-bezier(0.45, 0.05, 0.46, 0.93) infinite alternate;
+}
+
+// Caption
+
+.sktn-caption-wrapper {
+  margin-top: 11px;
+  max-width: 958px;
+  display: flex;
+  flex-direction: column;
+}
+
+.sktn-caption-speaker {
+  @include skeleton-background-color;
+  width: 180px;
+  height: 16px;
+  border-radius: 5px;
+  margin-bottom: 14px;
+  align-self: center;
+}
+
+.sktn-caption {
+  @include skeleton-background-color;
+  height: 85px;
+  width: 100%;
+  max-width: 740px;
+  margin-left: 65px;
+  margin-bottom: 20px;
+  border-radius: 5px;
+}
+
+.sktn-caption-time-wrapper {
+  height: 100;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  margin-bottom: 20px;
+  margin-right: 10px;
+}
+
+.sktn-caption-time {
+  @include skeleton-background-color;
+  width: 40px;
+  height: 16px;
+  border-radius: 5px;
+}
+
+.sktn-caption-placeholder-right {
+  width: 58px;
+  min-width: 58px;
+  margin-left: 5px;
+}
+
+.sktn-caption-placeholder-slider {
+  width: 18px;
+}
+
+// Avatar
+.sktn-avatar-wrapper {
+  width: 40px;
+}
+
+.sktn-avatar {
+  @include skeleton-background-color;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+}
+
+// Wave
+
+.sktn-waveform {
+  @include skeleton-opacity;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+  background: radial-gradient(
+    ellipse at center,
+    var(--skeleton-color) 0%,
+    var(--skeleton-color) 30%,
+    transparent 30%
+  );
+  background-repeat: repeat-x;
+  background-position: center;
+  background-size: 15px 15px;
+}

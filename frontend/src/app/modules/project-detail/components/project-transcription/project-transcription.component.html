@@ -1,0 +1,22 @@
+<div class="main-wrapper">
+  <div
+    (click)="onClickAddTranscription()"
+    role="button"
+    tabindex="0"
+    class="btn-add-transcription basic-form clickable"
+  >
+    <div>
+      <p i18n="@@projectTranscriptionAddButtonTop">Add</p>
+      <p i18n="@@projectTranscriptionAddButtonBottom">Transcription</p>
+      <mat-icon svgIcon="add-circle"></mat-icon>
+    </div>
+  </div>
+  <ng-container *ngrxLet="transcriptionsList$ as transcriptions">
+    <div
+      *ngFor="let transcription of transcriptions"
+      class="transcription basic-form"
+    >
+      <app-transcription [transcription]="transcription"></app-transcription>
+    </div>
+  </ng-container>
+</div>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="100%" height="100%" viewBox="0 0 846 794" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+    <g transform="matrix(1,0,0,1,49.8685,45.8869)">
+        <g id="Interlocked" transform="matrix(1.2192,0,0,1.2192,-1260.58,-1532.65)">
+            <clipPath id="_clip1">
+                <path d="M1329.22,1257.09L1584.93,1404.73L1584.93,1700.01L1329.22,1847.64L1073.5,1700.01L1073.5,1404.73L1329.22,1257.09Z"/>
+            </clipPath>
+            <g clip-path="url(#_clip1)">
+                <g transform="matrix(-0.381791,-0.381791,0.17129,-0.17129,1327.1,1802.19)">
+                    <rect x="330.851" y="820.093" width="576.296" height="559.999" style="fill:rgb(50,75,140);"/>
+                </g>
+                <g transform="matrix(0.735503,-0.735503,0.171866,0.171866,608.751,1768.93)">
+                    <rect x="330.851" y="820.093" width="576.296" height="559.999" style="fill:rgb(30,127,94);"/>
+                </g>
+                <g transform="matrix(0.713399,0.713399,-0.197318,0.197318,1040.88,940.773)">
+                    <rect x="330.851" y="820.093" width="576.296" height="559.999" style="fill:rgb(226,20,55);"/>
+                </g>
+                <g transform="matrix(-0.744578,0.744578,-0.196308,-0.196308,2069.54,1355.6)">
+                    <rect x="330.851" y="820.093" width="576.296" height="559.999" style="fill:rgb(254,199,5);"/>
+                </g>
+                <g transform="matrix(-0.440686,-0.440686,0.17129,-0.17129,1596.29,2071.38)">
+                    <rect x="330.851" y="820.093" width="576.296" height="559.999" style="fill:rgb(50,75,140);"/>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

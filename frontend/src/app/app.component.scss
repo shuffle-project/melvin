@@ -1,0 +1,19 @@
+.loading {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--theme-gradient);
+  opacity: 0;
+  animation: entryAnimation 0.5s 0.25s forwards;
+}
+
+@keyframes entryAnimation {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}

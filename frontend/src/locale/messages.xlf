@@ -1,0 +1,754 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+  <file source-language="en-US" datatype="plaintext" original="ng2.template">
+    <body>
+      <trans-unit id="footerImprintLinkLabel" datatype="html">
+        <source><x id="START_LINK" ctype="x-a" equiv-text="Impri"/>Imprint<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/></source>
+      </trans-unit>
+      <trans-unit id="footerContactLinktLabel" datatype="html">
+        <source><x id="START_LINK" ctype="x-a" equiv-text="Contact&lt;"/>Contact<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/></source>
+      </trans-unit>
+      <trans-unit id="headerMarkAsReadButtonLabel" datatype="html">
+        <source>Mark as read</source>
+      </trans-unit>
+      <trans-unit id="shareProjectWithPeopleHeader" datatype="html">
+        <source>Share with people</source>
+      </trans-unit>
+      <trans-unit id="shareProjectOwnerLabel" datatype="html">
+        <source> Owner </source>
+      </trans-unit>
+      <trans-unit id="shareProjectRetrieveLinkHeader" datatype="html">
+        <source>Retrieve link</source>
+      </trans-unit>
+      <trans-unit id="shareProjectInviteLinkWarningText" datatype="html">
+        <source><x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b&gt;"/>Any person<x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b&gt;"/> who has this link can join the project <x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b&gt;"/>registered or anonymously<x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b&gt;"/>. </source>
+      </trans-unit>
+      <trans-unit id="shareProjectCopyLinkLabel" datatype="html">
+        <source> Copy link </source>
+      </trans-unit>
+      <trans-unit id="shareProjectGenerateNewLinkForProjectMessage" datatype="html">
+        <source> If you want to <x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b&gt;"/>revoke access<x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b&gt;"/> for the current link, you can generate a new link: </source>
+      </trans-unit>
+      <trans-unit id="shareProjectChangeAccessLinkButtonLabel" datatype="html">
+        <source> Change access link </source>
+      </trans-unit>
+      <trans-unit id="shareProjectDoneButtonLabel" datatype="html">
+        <source> Done </source>
+      </trans-unit>
+      <trans-unit id="shareProjectLinkCopiedMessage" datatype="html">
+        <source>Link copied</source>
+      </trans-unit>
+      <trans-unit id="createTranscriptionModalTitle" datatype="html">
+        <source> Add transcription </source>
+      </trans-unit>
+      <trans-unit id="createTranscriptionUploadRadioButton" datatype="html">
+        <source><x id="START_TAG_DIV" ctype="x-div" equiv-text="&lt;mat-ic"/><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;upload-transcription&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/> Upload <x id="CLOSE_TAG_DIV" ctype="x-div" equiv-text="&lt;/div&gt;"/></source>
+      </trans-unit>
+      <trans-unit id="createTranscriptionCopyRadioButton" datatype="html">
+        <source><x id="START_TAG_DIV" ctype="x-div" equiv-text="&lt;mat-"/><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;copy-transcription&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/> Copy <x id="CLOSE_TAG_DIV" ctype="x-div" equiv-text="&lt;/div&gt;"/></source>
+      </trans-unit>
+      <trans-unit id="createTranscriptionTranslateRadioButton" datatype="html">
+        <source><x id="START_TAG_DIV" ctype="x-div" equiv-text="&lt;mat-icon"/><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;translate-transcription&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/> Translate <x id="CLOSE_TAG_DIV" ctype="x-div" equiv-text="&lt;/div&gt;"/></source>
+      </trans-unit>
+      <trans-unit id="createTranscriptionFromVideoRadioButton" datatype="html">
+        <source><x id="START_TAG_DIV" ctype="x-div" equiv-text="&lt;mat-icon"/><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;video&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/> Create from audio/video <x id="CLOSE_TAG_DIV" ctype="x-div" equiv-text="&lt;/div&gt;"/></source>
+      </trans-unit>
+      <trans-unit id="createTranscriptionUploadHeader" datatype="html">
+        <source> Upload file (.vtt, .srt) </source>
+      </trans-unit>
+      <trans-unit id="createTranscriptionCopyHeader" datatype="html">
+        <source> Copy existing transcription </source>
+      </trans-unit>
+      <trans-unit id="createTranscriptionTranslateHeader" datatype="html">
+        <source> Translate to other language </source>
+      </trans-unit>
+      <trans-unit id="createTranscriptionFromVideoHeader" datatype="html">
+        <source> Create from audio/video (Speech-To-Text) </source>
+      </trans-unit>
+      <trans-unit id="createTranscriptionModalLanguageLabel" datatype="html">
+        <source>Language</source>
+      </trans-unit>
+      <trans-unit id="createTranscriptionModalLanguageError" datatype="html">
+        <source>Select a language</source>
+      </trans-unit>
+      <trans-unit id="createTranscriptionModalTitleLabel" datatype="html">
+        <source>Title</source>
+      </trans-unit>
+      <trans-unit id="createTranscriptionModalTitleError" datatype="html">
+        <source>Add a title to the transcription</source>
+      </trans-unit>
+      <trans-unit id="createTranscriptionModalRemoveFileTooltip" datatype="html">
+        <source>Remove file</source>
+      </trans-unit>
+      <trans-unit id="createTranscriptionModalDropzoneTranscription" datatype="html">
+        <source> Drag transcription file * here </source>
+      </trans-unit>
+      <trans-unit id="createTranscriptionModalDropzoneTranscription2" datatype="html">
+        <source> or </source>
+      </trans-unit>
+      <trans-unit id="createTranscriptionModalDropzoneTranscriptionButton" datatype="html">
+        <source>Choose file </source>
+      </trans-unit>
+      <trans-unit id="createTranscriptionModalTranscriptionRequiredError" datatype="html">
+        <source> At least one transcription file is required. </source>
+      </trans-unit>
+      <trans-unit id="createTranscriptionModalTooManyTranscriptionsError" datatype="html">
+        <source> You can select maximum one transcription file. </source>
+      </trans-unit>
+      <trans-unit id="createTranscriptionModalCopyTranscriptionLabel" datatype="html">
+        <source>Transcription</source>
+      </trans-unit>
+      <trans-unit id="createTranscriptionModalCopyTranscriptionError" datatype="html">
+        <source>Select a transcription</source>
+      </trans-unit>
+      <trans-unit id="createTranscriptionModalTranslateTranscriptionLabel" datatype="html">
+        <source>Transcription</source>
+      </trans-unit>
+      <trans-unit id="createTranscriptionModalTranslateTranscriptionError" datatype="html">
+        <source>Select a transcription</source>
+      </trans-unit>
+      <trans-unit id="createTranscriptionModalTranslateVendorLabel" datatype="html">
+        <source>Vendor</source>
+      </trans-unit>
+      <trans-unit id="createTranscriptionModalTranslateVendorHint" datatype="html">
+        <source> The available languages are vendor dependent </source>
+      </trans-unit>
+      <trans-unit id="createTranscriptionModalTranslateVendorError" datatype="html">
+        <source>Select a vendor to translate the transcription</source>
+      </trans-unit>
+      <trans-unit id="createTranscriptionModalTranslateLanguageLabel" datatype="html">
+        <source>Language</source>
+      </trans-unit>
+      <trans-unit id="createTranscriptionModalTranslateLanguageError" datatype="html">
+        <source>Select a language into which the transcript will be translated</source>
+      </trans-unit>
+      <trans-unit id="createTranscriptionModalDropzoneVideo" datatype="html">
+        <source> Drag video file * here </source>
+      </trans-unit>
+      <trans-unit id="createTranscriptionModalDropzoneVideo2" datatype="html">
+        <source>or</source>
+      </trans-unit>
+      <trans-unit id="createTranscriptionModalDropzoneVideoButton" datatype="html">
+        <source>Choose file </source>
+      </trans-unit>
+      <trans-unit id="createTranscriptionModalVideoRequiredError" datatype="html">
+        <source> At least one video file is required. </source>
+      </trans-unit>
+      <trans-unit id="createTranscriptionModalTooManyVideosError" datatype="html">
+        <source> You can select maximum one video file. </source>
+      </trans-unit>
+      <trans-unit id="createTranscriptionModalASRVendorLabel" datatype="html">
+        <source>Vendor</source>
+      </trans-unit>
+      <trans-unit id="createTranscriptionModalASRVendorHint" datatype="html">
+        <source> The available languages are vendor dependent </source>
+      </trans-unit>
+      <trans-unit id="createTranscriptionModalASRVendorError" datatype="html">
+        <source>Select a vendor to transcribe the audio/video</source>
+      </trans-unit>
+      <trans-unit id="createTranscriptionModalASRLanguageLabel" datatype="html">
+        <source>Language</source>
+      </trans-unit>
+      <trans-unit id="createTranscriptionModalASRLanguageError" datatype="html">
+        <source>Select a language into which the audio/video will be transcribed to</source>
+      </trans-unit>
+      <trans-unit id="createTranscriptionModalCreateTranscriptionButton" datatype="html">
+        <source> Create transcription </source>
+      </trans-unit>
+      <trans-unit id="editTranscriptionModalTitle" datatype="html">
+        <source> Edit transcription </source>
+      </trans-unit>
+      <trans-unit id="editTranscriptionModalLanguageLabel" datatype="html">
+        <source>Language</source>
+      </trans-unit>
+      <trans-unit id="editTranscriptionModalLanguageError" datatype="html">
+        <source>Select a language</source>
+      </trans-unit>
+      <trans-unit id="editTranscriptionModalTitleLabel" datatype="html">
+        <source>Title</source>
+      </trans-unit>
+      <trans-unit id="editTranscriptionModalTitleError" datatype="html">
+        <source>Add a title to the transcription</source>
+      </trans-unit>
+      <trans-unit id="editTranscriptionModalSaveButton" datatype="html">
+        <source> Save </source>
+      </trans-unit>
+      <trans-unit id="transcriptionCreatedByTooltip" datatype="html">
+        <source>Created by</source>
+      </trans-unit>
+      <trans-unit id="transcriptionCreatedAtTooltip" datatype="html">
+        <source>Created at</source>
+      </trans-unit>
+      <trans-unit id="transcriptionLastUpdatedAtTooltip" datatype="html">
+        <source>Last updated at</source>
+      </trans-unit>
+      <trans-unit id="transcriptionEditTranscriptionButton" datatype="html">
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt; Edit"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="Edit"/> Edit </source>
+      </trans-unit>
+      <trans-unit id="transcriptionOpenTranscriptionButton" datatype="html">
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt; Open"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="Open"/> Open </source>
+      </trans-unit>
+      <trans-unit id="transcriptionMenuFileDownloadLabel" datatype="html">
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt; Dow"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="Downl"/> Download </source>
+      </trans-unit>
+      <trans-unit id="transcriptionDeleteTranscriptionButton" datatype="html">
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt; Delete"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="Del"/> Delete </source>
+      </trans-unit>
+      <trans-unit id="projectTranscriptionAddButtonTop" datatype="html">
+        <source>Add</source>
+      </trans-unit>
+      <trans-unit id="projectTranscriptionAddButtonBottom" datatype="html">
+        <source>Transcription</source>
+      </trans-unit>
+      <trans-unit id="projectDetailTabMenuGeneral" datatype="html">
+        <source>General</source>
+      </trans-unit>
+      <trans-unit id="projectDetailTabMenuTranscription" datatype="html">
+        <source>Transcription</source>
+      </trans-unit>
+      <trans-unit id="projectDetailTabMenuActivity" datatype="html">
+        <source>Activity</source>
+      </trans-unit>
+      <trans-unit id="projectStatusDraft" datatype="html">
+        <source>Draft</source>
+      </trans-unit>
+      <trans-unit id="projectStatusFinished" datatype="html">
+        <source>Finished</source>
+      </trans-unit>
+      <trans-unit id="projectStatusWaiting" datatype="html">
+        <source>In queue</source>
+      </trans-unit>
+      <trans-unit id="projectStatusLive" datatype="html">
+        <source>Live</source>
+      </trans-unit>
+      <trans-unit id="projectStatusProcessing" datatype="html">
+        <source>Processing</source>
+      </trans-unit>
+      <trans-unit id="projectStatusError" datatype="html">
+        <source>Error</source>
+      </trans-unit>
+      <trans-unit id="writtenLanguageDE-DE" datatype="html">
+        <source>German</source>
+      </trans-unit>
+      <trans-unit id="writtenLanguageEN-GB" datatype="html">
+        <source>English</source>
+      </trans-unit>
+      <trans-unit id="writtenLanguageEN-US" datatype="html">
+        <source>English</source>
+      </trans-unit>
+      <trans-unit id="writtenLanguageES-ES" datatype="html">
+        <source>Spanish</source>
+      </trans-unit>
+      <trans-unit id="writtenLanguageFR-FR" datatype="html">
+        <source>French</source>
+      </trans-unit>
+      <trans-unit id="writtenLanguageUnknown" datatype="html">
+        <source>Unknown</source>
+      </trans-unit>
+      <trans-unit id="authLoginHeader" datatype="html">
+        <source>Login</source>
+      </trans-unit>
+      <trans-unit id="authLoginForgotPasswordLabel" datatype="html">
+        <source> Forgot your password? </source>
+      </trans-unit>
+      <trans-unit id="authRegisterHeader" datatype="html">
+        <source>Register</source>
+      </trans-unit>
+      <trans-unit id="authResetPasswordHeader" datatype="html">
+        <source>Reset password</source>
+      </trans-unit>
+      <trans-unit id="authToLoginFromRegisterLabel" datatype="html">
+        <source>Login</source>
+      </trans-unit>
+      <trans-unit id="authToRegisterFromLoginLabel" datatype="html">
+        <source>Register</source>
+      </trans-unit>
+      <trans-unit id="authToLoginFromPasswordResetLabel" datatype="html">
+        <source>Login</source>
+      </trans-unit>
+      <trans-unit id="loginEmailPlaceholder" datatype="html">
+        <source>Email</source>
+      </trans-unit>
+      <trans-unit id="loginPasswordPlaceholder" datatype="html">
+        <source>Password</source>
+      </trans-unit>
+      <trans-unit id="loginStayLoggedInCheckboxLabel" datatype="html">
+        <source>Stay logged in</source>
+      </trans-unit>
+      <trans-unit id="loginLoginButtonLabel" datatype="html">
+        <source><x id="START_TAG_MAT_SPINNER" ctype="x-mat_spinner" equiv-text="$ | async&quot; strokeWidth=&quot;2&quot; diameter=&quot;20&quot; color=&quot;primary&quot; style=&quot;margin-right: 10px&quot; &gt;"/><x id="CLOSE_TAG_MAT_SPINNER" ctype="x-mat_spinner" equiv-text="Log"/> Login </source>
+      </trans-unit>
+      <trans-unit id="registerNamePlaceholder" datatype="html">
+        <source>Name</source>
+      </trans-unit>
+      <trans-unit id="registerEmailPlaceholder" datatype="html">
+        <source>Email</source>
+      </trans-unit>
+      <trans-unit id="registerPasswordPlaceholder" datatype="html">
+        <source>Password</source>
+      </trans-unit>
+      <trans-unit id="registerPasswordRepeatPlaceholder" datatype="html">
+        <source>Password (repeat)</source>
+      </trans-unit>
+      <trans-unit id="registerLoginButtonLabel" datatype="html">
+        <source><x id="START_TAG_MAT_SPINNER" ctype="x-mat_spinner" equiv-text="async&quot; strokeWidth=&quot;2&quot; diameter=&quot;20&quot; color=&quot;primary&quot; style=&quot;margin-right: 10px&quot; &gt;"/><x id="CLOSE_TAG_MAT_SPINNER" ctype="x-mat_spinner" equiv-text="Log"/> Login </source>
+      </trans-unit>
+      <trans-unit id="captionPlayFromThisCaptionTooltip" datatype="html">
+        <source>Play from this caption.</source>
+      </trans-unit>
+      <trans-unit id="captionDeleteCaptionTooltip" datatype="html">
+        <source>Delete caption</source>
+      </trans-unit>
+      <trans-unit id="captionChangeSpeakerTooltip" datatype="html">
+        <source>Change speaker</source>
+      </trans-unit>
+      <trans-unit id="captionToggleDoneTooltip" datatype="html">
+        <source>Toggle done</source>
+      </trans-unit>
+      <trans-unit id="captionToggleFlagTooltip" datatype="html">
+        <source>Toggle flag</source>
+      </trans-unit>
+      <trans-unit id="captionAddCaptionEnoughTime" datatype="html">
+        <source>Add caption</source>
+      </trans-unit>
+      <trans-unit id="captionAddCaptionNotEnoughTime" datatype="html">
+        <source>Current caption does not provide enough time to provide half the time for a new caption</source>
+      </trans-unit>
+      <trans-unit id="captionCaptionStartTimingFormatError" datatype="html">
+        <source>The time must be specified in the valid format HH:mm:ss.</source>
+      </trans-unit>
+      <trans-unit id="captionCaptionStartOverlapsPreviousCaptionError" datatype="html">
+        <source>The start time of the caption overlaps with the previous caption.</source>
+      </trans-unit>
+      <trans-unit id="captionCaptionStartAfterEndError" datatype="html">
+        <source>The caption start time can&apos;t be after the end time.</source>
+      </trans-unit>
+      <trans-unit id="captionCaptionOverlapsFollowingError" datatype="html">
+        <source>The caption end time overlaps with the following caption.</source>
+      </trans-unit>
+      <trans-unit id="captionCaptionEndBeforeStartError" datatype="html">
+        <source>The caption end time can&apos;t be before the start time.</source>
+      </trans-unit>
+      <trans-unit id="captionsAddNewSpeakerButtonLabel" datatype="html">
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;add&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/> Add speaker </source>
+      </trans-unit>
+      <trans-unit id="captionsNewSpeakerNameLabel" datatype="html">
+        <source>New speaker name</source>
+      </trans-unit>
+      <trans-unit id="captionsAddSpeakerButtonLabel" datatype="html">
+        <source> Add </source>
+      </trans-unit>
+      <trans-unit id="editSpeakerModalNameRequiredError" datatype="html">
+        <source>You must enter a name</source>
+      </trans-unit>
+      <trans-unit id="editSpeakerModalNameAlreadyExists" datatype="html">
+        <source>Name already exists</source>
+      </trans-unit>
+      <trans-unit id="videoStartStopTooltip" datatype="html">
+        <source>Start or stop video</source>
+      </trans-unit>
+      <trans-unit id="videoMuteUnmuteSoundTooltip" datatype="html">
+        <source>Mute or unmute Sound</source>
+      </trans-unit>
+      <trans-unit id="videoShowHideSubtitlesTooltip" datatype="html">
+        <source>Show or hide subtitles in video</source>
+      </trans-unit>
+      <trans-unit id="videoSettingsTooltip" datatype="html">
+        <source>Video settings</source>
+      </trans-unit>
+      <trans-unit id="videoPictureInPictureTooltip" datatype="html">
+        <source>Show video in seperate window</source>
+      </trans-unit>
+      <trans-unit id="videoPlaybackSpeedAria" datatype="html">
+        <source>Video playback speed</source>
+      </trans-unit>
+      <trans-unit id="videoPlaybackSpeedLabel" datatype="html">
+        <source>Playback speed</source>
+      </trans-unit>
+      <trans-unit id="editorHelpDialogShortcutsTitle" datatype="html">
+        <source>Keyboard shortcuts</source>
+      </trans-unit>
+      <trans-unit id="editorHelpDialogKeyboardShortcutsTableHeader" datatype="html">
+        <source> Key </source>
+      </trans-unit>
+      <trans-unit id="editorHelpDialogShortcutsCommandTableHeader" datatype="html">
+        <source> Command </source>
+      </trans-unit>
+      <trans-unit id="editorHelpDialogShortcutCommandSaveProject" datatype="html">
+        <source>Save project</source>
+      </trans-unit>
+      <trans-unit id="editorHelpDialogShortcutCommandCopy" datatype="html">
+        <source>Copy</source>
+      </trans-unit>
+      <trans-unit id="editorHelpDialogShortcutCommandToggleComment" datatype="html">
+        <source>Toggle Comment</source>
+      </trans-unit>
+      <trans-unit id="editorBackToProjectsList" datatype="html">
+        <source>Back to all projects</source>
+      </trans-unit>
+      <trans-unit id="editorMenuFileLabel" datatype="html">
+        <source> File </source>
+      </trans-unit>
+      <trans-unit id="editorMenuFileEditLabel" datatype="html">
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="E"/> Edit </source>
+      </trans-unit>
+      <trans-unit id="editorMenuFileDownloadLabel" datatype="html">
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="D"/> Download </source>
+      </trans-unit>
+      <trans-unit id="editorMenuFileDeleteLabel" datatype="html">
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="D"/> Delete </source>
+      </trans-unit>
+      <trans-unit id="editorMenuFileDownloadConfigureLabel" datatype="html">
+        <source> Configure ... </source>
+      </trans-unit>
+      <trans-unit id="editorMenuTranscriptionLabel" datatype="html">
+        <source> Transcription </source>
+      </trans-unit>
+      <trans-unit id="editorMenuTranscriptionEditLabel" datatype="html">
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon"/> Edit Transcriptions </source>
+      </trans-unit>
+      <trans-unit id="editorMenuHelp" datatype="html">
+        <source> Help </source>
+      </trans-unit>
+      <trans-unit id="editorShareProjectButtonLabel" datatype="html">
+        <source> Share </source>
+      </trans-unit>
+      <trans-unit id="editorRewind5SecondsButtonLabel" datatype="html">
+        <source>Rewind 5 seconds</source>
+      </trans-unit>
+      <trans-unit id="editorPlayOrPauseButtonLabel" datatype="html">
+        <source>Play or pause</source>
+      </trans-unit>
+      <trans-unit id="editorSkip5SecondsButtonLabel" datatype="html">
+        <source>Skip 5 seconds</source>
+      </trans-unit>
+      <trans-unit id="editorToogleZoomTooltip" datatype="html">
+        <source>Toggle zoom</source>
+      </trans-unit>
+      <trans-unit id="notificationListTodayLabel" datatype="html">
+        <source>[Today]</source>
+      </trans-unit>
+      <trans-unit id="notificationListYesterdayLabel" datatype="html">
+        <source>[Yesterday]</source>
+      </trans-unit>
+      <trans-unit id="dialogCreateProjectHeadline" datatype="html">
+        <source>New Project</source>
+      </trans-unit>
+      <trans-unit id="metadataFormTitleInputLabel" datatype="html">
+        <source>Titel</source>
+      </trans-unit>
+      <trans-unit id="metadataFormTitleInputError" datatype="html">
+        <source>Please add a title</source>
+      </trans-unit>
+      <trans-unit id="asrFormLanguageLabel" datatype="html">
+        <source>Language</source>
+      </trans-unit>
+      <trans-unit id="liveFormLanguageInputError" datatype="html">
+        <source>Please select a language</source>
+      </trans-unit>
+      <trans-unit id="dialogCreateProjectRemoveFileTooltip" datatype="html">
+        <source>Remove file</source>
+      </trans-unit>
+      <trans-unit id="dialogCreateProjectDropzoneText" datatype="html">
+        <source> Drag your audio, video and subtitle files here </source>
+      </trans-unit>
+      <trans-unit id="dialogCreateProjectDropzoneText2" datatype="html">
+        <source>or</source>
+      </trans-unit>
+      <trans-unit id="dialogCreateProjectChooseFile" datatype="html">
+        <source>Choose file </source>
+      </trans-unit>
+      <trans-unit id="sourceFormVideoRequiredError" datatype="html">
+        <source> At least one video or audio file is required </source>
+      </trans-unit>
+      <trans-unit id="metadataFormAddMemberLabel" datatype="html">
+        <source>Add team members</source>
+      </trans-unit>
+      <trans-unit id="metadataFormAddMemberError" datatype="html">
+        <source> User unknown or e-mail address invalid</source>
+      </trans-unit>
+      <trans-unit id="metadataFormAddMemberHint" datatype="html">
+        <source> Enter the email addresses of your team members. Addresses that are not associated with an account will be invited to the project via email. </source>
+      </trans-unit>
+      <trans-unit id="dialogCreateProjectCloseButton" datatype="html">
+        <source>Close</source>
+      </trans-unit>
+      <trans-unit id="dialogCreateProjectCreateLabel" datatype="html">
+        <source> Create Project </source>
+      </trans-unit>
+      <trans-unit id="projectListProjectListHeader" datatype="html">
+        <source>Project List</source>
+      </trans-unit>
+      <trans-unit id="projectListSearchFieldPlaceholder" datatype="html">
+        <source>Search title</source>
+      </trans-unit>
+      <trans-unit id="projectListSearchWithTitleTooltip" datatype="html">
+        <source>Search with Projecttitle</source>
+      </trans-unit>
+      <trans-unit id="projectListFilterAllProjects" datatype="html">
+        <source> All Projects </source>
+      </trans-unit>
+      <trans-unit id="projectListFilterOwnProjects" datatype="html">
+        <source> Own Projects </source>
+      </trans-unit>
+      <trans-unit id="projectListFilterSharedProjects" datatype="html">
+        <source> Shared Projects </source>
+      </trans-unit>
+      <trans-unit id="projectListFilterStatusLabel" datatype="html">
+        <source>Project status</source>
+      </trans-unit>
+      <trans-unit id="projectListCreateProjectButtonLabel" datatype="html">
+        <source> New project </source>
+      </trans-unit>
+      <trans-unit id="projectListTableHeaderTitleLabel" datatype="html">
+        <source> Title </source>
+      </trans-unit>
+      <trans-unit id="projectListTableHeaderLanguagesLabel" datatype="html">
+        <source> Languages </source>
+      </trans-unit>
+      <trans-unit id="projectListTableHeaderStatusLabel" datatype="html">
+        <source> Status </source>
+      </trans-unit>
+      <trans-unit id="projectListTableHeaderDurationLabel" datatype="html">
+        <source> Duration </source>
+      </trans-unit>
+      <trans-unit id="projectListTableHeaderUpdatedAtLabel" datatype="html">
+        <source> Updated At </source>
+      </trans-unit>
+      <trans-unit id="projectListTableHeaderCreatedAtLabel" datatype="html">
+        <source> Created at </source>
+      </trans-unit>
+      <trans-unit id="projectListTableHeaderMembersLabel" datatype="html">
+        <source> Members </source>
+      </trans-unit>
+      <trans-unit id="projectListTableHeaderMoreLabel" datatype="html">
+        <source> More </source>
+      </trans-unit>
+      <trans-unit id="projectListMoreMenuAriaLabel" datatype="html">
+        <source>Open/Close menu</source>
+      </trans-unit>
+      <trans-unit id="projectListMoreMenuEditLabel" datatype="html">
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;edit&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/> Edit </source>
+      </trans-unit>
+      <trans-unit id="projectListMoreMenuShareLabel" datatype="html">
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;share&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/> Share </source>
+      </trans-unit>
+      <trans-unit id="projectListMoreMenuDownloadLabel" datatype="html">
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;download&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/> Download </source>
+      </trans-unit>
+      <trans-unit id="projectListMoreMenuDeleteLabel" datatype="html">
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;delete&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/> Delete </source>
+      </trans-unit>
+      <trans-unit id="guestLoginDialogHeader" datatype="html">
+        <source>Login as Guest</source>
+      </trans-unit>
+      <trans-unit id="guestLoginNamePlaceholder" datatype="html">
+        <source>Name</source>
+      </trans-unit>
+      <trans-unit id="guestLoginJoinButtonLabel" datatype="html">
+        <source> Join </source>
+      </trans-unit>
+      <trans-unit id="inviteCardSubtitleInvalidInvite" datatype="html">
+        <source>Project invitation</source>
+      </trans-unit>
+      <trans-unit id="inviteLinkInvalidError" datatype="html">
+        <source>The invitation link is no longer valid.</source>
+      </trans-unit>
+      <trans-unit id="inviteInvalidBackButtonLabel" datatype="html">
+        <source> Back </source>
+      </trans-unit>
+      <trans-unit id="inviteCardSubtitleValidInvite" datatype="html">
+        <source>Project invitation</source>
+      </trans-unit>
+      <trans-unit id="inviteFromMessage" datatype="html">
+        <source> You were invited by <x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span class=&quot;bold&quot;&gt;"/><x id="INTERPOLATION" equiv-text="}}"/><x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="participat"/> participate in a project. </source>
+      </trans-unit>
+      <trans-unit id="inviteCancelButtonLabel" datatype="html">
+        <source> Cancel </source>
+      </trans-unit>
+      <trans-unit id="inviteJoinProjectButtonLabel" datatype="html">
+        <source> Join Project </source>
+      </trans-unit>
+      <trans-unit id="inviteLoginOrRegisterButtonLabel" datatype="html">
+        <source> Login / Register </source>
+      </trans-unit>
+      <trans-unit id="inviteJoinAsGuestButtonLabel" datatype="html">
+        <source> Join as Guest </source>
+      </trans-unit>
+      <trans-unit id="activityProjectCreatedDescription" datatype="html">
+        <source>New project created.</source>
+      </trans-unit>
+      <trans-unit id="activityProjectStatusUpdatedDescription" datatype="html">
+        <source>Status changed to &lt;span class=&quot;chip <x id="PH" equiv-text="details.after"/>&quot;&gt;<x id="PH_1" equiv-text="this.projectStatusPipe.transform(details.after)"/>&lt;/span&gt;.</source>
+      </trans-unit>
+      <trans-unit id="activityProjectTitleUpdatedDescription" datatype="html">
+        <source>Titel changed from <x id="PH" equiv-text="details.before"/>.</source>
+      </trans-unit>
+      <trans-unit id="activityProjectUserJoinedDescription" datatype="html">
+        <source><x id="PH" equiv-text="details.user.name"/> joined the project.</source>
+      </trans-unit>
+      <trans-unit id="activityProjectUserLeftDescription" datatype="html">
+        <source><x id="PH" equiv-text="details.user.name"/> left the project.</source>
+      </trans-unit>
+      <trans-unit id="activitySubtitlesProcessingFailedDescription" datatype="html">
+        <source>Subtitle creation failed.</source>
+      </trans-unit>
+      <trans-unit id="activitySubtitlesProcessingFinishedDescription" datatype="html">
+        <source>Subtitles were created successfully.</source>
+      </trans-unit>
+      <trans-unit id="activityVideoProcessingFailedDescription" datatype="html">
+        <source>Video processing failed.</source>
+      </trans-unit>
+      <trans-unit id="activityVideoProcessingFinishedDescription" datatype="html">
+        <source>Video was processed successfully.</source>
+      </trans-unit>
+      <trans-unit id="headerMenuLogoutButton" datatype="html">
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="Logout"/>Logout </source>
+      </trans-unit>
+      <trans-unit id="headerMenuLogoutButtonTooltip" datatype="html">
+        <source>Logout</source>
+      </trans-unit>
+      <trans-unit id="headerMenuProfileButton" datatype="html">
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;P"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="Profile"/>Profile </source>
+      </trans-unit>
+      <trans-unit id="headerMenuProfileButtonTooltip" datatype="html">
+        <source>Go to your Profile</source>
+      </trans-unit>
+      <trans-unit id="headerNotificationMenuTitle" datatype="html">
+        <source> Notifications </source>
+      </trans-unit>
+      <trans-unit id="headerShowAllNotifications" datatype="html">
+        <source> Show all notifications </source>
+      </trans-unit>
+      <trans-unit id="notificationListAllNotificationsCheckboxTooltip" datatype="html">
+        <source>All notifications</source>
+      </trans-unit>
+      <trans-unit id="notificationListDeleteButton" datatype="html">
+        <source> Delete </source>
+      </trans-unit>
+      <trans-unit id="notificationListNotNotifications" datatype="html">
+        <source> No notifications </source>
+      </trans-unit>
+      <trans-unit id="notificationListReadButton" datatype="html">
+        <source> Read </source>
+      </trans-unit>
+      <trans-unit id="notificationListTitle" datatype="html">
+        <source>Notifications</source>
+      </trans-unit>
+      <trans-unit id="captionRevertShowCaptionHistoryTooltip" datatype="html">
+        <source>Show caption history</source>
+      </trans-unit>
+      <trans-unit id="asrFormDisabledInfoText" datatype="html">
+        <source> Automatic subtitle generation is disabled due to already uploaded subtitle files </source>
+      </trans-unit>
+      <trans-unit id="asrFormFieldsetLegend" datatype="html">
+        <source>Generate automatic subtitles</source>
+      </trans-unit>
+      <trans-unit id="asrFormLanguageError" datatype="html">
+        <source> Please select a language </source>
+      </trans-unit>
+      <trans-unit id="asrFormLanguageHint" datatype="html">
+        <source>The available languages are vendor dependent</source>
+      </trans-unit>
+      <trans-unit id="asrFormVendorError" datatype="html">
+        <source> Please select an ASR vendor </source>
+      </trans-unit>
+      <trans-unit id="asrFormVendorLabel" datatype="html">
+        <source>Vendor</source>
+      </trans-unit>
+      <trans-unit id="dialogCreateProjectAddFilesButton" datatype="html">
+        <source>Add more files </source>
+      </trans-unit>
+      <trans-unit id="dialogCreateProjectBackStepButton" datatype="html">
+        <source> Back </source>
+      </trans-unit>
+      <trans-unit id="dialogCreateProjectLiveStep" datatype="html">
+        <source>Live settings</source>
+      </trans-unit>
+      <trans-unit id="dialogCreateProjectLoadingInfo" datatype="html">
+        <source>Creating project</source>
+      </trans-unit>
+      <trans-unit id="dialogCreateProjectMediaStep" datatype="html">
+        <source>Media source</source>
+      </trans-unit>
+      <trans-unit id="dialogCreateProjectNextStepButton" datatype="html">
+        <source> Next </source>
+      </trans-unit>
+      <trans-unit id="dialogCreateProjectOverviewStep" datatype="html">
+        <source>Overview</source>
+      </trans-unit>
+      <trans-unit id="dialogCreateProjectVideoStep" datatype="html">
+        <source>Video settings</source>
+      </trans-unit>
+      <trans-unit id="liveFormDifferentLanguagesInfo" datatype="html">
+        <source>The specified language of the video/audio file is different from the language used for automatic subtitle generation. Are you sure you want to proceed?</source>
+      </trans-unit>
+      <trans-unit id="liveFormFieldsetLegend" datatype="html">
+        <source>Livestream settings</source>
+      </trans-unit>
+      <trans-unit id="liveFormLanguageInputLabel" datatype="html">
+        <source>Language</source>
+      </trans-unit>
+      <trans-unit id="metadaFormGeneralFieldsetLabel" datatype="html">
+        <source>General Info</source>
+      </trans-unit>
+      <trans-unit id="overviewFormASRLanguageHeader" datatype="html">
+        <source>Subtitle Language</source>
+      </trans-unit>
+      <trans-unit id="overviewFormASRVEndorHeader" datatype="html">
+        <source>Subtitle Vendor</source>
+      </trans-unit>
+      <trans-unit id="overviewFormFilesHeader" datatype="html">
+        <source>Files</source>
+      </trans-unit>
+      <trans-unit id="overviewFormMembersHeader" datatype="html">
+        <source> Teammembers </source>
+      </trans-unit>
+      <trans-unit id="overviewFormSubtitleLanguageHeader" datatype="html">
+        <source>Subtitle Language</source>
+      </trans-unit>
+      <trans-unit id="overviewFormSubtitlesHeader" datatype="html">
+        <source>Subtitle Vendor</source>
+      </trans-unit>
+      <trans-unit id="overviewFormTitleHeader" datatype="html">
+        <source>Title</source>
+      </trans-unit>
+      <trans-unit id="overviewFormURLHeader" datatype="html">
+        <source>Livestream URL</source>
+      </trans-unit>
+      <trans-unit id="overviewFormURLLanguageHeader" datatype="html">
+        <source>Language</source>
+      </trans-unit>
+      <trans-unit id="sourceFormLiveRadioButton" datatype="html">
+        <source> Connect to livestream</source>
+      </trans-unit>
+      <trans-unit id="sourceFormTooManyVideosError" datatype="html">
+        <source> A maximum of one video or audio file may be uploaded </source>
+      </trans-unit>
+      <trans-unit id="sourceFormURLBadlyFormedError" datatype="html">
+        <source>The URL is badly formed or contains invalid characters</source>
+      </trans-unit>
+      <trans-unit id="sourceFormURLInputLabel" datatype="html">
+        <source>URL to the livestream</source>
+      </trans-unit>
+      <trans-unit id="sourceFormURLRequiredError" datatype="html">
+        <source>The URL to the livestream is required</source>
+      </trans-unit>
+      <trans-unit id="sourceFormVideoRadioButton" datatype="html">
+        <source> Upload video or audio files</source>
+      </trans-unit>
+      <trans-unit id="videoFormDifferentLanguagesInfo" datatype="html">
+        <source>The specified language of the video/audio file is different from the language used for automatic subtitle generation. Are you sure you want to proceed?</source>
+      </trans-unit>
+      <trans-unit id="videoFormFileLanguagesFieldsetLabel" datatype="html">
+        <source> Languages of uploaded files </source>
+      </trans-unit>
+      <trans-unit id="videoFormLanguageLabel" datatype="html">
+        <source>Language</source>
+      </trans-unit>
+      <trans-unit id="videoFormLanguageRequiredError" datatype="html">
+        <source>Please select the primary language of the file content</source>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

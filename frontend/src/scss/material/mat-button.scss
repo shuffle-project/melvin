@@ -1,0 +1,51 @@
+.mat-icon-button.lg {
+  --height: 50px;
+  line-height: var(--height);
+  width: var(--height);
+  height: var(--height);
+  mat-icon {
+    --height: 40px;
+    font-size: var(--height);
+    height: var(--height);
+    width: var(--height);
+    line-height: var(--height);
+  }
+}
+
+.mat-icon-button.sm {
+  --height: 24px;
+  line-height: var(--height);
+  width: var(--height);
+  height: var(--height);
+
+  mat-icon {
+    --height: 20px;
+    transform: translateY(-1px);
+    font-size: var(--height);
+    height: var(--height);
+    width: var(--height);
+    line-height: var(--height);
+  }
+}
+
+.mat-icon-button.md {
+  --height: 32px;
+  line-height: var(--height);
+  width: var(--height);
+  height: var(--height);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  mat-icon {
+    --height: 24px;
+    font-size: var(--height);
+    height: var(--height);
+    width: var(--height);
+    line-height: var(--height);
+  }
+}
+
+button.compact {
+  line-height: 32px !important;
+}

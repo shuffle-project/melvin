@@ -1,0 +1,44 @@
+.container {
+  position: relative;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+
+  app-avatar {
+    &:nth-child(2) {
+      transform: translateX(-10px);
+    }
+
+    &:nth-child(3) {
+      transform: translateX(-20px);
+    }
+  }
+
+  .more-badge {
+    position: absolute;
+    top: 4px;
+    right: 0;
+    height: 24px;
+    width: 24px;
+    border-radius: 50%;
+    color: var(--color-black);
+    background-color: var(--color-light-grey);
+    display: flex;
+    border: 2px solid transparent;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 0.8em;
+  }
+}
+
+.list-user {
+  display: flex;
+  align-items: center;
+  padding: 5px 10px;
+
+  app-avatar {
+    margin-right: 5px;
+  }
+}

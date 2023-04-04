@@ -1,0 +1,31 @@
+:host {
+  display: flex;
+  width: 300px;
+  box-sizing: border-box;
+  border-left: 1px solid var(--color-border-grey);
+}
+
+.container {
+  height: 60px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+  padding: 0 10px;
+}
+
+button {
+  mat-icon {
+    transform: translateX(-5px);
+  }
+
+  &.active {
+    background: var(--color-red);
+    color: var(--color-white);
+  }
+
+  &.disabled {
+    pointer-events: none;
+  }
+}

@@ -1,0 +1,63 @@
+.add-user-wrapper {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 30px;
+
+  &.error-above {
+    margin-top: 0px;
+  }
+
+  .mat-chip {
+    color: var(--color-black);
+    background: linear-gradient(
+      90deg,
+      var(--color-gradient-a) 0%,
+      var(--color-gradient-b) 100%
+    );
+    --color-gradient-a: rgba(var(--color-grey-rgb), 0.3);
+    --color-gradient-b: rgba(var(--color-light-grey-rgb), 0.35);
+
+    &.user-exists {
+      --color-gradient-a: var(--color-light-yellow);
+      --color-gradient-b: var(--color-gold);
+    }
+
+    &.invalid-email {
+      --color-gradient-a: var(--color-light-red);
+      --color-gradient-b: var(--color-orange);
+    }
+
+    .chip-icons {
+      font-size: 18px;
+      height: 18px;
+      width: 18px;
+      line-height: 18px;
+      margin-right: 4px;
+    }
+  }
+}
+
+.mat-option {
+  overflow: visible;
+  line-height: initial;
+  word-wrap: break-word;
+  white-space: pre-wrap;
+  margin-bottom: 10px;
+
+  .user-name {
+    font-weight: 500;
+  }
+
+  .user-email {
+    font-weight: 300;
+  }
+}
+
+.title-form-field {
+  width: 75%;
+}
+
+.custom-fieldset {
+  padding: 20px 30px 0 30px;
+  border-radius: 6px;
+}

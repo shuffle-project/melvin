@@ -1,0 +1,38 @@
+<div class="wrapper">
+  <div class="container mat-elevation-z5" [ngClass]="view">
+    <!-- Logo-Container -->
+    <div class="logo-container">
+      <app-logo [size]="96"></app-logo>
+      <button mat-stroked-button color="primary" (click)="onClickToggleView()">
+        {{ this.toggleLabel }}
+      </button>
+    </div>
+
+    <!-- Login -->
+    <div class="login-container">
+      <h2 i18n="@@authLoginHeader">Login</h2>
+      <app-login></app-login>
+      <button
+        mat-button
+        (click)="onClickShowPasswordReset()"
+        i18n="@@authLoginForgotPasswordLabel"
+      >
+        Forgot your password?
+      </button>
+    </div>
+
+    <!-- Register -->
+    <div class="register-container">
+      <h2 i18n="@@authRegisterHeader">Register</h2>
+      <app-register></app-register>
+    </div>
+
+    <!-- Password -->
+    <div class="password-container">
+      <h2 i18n="@@authResetPasswordHeader">Reset password</h2>
+      <app-password-reset></app-password-reset>
+    </div>
+  </div>
+</div>
+
+<app-footer></app-footer>
