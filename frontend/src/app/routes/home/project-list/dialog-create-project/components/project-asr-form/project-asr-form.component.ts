@@ -2,6 +2,7 @@ import { AfterViewInit, Component, Input } from '@angular/core';
 import { FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Subject, takeUntil } from 'rxjs';
+import { AsrServiceConfig } from 'src/app/services/api/entities/config.entity';
 import { AppState } from 'src/app/store/app.state';
 import * as configSelector from '../../../../../../store/selectors/config.selector';
 import { ASRGroup } from '../../dialog-create-project.interfaces';
@@ -55,5 +56,12 @@ export class ProjectASRFormComponent implements AfterViewInit {
 
   ngOnDestroy() {
     this.destroy$$.next();
+  }
+
+  getLanguages(asrServices: AsrServiceConfig[]) {
+    const selectedService = asrServices.find(
+      (s) => s.asrVendor === this.asrGroup.value.asrVendor
+    );
+    return selectedService?.languages;
   }
 }

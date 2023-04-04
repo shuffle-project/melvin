@@ -27,14 +27,13 @@
         Please select an ASR vendor
       </mat-error>
     </mat-form-field>
+
     <mat-form-field *ngrxLet="asrServices$ as asrServices">
       <mat-label i18n="@@asrFormLanguageLabel">Language</mat-label>
 
-      <mat-select
-        *ngFor="let service of asrServices"
-        formControlName="language"
-      >
-        <div *ngFor="let language of service.languages">
+      <!-- *ngFor="let service of asrServices" -->
+      <mat-select formControlName="language">
+        <div *ngFor="let language of getLanguages(asrServices)">
           <mat-option value="{{ language.code }}">{{
             language.name
           }}</mat-option>
