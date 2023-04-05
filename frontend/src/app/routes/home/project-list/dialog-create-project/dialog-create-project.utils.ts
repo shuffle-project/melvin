@@ -55,7 +55,7 @@ export const findFittingVendorLanguage = (
     return fittingVendorLanguage.code;
   } else {
     fittingVendorLanguage = vendorLanguages.find(
-      (language) => language.code === langCodeShort
+      (language) => language.code.split('-')[0] === langCodeShort
     );
 
     if (fittingVendorLanguage) {
