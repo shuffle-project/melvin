@@ -1,8 +1,8 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { ConfigTestModule } from '../../../test/config-test.module';
 import {
-  createMongooseTestModule,
   MongooseTestModule,
+  createMongooseTestModule,
 } from '../../../test/mongoose-test.module';
 import { TEST_DATA } from '../../../test/test.constants';
 import { CustomBadRequestException } from '../../utils/exceptions';
@@ -39,7 +39,9 @@ describe('PermissionsService', () => {
       title: TEST_DATA.project.title,
     });
     //Test
-    const requestedProj = await dbService.findProjectByIdOrThrow(proj1._id);
+    const requestedProj = await dbService.findProjectByIdOrThrow(
+      proj1._id.toString(),
+    );
     expect(requestedProj._id).toStrictEqual(proj1._id);
   });
 

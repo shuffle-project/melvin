@@ -5,8 +5,8 @@ import { Readable } from 'stream';
 import { v4 } from 'uuid';
 import { ConfigTestModule } from '../../../test/config-test.module';
 import {
-  createMongooseTestModule,
   MongooseTestModule,
+  createMongooseTestModule,
 } from '../../../test/mongoose-test.module';
 import { TEST_DATA } from '../../../test/test.constants';
 import { EXAMPLE_SPEAKER } from '../../constants/example.constants';
@@ -131,7 +131,7 @@ describe('TranscriptionService', () => {
 
     // Test
     const query: FindAllTranscriptionsQuery = {
-      projectId: setupProject._id,
+      projectId: setupProject._id.toString(),
     };
     const response = await service.findAll(authUser, query);
     expect(response.map((o) => o._id)).toStrictEqual([
@@ -153,7 +153,7 @@ describe('TranscriptionService', () => {
     const spy_isProjectMember = jest.spyOn(permissions, 'isProjectMember');
 
     // Test
-    const response = await service.findOne(authUser, transc1._id);
+    const response = await service.findOne(authUser, transc1._id.toString());
     expect(response._id).toEqual(transc1._id.toString());
     expect(spy_isProjectMember).toBeCalledTimes(1);
   });
@@ -175,7 +175,11 @@ describe('TranscriptionService', () => {
     const spy_isProjectMember = jest.spyOn(permissions, 'isProjectMember');
 
     // Test
-    await service.update(authUser, transc1._id, updateTranscriptionDto);
+    await service.update(
+      authUser,
+      transc1._id.toString(),
+      updateTranscriptionDto,
+    );
 
     const transcription = await dbService.transcriptionModel.findById(
       transc1._id,
@@ -198,10 +202,10 @@ describe('TranscriptionService', () => {
 
     const spy_isOwnProject = jest.spyOn(permissions, 'isProjectOwner');
     // Test
-    await service.remove(authUser, transc1Id);
+    await service.remove(authUser, transc1Id.toString());
     const project = await dbService.projectModel.findById(setupProject._id);
     const transcription = await dbService.transcriptionModel.findById(
-      transc1Id as string,
+      transc1Id.toString(),
     );
     expect(project.transcriptions.length).toBe(0);
     expect(transcription).toBeFalsy();

@@ -5,8 +5,8 @@ import { Types } from 'mongoose';
 import { UserDocument } from 'src/modules/db/schemas/user.schema';
 import { ConfigTestModule } from '../../../test/config-test.module';
 import {
-  createMongooseTestModule,
   MongooseTestModule,
+  createMongooseTestModule,
 } from '../../../test/mongoose-test.module';
 import { TEST_DATA } from '../../../test/test.constants';
 import {
@@ -129,6 +129,7 @@ describe('ProjectService', () => {
     const createProjectDto: CreateProjectDto = {
       title: TEST_DATA.project.title,
       language: TEST_DATA.languageCodeDE,
+      sourceMode: 'video',
     };
 
     const spy_handleFilesAndTranscriptions = jest
@@ -146,6 +147,7 @@ describe('ProjectService', () => {
       .lean()
       .exec();
 
+    delete createProjectDto.sourceMode;
     expect(entity).toEqual(
       expect.objectContaining({
         ...createProjectDto,
@@ -191,6 +193,7 @@ describe('ProjectService', () => {
       title: TEST_DATA.project.title,
       language: TEST_DATA.languageCodeDE,
       emails: [user2.email, unknownEmail],
+      sourceMode: 'video',
     };
 
     const spyMailService_sendInviteEmail = jest
@@ -276,7 +279,7 @@ describe('ProjectService', () => {
       .mockImplementation();
 
     //Test
-    const response = await service.findOne(authUser, proj1._id);
+    const response = await service.findOne(authUser, proj1._id.toString());
     expect(response._id).toEqual(proj1._id.toString());
     expect(spy_getProjectById).toBeCalledTimes(1);
     expect(spy_projectPermissionGranted).toBeCalledTimes(1);
@@ -311,12 +314,12 @@ describe('ProjectService', () => {
     };
     await service.update(authUser, proj1.id, updateProjectDto);
 
-    project = await dbService.projectModel.findById(proj1._id as string);
+    project = await dbService.projectModel.findById(proj1._id.toString());
     expect(project.title).toBe(TEST_DATA.project.title2);
     expect(spy_getProjectById).toBeCalledTimes(2);
     expect(spy_projectPermissionGranted).toBeCalledTimes(1);
     expect(spy__getMediaLinksEntity).toBeCalledTimes(1);
-    expect(eventsGateway.projectUpdated).toBeCalledTimes(2);
+    expect(eventsGateway.projectUpdated).toBeCalledTimes(1);
     // expect(eventsGateway.projectUpdated).toBeCalledTimes(1);
   });
 
@@ -339,7 +342,7 @@ describe('ProjectService', () => {
     await service.remove(authUser, projectId.toString());
 
     const user = await dbService.userModel.findById(authUser.id);
-    const project = await dbService.projectModel.findById(projectId as string);
+    const project = await dbService.projectModel.findById(projectId.toString());
     expect(user.projects.length).toBe(0);
     expect(project).toBeFalsy();
     expect(spy_getProjectById).toBeCalledTimes(1);

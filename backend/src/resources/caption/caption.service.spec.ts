@@ -3,8 +3,8 @@ import { plainToInstance } from 'class-transformer';
 import { Types } from 'mongoose';
 import { ConfigTestModule } from '../../../test/config-test.module';
 import {
-  createMongooseTestModule,
   MongooseTestModule,
+  createMongooseTestModule,
 } from '../../../test/mongoose-test.module';
 import { TEST_DATA } from '../../../test/test.constants';
 import { DbService } from '../../modules/db/db.service';
@@ -264,7 +264,7 @@ describe('CaptionService', () => {
 
     // Test
     const result = await service.findAll(authUser, {
-      transcriptionId: transcription._id,
+      transcriptionId: transcription._id.toString(),
       limit: 1,
     });
     const doc = await dbService.captionModel
@@ -303,7 +303,7 @@ describe('CaptionService', () => {
   it('findAll() without project permission should fail', async () => {
     // Setup
     const query: FindAllCaptionsQuery = {
-      transcriptionId: transcription._id,
+      transcriptionId: transcription._id.toString(),
     };
     // Test
     let error: CustomForbiddenException;
@@ -331,7 +331,7 @@ describe('CaptionService', () => {
     );
 
     // Test
-    const result = await service.findOne(authUser, caption._id);
+    const result = await service.findOne(authUser, caption._id.toString());
     expect(spy_isProjectMember).toBeCalledTimes(1);
     expect(result).toEqual(plainToInstance(CaptionEntity, caption.toObject()));
   });
@@ -362,7 +362,7 @@ describe('CaptionService', () => {
     try {
       await service.findOne(
         { id: new Types.ObjectId().toString(), role: UserRole.USER },
-        caption._id,
+        caption._id.toString(),
       );
     } catch (err) {
       error = err;
@@ -393,7 +393,7 @@ describe('CaptionService', () => {
     // Test
     const entity = await service.update(
       authUser,
-      caption._id,
+      caption._id.toString(),
       updateCaptionDto,
     );
     const updatedCaption = await dbService.captionModel
@@ -447,7 +447,7 @@ describe('CaptionService', () => {
     try {
       await service.update(
         { id: new Types.ObjectId().toString(), role: UserRole.USER },
-        caption._id,
+        caption._id.toString(),
         updateCaptionDto,
       );
     } catch (err) {
@@ -468,7 +468,7 @@ describe('CaptionService', () => {
     // Test
     let error: CustomBadRequestException;
     try {
-      await service.update(authUser, caption._id, {});
+      await service.update(authUser, caption._id.toString(), {});
     } catch (err) {
       error = err;
     }
@@ -484,7 +484,7 @@ describe('CaptionService', () => {
     });
 
     // Test
-    await service.remove(authUser, caption._id);
+    await service.remove(authUser, caption._id.toString());
     expect(eventsGateway.captionRemoved).toBeCalledTimes(1);
     expect(eventsGateway.captionRemoved).toBeCalledWith(
       project.toObject(),
@@ -519,7 +519,7 @@ describe('CaptionService', () => {
     try {
       await service.remove(
         { id: new Types.ObjectId().toString(), role: UserRole.USER },
-        caption._id,
+        caption._id.toString(),
       );
     } catch (err) {
       error = err;
@@ -539,7 +539,7 @@ describe('CaptionService', () => {
     // Test
     let error: CustomBadRequestException;
     try {
-      await service.remove(authUser, caption._id);
+      await service.remove(authUser, caption._id.toString());
     } catch (err) {
       error = err;
     }
@@ -562,7 +562,7 @@ describe('CaptionService', () => {
     );
 
     // Test
-    const result = await service.getHistory(authUser, caption._id);
+    const result = await service.getHistory(authUser, caption._id.toString());
     expect(result).toHaveLength(3);
 
     expect(spy_isProjectMember).toBeCalledTimes(1);
@@ -595,7 +595,7 @@ describe('CaptionService', () => {
     try {
       await service.remove(
         { id: new Types.ObjectId().toString(), role: UserRole.USER },
-        caption._id,
+        caption._id.toString(),
       );
     } catch (err) {
       error = err;

@@ -5,8 +5,8 @@ import request from 'supertest';
 import { v4 } from 'uuid';
 import { ConfigTestModule } from '../../../test/config-test.module';
 import {
-  createMongooseTestModule,
   MongooseTestModule,
+  createMongooseTestModule,
 } from '../../../test/mongoose-test.module';
 import { createTestApplication } from '../../../test/test-application';
 import { TEST_DATA } from '../../../test/test.constants';
@@ -91,6 +91,7 @@ describe('ProjectController (e2e)', () => {
       title: TEST_DATA.project.title,
       language: TEST_DATA.languageCodeDE,
       emails: [TEST_DATA.email, TEST_DATA.email2],
+      sourceMode: 'video',
     };
     const result = { id: v4() };
     service.create.mockImplementation(() => result);
@@ -120,8 +121,10 @@ describe('ProjectController (e2e)', () => {
       .set(authHeader)
       .send({
         // title: no-data
-        emails: ['lala'],
+        emails: ['lala', 'xdxd'],
       });
+
+    console.log(response.body);
 
     expect(response.status).toBe(HttpStatus.BAD_REQUEST);
     expect(response.body.code).toBe('validation_error');
@@ -193,7 +196,9 @@ describe('ProjectController (e2e)', () => {
   it('PATCH /projects/:id should verify', async () => {
     // Setup
     const id = TEST_DATA.validObjectId;
-    const body = { title: TEST_DATA.project.title };
+    const body = {
+      title: TEST_DATA.project.title,
+    };
     const result = { id: v4() };
     service.update.mockImplementation(() => result);
 
@@ -202,9 +207,9 @@ describe('ProjectController (e2e)', () => {
       .patch(`/projects/${id}`)
       .set(authHeader)
       .send(body);
+    expect(response.body).toStrictEqual(result);
     expect(service.update).toBeCalledWith(authUser, id, body, undefined);
     expect(response.status).toBe(HttpStatus.OK);
-    expect(response.body).toStrictEqual(result);
   });
 
   it('PATCH /projects/:id unauthorized should fail', async () => {

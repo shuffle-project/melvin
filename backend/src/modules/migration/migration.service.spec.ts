@@ -1,15 +1,17 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { ConfigTestModule } from '../../../test/config-test.module';
 import {
-  createMongooseTestModule,
   MongooseTestModule,
+  createMongooseTestModule,
 } from '../../../test/mongoose-test.module';
-import { DbModule } from '../db/db.module';
+import { DbService } from '../db/db.service';
+import { MigrationModule } from './migration.module';
 import { MigrationService } from './migration.service';
 
 describe('MigrationService', () => {
   let module: TestingModule;
   let MongooseTestModule: MongooseTestModule;
+  let dbService: DbService;
 
   let service: MigrationService;
 
@@ -17,9 +19,10 @@ describe('MigrationService', () => {
     MongooseTestModule = await createMongooseTestModule();
 
     module = await Test.createTestingModule({
-      imports: [ConfigTestModule, MongooseTestModule, DbModule],
+      imports: [ConfigTestModule, MongooseTestModule, MigrationModule],
     }).compile();
 
+    dbService = module.get<DbService>(DbService);
     service = module.get<MigrationService>(MigrationService);
   });
 

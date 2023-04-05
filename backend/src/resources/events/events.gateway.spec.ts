@@ -4,8 +4,8 @@ import { Types } from 'mongoose';
 import { v4 } from 'uuid';
 import { ConfigTestModule } from '../../../test/config-test.module';
 import {
-  createMongooseTestModule,
   MongooseTestModule,
+  createMongooseTestModule,
 } from '../../../test/mongoose-test.module';
 import { TEST_DATA } from '../../../test/test.constants';
 import { EditorUserColor } from '../../constants/editor.constants';
@@ -422,7 +422,7 @@ describe('EventsGateway', () => {
 
     // Test
     await gateway.transcriptionCreated(project, transcription);
-    expect(gateway._getProjectRoom).toBeCalledWith(project._id);
+    expect(gateway._getProjectRoom).toBeCalledWith(project._id.toString());
     expect(gateway._broadcast).toBeCalledWith([room], 'transcription:created', {
       transcription: instanceToPlain(transcription) as TranscriptionEntity,
     });
@@ -444,7 +444,7 @@ describe('EventsGateway', () => {
 
     // Test
     await gateway.transcriptionUpdated(project, transcription);
-    expect(gateway._getProjectRoom).toBeCalledWith(project._id);
+    expect(gateway._getProjectRoom).toBeCalledWith(project._id.toString());
     expect(gateway._broadcast).toBeCalledWith([room], 'transcription:updated', {
       transcription: instanceToPlain(transcription) as TranscriptionEntity,
     });
@@ -466,7 +466,7 @@ describe('EventsGateway', () => {
 
     // Test
     await gateway.transcriptionRemoved(project, transcription);
-    expect(gateway._getProjectRoom).toBeCalledWith(project._id);
+    expect(gateway._getProjectRoom).toBeCalledWith(project._id.toString());
     expect(gateway._broadcast).toBeCalledWith([room], 'transcription:removed', {
       transcriptionId: transcription._id.toString(),
     });
@@ -488,7 +488,7 @@ describe('EventsGateway', () => {
 
     // Test
     await gateway.captionCreated(project, caption);
-    expect(gateway._getProjectRoom).toBeCalledWith(project._id);
+    expect(gateway._getProjectRoom).toBeCalledWith(project._id.toString());
     expect(gateway._broadcast).toBeCalledWith([room], 'caption:created', {
       caption: instanceToPlain(caption) as CaptionEntity,
     });
@@ -510,7 +510,7 @@ describe('EventsGateway', () => {
 
     // Test
     await gateway.captionUpdated(project, caption);
-    expect(gateway._getProjectRoom).toBeCalledWith(project._id);
+    expect(gateway._getProjectRoom).toBeCalledWith(project._id.toString());
     expect(gateway._broadcast).toBeCalledWith([room], 'caption:updated', {
       caption: instanceToPlain(caption) as CaptionEntity,
     });
@@ -532,7 +532,7 @@ describe('EventsGateway', () => {
 
     // Test
     await gateway.captionRemoved(project, caption);
-    expect(gateway._getProjectRoom).toBeCalledWith(project._id);
+    expect(gateway._getProjectRoom).toBeCalledWith(project._id.toString());
     expect(gateway._broadcast).toBeCalledWith([room], 'caption:removed', {
       captionId: caption._id.toString(),
     });

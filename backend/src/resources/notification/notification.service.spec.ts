@@ -3,8 +3,8 @@ import { plainToInstance } from 'class-transformer';
 import { Types } from 'mongoose';
 import { ConfigTestModule } from '../../../test/config-test.module';
 import {
-  createMongooseTestModule,
   MongooseTestModule,
+  createMongooseTestModule,
 } from '../../../test/mongoose-test.module';
 import { TEST_DATA } from '../../../test/test.constants';
 import { DbService } from '../../modules/db/db.service';
@@ -197,7 +197,11 @@ describe('NotificationService', () => {
     };
 
     // Test
-    const entity = await service.update(authUser, notification._id, dto);
+    const entity = await service.update(
+      authUser,
+      notification._id.toString(),
+      dto,
+    );
 
     expect(eventsGateway.notificationsUpdated).toBeCalledTimes(1);
     expect(eventsGateway.notificationsUpdated).toBeCalledWith(
@@ -223,7 +227,7 @@ describe('NotificationService', () => {
     // Test
     let error: CustomForbiddenException;
     try {
-      await service.update(authUser, notification._id, dto);
+      await service.update(authUser, notification._id.toString(), dto);
     } catch (err) {
       error = err;
     }
@@ -245,7 +249,7 @@ describe('NotificationService', () => {
       await dbService.notificationModel.countDocuments();
     expect(eventsGateway.notificationsRemoved).toBeCalledTimes(1);
     expect(eventsGateway.notificationsRemoved).toBeCalledWith(authUser.id, [
-      notification._id,
+      notification._id.toString(),
     ]);
     expect(notificationsCount).toBe(0);
   });
@@ -259,7 +263,7 @@ describe('NotificationService', () => {
     // Test
     let error: CustomForbiddenException;
     try {
-      await service.remove(authUser, notification._id);
+      await service.remove(authUser, notification._id.toString());
     } catch (err) {
       error = err;
     }
