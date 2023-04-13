@@ -5,7 +5,7 @@ import { Queue } from 'bull';
 import { plainToInstance } from 'class-transformer';
 import { randomBytes } from 'crypto';
 import { Request, Response } from 'express';
-import { createReadStream, ReadStream } from 'fs';
+import { ReadStream, createReadStream } from 'fs';
 import { rm } from 'fs-extra';
 import { readFile, stat } from 'fs/promises';
 import { Types } from 'mongoose';
@@ -254,10 +254,7 @@ export class ProjectService {
     authUser: AuthUser,
     query: FindAllProjectsQuery,
   ): Promise<ProjectListEntity> {
-    const user: LeanUserDocument = await this.db.userModel
-      .findById(authUser.id)
-      .lean()
-      .exec();
+    const user = await this.db.userModel.findById(authUser.id).lean().exec();
 
     const { limit, page = 1 } = query;
     const skip = limit ? limit * (page - 1) : undefined;

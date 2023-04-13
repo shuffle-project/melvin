@@ -9,13 +9,7 @@ import {
   IsMongoId,
   IsString,
 } from 'class-validator';
-import {
-  HydratedDocument,
-  LeanDocument,
-  PopulatedDoc,
-  SchemaTypes,
-  Types,
-} from 'mongoose';
+import { HydratedDocument, PopulatedDoc, SchemaTypes, Types } from 'mongoose';
 import {
   EXAMPLE_CAPTION,
   EXAMPLE_CAPTION_HISTORY,
@@ -30,7 +24,7 @@ import { User } from './user.schema';
 
 export type CaptionDocument = HydratedDocument<Caption>;
 
-export type LeanCaptionDocument = LeanDocument<CaptionDocument>;
+export type LeanCaptionDocument = Caption;
 
 export enum CaptionStatus {
   FLAGGED = 'flagged',

@@ -207,6 +207,8 @@ describe('ProjectController (e2e)', () => {
       .patch(`/projects/${id}`)
       .set(authHeader)
       .send(body);
+
+    console.log(response.body);
     expect(response.body).toStrictEqual(result);
     expect(service.update).toBeCalledWith(authUser, id, body, undefined);
     expect(response.status).toBe(HttpStatus.OK);

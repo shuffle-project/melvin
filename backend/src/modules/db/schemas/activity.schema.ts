@@ -2,13 +2,7 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { ApiProperty } from '@nestjs/swagger';
 import { Exclude, Expose, Transform } from 'class-transformer';
 import { IsDate, IsMongoId } from 'class-validator';
-import {
-  HydratedDocument,
-  LeanDocument,
-  PopulatedDoc,
-  SchemaTypes,
-  Types,
-} from 'mongoose';
+import { HydratedDocument, PopulatedDoc, SchemaTypes, Types } from 'mongoose';
 import {
   EXAMPLE_ACTIVITY,
   EXAMPLE_PROJECT,
@@ -23,7 +17,7 @@ import { User } from './user.schema';
 
 export type ActivityDocument = HydratedDocument<Activity>;
 
-export type LeanActivityDocument = LeanDocument<ActivityDocument>;
+export type LeanActivityDocument = Activity;
 
 @Schema({
   timestamps: true,

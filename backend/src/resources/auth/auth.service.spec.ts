@@ -6,8 +6,8 @@ import { Types } from 'mongoose';
 import { v4 } from 'uuid';
 import { ConfigTestModule } from '../../../test/config-test.module';
 import {
-  createMongooseTestModule,
   MongooseTestModule,
+  createMongooseTestModule,
 } from '../../../test/mongoose-test.module';
 import { TEST_DATA } from '../../../test/test.constants';
 import {
@@ -159,7 +159,8 @@ describe('AuthService', () => {
       hashedPassword: TEST_DATA.hashedPassword,
     });
     const token = service.createAccessToken(user.toJSON() as any);
-    await user.delete();
+    // await user.delete();
+    await dbService.userModel.findByIdAndDelete(user._id);
 
     // Test
     let error: CustomBadRequestException;

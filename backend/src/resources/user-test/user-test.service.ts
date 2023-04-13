@@ -3,7 +3,7 @@ import { plainToInstance } from 'class-transformer';
 import { randomBytes } from 'crypto';
 import { ensureDir, readdir, readFile, symlink } from 'fs-extra';
 import { chunk } from 'lodash';
-import { LeanDocument, Types } from 'mongoose';
+import { Types } from 'mongoose';
 import { basename, join } from 'path';
 import {
   EXAMPLE_PROJECT,
@@ -17,7 +17,7 @@ import {
   ProjectStatus,
 } from '../../modules/db/schemas/project.schema';
 import { Transcription } from '../../modules/db/schemas/transcription.schema';
-import { User } from '../../modules/db/schemas/user.schema';
+import { LeanUserDocument, User } from '../../modules/db/schemas/user.schema';
 import { CustomLogger } from '../../modules/logger/logger.service';
 import { PathService } from '../../modules/path/path.service';
 import { CustomBadRequestException } from '../../utils/exceptions';
@@ -369,7 +369,7 @@ export class UserTestService {
       project: {
         id: project._id,
         title: project.title,
-        users: project.users.map((o: LeanDocument<User>) => ({
+        users: project.users.map((o: LeanUserDocument) => ({
           id: o._id,
           name: o.name,
           email: o.email,

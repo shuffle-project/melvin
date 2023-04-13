@@ -2,12 +2,12 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { ApiProperty } from '@nestjs/swagger';
 import { Exclude, Expose, Transform } from 'class-transformer';
 import { IsDate, IsInt } from 'class-validator';
-import { HydratedDocument, LeanDocument, Types } from 'mongoose';
+import { HydratedDocument, Types } from 'mongoose';
 import { EXAMPLE_ACTIVITY } from '../../../constants/example.constants';
 
 export type SettingsDocument = HydratedDocument<Settings>;
 
-export type LeanSettingsDocument = LeanDocument<SettingsDocument>;
+export type LeanSettingsDocument = Settings;
 
 @Schema({
   timestamps: true,

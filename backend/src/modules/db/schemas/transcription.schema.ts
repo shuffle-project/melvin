@@ -2,13 +2,7 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { ApiProperty } from '@nestjs/swagger';
 import { Exclude, Expose, Transform, Type } from 'class-transformer';
 import { IsDate, IsMongoId, IsString } from 'class-validator';
-import {
-  HydratedDocument,
-  LeanDocument,
-  PopulatedDoc,
-  SchemaTypes,
-  Types,
-} from 'mongoose';
+import { HydratedDocument, PopulatedDoc, SchemaTypes, Types } from 'mongoose';
 import {
   EXAMPLE_PROJECT,
   EXAMPLE_SPEAKER,
@@ -20,7 +14,7 @@ import { User } from './user.schema';
 
 export type TranscriptionDocument = HydratedDocument<Transcription>;
 
-export type LeanTranscriptionDocument = LeanDocument<TranscriptionDocument>;
+export type LeanTranscriptionDocument = Transcription;
 
 @Schema({
   timestamps: true,

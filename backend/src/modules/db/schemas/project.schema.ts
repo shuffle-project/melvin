@@ -9,13 +9,7 @@ import {
   IsString,
   ValidateNested,
 } from 'class-validator';
-import {
-  HydratedDocument,
-  LeanDocument,
-  PopulatedDoc,
-  SchemaTypes,
-  Types,
-} from 'mongoose';
+import { HydratedDocument, PopulatedDoc, SchemaTypes, Types } from 'mongoose';
 import {
   EXAMPLE_EXPORT,
   EXAMPLE_PROJECT,
@@ -28,7 +22,7 @@ import { User } from './user.schema';
 
 export type ProjectDocument = HydratedDocument<Project>;
 
-export type LeanProjectDocument = LeanDocument<ProjectDocument>;
+export type LeanProjectDocument = Project;
 
 export enum ProjectStatus {
   WAITING = 'waiting',

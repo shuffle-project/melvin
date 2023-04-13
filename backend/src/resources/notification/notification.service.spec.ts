@@ -105,17 +105,17 @@ describe('NotificationService', () => {
 
     expect(notifications.length).toBe(2);
     expect(notifications[0]).toMatchObject({
-      user: userA._id,
+      user: userA._id.toString(),
       read: false,
       activity: {
-        _id: activity._id,
+        _id: activity._id.toString(),
       },
     });
     expect(notifications[1]).toMatchObject({
-      user: userB._id,
+      user: userB._id.toString(),
       read: false,
       activity: {
-        _id: activity._id,
+        _id: activity._id.toString(),
       },
     });
   });

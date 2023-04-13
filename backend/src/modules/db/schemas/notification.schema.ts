@@ -2,13 +2,7 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { ApiProperty } from '@nestjs/swagger';
 import { Exclude, Expose, Transform } from 'class-transformer';
 import { IsBoolean, IsDate, IsMongoId } from 'class-validator';
-import {
-  HydratedDocument,
-  LeanDocument,
-  PopulatedDoc,
-  SchemaTypes,
-  Types,
-} from 'mongoose';
+import { HydratedDocument, PopulatedDoc, SchemaTypes, Types } from 'mongoose';
 import {
   EXAMPLE_ACTIVITY,
   EXAMPLE_NOTIFICATION,
@@ -19,7 +13,7 @@ import { User } from './user.schema';
 
 export type NotificationDocument = HydratedDocument<Notification>;
 
-export type LeanNotificationDocument = LeanDocument<NotificationDocument>;
+export type LeanNotificationDocument = Notification;
 
 export enum NotificationAction {
   PROJECT_CREATED = 'project-created',

@@ -2,20 +2,14 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { ApiProperty } from '@nestjs/swagger';
 import { Exclude, Expose, Transform } from 'class-transformer';
 import { IsBoolean, IsDate, IsEmail, IsEnum, IsString } from 'class-validator';
-import {
-  HydratedDocument,
-  LeanDocument,
-  PopulatedDoc,
-  SchemaTypes,
-  Types,
-} from 'mongoose';
+import { HydratedDocument, PopulatedDoc, SchemaTypes, Types } from 'mongoose';
 import { EXAMPLE_USER } from '../../../constants/example.constants';
 import { UserRole } from '../../../resources/user/user.interfaces';
 import { Project } from './project.schema';
 
 export type UserDocument = HydratedDocument<User>;
 
-export type LeanUserDocument = LeanDocument<UserDocument>;
+export type LeanUserDocument = User;
 
 @Schema({
   timestamps: true,
