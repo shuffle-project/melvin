@@ -8,6 +8,7 @@ jobs:
     - uses: actions/setup-node@v3
       with:
         node-version: 16
-    - run: cd backend
     - run: npm install
+      working-directory: ./melvin/backend
     - run: npm test
+      working-directory: ./melvin/backend
