@@ -10,7 +10,7 @@ jobs:
           node-version: 18
       - run: npm install
         working-directory: backend
-      - run: npm test:ci
+      - run: npm run test:ci
         working-directory: backend
         env:
           CI: true
