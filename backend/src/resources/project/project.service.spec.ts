@@ -93,7 +93,7 @@ describe('ProjectService', () => {
 
   it('should be defined', () => {
     // Test
-    expect(service).not.toBeDefined();
+    expect(service).toBeDefined();
   });
 
   it('_getMediaLinksEntity should verify', async () => {
