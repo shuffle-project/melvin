@@ -42,3 +42,4 @@ coverage
 # config
 config.yml
 config*.yml
+!config.test.yml
