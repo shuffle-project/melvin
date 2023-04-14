@@ -9,6 +9,6 @@ jobs:
       with:
         node-version: 16
     - run: npm install
-      working-directory: ./melvin/backend
+      working-directory: /backend
     - run: npm test
-      working-directory: ./melvin/backend
+      working-directory: /backend
