@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { MatLegacyDialog as MatDialog, MatLegacyDialogRef as MatDialogRef } from '@angular/material/legacy-dialog';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { CreateTranscriptionDialogComponent } from 'src/app/modules/project-detail/components/project-transcription/components/create-transcription-dialog/create-transcription-dialog.component';

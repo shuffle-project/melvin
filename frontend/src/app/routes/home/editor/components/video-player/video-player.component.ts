@@ -6,7 +6,7 @@ import {
   OnInit,
   ViewChild,
 } from '@angular/core';
-import { MatSliderChange } from '@angular/material/slider';
+import { MatLegacySliderChange as MatSliderChange } from '@angular/material/legacy-slider';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../../../../store/app.state';
 import * as editorSelectors from '../../../../../store/selectors/editor.selector';

@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatLegacyCheckboxModule as MatCheckboxModule } from '@angular/material/legacy-checkbox';
 import { HeaderModule } from 'src/app/components/header/header.module';
 import { SharedModule } from 'src/app/modules/shared/shared.module';
 import { TimeDifferencePipeModule } from 'src/app/pipes/time-difference-pipe/time-difference-pipe.module';

@@ -13,7 +13,7 @@ import {
   ValidatorFn,
   Validators,
 } from '@angular/forms';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MatLegacyDialogRef as MatDialogRef } from '@angular/material/legacy-dialog';
 import { MatStepper } from '@angular/material/stepper';
 import { Subject, takeUntil } from 'rxjs';
 import { ApiService } from 'src/app/services/api/api.service';

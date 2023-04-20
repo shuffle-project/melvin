@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { MatMenuModule } from '@angular/material/menu';
+import { MatLegacyMenuModule as MatMenuModule } from '@angular/material/legacy-menu';
 import { LetModule, PushModule } from '@ngrx/component';
 import { provideMockStore } from '@ngrx/store/testing';
 import { CaptionsComponent } from './captions.component';
