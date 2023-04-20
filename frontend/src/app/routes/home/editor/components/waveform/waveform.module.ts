@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { ReactiveComponentModule } from '@ngrx/component';
+import { LetModule, PushModule } from '@ngrx/component';
 import { SharedModule } from '../../../../../modules/shared/shared.module';
 import { DurationPipeModule } from '../../../../../pipes/duration-pipe/duration-pipe.module';
 import { ResizeDirective } from './resize/resize.directive';
@@ -20,7 +20,8 @@ import { WaveformService } from './waveform.service';
   ],
   imports: [
     CommonModule,
-    ReactiveComponentModule,
+    LetModule,
+    PushModule,
     DurationPipeModule,
     MatTooltipModule,
     SharedModule,

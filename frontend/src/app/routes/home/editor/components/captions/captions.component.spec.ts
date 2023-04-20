@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatMenuModule } from '@angular/material/menu';
-import { ReactiveComponentModule } from '@ngrx/component';
+import { LetModule, PushModule } from '@ngrx/component';
 import { provideMockStore } from '@ngrx/store/testing';
 import { CaptionsComponent } from './captions.component';
 
@@ -10,7 +10,7 @@ describe('CaptionsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [MatMenuModule, ReactiveComponentModule],
+      imports: [MatMenuModule, LetModule, PushModule],
       declarations: [CaptionsComponent],
       providers: [provideMockStore()],
     }).compileComponents();

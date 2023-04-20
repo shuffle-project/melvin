@@ -10,8 +10,8 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatExpansionModule } from '@angular/material/expansion';
 import {
-  MatFormFieldModule,
   MAT_FORM_FIELD_DEFAULT_OPTIONS,
+  MatFormFieldModule,
 } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
@@ -26,7 +26,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { ReactiveComponentModule } from '@ngrx/component';
+import { LetModule, PushModule } from '@ngrx/component';
 import { WrittenOutLanguageModulePipe } from 'src/app/pipes/written-out-language-pipe/written-out-language-pipe.module';
 import { FeatureEnabledPipeModule } from '../../pipes/feature-enabled-pipe/feature-enabled-pipe.module';
 import { LanugageCodePipeModule } from '../../pipes/language-code-pipe/language-code-pipe.module';
@@ -54,7 +54,8 @@ import { ProjectStatusPipeModule } from './../../pipes/project-status-pipe/proje
     MatSelectModule,
     MatTooltipModule,
     MatDialogModule,
-    ReactiveComponentModule,
+    LetModule,
+    PushModule,
     MatDividerModule,
     FormatDatePipeModule,
     DurationPipeModule,

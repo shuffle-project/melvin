@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatDialogModule } from '@angular/material/dialog';
 import { RouterTestingModule } from '@angular/router/testing';
-import { ReactiveComponentModule } from '@ngrx/component';
+import { LetModule, PushModule } from '@ngrx/component';
 import { provideMockStore } from '@ngrx/store/testing';
 import { DurationPipeModule } from '../../../pipes/duration-pipe/duration-pipe.module';
 import { EditorComponent } from './editor.component';
@@ -15,8 +15,9 @@ describe('EditorComponent', () => {
       imports: [
         RouterTestingModule,
         MatDialogModule,
-        ReactiveComponentModule,
         DurationPipeModule,
+        LetModule,
+        PushModule,
       ],
       declarations: [EditorComponent],
       providers: [provideMockStore()],
