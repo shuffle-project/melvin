@@ -1,6 +1,6 @@
 @use '@angular/material' as mat;
 
-$typography: mat.define-legacy-typography-config(
+$typography: mat.define-typography-config(
   $font-family: 'Roboto, Arial, sans-serif',
 );
 
@@ -12,8 +12,12 @@ $typography: mat.define-legacy-typography-config(
 //  If you don't need the default component typographies but still want the hierarchy styles,
 //  you can delete this line and instead use:
 //    `@include mat.legacy-typography-hierarchy($typography);`
+/* TODO(mdc-migration): Remove all-legacy-component-typographies once all legacy components are migrated*/
 @include mat.all-legacy-component-typographies($typography);
+@include mat.all-component-typographies($typography);
+/* TODO(mdc-migration): Remove legacy-core once all legacy components are migrated*/
 @include mat.legacy-core();
+@include mat.core();
 
 $editor-primary: (
   50: var(--color-primary-50),
@@ -120,4 +124,7 @@ $editor-theme: mat.define-light-theme(
   mat.define-palette($editor-warn)
 );
 
+/* TODO(mdc-migration): Remove all-legacy-component-themes once all legacy components are migrated*/
 @include mat.all-legacy-component-themes($editor-theme);
+
+@include mat.all-component-themes($editor-theme);

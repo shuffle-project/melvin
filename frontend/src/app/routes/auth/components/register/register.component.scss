@@ -11,7 +11,9 @@ form {
   flex-direction: column;
 }
 
-mat-checkbox {
+/* TODO(mdc-migration): The following rule targets internal classes of checkbox that may no longer apply for the MDC version. */
+// seems fine
+mdc-checkbox {
   font-size: 0.8rem;
   margin-left: 6px;
 }
