@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
-import { MatLegacyTooltipModule as MatTooltipModule } from '@angular/material/legacy-tooltip';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { LetModule, PushModule } from '@ngrx/component';
 import { SharedModule } from '../../../../../modules/shared/shared.module';
 import { DurationPipeModule } from '../../../../../pipes/duration-pipe/duration-pipe.module';
