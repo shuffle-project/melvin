@@ -1,8 +1,8 @@
-.mat-menu-panel.dense {
+.mat-mdc-menu-panel.dense {
   min-width: 250px;
   min-height: unset;
 
-  .mat-menu-item {
+  .mat-mdc-menu-item {
     height: 36px;
     line-height: 36px;
 
@@ -12,14 +12,14 @@
       width: 18px;
       margin-right: 5px;
     }
-
+    /* TODO(mdc-migration): The following rule targets internal classes of menu that may no longer apply for the MDC version. */
     .mat-menu-submenu-icon {
       right: 14px;
     }
   }
 }
 
-.mat-menu-panel {
+.mat-mdc-menu-panel {
   mat-divider {
     margin: 8px 2px;
   }
