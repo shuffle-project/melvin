@@ -1,9 +1,11 @@
-<h1 mat-dialog-title>Delete caption</h1>
-<div mat-dialog-content>
-  <p>Are you sure you want to delete this caption?</p>
-  <p class="text">{{ data.caption.text }}</p>
-</div>
-<div mat-dialog-actions align="end">
-  <button mat-button (click)="onAbort()">Abort</button>
-  <button mat-button (click)="onConfirm()" cdkFocusInitial>Confirm</button>
+<div class="container">
+  <h1 mat-dialog-title>Delete caption</h1>
+  <div mat-dialog-content>
+    <p>Are you sure you want to delete this caption?</p>
+    <p class="text">{{ data.caption.text }}</p>
+  </div>
+  <div mat-dialog-actions align="end">
+    <button mat-button (click)="onAbort()">Abort</button>
+    <button mat-button (click)="onConfirm()" cdkFocusInitial>Confirm</button>
+  </div>
 </div>

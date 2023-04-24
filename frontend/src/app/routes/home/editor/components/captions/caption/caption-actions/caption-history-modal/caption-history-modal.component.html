@@ -1,12 +1,14 @@
-<h1 mat-dialog-title>Caption history</h1>
+<div class="container">
+  <h1 mat-dialog-title>Caption history</h1>
 
-<div *ngIf="loading">Loading!</div>
+  <div *ngIf="loading">Loading!</div>
 
-<div *ngIf="!loading" class="list">
-  <div *ngFor="let item of items" class="item">
-    <div class="date">01.01.2022</div>
-    <div class="text" [innerHTML]="item.html"></div>
-    <div class="text">{{ item.text }}</div>
+  <div *ngIf="!loading" class="list">
+    <div *ngFor="let item of items" class="item">
+      <div class="date">01.01.2022</div>
+      <div class="text" [innerHTML]="item.html"></div>
+      <div class="text">{{ item.text }}</div>
+    </div>
   </div>
 </div>
 

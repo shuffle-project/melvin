@@ -1,5 +1,5 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { MatLegacyDialog as MatDialog, MatLegacyDialogRef as MatDialogRef } from '@angular/material/legacy-dialog';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
 import { lastValueFrom, Subject, take, takeUntil } from 'rxjs';
 import { ProjectDetailComponent } from 'src/app/modules/project-detail/project-detail.component';

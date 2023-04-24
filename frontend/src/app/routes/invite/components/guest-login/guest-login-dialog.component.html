@@ -1,27 +1,29 @@
-<h2 mat-dialog-title i18n="@@guestLoginDialogHeader">Login as Guest</h2>
-<mat-dialog-content>
-  <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
-    <div class="flex flex-col">
-      <mat-form-field appearance="fill" class="flat">
-        <mat-icon svgIcon="person" matPrefix></mat-icon>
-        <input
-          formControlName="name"
-          matInput
-          i18n-placeholder="@@guestLoginNamePlaceholder"
-          placeholder="Name"
-          type="text"
-          name="name"
-        />
-      </mat-form-field>
+<div class="container">
+  <h2 mat-dialog-title i18n="@@guestLoginDialogHeader">Login as Guest</h2>
+  <mat-dialog-content>
+    <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+      <div class="flex flex-col">
+        <mat-form-field appearance="fill" class="flat">
+          <mat-icon svgIcon="person" matPrefix></mat-icon>
+          <input
+            formControlName="name"
+            matInput
+            i18n-placeholder="@@guestLoginNamePlaceholder"
+            placeholder="Name"
+            type="text"
+            name="name"
+          />
+        </mat-form-field>
 
-      <button
-        mat-flat-button
-        color="primary"
-        type="submit"
-        i18n="@@guestLoginJoinButtonLabel"
-      >
-        Join
-      </button>
-    </div>
-  </form>
-</mat-dialog-content>
+        <button
+          mat-flat-button
+          color="primary"
+          type="submit"
+          i18n="@@guestLoginJoinButtonLabel"
+        >
+          Join
+        </button>
+      </div>
+    </form>
+  </mat-dialog-content>
+</div>

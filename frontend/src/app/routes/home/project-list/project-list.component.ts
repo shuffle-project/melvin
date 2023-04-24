@@ -8,7 +8,7 @@ import {
   ViewChild,
 } from '@angular/core';
 import { MatButtonToggleGroup } from '@angular/material/button-toggle';
-import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { MatSelect } from '@angular/material/select';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
