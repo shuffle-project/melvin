@@ -14,7 +14,10 @@
       margin: 0;
       border-width: 2px;
     }
-    mat-progress-bar {
+    /* TODO(mdc-migration): The following rule targets internal classes of progress-bar that may no longer apply for the MDC version. */
+    // doku sagt: Height is always set to 4px and does not get shorter or taller using height styles.
+    // switched from "mat-progress-bar" to class based
+    .caption-progress-bar {
       height: 2px;
     }
   }
@@ -114,8 +117,9 @@
       pointer-events: all;
     }
   }
-
-  mat-progress-bar {
+  /* TODO(mdc-migration): The following rule targets internal classes of progress-bar that may no longer apply for the MDC version. */
+  // switched from "mat-progress-bar" to class based
+  .caption-progress-bar {
     position: absolute;
     bottom: 0;
     height: 3px;

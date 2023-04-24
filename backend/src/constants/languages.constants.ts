@@ -2,10 +2,6 @@ import { Language } from 'src/app.interfaces';
 
 export const LANGUAGES: Language[] = [
   {
-    name: 'Placeholder',
-    code: 'pl',
-  },
-  {
     name: 'English',
     code: 'en',
   },
@@ -24,10 +20,6 @@ export const LANGUAGES: Language[] = [
 ];
 
 export const ASR_TEST_LANGUGAGE: Language[] = [
-  {
-    name: 'Placeholder',
-    code: 'pl-PL',
-  },
   {
     name: 'German',
     code: 'de-DE',

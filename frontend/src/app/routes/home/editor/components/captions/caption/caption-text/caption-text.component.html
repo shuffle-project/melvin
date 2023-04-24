@@ -79,8 +79,11 @@
 
     <!-- Play Progress Bar -->
     <ng-container *ngrxLet="progress$ as progress">
+      {{ progress.value }}
       <mat-progress-bar
+        class="caption-progress-bar"
         *ngIf="progress.show && ('captionProgressBar' | featureEnabled)"
+        mode="determinate"
         [value]="progress.value"
       ></mat-progress-bar>
     </ng-container>
