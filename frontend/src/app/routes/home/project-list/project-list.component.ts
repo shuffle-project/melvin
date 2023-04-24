@@ -11,7 +11,7 @@ import { MatButtonToggleGroup } from '@angular/material/button-toggle';
 import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
 import { MatSelect } from '@angular/material/select';
 import { MatSort, Sort } from '@angular/material/sort';
-import { MatLegacyTableDataSource as MatTableDataSource } from '@angular/material/legacy-table';
+import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
