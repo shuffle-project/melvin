@@ -5,13 +5,15 @@
   <div *ngrxPush="error$ as error">{{ error }}</div>
 
   <!-- Not loading -->
-  <mat-card *ngIf="!isLoading">
+  <mat-card appearance="outlined" *ngIf="!isLoading">
     <ng-container *ngrxLet="invite$ as invite">
       <!-- Invalid invite -->
       <ng-container *ngIf="!invite">
-        <mat-card-subtitle i18n="@@inviteCardSubtitleInvalidInvite"
-          >Project invitation</mat-card-subtitle
-        >
+        <mat-card-header>
+          <mat-card-subtitle i18n="@@inviteCardSubtitleInvalidInvite"
+            >Project invitation</mat-card-subtitle
+          >
+        </mat-card-header>
 
         <mat-card-content>
           <div class="error-container">
@@ -39,10 +41,12 @@
       <!-- Valid invite -->
       <ng-container *ngIf="invite">
         <ng-container *ngrxLet="user$ as user">
-          <mat-card-subtitle i18n="@@inviteCardSubtitleValidInvite"
-            >Project invitation</mat-card-subtitle
-          >
-          <mat-card-title>{{ invite.projectTitle }}</mat-card-title>
+          <mat-card-header>
+            <mat-card-subtitle i18n="@@inviteCardSubtitleValidInvite"
+              >Project invitation</mat-card-subtitle
+            >
+            <mat-card-title>{{ invite.projectTitle }}</mat-card-title>
+          </mat-card-header>
           <mat-card-content>
             <p i18n="@@inviteFromMessage">
               You were invited by
