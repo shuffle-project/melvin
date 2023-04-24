@@ -24,13 +24,14 @@
         <mat-label i18n="@@metadataFormAddMemberLabel"
           >Add team members</mat-label
         >
-        <mat-chip-list
+        <mat-chip-grid
           #userChipList
           aria-label="User selection"
           formControlName="members"
           [errorStateMatcher]="errorStateMatcher"
         >
-          <mat-chip
+          <!-- TODO(niklas) die member werden immer gelöscht wenn man aus dem input feld raus geht.. wenn das wieder funktioniert, muss die funktionalität auf der nächsten seite noch geprüft werden-->
+          <mat-chip-row
             *ngFor="let memberEntry of this.metadataGroup.value.members"
             [class.user-exists]="memberEntry.type === 'user'"
             [class.invalid-email]="memberEntry.type === 'invalid email'"
@@ -56,7 +57,7 @@
             <button matChipRemove>
               <mat-icon svgIcon="clear"></mat-icon>
             </button>
-          </mat-chip>
+          </mat-chip-row>
           <input
             type="text"
             #userInput
@@ -67,7 +68,7 @@
             [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
             (matChipInputTokenEnd)="onAddMemberThroughInput($event)"
           />
-        </mat-chip-list>
+        </mat-chip-grid>
 
         <mat-error i18n="@@metadataFormAddMemberError">
           User unknown or e-mail address invalid</mat-error

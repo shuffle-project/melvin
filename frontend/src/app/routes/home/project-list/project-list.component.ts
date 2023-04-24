@@ -9,7 +9,7 @@ import {
 } from '@angular/core';
 import { MatButtonToggleGroup } from '@angular/material/button-toggle';
 import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
-import { MatLegacySelect as MatSelect } from '@angular/material/legacy-select';
+import { MatSelect } from '@angular/material/select';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatLegacyTableDataSource as MatTableDataSource } from '@angular/material/legacy-table';
 import { Router } from '@angular/router';

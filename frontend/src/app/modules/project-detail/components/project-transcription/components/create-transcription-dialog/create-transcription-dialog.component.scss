@@ -2,12 +2,12 @@
   display: flex;
   justify-content: space-between;
 
-  .mat-form-field {
+  .mat-mdc-form-field {
     width: 45%;
   }
 
   &.no-language {
-    .mat-form-field {
+    .mat-mdc-form-field {
       width: 100%;
     }
   }
@@ -53,7 +53,7 @@
   display: flex;
   justify-content: space-between;
 
-  .mat-form-field {
+  .mat-mdc-form-field {
     width: 45%;
   }
 }

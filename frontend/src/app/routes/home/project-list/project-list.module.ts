@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { MatLegacyChipsModule as MatChipsModule } from '@angular/material/legacy-chips';
+import { MatChipsModule } from '@angular/material/chips';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { AvatarGroupModule } from 'src/app/components/avatar-group/avatar-group.module';
 import { FooterModule } from 'src/app/components/footer/footer.module';

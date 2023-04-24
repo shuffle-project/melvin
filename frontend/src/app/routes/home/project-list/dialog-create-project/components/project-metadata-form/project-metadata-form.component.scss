@@ -7,7 +7,7 @@
     margin-top: 0px;
   }
 
-  .mat-chip {
+  .mat-mdc-chip {
     color: var(--color-black);
     background: linear-gradient(
       90deg,
@@ -37,7 +37,7 @@
   }
 }
 
-.mat-option {
+.mat-mdc-option {
   overflow: visible;
   line-height: initial;
   word-wrap: break-word;

@@ -21,7 +21,7 @@
       Teammembers
     </th>
     <td>
-      <mat-chip-list #userChipList aria-label="Project members">
+      <mat-chip-listbox #userChipList aria-label="Project members">
         <mat-chip
           *ngFor="let memberEntry of metadataGroup.controls.members.value"
           [class.user-exists]="memberEntry.type === 'user'"
@@ -40,7 +40,7 @@
 
           {{ onDisplayMember(memberEntry) }}
         </mat-chip>
-      </mat-chip-list>
+      </mat-chip-listbox>
     </td>
   </tr>
 </table>

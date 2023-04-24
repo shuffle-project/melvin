@@ -170,7 +170,7 @@
         Status
       </th>
       <td mat-cell *matCellDef="let element">
-        <mat-chip-list>
+        <mat-chip-listbox>
           <mat-chip
             [ngClass]="element.status"
             (click)="onClickProjectDetail(element, 'activity')"
@@ -183,7 +183,7 @@
 
             <span class="nowrap">{{ element.status | readableStatus }}</span>
           </mat-chip>
-        </mat-chip-list>
+        </mat-chip-listbox>
       </td>
     </ng-container>
 
