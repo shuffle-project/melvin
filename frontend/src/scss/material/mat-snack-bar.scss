@@ -1,17 +1,10 @@
-snack-bar-container.info {
-  .mat-simple-snackbar-action {
-    color: var(--color-primary);
-  }
+.mat-mdc-snack-bar-container.info .mat-mdc-snack-bar-action:not(:disabled) {
+  color: var(--color-primary) !important;
 }
 
-snack-bar-container.success {
-  .mat-simple-snackbar-action {
-    color: var(--color-green);
-  }
+.mat-mdc-snack-bar-container.success .mat-mdc-snack-bar-action:not(:disabled) {
+  color: var(--color-green) !important;
 }
-
-snack-bar-container.error {
-  .mat-simple-snackbar-action {
-    color: var(--color-warn);
-  }
+.mat-mdc-snack-bar-container.error .mat-mdc-snack-bar-action:not(:disabled) {
+  color: var(--color-warn) !important;
 }
