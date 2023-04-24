@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
-import { MatLegacySlideToggleModule as MatSlideToggleModule } from '@angular/material/legacy-slide-toggle';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { AvatarGroupModule } from '../../../components/avatar-group/avatar-group.module';
 import { HeaderModule } from '../../../components/header/header.module';
 import { LogoModule } from '../../../components/logo/logo.module';

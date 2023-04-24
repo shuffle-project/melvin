@@ -6,7 +6,7 @@ import {
   OnInit,
   ViewChild,
 } from '@angular/core';
-import { MatLegacySliderChange as MatSliderChange } from '@angular/material/legacy-slider';
+import { MatSliderDragEvent } from '@angular/material/slider';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../../../../store/app.state';
 import * as editorSelectors from '../../../../../store/selectors/editor.selector';
@@ -45,9 +45,9 @@ export class VideoPlayerComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  onChangeVideoProgress(event: MatSliderChange) {
-    this.mediaService.seekToTime(event.value as number, true);
-  }
+  // onChangeVideoProgress(event: MatSliderChange) {
+  //   this.mediaService.seekToTime(event.value as number, true);
+  // }
 
   onClickPlayPause() {
     this.store.dispatch(editorActions.togglePlayPauseFromVideo());
@@ -57,10 +57,20 @@ export class VideoPlayerComponent implements OnInit {
     this.store.dispatch(editorActions.toggleVolumeFromVideoComponent());
   }
 
-  onChangeVolume(event: MatSliderChange) {
+  onDragEnd(event: MatSliderDragEvent) {
+    console.log(event);
     this.store.dispatch(
       editorActions.changeVolumeFromVideoComponent({
-        volume: event.value as number,
+        volume: event.value,
+      })
+    );
+  }
+
+  onChangeVolume(event: number) {
+    console.log(event);
+    this.store.dispatch(
+      editorActions.changeVolumeFromVideoComponent({
+        volume: event as number,
       })
     );
   }
