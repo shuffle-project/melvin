@@ -58,17 +58,14 @@
     #ngSlider
     showTickMarks="true"
   >
-    <!-- endable this again-->
     <!--  (valueChange)="onChangeVolume($event)" is buggy -->
     <!-- (dragEnd)="onDragEnd($event)" same-->
     <input
       matSliderThumb
       [value]="volume$ | ngrxPush"
-      (valueChange)="onChangeVolume($event)"
+      (change)="onChangeVolume($event)"
     />
   </mat-slider>
-
-  <- might not work
 
   <!-- Spacer -->
   <div class="flex-1"></div>

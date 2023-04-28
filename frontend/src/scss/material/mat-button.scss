@@ -24,14 +24,14 @@
 
   mat-icon {
     --height: 40px;
-    font-size: var(--height) !important;
-    height: var(--height) !important;
-    width: var(--height) !important;
-    line-height: var(--height) !important;
+    font-size: var(--height);
+    height: var(--height);
+    width: var(--height);
+    line-height: var(--height);
 
     svg {
-      height: var(--height) !important;
-      width: var(--height) !important;
+      height: var(--height);
+      width: var(--height);
     }
   }
 }
@@ -56,8 +56,8 @@
     line-height: var(--height);
 
     svg {
-      height: var(--height) !important;
-      width: var(--height) !important;
+      height: var(--height);
+      width: var(--height);
     }
   }
 }
@@ -81,8 +81,8 @@
     line-height: var(--height);
 
     svg {
-      height: var(--height) !important;
-      width: var(--height) !important;
+      height: var(--height);
+      width: var(--height);
     }
   }
 }

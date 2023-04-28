@@ -6,7 +6,6 @@ import {
   OnInit,
   ViewChild,
 } from '@angular/core';
-import { MatSliderDragEvent } from '@angular/material/slider';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../../../../store/app.state';
 import * as editorSelectors from '../../../../../store/selectors/editor.selector';
@@ -57,20 +56,10 @@ export class VideoPlayerComponent implements OnInit {
     this.store.dispatch(editorActions.toggleVolumeFromVideoComponent());
   }
 
-  onDragEnd(event: MatSliderDragEvent) {
-    console.log(event);
+  onChangeVolume(event: any) {
     this.store.dispatch(
       editorActions.changeVolumeFromVideoComponent({
-        volume: event.value,
-      })
-    );
-  }
-
-  onChangeVolume(event: number) {
-    console.log(event);
-    this.store.dispatch(
-      editorActions.changeVolumeFromVideoComponent({
-        volume: event as number,
+        volume: event.target.value,
       })
     );
   }
