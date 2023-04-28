@@ -28,12 +28,11 @@
   align-items: center;
   z-index: 1;
 
-  .progress-bar {
-    /* TODO(mdc-migration): The following rule targets internal classes of slider that may no longer apply for the MDC version. */
-    mat-slider {
-      width: 100%;
-      position: absolute;
-      top: -14px;
-    }
-  }
+  // .progress-bar {
+  // mat-slider {
+  //   width: 100%;
+  //   position: absolute;
+  //   top: -14px;
+  // }
+  // }
 }
