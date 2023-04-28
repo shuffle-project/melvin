@@ -62,8 +62,8 @@
     <!--  (valueChange)="onChangeVolume($event)" is buggy -->
     <!-- (dragEnd)="onDragEnd($event)" same-->
     <input
-      [value]="volume$ | ngrxPush"
       matSliderThumb
+      [value]="volume$ | ngrxPush"
       (valueChange)="onChangeVolume($event)"
     />
   </mat-slider>

@@ -1,30 +1,3 @@
-<div *ngrxLet="project$ as project">
-  <button (click)="livestreamService.start(project?.id!)">Start</button>
-  <button (click)="livestreamService.stop(project?.id!)">Stop</button>
-  <button (click)="livestreamService.pause(project?.id!)">Pause</button>
-  <button (click)="livestreamService.resume(project?.id!)">Resume</button>
-
-  {{ project?.livestream?.livestreamStatus }}
-  <br />
-
-  <button (click)="livestreamService.startRecording(project?.id!)">
-    Start Recording
-  </button>
-  <button (click)="livestreamService.stopRecording(project?.id!)">
-    Stop Recording
-  </button>
-  <button (click)="livestreamService.pauseRecording(project?.id!)">
-    Pause Recording
-  </button>
-  <button (click)="livestreamService.resumeRecording(project?.id!)">
-    Resume Recording
-  </button>
-  {{ project?.livestream?.recordingStatus }}
-  <br />
-
-  <!-- <button (click)="connect(project?.id!)">Connect</button> -->
-  <br />
-</div>
 <app-header>
   <div class="flex flex-col" *ngrxLet="project$ as project">
     <div class="title-wrapper">
@@ -293,6 +266,34 @@
       <app-video-player></app-video-player>
       <app-editor-settings></app-editor-settings>
       <app-user-test-controls></app-user-test-controls>
+
+      <div *ngrxLet="project$ as project">
+        <button (click)="livestreamService.start(project?.id!)">Start</button>
+        <button (click)="livestreamService.stop(project?.id!)">Stop</button>
+        <button (click)="livestreamService.pause(project?.id!)">Pause</button>
+        <button (click)="livestreamService.resume(project?.id!)">Resume</button>
+
+        {{ project?.livestream?.livestreamStatus }}
+        <br />
+
+        <button (click)="livestreamService.startRecording(project?.id!)">
+          Start Recording
+        </button>
+        <button (click)="livestreamService.stopRecording(project?.id!)">
+          Stop Recording
+        </button>
+        <button (click)="livestreamService.pauseRecording(project?.id!)">
+          Pause Recording
+        </button>
+        <button (click)="livestreamService.resumeRecording(project?.id!)">
+          Resume Recording
+        </button>
+        {{ project?.livestream?.recordingStatus }}
+        <br />
+
+        <!-- <button (click)="connect(project?.id!)">Connect</button> -->
+        <br />
+      </div>
     </div>
     <div class="right">
       <app-captions></app-captions>

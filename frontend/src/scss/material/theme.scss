@@ -1,9 +1,5 @@
 @use '@angular/material' as mat;
 
-$typography: mat.define-typography-config(
-  $font-family: 'Roboto, Arial, sans-serif',
-);
-
 // TODO(v15): As of v15 mat.legacy-core no longer includes default typography styles.
 //  The following line adds:
 //    1. Default typography styles for all components
@@ -13,10 +9,7 @@ $typography: mat.define-typography-config(
 //  you can delete this line and instead use:
 //    `@include mat.legacy-typography-hierarchy($typography);`
 /* TODO(mdc-migration): Remove all-legacy-component-typographies once all legacy components are migrated*/
-@include mat.all-legacy-component-typographies($typography);
-@include mat.all-component-typographies($typography);
-/* TODO(mdc-migration): Remove legacy-core once all legacy components are migrated*/
-@include mat.legacy-core();
+
 @include mat.core();
 
 $editor-primary: (
@@ -118,13 +111,29 @@ $editor-warn: (
   ),
 );
 
-$editor-theme: mat.define-light-theme(
-  mat.define-palette($editor-primary),
-  mat.define-palette($editor-accent),
-  mat.define-palette($editor-warn)
+$editor-primary-palette: mat.define-palette($editor-primary);
+$editor-accent-palette: mat.define-palette($editor-accent);
+$editor-warn-palette: mat.define-palette($editor-warn);
+
+$typography: mat.define-typography-config(
+  $font-family: 'Roboto, Arial, sans-serif',
 );
 
-/* TODO(mdc-migration): Remove all-legacy-component-themes once all legacy components are migrated*/
-@include mat.all-legacy-component-themes($editor-theme);
-
+$editor-theme: mat.define-light-theme(
+  (
+    color: (
+      primary: $editor-primary-palette,
+      accent: $editor-accent-palette,
+      warn: $editor-warn-palette,
+    ),
+    typography: $typography,
+  )
+);
+// @include mat.core-color($editor-theme);
+@include mat.all-component-typographies($typography);
 @include mat.all-component-themes($editor-theme);
+
+// @include mat.core-theme($editor-theme);
+// @include mat.button-theme($editor-theme);
+
+// @include mat.core-theme($editor-theme);

@@ -1,22 +1,50 @@
-.mat-icon-button.lg {
+// todo check if this issue still persists
+// https://github.com/angular/components/issues/26056
+// https://github.com/angular/components/issues/26179
+.mdc-button.mat-primary {
+  color: white !important;
+}
+
+.mdc-button {
+  // todo(niklas) ja nein vielleicht?
+  letter-spacing: normal;
+}
+
+.mat-mdc-icon-button.lg {
   --height: 50px;
   line-height: var(--height);
   width: var(--height);
   height: var(--height);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+
   mat-icon {
     --height: 40px;
-    font-size: var(--height);
-    height: var(--height);
-    width: var(--height);
-    line-height: var(--height);
+    font-size: var(--height) !important;
+    height: var(--height) !important;
+    width: var(--height) !important;
+    line-height: var(--height) !important;
+
+    svg {
+      height: var(--height) !important;
+      width: var(--height) !important;
+    }
   }
 }
 
-.mat-icon-button.sm {
+.mat-mdc-icon-button.sm {
   --height: 24px;
   line-height: var(--height);
   width: var(--height);
   height: var(--height);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
 
   mat-icon {
     --height: 20px;
@@ -25,17 +53,24 @@
     height: var(--height);
     width: var(--height);
     line-height: var(--height);
+
+    svg {
+      height: var(--height) !important;
+      width: var(--height) !important;
+    }
   }
 }
 
-.mat-icon-button.md {
+.mat-mdc-icon-button.md {
   --height: 32px;
   line-height: var(--height);
   width: var(--height);
   height: var(--height);
+
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
+  padding: 0;
 
   mat-icon {
     --height: 24px;
@@ -43,6 +78,11 @@
     height: var(--height);
     width: var(--height);
     line-height: var(--height);
+
+    svg {
+      height: var(--height) !important;
+      width: var(--height) !important;
+    }
   }
 }
 
