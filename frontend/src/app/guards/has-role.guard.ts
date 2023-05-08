@@ -1,11 +1,5 @@
 import { Injectable } from '@angular/core';
-import {
-  ActivatedRouteSnapshot,
-  CanActivate,
-  Router,
-  RouterStateSnapshot,
-  UrlTree,
-} from '@angular/router';
+import { ActivatedRouteSnapshot, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { map, Observable, take } from 'rxjs';
 import * as authSelectors from '../store/selectors/auth.selector';
@@ -13,7 +7,7 @@ import * as authSelectors from '../store/selectors/auth.selector';
 @Injectable({
   providedIn: 'root',
 })
-export class HasRoleGuard implements CanActivate {
+export class HasRoleGuard  {
   constructor(private router: Router, private store: Store) {}
 
   canActivate(
