@@ -1,5 +1,5 @@
 <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
-  <mat-form-field appearance="fill" class="flat">
+  <mat-form-field appearance="outline">
     <mat-icon svgIcon="person" matPrefix></mat-icon>
     <input
       formControlName="name"
@@ -12,7 +12,7 @@
     />
   </mat-form-field>
 
-  <mat-form-field appearance="fill" class="flat">
+  <mat-form-field appearance="outline">
     <mat-icon svgIcon="email" matPrefix></mat-icon>
     <input
       formControlName="email"
@@ -25,7 +25,7 @@
     />
   </mat-form-field>
 
-  <mat-form-field appearance="fill" class="flat">
+  <mat-form-field appearance="outline">
     <mat-icon svgIcon="lock" matPrefix></mat-icon>
     <input
       formControlName="password"
@@ -38,7 +38,7 @@
     />
   </mat-form-field>
 
-  <mat-form-field appearance="fill" class="flat">
+  <mat-form-field appearance="outline">
     <mat-icon svgIcon="lock" matPrefix></mat-icon>
     <input
       formControlName="passwordConfirm"

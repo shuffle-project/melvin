@@ -107,6 +107,10 @@ $editor-warn-palette: mat.define-palette($editor-warn);
 
 $typography: mat.define-typography-config(
   $font-family: 'Roboto, Arial, sans-serif',
+  $button:
+    mat.define-typography-level(null, null, null, null, $letter-spacing: wider),
+  $body-1:
+    mat.define-typography-level(14px, 14px, null, null, $letter-spacing: wider),
 );
 
 $editor-theme: mat.define-light-theme(
