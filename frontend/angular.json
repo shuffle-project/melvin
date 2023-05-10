@@ -32,22 +32,11 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
-            "assets": [
-              "src/favicon.ico",
-              "src/assets"
-            ],
-            "styles": [
-              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
-              "src/styles.scss"
-            ],
+            "assets": ["src/favicon.ico", "src/assets"],
+            "styles": ["src/styles.scss"],
             "scripts": [],
-            "localize": [
-              "en-US",
-              "de-DE"
-            ],
-            "allowedCommonJsDependencies": [
-              "dayjs"
-            ]
+            "localize": ["en-US", "de-DE"],
+            "allowedCommonJsDependencies": ["dayjs"]
           },
           "configurations": {
             "production": {
@@ -78,9 +67,7 @@
               "extractLicenses": false,
               "sourceMap": true,
               "namedChunks": true,
-              "localize": [
-                "en-US"
-              ]
+              "localize": ["en-US"]
             }
           },
           "defaultConfiguration": "production"
@@ -103,9 +90,7 @@
             "browserTarget": "editor-frontend:build",
             "format": "xlf",
             "outputPath": "src/locale",
-            "targetFiles": [
-              "messages.de.xlf"
-            ]
+            "targetFiles": ["messages.de.xlf"]
           }
         },
         "test": {
@@ -116,33 +101,22 @@
             "tsConfig": "tsconfig.spec.json",
             "karmaConfig": "karma.conf.js",
             "inlineStyleLanguage": "scss",
-            "assets": [
-              "src/favicon.ico",
-              "src/assets"
-            ],
-            "styles": [
-              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
-              "src/styles.scss"
-            ],
+            "assets": ["src/favicon.ico", "src/assets"],
+            "styles": ["src/styles.scss"],
             "scripts": []
           }
         },
         "lint": {
           "builder": "@angular-eslint/builder:lint",
           "options": {
-            "lintFilePatterns": [
-              "src/**/*.ts",
-              "src/**/*.html"
-            ]
+            "lintFilePatterns": ["src/**/*.ts", "src/**/*.html"]
           }
         }
       }
     }
   },
   "cli": {
-    "schematicCollections": [
-      "@angular-eslint/schematics"
-    ],
+    "schematicCollections": ["@angular-eslint/schematics"],
     "analytics": false
   },
   "schematics": {
