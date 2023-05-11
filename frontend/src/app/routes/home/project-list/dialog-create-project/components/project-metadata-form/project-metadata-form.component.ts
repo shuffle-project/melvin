@@ -12,12 +12,12 @@ import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { ErrorStateMatcher } from '@angular/material/core';
 import {
+  Subject,
   debounceTime,
   distinctUntilChanged,
   iif,
   map,
   of,
-  Subject,
   switchMap,
   takeUntil,
 } from 'rxjs';
@@ -89,7 +89,7 @@ export class ProjectMetadataFormComponent implements OnInit, OnDestroy {
     this.destroy$$.next();
   }
 
-  filter(name: String): UserEntity[] {
+  filter(name: string): UserEntity[] {
     const filterValue = name.toLowerCase();
     return this.users.filter(
       (user) =>

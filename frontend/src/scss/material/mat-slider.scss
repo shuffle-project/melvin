@@ -1,74 +1,81 @@
-// mat-slider.video-progress {
-//   padding: 0;
-//   height: 24px;
-//   .mat-slider-track-fill,
-//   .mat-slider-wrapper,
-//   .mat-slider-track-wrapper,
-//   .mat-slider-track-background {
-//     height: 4px !important;
-//   }
-//   .mat-slider-track-background,
-//   .mat-slider-track-fill {
-//     transition: none !important;
-//   }
-//   .mat-slider-track-background {
-//     background-color: var(--color-dark-grey) !important;
-//   }
-//   .mat-slider-wrapper {
-//     left: 0;
-//     right: 0;
-//     top: calc(50% - 2px);
-//   }
-//   .mat-slider-thumb {
-//     width: 12px;
-//     height: 12px;
-//     right: -6px;
-//     bottom: -6px;
-//     display: none;
-//     transform: none !important;
-//   }
+mat-slider.volume {
+  min-width: 60px;
+  max-width: 130px;
+}
 
-//   &:hover,
-//   &:focus {
-//     .mat-slider-thumb {
-//       display: block;
-//     }
-//   }
-//   &.mat-slider-min-value {
-//     .mat-slider-track-background {
-//       transform: none !important;
-//     }
-//     .mat-slider-thumb {
-//       background-color: var(--color-primary) !important;
-//     }
-//   }
+/* Change style of active track */
+.mat-primary .mdc-slider__track--active_fill {
+  background-color: var(--color-black);
+  border: 0px solid #ffffff !important; /* Removes border from active track */
+  border-radius: 3px;
+}
+
+/* Change style of inactive track */
+.mat-primary .mdc-slider__track--inactive {
+  background-color: var(--color-dark-grey) !important;
+  border-radius: 3px;
+}
+
+/* Change style of progress bar */
+// .mat-primary .mdc-slider__track--active_fill,
+// .mat-primary .mdc-slider__track--inactive,
+// .mat-primary .mdc-slider__track--active,
+// .mat-primary .mdc-slider__track {
+// height: 60px !important;
 // }
 
-// TODO(bene) remove comment and fix slider
-// mat-slider.volume {
-//   min-width: 80px;
-//   height: 32px;
-//   padding: 0 !important;
-//   .mat-slider-wrapper {
-//     top: 15px !important;
-//   }
-//   .mat-slider-track-background {
-//     background-color: var(--color-dark-grey) !important;
-//   }
-//   .mat-slider-track-fill {
-//     background-color: var(--color-black) !important;
-//   }
-//   .mat-slider-thumb {
-//     background-color: var(--color-black) !important;
-//     transition: none !important;
-//     transform: scale(0.7) !important;
-//   }
-//   .mat-slider-focus-ring {
-//     display: none !important;
-//   }
-//   &.mat-slider-min-value {
-//     .mat-slider-thumb {
-//       background-color: var(--color-dark-grey) !important;
-//     }
-//   }
+/* Change style of thumb */
+.mat-primary .mdc-slider__thumb {
+  height: 24px;
+  width: 24px;
+  border-radius: 50%;
+  // box-shadow: 0 2px 2px rgba(0, 0, 0, 0.14), 0 3px 1px rgba(0, 0, 0, 0.12),
+  //   0 1px 5px rgba(0, 0, 0, 0.2);
+}
+
+/* Change style of thumb when active */
+// .mat-primary .mdc-slider__thumb--with-indicator:after {
+//   background-color: #f44336; /* Change color of thumb indicator */
+// }
+
+/* Change style of numerical value */
+// .mat-primary .mdc-slider__value-indicator {
+//   background-color: #dadd0c;
+//   color: #ffffff;
+//   height: 24px;
+//   width: 24px;
+//   border-radius: 50%;
+//   font-size: 14px;
+//   font-weight: 500;
+//   box-shadow: 0 2px 2px rgba(0, 0, 0, 0.14), 0 3px 1px rgba(0, 0, 0, 0.12),
+//     0 1px 5px rgba(0, 0, 0, 0.2);
+// }
+
+/* Hide numerical value when thumb is active */
+.mat-primary
+  .mdc-slider__thumb--with-indicator.mdc-slider__thumb--focused
+  .mdc-slider__value-indicator {
+  opacity: 0;
+}
+
+/* Change style of thumb knob */
+.mat-primary .mdc-slider__thumb-knob {
+  // background-color: var(--color-black);
+  border-color: var(--color-black) !important;
+  height: 16px;
+  width: 16px;
+  border-radius: 50%;
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.14), 0 3px 1px rgba(0, 0, 0, 0.12),
+    0 1px 5px rgba(0, 0, 0, 0.2);
+}
+
+/* Change style of focus indicator */
+// .mat-primary .mdc-slider__thumb--with-indicator .mdc-slider__thumb-knob:focus {
+//   outline: none;
+// }
+
+/* Change style of focus ripple */
+// .mat-primary .mat-mdc-focus-indicator {
+//   border-radius: 50%;
+//   background-color: rgba(244, 67, 54, 0.26);
 // }

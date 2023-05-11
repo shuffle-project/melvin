@@ -30,13 +30,13 @@
           formControlName="members"
           [errorStateMatcher]="errorStateMatcher"
         >
-          <!-- TODO(niklas) die member werden immer gelöscht wenn man aus dem input feld raus geht.. wenn das wieder funktioniert, muss die funktionalität auf der nächsten seite noch geprüft werden-->
           <mat-chip-row
             *ngFor="let memberEntry of this.metadataGroup.value.members"
             [class.user-exists]="memberEntry.type === 'user'"
             [class.invalid-email]="memberEntry.type === 'invalid email'"
             (removed)="onRemoveMember(memberEntry)"
             [matTooltip]="memberEntry?.user?.email ?? ''"
+            [value]="memberEntry"
           >
             <mat-icon
               *ngIf="memberEntry.type === 'user'"
