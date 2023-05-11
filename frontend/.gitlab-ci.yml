@@ -10,7 +10,7 @@ install_dependencies:
   image: $IMAGE
   stage: dependencies
   script:
-    - npm install
+    - npm install --force
   cache:
     key: $CI_COMMIT_REF_SLUG
     paths:
