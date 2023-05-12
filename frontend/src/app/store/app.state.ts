@@ -8,6 +8,7 @@ import { NotificationsEffects } from './effects/notifications.effects';
 import { ProjectEffects } from './effects/projects.effects';
 import { TranscriptionsEffects } from './effects/transcriptions.effects';
 import { UserTestEffects } from './effects/user-test.effects';
+import { ViewerEffects } from './effects/viewer.effects';
 import { authReducer, AuthState } from './reducers/auth.reducer';
 import { captionsReducer, CaptionsState } from './reducers/captions.reducer';
 import { configReducer, ConfigState } from './reducers/config.reducer';
@@ -21,10 +22,12 @@ import {
   transcriptionsReducer,
   TranscriptionsState,
 } from './reducers/transcriptions.reducer';
+import { viewerReducer, ViewerState } from './reducers/viewer.reducer';
 
 export interface AppState {
   router: RouterState;
   editor: EditorState;
+  viewer: ViewerState;
   captions: CaptionsState;
   projects: ProjectsState;
   auth: AuthState;
@@ -36,6 +39,7 @@ export interface AppState {
 export const actionReducerMap: ActionReducerMap<AppState> = {
   router: routerReducer,
   editor: editorReducer,
+  viewer: viewerReducer,
   captions: captionsReducer,
   projects: projectsReducer,
   auth: authReducer,
@@ -48,6 +52,7 @@ export const effectsList = [
   CaptionsEffects,
   ProjectEffects,
   EditorEffects,
+  ViewerEffects,
   AuthEffects,
   TranscriptionsEffects,
   NotificationsEffects,

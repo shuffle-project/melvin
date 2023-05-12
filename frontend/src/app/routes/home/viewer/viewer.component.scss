@@ -1,0 +1,53 @@
+.content {
+  box-sizing: border-box;
+  display: flex;
+  width: 100%;
+  // height: ;
+  background-color: var(--color-background-grey);
+  height: calc(100% - 60px); // header is 60px
+
+  .left {
+    width: 15%;
+  }
+  .center {
+    width: 60%;
+  }
+  .right {
+    width: 25%;
+  }
+
+  .box {
+    margin: 10px;
+    padding: 7px;
+    border-radius: 5px;
+    background-color: white;
+    box-shadow: none;
+
+    &:has(video) {
+      padding: 0px;
+    }
+  }
+}
+
+video {
+  max-width: 100%;
+  border-radius: 5px;
+}
+
+.controls {
+  :first-child {
+    display: flex;
+    justify-content: center;
+    .video-progress-slider {
+      width: 90%;
+    }
+  }
+
+  :nth-child(2) {
+    display: flex;
+    align-items: center;
+  }
+
+  .volume-slider {
+  }
+}

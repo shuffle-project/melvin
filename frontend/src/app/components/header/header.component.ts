@@ -1,8 +1,8 @@
 import { animate, style, transition, trigger } from '@angular/animations';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { lastValueFrom, Observable, Subject, take } from 'rxjs';
+import { Observable, Subject, lastValueFrom, take } from 'rxjs';
 import { NotificationEntity } from 'src/app/services/api/entities/notification.entity';
 import * as authActions from 'src/app/store/actions/auth.actions';
 import * as notificationsActions from '../../store/actions/notifications.actions';
@@ -23,6 +23,8 @@ import * as notificationsSelectors from '../../store/selectors/notifications.sel
   ],
 })
 export class HeaderComponent implements OnDestroy, OnInit {
+  @Input() viewer = false;
+
   isLoggedIn$: Observable<boolean>;
   isMenuOpen: boolean = false;
 

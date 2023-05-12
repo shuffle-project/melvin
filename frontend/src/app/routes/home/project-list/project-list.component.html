@@ -309,6 +309,11 @@
           Download
         </button>
 
+        <button mat-menu-item (click)="onOpenViewer(element)">
+          <mat-icon svgIcon="share"></mat-icon>
+          Viewer
+        </button>
+
         <ng-container *ngIf="element.createdBy === (userId$ | ngrxPush)">
           <mat-divider></mat-divider>
 

@@ -50,23 +50,24 @@
       [svgIcon]="(volume$ | ngrxPush) === 0 ? 'volume_off' : 'volume_on'"
     ></mat-icon>
   </button>
-  <mat-slider
-    min="0"
-    max="1"
-    step="0.05"
-    class="volume"
-    #ngSlider
-    showTickMarks="true"
-  >
-    <!--  (valueChange)="onChangeVolume($event)" is buggy -->
-    <!-- (dragEnd)="onDragEnd($event)" same-->
-    <input
-      matSliderThumb
-      [value]="volume$ | ngrxPush"
-      (change)="onChangeVolume($event)"
-    />
-  </mat-slider>
-
+  <ng-container class="volume-container">
+    <mat-slider
+      min="0"
+      max="1"
+      step="0.05"
+      class="volume"
+      #ngSlider
+      showTickMarks="true"
+    >
+      <!--  (valueChange)="onChangeVolume($event)" is buggy -->
+      <!-- (dragEnd)="onDragEnd($event)" same-->
+      <input
+        matSliderThumb
+        [value]="volume$ | ngrxPush"
+        (change)="onChangeVolume($event)"
+      />
+    </mat-slider>
+  </ng-container>
   <!-- Spacer -->
   <div class="flex-1"></div>
 

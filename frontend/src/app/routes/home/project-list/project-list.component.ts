@@ -179,6 +179,10 @@ export class ProjectListComponent implements OnInit, AfterViewInit, OnDestroy {
     });
   }
 
+  onOpenViewer(project: ProjectEntity) {
+    this.router.navigate(['/home/viewer', project.id]);
+  }
+
   onGetCorrectIcon(status: string) {
     switch (status) {
       case ProjectStatus.FINISHED:

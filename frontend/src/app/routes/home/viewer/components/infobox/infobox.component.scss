@@ -1,0 +1,15 @@
+.mat-expansion-panel {
+  box-shadow: none;
+}
+
+.downloads {
+  display: flex;
+
+  & > * {
+    border: 1px solid black;
+    width: 90%;
+    height: 60px;
+    margin: 6px;
+    border-radius: 5px;
+  }
+}
