@@ -1,0 +1,92 @@
+video {
+  max-width: 100%;
+  border-radius: 5px;
+}
+
+.controls {
+  :first-child {
+    display: flex;
+    justify-content: center;
+    .video-progress-slider {
+      width: 90%;
+    }
+  }
+
+  :nth-child(2) {
+    display: flex;
+    align-items: center;
+  }
+
+  .volume-slider {
+  }
+}
+
+.video-wrapper {
+  position: relative;
+}
+
+.playbackSpeedText {
+  width: 35px;
+  display: flex;
+  justify-content: center;
+}
+
+.viewer-caption {
+  position: absolute;
+  left: 10px;
+  right: 10px;
+  bottom: 10px;
+  text-align: center;
+  transition: transform 0.2s;
+  span {
+    line-height: 1.4em;
+    font-size: 1.2em;
+    // background: var(--color-black);
+    // color: var(--color-white);
+
+    &.backgroundColor-black {
+      background-color: black;
+    }
+    &.backgroundColor-white {
+      background-color: white;
+    }
+    &.backgroundColor-red {
+      background-color: red;
+    }
+    &.backgroundColor-blue {
+      background-color: blue;
+    }
+    &.backgroundColor-yellow {
+      background-color: yellow;
+    }
+
+    &.color-black {
+      color: black;
+    }
+    &.color-white {
+      color: white;
+    }
+    &.color-red {
+      color: red;
+    }
+    &.color-blue {
+      color: blue;
+    }
+    &.color-yellow {
+      color: yellow;
+    }
+
+    &.fontsize-small {
+      font-size: 80%;
+    }
+    &.fontsize-medium {
+      font-size: 100%;
+    }
+    &.fontsize-large {
+      font-size: 120%;
+    }
+    &.fontsize-larger {
+      font-size: 140%;
+    }
+  }
+}

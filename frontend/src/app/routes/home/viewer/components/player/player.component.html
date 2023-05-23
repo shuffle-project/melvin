@@ -1,0 +1,151 @@
+<div class="box">
+  <div class="video-wrapper">
+    <video
+      #viewerVideo
+      [volume]="volume$ | ngrxPush"
+      (loadedmetadata)="onVideoLoadMetadata()"
+    >
+      <source
+        *ngIf="project?.media?.video"
+        src="{{ project?.media?.video }}"
+        type="video/mp4"
+      />
+    </video>
+    <ng-container *ngIf="subtitlesEnabledInVideo$ | ngrxPush">
+      <div
+        *ngrxLet="combinedCaptionsStyling$ as combined"
+        class="viewer-caption"
+      >
+        <span
+          class="fontsize-{{ combined.fontsize }} color-{{
+            combined.color
+          }} backgroundColor-{{ combined.backgroundColor }}"
+        >
+          {{ displayCurrentCaption(combined.captions) }}</span
+        >
+      </div>
+    </ng-container>
+  </div>
+
+  <div class="controls">
+    <!--mat-progress-bar mode="determinate" value="40"></mat-progress-bar-->
+    <div>
+      <mat-slider
+        #matsliderprogress
+        class="video-progress-slider"
+        min="0"
+        [max]="viewerVideo.duration"
+      >
+        <input matSliderThumb [(ngModel)]="viewerVideo.currentTime" />
+      </mat-slider>
+    </div>
+
+    <div>
+      <button
+        mat-icon-button
+        class="md"
+        matTooltip="Play or pause"
+        aria-label="Play or pause"
+        (click)="viewerVideo.paused ? viewerVideo.play() : viewerVideo.pause()"
+      >
+        <mat-icon
+          [svgIcon]="!viewerVideo.paused ? 'pause_circle' : 'play_circle'"
+        ></mat-icon>
+      </button>
+
+      <button
+        mat-icon-button
+        class="md"
+        matTooltip="Mute or unmute Sound"
+        aria-label="Mute or unmute Sound"
+        (click)="viewerVideo.muted = !viewerVideo.muted"
+      >
+        <mat-icon
+          [svgIcon]="viewerVideo.muted === true ? 'volume_off' : 'volume_on'"
+        ></mat-icon>
+      </button>
+
+      <mat-slider
+        class="volume-slider"
+        min="0"
+        max="1"
+        step="0.01"
+        discrete
+        [displayWith]="sliderLabelVolume"
+        [disabled]="viewerVideo.muted"
+      >
+        <input
+          matSliderThumb
+          [value]="volume$ | ngrxPush"
+          (change)="onVolumeChange($event)"
+        />
+      </mat-slider>
+      <button mat-icon-button class="md" [matMenuTriggerFor]="captionMenu">
+        <mat-icon svgIcon="caption_selected" class="svg-black"></mat-icon>
+      </button>
+      <!-- caption menu -->
+
+      <mat-menu #captionMenu="matMenu">
+        <ng-container *ngrxLet="selectTranscriptionId$ as selectedId">
+          <ng-container *ngrxLet="transcriptions$ as transcriptions">
+            <ng-container
+              *ngrxLet="subtitlesEnabledInVideo$ as subtitlesEnabledInVideo"
+            >
+              <button
+                mat-menu-item
+                (click)="onTurnOffCaptions(subtitlesEnabledInVideo)"
+              >
+                <mat-icon
+                  svgIcon="{{ subtitlesEnabledInVideo ? '' : 'done' }}"
+                ></mat-icon>
+                <span>Deaktiviert</span>
+              </button>
+
+              <button
+                *ngFor="let transcription of transcriptions"
+                mat-menu-item
+                (click)="
+                  onChangeTranscription(transcription, subtitlesEnabledInVideo)
+                "
+              >
+                <mat-icon
+                  svgIcon="{{
+                    subtitlesEnabledInVideo && transcription.id === selectedId
+                      ? 'done'
+                      : ''
+                  }}"
+                ></mat-icon>
+                <span>{{ transcription.title }}</span>
+              </button>
+            </ng-container>
+          </ng-container>
+        </ng-container>
+        <hr />
+        <button mat-menu-item (click)="onOpenCaptionsSettingsDialog()">
+          <mat-icon svgIcon="setting"></mat-icon>
+          <span>Einstellungen</span>
+        </button>
+      </mat-menu>
+      <!--  -->
+      <button mat-icon-button class="md" (click)="decreasePlaybackSpeed()">
+        <mat-icon svgIcon="minus" class="svg-black"></mat-icon>
+      </button>
+      <div class="playbackSpeedText">
+        {{ playbackSpeed }}
+      </div>
+      <button mat-icon-button class="md" (click)="increasePlaybackSpeed()">
+        <mat-icon svgIcon="plus" class="svg-black"></mat-icon>
+      </button>
+
+      <button mat-icon-button class="md">
+        <mat-icon svgIcon="fullscreen" class="svg-black"></mat-icon>
+      </button>
+    </div>
+    <div>
+      {{ viewerVideo.currentTime * 1000 | duration }} /
+      {{
+        viewerVideo.duration ? (viewerVideo.duration * 1000 | duration) : '-'
+      }}
+    </div>
+  </div>
+</div>

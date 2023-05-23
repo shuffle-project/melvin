@@ -3,10 +3,10 @@ import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 // use own viewer actions
 import { MatDialog } from '@angular/material/dialog';
-import { DurationPipe } from '../../../pipes/duration-pipe/duration.pipe';
-import * as viewerActions from '../../../store/actions/viewer.actions';
+import * as editorActions from '../../../store/actions/editor.actions';
 import { AppState } from '../../../store/app.state';
-import { selectProject } from '../../../store/selectors/viewer.selector';
+import * as editorSelector from '../../../store/selectors/editor.selector';
+import * as viewerSelector from '../../../store/selectors/viewer.selector';
 import { AdjustLayoutDialogComponent } from './components/adjust-layout-dialog/adjust-layout-dialog.component';
 
 @Component({
@@ -19,10 +19,18 @@ export class ViewerComponent implements OnInit {
 
   public projectId!: string;
 
-  public project$ = this.store.select(selectProject);
+  public project$ = this.store.select(editorSelector.selectProject);
 
-  // controls
-  public volume: number = 1;
+  // TODO layout according to this settings
+  public videoArrangement$ = this.store.select(
+    viewerSelector.selectVideoArrangement
+  );
+  public transcriptEnabled$ = this.store.select(
+    viewerSelector.selectTranscriptEnabled
+  );
+  public transcriptPosition$ = this.store.select(
+    viewerSelector.selectTranscriptPosition
+  );
 
   constructor(
     private route: ActivatedRoute,
@@ -34,16 +42,8 @@ export class ViewerComponent implements OnInit {
     this.projectId = this.route.snapshot.params['id'];
 
     this.store.dispatch(
-      viewerActions.findProject({ projectId: this.projectId })
+      editorActions.findProjectFromViewer({ projectId: this.projectId })
     );
-  }
-
-  sliderLabelTime(value: number): string {
-    return new DurationPipe().transform(value * 1000);
-  }
-
-  sliderLabelVolume(value: number): string {
-    return Math.round(value * 100) + '%';
   }
 
   onOpenAdjustLayoutDialog() {

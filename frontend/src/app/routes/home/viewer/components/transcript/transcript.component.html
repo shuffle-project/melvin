@@ -1,15 +1,80 @@
-<h2>Transkript</h2>
-<hr />
-<input matInput type="text" placeholder="search" />
-<hr />
-<p>00:01:24</p>
-<p>
-  Lorem ipsum dolor sit amet consectetur. Imperdiet a ut elementum enim nibh ac.
-  Ultricies dignissim amet egestas maecenas. Morbi sapien est facilisis sem
-  viverra viverra felis enim lobortis.
-</p>
-<p>00:02:40</p>
-<p>
-  Ultricies dignissim amet egestas maecenas. Morbi sapien est facilisis sem
-  viverra viverra felis enim lobortis.
-</p>
+<div class="box">
+  <h2>Transkript</h2>
+  <hr />
+
+  <mat-form-field class="search-form-field">
+    <mat-label>Search</mat-label>
+    <input
+      matInput
+      placeholder="Search"
+      [(ngModel)]="searchValue"
+      (input)="onSearchChange($event)"
+    />
+  </mat-form-field>
+
+  <div *ngIf="searchValue.length > 0">
+    <ng-container *ngrxLet="searchFiltered$ as searchFiltered">
+      {{ searchFiltered.totalCount > 0 ? foundItemsIndex : 0 }} /
+      {{ searchFiltered.totalCount }}
+
+      <button
+        mat-icon-button
+        class="md"
+        (click)="
+          onGoToRecentFound(
+            searchFiltered.totalCount,
+            searchFiltered.foundInCaption
+          )
+        "
+      >
+        <mat-icon svgIcon="arrow-up" class="svg-black"></mat-icon>
+      </button>
+
+      <button
+        mat-icon-button
+        class="md"
+        (click)="
+          onGoToNextFound(
+            searchFiltered.totalCount,
+            searchFiltered.foundInCaption
+          )
+        "
+      >
+        <mat-icon svgIcon="arrow-down" class="svg-black"></mat-icon>
+      </button>
+    </ng-container>
+  </div>
+
+  <hr />
+
+  <ng-container *ngrxLet="searchFiltered$ as searchFiltered">
+    <cdk-virtual-scroll-viewport
+      appendOnly
+      itemSize="130"
+      class="captions-viewport"
+    >
+      <div
+        *cdkVirtualFor="let item of searchFiltered.captions"
+        class="virtual-scroll-item"
+      >
+        <!-- <p class="caption-speaker">{{ item.speakerId }}</p> -->
+        <span class="caption-time">{{ item.start | duration }} </span>
+        <!-- <button mat-icon-button class="sm">
+          <mat-icon svgIcon="play" class="svg-black"></mat-icon>
+        </button> -->
+        <span class="caption-text" [innerHTML]="item.text"> </span>
+      </div>
+    </cdk-virtual-scroll-viewport>
+  </ng-container>
+
+  <hr />
+
+  <mat-checkbox
+    class="auto-scroll"
+    color="primary"
+    labelPosition="before"
+    [(ngModel)]="autoScroll"
+  >
+    Automatisch mitscrollen
+  </mat-checkbox>
+</div>

@@ -3,48 +3,71 @@
 
   <div mat-dialog-content>
     <h3>Video</h3>
-    <mat-radio-group aria-label="Anordnung">
-      <mat-radio-button value="1">Ein zentrales Video </mat-radio-button>
-      <mat-radio-button value="2">
+    <mat-radio-group
+      aria-label="Anordnung"
+      [value]="videoArrangement$ | ngrxPush"
+      (change)="onChangeVideoArrangement($event)"
+    >
+      <mat-radio-button value="{{ VideoArrangement.CENTERED }}"
+        >Ein zentrales Video
+      </mat-radio-button>
+      <mat-radio-button value="{{ VideoArrangement.SMALL_BIG }}">
         Kleines Video links und großes rechts
       </mat-radio-button>
-      <mat-radio-button value="3">
+      <mat-radio-button value="{{ VideoArrangement.BIG_SMALL }}">
         Großes Video links und kleines rechts
       </mat-radio-button>
-      <mat-radio-button value="4">
+      <mat-radio-button value="{{ VideoArrangement.MEDIUM_MEDIUM }}">
         Zwei gleichgroße Videos nebeneinander
       </mat-radio-button>
     </mat-radio-group>
 
     <h3>Transkript</h3>
+    <mat-slide-toggle
+      [checked]="transcriptEnabled$ | ngrxPush"
+      (change)="onTranscriptEnabledChanged($event)"
+    >
+      Show transcript</mat-slide-toggle
+    >
+
+    <br /><br />
 
     <mat-form-field appearance="fill">
       <mat-label>Schriftgröße</mat-label>
-      <mat-select value="normal">
-        <mat-option value="klein">Klein </mat-option>
-        <mat-option value="normal" default>Normal </mat-option>
-        <mat-option value="groß">Groß </mat-option>
+      <mat-select
+        [value]="transcriptFontsize$ | ngrxPush"
+        (selectionChange)="onChangeFontsize($event)"
+        [disabled]="!(transcriptEnabled$ | ngrxPush)"
+      >
+        <mat-option value="{{ TranscriptFontsize.SMALL }}">Klein </mat-option>
+        <mat-option value="{{ TranscriptFontsize.NORMAL }}">Normal </mat-option>
+        <mat-option value="{{ TranscriptFontsize.LARGE }}">Groß </mat-option>
       </mat-select>
     </mat-form-field>
     <br />
 
-    <mat-radio-group aria-label="Position">
-      <mat-radio-button value="1"> Transkript rechts </mat-radio-button>
-      <mat-radio-button value="2"> Transkript links </mat-radio-button>
-      <mat-radio-button value="3"> Transkript unten </mat-radio-button>
-      <mat-radio-button value="4"> Transkript oben </mat-radio-button>
-    </mat-radio-group>
-
-    <h3>Notizblock</h3>
-
-    <mat-radio-group aria-label="Position">
-      <mat-radio-button value="1"> Rechts vom Video </mat-radio-button>
-      <mat-radio-button value="2"> Links vom Video </mat-radio-button>
+    <mat-radio-group
+      aria-label="Position"
+      [value]="transcriptPosition$ | ngrxPush"
+      (change)="onTranscriptPositionChanged($event)"
+      [disabled]="!(transcriptEnabled$ | ngrxPush)"
+    >
+      <mat-radio-button value="{{ TranscriptPosition.RIGHT }}">
+        Transkript rechts
+      </mat-radio-button>
+      <mat-radio-button value="{{ TranscriptPosition.LEFT }}">
+        Transkript links
+      </mat-radio-button>
+      <mat-radio-button value="{{ TranscriptPosition.BOTTOM }}">
+        Transkript unten
+      </mat-radio-button>
+      <mat-radio-button value="{{ TranscriptPosition.TOP }}">
+        Transkript oben
+      </mat-radio-button>
     </mat-radio-group>
   </div>
 
   <div mat-dialog-actions>
-    <button mat-button mat-dialog-close>Close</button>
-    <button mat-button mat-dialog-close cdkFocusInitial>Save</button>
+    <button mat-button mat-dialog-close cdkFocusInitial>Close</button>
   </div>
 </div>

@@ -4,4 +4,15 @@ export enum StorageKey {
   MEDIA_VOLUME = 'media-volume',
   MEDIA_SUBTITLES_ENABLED = 'media-subtitles-enabled',
   CAPTION_TEXT_VALIDATION_ENABLED = 'caption-text-validation-enabled',
+
+  // viewer settings
+  VIEWER_VIDEO_ARRANGEMENT = 'viewer-video-arrangement',
+  VIEWER_TRANSCRIPT_ENABLED = 'viewer-transcript-enabled',
+  VIEWER_TRANSCRIPT_FONTSIZE = 'viewer-transcript-fontsize',
+  VIEWER_TRANSCRIPT_POSITION = 'viewer-transcript-position',
+
+  // capptions settings
+  CAPTIONS_BACKGROUND_COLOR = 'captions-background-color',
+  CAPTIONS_COLOR = 'captions-color',
+  CAPTIONS_FONTSIZE = 'captions-fontsize',
 }

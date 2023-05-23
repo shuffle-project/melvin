@@ -7,103 +7,33 @@
   <mat-slide-toggle>Dark mode</mat-slide-toggle>
 </app-header>
 
+<!-- <mat-grid-list cols="5" *ngrxLet="project$ as project">
+  <mat-grid-tile [colspan]="1" [rowspan]="3">
+    <app-view-selection></app-view-selection>
+  </mat-grid-tile>
+
+  <mat-grid-tile [colspan]="3" [rowspan]="2">
+    <app-player [project]="project"></app-player>
+  </mat-grid-tile>
+
+  <mat-grid-tile [colspan]="1" [rowspan]="3">
+    <app-transcript></app-transcript>
+  </mat-grid-tile>
+  <mat-grid-tile [colspan]="3" [rowspan]="1">
+    <app-infobox></app-infobox>
+  </mat-grid-tile>
+</mat-grid-list> -->
+
 <section class="content" *ngrxLet="project$ as project">
   <div class="left">
-    <div class="box">
-      <app-view-selection></app-view-selection>
-    </div>
+    <app-view-selection></app-view-selection>
+    <!-- <app-transcript></app-transcript> -->
   </div>
   <div class="center">
-    <div class="box">
-      <video #viewerVideo [volume]="volume">
-        <source
-          *ngIf="project?.media?.video"
-          src="{{ project?.media?.video }}"
-          type="video/mp4"
-        />
-      </video>
-
-      <div class="controls">
-        <!--mat-progress-bar mode="determinate" value="40"></mat-progress-bar-->
-        <div>
-          <mat-slider
-            #matsliderprogress
-            class="video-progress-slider"
-            min="0"
-            [max]="viewerVideo.duration"
-            discrete
-            [displayWith]="sliderLabelTime"
-          >
-            <input matSliderThumb [(ngModel)]="viewerVideo.currentTime" />
-          </mat-slider>
-        </div>
-
-        <div>
-          <button
-            mat-icon-button
-            class="md"
-            matTooltip="Play or pause"
-            aria-label="Play or pause"
-            (click)="
-              viewerVideo.paused ? viewerVideo.play() : viewerVideo.pause()
-            "
-          >
-            <mat-icon
-              [svgIcon]="!viewerVideo.paused ? 'pause_circle' : 'play_circle'"
-            ></mat-icon>
-          </button>
-
-          <button
-            mat-icon-button
-            class="md"
-            matTooltip="Mute or unmute Sound"
-            aria-label="Mute or unmute Sound"
-            (click)="viewerVideo.muted = !viewerVideo.muted"
-          >
-            <mat-icon
-              [svgIcon]="
-                viewerVideo.muted === true ? 'volume_off' : 'volume_on'
-              "
-            ></mat-icon>
-          </button>
-
-          <mat-slider
-            class="volume-slider"
-            min="0"
-            max="1"
-            step="0.01"
-            discrete
-            [displayWith]="sliderLabelVolume"
-            [disabled]="viewerVideo.muted"
-          >
-            <input matSliderThumb [(ngModel)]="viewerVideo.volume" />
-          </mat-slider>
-          <button
-            mat-icon-button
-            class="md"
-            matTooltip="Settings"
-            aria-label="Settings"
-          >
-            <mat-icon svgIcon="setting"></mat-icon>
-          </button>
-        </div>
-        <div>
-          {{ viewerVideo.currentTime * 1000 | duration }} /
-          {{
-            viewerVideo.duration
-              ? (viewerVideo.duration * 1000 | duration)
-              : '-'
-          }}
-        </div>
-      </div>
-    </div>
-    <div class="box">
-      <app-infobox></app-infobox>
-    </div>
+    <app-player [project]="project"></app-player>
+    <app-infobox></app-infobox>
   </div>
   <div class="right">
-    <div class="box">
-      <app-transcript></app-transcript>
-    </div>
+    <app-transcript></app-transcript>
   </div>
 </section>

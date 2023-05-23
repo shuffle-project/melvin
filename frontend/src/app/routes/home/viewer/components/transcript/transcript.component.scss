@@ -1,0 +1,27 @@
+.captions-viewport {
+  height: 500px;
+  width: 100%;
+  // border: 1px solid black;
+}
+
+.search-form-field {
+  width: 100%;
+}
+
+.virtual-scroll-item {
+  height: 130px;
+  display: flex;
+  flex-direction: column;
+}
+
+.caption-time {
+  width: 100%;
+  color: var(--color-dark-grey);
+  padding-bottom: 5px;
+  height: 25px;
+}
+
+.caption-text {
+  max-height: 105px;
+  width: 100%;
+}

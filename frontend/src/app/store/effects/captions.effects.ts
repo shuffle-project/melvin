@@ -43,7 +43,11 @@ export class CaptionsEffects {
 
   fetchCaptions$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(transcriptionsActions.select, captionsActions.findAllFromEffect),
+      ofType(
+        transcriptionsActions.selectFromEditor,
+        transcriptionsActions.selectFromViewer,
+        captionsActions.findAllFromEffect
+      ),
       mergeMap(
         (action) =>
           this.api.findAllCaptions(action.transcriptionId).pipe(

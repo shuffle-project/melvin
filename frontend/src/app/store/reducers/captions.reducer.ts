@@ -126,7 +126,8 @@ export const captionsReducer = createReducer(
 
   on(
     captionsActions.findAllFromEffect,
-    transcriptionsActions.select,
+    transcriptionsActions.selectFromEditor,
+    transcriptionsActions.selectFromViewer,
     (state, action) => {
       return {
         ...state,

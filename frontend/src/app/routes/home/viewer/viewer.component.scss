@@ -15,39 +15,30 @@
   .right {
     width: 25%;
   }
-
-  .box {
-    margin: 10px;
-    padding: 7px;
-    border-radius: 5px;
-    background-color: white;
-    box-shadow: none;
-
-    &:has(video) {
-      padding: 0px;
-    }
-  }
 }
 
-video {
-  max-width: 100%;
+.mat-grid-list {
+  // box-sizing: border-box;
+  // width: 100%;
+  background-color: var(--color-background-grey);
+  // height: calc(100% - 60px); // header is 60px
+}
+mat-grid-tile {
+  // margin: 10px;
+  // padding: 7px;
   border-radius: 5px;
+  background-color: white;
+  box-shadow: none;
 }
 
-.controls {
-  :first-child {
-    display: flex;
-    justify-content: center;
-    .video-progress-slider {
-      width: 90%;
-    }
-  }
+::ng-deep .box {
+  margin: 10px;
+  padding: 7px;
+  border-radius: 5px;
+  background-color: white;
+  box-shadow: none;
 
-  :nth-child(2) {
-    display: flex;
-    align-items: center;
-  }
-
-  .volume-slider {
+  &:has(video) {
+    padding: 0px;
   }
 }

@@ -1,0 +1,57 @@
+.dialog-wrapper {
+  padding: 24px;
+}
+
+.like-captions-text {
+  width: 100%;
+  height: 70px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &.backgroundColor-black {
+    background-color: black;
+  }
+  &.backgroundColor-white {
+    background-color: white;
+  }
+  &.backgroundColor-red {
+    background-color: red;
+  }
+  &.backgroundColor-blue {
+    background-color: blue;
+  }
+  &.backgroundColor-yellow {
+    background-color: yellow;
+  }
+
+  &.color-black {
+    color: black;
+  }
+  &.color-white {
+    color: white;
+  }
+  &.color-red {
+    color: red;
+  }
+  &.color-blue {
+    color: blue;
+  }
+  &.color-yellow {
+    color: yellow;
+  }
+
+  &.fontsize-small {
+    font-size: 80%;
+  }
+  &.fontsize-medium {
+    font-size: 100%;
+  }
+  &.fontsize-large {
+    font-size: 120%;
+  }
+  &.fontsize-larger {
+    font-size: 140%;
+  }
+}
