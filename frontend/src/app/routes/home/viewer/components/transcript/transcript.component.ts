@@ -1,16 +1,27 @@
 import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
-import { Component, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { BehaviorSubject, combineLatest, map } from 'rxjs';
+import {
+  BehaviorSubject,
+  Subject,
+  combineLatest,
+  map,
+  takeUntil,
+  tap,
+} from 'rxjs';
+import { CaptionEntity } from '../../../../../services/api/entities/caption.entity';
 import { AppState } from '../../../../../store/app.state';
 import * as captionsSelector from '../../../../../store/selectors/captions.selector';
+import { ViewerService } from '../../viewer.service';
 
 @Component({
   selector: 'app-transcript',
   templateUrl: './transcript.component.html',
   styleUrls: ['./transcript.component.scss'],
 })
-export class TranscriptComponent {
+export class TranscriptComponent implements OnDestroy, OnInit {
+  private destroy$$ = new Subject<void>();
+
   @ViewChild(CdkVirtualScrollViewport) viewPort!: CdkVirtualScrollViewport;
 
   captions$ = this.store.select(captionsSelector.selectCaptions);
@@ -23,7 +34,7 @@ export class TranscriptComponent {
   searchFiltered$ = combineLatest([this.captions$, this.searchValue$]).pipe(
     map(([captions, searchValue]) => {
       let totalCount = 0;
-      let regex = new RegExp(searchValue, 'gi');
+      let regex = new RegExp(searchValue, 'gi'); // g = global, i = case insensitive
 
       const foundInCaption: number[] = [];
 
@@ -54,8 +65,35 @@ export class TranscriptComponent {
     })
   );
 
-  autoScroll: boolean = true;
-  constructor(public store: Store<AppState>) {}
+  autoScroll: boolean = false;
+
+  constructor(
+    public store: Store<AppState>,
+    public viewerService: ViewerService
+  ) {}
+
+  ngOnInit(): void {
+    combineLatest([this.viewerService.currentCaption$, this.captions$])
+      .pipe(
+        takeUntil(this.destroy$$),
+        // debounceTime(10),
+        tap(([currentCaption, captions]) => {
+          if (currentCaption && this.autoScroll) {
+            const index = captions.findIndex(
+              (caption) => caption.id === currentCaption.id
+            );
+            if (index) {
+              this.scrollToIndex(index);
+            }
+          }
+        })
+      )
+      .subscribe();
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$$.next();
+  }
 
   onSearchChange(event: any) {
     this.foundItemsIndex = 1;
@@ -82,6 +120,10 @@ export class TranscriptComponent {
   }
 
   scrollToIndex(index: number) {
-    this.viewPort.scrollToIndex(index);
+    this.viewPort.scrollToIndex(index, 'smooth');
+  }
+
+  onJumpInVideo(caption: CaptionEntity) {
+    this.viewerService.onJumpInVideo((caption.start + 1) / 1000);
   }
 }

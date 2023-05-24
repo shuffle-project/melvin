@@ -4,20 +4,18 @@ video {
 }
 
 .controls {
-  :first-child {
+  .videoProgressSliderWrapper {
     display: flex;
     justify-content: center;
-    .video-progress-slider {
-      width: 90%;
+    .mat-mdc-slider {
+      width: 100%;
+      margin: 0 24px;
     }
   }
 
   :nth-child(2) {
     display: flex;
     align-items: center;
-  }
-
-  .volume-slider {
   }
 }
 
@@ -39,10 +37,8 @@ video {
   text-align: center;
   transition: transform 0.2s;
   span {
-    line-height: 1.4em;
-    font-size: 1.2em;
-    // background: var(--color-black);
-    // color: var(--color-white);
+    // line-height: 1.4em;
+    // font-size: 1.2em;
 
     &.backgroundColor-black {
       background-color: black;

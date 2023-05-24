@@ -17,11 +17,12 @@
         class="viewer-caption"
       >
         <span
+          *ngrxLet="viewerService.currentCaption$ as currentCaption"
           class="fontsize-{{ combined.fontsize }} color-{{
             combined.color
           }} backgroundColor-{{ combined.backgroundColor }}"
         >
-          {{ displayCurrentCaption(combined.captions) }}</span
+          {{ currentCaption?.text }}</span
         >
       </div>
     </ng-container>
@@ -29,13 +30,8 @@
 
   <div class="controls">
     <!--mat-progress-bar mode="determinate" value="40"></mat-progress-bar-->
-    <div>
-      <mat-slider
-        #matsliderprogress
-        class="video-progress-slider"
-        min="0"
-        [max]="viewerVideo.duration"
-      >
+    <div class="videoProgressSliderWrapper">
+      <mat-slider #matsliderprogress min="0" [max]="viewerVideo.duration">
         <input matSliderThumb [(ngModel)]="viewerVideo.currentTime" />
       </mat-slider>
     </div>

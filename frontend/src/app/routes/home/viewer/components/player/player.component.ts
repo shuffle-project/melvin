@@ -2,7 +2,6 @@ import { Component, ElementRef, Input, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
 import { combineLatest, map } from 'rxjs';
-import { CaptionEntity } from '../../../../../services/api/entities/caption.entity';
 import { ProjectEntity } from '../../../../../services/api/entities/project.entity';
 import { TranscriptionEntity } from '../../../../../services/api/entities/transcription.entity';
 import * as editorActions from '../../../../../store/actions/editor.actions';
@@ -12,6 +11,7 @@ import * as captionsSelector from '../../../../../store/selectors/captions.selec
 import * as editorSelector from '../../../../../store/selectors/editor.selector';
 import * as transcriptionsSelector from '../../../../../store/selectors/transcriptions.selector';
 import * as viewerSelector from '../../../../../store/selectors/viewer.selector';
+import { ViewerService } from '../../viewer.service';
 import { CaptionsSettingsDialogComponent } from '../captions-settings-dialog/captions-settings-dialog.component';
 
 @Component({
@@ -53,7 +53,11 @@ export class PlayerComponent {
     })
   );
 
-  constructor(private store: Store<AppState>, private dialog: MatDialog) {}
+  constructor(
+    private store: Store<AppState>,
+    private dialog: MatDialog,
+    public viewerService: ViewerService
+  ) {}
 
   // controls
   public volume: number = 1;
@@ -64,6 +68,8 @@ export class PlayerComponent {
   onVideoLoadMetadata() {
     this.videoPlayer = this.viewerVideo.nativeElement;
     this.videoLoaded = true;
+
+    this.viewerService.initObservables(this.videoPlayer!);
   }
 
   // DATA
@@ -117,20 +123,5 @@ export class PlayerComponent {
 
   onOpenCaptionsSettingsDialog() {
     this.dialog.open(CaptionsSettingsDialogComponent);
-  }
-
-  displayCurrentCaption(captions: CaptionEntity[]): string {
-    if (this.videoPlayer && this.videoPlayer.currentTime) {
-      const foundCaption = captions.find(
-        (value) =>
-          value.start / 1000 < this.videoPlayer!.currentTime &&
-          value.end / 1000 > this.videoPlayer!.currentTime
-      );
-
-      if (foundCaption) {
-        return foundCaption.text;
-      }
-    }
-    return '';
   }
 }

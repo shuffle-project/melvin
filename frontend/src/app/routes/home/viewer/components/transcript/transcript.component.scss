@@ -12,16 +12,34 @@
   height: 130px;
   display: flex;
   flex-direction: column;
-}
+  padding-left: 5px;
 
-.caption-time {
-  width: 100%;
-  color: var(--color-dark-grey);
-  padding-bottom: 5px;
-  height: 25px;
-}
+  &.currentCaption {
+    border-left: 2px solid red;
+  }
 
-.caption-text {
-  max-height: 105px;
-  width: 100%;
+  // width: 100%;
+  .first-row {
+    display: flex;
+    justify-content: start;
+
+    button {
+      border: 1px solid black;
+      margin-right: 5px;
+    }
+
+    .caption-time {
+      // width: 100%;
+      display: flex;
+      align-items: center;
+
+      color: var(--color-dark-grey);
+      padding-bottom: 5px;
+      height: 25px;
+    }
+  }
+
+  .caption-text {
+    max-height: 105px;
+  }
 }

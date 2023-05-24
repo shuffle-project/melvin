@@ -52,16 +52,21 @@
       appendOnly
       itemSize="130"
       class="captions-viewport"
+      *ngrxLet="viewerService.currentCaption$ as currentCaption"
     >
       <div
         *cdkVirtualFor="let item of searchFiltered.captions"
-        class="virtual-scroll-item"
+        class="virtual-scroll-item {{
+          item.id === currentCaption?.id ? 'currentCaption' : ''
+        }}"
       >
         <!-- <p class="caption-speaker">{{ item.speakerId }}</p> -->
-        <span class="caption-time">{{ item.start | duration }} </span>
-        <!-- <button mat-icon-button class="sm">
-          <mat-icon svgIcon="play" class="svg-black"></mat-icon>
-        </button> -->
+        <div class="first-row">
+          <button mat-icon-button class="sm" (click)="onJumpInVideo(item)">
+            <mat-icon svgIcon="play" class="svg-black"></mat-icon>
+          </button>
+          <span class="caption-time">{{ item.start | duration }} </span>
+        </div>
         <span class="caption-text" [innerHTML]="item.text"> </span>
       </div>
     </cdk-virtual-scroll-viewport>
