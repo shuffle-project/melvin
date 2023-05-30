@@ -1,15 +1,12 @@
-video {
-  max-width: 100%;
-  height: fit-content;
-  border-radius: 5px;
-}
-
 .video-wrapper {
   display: flex;
   justify-content: space-around;
   align-items: center;
 
   video {
+    max-width: 100%;
+    height: fit-content;
+    border-radius: 5px;
     border: 1px solid black;
   }
 
@@ -53,6 +50,12 @@ video {
     }
   }
 
+  .volume-slider {
+    // border: 1px solid black;
+    width: 100%;
+    margin: 0 24px;
+  }
+
   .main-controls {
     display: flex;
     align-items: center;
@@ -79,7 +82,7 @@ video {
   }
 }
 
-.playback-peed-wrapper {
+.playback-speed-wrapper {
   display: flex;
   justify-content: center;
   align-items: center;
