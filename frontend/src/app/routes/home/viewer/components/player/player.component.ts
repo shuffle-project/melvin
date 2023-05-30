@@ -6,6 +6,7 @@ import { ProjectEntity } from '../../../../../services/api/entities/project.enti
 import { TranscriptionEntity } from '../../../../../services/api/entities/transcription.entity';
 import * as editorActions from '../../../../../store/actions/editor.actions';
 import * as transcriptionsActions from '../../../../../store/actions/transcriptions.actions';
+import { toggleTranscript } from '../../../../../store/actions/viewer.actions';
 import { AppState } from '../../../../../store/app.state';
 import * as captionsSelector from '../../../../../store/selectors/captions.selector';
 import * as editorSelector from '../../../../../store/selectors/editor.selector';
@@ -22,8 +23,13 @@ import { CaptionsSettingsDialogComponent } from '../captions-settings-dialog/cap
 export class PlayerComponent {
   @Input({ required: true }) project!: ProjectEntity | null;
 
+  // main video
   @ViewChild('viewerVideo') viewerVideo!: ElementRef;
   public videoPlayer: HTMLVideoElement | null = null;
+
+  // second video
+  @ViewChild('viewerVideo2') viewerVideo2!: ElementRef;
+  public videoPlayer2: HTMLVideoElement | null = null;
 
   public videoLoaded = false;
 
@@ -37,6 +43,10 @@ export class PlayerComponent {
   );
   public selectTranscriptionId$ = this.store.select(
     transcriptionsSelector.selectTranscriptionId
+  );
+
+  public videoArrangement$ = this.store.select(
+    viewerSelector.selectVideoArrangement
   );
 
   public captions$ = this.store.select(captionsSelector.selectCaptions);
@@ -67,9 +77,10 @@ export class PlayerComponent {
 
   onVideoLoadMetadata() {
     this.videoPlayer = this.viewerVideo.nativeElement;
+    if (this.viewerVideo2) this.videoPlayer2 = this.viewerVideo2.nativeElement;
     this.videoLoaded = true;
 
-    this.viewerService.initObservables(this.videoPlayer!);
+    this.viewerService.initObservables(this.videoPlayer!, this.project!.id);
   }
 
   // DATA
@@ -81,7 +92,6 @@ export class PlayerComponent {
     if (!subtitlesEnabledInVideo) {
       this.store.dispatch(editorActions.toggleSubtitlesFromViewer());
     }
-    // TODO funktioniert nicht
 
     this.store.dispatch(
       transcriptionsActions.selectFromViewer({
@@ -98,6 +108,35 @@ export class PlayerComponent {
   }
 
   // CONTROLS
+
+  onPlayVideo() {
+    if (this.videoPlayer) {
+      if (this.videoPlayer2) {
+        this.videoPlayer2.currentTime = this.videoPlayer.currentTime;
+        this.videoPlayer2.play();
+      }
+      this.videoPlayer.play();
+    }
+  }
+  onPauseVideo() {
+    if (this.videoPlayer) {
+      this.videoPlayer.pause();
+      if (this.videoPlayer2) {
+        this.videoPlayer2?.pause();
+        this.videoPlayer2.currentTime = this.videoPlayer.currentTime;
+      }
+    }
+  }
+
+  onVideoProgressChange(event: any) {
+    if (this.videoPlayer2 && this.videoPlayer) {
+      this.videoPlayer2.currentTime = this.videoPlayer?.currentTime;
+    }
+  }
+
+  onToggleShowTranscript() {
+    this.store.dispatch(toggleTranscript());
+  }
 
   onVolumeChange(event: any) {
     this.store.dispatch(

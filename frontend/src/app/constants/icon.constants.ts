@@ -42,6 +42,7 @@ export const ICONS = [
   'more',
   'no_account',
   'party-popper',
+  'transcript',
   'pause_circle',
   'pause',
   'pause',

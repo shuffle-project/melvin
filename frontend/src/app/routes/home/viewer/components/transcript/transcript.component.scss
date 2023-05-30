@@ -7,6 +7,11 @@
 .search-form-field {
   width: 100%;
 }
+.search-results-wrapper {
+  display: flex;
+  // justify-content: center;
+  align-items: center;
+}
 
 .virtual-scroll-item {
   height: 130px;
@@ -40,6 +45,25 @@
   }
 
   .caption-text {
-    max-height: 105px;
+    height: 100px;
+    width: 100%;
+
+    display: inline-block;
+    overflow-y: auto;
+
+    // &:hover {
+    // overflow: unset;
+    // text-overflow: unset;
+    // }
+
+    &.fontsize-small {
+      font-size: 80%;
+    }
+    &.fontsize-normal {
+      font-size: 100%;
+    }
+    &.fontsize-large {
+      font-size: 130%;
+    }
   }
 }

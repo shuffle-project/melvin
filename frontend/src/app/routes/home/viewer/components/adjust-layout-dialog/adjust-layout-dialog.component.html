@@ -65,6 +65,16 @@
         Transkript oben
       </mat-radio-button>
     </mat-radio-group>
+
+    <h3>Weitere Ansichten</h3>
+    <mat-slide-toggle
+      [checked]="viewSelectionEnabled$ | ngrxPush"
+      (change)="onViewSelectionEnabledChange($event)"
+    >
+      Show view selection</mat-slide-toggle
+    >
+
+    <br />
   </div>
 
   <div mat-dialog-actions>

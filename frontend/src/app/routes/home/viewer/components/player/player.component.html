@@ -1,9 +1,12 @@
-<div class="box">
-  <div class="video-wrapper">
+<div class="box" *ngrxLet="videoArrangement$ as videoArrangement">
+  <!--  -->
+  <div class="video-wrapper video-arrangement-{{ videoArrangement }}">
     <video
       #viewerVideo
+      class="main-video"
       [volume]="volume$ | ngrxPush"
       (loadedmetadata)="onVideoLoadMetadata()"
+      [playbackRate]="playbackSpeed"
     >
       <source
         *ngIf="project?.media?.video"
@@ -11,6 +14,20 @@
         type="video/mp4"
       />
     </video>
+
+    <video
+      #viewerVideo2
+      class="secondary-video"
+      [muted]="true"
+      [playbackRate]="playbackSpeed"
+    >
+      <source
+        *ngIf="project?.media?.video"
+        src="{{ project?.media?.video }}"
+        type="video/mp4"
+      />
+    </video>
+
     <ng-container *ngIf="subtitlesEnabledInVideo$ | ngrxPush">
       <div
         *ngrxLet="combinedCaptionsStyling$ as combined"
@@ -30,112 +47,140 @@
 
   <div class="controls">
     <!--mat-progress-bar mode="determinate" value="40"></mat-progress-bar-->
-    <div class="videoProgressSliderWrapper">
+    <div class="video-progress-slider-wrapper">
       <mat-slider #matsliderprogress min="0" [max]="viewerVideo.duration">
-        <input matSliderThumb [(ngModel)]="viewerVideo.currentTime" />
+        <input
+          matSliderThumb
+          [(ngModel)]="viewerVideo.currentTime"
+          (input)="onVideoProgressChange($event)"
+        />
       </mat-slider>
     </div>
 
-    <div>
-      <button
-        mat-icon-button
-        class="md"
-        matTooltip="Play or pause"
-        aria-label="Play or pause"
-        (click)="viewerVideo.paused ? viewerVideo.play() : viewerVideo.pause()"
-      >
-        <mat-icon
-          [svgIcon]="!viewerVideo.paused ? 'pause_circle' : 'play_circle'"
-        ></mat-icon>
-      </button>
-
-      <button
-        mat-icon-button
-        class="md"
-        matTooltip="Mute or unmute Sound"
-        aria-label="Mute or unmute Sound"
-        (click)="viewerVideo.muted = !viewerVideo.muted"
-      >
-        <mat-icon
-          [svgIcon]="viewerVideo.muted === true ? 'volume_off' : 'volume_on'"
-        ></mat-icon>
-      </button>
-
-      <mat-slider
-        class="volume-slider"
-        min="0"
-        max="1"
-        step="0.01"
-        discrete
-        [displayWith]="sliderLabelVolume"
-        [disabled]="viewerVideo.muted"
-      >
-        <input
-          matSliderThumb
-          [value]="volume$ | ngrxPush"
-          (change)="onVolumeChange($event)"
-        />
-      </mat-slider>
-      <button mat-icon-button class="md" [matMenuTriggerFor]="captionMenu">
-        <mat-icon svgIcon="caption_selected" class="svg-black"></mat-icon>
-      </button>
-      <!-- caption menu -->
-
-      <mat-menu #captionMenu="matMenu">
-        <ng-container *ngrxLet="selectTranscriptionId$ as selectedId">
-          <ng-container *ngrxLet="transcriptions$ as transcriptions">
-            <ng-container
-              *ngrxLet="subtitlesEnabledInVideo$ as subtitlesEnabledInVideo"
-            >
-              <button
-                mat-menu-item
-                (click)="onTurnOffCaptions(subtitlesEnabledInVideo)"
-              >
-                <mat-icon
-                  svgIcon="{{ subtitlesEnabledInVideo ? '' : 'done' }}"
-                ></mat-icon>
-                <span>Deaktiviert</span>
-              </button>
-
-              <button
-                *ngFor="let transcription of transcriptions"
-                mat-menu-item
-                (click)="
-                  onChangeTranscription(transcription, subtitlesEnabledInVideo)
-                "
-              >
-                <mat-icon
-                  svgIcon="{{
-                    subtitlesEnabledInVideo && transcription.id === selectedId
-                      ? 'done'
-                      : ''
-                  }}"
-                ></mat-icon>
-                <span>{{ transcription.title }}</span>
-              </button>
-            </ng-container>
-          </ng-container>
-        </ng-container>
-        <hr />
-        <button mat-menu-item (click)="onOpenCaptionsSettingsDialog()">
-          <mat-icon svgIcon="setting"></mat-icon>
-          <span>Einstellungen</span>
+    <div class="main-controls">
+      <div class="left">
+        <button
+          mat-icon-button
+          class="md"
+          matTooltip="Play or pause"
+          aria-label="Play or pause"
+          (click)="viewerVideo.paused ? onPlayVideo() : onPauseVideo()"
+        >
+          <mat-icon
+            [svgIcon]="!viewerVideo.paused ? 'pause_circle' : 'play_circle'"
+          ></mat-icon>
         </button>
-      </mat-menu>
-      <!--  -->
-      <button mat-icon-button class="md" (click)="decreasePlaybackSpeed()">
-        <mat-icon svgIcon="minus" class="svg-black"></mat-icon>
-      </button>
-      <div class="playbackSpeedText">
-        {{ playbackSpeed }}
-      </div>
-      <button mat-icon-button class="md" (click)="increasePlaybackSpeed()">
-        <mat-icon svgIcon="plus" class="svg-black"></mat-icon>
-      </button>
 
-      <button mat-icon-button class="md">
-        <mat-icon svgIcon="fullscreen" class="svg-black"></mat-icon>
-      </button>
+        <button
+          mat-icon-button
+          class="md"
+          matTooltip="Mute or unmute Sound"
+          aria-label="Mute or unmute Sound"
+          (click)="viewerVideo.muted = !viewerVideo.muted"
+        >
+          <mat-icon
+            [svgIcon]="viewerVideo.muted === true ? 'volume_off' : 'volume_on'"
+          ></mat-icon>
+        </button>
+
+        <mat-slider
+          class="volume-slider"
+          min="0"
+          max="1"
+          step="0.01"
+          discrete
+          [displayWith]="sliderLabelVolume"
+          [disabled]="viewerVideo.muted"
+        >
+          <input
+            matSliderThumb
+            [value]="volume$ | ngrxPush"
+            (change)="onVolumeChange($event)"
+          />
+        </mat-slider>
+      </div>
+      <div class="center">
+        <ng-container
+          *ngrxLet="subtitlesEnabledInVideo$ as subtitlesEnabledInVideo"
+        >
+          <button mat-icon-button class="md" [matMenuTriggerFor]="captionMenu">
+            <mat-icon
+              *ngIf="subtitlesEnabledInVideo"
+              svgIcon="caption_selected"
+              class="svg-green"
+            ></mat-icon>
+            <mat-icon
+              *ngIf="!subtitlesEnabledInVideo"
+              svgIcon="caption_not_selected"
+              class="svg-black"
+            ></mat-icon>
+          </button>
+
+          <button mat-icon-button class="md" (click)="onToggleShowTranscript()">
+            <mat-icon svgIcon="transcript" class="svg-black"></mat-icon>
+          </button>
+          <!-- caption menu -->
+
+          <mat-menu #captionMenu="matMenu">
+            <ng-container *ngrxLet="selectTranscriptionId$ as selectedId">
+              <ng-container *ngrxLet="transcriptions$ as transcriptions">
+                <button
+                  mat-menu-item
+                  (click)="onTurnOffCaptions(subtitlesEnabledInVideo)"
+                >
+                  <mat-icon
+                    svgIcon="{{ subtitlesEnabledInVideo ? '' : 'done' }}"
+                  ></mat-icon>
+                  <span>Deaktiviert</span>
+                </button>
+
+                <button
+                  *ngFor="let transcription of transcriptions"
+                  mat-menu-item
+                  (click)="
+                    onChangeTranscription(
+                      transcription,
+                      subtitlesEnabledInVideo
+                    )
+                  "
+                >
+                  <mat-icon
+                    svgIcon="{{
+                      subtitlesEnabledInVideo && transcription.id === selectedId
+                        ? 'done'
+                        : ''
+                    }}"
+                  ></mat-icon>
+                  <span>{{ transcription.title }}</span>
+                </button>
+              </ng-container>
+            </ng-container>
+            <hr />
+            <button mat-menu-item (click)="onOpenCaptionsSettingsDialog()">
+              <mat-icon svgIcon="setting"></mat-icon>
+              <span>Einstellungen</span>
+            </button>
+          </mat-menu>
+        </ng-container>
+        <!--  -->
+      </div>
+      <div class="right">
+        <div class="playback-peed-wrapper">
+          <button mat-icon-button class="sm" (click)="decreasePlaybackSpeed()">
+            <mat-icon svgIcon="minus" class="svg-black"></mat-icon>
+          </button>
+          <div class="playback-speed-text">
+            {{ playbackSpeed }}
+          </div>
+          <button mat-icon-button class="sm" (click)="increasePlaybackSpeed()">
+            <mat-icon svgIcon="plus" class="svg-black"></mat-icon>
+          </button>
+        </div>
+
+        <button mat-icon-button class="md">
+          <mat-icon svgIcon="fullscreen" class="svg-black"></mat-icon>
+        </button>
+      </div>
     </div>
     <div>
       {{ viewerVideo.currentTime * 1000 | duration }} /

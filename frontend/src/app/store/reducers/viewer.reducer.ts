@@ -16,6 +16,7 @@ const storage = new StorageService();
 
 export interface ViewerState {
   videoArrangement: VideoArrangement;
+  viewSelectionEnabled: boolean;
   transcriptEnabled: boolean;
   transcriptFontsize: TranscriptFontsize;
   transcriptPosition: TranscriptPosition;
@@ -26,28 +27,35 @@ export interface ViewerState {
 
 export const initalState: ViewerState = {
   // viewer settings
-  videoArrangement: storage.getFromSessionStorage(
+  videoArrangement: storage.getFromSessionOrLocalStorage(
     StorageKey.VIEWER_VIDEO_ARRANGEMENT,
     VideoArrangement.CENTERED
   ) as VideoArrangement,
-  transcriptEnabled: true,
-  transcriptFontsize: storage.getFromSessionStorage(
+  viewSelectionEnabled: storage.getFromLocalStorage(
+    StorageKey.VIEWER_VIEW_SELECTION_ENABLED,
+    true
+  ) as boolean,
+  transcriptEnabled: storage.getFromLocalStorage(
+    StorageKey.VIEWER_TRANSCRIPT_ENABLED,
+    true
+  ) as boolean,
+  transcriptFontsize: storage.getFromLocalStorage(
     StorageKey.VIEWER_TRANSCRIPT_FONTSIZE,
     TranscriptFontsize.NORMAL
   ) as TranscriptFontsize,
-  transcriptPosition: storage.getFromSessionStorage(
+  transcriptPosition: storage.getFromLocalStorage(
     StorageKey.VIEWER_TRANSCRIPT_POSITION,
     TranscriptPosition.RIGHT
   ) as TranscriptPosition,
-  captionsBackgroundColor: storage.getFromSessionStorage(
+  captionsBackgroundColor: storage.getFromLocalStorage(
     StorageKey.CAPTIONS_BACKGROUND_COLOR,
     ColorOptions.BLACK
   ) as ColorOptions,
-  captionsColor: storage.getFromSessionStorage(
+  captionsColor: storage.getFromLocalStorage(
     StorageKey.CAPTIONS_COLOR,
     ColorOptions.WHITE
   ) as ColorOptions,
-  captionsFontsize: storage.getFromSessionStorage(
+  captionsFontsize: storage.getFromLocalStorage(
     StorageKey.CAPTIONS_FONTSIZE,
     SizeOptions.MEDIUM
   ) as SizeOptions,
@@ -59,8 +67,17 @@ export const viewerReducer = createReducer(
   on(viewerActions.changeVideoArrangement, (state, { videoArrangement }) => {
     return { ...state, videoArrangement };
   }),
+  on(
+    viewerActions.changeViewSelectionEnabled,
+    (state, { viewSelectionEnabled }) => {
+      return { ...state, viewSelectionEnabled };
+    }
+  ),
   on(viewerActions.changeTranscriptEnabled, (state, { transcriptEnabled }) => {
     return { ...state, transcriptEnabled };
+  }),
+  on(viewerActions.toggleTranscript, (state) => {
+    return { ...state, transcriptEnabled: !state.transcriptEnabled };
   }),
   on(
     viewerActions.changeTranscriptFontsize,

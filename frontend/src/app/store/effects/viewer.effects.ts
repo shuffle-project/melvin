@@ -1,17 +1,21 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { tap } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { tap, withLatestFrom } from 'rxjs';
 import { ApiService } from '../../services/api/api.service';
 import { StorageKey } from '../../services/storage/storage-key.enum';
 import { StorageService } from '../../services/storage/storage.service';
 import * as viewerActions from '../actions/viewer.actions';
+import { AppState } from '../app.state';
+import * as viewerSelector from '../selectors/viewer.selector';
 
 @Injectable()
 export class ViewerEffects {
   constructor(
     private actions$: Actions,
     private api: ApiService,
-    private storageService: StorageService
+    private storageService: StorageService,
+    private store: Store<AppState>
   ) {}
 
   changeVideoArrangement$ = createEffect(
@@ -33,9 +37,40 @@ export class ViewerEffects {
       this.actions$.pipe(
         ofType(viewerActions.changeTranscriptEnabled),
         tap((action) => {
-          this.storageService.storeInSessionStorage(
+          this.storageService.storeInLocalStorage(
             StorageKey.VIEWER_TRANSCRIPT_ENABLED,
             action.transcriptEnabled
+          );
+        })
+      ),
+    { dispatch: false }
+  );
+
+  chabgeViewSelectionEnabled$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(viewerActions.changeViewSelectionEnabled),
+        tap((action) => {
+          this.storageService.storeInLocalStorage(
+            StorageKey.VIEWER_VIEW_SELECTION_ENABLED,
+            action.viewSelectionEnabled
+          );
+        })
+      ),
+    { dispatch: false }
+  );
+
+  toggleTranscriptEnabled$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(viewerActions.toggleTranscript),
+        withLatestFrom(
+          this.store.select(viewerSelector.selectTranscriptEnabled)
+        ),
+        tap(([action, transcriptEnabled]) => {
+          this.storageService.storeInLocalStorage(
+            StorageKey.VIEWER_TRANSCRIPT_ENABLED,
+            transcriptEnabled
           );
         })
       ),
@@ -47,7 +82,7 @@ export class ViewerEffects {
       this.actions$.pipe(
         ofType(viewerActions.changeTranscriptFontsize),
         tap((action) => {
-          this.storageService.storeInSessionStorage(
+          this.storageService.storeInLocalStorage(
             StorageKey.VIEWER_TRANSCRIPT_FONTSIZE,
             action.transcriptFontsize
           );
@@ -61,7 +96,7 @@ export class ViewerEffects {
       this.actions$.pipe(
         ofType(viewerActions.changeTranscriptPosition),
         tap((action) => {
-          this.storageService.storeInSessionStorage(
+          this.storageService.storeInLocalStorage(
             StorageKey.VIEWER_TRANSCRIPT_POSITION,
             action.transcriptPosition
           );
@@ -75,7 +110,7 @@ export class ViewerEffects {
       this.actions$.pipe(
         ofType(viewerActions.changeCaptionsBackgroundColor),
         tap((action) => {
-          this.storageService.storeInSessionStorage(
+          this.storageService.storeInLocalStorage(
             StorageKey.CAPTIONS_BACKGROUND_COLOR,
             action.captionsBackgroundColor
           );
@@ -89,7 +124,7 @@ export class ViewerEffects {
       this.actions$.pipe(
         ofType(viewerActions.changeCaptionsColor),
         tap((action) => {
-          this.storageService.storeInSessionStorage(
+          this.storageService.storeInLocalStorage(
             StorageKey.CAPTIONS_COLOR,
             action.captionsColor
           );
@@ -103,7 +138,7 @@ export class ViewerEffects {
       this.actions$.pipe(
         ofType(viewerActions.changeCaptionsFontsize),
         tap((action) => {
-          this.storageService.storeInSessionStorage(
+          this.storageService.storeInLocalStorage(
             StorageKey.CAPTIONS_FONTSIZE,
             action.captionsFontsize
           );

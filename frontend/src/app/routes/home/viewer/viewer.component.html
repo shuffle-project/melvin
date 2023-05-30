@@ -7,33 +7,37 @@
   <mat-slide-toggle>Dark mode</mat-slide-toggle>
 </app-header>
 
-<!-- <mat-grid-list cols="5" *ngrxLet="project$ as project">
-  <mat-grid-tile [colspan]="1" [rowspan]="3">
-    <app-view-selection></app-view-selection>
-  </mat-grid-tile>
-
-  <mat-grid-tile [colspan]="3" [rowspan]="2">
-    <app-player [project]="project"></app-player>
-  </mat-grid-tile>
-
-  <mat-grid-tile [colspan]="1" [rowspan]="3">
-    <app-transcript></app-transcript>
-  </mat-grid-tile>
-  <mat-grid-tile [colspan]="3" [rowspan]="1">
-    <app-infobox></app-infobox>
-  </mat-grid-tile>
-</mat-grid-list> -->
-
 <section class="content" *ngrxLet="project$ as project">
-  <div class="left">
-    <app-view-selection></app-view-selection>
-    <!-- <app-transcript></app-transcript> -->
-  </div>
-  <div class="center">
-    <app-player [project]="project"></app-player>
-    <app-infobox></app-infobox>
-  </div>
-  <div class="right">
-    <app-transcript></app-transcript>
-  </div>
+  <ng-container *ngrxLet="layoutSettings$ as layout">
+    <div class="column-size-1">
+      <app-view-selection
+        *ngIf="viewSelectionEnabled$ | ngrxPush"
+        [project]="project"
+      ></app-view-selection>
+    </div>
+    <div class="column-size-2">
+      <app-transcript
+        *ngIf="layout.transcriptEnabled && layout.transcriptPosition === 'left'"
+      ></app-transcript>
+    </div>
+    <div class="column-size-3">
+      <app-transcript
+        *ngIf="layout.transcriptEnabled && layout.transcriptPosition === 'top'"
+      ></app-transcript>
+      <app-player [project]="project"></app-player>
+      <app-infobox></app-infobox>
+      <app-transcript
+        *ngIf="
+          layout.transcriptEnabled && layout.transcriptPosition === 'bottom'
+        "
+      ></app-transcript>
+    </div>
+    <div class="column-size-2">
+      <app-transcript
+        *ngIf="
+          layout.transcriptEnabled && layout.transcriptPosition === 'right'
+        "
+      ></app-transcript>
+    </div>
+  </ng-container>
 </section>

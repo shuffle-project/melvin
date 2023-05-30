@@ -26,6 +26,9 @@ export class AdjustLayoutDialogComponent {
   public videoArrangement$ = this.store.select(
     viewerSelector.selectVideoArrangement
   );
+  public viewSelectionEnabled$ = this.store.select(
+    viewerSelector.selectViewSelectionEnabled
+  );
   public transcriptEnabled$ = this.store.select(
     viewerSelector.selectTranscriptEnabled
   );
@@ -67,6 +70,14 @@ export class AdjustLayoutDialogComponent {
     this.store.dispatch(
       viewerActions.changeTranscriptEnabled({
         transcriptEnabled: event.checked,
+      })
+    );
+  }
+
+  onViewSelectionEnabledChange(event: MatSlideToggleChange) {
+    this.store.dispatch(
+      viewerActions.changeViewSelectionEnabled({
+        viewSelectionEnabled: event.checked,
       })
     );
   }

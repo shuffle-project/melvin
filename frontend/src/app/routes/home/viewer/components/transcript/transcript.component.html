@@ -12,7 +12,7 @@
     />
   </mat-form-field>
 
-  <div *ngIf="searchValue.length > 0">
+  <div *ngIf="searchValue.length > 0" class="search-results-wrapper">
     <ng-container *ngrxLet="searchFiltered$ as searchFiltered">
       {{ searchFiltered.totalCount > 0 ? foundItemsIndex : 0 }} /
       {{ searchFiltered.totalCount }}
@@ -67,7 +67,12 @@
           </button>
           <span class="caption-time">{{ item.start | duration }} </span>
         </div>
-        <span class="caption-text" [innerHTML]="item.text"> </span>
+        <span
+          *ngrxLet="transcriptFontsize$ as transcriptFontsize"
+          class="caption-text fontsize-{{ transcriptFontsize }}"
+          [innerHTML]="item.text"
+        >
+        </span>
       </div>
     </cdk-virtual-scroll-viewport>
   </ng-container>

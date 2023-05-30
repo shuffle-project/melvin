@@ -12,6 +12,7 @@ import {
 import { CaptionEntity } from '../../../../../services/api/entities/caption.entity';
 import { AppState } from '../../../../../store/app.state';
 import * as captionsSelector from '../../../../../store/selectors/captions.selector';
+import * as viewerSelector from '../../../../../store/selectors/viewer.selector';
 import { ViewerService } from '../../viewer.service';
 
 @Component({
@@ -25,6 +26,9 @@ export class TranscriptComponent implements OnDestroy, OnInit {
   @ViewChild(CdkVirtualScrollViewport) viewPort!: CdkVirtualScrollViewport;
 
   captions$ = this.store.select(captionsSelector.selectCaptions);
+  transcriptFontsize$ = this.store.select(
+    viewerSelector.selectTranscriptFontsize
+  );
 
   searchValue: string = '';
   searchValue$: BehaviorSubject<string> = new BehaviorSubject('');
@@ -34,7 +38,7 @@ export class TranscriptComponent implements OnDestroy, OnInit {
   searchFiltered$ = combineLatest([this.captions$, this.searchValue$]).pipe(
     map(([captions, searchValue]) => {
       let totalCount = 0;
-      let regex = new RegExp(searchValue, 'gi'); // g = global, i = case insensitive
+      let regex = new RegExp('(' + searchValue + ')', 'gi'); // g = global, i = case insensitive
 
       const foundInCaption: number[] = [];
 
@@ -46,12 +50,13 @@ export class TranscriptComponent implements OnDestroy, OnInit {
         totalCount += foundXTimes;
         return searchByValue;
       });
-
-      filteredBySearch = captions.map((value) => ({
-        ...value,
-        text: value.text.replace(regex, '<mark>' + searchValue + '</mark>'),
-        counts: 0,
-      }));
+      if (searchValue.length > 0) {
+        filteredBySearch = captions.map((value) => ({
+          ...value,
+          text: value.text.replace(regex, '<mark>$1</mark>'),
+          counts: 0,
+        }));
+      }
 
       if (searchValue.length > 0) {
         this.scrollToIndex(foundInCaption[this.foundItemsIndex - 1]);
@@ -124,6 +129,6 @@ export class TranscriptComponent implements OnDestroy, OnInit {
   }
 
   onJumpInVideo(caption: CaptionEntity) {
-    this.viewerService.onJumpInVideo((caption.start + 1) / 1000);
+    this.viewerService.onJumpInVideo(caption.start + 1);
   }
 }

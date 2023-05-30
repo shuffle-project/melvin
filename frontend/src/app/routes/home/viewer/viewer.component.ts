@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 // use own viewer actions
 import { MatDialog } from '@angular/material/dialog';
+import { combineLatest, map } from 'rxjs';
 import * as editorActions from '../../../store/actions/editor.actions';
 import { AppState } from '../../../store/app.state';
 import * as editorSelector from '../../../store/selectors/editor.selector';
@@ -25,11 +26,26 @@ export class ViewerComponent implements OnInit {
   public videoArrangement$ = this.store.select(
     viewerSelector.selectVideoArrangement
   );
+  public viewSelectionEnabled$ = this.store.select(
+    viewerSelector.selectViewSelectionEnabled
+  );
   public transcriptEnabled$ = this.store.select(
     viewerSelector.selectTranscriptEnabled
   );
   public transcriptPosition$ = this.store.select(
     viewerSelector.selectTranscriptPosition
+  );
+
+  layoutSettings$ = combineLatest([
+    this.videoArrangement$,
+    this.transcriptEnabled$,
+    this.transcriptPosition$,
+  ]).pipe(
+    map(([videoArrangement, transcriptEnabled, transcriptPosition]) => ({
+      videoArrangement,
+      transcriptEnabled,
+      transcriptPosition,
+    }))
   );
 
   constructor(

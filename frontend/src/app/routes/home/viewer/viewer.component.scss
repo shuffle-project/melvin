@@ -1,19 +1,41 @@
 .content {
   box-sizing: border-box;
   display: flex;
+  justify-content: stretch;
   width: 100%;
   // height: ;
   background-color: var(--color-background-grey);
   height: calc(100% - 60px); // header is 60px
 
-  .left {
-    width: 15%;
+  .column-size-1 {
+    flex-basis: 20%;
+    flex-grow: 4;
+    flex-shrink: 4;
+    &:empty {
+      flex-basis: 0%;
+      flex-grow: 0;
+      flex-shrink: 0;
+    }
   }
-  .center {
-    width: 60%;
+  .column-size-3 {
+    flex-basis: 55%;
+    flex-grow: 5;
+    flex-shrink: 5;
+    &:empty {
+      flex-basis: 0%;
+      flex-grow: 0;
+      flex-shrink: 0;
+    }
   }
-  .right {
-    width: 25%;
+  .column-size-2 {
+    flex-basis: 25%;
+    flex-grow: 4;
+    flex-shrink: 4;
+    &:empty {
+      flex-basis: 0%;
+      flex-grow: 0;
+      flex-shrink: 0;
+    }
   }
 }
 

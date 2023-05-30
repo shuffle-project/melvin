@@ -7,6 +7,7 @@ export enum StorageKey {
 
   // viewer settings
   VIEWER_VIDEO_ARRANGEMENT = 'viewer-video-arrangement',
+  VIEWER_VIEW_SELECTION_ENABLED = 'viewer-view-selection-enabled',
   VIEWER_TRANSCRIPT_ENABLED = 'viewer-transcript-enabled',
   VIEWER_TRANSCRIPT_FONTSIZE = 'viewer-transcript-fontsize',
   VIEWER_TRANSCRIPT_POSITION = 'viewer-transcript-position',
@@ -15,4 +16,7 @@ export enum StorageKey {
   CAPTIONS_BACKGROUND_COLOR = 'captions-background-color',
   CAPTIONS_COLOR = 'captions-color',
   CAPTIONS_FONTSIZE = 'captions-fontsize',
+
+  //
+  CURRENT_TIME_ARRAY = 'current-time-array',
 }

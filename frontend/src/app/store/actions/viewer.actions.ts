@@ -14,9 +14,17 @@ export const changeVideoArrangement = createAction(
   props<{ videoArrangement: VideoArrangement }>()
 );
 
+export const changeViewSelectionEnabled = createAction(
+  '[ADJUST LAYOUT COMPONENT] Change view selection Enabled',
+  props<{ viewSelectionEnabled: boolean }>()
+);
+
 export const changeTranscriptEnabled = createAction(
   '[ADJUST LAYOUT COMPONENT] Change Transcript Enabled',
   props<{ transcriptEnabled: boolean }>()
+);
+export const toggleTranscript = createAction(
+  '[VIEWER VIDEO COMPONENT] Toggle Transcript enabled'
 );
 
 export const changeTranscriptFontsize = createAction(
