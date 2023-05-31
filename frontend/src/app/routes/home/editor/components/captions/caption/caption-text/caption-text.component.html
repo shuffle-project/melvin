@@ -50,6 +50,7 @@
       [formControl]="formControl"
       [readonly]="!!lockedBy"
       [spellcheck]="false"
+      (keydown)="onKeyDownTextarea($event)"
     >
     </textarea>
 
