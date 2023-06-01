@@ -1,7 +1,7 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
-import { lastValueFrom, Subject, take, takeUntil } from 'rxjs';
+import { Subject, lastValueFrom, take, takeUntil } from 'rxjs';
 import { ProjectDetailComponent } from 'src/app/modules/project-detail/project-detail.component';
 import { ProjectEntity } from 'src/app/services/api/entities/project.entity';
 import { TranscriptionEntity } from 'src/app/services/api/entities/transcription.entity';
@@ -56,7 +56,9 @@ export class TranscriptionComponent implements OnInit, OnDestroy {
   }
 
   onOpenTranscription(transcriptionId: string) {
-    this.store.dispatch(transcriptionsActions.select({ transcriptionId }));
+    this.store.dispatch(
+      transcriptionsActions.selectFromEditor({ transcriptionId })
+    );
     this.dialogRefProjectDetail.close();
   }
 

@@ -84,8 +84,12 @@ export const transcriptionsReducer = createReducer(
       };
     }
   ),
-  on(transcriptionsActions.select, (state, action) => ({
-    ...state,
-    selectedTranscriptionId: action.transcriptionId,
-  }))
+  on(
+    transcriptionsActions.selectFromEditor,
+    transcriptionsActions.selectFromViewer,
+    (state, action) => ({
+      ...state,
+      selectedTranscriptionId: action.transcriptionId,
+    })
+  )
 );

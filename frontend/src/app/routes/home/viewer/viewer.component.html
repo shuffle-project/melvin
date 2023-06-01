@@ -1,0 +1,43 @@
+<app-header [viewer]="true">
+  <span #projectTitle> SUPER MELVING JUCHUU </span>
+
+  <button mat-stroked-button (click)="onOpenAdjustLayoutDialog()">
+    Layout anpassen
+  </button>
+  <mat-slide-toggle>Dark mode</mat-slide-toggle>
+</app-header>
+
+<section class="content" *ngrxLet="project$ as project">
+  <ng-container *ngrxLet="layoutSettings$ as layout">
+    <div class="column-size-1">
+      <app-view-selection
+        *ngIf="viewSelectionEnabled$ | ngrxPush"
+        [project]="project"
+      ></app-view-selection>
+    </div>
+    <div class="column-size-2">
+      <app-transcript
+        *ngIf="layout.transcriptEnabled && layout.transcriptPosition === 'left'"
+      ></app-transcript>
+    </div>
+    <div class="column-size-3">
+      <app-transcript
+        *ngIf="layout.transcriptEnabled && layout.transcriptPosition === 'top'"
+      ></app-transcript>
+      <app-player [project]="project"></app-player>
+      <app-infobox></app-infobox>
+      <app-transcript
+        *ngIf="
+          layout.transcriptEnabled && layout.transcriptPosition === 'bottom'
+        "
+      ></app-transcript>
+    </div>
+    <div class="column-size-2">
+      <app-transcript
+        *ngIf="
+          layout.transcriptEnabled && layout.transcriptPosition === 'right'
+        "
+      ></app-transcript>
+    </div>
+  </ng-container>
+</section>

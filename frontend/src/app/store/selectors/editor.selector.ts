@@ -1,7 +1,7 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import {
-  EditorUserColor,
   EDITOR_USER_LOADING,
+  EditorUserColor,
 } from '../../constants/editor.constants';
 import { EditorUser } from '../../interfaces/editor-user.interface';
 import { ProjectStatus } from '../../services/api/entities/project.entity';

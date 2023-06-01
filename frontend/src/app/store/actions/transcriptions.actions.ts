@@ -105,8 +105,13 @@ export const removeFail = createAction(
   props<{ error: HttpErrorResponse }>()
 );
 
-export const select = createAction(
+export const selectFromEditor = createAction(
   '[EDITOR COMPONENT] Set transcription id',
+  props<{ transcriptionId: string }>()
+);
+
+export const selectFromViewer = createAction(
+  '[VIEWER PLAYER COMPONENT] Set transcription id',
   props<{ transcriptionId: string }>()
 );
 

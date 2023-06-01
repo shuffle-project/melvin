@@ -11,3 +11,23 @@ mat-icon.lg {
   width: 32px;
   line-height: 32px;
 }
+
+// COLORS generator : https://codepen.io/sosuke/pen/Pjoqqp
+.svg-black {
+  filter: brightness(0) saturate(100%);
+}
+
+.svg-white {
+  filter: brightness(0) saturate(100%) invert(100%) sepia(1%) saturate(86%)
+    hue-rotate(216deg) brightness(102%) contrast(100%);
+}
+
+.svg-green {
+  filter: brightness(0) saturate(100%) invert(96%) sepia(9%) saturate(895%)
+    hue-rotate(88deg) brightness(97%) contrast(89%);
+}
+
+.svg-blue {
+  filter: invert(25%) sepia(89%) saturate(1393%) hue-rotate(208deg)
+    brightness(100%) contrast(87%);
+}

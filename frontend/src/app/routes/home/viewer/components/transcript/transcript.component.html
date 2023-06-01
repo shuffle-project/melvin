@@ -1,0 +1,90 @@
+<div class="box">
+  <h2>Transkript</h2>
+  <hr />
+
+  <mat-form-field class="search-form-field">
+    <mat-label>Search</mat-label>
+    <input
+      matInput
+      placeholder="Search"
+      [(ngModel)]="searchValue"
+      (input)="onSearchChange($event)"
+    />
+  </mat-form-field>
+
+  <div *ngIf="searchValue.length > 0" class="search-results-wrapper">
+    <ng-container *ngrxLet="searchFiltered$ as searchFiltered">
+      {{ searchFiltered.totalCount > 0 ? foundItemsIndex : 0 }} /
+      {{ searchFiltered.totalCount }}
+
+      <button
+        mat-icon-button
+        class="md"
+        (click)="
+          onGoToRecentFound(
+            searchFiltered.totalCount,
+            searchFiltered.foundInCaption
+          )
+        "
+      >
+        <mat-icon svgIcon="arrow-up" class="svg-black"></mat-icon>
+      </button>
+
+      <button
+        mat-icon-button
+        class="md"
+        (click)="
+          onGoToNextFound(
+            searchFiltered.totalCount,
+            searchFiltered.foundInCaption
+          )
+        "
+      >
+        <mat-icon svgIcon="arrow-down" class="svg-black"></mat-icon>
+      </button>
+    </ng-container>
+  </div>
+
+  <hr />
+
+  <ng-container *ngrxLet="searchFiltered$ as searchFiltered">
+    <cdk-virtual-scroll-viewport
+      appendOnly
+      itemSize="130"
+      class="captions-viewport"
+      *ngrxLet="viewerService.currentCaption$ as currentCaption"
+    >
+      <div
+        *cdkVirtualFor="let item of searchFiltered.captions"
+        class="virtual-scroll-item {{
+          item.id === currentCaption?.id ? 'currentCaption' : ''
+        }}"
+      >
+        <!-- <p class="caption-speaker">{{ item.speakerId }}</p> -->
+        <div class="first-row">
+          <button mat-icon-button class="sm" (click)="onJumpInVideo(item)">
+            <mat-icon svgIcon="play" class="svg-black"></mat-icon>
+          </button>
+          <span class="caption-time">{{ item.start | duration }} </span>
+        </div>
+        <span
+          *ngrxLet="transcriptFontsize$ as transcriptFontsize"
+          class="caption-text fontsize-{{ transcriptFontsize }}"
+          [innerHTML]="item.text"
+        >
+        </span>
+      </div>
+    </cdk-virtual-scroll-viewport>
+  </ng-container>
+
+  <hr />
+
+  <mat-checkbox
+    class="auto-scroll"
+    color="primary"
+    labelPosition="before"
+    [(ngModel)]="autoScroll"
+  >
+    Automatisch mitscrollen
+  </mat-checkbox>
+</div>

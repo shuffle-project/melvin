@@ -1,0 +1,159 @@
+.video-wrapper {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+
+  video {
+    max-width: 100%;
+    height: fit-content;
+    border-radius: 5px;
+    border: 1px solid black;
+  }
+
+  &.video-arrangement-centered {
+    .secondary-video {
+      display: none;
+    }
+  }
+  &.video-arrangement-small_big {
+    .main-video {
+      width: 24%;
+    }
+    .secondary-video {
+      width: 74%;
+    }
+  }
+  &.video-arrangement-big_small {
+    .main-video {
+      width: 74%;
+    }
+    .secondary-video {
+      width: 24%;
+    }
+  }
+  &.video-arrangement-medium_medium {
+    video {
+      width: 49%;
+    }
+  }
+}
+
+.controls {
+  padding: 0px 5px;
+
+  .video-progress-slider-wrapper {
+    display: flex;
+    justify-content: center;
+    .mat-mdc-slider {
+      width: 100%;
+      margin: 0 24px;
+    }
+  }
+
+  .volume-slider {
+    // border: 1px solid black;
+    width: 100%;
+    margin: 0 24px;
+  }
+
+  .main-controls {
+    display: flex;
+    align-items: center;
+
+    // justify-content: space-between;
+    .left {
+      flex-basis: 33.333%;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+    }
+    .center {
+      flex-basis: 33.333%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .right {
+      flex-basis: 33.333%;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+    }
+  }
+}
+
+.playback-speed-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid var(--color-border-grey);
+  border-radius: 5px;
+
+  .playback-speed-text {
+    width: 35px;
+    display: flex;
+    justify-content: center;
+  }
+}
+
+.video-wrapper {
+  position: relative;
+}
+
+.viewer-caption {
+  position: absolute;
+  left: 10px;
+  right: 10px;
+  bottom: 10px;
+  text-align: center;
+  transition: transform 0.2s;
+  span {
+    // line-height: 1.4em;
+    // font-size: 1.2em;
+
+    &.backgroundColor-black {
+      background-color: black;
+    }
+    &.backgroundColor-white {
+      background-color: white;
+    }
+    &.backgroundColor-red {
+      background-color: red;
+    }
+    &.backgroundColor-blue {
+      background-color: blue;
+    }
+    &.backgroundColor-yellow {
+      background-color: yellow;
+    }
+
+    &.color-black {
+      color: black;
+    }
+    &.color-white {
+      color: white;
+    }
+    &.color-red {
+      color: red;
+    }
+    &.color-blue {
+      color: blue;
+    }
+    &.color-yellow {
+      color: yellow;
+    }
+
+    &.fontsize-small {
+      font-size: 80%;
+    }
+    &.fontsize-medium {
+      font-size: 100%;
+    }
+    &.fontsize-large {
+      font-size: 120%;
+    }
+    &.fontsize-larger {
+      font-size: 140%;
+    }
+  }
+}

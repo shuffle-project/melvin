@@ -3,12 +3,12 @@ import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import {
+  Subject,
   combineLatest,
   filter,
   firstValueFrom,
   lastValueFrom,
   map,
-  Subject,
   takeUntil,
   tap,
 } from 'rxjs';
@@ -108,7 +108,7 @@ export class EditorComponent implements OnInit, OnDestroy {
     this.projectId = this.route.snapshot.params['id'];
 
     this.store.dispatch(
-      editorActions.findProject({ projectId: this.projectId })
+      editorActions.findProjectFromEditor({ projectId: this.projectId })
     );
 
     this.store
@@ -141,7 +141,9 @@ export class EditorComponent implements OnInit, OnDestroy {
   }
 
   onSelectTranscription(transcriptionId: string) {
-    this.store.dispatch(transcriptionsActions.select({ transcriptionId }));
+    this.store.dispatch(
+      transcriptionsActions.selectFromEditor({ transcriptionId })
+    );
   }
 
   onTogglePlayPause() {

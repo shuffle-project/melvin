@@ -9,7 +9,7 @@
 
         <ng-content></ng-content>
 
-        <div class="header-buttons">
+        <div class="header-buttons" *ngIf="!viewer">
           <button
             *ngIf="'notifications' | featureEnabled"
             mat-icon-button
