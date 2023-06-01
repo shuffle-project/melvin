@@ -200,9 +200,6 @@ export class CaptionTextComponent
   }
 
   _eventuallyUnlockCaption() {
-    if (this.markedForDeletion) {
-      return;
-    }
     this.isSelected = false;
 
     this.store.dispatch(captionsActions.unselectFromCaption());
@@ -217,6 +214,10 @@ export class CaptionTextComponent
         setTimeout(() => (this.showSaveSpinner = false), 1000);
       }
 
+      if (this.markedForDeletion) {
+        // caption was already deleted
+        return;
+      }
       this.store.dispatch(
         captionsActions.update({
           id: this.caption.id,
