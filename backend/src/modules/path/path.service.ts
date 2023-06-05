@@ -40,6 +40,10 @@ export class PathService {
     return join(this.getProjectDirectory(projectId), 'video.mp4');
   }
 
+  getAdditionalVideoFile(projectId: string, number: number): string {
+    return join(this.getProjectDirectory(projectId), 'video' + number + '.mp4');
+  }
+
   getWavFile(projectId: string): string {
     return join(this.getProjectDirectory(projectId), 'audio.wav');
   }

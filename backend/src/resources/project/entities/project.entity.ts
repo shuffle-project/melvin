@@ -23,6 +23,10 @@ export class MediaLinksEntity {
   @ApiProperty({ type: String })
   @Type(() => String)
   video: string;
+
+  @ApiProperty({ type: [String] })
+  @Type(() => String)
+  additionalVideos: string[];
 }
 
 export class ProjectEntity extends OmitType(Project, [

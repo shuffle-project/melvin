@@ -1,6 +1,13 @@
 <div class="box">
   <h2>Weitere Ansichten</h2>
 
-  <div class="view-item">Vorlesungsfolien</div>
-  <div class="view-item">Sprecher Video</div>
+  <div class="view-item">Main Video</div>
+  <hr />
+  <div
+    class="view-item clickable"
+    *ngFor="let video of project?.media?.additionalVideos; let i = index"
+    (click)="onClickAdditionalVideo(i)"
+  >
+    Video {{ i + 1 }}
+  </div>
 </div>

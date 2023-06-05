@@ -23,7 +23,7 @@ export class ViewerEffects {
       this.actions$.pipe(
         ofType(viewerActions.changeVideoArrangement),
         tap((action) => {
-          this.storageService.storeInSessionStorage(
+          this.storageService.storeInLocalStorage(
             StorageKey.VIEWER_VIDEO_ARRANGEMENT,
             action.videoArrangement
           );

@@ -9,6 +9,13 @@ export const selectVideoArrangement = createSelector(
     return state.videoArrangement;
   }
 );
+
+export const selectChoosenAdditionalVideo = createSelector(
+  selectViewerState,
+  (state: ViewerState) => {
+    return state.choosenAdditionalVideo;
+  }
+);
 export const selectViewSelectionEnabled = createSelector(
   selectViewerState,
   (state: ViewerState) => {

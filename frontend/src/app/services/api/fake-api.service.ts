@@ -129,6 +129,10 @@ export class FakeApiService implements ApiService {
     return of({ ...PROJECT_ENTITY_MOCK[0] });
   }
 
+  uploadVideo(projectId: string, file: File): Observable<any> {
+    return of({ ...PROJECT_ENTITY_MOCK[0] });
+  }
+
   findAllProjects(): Observable<ProjectListEntity> {
     this.logger.verbose('findAllProjects mocked');
     return of({

@@ -6,7 +6,7 @@ import { plainToInstance } from 'class-transformer';
 import { randomBytes } from 'crypto';
 import { Request, Response } from 'express';
 import { ReadStream, createReadStream } from 'fs';
-import { rm } from 'fs-extra';
+import { exists, rm } from 'fs-extra';
 import { readFile, stat } from 'fs/promises';
 import { Types } from 'mongoose';
 import { LeanUserDocument } from 'src/modules/db/schemas/user.schema';
@@ -93,7 +93,34 @@ export class ProjectService {
       mediaAuthToken.token
     }`;
 
-    return { video };
+    //  additionalVideos
+    const additionalVideos = [];
+    let index = 1;
+    let additionalVideoPath = this.pathService.getAdditionalVideoFile(
+      project._id.toString(),
+      index,
+    );
+    let fileExists = true;
+    do {
+      fileExists = await exists(additionalVideoPath);
+      if (fileExists) {
+        additionalVideos.push(
+          `${
+            this.serverBaseUrl
+          }/projects/${project._id.toString()}/media/video/${index}?Authorization=${
+            mediaAuthToken.token
+          }`,
+        );
+      }
+
+      index++;
+      additionalVideoPath = this.pathService.getAdditionalVideoFile(
+        project._id.toString(),
+        index,
+      );
+    } while (fileExists);
+
+    return { video, additionalVideos };
   }
 
   async create(
@@ -246,6 +273,7 @@ export class ProjectService {
         authUser,
         file: mediaFile,
         subsequentJobs,
+        mainVideo: true,
       });
     }
   }
@@ -409,6 +437,7 @@ export class ProjectService {
         authUser,
         file: mediaFile,
         subsequentJobs: [],
+        mainVideo: true,
       });
     }
 
@@ -560,6 +589,7 @@ export class ProjectService {
     mediaAccessUser: MediaAccessUser,
     request: Request,
     response: Response,
+    videoId: number = null,
   ) {
     if (mediaAccessUser.projectId !== projectId) {
       throw new CustomForbiddenException();
@@ -569,8 +599,17 @@ export class ProjectService {
     // https://betterprogramming.pub/video-stream-with-node-js-and-html5-320b3191a6b6
     // https://www.geeksforgeeks.org/how-to-stream-large-mp4-files/
 
+    let videoFilepath: string;
+    if (videoId === null) {
+      videoFilepath = this.pathService.getVideoFile(projectId);
+    } else {
+      videoFilepath = this.pathService.getAdditionalVideoFile(
+        projectId,
+        videoId,
+      );
+    }
+    console.log('return ', videoFilepath);
     try {
-      const videoFilepath = this.pathService.getVideoFile(projectId);
       const videoStats = await stat(videoFilepath);
 
       const { range } = request.headers;
@@ -617,5 +656,32 @@ export class ProjectService {
       this.logger.error(error.message, { error });
       response.status(400).send('Bad Request');
     }
+  }
+
+  // upload file
+  async uploadVideo(
+    authUser: AuthUser,
+    id: string,
+    file: Express.Multer.File,
+  ): Promise<ProjectEntity> {
+    const project = await this.db.findProjectByIdOrThrow(id);
+
+    if (!this.permissions.isProjectMember(project, authUser)) {
+      throw new CustomForbiddenException('access_to_project_denied');
+    }
+
+    if (!this.permissions.isProjectOwner(project, authUser)) {
+      throw new CustomForbiddenException('must_be_owner');
+    }
+
+    this.projectQueue.add({
+      authUser,
+      project,
+      file,
+      subsequentJobs: [],
+      mainVideo: false,
+    });
+
+    return project;
   }
 }

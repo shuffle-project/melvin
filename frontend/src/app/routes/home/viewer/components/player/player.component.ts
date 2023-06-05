@@ -1,7 +1,13 @@
-import { Component, ElementRef, Input, ViewChild } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  Input,
+  OnDestroy,
+  ViewChild,
+} from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
-import { combineLatest, map } from 'rxjs';
+import { Subject, combineLatest, map, takeUntil, tap } from 'rxjs';
 import { ProjectEntity } from '../../../../../services/api/entities/project.entity';
 import { TranscriptionEntity } from '../../../../../services/api/entities/transcription.entity';
 import * as editorActions from '../../../../../store/actions/editor.actions';
@@ -20,7 +26,9 @@ import { CaptionsSettingsDialogComponent } from '../captions-settings-dialog/cap
   templateUrl: './player.component.html',
   styleUrls: ['./player.component.scss'],
 })
-export class PlayerComponent {
+export class PlayerComponent implements OnDestroy {
+  private destroy$$ = new Subject<void>();
+
   @Input({ required: true }) project!: ProjectEntity | null;
 
   // main video
@@ -48,6 +56,9 @@ export class PlayerComponent {
   public videoArrangement$ = this.store.select(
     viewerSelector.selectVideoArrangement
   );
+  public choosenAdditionalVideo$ = this.store.select(
+    viewerSelector.selectChoosenAdditionalVideo
+  );
 
   public captions$ = this.store.select(captionsSelector.selectCaptions);
 
@@ -73,11 +84,29 @@ export class PlayerComponent {
   public volume: number = 1;
   public playbackSpeed: number = 1;
 
+  ngOnDestroy() {
+    this.destroy$$.next();
+  }
+
   // VIDEO
+  onVideoLoadMetadataSecondVideo() {
+    if (this.videoPlayer2 && this.videoPlayer)
+      this.videoPlayer2.currentTime = this.videoPlayer.currentTime;
+  }
 
   onVideoLoadMetadata() {
     this.videoPlayer = this.viewerVideo.nativeElement;
-    if (this.viewerVideo2) this.videoPlayer2 = this.viewerVideo2.nativeElement;
+    if (this.viewerVideo2) {
+      this.videoPlayer2 = this.viewerVideo2.nativeElement;
+      this.choosenAdditionalVideo$
+        .pipe(
+          takeUntil(this.destroy$$),
+          tap(() => {
+            this.videoPlayer2?.load();
+          })
+        )
+        .subscribe();
+    }
     this.videoLoaded = true;
 
     this.viewerService.initObservables(this.videoPlayer!, this.project!.id);

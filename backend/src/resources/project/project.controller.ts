@@ -183,4 +183,35 @@ export class ProjectController {
   ) {
     return this.projectService.getVideoChunk(id, mediaAccessUser, req, res);
   }
+
+  @UseGuards(JwtAuthGuard)
+  @Get(':id/media/video/:videoId')
+  @ApiResponse({ status: HttpStatus.PARTIAL_CONTENT })
+  async getAdditionalVideoChunk(
+    @Param('id', IsValidObjectIdPipe) id: string,
+    @Param('videoId') videoId: number,
+    @MediaUser() mediaAccessUser: MediaAccessUser,
+    @Req() req: Request,
+    @Res() res: Response,
+  ) {
+    return this.projectService.getVideoChunk(
+      id,
+      mediaAccessUser,
+      req,
+      res,
+      videoId,
+    );
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Post(':id/media/upload')
+  @UseInterceptors(MediaFileInterceptor)
+  @ApiResponse({ type: ProjectEntity })
+  uploadVideo(
+    @User() authUser: AuthUser,
+    @Param('id', IsValidObjectIdPipe) id: string,
+    @UploadedFile() file: Express.Multer.File, //
+  ): Promise<ProjectEntity> {
+    return this.projectService.uploadVideo(authUser, id, file);
+  }
 }

@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { exec, spawn } from 'child_process';
 import ffmpegPath from 'ffmpeg-static';
 import ffprobePath from 'ffprobe-static';
-import { ensureDir } from 'fs-extra';
+import { ensureDir, exists } from 'fs-extra';
 import { join } from 'path';
 import { CustomLogger } from '../logger/logger.service';
 import { PathService } from '../path/path.service';
@@ -81,12 +81,27 @@ export class FfmpegService {
   public async processVideoFile(
     filePath: string,
     projectId: string,
+    mainVideo: boolean,
   ): Promise<void> {
-    const videoFilepath = this.pathService.getVideoFile(projectId);
-
     // create dir if does not exist
     const projDir = this.pathService.getProjectDirectory(projectId);
     await ensureDir(projDir);
+
+    let videoFilepath: string;
+    if (mainVideo) {
+      videoFilepath = this.pathService.getVideoFile(projectId);
+    } else {
+      let index = 1;
+      while (videoFilepath === undefined) {
+        // loop through additinal file indexes until the first path who wasnt created yet
+        const path = this.pathService.getAdditionalVideoFile(projectId, index);
+        const fileExists = await exists(path);
+        if (!fileExists) {
+          videoFilepath = path;
+        }
+        index++;
+      }
+    }
 
     // TODO limit size of file
     const commands = [

@@ -14,19 +14,23 @@
         type="video/mp4"
       />
     </video>
-
-    <video
-      #viewerVideo2
-      class="secondary-video"
-      [muted]="true"
-      [playbackRate]="playbackSpeed"
-    >
-      <source
-        *ngIf="project?.media?.video"
-        src="{{ project?.media?.video }}"
-        type="video/mp4"
-      />
-    </video>
+    <ng-container *ngrxLet="choosenAdditionalVideo$ as choosenAdditionalVideo">
+      <video
+        #viewerVideo2
+        class="secondary-video"
+        [muted]="true"
+        [playbackRate]="playbackSpeed"
+        (loadedmetadata)="onVideoLoadMetadataSecondVideo()"
+      >
+        <source
+          *ngIf="(project?.media?.additionalVideos)![choosenAdditionalVideo]"
+          src="{{
+            (project?.media?.additionalVideos)![choosenAdditionalVideo]
+          }}"
+          type="video/mp4"
+        />
+      </video>
+    </ng-container>
 
     <ng-container *ngIf="subtitlesEnabledInVideo$ | ngrxPush">
       <div

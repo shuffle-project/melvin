@@ -14,6 +14,11 @@ export const changeVideoArrangement = createAction(
   props<{ videoArrangement: VideoArrangement }>()
 );
 
+export const changeAdditionalVideo = createAction(
+  '[VIEW SELECTION COMPONENT] Change choosen additional Video',
+  props<{ choosenAdditionalVideo: number }>()
+);
+
 export const changeViewSelectionEnabled = createAction(
   '[ADJUST LAYOUT COMPONENT] Change view selection Enabled',
   props<{ viewSelectionEnabled: boolean }>()

@@ -257,6 +257,24 @@ export class RealApiService implements ApiService {
     });
   }
 
+  uploadVideo(
+    projectId: string,
+    file: File
+  ): Observable<HttpEvent<ProjectEntity>> {
+    console.log(file);
+    const formData = new FormData();
+    formData.append('file', file);
+
+    return this._post<HttpEvent<ProjectEntity>>(
+      `/projects/${projectId}/media/upload`,
+      formData,
+      {
+        reportProgress: true,
+        observe: 'events' as any,
+      }
+    );
+  }
+
   findAllProjects(): Observable<ProjectListEntity> {
     return this._get<ProjectListEntity>('/projects');
   }

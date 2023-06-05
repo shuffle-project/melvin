@@ -3,6 +3,7 @@ import { UserEntity } from './user.entity';
 
 export interface MediaLinksEntity {
   video: string;
+  additionalVideos: string[];
 }
 
 export enum LivestreamStatus {

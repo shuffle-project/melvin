@@ -103,6 +103,11 @@ export abstract class ApiService {
 
   abstract removeProject(projectId: string): Observable<void>;
 
+  abstract uploadVideo(
+    projectId: string,
+    file: File
+  ): Observable<HttpEvent<ProjectEntity>>;
+
   abstract invite(projectId: string, emails: string[]): Observable<void>;
 
   abstract getProjectInviteToken(

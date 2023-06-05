@@ -306,7 +306,9 @@ describe('ProjectService', () => {
     );
     const spy__getMediaLinksEntity = jest
       .spyOn(service, '_getMediaLinksEntity')
-      .mockImplementation(() => Promise.resolve({ video: 'videourl' }));
+      .mockImplementation(() =>
+        Promise.resolve({ video: 'videourl', additionalVideos: [] }),
+      );
 
     //Test
     const updateProjectDto: UpdateProjectDto = {

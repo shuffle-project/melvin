@@ -16,6 +16,7 @@ const storage = new StorageService();
 
 export interface ViewerState {
   videoArrangement: VideoArrangement;
+  choosenAdditionalVideo: number;
   viewSelectionEnabled: boolean;
   transcriptEnabled: boolean;
   transcriptFontsize: TranscriptFontsize;
@@ -27,10 +28,11 @@ export interface ViewerState {
 
 export const initalState: ViewerState = {
   // viewer settings
-  videoArrangement: storage.getFromSessionOrLocalStorage(
+  videoArrangement: storage.getFromLocalStorage(
     StorageKey.VIEWER_VIDEO_ARRANGEMENT,
     VideoArrangement.CENTERED
   ) as VideoArrangement,
+  choosenAdditionalVideo: 0,
   viewSelectionEnabled: storage.getFromLocalStorage(
     StorageKey.VIEWER_VIEW_SELECTION_ENABLED,
     true
@@ -67,6 +69,12 @@ export const viewerReducer = createReducer(
   on(viewerActions.changeVideoArrangement, (state, { videoArrangement }) => {
     return { ...state, videoArrangement };
   }),
+  on(
+    viewerActions.changeAdditionalVideo,
+    (state, { choosenAdditionalVideo }) => {
+      return { ...state, choosenAdditionalVideo };
+    }
+  ),
   on(
     viewerActions.changeViewSelectionEnabled,
     (state, { viewSelectionEnabled }) => {

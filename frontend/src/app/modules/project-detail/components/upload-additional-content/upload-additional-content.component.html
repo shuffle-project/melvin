@@ -1,0 +1,18 @@
+<h3>upload additional video</h3>
+
+<form [formGroup]="formGroup" (ngSubmit)="onClickSubmit()">
+  <input
+    #fileUpload
+    formControlName="file"
+    type="file"
+    name="file"
+    accept="video/*,audio/*"
+    (change)="onFileChange($event)"
+  />
+
+  <input
+    type="submit"
+    value="Upload"
+    [disabled]="formGroup.status === 'INVALID'"
+  />
+</form>
