@@ -55,5 +55,5 @@ export interface ProcessProjectJob {
   authUser: AuthUser;
   file: Express.Multer.File;
   subsequentJobs: ProcessSubtitlesJob[];
-  mainVideo: boolean;
+  videoId: string | null;
 }

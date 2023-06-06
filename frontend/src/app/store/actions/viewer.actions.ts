@@ -16,7 +16,7 @@ export const changeVideoArrangement = createAction(
 
 export const changeAdditionalVideo = createAction(
   '[VIEW SELECTION COMPONENT] Change choosen additional Video',
-  props<{ choosenAdditionalVideo: number }>()
+  props<{ choosenAdditionalVideo: string }>()
 );
 
 export const changeViewSelectionEnabled = createAction(

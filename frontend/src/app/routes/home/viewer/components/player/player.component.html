@@ -16,6 +16,7 @@
     </video>
     <ng-container *ngrxLet="choosenAdditionalVideo$ as choosenAdditionalVideo">
       <video
+        *ngIf="(project?.media?.additionalVideos)!.length > 0"
         #viewerVideo2
         class="secondary-video"
         [muted]="true"
@@ -23,10 +24,7 @@
         (loadedmetadata)="onVideoLoadMetadataSecondVideo()"
       >
         <source
-          *ngIf="(project?.media?.additionalVideos)![choosenAdditionalVideo]"
-          src="{{
-            (project?.media?.additionalVideos)![choosenAdditionalVideo]
-          }}"
+          src="{{ getVideoUrl(choosenAdditionalVideo) }}"
           type="video/mp4"
         />
       </video>

@@ -17,13 +17,17 @@ import { ProjectEntity } from '../../../../services/api/entities/project.entity'
 export class UploadAdditionalContentComponent implements OnInit {
   @Input() projectId!: string;
 
-  public formGroup!: FormGroup<{ file: FormControl<File | null> }>;
+  public formGroup!: FormGroup<{
+    title: FormControl<string>;
+    file: FormControl<File | null>;
+  }>;
   private currentFile: any;
 
   constructor(private fb: NonNullableFormBuilder, private api: ApiService) {}
 
   ngOnInit(): void {
     this.formGroup = this.fb.group({
+      title: this.fb.control<string>('', [Validators.required]),
       file: this.fb.control<File | null>(null, [Validators.required]),
     });
   }
@@ -34,10 +38,16 @@ export class UploadAdditionalContentComponent implements OnInit {
 
   async onClickSubmit() {
     if (this.formGroup.valid) {
-      this.api.uploadVideo(this.projectId, this.currentFile).subscribe({
-        next: (event: HttpEvent<ProjectEntity>) => console.log(event),
-        error: (error: HttpErrorResponse) => console.log(error),
-      });
+      this.api
+        .uploadVideo(
+          this.projectId,
+          { title: this.formGroup.value.title! },
+          this.currentFile
+        )
+        .subscribe({
+          next: (event: HttpEvent<ProjectEntity>) => console.log(event),
+          error: (error: HttpErrorResponse) => console.log(error),
+        });
     }
   }
 }

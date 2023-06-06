@@ -1,6 +1,11 @@
 <h3>upload additional video</h3>
 
 <form [formGroup]="formGroup" (ngSubmit)="onClickSubmit()">
+  <mat-form-field appearance="fill">
+    <mat-label>Video Title</mat-label>
+    <input matInput formControlName="title" placeholder="Video Title" />
+  </mat-form-field>
+
   <input
     #fileUpload
     formControlName="file"

@@ -36,16 +36,15 @@ export class ProjectProcessor {
 
   @Process()
   async processProject(job: Job<ProcessProjectJob>) {
-    console.log(job.data);
-    const { project, file, mainVideo } = job.data;
+    const { project, file, videoId } = job.data;
     const projectId = project._id.toString();
     const systemUser = await this.authService.findSystemAuthUser();
 
     // process video
-    await this.ffmpegService.processVideoFile(file.path, projectId, mainVideo);
+    await this.ffmpegService.processVideoFile(file.path, projectId, videoId);
 
     // stop if it is not the main video
-    if (!mainVideo) {
+    if (videoId) {
       return null;
     }
 

@@ -6,13 +6,15 @@ import { plainToInstance } from 'class-transformer';
 import { randomBytes } from 'crypto';
 import { Request, Response } from 'express';
 import { ReadStream, createReadStream } from 'fs';
-import { exists, rm } from 'fs-extra';
+import { rm } from 'fs-extra';
 import { readFile, stat } from 'fs/promises';
 import { Types } from 'mongoose';
 import { LeanUserDocument } from 'src/modules/db/schemas/user.schema';
 import { DbService } from '../../modules/db/db.service';
 import {
+  AdditionalMedia,
   LeanProjectDocument,
+  MediaType,
   ProjectStatus,
 } from '../../modules/db/schemas/project.schema';
 import { WaveformData } from '../../modules/ffmpeg/ffmpeg.interfaces';
@@ -42,6 +44,7 @@ import { FindAllProjectsQuery } from './dto/find-all-projects.dto';
 import { InviteDto } from './dto/invite.dto';
 import { UpdatePartialProjectDto } from './dto/update-partial-project.dto';
 import { UpdateProjectDto } from './dto/update-project.dto';
+import { UploadMediaDto } from './dto/upload-media.dto';
 import { ProjectInviteTokenEntity } from './entities/project-invite.entity';
 import { ProjectListEntity } from './entities/project-list.entity';
 import { MediaLinksEntity, ProjectEntity } from './entities/project.entity';
@@ -94,31 +97,17 @@ export class ProjectService {
     }`;
 
     //  additionalVideos
-    const additionalVideos = [];
-    let index = 1;
-    let additionalVideoPath = this.pathService.getAdditionalVideoFile(
-      project._id.toString(),
-      index,
-    );
-    let fileExists = true;
-    do {
-      fileExists = await exists(additionalVideoPath);
-      if (fileExists) {
-        additionalVideos.push(
-          `${
-            this.serverBaseUrl
-          }/projects/${project._id.toString()}/media/video/${index}?Authorization=${
-            mediaAuthToken.token
-          }`,
-        );
-      }
-
-      index++;
-      additionalVideoPath = this.pathService.getAdditionalVideoFile(
-        project._id.toString(),
-        index,
-      );
-    } while (fileExists);
+    const additionalVideos = project.additionalMedia
+      .filter((media) => media.mediaType === MediaType.VIDEO)
+      .map((media) => ({
+        id: media._id.toString(),
+        title: media.title,
+        video: `${
+          this.serverBaseUrl
+        }/projects/${project._id.toString()}/media/video/${media._id.toString()}?Authorization=${
+          mediaAuthToken.token
+        }`,
+      }));
 
     return { video, additionalVideos };
   }
@@ -150,7 +139,6 @@ export class ProjectService {
       ? ProjectStatus.LIVE
       : ProjectStatus.WAITING;
 
-    console.log(createProjectDto);
     //create project
     const project = await this.db.projectModel.create({
       ...createProjectDto,
@@ -273,7 +261,7 @@ export class ProjectService {
         authUser,
         file: mediaFile,
         subsequentJobs,
-        mainVideo: true,
+        videoId: null,
       });
     }
   }
@@ -437,7 +425,7 @@ export class ProjectService {
         authUser,
         file: mediaFile,
         subsequentJobs: [],
-        mainVideo: true,
+        videoId: null,
       });
     }
 
@@ -589,7 +577,7 @@ export class ProjectService {
     mediaAccessUser: MediaAccessUser,
     request: Request,
     response: Response,
-    videoId: number = null,
+    videoId: string = null,
   ) {
     if (mediaAccessUser.projectId !== projectId) {
       throw new CustomForbiddenException();
@@ -608,7 +596,7 @@ export class ProjectService {
         videoId,
       );
     }
-    console.log('return ', videoFilepath);
+
     try {
       const videoStats = await stat(videoFilepath);
 
@@ -661,10 +649,11 @@ export class ProjectService {
   // upload file
   async uploadVideo(
     authUser: AuthUser,
-    id: string,
+    projectId: string,
+    uploadMediaDto: UploadMediaDto,
     file: Express.Multer.File,
   ): Promise<ProjectEntity> {
-    const project = await this.db.findProjectByIdOrThrow(id);
+    const project = await this.db.findProjectByIdOrThrow(projectId);
 
     if (!this.permissions.isProjectMember(project, authUser)) {
       throw new CustomForbiddenException('access_to_project_denied');
@@ -674,14 +663,32 @@ export class ProjectService {
       throw new CustomForbiddenException('must_be_owner');
     }
 
+    const additionalMedia: AdditionalMedia = {
+      ...uploadMediaDto,
+      _id: new Types.ObjectId(),
+      mediaType: MediaType.VIDEO,
+    };
+    const updatedProject = await this.db.projectModel
+      .findByIdAndUpdate(
+        projectId,
+        {
+          $push: {
+            additionalMedia: additionalMedia,
+          },
+        },
+        { populate: ['users'], new: true },
+      )
+      .lean()
+      .exec();
+
     this.projectQueue.add({
       authUser,
       project,
       file,
       subsequentJobs: [],
-      mainVideo: false,
+      videoId: additionalMedia._id.toString(),
     });
 
-    return project;
+    return updatedProject;
   }
 }

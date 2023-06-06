@@ -27,6 +27,7 @@ import { CreateProjectDto } from './dto/create-project.dto';
 import { FindAllProjectsQuery } from './dto/find-all-projects.dto';
 import { InviteDto } from './dto/invite.dto';
 import { UpdateProjectDto } from './dto/update-project.dto';
+import { UploadMediaDto } from './dto/upload-media.dto';
 import { ProjectInviteTokenEntity } from './entities/project-invite.entity';
 import { ProjectListEntity } from './entities/project-list.entity';
 import { ProjectEntity } from './entities/project.entity';
@@ -189,7 +190,7 @@ export class ProjectController {
   @ApiResponse({ status: HttpStatus.PARTIAL_CONTENT })
   async getAdditionalVideoChunk(
     @Param('id', IsValidObjectIdPipe) id: string,
-    @Param('videoId') videoId: number,
+    @Param('videoId', IsValidObjectIdPipe) videoId: string,
     @MediaUser() mediaAccessUser: MediaAccessUser,
     @Req() req: Request,
     @Res() res: Response,
@@ -210,8 +211,9 @@ export class ProjectController {
   uploadVideo(
     @User() authUser: AuthUser,
     @Param('id', IsValidObjectIdPipe) id: string,
+    @Body() uploadMediaDto: UploadMediaDto,
     @UploadedFile() file: Express.Multer.File, //
   ): Promise<ProjectEntity> {
-    return this.projectService.uploadVideo(authUser, id, file);
+    return this.projectService.uploadVideo(authUser, id, uploadMediaDto, file);
   }
 }

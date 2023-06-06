@@ -1,6 +1,9 @@
 import { Component, Input } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { ProjectEntity } from '../../../../../services/api/entities/project.entity';
+import {
+  AdditionalVideo,
+  ProjectEntity,
+} from '../../../../../services/api/entities/project.entity';
 import * as viewerActions from '../../../../../store/actions/viewer.actions';
 import { AppState } from '../../../../../store/app.state';
 
@@ -14,9 +17,11 @@ export class ViewSelectionComponent {
 
   constructor(private store: Store<AppState>) {}
 
-  onClickAdditionalVideo(index: number) {
+  onClickAdditionalVideo(additionalVideo: AdditionalVideo) {
     this.store.dispatch(
-      viewerActions.changeAdditionalVideo({ choosenAdditionalVideo: index })
+      viewerActions.changeAdditionalVideo({
+        choosenAdditionalVideo: additionalVideo.id,
+      })
     );
   }
 }

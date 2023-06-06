@@ -1,9 +1,15 @@
 import { ShortTranscriptionEntity } from './transcription.entity';
 import { UserEntity } from './user.entity';
 
+export interface AdditionalVideo {
+  id: string;
+  video: string;
+  title: string;
+}
+
 export interface MediaLinksEntity {
   video: string;
-  additionalVideos: string[];
+  additionalVideos: AdditionalVideo[];
 }
 
 export enum LivestreamStatus {

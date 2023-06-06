@@ -16,7 +16,7 @@ const storage = new StorageService();
 
 export interface ViewerState {
   videoArrangement: VideoArrangement;
-  choosenAdditionalVideo: number;
+  choosenAdditionalVideo: string;
   viewSelectionEnabled: boolean;
   transcriptEnabled: boolean;
   transcriptFontsize: TranscriptFontsize;
@@ -32,7 +32,7 @@ export const initalState: ViewerState = {
     StorageKey.VIEWER_VIDEO_ARRANGEMENT,
     VideoArrangement.CENTERED
   ) as VideoArrangement,
-  choosenAdditionalVideo: 0,
+  choosenAdditionalVideo: '', // TODO
   viewSelectionEnabled: storage.getFromLocalStorage(
     StorageKey.VIEWER_VIEW_SELECTION_ENABLED,
     true

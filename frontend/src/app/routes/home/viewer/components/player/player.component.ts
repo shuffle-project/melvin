@@ -136,6 +136,15 @@ export class PlayerComponent implements OnDestroy {
     }
   }
 
+  getVideoUrl(choosenAdditionalVideo: string): string {
+    const video =
+      this.project?.media?.additionalVideos.find(
+        (ele) => ele.id === choosenAdditionalVideo
+      ) || this.project!.media!.additionalVideos[0];
+
+    return video.video;
+  }
+
   // CONTROLS
 
   onPlayVideo() {

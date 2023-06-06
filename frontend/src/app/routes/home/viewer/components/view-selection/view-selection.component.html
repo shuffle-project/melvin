@@ -5,9 +5,9 @@
   <hr />
   <div
     class="view-item clickable"
-    *ngFor="let video of project?.media?.additionalVideos; let i = index"
-    (click)="onClickAdditionalVideo(i)"
+    *ngFor="let video of project?.media?.additionalVideos"
+    (click)="onClickAdditionalVideo(video)"
   >
-    Video {{ i + 1 }}
+    {{ video.title }}
   </div>
 </div>
