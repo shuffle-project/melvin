@@ -15,8 +15,17 @@ import {
   ValidatorFn,
   Validators,
 } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
-import { map, Observable, Subject, takeUntil, tap, throttleTime } from 'rxjs';
+import {
+  Observable,
+  Subject,
+  map,
+  take,
+  takeUntil,
+  tap,
+  throttleTime,
+} from 'rxjs';
 import { EDITOR_USER_UNKNOWN } from '../../../../../../../constants/editor.constants';
 import { EditorUser } from '../../../../../../../interfaces/editor-user.interface';
 import { CaptionEntity } from '../../../../../../../services/api/entities/caption.entity';
@@ -26,6 +35,10 @@ import { AppState } from '../../../../../../../store/app.state';
 import * as authSelectors from '../../../../../../../store/selectors/auth.selector';
 import * as editorSelectors from '../../../../../../../store/selectors/editor.selector';
 import { MediaService } from '../../../../services/media/media.service';
+import {
+  CaptionDeleteConfirmModalComponent,
+  CaptionDeleteConfirmModalResult,
+} from '../caption-actions/caption-delete-confirm-modal/caption-delete-confirm-modal.component';
 
 @Component({
   selector: 'app-caption-text',
@@ -36,6 +49,8 @@ export class CaptionTextComponent
   implements OnInit, AfterViewInit, OnChanges, OnDestroy
 {
   @Input() caption!: CaptionEntity;
+  @Input() captionBefore!: CaptionEntity | null;
+  @Input() captionAfter!: CaptionEntity | null;
   @Input() isFocused: boolean = false;
 
   private destroy$$ = new Subject<void>();
@@ -52,6 +67,8 @@ export class CaptionTextComponent
   public progress$!: Observable<{ show: boolean; value: number }>;
   public formControl = new FormControl<string>('');
   public showSaveSpinner = false;
+
+  public markedForDeletion: boolean = false;
 
   get isTextModified(): boolean {
     return this.caption.text !== this.formControl.value;
@@ -93,7 +110,8 @@ export class CaptionTextComponent
   constructor(
     private elementRef: ElementRef,
     private mediaService: MediaService,
-    private store: Store<AppState>
+    private store: Store<AppState>,
+    private dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
@@ -196,6 +214,10 @@ export class CaptionTextComponent
         setTimeout(() => (this.showSaveSpinner = false), 1000);
       }
 
+      if (this.markedForDeletion) {
+        // caption was already deleted
+        return;
+      }
       this.store.dispatch(
         captionsActions.update({
           id: this.caption.id,
@@ -283,5 +305,148 @@ export class CaptionTextComponent
   onClickUndo() {
     console.log('undo');
     this.formControl.setValue(this.caption.text);
+  }
+
+  onKeyDownTextarea(event: KeyboardEvent) {
+    // TODO aufräumen
+    if (!this.formControl.value) {
+      return;
+    }
+    const keycode = event.key || event.code;
+    const target = event.target!;
+    const cursorPosition = (target as any)?.selectionStart;
+
+    switch (keycode) {
+      case 'Enter':
+        if (event.ctrlKey) {
+          // insert new line on STRG + Enter
+          if (this.formControl.value) {
+            this.formControl.setValue(
+              this.formControl.value.slice(0, cursorPosition) +
+                '\n' +
+                this.formControl.value.slice(cursorPosition)
+            );
+          }
+        } else {
+          // move text from cursor to next/new caption
+          const beforeCursor = this.formControl.value.slice(0, cursorPosition);
+          const afterCursor = this.formControl.value.slice(cursorPosition);
+          const timeCurrent = this.caption.end - this.caption.start;
+
+          event.preventDefault();
+          if (this.captionAfter) {
+            // if the caption time is over 6 seconds, it will split the caption in 2 captions
+            // otherwise it will move the text to the next caption
+            const insertInNewCaption =
+              timeCurrent > 6000 || event.shiftKey ? true : false;
+
+            if (insertInNewCaption) {
+              this.movePartToNewCaption(beforeCursor, afterCursor, timeCurrent);
+            } else {
+              this.movePartToNextCaption(beforeCursor, afterCursor);
+            }
+          } else {
+            // Its the last caption, so move the text to a new caption
+            this.movePartToNewCaption(beforeCursor, afterCursor, timeCurrent);
+          }
+        }
+        break;
+      case 'Backspace':
+        if (cursorPosition === 0) {
+          // if the cursor is at the first char, delete current caption
+          // the text will be moved to the captionBefore
+          event.preventDefault();
+          this.deleteCurrentCaptionAndMoveText();
+        }
+        break;
+
+      default:
+        break;
+    }
+  }
+
+  movePartToNewCaption(
+    firstPart: string,
+    lastPart: string,
+    timeCurrent: number
+  ) {
+    const createCaptionDto = {
+      speakerId: this.caption.speakerId,
+      text: lastPart,
+      transcription: this.caption.transcription,
+      start: this.caption.start + Math.floor(timeCurrent / 2),
+      end: this.caption.end,
+    };
+
+    const updateCaptionDto = {
+      text: firstPart,
+      end: this.caption.start + Math.floor(timeCurrent / 2),
+    };
+
+    this.store.dispatch(
+      captionsActions.update({
+        id: this.caption.id,
+        updateDto: updateCaptionDto,
+      })
+    );
+    this.store.dispatch(
+      captionsActions.create({
+        captionDto: createCaptionDto,
+      })
+    );
+  }
+
+  movePartToNextCaption(firstPart: string, lastPart: string) {
+    if (this.captionAfter) {
+      this.store.dispatch(
+        captionsActions.update({
+          id: this.caption.id,
+          updateDto: { text: firstPart },
+        })
+      );
+      this.store.dispatch(
+        captionsActions.update({
+          id: this.captionAfter.id,
+          updateDto: { text: lastPart + ' ' + this.captionAfter.text },
+        })
+      );
+    }
+  }
+
+  deleteCurrentCaptionAndMoveText() {
+    if (this.captionBefore) {
+      // if there ist a caption before, move the text to this and delete the caption
+      this.store.dispatch(
+        captionsActions.update({
+          id: this.captionBefore.id,
+          updateDto: {
+            text: this.captionBefore.text + ' ' + this.caption.text,
+            end: this.caption.end,
+          },
+        })
+      );
+
+      this.store.dispatch(
+        captionsActions.remove({ removeCaptionId: this.caption.id })
+      );
+      this.markedForDeletion = true;
+    } else {
+      // delete caption
+      const dialogRef = this.dialog.open(CaptionDeleteConfirmModalComponent, {
+        data: { caption: this.caption },
+      });
+
+      dialogRef
+        .afterClosed()
+        .pipe(take(1))
+        .subscribe((data: CaptionDeleteConfirmModalResult) => {
+          if (data?.delete) {
+            this.store.dispatch(
+              captionsActions.remove({ removeCaptionId: this.caption.id })
+            );
+            this.markedForDeletion = true;
+          }
+        });
+    }
   }
 }
