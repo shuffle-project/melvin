@@ -1,12 +1,12 @@
 import { createReducer, on } from '@ngrx/store';
 import {
+  CaptionPositionOptions,
   ColorOptions,
   SizeOptions,
 } from '../../routes/home/viewer/components/captions-settings-dialog/captions-settings-dialog.component';
 import {
   TranscriptFontsize,
   TranscriptPosition,
-  VideoArrangement,
 } from '../../routes/home/viewer/viewer.interfaces';
 import { StorageKey } from '../../services/storage/storage-key.enum';
 import { StorageService } from '../../services/storage/storage.service';
@@ -15,28 +15,17 @@ import * as viewerActions from '../actions/viewer.actions';
 const storage = new StorageService();
 
 export interface ViewerState {
-  videoArrangement: VideoArrangement;
-  choosenAdditionalVideo: string;
-  viewSelectionEnabled: boolean;
   transcriptEnabled: boolean;
   transcriptFontsize: TranscriptFontsize;
   transcriptPosition: TranscriptPosition;
   captionsBackgroundColor: ColorOptions;
   captionsColor: ColorOptions;
   captionsFontsize: SizeOptions;
+  captionsPosition: CaptionPositionOptions;
 }
 
 export const initalState: ViewerState = {
   // viewer settings
-  videoArrangement: storage.getFromLocalStorage(
-    StorageKey.VIEWER_VIDEO_ARRANGEMENT,
-    VideoArrangement.CENTERED
-  ) as VideoArrangement,
-  choosenAdditionalVideo: '', // TODO
-  viewSelectionEnabled: storage.getFromLocalStorage(
-    StorageKey.VIEWER_VIEW_SELECTION_ENABLED,
-    true
-  ) as boolean,
   transcriptEnabled: storage.getFromLocalStorage(
     StorageKey.VIEWER_TRANSCRIPT_ENABLED,
     true
@@ -61,26 +50,15 @@ export const initalState: ViewerState = {
     StorageKey.CAPTIONS_FONTSIZE,
     SizeOptions.MEDIUM
   ) as SizeOptions,
+  captionsPosition: storage.getFromLocalStorage(
+    StorageKey.CAPTIONS_POSITION,
+    CaptionPositionOptions.OVER_VIDEO
+  ) as CaptionPositionOptions,
 };
 
 export const viewerReducer = createReducer(
   initalState,
 
-  on(viewerActions.changeVideoArrangement, (state, { videoArrangement }) => {
-    return { ...state, videoArrangement };
-  }),
-  on(
-    viewerActions.changeAdditionalVideo,
-    (state, { choosenAdditionalVideo }) => {
-      return { ...state, choosenAdditionalVideo };
-    }
-  ),
-  on(
-    viewerActions.changeViewSelectionEnabled,
-    (state, { viewSelectionEnabled }) => {
-      return { ...state, viewSelectionEnabled };
-    }
-  ),
   on(viewerActions.changeTranscriptEnabled, (state, { transcriptEnabled }) => {
     return { ...state, transcriptEnabled };
   }),
@@ -109,6 +87,9 @@ export const viewerReducer = createReducer(
     return { ...state, captionsColor };
   }),
   on(viewerActions.changeCaptionsFontsize, (state, { captionsFontsize }) => {
-    return { ...state, captionsFontsize: captionsFontsize };
+    return { ...state, captionsFontsize };
+  }),
+  on(viewerActions.changeCaptionsPosition, (state, { captionsPosition }) => {
+    return { ...state, captionsPosition };
   })
 );

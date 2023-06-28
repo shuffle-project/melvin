@@ -6,8 +6,15 @@ import {
   NonNullableFormBuilder,
   Validators,
 } from '@angular/forms';
+import { Store } from '@ngrx/store';
+import { firstValueFrom, map, tap } from 'rxjs';
 import { ApiService } from '../../../../services/api/api.service';
-import { ProjectEntity } from '../../../../services/api/entities/project.entity';
+import {
+  AdditionalMedia,
+  ProjectEntity,
+} from '../../../../services/api/entities/project.entity';
+import { AppState } from '../../../../store/app.state';
+import * as projectsSelector from '../../../../store/selectors/projects.selector';
 
 @Component({
   selector: 'app-upload-additional-content',
@@ -17,13 +24,26 @@ import { ProjectEntity } from '../../../../services/api/entities/project.entity'
 export class UploadAdditionalContentComponent implements OnInit {
   @Input() projectId!: string;
 
+  private projects$ = this.store.select(projectsSelector.selectAllProjects);
+
+  public project$ = this.projects$.pipe(
+    tap((projectEntities) => console.log(projectEntities)),
+    map((projectEntities) =>
+      projectEntities.find((project) => project.id === this.projectId)
+    )
+  );
+
   public formGroup!: FormGroup<{
     title: FormControl<string>;
     file: FormControl<File | null>;
   }>;
   private currentFile: any;
 
-  constructor(private fb: NonNullableFormBuilder, private api: ApiService) {}
+  constructor(
+    private fb: NonNullableFormBuilder,
+    private store: Store<AppState>,
+    private api: ApiService
+  ) {}
 
   ngOnInit(): void {
     this.formGroup = this.fb.group({
@@ -49,5 +69,13 @@ export class UploadAdditionalContentComponent implements OnInit {
           error: (error: HttpErrorResponse) => console.log(error),
         });
     }
+  }
+
+  async onDeleteAdditionalMedia(
+    project: ProjectEntity,
+    additional: AdditionalMedia
+  ) {
+    // TODO move to effect and delete obj in reducer
+    await firstValueFrom(this.api.deleteMedia(project.id, additional.id));
   }
 }

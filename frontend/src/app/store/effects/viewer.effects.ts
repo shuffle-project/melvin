@@ -18,20 +18,6 @@ export class ViewerEffects {
     private store: Store<AppState>
   ) {}
 
-  changeVideoArrangement$ = createEffect(
-    () =>
-      this.actions$.pipe(
-        ofType(viewerActions.changeVideoArrangement),
-        tap((action) => {
-          this.storageService.storeInLocalStorage(
-            StorageKey.VIEWER_VIDEO_ARRANGEMENT,
-            action.videoArrangement
-          );
-        })
-      ),
-    { dispatch: false }
-  );
-
   changeTranscriptEnabled$ = createEffect(
     () =>
       this.actions$.pipe(
@@ -40,20 +26,6 @@ export class ViewerEffects {
           this.storageService.storeInLocalStorage(
             StorageKey.VIEWER_TRANSCRIPT_ENABLED,
             action.transcriptEnabled
-          );
-        })
-      ),
-    { dispatch: false }
-  );
-
-  chabgeViewSelectionEnabled$ = createEffect(
-    () =>
-      this.actions$.pipe(
-        ofType(viewerActions.changeViewSelectionEnabled),
-        tap((action) => {
-          this.storageService.storeInLocalStorage(
-            StorageKey.VIEWER_VIEW_SELECTION_ENABLED,
-            action.viewSelectionEnabled
           );
         })
       ),
@@ -141,6 +113,20 @@ export class ViewerEffects {
           this.storageService.storeInLocalStorage(
             StorageKey.CAPTIONS_FONTSIZE,
             action.captionsFontsize
+          );
+        })
+      ),
+    { dispatch: false }
+  );
+
+  changeCaptionsPosition$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(viewerActions.changeCaptionsPosition),
+        tap((action) => {
+          this.storageService.storeInLocalStorage(
+            StorageKey.CAPTIONS_POSITION,
+            action.captionsPosition
           );
         })
       ),

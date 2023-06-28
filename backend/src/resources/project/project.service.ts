@@ -6,7 +6,7 @@ import { plainToInstance } from 'class-transformer';
 import { randomBytes } from 'crypto';
 import { Request, Response } from 'express';
 import { ReadStream, createReadStream } from 'fs';
-import { rm } from 'fs-extra';
+import { remove, rm } from 'fs-extra';
 import { readFile, stat } from 'fs/promises';
 import { Types } from 'mongoose';
 import { LeanUserDocument } from 'src/modules/db/schemas/user.schema';
@@ -32,7 +32,9 @@ import {
   CustomBadRequestException,
   CustomForbiddenException,
   CustomInternalServerException,
+  CustomNotFoundException,
 } from '../../utils/exceptions';
+import { isSameObjectId } from '../../utils/objectid';
 import { ActivityService } from '../activity/activity.service';
 import { AuthUser, MediaAccessUser } from '../auth/auth.interfaces';
 import { AuthService } from '../auth/auth.service';
@@ -96,6 +98,12 @@ export class ProjectService {
       mediaAuthToken.token
     }`;
 
+    const audio = `${
+      this.serverBaseUrl
+    }/projects/${project._id.toString()}/media/audio?Authorization=${
+      mediaAuthToken.token
+    }`;
+
     //  additionalVideos
     const additionalVideos = project.additionalMedia
       .filter((media) => media.mediaType === MediaType.VIDEO)
@@ -109,7 +117,7 @@ export class ProjectService {
         }`,
       }));
 
-    return { video, additionalVideos };
+    return { video, audio, additionalVideos };
   }
 
   async create(
@@ -646,6 +654,71 @@ export class ProjectService {
     }
   }
 
+  async getAudioChunk(
+    projectId: string,
+    mediaAccessUser: MediaAccessUser,
+    request: Request,
+    response: Response,
+  ) {
+    if (mediaAccessUser.projectId !== projectId) {
+      throw new CustomForbiddenException();
+    }
+
+    // https://blog.logrocket.com/full-stack-app-tutorial-nestjs-react/
+    // https://betterprogramming.pub/video-stream-with-node-js-and-html5-320b3191a6b6
+    // https://www.geeksforgeeks.org/how-to-stream-large-mp4-files/
+
+    const audioFilepath = this.pathService.getWavFile(projectId);
+
+    try {
+      const audioStats = await stat(audioFilepath);
+
+      const { range } = request.headers;
+      let readStream: ReadStream;
+      if (range) {
+        // version 1
+        // send in 1MB chunks
+        // const CHUNK_SIZE2 = 1 * 1e6;
+        // const start = Number(range.replace(/\D/g, ''));
+        // const end = Math.min(start2 + CHUNK_SIZE2, videoStats.size - 1);
+        // const chunksize = end - start + 1;
+
+        // version 2
+        const parts = range.replace(/bytes=/, '').split('-');
+        const start = parseInt(parts[0], 10);
+        // in some cases end may not exists, if its not exists make it end of file
+        const end = parts[1] ? parseInt(parts[1], 10) : audioStats.size - 1;
+        // chunk size is what the part of video we are sending.
+        const chunksize = end - start + 1;
+
+        response.status(206); // Parial content header
+        response.header({
+          'Content-Range': `bytes ${start}-${end}/${audioStats.size}`,
+          'Accept-Ranges': 'bytes',
+          'Content-length': chunksize,
+          'Content-Type': 'audio/wav',
+        });
+        readStream = createReadStream(audioFilepath, {
+          start: start,
+          end: end,
+        });
+      } else {
+        //if not send the video from start
+        response.status(200);
+        response.header({
+          'Content-Length': audioStats.size,
+          'Content-Type': 'audio/wav',
+        });
+        readStream = createReadStream(audioFilepath);
+      }
+      // pipe stream to response
+      readStream.pipe(response);
+    } catch (error) {
+      this.logger.error(error.message, { error });
+      response.status(400).send('Bad Request');
+    }
+  }
+
   // upload file
   async uploadVideo(
     authUser: AuthUser,
@@ -690,5 +763,45 @@ export class ProjectService {
     });
 
     return updatedProject;
+  }
+
+  async deleteMedia(authUser: AuthUser, projectId: string, mediaId: string) {
+    const project = await this.db.findProjectByIdOrThrow(projectId);
+
+    if (!this.permissions.isProjectMember(project, authUser)) {
+      throw new CustomForbiddenException('access_to_project_denied');
+    }
+
+    if (!this.permissions.isProjectOwner(project, authUser)) {
+      throw new CustomForbiddenException('must_be_owner');
+    }
+
+    const mediaObj = project.additionalMedia.find((media) =>
+      isSameObjectId(media._id, mediaId),
+    );
+
+    if (!mediaObj) {
+      throw new CustomNotFoundException();
+    }
+
+    const path = this.pathService.getAdditionalVideoFile(projectId, mediaId);
+    remove(path);
+
+    // TODO does not work
+    await this.db.projectModel
+      .findByIdAndUpdate(projectId, {
+        $pull: { additionalMedia: { _id: new Types.ObjectId(mediaId) } },
+      })
+      .lean()
+      .exec();
+
+    const updatedProject = await this.db.findProjectByIdOrThrow(projectId);
+
+    // append media object
+    const media = await this._getMediaLinksEntity(updatedProject, authUser);
+    // Entity
+    const entity = plainToInstance(ProjectEntity, { ...updatedProject, media });
+
+    await this.events.projectUpdated(entity);
   }
 }

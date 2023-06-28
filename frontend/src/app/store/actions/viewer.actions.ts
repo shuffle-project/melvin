@@ -1,28 +1,13 @@
 import { createAction, props } from '@ngrx/store';
 import {
+  CaptionPositionOptions,
   ColorOptions,
   SizeOptions,
 } from '../../routes/home/viewer/components/captions-settings-dialog/captions-settings-dialog.component';
 import {
   TranscriptFontsize,
   TranscriptPosition,
-  VideoArrangement,
 } from '../../routes/home/viewer/viewer.interfaces';
-
-export const changeVideoArrangement = createAction(
-  '[ADJUST LAYOUT COMPONENT] Change Video Arrangement',
-  props<{ videoArrangement: VideoArrangement }>()
-);
-
-export const changeAdditionalVideo = createAction(
-  '[VIEW SELECTION COMPONENT] Change choosen additional Video',
-  props<{ choosenAdditionalVideo: string }>()
-);
-
-export const changeViewSelectionEnabled = createAction(
-  '[ADJUST LAYOUT COMPONENT] Change view selection Enabled',
-  props<{ viewSelectionEnabled: boolean }>()
-);
 
 export const changeTranscriptEnabled = createAction(
   '[ADJUST LAYOUT COMPONENT] Change Transcript Enabled',
@@ -53,4 +38,9 @@ export const changeCaptionsColor = createAction(
 export const changeCaptionsFontsize = createAction(
   '[CAPTIONS SETTINGS DIALOG] Change captions fontsize',
   props<{ captionsFontsize: SizeOptions }>()
+);
+
+export const changeCaptionsPosition = createAction(
+  '[CAPTIONS SETTINGS DIALOG] Change captions position',
+  props<{ captionsPosition: CaptionPositionOptions }>()
 );

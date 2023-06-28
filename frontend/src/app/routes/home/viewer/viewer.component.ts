@@ -23,12 +23,6 @@ export class ViewerComponent implements OnInit {
   public project$ = this.store.select(editorSelector.selectProject);
 
   // TODO layout according to this settings
-  public videoArrangement$ = this.store.select(
-    viewerSelector.selectVideoArrangement
-  );
-  public viewSelectionEnabled$ = this.store.select(
-    viewerSelector.selectViewSelectionEnabled
-  );
   public transcriptEnabled$ = this.store.select(
     viewerSelector.selectTranscriptEnabled
   );
@@ -37,12 +31,10 @@ export class ViewerComponent implements OnInit {
   );
 
   layoutSettings$ = combineLatest([
-    this.videoArrangement$,
     this.transcriptEnabled$,
     this.transcriptPosition$,
   ]).pipe(
-    map(([videoArrangement, transcriptEnabled, transcriptPosition]) => ({
-      videoArrangement,
+    map(([transcriptEnabled, transcriptPosition]) => ({
       transcriptEnabled,
       transcriptPosition,
     }))

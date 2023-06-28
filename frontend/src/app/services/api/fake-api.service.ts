@@ -130,6 +130,10 @@ export class FakeApiService implements ApiService {
     return of({ ...PROJECT_ENTITY_MOCK[0] });
   }
 
+  deleteMedia(projectId: string, mediaId: string) {
+    return of();
+  }
+
   uploadVideo(
     projectId: string,
     uploadVideoDto: UploadVideoDto,

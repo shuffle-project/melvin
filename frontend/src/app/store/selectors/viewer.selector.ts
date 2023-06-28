@@ -3,25 +3,6 @@ import { ViewerState } from '../reducers/viewer.reducer';
 
 export const selectViewerState = createFeatureSelector<ViewerState>('viewer');
 
-export const selectVideoArrangement = createSelector(
-  selectViewerState,
-  (state: ViewerState) => {
-    return state.videoArrangement;
-  }
-);
-
-export const selectChoosenAdditionalVideo = createSelector(
-  selectViewerState,
-  (state: ViewerState) => {
-    return state.choosenAdditionalVideo;
-  }
-);
-export const selectViewSelectionEnabled = createSelector(
-  selectViewerState,
-  (state: ViewerState) => {
-    return state.viewSelectionEnabled;
-  }
-);
 export const selectTranscriptEnabled = createSelector(
   selectViewerState,
   (state: ViewerState) => {
@@ -59,5 +40,12 @@ export const selectCaptionFontsize = createSelector(
   selectViewerState,
   (state: ViewerState) => {
     return state.captionsFontsize;
+  }
+);
+
+export const selectCaptionPosition = createSelector(
+  selectViewerState,
+  (state: ViewerState) => {
+    return state.captionsPosition;
   }
 );

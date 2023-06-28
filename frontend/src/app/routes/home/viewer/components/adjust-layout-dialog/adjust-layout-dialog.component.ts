@@ -10,7 +10,6 @@ import * as viewerSelector from '../../../../../store/selectors/viewer.selector'
 import {
   TranscriptFontsize,
   TranscriptPosition,
-  VideoArrangement,
 } from '../../viewer.interfaces';
 
 @Component({
@@ -19,16 +18,9 @@ import {
   styleUrls: ['./adjust-layout-dialog.component.scss'],
 })
 export class AdjustLayoutDialogComponent {
-  public VideoArrangement = VideoArrangement;
   public TranscriptFontsize = TranscriptFontsize;
   public TranscriptPosition = TranscriptPosition;
 
-  public videoArrangement$ = this.store.select(
-    viewerSelector.selectVideoArrangement
-  );
-  public viewSelectionEnabled$ = this.store.select(
-    viewerSelector.selectViewSelectionEnabled
-  );
   public transcriptEnabled$ = this.store.select(
     viewerSelector.selectTranscriptEnabled
   );
@@ -43,12 +35,6 @@ export class AdjustLayoutDialogComponent {
     public dialogRef: MatDialogRef<AdjustLayoutDialogComponent>,
     public store: Store<AppState>
   ) {}
-
-  onChangeVideoArrangement(event: MatRadioChange) {
-    this.store.dispatch(
-      viewerActions.changeVideoArrangement({ videoArrangement: event.value })
-    );
-  }
 
   onChangeFontsize(event: MatSelectChange) {
     this.store.dispatch(
@@ -70,14 +56,6 @@ export class AdjustLayoutDialogComponent {
     this.store.dispatch(
       viewerActions.changeTranscriptEnabled({
         transcriptEnabled: event.checked,
-      })
-    );
-  }
-
-  onViewSelectionEnabledChange(event: MatSlideToggleChange) {
-    this.store.dispatch(
-      viewerActions.changeViewSelectionEnabled({
-        viewSelectionEnabled: event.checked,
       })
     );
   }

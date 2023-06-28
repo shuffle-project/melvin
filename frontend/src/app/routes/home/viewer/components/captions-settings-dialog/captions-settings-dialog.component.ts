@@ -22,6 +22,11 @@ export enum SizeOptions {
   LARGER = 'larger',
 }
 
+export enum CaptionPositionOptions {
+  UNDER_VIDEO = 'under-video',
+  OVER_VIDEO = 'over-video',
+}
+
 @Component({
   selector: 'app-captions-settings-dialog',
   templateUrl: './captions-settings-dialog.component.html',
@@ -30,20 +35,23 @@ export enum SizeOptions {
 export class CaptionsSettingsDialogComponent {
   ColorOptions = ColorOptions;
   SizeOptions = SizeOptions;
+  CaptionPositionOptions = CaptionPositionOptions;
 
   backgroundColor$ = this.store.select(
     viewerSelector.selectCaptionsBackgroundColor
   );
   color$ = this.store.select(viewerSelector.selectCaptionsColor);
   fontsize$ = this.store.select(viewerSelector.selectCaptionFontsize);
+  position$ = this.store.select(viewerSelector.selectCaptionPosition);
 
   combined$ = combineLatest([
     this.backgroundColor$,
     this.color$,
     this.fontsize$,
+    this.position$,
   ]).pipe(
-    map(([backgroundColor, color, fontsize]) => {
-      return { backgroundColor, color, fontsize };
+    map(([backgroundColor, color, fontsize, position]) => {
+      return { backgroundColor, color, fontsize, position };
     })
   );
 
@@ -70,6 +78,14 @@ export class CaptionsSettingsDialogComponent {
     this.store.dispatch(
       viewerActions.changeCaptionsFontsize({
         captionsFontsize: event.value,
+      })
+    );
+  }
+
+  onChangePosition(event: MatSelectChange) {
+    this.store.dispatch(
+      viewerActions.changeCaptionsPosition({
+        captionsPosition: event.value,
       })
     );
   }

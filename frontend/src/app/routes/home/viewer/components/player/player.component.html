@@ -1,59 +1,180 @@
-<div class="box" *ngrxLet="videoArrangement$ as videoArrangement">
+<div class="box">
+  <audio
+    #viewerAudio
+    (loadedmetadata)="onAudioLoadMetadata()"
+    [volume]="volume$ | ngrxPush"
+    [playbackRate]="playbackSpeed"
+  >
+    <source
+      *ngIf="project?.media?.video"
+      src="{{ project?.media?.video }}"
+      type="video/mp4"
+    />
+  </audio>
   <!--  -->
-  <div class="video-wrapper video-arrangement-{{ videoArrangement }}">
-    <video
-      #viewerVideo
-      class="main-video"
-      [volume]="volume$ | ngrxPush"
-      (loadedmetadata)="onVideoLoadMetadata()"
-      [playbackRate]="playbackSpeed"
+
+  <div class="position-relative">
+    <button
+      #trigger="matMenuTrigger"
+      class="views-menu-button {{ trigger.menuOpen ? 'menu-open' : '' }}"
+      mat-button
+      [matMenuTriggerFor]="viewsMenu"
     >
-      <source
-        *ngIf="project?.media?.video"
-        src="{{ project?.media?.video }}"
-        type="video/mp4"
-      />
-    </video>
-    <ng-container *ngrxLet="choosenAdditionalVideo$ as choosenAdditionalVideo">
+      <span>Weitere Ansichten</span> <mat-icon svgIcon="more"></mat-icon>
+    </button>
+
+    <mat-menu #viewsMenu="matMenu">
+      <div class="mat-menu-item-wrapper" mat-menu-item>
+        <mat-checkbox
+          (click)="$event.stopPropagation()"
+          [checked]="!hiddenVideos.includes('mainVideo')"
+          (change)="onChangeViewsMenu($event, null)"
+          [disabled]="mainVideoId === 'mainVideo'"
+        >
+          Hauptvideo
+        </mat-checkbox>
+      </div>
+
+      <div
+        class="mat-menu-item-wrapper"
+        mat-menu-item
+        *ngFor="let video of project?.media?.additionalVideos"
+      >
+        <mat-checkbox
+          (click)="$event.stopPropagation()"
+          [checked]="!hiddenVideos.includes(video.id)"
+          (change)="onChangeViewsMenu($event, video)"
+          [disabled]="mainVideoId === video.id"
+        >
+          {{ video.title }}
+        </mat-checkbox>
+      </div>
+    </mat-menu>
+
+    <div class="video-wrapper" [style.max-height.px]="mainVideoHeight">
+      <div></div>
+      <!-- main video start -->
       <video
-        *ngIf="(project?.media?.additionalVideos)!.length > 0"
-        #viewerVideo2
-        class="secondary-video"
+        #mainVideo
+        *ngIf="mainVideoId === 'mainVideo'"
+        class="main-video"
         [muted]="true"
         [playbackRate]="playbackSpeed"
-        (loadedmetadata)="onVideoLoadMetadataSecondVideo()"
+        (loadedmetadata)="onVideoLoadMetadata()"
       >
-        <source
-          src="{{ getVideoUrl(choosenAdditionalVideo) }}"
-          type="video/mp4"
-        />
+        <source src="{{ project?.media?.video }}" type="video/mp4" />
       </video>
-    </ng-container>
 
+      <ng-container *ngFor="let video of project?.media?.additionalVideos">
+        <video
+          #mainVideo
+          *ngIf="video.id === mainVideoId"
+          class="main-video"
+          [muted]="true"
+          [playbackRate]="playbackSpeed"
+          (loadedmetadata)="onVideoLoadMetadata()"
+        >
+          <source src="{{ video.video }}" type="video/mp4" />
+        </video>
+      </ng-container>
+      <!-- main video end -->
+      <!-- secondary videos start -->
+      <div
+        class="secondary-videos"
+        [style.width.%]="
+          hiddenVideos.length === project?.media?.additionalVideos?.length
+            ? 0
+            : 100
+        "
+      >
+        <!-- main video as secondary start -->
+
+        <!-- single secondary video start -->
+        <div class="secondary-video-container">
+          <video
+            *ngIf="
+              !hiddenVideos.includes('mainVideo') && mainVideoId !== 'mainVideo'
+            "
+            #secondaryVideo
+            class="secondary-video"
+            [muted]="true"
+            [playbackRate]="playbackSpeed"
+            (loadedmetadata)="onVideoLoadMetadataSecondVideo()"
+          >
+            <source
+              *ngIf="project?.media?.video"
+              src="{{ project?.media?.video }}"
+              type="video/mp4"
+            />
+          </video>
+          <div class="video-overlay">
+            <span> Hauptvideo </span>
+            <button
+              mat-stroked-button
+              color="basic"
+              (click)="onChangeMainVideo('mainVideo')"
+            >
+              Als Hauptansicht
+            </button>
+          </div>
+        </div>
+        <!-- main video as secondary stop -->
+        <div
+          class="secondary-video-container"
+          *ngFor="let video of project?.media?.additionalVideos"
+        >
+          <!-- single secondary video start -->
+          <video
+            *ngIf="!hiddenVideos.includes(video.id) && mainVideoId !== video.id"
+            #secondaryVideo
+            class="secondary-video"
+            [muted]="true"
+            [playbackRate]="playbackSpeed"
+            (loadedmetadata)="onVideoLoadMetadataSecondVideo()"
+          >
+            <source src="{{ video.video }}" type="video/mp4" />
+          </video>
+          <div class="video-overlay">
+            <span>
+              {{ video.title }}
+            </span>
+            <button
+              mat-stroked-button
+              color="basic"
+              (click)="onChangeMainVideo(video.id)"
+            >
+              Als Hauptansicht
+            </button>
+          </div>
+          <!-- single secondary video end -->
+        </div>
+        <!-- secondary videos end -->
+      </div>
+    </div>
     <ng-container *ngIf="subtitlesEnabledInVideo$ | ngrxPush">
       <div
         *ngrxLet="combinedCaptionsStyling$ as combined"
-        class="viewer-caption"
+        class="viewer-caption {{ combined.position }}"
       >
+        <!-- over / under -->
         <span
           *ngrxLet="viewerService.currentCaption$ as currentCaption"
           class="fontsize-{{ combined.fontsize }} color-{{
             combined.color
           }} backgroundColor-{{ combined.backgroundColor }}"
         >
-          {{ currentCaption?.text }}</span
+          {{ currentCaption?.text || '-' }}</span
         >
       </div>
     </ng-container>
   </div>
-
   <div class="controls">
     <!--mat-progress-bar mode="determinate" value="40"></mat-progress-bar-->
     <div class="video-progress-slider-wrapper">
-      <mat-slider #matsliderprogress min="0" [max]="viewerVideo.duration">
+      <mat-slider #matsliderprogress min="0" [max]="viewerAudio.duration">
         <input
           matSliderThumb
-          [(ngModel)]="viewerVideo.currentTime"
+          [(ngModel)]="viewerAudio.currentTime"
           (input)="onVideoProgressChange($event)"
         />
       </mat-slider>
@@ -66,10 +187,10 @@
           class="md"
           matTooltip="Play or pause"
           aria-label="Play or pause"
-          (click)="viewerVideo.paused ? onPlayVideo() : onPauseVideo()"
+          (click)="viewerAudio.paused ? onPlayVideo() : onPauseVideo()"
         >
           <mat-icon
-            [svgIcon]="!viewerVideo.paused ? 'pause_circle' : 'play_circle'"
+            [svgIcon]="!viewerAudio.paused ? 'pause_circle' : 'play_circle'"
           ></mat-icon>
         </button>
 
@@ -78,10 +199,10 @@
           class="md"
           matTooltip="Mute or unmute Sound"
           aria-label="Mute or unmute Sound"
-          (click)="viewerVideo.muted = !viewerVideo.muted"
+          (click)="viewerAudio.muted = !viewerAudio.muted"
         >
           <mat-icon
-            [svgIcon]="viewerVideo.muted === true ? 'volume_off' : 'volume_on'"
+            [svgIcon]="viewerAudio.muted === true ? 'volume_off' : 'volume_on'"
           ></mat-icon>
         </button>
 
@@ -92,7 +213,7 @@
           step="0.01"
           discrete
           [displayWith]="sliderLabelVolume"
-          [disabled]="viewerVideo.muted"
+          [disabled]="viewerAudio.muted"
         >
           <input
             matSliderThumb
@@ -185,10 +306,11 @@
       </div>
     </div>
     <div>
-      {{ viewerVideo.currentTime * 1000 | duration }} /
+      {{ viewerAudio.currentTime * 1000 | duration }} /
       {{
-        viewerVideo.duration ? (viewerVideo.duration * 1000 | duration) : '-'
+        viewerAudio.duration ? (viewerAudio.duration * 1000 | duration) : '-'
       }}
     </div>
   </div>
+  {{ viewerAudio.readyState }}
 </div>

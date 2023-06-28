@@ -65,6 +65,8 @@ export class RecordingTimestamp {
 })
 export class AdditionalMedia {
   @ApiProperty({ name: 'id', example: EXAMPLE_PROJECT._id })
+  @Expose({ name: 'id' })
+  //TODO https://github.com/typestack/class-transformer/issues/991
   @Transform(({ obj }) => obj._id.toString())
   _id: Types.ObjectId;
 
@@ -218,9 +220,9 @@ export class Project {
   @Prop()
   livestream: Livestream;
 
-  @Exclude()
-  @ApiProperty({})
-  @Prop({})
+  @ApiProperty({ type: [AdditionalMedia] })
+  @Type(() => AdditionalMedia)
+  @Prop({ default: [] })
   additionalMedia: AdditionalMedia[] = [];
 }
 

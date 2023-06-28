@@ -205,6 +205,18 @@ export class ProjectController {
   }
 
   @UseGuards(JwtAuthGuard)
+  @Get(':id/media/audio')
+  @ApiResponse({ status: HttpStatus.PARTIAL_CONTENT })
+  async getAdditionalAudioChunk(
+    @Param('id', IsValidObjectIdPipe) id: string,
+    @MediaUser() mediaAccessUser: MediaAccessUser,
+    @Req() req: Request,
+    @Res() res: Response,
+  ) {
+    return this.projectService.getAudioChunk(id, mediaAccessUser, req, res);
+  }
+
+  @UseGuards(JwtAuthGuard)
   @Post(':id/media/upload')
   @UseInterceptors(MediaFileInterceptor)
   @ApiResponse({ type: ProjectEntity })
@@ -215,5 +227,16 @@ export class ProjectController {
     @UploadedFile() file: Express.Multer.File, //
   ): Promise<ProjectEntity> {
     return this.projectService.uploadVideo(authUser, id, uploadMediaDto, file);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Delete(':id/media/:mediaId')
+  @ApiResponse({ status: HttpStatus.NO_CONTENT })
+  async deleteAdditionalMedia(
+    @User() authUser: AuthUser,
+    @Param('id', IsValidObjectIdPipe) id: string,
+    @Param('mediaId', IsValidObjectIdPipe) mediaId: string,
+  ) {
+    return this.projectService.deleteMedia(authUser, id, mediaId);
   }
 }

@@ -2,7 +2,7 @@
   <h2 mat-dialog-title>Layout anpassen</h2>
 
   <div mat-dialog-content>
-    <h3>Video</h3>
+    <!-- <h3>Video</h3>
     <mat-radio-group
       aria-label="Anordnung"
       [value]="videoArrangement$ | ngrxPush"
@@ -20,7 +20,7 @@
       <mat-radio-button value="{{ VideoArrangement.MEDIUM_MEDIUM }}">
         Zwei gleichgroße Videos nebeneinander
       </mat-radio-button>
-    </mat-radio-group>
+    </mat-radio-group> -->
 
     <h3>Transkript</h3>
     <mat-slide-toggle
@@ -65,14 +65,6 @@
         Transkript oben
       </mat-radio-button>
     </mat-radio-group>
-
-    <h3>Weitere Ansichten</h3>
-    <mat-slide-toggle
-      [checked]="viewSelectionEnabled$ | ngrxPush"
-      (change)="onViewSelectionEnabledChange($event)"
-    >
-      Show view selection</mat-slide-toggle
-    >
 
     <br />
   </div>

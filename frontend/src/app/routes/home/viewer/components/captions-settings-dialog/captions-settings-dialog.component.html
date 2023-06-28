@@ -59,6 +59,24 @@
 
     <br />
 
+    <ng-container *ngrxLet="position$ as position">
+      <mat-label for="captionsFontsize"> Position der Captions </mat-label>
+      <mat-form-field>
+        <mat-select
+          id="captionsPosition"
+          [value]="position"
+          (selectionChange)="onChangePosition($event)"
+        >
+          <mat-option value="{{ CaptionPositionOptions.OVER_VIDEO }}">
+            Über dem Video
+          </mat-option>
+          <mat-option value="{{ CaptionPositionOptions.UNDER_VIDEO }}">
+            Unterhalb des Videos
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </ng-container>
+
     <div
       *ngrxLet="combined$ as combined"
       class="like-captions-text fontsize-{{ combined.fontsize }} color-{{

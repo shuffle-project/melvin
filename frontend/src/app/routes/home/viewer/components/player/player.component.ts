@@ -1,14 +1,21 @@
 import {
   Component,
   ElementRef,
+  HostListener,
   Input,
   OnDestroy,
+  QueryList,
   ViewChild,
+  ViewChildren,
 } from '@angular/core';
+import { MatCheckboxChange } from '@angular/material/checkbox';
 import { MatDialog } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
-import { Subject, combineLatest, map, takeUntil, tap } from 'rxjs';
-import { ProjectEntity } from '../../../../../services/api/entities/project.entity';
+import { Subject, combineLatest, map } from 'rxjs';
+import {
+  AdditionalVideo,
+  ProjectEntity,
+} from '../../../../../services/api/entities/project.entity';
 import { TranscriptionEntity } from '../../../../../services/api/entities/transcription.entity';
 import * as editorActions from '../../../../../store/actions/editor.actions';
 import * as transcriptionsActions from '../../../../../store/actions/transcriptions.actions';
@@ -31,15 +38,20 @@ export class PlayerComponent implements OnDestroy {
 
   @Input({ required: true }) project!: ProjectEntity | null;
 
+  // main audio
+  @ViewChild('viewerAudio') viewerAudio!: ElementRef;
+  public audioPlayer: HTMLAudioElement | null = null;
+
   // main video
-  @ViewChild('viewerVideo') viewerVideo!: ElementRef;
-  public videoPlayer: HTMLVideoElement | null = null;
+  @ViewChild('mainVideo') mainVideo!: ElementRef;
+  mainVideoHeight = 300;
 
-  // second video
-  @ViewChild('viewerVideo2') viewerVideo2!: ElementRef;
-  public videoPlayer2: HTMLVideoElement | null = null;
+  @ViewChildren('secondaryVideo') secondaryVideoList!: QueryList<ElementRef>;
 
-  public videoLoaded = false;
+  mainVideoId: string = 'mainVideo';
+  hiddenVideos: string[] = [];
+
+  public audioLoaded = false;
 
   public volume$ = this.store.select(editorSelector.selectVolume);
   public subtitlesEnabledInVideo$ = this.store.select(
@@ -53,13 +65,6 @@ export class PlayerComponent implements OnDestroy {
     transcriptionsSelector.selectTranscriptionId
   );
 
-  public videoArrangement$ = this.store.select(
-    viewerSelector.selectVideoArrangement
-  );
-  public choosenAdditionalVideo$ = this.store.select(
-    viewerSelector.selectChoosenAdditionalVideo
-  );
-
   public captions$ = this.store.select(captionsSelector.selectCaptions);
 
   // captions in video
@@ -68,9 +73,10 @@ export class PlayerComponent implements OnDestroy {
     this.store.select(viewerSelector.selectCaptionsBackgroundColor),
     this.store.select(viewerSelector.selectCaptionsColor),
     this.store.select(viewerSelector.selectCaptionFontsize),
+    this.store.select(viewerSelector.selectCaptionPosition),
   ]).pipe(
-    map(([captions, backgroundColor, color, fontsize]) => {
-      return { captions, backgroundColor, color, fontsize };
+    map(([captions, backgroundColor, color, fontsize, position]) => {
+      return { captions, backgroundColor, color, fontsize, position };
     })
   );
 
@@ -79,6 +85,12 @@ export class PlayerComponent implements OnDestroy {
     private dialog: MatDialog,
     public viewerService: ViewerService
   ) {}
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event: any) {
+    if (this.mainVideo.nativeElement)
+      this.mainVideoHeight = this.mainVideo.nativeElement.offsetHeight;
+  }
 
   // controls
   public volume: number = 1;
@@ -89,27 +101,28 @@ export class PlayerComponent implements OnDestroy {
   }
 
   // VIDEO
+
+  onChangeMainVideo(videoId: string) {
+    this.mainVideoId = videoId;
+    this.mainVideo.nativeElement.load();
+  }
+
+  onAudioLoadMetadata() {
+    this.audioLoaded = true;
+    this.audioPlayer = this.viewerAudio.nativeElement;
+
+    this.viewerService.initObservables(this.audioPlayer!, this.project!.id);
+  }
+
   onVideoLoadMetadataSecondVideo() {
-    if (this.videoPlayer2 && this.videoPlayer)
-      this.videoPlayer2.currentTime = this.videoPlayer.currentTime;
+    if (this.audioPlayer) this.setCurrentTimeOnVideos();
   }
 
   onVideoLoadMetadata() {
-    this.videoPlayer = this.viewerVideo.nativeElement;
-    if (this.viewerVideo2) {
-      this.videoPlayer2 = this.viewerVideo2.nativeElement;
-      this.choosenAdditionalVideo$
-        .pipe(
-          takeUntil(this.destroy$$),
-          tap(() => {
-            this.videoPlayer2?.load();
-          })
-        )
-        .subscribe();
-    }
-    this.videoLoaded = true;
+    if (this.mainVideo.nativeElement)
+      this.mainVideoHeight = this.mainVideo.nativeElement.offsetHeight;
 
-    this.viewerService.initObservables(this.videoPlayer!, this.project!.id);
+    if (this.audioPlayer) this.setCurrentTimeOnVideos();
   }
 
   // DATA
@@ -148,27 +161,22 @@ export class PlayerComponent implements OnDestroy {
   // CONTROLS
 
   onPlayVideo() {
-    if (this.videoPlayer) {
-      if (this.videoPlayer2) {
-        this.videoPlayer2.currentTime = this.videoPlayer.currentTime;
-        this.videoPlayer2.play();
-      }
-      this.videoPlayer.play();
+    if (this.audioPlayer) {
+      this.audioPlayer.play();
+      this.playVideos();
     }
   }
   onPauseVideo() {
-    if (this.videoPlayer) {
-      this.videoPlayer.pause();
-      if (this.videoPlayer2) {
-        this.videoPlayer2?.pause();
-        this.videoPlayer2.currentTime = this.videoPlayer.currentTime;
-      }
+    if (this.audioPlayer) {
+      this.audioPlayer.pause();
+      this.pauseVideos();
     }
   }
 
   onVideoProgressChange(event: any) {
-    if (this.videoPlayer2 && this.videoPlayer) {
-      this.videoPlayer2.currentTime = this.videoPlayer?.currentTime;
+    console.log('input', event.target.value);
+    if (this.audioPlayer) {
+      this.setCurrentTimeOnVideos();
     }
   }
 
@@ -200,5 +208,77 @@ export class PlayerComponent implements OnDestroy {
 
   onOpenCaptionsSettingsDialog() {
     this.dialog.open(CaptionsSettingsDialogComponent);
+  }
+
+  onResizeMainVideo(event: any) {
+    console.log(event);
+  }
+
+  // CONTROLS SECONDARY VIDEOS
+
+  onChangeViewsMenu(event: MatCheckboxChange, video: AdditionalVideo | null) {
+    if (event.checked) {
+      if (!video) {
+        this.hiddenVideos.splice(this.hiddenVideos.indexOf('mainVideo'), 1);
+      } else if (this.hiddenVideos.includes(video.id)) {
+        this.hiddenVideos.splice(this.hiddenVideos.indexOf(video.id), 1);
+      }
+    } else {
+      if (!video) {
+        this.hiddenVideos.push('mainVideo');
+      } else {
+        this.hiddenVideos.push(video.id);
+      }
+    }
+  }
+
+  setCurrentTimeOnVideos() {
+    if (this.mainVideo.nativeElement) {
+      this.mainVideo.nativeElement.currentTime = this.audioPlayer?.currentTime;
+      if (!this.audioPlayer?.paused && this.mainVideo.nativeElement.paused) {
+        this.mainVideo.nativeElement.play();
+      }
+    }
+
+    this.secondaryVideoList.forEach((element) => {
+      if (element.nativeElement) {
+        element.nativeElement.currentTime = this.audioPlayer?.currentTime;
+        if (!this.audioPlayer?.paused && element.nativeElement.paused) {
+          element.nativeElement.play();
+        }
+      }
+    });
+  }
+
+  // onCanPlayAudio(event: any) {
+  //   console.log(event);
+  // }
+
+  playVideos() {
+    if (this.mainVideo.nativeElement) {
+      this.mainVideo.nativeElement.currentTime = this.audioPlayer?.currentTime;
+      this.mainVideo.nativeElement.play();
+    }
+
+    this.secondaryVideoList.forEach((element) => {
+      if (element.nativeElement) {
+        element.nativeElement.currentTime = this.audioPlayer?.currentTime;
+        element.nativeElement.play();
+      }
+    });
+  }
+
+  pauseVideos() {
+    if (this.mainVideo.nativeElement) {
+      this.mainVideo.nativeElement.pause();
+      this.mainVideo.nativeElement.currentTime = this.audioPlayer?.currentTime;
+    }
+
+    this.secondaryVideoList.map((element) => {
+      if (element.nativeElement) {
+        element.nativeElement.pause();
+        element.nativeElement.currentTime = this.audioPlayer?.currentTime;
+      }
+    });
   }
 }

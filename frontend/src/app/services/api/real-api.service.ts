@@ -258,12 +258,15 @@ export class RealApiService implements ApiService {
     });
   }
 
+  deleteMedia(projectId: string, mediaId: string): Observable<void> {
+    return this._delete<void>(`/projects/${projectId}/media/${mediaId}`);
+  }
+
   uploadVideo(
     projectId: string,
     uploadVideoDto: UploadVideoDto,
     file: File
   ): Observable<HttpEvent<ProjectEntity>> {
-    console.log(file);
     const formData = new FormData();
     formData.append('title', uploadVideoDto.title);
     formData.append('file', file);

@@ -38,6 +38,10 @@ export class MediaLinksEntity {
   @Type(() => String)
   video: string;
 
+  @ApiProperty({ type: String })
+  @Type(() => String)
+  audio: string;
+
   @ApiProperty({ type: [AdditionalVideo] })
   @Type(() => AdditionalVideo)
   additionalVideos: AdditionalVideo[];

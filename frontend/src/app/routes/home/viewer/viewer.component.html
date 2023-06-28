@@ -9,12 +9,7 @@
 
 <section class="content" *ngrxLet="project$ as project">
   <ng-container *ngrxLet="layoutSettings$ as layout">
-    <div class="column-size-1">
-      <app-view-selection
-        *ngIf="viewSelectionEnabled$ | ngrxPush"
-        [project]="project"
-      ></app-view-selection>
-    </div>
+    <div class="column-size-1"></div>
     <div class="column-size-2">
       <app-transcript
         *ngIf="layout.transcriptEnabled && layout.transcriptPosition === 'left'"

@@ -24,7 +24,7 @@ export class ViewerService {
   private destroy$$ = new Subject<void>();
 
   private projectId: string | null = null;
-  private videoElement: HTMLVideoElement | null = null;
+  private audioElement: HTMLAudioElement | null = null;
 
   public currentTime$ = new BehaviorSubject<number>(0);
 
@@ -42,20 +42,20 @@ export class ViewerService {
   resetService() {
     this.currentTime$.next(0);
     this.currentCaption$.next(null);
-    this.videoElement = null;
+    this.audioElement = null;
     this.projectId = null;
 
     this.destroy$$.next();
   }
 
-  initObservables(videoElement: HTMLVideoElement, projectId: string) {
-    this.videoElement = videoElement;
+  initObservables(audioElement: HTMLAudioElement, projectId: string) {
+    this.audioElement = audioElement;
     this.projectId = projectId;
 
     this.loadCurrentTime();
 
     // current time
-    fromEvent(videoElement, 'timeupdate')
+    fromEvent(audioElement, 'timeupdate')
       .pipe(
         takeUntil(this.destroy$$),
         map((o) => (o.target as HTMLMediaElement).currentTime),
@@ -82,8 +82,8 @@ export class ViewerService {
   }
 
   onJumpInVideo(newSeconds: number) {
-    if (this.videoElement) {
-      this.videoElement.currentTime = newSeconds / 1000;
+    if (this.audioElement) {
+      this.audioElement.currentTime = newSeconds / 1000;
     }
   }
 
@@ -94,8 +94,8 @@ export class ViewerService {
     if (storageObj && this.projectId!) {
       const number = storageObj[this.projectId!];
 
-      if (number && this.videoElement) {
-        this.videoElement.currentTime = number;
+      if (number && this.audioElement) {
+        this.audioElement.currentTime = number;
       }
     }
   }
