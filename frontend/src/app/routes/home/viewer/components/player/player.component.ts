@@ -11,7 +11,7 @@ import {
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { MatDialog } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
-import { Subject, combineLatest, map } from 'rxjs';
+import { Subject, combineLatest, map, takeUntil, tap } from 'rxjs';
 import {
   AdditionalVideo,
   ProjectEntity,
@@ -108,21 +108,51 @@ export class PlayerComponent implements OnDestroy {
   }
 
   onAudioLoadMetadata() {
-    this.audioLoaded = true;
     this.audioPlayer = this.viewerAudio.nativeElement;
 
     this.viewerService.initObservables(this.audioPlayer!, this.project!.id);
+    this.audioLoaded = true;
   }
 
-  onVideoLoadMetadataSecondVideo() {
-    if (this.audioPlayer) this.setCurrentTimeOnVideos();
-  }
+  onVideoLoadMetadata(event: Event) {
+    this.connectToAudio(event);
 
-  onVideoLoadMetadata() {
     if (this.mainVideo.nativeElement)
       this.mainVideoHeight = this.mainVideo.nativeElement.offsetHeight;
+  }
 
-    if (this.audioPlayer) this.setCurrentTimeOnVideos();
+  connectToAudio(event: Event) {
+    const videoPlayer = event.target as HTMLVideoElement;
+
+    // current state
+    if (this.audioPlayer) {
+      videoPlayer.currentTime = this.audioPlayer?.currentTime;
+      if (!this.audioPlayer.paused) {
+        videoPlayer.play();
+      }
+    }
+
+    // future state
+    this.viewerService.play$
+      .pipe(
+        takeUntil(this.destroy$$),
+        tap(() => videoPlayer.play())
+      )
+      .subscribe();
+
+    this.viewerService.pause$
+      .pipe(
+        takeUntil(this.destroy$$),
+        tap(() => videoPlayer.pause())
+      )
+      .subscribe();
+
+    this.viewerService.seeking$
+      .pipe(
+        takeUntil(this.destroy$$),
+        tap((seekTo: number) => (videoPlayer.currentTime = seekTo))
+      )
+      .subscribe();
   }
 
   // DATA
@@ -161,23 +191,10 @@ export class PlayerComponent implements OnDestroy {
   // CONTROLS
 
   onPlayVideo() {
-    if (this.audioPlayer) {
-      this.audioPlayer.play();
-      this.playVideos();
-    }
+    this.audioPlayer?.play();
   }
   onPauseVideo() {
-    if (this.audioPlayer) {
-      this.audioPlayer.pause();
-      this.pauseVideos();
-    }
-  }
-
-  onVideoProgressChange(event: any) {
-    console.log('input', event.target.value);
-    if (this.audioPlayer) {
-      this.setCurrentTimeOnVideos();
-    }
+    this.audioPlayer?.pause();
   }
 
   onToggleShowTranscript() {
@@ -210,10 +227,6 @@ export class PlayerComponent implements OnDestroy {
     this.dialog.open(CaptionsSettingsDialogComponent);
   }
 
-  onResizeMainVideo(event: any) {
-    console.log(event);
-  }
-
   // CONTROLS SECONDARY VIDEOS
 
   onChangeViewsMenu(event: MatCheckboxChange, video: AdditionalVideo | null) {
@@ -232,53 +245,31 @@ export class PlayerComponent implements OnDestroy {
     }
   }
 
-  setCurrentTimeOnVideos() {
-    if (this.mainVideo.nativeElement) {
-      this.mainVideo.nativeElement.currentTime = this.audioPlayer?.currentTime;
-      if (!this.audioPlayer?.paused && this.mainVideo.nativeElement.paused) {
-        this.mainVideo.nativeElement.play();
-      }
-    }
-
-    this.secondaryVideoList.forEach((element) => {
-      if (element.nativeElement) {
-        element.nativeElement.currentTime = this.audioPlayer?.currentTime;
-        if (!this.audioPlayer?.paused && element.nativeElement.paused) {
-          element.nativeElement.play();
-        }
-      }
-    });
+  isFullscreenActive() {
+    return (
+      document.fullscreenElement || (document as any).webkitFullscreenElement
+    );
   }
 
-  // onCanPlayAudio(event: any) {
-  //   console.log(event);
-  // }
-
-  playVideos() {
-    if (this.mainVideo.nativeElement) {
-      this.mainVideo.nativeElement.currentTime = this.audioPlayer?.currentTime;
-      this.mainVideo.nativeElement.play();
+  async onExitFullscreen() {
+    if (document.exitFullscreen) {
+      await document.exitFullscreen();
+    } else if ((document as any).webkitExitFullscreen) {
+      await (document as any).webkitExitFullscreen();
     }
-
-    this.secondaryVideoList.forEach((element) => {
-      if (element.nativeElement) {
-        element.nativeElement.currentTime = this.audioPlayer?.currentTime;
-        element.nativeElement.play();
-      }
-    });
   }
 
-  pauseVideos() {
-    if (this.mainVideo.nativeElement) {
-      this.mainVideo.nativeElement.pause();
-      this.mainVideo.nativeElement.currentTime = this.audioPlayer?.currentTime;
-    }
+  onRequestFullscreen() {
+    if (this.isFullscreenActive()) {
+      this.onExitFullscreen();
+    } else {
+      const doc = document.getElementById('fullscreenDiv');
 
-    this.secondaryVideoList.map((element) => {
-      if (element.nativeElement) {
-        element.nativeElement.pause();
-        element.nativeElement.currentTime = this.audioPlayer?.currentTime;
+      if (doc?.requestFullscreen) {
+        doc.requestFullscreen({ navigationUI: 'hide' });
+      } else if ((doc as any).webkitRequestFullscreen) {
+        (doc as any).webkitRequestFullscreen({ navigationUI: 'hide' });
       }
-    });
+    }
   }
 }

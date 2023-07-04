@@ -8,6 +8,7 @@ import {
   debounceTime,
   fromEvent,
   map,
+  merge,
   takeUntil,
   tap,
 } from 'rxjs';
@@ -27,6 +28,11 @@ export class ViewerService {
   private audioElement: HTMLAudioElement | null = null;
 
   public currentTime$ = new BehaviorSubject<number>(0);
+
+  public play$ = new Subject<void>();
+  public pause$ = new Subject<void>();
+
+  public seeking$ = new Subject<number>();
 
   private captions$ = this.store.select(captionsSelector.selectCaptions);
 
@@ -49,10 +55,10 @@ export class ViewerService {
   }
 
   initObservables(audioElement: HTMLAudioElement, projectId: string) {
-    this.audioElement = audioElement;
     this.projectId = projectId;
+    this.audioElement = audioElement;
 
-    this.loadCurrentTime();
+    this.loadCurrentTimeFromStorage();
 
     // current time
     fromEvent(audioElement, 'timeupdate')
@@ -63,9 +69,49 @@ export class ViewerService {
       )
       .subscribe();
 
+    // play
+    merge(fromEvent(audioElement, 'play'), fromEvent(audioElement, 'playing'))
+      .pipe(
+        takeUntil(this.destroy$$),
+        tap(() => this.play$.next())
+      )
+      .subscribe();
+
+    // pause
+
+    merge(fromEvent(audioElement, 'pause'), fromEvent(audioElement, 'waiting'))
+      .pipe(
+        takeUntil(this.destroy$$),
+        tap(() => {
+          this.pause$.next();
+        })
+      )
+      .subscribe();
+
+    // seeking
+    merge(fromEvent(audioElement, 'seeking'), fromEvent(audioElement, 'seeked'))
+      .pipe(
+        takeUntil(this.destroy$$),
+        map((e: Event) => (e.target as HTMLAudioElement).currentTime),
+        tap((seekingTo: number) => this.seeking$.next(seekingTo))
+      )
+      .subscribe();
+
+    // // seeked
+    // fromEvent(audioElement, 'seeked')
+    //   .pipe(
+    //     takeUntil(this.destroy$$),
+    //     map((e: Event) => (e.target as HTMLAudioElement).currentTime),
+    //     tap((e) => {
+    //       console.log('seeked', e);
+    //     })
+    //   )
+    //   .subscribe();
+
     // current caption
     combineLatest([this.captions$, this.currentTime$])
       .pipe(
+        takeUntil(this.destroy$$),
         tap(([captions, currentTime]) => {
           currentTime = currentTime * 1000;
           const caption =
@@ -78,7 +124,7 @@ export class ViewerService {
       )
       .subscribe();
 
-    this.saveCurrentTime();
+    this.saveCurrentTimeInStorage();
   }
 
   onJumpInVideo(newSeconds: number) {
@@ -87,7 +133,7 @@ export class ViewerService {
     }
   }
 
-  loadCurrentTime() {
+  loadCurrentTimeFromStorage() {
     let storageObj = this.storageService.getFromLocalStorage(
       StorageKey.CURRENT_TIME_ARRAY
     ) as any;
@@ -100,7 +146,7 @@ export class ViewerService {
     }
   }
 
-  saveCurrentTime() {
+  saveCurrentTimeInStorage() {
     this.currentTime$
       .pipe(
         takeUntil(this.destroy$$),

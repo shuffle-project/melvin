@@ -1,4 +1,4 @@
-<div class="box">
+<div class="box" id="fullscreenDiv">
   <audio
     #viewerAudio
     (loadedmetadata)="onAudioLoadMetadata()"
@@ -14,7 +14,11 @@
   <!--  -->
 
   <div class="position-relative">
+    <div class="loading-spinner" *ngIf="viewerAudio.readyState === 1">
+      <mat-spinner mode="indeterminate"></mat-spinner>
+    </div>
     <button
+      *ngIf="!isFullscreenActive()"
       #trigger="matMenuTrigger"
       class="views-menu-button {{ trigger.menuOpen ? 'menu-open' : '' }}"
       mat-button
@@ -52,7 +56,6 @@
     </mat-menu>
 
     <div class="video-wrapper" [style.max-height.px]="mainVideoHeight">
-      <div></div>
       <!-- main video start -->
       <video
         #mainVideo
@@ -60,7 +63,7 @@
         class="main-video"
         [muted]="true"
         [playbackRate]="playbackSpeed"
-        (loadedmetadata)="onVideoLoadMetadata()"
+        (loadedmetadata)="onVideoLoadMetadata($event)"
       >
         <source src="{{ project?.media?.video }}" type="video/mp4" />
       </video>
@@ -72,7 +75,7 @@
           class="main-video"
           [muted]="true"
           [playbackRate]="playbackSpeed"
-          (loadedmetadata)="onVideoLoadMetadata()"
+          (loadedmetadata)="onVideoLoadMetadata($event)"
         >
           <source src="{{ video.video }}" type="video/mp4" />
         </video>
@@ -99,7 +102,7 @@
             class="secondary-video"
             [muted]="true"
             [playbackRate]="playbackSpeed"
-            (loadedmetadata)="onVideoLoadMetadataSecondVideo()"
+            (loadedmetadata)="onVideoLoadMetadata($event)"
           >
             <source
               *ngIf="project?.media?.video"
@@ -130,7 +133,7 @@
             class="secondary-video"
             [muted]="true"
             [playbackRate]="playbackSpeed"
-            (loadedmetadata)="onVideoLoadMetadataSecondVideo()"
+            (loadedmetadata)="onVideoLoadMetadata($event)"
           >
             <source src="{{ video.video }}" type="video/mp4" />
           </video>
@@ -172,11 +175,8 @@
     <!--mat-progress-bar mode="determinate" value="40"></mat-progress-bar-->
     <div class="video-progress-slider-wrapper">
       <mat-slider #matsliderprogress min="0" [max]="viewerAudio.duration">
-        <input
-          matSliderThumb
-          [(ngModel)]="viewerAudio.currentTime"
-          (input)="onVideoProgressChange($event)"
-        />
+        <input matSliderThumb [(ngModel)]="viewerAudio.currentTime" />
+        <!-- (input)="onVideoProgressChange($event)" -->
       </mat-slider>
     </div>
 
@@ -300,7 +300,7 @@
           </button>
         </div>
 
-        <button mat-icon-button class="md">
+        <button mat-icon-button class="md" (click)="onRequestFullscreen()">
           <mat-icon svgIcon="fullscreen" class="svg-black"></mat-icon>
         </button>
       </div>
@@ -312,5 +312,4 @@
       }}
     </div>
   </div>
-  {{ viewerAudio.readyState }}
 </div>
