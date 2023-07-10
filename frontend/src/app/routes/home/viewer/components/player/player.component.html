@@ -28,11 +28,15 @@
     </button>
 
     <mat-menu #viewsMenu="matMenu">
-      <div class="mat-menu-item-wrapper" mat-menu-item>
+      <div
+        class="mat-menu-item-wrapper"
+        (click)="onClickMenuItem($event, null)"
+        mat-menu-item
+      >
         <mat-checkbox
           (click)="$event.stopPropagation()"
+          (change)="onChangeViewsMenu($event.checked, null)"
           [checked]="!hiddenVideos.includes('mainVideo')"
-          (change)="onChangeViewsMenu($event, null)"
           [disabled]="mainVideoId === 'mainVideo'"
         >
           Hauptvideo
@@ -43,11 +47,12 @@
         class="mat-menu-item-wrapper"
         mat-menu-item
         *ngFor="let video of project?.media?.additionalVideos"
+        (click)="onClickMenuItem($event, video)"
       >
         <mat-checkbox
           (click)="$event.stopPropagation()"
+          (change)="onChangeViewsMenu($event.checked, video)"
           [checked]="!hiddenVideos.includes(video.id)"
-          (change)="onChangeViewsMenu($event, video)"
           [disabled]="mainVideoId === video.id"
         >
           {{ video.title }}
@@ -116,6 +121,7 @@
               mat-stroked-button
               color="basic"
               (click)="onChangeMainVideo('mainVideo')"
+              tabindex="0"
             >
               Als Hauptansicht
             </button>
@@ -174,7 +180,13 @@
   <div class="controls">
     <!--mat-progress-bar mode="determinate" value="40"></mat-progress-bar-->
     <div class="video-progress-slider-wrapper">
-      <mat-slider #matsliderprogress min="0" [max]="viewerAudio.duration">
+      <mat-slider
+        #matsliderprogress
+        min="0"
+        [max]="viewerAudio.duration"
+        discrete
+        [displayWith]="audioProgressLabel"
+      >
         <input matSliderThumb [(ngModel)]="viewerAudio.currentTime" />
         <!-- (input)="onVideoProgressChange($event)" -->
       </mat-slider>

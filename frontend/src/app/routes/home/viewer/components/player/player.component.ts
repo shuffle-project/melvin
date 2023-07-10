@@ -8,10 +8,10 @@ import {
   ViewChild,
   ViewChildren,
 } from '@angular/core';
-import { MatCheckboxChange } from '@angular/material/checkbox';
 import { MatDialog } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
 import { Subject, combineLatest, map, takeUntil, tap } from 'rxjs';
+import { DurationPipe } from '../../../../../pipes/duration-pipe/duration.pipe';
 import {
   AdditionalVideo,
   ProjectEntity,
@@ -223,25 +223,39 @@ export class PlayerComponent implements OnDestroy {
     return Math.round(value * 100) + '%';
   }
 
+  audioProgressLabel(value: number): string {
+    const pipe = new DurationPipe();
+    const transform = pipe.transform(value * 1000);
+    return transform;
+  }
+
   onOpenCaptionsSettingsDialog() {
     this.dialog.open(CaptionsSettingsDialogComponent);
   }
 
   // CONTROLS SECONDARY VIDEOS
+  onClickMenuItem(event: Event, video: AdditionalVideo | null) {
+    const id = video ? video.id : 'mainVideo';
+    const checked = !this.hiddenVideos.includes(id);
 
-  onChangeViewsMenu(event: MatCheckboxChange, video: AdditionalVideo | null) {
-    if (event.checked) {
-      if (!video) {
-        this.hiddenVideos.splice(this.hiddenVideos.indexOf('mainVideo'), 1);
-      } else if (this.hiddenVideos.includes(video.id)) {
-        this.hiddenVideos.splice(this.hiddenVideos.indexOf(video.id), 1);
-      }
+    if (checked) {
+      console.log('remove through click');
+      this.hiddenVideos.splice(this.hiddenVideos.indexOf(id), 1);
     } else {
-      if (!video) {
-        this.hiddenVideos.push('mainVideo');
-      } else {
-        this.hiddenVideos.push(video.id);
-      }
+      console.log('psuh through click');
+      this.hiddenVideos.push(id);
+    }
+
+    event.stopPropagation();
+  }
+
+  onChangeViewsMenu(checked: boolean, video: AdditionalVideo | null) {
+    const id = video ? video.id : 'mainVideo';
+
+    if (checked) {
+      this.hiddenVideos.splice(this.hiddenVideos.indexOf(id), 1);
+    } else {
+      this.hiddenVideos.push(id);
     }
   }
 
