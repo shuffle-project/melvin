@@ -13,6 +13,7 @@ import { PlayerComponent } from './components/player/player.component';
 import { TranscriptComponent } from './components/transcript/transcript.component';
 import { ViewerRoutingModule } from './viewer-routing.module';
 import { ViewerComponent } from './viewer.component';
+import { ControlsComponent } from './components/player/controls/controls.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { ViewerComponent } from './viewer.component';
     PlayerComponent,
     HighlightPipe,
     CaptionsSettingsDialogComponent,
+    ControlsComponent,
   ],
   imports: [
     CommonModule,

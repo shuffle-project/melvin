@@ -26,6 +26,10 @@ export const changeSpeedFromEditor = createAction(
   '[VIDEO COMPONENT] Change Speed',
   props<{ speed: number }>()
 );
+export const changeSpeedFromViewer = createAction(
+  '[VIEWER PLAYER COMPONENT] Change Speed',
+  props<{ speed: number }>()
+);
 
 export const updateActiveUsers = createAction(
   '[FROM WS] Overwrite active users from WS event',

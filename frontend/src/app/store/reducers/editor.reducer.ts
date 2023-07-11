@@ -86,10 +86,14 @@ export const editorReducer = createReducer(
     isLiveInSync: true,
     currentSpeed: 1,
   })),
-  on(editorActions.changeSpeedFromEditor, (state, action) => ({
-    ...state,
-    currentSpeed: action.speed,
-  })),
+  on(
+    editorActions.changeSpeedFromEditor,
+    editorActions.changeSpeedFromViewer,
+    (state, action) => ({
+      ...state,
+      currentSpeed: action.speed,
+    })
+  ),
   on(
     editorActions.changeVolumeFromVideoComponent,
     editorActions.changeVolumeFromViewerComponent,

@@ -8,25 +8,17 @@ import {
   ViewChild,
   ViewChildren,
 } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
 import { Subject, combineLatest, map, takeUntil, tap } from 'rxjs';
-import { DurationPipe } from '../../../../../pipes/duration-pipe/duration.pipe';
 import {
   AdditionalVideo,
   ProjectEntity,
 } from '../../../../../services/api/entities/project.entity';
-import { TranscriptionEntity } from '../../../../../services/api/entities/transcription.entity';
-import * as editorActions from '../../../../../store/actions/editor.actions';
-import * as transcriptionsActions from '../../../../../store/actions/transcriptions.actions';
-import { toggleTranscript } from '../../../../../store/actions/viewer.actions';
 import { AppState } from '../../../../../store/app.state';
 import * as captionsSelector from '../../../../../store/selectors/captions.selector';
 import * as editorSelector from '../../../../../store/selectors/editor.selector';
-import * as transcriptionsSelector from '../../../../../store/selectors/transcriptions.selector';
 import * as viewerSelector from '../../../../../store/selectors/viewer.selector';
 import { ViewerService } from '../../viewer.service';
-import { CaptionsSettingsDialogComponent } from '../captions-settings-dialog/captions-settings-dialog.component';
 
 @Component({
   selector: 'app-player',
@@ -54,15 +46,9 @@ export class PlayerComponent implements OnDestroy {
   public audioLoaded = false;
 
   public volume$ = this.store.select(editorSelector.selectVolume);
+  public currentSpeed$ = this.store.select(editorSelector.selectCurrentSpeed);
   public subtitlesEnabledInVideo$ = this.store.select(
     editorSelector.selectSubtitlesEnabledInVideo
-  );
-
-  public transcriptions$ = this.store.select(
-    transcriptionsSelector.selectTranscriptionList
-  );
-  public selectTranscriptionId$ = this.store.select(
-    transcriptionsSelector.selectTranscriptionId
   );
 
   public captions$ = this.store.select(captionsSelector.selectCaptions);
@@ -82,7 +68,7 @@ export class PlayerComponent implements OnDestroy {
 
   constructor(
     private store: Store<AppState>,
-    private dialog: MatDialog,
+
     public viewerService: ViewerService
   ) {}
 
@@ -91,10 +77,6 @@ export class PlayerComponent implements OnDestroy {
     if (this.mainVideo.nativeElement)
       this.mainVideoHeight = this.mainVideo.nativeElement.offsetHeight;
   }
-
-  // controls
-  public volume: number = 1;
-  public playbackSpeed: number = 1;
 
   ngOnDestroy() {
     this.destroy$$.next();
@@ -156,28 +138,6 @@ export class PlayerComponent implements OnDestroy {
   }
 
   // DATA
-  onChangeTranscription(
-    transcription: TranscriptionEntity,
-    subtitlesEnabledInVideo: boolean
-  ) {
-    // enable captions in video
-    if (!subtitlesEnabledInVideo) {
-      this.store.dispatch(editorActions.toggleSubtitlesFromViewer());
-    }
-
-    this.store.dispatch(
-      transcriptionsActions.selectFromViewer({
-        transcriptionId: transcription.id,
-      })
-    );
-  }
-
-  onTurnOffCaptions(subtitlesEnabledInVideo: boolean) {
-    // disable captions in video
-    if (subtitlesEnabledInVideo) {
-      this.store.dispatch(editorActions.toggleSubtitlesFromViewer());
-    }
-  }
 
   getVideoUrl(choosenAdditionalVideo: string): string {
     const video =
@@ -190,48 +150,7 @@ export class PlayerComponent implements OnDestroy {
 
   // CONTROLS
 
-  onPlayVideo() {
-    this.audioPlayer?.play();
-  }
-  onPauseVideo() {
-    this.audioPlayer?.pause();
-  }
-
-  onToggleShowTranscript() {
-    this.store.dispatch(toggleTranscript());
-  }
-
-  onVolumeChange(event: any) {
-    this.store.dispatch(
-      editorActions.changeVolumeFromViewerComponent({
-        volume: event.target.value,
-      })
-    );
-  }
-
-  decreasePlaybackSpeed() {
-    if (this.playbackSpeed > 0.25) {
-      this.playbackSpeed -= 0.25;
-    }
-  }
-  increasePlaybackSpeed() {
-    this.playbackSpeed += 0.25;
-  }
-
   // HELPER
-  sliderLabelVolume(value: number): string {
-    return Math.round(value * 100) + '%';
-  }
-
-  audioProgressLabel(value: number): string {
-    const pipe = new DurationPipe();
-    const transform = pipe.transform(value * 1000);
-    return transform;
-  }
-
-  onOpenCaptionsSettingsDialog() {
-    this.dialog.open(CaptionsSettingsDialogComponent);
-  }
 
   // CONTROLS SECONDARY VIDEOS
   onClickMenuItem(event: Event, video: AdditionalVideo | null) {
@@ -263,27 +182,5 @@ export class PlayerComponent implements OnDestroy {
     return (
       document.fullscreenElement || (document as any).webkitFullscreenElement
     );
-  }
-
-  async onExitFullscreen() {
-    if (document.exitFullscreen) {
-      await document.exitFullscreen();
-    } else if ((document as any).webkitExitFullscreen) {
-      await (document as any).webkitExitFullscreen();
-    }
-  }
-
-  onRequestFullscreen() {
-    if (this.isFullscreenActive()) {
-      this.onExitFullscreen();
-    } else {
-      const doc = document.getElementById('fullscreenDiv');
-
-      if (doc?.requestFullscreen) {
-        doc.requestFullscreen({ navigationUI: 'hide' });
-      } else if ((doc as any).webkitRequestFullscreen) {
-        (doc as any).webkitRequestFullscreen({ navigationUI: 'hide' });
-      }
-    }
   }
 }
