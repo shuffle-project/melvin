@@ -22,6 +22,8 @@ export interface ViewerState {
   captionsColor: ColorOptions;
   captionsFontsize: SizeOptions;
   captionsPosition: CaptionPositionOptions;
+
+  bigVideoId: string; // todo
 }
 
 export const initalState: ViewerState = {
@@ -54,6 +56,8 @@ export const initalState: ViewerState = {
     StorageKey.CAPTIONS_POSITION,
     CaptionPositionOptions.OVER_VIDEO
   ) as CaptionPositionOptions,
+
+  bigVideoId: 'mainVideo',
 };
 
 export const viewerReducer = createReducer(
@@ -91,5 +95,9 @@ export const viewerReducer = createReducer(
   }),
   on(viewerActions.changeCaptionsPosition, (state, { captionsPosition }) => {
     return { ...state, captionsPosition };
+  }),
+
+  on(viewerActions.changeBigVideoId, (state, { newVideoId }) => {
+    return { ...state, bigVideoId: newVideoId };
   })
 );

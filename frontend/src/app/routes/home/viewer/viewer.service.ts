@@ -82,9 +82,7 @@ export class ViewerService {
     merge(fromEvent(audioElement, 'pause'), fromEvent(audioElement, 'waiting'))
       .pipe(
         takeUntil(this.destroy$$),
-        tap(() => {
-          this.pause$.next();
-        })
+        tap(() => this.pause$.next())
       )
       .subscribe();
 

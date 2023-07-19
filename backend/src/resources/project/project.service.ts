@@ -110,7 +110,7 @@ export class ProjectService {
       .map((media) => ({
         id: media._id.toString(),
         title: media.title,
-        video: `${
+        url: `${
           this.serverBaseUrl
         }/projects/${project._id.toString()}/media/video/${media._id.toString()}?Authorization=${
           mediaAuthToken.token

@@ -49,3 +49,10 @@ export const selectCaptionPosition = createSelector(
     return state.captionsPosition;
   }
 );
+
+export const selectBigVideoId = createSelector(
+  selectViewerState,
+  (state: ViewerState) => {
+    return state.bigVideoId;
+  }
+);

@@ -44,3 +44,8 @@ export const changeCaptionsPosition = createAction(
   '[CAPTIONS SETTINGS DIALOG] Change captions position',
   props<{ captionsPosition: CaptionPositionOptions }>()
 );
+
+export const changeBigVideoId = createAction(
+  '[VIDEO CONTAINER COMPONENT] change big video id',
+  props<{ newVideoId: string }>()
+);

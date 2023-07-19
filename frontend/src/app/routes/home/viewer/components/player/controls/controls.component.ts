@@ -126,12 +126,12 @@ export class ControlsComponent {
     if (this.isFullscreenActive()) {
       this.onExitFullscreen();
     } else {
-      const doc = document.getElementById('fullscreen-div');
+      const doc = document.getElementsByTagName('body').item(0);
 
       if (doc?.requestFullscreen) {
-        doc.requestFullscreen({ navigationUI: 'hide' });
+        doc.requestFullscreen();
       } else if ((doc as any).webkitRequestFullscreen) {
-        (doc as any).webkitRequestFullscreen({ navigationUI: 'hide' });
+        (doc as any).webkitRequestFullscreen();
       }
     }
   }

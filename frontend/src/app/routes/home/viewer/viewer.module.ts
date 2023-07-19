@@ -9,11 +9,12 @@ import { AdjustLayoutDialogComponent } from './components/adjust-layout-dialog/a
 import { CaptionsSettingsDialogComponent } from './components/captions-settings-dialog/captions-settings-dialog.component';
 import { HighlightPipe } from './components/highlight-pipe/highlight.pipe';
 import { InfoboxComponent } from './components/infobox/infobox.component';
+import { ControlsComponent } from './components/player/controls/controls.component';
 import { PlayerComponent } from './components/player/player.component';
+import { VideoContainerComponent } from './components/player/video-container/video-container.component';
 import { TranscriptComponent } from './components/transcript/transcript.component';
 import { ViewerRoutingModule } from './viewer-routing.module';
 import { ViewerComponent } from './viewer.component';
-import { ControlsComponent } from './components/player/controls/controls.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { ControlsComponent } from './components/player/controls/controls.compone
     HighlightPipe,
     CaptionsSettingsDialogComponent,
     ControlsComponent,
+    VideoContainerComponent,
   ],
   imports: [
     CommonModule,

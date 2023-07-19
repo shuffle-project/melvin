@@ -1,4 +1,4 @@
-<div class="box" id="fullscreen-div">
+<div class="box">
   <audio
     #viewerAudio
     (loadedmetadata)="onAudioLoadMetadata()"
@@ -18,7 +18,6 @@
       <mat-spinner mode="indeterminate"></mat-spinner>
     </div>
     <button
-      *ngIf="!isFullscreenActive()"
       #trigger="matMenuTrigger"
       class="views-menu-button {{ trigger.menuOpen ? 'menu-open' : '' }}"
       mat-button
@@ -62,29 +61,27 @@
 
     <div class="video-wrapper" [style.max-height.px]="mainVideoHeight">
       <!-- main video start -->
-      <video
-        #mainVideo
-        *ngIf="mainVideoId === 'mainVideo'"
-        class="main-video"
-        [muted]="true"
-        [playbackRate]="currentSpeed$ | ngrxPush"
-        (loadedmetadata)="onVideoLoadMetadata($event)"
-      >
-        <source src="{{ project?.media?.video }}" type="video/mp4" />
-      </video>
+      <div class="main-video-container" *ngrxLet="bigVideoId$ as bigVideoId">
+        <app-video-container
+          *ngIf="bigVideoId === 'mainVideo'"
+          size="big"
+          id="mainVideo"
+          url="{{ project?.media?.video }}"
+          title="Hauptvideo"
+          (videoMetadataLoaded)="resetVideoDimensions()"
+        ></app-video-container>
 
-      <ng-container *ngFor="let video of project?.media?.additionalVideos">
-        <video
-          #mainVideo
-          *ngIf="video.id === mainVideoId"
-          class="main-video"
-          [muted]="true"
-          [playbackRate]="currentSpeed$ | ngrxPush"
-          (loadedmetadata)="onVideoLoadMetadata($event)"
-        >
-          <source src="{{ video.video }}" type="video/mp4" />
-        </video>
-      </ng-container>
+        <ng-container *ngFor="let video of project?.media?.additionalVideos">
+          <app-video-container
+            *ngIf="video.id === bigVideoId"
+            size="big"
+            id="{{ video.id }}"
+            url="{{ video.url }}"
+            title="{{ video.title }}"
+            (videoMetadataLoaded)="resetVideoDimensions()"
+          ></app-video-container>
+        </ng-container>
+      </div>
       <!-- main video end -->
       <!-- secondary videos start -->
       <div
@@ -96,67 +93,29 @@
         "
       >
         <!-- main video as secondary start -->
-
         <!-- single secondary video start -->
-        <div class="secondary-video-container">
-          <video
-            *ngIf="
-              !hiddenVideos.includes('mainVideo') && mainVideoId !== 'mainVideo'
-            "
-            #secondaryVideo
-            class="secondary-video"
-            [muted]="true"
-            [playbackRate]="currentSpeed$ | ngrxPush"
-            (loadedmetadata)="onVideoLoadMetadata($event)"
-          >
-            <source
-              *ngIf="project?.media?.video"
-              src="{{ project?.media?.video }}"
-              type="video/mp4"
-            />
-          </video>
-          <div class="video-overlay">
-            <span> Hauptvideo </span>
-            <button
-              mat-stroked-button
-              color="basic"
-              (click)="onChangeMainVideo('mainVideo')"
-              tabindex="0"
-            >
-              Als Hauptansicht
-            </button>
-          </div>
-        </div>
+
+        <app-video-container
+          *ngIf="
+            !hiddenVideos.includes('mainVideo') && mainVideoId !== 'mainVideo'
+          "
+          size="small"
+          id="main-video"
+          url="{{ project?.media?.video }}"
+          title="Hauptvideo"
+        ></app-video-container>
+
         <!-- main video as secondary stop -->
-        <div
-          class="secondary-video-container"
-          *ngFor="let video of project?.media?.additionalVideos"
-        >
-          <!-- single secondary video start -->
-          <video
+        <ng-container *ngFor="let video of project?.media?.additionalVideos">
+          <app-video-container
             *ngIf="!hiddenVideos.includes(video.id) && mainVideoId !== video.id"
-            #secondaryVideo
-            class="secondary-video"
-            [muted]="true"
-            [playbackRate]="currentSpeed$ | ngrxPush"
-            (loadedmetadata)="onVideoLoadMetadata($event)"
-          >
-            <source src="{{ video.video }}" type="video/mp4" />
-          </video>
-          <div class="video-overlay">
-            <span>
-              {{ video.title }}
-            </span>
-            <button
-              mat-stroked-button
-              color="basic"
-              (click)="onChangeMainVideo(video.id)"
-            >
-              Als Hauptansicht
-            </button>
-          </div>
-          <!-- single secondary video end -->
-        </div>
+            size="small"
+            id="{{ video.id }}"
+            url="{{ video.url }}"
+            title="{{ video.title }}"
+          ></app-video-container>
+        </ng-container>
+
         <!-- secondary videos end -->
       </div>
     </div>

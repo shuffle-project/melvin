@@ -26,7 +26,7 @@ export class AdditionalVideo {
 
   @ApiProperty({ type: String })
   @Type(() => String)
-  video: string;
+  url: string;
 
   @ApiProperty({ type: String })
   @Type(() => String)

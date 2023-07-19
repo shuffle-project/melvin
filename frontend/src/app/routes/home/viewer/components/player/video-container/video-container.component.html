@@ -1,0 +1,23 @@
+<!-- class="secondary-video" -->
+
+<div class="{{ size === 'small' ? 'secondary-video-container' : '' }}">
+  <video
+    class="{{ size === 'small' ? 'secondary-video' : 'main-video' }}"
+    [muted]="true"
+    [playbackRate]="currentSpeed$ | ngrxPush"
+    (loadedmetadata)="onVideoLoadMetadata($event)"
+  >
+    <source src="{{ url }}" type="video/mp4" />
+  </video>
+  <div class="video-overlay" *ngIf="size === 'small'">
+    <span> {{ title }} </span>
+    <button
+      mat-stroked-button
+      color="basic"
+      (click)="onChangeMainVideo()"
+      tabindex="0"
+    >
+      Als Hauptansicht
+    </button>
+  </div>
+</div>

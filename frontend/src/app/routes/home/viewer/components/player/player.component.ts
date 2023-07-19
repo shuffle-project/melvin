@@ -1,12 +1,15 @@
 import {
+  FullscreenOverlayContainer,
+  OverlayContainer,
+} from '@angular/cdk/overlay';
+import {
+  AfterViewInit,
   Component,
   ElementRef,
   HostListener,
   Input,
   OnDestroy,
-  QueryList,
   ViewChild,
-  ViewChildren,
 } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Subject, combineLatest, map, takeUntil, tap } from 'rxjs';
@@ -24,8 +27,11 @@ import { ViewerService } from '../../viewer.service';
   selector: 'app-player',
   templateUrl: './player.component.html',
   styleUrls: ['./player.component.scss'],
+  providers: [
+    { provide: OverlayContainer, useClass: FullscreenOverlayContainer },
+  ],
 })
-export class PlayerComponent implements OnDestroy {
+export class PlayerComponent implements OnDestroy, AfterViewInit {
   private destroy$$ = new Subject<void>();
 
   @Input({ required: true }) project!: ProjectEntity | null;
@@ -35,10 +41,10 @@ export class PlayerComponent implements OnDestroy {
   public audioPlayer: HTMLAudioElement | null = null;
 
   // main video
-  @ViewChild('mainVideo') mainVideo!: ElementRef;
+  // @ViewChild('mainVideo') mainVideo!: ElementRef;
   mainVideoHeight = 300;
 
-  @ViewChildren('secondaryVideo') secondaryVideoList!: QueryList<ElementRef>;
+  // @ViewChildren('secondaryVideo') secondaryVideoList!: QueryList<ElementRef>;
 
   mainVideoId: string = 'mainVideo';
   hiddenVideos: string[] = [];
@@ -50,6 +56,7 @@ export class PlayerComponent implements OnDestroy {
   public subtitlesEnabledInVideo$ = this.store.select(
     editorSelector.selectSubtitlesEnabledInVideo
   );
+  public bigVideoId$ = this.store.select(viewerSelector.selectBigVideoId);
 
   public captions$ = this.store.select(captionsSelector.selectCaptions);
 
@@ -68,14 +75,26 @@ export class PlayerComponent implements OnDestroy {
 
   constructor(
     private store: Store<AppState>,
-
     public viewerService: ViewerService
   ) {}
 
+  ngAfterViewInit(): void {
+    this.store
+      .select(viewerSelector.selectTranscriptEnabled)
+      .pipe(
+        takeUntil(this.destroy$$),
+        tap(() => {
+          setTimeout(() => {
+            this.resetVideoDimensions();
+          }, 1);
+        })
+      )
+      .subscribe();
+  }
+
   @HostListener('window:resize', ['$event'])
-  onResize(event: any) {
-    if (this.mainVideo.nativeElement)
-      this.mainVideoHeight = this.mainVideo.nativeElement.offsetHeight;
+  onResize() {
+    this.resetVideoDimensions();
   }
 
   ngOnDestroy() {
@@ -84,23 +103,25 @@ export class PlayerComponent implements OnDestroy {
 
   // VIDEO
 
-  onChangeMainVideo(videoId: string) {
-    this.mainVideoId = videoId;
-    this.mainVideo.nativeElement.load();
+  resetVideoDimensions() {
+    const firstVideo = document.getElementsByTagName('video');
+    console.log(firstVideo);
+
+    if (firstVideo.item(0)) {
+      this.mainVideoHeight = firstVideo.item(0)!.offsetHeight;
+    }
   }
+
+  // onChangeMainVideo(videoId: string) {
+  //   this.mainVideoId = videoId;
+  //   this.mainVideo.nativeElement.load();
+  // }
 
   onAudioLoadMetadata() {
     this.audioPlayer = this.viewerAudio.nativeElement;
 
     this.viewerService.initObservables(this.audioPlayer!, this.project!.id);
     this.audioLoaded = true;
-  }
-
-  onVideoLoadMetadata(event: Event) {
-    this.connectToAudio(event);
-
-    if (this.mainVideo.nativeElement)
-      this.mainVideoHeight = this.mainVideo.nativeElement.offsetHeight;
   }
 
   connectToAudio(event: Event) {
@@ -145,12 +166,8 @@ export class PlayerComponent implements OnDestroy {
         (ele) => ele.id === choosenAdditionalVideo
       ) || this.project!.media!.additionalVideos[0];
 
-    return video.video;
+    return video.url;
   }
-
-  // CONTROLS
-
-  // HELPER
 
   // CONTROLS SECONDARY VIDEOS
   onClickMenuItem(event: Event, video: AdditionalVideo | null) {
@@ -176,11 +193,5 @@ export class PlayerComponent implements OnDestroy {
     } else {
       this.hiddenVideos.push(id);
     }
-  }
-
-  isFullscreenActive() {
-    return (
-      document.fullscreenElement || (document as any).webkitFullscreenElement
-    );
   }
 }

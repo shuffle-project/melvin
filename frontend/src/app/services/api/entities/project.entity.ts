@@ -13,7 +13,7 @@ export interface AdditionalMedia {
 
 export interface AdditionalVideo {
   id: string;
-  video: string;
+  url: string;
   title: string;
 }
 
