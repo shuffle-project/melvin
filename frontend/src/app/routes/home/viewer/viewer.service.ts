@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import {
   BehaviorSubject,
@@ -27,6 +26,7 @@ export class ViewerService {
   private projectId: string | null = null;
 
   public audio: HTMLAudioElement | null = null;
+  public audioLoaded: boolean = false;
 
   public currentTime$ = new BehaviorSubject<number>(0);
 
@@ -41,7 +41,6 @@ export class ViewerService {
     new BehaviorSubject<CaptionEntity | undefined | null>(null);
 
   constructor(
-    private route: ActivatedRoute,
     private store: Store<AppState>,
     private storageService: StorageService
   ) {}
@@ -50,16 +49,18 @@ export class ViewerService {
     this.currentTime$.next(0);
     this.currentCaption$.next(null);
     this.audio = null;
+    this.audioLoaded = false;
     this.projectId = null;
 
     this.destroy$$.next();
   }
 
-  initObservables(audioElement: HTMLAudioElement, projectId: string) {
+  initAudioObservables(audioElement: HTMLAudioElement, projectId: string) {
     this.projectId = projectId;
     this.audio = audioElement;
 
     this.loadCurrentTimeFromStorage();
+
     // current time
     fromEvent(audioElement, 'timeupdate')
       .pipe(
@@ -95,17 +96,6 @@ export class ViewerService {
       )
       .subscribe();
 
-    // // seeked
-    // fromEvent(audioElement, 'seeked')
-    //   .pipe(
-    //     takeUntil(this.destroy$$),
-    //     map((e: Event) => (e.target as HTMLAudioElement).currentTime),
-    //     tap((e) => {
-    //       console.log('seeked', e);
-    //     })
-    //   )
-    //   .subscribe();
-
     // current caption
     combineLatest([this.captions$, this.currentTime$])
       .pipe(
@@ -123,15 +113,16 @@ export class ViewerService {
       .subscribe();
 
     this.saveCurrentTimeInStorage();
+    this.audioLoaded = true;
   }
 
-  onJumpInVideo(newSeconds: number) {
+  onJumpInAudio(newSeconds: number) {
     if (this.audio) {
       this.audio.currentTime = newSeconds / 1000;
     }
   }
 
-  //  Local storage
+  // store and save in local storage
 
   loadCurrentTimeFromStorage() {
     let storageObj = this.storageService.getFromLocalStorage(

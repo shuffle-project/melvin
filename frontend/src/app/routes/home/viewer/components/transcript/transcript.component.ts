@@ -129,6 +129,6 @@ export class TranscriptComponent implements OnDestroy, OnInit {
   }
 
   onJumpInVideo(caption: CaptionEntity) {
-    this.viewerService.onJumpInVideo(caption.start + 1);
+    this.viewerService.onJumpInAudio(caption.start + 1);
   }
 }

@@ -1,3 +1,4 @@
+import { CdkDrag } from '@angular/cdk/drag-drop';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
@@ -36,6 +37,7 @@ import { ViewerComponent } from './viewer.component';
     MatRadioModule,
     MatGridListModule,
     ScrollingModule,
+    CdkDrag,
   ],
 })
 export class ViewerModule {}

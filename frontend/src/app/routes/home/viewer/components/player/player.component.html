@@ -1,13 +1,13 @@
 <div class="box">
   <audio
     #viewerAudio
-    (loadedmetadata)="onAudioLoadMetadata()"
+    (loadedmetadata)="onAudioLoadMetadata($event)"
     [volume]="volume$ | ngrxPush"
     [playbackRate]="currentSpeed$ | ngrxPush"
   >
     <source
-      *ngIf="project?.media?.video"
-      src="{{ project?.media?.video }}"
+      *ngIf="project.media?.video"
+      src="{{ project.media?.video }}"
       type="video/mp4"
     />
   </audio>
@@ -27,96 +27,65 @@
     </button>
 
     <mat-menu #viewsMenu="matMenu">
-      <div
-        class="mat-menu-item-wrapper"
-        (click)="onClickMenuItem($event, null)"
-        mat-menu-item
-      >
-        <mat-checkbox
-          (click)="$event.stopPropagation()"
-          (change)="onChangeViewsMenu($event.checked, null)"
-          [checked]="!hiddenVideos.includes('mainVideo')"
-          [disabled]="mainVideoId === 'mainVideo'"
-        >
-          Hauptvideo
-        </mat-checkbox>
-      </div>
-
+      <!-- //TODO Wollen wir hier das main video anzeigen?  -->
       <div
         class="mat-menu-item-wrapper"
         mat-menu-item
-        *ngFor="let video of project?.media?.additionalVideos"
-        (click)="onClickMenuItem($event, video)"
+        *ngFor="let video of smallVideos"
+        (click)="onToggleVideoShown(video)"
       >
         <mat-checkbox
           (click)="$event.stopPropagation()"
-          (change)="onChangeViewsMenu($event.checked, video)"
-          [checked]="!hiddenVideos.includes(video.id)"
-          [disabled]="mainVideoId === video.id"
+          (change)="onToggleVideoShown(video)"
+          [checked]="video.shown"
         >
           {{ video.title }}
         </mat-checkbox>
       </div>
     </mat-menu>
 
-    <div class="video-wrapper" [style.max-height.px]="mainVideoHeight">
-      <!-- main video start -->
-      <div class="main-video-container" *ngrxLet="bigVideoId$ as bigVideoId">
+    <div
+      #allVideosContainerRef
+      class="video-wrapper"
+      [style.max-height.px]="mainVideoHeight"
+      *ngIf="bigVideo && smallVideos"
+    >
+      <!-- main video  -->
+      <div
+        #mainVideoContainerRef
+        class="main-video-container"
+        [style.min-width.%]="mainVideoContainerWidthPercent"
+      >
         <app-video-container
-          *ngIf="bigVideoId === 'mainVideo'"
           size="big"
-          id="mainVideo"
-          url="{{ project?.media?.video }}"
-          title="Hauptvideo"
+          [video]="bigVideo"
           (videoMetadataLoaded)="resetVideoDimensions()"
         ></app-video-container>
+      </div>
 
-        <ng-container *ngFor="let video of project?.media?.additionalVideos">
+      <div
+        tabindex="0"
+        class="inner-resizer"
+        (mousedown)="onMouseDown($event)"
+        (keydown)="onKeyDown($event)"
+        [style.height.px]="allVideosContainerRef.clientHeight"
+      ></div>
+
+      <div
+        class="secondary-videos"
+        *ngIf="shownVideosCount > 0"
+        [style.height.px]="allVideosContainerRef.clientHeight"
+      >
+        <!-- secondary video -->
+        <ng-container *ngFor="let video of smallVideos">
           <app-video-container
-            *ngIf="video.id === bigVideoId"
-            size="big"
-            id="{{ video.id }}"
-            url="{{ video.url }}"
-            title="{{ video.title }}"
+            *ngIf="video.shown"
+            size="small"
+            [video]="video"
+            (switchToBig)="onSwitchToBigVideo(video)"
             (videoMetadataLoaded)="resetVideoDimensions()"
           ></app-video-container>
         </ng-container>
-      </div>
-      <!-- main video end -->
-      <!-- secondary videos start -->
-      <div
-        class="secondary-videos"
-        [style.width.%]="
-          hiddenVideos.length === project?.media?.additionalVideos?.length
-            ? 0
-            : 100
-        "
-      >
-        <!-- main video as secondary start -->
-        <!-- single secondary video start -->
-
-        <app-video-container
-          *ngIf="
-            !hiddenVideos.includes('mainVideo') && mainVideoId !== 'mainVideo'
-          "
-          size="small"
-          id="main-video"
-          url="{{ project?.media?.video }}"
-          title="Hauptvideo"
-        ></app-video-container>
-
-        <!-- main video as secondary stop -->
-        <ng-container *ngFor="let video of project?.media?.additionalVideos">
-          <app-video-container
-            *ngIf="!hiddenVideos.includes(video.id) && mainVideoId !== video.id"
-            size="small"
-            id="{{ video.id }}"
-            url="{{ video.url }}"
-            title="{{ video.title }}"
-          ></app-video-container>
-        </ng-container>
-
-        <!-- secondary videos end -->
       </div>
     </div>
     <ng-container *ngIf="subtitlesEnabledInVideo$ | ngrxPush">

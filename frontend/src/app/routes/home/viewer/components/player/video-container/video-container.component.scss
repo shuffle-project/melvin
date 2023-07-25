@@ -1,4 +1,5 @@
 video {
+  width: 100%;
   max-width: 100%;
   height: fit-content;
   border-radius: 5px;
@@ -12,14 +13,14 @@ video {
 .secondary-video-container {
   box-sizing: border-box;
   width: 99%;
-  padding: 2px;
-  // max-width: 99%;
-  // height: max-content !important;
   position: relative;
 
   display: flex;
   justify-content: center;
   align-items: center;
+
+  margin-top: 3px;
+  margin-bottom: 3px;
 
   .video-overlay {
     transform: scale(0); // hide

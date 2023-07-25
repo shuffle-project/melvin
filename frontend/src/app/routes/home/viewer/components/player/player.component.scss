@@ -6,35 +6,49 @@
   }
 }
 
+app-video-container {
+  width: 100%;
+}
+
 .video-wrapper {
   display: flex;
-  // justify-content: space-around;
-  // align-items: center;
-
-  video {
-    max-width: 100%;
-    height: fit-content;
-    border-radius: 5px;
-    border: 1px solid black;
-  }
+  justify-content: center;
+  align-items: center;
+  min-height: 40vh;
 
   .main-video-container {
-    min-width: 74%;
+    display: flex;
+    position: relative;
+  }
+
+  .inner-resizer {
+    align-self: center;
+    // margin: 10px 0px;
+    margin-left: 4px;
+    margin-right: 4px;
+    padding-left: 4px;
+    width: 1px;
+    background-color: gray;
+
+    // height is set dynamically through html
+
+    cursor: ew-resize;
+
+    &:hover {
+      background-color: darkgray;
+    }
   }
 
   .secondary-videos {
+    width: 100%;
+    // height is set dynamically through html
+
+    // TODO
     // display: flex;
+    // flex-direction: column;
     // justify-content: center;
-    // align-items: center;
 
-    width: 24%;
-    height: 100%;
-    max-height: inherit;
-    // max-height: 100%;
-    margin: 2px;
-
-    flex-direction: column;
-    overflow-y: auto;
+    overflow-y: scroll;
   }
 }
 

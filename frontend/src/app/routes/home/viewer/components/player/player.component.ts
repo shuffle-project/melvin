@@ -4,11 +4,13 @@ import {
 } from '@angular/cdk/overlay';
 import {
   AfterViewInit,
+  ChangeDetectorRef,
   Component,
   ElementRef,
   HostListener,
   Input,
   OnDestroy,
+  OnInit,
   ViewChild,
 } from '@angular/core';
 import { Store } from '@ngrx/store';
@@ -23,6 +25,14 @@ import * as editorSelector from '../../../../../store/selectors/editor.selector'
 import * as viewerSelector from '../../../../../store/selectors/viewer.selector';
 import { ViewerService } from '../../viewer.service';
 
+export interface ViewerVideo {
+  id: string;
+  title: string;
+  url: string;
+  shown: boolean;
+  isReady: boolean;
+}
+
 @Component({
   selector: 'app-player',
   templateUrl: './player.component.html',
@@ -31,32 +41,33 @@ import { ViewerService } from '../../viewer.service';
     { provide: OverlayContainer, useClass: FullscreenOverlayContainer },
   ],
 })
-export class PlayerComponent implements OnDestroy, AfterViewInit {
+export class PlayerComponent implements OnDestroy, AfterViewInit, OnInit {
   private destroy$$ = new Subject<void>();
 
-  @Input({ required: true }) project!: ProjectEntity | null;
+  @Input({ required: true }) project!: ProjectEntity;
 
-  // main audio
-  @ViewChild('viewerAudio') viewerAudio!: ElementRef;
+  @ViewChild('allVideosContainerRef')
+  private _allVideosContainerRef!: ElementRef<HTMLDivElement>;
+  get allVideosContainer() {
+    return this._allVideosContainerRef.nativeElement;
+  }
+
+  @ViewChild('mainVideoContainerRef')
+  private _mainVideoContainerRef!: ElementRef<HTMLDivElement>;
+  get mainVideoContainer() {
+    return this._mainVideoContainerRef.nativeElement;
+  }
+
   public audioPlayer: HTMLAudioElement | null = null;
 
-  // main video
-  // @ViewChild('mainVideo') mainVideo!: ElementRef;
-  mainVideoHeight = 300;
-
-  // @ViewChildren('secondaryVideo') secondaryVideoList!: QueryList<ElementRef>;
-
-  mainVideoId: string = 'mainVideo';
-  hiddenVideos: string[] = [];
-
-  public audioLoaded = false;
+  public mainVideoHeight = 300;
+  public resizerHeightPx = 0;
 
   public volume$ = this.store.select(editorSelector.selectVolume);
   public currentSpeed$ = this.store.select(editorSelector.selectCurrentSpeed);
   public subtitlesEnabledInVideo$ = this.store.select(
     editorSelector.selectSubtitlesEnabledInVideo
   );
-  public bigVideoId$ = this.store.select(viewerSelector.selectBigVideoId);
 
   public captions$ = this.store.select(captionsSelector.selectCaptions);
 
@@ -73,10 +84,40 @@ export class PlayerComponent implements OnDestroy, AfterViewInit {
     })
   );
 
+  // TODO new names and reactive
+  // TODO move to store ? to service?
+  public bigVideo!: ViewerVideo;
+  public smallVideos!: ViewerVideo[];
+  public shownVideosCount!: number;
+
+  // helper variables for dragndrop
+  private resizingVideoWidth = false;
+  private initialClientX = 0;
+  private initialMainVideoContainerWidth = 0;
+
+  public mainVideoContainerWidthPercent = 74;
+
   constructor(
     private store: Store<AppState>,
-    public viewerService: ViewerService
+    public viewerService: ViewerService,
+    private ref: ChangeDetectorRef
   ) {}
+
+  ngOnInit() {
+    this.bigVideo = {
+      id: this.project!.id,
+      title: 'Hauptviedeo',
+      url: this.project!.media!.video,
+      shown: true,
+      isReady: false,
+    };
+
+    this.smallVideos = [];
+    this.project.media?.additionalVideos.forEach((element: AdditionalVideo) => {
+      this.smallVideos.push({ ...element, shown: true, isReady: false });
+    });
+    this.shownVideosCount = this.smallVideos.filter((x) => x.shown).length;
+  }
 
   ngAfterViewInit(): void {
     this.store
@@ -101,97 +142,136 @@ export class PlayerComponent implements OnDestroy, AfterViewInit {
     this.destroy$$.next();
   }
 
-  // VIDEO
+  onMouseDown(event: MouseEvent) {
+    event.preventDefault();
 
+    // console.log(event.clientX);
+    this.initialClientX = event.clientX;
+    this.initialMainVideoContainerWidth =
+      this.mainVideoContainer.getBoundingClientRect().width;
+
+    this.resizingVideoWidth = true;
+    document.body.style.cursor = 'ew-resize';
+  }
+
+  @HostListener('window:mouseup', ['$event'])
+  onMouseUp(event: MouseEvent) {
+    if (this.resizingVideoWidth) {
+      this.resizingVideoWidth = false;
+      document.body.style.cursor = '';
+    }
+  }
+
+  @HostListener('window:mousemove', ['$event'])
+  onMouseMove(event: MouseEvent) {
+    if (this.resizingVideoWidth) {
+      this.adjustMainVideoWidthWithMouse(event.clientX);
+    }
+  }
+
+  onKeyDown(event: KeyboardEvent) {
+    if (event.key === 'ArrowLeft') {
+      if (event.ctrlKey) {
+        this.adjustMainVideoWidthWithPx(-50);
+      } else {
+        this.adjustMainVideoWidthWithPx(-5);
+      }
+    } else if (event.key === 'ArrowRight') {
+      if (event.ctrlKey) {
+        this.adjustMainVideoWidthWithPx(50);
+      } else {
+        this.adjustMainVideoWidthWithPx(5);
+      }
+    }
+  }
+
+  /**
+   * @param movement
+   * increase or decrease the size of the main video by <movement>px to the decalred min/max, default is 30%/85%
+   */
+  private adjustMainVideoWidthWithPx(movement: number) {
+    const allVideosContainerWidth =
+      this.allVideosContainer.getBoundingClientRect().width;
+    const mainVideoContainerWidth =
+      this.mainVideoContainer.getBoundingClientRect().width;
+    const newVideoContainerWidthPx = mainVideoContainerWidth + movement;
+
+    const newPercent =
+      (newVideoContainerWidthPx / allVideosContainerWidth) * 100;
+
+    this.setMainVideoWidthPercentage(newPercent);
+  }
+
+  /**
+   * @param movement
+   * increase or decrease the size of the main video by <movement>px to the decalred min/max, default is 30%/85%
+   */
+  private adjustMainVideoWidthWithMouse(clientX: number) {
+    const allVideosContainerWidth =
+      this.allVideosContainer.getBoundingClientRect().width;
+
+    const totalMovement = clientX - this.initialClientX;
+
+    const newPercent =
+      ((this.initialMainVideoContainerWidth + totalMovement) /
+        allVideosContainerWidth) *
+      100;
+
+    this.setMainVideoWidthPercentage(newPercent);
+  }
+
+  private setMainVideoWidthPercentage(
+    newPercent: number,
+    maximumWidth = 85,
+    minimumWidth = 30
+  ) {
+    if (newPercent > maximumWidth) {
+      this.mainVideoContainerWidthPercent = maximumWidth;
+    } else if (newPercent < minimumWidth) {
+      this.mainVideoContainerWidthPercent = minimumWidth;
+    } else {
+      this.mainVideoContainerWidthPercent = newPercent;
+    }
+
+    this.resetVideoDimensions();
+  }
+
+  /**
+   * resetting video dimensions according to main video height
+   */
   resetVideoDimensions() {
+    // get height of main video to adjust secondary container
     const firstVideo = document.getElementsByTagName('video');
-    console.log(firstVideo);
 
     if (firstVideo.item(0)) {
       this.mainVideoHeight = firstVideo.item(0)!.offsetHeight;
     }
+    this.resizerHeightPx = this.allVideosContainer.clientHeight * 0.9;
+
+    this.ref.detectChanges();
   }
 
-  // onChangeMainVideo(videoId: string) {
-  //   this.mainVideoId = videoId;
-  //   this.mainVideo.nativeElement.load();
-  // }
-
-  onAudioLoadMetadata() {
-    this.audioPlayer = this.viewerAudio.nativeElement;
-
-    this.viewerService.initObservables(this.audioPlayer!, this.project!.id);
-    this.audioLoaded = true;
+  onSwitchToBigVideo(viewerVideo: ViewerVideo) {
+    this.smallVideos.push(this.bigVideo);
+    this.smallVideos.splice(
+      this.smallVideos.findIndex((x) => x.id === viewerVideo.id),
+      1
+    );
+    this.bigVideo = viewerVideo;
   }
 
-  connectToAudio(event: Event) {
-    const videoPlayer = event.target as HTMLVideoElement;
+  onToggleVideoShown(video: ViewerVideo) {
+    video.shown = !video.shown;
 
-    // current state
-    if (this.audioPlayer) {
-      videoPlayer.currentTime = this.audioPlayer?.currentTime;
-      if (!this.audioPlayer.paused) {
-        videoPlayer.play();
-      }
-    }
-
-    // future state
-    this.viewerService.play$
-      .pipe(
-        takeUntil(this.destroy$$),
-        tap(() => videoPlayer.play())
-      )
-      .subscribe();
-
-    this.viewerService.pause$
-      .pipe(
-        takeUntil(this.destroy$$),
-        tap(() => videoPlayer.pause())
-      )
-      .subscribe();
-
-    this.viewerService.seeking$
-      .pipe(
-        takeUntil(this.destroy$$),
-        tap((seekTo: number) => (videoPlayer.currentTime = seekTo))
-      )
-      .subscribe();
+    this.shownVideosCount = this.smallVideos.filter((x) => x.shown).length;
   }
 
-  // DATA
+  onAudioLoadMetadata(event: Event) {
+    this.audioPlayer = event.target as HTMLAudioElement;
 
-  getVideoUrl(choosenAdditionalVideo: string): string {
-    const video =
-      this.project?.media?.additionalVideos.find(
-        (ele) => ele.id === choosenAdditionalVideo
-      ) || this.project!.media!.additionalVideos[0];
-
-    return video.url;
-  }
-
-  // CONTROLS SECONDARY VIDEOS
-  onClickMenuItem(event: Event, video: AdditionalVideo | null) {
-    const id = video ? video.id : 'mainVideo';
-    const checked = !this.hiddenVideos.includes(id);
-
-    if (checked) {
-      console.log('remove through click');
-      this.hiddenVideos.splice(this.hiddenVideos.indexOf(id), 1);
-    } else {
-      console.log('psuh through click');
-      this.hiddenVideos.push(id);
-    }
-
-    event.stopPropagation();
-  }
-
-  onChangeViewsMenu(checked: boolean, video: AdditionalVideo | null) {
-    const id = video ? video.id : 'mainVideo';
-
-    if (checked) {
-      this.hiddenVideos.splice(this.hiddenVideos.indexOf(id), 1);
-    } else {
-      this.hiddenVideos.push(id);
-    }
+    this.viewerService.initAudioObservables(
+      this.audioPlayer!,
+      this.project!.id
+    );
   }
 }

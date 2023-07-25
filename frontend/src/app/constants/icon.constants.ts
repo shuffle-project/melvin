@@ -1,4 +1,5 @@
 export const ICONS = [
+  'resize',
   'account',
   'account2',
   'add-circle',

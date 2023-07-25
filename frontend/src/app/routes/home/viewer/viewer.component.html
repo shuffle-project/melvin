@@ -8,31 +8,38 @@
 </app-header>
 
 <section class="content" *ngrxLet="project$ as project">
-  <ng-container *ngrxLet="layoutSettings$ as layout">
-    <div class="column-size-1"></div>
-    <div class="column-size-2">
-      <app-transcript
-        *ngIf="layout.transcriptEnabled && layout.transcriptPosition === 'left'"
-      ></app-transcript>
-    </div>
-    <div class="column-size-3">
-      <app-transcript
-        *ngIf="layout.transcriptEnabled && layout.transcriptPosition === 'top'"
-      ></app-transcript>
-      <app-player [project]="project"></app-player>
-      <app-infobox></app-infobox>
-      <app-transcript
-        *ngIf="
-          layout.transcriptEnabled && layout.transcriptPosition === 'bottom'
-        "
-      ></app-transcript>
-    </div>
-    <div class="column-size-2">
-      <app-transcript
-        *ngIf="
-          layout.transcriptEnabled && layout.transcriptPosition === 'right'
-        "
-      ></app-transcript>
-    </div>
+  <ng-container *ngIf="project">
+    <ng-container *ngrxLet="layoutSettings$ as layout">
+      <div class="column-size-1"></div>
+      <div class="column-size-2">
+        <app-transcript
+          *ngIf="
+            layout.transcriptEnabled && layout.transcriptPosition === 'left'
+          "
+        ></app-transcript>
+      </div>
+      <div class="column-size-3">
+        <app-transcript
+          *ngIf="
+            layout.transcriptEnabled && layout.transcriptPosition === 'top'
+          "
+        ></app-transcript>
+
+        <app-player [project]="project!"></app-player>
+        <app-infobox></app-infobox>
+        <app-transcript
+          *ngIf="
+            layout.transcriptEnabled && layout.transcriptPosition === 'bottom'
+          "
+        ></app-transcript>
+      </div>
+      <div class="column-size-2">
+        <app-transcript
+          *ngIf="
+            layout.transcriptEnabled && layout.transcriptPosition === 'right'
+          "
+        ></app-transcript>
+      </div>
+    </ng-container>
   </ng-container>
 </section>
