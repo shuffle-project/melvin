@@ -4,6 +4,7 @@ import {
   ColorOptions,
   SizeOptions,
 } from '../../routes/home/viewer/components/captions-settings-dialog/captions-settings-dialog.component';
+import { ViewerVideo } from '../../routes/home/viewer/components/player/player.component';
 import {
   TranscriptFontsize,
   TranscriptPosition,
@@ -43,4 +44,19 @@ export const changeCaptionsFontsize = createAction(
 export const changeCaptionsPosition = createAction(
   '[CAPTIONS SETTINGS DIALOG] Change captions position',
   props<{ captionsPosition: CaptionPositionOptions }>()
+);
+
+export const initVideos = createAction(
+  '[PLAYER COMPONENT] Add initial videos',
+  props<{ viewerVideos: ViewerVideo[]; bigVideoId: string }>()
+);
+
+export const switchToNewBigVideo = createAction(
+  '[PLAYER COMPONENT] Switch given Video to new big video',
+  props<{ newBigVideoId: string }>()
+);
+
+export const toggleShowVideo = createAction(
+  '[PLAYER COMPONENT] Toggle show video',
+  props<{ id: string }>()
 );

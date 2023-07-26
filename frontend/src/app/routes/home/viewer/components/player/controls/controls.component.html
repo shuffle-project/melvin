@@ -149,12 +149,17 @@
       </button>
     </div>
   </div>
-  <div>
-    {{ viewerService.audio.currentTime * 1000 | duration }} /
-    {{
-      viewerService.audio.duration
-        ? (viewerService.audio.duration * 1000 | duration)
-        : '-'
-    }}
+  <div class="information-row">
+    <div>
+      {{ viewerService.audio.currentTime * 1000 | duration }} /
+      {{
+        viewerService.audio.duration
+          ? (viewerService.audio.duration * 1000 | duration)
+          : '-'
+      }}
+    </div>
+    <div>
+      {{ viewerService.audio.paused ? 'Pausiert' : 'Gestartet' }}
+    </div>
   </div>
 </div>

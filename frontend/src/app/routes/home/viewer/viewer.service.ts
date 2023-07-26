@@ -40,6 +40,11 @@ export class ViewerService {
   public currentCaption$: BehaviorSubject<null | undefined | CaptionEntity> =
     new BehaviorSubject<CaptionEntity | undefined | null>(null);
 
+  private _loadingData: string[] = [];
+  public get loadingData() {
+    return this._loadingData.length > 0;
+  }
+
   constructor(
     private store: Store<AppState>,
     private storageService: StorageService
@@ -114,6 +119,16 @@ export class ViewerService {
 
     this.saveCurrentTimeInStorage();
     this.audioLoaded = true;
+  }
+
+  isLoading(id: string) {
+    const indexOf = this._loadingData.indexOf(id);
+    if (indexOf < 0) this._loadingData.push(id);
+  }
+
+  doneLoading(id: string) {
+    const indexOf = this._loadingData.indexOf(id);
+    if (indexOf > -1) this._loadingData.splice(indexOf, 1);
   }
 
   onJumpInAudio(newSeconds: number) {

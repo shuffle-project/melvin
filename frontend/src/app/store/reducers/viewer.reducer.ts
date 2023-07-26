@@ -4,6 +4,7 @@ import {
   ColorOptions,
   SizeOptions,
 } from '../../routes/home/viewer/components/captions-settings-dialog/captions-settings-dialog.component';
+import { ViewerVideo } from '../../routes/home/viewer/components/player/player.component';
 import {
   TranscriptFontsize,
   TranscriptPosition,
@@ -22,6 +23,10 @@ export interface ViewerState {
   captionsColor: ColorOptions;
   captionsFontsize: SizeOptions;
   captionsPosition: CaptionPositionOptions;
+
+  // TODO new names?
+  viewerVideos: ViewerVideo[];
+  bigVideoId: string;
 }
 
 export const initalState: ViewerState = {
@@ -54,6 +59,9 @@ export const initalState: ViewerState = {
     StorageKey.CAPTIONS_POSITION,
     CaptionPositionOptions.OVER_VIDEO
   ) as CaptionPositionOptions,
+
+  viewerVideos: [],
+  bigVideoId: '',
 };
 
 export const viewerReducer = createReducer(
@@ -91,5 +99,24 @@ export const viewerReducer = createReducer(
   }),
   on(viewerActions.changeCaptionsPosition, (state, { captionsPosition }) => {
     return { ...state, captionsPosition };
+  }),
+
+  // videos
+  on(viewerActions.initVideos, (state, { bigVideoId, viewerVideos }) => {
+    return { ...state, viewerVideos, bigVideoId };
+  }),
+  on(viewerActions.switchToNewBigVideo, (state, { newBigVideoId }) => {
+    return { ...state, bigVideoId: newBigVideoId };
+  }),
+  on(viewerActions.toggleShowVideo, (state, { id }) => {
+    return {
+      ...state,
+      viewerVideos: state.viewerVideos.map((video) => {
+        if (video.id !== id) {
+          return video;
+        }
+        return { ...video, shown: !video.shown };
+      }),
+    };
   })
 );

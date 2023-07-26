@@ -19,6 +19,7 @@ import {
   AdditionalVideo,
   ProjectEntity,
 } from '../../../../../services/api/entities/project.entity';
+import * as viewerActions from '../../../../../store/actions/viewer.actions';
 import { AppState } from '../../../../../store/app.state';
 import * as captionsSelector from '../../../../../store/selectors/captions.selector';
 import * as editorSelector from '../../../../../store/selectors/editor.selector';
@@ -30,7 +31,6 @@ export interface ViewerVideo {
   title: string;
   url: string;
   shown: boolean;
-  isReady: boolean;
 }
 
 @Component({
@@ -84,11 +84,14 @@ export class PlayerComponent implements OnDestroy, AfterViewInit, OnInit {
     })
   );
 
-  // TODO new names and reactive
-  // TODO move to store ? to service?
-  public bigVideo!: ViewerVideo;
-  public smallVideos!: ViewerVideo[];
-  public shownVideosCount!: number;
+  public bigVideo$ = this.store.select(viewerSelector.selectBigVideo);
+  public smallVideos$ = this.store.select(viewerSelector.selectSmallVideos);
+  public shownSmallVideos$ = this.smallVideos$.pipe(
+    map((list) => list.filter((video) => video.shown))
+  );
+  public shownSmallVideosCount$ = this.shownSmallVideos$.pipe(
+    map((list) => list.length)
+  );
 
   // helper variables for dragndrop
   private resizingVideoWidth = false;
@@ -101,22 +104,32 @@ export class PlayerComponent implements OnDestroy, AfterViewInit, OnInit {
     private store: Store<AppState>,
     public viewerService: ViewerService,
     private ref: ChangeDetectorRef
-  ) {}
+  ) {
+    this.viewerService.isLoading('audio');
+  }
 
   ngOnInit() {
-    this.bigVideo = {
-      id: this.project!.id,
-      title: 'Hauptviedeo',
-      url: this.project!.media!.video,
-      shown: true,
-      isReady: false,
-    };
-
-    this.smallVideos = [];
+    const videos: ViewerVideo[] = [
+      {
+        id: this.project!.id,
+        title: 'Hauptviedeo',
+        url: this.project!.media!.video,
+        shown: true,
+      },
+    ];
     this.project.media?.additionalVideos.forEach((element: AdditionalVideo) => {
-      this.smallVideos.push({ ...element, shown: true, isReady: false });
+      videos.push({
+        ...element,
+        shown: true,
+      });
     });
-    this.shownVideosCount = this.smallVideos.filter((x) => x.shown).length;
+
+    this.store.dispatch(
+      viewerActions.initVideos({
+        viewerVideos: videos,
+        bigVideoId: this.project!.id,
+      })
+    );
   }
 
   ngAfterViewInit(): void {
@@ -151,7 +164,7 @@ export class PlayerComponent implements OnDestroy, AfterViewInit, OnInit {
       this.mainVideoContainer.getBoundingClientRect().width;
 
     this.resizingVideoWidth = true;
-    document.body.style.cursor = 'ew-resize';
+    document.body.style.cursor = 'col-resize';
   }
 
   @HostListener('window:mouseup', ['$event'])
@@ -252,18 +265,19 @@ export class PlayerComponent implements OnDestroy, AfterViewInit, OnInit {
   }
 
   onSwitchToBigVideo(viewerVideo: ViewerVideo) {
-    this.smallVideos.push(this.bigVideo);
-    this.smallVideos.splice(
-      this.smallVideos.findIndex((x) => x.id === viewerVideo.id),
-      1
+    this.store.dispatch(
+      viewerActions.switchToNewBigVideo({ newBigVideoId: viewerVideo.id })
     );
-    this.bigVideo = viewerVideo;
   }
 
-  onToggleVideoShown(video: ViewerVideo) {
-    video.shown = !video.shown;
+  onClickToggleVideoShown(event: MouseEvent, video: ViewerVideo) {
+    this.store.dispatch(viewerActions.toggleShowVideo({ id: video.id }));
+    event.stopPropagation();
+  }
 
-    this.shownVideosCount = this.smallVideos.filter((x) => x.shown).length;
+  onKeypressToggleVideoShown(event: KeyboardEvent, video: ViewerVideo) {
+    if (event.key === 'Enter' || event.key === 'Space')
+      this.store.dispatch(viewerActions.toggleShowVideo({ id: video.id }));
   }
 
   onAudioLoadMetadata(event: Event) {

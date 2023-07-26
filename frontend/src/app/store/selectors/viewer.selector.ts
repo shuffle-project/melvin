@@ -49,3 +49,17 @@ export const selectCaptionPosition = createSelector(
     return state.captionsPosition;
   }
 );
+
+export const selectBigVideo = createSelector(
+  selectViewerState,
+  (state: ViewerState) => {
+    return state.viewerVideos.find((video) => video.id === state.bigVideoId);
+  }
+);
+
+export const selectSmallVideos = createSelector(
+  selectViewerState,
+  (state: ViewerState) => {
+    return state.viewerVideos?.filter((video) => video.id !== state.bigVideoId);
+  }
+);

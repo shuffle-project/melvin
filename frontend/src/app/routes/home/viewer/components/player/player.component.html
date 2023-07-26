@@ -14,7 +14,10 @@
   <!--  -->
 
   <div class="position-relative">
-    <div class="loading-spinner" *ngIf="viewerAudio.readyState === 1">
+    <div
+      class="loading-spinner"
+      *ngIf="viewerAudio.readyState === 1 && viewerService.loadingData"
+    >
       <mat-spinner mode="indeterminate"></mat-spinner>
     </div>
     <button
@@ -31,14 +34,13 @@
       <div
         class="mat-menu-item-wrapper"
         mat-menu-item
-        *ngFor="let video of smallVideos"
-        (click)="onToggleVideoShown(video)"
+        *ngFor="let video of smallVideos$ | ngrxPush"
+        (click)="onClickToggleVideoShown($event, video)"
+        (keydown)="onKeypressToggleVideoShown($event, video)"
       >
-        <mat-checkbox
-          (click)="$event.stopPropagation()"
-          (change)="onToggleVideoShown(video)"
-          [checked]="video.shown"
-        >
+        <!-- (change)="onCheckToggleVideoShown($event, video)" -->
+
+        <mat-checkbox [checked]="video.shown">
           {{ video.title }}
         </mat-checkbox>
       </div>
@@ -48,10 +50,11 @@
       #allVideosContainerRef
       class="video-wrapper"
       [style.max-height.px]="mainVideoHeight"
-      *ngIf="bigVideo && smallVideos"
+      *ngrxLet="bigVideo$ as bigVideo"
     >
       <!-- main video  -->
       <div
+        *ngIf="bigVideo"
         #mainVideoContainerRef
         class="main-video-container"
         [style.min-width.%]="mainVideoContainerWidthPercent"
@@ -63,30 +66,34 @@
         ></app-video-container>
       </div>
 
-      <div
-        tabindex="0"
-        class="inner-resizer"
-        (mousedown)="onMouseDown($event)"
-        (keydown)="onKeyDown($event)"
-        [style.height.px]="allVideosContainerRef.clientHeight"
-      ></div>
+      <ng-container *ngrxLet="shownSmallVideos$ as shownSmallVideos">
+        <div
+          *ngIf="shownSmallVideos.length > 0"
+          tabindex="0"
+          class="inner-resizer"
+          (mousedown)="onMouseDown($event)"
+          (keydown)="onKeyDown($event)"
+          [style.height.px]="allVideosContainerRef.clientHeight"
+        ></div>
 
-      <div
-        class="secondary-videos"
-        *ngIf="shownVideosCount > 0"
-        [style.height.px]="allVideosContainerRef.clientHeight"
-      >
-        <!-- secondary video -->
-        <ng-container *ngFor="let video of smallVideos">
-          <app-video-container
-            *ngIf="video.shown"
-            size="small"
-            [video]="video"
-            (switchToBig)="onSwitchToBigVideo(video)"
-            (videoMetadataLoaded)="resetVideoDimensions()"
-          ></app-video-container>
-        </ng-container>
-      </div>
+        <div
+          *ngIf="shownSmallVideos.length > 0"
+          class="secondary-videos"
+          [style.height.px]="allVideosContainerRef.clientHeight"
+        >
+          <div class="spacer"></div>
+          <!-- secondary video -->
+          <ng-container *ngFor="let video of shownSmallVideos">
+            <app-video-container
+              *ngIf="video.shown"
+              size="small"
+              [video]="video"
+              (videoMetadataLoaded)="resetVideoDimensions()"
+            ></app-video-container>
+          </ng-container>
+          <div class="spacer"></div>
+        </div>
+      </ng-container>
     </div>
     <ng-container *ngIf="subtitlesEnabledInVideo$ | ngrxPush">
       <div

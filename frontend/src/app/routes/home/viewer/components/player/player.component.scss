@@ -6,10 +6,6 @@
   }
 }
 
-app-video-container {
-  width: 100%;
-}
-
 .video-wrapper {
   display: flex;
   justify-content: center;
@@ -28,11 +24,10 @@ app-video-container {
     margin-right: 4px;
     padding-left: 4px;
     width: 1px;
+    // height is set dynamically through html
     background-color: gray;
 
-    // height is set dynamically through html
-
-    cursor: ew-resize;
+    cursor: col-resize;
 
     &:hover {
       background-color: darkgray;
@@ -43,12 +38,15 @@ app-video-container {
     width: 100%;
     // height is set dynamically through html
 
-    // TODO
-    // display: flex;
-    // flex-direction: column;
-    // justify-content: center;
-
     overflow-y: scroll;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .spacer {
+      flex: 1 1 auto;
+    }
   }
 }
 
