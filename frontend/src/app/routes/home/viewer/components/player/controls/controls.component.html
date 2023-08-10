@@ -24,7 +24,7 @@
       >
         <mat-icon
           [svgIcon]="
-            !viewerService.audio.paused ? 'pause_circle' : 'play_circle'
+            !viewerService.audio.paused ? 'pause-viewer' : 'play-viewer'
           "
         ></mat-icon>
       </button>
@@ -38,7 +38,7 @@
       >
         <mat-icon
           [svgIcon]="
-            viewerService.audio.muted === true ? 'volume_off' : 'volume_on'
+            viewerService.audio.muted === true ? 'volume-mute' : 'volume'
           "
         ></mat-icon>
       </button>
@@ -64,16 +64,7 @@
         *ngrxLet="subtitlesEnabledInVideo$ as subtitlesEnabledInVideo"
       >
         <button mat-icon-button class="md" [matMenuTriggerFor]="captionMenu">
-          <mat-icon
-            *ngIf="subtitlesEnabledInVideo"
-            svgIcon="caption_selected"
-            class="svg-green"
-          ></mat-icon>
-          <mat-icon
-            *ngIf="!subtitlesEnabledInVideo"
-            svgIcon="caption_not_selected"
-            class="svg-black"
-          ></mat-icon>
+          <mat-icon svgIcon="caption_not_selected" class="svg-black"></mat-icon>
         </button>
 
         <button mat-icon-button class="md" (click)="onToggleShowTranscript()">
@@ -132,9 +123,7 @@
         >
           <mat-icon svgIcon="minus" class="svg-black"></mat-icon>
         </button>
-        <div class="playback-speed-text">
-          {{ currentSpeed }}
-        </div>
+        <div class="playback-speed-text">{{ currentSpeed }}x</div>
         <button
           mat-icon-button
           class="sm"
@@ -144,8 +133,21 @@
         </button>
       </div>
 
-      <button mat-icon-button class="md" (click)="onRequestFullscreen()">
-        <mat-icon svgIcon="fullscreen" class="svg-black"></mat-icon>
+      <button
+        mat-icon-button
+        class="md fullscreen-button"
+        (click)="onRequestFullscreen()"
+      >
+        <mat-icon
+          *ngIf="!isFullscreenActive()"
+          svgIcon="fullscreen"
+          class="svg-black"
+        ></mat-icon>
+        <mat-icon
+          *ngIf="isFullscreenActive()"
+          svgIcon="fullscreen-close"
+          class="svg-black"
+        ></mat-icon>
       </button>
     </div>
   </div>

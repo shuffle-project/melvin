@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 // use own viewer actions
@@ -16,8 +16,6 @@ import { AdjustLayoutDialogComponent } from './components/adjust-layout-dialog/a
   styleUrls: ['./viewer.component.scss'],
 })
 export class ViewerComponent implements OnInit {
-  @ViewChild('videoPlayer', { static: false }) videoplayer!: HTMLVideoElement;
-
   public projectId!: string;
 
   public project$ = this.store.select(editorSelector.selectProject);
@@ -56,5 +54,11 @@ export class ViewerComponent implements OnInit {
 
   onOpenAdjustLayoutDialog() {
     this.dialog.open(AdjustLayoutDialogComponent);
+  }
+
+  isFullscreenActive() {
+    return (
+      document.fullscreenElement || (document as any).webkitFullscreenElement
+    );
   }
 }

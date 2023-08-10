@@ -26,7 +26,8 @@
       mat-button
       [matMenuTriggerFor]="viewsMenu"
     >
-      <span>Weitere Ansichten</span> <mat-icon svgIcon="more"></mat-icon>
+      <span class="views-menu-button-text">Weitere Ansichten</span>
+      <mat-icon iconPositionEnd svgIcon="arrow-down-simple"></mat-icon>
     </button>
 
     <mat-menu #viewsMenu="matMenu">
@@ -53,20 +54,22 @@
       *ngrxLet="bigVideo$ as bigVideo"
     >
       <!-- main video  -->
-      <div
-        *ngIf="bigVideo"
-        #mainVideoContainerRef
-        class="main-video-container"
-        [style.min-width.%]="mainVideoContainerWidthPercent"
-      >
-        <app-video-container
-          size="big"
-          [video]="bigVideo"
-          (videoMetadataLoaded)="resetVideoDimensions()"
-        ></app-video-container>
-      </div>
-
       <ng-container *ngrxLet="shownSmallVideos$ as shownSmallVideos">
+        <div
+          *ngIf="bigVideo"
+          #mainVideoContainerRef
+          class="main-video-container"
+          [style.min-width.%]="
+            shownSmallVideos.length === 0 ? 100 : mainVideoContainerWidthPercent
+          "
+        >
+          <app-video-container
+            size="big"
+            [video]="bigVideo"
+            (videoMetadataLoaded)="resetVideoDimensions()"
+          ></app-video-container>
+        </div>
+
         <div
           *ngIf="shownSmallVideos.length > 0"
           tabindex="0"
@@ -74,7 +77,10 @@
           (mousedown)="onMouseDown($event)"
           (keydown)="onKeyDown($event)"
           [style.height.px]="allVideosContainerRef.clientHeight"
-        ></div>
+        >
+          <div class="visual-resize-handle"></div>
+          <div class="visual-resize-handle"></div>
+        </div>
 
         <div
           *ngIf="shownSmallVideos.length > 0"

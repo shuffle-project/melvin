@@ -1,5 +1,7 @@
 .controls {
-  padding: 0px 5px;
+  padding: 0px 5px 5px 5px;
+
+  border-top: 1px solid #e0e0e0;
 
   mat-slider {
     --mdc-slider-handle-color: black;
@@ -45,37 +47,46 @@
       display: flex;
       justify-content: flex-start;
       align-items: center;
+      gap: 5px;
     }
     .center {
       flex-basis: 33.333%;
       display: flex;
       justify-content: center;
       align-items: center;
+      gap: 5px;
     }
     .right {
       flex-basis: 33.333%;
       display: flex;
       justify-content: flex-end;
       align-items: center;
+      gap: 5px;
     }
 
     .volume-slider {
-      // border: 1px solid black;
       width: 100%;
       max-width: 300px;
       margin: 0 24px;
     }
+
     .playback-speed-wrapper {
       display: flex;
       justify-content: center;
       align-items: center;
       border: 1px solid var(--color-border-grey);
-      border-radius: 5px;
+      border-radius: 6px;
+      height: 100%;
+
+      button {
+        margin: 3px;
+      }
 
       .playback-speed-text {
-        width: 35px;
+        width: 6ch;
         display: flex;
         justify-content: center;
+        align-items: center;
       }
     }
   }

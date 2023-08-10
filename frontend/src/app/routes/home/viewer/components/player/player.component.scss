@@ -1,3 +1,6 @@
+.box {
+}
+
 .mat-menu-item-wrapper {
   max-width: 300px;
   .mat-mdc-checkbox {
@@ -18,19 +21,37 @@
   }
 
   .inner-resizer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+    flex-grow: 0;
+
     align-self: center;
+
     // margin: 10px 0px;
     margin-left: 4px;
     margin-right: 4px;
-    padding-left: 4px;
-    width: 1px;
+    // padding-left: 4px;
+    width: 5px;
     // height is set dynamically through html
-    background-color: gray;
+    background-color: #e0e0e0;
 
     cursor: col-resize;
 
+    .visual-resize-handle {
+      width: 1px;
+      height: 10%;
+      min-height: 40px;
+      background-color: #676767;
+
+      margin-left: 0.5px;
+      margin-right: 0.5px;
+    }
+
     &:hover {
-      background-color: darkgray;
+      background-color: #d0d0d0;
     }
   }
 
@@ -38,7 +59,7 @@
     width: 100%;
     // height is set dynamically through html
 
-    overflow-y: scroll;
+    overflow-y: auto;
 
     display: flex;
     flex-direction: column;
@@ -71,7 +92,16 @@
   right: 0;
   background-color: white;
   z-index: 1;
-  // border: 1px solid black;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  mat-icon {
+    margin: 0px;
+    // min-width: 30px;
+    width: 3rem;
+  }
 
   span {
     display: none;
@@ -80,8 +110,9 @@
   &:hover,
   &:focus,
   &.menu-open {
-    span {
+    .views-menu-button-text {
       display: block;
+      // margin-right: 10px;
     }
   }
 }

@@ -1,4 +1,10 @@
-<div class="{{ size === 'small' ? 'secondary-video-container' : '' }}">
+<div
+  class="{{
+    size === 'small'
+      ? 'inner-secondary-video-container'
+      : 'inner-main-video-container'
+  }}"
+>
   <video
     #viewerVideo
     title="{{ video.title }}"

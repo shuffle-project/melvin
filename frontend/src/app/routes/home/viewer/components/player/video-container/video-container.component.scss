@@ -6,15 +6,19 @@ video {
   width: 100%;
   max-width: 100%;
   height: fit-content;
-  border-radius: 5px;
-  border: 1px solid black;
+  border-radius: 6px;
 }
 
 .main-video {
   width: 100%;
 }
 
-.secondary-video-container {
+.inner-main-video-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.inner-secondary-video-container {
   box-sizing: border-box;
   width: 99%;
   position: relative;
@@ -29,11 +33,10 @@ video {
   .video-overlay {
     transform: scale(0); // hide
     position: absolute;
-    height: 100% !important;
     width: 100%;
-    height: inherit;
+    height: 100%;
 
-    border-radius: 5px;
+    border-radius: 6px;
     top: 0;
     color: white;
     display: flex;
@@ -49,7 +52,10 @@ video {
       text-overflow: ellipsis;
       overflow: hidden;
     }
+
     button {
+      justify-self: flex-end;
+      width: 96%;
       margin-top: 2px;
       color: black;
       background-color: white;

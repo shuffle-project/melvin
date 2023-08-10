@@ -1,6 +1,5 @@
 <div class="box">
   <h2>Transkript</h2>
-  <hr />
 
   <mat-form-field class="search-form-field">
     <mat-label>Search</mat-label>
@@ -9,82 +8,84 @@
       placeholder="Search"
       [(ngModel)]="searchValue"
       (input)="onSearchChange($event)"
+      (keydown)="onKeydownSearch($event)"
     />
+    <mat-icon svgIcon="search" matSuffix></mat-icon>
   </mat-form-field>
 
   <div *ngIf="searchValue.length > 0" class="search-results-wrapper">
-    <ng-container *ngrxLet="searchFiltered$ as searchFiltered">
-      {{ searchFiltered.totalCount > 0 ? foundItemsIndex : 0 }} /
-      {{ searchFiltered.totalCount }}
+    {{ searchTotalCount > 0 ? foundItemsIndex : 0 }} /
+    {{ searchTotalCount }}
 
-      <button
-        mat-icon-button
-        class="md"
-        (click)="
-          onGoToRecentFound(
-            searchFiltered.totalCount,
-            searchFiltered.foundInCaption
-          )
-        "
-      >
-        <mat-icon svgIcon="arrow-up" class="svg-black"></mat-icon>
-      </button>
+    <button mat-icon-button class="md" (click)="onGoToRecentFound()">
+      <mat-icon svgIcon="arrow-up" class="svg-black"></mat-icon>
+    </button>
 
-      <button
-        mat-icon-button
-        class="md"
-        (click)="
-          onGoToNextFound(
-            searchFiltered.totalCount,
-            searchFiltered.foundInCaption
-          )
-        "
-      >
-        <mat-icon svgIcon="arrow-down" class="svg-black"></mat-icon>
-      </button>
-    </ng-container>
+    <button mat-icon-button class="md" (click)="onGoToNextFound()">
+      <mat-icon svgIcon="arrow-down" class="svg-black"></mat-icon>
+    </button>
   </div>
 
-  <hr />
-
-  <ng-container *ngrxLet="searchFiltered$ as searchFiltered">
-    <cdk-virtual-scroll-viewport
-      appendOnly
-      itemSize="130"
-      class="captions-viewport"
-      *ngrxLet="viewerService.currentCaption$ as currentCaption"
-    >
+  <ng-container *ngrxLet="availableSpeakers$ as availableSpeakers">
+    <ng-container *ngrxLet="viewerService.currentTime$ as currentTime">
       <div
-        *cdkVirtualFor="let item of searchFiltered.captions"
-        class="virtual-scroll-item {{
-          item.id === currentCaption?.id ? 'currentCaption' : ''
-        }}"
+        class="captions-viewport fontsize-{{ transcriptFontsize$ | ngrxPush }}"
       >
-        <!-- <p class="caption-speaker">{{ item.speakerId }}</p> -->
-        <div class="first-row">
-          <button mat-icon-button class="sm" (click)="onJumpInVideo(item)">
-            <mat-icon svgIcon="play" class="svg-black"></mat-icon>
-          </button>
-          <span class="caption-time">{{ item.start | duration }} </span>
-        </div>
-        <span
-          *ngrxLet="transcriptFontsize$ as transcriptFontsize"
-          class="caption-text fontsize-{{ transcriptFontsize }}"
-          [innerHTML]="item.text"
+        <div
+          *ngFor="
+            let transcriptParagraphs of transcriptNew;
+            index as indexParagraph;
+            first as firstParagraph
+          "
+          class="transcript-paragraph"
         >
-        </span>
+          <ng-container
+            *ngFor="
+              let item of transcriptParagraphs;
+              index as indexCaption;
+              first as firstCaption;
+              trackBy: trackById
+            "
+          >
+            <div
+              *ngIf="
+                (firstCaption && firstParagraph) ||
+                (!firstParagraph &&
+                  firstCaption &&
+                  transcriptNew[indexParagraph - 1][0].speakerId !==
+                    item.speakerId)
+              "
+              class="caption-speaker"
+            >
+              {{ getSpeakerName(item.speakerId, availableSpeakers) }}
+            </div>
+
+            <span
+              id="caption-{{ item.id }}"
+              class="caption-text {{
+                currentTime >= item.start / 1000 &&
+                currentTime < item.end / 1000
+                  ? 'current-caption'
+                  : ''
+              }}"
+              (click)="onJumpInVideo(item)"
+              [innerHTML]="item.text + ' '"
+            >
+            </span>
+          </ng-container>
+        </div>
       </div>
-    </cdk-virtual-scroll-viewport>
+    </ng-container>
   </ng-container>
 
-  <hr />
-
-  <mat-checkbox
-    class="auto-scroll"
-    color="primary"
-    labelPosition="before"
-    [(ngModel)]="autoScroll"
-  >
-    Automatisch mitscrollen
-  </mat-checkbox>
+  <div class="transcript-footer">
+    <mat-checkbox
+      class="auto-scroll"
+      color="primary"
+      labelPosition="before"
+      [(ngModel)]="autoScroll"
+    >
+      Automatisch mitscrollen
+    </mat-checkbox>
+  </div>
 </div>

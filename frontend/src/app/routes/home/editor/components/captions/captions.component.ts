@@ -2,9 +2,9 @@ import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
 import { Component, OnDestroy, ViewChild } from '@angular/core';
 import { Store } from '@ngrx/store';
 import {
+  Subject,
   delay,
   filter,
-  Subject,
   takeUntil,
   tap,
   throttleTime,

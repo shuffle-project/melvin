@@ -14,7 +14,7 @@ import {
   ViewChild,
 } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Subject, combineLatest, map, takeUntil, tap } from 'rxjs';
+import { Subject, combineLatest, map, merge, takeUntil, tap } from 'rxjs';
 import {
   AdditionalVideo,
   ProjectEntity,
@@ -45,6 +45,8 @@ export class PlayerComponent implements OnDestroy, AfterViewInit, OnInit {
   private destroy$$ = new Subject<void>();
 
   @Input({ required: true }) project!: ProjectEntity;
+
+  playerContainerHeightPx = 200;
 
   @ViewChild('allVideosContainerRef')
   private _allVideosContainerRef!: ElementRef<HTMLDivElement>;
@@ -93,6 +95,11 @@ export class PlayerComponent implements OnDestroy, AfterViewInit, OnInit {
     map((list) => list.length)
   );
 
+  private layoutChanging$ = merge(
+    this.store.select(viewerSelector.selectTranscriptEnabled),
+    this.store.select(viewerSelector.selectTranscriptPosition)
+  );
+
   // helper variables for dragndrop
   private resizingVideoWidth = false;
   private initialClientX = 0;
@@ -133,14 +140,13 @@ export class PlayerComponent implements OnDestroy, AfterViewInit, OnInit {
   }
 
   ngAfterViewInit(): void {
-    this.store
-      .select(viewerSelector.selectTranscriptEnabled)
+    this.layoutChanging$
       .pipe(
         takeUntil(this.destroy$$),
         tap(() => {
           setTimeout(() => {
             this.resetVideoDimensions();
-          }, 1);
+          }, 100);
         })
       )
       .subscribe();

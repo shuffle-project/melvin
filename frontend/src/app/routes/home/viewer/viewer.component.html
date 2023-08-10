@@ -1,10 +1,17 @@
-<app-header [viewer]="true">
+<app-header *ngIf="!isFullscreenActive()" [viewer]="true">
   <span #projectTitle> SUPER MELVING JUCHUU </span>
-
-  <button mat-stroked-button (click)="onOpenAdjustLayoutDialog()">
-    Layout anpassen
-  </button>
-  <mat-slide-toggle>Dark mode</mat-slide-toggle>
+  <div class="viewer-header-buttons">
+    <button mat-stroked-button>Hilfe</button>
+    <button mat-stroked-button (click)="onOpenAdjustLayoutDialog()">
+      Layout anpassen
+    </button>
+    <!-- //TODO -->
+    <div class="dark-mode-wrapper">
+      <mat-icon svgIcon="light_mode" class="svg-black"></mat-icon>
+      <mat-slide-toggle></mat-slide-toggle>
+      <mat-icon svgIcon="dark_mode" class="svg-black"></mat-icon>
+    </div>
+  </div>
 </app-header>
 
 <section class="content" *ngrxLet="project$ as project">
@@ -26,7 +33,7 @@
         ></app-transcript>
 
         <app-player [project]="project!"></app-player>
-        <app-infobox></app-infobox>
+        <app-infobox *ngIf="!isFullscreenActive()"></app-infobox>
         <app-transcript
           *ngIf="
             layout.transcriptEnabled && layout.transcriptPosition === 'bottom'
