@@ -11,53 +11,45 @@
 .content {
   box-sizing: border-box;
   display: flex;
+  flex-direction: column;
   justify-content: stretch;
   width: 100%;
+  padding: 5px;
   // height: ;
   background-color: var(--color-background-grey);
   height: calc(100% - 60px); // header is 60px
+  // max-height: calc(100vh - 60px);
 
   :fullscreen {
     height: 100%;
   }
 
-  overflow-y: auto;
+  .default-main-content {
+    display: flex;
+    height: fit-content;
+    justify-content: center;
 
-  .column-size-1 {
-    flex-basis: 20%;
-    flex-grow: 4;
-    flex-shrink: 4;
-    &:empty {
-      flex-basis: 0%;
-      flex-grow: 0;
-      flex-shrink: 0;
+    .player {
+      width: 70%;
+      height: fit-content;
+    }
+
+    .transcript {
+      position: relative;
+
+      width: 30%;
+      min-width: 300px;
+      max-width: 600px;
     }
   }
-  .column-size-3 {
-    flex-basis: 55%;
-    flex-grow: 5;
-    flex-shrink: 5;
-    &:empty {
-      flex-basis: 0%;
-      flex-grow: 0;
-      flex-shrink: 0;
-    }
-  }
-  .column-size-2 {
-    flex-basis: 25%;
-    flex-grow: 4;
-    flex-shrink: 4;
-    &:empty {
-      flex-basis: 0%;
-      flex-grow: 0;
-      flex-shrink: 0;
-    }
-  }
+
+  overflow-y: auto;
 }
 
 ::ng-deep .box {
-  margin: 10px;
+  margin: 5px;
   padding: 7px;
+
   background-color: white;
   box-shadow: none;
   border: 1px solid #e0e0e0;

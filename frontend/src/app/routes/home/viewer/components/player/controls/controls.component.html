@@ -36,10 +36,12 @@
         aria-label="Mute or unmute Sound"
         (click)="onMuteAudio()"
       >
-        <mat-icon *ngIf="viewerService.audio.muted" svgIcon="volume"></mat-icon>
-
         <mat-icon
           *ngIf="!viewerService.audio.muted"
+          svgIcon="volume"
+        ></mat-icon>
+        <mat-icon
+          *ngIf="viewerService.audio.muted"
           svgIcon="volume-mute"
         ></mat-icon>
       </button>

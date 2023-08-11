@@ -17,36 +17,33 @@
 <section class="content" *ngrxLet="project$ as project">
   <ng-container *ngIf="project">
     <ng-container *ngrxLet="layoutSettings$ as layout">
-      <div class="column-size-1"></div>
-      <div class="column-size-2">
-        <app-transcript
+      <div class="default-main-content horizontal">
+        <div
+          class="transcript"
           *ngIf="
             layout.transcriptEnabled && layout.transcriptPosition === 'left'
           "
-        ></app-transcript>
-      </div>
-      <div class="column-size-3">
-        <app-transcript
-          *ngIf="
-            layout.transcriptEnabled && layout.transcriptPosition === 'top'
-          "
-        ></app-transcript>
-
-        <app-player [project]="project!"></app-player>
-        <app-infobox *ngIf="!isFullscreenActive()"></app-infobox>
-        <app-transcript
-          *ngIf="
-            layout.transcriptEnabled && layout.transcriptPosition === 'bottom'
-          "
-        ></app-transcript>
-      </div>
-      <div class="column-size-2">
-        <app-transcript
+        >
+          <app-transcript></app-transcript>
+        </div>
+        <div class="player">
+          <app-player [project]="project!"></app-player>
+        </div>
+        <div
+          class="transcript"
           *ngIf="
             layout.transcriptEnabled && layout.transcriptPosition === 'right'
           "
-        ></app-transcript>
+        >
+          <app-transcript></app-transcript>
+        </div>
+        <!-- <app-transcript
+          *ngIf="
+          layout.transcriptEnabled && layout.transcriptPosition === 'bottom'
+          "
+          ></app-transcript> -->
       </div>
+      <app-infobox *ngIf="!isFullscreenActive()"></app-infobox>
     </ng-container>
   </ng-container>
 </section>
