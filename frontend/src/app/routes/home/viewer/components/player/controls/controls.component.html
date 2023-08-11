@@ -34,12 +34,13 @@
         class="md"
         matTooltip="Mute or unmute Sound"
         aria-label="Mute or unmute Sound"
-        (click)="viewerService.audio!.muted = viewerService.audio!.muted"
+        (click)="onMuteAudio()"
       >
+        <mat-icon *ngIf="viewerService.audio.muted" svgIcon="volume"></mat-icon>
+
         <mat-icon
-          [svgIcon]="
-            viewerService.audio.muted === true ? 'volume-mute' : 'volume'
-          "
+          *ngIf="!viewerService.audio.muted"
+          svgIcon="volume-mute"
         ></mat-icon>
       </button>
 

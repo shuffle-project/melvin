@@ -16,9 +16,11 @@
   // height: ;
   background-color: var(--color-background-grey);
   height: calc(100% - 60px); // header is 60px
+
   :fullscreen {
     height: 100%;
   }
+
   overflow-y: auto;
 
   .column-size-1 {
@@ -51,20 +53,6 @@
       flex-shrink: 0;
     }
   }
-}
-
-.mat-grid-list {
-  // box-sizing: border-box;
-  // width: 100%;
-  background-color: var(--color-background-grey);
-  // height: calc(100% - 60px); // header is 60px
-}
-mat-grid-tile {
-  // margin: 10px;
-  // padding: 7px;
-  border-radius: 5px;
-  background-color: white;
-  box-shadow: none;
 }
 
 ::ng-deep .box {

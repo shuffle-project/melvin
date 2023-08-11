@@ -52,7 +52,6 @@ export class TranscriptComponent implements OnDestroy, OnInit {
 
   transcriptNew: CaptionEntity[][] = [];
   searchFoundInCaptionIds: string[] = [];
-  searchTotalCount = 0;
 
   transcript$: Observable<CaptionEntity[][]> = this.captions$.pipe(
     map((captions) => {
@@ -130,43 +129,31 @@ export class TranscriptComponent implements OnDestroy, OnInit {
         debounceTime(250),
         tap(([transcript, searchValue]) => {
           // TODO
-
           // transcriptParagraphs als interface mit id's
           // jeder paragraph als component mit onPush
           // transcript nicht als obs
 
-          let searchTotalCountTemp = 0;
           let regex = new RegExp('(' + searchValue + ')', 'gi'); // g = global, i = case insensitive
 
           const searchFoundInCaptionIdsTemp: string[] = [];
 
-          transcript.flat(1).filter((entity, i) => {
-            const searchByValue = entity.text.match(regex);
-            const foundXTimes = (searchByValue || []).length;
-            (searchByValue || []).forEach(() =>
-              searchFoundInCaptionIdsTemp.push(entity.id)
-            );
-
-            searchTotalCountTemp += foundXTimes;
-            return searchByValue;
-          });
-
           transcript.forEach((paragraph, indexParagraph) => {
             paragraph.forEach((entity, indexCaption) => {
-              if (
-                searchValue.length > 0 &&
-                searchFoundInCaptionIdsTemp.includes(entity.id)
-              ) {
+              const matches = entity.text.match(regex);
+              if (searchValue.length > 0 && matches?.length) {
+                searchFoundInCaptionIdsTemp.push(
+                  ...matches.map(() => entity.id)
+                );
+
                 this.transcriptNew[indexParagraph][indexCaption].text =
                   entity.text.replace(regex, '<mark>$1</mark>');
-              } else if (this.searchFoundInCaptionIds.includes(entity.id)) {
+              } else {
                 this.transcriptNew[indexParagraph][indexCaption].text =
                   entity.text;
               }
             });
           });
 
-          this.searchTotalCount = searchTotalCountTemp;
           this.searchFoundInCaptionIds = searchFoundInCaptionIdsTemp;
 
           if (searchValue.length > 0) {
@@ -199,7 +186,7 @@ export class TranscriptComponent implements OnDestroy, OnInit {
   }
 
   onGoToNextFound() {
-    if (this.foundItemsIndex < this.searchTotalCount) {
+    if (this.foundItemsIndex < this.searchFoundInCaptionIds.length) {
       this.foundItemsIndex++;
     } else {
       this.foundItemsIndex = 1;
@@ -213,7 +200,7 @@ export class TranscriptComponent implements OnDestroy, OnInit {
     if (this.foundItemsIndex > 1) {
       this.foundItemsIndex--;
     } else {
-      this.foundItemsIndex = this.searchTotalCount;
+      this.foundItemsIndex = this.searchFoundInCaptionIds.length;
     }
     this.scrollToCaption(
       this.searchFoundInCaptionIds[this.foundItemsIndex - 1]

@@ -56,6 +56,13 @@ export class ControlsComponent {
     this.viewerService.audio?.pause();
   }
 
+  onMuteAudio() {
+    // TODO
+    if (this.viewerService.audio) {
+      this.viewerService.audio.muted = !this.viewerService.audio.muted;
+    }
+  }
+
   onVolumeChange(event: any) {
     this.store.dispatch(
       editorActions.changeVolumeFromViewerComponent({

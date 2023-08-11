@@ -14,8 +14,8 @@
   </mat-form-field>
 
   <div *ngIf="searchValue.length > 0" class="search-results-wrapper">
-    {{ searchTotalCount > 0 ? foundItemsIndex : 0 }} /
-    {{ searchTotalCount }}
+    {{ searchFoundInCaptionIds.length > 0 ? foundItemsIndex : 0 }} /
+    {{ searchFoundInCaptionIds.length }}
 
     <button mat-icon-button class="md" (click)="onGoToRecentFound()">
       <mat-icon svgIcon="arrow-up" class="svg-black"></mat-icon>
