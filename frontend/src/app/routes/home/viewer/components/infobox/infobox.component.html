@@ -1,19 +1,20 @@
 <div class="box">
   <mat-expansion-panel>
     <mat-expansion-panel-header>
-      <mat-panel-title> <h2>Infobox</h2> </mat-panel-title>
-      <!--mat-panel-description>
-      This is a summary of the content
-    </mat-panel-description-->
+      <mat-panel-title>
+        <h2>{{ project.title }}</h2>
+      </mat-panel-title>
+      <mat-panel-description> Infobox </mat-panel-description>
     </mat-expansion-panel-header>
-    <p>Veröffentlichung: 11.06.2024</p>
-    <h3>Downloads</h3>
+    <h3>Metadaten</h3>
+    <p>Veröffentlichung: {{ project.createdAt | date }}</p>
+    <p>Status: {{ project.status | readableStatus }}</p>
+    <p>Sprache: {{ project.language | shortLanguageCode }}</p>
+    <!-- <h3>Downloads</h3>
     <div class="downloads">
       <div>as pdf.</div>
       <div>as vtt.</div>
       <div>as srt.</div>
-    </div>
-    <h3>Beschreibung</h3>
-    <p>Weiterführende Links: https://shuffle-projekt.de/</p>
+    </div> -->
   </mat-expansion-panel>
 </div>

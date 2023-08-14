@@ -1,5 +1,7 @@
 <app-header *ngIf="!isFullscreenActive()" [viewer]="true">
-  <span #projectTitle> SUPER MELVING JUCHUU </span>
+  <span class="project-title" #projectTitle *ngrxLet="project$ as project">
+    {{ project?.title }}
+  </span>
   <div class="viewer-header-buttons">
     <button mat-stroked-button>Hilfe</button>
     <button mat-stroked-button (click)="onOpenAdjustLayoutDialog()">
@@ -43,7 +45,10 @@
           "
           ></app-transcript> -->
       </div>
-      <app-infobox *ngIf="!isFullscreenActive()"></app-infobox>
+      <app-infobox
+        *ngIf="!isFullscreenActive()"
+        [project]="project!"
+      ></app-infobox>
     </ng-container>
   </ng-container>
 </section>

@@ -175,6 +175,11 @@ export class TranscriptComponent implements OnDestroy, OnInit {
     this.searchValue$.next(event.target.value);
   }
 
+  onClearSearchInput() {
+    this.searchValue = '';
+    this.searchValue$.next('');
+  }
+
   onKeydownSearch(event: KeyboardEvent) {
     if (event.key === 'Enter') {
       if (event.shiftKey) {

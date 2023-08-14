@@ -59,6 +59,9 @@
           *ngIf="bigVideo"
           #mainVideoContainerRef
           class="main-video-container"
+          [style.width.%]="
+            shownSmallVideos.length === 0 ? 100 : mainVideoContainerWidthPercent
+          "
           [style.min-width.%]="
             shownSmallVideos.length === 0 ? 100 : mainVideoContainerWidthPercent
           "

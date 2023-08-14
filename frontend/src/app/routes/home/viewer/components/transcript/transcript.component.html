@@ -10,7 +10,21 @@
       (input)="onSearchChange($event)"
       (keydown)="onKeydownSearch($event)"
     />
-    <mat-icon svgIcon="search" matSuffix></mat-icon>
+    <mat-icon
+      *ngIf="searchValue.length === 0"
+      svgIcon="search"
+      matSuffix
+    ></mat-icon>
+
+    <button
+      *ngIf="searchValue.length > 0"
+      matSuffix
+      mat-icon-button
+      aria-label="Clear"
+      (click)="onClearSearchInput()"
+    >
+      <mat-icon svgIcon="close"></mat-icon>
+    </button>
   </mat-form-field>
 
   <div *ngIf="searchValue.length > 0" class="search-results-wrapper">

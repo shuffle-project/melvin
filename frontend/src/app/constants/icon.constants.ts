@@ -14,6 +14,7 @@ export const ICONS = [
   'caption_selected',
   'check-all',
   'check',
+  'close',
   'clear',
   'copy-transcription',
   'delete',
