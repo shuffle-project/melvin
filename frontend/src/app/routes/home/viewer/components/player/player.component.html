@@ -50,7 +50,6 @@
     <div
       #allVideosContainerRef
       class="video-wrapper"
-      [style.max-height.px]="mainVideoHeight"
       *ngrxLet="bigVideo$ as bigVideo"
     >
       <!-- main video  -->
@@ -66,41 +65,41 @@
             shownSmallVideos.length === 0 ? 100 : mainVideoContainerWidthPercent
           "
         >
+          <!-- [style.max-height.px]="mainVideoHeight" -->
           <app-video-container
             size="big"
             [video]="bigVideo"
-            (videoMetadataLoaded)="resetVideoDimensions()"
           ></app-video-container>
         </div>
 
         <div
           *ngIf="shownSmallVideos.length > 0"
           tabindex="0"
-          class="inner-resizer"
+          class="inner-resizer-wrapper"
           (mousedown)="onMouseDown($event)"
           (keydown)="onKeyDown($event)"
-          [style.height.px]="allVideosContainerRef.clientHeight"
         >
-          <div class="visual-resize-handle"></div>
-          <div class="visual-resize-handle"></div>
+          <div class="inner-resizer">
+            <!-- [style.height.px]="allVideosContainerRef.clientHeight" -->
+            <div class="visual-resize-handle"></div>
+            <div class="visual-resize-handle"></div>
+          </div>
         </div>
 
-        <div
-          *ngIf="shownSmallVideos.length > 0"
-          class="secondary-videos"
-          [style.height.px]="allVideosContainerRef.clientHeight"
-        >
-          <div class="spacer"></div>
-          <!-- secondary video -->
-          <ng-container *ngFor="let video of shownSmallVideos">
-            <app-video-container
-              *ngIf="video.shown"
-              size="small"
-              [video]="video"
-              (videoMetadataLoaded)="resetVideoDimensions()"
-            ></app-video-container>
-          </ng-container>
-          <div class="spacer"></div>
+        <div *ngIf="shownSmallVideos.length > 0" class="secondary-videos">
+          <div class="scrollable-view">
+            <!-- [style.height.px]="allVideosContainerRef.clientHeight" -->
+            <div class="spacer"></div>
+            <!-- secondary video -->
+            <ng-container *ngFor="let video of shownSmallVideos">
+              <app-video-container
+                *ngIf="video.shown"
+                size="small"
+                [video]="video"
+              ></app-video-container>
+            </ng-container>
+            <div class="spacer"></div>
+          </div>
         </div>
       </ng-container>
     </div>

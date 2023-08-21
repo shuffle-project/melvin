@@ -57,7 +57,6 @@ export class ControlsComponent {
   }
 
   onMuteAudio() {
-    // TODO
     if (this.viewerService.audio) {
       this.viewerService.audio.muted = !this.viewerService.audio.muted;
     }

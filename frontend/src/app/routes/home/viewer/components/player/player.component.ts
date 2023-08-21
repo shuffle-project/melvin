@@ -9,12 +9,13 @@ import {
   ElementRef,
   HostListener,
   Input,
+  OnChanges,
   OnDestroy,
   OnInit,
   ViewChild,
 } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Subject, combineLatest, map, merge, takeUntil, tap } from 'rxjs';
+import { Subject, combineLatest, map } from 'rxjs';
 import {
   AdditionalVideo,
   ProjectEntity,
@@ -41,12 +42,12 @@ export interface ViewerVideo {
     { provide: OverlayContainer, useClass: FullscreenOverlayContainer },
   ],
 })
-export class PlayerComponent implements OnDestroy, AfterViewInit, OnInit {
+export class PlayerComponent
+  implements OnDestroy, AfterViewInit, OnInit, OnChanges
+{
   private destroy$$ = new Subject<void>();
 
   @Input({ required: true }) project!: ProjectEntity;
-
-  playerContainerHeightPx = 200;
 
   @ViewChild('allVideosContainerRef')
   private _allVideosContainerRef!: ElementRef<HTMLDivElement>;
@@ -61,9 +62,6 @@ export class PlayerComponent implements OnDestroy, AfterViewInit, OnInit {
   }
 
   public audioPlayer: HTMLAudioElement | null = null;
-
-  public mainVideoHeight = 300;
-  public resizerHeightPx = 0;
 
   public volume$ = this.store.select(editorSelector.selectVolume);
   public currentSpeed$ = this.store.select(editorSelector.selectCurrentSpeed);
@@ -95,11 +93,6 @@ export class PlayerComponent implements OnDestroy, AfterViewInit, OnInit {
     map((list) => list.length)
   );
 
-  private layoutChanging$ = merge(
-    this.store.select(viewerSelector.selectTranscriptEnabled),
-    this.store.select(viewerSelector.selectTranscriptPosition)
-  );
-
   // helper variables for dragndrop
   private resizingVideoWidth = false;
   private initialClientX = 0;
@@ -116,6 +109,15 @@ export class PlayerComponent implements OnDestroy, AfterViewInit, OnInit {
   }
 
   ngOnInit() {
+    this.setVideosInStore();
+  }
+
+  ngOnChanges(): void {
+    this.setVideosInStore();
+  }
+
+  //TODO maybe move this method to store, as a following action from the findOneProject
+  setVideosInStore() {
     const videos: ViewerVideo[] = [
       {
         id: this.project!.id,
@@ -124,6 +126,7 @@ export class PlayerComponent implements OnDestroy, AfterViewInit, OnInit {
         shown: true,
       },
     ];
+
     this.project.media?.additionalVideos.forEach((element: AdditionalVideo) => {
       videos.push({
         ...element,
@@ -139,23 +142,7 @@ export class PlayerComponent implements OnDestroy, AfterViewInit, OnInit {
     );
   }
 
-  ngAfterViewInit(): void {
-    this.layoutChanging$
-      .pipe(
-        takeUntil(this.destroy$$),
-        tap(() => {
-          setTimeout(() => {
-            this.resetVideoDimensions();
-          }, 100);
-        })
-      )
-      .subscribe();
-  }
-
-  @HostListener('window:resize', ['$event'])
-  onResize() {
-    this.resetVideoDimensions();
-  }
+  ngAfterViewInit(): void {}
 
   ngOnDestroy() {
     this.destroy$$.next();
@@ -251,23 +238,6 @@ export class PlayerComponent implements OnDestroy, AfterViewInit, OnInit {
     } else {
       this.mainVideoContainerWidthPercent = newPercent;
     }
-
-    this.resetVideoDimensions();
-  }
-
-  /**
-   * resetting video dimensions according to main video height
-   */
-  resetVideoDimensions() {
-    // get height of main video to adjust secondary container
-    const firstVideo = document.getElementsByTagName('video');
-
-    if (firstVideo.item(0)) {
-      this.mainVideoHeight = firstVideo.item(0)!.offsetHeight;
-    }
-    this.resizerHeightPx = this.allVideosContainer.clientHeight * 0.9;
-
-    this.ref.detectChanges();
   }
 
   onSwitchToBigVideo(viewerVideo: ViewerVideo) {

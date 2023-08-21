@@ -12,58 +12,63 @@
 .video-wrapper {
   display: flex;
   justify-content: center;
-  align-items: center;
-  min-height: 40vh;
+
+  height: fit-content;
+
+  // TODO set max-height
 
   .main-video-container {
     display: flex;
     position: relative;
+    height: fit-content;
+
+    min-height: 40vh;
   }
 
-  .inner-resizer {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  .inner-resizer-wrapper {
+    .inner-resizer {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
 
-    flex-shrink: 0;
-    flex-grow: 0;
+      align-self: center;
 
-    align-self: center;
+      margin-left: 4px;
+      margin-right: 4px;
+      width: 5px;
 
-    // margin: 10px 0px;
-    margin-left: 4px;
-    margin-right: 4px;
-    // padding-left: 4px;
-    width: 5px;
-    // height is set dynamically through html
-    background-color: #e0e0e0;
+      background-color: #e0e0e0;
 
-    cursor: col-resize;
+      cursor: col-resize;
 
-    .visual-resize-handle {
-      width: 1px;
-      height: 10%;
-      min-height: 40px;
-      background-color: #676767;
+      .visual-resize-handle {
+        width: 1px;
+        height: 10%;
+        min-height: 40px;
+        background-color: #676767;
 
-      margin-left: 0.5px;
-      margin-right: 0.5px;
-    }
+        margin-left: 0.5px;
+        margin-right: 0.5px;
+      }
 
-    &:hover {
-      background-color: #d0d0d0;
+      &:hover {
+        background-color: #d0d0d0;
+      }
     }
   }
 
   .secondary-videos {
+    position: relative;
     width: 100%;
-    // height is set dynamically through html
+    overflow-y: scroll;
 
-    overflow-y: auto;
-
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    .scrollable-view {
+      display: flex;
+      flex-direction: column;
+      position: absolute;
+      inset: 0;
+    }
 
     .spacer {
       flex: 1 1 auto;
