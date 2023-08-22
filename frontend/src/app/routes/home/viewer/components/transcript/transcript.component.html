@@ -83,10 +83,12 @@
                   : ''
               }}"
               (click)="onJumpInVideo(item)"
-              [innerHTML]="item.text + ' '"
+              [innerHTML]="item.text"
+              [title]="item.start + ' ' + item.end"
             >
-            </span>
-          </ng-container>
+            </span
+            >&nbsp;</ng-container
+          >
         </div>
       </div>
     </ng-container>
