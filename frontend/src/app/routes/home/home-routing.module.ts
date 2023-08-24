@@ -26,6 +26,13 @@ const routes: Routes = [
           import('./editor/editor.module').then((m) => m.EditorModule),
       },
       {
+        path: 'viewer',
+        canActivate: [HasRoleGuard],
+        data: { roles: [UserRole.USER, UserRole.GUEST] },
+        loadChildren: () =>
+          import('./viewer/viewer.module').then((m) => m.ViewerModule),
+      },
+      {
         path: 'profile',
         canActivate: [HasRoleGuard],
         data: { roles: [UserRole.USER] },

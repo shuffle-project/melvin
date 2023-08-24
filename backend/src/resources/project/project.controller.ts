@@ -27,6 +27,7 @@ import { CreateProjectDto } from './dto/create-project.dto';
 import { FindAllProjectsQuery } from './dto/find-all-projects.dto';
 import { InviteDto } from './dto/invite.dto';
 import { UpdateProjectDto } from './dto/update-project.dto';
+import { UploadMediaDto } from './dto/upload-media.dto';
 import { ProjectInviteTokenEntity } from './entities/project-invite.entity';
 import { ProjectListEntity } from './entities/project-list.entity';
 import { ProjectEntity } from './entities/project.entity';
@@ -182,5 +183,60 @@ export class ProjectController {
     @Res() res: Response,
   ) {
     return this.projectService.getVideoChunk(id, mediaAccessUser, req, res);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Get(':id/media/video/:videoId')
+  @ApiResponse({ status: HttpStatus.PARTIAL_CONTENT })
+  async getAdditionalVideoChunk(
+    @Param('id', IsValidObjectIdPipe) id: string,
+    @Param('videoId', IsValidObjectIdPipe) videoId: string,
+    @MediaUser() mediaAccessUser: MediaAccessUser,
+    @Req() req: Request,
+    @Res() res: Response,
+  ) {
+    return this.projectService.getVideoChunk(
+      id,
+      mediaAccessUser,
+      req,
+      res,
+      videoId,
+    );
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Get(':id/media/audio')
+  @ApiResponse({ status: HttpStatus.PARTIAL_CONTENT })
+  async getAdditionalAudioChunk(
+    @Param('id', IsValidObjectIdPipe) id: string,
+    @MediaUser() mediaAccessUser: MediaAccessUser,
+    @Req() req: Request,
+    @Res() res: Response,
+  ) {
+    return this.projectService.getAudioChunk(id, mediaAccessUser, req, res);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Post(':id/media/upload')
+  @UseInterceptors(MediaFileInterceptor)
+  @ApiResponse({ type: ProjectEntity })
+  uploadVideo(
+    @User() authUser: AuthUser,
+    @Param('id', IsValidObjectIdPipe) id: string,
+    @Body() uploadMediaDto: UploadMediaDto,
+    @UploadedFile() file: Express.Multer.File, //
+  ): Promise<ProjectEntity> {
+    return this.projectService.uploadVideo(authUser, id, uploadMediaDto, file);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Delete(':id/media/:mediaId')
+  @ApiResponse({ status: HttpStatus.NO_CONTENT })
+  async deleteAdditionalMedia(
+    @User() authUser: AuthUser,
+    @Param('id', IsValidObjectIdPipe) id: string,
+    @Param('mediaId', IsValidObjectIdPipe) mediaId: string,
+  ) {
+    return this.projectService.deleteMedia(authUser, id, mediaId);
   }
 }

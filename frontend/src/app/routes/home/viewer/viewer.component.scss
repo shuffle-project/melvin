@@ -1,0 +1,78 @@
+.project-title {
+  margin-left: 13px;
+}
+
+.viewer-header-buttons {
+  margin-left: auto;
+  display: flex;
+
+  > * {
+    margin: 2px;
+    height: 100%;
+  }
+}
+
+.content {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: stretch;
+  width: 100%;
+  padding: 5px;
+  // height: ;
+  background-color: var(--color-background-grey);
+  height: calc(100% - 60px); // header is 60px
+  // max-height: calc(100vh - 60px);
+
+  :fullscreen {
+    height: 100%;
+  }
+
+  .default-main-content {
+    display: flex;
+    height: fit-content;
+    justify-content: center;
+
+    .player {
+      width: 70%;
+      height: fit-content;
+    }
+
+    .transcript {
+      position: relative;
+
+      width: 30%;
+      min-width: 300px;
+      max-width: 600px;
+    }
+  }
+
+  overflow-y: auto;
+}
+
+::ng-deep .box {
+  margin: 5px;
+  padding: 7px;
+
+  background-color: white;
+  box-shadow: none;
+  border: 1px solid #e0e0e0;
+  border-radius: 5px;
+
+  &:has(video) {
+    padding: 0px;
+  }
+}
+
+.dark-mode-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid var(--color-border-grey);
+  border-radius: 5px;
+  height: 100%;
+
+  mat-icon {
+    padding: 0 6px;
+  }
+}

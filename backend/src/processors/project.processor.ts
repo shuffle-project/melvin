@@ -36,12 +36,17 @@ export class ProjectProcessor {
 
   @Process()
   async processProject(job: Job<ProcessProjectJob>) {
-    const { project, file } = job.data;
+    const { project, file, videoId } = job.data;
     const projectId = project._id.toString();
     const systemUser = await this.authService.findSystemAuthUser();
 
     // process video
-    await this.ffmpegService.processVideoFile(file.path, projectId);
+    await this.ffmpegService.processVideoFile(file.path, projectId, videoId);
+
+    // stop if it is not the main video
+    if (videoId) {
+      return null;
+    }
 
     // create wav
     await this.ffmpegService.createWavFile(file.path, projectId);

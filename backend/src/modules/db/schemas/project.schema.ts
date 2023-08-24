@@ -51,10 +51,47 @@ export enum RecordingTimestampType {
   START = 'start',
   STOP = 'stop',
 }
+export enum MediaType {
+  VIDEO = 'video',
+}
 
 export class RecordingTimestamp {
   type: RecordingTimestampType;
   timestamp: Date;
+}
+
+@Schema({
+  timestamps: true,
+})
+export class AdditionalMedia {
+  @ApiProperty({ name: 'id', example: EXAMPLE_PROJECT._id })
+  @Expose({ name: 'id' })
+  //TODO https://github.com/typestack/class-transformer/issues/991
+  @Transform(({ obj }) => obj._id.toString())
+  _id: Types.ObjectId;
+
+  @Exclude()
+  __v?: number;
+
+  @ApiProperty()
+  @Prop()
+  @IsDate()
+  createdAt?: Date;
+
+  @ApiProperty()
+  @Prop()
+  @IsDate()
+  updatedAt?: Date;
+
+  @ApiProperty()
+  @IsString()
+  @Prop()
+  title: string;
+
+  @ApiProperty({ enum: MediaType, example: MediaType.VIDEO })
+  @Prop()
+  @IsEnum(MediaType)
+  mediaType: MediaType;
 }
 
 @Schema({
@@ -182,6 +219,11 @@ export class Project {
   @ValidateNested()
   @Prop()
   livestream: Livestream;
+
+  @ApiProperty({ type: [AdditionalMedia] })
+  @Type(() => AdditionalMedia)
+  @Prop({ default: [] })
+  additionalMedia: AdditionalMedia[] = [];
 }
 
 export const ProjectSchema = SchemaFactory.createForClass(Project);

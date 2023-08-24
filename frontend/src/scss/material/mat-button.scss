@@ -19,6 +19,11 @@
   align-items: center;
   padding: 0;
 
+  .mat-mdc-button-touch-target {
+    width: var(--height);
+    height: var(--height);
+  }
+
   mat-icon {
     --height: 40px;
     font-size: var(--height);
@@ -44,9 +49,14 @@
   align-items: center;
   padding: 0;
 
+  .mat-mdc-button-touch-target {
+    width: var(--height);
+    height: var(--height);
+  }
+
   mat-icon {
-    --height: 20px;
-    transform: translateY(-1px);
+    --height: 18px;
+    // transform: translateY(-1px);
     font-size: var(--height);
     height: var(--height);
     width: var(--height);
@@ -69,6 +79,11 @@
   justify-content: center;
   align-items: center;
   padding: 0;
+
+  .mat-mdc-button-touch-target {
+    width: var(--height);
+    height: var(--height);
+  }
 
   mat-icon {
     --height: 24px;

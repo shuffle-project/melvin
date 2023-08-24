@@ -18,5 +18,13 @@
         <app-project-activity [projectId]="projectId"></app-project-activity>
       </ng-template>
     </mat-tab>
+
+    <mat-tab label="Media">
+      <ng-template matTabContent>
+        <app-upload-additional-content
+          [projectId]="projectId"
+        ></app-upload-additional-content>
+      </ng-template>
+    </mat-tab>
   </mat-tab-group>
 </div>

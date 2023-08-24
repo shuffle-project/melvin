@@ -1,0 +1,125 @@
+<div class="box">
+  <audio
+    #viewerAudio
+    (loadedmetadata)="onAudioLoadMetadata($event)"
+    [volume]="volume$ | ngrxPush"
+    [playbackRate]="currentSpeed$ | ngrxPush"
+  >
+    <source
+      *ngIf="project.media?.video"
+      src="{{ project.media?.video }}"
+      type="video/mp4"
+    />
+  </audio>
+  <!--  -->
+
+  <div class="position-relative">
+    <div
+      class="loading-spinner"
+      *ngIf="viewerAudio.readyState === 1 && viewerService.loadingData"
+    >
+      <mat-spinner mode="indeterminate"></mat-spinner>
+    </div>
+    <button
+      #trigger="matMenuTrigger"
+      class="views-menu-button {{ trigger.menuOpen ? 'menu-open' : '' }}"
+      mat-button
+      [matMenuTriggerFor]="viewsMenu"
+    >
+      <span class="views-menu-button-text">Weitere Ansichten</span>
+      <mat-icon iconPositionEnd svgIcon="arrow-down-simple"></mat-icon>
+    </button>
+
+    <mat-menu #viewsMenu="matMenu">
+      <!-- //TODO Wollen wir hier das main video anzeigen?  -->
+      <div
+        class="mat-menu-item-wrapper"
+        mat-menu-item
+        *ngFor="let video of smallVideos$ | ngrxPush"
+        (click)="onClickToggleVideoShown($event, video)"
+        (keydown)="onKeypressToggleVideoShown($event, video)"
+      >
+        <!-- (change)="onCheckToggleVideoShown($event, video)" -->
+
+        <mat-checkbox [checked]="video.shown">
+          {{ video.title }}
+        </mat-checkbox>
+      </div>
+    </mat-menu>
+
+    <div
+      #allVideosContainerRef
+      class="video-wrapper"
+      *ngrxLet="bigVideo$ as bigVideo"
+    >
+      <!-- main video  -->
+      <ng-container *ngrxLet="shownSmallVideos$ as shownSmallVideos">
+        <div
+          *ngIf="bigVideo"
+          #mainVideoContainerRef
+          class="main-video-container"
+          [style.width.%]="
+            shownSmallVideos.length === 0 ? 100 : mainVideoContainerWidthPercent
+          "
+          [style.min-width.%]="
+            shownSmallVideos.length === 0 ? 100 : mainVideoContainerWidthPercent
+          "
+        >
+          <!-- [style.max-height.px]="mainVideoHeight" -->
+          <app-video-container
+            size="big"
+            [video]="bigVideo"
+          ></app-video-container>
+        </div>
+
+        <div
+          *ngIf="shownSmallVideos.length > 0"
+          tabindex="0"
+          class="inner-resizer-wrapper"
+          (mousedown)="onMouseDown($event)"
+          (keydown)="onKeyDown($event)"
+        >
+          <div class="inner-resizer">
+            <!-- [style.height.px]="allVideosContainerRef.clientHeight" -->
+            <div class="visual-resize-handle"></div>
+            <div class="visual-resize-handle"></div>
+          </div>
+        </div>
+
+        <div *ngIf="shownSmallVideos.length > 0" class="secondary-videos">
+          <div class="scrollable-view">
+            <!-- [style.height.px]="allVideosContainerRef.clientHeight" -->
+            <div class="spacer"></div>
+            <!-- secondary video -->
+            <ng-container *ngFor="let video of shownSmallVideos">
+              <app-video-container
+                *ngIf="video.shown"
+                size="small"
+                [video]="video"
+              ></app-video-container>
+            </ng-container>
+            <div class="spacer"></div>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+    <ng-container *ngIf="subtitlesEnabledInVideo$ | ngrxPush">
+      <div
+        *ngrxLet="combinedCaptionsStyling$ as combined"
+        class="viewer-caption {{ combined.position }}"
+      >
+        <!-- over / under -->
+        <span
+          *ngrxLet="viewerService.currentCaption$ as currentCaption"
+          class="fontsize-{{ combined.fontsize }} color-{{
+            combined.color
+          }} backgroundColor-{{ combined.backgroundColor }}"
+        >
+          {{ currentCaption?.text || '-' }}</span
+        >
+      </div>
+    </ng-container>
+  </div>
+
+  <app-controls> </app-controls>
+</div>

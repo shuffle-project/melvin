@@ -19,10 +19,32 @@ export class ProjectTranscriptionEntity extends PickType(Transcription, [
   language: string;
 }
 
+export class AdditionalVideo {
+  @ApiProperty({ type: String })
+  @Type(() => String)
+  id: string;
+
+  @ApiProperty({ type: String })
+  @Type(() => String)
+  url: string;
+
+  @ApiProperty({ type: String })
+  @Type(() => String)
+  title: string;
+}
+
 export class MediaLinksEntity {
   @ApiProperty({ type: String })
   @Type(() => String)
   video: string;
+
+  @ApiProperty({ type: String })
+  @Type(() => String)
+  audio: string;
+
+  @ApiProperty({ type: [AdditionalVideo] })
+  @Type(() => AdditionalVideo)
+  additionalVideos: AdditionalVideo[];
 }
 
 export class ProjectEntity extends OmitType(Project, [

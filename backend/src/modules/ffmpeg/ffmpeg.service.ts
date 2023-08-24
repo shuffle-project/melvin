@@ -81,12 +81,22 @@ export class FfmpegService {
   public async processVideoFile(
     filePath: string,
     projectId: string,
+    videoId: string | null,
   ): Promise<void> {
-    const videoFilepath = this.pathService.getVideoFile(projectId);
-
     // create dir if does not exist
     const projDir = this.pathService.getProjectDirectory(projectId);
     await ensureDir(projDir);
+
+    let videoFilepath: string;
+    if (videoId === null) {
+      videoFilepath = this.pathService.getVideoFile(projectId);
+    } else {
+      // loop through additinal file indexes until the first path who wasnt created yet
+      videoFilepath = this.pathService.getAdditionalVideoFile(
+        projectId,
+        videoId,
+      );
+    }
 
     // TODO limit size of file
     const commands = [

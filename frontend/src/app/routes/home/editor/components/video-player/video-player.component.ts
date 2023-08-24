@@ -65,11 +65,11 @@ export class VideoPlayerComponent implements OnInit {
   }
 
   onClickToggleSubtitles() {
-    this.store.dispatch(editorActions.toggleSubtitles());
+    this.store.dispatch(editorActions.toggleSubtitlesFromEditor());
   }
 
   onClickSetPlaybackSpeed(speed: number) {
-    this.store.dispatch(editorActions.changeSpeed({ speed }));
+    this.store.dispatch(editorActions.changeSpeedFromEditor({ speed }));
   }
 
   async onClickPictureInPicture() {

@@ -1,0 +1,37 @@
+<h3>upload additional video</h3>
+
+<form [formGroup]="formGroup" (ngSubmit)="onClickSubmit()">
+  <mat-form-field appearance="fill">
+    <mat-label>Video Title</mat-label>
+    <input matInput formControlName="title" placeholder="Video Title" />
+  </mat-form-field>
+
+  <input
+    #fileUpload
+    formControlName="file"
+    type="file"
+    name="file"
+    accept="video/*,audio/*"
+    (change)="onFileChange($event)"
+  />
+
+  <input
+    type="submit"
+    value="Upload"
+    [disabled]="formGroup.status === 'INVALID'"
+  />
+</form>
+
+<ng-container *ngrxLet="project$ as project">
+  <div *ngIf="project">
+    <h3>Media Content</h3>
+    <ul>
+      <li *ngFor="let media of project.additionalMedia">
+        {{ media.title }} ({{ media.mediaType }})
+        <button (click)="onDeleteAdditionalMedia(project, media)">
+          delete
+        </button>
+      </li>
+    </ul>
+  </div>
+</ng-container>

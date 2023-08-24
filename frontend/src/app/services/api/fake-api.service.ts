@@ -31,6 +31,7 @@ import {
 import { UpdateProjectDto } from './dto/update-project.dto';
 import { UpdateSpeakerDto } from './dto/update-speaker.dto';
 import { UpdateTranscriptionDto } from './dto/update-transcription.dto';
+import { UploadVideoDto } from './dto/upload-video.dto';
 import { ActivityListEntity } from './entities/activitiy-list.entity';
 import { GuestLoginEntity, InviteEntity } from './entities/auth.entity';
 import { CaptionListEntity } from './entities/caption-list.entity';
@@ -126,6 +127,18 @@ export class FakeApiService implements ApiService {
   // projects
   createProject(project: FormData): Observable<any> {
     this.logger.verbose('createProject mocked');
+    return of({ ...PROJECT_ENTITY_MOCK[0] });
+  }
+
+  deleteMedia(projectId: string, mediaId: string) {
+    return of();
+  }
+
+  uploadVideo(
+    projectId: string,
+    uploadVideoDto: UploadVideoDto,
+    file: File
+  ): Observable<any> {
     return of({ ...PROJECT_ENTITY_MOCK[0] });
   }
 

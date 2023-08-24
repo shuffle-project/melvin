@@ -33,6 +33,7 @@ import {
 import { UpdateProjectDto } from './dto/update-project.dto';
 import { UpdateSpeakerDto } from './dto/update-speaker.dto';
 import { UpdateTranscriptionDto } from './dto/update-transcription.dto';
+import { UploadVideoDto } from './dto/upload-video.dto';
 import { ActivityListEntity } from './entities/activitiy-list.entity';
 import { GuestLoginEntity, InviteEntity } from './entities/auth.entity';
 import { CaptionListEntity } from './entities/caption-list.entity';
@@ -255,6 +256,29 @@ export class RealApiService implements ApiService {
       reportProgress: true,
       observe: 'events' as any,
     });
+  }
+
+  deleteMedia(projectId: string, mediaId: string): Observable<void> {
+    return this._delete<void>(`/projects/${projectId}/media/${mediaId}`);
+  }
+
+  uploadVideo(
+    projectId: string,
+    uploadVideoDto: UploadVideoDto,
+    file: File
+  ): Observable<HttpEvent<ProjectEntity>> {
+    const formData = new FormData();
+    formData.append('title', uploadVideoDto.title);
+    formData.append('file', file);
+
+    return this._post<HttpEvent<ProjectEntity>>(
+      `/projects/${projectId}/media/upload`,
+      formData,
+      {
+        reportProgress: true,
+        observe: 'events' as any,
+      }
+    );
   }
 
   findAllProjects(): Observable<ProjectListEntity> {

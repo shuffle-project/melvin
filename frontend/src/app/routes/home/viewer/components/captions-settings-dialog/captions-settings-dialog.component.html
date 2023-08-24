@@ -1,0 +1,93 @@
+<div class="dialog-wrapper">
+  <h2 mat-dialog-title>Darstellung der Captions</h2>
+
+  <div mat-dialog-content>
+    <ng-container *ngrxLet="backgroundColor$ as backgroundColor">
+      <mat-label for="captionsBackgroundColor">
+        Hintergrundfarbe der Untertitel
+      </mat-label>
+      <mat-form-field>
+        <mat-select
+          id="captionsBackgroundColor"
+          [value]="backgroundColor"
+          (selectionChange)="onChangeBackgroundColor($event)"
+        >
+          <mat-option value="{{ ColorOptions.BLACK }}">schwarz</mat-option>
+          <mat-option value="{{ ColorOptions.WHITE }}">weiß</mat-option>
+          <mat-option value="{{ ColorOptions.YELLOW }}">gelb</mat-option>
+          <mat-option value="{{ ColorOptions.RED }}">rot</mat-option>
+          <mat-option value="{{ ColorOptions.BLUE }}">blau</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </ng-container>
+    <br />
+
+    <ng-container *ngrxLet="color$ as color">
+      <mat-label for="captionColor"> Schriftfarbe der Untertitel</mat-label>
+      <mat-form-field>
+        <mat-select
+          id="captionsColor"
+          [value]="color"
+          (selectionChange)="onChangeColor($event)"
+        >
+          <mat-option value="{{ ColorOptions.BLACK }}">schwarz</mat-option>
+          <mat-option value="{{ ColorOptions.WHITE }}">weiß</mat-option>
+          <mat-option value="{{ ColorOptions.YELLOW }}">gelb</mat-option>
+          <mat-option value="{{ ColorOptions.RED }}">rot</mat-option>
+          <mat-option value="{{ ColorOptions.BLUE }}">blau</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </ng-container>
+    <br />
+    <ng-container *ngrxLet="fontsize$ as fontsize">
+      <mat-label for="captionsFontsize">
+        Schriftgröße der Untertitel
+      </mat-label>
+      <mat-form-field>
+        <mat-select
+          id="captionsFontsize"
+          [value]="fontsize"
+          (selectionChange)="onChangeFontsize($event)"
+        >
+          <mat-option value="{{ SizeOptions.SMALL }}">Klein</mat-option>
+          <mat-option value="{{ SizeOptions.MEDIUM }}">Mittel</mat-option>
+          <mat-option value="{{ SizeOptions.LARGE }}">Groß</mat-option>
+          <mat-option value="{{ SizeOptions.LARGER }}">Größer</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </ng-container>
+
+    <br />
+
+    <ng-container *ngrxLet="position$ as position">
+      <mat-label for="captionsFontsize"> Position der Captions </mat-label>
+      <mat-form-field>
+        <mat-select
+          id="captionsPosition"
+          [value]="position"
+          (selectionChange)="onChangePosition($event)"
+        >
+          <mat-option value="{{ CaptionPositionOptions.OVER_VIDEO }}">
+            Über dem Video
+          </mat-option>
+          <mat-option value="{{ CaptionPositionOptions.UNDER_VIDEO }}">
+            Unterhalb des Videos
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </ng-container>
+
+    <div
+      *ngrxLet="combined$ as combined"
+      class="like-captions-text fontsize-{{ combined.fontsize }} color-{{
+        combined.color
+      }} backgroundColor-{{ combined.backgroundColor }}"
+    >
+      So sehen die Untertitel dann aus.
+    </div>
+
+    <div mat-dialog-actions>
+      <button mat-button mat-dialog-close cdkFocusInitial>Close</button>
+    </div>
+  </div>
+</div>

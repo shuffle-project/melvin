@@ -1,0 +1,107 @@
+<div class="box">
+  <h2>Transkript</h2>
+
+  <mat-form-field class="search-form-field">
+    <mat-label>Search</mat-label>
+    <input
+      matInput
+      placeholder="Search"
+      [(ngModel)]="searchValue"
+      (input)="onSearchChange($event)"
+      (keydown)="onKeydownSearch($event)"
+    />
+    <mat-icon
+      *ngIf="searchValue.length === 0"
+      svgIcon="search"
+      matSuffix
+    ></mat-icon>
+
+    <button
+      *ngIf="searchValue.length > 0"
+      matSuffix
+      mat-icon-button
+      aria-label="Clear"
+      (click)="onClearSearchInput()"
+    >
+      <mat-icon svgIcon="close"></mat-icon>
+    </button>
+  </mat-form-field>
+
+  <div *ngIf="searchValue.length > 0" class="search-results-wrapper">
+    {{ searchFoundInCaptionIds.length > 0 ? foundItemsIndex : 0 }} /
+    {{ searchFoundInCaptionIds.length }}
+
+    <button mat-icon-button class="md" (click)="onGoToRecentFound()">
+      <mat-icon svgIcon="arrow-up" class="svg-black"></mat-icon>
+    </button>
+
+    <button mat-icon-button class="md" (click)="onGoToNextFound()">
+      <mat-icon svgIcon="arrow-down" class="svg-black"></mat-icon>
+    </button>
+  </div>
+
+  <ng-container *ngrxLet="availableSpeakers$ as availableSpeakers">
+    <ng-container *ngrxLet="viewerService.currentTime$ as currentTime">
+      <div
+        class="captions-viewport fontsize-{{ transcriptFontsize$ | ngrxPush }}"
+      >
+        <div
+          *ngFor="
+            let transcriptParagraphs of transcriptNew;
+            index as indexParagraph;
+            first as firstParagraph
+          "
+          class="transcript-paragraph"
+        >
+          <ng-container
+            *ngFor="
+              let item of transcriptParagraphs;
+              index as indexCaption;
+              first as firstCaption;
+              trackBy: trackById
+            "
+          >
+            <div
+              *ngIf="
+                (firstCaption && firstParagraph) ||
+                (!firstParagraph &&
+                  firstCaption &&
+                  transcriptNew[indexParagraph - 1][0].speakerId !==
+                    item.speakerId)
+              "
+              class="caption-speaker"
+            >
+              {{ getSpeakerName(item.speakerId, availableSpeakers) }}
+            </div>
+
+            <span
+              id="caption-{{ item.id }}"
+              class="caption-text {{
+                currentTime >= item.start / 1000 &&
+                currentTime < item.end / 1000
+                  ? 'current-caption'
+                  : ''
+              }}"
+              (click)="onJumpInVideo(item)"
+              [innerHTML]="item.text"
+              [title]="item.start + ' ' + item.end"
+            >
+            </span
+            >&nbsp;</ng-container
+          >
+        </div>
+      </div>
+    </ng-container>
+  </ng-container>
+
+  <div class="transcript-footer">
+    <mat-checkbox
+      class="auto-scroll"
+      color="primary"
+      labelPosition="before"
+      [(ngModel)]="autoScroll"
+    >
+      Automatisch mitscrollen
+    </mat-checkbox>
+  </div>
+</div>

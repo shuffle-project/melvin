@@ -6,13 +6,15 @@ import { plainToInstance } from 'class-transformer';
 import { randomBytes } from 'crypto';
 import { Request, Response } from 'express';
 import { ReadStream, createReadStream } from 'fs';
-import { rm } from 'fs-extra';
+import { remove, rm } from 'fs-extra';
 import { readFile, stat } from 'fs/promises';
 import { Types } from 'mongoose';
 import { LeanUserDocument } from 'src/modules/db/schemas/user.schema';
 import { DbService } from '../../modules/db/db.service';
 import {
+  AdditionalMedia,
   LeanProjectDocument,
+  MediaType,
   ProjectStatus,
 } from '../../modules/db/schemas/project.schema';
 import { WaveformData } from '../../modules/ffmpeg/ffmpeg.interfaces';
@@ -30,7 +32,9 @@ import {
   CustomBadRequestException,
   CustomForbiddenException,
   CustomInternalServerException,
+  CustomNotFoundException,
 } from '../../utils/exceptions';
+import { isSameObjectId } from '../../utils/objectid';
 import { ActivityService } from '../activity/activity.service';
 import { AuthUser, MediaAccessUser } from '../auth/auth.interfaces';
 import { AuthService } from '../auth/auth.service';
@@ -42,6 +46,7 @@ import { FindAllProjectsQuery } from './dto/find-all-projects.dto';
 import { InviteDto } from './dto/invite.dto';
 import { UpdatePartialProjectDto } from './dto/update-partial-project.dto';
 import { UpdateProjectDto } from './dto/update-project.dto';
+import { UploadMediaDto } from './dto/upload-media.dto';
 import { ProjectInviteTokenEntity } from './entities/project-invite.entity';
 import { ProjectListEntity } from './entities/project-list.entity';
 import { MediaLinksEntity, ProjectEntity } from './entities/project.entity';
@@ -93,7 +98,26 @@ export class ProjectService {
       mediaAuthToken.token
     }`;
 
-    return { video };
+    const audio = `${
+      this.serverBaseUrl
+    }/projects/${project._id.toString()}/media/audio?Authorization=${
+      mediaAuthToken.token
+    }`;
+
+    //  additionalVideos
+    const additionalVideos = project.additionalMedia
+      .filter((media) => media.mediaType === MediaType.VIDEO)
+      .map((media) => ({
+        id: media._id.toString(),
+        title: media.title,
+        url: `${
+          this.serverBaseUrl
+        }/projects/${project._id.toString()}/media/video/${media._id.toString()}?Authorization=${
+          mediaAuthToken.token
+        }`,
+      }));
+
+    return { video, audio, additionalVideos };
   }
 
   async create(
@@ -123,7 +147,6 @@ export class ProjectService {
       ? ProjectStatus.LIVE
       : ProjectStatus.WAITING;
 
-    console.log(createProjectDto);
     //create project
     const project = await this.db.projectModel.create({
       ...createProjectDto,
@@ -246,6 +269,7 @@ export class ProjectService {
         authUser,
         file: mediaFile,
         subsequentJobs,
+        videoId: null,
       });
     }
   }
@@ -409,6 +433,7 @@ export class ProjectService {
         authUser,
         file: mediaFile,
         subsequentJobs: [],
+        videoId: null,
       });
     }
 
@@ -560,6 +585,7 @@ export class ProjectService {
     mediaAccessUser: MediaAccessUser,
     request: Request,
     response: Response,
+    videoId: string = null,
   ) {
     if (mediaAccessUser.projectId !== projectId) {
       throw new CustomForbiddenException();
@@ -569,8 +595,17 @@ export class ProjectService {
     // https://betterprogramming.pub/video-stream-with-node-js-and-html5-320b3191a6b6
     // https://www.geeksforgeeks.org/how-to-stream-large-mp4-files/
 
+    let videoFilepath: string;
+    if (videoId === null) {
+      videoFilepath = this.pathService.getVideoFile(projectId);
+    } else {
+      videoFilepath = this.pathService.getAdditionalVideoFile(
+        projectId,
+        videoId,
+      );
+    }
+
     try {
-      const videoFilepath = this.pathService.getVideoFile(projectId);
       const videoStats = await stat(videoFilepath);
 
       const { range } = request.headers;
@@ -617,5 +652,156 @@ export class ProjectService {
       this.logger.error(error.message, { error });
       response.status(400).send('Bad Request');
     }
+  }
+
+  async getAudioChunk(
+    projectId: string,
+    mediaAccessUser: MediaAccessUser,
+    request: Request,
+    response: Response,
+  ) {
+    if (mediaAccessUser.projectId !== projectId) {
+      throw new CustomForbiddenException();
+    }
+
+    // https://blog.logrocket.com/full-stack-app-tutorial-nestjs-react/
+    // https://betterprogramming.pub/video-stream-with-node-js-and-html5-320b3191a6b6
+    // https://www.geeksforgeeks.org/how-to-stream-large-mp4-files/
+
+    const audioFilepath = this.pathService.getWavFile(projectId);
+
+    try {
+      const audioStats = await stat(audioFilepath);
+
+      const { range } = request.headers;
+      let readStream: ReadStream;
+      if (range) {
+        // version 1
+        // send in 1MB chunks
+        // const CHUNK_SIZE2 = 1 * 1e6;
+        // const start = Number(range.replace(/\D/g, ''));
+        // const end = Math.min(start2 + CHUNK_SIZE2, videoStats.size - 1);
+        // const chunksize = end - start + 1;
+
+        // version 2
+        const parts = range.replace(/bytes=/, '').split('-');
+        const start = parseInt(parts[0], 10);
+        // in some cases end may not exists, if its not exists make it end of file
+        const end = parts[1] ? parseInt(parts[1], 10) : audioStats.size - 1;
+        // chunk size is what the part of video we are sending.
+        const chunksize = end - start + 1;
+
+        response.status(206); // Parial content header
+        response.header({
+          'Content-Range': `bytes ${start}-${end}/${audioStats.size}`,
+          'Accept-Ranges': 'bytes',
+          'Content-length': chunksize,
+          'Content-Type': 'audio/wav',
+        });
+        readStream = createReadStream(audioFilepath, {
+          start: start,
+          end: end,
+        });
+      } else {
+        //if not send the video from start
+        response.status(200);
+        response.header({
+          'Content-Length': audioStats.size,
+          'Content-Type': 'audio/wav',
+        });
+        readStream = createReadStream(audioFilepath);
+      }
+      // pipe stream to response
+      readStream.pipe(response);
+    } catch (error) {
+      this.logger.error(error.message, { error });
+      response.status(400).send('Bad Request');
+    }
+  }
+
+  // upload file
+  async uploadVideo(
+    authUser: AuthUser,
+    projectId: string,
+    uploadMediaDto: UploadMediaDto,
+    file: Express.Multer.File,
+  ): Promise<ProjectEntity> {
+    const project = await this.db.findProjectByIdOrThrow(projectId);
+
+    if (!this.permissions.isProjectMember(project, authUser)) {
+      throw new CustomForbiddenException('access_to_project_denied');
+    }
+
+    if (!this.permissions.isProjectOwner(project, authUser)) {
+      throw new CustomForbiddenException('must_be_owner');
+    }
+
+    const additionalMedia: AdditionalMedia = {
+      ...uploadMediaDto,
+      _id: new Types.ObjectId(),
+      mediaType: MediaType.VIDEO,
+    };
+    const updatedProject = await this.db.projectModel
+      .findByIdAndUpdate(
+        projectId,
+        {
+          $push: {
+            additionalMedia: additionalMedia,
+          },
+        },
+        { populate: ['users'], new: true },
+      )
+      .lean()
+      .exec();
+
+    this.projectQueue.add({
+      authUser,
+      project,
+      file,
+      subsequentJobs: [],
+      videoId: additionalMedia._id.toString(),
+    });
+
+    return updatedProject;
+  }
+
+  async deleteMedia(authUser: AuthUser, projectId: string, mediaId: string) {
+    const project = await this.db.findProjectByIdOrThrow(projectId);
+
+    if (!this.permissions.isProjectMember(project, authUser)) {
+      throw new CustomForbiddenException('access_to_project_denied');
+    }
+
+    if (!this.permissions.isProjectOwner(project, authUser)) {
+      throw new CustomForbiddenException('must_be_owner');
+    }
+
+    const mediaObj = project.additionalMedia.find((media) =>
+      isSameObjectId(media._id, mediaId),
+    );
+
+    if (!mediaObj) {
+      throw new CustomNotFoundException();
+    }
+
+    const path = this.pathService.getAdditionalVideoFile(projectId, mediaId);
+    remove(path);
+
+    // TODO does not work
+    await this.db.projectModel
+      .findByIdAndUpdate(projectId, {
+        $pull: { additionalMedia: { _id: new Types.ObjectId(mediaId) } },
+      })
+      .lean()
+      .exec();
+
+    const updatedProject = await this.db.findProjectByIdOrThrow(projectId);
+
+    // append media object
+    const media = await this._getMediaLinksEntity(updatedProject, authUser);
+    // Entity
+    const entity = plainToInstance(ProjectEntity, { ...updatedProject, media });
+
+    await this.events.projectUpdated(entity);
   }
 }

@@ -1,8 +1,26 @@
 import { ShortTranscriptionEntity } from './transcription.entity';
 import { UserEntity } from './user.entity';
 
+export enum MediaType {
+  VIEDEO = 'video',
+}
+
+export interface AdditionalMedia {
+  id: string;
+  title: string;
+  mediaType: MediaType;
+}
+
+export interface AdditionalVideo {
+  id: string;
+  url: string;
+  title: string;
+}
+
 export interface MediaLinksEntity {
   video: string;
+  audio: string;
+  additionalVideos: AdditionalVideo[];
 }
 
 export enum LivestreamStatus {
@@ -49,6 +67,7 @@ export interface ProjectEntity {
   // users: string[];
   users: UserEntity[];
   media?: MediaLinksEntity;
+  additionalMedia: AdditionalMedia[];
   livestream?: LivestreamEntity;
 }
 
