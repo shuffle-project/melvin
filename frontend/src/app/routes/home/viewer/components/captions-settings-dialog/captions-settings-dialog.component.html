@@ -1,12 +1,30 @@
 <div class="dialog-wrapper">
+  <!-- <div mat-dialog-actions> -->
+  <!-- </div> -->
+
   <h2 mat-dialog-title>Darstellung der Captions</h2>
 
   <div mat-dialog-content>
-    <ng-container *ngrxLet="backgroundColor$ as backgroundColor">
+    <button
+      class="close-button"
+      mat-icon-button
+      mat-dialog-close
+      cdkFocusInitial
+    >
+      <mat-icon svgIcon="close"></mat-icon>
+    </button>
+
+    <div class="hint">Die Einstellungen werden direkt angewendet.</div>
+    <!--  -->
+
+    <div
+      class="form-field-wrapper"
+      *ngrxLet="backgroundColor$ as backgroundColor"
+    >
       <mat-label for="captionsBackgroundColor">
         Hintergrundfarbe der Untertitel
       </mat-label>
-      <mat-form-field>
+      <mat-form-field appearance="fill">
         <mat-select
           id="captionsBackgroundColor"
           [value]="backgroundColor"
@@ -19,12 +37,11 @@
           <mat-option value="{{ ColorOptions.BLUE }}">blau</mat-option>
         </mat-select>
       </mat-form-field>
-    </ng-container>
-    <br />
+    </div>
 
-    <ng-container *ngrxLet="color$ as color">
+    <div class="form-field-wrapper" *ngrxLet="color$ as color">
       <mat-label for="captionColor"> Schriftfarbe der Untertitel</mat-label>
-      <mat-form-field>
+      <mat-form-field appearance="fill">
         <mat-select
           id="captionsColor"
           [value]="color"
@@ -37,13 +54,13 @@
           <mat-option value="{{ ColorOptions.BLUE }}">blau</mat-option>
         </mat-select>
       </mat-form-field>
-    </ng-container>
-    <br />
-    <ng-container *ngrxLet="fontsize$ as fontsize">
+    </div>
+
+    <div class="form-field-wrapper" *ngrxLet="fontsize$ as fontsize">
       <mat-label for="captionsFontsize">
         Schriftgröße der Untertitel
       </mat-label>
-      <mat-form-field>
+      <mat-form-field appearance="fill">
         <mat-select
           id="captionsFontsize"
           [value]="fontsize"
@@ -55,13 +72,11 @@
           <mat-option value="{{ SizeOptions.LARGER }}">Größer</mat-option>
         </mat-select>
       </mat-form-field>
-    </ng-container>
+    </div>
 
-    <br />
-
-    <ng-container *ngrxLet="position$ as position">
+    <div class="form-field-wrapper" *ngrxLet="position$ as position">
       <mat-label for="captionsFontsize"> Position der Captions </mat-label>
-      <mat-form-field>
+      <mat-form-field appearance="fill">
         <mat-select
           id="captionsPosition"
           [value]="position"
@@ -75,7 +90,7 @@
           </mat-option>
         </mat-select>
       </mat-form-field>
-    </ng-container>
+    </div>
 
     <div
       *ngrxLet="combined$ as combined"
@@ -86,8 +101,8 @@
       So sehen die Untertitel dann aus.
     </div>
 
-    <div mat-dialog-actions>
+    <!-- <div mat-dialog-actions>
       <button mat-button mat-dialog-close cdkFocusInitial>Close</button>
-    </div>
+    </div> -->
   </div>
 </div>

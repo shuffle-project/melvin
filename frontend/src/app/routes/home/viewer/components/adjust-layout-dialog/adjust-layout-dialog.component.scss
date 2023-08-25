@@ -1,3 +1,25 @@
 .dialog-wrapper {
   padding: 24px;
+  min-width: 35vw;
+
+  .hint {
+    color: black;
+
+    margin-bottom: 30px;
+  }
+
+  .close-button {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+  }
+
+  .input-wrapper {
+    width: 100%;
+    margin: 15px 0px;
+
+    mat-form-field {
+      margin-bottom: -1.25em !important;
+    }
+  }
 }

@@ -2,6 +2,17 @@
   <h2 mat-dialog-title>Layout anpassen</h2>
 
   <div mat-dialog-content>
+    <button
+      class="close-button"
+      mat-icon-button
+      mat-dialog-close
+      cdkFocusInitial
+    >
+      <mat-icon svgIcon="close"></mat-icon>
+    </button>
+
+    <div class="hint">Die Einstellungen werden direkt angewendet.</div>
+
     <!-- <h3>Video</h3>
     <mat-radio-group
       aria-label="Anordnung"
@@ -23,53 +34,63 @@
     </mat-radio-group> -->
 
     <h3>Transkript</h3>
-    <mat-slide-toggle
-      [checked]="transcriptEnabled$ | ngrxPush"
-      (change)="onTranscriptEnabledChanged($event)"
-    >
-      Show transcript</mat-slide-toggle
-    >
+    <div class="input-wrapper">
+      <mat-slide-toggle
+        [checked]="transcriptEnabled$ | ngrxPush"
+        (change)="onTranscriptEnabledChanged($event)"
+      >
+        Show transcript</mat-slide-toggle
+      >
+    </div>
 
-    <br /><br />
+    <div class="input-wrapper">
+      <mat-form-field appearance="fill">
+        <mat-label>Schriftgröße</mat-label>
+        <mat-select
+          [value]="transcriptFontsize$ | ngrxPush"
+          (selectionChange)="onChangeFontsize($event)"
+          [disabled]="!(transcriptEnabled$ | ngrxPush)"
+        >
+          <mat-option value="{{ TranscriptFontsize.SMALL }}">Klein </mat-option>
+          <mat-option value="{{ TranscriptFontsize.NORMAL }}"
+            >Normal
+          </mat-option>
+          <mat-option value="{{ TranscriptFontsize.LARGE }}">Groß </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
 
-    <mat-form-field appearance="fill">
-      <mat-label>Schriftgröße</mat-label>
-      <mat-select
-        [value]="transcriptFontsize$ | ngrxPush"
-        (selectionChange)="onChangeFontsize($event)"
+    <div class="input-wrapper">
+      <mat-radio-group
+        aria-label="Position"
+        [value]="transcriptPosition$ | ngrxPush"
+        (change)="onTranscriptPositionChanged($event)"
         [disabled]="!(transcriptEnabled$ | ngrxPush)"
       >
-        <mat-option value="{{ TranscriptFontsize.SMALL }}">Klein </mat-option>
-        <mat-option value="{{ TranscriptFontsize.NORMAL }}">Normal </mat-option>
-        <mat-option value="{{ TranscriptFontsize.LARGE }}">Groß </mat-option>
-      </mat-select>
-    </mat-form-field>
-    <br />
-
-    <mat-radio-group
-      aria-label="Position"
-      [value]="transcriptPosition$ | ngrxPush"
-      (change)="onTranscriptPositionChanged($event)"
-      [disabled]="!(transcriptEnabled$ | ngrxPush)"
-    >
-      <mat-radio-button value="{{ TranscriptPosition.RIGHT }}">
-        Transkript rechts
-      </mat-radio-button>
-      <mat-radio-button value="{{ TranscriptPosition.LEFT }}">
-        Transkript links
-      </mat-radio-button>
-      <!-- <mat-radio-button value="{{ TranscriptPosition.BOTTOM }}">
-          Transkript unten
-        </mat-radio-button> -->
-      <!-- <mat-radio-button value="{{ TranscriptPosition.TOP }}">
+        <mat-radio-button value="{{ TranscriptPosition.RIGHT }}">
+          Transkript rechts
+        </mat-radio-button>
+        <mat-radio-button value="{{ TranscriptPosition.LEFT }}">
+          Transkript links
+        </mat-radio-button>
+        <!-- <mat-radio-button value="{{ TranscriptPosition.BOTTOM }}">
+        Transkript unten
+      </mat-radio-button> -->
+        <!-- <mat-radio-button value="{{ TranscriptPosition.TOP }}">
         Transkript oben
       </mat-radio-button> -->
-    </mat-radio-group>
+      </mat-radio-group>
+    </div>
 
-    <br />
+    <h3>Untertitel</h3>
+    <div class="input-wrapper">
+      <button mat-stroked-button (click)="onOpenSubtitleSettingsDialog()">
+        Wechsel zu den Einstellungen für Untertitel
+      </button>
+    </div>
   </div>
 
-  <div mat-dialog-actions>
+  <!-- <div mat-dialog-actions>
     <button mat-button mat-dialog-close cdkFocusInitial>Close</button>
-  </div>
+  </div> -->
 </div>

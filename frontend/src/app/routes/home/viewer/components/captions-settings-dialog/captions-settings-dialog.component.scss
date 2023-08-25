@@ -1,8 +1,36 @@
 .dialog-wrapper {
   padding: 24px;
+  min-width: 35vw;
+}
+
+.hint {
+  color: black;
+
+  margin-bottom: 30px;
+}
+
+.close-button {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
+
+.form-field-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 5px;
+
+  mat-form-field {
+    margin-bottom: -1.25em !important;
+  }
+  // .mat-mdc-form-field-subscript-wrapper {
+  //   height: 0px;
+  // }
 }
 
 .like-captions-text {
+  margin-top: 10px;
   width: 100%;
   height: 70px;
 

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatRadioChange } from '@angular/material/radio';
 import { MatSelectChange } from '@angular/material/select';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
@@ -11,6 +11,7 @@ import {
   TranscriptFontsize,
   TranscriptPosition,
 } from '../../viewer.interfaces';
+import { CaptionsSettingsDialogComponent } from '../captions-settings-dialog/captions-settings-dialog.component';
 
 @Component({
   selector: 'app-adjust-layout-dialog',
@@ -33,7 +34,8 @@ export class AdjustLayoutDialogComponent {
 
   constructor(
     public dialogRef: MatDialogRef<AdjustLayoutDialogComponent>,
-    public store: Store<AppState>
+    public store: Store<AppState>,
+    public dialog: MatDialog
   ) {}
 
   onChangeFontsize(event: MatSelectChange) {
@@ -58,5 +60,10 @@ export class AdjustLayoutDialogComponent {
         transcriptEnabled: event.checked,
       })
     );
+  }
+
+  onOpenSubtitleSettingsDialog() {
+    this.dialogRef.close();
+    this.dialog.open(CaptionsSettingsDialogComponent);
   }
 }
