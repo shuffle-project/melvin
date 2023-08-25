@@ -3,7 +3,7 @@
 FROM node:18 as builder
 
 # RUN apt-get update && apt-get install python -y
-RUN apt-get update || : && apt-get install python -y
+RUN apt-get update || : && apt-get install python3 -y
 
 ENV NODE_ENV build
 
