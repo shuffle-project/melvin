@@ -11,7 +11,6 @@ import {
   TranscriptFontsize,
   TranscriptPosition,
 } from '../../viewer.interfaces';
-import { CaptionsSettingsDialogComponent } from '../captions-settings-dialog/captions-settings-dialog.component';
 
 @Component({
   selector: 'app-adjust-layout-dialog',
@@ -60,10 +59,5 @@ export class AdjustLayoutDialogComponent {
         transcriptEnabled: event.checked,
       })
     );
-  }
-
-  onOpenSubtitleSettingsDialog() {
-    this.dialogRef.close();
-    this.dialog.open(CaptionsSettingsDialogComponent);
   }
 }

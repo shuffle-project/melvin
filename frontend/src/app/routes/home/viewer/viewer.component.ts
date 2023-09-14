@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 // use own viewer actions
@@ -9,6 +9,7 @@ import { AppState } from '../../../store/app.state';
 import * as editorSelector from '../../../store/selectors/editor.selector';
 import * as viewerSelector from '../../../store/selectors/viewer.selector';
 import { AdjustLayoutDialogComponent } from './components/adjust-layout-dialog/adjust-layout-dialog.component';
+import { ViewerService } from './viewer.service';
 
 @Component({
   selector: 'app-viewer',
@@ -41,7 +42,8 @@ export class ViewerComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private store: Store<AppState>,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private viewerService: ViewerService
   ) {}
 
   ngOnInit(): void {
@@ -52,7 +54,15 @@ export class ViewerComponent implements OnInit {
     );
   }
 
+  @HostListener('window:keydown.ArrowRight', ['$event'])
+  arrowRight(event: any) {
+    // TODOD wenn man hier vor/zurückspielt müsste man alle events innerhalt mit stopPropagation versehen.. Was teilweise nicht so einfach ist bei material sachen
+    // console.log(event);
+  }
+
   onOpenAdjustLayoutDialog() {
+    this.viewerService.audio?.pause();
+    // TODO do we want to play after closing the dialog??
     this.dialog.open(AdjustLayoutDialogComponent);
   }
 

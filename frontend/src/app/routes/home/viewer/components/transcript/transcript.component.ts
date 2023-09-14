@@ -52,6 +52,7 @@ export class TranscriptComponent implements OnDestroy, OnInit {
 
   transcriptNew: CaptionEntity[][] = [];
   searchFoundInCaptionIds: string[] = [];
+  searchFoundInCaptionId: string | null = null;
 
   transcript$: Observable<CaptionEntity[][]> = this.captions$.pipe(
     map((captions) => {
@@ -96,7 +97,7 @@ export class TranscriptComponent implements OnDestroy, OnInit {
     })
   );
 
-  autoScroll: boolean = false;
+  autoScroll: boolean = true;
 
   constructor(
     public store: Store<AppState>,
@@ -157,6 +158,7 @@ export class TranscriptComponent implements OnDestroy, OnInit {
           this.searchFoundInCaptionIds = searchFoundInCaptionIdsTemp;
 
           if (searchValue.length > 0) {
+            this.searchFoundInCaptionId = null;
             this.scrollToCaption(
               searchFoundInCaptionIdsTemp[this.foundItemsIndex - 1]
             );
@@ -172,11 +174,13 @@ export class TranscriptComponent implements OnDestroy, OnInit {
 
   onSearchChange(event: any) {
     this.foundItemsIndex = 1;
+    this.searchFoundInCaptionId = null;
     this.searchValue$.next(event.target.value);
   }
 
   onClearSearchInput() {
     this.searchValue = '';
+    this.searchFoundInCaptionId = null;
     this.searchValue$.next('');
   }
 
@@ -213,6 +217,7 @@ export class TranscriptComponent implements OnDestroy, OnInit {
   }
 
   scrollToCaption(id: string) {
+    this.searchFoundInCaptionId = id;
     document
       .getElementById('caption-' + id)
       ?.scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -228,5 +233,9 @@ export class TranscriptComponent implements OnDestroy, OnInit {
 
   trackById(index: number, caption: { id: string; speakerId: string }) {
     return caption.id;
+  }
+
+  onScrollInViewport() {
+    this.autoScroll = false;
   }
 }

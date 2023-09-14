@@ -15,6 +15,7 @@
 .search-results-wrapper {
   display: flex;
   align-items: center;
+  margin-bottom: 1px;
 }
 
 .captions-viewport {
@@ -28,6 +29,7 @@
   .transcript-paragraph {
     margin-bottom: 7px;
   }
+
   .caption-speaker {
     padding: 20px 0px 10px 0px;
 
@@ -45,6 +47,10 @@
   }
   &.fontsize-large {
     font-size: 130%;
+  }
+
+  .highlighted-caption {
+    background-color: lightgoldenrodyellow;
   }
 
   .caption-text {

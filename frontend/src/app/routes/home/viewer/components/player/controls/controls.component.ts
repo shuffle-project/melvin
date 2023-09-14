@@ -10,8 +10,10 @@ import * as viewerActions from '../../../../../../store/actions/viewer.actions';
 import { AppState } from '../../../../../../store/app.state';
 import * as editorSelector from '../../../../../../store/selectors/editor.selector';
 import * as transcriptionsSelector from '../../../../../../store/selectors/transcriptions.selector';
+import * as viewerSelector from '../../../../../../store/selectors/viewer.selector';
 import { ViewerService } from '../../../viewer.service';
 import { CaptionsSettingsDialogComponent } from '../../captions-settings-dialog/captions-settings-dialog.component';
+import { ViewerVideo } from '../player.component';
 @Component({
   selector: 'app-controls',
   templateUrl: './controls.component.html',
@@ -32,6 +34,8 @@ export class ControlsComponent {
       return { list, selectedId };
     })
   );
+
+  public smallVideos$ = this.store.select(viewerSelector.selectSmallVideos);
 
   constructor(
     private store: Store<AppState>,
@@ -98,20 +102,26 @@ export class ControlsComponent {
   }
 
   onOpenCaptionsSettingsDialog() {
+    this.viewerService.audio?.pause();
+    // TODO do we want to play after closing the dialog??
     this.dialog.open(CaptionsSettingsDialogComponent);
   }
 
-  decreasePlaybackSpeed(currentSpeed: number) {
-    if (currentSpeed > 0.25) {
-      this.changePlaybackSpeed((currentSpeed -= 0.25));
-    }
-  }
-  increasePlaybackSpeed(currentSpeed: number) {
-    this.changePlaybackSpeed((currentSpeed += 0.25));
-  }
+  // decreasePlaybackSpeed(currentSpeed: number) {
+  //   if (currentSpeed > 0.25) this.changePlaybackSpeed((currentSpeed -= 0.25));
+  // }
+  // increasePlaybackSpeed(currentSpeed: number) {
+  //   if (currentSpeed < 3) this.changePlaybackSpeed((currentSpeed += 0.25));
+  // }
 
   changePlaybackSpeed(speed: number) {
     this.store.dispatch(editorActions.changeSpeedFromViewer({ speed }));
+  }
+
+  onSeek(seconds: number) {
+    if (this.viewerService.audio) {
+      this.viewerService.audio.currentTime += seconds;
+    }
   }
 
   isFullscreenActive() {
@@ -140,5 +150,16 @@ export class ControlsComponent {
         (doc as any).webkitRequestFullscreen();
       }
     }
+  }
+
+  //TODO duplicate in player.component.ts
+  onClickToggleVideoShown(event: MouseEvent, video: ViewerVideo) {
+    this.store.dispatch(viewerActions.toggleShowVideo({ id: video.id }));
+    event.stopPropagation();
+  }
+
+  onKeypressToggleVideoShown(event: KeyboardEvent, video: ViewerVideo) {
+    if (event.key === 'Enter' || event.key === 'Space')
+      this.store.dispatch(viewerActions.toggleShowVideo({ id: video.id }));
   }
 }
