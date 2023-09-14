@@ -269,6 +269,7 @@ export class RealApiService implements ApiService {
   ): Observable<HttpEvent<ProjectEntity>> {
     const formData = new FormData();
     formData.append('title', uploadVideoDto.title);
+    formData.append('category', uploadVideoDto.category);
     formData.append('file', file);
 
     return this._post<HttpEvent<ProjectEntity>>(

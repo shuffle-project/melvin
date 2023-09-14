@@ -41,9 +41,14 @@ export class PathService {
   }
 
   getAdditionalVideoFile(projectId: string, videoId: string): string {
+    // return join( //TODO
+    //   this.getProjectDirectory(projectId),
+    //   'video' + videoId + '.mp4',
+    // );
     return join(
       this.getProjectDirectory(projectId),
-      'video' + videoId + '.mp4',
+      'videos',
+      videoId + '.mp4',
     );
   }
 

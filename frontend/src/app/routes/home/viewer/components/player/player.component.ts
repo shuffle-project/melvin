@@ -17,8 +17,8 @@ import {
 import { Store } from '@ngrx/store';
 import { Subject, combineLatest, map } from 'rxjs';
 import {
-  AdditionalVideo,
   ProjectEntity,
+  VideoLinkEntity,
 } from '../../../../../services/api/entities/project.entity';
 import * as viewerActions from '../../../../../store/actions/viewer.actions';
 import { AppState } from '../../../../../store/app.state';
@@ -126,8 +126,7 @@ export class PlayerComponent
         shown: true,
       },
     ];
-
-    this.project.media?.additionalVideos.forEach((element: AdditionalVideo) => {
+    this.project.media?.videos.forEach((element: VideoLinkEntity) => {
       videos.push({
         ...element,
         shown: true,
