@@ -11,6 +11,7 @@ export enum VideoStatus {
   ERROR = 'error',
 }
 export enum VideoCategory {
+  MAIN = 'main',
   OTHER = 'other',
   SIGN_LANGUAGE = 'sign_language',
   SLIDES = 'slides',

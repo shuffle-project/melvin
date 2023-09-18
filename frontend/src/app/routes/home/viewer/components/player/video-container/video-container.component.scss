@@ -49,12 +49,15 @@ video {
     align-items: center;
     background: rgba($color: #000000, $alpha: 0.7);
 
-    span {
+    .title {
       max-height: 50%;
       height: 50%;
       text-align: center;
       text-overflow: ellipsis;
       overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
 
     button {

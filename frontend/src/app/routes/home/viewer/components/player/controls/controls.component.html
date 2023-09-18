@@ -89,7 +89,11 @@
         <mat-icon svgIcon="transcript" class="svg-black"></mat-icon>
       </button>
 
-      <button mat-icon-button class="md">
+      <button
+        mat-icon-button
+        class="md"
+        [disabled]="!(signLanguageAvailable$ | ngrxPush)"
+      >
         <mat-icon svgIcon="sign_language" class="svg-black"></mat-icon>
       </button>
 
@@ -231,6 +235,11 @@
 
     <mat-checkbox [checked]="video.shown">
       {{ video.title }}
+      <mat-icon
+        *ngIf="video.category === 'sign_language'"
+        svgIcon="sign_language"
+        class="svg-black"
+      ></mat-icon>
     </mat-checkbox>
   </div>
 </mat-menu>

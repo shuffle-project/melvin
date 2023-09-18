@@ -123,6 +123,11 @@
 }
 
 .viewer-caption {
+  // min-height: 2.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
   &.over-video {
     position: absolute;
     left: 10px;
@@ -130,6 +135,7 @@
     bottom: 10px;
     text-align: center;
     transition: transform 0.2s;
+    // height: fit-content;
   }
 
   &.under-video {
@@ -138,10 +144,10 @@
     align-items: center;
     margin-top: 3px;
     text-align: center;
-    // min-height: 2.2rem;
+    min-height: 2.2rem;
 
     span {
-      min-height: 2.5rem;
+      // min-height: 2.5rem;
       display: flex;
       justify-content: center;
       align-items: center;

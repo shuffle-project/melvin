@@ -48,11 +48,11 @@ export class TranscriptComponent implements OnDestroy, OnInit {
   searchValue$: BehaviorSubject<string> = new BehaviorSubject('');
   searchValue: string = ''; // for ngModel
 
-  foundItemsIndex = 1;
+  foundItemsNumber = 1;
 
   transcriptNew: CaptionEntity[][] = [];
   searchFoundInCaptionIds: string[] = [];
-  searchFoundInCaptionId: string | null = null;
+  // searchFoundInCaptionId: string | null = null;
 
   transcript$: Observable<CaptionEntity[][]> = this.captions$.pipe(
     map((captions) => {
@@ -138,16 +138,25 @@ export class TranscriptComponent implements OnDestroy, OnInit {
 
           const searchFoundInCaptionIdsTemp: string[] = [];
 
+          let markIndex = 0;
+
           transcript.forEach((paragraph, indexParagraph) => {
             paragraph.forEach((entity, indexCaption) => {
               const matches = entity.text.match(regex);
               if (searchValue.length > 0 && matches?.length) {
+                // console.log(matches);
                 searchFoundInCaptionIdsTemp.push(
                   ...matches.map(() => entity.id)
                 );
 
+                // this.transcriptNew[indexParagraph][indexCaption].text =
+                //   entity.text.replace(regex, '<mark>$1</mark>');
+
                 this.transcriptNew[indexParagraph][indexCaption].text =
-                  entity.text.replace(regex, '<mark>$1</mark>');
+                  entity.text.replace(
+                    regex,
+                    (text) => `<mark class="mark-${markIndex++}">${text}</mark>`
+                  );
               } else {
                 this.transcriptNew[indexParagraph][indexCaption].text =
                   entity.text;
@@ -158,9 +167,11 @@ export class TranscriptComponent implements OnDestroy, OnInit {
           this.searchFoundInCaptionIds = searchFoundInCaptionIdsTemp;
 
           if (searchValue.length > 0) {
-            this.searchFoundInCaptionId = null;
+            // this.searchFoundInCaptionId = null;
+            // this.foundItemsNumber = 1;
+            // this.scrollToMark(this.foundItemsNumber - 1);
             this.scrollToCaption(
-              searchFoundInCaptionIdsTemp[this.foundItemsIndex - 1]
+              searchFoundInCaptionIdsTemp[this.foundItemsNumber - 1]
             );
           }
         })
@@ -173,14 +184,14 @@ export class TranscriptComponent implements OnDestroy, OnInit {
   }
 
   onSearchChange(event: any) {
-    this.foundItemsIndex = 1;
-    this.searchFoundInCaptionId = null;
+    this.foundItemsNumber = 1;
+    // this.searchFoundInCaptionId = null;
     this.searchValue$.next(event.target.value);
   }
 
   onClearSearchInput() {
     this.searchValue = '';
-    this.searchFoundInCaptionId = null;
+    // this.searchFoundInCaptionId = null;
     this.searchValue$.next('');
   }
 
@@ -195,29 +206,43 @@ export class TranscriptComponent implements OnDestroy, OnInit {
   }
 
   onGoToNextFound() {
-    if (this.foundItemsIndex < this.searchFoundInCaptionIds.length) {
-      this.foundItemsIndex++;
+    if (this.foundItemsNumber < this.searchFoundInCaptionIds.length) {
+      this.foundItemsNumber++;
     } else {
-      this.foundItemsIndex = 1;
+      this.foundItemsNumber = 1;
     }
-    this.scrollToCaption(
-      this.searchFoundInCaptionIds[this.foundItemsIndex - 1]
-    );
+    this.scrollToMark(this.foundItemsNumber - 1);
+    // this.scrollToCaption(
+    //   this.searchFoundInCaptionIds[this.foundItemsIndex - 1]
+    // );
   }
 
   onGoToRecentFound() {
-    if (this.foundItemsIndex > 1) {
-      this.foundItemsIndex--;
+    if (this.foundItemsNumber > 1) {
+      this.foundItemsNumber--;
     } else {
-      this.foundItemsIndex = this.searchFoundInCaptionIds.length;
+      this.foundItemsNumber = this.searchFoundInCaptionIds.length;
     }
-    this.scrollToCaption(
-      this.searchFoundInCaptionIds[this.foundItemsIndex - 1]
-    );
+    this.scrollToMark(this.foundItemsNumber - 1);
+    // this.scrollToCaption(
+    //   this.searchFoundInCaptionIds[this.foundItemsIndex - 1]
+    // );
+  }
+
+  scrollToMark(index: number) {
+    console.log('scroll to ');
+    console.log(`mark-${index}`);
+    const mark = document.getElementsByClassName(`mark-${index}`).item(0);
+    if (mark) {
+      // mark.
+      // mark.classList.add('active-mark');
+      // mark.setAttribute('style', 'color: red;');
+      mark.scrollIntoView();
+    }
   }
 
   scrollToCaption(id: string) {
-    this.searchFoundInCaptionId = id;
+    // this.searchFoundInCaptionId = id;
     document
       .getElementById('caption-' + id)
       ?.scrollIntoView({ behavior: 'smooth', block: 'center' });

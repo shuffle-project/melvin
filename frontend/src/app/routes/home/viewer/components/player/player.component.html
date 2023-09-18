@@ -43,6 +43,11 @@
 
         <mat-checkbox [checked]="video.shown">
           {{ video.title }}
+          <mat-icon
+            *ngIf="video.category === 'sign_language'"
+            svgIcon="sign_language"
+            class="svg-black"
+          ></mat-icon>
         </mat-checkbox>
       </div>
     </mat-menu>

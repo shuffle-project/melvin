@@ -54,6 +54,10 @@
   }
 
   .caption-text {
+    span.mark {
+      background-color: yellow;
+    }
+
     &:hover {
       text-decoration: underline;
       background-color: lightyellow;
@@ -79,4 +83,8 @@
 .transcript-footer {
   display: flex;
   justify-content: end;
+}
+
+.active-mark {
+  border: 1px solid black;
 }

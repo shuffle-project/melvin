@@ -31,7 +31,7 @@
     <button mat-icon-button class="md" (click)="onGoToRecentFound()">
       <mat-icon svgIcon="arrow-up" class="svg-black"></mat-icon>
     </button>
-    {{ searchFoundInCaptionIds.length > 0 ? foundItemsIndex : 0 }} /
+    {{ searchFoundInCaptionIds.length > 0 ? foundItemsNumber : 0 }} /
     {{ searchFoundInCaptionIds.length }}
 
     <button mat-icon-button class="md" (click)="onGoToNextFound()">
@@ -82,9 +82,7 @@
                   ? 'current-caption'
                   : ''
               }}
-              {{
-                searchFoundInCaptionId === item.id ? 'highlighted-caption' : ''
-              }}"
+              "
               (click)="onJumpInVideo(item)"
               [innerHTML]="item.text"
             >
