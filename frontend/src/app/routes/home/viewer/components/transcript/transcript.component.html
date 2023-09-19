@@ -42,6 +42,7 @@
   <ng-container *ngrxLet="availableSpeakers$ as availableSpeakers">
     <ng-container *ngrxLet="viewerService.currentTime$ as currentTime">
       <div
+        id="captions-viewport"
         class="captions-viewport fontsize-{{ transcriptFontsize$ | ngrxPush }}"
         (scroll)="onScrollInViewport()"
       >

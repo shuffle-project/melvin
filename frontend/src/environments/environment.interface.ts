@@ -5,6 +5,7 @@ export interface EnabledFeatures {
   projectCreate: boolean;
   projectEdit: boolean;
   download: boolean;
+  live: boolean;
 
   // Editor
   timeNavigation: boolean;

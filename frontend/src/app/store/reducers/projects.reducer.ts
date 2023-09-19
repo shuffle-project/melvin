@@ -3,7 +3,11 @@ import {
   ProjectFilter,
   ProjectSetEnum,
 } from 'src/app/interfaces/project-filter.interface';
-import { ProjectEntity } from '../../services/api/entities/project.entity';
+import { environment } from '../../../environments/environment';
+import {
+  ProjectEntity,
+  ProjectStatus,
+} from '../../services/api/entities/project.entity';
 import * as projectsActions from '../actions/projects.actions';
 
 export interface ProjectsState {
@@ -80,9 +84,15 @@ export const projectsReducer = createReducer(
 
   // retrieve Data from API functions
   on(projectsActions.findAllSuccess, (state, action) => {
+    let projects = action.projectListEntity.projects;
+
+    if (!environment.features.live) {
+      projects = projects.filter((proj) => proj.status !== ProjectStatus.LIVE);
+    }
+
     return {
       ...state,
-      projectsList: [...action.projectListEntity.projects],
+      projectsList: [...projects],
     };
   }),
 

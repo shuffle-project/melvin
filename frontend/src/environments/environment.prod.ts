@@ -13,6 +13,7 @@ export const environment: Environment = {
     projectCreate: true,
     projectEdit: true,
     download: true,
+    live: false,
 
     // Editor
     timeNavigation: true,
