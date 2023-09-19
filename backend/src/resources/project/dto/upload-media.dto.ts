@@ -1,8 +1,7 @@
-import { ApiProperty } from '@nestjs/swagger';
-import { IsString } from 'class-validator';
+import { PickType } from '@nestjs/swagger';
+import { Video } from '../../../modules/db/schemas/project.schema';
 
-export class UploadMediaDto {
-  @ApiProperty({ type: String, required: true, example: 'Speaker' })
-  @IsString()
-  title: string;
-}
+export class UploadVideoDto extends PickType(Video, [
+  'title',
+  'category',
+] as const) {}

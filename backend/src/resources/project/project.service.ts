@@ -12,10 +12,10 @@ import { Types } from 'mongoose';
 import { LeanUserDocument } from 'src/modules/db/schemas/user.schema';
 import { DbService } from '../../modules/db/db.service';
 import {
-  AdditionalMedia,
   LeanProjectDocument,
-  MediaType,
   ProjectStatus,
+  Video,
+  VideoStatus,
 } from '../../modules/db/schemas/project.schema';
 import { WaveformData } from '../../modules/ffmpeg/ffmpeg.interfaces';
 import { CustomLogger } from '../../modules/logger/logger.service';
@@ -46,10 +46,14 @@ import { FindAllProjectsQuery } from './dto/find-all-projects.dto';
 import { InviteDto } from './dto/invite.dto';
 import { UpdatePartialProjectDto } from './dto/update-partial-project.dto';
 import { UpdateProjectDto } from './dto/update-project.dto';
-import { UploadMediaDto } from './dto/upload-media.dto';
+import { UploadVideoDto } from './dto/upload-media.dto';
 import { ProjectInviteTokenEntity } from './entities/project-invite.entity';
 import { ProjectListEntity } from './entities/project-list.entity';
-import { MediaLinksEntity, ProjectEntity } from './entities/project.entity';
+import {
+  MediaLinksEntity,
+  ProjectEntity,
+  VideoLinkEntity,
+} from './entities/project.entity';
 @Injectable()
 export class ProjectService {
   private serverBaseUrl: string;
@@ -105,19 +109,20 @@ export class ProjectService {
     }`;
 
     //  additionalVideos
-    const additionalVideos = project.additionalMedia
-      .filter((media) => media.mediaType === MediaType.VIDEO)
-      .map((media) => ({
-        id: media._id.toString(),
-        title: media.title,
-        url: `${
-          this.serverBaseUrl
-        }/projects/${project._id.toString()}/media/video/${media._id.toString()}?Authorization=${
-          mediaAuthToken.token
-        }`,
-      }));
+    const additionalVideos: VideoLinkEntity[] = project.videos.map((media) => ({
+      id: media._id.toString(),
+      status: media.status,
+      title: media.title,
+      originalFileName: media.originalFileName,
+      category: media.category,
+      url: `${
+        this.serverBaseUrl
+      }/projects/${project._id.toString()}/media/video/${media._id.toString()}?Authorization=${
+        mediaAuthToken.token
+      }`,
+    }));
 
-    return { video, audio, additionalVideos };
+    return { video, audio, videos: additionalVideos };
   }
 
   async create(
@@ -723,7 +728,7 @@ export class ProjectService {
   async uploadVideo(
     authUser: AuthUser,
     projectId: string,
-    uploadMediaDto: UploadMediaDto,
+    uploadVideoDto: UploadVideoDto,
     file: Express.Multer.File,
   ): Promise<ProjectEntity> {
     const project = await this.db.findProjectByIdOrThrow(projectId);
@@ -736,17 +741,18 @@ export class ProjectService {
       throw new CustomForbiddenException('must_be_owner');
     }
 
-    const additionalMedia: AdditionalMedia = {
-      ...uploadMediaDto,
+    const video: Video = {
+      ...uploadVideoDto,
       _id: new Types.ObjectId(),
-      mediaType: MediaType.VIDEO,
+      originalFileName: '', // TODO
+      status: VideoStatus.WAITING, // TODO
     };
     const updatedProject = await this.db.projectModel
       .findByIdAndUpdate(
         projectId,
         {
           $push: {
-            additionalMedia: additionalMedia,
+            videos: video,
           },
         },
         { populate: ['users'], new: true },
@@ -759,7 +765,7 @@ export class ProjectService {
       project,
       file,
       subsequentJobs: [],
-      videoId: additionalMedia._id.toString(),
+      videoId: video._id.toString(),
     });
 
     return updatedProject;
@@ -776,7 +782,7 @@ export class ProjectService {
       throw new CustomForbiddenException('must_be_owner');
     }
 
-    const mediaObj = project.additionalMedia.find((media) =>
+    const mediaObj = project.videos.find((media) =>
       isSameObjectId(media._id, mediaId),
     );
 
@@ -790,7 +796,7 @@ export class ProjectService {
     // TODO does not work
     await this.db.projectModel
       .findByIdAndUpdate(projectId, {
-        $pull: { additionalMedia: { _id: new Types.ObjectId(mediaId) } },
+        $pull: { videos: { _id: new Types.ObjectId(mediaId) } },
       })
       .lean()
       .exec();

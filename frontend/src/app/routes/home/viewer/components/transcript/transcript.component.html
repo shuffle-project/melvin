@@ -28,12 +28,11 @@
   </mat-form-field>
 
   <div *ngIf="searchValue.length > 0" class="search-results-wrapper">
-    {{ searchFoundInCaptionIds.length > 0 ? foundItemsIndex : 0 }} /
-    {{ searchFoundInCaptionIds.length }}
-
     <button mat-icon-button class="md" (click)="onGoToRecentFound()">
       <mat-icon svgIcon="arrow-up" class="svg-black"></mat-icon>
     </button>
+    {{ searchFoundInCaptionIds.length > 0 ? foundItemsNumber : 0 }} /
+    {{ searchFoundInCaptionIds.length }}
 
     <button mat-icon-button class="md" (click)="onGoToNextFound()">
       <mat-icon svgIcon="arrow-down" class="svg-black"></mat-icon>
@@ -44,6 +43,7 @@
     <ng-container *ngrxLet="viewerService.currentTime$ as currentTime">
       <div
         class="captions-viewport fontsize-{{ transcriptFontsize$ | ngrxPush }}"
+        (scroll)="onScrollInViewport()"
       >
         <div
           *ngFor="
@@ -81,12 +81,12 @@
                 currentTime < item.end / 1000
                   ? 'current-caption'
                   : ''
-              }}"
+              }}
+              "
               (click)="onJumpInVideo(item)"
               [innerHTML]="item.text"
-              [title]="item.start + ' ' + item.end"
             >
-            </span
+              <!-- [title]="item.start + ' ' + item.end" --> </span
             >&nbsp;</ng-container
           >
         </div>

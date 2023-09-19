@@ -85,7 +85,7 @@ export class FfmpegService {
   ): Promise<void> {
     // create dir if does not exist
     const projDir = this.pathService.getProjectDirectory(projectId);
-    await ensureDir(projDir);
+    await ensureDir(join(projDir, 'videos'));
 
     let videoFilepath: string;
     if (videoId === null) {
@@ -102,7 +102,7 @@ export class FfmpegService {
     const commands = [
       // this.ffmpeg,
       '-loglevel',
-      'fatal',
+      'error',
       // error = Show all errors, including ones which can be recovered from.
       // fatal = Only show fatal errors which could lead the process to crash, such as an assertion failure.
       '-i',

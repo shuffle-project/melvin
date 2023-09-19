@@ -14,9 +14,9 @@
 
 .content {
   box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-  justify-content: stretch;
+  // display: flex;
+  // flex-direction: column;
+  // justify-content: stretch;
   width: 100%;
   padding: 5px;
   // height: ;
@@ -33,9 +33,11 @@
     height: fit-content;
     justify-content: center;
 
+    height: 100%;
+
     .player {
       width: 70%;
-      height: fit-content;
+      height: 100%;
     }
 
     .transcript {

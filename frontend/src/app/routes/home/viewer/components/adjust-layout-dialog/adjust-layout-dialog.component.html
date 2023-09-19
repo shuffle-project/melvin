@@ -67,11 +67,11 @@
         (change)="onTranscriptPositionChanged($event)"
         [disabled]="!(transcriptEnabled$ | ngrxPush)"
       >
-        <mat-radio-button value="{{ TranscriptPosition.RIGHT }}">
-          Transkript rechts
-        </mat-radio-button>
         <mat-radio-button value="{{ TranscriptPosition.LEFT }}">
           Transkript links
+        </mat-radio-button>
+        <mat-radio-button value="{{ TranscriptPosition.RIGHT }}">
+          Transkript rechts
         </mat-radio-button>
         <!-- <mat-radio-button value="{{ TranscriptPosition.BOTTOM }}">
         Transkript unten
@@ -80,13 +80,6 @@
         Transkript oben
       </mat-radio-button> -->
       </mat-radio-group>
-    </div>
-
-    <h3>Untertitel</h3>
-    <div class="input-wrapper">
-      <button mat-stroked-button (click)="onOpenSubtitleSettingsDialog()">
-        Wechsel zu den Einstellungen für Untertitel
-      </button>
     </div>
   </div>
 

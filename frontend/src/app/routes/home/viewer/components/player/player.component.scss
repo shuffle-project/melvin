@@ -1,4 +1,11 @@
 .box {
+  height: calc(100% - 12px);
+  display: flex;
+  flex-direction: column;
+  // justify-content: ;
+
+  :last-child {
+  }
 }
 
 .mat-menu-item-wrapper {
@@ -13,16 +20,16 @@
   display: flex;
   justify-content: center;
 
-  height: fit-content;
+  height: 100%;
 
   // TODO set max-height
 
   .main-video-container {
     display: flex;
     position: relative;
-    height: fit-content;
+    // height: fit-content;
 
-    min-height: 60vh; // TODO min viewport height of video container adjust here
+    // min-height: 60vh; // TODO min viewport height of video container adjust here
   }
 
   .inner-resizer-wrapper {
@@ -61,7 +68,7 @@
   .secondary-videos {
     position: relative;
     width: 100%;
-    overflow-y: scroll;
+    overflow-y: auto;
 
     .scrollable-view {
       display: flex;
@@ -78,6 +85,9 @@
 
 .position-relative {
   position: relative;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
 }
 
 .loading-spinner {
@@ -123,6 +133,11 @@
 }
 
 .viewer-caption {
+  // min-height: 2.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
   &.over-video {
     position: absolute;
     left: 10px;
@@ -130,6 +145,7 @@
     bottom: 10px;
     text-align: center;
     transition: transform 0.2s;
+    // height: fit-content;
   }
 
   &.under-video {
@@ -138,10 +154,10 @@
     align-items: center;
     margin-top: 3px;
     text-align: center;
-    // min-height: 2.2rem;
+    min-height: 2.2rem;
 
     span {
-      min-height: 2.5rem;
+      // min-height: 2.5rem;
       display: flex;
       justify-content: center;
       align-items: center;

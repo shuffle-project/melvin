@@ -16,7 +16,14 @@
     <source src="{{ video.url }}" type="video/mp4" />
   </video>
   <div class="video-overlay" *ngIf="size === 'small'">
-    <span> {{ video.title }} </span>
+    <div class="title">
+      <mat-icon
+        *ngIf="video.category === 'sign_language'"
+        svgIcon="sign_language"
+        class="svg-white"
+      ></mat-icon>
+      {{ video.title }}
+    </div>
     <button
       mat-stroked-button
       color="basic"

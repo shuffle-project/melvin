@@ -12,6 +12,8 @@ import { ApiService } from '../../../../services/api/api.service';
 import {
   AdditionalMedia,
   ProjectEntity,
+  VideoCategory,
+  VideoEntity,
 } from '../../../../services/api/entities/project.entity';
 import { AppState } from '../../../../store/app.state';
 import * as projectsSelector from '../../../../store/selectors/projects.selector';
@@ -22,6 +24,7 @@ import * as projectsSelector from '../../../../store/selectors/projects.selector
   styleUrls: ['./upload-additional-content.component.scss'],
 })
 export class UploadAdditionalContentComponent implements OnInit {
+  VideoCategory = VideoCategory;
   @Input() projectId!: string;
 
   private projects$ = this.store.select(projectsSelector.selectAllProjects);
@@ -36,6 +39,7 @@ export class UploadAdditionalContentComponent implements OnInit {
   public formGroup!: FormGroup<{
     title: FormControl<string>;
     file: FormControl<File | null>;
+    category: FormControl<VideoCategory | null>;
   }>;
   private currentFile: any;
 
@@ -49,6 +53,9 @@ export class UploadAdditionalContentComponent implements OnInit {
     this.formGroup = this.fb.group({
       title: this.fb.control<string>('', [Validators.required]),
       file: this.fb.control<File | null>(null, [Validators.required]),
+      category: this.fb.control<VideoCategory | null>(null, [
+        Validators.required,
+      ]),
     });
   }
 
@@ -61,7 +68,10 @@ export class UploadAdditionalContentComponent implements OnInit {
       this.api
         .uploadVideo(
           this.projectId,
-          { title: this.formGroup.value.title! },
+          {
+            title: this.formGroup.value.title!,
+            category: this.formGroup.value.category!,
+          },
           this.currentFile
         )
         .subscribe({
@@ -73,7 +83,7 @@ export class UploadAdditionalContentComponent implements OnInit {
 
   async onDeleteAdditionalMedia(
     project: ProjectEntity,
-    additional: AdditionalMedia
+    additional: AdditionalMedia | VideoEntity
   ) {
     // TODO move to effect and delete obj in reducer
     await firstValueFrom(this.api.deleteMedia(project.id, additional.id));

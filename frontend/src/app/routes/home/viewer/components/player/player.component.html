@@ -43,6 +43,11 @@
 
         <mat-checkbox [checked]="video.shown">
           {{ video.title }}
+          <mat-icon
+            *ngIf="video.category === 'sign_language'"
+            svgIcon="sign_language"
+            class="svg-black"
+          ></mat-icon>
         </mat-checkbox>
       </div>
     </mat-menu>
@@ -65,7 +70,6 @@
             shownSmallVideos.length === 0 ? 100 : mainVideoContainerWidthPercent
           "
         >
-          <!-- [style.max-height.px]="mainVideoHeight" -->
           <app-video-container
             size="big"
             [video]="bigVideo"
@@ -80,7 +84,6 @@
           (keydown)="onKeyDown($event)"
         >
           <div class="inner-resizer">
-            <!-- [style.height.px]="allVideosContainerRef.clientHeight" -->
             <div class="visual-resize-handle"></div>
             <div class="visual-resize-handle"></div>
           </div>
@@ -88,7 +91,6 @@
 
         <div *ngIf="shownSmallVideos.length > 0" class="secondary-videos">
           <div class="scrollable-view">
-            <!-- [style.height.px]="allVideosContainerRef.clientHeight" -->
             <div class="spacer"></div>
             <!-- secondary video -->
             <ng-container *ngFor="let video of shownSmallVideos">

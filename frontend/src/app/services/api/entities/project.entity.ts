@@ -4,6 +4,19 @@ import { UserEntity } from './user.entity';
 export enum MediaType {
   VIEDEO = 'video',
 }
+export enum VideoStatus {
+  FINISHED = 'finished',
+  WAITING = 'waiting',
+  PROCESSING = 'processing',
+  ERROR = 'error',
+}
+export enum VideoCategory {
+  MAIN = 'main',
+  OTHER = 'other',
+  SIGN_LANGUAGE = 'sign_language',
+  SLIDES = 'slides',
+  SPEAKER = 'speaker',
+}
 
 export interface AdditionalMedia {
   id: string;
@@ -11,16 +24,27 @@ export interface AdditionalMedia {
   mediaType: MediaType;
 }
 
-export interface AdditionalVideo {
+export interface VideoEntity {
+  id: string;
+  status: VideoStatus;
+  title: string;
+  originalFileName: string;
+  category: VideoCategory;
+}
+
+export interface VideoLinkEntity {
   id: string;
   url: string;
   title: string;
+  originalFileName: string;
+  status: VideoStatus;
+  category: VideoCategory;
 }
 
 export interface MediaLinksEntity {
   video: string;
   audio: string;
-  additionalVideos: AdditionalVideo[];
+  videos: VideoLinkEntity[];
 }
 
 export enum LivestreamStatus {
@@ -69,6 +93,7 @@ export interface ProjectEntity {
   media?: MediaLinksEntity;
   additionalMedia: AdditionalMedia[];
   livestream?: LivestreamEntity;
+  videos: VideoEntity[];
 }
 
 export enum ProjectStatus {

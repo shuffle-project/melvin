@@ -70,25 +70,25 @@
       margin: 0 24px;
     }
 
-    .playback-speed-wrapper {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      border: 1px solid var(--color-border-grey);
-      border-radius: 6px;
-      height: 100%;
+    // .playback-speed-wrapper {
+    //   display: flex;
+    //   justify-content: center;
+    //   align-items: center;
+    //   border: 1px solid var(--color-border-grey);
+    //   border-radius: 6px;
+    //   height: 100%;
 
-      button {
-        margin: 3px;
-      }
+    //   button {
+    //     margin: 3px;
+    //   }
 
-      .playback-speed-text {
-        width: 6ch;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-      }
-    }
+    //   .playback-speed-text {
+    //     width: 6ch;
+    //     display: flex;
+    //     justify-content: center;
+    //     align-items: center;
+    //   }
+    // }
   }
   .information-row {
     display: flex;

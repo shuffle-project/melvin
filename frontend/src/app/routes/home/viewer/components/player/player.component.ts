@@ -17,8 +17,9 @@ import {
 import { Store } from '@ngrx/store';
 import { Subject, combineLatest, map } from 'rxjs';
 import {
-  AdditionalVideo,
   ProjectEntity,
+  VideoCategory,
+  VideoLinkEntity,
 } from '../../../../../services/api/entities/project.entity';
 import * as viewerActions from '../../../../../store/actions/viewer.actions';
 import { AppState } from '../../../../../store/app.state';
@@ -32,6 +33,7 @@ export interface ViewerVideo {
   title: string;
   url: string;
   shown: boolean;
+  category: VideoCategory;
 }
 
 @Component({
@@ -123,11 +125,11 @@ export class PlayerComponent
         id: this.project!.id,
         title: 'Hauptviedeo',
         url: this.project!.media!.video,
+        category: VideoCategory.MAIN,
         shown: true,
       },
     ];
-
-    this.project.media?.additionalVideos.forEach((element: AdditionalVideo) => {
+    this.project.media?.videos.forEach((element: VideoLinkEntity) => {
       videos.push({
         ...element,
         shown: true,

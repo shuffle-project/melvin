@@ -6,7 +6,11 @@ import {
 } from '@nestjs/swagger';
 import { Exclude, Expose, Type } from 'class-transformer';
 import { PopulatedDoc } from 'mongoose';
-import { Project } from '../../../modules/db/schemas/project.schema';
+import {
+  Project,
+  VideoCategory,
+  VideoStatus,
+} from '../../../modules/db/schemas/project.schema';
 import { Transcription } from '../../../modules/db/schemas/transcription.schema';
 import { UserEntity } from '../../user/entities/user.entity';
 
@@ -19,7 +23,7 @@ export class ProjectTranscriptionEntity extends PickType(Transcription, [
   language: string;
 }
 
-export class AdditionalVideo {
+export class VideoLinkEntity {
   @ApiProperty({ type: String })
   @Type(() => String)
   id: string;
@@ -31,6 +35,16 @@ export class AdditionalVideo {
   @ApiProperty({ type: String })
   @Type(() => String)
   title: string;
+
+  @ApiProperty({ type: String })
+  @Type(() => String)
+  originalFileName: string;
+
+  @ApiProperty({ enum: VideoStatus, example: VideoStatus.FINISHED })
+  status: VideoStatus;
+
+  @ApiProperty({ enum: VideoCategory, example: VideoCategory.OTHER })
+  category: VideoCategory;
 }
 
 export class MediaLinksEntity {
@@ -42,9 +56,9 @@ export class MediaLinksEntity {
   @Type(() => String)
   audio: string;
 
-  @ApiProperty({ type: [AdditionalVideo] })
-  @Type(() => AdditionalVideo)
-  additionalVideos: AdditionalVideo[];
+  @ApiProperty({ type: [VideoLinkEntity] })
+  @Type(() => VideoLinkEntity)
+  videos: VideoLinkEntity[];
 }
 
 export class ProjectEntity extends OmitType(Project, [

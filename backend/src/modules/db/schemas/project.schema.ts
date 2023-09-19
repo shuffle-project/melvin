@@ -33,6 +33,13 @@ export enum ProjectStatus {
   ERROR = 'error',
 }
 
+export enum VideoStatus {
+  WAITING = 'waiting',
+  PROCESSING = 'processing',
+  FINISHED = 'finished',
+  ERROR = 'error',
+}
+
 export enum LivestreamStatus {
   NOT_CONNECTED = 'not_connected',
   STARTED = 'started',
@@ -51,8 +58,12 @@ export enum RecordingTimestampType {
   START = 'start',
   STOP = 'stop',
 }
-export enum MediaType {
-  VIDEO = 'video',
+export enum VideoCategory {
+  MAIN = 'main',
+  OTHER = 'other',
+  SIGN_LANGUAGE = 'sign_language',
+  SLIDES = 'slides',
+  SPEAKER = 'speaker',
 }
 
 export class RecordingTimestamp {
@@ -63,7 +74,7 @@ export class RecordingTimestamp {
 @Schema({
   timestamps: true,
 })
-export class AdditionalMedia {
+export class Video {
   @ApiProperty({ name: 'id', example: EXAMPLE_PROJECT._id })
   @Expose({ name: 'id' })
   //TODO https://github.com/typestack/class-transformer/issues/991
@@ -88,10 +99,20 @@ export class AdditionalMedia {
   @Prop()
   title: string;
 
-  @ApiProperty({ enum: MediaType, example: MediaType.VIDEO })
+  @ApiProperty()
+  @IsString()
   @Prop()
-  @IsEnum(MediaType)
-  mediaType: MediaType;
+  originalFileName: string;
+
+  @ApiProperty({ enum: VideoCategory, example: VideoCategory.OTHER })
+  @Prop()
+  @IsEnum(VideoCategory)
+  category: VideoCategory;
+
+  @ApiProperty({ enum: VideoStatus, example: VideoStatus.FINISHED })
+  @Prop()
+  @IsEnum(VideoStatus)
+  status: VideoStatus;
 }
 
 @Schema({
@@ -220,10 +241,10 @@ export class Project {
   @Prop()
   livestream: Livestream;
 
-  @ApiProperty({ type: [AdditionalMedia] })
-  @Type(() => AdditionalMedia)
+  @ApiProperty({ type: [Video] })
+  @Type(() => Video)
   @Prop({ default: [] })
-  additionalMedia: AdditionalMedia[] = [];
+  videos: Video[] = [];
 }
 
 export const ProjectSchema = SchemaFactory.createForClass(Project);
