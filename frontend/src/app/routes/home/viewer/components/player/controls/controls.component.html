@@ -102,28 +102,6 @@
       </button>
     </div>
     <div class="right">
-      <!--
-      <div class="playback-speed-wrapper">
-        <button
-          mat-icon-button
-          class="sm"
-          (click)="decreasePlaybackSpeed(currentSpeed)"
-          [disabled]="currentSpeed <= 0.25"
-        >
-          <mat-icon svgIcon="minus" class="svg-black"></mat-icon>
-        </button>
-        <div class="playback-speed-text">{{ currentSpeed }}x</div>
-        <button
-          mat-icon-button
-          class="sm"
-          (click)="increasePlaybackSpeed(currentSpeed)"
-          [disabled]="currentSpeed >= 3"
-        >
-          <mat-icon svgIcon="plus" class="svg-black"></mat-icon>
-        </button>
-      </div>
-    -->
-
       <button
         mat-icon-button
         class="md"
@@ -163,8 +141,8 @@
 
 <!-- playbackSpeed menu -->
 <mat-menu #playbackSpeedMenu="matMenu">
-  <h3>Tempo</h3>
-  <hr />
+  <!-- <h3>Tempo</h3>
+  <hr /> -->
   <ng-container *ngrxLet="currentSpeed$ as currentSpeed">
     <button
       *ngFor="let speed of [0.25, 0.5, 0.75, 1, 1.25, 1.5, 2, 2.5, 3]"
@@ -221,8 +199,8 @@
 <!-- gallery Menu  -->
 <!-- //TODO There is a duplicate code in player.component.ts -->
 <mat-menu #galleryMenu="matMenu">
-  <h3>Weitere Ansichten</h3>
-  <hr />
+  <!-- <h3>Weitere Ansichten</h3>
+  <hr /> -->
   <!-- //TODO Wollen wir hier das main video anzeigen?  -->
   <div
     class="mat-menu-item-wrapper"
