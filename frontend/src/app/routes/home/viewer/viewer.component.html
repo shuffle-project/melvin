@@ -16,7 +16,10 @@
   </div>
 </app-header>
 
-<section class="content" *ngrxLet="project$ as project">
+<section
+  class="content {{ isFullscreenActive() ? 'fullscreen-active' : '' }}"
+  *ngrxLet="project$ as project"
+>
   <ng-container *ngIf="project">
     <ng-container *ngrxLet="layoutSettings$ as layout">
       <div class="default-main-content horizontal">
