@@ -1,58 +1,55 @@
 <h3>upload additional video</h3>
 
-<form [formGroup]="formGroup" (ngSubmit)="onClickSubmit()">
-  <mat-form-field appearance="fill">
-    <mat-label>Video Title</mat-label>
-    <input matInput formControlName="title" placeholder="Video Title" />
-  </mat-form-field>
+<form class="upload-form" [formGroup]="formGroup" (ngSubmit)="onClickSubmit()">
+  <div>
+    <mat-form-field appearance="fill">
+      <mat-label>Video Title</mat-label>
+      <input matInput formControlName="title" placeholder="Video Title" />
+    </mat-form-field>
+  </div>
 
-  <input
-    #fileUpload
-    formControlName="file"
-    type="file"
-    name="file"
-    accept="video/*,audio/*"
-    (change)="onFileChange($event)"
-  />
+  <div>
+    <input
+      #fileUpload
+      formControlName="file"
+      type="file"
+      name="file"
+      accept="video/*,audio/*"
+      (change)="onFileChange($event)"
+    />
+  </div>
 
-  <mat-form-field>
-    <mat-label>Choose an option</mat-label>
-    <mat-select formControlName="category">
-      <mat-option value="{{ VideoCategory.OTHER }}"
-        >VideoCategory.OTHER</mat-option
-      >
-      <mat-option value="{{ VideoCategory.SIGN_LANGUAGE }}"
-        >VideoCategory.SIGN_LANGUAGE</mat-option
-      >
-      <mat-option value="{{ VideoCategory.SLIDES }}"
-        >VideoCategory.SLIDES</mat-option
-      >
-      <mat-option value="{{ VideoCategory.SPEAKER }}"
-        >VideoCategory.SPEAKER</mat-option
-      >
-    </mat-select>
-  </mat-form-field>
+  <div>
+    <mat-form-field>
+      <mat-label>Choose a category</mat-label>
+      <mat-select formControlName="category">
+        <mat-option value="{{ VideoCategory.OTHER }}">Other</mat-option>
+        <mat-option value="{{ VideoCategory.SIGN_LANGUAGE }}"
+          >Sign Language</mat-option
+        >
+        <mat-option value="{{ VideoCategory.SLIDES }}">Slides</mat-option>
+        <mat-option value="{{ VideoCategory.SPEAKER }}">Speaker</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
 
-  <input
-    type="submit"
-    value="Upload"
-    [disabled]="formGroup.status === 'INVALID'"
-  />
+  <div>
+    <input
+      type="submit"
+      value="Upload"
+      [disabled]="formGroup.status === 'INVALID'"
+    />
+  </div>
 </form>
 
 <ng-container *ngrxLet="project$ as project">
-  <div *ngIf="project">
-    <h3>Media Content</h3>
-    <ul>
-      <li *ngFor="let media of project.additionalMedia">
-        {{ media.title }} ({{ media.mediaType }})
-        <button (click)="onDeleteAdditionalMedia(project, media)">
-          delete
-        </button>
-      </li>
+  <hr />
 
+  <div *ngIf="project">
+    <h3>Videos</h3>
+    <ul>
       <li *ngFor="let video of project.videos">
-        {{ video.title }} {{ video.category }}
+        {{ video.title }} -- {{ video.category }}
         <button (click)="onDeleteAdditionalMedia(project, video)">
           delete
         </button>

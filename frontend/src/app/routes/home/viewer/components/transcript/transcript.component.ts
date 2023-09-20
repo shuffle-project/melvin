@@ -245,7 +245,10 @@ export class TranscriptComponent implements OnDestroy, OnInit {
     // this.searchFoundInCaptionId = id;
     document
       .getElementById('caption-' + id)
-      ?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      ?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+
+    // TODO switch to block, but only scroll in inner div, not in out div
+    // block: 'center'
   }
 
   getSpeakerName(speakerId: string, availableSpeakers: SpeakerEntity[]) {
