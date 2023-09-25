@@ -42,6 +42,10 @@
     .player {
       width: 70%;
       height: 100%;
+
+      &.transcript-hidden {
+        width: 100%;
+      }
     }
 
     .transcript {
@@ -50,6 +54,8 @@
       width: 30%;
       min-width: 300px;
       max-width: 600px;
+
+      max-height: 100%;
     }
   }
 

@@ -31,7 +31,13 @@
         >
           <app-transcript></app-transcript>
         </div>
-        <div class="player">
+        <div
+          class="player {{
+            layout.transcriptEnabled
+              ? 'transcript-enabled'
+              : 'transcript-hidden'
+          }}"
+        >
           <app-player [project]="project!"></app-player>
         </div>
         <div
