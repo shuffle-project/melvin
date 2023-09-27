@@ -4,8 +4,10 @@ import { Store } from '@ngrx/store';
 // use own viewer actions
 import { MatDialog } from '@angular/material/dialog';
 import { combineLatest, map } from 'rxjs';
+import * as configActions from '../../../store/actions/config.actions';
 import * as editorActions from '../../../store/actions/editor.actions';
 import { AppState } from '../../../store/app.state';
+import * as configSelector from '../../../store/selectors/config.selector';
 import * as editorSelector from '../../../store/selectors/editor.selector';
 import * as viewerSelector from '../../../store/selectors/viewer.selector';
 import { AdjustLayoutDialogComponent } from './components/adjust-layout-dialog/adjust-layout-dialog.component';
@@ -20,6 +22,7 @@ export class ViewerComponent implements OnInit {
   public projectId!: string;
 
   public project$ = this.store.select(editorSelector.selectProject);
+  darkMode$ = this.store.select(configSelector.darkMode);
 
   // TODO layout according to this settings
   public transcriptEnabled$ = this.store.select(
@@ -70,5 +73,9 @@ export class ViewerComponent implements OnInit {
     return (
       document.fullscreenElement || (document as any).webkitFullscreenElement
     );
+  }
+
+  onToggleChange() {
+    this.store.dispatch(configActions.toggleDarkMode());
   }
 }

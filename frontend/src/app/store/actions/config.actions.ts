@@ -13,3 +13,7 @@ export const fetchFailed = createAction(
   '[CONFIG API] Fetch config failure',
   props<{ error: HttpErrorResponse }>()
 );
+
+export const toggleDarkMode = createAction(
+  '[VIEWER COMPONENT] Toggle DarkMode'
+);

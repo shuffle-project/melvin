@@ -16,7 +16,7 @@
     padding: 10px 25px;
     border-radius: 4px;
     font-weight: 500;
-    color: white;
+    color: var(--color-white);
   }
 
   input {
@@ -52,7 +52,7 @@
       &.add-btn {
         border: 1px solid var(--color-primary);
         background-color: var(--color-primary);
-        color: white;
+        color: var(--color-white);
         justify-content: flex-start;
       }
 

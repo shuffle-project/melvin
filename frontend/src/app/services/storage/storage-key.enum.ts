@@ -5,6 +5,8 @@ export enum StorageKey {
   MEDIA_SUBTITLES_ENABLED = 'media-subtitles-enabled',
   CAPTION_TEXT_VALIDATION_ENABLED = 'caption-text-validation-enabled',
 
+  DARK_MODE = 'dark-mode',
+
   // viewer settings
   VIEWER_VIEW_SELECTION_ENABLED = 'viewer-view-selection-enabled',
   VIEWER_TRANSCRIPT_ENABLED = 'viewer-transcript-enabled',

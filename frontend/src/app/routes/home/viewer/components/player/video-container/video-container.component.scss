@@ -43,7 +43,7 @@ video {
 
     border-radius: 6px;
     top: 0;
-    color: white;
+    color: var(--color-white);
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -65,8 +65,8 @@ video {
       justify-self: flex-end;
       width: 96%;
       margin-top: 2px;
-      color: black;
-      background-color: white;
+      color: var(--color-black);
+      background-color: var(--color-white);
     }
   }
 

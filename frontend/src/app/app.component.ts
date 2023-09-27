@@ -1,21 +1,25 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
+import { Observable, Subject, takeUntil, tap } from 'rxjs';
 import { ICONS } from './constants/icon.constants';
 import { AppService } from './services/app/app.service';
 import * as authActions from './store/actions/auth.actions';
 import { AppState } from './store/app.state';
 import * as authSelectors from './store/selectors/auth.selector';
+import * as configSelector from './store/selectors/config.selector';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, OnDestroy {
+  private destroy$$ = new Subject<void>();
   public isInitialized$: Observable<boolean>;
+
+  public darkMode$ = this.store.select(configSelector.darkMode);
 
   constructor(
     private domSanitizer: DomSanitizer,
@@ -31,6 +35,25 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
     this.store.dispatch(authActions.init());
     this.appService.init();
+
+    this.darkMode$
+      .pipe(
+        takeUntil(this.destroy$$),
+        tap((darkMode) => {
+          if (darkMode) {
+            // dark mode ON
+            document.body.classList.add('dark-theme');
+          } else {
+            // dark mode OFF
+            document.body.classList.remove('dark-theme');
+          }
+        })
+      )
+      .subscribe();
+  }
+
+  ngOnDestroy() {
+    this.destroy$$.next();
   }
 
   private registerIcons() {

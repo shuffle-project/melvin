@@ -5,11 +5,11 @@
   border-top: 1px solid #e0e0e0;
 
   mat-slider {
-    --mdc-slider-handle-color: black;
-    --mdc-slider-focus-handle-color: black;
-    --mdc-slider-hover-handle-color: black;
-    --mdc-slider-active-track-color: black;
-    --mdc-slider-inactive-track-color: black;
+    --mdc-slider-handle-color: var(--color-black); // TODO
+    --mdc-slider-focus-handle-color: var(--color-black);
+    --mdc-slider-hover-handle-color: var(--color-black);
+    --mdc-slider-active-track-color: var(--color-black);
+    --mdc-slider-inactive-track-color: var(--color-black);
 
     --mat-mdc-slider-value-indicator-opacity: 1;
 

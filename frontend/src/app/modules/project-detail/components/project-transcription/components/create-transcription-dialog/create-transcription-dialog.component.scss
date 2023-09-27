@@ -106,7 +106,7 @@
     padding: 10px 25px;
     border-radius: 4px;
     font-weight: 500;
-    color: white;
+    color: var(--color-white);
   }
 
   input {
@@ -136,7 +136,7 @@
       justify-content: space-between;
       padding-left: 10px;
       margin: 5px 0px;
-      background-color: white;
+      background-color: var(--color-white);
       border-radius: 10px;
       width: 280px;
       text-align: left;

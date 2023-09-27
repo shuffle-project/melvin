@@ -6,7 +6,7 @@
   display: flex;
 
   & > * {
-    border: 1px solid black;
+    border: 1px solid var(--color-black);
     width: 90%;
     height: 60px;
     margin: 6px;

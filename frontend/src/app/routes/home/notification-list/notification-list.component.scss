@@ -39,7 +39,7 @@ h1 {
   }
 
   .buttons-wrapper {
-    background-color: white;
+    background-color: var(--color-white);
     display: flex;
     justify-content: flex-end;
     align-items: center;
@@ -51,12 +51,12 @@ h1 {
 
     .delete-notification-button {
       background-color: var(--color-red);
-      color: white;
+      color: var(--color-white);
     }
 
     .read-notification-button {
       background-color: var(--color-primary);
-      color: white;
+      color: var(--color-white);
     }
   }
 }

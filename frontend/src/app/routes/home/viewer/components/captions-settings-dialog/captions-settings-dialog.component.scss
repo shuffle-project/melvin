@@ -4,7 +4,7 @@
 }
 
 .hint {
-  color: black;
+  color: var(--color-black);
 
   margin-bottom: 30px;
 }
@@ -39,35 +39,35 @@
   align-items: center;
 
   &.backgroundColor-black {
-    background-color: black;
+    background-color: black; // TODO hier eine variable? wird evtl durch den dark mode invertiert?
   }
   &.backgroundColor-white {
-    background-color: white;
+    background-color: white; // TODO hier eine variable? wird evtl durch den dark mode invertiert?
   }
   &.backgroundColor-red {
-    background-color: red;
+    background-color: var(--color-red);
   }
   &.backgroundColor-blue {
-    background-color: blue;
+    background-color: var(--color-blue);
   }
   &.backgroundColor-yellow {
-    background-color: yellow;
+    background-color: var(--color-yellow);
   }
 
   &.color-black {
-    color: black;
+    color: black; // TODO hier eine variable? wird evtl durch den dark mode invertiert?
   }
   &.color-white {
-    color: white;
+    color: white; // TODO hier eine variable? wird evtl durch den dark mode invertiert?
   }
   &.color-red {
-    color: red;
+    color: var(--color-red);
   }
   &.color-blue {
-    color: blue;
+    color: var(--color-blue);
   }
   &.color-yellow {
-    color: yellow;
+    color: var(--color-yellow);
   }
 
   &.fontsize-small {

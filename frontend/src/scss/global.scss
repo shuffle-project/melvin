@@ -3,6 +3,11 @@ body {
   height: 100%;
 }
 
+* {
+  color: var(--color-text);
+  // background: var(--color-background);
+}
+
 body {
   margin: 0;
   font-family: Roboto, 'Helvetica Neue', sans-serif;
