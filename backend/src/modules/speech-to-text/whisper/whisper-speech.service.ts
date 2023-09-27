@@ -64,7 +64,7 @@ export class WhisperSpeechService implements ISepechToTextService {
     await this.execAsStream(command);
 
     const whisperVtt = project._id.toString();
-    const vttFilePath = this.pathService.getWavFile(whisperVtt) + '.vtt';
+    const vttFilePath = this.pathService.getVttFile(whisperVtt);
 
     return vttFilePath;
   }

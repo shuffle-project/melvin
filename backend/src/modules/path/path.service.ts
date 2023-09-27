@@ -56,6 +56,10 @@ export class PathService {
     return join(this.getProjectDirectory(projectId), 'audio.wav');
   }
 
+  getVttFile(projectId: string): string {
+    return join(this.getProjectDirectory(projectId), 'audio.vtt');
+  }
+
   getWaveformFile(projectId: string) {
     return join(this.getProjectDirectory(projectId), 'waveform.json');
   }
