@@ -5,6 +5,7 @@ import * as bcrypt from 'bcrypt';
 import { randomBytes } from 'crypto';
 import { v4 } from 'uuid';
 import { JwtConfig } from '../../config/config.interface';
+import { EXAMPLE_PROJECT } from '../../constants/example.constants';
 import { DbService } from '../../modules/db/db.service';
 import { LeanUserDocument, User } from '../../modules/db/schemas/user.schema';
 import { PermissionsService } from '../../modules/permissions/permissions.service';
@@ -121,14 +122,22 @@ export class AuthService {
     const hashedPassword = await bcrypt.hash(dto.password, 10);
     const emailVerificationToken = randomBytes(32).toString();
 
-    await this.db.userModel.create({
+    const user = await this.db.userModel.create({
       email: dto.email.toLowerCase(),
       hashedPassword,
       role: UserRole.USER,
       name: dto.name,
       isEmailVerified: false,
       emailVerificationToken,
+      projects: [EXAMPLE_PROJECT._id],
     });
+
+    // Add user to default project
+    await this.db.projectModel.findByIdAndUpdate(EXAMPLE_PROJECT._id, {
+      $push: { users: user._id.toString() },
+    });
+
+    // add user to default project
 
     // TODO: Send email with verificationToken
   }

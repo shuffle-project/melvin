@@ -10,6 +10,17 @@
       name="name"
       autocomplete="name"
     />
+    <mat-error
+      *ngIf="
+        formGroup.get('name')?.invalid &&
+        formGroup.get('name')?.errors &&
+        (formGroup.get('name')?.dirty || formGroup.get('name')?.touched)
+      "
+    >
+      <span *ngIf="formGroup.get('name')?.errors?.['required'] ">
+        Verpflichtendes Feld</span
+      >
+    </mat-error>
   </mat-form-field>
 
   <mat-form-field appearance="outline">
@@ -23,6 +34,20 @@
       name="email"
       autocomplete="email"
     />
+    <mat-error
+      *ngIf="
+        formGroup.get('email')?.invalid &&
+        formGroup.get('email')?.errors &&
+        (formGroup.get('email')?.dirty || formGroup.get('email')?.touched)
+      "
+    >
+      <span *ngIf="formGroup.get('email')?.errors?.['required'] ">
+        Verpflichtendes Feld</span
+      >
+      <span *ngIf="formGroup.get('email')?.errors?.['email'] ">
+        Keine valide EMail</span
+      >
+    </mat-error>
   </mat-form-field>
 
   <mat-form-field appearance="outline">
@@ -36,6 +61,21 @@
       name="password"
       autocomplete="new-password"
     />
+
+    <mat-error
+      *ngIf="
+        formGroup.get('password')?.invalid &&
+        formGroup.get('password')?.errors &&
+        (formGroup.get('password')?.dirty || formGroup.get('password')?.touched)
+      "
+    >
+      <span *ngIf="formGroup.get('password')?.errors?.['required'] ">
+        Verpflichtendes Feld</span
+      >
+      <span *ngIf="formGroup.get('password')?.errors?.['minlength'] ">
+        Mindestens 6 Zeichen.</span
+      >
+    </mat-error>
   </mat-form-field>
 
   <mat-form-field appearance="outline">
@@ -49,9 +89,25 @@
       name="password"
       autocomplete="new-password"
     />
+
+    <mat-error
+      *ngIf="
+        formGroup.get('passwordConfirm')?.invalid &&
+        formGroup.get('passwordConfirm')?.errors &&
+        (formGroup.get('passwordConfirm')?.dirty ||
+          formGroup.get('passwordConfirm')?.touched)
+      "
+    >
+      <span *ngIf="formGroup.get('passwordConfirm')?.errors?.['required'] ">
+        Verpflichtendes Feld</span
+      >
+      <span *ngIf="formGroup.get('passwordConfirm')?.errors?.['minlength'] ">
+        Mindestens 6 Zeichen.</span
+      >
+    </mat-error>
   </mat-form-field>
 
-  <div *ngIf="error$ | async as error">
+  <div *ngrxLet="error$ as error">
     {{ error }}
   </div>
 
@@ -70,7 +126,7 @@
           color="primary"
           style="margin-right: 10px"
         ></mat-spinner>
-        Login
+        Register
       </div>
     </button>
   </div>

@@ -53,6 +53,21 @@ export const selectLoginError = createSelector(
   (state) => state.loginError
 );
 
+// Register
+
+export const selectRegisterLoading = createSelector(
+  authState,
+  (state) => state.registerLoading
+);
+export const selectRegisterError = createSelector(
+  authState,
+  (state) => state.registerError
+);
+export const selectRegisterSuccess = createSelector(
+  authState,
+  (state) => state.registerSuccess
+);
+
 // Invite
 
 export const selectInviteToken = createSelector(
