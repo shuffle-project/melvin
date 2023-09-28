@@ -9,9 +9,18 @@
 
         <ng-content></ng-content>
 
-        <div class="header-buttons" *ngIf="!viewer">
+        <div class="header-buttons">
+          <div class="dark-mode-wrapper" *ngrxLet="darkMode$ as darkMode">
+            <mat-icon svgIcon="light_mode" class="svg-black"></mat-icon>
+            <mat-slide-toggle
+              [checked]="darkMode"
+              (toggleChange)="onToggleChangeDarkMode()"
+            ></mat-slide-toggle>
+            <mat-icon svgIcon="dark_mode" class="svg-black"></mat-icon>
+          </div>
+
           <button
-            *ngIf="'notifications' | featureEnabled"
+            *ngIf="('notifications' | featureEnabled) && !viewer"
             mat-icon-button
             [mat-menu-trigger-for]="notificationMenu"
           >

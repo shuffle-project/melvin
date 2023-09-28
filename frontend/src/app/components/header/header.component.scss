@@ -17,6 +17,8 @@ header {
 
   .header-buttons {
     margin-left: auto;
+    display: flex;
+    align-items: center;
   }
 }
 
@@ -72,5 +74,18 @@ header {
     margin-top: 5px;
     font-size: 12px;
     color: rgba(var(--color-black-rgb), 0.6);
+  }
+}
+
+.dark-mode-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid var(--color-border-grey);
+  border-radius: 5px;
+  height: 100%;
+
+  mat-icon {
+    padding: 0 6px;
   }
 }

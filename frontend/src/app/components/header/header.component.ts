@@ -5,8 +5,10 @@ import { Store } from '@ngrx/store';
 import { Observable, Subject, lastValueFrom, take } from 'rxjs';
 import { NotificationEntity } from 'src/app/services/api/entities/notification.entity';
 import * as authActions from 'src/app/store/actions/auth.actions';
+import { toggleDarkMode } from '../../store/actions/config.actions';
 import * as notificationsActions from '../../store/actions/notifications.actions';
 import * as authSelectors from '../../store/selectors/auth.selector';
+import * as configSelector from '../../store/selectors/config.selector';
 import * as notificationsSelectors from '../../store/selectors/notifications.selector';
 
 @Component({
@@ -29,6 +31,8 @@ export class HeaderComponent implements OnDestroy, OnInit {
   isMenuOpen: boolean = false;
 
   private destroy$$ = new Subject<void>();
+
+  public darkMode$ = this.store.select(configSelector.darkMode);
 
   totalUnreadNotifications$: Observable<number>;
   recentNotifications$: Observable<readonly NotificationEntity[]>;
@@ -77,5 +81,9 @@ export class HeaderComponent implements OnDestroy, OnInit {
 
   logout() {
     this.store.dispatch(authActions.logout());
+  }
+
+  onToggleChangeDarkMode() {
+    this.store.dispatch(toggleDarkMode());
   }
 }
