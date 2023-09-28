@@ -7,7 +7,6 @@ import {
   Validators,
 } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
 import * as authActions from '../../../../store/actions/auth.actions';
 import { AppState } from '../../../../store/app.state';
 import * as authSelectors from '../../../../store/selectors/auth.selector';
@@ -19,27 +18,30 @@ import * as authSelectors from '../../../../store/selectors/auth.selector';
 })
 export class RegisterComponent implements OnInit {
   public formGroup!: FormGroup;
-  public error$!: Observable<string | null>;
-  public loading$!: Observable<boolean>;
 
   constructor(
     private fb: NonNullableFormBuilder,
     private store: Store<AppState>
   ) {}
 
-  ngOnInit() {
-    this.loading$ = this.store.select(authSelectors.selectLoginLoading);
-    this.error$ = this.store.select(authSelectors.selectLoginError);
+  public error$ = this.store.select(authSelectors.selectRegisterError);
+  public loading$ = this.store.select(authSelectors.selectRegisterLoading);
+  public success$ = this.store.select(authSelectors.selectRegisterSuccess);
 
+  ngOnInit() {
     this.formGroup = this.fb.group(
       {
         email: ['', [Validators.required, Validators.email]],
-        name: '',
+        name: ['', [Validators.required]],
         password: ['', [Validators.required, Validators.minLength(6)]],
         passwordConfirm: ['', [Validators.required, Validators.minLength(6)]],
       },
       { validators: [this.confirmPasswordValidator] }
     );
+
+    this.loading$.subscribe((ev) => console.log(ev));
+    this.error$.subscribe((ev) => console.log(ev));
+    this.success$.subscribe((ev) => console.log(ev));
   }
 
   private confirmPasswordValidator(
