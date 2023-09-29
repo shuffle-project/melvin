@@ -2,7 +2,7 @@ version: "1"
 
 services:
   backend:
-    image: ghcr.io/shuffle-project/melvin-backend:main
+    build: backend/.
     container_name: melvin-backend
     volumes:
       - ..:/workspace:cached
@@ -16,7 +16,7 @@ services:
       - 3000:3000
 
   frontend:
-    image: ghcr.io/shuffle-project/melvin-frontend:main
+    build: frontend/.
     container_name: melvin-frontend
     ports:
       - 4200:4200
