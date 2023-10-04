@@ -1,0 +1,81 @@
+version: "3.6"
+
+services:
+  backend:
+    image: ghcr.io/shuffle-project/melvin-backend:main
+    container_name: melvin-backend
+    depends_on:
+      # mongodb:
+      #   condition: service_healthy
+      redis:
+        condition: service_healthy
+    ports:
+      - 3000:3000
+    healthcheck:
+      test: curl --fail http://localhost:3000 || exit 1
+      interval: 5s
+      retries: 10
+      timeout: 3s
+    volumes:
+      - ./backend.config.yml:/app/config.yml
+      - ./data/backend/media:/app/media/projects
+
+  frontend:
+    image: ghcr.io/shuffle-project/melvin-frontend:main
+    container_name: melvin-frontend
+    ports:
+      - 4200:80
+    depends_on:
+      backend:
+        condition: service_healthy
+    environment:
+      - FRONTEND_BASE_URL=http://localhost:4200
+      - BACKEND_BASE_URL=http://localhost:3000
+
+  mongodb:
+    image: mongo:4
+    container_name: ${COMPOSE_PROJECT_NAME}-mongo
+    restart: unless-stopped
+    volumes:
+      - ./data/mongodb:/data/db
+    healthcheck:
+      test: echo 'db.runCommand("ping").ok' | mongo mongo:27017/test --quiet
+      interval: 10s
+      timeout: 10s
+      retries: 5
+
+  redis:
+    image: redis
+    container_name: ${COMPOSE_PROJECT_NAME}-redis
+    restart: unless-stopped
+    volumes:
+      - ./data/redis:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "--raw", "incr", "ping"]
+      interval: 1s
+      timeout: 3s
+      retries: 5
+
+  # kurento:
+  #   container_name: ${COMPOSE_PROJECT_NAME}-kurento
+  #   image: kurento/kurento-media-server
+  #   ports:
+  #     - 8888:8888/tcp
+  #     - 5000-5050:5000-5050/udp
+  #   restart: unless-stopped
+  #   volumes:
+  #     - ../media/kurento/:/var/lib/kurento/:rw
+  #   environment:
+  #     - -GST_DEBUG="Kurento*:5"
+
+  # whisper:
+  #   container_name: ${COMPOSE_PROJECT_NAME}-whisper
+  #   build:
+  #     dockerfile: ../Dockerfile.whisper
+  #   ports:
+  #     - 5000:5000
+
+  # libretranslate:
+  #   image: libretranslate/libretranslate
+  #   container_name: ${COMPOSE_PROJECT_NAME}-libretranslate
+  #   restart: unless-stopped

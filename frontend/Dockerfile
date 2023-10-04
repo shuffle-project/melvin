@@ -1,6 +1,9 @@
 # Build stage
 
 FROM node:18-alpine AS builder
+
+RUN apk add --update --no-cache python3 build-base gcc && ln -sf /usr/bin/python3 /usr/bin/python
+
 WORKDIR /app
 COPY . .
 RUN npm ci && npm run build:docker
@@ -10,10 +13,7 @@ RUN npm ci && npm run build:docker
 FROM nginx:alpine
 COPY --from=builder /app/dist/editor-frontend /usr/share/nginx/html
 COPY ./nginx.conf /etc/nginx/conf.d/default.conf
+COPY ./nginx.sh /nginx.sh
 EXPOSE 80
 
-CMD ["/bin/bash", "-c", \
-"echo API_URL=[$API_URL], && \
-sed -i s#BACKEND_BASE_URL#$BACKEND_BASE_URL#g /usr/share/nginx/html/main.*.js && \
-sed -i s#FRONTEND_BASE_URL#$FRONTEND_BASE_URL#g /usr/share/nginx/html/main.*.js && \
-nginx -g 'daemon off;'"]
+CMD ["sh", "nginx.sh"]

@@ -3,7 +3,7 @@ import { ConfigService } from '@nestjs/config';
 import { parse } from '@plussub/srt-vtt-parser';
 import { randomBytes } from 'crypto';
 import dayjs from 'dayjs';
-import { ensureDir, remove, symlink } from 'fs-extra';
+import { emptyDir, ensureDir, symlink } from 'fs-extra';
 import { copyFile, readFile, readdir } from 'fs/promises';
 import { Types } from 'mongoose';
 import { basename, join } from 'path';
@@ -348,7 +348,7 @@ export class PopulateService {
   }
 
   async _clearMediaDirectory(): Promise<void> {
-    await remove(join('media', 'projects'));
+    await emptyDir(join('media', 'projects'));
   }
 
   async _copyMediaFiles(projects: Project[]): Promise<void> {
@@ -381,8 +381,10 @@ export class PopulateService {
 
     // Create symlinks -> auf windows muss der enwicklermodus aktiv sein
     if (this.configService.get('environment') !== Environment.DOCKER) {
+      this.logger.info('Create symlinks for default projects');
       await Promise.all(files.map((o) => symlink(o.src, o.dst, 'file')));
     } else {
+      this.logger.info('Copy files for default projects');
       for (const file of files) {
         await copyFile(file.src, file.dst);
       }
