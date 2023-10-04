@@ -39,7 +39,7 @@
             "allowedCommonJsDependencies": ["dayjs"]
           },
           "configurations": {
-            "production": {
+            "docker": {
               "budgets": [
                 {
                   "type": "initial",
@@ -55,7 +55,7 @@
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.prod.ts"
+                  "with": "src/environments/environment.docker.ts"
                 }
               ],
               "outputHashing": "all"
@@ -70,13 +70,13 @@
               "localize": ["en-US"]
             }
           },
-          "defaultConfiguration": "production"
+          "defaultConfiguration": "docker"
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
-            "production": {
-              "browserTarget": "editor-frontend:build:production"
+            "docker": {
+              "browserTarget": "editor-frontend:build:docker"
             },
             "development": {
               "browserTarget": "editor-frontend:build:development"

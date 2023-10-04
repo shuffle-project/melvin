@@ -13,7 +13,7 @@ import {
 export enum Environment {
   LOCAL = 'local',
   DEV = 'dev',
-  PROD = 'prod',
+  DOCKER = 'docker',
   TEST = 'test',
 }
 
