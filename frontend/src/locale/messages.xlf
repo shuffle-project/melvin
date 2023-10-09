@@ -3,10 +3,10 @@
   <file source-language="en-US" datatype="plaintext" original="ng2.template">
     <body>
       <trans-unit id="footerImprintLinkLabel" datatype="html">
-        <source><x id="START_LINK" ctype="x-a" equiv-text="Impri"/>Imprint<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/></source>
+        <source><x id="START_LINK" ctype="x-a" equiv-text="&apos;]&quot;&gt;"/>Imprint<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/></source>
       </trans-unit>
       <trans-unit id="footerContactLinktLabel" datatype="html">
-        <source><x id="START_LINK" ctype="x-a" equiv-text="Contact&lt;"/>Contact<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/></source>
+        <source><x id="START_LINK" ctype="x-a" equiv-text="&gt;"/>Contact<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/></source>
       </trans-unit>
       <trans-unit id="headerMarkAsReadButtonLabel" datatype="html">
         <source>Mark as read</source>
@@ -42,16 +42,16 @@
         <source> Add transcription </source>
       </trans-unit>
       <trans-unit id="createTranscriptionUploadRadioButton" datatype="html">
-        <source><x id="START_TAG_DIV" ctype="x-div" equiv-text="&lt;mat-ic"/><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;upload-transcription&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/> Upload <x id="CLOSE_TAG_DIV" ctype="x-div" equiv-text="&lt;/div&gt;"/></source>
+        <source><x id="START_TAG_DIV" ctype="x-div"/><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;upload-transcription&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/> Upload <x id="CLOSE_TAG_DIV" ctype="x-div" equiv-text="&lt;/div&gt;"/></source>
       </trans-unit>
       <trans-unit id="createTranscriptionCopyRadioButton" datatype="html">
-        <source><x id="START_TAG_DIV" ctype="x-div" equiv-text="&lt;mat-"/><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;copy-transcription&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/> Copy <x id="CLOSE_TAG_DIV" ctype="x-div" equiv-text="&lt;/div&gt;"/></source>
+        <source><x id="START_TAG_DIV" ctype="x-div"/><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;copy-transcription&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/> Copy <x id="CLOSE_TAG_DIV" ctype="x-div" equiv-text="&lt;/div&gt;"/></source>
       </trans-unit>
       <trans-unit id="createTranscriptionTranslateRadioButton" datatype="html">
-        <source><x id="START_TAG_DIV" ctype="x-div" equiv-text="&lt;mat-icon"/><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;translate-transcription&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/> Translate <x id="CLOSE_TAG_DIV" ctype="x-div" equiv-text="&lt;/div&gt;"/></source>
+        <source><x id="START_TAG_DIV" ctype="x-div"/><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;translate-transcription&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/> Translate <x id="CLOSE_TAG_DIV" ctype="x-div" equiv-text="&lt;/div&gt;"/></source>
       </trans-unit>
       <trans-unit id="createTranscriptionFromVideoRadioButton" datatype="html">
-        <source><x id="START_TAG_DIV" ctype="x-div" equiv-text="&lt;mat-icon"/><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;video&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/> Create from audio/video <x id="CLOSE_TAG_DIV" ctype="x-div" equiv-text="&lt;/div&gt;"/></source>
+        <source><x id="START_TAG_DIV" ctype="x-div"/><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;video&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/> Create from audio/video <x id="CLOSE_TAG_DIV" ctype="x-div" equiv-text="&lt;/div&gt;"/></source>
       </trans-unit>
       <trans-unit id="createTranscriptionUploadHeader" datatype="html">
         <source> Upload file (.vtt, .srt) </source>
@@ -183,16 +183,16 @@
         <source>Last updated at</source>
       </trans-unit>
       <trans-unit id="transcriptionEditTranscriptionButton" datatype="html">
-        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt; Edit"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="Edit"/> Edit </source>
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="Edit"/> Edit </source>
       </trans-unit>
       <trans-unit id="transcriptionOpenTranscriptionButton" datatype="html">
-        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt; Open"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="Open"/> Open </source>
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="Open"/> Open </source>
       </trans-unit>
       <trans-unit id="transcriptionMenuFileDownloadLabel" datatype="html">
-        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt; Dow"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="Downl"/> Download </source>
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="Downl"/> Download </source>
       </trans-unit>
       <trans-unit id="transcriptionDeleteTranscriptionButton" datatype="html">
-        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt; Delete"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="Del"/> Delete </source>
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="Del"/> Delete </source>
       </trans-unit>
       <trans-unit id="projectTranscriptionAddButtonTop" datatype="html">
         <source>Add</source>
@@ -276,7 +276,7 @@
         <source>Stay logged in</source>
       </trans-unit>
       <trans-unit id="loginLoginButtonLabel" datatype="html">
-        <source><x id="START_TAG_MAT_SPINNER" ctype="x-mat_spinner" equiv-text="$ | async&quot; strokeWidth=&quot;2&quot; diameter=&quot;20&quot; color=&quot;primary&quot; style=&quot;margin-right: 10px&quot; &gt;"/><x id="CLOSE_TAG_MAT_SPINNER" ctype="x-mat_spinner" equiv-text="Log"/> Login </source>
+        <source><x id="START_TAG_MAT_SPINNER" ctype="x-mat_spinner" equiv-text="=&quot;loading$ | async&quot; strokeWidth=&quot;2&quot; diameter=&quot;20&quot; color=&quot;primary&quot; style=&quot;margin-right: 10px&quot; &gt;"/><x id="CLOSE_TAG_MAT_SPINNER" ctype="x-mat_spinner" equiv-text="Log"/> Login </source>
       </trans-unit>
       <trans-unit id="registerNamePlaceholder" datatype="html">
         <source>Name</source>
@@ -291,7 +291,7 @@
         <source>Password (repeat)</source>
       </trans-unit>
       <trans-unit id="registerLoginButtonLabel" datatype="html">
-        <source><x id="START_TAG_MAT_SPINNER" ctype="x-mat_spinner" equiv-text="async&quot; strokeWidth=&quot;2&quot; diameter=&quot;20&quot; color=&quot;primary&quot; style=&quot;margin-right: 10px&quot; &gt;"/><x id="CLOSE_TAG_MAT_SPINNER" ctype="x-mat_spinner" equiv-text="Log"/> Login </source>
+        <source><x id="START_TAG_MAT_SPINNER" ctype="x-mat_spinner" equiv-text="oading$ | async&quot; strokeWidth=&quot;2&quot; diameter=&quot;20&quot; color=&quot;primary&quot; style=&quot;margin-right: 10px&quot; &gt;"/><x id="CLOSE_TAG_MAT_SPINNER" ctype="x-mat_spinner" equiv-text="Reg"/> Register </source>
       </trans-unit>
       <trans-unit id="captionPlayFromThisCaptionTooltip" datatype="html">
         <source>Play from this caption.</source>
@@ -301,9 +301,6 @@
       </trans-unit>
       <trans-unit id="captionChangeSpeakerTooltip" datatype="html">
         <source>Change speaker</source>
-      </trans-unit>
-      <trans-unit id="captionToggleDoneTooltip" datatype="html">
-        <source>Toggle done</source>
       </trans-unit>
       <trans-unit id="captionToggleFlagTooltip" datatype="html">
         <source>Toggle flag</source>
@@ -319,9 +316,6 @@
       </trans-unit>
       <trans-unit id="captionCaptionStartOverlapsPreviousCaptionError" datatype="html">
         <source>The start time of the caption overlaps with the previous caption.</source>
-      </trans-unit>
-      <trans-unit id="captionCaptionStartAfterEndError" datatype="html">
-        <source>The caption start time can&apos;t be after the end time.</source>
       </trans-unit>
       <trans-unit id="captionCaptionOverlapsFollowingError" datatype="html">
         <source>The caption end time overlaps with the following caption.</source>
@@ -343,9 +337,6 @@
       </trans-unit>
       <trans-unit id="editSpeakerModalNameAlreadyExists" datatype="html">
         <source>Name already exists</source>
-      </trans-unit>
-      <trans-unit id="videoStartStopTooltip" datatype="html">
-        <source>Start or stop video</source>
       </trans-unit>
       <trans-unit id="videoMuteUnmuteSoundTooltip" datatype="html">
         <source>Mute or unmute Sound</source>
@@ -390,13 +381,13 @@
         <source> File </source>
       </trans-unit>
       <trans-unit id="editorMenuFileEditLabel" datatype="html">
-        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="E"/> Edit </source>
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="E"/> Edit </source>
       </trans-unit>
       <trans-unit id="editorMenuFileDownloadLabel" datatype="html">
-        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="D"/> Download </source>
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="D"/> Download </source>
       </trans-unit>
       <trans-unit id="editorMenuFileDeleteLabel" datatype="html">
-        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="D"/> Delete </source>
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon"/> Delete </source>
       </trans-unit>
       <trans-unit id="editorMenuFileDownloadConfigureLabel" datatype="html">
         <source> Configure ... </source>
@@ -603,13 +594,13 @@
         <source>Video was processed successfully.</source>
       </trans-unit>
       <trans-unit id="headerMenuLogoutButton" datatype="html">
-        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="Logout"/>Logout </source>
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="Logout"/>Logout </source>
       </trans-unit>
       <trans-unit id="headerMenuLogoutButtonTooltip" datatype="html">
         <source>Logout</source>
       </trans-unit>
       <trans-unit id="headerMenuProfileButton" datatype="html">
-        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;P"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="Profile"/>Profile </source>
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/m"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="Profile"/>Profile </source>
       </trans-unit>
       <trans-unit id="headerMenuProfileButtonTooltip" datatype="html">
         <source>Go to your Profile</source>
@@ -748,6 +739,114 @@
       </trans-unit>
       <trans-unit id="videoFormLanguageRequiredError" datatype="html">
         <source>Please select the primary language of the file content</source>
+      </trans-unit>
+      <trans-unit id="captionLoopThisCaptionTooltip" datatype="html">
+        <source>Loop this caption.</source>
+      </trans-unit>
+      <trans-unit id="viewerHeaderHeaderAdjustLayout" datatype="html">
+        <source> Adjust Layout </source>
+      </trans-unit>
+      <trans-unit id="viewerHeaderHelpLabel" datatype="html">
+        <source>Help</source>
+      </trans-unit>
+      <trans-unit id="viewerAdjustLayoutDialogFontsizeLabel" datatype="html">
+        <source>Font Size</source>
+      </trans-unit>
+      <trans-unit id="viewerAdjustLayoutDialogFontsizeOptionBig" datatype="html">
+        <source>Big </source>
+      </trans-unit>
+      <trans-unit id="viewerAdjustLayoutDialogFontsizeOptionNormal" datatype="html">
+        <source>Normal </source>
+      </trans-unit>
+      <trans-unit id="viewerAdjustLayoutDialogFontsizeOptionSmall" datatype="html">
+        <source>Small </source>
+      </trans-unit>
+      <trans-unit id="viewerAdjustLayoutDialogSettingsHint" datatype="html">
+        <source> The settings are applied directly. </source>
+      </trans-unit>
+      <trans-unit id="viewerAdjustLayoutDialogTitle" datatype="html">
+        <source>Adjust Layout</source>
+      </trans-unit>
+      <trans-unit id="viewerAdjustLayoutDialogTranscriptHeader" datatype="html">
+        <source>Transcript</source>
+      </trans-unit>
+      <trans-unit id="viewerAdjustLayoutDialogTranscriptPositionLeft" datatype="html">
+        <source> Transcript left </source>
+      </trans-unit>
+      <trans-unit id="viewerAdjustLayoutDialogTranscriptPositionRight" datatype="html">
+        <source> Transcript right </source>
+      </trans-unit>
+      <trans-unit id="viewerAdjustLayoutDialogTranscriptToggleLabel" datatype="html">
+        <source> Show transcript</source>
+      </trans-unit>
+      <trans-unit id="viewerCaptionsSettingsDialogBackgroundColorLabel" datatype="html">
+        <source> Captions background color </source>
+      </trans-unit>
+      <trans-unit id="viewerCaptionsSettingsDialogBackgroundColorOptionBlack" datatype="html">
+        <source>black</source>
+      </trans-unit>
+      <trans-unit id="viewerCaptionsSettingsDialogBackgroundColorOptionBlue" datatype="html">
+        <source>blue</source>
+      </trans-unit>
+      <trans-unit id="viewerCaptionsSettingsDialogBackgroundColorOptionRed" datatype="html">
+        <source>red</source>
+      </trans-unit>
+      <trans-unit id="viewerCaptionsSettingsDialogBackgroundColorOptionWhite" datatype="html">
+        <source>white</source>
+      </trans-unit>
+      <trans-unit id="viewerCaptionsSettingsDialogBackgroundColorOptionYellow" datatype="html">
+        <source>yellow</source>
+      </trans-unit>
+      <trans-unit id="viewerCaptionsSettingsDialogExampletext" datatype="html">
+        <source> Example text: This is what the subtitles will look like. </source>
+      </trans-unit>
+      <trans-unit id="viewerCaptionsSettingsDialogFontColorLabel" datatype="html">
+        <source> Captions fontcolor</source>
+      </trans-unit>
+      <trans-unit id="viewerCaptionsSettingsDialogFontColorOptionBlack" datatype="html">
+        <source>black</source>
+      </trans-unit>
+      <trans-unit id="viewerCaptionsSettingsDialogFontColorOptionBlue" datatype="html">
+        <source>blue</source>
+      </trans-unit>
+      <trans-unit id="viewerCaptionsSettingsDialogFontColorOptionRed" datatype="html">
+        <source>red</source>
+      </trans-unit>
+      <trans-unit id="viewerCaptionsSettingsDialogFontColorOptionWhite" datatype="html">
+        <source>white</source>
+      </trans-unit>
+      <trans-unit id="viewerCaptionsSettingsDialogFontColorOptionYellow" datatype="html">
+        <source>yellow</source>
+      </trans-unit>
+      <trans-unit id="viewerCaptionsSettingsDialogFontsize" datatype="html">
+        <source> Captions fontsize </source>
+      </trans-unit>
+      <trans-unit id="viewerCaptionsSettingsDialogFontsizeOptionBig" datatype="html">
+        <source>big</source>
+      </trans-unit>
+      <trans-unit id="viewerCaptionsSettingsDialogFontsizeOptionBigger" datatype="html">
+        <source>bigger</source>
+      </trans-unit>
+      <trans-unit id="viewerCaptionsSettingsDialogFontsizeOptionMiddle" datatype="html">
+        <source>middle</source>
+      </trans-unit>
+      <trans-unit id="viewerCaptionsSettingsDialogFontsizeOptionSmall" datatype="html">
+        <source>small</source>
+      </trans-unit>
+      <trans-unit id="viewerCaptionsSettingsDialogHint" datatype="html">
+        <source> The settings are applied directly. </source>
+      </trans-unit>
+      <trans-unit id="viewerCaptionsSettingsDialogPositionLabel" datatype="html">
+        <source> Captions position </source>
+      </trans-unit>
+      <trans-unit id="viewerCaptionsSettingsDialogPositionOptionOver" datatype="html">
+        <source> Above the video. </source>
+      </trans-unit>
+      <trans-unit id="viewerCaptionsSettingsDialogPositionOptionUnder" datatype="html">
+        <source> Below the video. </source>
+      </trans-unit>
+      <trans-unit id="viewerCaptionsSettingsDialogTitle" datatype="html">
+        <source> Appearance of the captions </source>
       </trans-unit>
     </body>
   </file>

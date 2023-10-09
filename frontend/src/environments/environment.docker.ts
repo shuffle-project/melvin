@@ -4,8 +4,8 @@ const env: any = (window as any)['env'];
 
 export const environment: Environment = {
   production: true,
-  frontendBaseUrl: env.frontendBaseUrl || 'http://localhost:4200',
-  baseRestApi: env.backendBaseUrl || 'http://localhost:3000',
+  frontendBaseUrl: 'FRONTEND_BASE_URL',
+  baseRestApi: 'BACKEND_BASE_URL',
   features: {
     // General
     notifications: true,

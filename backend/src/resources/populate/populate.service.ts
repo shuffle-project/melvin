@@ -3,11 +3,15 @@ import { ConfigService } from '@nestjs/config';
 import { parse } from '@plussub/srt-vtt-parser';
 import { randomBytes } from 'crypto';
 import dayjs from 'dayjs';
-import { ensureDir, remove, symlink } from 'fs-extra';
-import { readFile, readdir } from 'fs/promises';
+import { emptyDir, ensureDir, symlink } from 'fs-extra';
+import { copyFile, readFile, readdir } from 'fs/promises';
 import { Types } from 'mongoose';
 import { basename, join } from 'path';
-import { EmailConfig, PopulateUser } from '../../config/config.interface';
+import {
+  EmailConfig,
+  Environment,
+  PopulateUser,
+} from '../../config/config.interface';
 import {
   EXAMPLE_CAPTION,
   EXAMPLE_PROJECT,
@@ -344,7 +348,7 @@ export class PopulateService {
   }
 
   async _clearMediaDirectory(): Promise<void> {
-    await remove(join('media', 'projects'));
+    await emptyDir(join('media', 'projects'));
   }
 
   async _copyMediaFiles(projects: Project[]): Promise<void> {
@@ -356,7 +360,7 @@ export class PopulateService {
 
     // Generate project directory and symlink paths
     const directories: string[] = [];
-    const symlinks: Array<{ target: string; path: string }> = [];
+    const files: Array<{ src: string; dst: string }> = [];
 
     for (const project of projects) {
       const projectDirectory = this.pathService.getProjectDirectory(
@@ -364,10 +368,10 @@ export class PopulateService {
       );
       directories.push(projectDirectory);
 
-      symlinks.push(
-        ...filepaths.map((target) => ({
-          target,
-          path: join(projectDirectory, basename(target)),
+      files.push(
+        ...filepaths.map((src) => ({
+          src,
+          dst: join(projectDirectory, basename(src)),
         })),
       );
     }
@@ -376,7 +380,15 @@ export class PopulateService {
     await Promise.all(directories.map((o) => ensureDir(o)));
 
     // Create symlinks -> auf windows muss der enwicklermodus aktiv sein
-    await Promise.all(symlinks.map((o) => symlink(o.target, o.path, 'file')));
+    if (this.configService.get('environment') !== Environment.DOCKER) {
+      this.logger.info('Create symlinks for default projects');
+      await Promise.all(files.map((o) => symlink(o.src, o.dst, 'file')));
+    } else {
+      this.logger.info('Copy files for default projects');
+      for (const file of files) {
+        await copyFile(file.src, file.dst);
+      }
+    }
   }
 
   async populate(persons: Person[], numProjects: number): Promise<any> {

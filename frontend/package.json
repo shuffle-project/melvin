@@ -6,6 +6,7 @@
     "start": "ng serve --hmr",
     "start2": "ng serve --host 0.0.0.0 --disable-host-check --hmr ",
     "build": "ng build",
+    "build:docker": "ng build --configuration docker",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "test:ci": "ng test --browsers=ChromeHeadlessExtended --no-watch",
