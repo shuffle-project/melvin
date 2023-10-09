@@ -743,6 +743,111 @@
       <trans-unit id="captionLoopThisCaptionTooltip" datatype="html">
         <source>Loop this caption.</source>
       </trans-unit>
+      <trans-unit id="viewerHeaderHeaderAdjustLayout" datatype="html">
+        <source> Adjust Layout </source>
+      </trans-unit>
+      <trans-unit id="viewerHeaderHelpLabel" datatype="html">
+        <source>Help</source>
+      </trans-unit>
+      <trans-unit id="viewerAdjustLayoutDialogFontsizeLabel" datatype="html">
+        <source>Font Size</source>
+      </trans-unit>
+      <trans-unit id="viewerAdjustLayoutDialogFontsizeOptionBig" datatype="html">
+        <source>Big </source>
+      </trans-unit>
+      <trans-unit id="viewerAdjustLayoutDialogFontsizeOptionNormal" datatype="html">
+        <source>Normal </source>
+      </trans-unit>
+      <trans-unit id="viewerAdjustLayoutDialogFontsizeOptionSmall" datatype="html">
+        <source>Small </source>
+      </trans-unit>
+      <trans-unit id="viewerAdjustLayoutDialogSettingsHint" datatype="html">
+        <source> The settings are applied directly. </source>
+      </trans-unit>
+      <trans-unit id="viewerAdjustLayoutDialogTitle" datatype="html">
+        <source>Adjust Layout</source>
+      </trans-unit>
+      <trans-unit id="viewerAdjustLayoutDialogTranscriptHeader" datatype="html">
+        <source>Transcript</source>
+      </trans-unit>
+      <trans-unit id="viewerAdjustLayoutDialogTranscriptPositionLeft" datatype="html">
+        <source> Transcript left </source>
+      </trans-unit>
+      <trans-unit id="viewerAdjustLayoutDialogTranscriptPositionRight" datatype="html">
+        <source> Transcript right </source>
+      </trans-unit>
+      <trans-unit id="viewerAdjustLayoutDialogTranscriptToggleLabel" datatype="html">
+        <source> Show transcript</source>
+      </trans-unit>
+      <trans-unit id="viewerCaptionsSettingsDialogBackgroundColorLabel" datatype="html">
+        <source> Captions background color </source>
+      </trans-unit>
+      <trans-unit id="viewerCaptionsSettingsDialogBackgroundColorOptionBlack" datatype="html">
+        <source>black</source>
+      </trans-unit>
+      <trans-unit id="viewerCaptionsSettingsDialogBackgroundColorOptionBlue" datatype="html">
+        <source>blue</source>
+      </trans-unit>
+      <trans-unit id="viewerCaptionsSettingsDialogBackgroundColorOptionRed" datatype="html">
+        <source>red</source>
+      </trans-unit>
+      <trans-unit id="viewerCaptionsSettingsDialogBackgroundColorOptionWhite" datatype="html">
+        <source>white</source>
+      </trans-unit>
+      <trans-unit id="viewerCaptionsSettingsDialogBackgroundColorOptionYellow" datatype="html">
+        <source>yellow</source>
+      </trans-unit>
+      <trans-unit id="viewerCaptionsSettingsDialogExampletext" datatype="html">
+        <source> Example text: This is what the subtitles will look like. </source>
+      </trans-unit>
+      <trans-unit id="viewerCaptionsSettingsDialogFontColorLabel" datatype="html">
+        <source> Captions fontcolor</source>
+      </trans-unit>
+      <trans-unit id="viewerCaptionsSettingsDialogFontColorOptionBlack" datatype="html">
+        <source>black</source>
+      </trans-unit>
+      <trans-unit id="viewerCaptionsSettingsDialogFontColorOptionBlue" datatype="html">
+        <source>blue</source>
+      </trans-unit>
+      <trans-unit id="viewerCaptionsSettingsDialogFontColorOptionRed" datatype="html">
+        <source>red</source>
+      </trans-unit>
+      <trans-unit id="viewerCaptionsSettingsDialogFontColorOptionWhite" datatype="html">
+        <source>white</source>
+      </trans-unit>
+      <trans-unit id="viewerCaptionsSettingsDialogFontColorOptionYellow" datatype="html">
+        <source>yellow</source>
+      </trans-unit>
+      <trans-unit id="viewerCaptionsSettingsDialogFontsize" datatype="html">
+        <source> Captions fontsize </source>
+      </trans-unit>
+      <trans-unit id="viewerCaptionsSettingsDialogFontsizeOptionBig" datatype="html">
+        <source>big</source>
+      </trans-unit>
+      <trans-unit id="viewerCaptionsSettingsDialogFontsizeOptionBigger" datatype="html">
+        <source>bigger</source>
+      </trans-unit>
+      <trans-unit id="viewerCaptionsSettingsDialogFontsizeOptionMiddle" datatype="html">
+        <source>middle</source>
+      </trans-unit>
+      <trans-unit id="viewerCaptionsSettingsDialogFontsizeOptionSmall" datatype="html">
+        <source>small</source>
+      </trans-unit>
+      <trans-unit id="viewerCaptionsSettingsDialogHint" datatype="html">
+        <source> The settings are applied directly. </source>
+      </trans-unit>
+      <trans-unit id="viewerCaptionsSettingsDialogPositionLabel" datatype="html">
+        <source> Captions position </source>
+      </trans-unit>
+      <trans-unit id="viewerCaptionsSettingsDialogPositionOptionOver" datatype="html">
+        <source> Above the video. </source>
+      </trans-unit>
+      <trans-unit id="viewerCaptionsSettingsDialogPositionOptionUnder" datatype="html">
+        <source> Below the video. </source>
+      </trans-unit>
+      <trans-unit id="viewerCaptionsSettingsDialogTitle" datatype="html">
+        <source> Appearance of the captions </source>
+      </trans-unit>
     </body>
   </file>
 </xliff>

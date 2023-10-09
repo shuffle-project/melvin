@@ -990,6 +990,146 @@
         <source>Loop this caption.</source>
         <target state="new">Loop this caption.</target>
       </trans-unit>
+      <trans-unit id="viewerHeaderHelpLabel" datatype="html">
+        <source>Help</source>
+        <target state="final">Hilfe</target>
+      </trans-unit>
+      <trans-unit id="viewerHeaderHeaderAdjustLayout" datatype="html">
+        <source> Adjust Layout </source>
+        <target state="final"> Layout anpassen </target>
+      </trans-unit>
+      <trans-unit id="viewerAdjustLayoutDialogTitle" datatype="html">
+        <source>Adjust Layout</source>
+        <target state="final">Layout anpassen</target>
+      </trans-unit>
+      <trans-unit id="viewerAdjustLayoutDialogSettingsHint" datatype="html">
+        <source> The settings are applied directly. </source>
+        <target state="final"> Die Einstellungen werden direkt angewendet. </target>
+      </trans-unit>
+      <trans-unit id="viewerAdjustLayoutDialogTranscriptHeader" datatype="html">
+        <source>Transcript</source>
+        <target state="final">Transkript</target>
+      </trans-unit>
+      <trans-unit id="viewerAdjustLayoutDialogTranscriptToggleLabel" datatype="html">
+        <source> Show transcript</source>
+        <target state="final"> Transkript anzeigen</target>
+      </trans-unit>
+      <trans-unit id="viewerAdjustLayoutDialogFontsizeLabel" datatype="html">
+        <source>Font Size</source>
+        <target state="final">Schriftgröße</target>
+      </trans-unit>
+      <trans-unit id="viewerAdjustLayoutDialogFontsizeOptionSmall" datatype="html">
+        <source>Small </source>
+        <target state="final">Klein </target>
+      </trans-unit>
+      <trans-unit id="viewerAdjustLayoutDialogFontsizeOptionNormal" datatype="html">
+        <source>Normal </source>
+        <target state="final">Normal </target>
+      </trans-unit>
+      <trans-unit id="viewerAdjustLayoutDialogFontsizeOptionBig" datatype="html">
+        <source>Big </source>
+        <target state="final">Groß </target>
+      </trans-unit>
+      <trans-unit id="viewerAdjustLayoutDialogTranscriptPositionLeft" datatype="html">
+        <source> Transcript left </source>
+        <target state="final"> Transkript links </target>
+      </trans-unit>
+      <trans-unit id="viewerAdjustLayoutDialogTranscriptPositionRight" datatype="html">
+        <source> Transcript right </source>
+        <target state="final"> Transkript rechts </target>
+      </trans-unit>
+      <trans-unit id="viewerCaptionsSettingsDialogTitle" datatype="html">
+        <source> Appearance of the captions </source>
+        <target state="final"> Darstellung der Untertitel </target>
+      </trans-unit>
+      <trans-unit id="viewerCaptionsSettingsDialogHint" datatype="html">
+        <source> The settings are applied directly. </source>
+        <target state="final"> Die Einstellungen werden direkt angewendet. </target>
+      </trans-unit>
+      <trans-unit id="viewerCaptionsSettingsDialogBackgroundColorLabel" datatype="html">
+        <source> Captions background color </source>
+        <target state="final"> Hintergrundfarbe</target>
+      </trans-unit>
+      <trans-unit id="viewerCaptionsSettingsDialogBackgroundColorOptionBlack" datatype="html">
+        <source>black</source>
+        <target state="final">schwarz</target>
+      </trans-unit>
+      <trans-unit id="viewerCaptionsSettingsDialogBackgroundColorOptionWhite" datatype="html">
+        <source>white</source>
+        <target state="final">weiß</target>
+      </trans-unit>
+      <trans-unit id="viewerCaptionsSettingsDialogBackgroundColorOptionYellow" datatype="html">
+        <source>yellow</source>
+        <target state="final">gelb</target>
+      </trans-unit>
+      <trans-unit id="viewerCaptionsSettingsDialogBackgroundColorOptionRed" datatype="html">
+        <source>red</source>
+        <target state="final">rot</target>
+      </trans-unit>
+      <trans-unit id="viewerCaptionsSettingsDialogBackgroundColorOptionBlue" datatype="html">
+        <source>blue</source>
+        <target state="final">blau</target>
+      </trans-unit>
+      <trans-unit id="viewerCaptionsSettingsDialogFontColorLabel" datatype="html">
+        <source> Captions fontcolor</source>
+        <target state="final"> Schriftfarbe </target>
+      </trans-unit>
+      <trans-unit id="viewerCaptionsSettingsDialogFontColorOptionBlack" datatype="html">
+        <source>black</source>
+        <target state="final">schwarz</target>
+      </trans-unit>
+      <trans-unit id="viewerCaptionsSettingsDialogFontColorOptionWhite" datatype="html">
+        <source>white</source>
+        <target state="final">weiß</target>
+      </trans-unit>
+      <trans-unit id="viewerCaptionsSettingsDialogFontColorOptionYellow" datatype="html">
+        <source>yellow</source>
+        <target state="final">gelb</target>
+      </trans-unit>
+      <trans-unit id="viewerCaptionsSettingsDialogFontColorOptionRed" datatype="html">
+        <source>red</source>
+        <target state="final">rot</target>
+      </trans-unit>
+      <trans-unit id="viewerCaptionsSettingsDialogFontColorOptionBlue" datatype="html">
+        <source>blue</source>
+        <target state="final">blau</target>
+      </trans-unit>
+      <trans-unit id="viewerCaptionsSettingsDialogFontsize" datatype="html">
+        <source> Captions fontsize </source>
+        <target state="final"> Schriftgröße </target>
+      </trans-unit>
+      <trans-unit id="viewerCaptionsSettingsDialogFontsizeOptionSmall" datatype="html">
+        <source>small</source>
+        <target state="final">klein</target>
+      </trans-unit>
+      <trans-unit id="viewerCaptionsSettingsDialogFontsizeOptionMiddle" datatype="html">
+        <source>middle</source>
+        <target state="final">mittel</target>
+      </trans-unit>
+      <trans-unit id="viewerCaptionsSettingsDialogFontsizeOptionBig" datatype="html">
+        <source>big</source>
+        <target state="final">groß</target>
+      </trans-unit>
+      <trans-unit id="viewerCaptionsSettingsDialogFontsizeOptionBigger" datatype="html">
+        <source>bigger</source>
+        <target state="final">größer</target>
+      </trans-unit>
+      <trans-unit id="viewerCaptionsSettingsDialogPositionLabel" datatype="html">
+        <source> Captions position </source>
+        <target state="final"> Position </target>
+      </trans-unit>
+      <trans-unit id="viewerCaptionsSettingsDialogPositionOptionOver" datatype="html">
+        <source> Above the video. </source>
+        <target state="final"> Über dem Video. </target>
+      </trans-unit>
+      <trans-unit id="viewerCaptionsSettingsDialogPositionOptionUnder" datatype="html">
+        <source> Below the video. </source>
+        <target state="final"> Unterhalb des Videos. </target>
+      </trans-unit>
+      <trans-unit id="viewerCaptionsSettingsDialogExampletext" datatype="html">
+        <source> Example text: This is what the subtitles will look like. </source>
+        <target state="final"> Beispieltext: So werden die Untertitel aussehen. </target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

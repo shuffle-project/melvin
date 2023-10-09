@@ -2,7 +2,9 @@
   <!-- <div mat-dialog-actions> -->
   <!-- </div> -->
 
-  <h2 mat-dialog-title>Darstellung der Captions</h2>
+  <h2 mat-dialog-title i18n="@@viewerCaptionsSettingsDialogTitle">
+    Appearance of the captions
+  </h2>
 
   <div mat-dialog-content>
     <button
@@ -14,15 +16,20 @@
       <mat-icon svgIcon="close"></mat-icon>
     </button>
 
-    <div class="hint">Die Einstellungen werden direkt angewendet.</div>
+    <div class="hint" i18n="@@viewerCaptionsSettingsDialogHint">
+      The settings are applied directly.
+    </div>
     <!--  -->
 
     <div
       class="form-field-wrapper"
       *ngrxLet="backgroundColor$ as backgroundColor"
     >
-      <mat-label for="captionsBackgroundColor">
-        Hintergrundfarbe der Untertitel
+      <mat-label
+        for="captionsBackgroundColor"
+        i18n="@@viewerCaptionsSettingsDialogBackgroundColorLabel"
+      >
+        Captions background color
       </mat-label>
       <mat-form-field appearance="fill">
         <mat-select
@@ -30,35 +37,83 @@
           [value]="backgroundColor"
           (selectionChange)="onChangeBackgroundColor($event)"
         >
-          <mat-option value="{{ ColorOptions.BLACK }}">schwarz</mat-option>
-          <mat-option value="{{ ColorOptions.WHITE }}">weiß</mat-option>
-          <mat-option value="{{ ColorOptions.YELLOW }}">gelb</mat-option>
-          <mat-option value="{{ ColorOptions.RED }}">rot</mat-option>
-          <mat-option value="{{ ColorOptions.BLUE }}">blau</mat-option>
+          <mat-option
+            value="{{ ColorOptions.BLACK }}"
+            i18n="@@viewerCaptionsSettingsDialogBackgroundColorOptionBlack"
+            >black</mat-option
+          >
+          <mat-option
+            value="{{ ColorOptions.WHITE }}"
+            i18n="@@viewerCaptionsSettingsDialogBackgroundColorOptionWhite"
+            >white</mat-option
+          >
+          <mat-option
+            value="{{ ColorOptions.YELLOW }}"
+            i18n="@@viewerCaptionsSettingsDialogBackgroundColorOptionYellow"
+            >yellow</mat-option
+          >
+          <mat-option
+            value="{{ ColorOptions.RED }}"
+            i18n="@@viewerCaptionsSettingsDialogBackgroundColorOptionRed"
+            >red</mat-option
+          >
+          <mat-option
+            value="{{ ColorOptions.BLUE }}"
+            i18n="@@viewerCaptionsSettingsDialogBackgroundColorOptionBlue"
+            >blue</mat-option
+          >
         </mat-select>
       </mat-form-field>
     </div>
 
     <div class="form-field-wrapper" *ngrxLet="color$ as color">
-      <mat-label for="captionColor"> Schriftfarbe der Untertitel</mat-label>
+      <mat-label
+        for="captionColor"
+        i18n="@@viewerCaptionsSettingsDialogFontColorLabel"
+      >
+        Captions fontcolor</mat-label
+      >
       <mat-form-field appearance="fill">
         <mat-select
           id="captionsColor"
           [value]="color"
           (selectionChange)="onChangeColor($event)"
         >
-          <mat-option value="{{ ColorOptions.BLACK }}">schwarz</mat-option>
-          <mat-option value="{{ ColorOptions.WHITE }}">weiß</mat-option>
-          <mat-option value="{{ ColorOptions.YELLOW }}">gelb</mat-option>
-          <mat-option value="{{ ColorOptions.RED }}">rot</mat-option>
-          <mat-option value="{{ ColorOptions.BLUE }}">blau</mat-option>
+          <mat-option
+            value="{{ ColorOptions.BLACK }}"
+            i18n="@@viewerCaptionsSettingsDialogFontColorOptionBlack"
+            >black</mat-option
+          >
+          <mat-option
+            value="{{ ColorOptions.WHITE }}"
+            i18n="@@viewerCaptionsSettingsDialogFontColorOptionWhite"
+            >white</mat-option
+          >
+          <mat-option
+            value="{{ ColorOptions.YELLOW }}"
+            i18n="@@viewerCaptionsSettingsDialogFontColorOptionYellow"
+            >yellow</mat-option
+          >
+          <mat-option
+            value="{{ ColorOptions.RED }}"
+            i18n="@@viewerCaptionsSettingsDialogFontColorOptionRed"
+            >red</mat-option
+          >
+          <mat-option
+            value="{{ ColorOptions.BLUE }}"
+            i18n="@@viewerCaptionsSettingsDialogFontColorOptionBlue"
+            >blue</mat-option
+          >
         </mat-select>
       </mat-form-field>
     </div>
 
     <div class="form-field-wrapper" *ngrxLet="fontsize$ as fontsize">
-      <mat-label for="captionsFontsize">
-        Schriftgröße der Untertitel
+      <mat-label
+        for="captionsFontsize"
+        i18n="@@viewerCaptionsSettingsDialogFontsize"
+      >
+        Captions fontsize
       </mat-label>
       <mat-form-field appearance="fill">
         <mat-select
@@ -66,27 +121,54 @@
           [value]="fontsize"
           (selectionChange)="onChangeFontsize($event)"
         >
-          <mat-option value="{{ SizeOptions.SMALL }}">Klein</mat-option>
-          <mat-option value="{{ SizeOptions.MEDIUM }}">Mittel</mat-option>
-          <mat-option value="{{ SizeOptions.LARGE }}">Groß</mat-option>
-          <mat-option value="{{ SizeOptions.LARGER }}">Größer</mat-option>
+          <mat-option
+            value="{{ SizeOptions.SMALL }}"
+            i18n="@@viewerCaptionsSettingsDialogFontsizeOptionSmall"
+            >small</mat-option
+          >
+          <mat-option
+            value="{{ SizeOptions.MEDIUM }}"
+            i18n="@@viewerCaptionsSettingsDialogFontsizeOptionMiddle"
+            >middle</mat-option
+          >
+          <mat-option
+            value="{{ SizeOptions.LARGE }}"
+            i18n="@@viewerCaptionsSettingsDialogFontsizeOptionBig"
+            >big</mat-option
+          >
+          <mat-option
+            value="{{ SizeOptions.LARGER }}"
+            i18n="@@viewerCaptionsSettingsDialogFontsizeOptionBigger"
+            >bigger</mat-option
+          >
         </mat-select>
       </mat-form-field>
     </div>
 
     <div class="form-field-wrapper" *ngrxLet="position$ as position">
-      <mat-label for="captionsFontsize"> Position der Captions </mat-label>
+      <mat-label
+        for="captionsFontsize"
+        i18n="@@viewerCaptionsSettingsDialogPositionLabel"
+      >
+        Captions position
+      </mat-label>
       <mat-form-field appearance="fill">
         <mat-select
           id="captionsPosition"
           [value]="position"
           (selectionChange)="onChangePosition($event)"
         >
-          <mat-option value="{{ CaptionPositionOptions.OVER_VIDEO }}">
-            Über dem Video
+          <mat-option
+            value="{{ CaptionPositionOptions.OVER_VIDEO }}"
+            i18n="@@viewerCaptionsSettingsDialogPositionOptionOver"
+          >
+            Above the video.
           </mat-option>
-          <mat-option value="{{ CaptionPositionOptions.UNDER_VIDEO }}">
-            Unterhalb des Videos
+          <mat-option
+            value="{{ CaptionPositionOptions.UNDER_VIDEO }}"
+            i18n="@@viewerCaptionsSettingsDialogPositionOptionUnder"
+          >
+            Below the video.
           </mat-option>
         </mat-select>
       </mat-form-field>
@@ -97,8 +179,9 @@
       class="like-captions-text fontsize-{{ combined.fontsize }} color-{{
         combined.color
       }} backgroundColor-{{ combined.backgroundColor }}"
+      i18n="@@viewerCaptionsSettingsDialogExampletext"
     >
-      So sehen die Untertitel dann aus.
+      Example text: This is what the subtitles will look like.
     </div>
 
     <!-- <div mat-dialog-actions>

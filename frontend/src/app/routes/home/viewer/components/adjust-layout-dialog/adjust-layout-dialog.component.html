@@ -1,5 +1,5 @@
 <div class="dialog-wrapper">
-  <h2 mat-dialog-title>Layout anpassen</h2>
+  <h2 mat-dialog-title i18n="@@viewerAdjustLayoutDialogTitle">Adjust Layout</h2>
 
   <div mat-dialog-content>
     <button
@@ -11,7 +11,9 @@
       <mat-icon svgIcon="close"></mat-icon>
     </button>
 
-    <div class="hint">Die Einstellungen werden direkt angewendet.</div>
+    <div class="hint" i18n="@@viewerAdjustLayoutDialogSettingsHint">
+      The settings are applied directly.
+    </div>
 
     <!-- <h3>Video</h3>
     <mat-radio-group
@@ -33,11 +35,12 @@
       </mat-radio-button>
     </mat-radio-group> -->
 
-    <h3>Transkript</h3>
+    <h3 i18n="@@viewerAdjustLayoutDialogTranscriptHeader">Transcript</h3>
     <div class="input-wrapper">
       <mat-slide-toggle
         [checked]="transcriptEnabled$ | ngrxPush"
         (change)="onTranscriptEnabledChanged($event)"
+        i18n="@@viewerAdjustLayoutDialogTranscriptToggleLabel"
       >
         Show transcript</mat-slide-toggle
       >
@@ -45,17 +48,29 @@
 
     <div class="input-wrapper">
       <mat-form-field appearance="fill">
-        <mat-label>Schriftgröße</mat-label>
+        <mat-label i18n="@@viewerAdjustLayoutDialogFontsizeLabel"
+          >Font Size</mat-label
+        >
         <mat-select
           [value]="transcriptFontsize$ | ngrxPush"
           (selectionChange)="onChangeFontsize($event)"
           [disabled]="!(transcriptEnabled$ | ngrxPush)"
         >
-          <mat-option value="{{ TranscriptFontsize.SMALL }}">Klein </mat-option>
-          <mat-option value="{{ TranscriptFontsize.NORMAL }}"
+          <mat-option
+            value="{{ TranscriptFontsize.SMALL }}"
+            i18n="@@viewerAdjustLayoutDialogFontsizeOptionSmall"
+            >Small
+          </mat-option>
+          <mat-option
+            value="{{ TranscriptFontsize.NORMAL }}"
+            i18n="@@viewerAdjustLayoutDialogFontsizeOptionNormal"
             >Normal
           </mat-option>
-          <mat-option value="{{ TranscriptFontsize.LARGE }}">Groß </mat-option>
+          <mat-option
+            value="{{ TranscriptFontsize.LARGE }}"
+            i18n="@@viewerAdjustLayoutDialogFontsizeOptionBig"
+            >Big
+          </mat-option>
         </mat-select>
       </mat-form-field>
     </div>
@@ -67,11 +82,17 @@
         (change)="onTranscriptPositionChanged($event)"
         [disabled]="!(transcriptEnabled$ | ngrxPush)"
       >
-        <mat-radio-button value="{{ TranscriptPosition.LEFT }}">
-          Transkript links
+        <mat-radio-button
+          value="{{ TranscriptPosition.LEFT }}"
+          i18n="@@viewerAdjustLayoutDialogTranscriptPositionLeft"
+        >
+          Transcript left
         </mat-radio-button>
-        <mat-radio-button value="{{ TranscriptPosition.RIGHT }}">
-          Transkript rechts
+        <mat-radio-button
+          value="{{ TranscriptPosition.RIGHT }}"
+          i18n="@@viewerAdjustLayoutDialogTranscriptPositionRight"
+        >
+          Transcript right
         </mat-radio-button>
         <!-- <mat-radio-button value="{{ TranscriptPosition.BOTTOM }}">
         Transkript unten
