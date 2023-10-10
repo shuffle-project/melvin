@@ -60,3 +60,7 @@ export const toggleShowVideo = createAction(
   '[PLAYER COMPONENT] Toggle show video',
   props<{ id: string }>()
 );
+
+export const toggleSignLanguageVideos = createAction(
+  '[CONTROLS COMPONENT] Toggle show sign langauge video'
+);

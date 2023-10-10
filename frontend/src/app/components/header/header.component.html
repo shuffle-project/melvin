@@ -9,7 +9,7 @@
 
         <ng-content></ng-content>
 
-        <div class="header-buttons">
+        <div class="header-buttons {{ !viewer ? 'margin-left' : '' }}">
           <div class="dark-mode-wrapper" *ngrxLet="darkMode$ as darkMode">
             <mat-icon svgIcon="light_mode" class="svg-black"></mat-icon>
             <mat-slide-toggle

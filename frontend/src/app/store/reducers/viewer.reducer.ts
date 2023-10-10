@@ -9,6 +9,7 @@ import {
   TranscriptFontsize,
   TranscriptPosition,
 } from '../../routes/home/viewer/viewer.interfaces';
+import { VideoCategory } from '../../services/api/entities/project.entity';
 import { StorageKey } from '../../services/storage/storage-key.enum';
 import { StorageService } from '../../services/storage/storage.service';
 import * as viewerActions from '../actions/viewer.actions';
@@ -116,6 +117,26 @@ export const viewerReducer = createReducer(
           return video;
         }
         return { ...video, shown: !video.shown };
+      }),
+    };
+  }),
+  on(viewerActions.toggleSignLanguageVideos, (state) => {
+    const shownSignLanguageVideos = state.viewerVideos.filter(
+      (video) =>
+        video.category === VideoCategory.SIGN_LANGUAGE && video.shown === true
+    );
+
+    return {
+      ...state,
+      viewerVideos: state.viewerVideos.map((video) => {
+        if (video.category !== VideoCategory.SIGN_LANGUAGE) {
+          return video;
+        }
+        if (shownSignLanguageVideos.length > 0) {
+          return { ...video, shown: false };
+        } else {
+          return { ...video, shown: true };
+        }
       }),
     };
   })

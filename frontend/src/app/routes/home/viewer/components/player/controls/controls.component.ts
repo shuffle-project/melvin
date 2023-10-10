@@ -161,6 +161,10 @@ export class ControlsComponent {
     }
   }
 
+  onToggleSignLanguageVideo() {
+    this.store.dispatch(viewerActions.toggleSignLanguageVideos());
+  }
+
   //TODO duplicate in player.component.ts
   onClickToggleVideoShown(event: MouseEvent, video: ViewerVideo) {
     this.store.dispatch(viewerActions.toggleShowVideo({ id: video.id }));

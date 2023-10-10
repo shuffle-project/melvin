@@ -94,6 +94,7 @@
         mat-icon-button
         class="md"
         [disabled]="!(signLanguageAvailable$ | ngrxPush)"
+        (click)="onToggleSignLanguageVideo()"
       >
         <mat-icon svgIcon="sign_language" class="svg-black"></mat-icon>
       </button>
