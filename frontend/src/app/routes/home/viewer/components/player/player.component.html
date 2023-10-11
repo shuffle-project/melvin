@@ -82,9 +82,12 @@
         <!-- over / under -->
         <span
           *ngrxLet="viewerService.currentCaption$ as currentCaption"
-          class="fontsize-{{ combined.fontsize }} color-{{
-            combined.color
-          }} backgroundColor-{{ combined.backgroundColor }}"
+          class=""
+          [ngStyle]="{
+            'font-size.%': combined.fontsize,
+            color: combined.color,
+            'background-color': combined.backgroundColor
+          }"
         >
           {{ currentCaption?.text || '-' }}</span
         >

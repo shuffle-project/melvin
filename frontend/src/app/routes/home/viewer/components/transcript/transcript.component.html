@@ -44,6 +44,9 @@
       <div
         id="captions-viewport"
         class="captions-viewport fontsize-{{ transcriptFontsize$ | ngrxPush }}"
+        [ngStyle]="{
+          'font-size.%': transcriptFontsize$ | ngrxPush
+        }"
         (scroll)="onScrollInViewport()"
       >
         <div
