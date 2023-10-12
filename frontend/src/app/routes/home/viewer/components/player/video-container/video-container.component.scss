@@ -43,14 +43,16 @@ video {
 
     border-radius: 6px;
     top: 0;
-    color: var(--color-white);
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background: rgba($color: #000000, $alpha: 0.7);
+    // background: rgba($color: var(--color-rgb-black), $alpha: 0.7);
+    background: rgba($color: black, $alpha: 0.7); // TODO invert in dark mode?
 
     .title {
+      // color: var(--color-white);
+      color: white;
       max-height: 50%;
       height: 50%;
       text-align: center;

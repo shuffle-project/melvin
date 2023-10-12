@@ -752,15 +752,6 @@
       <trans-unit id="viewerAdjustLayoutDialogFontsizeLabel" datatype="html">
         <source>Font Size</source>
       </trans-unit>
-      <trans-unit id="viewerAdjustLayoutDialogFontsizeOptionBig" datatype="html">
-        <source>Big </source>
-      </trans-unit>
-      <trans-unit id="viewerAdjustLayoutDialogFontsizeOptionNormal" datatype="html">
-        <source>Normal </source>
-      </trans-unit>
-      <trans-unit id="viewerAdjustLayoutDialogFontsizeOptionSmall" datatype="html">
-        <source>Small </source>
-      </trans-unit>
       <trans-unit id="viewerAdjustLayoutDialogSettingsHint" datatype="html">
         <source> The settings are applied directly. </source>
       </trans-unit>
@@ -783,19 +774,19 @@
         <source> Captions background color </source>
       </trans-unit>
       <trans-unit id="viewerCaptionsSettingsDialogBackgroundColorOptionBlack" datatype="html">
-        <source>black</source>
+        <source>black </source>
       </trans-unit>
       <trans-unit id="viewerCaptionsSettingsDialogBackgroundColorOptionBlue" datatype="html">
-        <source>blue</source>
+        <source>blue </source>
       </trans-unit>
       <trans-unit id="viewerCaptionsSettingsDialogBackgroundColorOptionRed" datatype="html">
-        <source>red</source>
+        <source>red </source>
       </trans-unit>
       <trans-unit id="viewerCaptionsSettingsDialogBackgroundColorOptionWhite" datatype="html">
-        <source>white</source>
+        <source>white </source>
       </trans-unit>
       <trans-unit id="viewerCaptionsSettingsDialogBackgroundColorOptionYellow" datatype="html">
-        <source>yellow</source>
+        <source>yellow </source>
       </trans-unit>
       <trans-unit id="viewerCaptionsSettingsDialogExampletext" datatype="html">
         <source> Example text: This is what the subtitles will look like. </source>
@@ -821,18 +812,6 @@
       <trans-unit id="viewerCaptionsSettingsDialogFontsize" datatype="html">
         <source> Captions fontsize </source>
       </trans-unit>
-      <trans-unit id="viewerCaptionsSettingsDialogFontsizeOptionBig" datatype="html">
-        <source>big</source>
-      </trans-unit>
-      <trans-unit id="viewerCaptionsSettingsDialogFontsizeOptionBigger" datatype="html">
-        <source>bigger</source>
-      </trans-unit>
-      <trans-unit id="viewerCaptionsSettingsDialogFontsizeOptionMiddle" datatype="html">
-        <source>middle</source>
-      </trans-unit>
-      <trans-unit id="viewerCaptionsSettingsDialogFontsizeOptionSmall" datatype="html">
-        <source>small</source>
-      </trans-unit>
       <trans-unit id="viewerCaptionsSettingsDialogHint" datatype="html">
         <source> The settings are applied directly. </source>
       </trans-unit>
@@ -847,6 +826,57 @@
       </trans-unit>
       <trans-unit id="viewerCaptionsSettingsDialogTitle" datatype="html">
         <source> Appearance of the captions </source>
+      </trans-unit>
+      <trans-unit id="viewerCaptionsSettingsDialogBackgroundColorOptionTransparent" datatype="html">
+        <source>transparent </source>
+      </trans-unit>
+      <trans-unit id="viewerControlsPlayPauseTooltip" datatype="html">
+        <source>
+          <x id="INTERPOLATION" equiv-text="&apos; : &apos;Pause&apos; }}"/>
+        </source>
+      </trans-unit>
+      <trans-unit id="viewerControlsTimelineLabel" datatype="html">
+        <source>Video timeline</source>
+      </trans-unit>
+      <trans-unit id="viewerControlsCaptionMenuTooltip" datatype="html">
+        <source>Captions menu</source>
+      </trans-unit>
+      <trans-unit id="viewerControlsDeactivateCaptionsLabel" datatype="html">
+        <source>Deactivate</source>
+      </trans-unit>
+      <trans-unit id="viewerControlsforwardTooltip" datatype="html">
+        <source>Fast-forward 10 seconds</source>
+      </trans-unit>
+      <trans-unit id="viewerControlsFullscreenToggleTooltip" datatype="html">
+        <source>
+          <x id="INTERPOLATION" equiv-text="ullscreen&apos; : &apos;Open fullscreen&apos; }}"/>
+        </source>
+      </trans-unit>
+      <trans-unit id="viewerControlsGalleryMenuTooltip" datatype="html">
+        <source>Shown video selection</source>
+      </trans-unit>
+      <trans-unit id="viewerControlsMuteUnmuteTooltip" datatype="html">
+        <source>
+          <x id="INTERPOLATION" equiv-text="? &apos;Unmute sound&apos; : &apos;Mute sound&apos; }}"/>
+        </source>
+      </trans-unit>
+      <trans-unit id="viewerControlsOpenSettingsDialogLabel" datatype="html">
+        <source>Settings</source>
+      </trans-unit>
+      <trans-unit id="viewerControlsPlaybackspeedMenuTooltip" datatype="html">
+        <source>Playbackspeed menu</source>
+      </trans-unit>
+      <trans-unit id="viewerControlsRewindTooltip" datatype="html">
+        <source>Rewind 10 seconds</source>
+      </trans-unit>
+      <trans-unit id="viewerControlsSignLanguageToggleTooltip" datatype="html">
+        <source>Toggle show/hide sign language videos</source>
+      </trans-unit>
+      <trans-unit id="viewerControlsTranscriptToggleTooltip" datatype="html">
+        <source>Toggle show/hide transcript</source>
+      </trans-unit>
+      <trans-unit id="viewerControlsVolumeSlideLabel" datatype="html">
+        <source>Volume</source>
       </trans-unit>
     </body>
   </file>
