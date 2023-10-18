@@ -51,7 +51,11 @@
           class="inner-resizer-wrapper"
           (mousedown)="onMouseDown($event)"
           (keydown)="onKeyDown($event)"
+          role="separator"
+          aria-orientation="vertical"
+          aria-label="Move to resize video"
         >
+          <!-- TODO da reinschreiben, dass man pfeiltasten benutzen soll zum resizen find ich irgendwie komisch. -->
           <div class="inner-resizer">
             <div class="visual-resize-handle"></div>
             <div class="visual-resize-handle"></div>

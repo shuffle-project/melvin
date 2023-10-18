@@ -1,8 +1,8 @@
 <div class="box">
-  <h2>Transkript</h2>
+  <h2 i18n="@@playerTranscriptHeader">Transcript</h2>
 
   <mat-form-field class="search-form-field">
-    <mat-label>Search</mat-label>
+    <mat-label i18n="@@playerTranscriptSearchLabel">Search</mat-label>
     <input
       matInput
       placeholder="Search"
@@ -103,8 +103,9 @@
       class="auto-scroll"
       labelPosition="before"
       [(ngModel)]="autoScroll"
+      i18n="@@playerTranscriptAutomaticScrollLabel"
     >
-      Automatisch mitscrollen
+      Scroll automatically
     </mat-checkbox>
   </div>
 </div>
