@@ -7,10 +7,8 @@ import { Store } from '@ngrx/store';
 import * as viewerActions from '../../../../../store/actions/viewer.actions';
 import { AppState } from '../../../../../store/app.state';
 import * as viewerSelector from '../../../../../store/selectors/viewer.selector';
-import {
-  TranscriptFontsize,
-  TranscriptPosition,
-} from '../../viewer.interfaces';
+import { TranscriptPosition } from '../../viewer.interfaces';
+import { SizeOptions } from '../captions-settings-dialog/captions-settings-dialog.component';
 
 @Component({
   selector: 'app-adjust-layout-dialog',
@@ -18,7 +16,7 @@ import {
   styleUrls: ['./adjust-layout-dialog.component.scss'],
 })
 export class AdjustLayoutDialogComponent {
-  public TranscriptFontsize = TranscriptFontsize;
+  public SizeOptions = SizeOptions;
   public TranscriptPosition = TranscriptPosition;
 
   public transcriptEnabled$ = this.store.select(

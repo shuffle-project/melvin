@@ -1,8 +1,8 @@
 <div class="box">
-  <h2>Transkript</h2>
+  <h2 i18n="@@playerTranscriptHeader">Transcript</h2>
 
   <mat-form-field class="search-form-field">
-    <mat-label>Search</mat-label>
+    <mat-label i18n="@@playerTranscriptSearchLabel">Search</mat-label>
     <input
       matInput
       placeholder="Search"
@@ -44,6 +44,9 @@
       <div
         id="captions-viewport"
         class="captions-viewport fontsize-{{ transcriptFontsize$ | ngrxPush }}"
+        [ngStyle]="{
+          'font-size.%': transcriptFontsize$ | ngrxPush
+        }"
         (scroll)="onScrollInViewport()"
       >
         <div
@@ -98,11 +101,11 @@
   <div class="transcript-footer">
     <mat-checkbox
       class="auto-scroll"
-      color="primary"
       labelPosition="before"
       [(ngModel)]="autoScroll"
+      i18n="@@playerTranscriptAutomaticScrollLabel"
     >
-      Automatisch mitscrollen
+      Scroll automatically
     </mat-checkbox>
   </div>
 </div>

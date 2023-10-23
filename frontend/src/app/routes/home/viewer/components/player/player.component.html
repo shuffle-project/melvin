@@ -20,37 +20,6 @@
     >
       <mat-spinner mode="indeterminate"></mat-spinner>
     </div>
-    <button
-      #trigger="matMenuTrigger"
-      class="views-menu-button {{ trigger.menuOpen ? 'menu-open' : '' }}"
-      mat-button
-      [matMenuTriggerFor]="viewsMenu"
-    >
-      <span class="views-menu-button-text">Weitere Ansichten</span>
-      <mat-icon iconPositionEnd svgIcon="arrow-down-simple"></mat-icon>
-    </button>
-
-    <mat-menu #viewsMenu="matMenu">
-      <!-- //TODO Wollen wir hier das main video anzeigen?  -->
-      <div
-        class="mat-menu-item-wrapper"
-        mat-menu-item
-        *ngFor="let video of smallVideos$ | ngrxPush"
-        (click)="onClickToggleVideoShown($event, video)"
-        (keydown)="onKeypressToggleVideoShown($event, video)"
-      >
-        <!-- (change)="onCheckToggleVideoShown($event, video)" -->
-
-        <mat-checkbox [checked]="video.shown">
-          {{ video.title }}
-          <mat-icon
-            *ngIf="video.category === 'sign_language'"
-            svgIcon="sign_language"
-            class="svg-black"
-          ></mat-icon>
-        </mat-checkbox>
-      </div>
-    </mat-menu>
 
     <div
       #allVideosContainerRef
@@ -82,7 +51,11 @@
           class="inner-resizer-wrapper"
           (mousedown)="onMouseDown($event)"
           (keydown)="onKeyDown($event)"
+          role="separator"
+          aria-orientation="vertical"
+          aria-label="Move to resize video"
         >
+          <!-- TODO da reinschreiben, dass man pfeiltasten benutzen soll zum resizen find ich irgendwie komisch. -->
           <div class="inner-resizer">
             <div class="visual-resize-handle"></div>
             <div class="visual-resize-handle"></div>
@@ -113,9 +86,12 @@
         <!-- over / under -->
         <span
           *ngrxLet="viewerService.currentCaption$ as currentCaption"
-          class="fontsize-{{ combined.fontsize }} color-{{
-            combined.color
-          }} backgroundColor-{{ combined.backgroundColor }}"
+          class=""
+          [ngStyle]="{
+            'font-size.%': combined.fontsize,
+            color: combined.color,
+            'background-color': combined.backgroundColor
+          }"
         >
           {{ currentCaption?.text || '-' }}</span
         >

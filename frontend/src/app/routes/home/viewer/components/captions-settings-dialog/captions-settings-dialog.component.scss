@@ -37,49 +37,4 @@
   display: flex;
   justify-content: center;
   align-items: center;
-
-  &.backgroundColor-black {
-    background-color: black; // TODO hier eine variable? wird evtl durch den dark mode invertiert?
-  }
-  &.backgroundColor-white {
-    background-color: white; // TODO hier eine variable? wird evtl durch den dark mode invertiert?
-  }
-  &.backgroundColor-red {
-    background-color: var(--color-red);
-  }
-  &.backgroundColor-blue {
-    background-color: var(--color-blue);
-  }
-  &.backgroundColor-yellow {
-    background-color: var(--color-yellow);
-  }
-
-  &.color-black {
-    color: black; // TODO hier eine variable? wird evtl durch den dark mode invertiert?
-  }
-  &.color-white {
-    color: white; // TODO hier eine variable? wird evtl durch den dark mode invertiert?
-  }
-  &.color-red {
-    color: var(--color-red);
-  }
-  &.color-blue {
-    color: var(--color-blue);
-  }
-  &.color-yellow {
-    color: var(--color-yellow);
-  }
-
-  &.fontsize-small {
-    font-size: 80%;
-  }
-  &.fontsize-medium {
-    font-size: 100%;
-  }
-  &.fontsize-large {
-    font-size: 120%;
-  }
-  &.fontsize-larger {
-    font-size: 140%;
-  }
 }

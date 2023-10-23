@@ -161,14 +161,18 @@ export class ControlsComponent {
     }
   }
 
-  //TODO duplicate in player.component.ts
+  onToggleSignLanguageVideo() {
+    this.store.dispatch(viewerActions.toggleSignLanguageVideos());
+  }
+
   onClickToggleVideoShown(event: MouseEvent, video: ViewerVideo) {
     this.store.dispatch(viewerActions.toggleShowVideo({ id: video.id }));
     event.stopPropagation();
   }
 
   onKeypressToggleVideoShown(event: KeyboardEvent, video: ViewerVideo) {
-    if (event.key === 'Enter' || event.key === 'Space')
+    console.log(event.key);
+    if (event.key === 'Enter' || event.key === ' ')
       this.store.dispatch(viewerActions.toggleShowVideo({ id: video.id }));
   }
 }

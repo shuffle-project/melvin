@@ -5,10 +5,8 @@ import {
   SizeOptions,
 } from '../../routes/home/viewer/components/captions-settings-dialog/captions-settings-dialog.component';
 import { ViewerVideo } from '../../routes/home/viewer/components/player/player.component';
-import {
-  TranscriptFontsize,
-  TranscriptPosition,
-} from '../../routes/home/viewer/viewer.interfaces';
+import { TranscriptPosition } from '../../routes/home/viewer/viewer.interfaces';
+import { VideoCategory } from '../../services/api/entities/project.entity';
 import { StorageKey } from '../../services/storage/storage-key.enum';
 import { StorageService } from '../../services/storage/storage.service';
 import * as viewerActions from '../actions/viewer.actions';
@@ -17,7 +15,7 @@ const storage = new StorageService();
 
 export interface ViewerState {
   transcriptEnabled: boolean;
-  transcriptFontsize: TranscriptFontsize;
+  transcriptFontsize: SizeOptions;
   transcriptPosition: TranscriptPosition;
   captionsBackgroundColor: ColorOptions;
   captionsColor: ColorOptions;
@@ -37,8 +35,8 @@ export const initalState: ViewerState = {
   ) as boolean,
   transcriptFontsize: storage.getFromLocalStorage(
     StorageKey.VIEWER_TRANSCRIPT_FONTSIZE,
-    TranscriptFontsize.NORMAL
-  ) as TranscriptFontsize,
+    SizeOptions.P100
+  ) as SizeOptions,
   transcriptPosition: storage.getFromLocalStorage(
     StorageKey.VIEWER_TRANSCRIPT_POSITION,
     TranscriptPosition.RIGHT
@@ -53,7 +51,7 @@ export const initalState: ViewerState = {
   ) as ColorOptions,
   captionsFontsize: storage.getFromLocalStorage(
     StorageKey.CAPTIONS_FONTSIZE,
-    SizeOptions.MEDIUM
+    SizeOptions.P100
   ) as SizeOptions,
   captionsPosition: storage.getFromLocalStorage(
     StorageKey.CAPTIONS_POSITION,
@@ -116,6 +114,26 @@ export const viewerReducer = createReducer(
           return video;
         }
         return { ...video, shown: !video.shown };
+      }),
+    };
+  }),
+  on(viewerActions.toggleSignLanguageVideos, (state) => {
+    const shownSignLanguageVideos = state.viewerVideos.filter(
+      (video) =>
+        video.category === VideoCategory.SIGN_LANGUAGE && video.shown === true
+    );
+
+    return {
+      ...state,
+      viewerVideos: state.viewerVideos.map((video) => {
+        if (video.category !== VideoCategory.SIGN_LANGUAGE) {
+          return video;
+        }
+        if (shownSignLanguageVideos.length > 0) {
+          return { ...video, shown: false };
+        } else {
+          return { ...video, shown: true };
+        }
       }),
     };
   })

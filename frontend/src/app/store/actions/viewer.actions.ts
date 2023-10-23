@@ -5,10 +5,7 @@ import {
   SizeOptions,
 } from '../../routes/home/viewer/components/captions-settings-dialog/captions-settings-dialog.component';
 import { ViewerVideo } from '../../routes/home/viewer/components/player/player.component';
-import {
-  TranscriptFontsize,
-  TranscriptPosition,
-} from '../../routes/home/viewer/viewer.interfaces';
+import { TranscriptPosition } from '../../routes/home/viewer/viewer.interfaces';
 
 export const changeTranscriptEnabled = createAction(
   '[ADJUST LAYOUT COMPONENT] Change Transcript Enabled',
@@ -20,7 +17,7 @@ export const toggleTranscript = createAction(
 
 export const changeTranscriptFontsize = createAction(
   '[ADJUST LAYOUT COMPONENT] Change Fontsize',
-  props<{ transcriptFontsize: TranscriptFontsize }>()
+  props<{ transcriptFontsize: SizeOptions }>()
 );
 
 export const changeTranscriptPosition = createAction(
@@ -59,4 +56,8 @@ export const switchToNewBigVideo = createAction(
 export const toggleShowVideo = createAction(
   '[PLAYER COMPONENT] Toggle show video',
   props<{ id: string }>()
+);
+
+export const toggleSignLanguageVideos = createAction(
+  '[CONTROLS COMPONENT] Toggle show sign langauge video'
 );

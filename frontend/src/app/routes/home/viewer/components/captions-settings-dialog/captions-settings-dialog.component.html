@@ -40,28 +40,34 @@
           <mat-option
             value="{{ ColorOptions.BLACK }}"
             i18n="@@viewerCaptionsSettingsDialogBackgroundColorOptionBlack"
-            >black</mat-option
-          >
+            >black
+          </mat-option>
           <mat-option
             value="{{ ColorOptions.WHITE }}"
             i18n="@@viewerCaptionsSettingsDialogBackgroundColorOptionWhite"
-            >white</mat-option
-          >
+            >white
+          </mat-option>
           <mat-option
             value="{{ ColorOptions.YELLOW }}"
             i18n="@@viewerCaptionsSettingsDialogBackgroundColorOptionYellow"
-            >yellow</mat-option
-          >
+            >yellow
+          </mat-option>
           <mat-option
             value="{{ ColorOptions.RED }}"
             i18n="@@viewerCaptionsSettingsDialogBackgroundColorOptionRed"
-            >red</mat-option
-          >
+            >red
+          </mat-option>
           <mat-option
             value="{{ ColorOptions.BLUE }}"
             i18n="@@viewerCaptionsSettingsDialogBackgroundColorOptionBlue"
-            >blue</mat-option
-          >
+            >blue
+          </mat-option>
+          <mat-option
+            value="{{ ColorOptions.TRANSPARENT }}"
+            i18n="
+              @@viewerCaptionsSettingsDialogBackgroundColorOptionTransparent"
+            >transparent
+          </mat-option>
         </mat-select>
       </mat-form-field>
     </div>
@@ -121,26 +127,24 @@
           [value]="fontsize"
           (selectionChange)="onChangeFontsize($event)"
         >
-          <mat-option
-            value="{{ SizeOptions.SMALL }}"
-            i18n="@@viewerCaptionsSettingsDialogFontsizeOptionSmall"
-            >small</mat-option
-          >
-          <mat-option
-            value="{{ SizeOptions.MEDIUM }}"
-            i18n="@@viewerCaptionsSettingsDialogFontsizeOptionMiddle"
-            >middle</mat-option
-          >
-          <mat-option
-            value="{{ SizeOptions.LARGE }}"
-            i18n="@@viewerCaptionsSettingsDialogFontsizeOptionBig"
-            >big</mat-option
-          >
-          <mat-option
-            value="{{ SizeOptions.LARGER }}"
-            i18n="@@viewerCaptionsSettingsDialogFontsizeOptionBigger"
-            >bigger</mat-option
-          >
+          <mat-option value="{{ SizeOptions.P80 }}"
+            >{{ SizeOptions.P80 }}%
+          </mat-option>
+          <mat-option value="{{ SizeOptions.P100 }}"
+            >{{ SizeOptions.P100 }}%
+          </mat-option>
+          <mat-option value="{{ SizeOptions.P120 }}"
+            >{{ SizeOptions.P120 }}%
+          </mat-option>
+          <mat-option value="{{ SizeOptions.P140 }}"
+            >{{ SizeOptions.P140 }}%
+          </mat-option>
+          <mat-option value="{{ SizeOptions.P160 }}"
+            >{{ SizeOptions.P160 }}%
+          </mat-option>
+          <mat-option value="{{ SizeOptions.P180 }}"
+            >{{ SizeOptions.P180 }}%
+          </mat-option>
         </mat-select>
       </mat-form-field>
     </div>
@@ -176,10 +180,15 @@
 
     <div
       *ngrxLet="combined$ as combined"
-      class="like-captions-text fontsize-{{ combined.fontsize }} color-{{
-        combined.color
-      }} backgroundColor-{{ combined.backgroundColor }}"
+      class="like-captions-text color-{{ combined.color }} backgroundColor-{{
+        combined.backgroundColor
+      }}"
       i18n="@@viewerCaptionsSettingsDialogExampletext"
+      [ngStyle]="{
+        'font-size.%': combined.fontsize,
+        color: combined.color,
+        'background-color': combined.backgroundColor
+      }"
     >
       Example text: This is what the subtitles will look like.
     </div>

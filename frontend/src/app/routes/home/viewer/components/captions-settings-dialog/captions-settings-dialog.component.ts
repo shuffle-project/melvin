@@ -13,13 +13,16 @@ export enum ColorOptions {
   YELLOW = 'yellow',
   BLUE = 'blue',
   RED = 'red',
+  TRANSPARENT = 'transparent',
 }
 
 export enum SizeOptions {
-  SMALL = 'small',
-  MEDIUM = 'medium',
-  LARGE = 'large',
-  LARGER = 'larger',
+  P80 = '80',
+  P100 = '100',
+  P120 = '120',
+  P140 = '140',
+  P160 = '160',
+  P180 = '180',
 }
 
 export enum CaptionPositionOptions {

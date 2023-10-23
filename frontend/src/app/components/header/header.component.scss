@@ -16,7 +16,9 @@ header {
   }
 
   .header-buttons {
-    margin-left: auto;
+    &.margin-left {
+      margin-left: auto;
+    }
     display: flex;
     align-items: center;
   }

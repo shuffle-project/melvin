@@ -36,21 +36,24 @@ video {
   margin-bottom: 3px;
 
   .video-overlay {
-    transform: scale(0); // hide
+    // transform: scale(0); // hide
+    opacity: 0;
     position: absolute;
     width: 100%;
     height: 100%;
 
     border-radius: 6px;
     top: 0;
-    color: var(--color-white);
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background: rgba($color: #000000, $alpha: 0.7);
+    // background: rgba($color: var(--color-rgb-black), $alpha: 0.7);
+    background: rgba($color: black, $alpha: 0.7); // TODO invert in dark mode?
 
     .title {
+      // color: var(--color-white);
+      color: white;
       max-height: 50%;
       height: 50%;
       text-align: center;
@@ -73,7 +76,9 @@ video {
   &:hover,
   &:focus-within {
     .video-overlay {
-      transform: none; // show
+      // transform: none; // show
+
+      opacity: 1;
     }
   }
 }
