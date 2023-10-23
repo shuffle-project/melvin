@@ -36,7 +36,8 @@ video {
   margin-bottom: 3px;
 
   .video-overlay {
-    transform: scale(0); // hide
+    // transform: scale(0); // hide
+    opacity: 0;
     position: absolute;
     width: 100%;
     height: 100%;
@@ -75,7 +76,9 @@ video {
   &:hover,
   &:focus-within {
     .video-overlay {
-      transform: none; // show
+      // transform: none; // show
+
+      opacity: 1;
     }
   }
 }

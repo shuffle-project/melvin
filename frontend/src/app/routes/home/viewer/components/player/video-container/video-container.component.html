@@ -22,6 +22,7 @@
         svgIcon="sign_language"
         class="svg-white"
       ></mat-icon>
+
       {{ video.title }}
     </div>
     <button
@@ -30,8 +31,9 @@
       (click)="onChangeMainVideo()"
       tabindex="0"
       i18n="@@viewerVideoContainerToMainview"
+      attr.aria-label="Move video '{{ video.title }}' to main view"
     >
-      Switch to main view
+      Move video to main view
     </button>
   </div>
 </div>
