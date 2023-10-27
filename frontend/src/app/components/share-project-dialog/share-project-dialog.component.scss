@@ -54,3 +54,14 @@ input.link {
   border: none;
   flex: 1;
 }
+
+.add-member-form {
+  display: flex;
+  flex-direction: column;
+
+  .materror {
+    color: var(--color-red);
+    // font-size: 12px;
+    // margin: 5px 0 0 15px;
+  }
+}

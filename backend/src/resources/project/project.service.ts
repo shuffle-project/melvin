@@ -386,7 +386,6 @@ export class ProjectService {
       //   projectId: project._id,
       // });
     }
-
     const oldProject = await this.db.projectModel
       .findByIdAndUpdate(
         id,
@@ -529,11 +528,35 @@ export class ProjectService {
         ),
     );
 
-    await this.mailService.sendInviteEmail(
-      project,
-      project.createdBy as LeanUserDocument,
-      emails,
+    // add exising users
+
+    const missingEmails = [];
+
+    await Promise.all(
+      emails.map(async (email) => {
+        const user = await this.db.userModel.findOne({ email });
+        if (user) {
+          await this.db.userModel.findOneAndUpdate(
+            { email },
+            { $push: { projects: id } },
+          );
+          await this.db.projectModel.findByIdAndUpdate(id, {
+            $push: { users: user },
+          });
+        } else {
+          missingEmails.push(email);
+        }
+      }),
     );
+
+    // TODO invite users that are not registered
+    if (missingEmails.length > 0) {
+      await this.mailService.sendInviteEmail(
+        project,
+        project.createdBy as LeanUserDocument,
+        missingEmails,
+      );
+    }
   }
 
   async getInviteToken(
