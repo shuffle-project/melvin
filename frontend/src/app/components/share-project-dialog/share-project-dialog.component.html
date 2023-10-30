@@ -18,7 +18,7 @@
             </div>
           </mat-expansion-panel-header>
 
-          <form class="add-member-form">
+          <form #addMemberForm class="add-member-form">
             <mat-form-field>
               <mat-label i18n="@@metadataFormAddMemberLabel"
                 >Add team member</mat-label
@@ -50,13 +50,15 @@
               </mat-autocomplete>
             </mat-form-field>
             <button
-              mat-stroked-button
-              [disabled]="userControl.invalid"
+              mat-flat-button
+              color="primary"
+              [disabled]="!userControl.valid"
               (click)="inviteMember()"
             >
               Invite to project
             </button>
           </form>
+          <div #inviteResult class="invite-result"></div>
 
           <!-- TODO -->
           <!-- <span>Enter-Email Component</span>

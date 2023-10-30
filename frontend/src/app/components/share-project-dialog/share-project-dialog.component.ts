@@ -10,7 +10,7 @@ import {
   OnInit,
   ViewChild,
 } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
+import { FormControl, NgForm, Validators } from '@angular/forms';
 import {
   MatAutocompleteModule,
   MatAutocompleteSelectedEvent,
@@ -66,6 +66,10 @@ export class ShareProjectDialogComponent implements OnInit, OnDestroy {
   public inviteToken!: string;
   public isLoading!: boolean;
   public error!: string | null;
+
+  @ViewChild('inviteResult') inviteResult!: ElementRef<HTMLElement>;
+
+  @ViewChild('addMemberForm') addMemberForm!: NgForm;
 
   // Not the displayed users, but the input of the user, who interacts with the dialog
   @ViewChild('userInput') userInput!: ElementRef<HTMLInputElement>;
@@ -152,7 +156,15 @@ export class ShareProjectDialogComponent implements OnInit, OnDestroy {
       const res = await lastValueFrom(
         this.api.invite(this.project.id, [this.userControl.value])
       );
-      console.log(res);
+
+      this.alertService.success(this.userControl.value + ' invited.');
+      this.inviteResult.nativeElement.innerText =
+        this.userControl.value + ' invited.';
+
+      this.userControl.reset();
+      this.userControl.setErrors([]);
+      // this.userControl.markAsUntouched();
+      // this.userControl.updateValueAndValidity();
     }
   }
 

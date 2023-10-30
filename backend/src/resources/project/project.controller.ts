@@ -161,6 +161,19 @@ export class ProjectController {
     return this.projectService.updateInviteToken(authUser, id);
   }
 
+  @UseGuards(JwtAuthGuard)
+  @Post('invite-token')
+  @ApiResponse({ status: HttpStatus.OK, type: null })
+  joinViaInviteToken(
+    @User() authUser: AuthUser,
+    @Body() inviteToken: { inviteToken: string },
+  ): Promise<void> {
+    return this.projectService.joinViaInviteToken(
+      authUser,
+      inviteToken.inviteToken,
+    );
+  }
+
   // file management
 
   @UseGuards(JwtAuthGuard)

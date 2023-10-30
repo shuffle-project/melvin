@@ -213,6 +213,16 @@ export class RealApiService implements ApiService {
     });
   }
 
+  joinViaInviteToken(token: string): Observable<void> {
+    return this._post<void>(
+      `/projects/invite-token`,
+      { inviteToken: token }
+      // {
+      //   skipJwt: true,
+      // }
+    );
+  }
+
   guestLogin(token: string, name: string): Observable<GuestLoginEntity> {
     return this._post<GuestLoginEntity>(
       `/auth/guest-login`,

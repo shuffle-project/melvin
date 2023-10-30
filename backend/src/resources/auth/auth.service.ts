@@ -179,6 +179,7 @@ export class AuthService {
     }
 
     return {
+      projectId: project._id.toString(),
       projectTitle: project.title,
       userName: (project.createdBy as User).name,
     };

@@ -591,6 +591,39 @@ export class ProjectService {
     return { inviteToken };
   }
 
+  async joinViaInviteToken(
+    authUser: AuthUser,
+    inviteToken: string,
+  ): Promise<void> {
+    const verifyInvite = await this.authService.verifyInvite(inviteToken);
+    const project = await this.db.findProjectByIdOrThrow(
+      verifyInvite.projectId,
+    );
+    const user = await this.db.userModel.findById(authUser.id);
+
+    if (user.projects.includes(project._id))
+      throw new CustomBadRequestException('already_member_of_project');
+
+    await Promise.all([
+      this.db.userModel.findByIdAndUpdate(user._id, {
+        $push: { projects: project._id },
+      }),
+      this.db.projectModel.findByIdAndUpdate(project._id, {
+        $push: { users: user },
+      }),
+    ]);
+
+    // if (!this.permissions.isProjectOwner(project, authUser)) {
+    //   throw new CustomForbiddenException('must_be_owner');
+    // }
+
+    // const inviteToken = await this._generateInviteToken();
+
+    // await this.db.projectModel.findByIdAndUpdate(id, {
+    //   $set: { inviteToken },
+    // });
+  }
+
   // upload media
   async getWaveformData(
     authUser: AuthUser,

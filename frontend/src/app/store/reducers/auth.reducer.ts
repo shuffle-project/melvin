@@ -23,6 +23,7 @@ export interface AuthState {
   inviteLoading: boolean;
   inviteError: string | null;
   inviteEntity: InviteEntity | null;
+  inviteToken: string | null;
 
   websocketConnected: boolean;
 }
@@ -45,6 +46,7 @@ export const initialState: AuthState = {
   inviteLoading: false,
   inviteError: null,
   inviteEntity: null,
+  inviteToken: null,
 
   //is user connected to websocket
   websocketConnected: false,
@@ -109,9 +111,11 @@ export const authReducer = createReducer(
     ...state,
     inviteLoading: false,
     inviteEntity: {
-      projectTitle: action.projectTitle,
-      userName: action.userName,
+      projectId: action.inviteEntity.projectId,
+      projectTitle: action.inviteEntity.projectTitle,
+      userName: action.inviteEntity.userName,
     },
+    inviteToken: action.token,
   })),
   on(authActions.verifyInviteTokenError, (state, action) => ({
     ...state,

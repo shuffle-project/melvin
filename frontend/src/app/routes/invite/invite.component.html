@@ -75,6 +75,9 @@
                 i18n="@@inviteJoinProjectButtonLabel"
               >
                 Join Project
+                <span *ngrxLet="currentUser$ as currentUser"
+                  >as {{ currentUser?.name }}</span
+                >
               </button>
             </div>
           </mat-card-actions>
