@@ -14,9 +14,6 @@
       <trans-unit id="shareProjectWithPeopleHeader" datatype="html">
         <source>Share with people</source>
       </trans-unit>
-      <trans-unit id="shareProjectOwnerLabel" datatype="html">
-        <source> Owner </source>
-      </trans-unit>
       <trans-unit id="shareProjectRetrieveLinkHeader" datatype="html">
         <source>Retrieve link</source>
       </trans-unit>
@@ -453,7 +450,7 @@
         <source> At least one video or audio file is required </source>
       </trans-unit>
       <trans-unit id="metadataFormAddMemberLabel" datatype="html">
-        <source>Add team members</source>
+        <source>Add team member</source>
       </trans-unit>
       <trans-unit id="metadataFormAddMemberError" datatype="html">
         <source> User unknown or e-mail address invalid</source>
@@ -558,7 +555,7 @@
         <source> Cancel </source>
       </trans-unit>
       <trans-unit id="inviteJoinProjectButtonLabel" datatype="html">
-        <source> Join Project </source>
+        <source> Join Project <x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span *ngrxLet=&quot;currentUser$ as currentUser&quot; &gt;"/>as <x id="INTERPOLATION" equiv-text="{{ currentUser?.name }}"/><x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&gt;"/></source>
       </trans-unit>
       <trans-unit id="inviteLoginOrRegisterButtonLabel" datatype="html">
         <source> Login / Register </source>
@@ -657,7 +654,7 @@
         <source>Live settings</source>
       </trans-unit>
       <trans-unit id="dialogCreateProjectLoadingInfo" datatype="html">
-        <source>Creating project</source>
+        <source> Uploading data - <x id="INTERPOLATION" equiv-text="{{ fileUploadProgress.toFixed() }}"/>% </source>
       </trans-unit>
       <trans-unit id="dialogCreateProjectMediaStep" datatype="html">
         <source>Media source</source>
@@ -877,6 +874,24 @@
       </trans-unit>
       <trans-unit id="viewerControlsVolumeSlideLabel" datatype="html">
         <source>Volume</source>
+      </trans-unit>
+      <trans-unit id="dialogCreateProjectCreateError" datatype="html">
+        <source>Error while creating the project: <x id="INTERPOLATION" equiv-text="{{ error.error.message }}"/></source>
+      </trans-unit>
+      <trans-unit id="headerToggleActivateDarkmode" datatype="html">
+        <source>Activate darkmode</source>
+      </trans-unit>
+      <trans-unit id="playerTranscriptAutomaticScrollLabel" datatype="html">
+        <source> Scroll automatically </source>
+      </trans-unit>
+      <trans-unit id="playerTranscriptHeader" datatype="html">
+        <source>Transcript</source>
+      </trans-unit>
+      <trans-unit id="playerTranscriptSearchLabel" datatype="html">
+        <source>Search</source>
+      </trans-unit>
+      <trans-unit id="viewerVideoContainerToMainview" datatype="html">
+        <source> Move video to main view </source>
       </trans-unit>
     </body>
   </file>

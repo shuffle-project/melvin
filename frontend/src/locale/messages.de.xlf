@@ -135,7 +135,7 @@
         <target state="final"> Es wird mindestens eine Videodatei benötigt. </target>
       </trans-unit>
       <trans-unit id="metadataFormAddMemberLabel" datatype="html">
-        <source>Add team members</source>
+        <source>Add team member</source>
         <target state="final">Teammitglied hinzufügen</target>
       </trans-unit>
       <trans-unit id="metadataFormAddMemberError" datatype="html">
@@ -371,8 +371,8 @@
         <target state="final"> Abbrechen </target>
       </trans-unit>
       <trans-unit id="inviteJoinProjectButtonLabel" datatype="html">
-        <source> Join Project </source>
-        <target state="final"> Projekt beitreten </target>
+        <source> Join Project <x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span *ngrxLet=&quot;currentUser$ as currentUser&quot; &gt;"/>as <x id="INTERPOLATION" equiv-text="{{ currentUser?.name }}"/><x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&gt;"/></source>
+        <target state="final">Projekt beitreten <x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span *ngrxLet=&quot;currentUser$ as currentUser&quot; &gt;"/>als <x id="INTERPOLATION" equiv-text="{{ currentUser?.name }}"/><x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&gt;" </target>
       </trans-unit>
       <trans-unit id="inviteLoginOrRegisterButtonLabel" datatype="html">
         <source> Login / Register </source>
@@ -409,10 +409,6 @@
       <trans-unit id="shareProjectWithPeopleHeader" datatype="html">
         <source>Share with people</source>
         <target state="final">Für Personen freigeben</target>
-      </trans-unit>
-      <trans-unit id="shareProjectOwnerLabel" datatype="html">
-        <source> Owner </source>
-        <target state="final"> Eigentümer*in </target>
       </trans-unit>
       <trans-unit id="shareProjectRetrieveLinkHeader" datatype="html">
         <source>Retrieve link</source>
@@ -979,8 +975,8 @@
         <target state="final">Übersicht</target>
       </trans-unit>
       <trans-unit id="dialogCreateProjectLoadingInfo" datatype="html">
-        <source>Creating project</source>
-        <target state="final">Projekt erstellen</target>
+        <source> Uploading data - <x id="INTERPOLATION" equiv-text="{{ fileUploadProgress.toFixed() }}"/>% </source>
+        <target state="final">Daten hochladen - <x id="INTERPOLATION" equiv-text="{{ fileUploadProgress.toFixed() }}"/>%</target>
       </trans-unit>
       <trans-unit id="asrFormLanguageError" datatype="html">
         <source> Please select a language </source>
@@ -1130,8 +1126,8 @@
         <source>
           <x id="INTERPOLATION" equiv-text="? &apos;Unmute sound&apos; : &apos;Mute sound&apos; }}"/>
         </source>
-        <target state="new">
-          <x id="INTERPOLATION" equiv-text="? &apos;Unmute sound&apos; : &apos;Mute sound&apos; }}"/>
+        <target state="final">
+          <x id="INTERPOLATION" equiv-text="? &apos;Ton einschalten&apos; : &apos;Ton ausschalten&apos; }}"/>
         </target>
       </trans-unit>
       <trans-unit id="viewerControlsVolumeSlideLabel" datatype="html">
@@ -1173,6 +1169,30 @@
       <trans-unit id="viewerControlsOpenSettingsDialogLabel" datatype="html">
         <source>Settings</source>
         <target state="final">Einstellungen</target>
+      </trans-unit>
+      <trans-unit id="headerToggleActivateDarkmode" datatype="html">
+        <source>Activate darkmode</source>
+        <target state="final">Dunkelmodus aktivieren</target>
+      </trans-unit>
+      <trans-unit id="dialogCreateProjectCreateError" datatype="html">
+        <source>Error while creating the project: <x id="INTERPOLATION" equiv-text="{{ error.error.message }}"/></source>
+        <target state="final">Fehler bei der Projekterstellung: <x id="INTERPOLATION" equiv-text="{{ error.error.message }}"/></target>
+      </trans-unit>
+      <trans-unit id="viewerVideoContainerToMainview" datatype="html">
+        <source> Move video to main view </source>
+        <target state="final"> Video in der Hauptanzeige anzeigen </target>
+      </trans-unit>
+      <trans-unit id="playerTranscriptHeader" datatype="html">
+        <source>Transcript</source>
+        <target state="final">Transkript</target>
+      </trans-unit>
+      <trans-unit id="playerTranscriptSearchLabel" datatype="html">
+        <source>Search</source>
+        <target state="final">Suche</target>
+      </trans-unit>
+      <trans-unit id="playerTranscriptAutomaticScrollLabel" datatype="html">
+        <source> Scroll automatically </source>
+        <target state="final"> Automatisch mitscrollen </target>
       </trans-unit>
     </body>
   </file>
