@@ -1,4 +1,5 @@
 export interface InviteEntity {
+  projectId: string;
   projectTitle: string;
   userName: string;
 }

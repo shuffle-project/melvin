@@ -6,7 +6,6 @@ import { AvatarGroupModule } from 'src/app/components/avatar-group/avatar-group.
 import { FooterModule } from 'src/app/components/footer/footer.module';
 import { HeaderModule } from 'src/app/components/header/header.module';
 import { LogoModule } from '../../../components/logo/logo.module';
-import { ShareProjectDialogModule } from '../../../components/share-project-dialog/share-project-dialog.module';
 import { ProjectDetailModule } from '../../../modules/project-detail/project-detail.module';
 import { SharedModule } from '../../../modules/shared/shared.module';
 import { DurationPipeModule } from '../../../pipes/duration-pipe/duration-pipe.module';
@@ -27,7 +26,6 @@ import { ProjectListComponent } from './project-list.component';
     MatExpansionModule,
     MatChipsModule,
     AvatarGroupModule,
-    ShareProjectDialogModule,
     DialogCreateProjectModule,
     FooterModule,
     ProjectDetailModule,

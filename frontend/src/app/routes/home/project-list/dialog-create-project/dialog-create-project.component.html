@@ -9,7 +9,7 @@
       [mat-dialog-close]="true"
       aria-label="Close"
       i18n-aria-label="@@dialogCreateProjectCloseButton"
-      [disabled]="loading"
+      *ngIf="!loading"
     >
       <mat-icon svgIcon="clear"></mat-icon>
     </button>
@@ -147,16 +147,28 @@
   </mat-stepper>
 
   <div *ngIf="loading" class="loading">
-    <p i18n="@@dialogCreateProjectLoadingInfo">Creating project</p>
+    <p i18n="@@dialogCreateProjectLoadingInfo">
+      Uploading data - {{ fileUploadProgress.toFixed() }}%
+    </p>
     <mat-progress-bar
       mode="determinate"
       [value]="fileUploadProgress"
     ></mat-progress-bar>
+    <p *ngIf="eta">ETA: {{ eta * 1000 | duration }}</p>
+    <br /><br />
+    <button
+      mat-button
+      color="primary"
+      *ngIf="uploadSubscription"
+      (click)="cancelUpload()"
+    >
+      Cancel Upload
+    </button>
   </div>
 
-  <!-- <div>
+  <div>
     <mat-error *ngIf="error" i18n="@@dialogCreateProjectCreateError"
-        >Error while creating the project: {{ error.error.message }}</mat-error
-      >
-  </div> -->
+      >Error while creating the project: {{ error.error.message }}</mat-error
+    >
+  </div>
 </div>

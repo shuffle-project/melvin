@@ -105,9 +105,15 @@ export class FakeApiService implements ApiService {
   verifyInviteToken(token: string): Observable<InviteEntity> {
     this.logger.verbose('verifyInviteToken mocked');
     return of({
+      projectId: PROJECT_ENTITY_MOCK[0].id,
       projectTitle: PROJECT_ENTITY_MOCK[0].title,
       userName: USERS_MOCK[0].name,
     });
+  }
+
+  joinViaInviteToken(token: string): Observable<void> {
+    this.logger.verbose('joinViaInviteToken mocked');
+    return of();
   }
 
   guestLogin(token: string, name: string): Observable<GuestLoginEntity> {

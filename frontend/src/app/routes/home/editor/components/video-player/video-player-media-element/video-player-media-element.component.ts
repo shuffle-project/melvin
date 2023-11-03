@@ -9,6 +9,8 @@ import {
 } from '@angular/core';
 import { Store } from '@ngrx/store';
 import {
+  Observable,
+  Subject,
   animationFrameScheduler,
   distinctUntilChanged,
   filter,
@@ -16,8 +18,6 @@ import {
   interval,
   map,
   merge,
-  Observable,
-  Subject,
   takeUntil,
   tap,
 } from 'rxjs';
@@ -116,6 +116,7 @@ export class VideoPlayerMediaElementComponent implements OnInit, OnDestroy {
   }
 
   async ngOnDestroy() {
+    this.store.dispatch(editorActions.pauseFromVideoComponent());
     this.destroy$$.next();
 
     this.video.pause();
@@ -124,8 +125,6 @@ export class VideoPlayerMediaElementComponent implements OnInit, OnDestroy {
 
     this.mediaService.destroyMediaElement();
     this.livestreamService.disconnect();
-
-    this.store.dispatch(editorActions.pauseFromVideoComponent());
   }
 
   public seekToTime(milliseconds: number) {

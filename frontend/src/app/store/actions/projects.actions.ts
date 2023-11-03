@@ -110,3 +110,7 @@ export const updateProjectFromLiveControls = createAction(
   '[EDITOR LIVE-CONTROLS COMPONENT] Update project status',
   props<{ updateProject: ProjectEntity }>()
 );
+
+// invite
+
+// TODO move invite.component.ts lines > 74 to store

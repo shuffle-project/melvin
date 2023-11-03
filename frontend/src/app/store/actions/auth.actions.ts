@@ -58,7 +58,7 @@ export const verifyInviteToken = createAction(
 
 export const verifyInviteTokenSuccess = createAction(
   '[AUTH EFFECTS] Verify invite token success',
-  props<InviteEntity>()
+  props<{ inviteEntity: InviteEntity; token: string }>()
 );
 
 export const verifyInviteTokenError = createAction(

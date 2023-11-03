@@ -2,10 +2,9 @@
 // https://github.com/angular/components/issues/26056
 // https://github.com/angular/components/issues/26179
 // register button is now white on white
-
-.mdc-button--unelevated,
-.mdc-button--raised {
-  // color: white !important; // TODO wofür war das?
+.mdc-button--unelevated *,
+.mdc-button--raised * {
+  color: white !important;
 }
 
 .mat-mdc-icon-button.lg {
