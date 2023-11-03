@@ -15,7 +15,7 @@ import {
 } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { MatStepper } from '@angular/material/stepper';
-import { Subject, takeUntil } from 'rxjs';
+import { Subject, Subscription, takeUntil } from 'rxjs';
 import { ApiService } from 'src/app/services/api/api.service';
 import { AsrVendors } from 'src/app/services/api/dto/create-transcription.dto';
 import { ProjectEntity } from 'src/app/services/api/entities/project.entity';
@@ -34,11 +34,16 @@ import { ProjectGroup } from './dialog-create-project.interfaces';
 export class DialogCreateProjectComponent implements AfterViewInit, OnDestroy {
   loading = false;
   fileUploadProgress = 0; // value from 0 to 100
+  uploadSubscription!: Subscription;
   private totalFileSize = 0;
   error: HttpErrorResponse | null = null;
   acceptedFileFormats: string[] = ['audio', 'video', '.srt', '.vtt'];
 
   private destroy$$ = new Subject<void>();
+
+  // calculate eta
+  timeStarted!: number;
+  eta: undefined | number = undefined;
 
   @ViewChild('stepper') stepper!: MatStepper;
 
@@ -258,10 +263,19 @@ export class DialogCreateProjectComponent implements AfterViewInit, OnDestroy {
     this.loading = true;
     const formData = this.createProjectService.create(this.formGroup);
 
-    this.api.createProject(formData).subscribe({
+    this.timeStarted = Date.now();
+    this.uploadSubscription = this.api.createProject(formData).subscribe({
       next: (event: HttpEvent<ProjectEntity>) => this._handleHttpEvent(event),
       error: (error: HttpErrorResponse) => this._handleErrorHttpEvent(error),
     });
+  }
+
+  cancelUpload() {
+    if (this.uploadSubscription) {
+      this.uploadSubscription.unsubscribe();
+      this.loading = false;
+      this.dialogRef.close();
+    }
   }
 
   get contentTitle(): string | null {
@@ -283,6 +297,12 @@ export class DialogCreateProjectComponent implements AfterViewInit, OnDestroy {
     switch (event.type) {
       case HttpEventType.UploadProgress:
         this.fileUploadProgress = (event.loaded / this.totalFileSize) * 100;
+
+        const timeElapsedInSeconds = (Date.now() - this.timeStarted) / 1000;
+        const uploadSpeedInSeconds = event.loaded / timeElapsedInSeconds;
+
+        this.eta = (this.totalFileSize - event.loaded) / uploadSpeedInSeconds;
+
         break;
       case HttpEventType.Response:
         // TODO maybe call store method?? -> user will get the ws eveent anyways

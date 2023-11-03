@@ -386,7 +386,6 @@ export class ProjectService {
       //   projectId: project._id,
       // });
     }
-
     const oldProject = await this.db.projectModel
       .findByIdAndUpdate(
         id,
@@ -529,11 +528,35 @@ export class ProjectService {
         ),
     );
 
-    await this.mailService.sendInviteEmail(
-      project,
-      project.createdBy as LeanUserDocument,
-      emails,
+    // add exising users
+
+    const missingEmails = [];
+
+    await Promise.all(
+      emails.map(async (email) => {
+        const user = await this.db.userModel.findOne({ email });
+        if (user) {
+          await this.db.userModel.findOneAndUpdate(
+            { email },
+            { $push: { projects: id } },
+          );
+          await this.db.projectModel.findByIdAndUpdate(id, {
+            $push: { users: user },
+          });
+        } else {
+          missingEmails.push(email);
+        }
+      }),
     );
+
+    // TODO invite users that are not registered
+    if (missingEmails.length > 0) {
+      await this.mailService.sendInviteEmail(
+        project,
+        project.createdBy as LeanUserDocument,
+        missingEmails,
+      );
+    }
   }
 
   async getInviteToken(
@@ -566,6 +589,39 @@ export class ProjectService {
     });
 
     return { inviteToken };
+  }
+
+  async joinViaInviteToken(
+    authUser: AuthUser,
+    inviteToken: string,
+  ): Promise<void> {
+    const verifyInvite = await this.authService.verifyInvite(inviteToken);
+    const project = await this.db.findProjectByIdOrThrow(
+      verifyInvite.projectId,
+    );
+    const user = await this.db.userModel.findById(authUser.id);
+
+    if (user.projects.includes(project._id))
+      throw new CustomBadRequestException('already_member_of_project');
+
+    await Promise.all([
+      this.db.userModel.findByIdAndUpdate(user._id, {
+        $push: { projects: project._id },
+      }),
+      this.db.projectModel.findByIdAndUpdate(project._id, {
+        $push: { users: user },
+      }),
+    ]);
+
+    // if (!this.permissions.isProjectOwner(project, authUser)) {
+    //   throw new CustomForbiddenException('must_be_owner');
+    // }
+
+    // const inviteToken = await this._generateInviteToken();
+
+    // await this.db.projectModel.findByIdAndUpdate(id, {
+    //   $set: { inviteToken },
+    // });
   }
 
   // upload media

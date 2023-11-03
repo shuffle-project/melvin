@@ -70,9 +70,14 @@ export const selectRegisterSuccess = createSelector(
 
 // Invite
 
-export const selectInviteToken = createSelector(
+export const selectInviteTokenRoute = createSelector(
   selectRouteParam('inviteToken'),
   (token) => token
+);
+
+export const selectInviteTokenCache = createSelector(
+  authState,
+  (state) => state.inviteToken
 );
 
 export const selectInviteLoading = createSelector(

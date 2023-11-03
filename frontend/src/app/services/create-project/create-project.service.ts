@@ -30,6 +30,7 @@ export class CreateProjectService {
   private data: Data = { title: '', language: '', sourceMode: 'video' };
 
   create(formGroup: FormGroup<ProjectGroup>): FormData {
+    this.formData = new FormData();
     const { metadataGroup, videoGroup, liveGroup } = formGroup.controls;
     const { title, sourceMode, members = [] } = metadataGroup.getRawValue();
 

@@ -80,6 +80,8 @@ export abstract class ApiService {
 
   abstract verifyInviteToken(token: string): Observable<InviteEntity>;
 
+  abstract joinViaInviteToken(token: string): Observable<void>;
+
   abstract guestLogin(
     token?: string,
     name?: string

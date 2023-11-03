@@ -5,7 +5,6 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { AvatarGroupModule } from '../../../components/avatar-group/avatar-group.module';
 import { HeaderModule } from '../../../components/header/header.module';
 import { LogoModule } from '../../../components/logo/logo.module';
-import { ShareProjectDialogModule } from '../../../components/share-project-dialog/share-project-dialog.module';
 import { ProjectDetailModule } from '../../../modules/project-detail/project-detail.module';
 import { SharedModule } from '../../../modules/shared/shared.module';
 import { DurationPipeModule } from '../../../pipes/duration-pipe/duration-pipe.module';
@@ -35,7 +34,6 @@ import { EditorComponent } from './editor.component';
     MatProgressBarModule,
     VideoPlayerModule,
     AvatarGroupModule,
-    ShareProjectDialogModule,
     MatSlideToggleModule,
     ProjectDetailModule,
     LiveControlsModule,

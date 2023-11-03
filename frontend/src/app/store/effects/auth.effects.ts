@@ -130,8 +130,13 @@ export class AuthEffects {
     () =>
       this.actions$.pipe(
         ofType(authActions.loginSuccess),
-        tap((res) => {
-          this.router.navigate(res.token ? ['/home'] : ['/auth']);
+        withLatestFrom(this.store.select(authSelectors.selectInviteTokenCache)),
+        tap(([res, inviteToken]) => {
+          if (inviteToken) {
+            this.router.navigate(['/invite/' + inviteToken]);
+          } else {
+            this.router.navigate(res.token ? ['/home'] : ['/auth']);
+          }
         })
       ),
     { dispatch: false }
@@ -186,11 +191,16 @@ export class AuthEffects {
       ofType(authActions.verifyInviteToken),
       switchMap((action) =>
         of(action).pipe(
-          withLatestFrom(this.store.select(authSelectors.selectInviteToken)),
+          withLatestFrom(
+            this.store.select(authSelectors.selectInviteTokenRoute)
+          ),
           exhaustMap(([action, token]) =>
             this.api.verifyInviteToken(token as any).pipe(
               map((res) => {
-                return authActions.verifyInviteTokenSuccess(res);
+                return authActions.verifyInviteTokenSuccess({
+                  inviteEntity: res,
+                  token: token!,
+                });
               }),
               catchError((res: HttpErrorResponse) => {
                 return of(

@@ -2,15 +2,12 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { Observable, Subject } from 'rxjs';
-import { AuthUser } from '../../interfaces/auth.interfaces';
+import { Subject, firstValueFrom } from 'rxjs';
 import { ApiService } from '../../services/api/api.service';
-import { InviteEntity } from '../../services/api/entities/auth.entity';
 import { AppState } from '../../store/app.state';
 import * as authSelectors from '../../store/selectors/auth.selector';
 import * as authActions from './../../store/actions/auth.actions';
 import { GuestLoginDialogComponent } from './components/guest-login/guest-login-dialog.component';
-
 @Component({
   selector: 'app-invite',
   templateUrl: './invite.component.html',
@@ -19,10 +16,13 @@ import { GuestLoginDialogComponent } from './components/guest-login/guest-login-
 export class InviteComponent implements OnInit, OnDestroy {
   private destroy$$ = new Subject<void>();
 
-  public isLoading$!: Observable<boolean>;
-  public user$!: Observable<AuthUser | null>;
-  public invite$!: Observable<InviteEntity | null>;
-  public error$!: Observable<string | null>;
+  public isLoading$ = this.store.select(authSelectors.selectInviteLoading);
+  public invite$ = this.store.select(authSelectors.selectInviteEntity);
+  public user$ = this.store.select(authSelectors.selectUser);
+  public error$ = this.store.select(authSelectors.selectInviteError);
+
+  public currentUser$ = this.store.select(authSelectors.selectUser);
+  public inviteToken$ = this.store.select(authSelectors.selectInviteTokenRoute);
 
   constructor(
     private store: Store<AppState>,
@@ -32,11 +32,6 @@ export class InviteComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.isLoading$ = this.store.select(authSelectors.selectInviteLoading);
-    this.invite$ = this.store.select(authSelectors.selectInviteEntity);
-    this.user$ = this.store.select(authSelectors.selectUser);
-    this.error$ = this.store.select(authSelectors.selectInviteError);
-
     this.store.dispatch(authActions.verifyInviteToken());
 
     // // this.store
@@ -76,8 +71,12 @@ export class InviteComponent implements OnInit, OnDestroy {
     this.router.navigate(['/home']);
   }
 
-  onClickJoin() {
-    console.log('join');
+  async onClickJoin() {
+    const token = await firstValueFrom(this.inviteToken$);
+
+    const res = await firstValueFrom(this.api.joinViaInviteToken(token!));
+
+    this.router.navigate(['/home']);
   }
 
   onClickAuth() {
