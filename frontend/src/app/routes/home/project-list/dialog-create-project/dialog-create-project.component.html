@@ -147,12 +147,13 @@
   </mat-stepper>
 
   <div *ngIf="loading" class="loading">
-    <p i18n="@@dialogCreateProjectLoadingInfo">Uploading data</p>
+    <p i18n="@@dialogCreateProjectLoadingInfo">
+      Uploading data - {{ fileUploadProgress.toFixed() }}%
+    </p>
     <mat-progress-bar
       mode="determinate"
       [value]="fileUploadProgress"
     ></mat-progress-bar>
-    <p>{{ fileUploadProgress.toFixed() }}%</p>
     <p *ngIf="eta">ETA: {{ eta * 1000 | duration }}</p>
     <br /><br />
     <button
