@@ -9,7 +9,7 @@
       [mat-dialog-close]="true"
       aria-label="Close"
       i18n-aria-label="@@dialogCreateProjectCloseButton"
-      [disabled]="loading"
+      *ngIf="!loading"
     >
       <mat-icon svgIcon="clear"></mat-icon>
     </button>
@@ -147,11 +147,21 @@
   </mat-stepper>
 
   <div *ngIf="loading" class="loading">
-    <p i18n="@@dialogCreateProjectLoadingInfo">Creating project</p>
+    <p i18n="@@dialogCreateProjectLoadingInfo">Uploading data</p>
     <mat-progress-bar
       mode="determinate"
       [value]="fileUploadProgress"
     ></mat-progress-bar>
+    <p>{{ fileUploadProgress.toFixed() }}%</p>
+    <br /><br />
+    <button
+      mat-button
+      color="primary"
+      *ngIf="uploadSubscription"
+      (click)="cancelUpload()"
+    >
+      Cancel Upload
+    </button>
   </div>
 
   <div>

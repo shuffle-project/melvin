@@ -15,7 +15,7 @@ import {
 } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { MatStepper } from '@angular/material/stepper';
-import { Subject, takeUntil } from 'rxjs';
+import { Subject, Subscription, takeUntil } from 'rxjs';
 import { ApiService } from 'src/app/services/api/api.service';
 import { AsrVendors } from 'src/app/services/api/dto/create-transcription.dto';
 import { ProjectEntity } from 'src/app/services/api/entities/project.entity';
@@ -34,6 +34,7 @@ import { ProjectGroup } from './dialog-create-project.interfaces';
 export class DialogCreateProjectComponent implements AfterViewInit, OnDestroy {
   loading = false;
   fileUploadProgress = 0; // value from 0 to 100
+  uploadSubscription!: Subscription;
   private totalFileSize = 0;
   error: HttpErrorResponse | null = null;
   acceptedFileFormats: string[] = ['audio', 'video', '.srt', '.vtt'];
@@ -258,10 +259,18 @@ export class DialogCreateProjectComponent implements AfterViewInit, OnDestroy {
     this.loading = true;
     const formData = this.createProjectService.create(this.formGroup);
 
-    this.api.createProject(formData).subscribe({
+    this.uploadSubscription = this.api.createProject(formData).subscribe({
       next: (event: HttpEvent<ProjectEntity>) => this._handleHttpEvent(event),
       error: (error: HttpErrorResponse) => this._handleErrorHttpEvent(error),
     });
+  }
+
+  cancelUpload() {
+    if (this.uploadSubscription) {
+      this.uploadSubscription.unsubscribe();
+      this.loading = false;
+      this.dialogRef.close();
+    }
   }
 
   get contentTitle(): string | null {
