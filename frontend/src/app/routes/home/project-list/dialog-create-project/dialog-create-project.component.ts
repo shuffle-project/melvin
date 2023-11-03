@@ -41,6 +41,10 @@ export class DialogCreateProjectComponent implements AfterViewInit, OnDestroy {
 
   private destroy$$ = new Subject<void>();
 
+  // calculate eta
+  timeStarted!: number;
+  eta: undefined | number = undefined;
+
   @ViewChild('stepper') stepper!: MatStepper;
 
   public formGroup = this.fb.group<ProjectGroup>(
@@ -259,6 +263,7 @@ export class DialogCreateProjectComponent implements AfterViewInit, OnDestroy {
     this.loading = true;
     const formData = this.createProjectService.create(this.formGroup);
 
+    this.timeStarted = Date.now();
     this.uploadSubscription = this.api.createProject(formData).subscribe({
       next: (event: HttpEvent<ProjectEntity>) => this._handleHttpEvent(event),
       error: (error: HttpErrorResponse) => this._handleErrorHttpEvent(error),
@@ -292,6 +297,12 @@ export class DialogCreateProjectComponent implements AfterViewInit, OnDestroy {
     switch (event.type) {
       case HttpEventType.UploadProgress:
         this.fileUploadProgress = (event.loaded / this.totalFileSize) * 100;
+
+        const timeElapsedInSeconds = (Date.now() - this.timeStarted) / 1000;
+        const uploadSpeedInSeconds = event.loaded / timeElapsedInSeconds;
+
+        this.eta = (this.totalFileSize - event.loaded) / uploadSpeedInSeconds;
+
         break;
       case HttpEventType.Response:
         // TODO maybe call store method?? -> user will get the ws eveent anyways

@@ -153,6 +153,7 @@
       [value]="fileUploadProgress"
     ></mat-progress-bar>
     <p>{{ fileUploadProgress.toFixed() }}%</p>
+    <p *ngIf="eta">ETA: {{ eta * 1000 | duration }}</p>
     <br /><br />
     <button
       mat-button
