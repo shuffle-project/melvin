@@ -1,4 +1,8 @@
-import { HttpErrorResponse, HttpEvent } from '@angular/common/http';
+import {
+  HttpErrorResponse,
+  HttpEvent,
+  HttpEventType,
+} from '@angular/common/http';
 import { Component, Input, OnInit } from '@angular/core';
 import {
   FormControl,
@@ -7,7 +11,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { firstValueFrom, map, tap } from 'rxjs';
+import { Subscription, firstValueFrom, map } from 'rxjs';
 import { ApiService } from '../../../../services/api/api.service';
 import {
   AdditionalMedia,
@@ -17,6 +21,16 @@ import {
 } from '../../../../services/api/entities/project.entity';
 import { AppState } from '../../../../store/app.state';
 import * as projectsSelector from '../../../../store/selectors/projects.selector';
+
+import * as uuid from 'uuid';
+
+interface FileUpload {
+  id: string;
+  name: string;
+  sub: Subscription;
+  loaded?: number;
+  totalSize?: number;
+}
 
 @Component({
   selector: 'app-upload-additional-content',
@@ -30,7 +44,6 @@ export class UploadAdditionalContentComponent implements OnInit {
   private projects$ = this.store.select(projectsSelector.selectAllProjects);
 
   public project$ = this.projects$.pipe(
-    tap((projectEntities) => console.log(projectEntities)),
     map((projectEntities) =>
       projectEntities.find((project) => project.id === this.projectId)
     )
@@ -41,7 +54,9 @@ export class UploadAdditionalContentComponent implements OnInit {
     file: FormControl<File | null>;
     category: FormControl<VideoCategory | null>;
   }>;
-  private currentFile: any;
+  private selectedFile: any;
+
+  fileUploads: FileUpload[] = [];
 
   constructor(
     private fb: NonNullableFormBuilder,
@@ -60,25 +75,75 @@ export class UploadAdditionalContentComponent implements OnInit {
   }
 
   onFileChange(event: any) {
-    this.currentFile = event.target.files[0];
+    this.selectedFile = event.target.files[0];
   }
 
   async onClickSubmit() {
     if (this.formGroup.valid) {
-      this.api
-        .uploadVideo(
-          this.projectId,
-          {
-            title: this.formGroup.value.title!,
-            category: this.formGroup.value.category!,
-          },
-          this.currentFile
-        )
-        .subscribe({
-          next: (event: HttpEvent<ProjectEntity>) => console.log(event),
-          error: (error: HttpErrorResponse) => console.log(error),
-        });
+      const id = uuid.v4();
+      this.fileUploads.push({
+        id,
+        name: this.formGroup.value.title!,
+        totalSize: this.selectedFile.size,
+        sub: this.api
+          .uploadVideo(
+            this.projectId,
+            {
+              title: this.formGroup.value.title!,
+              category: this.formGroup.value.category!,
+            },
+            this.selectedFile
+          )
+          .subscribe({
+            next: (event: HttpEvent<ProjectEntity>) =>
+              this._handleHttpEvent(id, event),
+            error: (error: HttpErrorResponse) =>
+              this._handleHttpError(id, error),
+          }),
+      });
+      this.formGroup.reset();
     }
+  }
+
+  onCancelUpload(fileUpload: FileUpload) {
+    fileUpload.sub.unsubscribe();
+
+    this.fileUploads.splice(
+      this.fileUploads.findIndex((element) => element.id === fileUpload.id),
+      1
+    );
+
+    // this.uploadSubscriptions.indexOf(element => element.)
+  }
+
+  private _handleHttpEvent(id: string, event: HttpEvent<ProjectEntity>): void {
+    const fileUpload = this.fileUploads.find((element) => element.id === id);
+
+    switch (event.type) {
+      case HttpEventType.UploadProgress:
+        if (fileUpload) {
+          fileUpload.loaded = event.loaded;
+        }
+        // this.fileUploadProgress = (event.loaded / this.totalFileSize) * 100;
+        break;
+      case HttpEventType.Response:
+        // TODO maybe call store method?? -> user will get the ws eveent anyways
+        this.fileUploads.splice(
+          this.fileUploads.findIndex((element) => element.id === id),
+          1
+        );
+
+        break;
+      default:
+        break;
+    }
+  }
+
+  private _handleHttpError(id: string, error: HttpErrorResponse): void {
+    this.fileUploads.splice(
+      this.fileUploads.findIndex((element) => element.id === id),
+      1
+    );
   }
 
   async onDeleteAdditionalMedia(

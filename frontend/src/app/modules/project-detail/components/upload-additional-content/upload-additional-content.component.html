@@ -1,26 +1,13 @@
-<h3>upload additional video</h3>
+<h3>Upload additinal media files</h3>
 
 <form class="upload-form" [formGroup]="formGroup" (ngSubmit)="onClickSubmit()">
-  <div>
-    <mat-form-field appearance="fill">
+  <div class="first-row">
+    <mat-form-field appearance="fill" class="title">
       <mat-label>Video Title</mat-label>
       <input matInput formControlName="title" placeholder="Video Title" />
     </mat-form-field>
-  </div>
 
-  <div>
-    <input
-      #fileUpload
-      formControlName="file"
-      type="file"
-      name="file"
-      accept="video/*,audio/*"
-      (change)="onFileChange($event)"
-    />
-  </div>
-
-  <div>
-    <mat-form-field>
+    <mat-form-field class="category">
       <mat-label>Choose a category</mat-label>
       <mat-select formControlName="category">
         <mat-option value="{{ VideoCategory.OTHER }}">Other</mat-option>
@@ -32,15 +19,48 @@
       </mat-select>
     </mat-form-field>
   </div>
+  <div class="second-row">
+    <div class="upload-wrapper">
+      <input
+        #fileUpload
+        formControlName="file"
+        type="file"
+        name="file"
+        single
+        accept="video/*"
+        (change)="onFileChange($event)"
+      />
+    </div>
 
-  <div>
-    <input
-      type="submit"
-      value="Upload"
+    <button
+      (click)="onClickSubmit()"
+      mat-flat-button
+      color="primary"
       [disabled]="formGroup.status === 'INVALID'"
-    />
+    >
+      <mat-icon svgIcon="upload"></mat-icon>
+      Upload
+    </button>
   </div>
 </form>
+<div *ngIf="fileUploads.length > 0">
+  <h3>Uploading</h3>
+  <ul class="upload-list">
+    <li *ngFor="let fileUpload of fileUploads">
+      {{ fileUpload.name }}
+      <mat-progress-bar
+        *ngIf="fileUpload.loaded && fileUpload.totalSize"
+        mode="determinate"
+        [value]="(fileUpload.loaded / fileUpload.totalSize) * 100"
+      ></mat-progress-bar>
+
+      <!-- {{ (fileUpload.loaded / fileUpload.totalSize) * 100 }}% -->
+      <button mat-icon-button (click)="onCancelUpload(fileUpload)">
+        <mat-icon svgIcon="close"></mat-icon>
+      </button>
+    </li>
+  </ul>
+</div>
 
 <ng-container *ngrxLet="project$ as project">
   <hr />
@@ -50,8 +70,11 @@
     <ul>
       <li *ngFor="let video of project.videos">
         {{ video.title }} -- {{ video.category }}
-        <button (click)="onDeleteAdditionalMedia(project, video)">
-          delete
+        <button
+          mat-icon-button
+          (click)="onDeleteAdditionalMedia(project, video)"
+        >
+          <mat-icon svgIcon="delete"></mat-icon>
         </button>
       </li>
     </ul>
