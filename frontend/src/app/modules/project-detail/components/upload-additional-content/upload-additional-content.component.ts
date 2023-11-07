@@ -11,7 +11,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { Subscription, firstValueFrom, map } from 'rxjs';
+import { Subscription, combineLatest, firstValueFrom, map } from 'rxjs';
 import { ApiService } from '../../../../services/api/api.service';
 import {
   AdditionalMedia,
@@ -23,6 +23,7 @@ import { AppState } from '../../../../store/app.state';
 import * as projectsSelector from '../../../../store/selectors/projects.selector';
 
 import * as uuid from 'uuid';
+import { selectUserId } from '../../../../store/selectors/auth.selector';
 
 interface FileUpload {
   id: string;
@@ -49,6 +50,11 @@ export class UploadAdditionalContentComponent implements OnInit {
       projectEntities.find((project) => project.id === this.projectId)
     )
   );
+
+  public isOwner$ = combineLatest([
+    this.store.select(selectUserId),
+    this.project$,
+  ]).pipe(map(([userId, project]) => userId === project?.createdBy));
 
   public formGroup!: FormGroup<{
     title: FormControl<string>;
