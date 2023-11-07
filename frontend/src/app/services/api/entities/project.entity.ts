@@ -10,7 +10,7 @@ export enum VideoStatus {
   PROCESSING = 'processing',
   ERROR = 'error',
 }
-export enum VideoCategory {
+export enum MediaCategory {
   MAIN = 'main',
   OTHER = 'other',
   SIGN_LANGUAGE = 'sign_language',
@@ -29,7 +29,7 @@ export interface VideoEntity {
   status: VideoStatus;
   title: string;
   originalFileName: string;
-  category: VideoCategory;
+  category: MediaCategory;
 }
 
 export interface VideoLinkEntity {
@@ -38,7 +38,7 @@ export interface VideoLinkEntity {
   title: string;
   originalFileName: string;
   status: VideoStatus;
-  category: VideoCategory;
+  category: MediaCategory;
 }
 
 export interface MediaLinksEntity {

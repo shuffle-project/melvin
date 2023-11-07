@@ -58,7 +58,7 @@ export enum RecordingTimestampType {
   START = 'start',
   STOP = 'stop',
 }
-export enum VideoCategory {
+export enum MediaCategory {
   MAIN = 'main',
   OTHER = 'other',
   SIGN_LANGUAGE = 'sign_language',
@@ -104,10 +104,10 @@ export class Video {
   @Prop()
   originalFileName: string;
 
-  @ApiProperty({ enum: VideoCategory, example: VideoCategory.OTHER })
+  @ApiProperty({ enum: MediaCategory, example: MediaCategory.OTHER })
   @Prop()
-  @IsEnum(VideoCategory)
-  category: VideoCategory;
+  @IsEnum(MediaCategory)
+  category: MediaCategory;
 
   @ApiProperty({ enum: VideoStatus, example: VideoStatus.FINISHED })
   @Prop()
