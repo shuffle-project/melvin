@@ -68,15 +68,12 @@
               >
                 Cancel
               </button>
-              <button
-                mat-flat-button
-                color="primary"
-                (click)="onClickJoin()"
-                i18n="@@inviteJoinProjectButtonLabel"
-              >
-                Join Project
+              <button mat-flat-button color="primary" (click)="onClickJoin()">
+                <span i18n="@@inviteJoinProjectButtonLabel">
+                  Join Project
+                </span>
                 <span *ngrxLet="currentUser$ as currentUser"
-                  >as {{ currentUser?.name }}</span
+                  >({{ currentUser?.name }})</span
                 >
               </button>
             </div>

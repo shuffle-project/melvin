@@ -135,8 +135,8 @@
         <target state="final"> Es wird mindestens eine Videodatei benötigt. </target>
       </trans-unit>
       <trans-unit id="metadataFormAddMemberLabel" datatype="html">
-        <source>Add team member</source>
-        <target state="final">Teammitglied hinzufügen</target>
+        <source>Add team members</source>
+        <target state="new">Teammitglied hinzufügen</target>
       </trans-unit>
       <trans-unit id="metadataFormAddMemberError" datatype="html">
         <source> User unknown or e-mail address invalid</source>
@@ -369,10 +369,6 @@
       <trans-unit id="inviteCancelButtonLabel" datatype="html">
         <source> Cancel </source>
         <target state="final"> Abbrechen </target>
-      </trans-unit>
-      <trans-unit id="inviteJoinProjectButtonLabel" datatype="html">
-        <source> Join Project <x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span *ngrxLet=&quot;currentUser$ as currentUser&quot; &gt;"/>as <x id="INTERPOLATION" equiv-text="{{ currentUser?.name }}"/><x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&gt;"/></source>
-        <target state="final">Projekt beitreten <x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span *ngrxLet=&quot;currentUser$ as currentUser&quot; &gt;"/>als <x id="INTERPOLATION" equiv-text="{{ currentUser?.name }}"/><x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&gt;" </target>
       </trans-unit>
       <trans-unit id="inviteLoginOrRegisterButtonLabel" datatype="html">
         <source> Login / Register </source>
@@ -975,8 +971,8 @@
         <target state="final">Übersicht</target>
       </trans-unit>
       <trans-unit id="dialogCreateProjectLoadingInfo" datatype="html">
-        <source> Uploading data - <x id="INTERPOLATION" equiv-text="{{ fileUploadProgress.toFixed() }}"/>% </source>
-        <target state="final">Daten hochladen - <x id="INTERPOLATION" equiv-text="{{ fileUploadProgress.toFixed() }}"/>%</target>
+        <source> Uploading data </source>
+        <target state="new">Daten hochladen - <x id="INTERPOLATION" equiv-text="{{ fileUploadProgress.toFixed() }}"/>%</target>
       </trans-unit>
       <trans-unit id="asrFormLanguageError" datatype="html">
         <source> Please select a language </source>
@@ -1193,6 +1189,14 @@
       <trans-unit id="playerTranscriptAutomaticScrollLabel" datatype="html">
         <source> Scroll automatically </source>
         <target state="final"> Automatisch mitscrollen </target>
+      </trans-unit>
+      <trans-unit id="shareProjectAddMemberLabel" datatype="html">
+        <source>Add team member</source>
+        <target state="new">Teammitglied hinzufügen</target>
+      </trans-unit>
+      <trans-unit id="inviteJoinProjectButtonLabel" datatype="html">
+        <source> Join Project </source>
+        <target state="new"> Projekt beitreten </target>
       </trans-unit>
     </body>
   </file>

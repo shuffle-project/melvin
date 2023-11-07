@@ -2,17 +2,68 @@
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
   <file source-language="en-US" datatype="plaintext" original="ng2.template">
     <body>
+      <trans-unit id="activityVideoProcessingFinishedDescription" datatype="html">
+        <source>Video was processed successfully.</source>
+      </trans-unit>
+      <trans-unit id="activityVideoProcessingFailedDescription" datatype="html">
+        <source>Video processing failed.</source>
+      </trans-unit>
+      <trans-unit id="activitySubtitlesProcessingFinishedDescription" datatype="html">
+        <source>Subtitles were created successfully.</source>
+      </trans-unit>
+      <trans-unit id="activitySubtitlesProcessingFailedDescription" datatype="html">
+        <source>Subtitle creation failed.</source>
+      </trans-unit>
+      <trans-unit id="activityProjectCreatedDescription" datatype="html">
+        <source>New project created.</source>
+      </trans-unit>
+      <trans-unit id="activityProjectStatusUpdatedDescription" datatype="html">
+        <source>Status changed to &lt;span class=&quot;chip <x id="PH" equiv-text="details.after"/>&quot;&gt;<x id="PH_1" equiv-text="this.projectStatusPipe.transform(details.after)"/>&lt;/span&gt;.</source>
+      </trans-unit>
+      <trans-unit id="activityProjectTitleUpdatedDescription" datatype="html">
+        <source>Titel changed from <x id="PH" equiv-text="details.before"/>.</source>
+      </trans-unit>
+      <trans-unit id="activityProjectUserJoinedDescription" datatype="html">
+        <source><x id="PH" equiv-text="details.user.name"/> joined the project.</source>
+      </trans-unit>
+      <trans-unit id="activityProjectUserLeftDescription" datatype="html">
+        <source><x id="PH" equiv-text="details.user.name"/> left the project.</source>
+      </trans-unit>
       <trans-unit id="footerImprintLinkLabel" datatype="html">
         <source><x id="START_LINK" ctype="x-a" equiv-text="&apos;]&quot;&gt;"/>Imprint<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/></source>
       </trans-unit>
       <trans-unit id="footerContactLinktLabel" datatype="html">
         <source><x id="START_LINK" ctype="x-a" equiv-text="&gt;"/>Contact<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/></source>
       </trans-unit>
+      <trans-unit id="headerToggleActivateDarkmode" datatype="html">
+        <source>Activate darkmode</source>
+      </trans-unit>
+      <trans-unit id="headerNotificationMenuTitle" datatype="html">
+        <source> Notifications </source>
+      </trans-unit>
       <trans-unit id="headerMarkAsReadButtonLabel" datatype="html">
         <source>Mark as read</source>
       </trans-unit>
+      <trans-unit id="headerShowAllNotifications" datatype="html">
+        <source> Show all notifications </source>
+      </trans-unit>
+      <trans-unit id="headerMenuProfileButtonTooltip" datatype="html">
+        <source>Go to your Profile</source>
+      </trans-unit>
+      <trans-unit id="headerMenuProfileButton" datatype="html">
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/m"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="Profile"/>Profile </source>
+      </trans-unit>
+      <trans-unit id="headerMenuLogoutButtonTooltip" datatype="html">
+        <source>Logout</source>
+      </trans-unit>
+      <trans-unit id="headerMenuLogoutButton" datatype="html">
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="Logout"/>Logout </source>
+      </trans-unit>
       <trans-unit id="shareProjectWithPeopleHeader" datatype="html">
         <source>Share with people</source>
+      </trans-unit>
+      <trans-unit id="shareProjectAddMemberLabel" datatype="html">
+        <source>Add team member</source>
       </trans-unit>
       <trans-unit id="shareProjectRetrieveLinkHeader" datatype="html">
         <source>Retrieve link</source>
@@ -34,6 +85,21 @@
       </trans-unit>
       <trans-unit id="shareProjectLinkCopiedMessage" datatype="html">
         <source>Link copied</source>
+      </trans-unit>
+      <trans-unit id="dialogCreateProjectRemoveFileTooltip" datatype="html">
+        <source>Remove file</source>
+      </trans-unit>
+      <trans-unit id="dialogCreateProjectAddFilesButton" datatype="html">
+        <source>Add more files </source>
+      </trans-unit>
+      <trans-unit id="dialogCreateProjectDropzoneText" datatype="html">
+        <source> Drag your audio, video and subtitle files here </source>
+      </trans-unit>
+      <trans-unit id="dialogCreateProjectDropzoneText2" datatype="html">
+        <source>or</source>
+      </trans-unit>
+      <trans-unit id="dialogCreateProjectChooseFile" datatype="html">
+        <source>Choose file </source>
       </trans-unit>
       <trans-unit id="createTranscriptionModalTitle" datatype="html">
         <source> Add transcription </source>
@@ -290,35 +356,17 @@
       <trans-unit id="registerLoginButtonLabel" datatype="html">
         <source><x id="START_TAG_MAT_SPINNER" ctype="x-mat_spinner" equiv-text="oading$ | async&quot; strokeWidth=&quot;2&quot; diameter=&quot;20&quot; color=&quot;primary&quot; style=&quot;margin-right: 10px&quot; &gt;"/><x id="CLOSE_TAG_MAT_SPINNER" ctype="x-mat_spinner" equiv-text="Reg"/> Register </source>
       </trans-unit>
-      <trans-unit id="captionPlayFromThisCaptionTooltip" datatype="html">
-        <source>Play from this caption.</source>
-      </trans-unit>
       <trans-unit id="captionDeleteCaptionTooltip" datatype="html">
         <source>Delete caption</source>
       </trans-unit>
-      <trans-unit id="captionChangeSpeakerTooltip" datatype="html">
-        <source>Change speaker</source>
+      <trans-unit id="captionRevertShowCaptionHistoryTooltip" datatype="html">
+        <source>Show caption history</source>
       </trans-unit>
       <trans-unit id="captionToggleFlagTooltip" datatype="html">
         <source>Toggle flag</source>
       </trans-unit>
-      <trans-unit id="captionAddCaptionEnoughTime" datatype="html">
-        <source>Add caption</source>
-      </trans-unit>
-      <trans-unit id="captionAddCaptionNotEnoughTime" datatype="html">
-        <source>Current caption does not provide enough time to provide half the time for a new caption</source>
-      </trans-unit>
-      <trans-unit id="captionCaptionStartTimingFormatError" datatype="html">
-        <source>The time must be specified in the valid format HH:mm:ss.</source>
-      </trans-unit>
-      <trans-unit id="captionCaptionStartOverlapsPreviousCaptionError" datatype="html">
-        <source>The start time of the caption overlaps with the previous caption.</source>
-      </trans-unit>
-      <trans-unit id="captionCaptionOverlapsFollowingError" datatype="html">
-        <source>The caption end time overlaps with the following caption.</source>
-      </trans-unit>
-      <trans-unit id="captionCaptionEndBeforeStartError" datatype="html">
-        <source>The caption end time can&apos;t be before the start time.</source>
+      <trans-unit id="captionChangeSpeakerTooltip" datatype="html">
+        <source>Change speaker</source>
       </trans-unit>
       <trans-unit id="captionsAddNewSpeakerButtonLabel" datatype="html">
         <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;add&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/> Add speaker </source>
@@ -334,6 +382,30 @@
       </trans-unit>
       <trans-unit id="editSpeakerModalNameAlreadyExists" datatype="html">
         <source>Name already exists</source>
+      </trans-unit>
+      <trans-unit id="captionPlayFromThisCaptionTooltip" datatype="html">
+        <source>Play from this caption.</source>
+      </trans-unit>
+      <trans-unit id="captionLoopThisCaptionTooltip" datatype="html">
+        <source>Loop this caption.</source>
+      </trans-unit>
+      <trans-unit id="captionAddCaptionNotEnoughTime" datatype="html">
+        <source>Current caption does not provide enough time to provide half the time for a new caption</source>
+      </trans-unit>
+      <trans-unit id="captionAddCaptionEnoughTime" datatype="html">
+        <source>Add caption</source>
+      </trans-unit>
+      <trans-unit id="captionCaptionStartTimingFormatError" datatype="html">
+        <source>The time must be specified in the valid format HH:mm:ss.</source>
+      </trans-unit>
+      <trans-unit id="captionCaptionEndBeforeStartError" datatype="html">
+        <source>The caption end time can&apos;t be before the start time.</source>
+      </trans-unit>
+      <trans-unit id="captionCaptionStartOverlapsPreviousCaptionError" datatype="html">
+        <source>The start time of the caption overlaps with the previous caption.</source>
+      </trans-unit>
+      <trans-unit id="captionCaptionOverlapsFollowingError" datatype="html">
+        <source>The caption end time overlaps with the following caption.</source>
       </trans-unit>
       <trans-unit id="videoMuteUnmuteSoundTooltip" datatype="html">
         <source>Mute or unmute Sound</source>
@@ -413,14 +485,62 @@
       <trans-unit id="editorToogleZoomTooltip" datatype="html">
         <source>Toggle zoom</source>
       </trans-unit>
+      <trans-unit id="notificationListTitle" datatype="html">
+        <source>Notifications</source>
+      </trans-unit>
+      <trans-unit id="notificationListNotNotifications" datatype="html">
+        <source> No notifications </source>
+      </trans-unit>
+      <trans-unit id="notificationListReadButton" datatype="html">
+        <source> Read </source>
+      </trans-unit>
+      <trans-unit id="notificationListDeleteButton" datatype="html">
+        <source> Delete </source>
+      </trans-unit>
+      <trans-unit id="notificationListAllNotificationsCheckboxTooltip" datatype="html">
+        <source>All notifications</source>
+      </trans-unit>
       <trans-unit id="notificationListTodayLabel" datatype="html">
         <source>[Today]</source>
       </trans-unit>
       <trans-unit id="notificationListYesterdayLabel" datatype="html">
         <source>[Yesterday]</source>
       </trans-unit>
-      <trans-unit id="dialogCreateProjectHeadline" datatype="html">
-        <source>New Project</source>
+      <trans-unit id="asrFormFieldsetLegend" datatype="html">
+        <source>Generate automatic subtitles</source>
+      </trans-unit>
+      <trans-unit id="asrFormVendorLabel" datatype="html">
+        <source>Vendor</source>
+      </trans-unit>
+      <trans-unit id="asrFormVendorError" datatype="html">
+        <source> Please select an ASR vendor </source>
+      </trans-unit>
+      <trans-unit id="asrFormLanguageLabel" datatype="html">
+        <source>Language</source>
+      </trans-unit>
+      <trans-unit id="asrFormLanguageError" datatype="html">
+        <source> Please select a language </source>
+      </trans-unit>
+      <trans-unit id="asrFormLanguageHint" datatype="html">
+        <source>The available languages are vendor dependent</source>
+      </trans-unit>
+      <trans-unit id="asrFormDisabledInfoText" datatype="html">
+        <source> Automatic subtitle generation is disabled due to already uploaded subtitle files </source>
+      </trans-unit>
+      <trans-unit id="liveFormFieldsetLegend" datatype="html">
+        <source>Livestream settings</source>
+      </trans-unit>
+      <trans-unit id="liveFormLanguageInputLabel" datatype="html">
+        <source>Language</source>
+      </trans-unit>
+      <trans-unit id="liveFormLanguageInputError" datatype="html">
+        <source>Please select a language</source>
+      </trans-unit>
+      <trans-unit id="liveFormDifferentLanguagesInfo" datatype="html">
+        <source>The specified language of the video/audio file is different from the language used for automatic subtitle generation. Are you sure you want to proceed?</source>
+      </trans-unit>
+      <trans-unit id="metadaFormGeneralFieldsetLabel" datatype="html">
+        <source>General Info</source>
       </trans-unit>
       <trans-unit id="metadataFormTitleInputLabel" datatype="html">
         <source>Titel</source>
@@ -428,29 +548,8 @@
       <trans-unit id="metadataFormTitleInputError" datatype="html">
         <source>Please add a title</source>
       </trans-unit>
-      <trans-unit id="asrFormLanguageLabel" datatype="html">
-        <source>Language</source>
-      </trans-unit>
-      <trans-unit id="liveFormLanguageInputError" datatype="html">
-        <source>Please select a language</source>
-      </trans-unit>
-      <trans-unit id="dialogCreateProjectRemoveFileTooltip" datatype="html">
-        <source>Remove file</source>
-      </trans-unit>
-      <trans-unit id="dialogCreateProjectDropzoneText" datatype="html">
-        <source> Drag your audio, video and subtitle files here </source>
-      </trans-unit>
-      <trans-unit id="dialogCreateProjectDropzoneText2" datatype="html">
-        <source>or</source>
-      </trans-unit>
-      <trans-unit id="dialogCreateProjectChooseFile" datatype="html">
-        <source>Choose file </source>
-      </trans-unit>
-      <trans-unit id="sourceFormVideoRequiredError" datatype="html">
-        <source> At least one video or audio file is required </source>
-      </trans-unit>
       <trans-unit id="metadataFormAddMemberLabel" datatype="html">
-        <source>Add team member</source>
+        <source>Add team members</source>
       </trans-unit>
       <trans-unit id="metadataFormAddMemberError" datatype="html">
         <source> User unknown or e-mail address invalid</source>
@@ -458,11 +557,98 @@
       <trans-unit id="metadataFormAddMemberHint" datatype="html">
         <source> Enter the email addresses of your team members. Addresses that are not associated with an account will be invited to the project via email. </source>
       </trans-unit>
+      <trans-unit id="overviewFormTitleHeader" datatype="html">
+        <source>Title</source>
+      </trans-unit>
+      <trans-unit id="overviewFormMembersHeader" datatype="html">
+        <source> Teammembers </source>
+      </trans-unit>
+      <trans-unit id="overviewFormFilesHeader" datatype="html">
+        <source>Files</source>
+      </trans-unit>
+      <trans-unit id="overviewFormSubtitlesHeader" datatype="html">
+        <source>Subtitle Vendor</source>
+      </trans-unit>
+      <trans-unit id="overviewFormSubtitleLanguageHeader" datatype="html">
+        <source>Subtitle Language</source>
+      </trans-unit>
+      <trans-unit id="overviewFormURLHeader" datatype="html">
+        <source>Livestream URL</source>
+      </trans-unit>
+      <trans-unit id="overviewFormURLLanguageHeader" datatype="html">
+        <source>Language</source>
+      </trans-unit>
+      <trans-unit id="overviewFormASRVEndorHeader" datatype="html">
+        <source>Subtitle Vendor</source>
+      </trans-unit>
+      <trans-unit id="overviewFormASRLanguageHeader" datatype="html">
+        <source>Subtitle Language</source>
+      </trans-unit>
+      <trans-unit id="sourceFormVideoRadioButton" datatype="html">
+        <source> Upload video or audio files</source>
+      </trans-unit>
+      <trans-unit id="sourceFormLiveRadioButton" datatype="html">
+        <source> Connect to livestream</source>
+      </trans-unit>
+      <trans-unit id="sourceFormVideoRequiredError" datatype="html">
+        <source> At least one video or audio file is required </source>
+      </trans-unit>
+      <trans-unit id="sourceFormTooManyVideosError" datatype="html">
+        <source> A maximum of one video or audio file may be uploaded </source>
+      </trans-unit>
+      <trans-unit id="sourceFormURLInputLabel" datatype="html">
+        <source>URL to the livestream</source>
+      </trans-unit>
+      <trans-unit id="sourceFormURLRequiredError" datatype="html">
+        <source>The URL to the livestream is required</source>
+      </trans-unit>
+      <trans-unit id="sourceFormURLBadlyFormedError" datatype="html">
+        <source>The URL is badly formed or contains invalid characters</source>
+      </trans-unit>
+      <trans-unit id="videoFormFileLanguagesFieldsetLabel" datatype="html">
+        <source> Languages of uploaded files </source>
+      </trans-unit>
+      <trans-unit id="videoFormLanguageLabel" datatype="html">
+        <source>Language</source>
+      </trans-unit>
+      <trans-unit id="videoFormLanguageRequiredError" datatype="html">
+        <source>Please select the primary language of the file content</source>
+      </trans-unit>
+      <trans-unit id="videoFormDifferentLanguagesInfo" datatype="html">
+        <source>The specified language of the video/audio file is different from the language used for automatic subtitle generation. Are you sure you want to proceed?</source>
+      </trans-unit>
+      <trans-unit id="dialogCreateProjectHeadline" datatype="html">
+        <source>New Project</source>
+      </trans-unit>
       <trans-unit id="dialogCreateProjectCloseButton" datatype="html">
         <source>Close</source>
       </trans-unit>
+      <trans-unit id="dialogCreateProjectMediaStep" datatype="html">
+        <source>Media source</source>
+      </trans-unit>
+      <trans-unit id="dialogCreateProjectNextStepButton" datatype="html">
+        <source> Next </source>
+      </trans-unit>
+      <trans-unit id="dialogCreateProjectVideoStep" datatype="html">
+        <source>Video settings</source>
+      </trans-unit>
+      <trans-unit id="dialogCreateProjectBackStepButton" datatype="html">
+        <source> Back </source>
+      </trans-unit>
+      <trans-unit id="dialogCreateProjectLiveStep" datatype="html">
+        <source>Live settings</source>
+      </trans-unit>
+      <trans-unit id="dialogCreateProjectOverviewStep" datatype="html">
+        <source>Overview</source>
+      </trans-unit>
       <trans-unit id="dialogCreateProjectCreateLabel" datatype="html">
         <source> Create Project </source>
+      </trans-unit>
+      <trans-unit id="dialogCreateProjectLoadingInfo" datatype="html">
+        <source> Uploading data </source>
+      </trans-unit>
+      <trans-unit id="dialogCreateProjectCreateError" datatype="html">
+        <source>Error while creating the project: <x id="INTERPOLATION" equiv-text="{{ error.error.message }}"/></source>
       </trans-unit>
       <trans-unit id="projectListProjectListHeader" datatype="html">
         <source>Project List</source>
@@ -527,6 +713,153 @@
       <trans-unit id="projectListMoreMenuDeleteLabel" datatype="html">
         <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;delete&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/> Delete </source>
       </trans-unit>
+      <trans-unit id="viewerAdjustLayoutDialogTitle" datatype="html">
+        <source>Adjust Layout</source>
+      </trans-unit>
+      <trans-unit id="viewerAdjustLayoutDialogSettingsHint" datatype="html">
+        <source> The settings are applied directly. </source>
+      </trans-unit>
+      <trans-unit id="viewerAdjustLayoutDialogTranscriptHeader" datatype="html">
+        <source>Transcript</source>
+      </trans-unit>
+      <trans-unit id="viewerAdjustLayoutDialogTranscriptToggleLabel" datatype="html">
+        <source> Show transcript</source>
+      </trans-unit>
+      <trans-unit id="viewerAdjustLayoutDialogFontsizeLabel" datatype="html">
+        <source>Font Size</source>
+      </trans-unit>
+      <trans-unit id="viewerAdjustLayoutDialogTranscriptPositionLeft" datatype="html">
+        <source> Transcript left </source>
+      </trans-unit>
+      <trans-unit id="viewerAdjustLayoutDialogTranscriptPositionRight" datatype="html">
+        <source> Transcript right </source>
+      </trans-unit>
+      <trans-unit id="viewerCaptionsSettingsDialogTitle" datatype="html">
+        <source> Appearance of the captions </source>
+      </trans-unit>
+      <trans-unit id="viewerCaptionsSettingsDialogHint" datatype="html">
+        <source> The settings are applied directly. </source>
+      </trans-unit>
+      <trans-unit id="viewerCaptionsSettingsDialogBackgroundColorLabel" datatype="html">
+        <source> Captions background color </source>
+      </trans-unit>
+      <trans-unit id="viewerCaptionsSettingsDialogBackgroundColorOptionBlack" datatype="html">
+        <source>black </source>
+      </trans-unit>
+      <trans-unit id="viewerCaptionsSettingsDialogBackgroundColorOptionWhite" datatype="html">
+        <source>white </source>
+      </trans-unit>
+      <trans-unit id="viewerCaptionsSettingsDialogBackgroundColorOptionYellow" datatype="html">
+        <source>yellow </source>
+      </trans-unit>
+      <trans-unit id="viewerCaptionsSettingsDialogBackgroundColorOptionRed" datatype="html">
+        <source>red </source>
+      </trans-unit>
+      <trans-unit id="viewerCaptionsSettingsDialogBackgroundColorOptionBlue" datatype="html">
+        <source>blue </source>
+      </trans-unit>
+      <trans-unit id="viewerCaptionsSettingsDialogBackgroundColorOptionTransparent" datatype="html">
+        <source>transparent </source>
+      </trans-unit>
+      <trans-unit id="viewerCaptionsSettingsDialogFontColorLabel" datatype="html">
+        <source> Captions fontcolor</source>
+      </trans-unit>
+      <trans-unit id="viewerCaptionsSettingsDialogFontColorOptionBlack" datatype="html">
+        <source>black</source>
+      </trans-unit>
+      <trans-unit id="viewerCaptionsSettingsDialogFontColorOptionWhite" datatype="html">
+        <source>white</source>
+      </trans-unit>
+      <trans-unit id="viewerCaptionsSettingsDialogFontColorOptionYellow" datatype="html">
+        <source>yellow</source>
+      </trans-unit>
+      <trans-unit id="viewerCaptionsSettingsDialogFontColorOptionRed" datatype="html">
+        <source>red</source>
+      </trans-unit>
+      <trans-unit id="viewerCaptionsSettingsDialogFontColorOptionBlue" datatype="html">
+        <source>blue</source>
+      </trans-unit>
+      <trans-unit id="viewerCaptionsSettingsDialogFontsize" datatype="html">
+        <source> Captions fontsize </source>
+      </trans-unit>
+      <trans-unit id="viewerCaptionsSettingsDialogPositionLabel" datatype="html">
+        <source> Captions position </source>
+      </trans-unit>
+      <trans-unit id="viewerCaptionsSettingsDialogPositionOptionOver" datatype="html">
+        <source> Above the video. </source>
+      </trans-unit>
+      <trans-unit id="viewerCaptionsSettingsDialogPositionOptionUnder" datatype="html">
+        <source> Below the video. </source>
+      </trans-unit>
+      <trans-unit id="viewerCaptionsSettingsDialogExampletext" datatype="html">
+        <source> Example text: This is what the subtitles will look like. </source>
+      </trans-unit>
+      <trans-unit id="viewerControlsTimelineLabel" datatype="html">
+        <source>Video timeline</source>
+      </trans-unit>
+      <trans-unit id="viewerControlsPlayPauseTooltip" datatype="html">
+        <source>
+          <x id="INTERPOLATION" equiv-text="&apos; : &apos;Pause&apos; }}"/>
+        </source>
+      </trans-unit>
+      <trans-unit id="viewerControlsRewindTooltip" datatype="html">
+        <source>Rewind 10 seconds</source>
+      </trans-unit>
+      <trans-unit id="viewerControlsforwardTooltip" datatype="html">
+        <source>Fast-forward 10 seconds</source>
+      </trans-unit>
+      <trans-unit id="viewerControlsMuteUnmuteTooltip" datatype="html">
+        <source>
+          <x id="INTERPOLATION" equiv-text="? &apos;Unmute sound&apos; : &apos;Mute sound&apos; }}"/>
+        </source>
+      </trans-unit>
+      <trans-unit id="viewerControlsVolumeSlideLabel" datatype="html">
+        <source>Volume</source>
+      </trans-unit>
+      <trans-unit id="viewerControlsCaptionMenuTooltip" datatype="html">
+        <source>Captions menu</source>
+      </trans-unit>
+      <trans-unit id="viewerControlsTranscriptToggleTooltip" datatype="html">
+        <source>Toggle show/hide transcript</source>
+      </trans-unit>
+      <trans-unit id="viewerControlsSignLanguageToggleTooltip" datatype="html">
+        <source>Toggle show/hide sign language videos</source>
+      </trans-unit>
+      <trans-unit id="viewerControlsGalleryMenuTooltip" datatype="html">
+        <source>Shown video selection</source>
+      </trans-unit>
+      <trans-unit id="viewerControlsPlaybackspeedMenuTooltip" datatype="html">
+        <source>Playbackspeed menu</source>
+      </trans-unit>
+      <trans-unit id="viewerControlsFullscreenToggleTooltip" datatype="html">
+        <source>
+          <x id="INTERPOLATION" equiv-text="ullscreen&apos; : &apos;Open fullscreen&apos; }}"/>
+        </source>
+      </trans-unit>
+      <trans-unit id="viewerControlsDeactivateCaptionsLabel" datatype="html">
+        <source>Deactivate</source>
+      </trans-unit>
+      <trans-unit id="viewerControlsOpenSettingsDialogLabel" datatype="html">
+        <source>Settings</source>
+      </trans-unit>
+      <trans-unit id="viewerVideoContainerToMainview" datatype="html">
+        <source> Move video to main view </source>
+      </trans-unit>
+      <trans-unit id="playerTranscriptHeader" datatype="html">
+        <source>Transcript</source>
+      </trans-unit>
+      <trans-unit id="playerTranscriptSearchLabel" datatype="html">
+        <source>Search</source>
+      </trans-unit>
+      <trans-unit id="playerTranscriptAutomaticScrollLabel" datatype="html">
+        <source> Scroll automatically </source>
+      </trans-unit>
+      <trans-unit id="viewerHeaderHelpLabel" datatype="html">
+        <source>Help</source>
+      </trans-unit>
+      <trans-unit id="viewerHeaderHeaderAdjustLayout" datatype="html">
+        <source> Adjust Layout </source>
+      </trans-unit>
       <trans-unit id="guestLoginDialogHeader" datatype="html">
         <source>Login as Guest</source>
       </trans-unit>
@@ -554,344 +887,14 @@
       <trans-unit id="inviteCancelButtonLabel" datatype="html">
         <source> Cancel </source>
       </trans-unit>
-      <trans-unit id="inviteJoinProjectButtonLabel" datatype="html">
-        <source> Join Project <x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span *ngrxLet=&quot;currentUser$ as currentUser&quot; &gt;"/>as <x id="INTERPOLATION" equiv-text="{{ currentUser?.name }}"/><x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&gt;"/></source>
-      </trans-unit>
       <trans-unit id="inviteLoginOrRegisterButtonLabel" datatype="html">
         <source> Login / Register </source>
       </trans-unit>
       <trans-unit id="inviteJoinAsGuestButtonLabel" datatype="html">
         <source> Join as Guest </source>
       </trans-unit>
-      <trans-unit id="activityProjectCreatedDescription" datatype="html">
-        <source>New project created.</source>
-      </trans-unit>
-      <trans-unit id="activityProjectStatusUpdatedDescription" datatype="html">
-        <source>Status changed to &lt;span class=&quot;chip <x id="PH" equiv-text="details.after"/>&quot;&gt;<x id="PH_1" equiv-text="this.projectStatusPipe.transform(details.after)"/>&lt;/span&gt;.</source>
-      </trans-unit>
-      <trans-unit id="activityProjectTitleUpdatedDescription" datatype="html">
-        <source>Titel changed from <x id="PH" equiv-text="details.before"/>.</source>
-      </trans-unit>
-      <trans-unit id="activityProjectUserJoinedDescription" datatype="html">
-        <source><x id="PH" equiv-text="details.user.name"/> joined the project.</source>
-      </trans-unit>
-      <trans-unit id="activityProjectUserLeftDescription" datatype="html">
-        <source><x id="PH" equiv-text="details.user.name"/> left the project.</source>
-      </trans-unit>
-      <trans-unit id="activitySubtitlesProcessingFailedDescription" datatype="html">
-        <source>Subtitle creation failed.</source>
-      </trans-unit>
-      <trans-unit id="activitySubtitlesProcessingFinishedDescription" datatype="html">
-        <source>Subtitles were created successfully.</source>
-      </trans-unit>
-      <trans-unit id="activityVideoProcessingFailedDescription" datatype="html">
-        <source>Video processing failed.</source>
-      </trans-unit>
-      <trans-unit id="activityVideoProcessingFinishedDescription" datatype="html">
-        <source>Video was processed successfully.</source>
-      </trans-unit>
-      <trans-unit id="headerMenuLogoutButton" datatype="html">
-        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="Logout"/>Logout </source>
-      </trans-unit>
-      <trans-unit id="headerMenuLogoutButtonTooltip" datatype="html">
-        <source>Logout</source>
-      </trans-unit>
-      <trans-unit id="headerMenuProfileButton" datatype="html">
-        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/m"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="Profile"/>Profile </source>
-      </trans-unit>
-      <trans-unit id="headerMenuProfileButtonTooltip" datatype="html">
-        <source>Go to your Profile</source>
-      </trans-unit>
-      <trans-unit id="headerNotificationMenuTitle" datatype="html">
-        <source> Notifications </source>
-      </trans-unit>
-      <trans-unit id="headerShowAllNotifications" datatype="html">
-        <source> Show all notifications </source>
-      </trans-unit>
-      <trans-unit id="notificationListAllNotificationsCheckboxTooltip" datatype="html">
-        <source>All notifications</source>
-      </trans-unit>
-      <trans-unit id="notificationListDeleteButton" datatype="html">
-        <source> Delete </source>
-      </trans-unit>
-      <trans-unit id="notificationListNotNotifications" datatype="html">
-        <source> No notifications </source>
-      </trans-unit>
-      <trans-unit id="notificationListReadButton" datatype="html">
-        <source> Read </source>
-      </trans-unit>
-      <trans-unit id="notificationListTitle" datatype="html">
-        <source>Notifications</source>
-      </trans-unit>
-      <trans-unit id="captionRevertShowCaptionHistoryTooltip" datatype="html">
-        <source>Show caption history</source>
-      </trans-unit>
-      <trans-unit id="asrFormDisabledInfoText" datatype="html">
-        <source> Automatic subtitle generation is disabled due to already uploaded subtitle files </source>
-      </trans-unit>
-      <trans-unit id="asrFormFieldsetLegend" datatype="html">
-        <source>Generate automatic subtitles</source>
-      </trans-unit>
-      <trans-unit id="asrFormLanguageError" datatype="html">
-        <source> Please select a language </source>
-      </trans-unit>
-      <trans-unit id="asrFormLanguageHint" datatype="html">
-        <source>The available languages are vendor dependent</source>
-      </trans-unit>
-      <trans-unit id="asrFormVendorError" datatype="html">
-        <source> Please select an ASR vendor </source>
-      </trans-unit>
-      <trans-unit id="asrFormVendorLabel" datatype="html">
-        <source>Vendor</source>
-      </trans-unit>
-      <trans-unit id="dialogCreateProjectAddFilesButton" datatype="html">
-        <source>Add more files </source>
-      </trans-unit>
-      <trans-unit id="dialogCreateProjectBackStepButton" datatype="html">
-        <source> Back </source>
-      </trans-unit>
-      <trans-unit id="dialogCreateProjectLiveStep" datatype="html">
-        <source>Live settings</source>
-      </trans-unit>
-      <trans-unit id="dialogCreateProjectLoadingInfo" datatype="html">
-        <source> Uploading data - <x id="INTERPOLATION" equiv-text="{{ fileUploadProgress.toFixed() }}"/>% </source>
-      </trans-unit>
-      <trans-unit id="dialogCreateProjectMediaStep" datatype="html">
-        <source>Media source</source>
-      </trans-unit>
-      <trans-unit id="dialogCreateProjectNextStepButton" datatype="html">
-        <source> Next </source>
-      </trans-unit>
-      <trans-unit id="dialogCreateProjectOverviewStep" datatype="html">
-        <source>Overview</source>
-      </trans-unit>
-      <trans-unit id="dialogCreateProjectVideoStep" datatype="html">
-        <source>Video settings</source>
-      </trans-unit>
-      <trans-unit id="liveFormDifferentLanguagesInfo" datatype="html">
-        <source>The specified language of the video/audio file is different from the language used for automatic subtitle generation. Are you sure you want to proceed?</source>
-      </trans-unit>
-      <trans-unit id="liveFormFieldsetLegend" datatype="html">
-        <source>Livestream settings</source>
-      </trans-unit>
-      <trans-unit id="liveFormLanguageInputLabel" datatype="html">
-        <source>Language</source>
-      </trans-unit>
-      <trans-unit id="metadaFormGeneralFieldsetLabel" datatype="html">
-        <source>General Info</source>
-      </trans-unit>
-      <trans-unit id="overviewFormASRLanguageHeader" datatype="html">
-        <source>Subtitle Language</source>
-      </trans-unit>
-      <trans-unit id="overviewFormASRVEndorHeader" datatype="html">
-        <source>Subtitle Vendor</source>
-      </trans-unit>
-      <trans-unit id="overviewFormFilesHeader" datatype="html">
-        <source>Files</source>
-      </trans-unit>
-      <trans-unit id="overviewFormMembersHeader" datatype="html">
-        <source> Teammembers </source>
-      </trans-unit>
-      <trans-unit id="overviewFormSubtitleLanguageHeader" datatype="html">
-        <source>Subtitle Language</source>
-      </trans-unit>
-      <trans-unit id="overviewFormSubtitlesHeader" datatype="html">
-        <source>Subtitle Vendor</source>
-      </trans-unit>
-      <trans-unit id="overviewFormTitleHeader" datatype="html">
-        <source>Title</source>
-      </trans-unit>
-      <trans-unit id="overviewFormURLHeader" datatype="html">
-        <source>Livestream URL</source>
-      </trans-unit>
-      <trans-unit id="overviewFormURLLanguageHeader" datatype="html">
-        <source>Language</source>
-      </trans-unit>
-      <trans-unit id="sourceFormLiveRadioButton" datatype="html">
-        <source> Connect to livestream</source>
-      </trans-unit>
-      <trans-unit id="sourceFormTooManyVideosError" datatype="html">
-        <source> A maximum of one video or audio file may be uploaded </source>
-      </trans-unit>
-      <trans-unit id="sourceFormURLBadlyFormedError" datatype="html">
-        <source>The URL is badly formed or contains invalid characters</source>
-      </trans-unit>
-      <trans-unit id="sourceFormURLInputLabel" datatype="html">
-        <source>URL to the livestream</source>
-      </trans-unit>
-      <trans-unit id="sourceFormURLRequiredError" datatype="html">
-        <source>The URL to the livestream is required</source>
-      </trans-unit>
-      <trans-unit id="sourceFormVideoRadioButton" datatype="html">
-        <source> Upload video or audio files</source>
-      </trans-unit>
-      <trans-unit id="videoFormDifferentLanguagesInfo" datatype="html">
-        <source>The specified language of the video/audio file is different from the language used for automatic subtitle generation. Are you sure you want to proceed?</source>
-      </trans-unit>
-      <trans-unit id="videoFormFileLanguagesFieldsetLabel" datatype="html">
-        <source> Languages of uploaded files </source>
-      </trans-unit>
-      <trans-unit id="videoFormLanguageLabel" datatype="html">
-        <source>Language</source>
-      </trans-unit>
-      <trans-unit id="videoFormLanguageRequiredError" datatype="html">
-        <source>Please select the primary language of the file content</source>
-      </trans-unit>
-      <trans-unit id="captionLoopThisCaptionTooltip" datatype="html">
-        <source>Loop this caption.</source>
-      </trans-unit>
-      <trans-unit id="viewerHeaderHeaderAdjustLayout" datatype="html">
-        <source> Adjust Layout </source>
-      </trans-unit>
-      <trans-unit id="viewerHeaderHelpLabel" datatype="html">
-        <source>Help</source>
-      </trans-unit>
-      <trans-unit id="viewerAdjustLayoutDialogFontsizeLabel" datatype="html">
-        <source>Font Size</source>
-      </trans-unit>
-      <trans-unit id="viewerAdjustLayoutDialogSettingsHint" datatype="html">
-        <source> The settings are applied directly. </source>
-      </trans-unit>
-      <trans-unit id="viewerAdjustLayoutDialogTitle" datatype="html">
-        <source>Adjust Layout</source>
-      </trans-unit>
-      <trans-unit id="viewerAdjustLayoutDialogTranscriptHeader" datatype="html">
-        <source>Transcript</source>
-      </trans-unit>
-      <trans-unit id="viewerAdjustLayoutDialogTranscriptPositionLeft" datatype="html">
-        <source> Transcript left </source>
-      </trans-unit>
-      <trans-unit id="viewerAdjustLayoutDialogTranscriptPositionRight" datatype="html">
-        <source> Transcript right </source>
-      </trans-unit>
-      <trans-unit id="viewerAdjustLayoutDialogTranscriptToggleLabel" datatype="html">
-        <source> Show transcript</source>
-      </trans-unit>
-      <trans-unit id="viewerCaptionsSettingsDialogBackgroundColorLabel" datatype="html">
-        <source> Captions background color </source>
-      </trans-unit>
-      <trans-unit id="viewerCaptionsSettingsDialogBackgroundColorOptionBlack" datatype="html">
-        <source>black </source>
-      </trans-unit>
-      <trans-unit id="viewerCaptionsSettingsDialogBackgroundColorOptionBlue" datatype="html">
-        <source>blue </source>
-      </trans-unit>
-      <trans-unit id="viewerCaptionsSettingsDialogBackgroundColorOptionRed" datatype="html">
-        <source>red </source>
-      </trans-unit>
-      <trans-unit id="viewerCaptionsSettingsDialogBackgroundColorOptionWhite" datatype="html">
-        <source>white </source>
-      </trans-unit>
-      <trans-unit id="viewerCaptionsSettingsDialogBackgroundColorOptionYellow" datatype="html">
-        <source>yellow </source>
-      </trans-unit>
-      <trans-unit id="viewerCaptionsSettingsDialogExampletext" datatype="html">
-        <source> Example text: This is what the subtitles will look like. </source>
-      </trans-unit>
-      <trans-unit id="viewerCaptionsSettingsDialogFontColorLabel" datatype="html">
-        <source> Captions fontcolor</source>
-      </trans-unit>
-      <trans-unit id="viewerCaptionsSettingsDialogFontColorOptionBlack" datatype="html">
-        <source>black</source>
-      </trans-unit>
-      <trans-unit id="viewerCaptionsSettingsDialogFontColorOptionBlue" datatype="html">
-        <source>blue</source>
-      </trans-unit>
-      <trans-unit id="viewerCaptionsSettingsDialogFontColorOptionRed" datatype="html">
-        <source>red</source>
-      </trans-unit>
-      <trans-unit id="viewerCaptionsSettingsDialogFontColorOptionWhite" datatype="html">
-        <source>white</source>
-      </trans-unit>
-      <trans-unit id="viewerCaptionsSettingsDialogFontColorOptionYellow" datatype="html">
-        <source>yellow</source>
-      </trans-unit>
-      <trans-unit id="viewerCaptionsSettingsDialogFontsize" datatype="html">
-        <source> Captions fontsize </source>
-      </trans-unit>
-      <trans-unit id="viewerCaptionsSettingsDialogHint" datatype="html">
-        <source> The settings are applied directly. </source>
-      </trans-unit>
-      <trans-unit id="viewerCaptionsSettingsDialogPositionLabel" datatype="html">
-        <source> Captions position </source>
-      </trans-unit>
-      <trans-unit id="viewerCaptionsSettingsDialogPositionOptionOver" datatype="html">
-        <source> Above the video. </source>
-      </trans-unit>
-      <trans-unit id="viewerCaptionsSettingsDialogPositionOptionUnder" datatype="html">
-        <source> Below the video. </source>
-      </trans-unit>
-      <trans-unit id="viewerCaptionsSettingsDialogTitle" datatype="html">
-        <source> Appearance of the captions </source>
-      </trans-unit>
-      <trans-unit id="viewerCaptionsSettingsDialogBackgroundColorOptionTransparent" datatype="html">
-        <source>transparent </source>
-      </trans-unit>
-      <trans-unit id="viewerControlsPlayPauseTooltip" datatype="html">
-        <source>
-          <x id="INTERPOLATION" equiv-text="&apos; : &apos;Pause&apos; }}"/>
-        </source>
-      </trans-unit>
-      <trans-unit id="viewerControlsTimelineLabel" datatype="html">
-        <source>Video timeline</source>
-      </trans-unit>
-      <trans-unit id="viewerControlsCaptionMenuTooltip" datatype="html">
-        <source>Captions menu</source>
-      </trans-unit>
-      <trans-unit id="viewerControlsDeactivateCaptionsLabel" datatype="html">
-        <source>Deactivate</source>
-      </trans-unit>
-      <trans-unit id="viewerControlsforwardTooltip" datatype="html">
-        <source>Fast-forward 10 seconds</source>
-      </trans-unit>
-      <trans-unit id="viewerControlsFullscreenToggleTooltip" datatype="html">
-        <source>
-          <x id="INTERPOLATION" equiv-text="ullscreen&apos; : &apos;Open fullscreen&apos; }}"/>
-        </source>
-      </trans-unit>
-      <trans-unit id="viewerControlsGalleryMenuTooltip" datatype="html">
-        <source>Shown video selection</source>
-      </trans-unit>
-      <trans-unit id="viewerControlsMuteUnmuteTooltip" datatype="html">
-        <source>
-          <x id="INTERPOLATION" equiv-text="? &apos;Unmute sound&apos; : &apos;Mute sound&apos; }}"/>
-        </source>
-      </trans-unit>
-      <trans-unit id="viewerControlsOpenSettingsDialogLabel" datatype="html">
-        <source>Settings</source>
-      </trans-unit>
-      <trans-unit id="viewerControlsPlaybackspeedMenuTooltip" datatype="html">
-        <source>Playbackspeed menu</source>
-      </trans-unit>
-      <trans-unit id="viewerControlsRewindTooltip" datatype="html">
-        <source>Rewind 10 seconds</source>
-      </trans-unit>
-      <trans-unit id="viewerControlsSignLanguageToggleTooltip" datatype="html">
-        <source>Toggle show/hide sign language videos</source>
-      </trans-unit>
-      <trans-unit id="viewerControlsTranscriptToggleTooltip" datatype="html">
-        <source>Toggle show/hide transcript</source>
-      </trans-unit>
-      <trans-unit id="viewerControlsVolumeSlideLabel" datatype="html">
-        <source>Volume</source>
-      </trans-unit>
-      <trans-unit id="dialogCreateProjectCreateError" datatype="html">
-        <source>Error while creating the project: <x id="INTERPOLATION" equiv-text="{{ error.error.message }}"/></source>
-      </trans-unit>
-      <trans-unit id="headerToggleActivateDarkmode" datatype="html">
-        <source>Activate darkmode</source>
-      </trans-unit>
-      <trans-unit id="playerTranscriptAutomaticScrollLabel" datatype="html">
-        <source> Scroll automatically </source>
-      </trans-unit>
-      <trans-unit id="playerTranscriptHeader" datatype="html">
-        <source>Transcript</source>
-      </trans-unit>
-      <trans-unit id="playerTranscriptSearchLabel" datatype="html">
-        <source>Search</source>
-      </trans-unit>
-      <trans-unit id="viewerVideoContainerToMainview" datatype="html">
-        <source> Move video to main view </source>
+      <trans-unit id="inviteJoinProjectButtonLabel" datatype="html">
+        <source> Join Project </source>
       </trans-unit>
     </body>
   </file>

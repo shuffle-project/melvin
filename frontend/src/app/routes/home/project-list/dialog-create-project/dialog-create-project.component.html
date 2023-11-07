@@ -147,8 +147,9 @@
   </mat-stepper>
 
   <div *ngIf="loading" class="loading">
-    <p i18n="@@dialogCreateProjectLoadingInfo">
-      Uploading data - {{ fileUploadProgress.toFixed() }}%
+    <p>
+      <span i18n="@@dialogCreateProjectLoadingInfo"> Uploading data </span> -
+      {{ fileUploadProgress.toFixed() }}%
     </p>
     <mat-progress-bar
       mode="determinate"
