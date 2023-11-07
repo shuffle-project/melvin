@@ -644,9 +644,6 @@
       <trans-unit id="dialogCreateProjectCreateLabel" datatype="html">
         <source> Create Project </source>
       </trans-unit>
-      <trans-unit id="dialogCreateProjectLoadingInfo" datatype="html">
-        <source> Uploading data </source>
-      </trans-unit>
       <trans-unit id="dialogCreateProjectCreateError" datatype="html">
         <source>Error while creating the project: <x id="INTERPOLATION" equiv-text="{{ error.error.message }}"/></source>
       </trans-unit>
@@ -895,6 +892,9 @@
       </trans-unit>
       <trans-unit id="inviteJoinProjectButtonLabel" datatype="html">
         <source> Join Project </source>
+      </trans-unit>
+      <trans-unit id="dialogCreateProjectLoadingInfo" datatype="html">
+        <source> Uploading data </source>
       </trans-unit>
     </body>
   </file>

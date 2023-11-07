@@ -970,10 +970,6 @@
         <source>Overview</source>
         <target state="final">Übersicht</target>
       </trans-unit>
-      <trans-unit id="dialogCreateProjectLoadingInfo" datatype="html">
-        <source> Uploading data </source>
-        <target state="new">Daten hochladen - <x id="INTERPOLATION" equiv-text="{{ fileUploadProgress.toFixed() }}"/>%</target>
-      </trans-unit>
       <trans-unit id="asrFormLanguageError" datatype="html">
         <source> Please select a language </source>
         <target state="final"> Wählen Sie bitte eine Sprache aus </target>
@@ -1192,11 +1188,15 @@
       </trans-unit>
       <trans-unit id="shareProjectAddMemberLabel" datatype="html">
         <source>Add team member</source>
-        <target state="new">Teammitglied hinzufügen</target>
+        <target state="final">Teammitglied hinzufügen</target>
       </trans-unit>
       <trans-unit id="inviteJoinProjectButtonLabel" datatype="html">
         <source> Join Project </source>
-        <target state="new"> Projekt beitreten </target>
+        <target state="final"> Projekt beitreten </target>
+      </trans-unit>
+      <trans-unit id="dialogCreateProjectLoadingInfo" datatype="html">
+        <source> Uploading data </source>
+        <target state="final"> Daten werden hochgeladen </target>
       </trans-unit>
     </body>
   </file>
