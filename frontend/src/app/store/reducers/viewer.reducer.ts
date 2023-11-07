@@ -6,7 +6,7 @@ import {
 } from '../../routes/home/viewer/components/captions-settings-dialog/captions-settings-dialog.component';
 import { ViewerVideo } from '../../routes/home/viewer/components/player/player.component';
 import { TranscriptPosition } from '../../routes/home/viewer/viewer.interfaces';
-import { VideoCategory } from '../../services/api/entities/project.entity';
+import { MediaCategory } from '../../services/api/entities/project.entity';
 import { StorageKey } from '../../services/storage/storage-key.enum';
 import { StorageService } from '../../services/storage/storage.service';
 import * as viewerActions from '../actions/viewer.actions';
@@ -120,13 +120,13 @@ export const viewerReducer = createReducer(
   on(viewerActions.toggleSignLanguageVideos, (state) => {
     const shownSignLanguageVideos = state.viewerVideos.filter(
       (video) =>
-        video.category === VideoCategory.SIGN_LANGUAGE && video.shown === true
+        video.category === MediaCategory.SIGN_LANGUAGE && video.shown === true
     );
 
     return {
       ...state,
       viewerVideos: state.viewerVideos.map((video) => {
-        if (video.category !== VideoCategory.SIGN_LANGUAGE) {
+        if (video.category !== MediaCategory.SIGN_LANGUAGE) {
           return video;
         }
         if (shownSignLanguageVideos.length > 0) {

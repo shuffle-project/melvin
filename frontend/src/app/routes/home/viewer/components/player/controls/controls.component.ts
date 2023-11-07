@@ -3,7 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
 import { combineLatest, map } from 'rxjs';
 import { DurationPipe } from '../../../../../../pipes/duration-pipe/duration.pipe';
-import { VideoCategory } from '../../../../../../services/api/entities/project.entity';
+import { MediaCategory } from '../../../../../../services/api/entities/project.entity';
 import { TranscriptionEntity } from '../../../../../../services/api/entities/transcription.entity';
 import * as editorActions from '../../../../../../store/actions/editor.actions';
 import * as transcriptionsActions from '../../../../../../store/actions/transcriptions.actions';
@@ -40,7 +40,7 @@ export class ControlsComponent {
   signLanguageAvailable$ = this.smallVideos$.pipe(
     map((smallVideos) => {
       const signLanguageVideos = smallVideos.findIndex(
-        (element) => element.category === VideoCategory.SIGN_LANGUAGE
+        (element) => element.category === MediaCategory.SIGN_LANGUAGE
       );
       return signLanguageVideos < 0 ? false : true;
     })

@@ -15,8 +15,8 @@ import { Subscription, firstValueFrom, map } from 'rxjs';
 import { ApiService } from '../../../../services/api/api.service';
 import {
   AdditionalMedia,
+  MediaCategory,
   ProjectEntity,
-  VideoCategory,
   VideoEntity,
 } from '../../../../services/api/entities/project.entity';
 import { AppState } from '../../../../store/app.state';
@@ -38,7 +38,8 @@ interface FileUpload {
   styleUrls: ['./upload-additional-content.component.scss'],
 })
 export class UploadAdditionalContentComponent implements OnInit {
-  VideoCategory = VideoCategory;
+  MediaCategory = MediaCategory;
+
   @Input() projectId!: string;
 
   private projects$ = this.store.select(projectsSelector.selectAllProjects);
@@ -52,7 +53,7 @@ export class UploadAdditionalContentComponent implements OnInit {
   public formGroup!: FormGroup<{
     title: FormControl<string>;
     file: FormControl<File | null>;
-    category: FormControl<VideoCategory | null>;
+    category: FormControl<MediaCategory | null>;
   }>;
   private selectedFile: any;
 
@@ -68,7 +69,7 @@ export class UploadAdditionalContentComponent implements OnInit {
     this.formGroup = this.fb.group({
       title: this.fb.control<string>('', [Validators.required]),
       file: this.fb.control<File | null>(null, [Validators.required]),
-      category: this.fb.control<VideoCategory | null>(null, [
+      category: this.fb.control<MediaCategory | null>(null, [
         Validators.required,
       ]),
     });

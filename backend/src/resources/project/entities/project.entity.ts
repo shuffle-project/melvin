@@ -7,8 +7,8 @@ import {
 import { Exclude, Expose, Type } from 'class-transformer';
 import { PopulatedDoc } from 'mongoose';
 import {
+  MediaCategory as MediaCategory,
   Project,
-  VideoCategory,
   VideoStatus,
 } from '../../../modules/db/schemas/project.schema';
 import { Transcription } from '../../../modules/db/schemas/transcription.schema';
@@ -43,8 +43,8 @@ export class VideoLinkEntity {
   @ApiProperty({ enum: VideoStatus, example: VideoStatus.FINISHED })
   status: VideoStatus;
 
-  @ApiProperty({ enum: VideoCategory, example: VideoCategory.OTHER })
-  category: VideoCategory;
+  @ApiProperty({ enum: MediaCategory, example: MediaCategory.OTHER })
+  category: MediaCategory;
 }
 
 export class MediaLinksEntity {
