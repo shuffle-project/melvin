@@ -2,7 +2,7 @@
   <!-- Loading -->
   <mat-spinner *ngIf="isLoading" strokeWidth="2" class="white"></mat-spinner>
 
-  <div *ngrxPush="error$ as error">{{ error }}</div>
+  <div *ngrxLet="error$ as error">{{ error }}</div>
 
   <!-- Not loading -->
   <mat-card appearance="outlined" *ngIf="!isLoading">

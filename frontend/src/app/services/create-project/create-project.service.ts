@@ -38,7 +38,11 @@ export class CreateProjectService {
     this.data.sourceMode = sourceMode;
 
     const emails = this._getMemberEmails(members);
-    if (emails.length > 0) this.data.emails = emails;
+    if (emails.length > 0) {
+      this.data.emails = emails;
+    } else {
+      this.data.emails = [];
+    }
 
     sourceMode === 'video'
       ? this._createVideoProject(videoGroup)

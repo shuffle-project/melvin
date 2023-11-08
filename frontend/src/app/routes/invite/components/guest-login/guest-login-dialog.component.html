@@ -1,7 +1,7 @@
 <div class="container">
   <h2 mat-dialog-title i18n="@@guestLoginDialogHeader">Login as Guest</h2>
   <mat-dialog-content>
-    <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+    <form [formGroup]="formGroup">
       <div class="flex flex-col">
         <mat-form-field appearance="outline">
           <mat-icon svgIcon="person" matPrefix></mat-icon>
@@ -20,6 +20,7 @@
           color="primary"
           type="submit"
           i18n="@@guestLoginJoinButtonLabel"
+          (click)="onSubmit()"
         >
           Join
         </button>

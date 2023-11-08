@@ -14,6 +14,7 @@ import {
 } from 'rxjs';
 import { CustomLogger } from '../../classes/logger.class';
 import { ApiService } from '../../services/api/api.service';
+import { GuestLoginEntity } from '../../services/api/entities/auth.entity';
 import { StorageKey } from '../../services/storage/storage-key.enum';
 import { StorageService } from '../../services/storage/storage.service';
 import * as authActions from '../actions/auth.actions';
@@ -214,20 +215,40 @@ export class AuthEffects {
     )
   );
 
+  // withLatestFrom(authSelectors.selectInviteTokenRoute)
+
   guestLogin$ = createEffect(() =>
     this.actions$.pipe(
       ofType(authActions.guestLogin),
-      tap(() => console.log('guestLogin')),
-      exhaustMap((action) =>
-        this.api.guestLogin('', action.name).pipe(
-          map((res) => {
-            return authActions.guestLoginSuccess(res);
-          }),
-          catchError((res: HttpErrorResponse) => {
-            return of(authActions.guestLoginError({ error: res.error }));
-          })
+      switchMap((action) =>
+        of(action).pipe(
+          withLatestFrom(
+            this.store.select(authSelectors.selectInviteTokenRoute)
+          ),
+          exhaustMap(([action, token]) =>
+            this.api.guestLogin(token, action.name).pipe(
+              map((res) => {
+                return authActions.guestLoginSuccess(res);
+              }),
+              catchError((res: HttpErrorResponse) => {
+                return of(authActions.guestLoginError({ error: res.error }));
+              })
+            )
+          )
         )
       )
     )
+  );
+
+  guestLoginSuccess$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(authActions.guestLoginSuccess),
+        tap((guestLoginEntity: GuestLoginEntity) => {
+          console.log(guestLoginEntity);
+          this.router.navigate(['/home/editor/' + guestLoginEntity.projectId]);
+        })
+      ),
+    { dispatch: false }
   );
 }

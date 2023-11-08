@@ -213,7 +213,7 @@ export class AuthService {
     // Create access token
     const token = this.createAccessToken(user);
 
-    return { token };
+    return { token, projectId: project._id.toString() };
   }
 
   createAccessToken(user: LeanUserDocument): string {

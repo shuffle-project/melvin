@@ -17,4 +17,8 @@ export class AuthGuestLoginResponseDto {
   @ApiProperty()
   @IsJWT()
   token: string;
+
+  @ApiProperty()
+  @IsString()
+  projectId: string;
 }
