@@ -26,11 +26,12 @@ interface Data {
 
 @Injectable()
 export class CreateProjectService {
-  private formData = new FormData();
+  formData = new FormData();
   private data: Data = { title: '', language: '', sourceMode: 'video' };
 
   create(formGroup: FormGroup<ProjectGroup>): FormData {
-    this.formData = new FormData();
+    this.data = { title: '', language: '', sourceMode: 'video' };
+
     const { metadataGroup, videoGroup, liveGroup } = formGroup.controls;
     const { title, sourceMode, members = [] } = metadataGroup.getRawValue();
 
@@ -38,12 +39,14 @@ export class CreateProjectService {
     this.data.sourceMode = sourceMode;
 
     const emails = this._getMemberEmails(members);
-    if (emails.length > 0) this.data.emails = emails;
-
+    if (emails.length > 0) {
+      this.data.emails = emails;
+    }
     sourceMode === 'video'
       ? this._createVideoProject(videoGroup)
       : this._createLiveProject(liveGroup);
 
+    this.formData = new FormData();
     Object.entries(this.data).forEach((o) => {
       const key = o[0];
       const value = o[1];
@@ -103,13 +106,17 @@ export class CreateProjectService {
   }
 
   private _getMemberEmails(members: MemberEntry[]) {
-    return members.map((entry: MemberEntry) => {
-      if (entry.type === MemberEntryType.USER) {
-        return entry.user?.email as string;
-      } else if (entry.type === MemberEntryType.VALID_EMAIL) {
-        return entry.unknownEmail as string;
+    const newMembers: string[] = [];
+    members.forEach((entry: MemberEntry) => {
+      if (entry.type === MemberEntryType.USER && entry.user) {
+        newMembers.push(entry.user.email);
+      } else if (
+        entry.type === MemberEntryType.VALID_EMAIL &&
+        entry.unknownEmail
+      ) {
+        newMembers.push(entry.unknownEmail);
       }
-      return 'unknown';
     });
+    return newMembers;
   }
 }

@@ -79,6 +79,12 @@ export const authReducer = createReducer(
     loginError: action.error.message,
   })),
 
+  // guest login
+  on(authActions.guestLoginSuccess, (state, action) => ({
+    ...state,
+    token: action.token,
+  })),
+
   // Logout
   on(authActions.logout, (state) => ({ ...state, token: null })),
 

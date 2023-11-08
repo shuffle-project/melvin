@@ -1,5 +1,8 @@
 import { createAction, props } from '@ngrx/store';
-import { InviteEntity } from '../../services/api/entities/auth.entity';
+import {
+  GuestLoginEntity,
+  InviteEntity,
+} from '../../services/api/entities/auth.entity';
 
 // Initialization
 
@@ -73,7 +76,7 @@ export const guestLogin = createAction(
 
 export const guestLoginSuccess = createAction(
   '[AUTH EFFECTS] Guest Login success',
-  props<{ projectId: string }>()
+  props<GuestLoginEntity>()
 );
 
 export const guestLoginError = createAction(

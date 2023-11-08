@@ -940,7 +940,7 @@
       </trans-unit>
       <trans-unit id="videoFormLanguageRequiredError" datatype="html">
         <source>Please select the primary language of the file content</source>
-        <target state="final">Bitte geben die primäre Sprache des Dateinhaltes an</target>
+        <target state="final">Bitte geben Sie die primäre Sprache des Dateinhaltes an</target>
       </trans-unit>
       <trans-unit id="videoFormDifferentLanguagesInfo" datatype="html">
         <source>The specified language of the video/audio file is different from the language used for automatic subtitle generation. Are you sure you want to proceed?</source>
