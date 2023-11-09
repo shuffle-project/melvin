@@ -50,7 +50,7 @@ export class WhisperSpeechService implements ISepechToTextService {
       // 'whisper',
       this.pathService.getWavFile(project._id.toString()),
       '--model',
-      'tiny',
+      'medium',
       '--verbose',
       'False',
       '--output_dir',
