@@ -26,37 +26,38 @@ interface Data {
 
 @Injectable()
 export class CreateProjectService {
-  formData = new FormData();
-  private data: Data = { title: '', language: '', sourceMode: 'video' };
-
   create(formGroup: FormGroup<ProjectGroup>): FormData {
-    this.data = { title: '', language: '', sourceMode: 'video' };
+    const formData = new FormData();
+    const data: Data = { title: '', language: '', sourceMode: 'video' };
 
     const { metadataGroup, videoGroup, liveGroup } = formGroup.controls;
     const { title, sourceMode, members = [] } = metadataGroup.getRawValue();
 
-    this.data.title = title;
-    this.data.sourceMode = sourceMode;
+    data.title = title;
+    data.sourceMode = sourceMode;
 
     const emails = this._getMemberEmails(members);
     if (emails.length > 0) {
-      this.data.emails = emails;
+      data.emails = emails;
     }
     sourceMode === 'video'
-      ? this._createVideoProject(videoGroup)
-      : this._createLiveProject(liveGroup);
+      ? this._createVideoProject(videoGroup, data, formData)
+      : this._createLiveProject(liveGroup, data, formData);
 
-    this.formData = new FormData();
-    Object.entries(this.data).forEach((o) => {
+    Object.entries(data).forEach((o) => {
       const key = o[0];
       const value = o[1];
-      this.formData.append(key, value);
+      formData.append(key, value);
     });
 
-    return this.formData;
+    return formData;
   }
 
-  private _createVideoProject(videoGroup: FormGroup<VideoGroup>) {
+  private _createVideoProject(
+    videoGroup: FormGroup<VideoGroup>,
+    data: Data,
+    formData: FormData
+  ) {
     const { activated: asrActivated } = videoGroup.controls.asrGroup.value;
 
     const videoFile = videoGroup.value.uploadedFiles!.find(
@@ -65,9 +66,9 @@ export class CreateProjectService {
         file.content!.type.includes('video')
     ) as { content: File; language: string };
 
-    this.formData.append('video', videoFile.content);
-    this.data.language = videoFile.language;
-    this.data.videoLanguage = videoFile.language;
+    formData.append('video', videoFile.content);
+    data.language = videoFile.language;
+    data.videoLanguage = videoFile.language;
 
     const subtitleFiles = (
       videoGroup.value.uploadedFiles as Array<{
@@ -77,46 +78,44 @@ export class CreateProjectService {
     ).filter((file) => file.content.name !== videoFile.content.name);
 
     if (subtitleFiles.length > 0) {
-      this.data.subtitleLanguages = subtitleFiles.map(
-        (files) => files.language!
-      );
+      data.subtitleLanguages = subtitleFiles.map((files) => files.language!);
       subtitleFiles.forEach((file) => {
-        this.formData.append('subtitles', file.content!);
+        formData.append('subtitles', file.content!);
       });
     }
 
-    if (asrActivated) this._useASRData(videoGroup.controls.asrGroup);
+    if (asrActivated) this._useASRData(videoGroup.controls.asrGroup, data);
   }
 
-  private _createLiveProject(liveGroup: FormGroup<LiveGroup>) {
+  private _createLiveProject(
+    liveGroup: FormGroup<LiveGroup>,
+    data: Data,
+    formData: FormData
+  ) {
     const language = liveGroup.controls.settings.getRawValue().language;
     const url = liveGroup.controls.url.value;
     const { activated: asrActivated } = liveGroup.controls.asrGroup.value;
 
-    this.data.language = language;
-    this.data.url = url;
+    data.language = language;
+    data.url = url;
 
-    if (asrActivated) this._useASRData(liveGroup.controls.asrGroup);
+    if (asrActivated) this._useASRData(liveGroup.controls.asrGroup, data);
   }
 
-  private _useASRData(asrGroup: FormGroup<ASRGroup>) {
+  private _useASRData(asrGroup: FormGroup<ASRGroup>, data: Data) {
     const { asrVendor, language: asrLanguage } = asrGroup.value;
-    this.data.asrVendor = asrVendor;
-    this.data.asrLanguage = asrLanguage;
+    data.asrVendor = asrVendor;
+    data.asrLanguage = asrLanguage;
   }
 
   private _getMemberEmails(members: MemberEntry[]) {
-    const newMembers: string[] = [];
-    members.forEach((entry: MemberEntry) => {
-      if (entry.type === MemberEntryType.USER && entry.user) {
-        newMembers.push(entry.user.email);
-      } else if (
-        entry.type === MemberEntryType.VALID_EMAIL &&
-        entry.unknownEmail
-      ) {
-        newMembers.push(entry.unknownEmail);
+    return members.map((entry: MemberEntry) => {
+      if (entry.type === MemberEntryType.USER) {
+        return entry.user?.email as string;
+      } else if (entry.type === MemberEntryType.VALID_EMAIL) {
+        return entry.unknownEmail as string;
       }
+      return 'unknown';
     });
-    return newMembers;
   }
 }
