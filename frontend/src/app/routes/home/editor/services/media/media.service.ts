@@ -57,7 +57,7 @@ export class MediaService {
   }
 
   initMediaElement(media: VideoPlayerMediaElementComponent) {
-    this.destroy$$ = new Subject();
+    this.destroyMediaElement();
 
     this.media = media;
 
@@ -69,7 +69,6 @@ export class MediaService {
       )
       .subscribe();
 
-    console.log('set is ready af true');
     this.isReady$.next(true);
   }
 

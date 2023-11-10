@@ -21,9 +21,7 @@ export class CreateProjectDto extends PickType(Project, [
     required: false,
     example: [EXAMPLE_USER.email],
   })
-  @Transform(({ value }) => {
-    return value.split(',');
-  })
+  @Transform(({ value }) => value.split(','))
   @IsArray()
   @IsEmail({}, { each: true })
   @IsOptional()

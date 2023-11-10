@@ -1,5 +1,6 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Subject, lastValueFrom, take, takeUntil } from 'rxjs';
 import { ProjectDetailComponent } from 'src/app/modules/project-detail/project-detail.component';
@@ -26,7 +27,8 @@ export class TranscriptionComponent implements OnInit, OnDestroy {
   constructor(
     private store: Store<AppState>,
     private dialogRefProjectDetail: MatDialogRef<ProjectDetailComponent>,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private router: Router
   ) {
     this.store
       .select(editorSelectors.selectProject)
@@ -56,6 +58,7 @@ export class TranscriptionComponent implements OnInit, OnDestroy {
   }
 
   onOpenTranscription(transcriptionId: string) {
+    this.router.navigate(['/home/editor', this.project.id]);
     this.store.dispatch(
       transcriptionsActions.selectFromEditor({ transcriptionId })
     );
