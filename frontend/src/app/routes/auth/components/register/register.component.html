@@ -106,10 +106,19 @@
       >
     </mat-error>
   </mat-form-field>
-
-  <div *ngrxLet="error$ as error">
-    {{ error }}
-  </div>
+  <mat-error
+    *ngIf="
+    formGroup.get('password')?.valid &&
+    formGroup.get('passwordConfirm')?.valid &&
+    formGroup.errors?.['confirm']"
+  >
+    Die beiden Passwörter stimmen nicht überein.
+  </mat-error>
+  <ng-container *ngrxLet="error$ as error">
+    <mat-error *ngIf="error">
+      {{ error }}
+    </mat-error>
+  </ng-container>
 
   <div class="flex justify-center">
     <button
