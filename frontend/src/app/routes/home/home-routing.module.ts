@@ -12,7 +12,7 @@ const routes: Routes = [
       {
         path: 'projects',
         canActivate: [HasRoleGuard],
-        data: { roles: [UserRole.USER, UserRole.GUEST] },
+        data: { roles: [UserRole.USER] },
         loadChildren: () =>
           import('./project-list/project-list.module').then(
             (m) => m.ProjectListModule
@@ -31,6 +31,13 @@ const routes: Routes = [
         data: { roles: [UserRole.USER, UserRole.GUEST] },
         loadChildren: () =>
           import('./viewer/viewer.module').then((m) => m.ViewerModule),
+      },
+      {
+        path: 'recorder',
+        canActivate: [HasRoleGuard],
+        data: { roles: [UserRole.USER] },
+        loadChildren: () =>
+          import('./recorder/recorder.module').then((m) => m.RecorderModule),
       },
       {
         path: 'profile',

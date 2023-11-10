@@ -1,0 +1,12 @@
+.project-title {
+  margin-left: 13px;
+}
+
+.content {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 5px;
+  // height: ;
+  background-color: var(--color-background-grey);
+  height: calc(100% - 60px); // header is 60px
+}
