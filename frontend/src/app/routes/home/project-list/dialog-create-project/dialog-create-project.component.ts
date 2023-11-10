@@ -37,7 +37,14 @@ export class DialogCreateProjectComponent implements AfterViewInit, OnDestroy {
   uploadSubscription!: Subscription;
   private totalFileSize = 0;
   error: HttpErrorResponse | null = null;
-  acceptedFileFormats: string[] = ['audio', 'video', '.srt', '.vtt'];
+  acceptedFileFormats: string[] = [
+    'audio',
+    'video',
+    'audio/*',
+    'video/*',
+    '.srt',
+    '.vtt',
+  ];
 
   private destroy$$ = new Subject<void>();
 
@@ -141,6 +148,8 @@ export class DialogCreateProjectComponent implements AfterViewInit, OnDestroy {
     this.formGroup.controls.videoGroup.controls.files.valueChanges
       .pipe(takeUntil(this.destroy$$))
       .subscribe((value) => {
+        if (value.length === 0) return;
+
         const totalFileSize = value
           .map((v) => v.size)
           .reduce((total, current) => total + current);
