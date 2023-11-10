@@ -44,7 +44,7 @@
           id="fileDropRef"
           multiple
           required
-          accept=".vtt,.srt,audio/*,video/*"
+          [accept]="acceptedFileFormats"
         />
         <div *ngIf="files.length === 0">
           <mat-icon svgIcon="upload"></mat-icon>
