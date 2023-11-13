@@ -4,5 +4,15 @@
 </app-header>
 
 <section class="content">
-  <div>asd asd asd</div>
+  <button mat-stroked-button (click)="onStartWebcam()">start webcam</button>
+  <button mat-stroked-button (click)="onStartScreenSharing()">
+    start screen sharing
+  </button>
+
+  <br />
+
+  <div class="videos flex justify-around">
+    <video #webcamVideo height="500px" width="500px"></video>
+    <video #screenSharingVideo height="500px" width="500px"></video>
+  </div>
 </section>

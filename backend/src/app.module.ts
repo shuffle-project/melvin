@@ -21,6 +21,7 @@ import { ActivityModule } from './resources/activity/activity.module';
 import { AuthModule } from './resources/auth/auth.module';
 import { CaptionModule } from './resources/caption/caption.module';
 import { EventsModule } from './resources/events/events.module';
+import { LivestreamModule } from './resources/livestream/livestream.module';
 import { NotificationModule } from './resources/notification/notification.module';
 import { PopulateModule } from './resources/populate/populate.module';
 import { ProjectModule } from './resources/project/project.module';
@@ -72,7 +73,7 @@ import { UserModule } from './resources/user/user.module';
     FfmpegModule,
     PathModule,
     ActivityModule,
-    // LivestreamModule, // TODO remove kurento stuff
+    LivestreamModule,
     UserTestModule,
     // generate captions
     SpeechToTextModule,
