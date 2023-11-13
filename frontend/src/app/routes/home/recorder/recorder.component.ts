@@ -1,23 +1,53 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+
+export interface MediaComponent {
+  title: string;
+  srcObject: MediaStream;
+}
 
 @Component({
   selector: 'app-recorder',
   templateUrl: './recorder.component.html',
   styleUrls: ['./recorder.component.scss'],
 })
-export class RecorderComponent {
-  @ViewChild('webcamVideo', { static: false })
-  webCamVideo!: ElementRef<HTMLVideoElement>;
+export class RecorderComponent implements OnInit {
+  loading = true;
 
-  @ViewChild('screenSharingVideo', { static: false })
-  screenSharingVideo!: ElementRef<HTMLVideoElement>;
+  videos: MediaComponent[] = [];
+  screens: MediaComponent[] = [];
+  audios: MediaComponent[] = [];
 
-  onStartWebcam() {
+  audioInputs: MediaDeviceInfo[] = [];
+  videoInputs: MediaDeviceInfo[] = [];
+
+  async ngOnInit() {
+    const enumerateDevices = await navigator.mediaDevices.enumerateDevices();
+    this.audioInputs = enumerateDevices.filter(
+      (device) => device.kind === 'audioinput'
+    );
+    this.videoInputs = enumerateDevices.filter(
+      (device) => device.kind === 'videoinput'
+    );
+
+    this.loading = false;
+  }
+
+  onStartMicrophone(deviceId: string) {
     navigator.mediaDevices
-      .getUserMedia({ video: true, audio: true })
+      .getUserMedia({ video: false, audio: { deviceId } })
       .then((stream) => {
-        this.webCamVideo.nativeElement.srcObject = stream;
-        this.webCamVideo.nativeElement.play();
+        this.audios.push({ title: 'audio', srcObject: stream });
+      })
+      .catch((err) => {
+        console.error(`An error occurred: ${err}`);
+      });
+  }
+
+  onStartWebcam(deviceId: string) {
+    navigator.mediaDevices
+      .getUserMedia({ video: { deviceId }, audio: false })
+      .then((stream) => {
+        this.videos.push({ title: 'video', srcObject: stream });
       })
       .catch((err) => {
         console.error(`An error occurred: ${err}`);
@@ -28,8 +58,7 @@ export class RecorderComponent {
     navigator.mediaDevices
       .getDisplayMedia({ video: true, audio: true })
       .then((stream) => {
-        this.screenSharingVideo.nativeElement.srcObject = stream;
-        this.screenSharingVideo.nativeElement.play();
+        this.screens.push({ title: 'screensharing', srcObject: stream });
       })
       .catch((err) => {
         console.error(`An error occurred: ${err}`);

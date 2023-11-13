@@ -4,15 +4,99 @@
 </app-header>
 
 <section class="content">
-  <button mat-stroked-button (click)="onStartWebcam()">start webcam</button>
-  <button mat-stroked-button (click)="onStartScreenSharing()">
-    start screen sharing
-  </button>
+  <ng-container *ngIf="loading">
+    LOADING LOADING LOADING LOADING LOADING
+  </ng-container>
 
-  <br />
+  <ng-container *ngIf="!loading">
+    <div class="controls-wrapper">
+      <div>
+        <h1>Audio inputs</h1>
+        <mat-form-field>
+          <mat-label>Audio inputs</mat-label>
+          <mat-select #audioSelect [value]="audioInputs[0].deviceId">
+            <mat-option
+              *ngFor="let audio of audioInputs"
+              [value]="audio.deviceId"
+            >
+              {{ audio.label }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
 
-  <div class="videos flex justify-around">
-    <video #webcamVideo height="500px" width="500px"></video>
-    <video #screenSharingVideo height="500px" width="500px"></video>
-  </div>
+        <button
+          mat-stroked-button
+          (click)="onStartMicrophone(audioSelect.value)"
+        >
+          add microphone
+        </button>
+      </div>
+
+      <div>
+        <h1>Video inputs</h1>
+        <mat-form-field>
+          <mat-label>Video inputs</mat-label>
+          <mat-select #videoSelect [value]="videoInputs[0].deviceId">
+            <mat-option
+              *ngFor="let video of videoInputs"
+              [value]="video.deviceId"
+            >
+              {{ video.label }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <button mat-stroked-button (click)="onStartWebcam(videoSelect.value)">
+          add video
+        </button>
+      </div>
+
+      <div>
+        <h1>Screen sharing</h1>
+        <button mat-stroked-button (click)="onStartScreenSharing()">
+          add screen sharing
+        </button>
+      </div>
+    </div>
+
+    <hr />
+
+    <div class="all-media-wrapper">
+      <div class="media-category-wrapper">
+        <h1>Audio</h1>
+        <p *ngIf="audios.length === 0"><i>Kein Audio hinzugefügt</i></p>
+        <div class="media-list-wrapper">
+          <div class="media-wrapper" *ngFor="let audio of audios">
+            <h2>{{ audio.title }}</h2>
+            <audio [srcObject]="audio.srcObject" autoplay controls></audio>
+          </div>
+        </div>
+      </div>
+
+      <div class="media-category-wrapper">
+        <h1>Videos</h1>
+        <p *ngIf="videos.length === 0"><i>Kein Video hinzugefügt</i></p>
+        <div class="media-list-wrapper">
+          <div class="media-wrapper" *ngFor="let video of videos">
+            <h2>{{ video.title }}</h2>
+            <video [srcObject]="video.srcObject" autoplay controls></video>
+          </div>
+        </div>
+      </div>
+
+      <div class="media-category-wrapper">
+        <h1>Screens</h1>
+        <p *ngIf="screens.length === 0">
+          <i>Kein Screensharing hinzugefügt</i>
+        </p>
+        <div class="media-list-wrapper">
+          <div class="media-wrapper" *ngFor="let screen of screens">
+            <h2>{{ screen.title }}</h2>
+            <video [srcObject]="screen.srcObject" autoplay controls></video>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+  <hr />
 </section>

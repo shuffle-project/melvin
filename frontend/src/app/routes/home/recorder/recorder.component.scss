@@ -9,4 +9,40 @@
   // height: ;
   background-color: var(--color-background-grey);
   height: calc(100% - 60px); // header is 60px
+
+  .controls-wrapper {
+    display: flex;
+    justify-content: space-evenly;
+
+    div {
+      flex-basis: 32%;
+      display: flex;
+      flex-direction: column;
+    }
+  }
+  .all-media-wrapper {
+    display: flex;
+    justify-content: space-evenly;
+
+    .media-category-wrapper {
+      flex-basis: 32%;
+
+      .media-list-wrapper {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+
+        .media-wrapper {
+          margin: 5px;
+          padding: 5px;
+          border: 1px solid black;
+
+          video {
+            width: 100%;
+            object-fit: cover;
+          }
+        }
+      }
+    }
+  }
 }
