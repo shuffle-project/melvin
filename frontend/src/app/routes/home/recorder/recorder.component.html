@@ -5,7 +5,9 @@
 
 <section class="content">
   <ng-container *ngIf="loading">
-    LOADING LOADING LOADING LOADING LOADING
+    <div class="flex justify-center" style="margin-top: 20px">
+      <mat-spinner></mat-spinner>
+    </div>
   </ng-container>
 
   <ng-container *ngIf="!loading">
@@ -61,6 +63,31 @@
 
     <hr />
 
+    <div class="recording-wrapper">
+      <h1>Recording</h1>
+
+      <div class="flex">
+        <button
+          mat-stroked-button
+          (click)="onClickStartRecord()"
+          [disabled]="recording"
+        >
+          Start Record
+        </button>
+        <button
+          mat-stroked-button
+          (click)="onClickStopRecord()"
+          [disabled]="!recording"
+        >
+          Stop Record
+        </button>
+
+        <div *ngIf="recording" class="recording"></div>
+      </div>
+    </div>
+
+    <hr />
+
     <div class="all-media-wrapper">
       <div class="media-category-wrapper">
         <h1>Audio</h1>
@@ -97,6 +124,6 @@
         </div>
       </div>
     </div>
+    <hr />
   </ng-container>
-  <hr />
 </section>

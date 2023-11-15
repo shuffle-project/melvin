@@ -12,6 +12,9 @@ export interface MediaComponent {
 })
 export class RecorderComponent implements OnInit {
   loading = true;
+  recording = false;
+  mediaRecorder: MediaRecorder | null = null;
+  chunks: Blob[] = [];
 
   videos: MediaComponent[] = [];
   screens: MediaComponent[] = [];
@@ -21,6 +24,7 @@ export class RecorderComponent implements OnInit {
   videoInputs: MediaDeviceInfo[] = [];
 
   async ngOnInit() {
+    // navigator.mediaDevices.
     const enumerateDevices = await navigator.mediaDevices.enumerateDevices();
     this.audioInputs = enumerateDevices.filter(
       (device) => device.kind === 'audioinput'
@@ -63,5 +67,52 @@ export class RecorderComponent implements OnInit {
       .catch((err) => {
         console.error(`An error occurred: ${err}`);
       });
+  }
+
+  onClickStartRecord() {
+    if (this.recording) return;
+
+    const allTracks: MediaStreamTrack[] = [];
+
+    this.videos.forEach((element) => {
+      allTracks.push(...element.srcObject.getTracks());
+    });
+    this.audios.forEach((element) => {
+      allTracks.push(...element.srcObject.getTracks());
+    });
+
+    const combined = new MediaStream([...allTracks]);
+
+    this.mediaRecorder = new MediaRecorder(combined);
+    this.mediaRecorder.ondataavailable = (e) => this.chunks.push(e.data);
+    this.mediaRecorder.onstop = (e) => this.onStopSaveRecording(e);
+
+    this.mediaRecorder.start();
+    this.recording = true;
+  }
+
+  onClickStopRecord() {
+    if (!this.recording) return;
+
+    this.mediaRecorder!.stop();
+
+    // cleanup
+    this.mediaRecorder = null;
+    this.chunks = [];
+
+    this.recording = false;
+  }
+
+  onStopSaveRecording(e: Event) {
+    const capturedRecording = new Blob(this.chunks, { type: 'video/mp4' });
+
+    var a = document.createElement('a');
+    document.body.appendChild(a);
+    const filename = 'recorder.mp4';
+    const url = window.URL.createObjectURL(capturedRecording);
+    a.href = url;
+    a.download = filename;
+    a.click();
+    window.URL.revokeObjectURL(url);
   }
 }
