@@ -26,7 +26,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { LetModule, PushModule } from '@ngrx/component';
+import { LetDirective, PushPipe } from '@ngrx/component';
 import { WrittenOutLanguageModulePipe } from 'src/app/pipes/written-out-language-pipe/written-out-language-pipe.module';
 import { FeatureEnabledPipeModule } from '../../pipes/feature-enabled-pipe/feature-enabled-pipe.module';
 import { LanugageCodePipeModule } from '../../pipes/language-code-pipe/language-code-pipe.module';
@@ -36,7 +36,7 @@ import { ProjectStatusPipeModule } from './../../pipes/project-status-pipe/proje
 
 @NgModule({
   declarations: [],
-  imports: [CommonModule],
+  imports: [CommonModule, LetDirective, PushPipe],
   exports: [
     MatToolbarModule,
     MatButtonModule,
@@ -54,8 +54,8 @@ import { ProjectStatusPipeModule } from './../../pipes/project-status-pipe/proje
     MatSelectModule,
     MatTooltipModule,
     MatDialogModule,
-    LetModule,
-    PushModule,
+    LetDirective,
+    PushPipe,
     MatDividerModule,
     FormatDatePipeModule,
     DurationPipeModule,

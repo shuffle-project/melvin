@@ -36,6 +36,7 @@ import { actionReducerMap, effectsList, metaReducers } from './store/app.state';
     StoreDevtoolsModule.instrument({
       maxAge: 25,
       logOnly: environment.production,
+      connectInZone: true,
     }),
     StoreRouterConnectingModule.forRoot(),
     SharedModule,
