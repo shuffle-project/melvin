@@ -49,6 +49,10 @@ export const initalState: EditorState = {
 
 export const editorReducer = createReducer(
   initalState,
+  on(editorActions.resetEditorState, (state) => ({
+    ...state,
+    ...initalState,
+  })),
   // Play
   on(
     editorActions.playFromCaption,
