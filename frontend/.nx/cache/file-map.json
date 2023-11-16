@@ -13,17 +13,17 @@
     "@angular/platform-browser": "^17.0.2",
     "@angular/platform-browser-dynamic": "^17.0.2",
     "@angular/router": "^17.0.2",
-    "@fontsource/roboto": "^4.5.8",
+    "@fontsource/roboto": "^5.0.8",
     "@ngrx/component": "^17.0.0-rc.0",
     "@ngrx/component-store": "^17.0.0-rc.0",
     "@ngrx/effects": "^17.0.0-rc.0",
     "@ngrx/router-store": "^17.0.0-rc.0",
     "@ngrx/store": "^17.0.0-rc.0",
-    "dayjs": "^1.11.7",
+    "dayjs": "^1.11.10",
     "diff-match-patch": "^1.0.5",
     "rxjs": "~7.8.1",
-    "socket.io-client": "^4.6.1",
-    "tslib": "^2.5.0",
+    "socket.io-client": "^4.7.2",
+    "tslib": "^2.6.2",
     "uuid": "^9.0.1",
     "zone.js": "~0.14.2",
     "@angular-devkit/build-angular": "^17.0.0",
@@ -36,20 +36,20 @@
     "@angular/compiler-cli": "^17.0.2",
     "@angular/localize": "^17.0.2",
     "@ngrx/store-devtools": "^17.0.0-rc.0",
-    "@types/diff-match-patch": "^1.0.32",
-    "@types/jasmine": "~4.3.1",
-    "@types/node": "^20.1.2",
-    "@types/uuid": "^9.0.1",
-    "@typescript-eslint/eslint-plugin": "^6.10.0",
-    "@typescript-eslint/parser": "^6.10.0",
+    "@types/diff-match-patch": "^1.0.36",
+    "@types/jasmine": "~5.1.2",
+    "@types/node": "^20.9.0",
+    "@types/uuid": "^9.0.7",
+    "@typescript-eslint/eslint-plugin": "^6.11.0",
+    "@typescript-eslint/parser": "^6.11.0",
     "eslint": "^8.53.0",
-    "jasmine-core": "~4.6.0",
+    "jasmine-core": "~5.1.1",
     "karma": "~6.4.2",
     "karma-chrome-launcher": "~3.2.0",
-    "karma-coverage": "~2.2.0",
+    "karma-coverage": "~2.2.1",
     "karma-jasmine": "~5.1.0",
-    "karma-jasmine-html-reporter": "~2.0.0",
-    "ng-extract-i18n-merge": "^2.7.0",
+    "karma-jasmine-html-reporter": "~2.1.0",
+    "ng-extract-i18n-merge": "^2.8.3",
     "typescript": "~5.2.2"
   },
   "pathMappings": {},
@@ -76,6 +76,22 @@
       {
         "file": ".gitlab-ci.yml",
         "hash": "12461020687504659668"
+      },
+      {
+        "file": ".nx/cache/file-map.json",
+        "hash": "1339670287211487344"
+      },
+      {
+        "file": ".nx/cache/lockfile.hash",
+        "hash": "2047012483654330006"
+      },
+      {
+        "file": ".nx/cache/parsed-lock-file.json",
+        "hash": "7133753387561324662"
+      },
+      {
+        "file": ".nx/cache/project-graph.json",
+        "hash": "16196925167582970063"
       },
       {
         "file": ".prettierrc",
@@ -107,11 +123,11 @@
       },
       {
         "file": "package-lock.json",
-        "hash": "13163180983121233726"
+        "hash": "2210810266192616597"
       },
       {
         "file": "package.json",
-        "hash": "5298849474704621298"
+        "hash": "6409846083206530106"
       },
       {
         "file": "src/app/app-routing.module.ts",
@@ -543,7 +559,7 @@
       },
       {
         "file": "src/app/modules/shared/shared.module.ts",
-        "hash": "6989682093027682543"
+        "hash": "17580051842436182265"
       },
       {
         "file": "src/app/pipes/duration-pipe/duration-pipe.module.ts",
@@ -1019,7 +1035,7 @@
       },
       {
         "file": "src/app/routes/home/editor/components/waveform/waveform.module.ts",
-        "hash": "16162468590771557300"
+        "hash": "10894298733930031739"
       },
       {
         "file": "src/app/routes/home/editor/components/waveform/waveform.service.spec.ts",
