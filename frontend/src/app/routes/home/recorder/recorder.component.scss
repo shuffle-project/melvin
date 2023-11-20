@@ -5,46 +5,43 @@
 .content {
   box-sizing: border-box;
   width: 100%;
-  padding: 5px;
-  // height: ;
   background-color: var(--color-background-grey);
   height: calc(100% - 60px); // header is 60px
+  display: flex;
+  flex-direction: column;
 
-  .controls-wrapper {
+  .recording-wrapper {
     display: flex;
-    justify-content: space-evenly;
-
-    div {
-      flex-basis: 32%;
-      display: flex;
-      flex-direction: column;
-    }
+    margin-top: 10px;
   }
+
   .all-media-wrapper {
+    flex-grow: 1;
     display: flex;
     justify-content: space-evenly;
+    overflow: hidden;
 
     .media-category-wrapper {
-      flex-basis: 32%;
+      border: 1px solid var(--color-border-grey);
+      padding: 5px;
+      width: calc(100% / 3);
+      display: flex;
+      flex-direction: column;
+      border: 0px 1px;
+      overflow-y: auto;
 
       .media-list-wrapper {
         display: flex;
         flex-direction: row;
         flex-wrap: wrap;
-
-        .media-wrapper {
-          margin: 5px;
-          padding: 5px;
-          border: 1px solid black;
-
-          video {
-            width: 100%;
-            object-fit: cover;
-          }
-        }
       }
     }
   }
+}
+
+.add-btn {
+  width: 90%;
+  align-self: center;
 }
 
 .recording {

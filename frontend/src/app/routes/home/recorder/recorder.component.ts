@@ -1,72 +1,61 @@
-import { Component, OnInit } from '@angular/core';
-
-export interface MediaComponent {
-  title: string;
-  srcObject: MediaStream;
-}
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { MediaCategory } from '../../../services/api/entities/project.entity';
+import { AddSourceDialogComponent } from './dialogs/add-source-dialog/add-source-dialog.component';
+import { SourceObj } from './recorder.interfaces';
+import { RecorderService } from './recorder.service';
 
 @Component({
   selector: 'app-recorder',
   templateUrl: './recorder.component.html',
   styleUrls: ['./recorder.component.scss'],
 })
-export class RecorderComponent implements OnInit {
+export class RecorderComponent implements OnInit, OnDestroy {
+  today = new Date();
+
+  mode: 'setup' | 'record' = 'setup';
+
   loading = true;
   recording = false;
   mediaRecorder: MediaRecorder | null = null;
   chunks: Blob[] = [];
 
-  videos: MediaComponent[] = [];
-  screens: MediaComponent[] = [];
-  audios: MediaComponent[] = [];
-
-  audioInputs: MediaDeviceInfo[] = [];
-  videoInputs: MediaDeviceInfo[] = [];
+  constructor(
+    public dialog: MatDialog,
+    public recorderService: RecorderService
+  ) {}
 
   async ngOnInit() {
-    // navigator.mediaDevices.
-    const enumerateDevices = await navigator.mediaDevices.enumerateDevices();
-    this.audioInputs = enumerateDevices.filter(
-      (device) => device.kind === 'audioinput'
-    );
-    this.videoInputs = enumerateDevices.filter(
-      (device) => device.kind === 'videoinput'
-    );
+    // const enumerateDevices = await navigator.mediaDevices.enumerateDevices();
+    // this.audioInputs = enumerateDevices.filter(
+    //   (device) => device.kind === 'audioinput'
+    // );
+    // this.videoInputs = enumerateDevices.filter(
+    //   (device) => device.kind === 'videoinput'
+    // );
 
     this.loading = false;
   }
 
-  onStartMicrophone(deviceId: string) {
-    navigator.mediaDevices
-      .getUserMedia({ video: false, audio: { deviceId } })
-      .then((stream) => {
-        this.audios.push({ title: 'audio', srcObject: stream });
-      })
-      .catch((err) => {
-        console.error(`An error occurred: ${err}`);
-      });
+  ngOnDestroy(): void {
+    // TODO
+    this.recorderService.resetData();
   }
 
-  onStartWebcam(deviceId: string) {
-    navigator.mediaDevices
-      .getUserMedia({ video: { deviceId }, audio: false })
-      .then((stream) => {
-        this.videos.push({ title: 'video', srcObject: stream });
-      })
-      .catch((err) => {
-        console.error(`An error occurred: ${err}`);
-      });
+  onAddAudioSource() {
+    this.dialog.open(AddSourceDialogComponent, {
+      data: { type: 'audioinput' },
+    });
   }
 
-  onStartScreenSharing() {
-    navigator.mediaDevices
-      .getDisplayMedia({ video: true, audio: true })
-      .then((stream) => {
-        this.screens.push({ title: 'screensharing', srcObject: stream });
-      })
-      .catch((err) => {
-        console.error(`An error occurred: ${err}`);
-      });
+  onAddVideoSource() {
+    this.dialog.open(AddSourceDialogComponent, {
+      data: { type: 'videoinput' },
+    });
+  }
+
+  onAddScreenSharingSource() {
+    this.recorderService.onStartScreenSharingSource(MediaCategory.SLIDES);
   }
 
   onClickStartRecord() {
@@ -74,11 +63,11 @@ export class RecorderComponent implements OnInit {
 
     const allTracks: MediaStreamTrack[] = [];
 
-    this.videos.forEach((element) => {
-      allTracks.push(...element.srcObject.getTracks());
+    this.recorderService.videos.forEach((element) => {
+      allTracks.push(...element.mediaStream.getTracks());
     });
-    this.audios.forEach((element) => {
-      allTracks.push(...element.srcObject.getTracks());
+    this.recorderService.audios.forEach((element) => {
+      allTracks.push(...element.mediaStream.getTracks());
     });
 
     const combined = new MediaStream([...allTracks]);
@@ -114,5 +103,19 @@ export class RecorderComponent implements OnInit {
     a.download = filename;
     a.click();
     window.URL.revokeObjectURL(url);
+  }
+
+  onRemoveMediaSourceElement(obj: SourceObj, index: number) {
+    switch (obj.type) {
+      case 'audioinput':
+        this.recorderService.audios.splice(index, 1);
+        break;
+      case 'videoinput':
+        this.recorderService.videos.splice(index, 1);
+        break;
+      case 'screensharinginput':
+        this.recorderService.screens.splice(index, 1);
+        break;
+    }
   }
 }
