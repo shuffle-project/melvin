@@ -19,6 +19,7 @@ export class AddVideoSourceComponent implements OnInit, OnDestroy {
   videoinputs: MediaDeviceInfo[] = [];
   currentInput!: MediaDeviceInfo;
   videoSource: VideoSource = {
+    type: 'video',
     id: v4(),
     title: 'default video',
     deviceId: '',

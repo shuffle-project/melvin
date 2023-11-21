@@ -3,40 +3,43 @@
     <div>
       <h2 class="title">{{ mediaSource.title }}</h2>
       <div class="subtitle">
-        <!-- <span
-          *ngIf="mediaSource.mediaCategory"
-          stlye="text-decoration: underline; cursor:pointer;"
-        >
-          {{ mediaSource.mediaCategory }}
-        </span> -->
-        <!-- <span
-          *ngIf="
-            mediaSource.mediaCategory && mediaSource.mediaDeviceInfo?.label
-          "
-        >
-          |
-        </span> -->
-        <!-- {{ mediaSource.mediaDeviceInfo?.label }} -->
+        <span class="media-category {{ false ? 'clickable' : '' }}">{{
+          videoSource?.mediaCategory || screensharingSource?.mediaCategory
+        }}</span>
+        <span *ngIf="videoSource"> | </span
+        >{{ videoSource?.label || audioSource?.label }}
       </div>
     </div>
-    <button *ngIf="!readonly" mat-icon-button (click)="onRemoveMediaSource()">
+    <button mat-icon-button (click)="onRemoveMediaSource()">
       <mat-icon svgIcon="delete"></mat-icon>
     </button>
   </div>
   <div class="tile-content">
-    <!-- <ng-container [ngSwitch]="mediaSource.type">
+    <ng-container *ngIf="audioSource">
+      <audio
+        *ngIf="audioSource.mediaStream"
+        [srcObject]="audioSource.mediaStream"
+        autoplay
+        controls
+      ></audio>
+    </ng-container>
 
-      <div *ngSwitchCase="'audioinput'">
-        <audio [srcObject]="mediaSource.mediaStream" autoplay controls></audio>
-      </div>
+    <ng-container *ngIf="videoSource">
+      <video
+        *ngIf="videoSource.mediaStream"
+        [srcObject]="videoSource.mediaStream"
+        autoplay
+        controls
+      ></video
+    ></ng-container>
 
-      <div *ngSwitchCase="'videoinput'">
-        <video [srcObject]="mediaSource.mediaStream" autoplay controls></video>
-      </div>
-
-      <div *ngSwitchCase="'screensharinginput'">
-        <video [srcObject]="mediaSource.mediaStream" autoplay controls></video>
-      </div>
-    </ng-container> -->
+    <ng-container *ngIf="screensharingSource">
+      <video
+        *ngIf="screensharingSource.mediaStream"
+        [srcObject]="screensharingSource.mediaStream"
+        autoplay
+        controls
+      ></video>
+    </ng-container>
   </div>
 </div>

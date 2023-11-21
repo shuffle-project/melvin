@@ -17,6 +17,7 @@ export class AddAudioSourceComponent implements OnInit, OnDestroy {
   audioinputs: MediaDeviceInfo[] = [];
   currentInput!: MediaDeviceInfo;
   audioSource: AudioSource = {
+    type: 'audio',
     id: v4(),
     title: 'default audio',
     deviceId: '',

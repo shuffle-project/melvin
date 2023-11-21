@@ -43,12 +43,12 @@
   </ng-container>
 </mat-dialog-content>
 <mat-dialog-actions>
+  <button mat-button (click)="onCloseDialog()">Cancel</button>
   <button
     mat-button
     [disabled]="loading || loadingError"
-    (click)="onCloseDialog()"
+    (click)="onSubmitDialog()"
   >
-    Cancel
+    Add
   </button>
-  <button mat-button (click)="onSubmitDialog()">Add</button>
 </mat-dialog-actions>

@@ -34,12 +34,14 @@
         display: flex;
         flex-direction: row;
         flex-wrap: wrap;
+        width: 100%;
       }
     }
   }
 }
 
 .add-btn {
+  margin-top: 10px;
   width: 90%;
   align-self: center;
 }

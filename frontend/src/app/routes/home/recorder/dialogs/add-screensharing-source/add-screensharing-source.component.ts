@@ -16,6 +16,7 @@ export class AddScreensharingSourceComponent implements OnInit, OnDestroy {
   loadingError: any | null = null;
 
   screensharingSource: ScreensharingSource = {
+    type: 'screensharing',
     id: v4(),
     title: 'Screensharing title',
     mediaCategory: MediaCategory.SLIDES,

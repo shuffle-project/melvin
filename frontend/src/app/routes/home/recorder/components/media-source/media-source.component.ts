@@ -4,6 +4,7 @@ import {
   ScreensharingSource,
   VideoSource,
 } from '../../recorder.interfaces';
+import { RecorderService } from '../../recorder.service';
 
 @Component({
   selector: 'app-media-source',
@@ -11,7 +12,6 @@ import {
   styleUrls: ['./media-source.component.scss'],
 })
 export class MediaSourceComponent implements OnInit {
-  @Input({ required: true }) readonly!: boolean;
   @Input({ required: true }) mediaSource!:
     | AudioSource
     | VideoSource
@@ -21,16 +21,28 @@ export class MediaSourceComponent implements OnInit {
 
   audioSource: AudioSource | null = null;
   videoSource: VideoSource | null = null;
-  ScreensharingSource: ScreensharingSource | null = null;
+  screensharingSource: ScreensharingSource | null = null;
 
-  constructor() {
+  constructor(public recorderService: RecorderService) {
     // if( this.mediaSource instanceof AudioSource){
     // }
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    switch (this.mediaSource['type']) {
+      case 'audio':
+        this.audioSource = this.mediaSource as AudioSource;
+        break;
+      case 'video':
+        this.videoSource = this.mediaSource as VideoSource;
+        break;
+      case 'screensharing':
+        this.screensharingSource = this.mediaSource as ScreensharingSource;
+        break;
+    }
+  }
 
   onRemoveMediaSource() {
-    this.removeMediaSourceElement.emit();
+    this.recorderService.removeById(this.mediaSource.id);
   }
 }
