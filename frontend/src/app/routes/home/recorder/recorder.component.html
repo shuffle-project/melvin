@@ -107,12 +107,15 @@
 
       <div class="media-category-wrapper">
         <h1>Screensharingquellen</h1>
-        <p *ngIf="recorderService.screens.length === 0">
+        <p *ngIf="recorderService.screensharings.length === 0">
           <i>Kein Screensharing hinzugefügt</i>
         </p>
         <div class="media-list-wrapper">
           <ng-container
-            *ngFor="let screen of recorderService.screens; let index = index"
+            *ngFor="
+              let screen of recorderService.screensharings;
+              let index = index
+            "
           >
             <app-media-source
               [mediaSource]="screen"

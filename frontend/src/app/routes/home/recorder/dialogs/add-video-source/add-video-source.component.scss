@@ -1,0 +1,22 @@
+.mat-dialog-content {
+  padding-top: 5px;
+  width: 600px;
+
+  .controls {
+    display: flex;
+    gap: 5px;
+
+    .title-form-field {
+      width: 60%;
+    }
+    .category-form-field {
+      width: 40%;
+    }
+  }
+}
+
+video {
+  width: 100%;
+  object-fit: cover;
+  border-radius: 10px;
+}

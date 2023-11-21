@@ -1,5 +1,9 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { SourceObj } from '../../recorder.interfaces';
+import {
+  AudioSource,
+  ScreensharingSource,
+  VideoSource,
+} from '../../recorder.interfaces';
 
 @Component({
   selector: 'app-media-source',
@@ -8,41 +12,23 @@ import { SourceObj } from '../../recorder.interfaces';
 })
 export class MediaSourceComponent implements OnInit {
   @Input({ required: true }) readonly!: boolean;
-  @Input({ required: true }) mediaSource!: SourceObj;
+  @Input({ required: true }) mediaSource!:
+    | AudioSource
+    | VideoSource
+    | ScreensharingSource;
 
   @Output() removeMediaSourceElement = new EventEmitter<void>();
 
-  constructor() {}
+  audioSource: AudioSource | null = null;
+  videoSource: VideoSource | null = null;
+  ScreensharingSource: ScreensharingSource | null = null;
 
-  meter = 0;
-
-  ngOnInit() {
-    if (this.mediaSource.type === 'videoinput') return;
-
-    const audioContext = new AudioContext();
-    const mediaStreamAudioSourceNode = audioContext.createMediaStreamSource(
-      this.mediaSource.mediaStream
-    );
-    const analyserNode = audioContext.createAnalyser();
-    mediaStreamAudioSourceNode.connect(analyserNode);
-
-    const pcmData = new Float32Array(analyserNode.fftSize);
-
-    // https://jameshfisher.com/2021/01/18/measuring-audio-volume-in-javascript/
-
-    // window.requestAnimationFrame(onFrame);
-    // window.requestAnimationFrame(onFrame);
-
-    setInterval(() => {
-      analyserNode.getFloatTimeDomainData(pcmData);
-      let sumSquares = 0.0;
-      for (const amplitude of pcmData) {
-        sumSquares += amplitude * amplitude;
-      }
-      this.meter = Math.sqrt(sumSquares / pcmData.length) * 100;
-      console.log(this.meter);
-    }, 1000);
+  constructor() {
+    // if( this.mediaSource instanceof AudioSource){
+    // }
   }
+
+  ngOnInit() {}
 
   onRemoveMediaSource() {
     this.removeMediaSourceElement.emit();

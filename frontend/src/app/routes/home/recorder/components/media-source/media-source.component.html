@@ -3,20 +3,20 @@
     <div>
       <h2 class="title">{{ mediaSource.title }}</h2>
       <div class="subtitle">
-        <span
+        <!-- <span
           *ngIf="mediaSource.mediaCategory"
           stlye="text-decoration: underline; cursor:pointer;"
         >
           {{ mediaSource.mediaCategory }}
-        </span>
-        <span
+        </span> -->
+        <!-- <span
           *ngIf="
             mediaSource.mediaCategory && mediaSource.mediaDeviceInfo?.label
           "
         >
           |
-        </span>
-        {{ mediaSource.mediaDeviceInfo?.label }}
+        </span> -->
+        <!-- {{ mediaSource.mediaDeviceInfo?.label }} -->
       </div>
     </div>
     <button *ngIf="!readonly" mat-icon-button (click)="onRemoveMediaSource()">
@@ -24,27 +24,19 @@
     </button>
   </div>
   <div class="tile-content">
-    <ng-container [ngSwitch]="mediaSource.type">
-      <!-- AUDIOINPUT -->
+    <!-- <ng-container [ngSwitch]="mediaSource.type">
 
       <div *ngSwitchCase="'audioinput'">
         <audio [srcObject]="mediaSource.mediaStream" autoplay controls></audio>
       </div>
 
-      <!-- VIDEOINPUT -->
       <div *ngSwitchCase="'videoinput'">
         <video [srcObject]="mediaSource.mediaStream" autoplay controls></video>
       </div>
 
-      <!-- SCREENSHARING -->
       <div *ngSwitchCase="'screensharinginput'">
         <video [srcObject]="mediaSource.mediaStream" autoplay controls></video>
       </div>
-    </ng-container>
-
-    <div *ngIf="mediaSource.type === 'audioinput'">
-      <mat-progress-bar mode="determinate" value="meter"></mat-progress-bar>
-      {{ meter }}
-    </div>
+    </ng-container> -->
   </div>
 </div>

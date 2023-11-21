@@ -1,8 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { MediaCategory } from '../../../services/api/entities/project.entity';
-import { AddSourceDialogComponent } from './dialogs/add-source-dialog/add-source-dialog.component';
-import { SourceObj } from './recorder.interfaces';
+import { AddAudioSourceComponent } from './dialogs/add-audio-source/add-audio-source.component';
+import { AddScreensharingSourceComponent } from './dialogs/add-screensharing-source/add-screensharing-source.component';
+import { AddVideoSourceComponent } from './dialogs/add-video-source/add-video-source.component';
+import { SourceObject } from './recorder.interfaces';
 import { RecorderService } from './recorder.service';
 
 @Component({
@@ -43,19 +44,22 @@ export class RecorderComponent implements OnInit, OnDestroy {
   }
 
   onAddAudioSource() {
-    this.dialog.open(AddSourceDialogComponent, {
-      data: { type: 'audioinput' },
+    this.dialog.open(AddAudioSourceComponent, {
+      data: {},
     });
   }
 
   onAddVideoSource() {
-    this.dialog.open(AddSourceDialogComponent, {
-      data: { type: 'videoinput' },
+    this.dialog.open(AddVideoSourceComponent, {
+      data: {},
     });
   }
 
   onAddScreenSharingSource() {
-    this.recorderService.onStartScreenSharingSource(MediaCategory.SLIDES);
+    this.dialog.open(AddScreensharingSourceComponent, {
+      data: {},
+    });
+    // this.recorderService.onStartScreenSharingSource(MediaCategory.SLIDES);
   }
 
   onClickStartRecord() {
@@ -63,12 +67,12 @@ export class RecorderComponent implements OnInit, OnDestroy {
 
     const allTracks: MediaStreamTrack[] = [];
 
-    this.recorderService.videos.forEach((element) => {
-      allTracks.push(...element.mediaStream.getTracks());
-    });
-    this.recorderService.audios.forEach((element) => {
-      allTracks.push(...element.mediaStream.getTracks());
-    });
+    // this.recorderService.videos.forEach((element) => {
+    //   allTracks.push(...element.mediaStream.getTracks());
+    // });
+    // this.recorderService.audios.forEach((element) => {
+    //   allTracks.push(...element.mediaStream.getTracks());
+    // });
 
     const combined = new MediaStream([...allTracks]);
 
@@ -105,17 +109,18 @@ export class RecorderComponent implements OnInit, OnDestroy {
     window.URL.revokeObjectURL(url);
   }
 
-  onRemoveMediaSourceElement(obj: SourceObj, index: number) {
-    switch (obj.type) {
-      case 'audioinput':
-        this.recorderService.audios.splice(index, 1);
-        break;
-      case 'videoinput':
-        this.recorderService.videos.splice(index, 1);
-        break;
-      case 'screensharinginput':
-        this.recorderService.screens.splice(index, 1);
-        break;
-    }
+  onRemoveMediaSourceElement(obj: SourceObject, index: number) {
+    // TODO
+    // switch (obj.type) {
+    //   case 'audioinput':
+    //     this.recorderService.audios.splice(index, 1);
+    //     break;
+    //   case 'videoinput':
+    //     this.recorderService.videos.splice(index, 1);
+    //     break;
+    //   case 'screensharinginput':
+    //     this.recorderService.screens.splice(index, 1);
+    //     break;
+    // }
   }
 }

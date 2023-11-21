@@ -1,0 +1,14 @@
+.mat-dialog-content {
+  padding-top: 5px;
+  width: 600px;
+
+  .controls {
+    display: flex;
+    gap: 5px;
+  }
+}
+
+audio {
+  width: 100%;
+  object-fit: cover;
+}
