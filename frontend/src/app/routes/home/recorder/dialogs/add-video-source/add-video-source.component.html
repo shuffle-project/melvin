@@ -1,4 +1,4 @@
-<h2 mat-dialog-title>Add Videosource</h2>
+<h2 mat-dialog-title>Add Videosource {{ loading }} - {{ loadingError }}</h2>
 
 <mat-dialog-content class="mat-dialog-content">
   <ng-container *ngIf="loading">
@@ -7,7 +7,11 @@
     </div>
   </ng-container>
 
-  <ng-container *ngIf="loadingError"></ng-container>
+  <ng-container *ngIf="!loading && loadingError">
+    <p>
+      {{ loadingError }}
+    </p>
+  </ng-container>
 
   <ng-container *ngIf="!loading && !loadingError">
     <mat-form-field style="width: 100%">

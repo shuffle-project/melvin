@@ -38,6 +38,17 @@
           controls
         ></video>
       </div>
+      <div
+        class="meter-wrapper"
+        *ngIf="screensharingSource.mediaStream && screensharingSource.sound"
+      >
+        <span> Audio level </span>
+        <div class="meter">
+          <app-audio-meter
+            [mediaStream]="screensharingSource.mediaStream"
+          ></app-audio-meter>
+        </div>
+      </div>
 
       <div
         *ngIf="!screensharingSource.mediaStream"

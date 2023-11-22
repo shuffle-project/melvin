@@ -21,6 +21,7 @@ export class AddScreensharingSourceComponent implements OnInit, OnDestroy {
     title: 'Screensharing title',
     mediaCategory: MediaCategory.SLIDES,
     mediaStream: null,
+    sound: false,
   };
 
   constructor(
@@ -50,6 +51,11 @@ export class AddScreensharingSourceComponent implements OnInit, OnDestroy {
           audio: true,
           video: true,
         });
+
+      this.screensharingSource.sound =
+        this.screensharingSource.mediaStream.getAudioTracks().length > 0
+          ? true
+          : false;
     } catch (error) {
       if (error instanceof DOMException) {
         this.loadingError = 'Permission denied.';

@@ -47,7 +47,7 @@ export class AddVideoSourceComponent implements OnInit, OnDestroy {
     } else {
       // TODO permissions ? keine geräte ? show error
       this.loadingError =
-        'Es konnten keine Videogeräte gefunden werden<. Entweder sind keine Berechtigungen gesetzt oder ist kein Audiogerät angeschlossen!';
+        'Es konnten keine Videogeräte gefunden werden. Entweder sind keine Berechtigungen gesetzt oder ist kein Videogerät angeschlossen!';
     }
 
     this.loading = false;
@@ -55,6 +55,7 @@ export class AddVideoSourceComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.videoSource.mediaStream?.getTracks().forEach((track) => track.stop());
+    this.videoSource.mediaStream = null;
   }
 
   async resetVideoSource(mediaDeviceInfo: MediaDeviceInfo) {

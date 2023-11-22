@@ -22,4 +22,5 @@ export interface VideoSource extends SourceObject {
 export interface ScreensharingSource extends SourceObject {
   type: 'screensharing';
   mediaCategory: MediaCategory;
+  sound: boolean;
 }

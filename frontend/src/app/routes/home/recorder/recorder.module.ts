@@ -8,6 +8,7 @@ import { AddScreensharingSourceComponent } from './dialogs/add-screensharing-sou
 import { AddVideoSourceComponent } from './dialogs/add-video-source/add-video-source.component';
 import { RecorderRoutingModule } from './recorder-routing.module';
 import { RecorderComponent } from './recorder.component';
+import { AudioMeterComponent } from './components/audio-meter/audio-meter.component';
 
 @NgModule({
   declarations: [
@@ -16,6 +17,7 @@ import { RecorderComponent } from './recorder.component';
     AddVideoSourceComponent,
     AddAudioSourceComponent,
     AddScreensharingSourceComponent,
+    AudioMeterComponent,
   ],
   imports: [CommonModule, RecorderRoutingModule, HeaderModule, SharedModule],
 })

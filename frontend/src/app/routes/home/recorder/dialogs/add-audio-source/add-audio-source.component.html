@@ -7,7 +7,9 @@
     </div>
   </ng-container>
 
-  <ng-container *ngIf="loadingError"></ng-container>
+  <ng-container *ngIf="loadingError">
+    {{ loadingError }}
+  </ng-container>
 
   <ng-container *ngIf="!loading && !loadingError">
     <mat-form-field style="width: 100%">
@@ -29,8 +31,16 @@
 
     <br />
 
-    <div *ngIf="audioSource.mediaStream">
-      <audio [srcObject]="audioSource.mediaStream" autoplay controls></audio>
+    <div *ngIf="audioSource.mediaStream" class="audio-wrapper">
+      <audio [srcObject]="audioSource.mediaStream" autoplay></audio>
+      <div class="meter-wrapper">
+        <span> Audio level </span>
+        <div class="meter">
+          <app-audio-meter
+            [mediaStream]="audioSource.mediaStream"
+          ></app-audio-meter>
+        </div>
+      </div>
     </div>
 
     <div

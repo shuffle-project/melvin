@@ -24,6 +24,15 @@
     padding: 8px;
     // margin-bottom: 8px;
 
+    .header-buttons {
+      display: flex;
+
+      .meter-wrapper {
+        height: 20px;
+        width: 50px;
+      }
+    }
+
     .title {
       margin-bottom: 0px;
     }
@@ -45,8 +54,10 @@
   .tile-content {
     display: flex;
     justify-content: center;
+    flex-direction: column;
     align-items: center;
     padding: 8px;
+    gap: 5px;
 
     video {
       width: 90%;
@@ -55,8 +66,21 @@
     }
 
     audio {
-      width: 90%;
-      object-fit: cover;
+      width: 30%;
+    }
+
+    .meter-wrapper {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+
+      .meter {
+        flex-grow: 1;
+        width: 80%;
+        height: 20px;
+        display: flex;
+      }
     }
   }
 }

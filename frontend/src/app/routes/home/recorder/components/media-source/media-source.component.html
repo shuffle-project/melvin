@@ -10,27 +10,54 @@
         >{{ videoSource?.label || audioSource?.label }}
       </div>
     </div>
-    <button mat-icon-button (click)="onRemoveMediaSource()">
-      <mat-icon svgIcon="delete"></mat-icon>
-    </button>
+
+    <div class="header-buttons">
+      <!-- <div
+        *ngIf="
+          screensharingSource &&
+          screensharingSource.mediaStream &&
+          screensharingSource.sound === true
+        "
+        class="flex"
+      > -->
+      <!-- <div class="meter-wrapper">
+          <app-audio-meter
+            [mediaStream]="screensharingSource.mediaStream"
+          ></app-audio-meter>
+        </div> -->
+      <!-- <button mat-icon-button class="md" matTooltip="">
+          <mat-icon svgIcon="volume_on"></mat-icon>
+        </button> -->
+      <!-- </div> -->
+      <!-- <button
+        *ngIf="screensharingSource && screensharingSource.sound === false"
+        mat-icon-button
+        class="md"
+        matTooltip="Ton wurde nicht genehmigt. Bitte neu hinzufügen."
+      >
+        <mat-icon svgIcon="volume_off"></mat-icon>
+      </button> -->
+      <button mat-icon-button class="md" (click)="onRemoveMediaSource()">
+        <mat-icon svgIcon="delete"></mat-icon>
+      </button>
+    </div>
   </div>
   <div class="tile-content">
-    <ng-container *ngIf="audioSource">
-      <audio
-        *ngIf="audioSource.mediaStream"
-        [srcObject]="audioSource.mediaStream"
-        autoplay
-        controls
-      ></audio>
+    <ng-container *ngIf="audioSource && audioSource.mediaStream">
+      <audio [srcObject]="audioSource.mediaStream" autoplay muted></audio>
+
+      <div class="meter-wrapper">
+        <span> Audio level </span>
+        <div class="meter">
+          <app-audio-meter
+            [mediaStream]="audioSource.mediaStream"
+          ></app-audio-meter>
+        </div>
+      </div>
     </ng-container>
 
     <ng-container *ngIf="videoSource">
-      <video
-        *ngIf="videoSource.mediaStream"
-        [srcObject]="videoSource.mediaStream"
-        autoplay
-        controls
-      ></video
+      <video [srcObject]="videoSource.mediaStream" autoplay muted></video
     ></ng-container>
 
     <ng-container *ngIf="screensharingSource">
@@ -38,8 +65,21 @@
         *ngIf="screensharingSource.mediaStream"
         [srcObject]="screensharingSource.mediaStream"
         autoplay
-        controls
+        muted
       ></video>
+
+      <ng-container
+        *ngIf="screensharingSource.sound && screensharingSource.mediaStream"
+      >
+        <div class="meter-wrapper">
+          <span> Audio level </span>
+          <div class="meter">
+            <app-audio-meter
+              [mediaStream]="screensharingSource.mediaStream"
+            ></app-audio-meter>
+          </div>
+        </div>
+      </ng-container>
     </ng-container>
   </div>
 </div>
