@@ -37,6 +37,7 @@
 
     .media-category {
       color: var(--color-dark-grey);
+      margin-right: 10px;
     }
 
     .mat-mdc-chip.mat-mdc-standard-chip {
@@ -45,7 +46,6 @@
 
     .media-category.clickable {
       color: var(--color-black);
-      text-decoration: underline;
     }
   }
 

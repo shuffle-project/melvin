@@ -12,15 +12,21 @@ import {
 export class RecorderService {
   public mode: 'setup' | 'record' = 'setup';
 
+  // devices
   private enumeratedDevices: MediaDeviceInfo[] | null = null;
-
   public videos: VideoSource[] = [];
   public audios: AudioSource[] = [];
   public screensharings: ScreensharingSource[] = [];
 
+  //recording
+
   constructor() {
     this.reloadDevices();
   }
+
+  /**
+   * devices
+   */
 
   reloadDevices() {
     this.enumeratedDevices = null;
@@ -44,9 +50,7 @@ export class RecorderService {
     }
 
     return type
-      ? this.enumeratedDevices.filter(
-          (device) => device.kind === type && device.deviceId !== ''
-        )
+      ? this.enumeratedDevices.filter((device) => device.kind === type)
       : this.enumeratedDevices;
   }
 
@@ -72,26 +76,30 @@ export class RecorderService {
   removeById(id: string) {
     const v = this.videos.findIndex((x) => x.id === id);
     if (v >= 0) {
-      this.stopStream(this.videos[v].mediaStream);
+      this.stopMediastream(this.videos[v].mediaStream);
       this.videos.splice(v, 1);
     }
 
     const a = this.audios.findIndex((x) => x.id === id);
     if (a >= 0) {
-      this.stopStream(this.audios[a].mediaStream);
+      this.stopMediastream(this.audios[a].mediaStream);
       this.audios.splice(v, 1);
     }
 
     const s = this.screensharings.findIndex((x) => x.id === id);
     if (s >= 0) {
-      this.stopStream(this.screensharings[s].mediaStream);
+      this.stopMediastream(this.screensharings[s].mediaStream);
       this.screensharings.splice(v, 1);
     }
   }
 
-  stopStream(mediaStream: MediaStream | null) {
+  stopMediastream(mediaStream: MediaStream | null) {
     if (mediaStream) {
       mediaStream.getTracks().forEach((track) => track.stop());
     }
   }
+
+  /**
+   * recording
+   */
 }

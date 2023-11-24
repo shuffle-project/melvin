@@ -16,8 +16,7 @@
             videoSource?.mediaCategory || screensharingSource?.mediaCategory
           }}</mat-chip
         >
-        <span *ngIf="videoSource"> | </span
-        >{{ videoSource?.label || audioSource?.label }}
+        {{ videoSource?.label || audioSource?.label }}
       </div>
     </div>
 
