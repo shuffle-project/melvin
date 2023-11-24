@@ -1,14 +1,15 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { MatChipsModule } from '@angular/material/chips';
 import { HeaderModule } from '../../../components/header/header.module';
 import { SharedModule } from '../../../modules/shared/shared.module';
+import { AudioMeterComponent } from './components/audio-meter/audio-meter.component';
 import { MediaSourceComponent } from './components/media-source/media-source.component';
 import { AddAudioSourceComponent } from './dialogs/add-audio-source/add-audio-source.component';
 import { AddScreensharingSourceComponent } from './dialogs/add-screensharing-source/add-screensharing-source.component';
 import { AddVideoSourceComponent } from './dialogs/add-video-source/add-video-source.component';
 import { RecorderRoutingModule } from './recorder-routing.module';
 import { RecorderComponent } from './recorder.component';
-import { AudioMeterComponent } from './components/audio-meter/audio-meter.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,12 @@ import { AudioMeterComponent } from './components/audio-meter/audio-meter.compon
     AddScreensharingSourceComponent,
     AudioMeterComponent,
   ],
-  imports: [CommonModule, RecorderRoutingModule, HeaderModule, SharedModule],
+  imports: [
+    CommonModule,
+    RecorderRoutingModule,
+    HeaderModule,
+    SharedModule,
+    MatChipsModule,
+  ],
 })
 export class RecorderModule {}

@@ -1,15 +1,75 @@
 <div class="media-source-wrapper">
   <div class="tile-header">
     <div>
-      <h2 class="title">{{ mediaSource.title }}</h2>
+      <h3 class="title">{{ mediaSource.title }}</h3>
       <div class="subtitle">
-        <span class="media-category {{ false ? 'clickable' : '' }}">{{
-          videoSource?.mediaCategory || screensharingSource?.mediaCategory
-        }}</span>
+        <mat-chip
+          *ngIf="
+            videoSource?.mediaCategory || screensharingSource?.mediaCategory
+          "
+          class="media-category {{
+            recorderService.mode === 'record' ? '' : 'clickable'
+          }}"
+          [matMenuTriggerFor]="mediaCategoryMenu"
+          [disabled]="recorderService.mode === 'record'"
+          >{{
+            videoSource?.mediaCategory || screensharingSource?.mediaCategory
+          }}</mat-chip
+        >
         <span *ngIf="videoSource"> | </span
         >{{ videoSource?.label || audioSource?.label }}
       </div>
     </div>
+
+    <mat-menu #mediaCategoryMenu="matMenu">
+      <button mat-menu-item (click)="onChangeCategory(MediaCategory.OTHER)">
+        <mat-icon
+          [svgIcon]="
+            videoSource?.mediaCategory === MediaCategory.OTHER ||
+            screensharingSource?.mediaCategory === MediaCategory.OTHER
+              ? 'check'
+              : ''
+          "
+        ></mat-icon>
+        Other
+      </button>
+      <button
+        mat-menu-item
+        (click)="onChangeCategory(MediaCategory.SIGN_LANGUAGE)"
+      >
+        <mat-icon
+          [svgIcon]="
+            videoSource?.mediaCategory === MediaCategory.SIGN_LANGUAGE ||
+            screensharingSource?.mediaCategory === MediaCategory.SIGN_LANGUAGE
+              ? 'check'
+              : ''
+          "
+        ></mat-icon>
+        Sign Language
+      </button>
+      <button mat-menu-item (click)="onChangeCategory(MediaCategory.SLIDES)">
+        <mat-icon
+          [svgIcon]="
+            videoSource?.mediaCategory === MediaCategory.SLIDES ||
+            screensharingSource?.mediaCategory === MediaCategory.SLIDES
+              ? 'check'
+              : ''
+          "
+        ></mat-icon>
+        Slides
+      </button>
+      <button mat-menu-item (click)="onChangeCategory(MediaCategory.SPEAKER)">
+        <mat-icon
+          [svgIcon]="
+            videoSource?.mediaCategory === MediaCategory.SPEAKER ||
+            screensharingSource?.mediaCategory === MediaCategory.SPEAKER
+              ? 'check'
+              : ''
+          "
+        ></mat-icon>
+        Speaker
+      </button>
+    </mat-menu>
 
     <div class="header-buttons">
       <!-- <div

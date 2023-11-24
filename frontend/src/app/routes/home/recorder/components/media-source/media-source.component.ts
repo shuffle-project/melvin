@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { MediaCategory } from '../../../../../services/api/entities/project.entity';
 import {
   AudioSource,
   ScreensharingSource,
@@ -12,6 +13,7 @@ import { RecorderService } from '../../recorder.service';
   styleUrls: ['./media-source.component.scss'],
 })
 export class MediaSourceComponent implements OnInit {
+  MediaCategory = MediaCategory;
   @Input({ required: true }) mediaSource!:
     | AudioSource
     | VideoSource
@@ -44,5 +46,12 @@ export class MediaSourceComponent implements OnInit {
 
   onRemoveMediaSource() {
     this.recorderService.removeById(this.mediaSource.id);
+  }
+
+  onChangeCategory(mediaCategory: MediaCategory) {
+    this.recorderService.updateMediaCategoryById(
+      this.mediaSource.id,
+      mediaCategory
+    );
   }
 }

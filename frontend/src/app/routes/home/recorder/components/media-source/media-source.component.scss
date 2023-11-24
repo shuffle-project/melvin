@@ -21,16 +21,11 @@
     justify-content: space-between;
 
     border-bottom: 1px solid var(--color-border-grey);
-    padding: 8px;
+    padding: 10px;
     // margin-bottom: 8px;
 
     .header-buttons {
       display: flex;
-
-      .meter-wrapper {
-        height: 20px;
-        width: 50px;
-      }
     }
 
     .title {
@@ -44,11 +39,18 @@
       color: var(--color-dark-grey);
     }
 
-    .media-category.clickable {
-      color: black;
-      text-decoration: underline;
-      cursor: pointer;
+    .mat-mdc-chip.mat-mdc-standard-chip {
+      height: 24px;
     }
+
+    .media-category.clickable {
+      color: var(--color-black);
+      text-decoration: underline;
+    }
+  }
+
+  .clickable {
+    cursor: pointer;
   }
 
   .tile-content {
@@ -56,8 +58,8 @@
     justify-content: center;
     flex-direction: column;
     align-items: center;
-    padding: 8px;
-    gap: 5px;
+    padding: 10px 30px;
+    gap: 8px;
 
     video {
       width: 90%;
@@ -74,6 +76,9 @@
       display: flex;
       align-items: center;
       gap: 10px;
+      span {
+        text-align: center;
+      }
 
       .meter {
         flex-grow: 1;

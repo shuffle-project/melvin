@@ -16,10 +16,14 @@
 }
 
 .meter-wrapper {
+  margin-top: 10px;
   width: 100%;
   display: flex;
   align-items: center;
   gap: 10px;
+  span {
+    text-align: center;
+  }
 
   .meter {
     flex-grow: 1;

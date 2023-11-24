@@ -23,12 +23,18 @@
 
     .media-category-wrapper {
       border: 1px solid var(--color-border-grey);
-      padding: 5px;
+      padding: 20px;
       width: calc(100% / 3);
       display: flex;
       flex-direction: column;
       border: 0px 1px;
       overflow-y: auto;
+
+      h2,
+      p {
+        display: flex;
+        justify-content: center;
+      }
 
       .media-list-wrapper {
         display: flex;

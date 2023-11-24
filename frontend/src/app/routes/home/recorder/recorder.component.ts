@@ -14,8 +14,6 @@ import { RecorderService } from './recorder.service';
 export class RecorderComponent implements OnInit, OnDestroy {
   today = new Date();
 
-  mode: 'setup' | 'record' = 'setup';
-
   loading = true;
   recording = false;
   mediaRecorder: MediaRecorder | null = null;
@@ -27,19 +25,10 @@ export class RecorderComponent implements OnInit, OnDestroy {
   ) {}
 
   async ngOnInit() {
-    // const enumerateDevices = await navigator.mediaDevices.enumerateDevices();
-    // this.audioInputs = enumerateDevices.filter(
-    //   (device) => device.kind === 'audioinput'
-    // );
-    // this.videoInputs = enumerateDevices.filter(
-    //   (device) => device.kind === 'videoinput'
-    // );
-
     this.loading = false;
   }
 
   ngOnDestroy(): void {
-    // TODO
     this.recorderService.resetData();
   }
 
@@ -107,6 +96,10 @@ export class RecorderComponent implements OnInit, OnDestroy {
     a.download = filename;
     a.click();
     window.URL.revokeObjectURL(url);
+  }
+
+  onClickReady() {
+    this.recorderService.mode = 'record';
   }
 
   onRemoveMediaSourceElement(obj: SourceObject, index: number) {

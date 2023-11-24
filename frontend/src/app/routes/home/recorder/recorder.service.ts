@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { MediaCategory } from '../../../services/api/entities/project.entity';
 import {
   AudioSource,
   ScreensharingSource,
@@ -9,11 +10,45 @@ import {
   providedIn: 'root',
 })
 export class RecorderService {
+  public mode: 'setup' | 'record' = 'setup';
+
+  private enumeratedDevices: MediaDeviceInfo[] | null = null;
+
   public videos: VideoSource[] = [];
   public audios: AudioSource[] = [];
   public screensharings: ScreensharingSource[] = [];
 
-  constructor() {}
+  constructor() {
+    this.reloadDevices();
+  }
+
+  reloadDevices() {
+    this.enumeratedDevices = null;
+    navigator.mediaDevices
+      .enumerateDevices()
+      .then((enumerated) => {
+        this.enumeratedDevices = enumerated.filter(
+          (device) => device.deviceId !== ''
+        );
+      })
+      .finally(() => {
+        if (!this.enumeratedDevices) this.enumeratedDevices = [];
+      });
+  }
+
+  async getDevices(
+    type?: 'audioinput' | 'videoinput'
+  ): Promise<MediaDeviceInfo[]> {
+    while (!this.enumeratedDevices) {
+      await new Promise((resolve) => setTimeout(resolve, 500));
+    }
+
+    return type
+      ? this.enumeratedDevices.filter(
+          (device) => device.kind === type && device.deviceId !== ''
+        )
+      : this.enumeratedDevices;
+  }
 
   resetData() {
     [...this.videos, ...this.screensharings, ...this.audios].forEach((obj) => {
@@ -24,6 +59,14 @@ export class RecorderService {
     this.videos = [];
     this.audios = [];
     this.screensharings = [];
+  }
+
+  updateMediaCategoryById(id: string, mediaCategory: MediaCategory) {
+    const foundVideo = this.videos.find((obj) => obj.id === id);
+    if (foundVideo) foundVideo.mediaCategory = mediaCategory;
+
+    const foundScreensharing = this.screensharings.find((obj) => obj.id === id);
+    if (foundScreensharing) foundScreensharing.mediaCategory = mediaCategory;
   }
 
   removeById(id: string) {

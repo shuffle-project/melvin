@@ -1,5 +1,6 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { Subject } from 'rxjs';
 import { v4 } from 'uuid';
 import { MediaCategory } from '../../../../../services/api/entities/project.entity';
 import { VideoSource } from '../../recorder.interfaces';
@@ -11,12 +12,15 @@ import { RecorderService } from '../../recorder.service';
   styleUrls: ['./add-video-source.component.scss'],
 })
 export class AddVideoSourceComponent implements OnInit, OnDestroy {
+  private destroy$$ = new Subject<void>();
+
   MediaCategory = MediaCategory;
   loading = true;
   loadingError: any | null = null;
   deviceError: any | null = null;
 
   videoinputs: MediaDeviceInfo[] = [];
+
   currentInput!: MediaDeviceInfo;
   videoSource: VideoSource = {
     type: 'video',
@@ -32,14 +36,29 @@ export class AddVideoSourceComponent implements OnInit, OnDestroy {
     public dialogRef: MatDialogRef<AddVideoSourceComponent>,
     @Inject(MAT_DIALOG_DATA)
     public data: {},
-    private recorderService: RecorderService
+    public recorderService: RecorderService
   ) {}
 
   async ngOnInit() {
-    const enumerateDevices = await navigator.mediaDevices.enumerateDevices();
-    this.videoinputs = enumerateDevices.filter(
-      (device) => device.kind === 'videoinput'
-    );
+    await this.load();
+  }
+
+  ngOnDestroy() {
+    this.videoSource.mediaStream?.getTracks().forEach((track) => track.stop());
+    this.videoSource.mediaStream = null;
+    this.destroy$$.next();
+  }
+
+  async load(refresh = false) {
+    this.loading = true;
+    this.loadingError = null;
+    this.deviceError = null;
+
+    if (refresh) {
+      this.recorderService.reloadDevices();
+    }
+
+    this.videoinputs = await this.recorderService.getDevices('videoinput');
 
     if (this.videoinputs.length > 0) {
       this.currentInput = this.videoinputs[0];
@@ -51,11 +70,6 @@ export class AddVideoSourceComponent implements OnInit, OnDestroy {
     }
 
     this.loading = false;
-  }
-
-  ngOnDestroy() {
-    this.videoSource.mediaStream?.getTracks().forEach((track) => track.stop());
-    this.videoSource.mediaStream = null;
   }
 
   async resetVideoSource(mediaDeviceInfo: MediaDeviceInfo) {
@@ -81,6 +95,10 @@ export class AddVideoSourceComponent implements OnInit, OnDestroy {
 
   onSelectionChange() {
     this.resetVideoSource(this.currentInput);
+  }
+
+  onClickTryAgain() {
+    this.load(true);
   }
 
   onCloseDialog() {

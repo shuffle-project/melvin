@@ -60,13 +60,18 @@
     </ng-container>
   </mat-dialog-content>
   <mat-dialog-actions>
+    <button color="primary" mat-flat-button (click)="onCloseDialog()">
+      Cancel
+    </button>
+
     <ng-container *ngIf="!loadingError">
-      <button mat-button (click)="onCloseDialog()">Cancel</button>
-      <button mat-button (click)="onSubmitDialog()">Add</button>
+      <button color="primary" mat-flat-button (click)="onSubmitDialog()">
+        Add
+      </button>
     </ng-container>
 
     <ng-container *ngIf="loadingError">
-      <button mat-button (click)="fetchStream()">
+      <button color="primary" mat-flat-button (click)="fetchStream()">
         Erneut versuchen
         <mat-icon svgIcon="repeat" class="svg-black"></mat-icon>
       </button>

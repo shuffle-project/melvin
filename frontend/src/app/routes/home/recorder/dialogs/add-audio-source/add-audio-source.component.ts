@@ -1,5 +1,6 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { Subject } from 'rxjs';
 import { v4 } from 'uuid';
 import { AudioSource } from '../../recorder.interfaces';
 import { RecorderService } from '../../recorder.service';
@@ -10,6 +11,8 @@ import { RecorderService } from '../../recorder.service';
   styleUrls: ['./add-audio-source.component.scss'],
 })
 export class AddAudioSourceComponent implements OnInit, OnDestroy {
+  private destroy$$ = new Subject<void>();
+
   loading = true;
   loadingError: any | null = null;
   deviceError: any | null = null;
@@ -29,14 +32,29 @@ export class AddAudioSourceComponent implements OnInit, OnDestroy {
     public dialogRef: MatDialogRef<AddAudioSourceComponent>,
     @Inject(MAT_DIALOG_DATA)
     public data: {},
-    private recorderService: RecorderService
+    public recorderService: RecorderService
   ) {}
 
   async ngOnInit() {
-    const enumerateDevices = await navigator.mediaDevices.enumerateDevices();
-    this.audioinputs = enumerateDevices.filter(
-      (device) => device.kind === 'audioinput'
-    );
+    await this.load();
+  }
+
+  ngOnDestroy(): void {
+    this.audioSource.mediaStream?.getTracks().forEach((track) => track.stop());
+    this.audioSource.mediaStream = null;
+    this.destroy$$.next();
+  }
+
+  async load(refresh = false) {
+    this.loading = true;
+    this.loadingError = null;
+    this.deviceError = null;
+
+    if (refresh) {
+      this.recorderService.reloadDevices();
+    }
+
+    this.audioinputs = await this.recorderService.getDevices('audioinput');
 
     if (this.audioinputs.length > 0) {
       this.currentInput = this.audioinputs[0];
@@ -46,13 +64,7 @@ export class AddAudioSourceComponent implements OnInit, OnDestroy {
       this.loadingError =
         'Es konnten keine Videogeräte gefunden werden. Entweder sind keine Berechtigungen gesetzt oder ist kein Audiogerät angeschlossen!';
     }
-
     this.loading = false;
-  }
-
-  ngOnDestroy(): void {
-    this.audioSource.mediaStream?.getTracks().forEach((track) => track.stop());
-    this.audioSource.mediaStream = null;
   }
 
   async resetAudioSource(mediaDeviceInfo: MediaDeviceInfo) {
@@ -78,6 +90,10 @@ export class AddAudioSourceComponent implements OnInit, OnDestroy {
 
   onSelectionChange() {
     this.resetAudioSource(this.currentInput);
+  }
+
+  onClickTryAgain() {
+    this.load(true);
   }
 
   onCloseDialog() {

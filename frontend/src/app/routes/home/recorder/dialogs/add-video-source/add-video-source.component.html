@@ -1,4 +1,4 @@
-<h2 mat-dialog-title>Add Videosource {{ loading }} - {{ loadingError }}</h2>
+<h2 mat-dialog-title>Add Videosource</h2>
 
 <mat-dialog-content class="mat-dialog-content">
   <ng-container *ngIf="loading">
@@ -60,12 +60,25 @@
   </ng-container>
 </mat-dialog-content>
 <mat-dialog-actions>
-  <button mat-button (click)="onCloseDialog()">Cancel</button>
+  <button color="primary" mat-flat-button (click)="onCloseDialog()">
+    Cancel
+  </button>
   <button
-    mat-button
-    [disabled]="loading || loadingError"
+    *ngIf="!loadingError && !loading && !loadingError"
+    color="primary"
+    mat-flat-button
     (click)="onSubmitDialog()"
   >
     Add
+  </button>
+
+  <button
+    *ngIf="loadingError"
+    color="primary"
+    mat-flat-button
+    (click)="onClickTryAgain()"
+  >
+    Erneut versuchen
+    <mat-icon svgIcon="repeat" class="svg-black"></mat-icon>
   </button>
 </mat-dialog-actions>

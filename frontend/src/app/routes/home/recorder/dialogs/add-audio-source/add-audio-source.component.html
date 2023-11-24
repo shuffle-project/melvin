@@ -53,12 +53,25 @@
   </ng-container>
 </mat-dialog-content>
 <mat-dialog-actions>
-  <button mat-button (click)="onCloseDialog()">Cancel</button>
+  <button color="primary" mat-flat-button (click)="onCloseDialog()">
+    Cancel
+  </button>
   <button
-    mat-button
-    [disabled]="loading || loadingError"
+    *ngIf="!loadingError && !loading && !loadingError"
+    color="primary"
+    mat-flat-button
     (click)="onSubmitDialog()"
   >
     Add
+  </button>
+
+  <button
+    *ngIf="loadingError"
+    color="primary"
+    mat-flat-button
+    (click)="onClickTryAgain()"
+  >
+    Erneut versuchen
+    <mat-icon svgIcon="repeat" class="svg-black"></mat-icon>
   </button>
 </mat-dialog-actions>

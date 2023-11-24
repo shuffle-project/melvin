@@ -21,30 +21,48 @@
         />
       </mat-form-field>
 
-      <button
-        style="margin-left: auto"
-        mat-stroked-button
-        (click)="onClickStartRecord()"
-        [disabled]="recording"
-      >
-        Start Record
-      </button>
-      <button
-        mat-stroked-button
-        (click)="onClickStopRecord()"
-        [disabled]="!recording"
-      >
-        Stop Record
-      </button>
+      <!-- setup buttons -->
+      <div class="buttons" style="margin-left: auto">
+        <div *ngIf="recorderService.mode === 'setup'">
+          <button
+            color="primary"
+            mat-flat-button
+            (click)="onClickReady()"
+            [disabled]=""
+          >
+            Bereit
+          </button>
+        </div>
 
-      <div *ngIf="recording" class="recording"></div>
+        <!-- record buttons -->
+        <div *ngIf="recorderService.mode === 'record'">
+          <button
+            color="primary"
+            mat-flat-button
+            (click)="onClickStartRecord()"
+            [disabled]="recording"
+          >
+            Start Record
+          </button>
+          <button
+            color="primary"
+            mat-flat-button
+            (click)="onClickStopRecord()"
+            [disabled]="!recording"
+          >
+            Stop Record
+          </button>
+
+          <div *ngIf="recording" class="recording"></div>
+        </div>
+      </div>
     </div>
 
     <hr />
 
     <div class="all-media-wrapper">
       <div class="media-category-wrapper">
-        <h1>Audioquellen</h1>
+        <h2>Audioquellen</h2>
         <p *ngIf="recorderService.audios.length === 0">
           <i>Kein Audio hinzugefügt</i>
         </p>
@@ -59,6 +77,7 @@
         <!--  -->
 
         <button
+          *ngIf="recorderService.mode === 'setup'"
           color="primary"
           class="add-btn"
           mat-flat-button
@@ -69,7 +88,7 @@
       </div>
 
       <div class="media-category-wrapper">
-        <h1>Videoquellen</h1>
+        <h2>Videoquellen</h2>
         <p *ngIf="recorderService.videos.length === 0">
           <i>Kein Video hinzugefügt</i>
         </p>
@@ -84,6 +103,7 @@
         <!--  -->
 
         <button
+          *ngIf="recorderService.mode === 'setup'"
           color="primary"
           class="add-btn"
           mat-flat-button
@@ -94,7 +114,7 @@
       </div>
 
       <div class="media-category-wrapper">
-        <h1>Screensharingquellen</h1>
+        <h2>Screensharingquellen</h2>
         <p *ngIf="recorderService.screensharings.length === 0">
           <i>Kein Screensharing hinzugefügt</i>
         </p>
@@ -112,8 +132,9 @@
         <!--  -->
 
         <button
-          color="primary"
+          *ngIf="recorderService.mode === 'setup'"
           class="add-btn"
+          color="primary"
           mat-flat-button
           (click)="onAddScreenSharingSource()"
         >
