@@ -37,7 +37,7 @@ import { actionReducerMap, effectsList, metaReducers } from './store/app.state';
       maxAge: 25,
       logOnly: environment.production,
       connectInZone: true,
-    connectInZone: true}),
+    }),
     StoreRouterConnectingModule.forRoot(),
     SharedModule,
     AlertModule,
