@@ -39,8 +39,12 @@ interface FileUpload {
   styleUrls: ['./upload-additional-content.component.scss'],
 })
 export class UploadAdditionalContentComponent implements OnInit {
-  MediaCategory = MediaCategory;
-
+  public selectableMediaCategories = [
+    MediaCategory.OTHER,
+    MediaCategory.SIGN_LANGUAGE,
+    MediaCategory.SLIDES,
+    MediaCategory.SPEAKER,
+  ];
   @Input() projectId!: string;
 
   private projects$ = this.store.select(projectsSelector.selectAllProjects);

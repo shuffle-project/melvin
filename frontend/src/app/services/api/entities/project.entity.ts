@@ -10,8 +10,9 @@ export enum VideoStatus {
   PROCESSING = 'processing',
   ERROR = 'error',
 }
+
 export enum MediaCategory {
-  MAIN = 'main',
+  MAIN = 'main', // only in frontend availeble
   OTHER = 'other',
   SIGN_LANGUAGE = 'sign_language',
   SLIDES = 'slides',

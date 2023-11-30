@@ -1,4 +1,6 @@
-<h3 *ngIf="isOwner$ | ngrxPush">Upload additinal media files</h3>
+<h3 *ngIf="isOwner$ | ngrxPush" i18n="@@uploadAdditionalMediaTitle">
+  Upload additional media files
+</h3>
 
 <form
   class="upload-form"
@@ -8,19 +10,26 @@
 >
   <div class="first-row">
     <mat-form-field appearance="fill" class="title">
-      <mat-label>Video Title</mat-label>
-      <input matInput formControlName="title" placeholder="Video Title" />
+      <mat-label i18n="@@uploadAdditionalMediaVideoTitleLabel"
+        >Video title</mat-label
+      >
+      <input
+        matInput
+        formControlName="title"
+        placeholder="Video title"
+        i18n-placeholder="@@uploadAdditionalMediaVideoTitlePlaceholder"
+      />
     </mat-form-field>
 
     <mat-form-field class="category">
-      <mat-label>Choose a category</mat-label>
+      <mat-label i18n="@@uploadAdditionalMediaVideoCategoryLabel"
+        >Choose a category</mat-label
+      >
       <mat-select formControlName="category">
-        <mat-option value="{{ MediaCategory.OTHER }}">Other</mat-option>
-        <mat-option value="{{ MediaCategory.SIGN_LANGUAGE }}"
-          >Sign Language</mat-option
-        >
-        <mat-option value="{{ MediaCategory.SLIDES }}">Slides</mat-option>
-        <mat-option value="{{ MediaCategory.SPEAKER }}">Speaker</mat-option>
+        <!-- TODO media category i18n -->
+        @for (category of selectableMediaCategories; track $index) {
+        <mat-option value="category">{{ category | mediaCategory }}</mat-option>
+        }
       </mat-select>
     </mat-form-field>
   </div>
@@ -42,6 +51,7 @@
       mat-flat-button
       color="primary"
       [disabled]="formGroup.status === 'INVALID'"
+      i18n="@@uploadAdditionalMediaUploadButton"
     >
       <mat-icon svgIcon="upload"></mat-icon>
       Upload
@@ -49,7 +59,7 @@
   </div>
 </form>
 <div *ngIf="fileUploads.length > 0">
-  <h3>Uploading</h3>
+  <h3 i18n="@@uploadAdditionalMediaUploadingHeader">Uploading</h3>
   <ul class="upload-list">
     <li *ngFor="let fileUpload of fileUploads">
       {{ fileUpload.name }}
@@ -71,7 +81,7 @@
   <hr />
 
   <div *ngIf="project">
-    <h3>Videos</h3>
+    <h3 i18n="@@uploadAdditionalMediaListHeader">Videos</h3>
     <ul>
       <li *ngFor="let video of project.videos">
         {{ video.title }} -- {{ video.category }}
