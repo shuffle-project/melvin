@@ -4,10 +4,10 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { AvatarGroupModule } from '../../../components/avatar-group/avatar-group.module';
 import { HeaderModule } from '../../../components/header/header.module';
-import { LogoModule } from '../../../components/logo/logo.module';
+
 import { ProjectDetailModule } from '../../../modules/project-detail/project-detail.module';
 import { SharedModule } from '../../../modules/shared/shared.module';
-import { DurationPipeModule } from '../../../pipes/duration-pipe/duration-pipe.module';
+
 import { CaptionsModule } from './components/captions/captions.module';
 import { EditorSettingsModule } from './components/editor-settings/editor-settings.module';
 import { JoinLivestreamModalModule } from './components/join-livestream-modal/join-livestream-modal.module';
@@ -21,26 +21,24 @@ import { EditorComponent } from './editor.component';
 
 @NgModule({
     imports: [
-        CommonModule,
-        EditorRoutingModule,
-        DialogHelpEditorModule,
-        SharedModule,
-        LogoModule,
-        WaveformModule,
-        CaptionsModule,
-        HeaderModule,
-        DurationPipeModule,
-        MatProgressBarModule,
-        VideoPlayerModule,
-        AvatarGroupModule,
-        MatSlideToggleModule,
-        ProjectDetailModule,
-        LiveControlsModule,
-        EditorSettingsModule,
-        JoinLivestreamModalModule,
-        UserTestControlsModule,
-        EditorComponent,
-    ],
+    CommonModule,
+    EditorRoutingModule,
+    DialogHelpEditorModule,
+    SharedModule,
+    WaveformModule,
+    CaptionsModule,
+    HeaderModule,
+    MatProgressBarModule,
+    VideoPlayerModule,
+    AvatarGroupModule,
+    MatSlideToggleModule,
+    ProjectDetailModule,
+    LiveControlsModule,
+    EditorSettingsModule,
+    JoinLivestreamModalModule,
+    UserTestControlsModule,
+    EditorComponent,
+],
     providers: [],
 })
 export class EditorModule {}

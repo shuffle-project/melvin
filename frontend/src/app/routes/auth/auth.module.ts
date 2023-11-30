@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FooterModule } from '../../components/footer/footer.module';
-import { LogoModule } from '../../components/logo/logo.module';
+
 import { SharedModule } from '../../modules/shared/shared.module';
 import { AuthRoutingModule } from './auth-routing.module';
 import { AuthComponent } from './auth.component';
@@ -11,15 +11,14 @@ import { RegisterComponent } from './components/register/register.component';
 
 @NgModule({
     imports: [
-        CommonModule,
-        AuthRoutingModule,
-        SharedModule,
-        LogoModule,
-        FooterModule,
-        AuthComponent,
-        LoginComponent,
-        RegisterComponent,
-        PasswordResetComponent,
-    ],
+    CommonModule,
+    AuthRoutingModule,
+    SharedModule,
+    FooterModule,
+    AuthComponent,
+    LoginComponent,
+    RegisterComponent,
+    PasswordResetComponent,
+],
 })
 export class AuthModule {}

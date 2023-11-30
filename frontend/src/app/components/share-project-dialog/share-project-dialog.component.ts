@@ -37,8 +37,8 @@ import { ApiService } from '../../services/api/api.service';
 import { ProjectEntity } from '../../services/api/entities/project.entity';
 import { UserEntity } from '../../services/api/entities/user.entity';
 import { AppState } from '../../store/app.state';
-import { AlertModule } from '../alert/alert.module';
-import { AvatarModule } from '../avatar-group/avatar/avatar.module';
+
+
 
 interface DialogData {
   project: ProjectEntity;
@@ -51,12 +51,10 @@ interface DialogData {
   imports: [
     CommonModule,
     SharedModule,
-    AvatarModule,
     ClipboardModule,
-    AlertModule,
     MatChipsModule,
     MatAutocompleteModule,
-  ],
+],
   standalone: true,
 })
 export class ShareProjectDialogComponent implements OnInit, OnDestroy {

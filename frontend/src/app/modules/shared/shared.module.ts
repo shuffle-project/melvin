@@ -27,12 +27,12 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { LetDirective, PushPipe } from '@ngrx/component';
-import { WrittenOutLanguageModulePipe } from 'src/app/pipes/written-out-language-pipe/written-out-language-pipe.module';
-import { FeatureEnabledPipeModule } from '../../pipes/feature-enabled-pipe/feature-enabled-pipe.module';
-import { LanugageCodePipeModule } from '../../pipes/language-code-pipe/language-code-pipe.module';
+
+
+
 import { MediaCategoryPipe } from '../../pipes/media-category-pipe/media-category.pipe';
-import { DurationPipeModule } from './../../pipes/duration-pipe/duration-pipe.module';
-import { FormatDatePipeModule } from './../../pipes/format-date-pipe/format-date-pipe.module';
+
+
 import { ProjectStatusPipeModule } from './../../pipes/project-status-pipe/project-status-pipe.module';
 
 @NgModule({
@@ -58,21 +58,16 @@ import { ProjectStatusPipeModule } from './../../pipes/project-status-pipe/proje
     LetDirective,
     PushPipe,
     MatDividerModule,
-    FormatDatePipeModule,
-    DurationPipeModule,
-    LanugageCodePipeModule,
     ProjectStatusPipeModule,
     MatProgressSpinnerModule,
     MatCardModule,
     MatExpansionModule,
     MatTabsModule,
     MatSliderModule,
-    WrittenOutLanguageModulePipe,
     MatProgressBarModule,
     MatSlideToggleModule,
-    FeatureEnabledPipeModule,
     MediaCategoryPipe,
-  ],
+],
   providers: [
     {
       provide: MAT_FORM_FIELD_DEFAULT_OPTIONS,

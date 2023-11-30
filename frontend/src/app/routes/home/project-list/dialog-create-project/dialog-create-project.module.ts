@@ -8,7 +8,7 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatTabsModule } from '@angular/material/tabs';
-import { AlertModule } from 'src/app/components/alert/alert.module';
+
 import { UploadFilesModule } from 'src/app/components/upload-files/upload-files.module';
 import { SharedModule } from 'src/app/modules/shared/shared.module';
 import { CreateProjectService } from 'src/app/services/create-project/create-project.service';
@@ -22,26 +22,25 @@ import { DialogCreateProjectComponent } from './dialog-create-project.component'
 
 @NgModule({
     imports: [
-        CommonModule,
-        SharedModule,
-        MatTabsModule,
-        MatAutocompleteModule,
-        MatCardModule,
-        MatProgressSpinnerModule,
-        MatChipsModule,
-        MatStepperModule,
-        MatRadioModule,
-        UploadFilesModule,
-        MatSlideToggleModule,
-        AlertModule,
-        DialogCreateProjectComponent,
-        ProjectMetadataFormComponent,
-        ProjectLiveFormComponent,
-        ProjectVideoFormComponent,
-        ProjectSourceFormComponent,
-        ProjectASRFormComponent,
-        ProjectOverviewFormComponent,
-    ],
+    CommonModule,
+    SharedModule,
+    MatTabsModule,
+    MatAutocompleteModule,
+    MatCardModule,
+    MatProgressSpinnerModule,
+    MatChipsModule,
+    MatStepperModule,
+    MatRadioModule,
+    UploadFilesModule,
+    MatSlideToggleModule,
+    DialogCreateProjectComponent,
+    ProjectMetadataFormComponent,
+    ProjectLiveFormComponent,
+    ProjectVideoFormComponent,
+    ProjectSourceFormComponent,
+    ProjectASRFormComponent,
+    ProjectOverviewFormComponent,
+],
     providers: [CreateProjectService],
 })
 export class DialogCreateProjectModule {}
