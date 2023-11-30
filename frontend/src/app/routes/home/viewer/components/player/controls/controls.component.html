@@ -24,9 +24,15 @@
       <button
         mat-icon-button
         class="md"
+<<<<<<< HEAD
         matTooltip="Play"
         i18n-matTooltip="@@viewerControlsPlayPauseTooltipPlay"
         (click)="onPlayVideo()"
+=======
+        [matTooltip]="viewerService.audio.paused ? 'Play' : 'Pause'"
+        i18n-matTooltip="@@viewerControlsPlayPauseTooltip"
+        (click)="!viewerService.audio.paused ? onPauseVideo() : onPlayVideo()"
+>>>>>>> main
       >
         <mat-icon svgIcon="play-viewer"></mat-icon></button
       >}@else {
@@ -160,8 +166,15 @@
         mat-icon-button
         class="md fullscreen-button"
         (click)="onRequestFullscreen()"
+<<<<<<< HEAD
         matTooltip="Close fullscreen"
         i18n-matTooltip="@@viewerControlsFullscreenToggleTooltipActive"
+=======
+        [matTooltip]="
+          isFullscreenActive() ? 'Close fullscreen' : 'Open fullscreen'
+        "
+        i18n-matTooltip="@@viewerControlsFullscreenToggleTooltip"
+>>>>>>> main
       >
         <mat-icon svgIcon="fullscreen-close" class="svg-black"></mat-icon>
       </button>
