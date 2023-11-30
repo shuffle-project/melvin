@@ -1,6 +1,6 @@
 import { animate, style, transition, trigger } from '@angular/animations';
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable, Subject, lastValueFrom, take } from 'rxjs';
 import { NotificationEntity } from 'src/app/services/api/entities/notification.entity';
@@ -10,19 +10,49 @@ import * as notificationsActions from '../../store/actions/notifications.actions
 import * as authSelectors from '../../store/selectors/auth.selector';
 import * as configSelector from '../../store/selectors/config.selector';
 import * as notificationsSelectors from '../../store/selectors/notifications.selector';
+import { FeatureEnabledPipe } from '../../pipes/feature-enabled-pipe/feature-enabled.pipe';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { NotificationComponent } from '../notification/notification.component';
+import { MatBadgeModule } from '@angular/material/badge';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatButtonModule } from '@angular/material/button';
+import { NgIf, NgFor } from '@angular/common';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatIconModule } from '@angular/material/icon';
+import { LogoComponent } from '../logo/logo.component';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { LetDirective, PushPipe } from '@ngrx/component';
 
 @Component({
-  selector: 'app-header',
-  templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss'],
-  animations: [
-    trigger('fadeIn', [
-      transition(':enter', [
-        style({ opacity: 0 }),
-        animate('100ms', style({ opacity: 1 })),
-      ]),
-    ]),
-  ],
+    selector: 'app-header',
+    templateUrl: './header.component.html',
+    styleUrls: ['./header.component.scss'],
+    animations: [
+        trigger('fadeIn', [
+            transition(':enter', [
+                style({ opacity: 0 }),
+                animate('100ms', style({ opacity: 1 })),
+            ]),
+        ]),
+    ],
+    standalone: true,
+    imports: [
+        LetDirective,
+        MatToolbarModule,
+        LogoComponent,
+        RouterLink,
+        MatIconModule,
+        MatSlideToggleModule,
+        NgIf,
+        MatButtonModule,
+        MatMenuModule,
+        MatBadgeModule,
+        NgFor,
+        NotificationComponent,
+        MatTooltipModule,
+        PushPipe,
+        FeatureEnabledPipe,
+    ],
 })
 export class HeaderComponent implements OnDestroy, OnInit {
   @Input() viewer = false;

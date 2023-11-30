@@ -1,10 +1,22 @@
 import { Component, Input } from '@angular/core';
 import { ControlValueAccessor, NgControl } from '@angular/forms';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { NgIf, NgFor } from '@angular/common';
 
 @Component({
-  selector: 'app-upload-files',
-  templateUrl: './upload-files.component.html',
-  styleUrls: ['./upload-files.component.scss'],
+    selector: 'app-upload-files',
+    templateUrl: './upload-files.component.html',
+    styleUrls: ['./upload-files.component.scss'],
+    standalone: true,
+    imports: [
+        NgIf,
+        NgFor,
+        MatIconModule,
+        MatButtonModule,
+        MatTooltipModule,
+    ],
 })
 export class UploadFilesComponent implements ControlValueAccessor {
   @Input() acceptedFileFormats!: string[];

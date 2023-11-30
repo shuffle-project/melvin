@@ -9,15 +9,15 @@ import { UploadAdditionalContentComponent } from './components/upload-additional
 import { ProjectDetailComponent } from './project-detail.component';
 
 @NgModule({
-  declarations: [ProjectDetailComponent, UploadAdditionalContentComponent],
-  imports: [
-    CommonModule,
-    SharedModule,
-    ProjectActivityModule,
-    ProjectGeneralModule,
-    ProjectTranscriptionModule,
-    UploadFilesModule,
-  ],
-  exports: [ProjectDetailComponent],
+    imports: [
+        CommonModule,
+        SharedModule,
+        ProjectActivityModule,
+        ProjectGeneralModule,
+        ProjectTranscriptionModule,
+        UploadFilesModule,
+        ProjectDetailComponent, UploadAdditionalContentComponent,
+    ],
+    exports: [ProjectDetailComponent],
 })
 export class ProjectDetailModule {}

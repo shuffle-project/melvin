@@ -15,10 +15,35 @@ import * as viewerSelector from '../../../../../../store/selectors/viewer.select
 import { ViewerService } from '../../../viewer.service';
 import { CaptionsSettingsDialogComponent } from '../../captions-settings-dialog/captions-settings-dialog.component';
 import { ViewerVideo } from '../player.component';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { LetDirective, PushPipe } from '@ngrx/component';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatIconModule } from '@angular/material/icon';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatButtonModule } from '@angular/material/button';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { MatSliderModule } from '@angular/material/slider';
+import { NgIf, NgFor } from '@angular/common';
 @Component({
-  selector: 'app-controls',
-  templateUrl: './controls.component.html',
-  styleUrls: ['./controls.component.scss'],
+    selector: 'app-controls',
+    templateUrl: './controls.component.html',
+    styleUrls: ['./controls.component.scss'],
+    standalone: true,
+    imports: [
+        NgIf,
+        MatSliderModule,
+        ReactiveFormsModule,
+        FormsModule,
+        MatButtonModule,
+        MatTooltipModule,
+        MatIconModule,
+        MatMenuModule,
+        LetDirective,
+        NgFor,
+        MatCheckboxModule,
+        PushPipe,
+        DurationPipe,
+    ],
 })
 export class ControlsComponent {
   public volume$ = this.store.select(editorSelector.selectVolume);

@@ -5,8 +5,7 @@ import { TranscriptionModule } from './components/transcription/transcription.mo
 import { ProjectTranscriptionComponent } from './project-transcription.component';
 
 @NgModule({
-  declarations: [ProjectTranscriptionComponent],
-  imports: [CommonModule, SharedModule, TranscriptionModule],
-  exports: [ProjectTranscriptionComponent],
+    imports: [CommonModule, SharedModule, TranscriptionModule, ProjectTranscriptionComponent],
+    exports: [ProjectTranscriptionComponent],
 })
 export class ProjectTranscriptionModule {}

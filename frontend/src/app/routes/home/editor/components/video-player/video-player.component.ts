@@ -1,4 +1,4 @@
-import { DOCUMENT } from '@angular/common';
+import { DOCUMENT, NgIf, NgFor } from '@angular/common';
 import {
   Component,
   ElementRef,
@@ -12,11 +12,32 @@ import * as editorSelectors from '../../../../../store/selectors/editor.selector
 import { MediaService } from '../../services/media/media.service';
 import * as editorActions from './../../../../../store/actions/editor.actions';
 import { VideoPlayerMediaElementComponent } from './video-player-media-element/video-player-media-element.component';
+import { FeatureEnabledPipe } from '../../../../../pipes/feature-enabled-pipe/feature-enabled.pipe';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatSliderModule } from '@angular/material/slider';
+import { MatIconModule } from '@angular/material/icon';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatButtonModule } from '@angular/material/button';
+import { LetDirective, PushPipe } from '@ngrx/component';
 
 @Component({
-  selector: 'app-video-player',
-  templateUrl: './video-player.component.html',
-  styleUrls: ['./video-player.component.scss'],
+    selector: 'app-video-player',
+    templateUrl: './video-player.component.html',
+    styleUrls: ['./video-player.component.scss'],
+    standalone: true,
+    imports: [
+        VideoPlayerMediaElementComponent,
+        NgIf,
+        LetDirective,
+        MatButtonModule,
+        MatTooltipModule,
+        MatIconModule,
+        MatSliderModule,
+        MatMenuModule,
+        NgFor,
+        PushPipe,
+        FeatureEnabledPipe,
+    ],
 })
 export class VideoPlayerComponent implements OnInit {
   @ViewChild('mediaElement')

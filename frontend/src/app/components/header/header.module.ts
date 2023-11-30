@@ -8,16 +8,16 @@ import { LogoModule } from '../logo/logo.module';
 import { NotificationModule } from '../notification/notification.module';
 import { HeaderComponent } from './header.component';
 @NgModule({
-  declarations: [HeaderComponent],
-  imports: [
-    CommonModule,
-    SharedModule,
-    LogoModule,
-    RouterModule,
-    MatBadgeModule,
-    TimeDifferencePipeModule,
-    NotificationModule,
-  ],
-  exports: [HeaderComponent],
+    imports: [
+        CommonModule,
+        SharedModule,
+        LogoModule,
+        RouterModule,
+        MatBadgeModule,
+        TimeDifferencePipeModule,
+        NotificationModule,
+        HeaderComponent,
+    ],
+    exports: [HeaderComponent],
 })
 export class HeaderModule {}

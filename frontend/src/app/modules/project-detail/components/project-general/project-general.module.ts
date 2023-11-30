@@ -6,8 +6,7 @@ import { SharedModule } from '../../../shared/shared.module';
 import { ProjectGeneralComponent } from './project-general.component';
 
 @NgModule({
-  declarations: [ProjectGeneralComponent],
-  imports: [CommonModule, SharedModule, ProjectStatusPipeModule, AlertModule],
-  exports: [ProjectGeneralComponent],
+    imports: [CommonModule, SharedModule, ProjectStatusPipeModule, AlertModule, ProjectGeneralComponent],
+    exports: [ProjectGeneralComponent],
 })
 export class ProjectGeneralModule {}

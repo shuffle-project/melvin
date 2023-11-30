@@ -11,11 +11,28 @@ import * as editorSelector from '../../../store/selectors/editor.selector';
 import * as viewerSelector from '../../../store/selectors/viewer.selector';
 import { AdjustLayoutDialogComponent } from './components/adjust-layout-dialog/adjust-layout-dialog.component';
 import { ViewerService } from './viewer.service';
+import { InfoboxComponent } from './components/infobox/infobox.component';
+import { PlayerComponent } from './components/player/player.component';
+import { TranscriptComponent } from './components/transcript/transcript.component';
+import { MatButtonModule } from '@angular/material/button';
+import { LetDirective } from '@ngrx/component';
+import { HeaderComponent } from '../../../components/header/header.component';
+import { NgIf } from '@angular/common';
 
 @Component({
-  selector: 'app-viewer',
-  templateUrl: './viewer.component.html',
-  styleUrls: ['./viewer.component.scss'],
+    selector: 'app-viewer',
+    templateUrl: './viewer.component.html',
+    styleUrls: ['./viewer.component.scss'],
+    standalone: true,
+    imports: [
+        NgIf,
+        HeaderComponent,
+        LetDirective,
+        MatButtonModule,
+        TranscriptComponent,
+        PlayerComponent,
+        InfoboxComponent,
+    ],
 })
 export class ViewerComponent implements OnInit {
   public projectId!: string;

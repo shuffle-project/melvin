@@ -1,4 +1,4 @@
-import { DOCUMENT } from '@angular/common';
+import { DOCUMENT, NgIf } from '@angular/common';
 import {
   Component,
   ElementRef,
@@ -30,11 +30,18 @@ import { AppState } from '../../../../../../store/app.state';
 import * as editorSelectors from '../../../../../../store/selectors/editor.selector';
 import { LivestreamService } from '../../../../livestream/livestream.service';
 import { MediaService } from '../../../services/media/media.service';
+import { LetDirective, PushPipe } from '@ngrx/component';
 
 @Component({
-  selector: 'app-video-player-media-element',
-  templateUrl: './video-player-media-element.component.html',
-  styleUrls: ['./video-player-media-element.component.scss'],
+    selector: 'app-video-player-media-element',
+    templateUrl: './video-player-media-element.component.html',
+    styleUrls: ['./video-player-media-element.component.scss'],
+    standalone: true,
+    imports: [
+        LetDirective,
+        NgIf,
+        PushPipe,
+    ],
 })
 export class VideoPlayerMediaElementComponent implements OnInit, OnDestroy {
   @ViewChild('video', { static: false })

@@ -4,8 +4,7 @@ import { SharedModule } from '../../../../../modules/shared/shared.module';
 import { JoinLivestreamModalComponent } from './join-livestream-modal.component';
 
 @NgModule({
-  declarations: [JoinLivestreamModalComponent],
-  imports: [CommonModule, SharedModule],
-  exports: [JoinLivestreamModalComponent],
+    imports: [CommonModule, SharedModule, JoinLivestreamModalComponent],
+    exports: [JoinLivestreamModalComponent],
 })
 export class JoinLivestreamModalModule {}

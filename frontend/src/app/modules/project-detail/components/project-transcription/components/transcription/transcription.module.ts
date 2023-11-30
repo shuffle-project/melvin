@@ -6,13 +6,13 @@ import { EditTranscriptionDialogModule } from '../edit-transcription-dialog/edit
 import { TranscriptionComponent } from './transcription.component';
 
 @NgModule({
-  declarations: [TranscriptionComponent],
-  imports: [
-    CommonModule,
-    SharedModule,
-    CreateTranscriptionDialogModule,
-    EditTranscriptionDialogModule,
-  ],
-  exports: [TranscriptionComponent],
+    imports: [
+        CommonModule,
+        SharedModule,
+        CreateTranscriptionDialogModule,
+        EditTranscriptionDialogModule,
+        TranscriptionComponent,
+    ],
+    exports: [TranscriptionComponent],
 })
 export class TranscriptionModule {}

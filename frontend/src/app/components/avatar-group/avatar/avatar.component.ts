@@ -1,4 +1,6 @@
 import { Component, Input, OnChanges } from '@angular/core';
+import { LogoComponent } from '../../logo/logo.component';
+import { NgIf } from '@angular/common';
 
 export interface AvatarUser {
   name: string;
@@ -7,9 +9,11 @@ export interface AvatarUser {
 }
 
 @Component({
-  selector: 'app-avatar',
-  templateUrl: './avatar.component.html',
-  styleUrls: ['./avatar.component.scss'],
+    selector: 'app-avatar',
+    templateUrl: './avatar.component.html',
+    styleUrls: ['./avatar.component.scss'],
+    standalone: true,
+    imports: [NgIf, LogoComponent],
 })
 export class AvatarComponent implements OnChanges {
   @Input() user!: AvatarUser;

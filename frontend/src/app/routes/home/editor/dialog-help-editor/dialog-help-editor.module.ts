@@ -4,7 +4,6 @@ import { SharedModule } from 'src/app/modules/shared/shared.module';
 import { DialogHelpEditorComponent } from './dialog-help-editor.component';
 
 @NgModule({
-  declarations: [DialogHelpEditorComponent],
-  imports: [CommonModule, SharedModule],
+    imports: [CommonModule, SharedModule, DialogHelpEditorComponent],
 })
 export class DialogHelpEditorModule {}

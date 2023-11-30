@@ -8,13 +8,7 @@ import {
   OnInit,
   SimpleChanges,
 } from '@angular/core';
-import {
-  AbstractControl,
-  FormControl,
-  ValidationErrors,
-  ValidatorFn,
-  Validators,
-} from '@angular/forms';
+import { AbstractControl, FormControl, ValidationErrors, ValidatorFn, Validators, ReactiveFormsModule } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
 import {
@@ -39,11 +33,31 @@ import {
   CaptionDeleteConfirmModalComponent,
   CaptionDeleteConfirmModalResult,
 } from '../caption-actions/caption-delete-confirm-modal/caption-delete-confirm-modal.component';
+import { FeatureEnabledPipe } from '../../../../../../../pipes/feature-enabled-pipe/feature-enabled.pipe';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { LetDirective } from '@ngrx/component';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatIconModule } from '@angular/material/icon';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatButtonModule } from '@angular/material/button';
+import { NgIf } from '@angular/common';
 
 @Component({
-  selector: 'app-caption-text',
-  templateUrl: './caption-text.component.html',
-  styleUrls: ['./caption-text.component.scss'],
+    selector: 'app-caption-text',
+    templateUrl: './caption-text.component.html',
+    styleUrls: ['./caption-text.component.scss'],
+    standalone: true,
+    imports: [
+        NgIf,
+        MatButtonModule,
+        MatTooltipModule,
+        MatIconModule,
+        ReactiveFormsModule,
+        MatProgressSpinnerModule,
+        LetDirective,
+        MatProgressBarModule,
+        FeatureEnabledPipe,
+    ],
 })
 export class CaptionTextComponent
   implements OnInit, AfterViewInit, OnChanges, OnDestroy

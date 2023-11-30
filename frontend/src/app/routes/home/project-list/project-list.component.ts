@@ -7,11 +7,11 @@ import {
   OnInit,
   ViewChild,
 } from '@angular/core';
-import { MatButtonToggleGroup } from '@angular/material/button-toggle';
+import { MatButtonToggleGroup, MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatDialog } from '@angular/material/dialog';
-import { MatSelect } from '@angular/material/select';
-import { MatSort, Sort } from '@angular/material/sort';
-import { MatTableDataSource } from '@angular/material/table';
+import { MatSelect, MatSelectModule } from '@angular/material/select';
+import { MatSort, Sort, MatSortModule } from '@angular/material/sort';
+import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
@@ -34,11 +34,59 @@ import * as projectsActions from '../../../store/actions/projects.actions';
 import * as authSelectors from '../../../store/selectors/auth.selector';
 import * as projectsSelectors from '../../../store/selectors/projects.selector';
 import { DialogCreateProjectComponent } from './dialog-create-project/dialog-create-project.component';
+import { FeatureEnabledPipe } from '../../../pipes/feature-enabled-pipe/feature-enabled.pipe';
+import { ProjectStatusPipe } from '../../../pipes/project-status-pipe/project-status.pipe';
+import { LanguageCodePipe } from '../../../pipes/language-code-pipe/language-code.pipe';
+import { DurationPipe } from '../../../pipes/duration-pipe/duration.pipe';
+import { FormatDatePipe } from '../../../pipes/format-date-pipe/format-date.pipe';
+import { FooterComponent } from '../../../components/footer/footer.component';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatMenuModule } from '@angular/material/menu';
+import { AvatarGroupComponent } from '../../../components/avatar-group/avatar-group.component';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatOptionModule } from '@angular/material/core';
+import { NgFor, NgIf, NgClass } from '@angular/common';
+import { MatIconModule } from '@angular/material/icon';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { LetDirective, PushPipe } from '@ngrx/component';
+import { HeaderComponent } from '../../../components/header/header.component';
 
 @Component({
-  selector: 'app-project-list',
-  templateUrl: './project-list.component.html',
-  styleUrls: ['./project-list.component.scss'],
+    selector: 'app-project-list',
+    templateUrl: './project-list.component.html',
+    styleUrls: ['./project-list.component.scss'],
+    standalone: true,
+    imports: [
+        HeaderComponent,
+        LetDirective,
+        MatFormFieldModule,
+        MatInputModule,
+        MatButtonModule,
+        MatTooltipModule,
+        MatIconModule,
+        MatButtonToggleModule,
+        MatSelectModule,
+        NgFor,
+        MatOptionModule,
+        NgIf,
+        MatTableModule,
+        MatSortModule,
+        MatChipsModule,
+        NgClass,
+        AvatarGroupComponent,
+        MatMenuModule,
+        MatDividerModule,
+        FooterComponent,
+        PushPipe,
+        FormatDatePipe,
+        DurationPipe,
+        LanguageCodePipe,
+        ProjectStatusPipe,
+        FeatureEnabledPipe,
+    ],
 })
 export class ProjectListComponent implements OnInit, AfterViewInit, OnDestroy {
   ProjectSetEnum = ProjectSetEnum;

@@ -16,7 +16,8 @@ export interface AppSubmitResizeEvent {
 }
 
 @Directive({
-  selector: '[appResize]',
+    selector: '[appResize]',
+    standalone: true,
 })
 export class ResizeDirective {
   // this event will give a live update, how the div is resized, always in relation to the previous event

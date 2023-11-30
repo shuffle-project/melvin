@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA, MatDialogTitle, MatDialogContent, MatDialogActions } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { combineLatest, map } from 'rxjs';
@@ -7,11 +7,23 @@ import { AppState } from '../../../../../store/app.state';
 import * as authSelector from '../../../../../store/selectors/auth.selector';
 import * as editorSelector from '../../../../../store/selectors/editor.selector';
 import { LivestreamService } from '../../../livestream/livestream.service';
+import { LetDirective } from '@ngrx/component';
+import { MatButtonModule } from '@angular/material/button';
+import { NgIf } from '@angular/common';
 
 @Component({
-  selector: 'app-join-livestream-modal',
-  templateUrl: './join-livestream-modal.component.html',
-  styleUrls: ['./join-livestream-modal.component.scss'],
+    selector: 'app-join-livestream-modal',
+    templateUrl: './join-livestream-modal.component.html',
+    styleUrls: ['./join-livestream-modal.component.scss'],
+    standalone: true,
+    imports: [
+        MatDialogTitle,
+        MatDialogContent,
+        NgIf,
+        MatDialogActions,
+        MatButtonModule,
+        LetDirective,
+    ],
 })
 export class JoinLivestreamModalComponent implements OnInit {
   constructor(

@@ -10,16 +10,16 @@ import { CaptionsComponent } from './captions.component';
 import { EditSpeakerModalComponent } from './edit-speaker-modal/edit-speaker-modal.component';
 
 @NgModule({
-  declarations: [CaptionsComponent, EditSpeakerModalComponent],
-  imports: [
-    CommonModule,
-    SharedModule,
-    ScrollingModule,
-    MatIconModule,
-    ExperimentalScrollingModule,
-    TimeDifferencePipeModule,
-    CaptionModule,
-  ],
-  exports: [CaptionsComponent],
+    imports: [
+        CommonModule,
+        SharedModule,
+        ScrollingModule,
+        MatIconModule,
+        ExperimentalScrollingModule,
+        TimeDifferencePipeModule,
+        CaptionModule,
+        CaptionsComponent, EditSpeakerModalComponent,
+    ],
+    exports: [CaptionsComponent],
 })
 export class CaptionsModule {}

@@ -8,8 +8,8 @@ describe('WaveformCaptionsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ WaveformCaptionsComponent ]
-    })
+    imports: [WaveformCaptionsComponent]
+})
     .compileComponents();
   });
 

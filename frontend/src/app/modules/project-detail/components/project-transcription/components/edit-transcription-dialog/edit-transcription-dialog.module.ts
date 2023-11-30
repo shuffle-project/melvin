@@ -4,8 +4,7 @@ import { SharedModule } from 'src/app/modules/shared/shared.module';
 import { EditTranscriptionDialogComponent } from './edit-transcription-dialog.component';
 
 @NgModule({
-  declarations: [EditTranscriptionDialogComponent],
-  imports: [CommonModule, SharedModule],
-  exports: [EditTranscriptionDialogComponent],
+    imports: [CommonModule, SharedModule, EditTranscriptionDialogComponent],
+    exports: [EditTranscriptionDialogComponent],
 })
 export class EditTranscriptionDialogModule {}

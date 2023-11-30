@@ -2,6 +2,8 @@ import { Component, Input, OnInit } from '@angular/core';
 import dayjs from 'dayjs';
 import { ApiService } from '../../../../services/api/api.service';
 import { ActivityEntity } from '../../../../services/api/entities/activity.entity';
+import { ActivityComponent } from '../../../../components/activity/activity.component';
+import { NgIf, NgFor } from '@angular/common';
 
 interface GroupedActivities {
   date: string;
@@ -9,9 +11,15 @@ interface GroupedActivities {
 }
 
 @Component({
-  selector: 'app-project-activity',
-  templateUrl: './project-activity.component.html',
-  styleUrls: ['./project-activity.component.scss'],
+    selector: 'app-project-activity',
+    templateUrl: './project-activity.component.html',
+    styleUrls: ['./project-activity.component.scss'],
+    standalone: true,
+    imports: [
+        NgIf,
+        NgFor,
+        ActivityComponent,
+    ],
 })
 export class ProjectActivityComponent implements OnInit {
   @Input() projectId!: string;

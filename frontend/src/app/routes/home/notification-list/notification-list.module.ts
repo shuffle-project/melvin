@@ -9,15 +9,15 @@ import { NotificationListRoutingModule } from './notification-list-routing.modul
 import { NotificationListComponent } from './notification-list.component';
 
 @NgModule({
-  declarations: [NotificationListComponent],
-  imports: [
-    CommonModule,
-    SharedModule,
-    HeaderModule,
-    NotificationListRoutingModule,
-    TimeDifferencePipeModule,
-    MatCheckboxModule,
-    NotificationModule,
-  ],
+    imports: [
+        CommonModule,
+        SharedModule,
+        HeaderModule,
+        NotificationListRoutingModule,
+        TimeDifferencePipeModule,
+        MatCheckboxModule,
+        NotificationModule,
+        NotificationListComponent,
+    ],
 })
 export class NotificationListModule {}

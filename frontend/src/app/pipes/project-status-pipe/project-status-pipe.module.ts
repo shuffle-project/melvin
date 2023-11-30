@@ -3,9 +3,8 @@ import { NgModule } from '@angular/core';
 import { ProjectStatusPipe } from './project-status.pipe';
 
 @NgModule({
-  declarations: [ProjectStatusPipe],
-  imports: [CommonModule],
-  exports: [ProjectStatusPipe],
-  providers: [ProjectStatusPipe],
+    imports: [CommonModule, ProjectStatusPipe],
+    exports: [ProjectStatusPipe],
+    providers: [ProjectStatusPipe],
 })
 export class ProjectStatusPipeModule {}

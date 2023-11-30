@@ -12,22 +12,20 @@ import { WaveformComponent } from './waveform.component';
 import { WaveformService } from './waveform.service';
 
 @NgModule({
-  declarations: [
-    WaveformComponent,
-    ResizeDirective,
-    WaveformCanvasComponent,
-    WaveformCaptionsComponent,
-  ],
-  imports: [
-    CommonModule,
-    LetDirective,
-    PushPipe,
-    DurationPipeModule,
-    MatTooltipModule,
-    SharedModule,
-    MatProgressBarModule,
-  ],
-  exports: [WaveformComponent],
-  providers: [WaveformService],
+    imports: [
+        CommonModule,
+        LetDirective,
+        PushPipe,
+        DurationPipeModule,
+        MatTooltipModule,
+        SharedModule,
+        MatProgressBarModule,
+        WaveformComponent,
+        ResizeDirective,
+        WaveformCanvasComponent,
+        WaveformCaptionsComponent,
+    ],
+    exports: [WaveformComponent],
+    providers: [WaveformService],
 })
 export class WaveformModule {}

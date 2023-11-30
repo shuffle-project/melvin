@@ -1,11 +1,28 @@
 import { Component } from '@angular/core';
+import { FooterComponent } from '../../components/footer/footer.component';
+import { PasswordResetComponent } from './components/password-reset/password-reset.component';
+import { RegisterComponent } from './components/register/register.component';
+import { LoginComponent } from './components/login/login.component';
+import { MatButtonModule } from '@angular/material/button';
+import { LogoComponent } from '../../components/logo/logo.component';
+import { NgClass } from '@angular/common';
 
 type View = 'login' | 'register' | 'password';
 
 @Component({
-  selector: 'app-auth',
-  templateUrl: './auth.component.html',
-  styleUrls: ['./auth.component.scss'],
+    selector: 'app-auth',
+    templateUrl: './auth.component.html',
+    styleUrls: ['./auth.component.scss'],
+    standalone: true,
+    imports: [
+        NgClass,
+        LogoComponent,
+        MatButtonModule,
+        LoginComponent,
+        RegisterComponent,
+        PasswordResetComponent,
+        FooterComponent,
+    ],
 })
 export class AuthComponent {
   public view: View = 'login';

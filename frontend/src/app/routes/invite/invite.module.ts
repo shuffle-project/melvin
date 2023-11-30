@@ -6,7 +6,6 @@ import { InviteRoutingModule } from './invite-routing.module';
 import { InviteComponent } from './invite.component';
 
 @NgModule({
-  declarations: [InviteComponent, GuestLoginDialogComponent],
-  imports: [CommonModule, InviteRoutingModule, SharedModule],
+    imports: [CommonModule, InviteRoutingModule, SharedModule, InviteComponent, GuestLoginDialogComponent],
 })
 export class InviteModule {}

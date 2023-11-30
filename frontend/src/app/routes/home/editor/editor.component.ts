@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { Store } from '@ngrx/store';
 import {
   Subject,
@@ -35,11 +35,56 @@ import { LivestreamService } from '../livestream/livestream.service';
 import { JoinLivestreamModalComponent } from './components/join-livestream-modal/join-livestream-modal.component';
 import { DialogHelpEditorComponent } from './dialog-help-editor/dialog-help-editor.component';
 import { MediaService } from './services/media/media.service';
+import { FeatureEnabledPipe } from '../../../pipes/feature-enabled-pipe/feature-enabled.pipe';
+import { DurationPipe } from '../../../pipes/duration-pipe/duration.pipe';
+import { CaptionsComponent } from './components/captions/captions.component';
+import { UserTestControlsComponent } from './components/user-test-controls/user-test-controls.component';
+import { EditorSettingsComponent } from './components/editor-settings/editor-settings.component';
+import { VideoPlayerComponent } from './components/video-player/video-player.component';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { LiveControlsComponent } from './components/live-controls/live-controls.component';
+import { WaveformComponent } from './components/waveform/waveform.component';
+import { AvatarGroupComponent } from '../../../components/avatar-group/avatar-group.component';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatMenuModule } from '@angular/material/menu';
+import { NgIf, NgFor } from '@angular/common';
+import { MatIconModule } from '@angular/material/icon';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatButtonModule } from '@angular/material/button';
+import { LetDirective, PushPipe } from '@ngrx/component';
+import { HeaderComponent } from '../../../components/header/header.component';
 
 @Component({
-  selector: 'app-editor',
-  templateUrl: './editor.component.html',
-  styleUrls: ['./editor.component.scss'],
+    selector: 'app-editor',
+    templateUrl: './editor.component.html',
+    styleUrls: ['./editor.component.scss'],
+    standalone: true,
+    imports: [
+        HeaderComponent,
+        LetDirective,
+        MatButtonModule,
+        MatTooltipModule,
+        RouterLink,
+        MatIconModule,
+        NgIf,
+        MatMenuModule,
+        MatDividerModule,
+        NgFor,
+        AvatarGroupComponent,
+        WaveformComponent,
+        LiveControlsComponent,
+        MatSlideToggleModule,
+        ReactiveFormsModule,
+        FormsModule,
+        VideoPlayerComponent,
+        EditorSettingsComponent,
+        UserTestControlsComponent,
+        CaptionsComponent,
+        PushPipe,
+        DurationPipe,
+        FeatureEnabledPipe,
+    ],
 })
 export class EditorComponent implements OnInit, OnDestroy {
   private destroy$$ = new Subject<void>();

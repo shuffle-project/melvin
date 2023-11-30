@@ -4,8 +4,7 @@ import { SharedModule } from '../../../../../modules/shared/shared.module';
 import { EditorSettingsComponent } from './editor-settings.component';
 
 @NgModule({
-  declarations: [EditorSettingsComponent],
-  imports: [CommonModule, SharedModule],
-  exports: [EditorSettingsComponent],
+    imports: [CommonModule, SharedModule, EditorSettingsComponent],
+    exports: [EditorSettingsComponent],
 })
 export class EditorSettingsModule {}

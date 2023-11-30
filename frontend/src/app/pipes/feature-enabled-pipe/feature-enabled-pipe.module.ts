@@ -3,8 +3,7 @@ import { NgModule } from '@angular/core';
 import { FeatureEnabledPipe } from './feature-enabled.pipe';
 
 @NgModule({
-  declarations: [FeatureEnabledPipe],
-  imports: [CommonModule],
-  exports: [FeatureEnabledPipe],
+    imports: [CommonModule, FeatureEnabledPipe],
+    exports: [FeatureEnabledPipe],
 })
 export class FeatureEnabledPipeModule {}

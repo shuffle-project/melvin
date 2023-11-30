@@ -3,8 +3,7 @@ import { NgModule } from '@angular/core';
 import { WrittenOutLanguagePipe } from './written-out-language.pipe';
 
 @NgModule({
-  declarations: [WrittenOutLanguagePipe],
-  imports: [CommonModule],
-  exports: [WrittenOutLanguagePipe],
+    imports: [CommonModule, WrittenOutLanguagePipe],
+    exports: [WrittenOutLanguagePipe],
 })
 export class WrittenOutLanguageModulePipe {}

@@ -5,8 +5,7 @@ import { ActivityModule } from '../activity/activity.module';
 import { UploadFilesComponent } from './upload-files.component';
 
 @NgModule({
-  declarations: [UploadFilesComponent],
-  imports: [CommonModule, ActivityModule, SharedModule],
-  exports: [UploadFilesComponent],
+    imports: [CommonModule, ActivityModule, SharedModule, UploadFilesComponent],
+    exports: [UploadFilesComponent],
 })
 export class UploadFilesModule {}

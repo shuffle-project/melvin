@@ -8,15 +8,15 @@ import { AvatarModule } from '../avatar-group/avatar/avatar.module';
 import { ActivityComponent } from './activity.component';
 
 @NgModule({
-  declarations: [ActivityComponent],
-  imports: [
-    CommonModule,
-    SharedModule,
-    TimeDifferencePipeModule,
-    ProjectStatusPipeModule,
-    RouterModule,
-    AvatarModule,
-  ],
-  exports: [ActivityComponent],
+    imports: [
+        CommonModule,
+        SharedModule,
+        TimeDifferencePipeModule,
+        ProjectStatusPipeModule,
+        RouterModule,
+        AvatarModule,
+        ActivityComponent,
+    ],
+    exports: [ActivityComponent],
 })
 export class ActivityModule {}

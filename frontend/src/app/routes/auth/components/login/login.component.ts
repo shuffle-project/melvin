@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, NonNullableFormBuilder, Validators } from '@angular/forms';
+import { FormGroup, NonNullableFormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { StorageKey } from '../../../../services/storage/storage-key.enum';
@@ -7,11 +7,30 @@ import { StorageService } from '../../../../services/storage/storage.service';
 import * as authActions from '../../../../store/actions/auth.actions';
 import { AppState } from '../../../../store/app.state';
 import * as authSelectors from '../../../../store/selectors/auth.selector';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatButtonModule } from '@angular/material/button';
+import { NgIf, AsyncPipe } from '@angular/common';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatInputModule } from '@angular/material/input';
+import { MatIconModule } from '@angular/material/icon';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss'],
+    selector: 'app-login',
+    templateUrl: './login.component.html',
+    styleUrls: ['./login.component.scss'],
+    standalone: true,
+    imports: [
+        ReactiveFormsModule,
+        MatFormFieldModule,
+        MatIconModule,
+        MatInputModule,
+        MatCheckboxModule,
+        NgIf,
+        MatButtonModule,
+        MatProgressSpinnerModule,
+        AsyncPipe,
+    ],
 })
 export class LoginComponent implements OnInit {
   public formGroup!: FormGroup;

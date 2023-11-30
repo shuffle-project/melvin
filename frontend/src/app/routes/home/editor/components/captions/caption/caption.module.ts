@@ -12,17 +12,14 @@ import { CaptionTimeComponent } from './caption-time/caption-time.component';
 import { CaptionComponent } from './caption.component';
 
 @NgModule({
-  declarations: [
-    CaptionComponent,
-    CaptionTextComponent,
-    CaptionTimeComponent,
-    CaptionSpeakerComponent,
-    CaptionActionsComponent,
-    EditSpeakerModalComponent,
-    CaptionHistoryModalComponent,
-    CaptionDeleteConfirmModalComponent,
-  ],
-  imports: [CommonModule, SharedModule, TimeDifferencePipeModule],
-  exports: [CaptionComponent],
+    imports: [CommonModule, SharedModule, TimeDifferencePipeModule, CaptionComponent,
+        CaptionTextComponent,
+        CaptionTimeComponent,
+        CaptionSpeakerComponent,
+        CaptionActionsComponent,
+        EditSpeakerModalComponent,
+        CaptionHistoryModalComponent,
+        CaptionDeleteConfirmModalComponent],
+    exports: [CaptionComponent],
 })
 export class CaptionModule {}

@@ -6,8 +6,7 @@ import { LogoModule } from '../logo/logo.module';
 import { FooterComponent } from './footer.component';
 
 @NgModule({
-  declarations: [FooterComponent],
-  imports: [CommonModule, SharedModule, LogoModule, RouterModule],
-  exports: [FooterComponent],
+    imports: [CommonModule, SharedModule, LogoModule, RouterModule, FooterComponent],
+    exports: [FooterComponent],
 })
 export class FooterModule {}

@@ -11,11 +11,10 @@ describe('ProfileComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ProfileComponent],
-      imports: [MatSnackBarModule, RouterTestingModule],
-      providers: [provideMockStore()],
-      schemas: [NO_ERRORS_SCHEMA],
-    }).compileComponents();
+    imports: [MatSnackBarModule, RouterTestingModule, ProfileComponent],
+    providers: [provideMockStore()],
+    schemas: [NO_ERRORS_SCHEMA],
+}).compileComponents();
   });
 
   beforeEach(() => {

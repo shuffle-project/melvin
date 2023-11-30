@@ -24,11 +24,34 @@ import * as captionsSelector from '../../../../../store/selectors/captions.selec
 import * as transcriptionsSelector from '../../../../../store/selectors/transcriptions.selector';
 import * as viewerSelector from '../../../../../store/selectors/viewer.selector';
 import { ViewerService } from '../../viewer.service';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { LetDirective, PushPipe } from '@ngrx/component';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { NgIf, NgStyle, NgFor } from '@angular/common';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 @Component({
-  selector: 'app-transcript',
-  templateUrl: './transcript.component.html',
-  styleUrls: ['./transcript.component.scss'],
+    selector: 'app-transcript',
+    templateUrl: './transcript.component.html',
+    styleUrls: ['./transcript.component.scss'],
+    standalone: true,
+    imports: [
+        MatFormFieldModule,
+        MatInputModule,
+        ReactiveFormsModule,
+        FormsModule,
+        NgIf,
+        MatIconModule,
+        MatButtonModule,
+        LetDirective,
+        NgStyle,
+        NgFor,
+        MatCheckboxModule,
+        PushPipe,
+    ],
 })
 export class TranscriptComponent implements OnDestroy, OnInit {
   private destroy$$ = new Subject<void>();

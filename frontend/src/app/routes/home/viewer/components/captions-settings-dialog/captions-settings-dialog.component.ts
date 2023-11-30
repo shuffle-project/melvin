@@ -1,11 +1,17 @@
 import { Component } from '@angular/core';
-import { MatDialogRef } from '@angular/material/dialog';
-import { MatSelectChange } from '@angular/material/select';
+import { MatDialogRef, MatDialogTitle, MatDialogContent, MatDialogClose } from '@angular/material/dialog';
+import { MatSelectChange, MatSelectModule } from '@angular/material/select';
 import { Store } from '@ngrx/store';
 import { combineLatest, map } from 'rxjs';
 import * as viewerActions from '../../../../../store/actions/viewer.actions';
 import { AppState } from '../../../../../store/app.state';
 import * as viewerSelector from '../../../../../store/selectors/viewer.selector';
+import { NgStyle } from '@angular/common';
+import { MatOptionModule } from '@angular/material/core';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { LetDirective } from '@ngrx/component';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
 
 export enum ColorOptions {
   BLACK = 'black',
@@ -31,9 +37,22 @@ export enum CaptionPositionOptions {
 }
 
 @Component({
-  selector: 'app-captions-settings-dialog',
-  templateUrl: './captions-settings-dialog.component.html',
-  styleUrls: ['./captions-settings-dialog.component.scss'],
+    selector: 'app-captions-settings-dialog',
+    templateUrl: './captions-settings-dialog.component.html',
+    styleUrls: ['./captions-settings-dialog.component.scss'],
+    standalone: true,
+    imports: [
+        MatDialogTitle,
+        MatDialogContent,
+        MatButtonModule,
+        MatDialogClose,
+        MatIconModule,
+        LetDirective,
+        MatFormFieldModule,
+        MatSelectModule,
+        MatOptionModule,
+        NgStyle,
+    ],
 })
 export class CaptionsSettingsDialogComponent {
   ColorOptions = ColorOptions;

@@ -5,8 +5,7 @@ import { SharedModule } from 'src/app/modules/shared/shared.module';
 import { CreateTranscriptionDialogComponent } from './create-transcription-dialog.component';
 
 @NgModule({
-  declarations: [CreateTranscriptionDialogComponent],
-  imports: [CommonModule, MatRadioModule, SharedModule],
-  exports: [CreateTranscriptionDialogComponent],
+    imports: [CommonModule, MatRadioModule, SharedModule, CreateTranscriptionDialogComponent],
+    exports: [CreateTranscriptionDialogComponent],
 })
 export class CreateTranscriptionDialogModule {}

@@ -4,12 +4,7 @@ import {
   HttpEventType,
 } from '@angular/common/http';
 import { Component, Input, OnInit } from '@angular/core';
-import {
-  FormControl,
-  FormGroup,
-  NonNullableFormBuilder,
-  Validators,
-} from '@angular/forms';
+import { FormControl, FormGroup, NonNullableFormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Subscription, combineLatest, firstValueFrom, map } from 'rxjs';
 import { ApiService } from '../../../../services/api/api.service';
@@ -24,6 +19,16 @@ import * as projectsSelector from '../../../../store/selectors/projects.selector
 
 import * as uuid from 'uuid';
 import { selectUserId } from '../../../../store/selectors/auth.selector';
+import { MediaCategoryPipe } from '../../../../pipes/media-category-pipe/media-category.pipe';
+import { LetDirective, PushPipe } from '@ngrx/component';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { MatOptionModule } from '@angular/material/core';
+import { MatSelectModule } from '@angular/material/select';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { NgIf, NgFor } from '@angular/common';
 
 interface FileUpload {
   id: string;
@@ -34,9 +39,25 @@ interface FileUpload {
 }
 
 @Component({
-  selector: 'app-upload-additional-content',
-  templateUrl: './upload-additional-content.component.html',
-  styleUrls: ['./upload-additional-content.component.scss'],
+    selector: 'app-upload-additional-content',
+    templateUrl: './upload-additional-content.component.html',
+    styleUrls: ['./upload-additional-content.component.scss'],
+    standalone: true,
+    imports: [
+        NgIf,
+        ReactiveFormsModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatSelectModule,
+        MatOptionModule,
+        MatButtonModule,
+        MatIconModule,
+        NgFor,
+        MatProgressBarModule,
+        LetDirective,
+        PushPipe,
+        MediaCategoryPipe,
+    ],
 })
 export class UploadAdditionalContentComponent implements OnInit {
   public selectableMediaCategories = [

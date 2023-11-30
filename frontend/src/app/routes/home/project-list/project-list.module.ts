@@ -14,21 +14,21 @@ import { DialogCreateProjectModule } from './dialog-create-project/dialog-create
 import { ProjectListRoutingModule } from './project-list-routing.module';
 import { ProjectListComponent } from './project-list.component';
 @NgModule({
-  declarations: [ProjectListComponent],
-  imports: [
-    CommonModule,
-    ProjectListRoutingModule,
-    SharedModule,
-    DurationPipeModule,
-    FormatDatePipeModule,
-    LogoModule,
-    HeaderModule,
-    MatExpansionModule,
-    MatChipsModule,
-    AvatarGroupModule,
-    DialogCreateProjectModule,
-    FooterModule,
-    ProjectDetailModule,
-  ],
+    imports: [
+        CommonModule,
+        ProjectListRoutingModule,
+        SharedModule,
+        DurationPipeModule,
+        FormatDatePipeModule,
+        LogoModule,
+        HeaderModule,
+        MatExpansionModule,
+        MatChipsModule,
+        AvatarGroupModule,
+        DialogCreateProjectModule,
+        FooterModule,
+        ProjectDetailModule,
+        ProjectListComponent,
+    ],
 })
 export class ProjectListModule {}

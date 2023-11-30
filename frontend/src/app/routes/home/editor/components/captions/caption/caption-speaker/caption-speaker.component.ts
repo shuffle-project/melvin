@@ -13,11 +13,24 @@ import { CaptionEntity } from '../../../../../../../services/api/entities/captio
 import { SpeakerEntity } from '../../../../../../../services/api/entities/transcription.entity';
 import { AppState } from '../../../../../../../store/app.state';
 import * as transcriptionsSelectors from '../../../../../../../store/selectors/transcriptions.selector';
+import { EditSpeakerModalComponent } from './edit-speaker-modal/edit-speaker-modal.component';
+import { MatIconModule } from '@angular/material/icon';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
-  selector: 'app-caption-speaker',
-  templateUrl: './caption-speaker.component.html',
-  styleUrls: ['./caption-speaker.component.scss'],
+    selector: 'app-caption-speaker',
+    templateUrl: './caption-speaker.component.html',
+    styleUrls: ['./caption-speaker.component.scss'],
+    standalone: true,
+    imports: [
+        MatButtonModule,
+        MatTooltipModule,
+        MatMenuModule,
+        MatIconModule,
+        EditSpeakerModalComponent,
+    ],
 })
 export class CaptionSpeakerComponent implements OnInit, OnDestroy, OnChanges {
   @Input() caption!: CaptionEntity;

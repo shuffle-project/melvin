@@ -1,20 +1,33 @@
 import { Component, OnInit } from '@angular/core';
-import {
-  AbstractControl,
-  FormGroup,
-  NonNullableFormBuilder,
-  ValidationErrors,
-  Validators,
-} from '@angular/forms';
+import { AbstractControl, FormGroup, NonNullableFormBuilder, ValidationErrors, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import * as authActions from '../../../../store/actions/auth.actions';
 import { AppState } from '../../../../store/app.state';
 import * as authSelectors from '../../../../store/selectors/auth.selector';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatButtonModule } from '@angular/material/button';
+import { LetDirective } from '@ngrx/component';
+import { NgIf, AsyncPipe } from '@angular/common';
+import { MatInputModule } from '@angular/material/input';
+import { MatIconModule } from '@angular/material/icon';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 @Component({
-  selector: 'app-register',
-  templateUrl: './register.component.html',
-  styleUrls: ['./register.component.scss'],
+    selector: 'app-register',
+    templateUrl: './register.component.html',
+    styleUrls: ['./register.component.scss'],
+    standalone: true,
+    imports: [
+        ReactiveFormsModule,
+        MatFormFieldModule,
+        MatIconModule,
+        MatInputModule,
+        NgIf,
+        LetDirective,
+        MatButtonModule,
+        MatProgressSpinnerModule,
+        AsyncPipe,
+    ],
 })
 export class RegisterComponent implements OnInit {
   public formGroup!: FormGroup;

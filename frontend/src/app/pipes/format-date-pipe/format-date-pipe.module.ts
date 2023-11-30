@@ -3,8 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormatDatePipe } from './format-date.pipe';
 
 @NgModule({
-  declarations: [FormatDatePipe],
-  imports: [CommonModule],
-  exports: [FormatDatePipe],
+    imports: [CommonModule, FormatDatePipe],
+    exports: [FormatDatePipe],
 })
 export class FormatDatePipeModule {}

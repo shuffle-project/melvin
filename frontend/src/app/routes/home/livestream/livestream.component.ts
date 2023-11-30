@@ -4,9 +4,10 @@ import { WSService } from '../../../services/ws/ws.service';
 import { LivestreamService } from './livestream.service';
 
 @Component({
-  selector: 'app-livestream',
-  templateUrl: './livestream.component.html',
-  styleUrls: ['./livestream.component.scss'],
+    selector: 'app-livestream',
+    templateUrl: './livestream.component.html',
+    styleUrls: ['./livestream.component.scss'],
+    standalone: true,
 })
 export class LivestreamComponent implements OnInit {
   @ViewChild('clientVideo') clientVideo!: ElementRef<HTMLVideoElement>;

@@ -6,12 +6,10 @@ import { LivestreamComponent } from './livestream.component';
 
 
 @NgModule({
-  declarations: [
-    LivestreamComponent
-  ],
-  imports: [
-    CommonModule,
-    LivestreamRoutingModule
-  ]
+    imports: [
+        CommonModule,
+        LivestreamRoutingModule,
+        LivestreamComponent
+    ]
 })
 export class LivestreamModule { }

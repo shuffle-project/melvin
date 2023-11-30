@@ -2,7 +2,8 @@ import { Pipe, PipeTransform } from '@angular/core';
 import * as dayjs from 'dayjs';
 
 @Pipe({
-  name: 'duration',
+    name: 'duration',
+    standalone: true,
 })
 export class DurationPipe implements PipeTransform {
   transform(value: number): string {

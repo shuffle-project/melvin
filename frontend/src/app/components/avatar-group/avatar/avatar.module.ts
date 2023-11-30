@@ -4,8 +4,7 @@ import { LogoModule } from '../../logo/logo.module';
 import { AvatarComponent } from './avatar.component';
 
 @NgModule({
-  declarations: [AvatarComponent],
-  imports: [CommonModule, LogoModule],
-  exports: [AvatarComponent],
+    imports: [CommonModule, LogoModule, AvatarComponent],
+    exports: [AvatarComponent],
 })
 export class AvatarModule {}

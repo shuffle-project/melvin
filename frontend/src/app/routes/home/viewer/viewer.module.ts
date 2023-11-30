@@ -18,26 +18,24 @@ import { ViewerRoutingModule } from './viewer-routing.module';
 import { ViewerComponent } from './viewer.component';
 
 @NgModule({
-  declarations: [
-    ViewerComponent,
-    AdjustLayoutDialogComponent,
-    TranscriptComponent,
-    InfoboxComponent,
-    PlayerComponent,
-    HighlightPipe,
-    CaptionsSettingsDialogComponent,
-    ControlsComponent,
-    VideoContainerComponent,
-  ],
-  imports: [
-    CommonModule,
-    ViewerRoutingModule,
-    HeaderModule,
-    SharedModule,
-    MatRadioModule,
-    MatGridListModule,
-    ScrollingModule,
-    CdkDrag,
-  ],
+    imports: [
+        CommonModule,
+        ViewerRoutingModule,
+        HeaderModule,
+        SharedModule,
+        MatRadioModule,
+        MatGridListModule,
+        ScrollingModule,
+        CdkDrag,
+        ViewerComponent,
+        AdjustLayoutDialogComponent,
+        TranscriptComponent,
+        InfoboxComponent,
+        PlayerComponent,
+        HighlightPipe,
+        CaptionsSettingsDialogComponent,
+        ControlsComponent,
+        VideoContainerComponent,
+    ],
 })
 export class ViewerModule {}

@@ -2,7 +2,8 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { ProjectStatus } from 'src/app/services/api/entities/project.entity';
 
 @Pipe({
-  name: 'readableStatus',
+    name: 'readableStatus',
+    standalone: true,
 })
 export class ProjectStatusPipe implements PipeTransform {
   transform(value: string): string {

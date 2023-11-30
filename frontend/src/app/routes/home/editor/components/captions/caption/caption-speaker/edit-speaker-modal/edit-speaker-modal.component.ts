@@ -6,13 +6,7 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
-import {
-  AbstractControl,
-  FormControl,
-  ValidationErrors,
-  ValidatorFn,
-  Validators,
-} from '@angular/forms';
+import { AbstractControl, FormControl, ValidationErrors, ValidatorFn, Validators, ReactiveFormsModule } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { Store } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
@@ -21,11 +15,32 @@ import { SpeakerEntity } from '../../../../../../../../services/api/entities/tra
 import * as captionsActions from '../../../../../../../../store/actions/captions.actions';
 import * as transcriptionsActions from '../../../../../../../../store/actions/transcriptions.actions';
 import * as transcriptionsSelectors from '../../../../../../../../store/selectors/transcriptions.selector';
+import { PushPipe } from '@ngrx/component';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatIconModule } from '@angular/material/icon';
+import { MatMenuModule } from '@angular/material/menu';
+import { NgFor, NgIf } from '@angular/common';
 
 @Component({
-  selector: 'app-edit-speaker-modal',
-  templateUrl: './edit-speaker-modal.component.html',
-  styleUrls: ['./edit-speaker-modal.component.scss'],
+    selector: 'app-edit-speaker-modal',
+    templateUrl: './edit-speaker-modal.component.html',
+    styleUrls: ['./edit-speaker-modal.component.scss'],
+    standalone: true,
+    imports: [
+        NgFor,
+        MatMenuModule,
+        MatIconModule,
+        MatDividerModule,
+        NgIf,
+        MatButtonModule,
+        MatFormFieldModule,
+        MatInputModule,
+        ReactiveFormsModule,
+        PushPipe,
+    ],
 })
 export class EditSpeakerModalComponent implements OnInit, OnDestroy {
   @Input() caption!: CaptionEntity;

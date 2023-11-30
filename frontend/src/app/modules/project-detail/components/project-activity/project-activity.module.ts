@@ -4,8 +4,7 @@ import { ActivityModule } from '../../../../components/activity/activity.module'
 import { ProjectActivityComponent } from './project-activity.component';
 
 @NgModule({
-  declarations: [ProjectActivityComponent],
-  imports: [CommonModule, ActivityModule],
-  exports: [ProjectActivityComponent],
+    imports: [CommonModule, ActivityModule, ProjectActivityComponent],
+    exports: [ProjectActivityComponent],
 })
 export class ProjectActivityModule {}
