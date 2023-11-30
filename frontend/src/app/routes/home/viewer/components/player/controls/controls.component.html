@@ -23,7 +23,7 @@
       <button
         mat-icon-button
         class="md"
-        matTooltip="{{ viewerService.audio.paused ? 'Play' : 'Pause' }}"
+        [matTooltip]="viewerService.audio.paused ? 'Play' : 'Pause'"
         i18n-matTooltip="@@viewerControlsPlayPauseTooltip"
         (click)="!viewerService.audio.paused ? onPauseVideo() : onPlayVideo()"
       >
@@ -152,9 +152,9 @@
         mat-icon-button
         class="md fullscreen-button"
         (click)="onRequestFullscreen()"
-        matTooltip="{{
+        [matTooltip]="
           isFullscreenActive() ? 'Close fullscreen' : 'Open fullscreen'
-        }}"
+        "
         i18n-matTooltip="@@viewerControlsFullscreenToggleTooltip"
       >
         <mat-icon
