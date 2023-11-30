@@ -136,6 +136,8 @@ export class EditorComponent implements OnInit, OnDestroy {
   async ngOnDestroy() {
     this.destroy$$.next();
 
+    this.store.dispatch(editorActions.resetEditorState());
+
     await firstValueFrom(this.api.unsubscribeProject(this.projectId));
     await this.livestreamService.disconnect();
   }
