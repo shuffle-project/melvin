@@ -53,7 +53,7 @@ interface DialogData {
     SharedModule,
     ClipboardModule,
     MatChipsModule,
-    MatAutocompleteModule,
+    MatAutocompleteModule
 ],
   standalone: true,
 })

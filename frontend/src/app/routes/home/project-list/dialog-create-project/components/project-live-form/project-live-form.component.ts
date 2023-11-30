@@ -16,7 +16,7 @@ import {
 import { AlertComponent } from '../../../../../../components/alert/alert.component';
 import { ProjectASRFormComponent } from '../project-asr-form/project-asr-form.component';
 import { MatOptionModule } from '@angular/material/core';
-import { NgFor, NgIf } from '@angular/common';
+
 import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { LetDirective } from '@ngrx/component';
@@ -28,17 +28,15 @@ import { ProjectMetadataFormComponent } from '../project-metadata-form/project-m
     templateUrl: './project-live-form.component.html',
     standalone: true,
     imports: [
-        ProjectMetadataFormComponent,
-        ReactiveFormsModule,
-        LetDirective,
-        MatFormFieldModule,
-        MatSelectModule,
-        NgFor,
-        MatOptionModule,
-        ProjectASRFormComponent,
-        NgIf,
-        AlertComponent,
-    ],
+    ProjectMetadataFormComponent,
+    ReactiveFormsModule,
+    LetDirective,
+    MatFormFieldModule,
+    MatSelectModule,
+    MatOptionModule,
+    ProjectASRFormComponent,
+    AlertComponent
+],
 })
 export class ProjectLiveFormComponent implements AfterViewInit {
   @Input() liveGroup!: FormGroup<LiveGroup>;

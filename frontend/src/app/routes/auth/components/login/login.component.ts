@@ -9,7 +9,7 @@ import { AppState } from '../../../../store/app.state';
 import * as authSelectors from '../../../../store/selectors/auth.selector';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatButtonModule } from '@angular/material/button';
-import { NgIf, AsyncPipe } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
@@ -21,16 +21,15 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     styleUrls: ['./login.component.scss'],
     standalone: true,
     imports: [
-        ReactiveFormsModule,
-        MatFormFieldModule,
-        MatIconModule,
-        MatInputModule,
-        MatCheckboxModule,
-        NgIf,
-        MatButtonModule,
-        MatProgressSpinnerModule,
-        AsyncPipe,
-    ],
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatIconModule,
+    MatInputModule,
+    MatCheckboxModule,
+    MatButtonModule,
+    MatProgressSpinnerModule,
+    AsyncPipe
+],
 })
 export class LoginComponent implements OnInit {
   public formGroup!: FormGroup;

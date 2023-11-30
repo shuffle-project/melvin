@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NgFor, NgIf } from '@angular/common';
+
 import { MatTableModule } from '@angular/material/table';
 
 interface Shortcut {
@@ -13,10 +13,8 @@ interface Shortcut {
     templateUrl: './dialog-help-editor.component.html',
     standalone: true,
     imports: [
-        MatTableModule,
-        NgFor,
-        NgIf,
-    ],
+    MatTableModule
+],
 })
 export class DialogHelpEditorComponent {
   // Operating system detection to switch between mac keys and windows

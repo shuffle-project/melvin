@@ -12,7 +12,7 @@ import { LivestreamService } from '../../../livestream/livestream.service';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatButtonModule } from '@angular/material/button';
-import { NgIf } from '@angular/common';
+
 
 @Component({
     selector: 'app-live-controls',
@@ -20,11 +20,10 @@ import { NgIf } from '@angular/common';
     styleUrls: ['./live-controls.component.scss'],
     standalone: true,
     imports: [
-        NgIf,
-        MatButtonModule,
-        MatMenuModule,
-        MatIconModule,
-    ],
+    MatButtonModule,
+    MatMenuModule,
+    MatIconModule
+],
 })
 export class LiveControlsComponent implements OnInit, OnDestroy {
   private destroy$$ = new Subject<void>();

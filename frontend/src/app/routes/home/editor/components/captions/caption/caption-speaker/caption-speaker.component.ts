@@ -25,12 +25,12 @@ import { MatButtonModule } from '@angular/material/button';
     styleUrls: ['./caption-speaker.component.scss'],
     standalone: true,
     imports: [
-        MatButtonModule,
-        MatTooltipModule,
-        MatMenuModule,
-        MatIconModule,
-        EditSpeakerModalComponent,
-    ],
+    MatButtonModule,
+    MatTooltipModule,
+    MatMenuModule,
+    MatIconModule,
+    EditSpeakerModalComponent
+],
 })
 export class CaptionSpeakerComponent implements OnInit, OnDestroy, OnChanges {
   @Input() caption!: CaptionEntity;

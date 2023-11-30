@@ -23,7 +23,7 @@ import * as captionsSelectors from '../../../../../../store/selectors/captions.s
 import { MediaService } from '../../../services/media/media.service';
 import { AppResizeEvent, ResizeDirective } from '../resize/resize.directive';
 import { WaveformService } from '../waveform.service';
-import { NgFor } from '@angular/common';
+
 import { LetDirective } from '@ngrx/component';
 
 export interface ViewCaption {
@@ -40,10 +40,9 @@ export interface ViewCaption {
     styleUrls: ['./waveform-captions.component.scss'],
     standalone: true,
     imports: [
-        LetDirective,
-        NgFor,
-        ResizeDirective,
-    ],
+    LetDirective,
+    ResizeDirective
+],
 })
 export class WaveformCaptionsComponent implements OnInit, OnChanges, OnDestroy {
   @Input() hidden: boolean = false;

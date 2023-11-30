@@ -23,27 +23,25 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatButtonModule } from '@angular/material/button';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MatSliderModule } from '@angular/material/slider';
-import { NgIf, NgFor } from '@angular/common';
+
 @Component({
     selector: 'app-controls',
     templateUrl: './controls.component.html',
     styleUrls: ['./controls.component.scss'],
     standalone: true,
     imports: [
-        NgIf,
-        MatSliderModule,
-        ReactiveFormsModule,
-        FormsModule,
-        MatButtonModule,
-        MatTooltipModule,
-        MatIconModule,
-        MatMenuModule,
-        LetDirective,
-        NgFor,
-        MatCheckboxModule,
-        PushPipe,
-        DurationPipe,
-    ],
+    MatSliderModule,
+    ReactiveFormsModule,
+    FormsModule,
+    MatButtonModule,
+    MatTooltipModule,
+    MatIconModule,
+    MatMenuModule,
+    LetDirective,
+    MatCheckboxModule,
+    PushPipe,
+    DurationPipe
+],
 })
 export class ControlsComponent {
   public volume$ = this.store.select(editorSelector.selectVolume);

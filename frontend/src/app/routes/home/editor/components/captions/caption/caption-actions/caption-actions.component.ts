@@ -14,7 +14,7 @@ import {
 } from './caption-delete-confirm-modal/caption-delete-confirm-modal.component';
 import { CaptionHistoryModalComponent } from './caption-history-modal/caption-history-modal.component';
 import { FeatureEnabledPipe } from '../../../../../../../pipes/feature-enabled-pipe/feature-enabled.pipe';
-import { NgIf } from '@angular/common';
+
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatButtonModule } from '@angular/material/button';
@@ -25,12 +25,11 @@ import { MatButtonModule } from '@angular/material/button';
     styleUrls: ['./caption-actions.component.scss'],
     standalone: true,
     imports: [
-        MatButtonModule,
-        MatTooltipModule,
-        MatIconModule,
-        NgIf,
-        FeatureEnabledPipe,
-    ],
+    MatButtonModule,
+    MatTooltipModule,
+    MatIconModule,
+    FeatureEnabledPipe
+],
 })
 export class CaptionActionsComponent implements OnInit {
   @Input() caption!: CaptionEntity;

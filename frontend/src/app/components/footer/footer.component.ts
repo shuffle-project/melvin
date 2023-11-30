@@ -9,7 +9,7 @@ import { PushPipe } from '@ngrx/component';
 import { LogoComponent } from '../logo/logo.component';
 import { RouterLink } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
-import { NgIf } from '@angular/common';
+
 
 @Component({
     selector: 'app-footer',
@@ -17,12 +17,11 @@ import { NgIf } from '@angular/common';
     styleUrls: ['./footer.component.scss'],
     standalone: true,
     imports: [
-        NgIf,
-        MatButtonModule,
-        RouterLink,
-        LogoComponent,
-        PushPipe,
-    ],
+    MatButtonModule,
+    RouterLink,
+    LogoComponent,
+    PushPipe
+],
 })
 export class FooterComponent implements OnInit {
   public year = dayjs().format('YYYY');

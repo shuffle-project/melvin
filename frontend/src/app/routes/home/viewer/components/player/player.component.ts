@@ -31,7 +31,7 @@ import { ControlsComponent } from './controls/controls.component';
 import { VideoContainerComponent } from './video-container/video-container.component';
 import { LetDirective, PushPipe } from '@ngrx/component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { NgIf, NgFor, NgStyle } from '@angular/common';
+import { NgStyle } from '@angular/common';
 
 export interface ViewerVideo {
   id: string;
@@ -50,15 +50,13 @@ export interface ViewerVideo {
     ],
     standalone: true,
     imports: [
-        NgIf,
-        MatProgressSpinnerModule,
-        LetDirective,
-        VideoContainerComponent,
-        NgFor,
-        NgStyle,
-        ControlsComponent,
-        PushPipe,
-    ],
+    MatProgressSpinnerModule,
+    LetDirective,
+    VideoContainerComponent,
+    NgStyle,
+    ControlsComponent,
+    PushPipe
+],
 })
 export class PlayerComponent
   implements OnDestroy, AfterViewInit, OnInit, OnChanges

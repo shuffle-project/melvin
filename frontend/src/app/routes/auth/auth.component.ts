@@ -15,14 +15,14 @@ type View = 'login' | 'register' | 'password';
     styleUrls: ['./auth.component.scss'],
     standalone: true,
     imports: [
-        NgClass,
-        LogoComponent,
-        MatButtonModule,
-        LoginComponent,
-        RegisterComponent,
-        PasswordResetComponent,
-        FooterComponent,
-    ],
+    NgClass,
+    LogoComponent,
+    MatButtonModule,
+    LoginComponent,
+    RegisterComponent,
+    PasswordResetComponent,
+    FooterComponent
+],
 })
 export class AuthComponent {
   public view: View = 'login';

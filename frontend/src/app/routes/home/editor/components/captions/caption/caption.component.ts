@@ -5,7 +5,7 @@ import { CaptionTimeComponent } from './caption-time/caption-time.component';
 import { CaptionTextComponent } from './caption-text/caption-text.component';
 import { CaptionActionsComponent } from './caption-actions/caption-actions.component';
 import { CaptionSpeakerComponent } from './caption-speaker/caption-speaker.component';
-import { NgIf } from '@angular/common';
+
 
 @Component({
     selector: 'app-caption',
@@ -13,13 +13,12 @@ import { NgIf } from '@angular/common';
     styleUrls: ['./caption.component.scss'],
     standalone: true,
     imports: [
-        NgIf,
-        CaptionSpeakerComponent,
-        CaptionActionsComponent,
-        CaptionTextComponent,
-        CaptionTimeComponent,
-        FeatureEnabledPipe,
-    ],
+    CaptionSpeakerComponent,
+    CaptionActionsComponent,
+    CaptionTextComponent,
+    CaptionTimeComponent,
+    FeatureEnabledPipe
+],
 })
 export class CaptionComponent {
   @Input() caption!: CaptionEntity;

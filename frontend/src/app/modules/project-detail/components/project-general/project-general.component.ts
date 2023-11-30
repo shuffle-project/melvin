@@ -17,7 +17,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { AlertComponent } from '../../../../components/alert/alert.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { NgIf, NgFor } from '@angular/common';
+
 import { LetDirective } from '@ngrx/component';
 
 interface ProjectGeneralComponentState {
@@ -42,19 +42,17 @@ const initialState: ProjectGeneralComponentState = {
     styleUrls: ['./project-general.component.scss'],
     standalone: true,
     imports: [
-        LetDirective,
-        NgIf,
-        MatProgressSpinnerModule,
-        AlertComponent,
-        ReactiveFormsModule,
-        MatFormFieldModule,
-        MatInputModule,
-        MatSelectModule,
-        NgFor,
-        MatOptionModule,
-        MatButtonModule,
-        ProjectStatusPipe,
-    ],
+    LetDirective,
+    MatProgressSpinnerModule,
+    AlertComponent,
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+    MatOptionModule,
+    MatButtonModule,
+    ProjectStatusPipe
+],
 })
 export class ProjectGeneralComponent extends ComponentStore<ProjectGeneralComponentState> {
   private _projectId!: string;

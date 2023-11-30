@@ -40,7 +40,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatButtonModule } from '@angular/material/button';
-import { NgIf } from '@angular/common';
+
 
 @Component({
     selector: 'app-caption-text',
@@ -48,16 +48,15 @@ import { NgIf } from '@angular/common';
     styleUrls: ['./caption-text.component.scss'],
     standalone: true,
     imports: [
-        NgIf,
-        MatButtonModule,
-        MatTooltipModule,
-        MatIconModule,
-        ReactiveFormsModule,
-        MatProgressSpinnerModule,
-        LetDirective,
-        MatProgressBarModule,
-        FeatureEnabledPipe,
-    ],
+    MatButtonModule,
+    MatTooltipModule,
+    MatIconModule,
+    ReactiveFormsModule,
+    MatProgressSpinnerModule,
+    LetDirective,
+    MatProgressBarModule,
+    FeatureEnabledPipe
+],
 })
 export class CaptionTextComponent
   implements OnInit, AfterViewInit, OnChanges, OnDestroy

@@ -28,7 +28,7 @@ import {
 import { ApiService } from '../../../../../../../app/services/api/api.service';
 import { UserEntity } from '../../../../../../../app/services/api/entities/user.entity';
 import { MetadataGroup } from '../../dialog-create-project.interfaces';
-import { NgFor, NgIf } from '@angular/common';
+
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatButtonModule } from '@angular/material/button';
@@ -41,18 +41,16 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     templateUrl: './project-metadata-form.component.html',
     standalone: true,
     imports: [
-        ReactiveFormsModule,
-        MatFormFieldModule,
-        MatInputModule,
-        MatButtonModule,
-        MatTooltipModule,
-        MatIconModule,
-        MatChipsModule,
-        NgFor,
-        NgIf,
-        MatAutocompleteModule,
-        MatOptionModule,
-    ],
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    MatTooltipModule,
+    MatIconModule,
+    MatChipsModule,
+    MatAutocompleteModule,
+    MatOptionModule
+],
 })
 export class ProjectMetadataFormComponent implements OnInit, OnDestroy {
   @Input() metadataGroup!: FormGroup<MetadataGroup>;

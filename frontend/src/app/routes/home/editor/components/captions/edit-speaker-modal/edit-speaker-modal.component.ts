@@ -22,7 +22,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
-import { NgFor, NgIf } from '@angular/common';
+
 
 @Component({
     selector: 'app-edit-speaker-modal',
@@ -30,17 +30,15 @@ import { NgFor, NgIf } from '@angular/common';
     styleUrls: ['./edit-speaker-modal.component.scss'],
     standalone: true,
     imports: [
-        NgFor,
-        MatMenuModule,
-        MatIconModule,
-        MatDividerModule,
-        NgIf,
-        MatButtonModule,
-        MatFormFieldModule,
-        MatInputModule,
-        ReactiveFormsModule,
-        PushPipe,
-    ],
+    MatMenuModule,
+    MatIconModule,
+    MatDividerModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatInputModule,
+    ReactiveFormsModule,
+    PushPipe
+],
 })
 export class EditSpeakerModalComponent implements OnInit, OnDestroy {
   @Input() caption!: CaptionEntity;

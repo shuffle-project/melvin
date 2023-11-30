@@ -48,7 +48,7 @@ import { WaveformComponent } from './components/waveform/waveform.component';
 import { AvatarGroupComponent } from '../../../components/avatar-group/avatar-group.component';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatMenuModule } from '@angular/material/menu';
-import { NgIf, NgFor } from '@angular/common';
+
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatButtonModule } from '@angular/material/button';
@@ -61,30 +61,28 @@ import { HeaderComponent } from '../../../components/header/header.component';
     styleUrls: ['./editor.component.scss'],
     standalone: true,
     imports: [
-        HeaderComponent,
-        LetDirective,
-        MatButtonModule,
-        MatTooltipModule,
-        RouterLink,
-        MatIconModule,
-        NgIf,
-        MatMenuModule,
-        MatDividerModule,
-        NgFor,
-        AvatarGroupComponent,
-        WaveformComponent,
-        LiveControlsComponent,
-        MatSlideToggleModule,
-        ReactiveFormsModule,
-        FormsModule,
-        VideoPlayerComponent,
-        EditorSettingsComponent,
-        UserTestControlsComponent,
-        CaptionsComponent,
-        PushPipe,
-        DurationPipe,
-        FeatureEnabledPipe,
-    ],
+    HeaderComponent,
+    LetDirective,
+    MatButtonModule,
+    MatTooltipModule,
+    RouterLink,
+    MatIconModule,
+    MatMenuModule,
+    MatDividerModule,
+    AvatarGroupComponent,
+    WaveformComponent,
+    LiveControlsComponent,
+    MatSlideToggleModule,
+    ReactiveFormsModule,
+    FormsModule,
+    VideoPlayerComponent,
+    EditorSettingsComponent,
+    UserTestControlsComponent,
+    CaptionsComponent,
+    PushPipe,
+    DurationPipe,
+    FeatureEnabledPipe
+],
 })
 export class EditorComponent implements OnInit, OnDestroy {
   private destroy$$ = new Subject<void>();

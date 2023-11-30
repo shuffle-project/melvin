@@ -3,7 +3,7 @@ import dayjs from 'dayjs';
 import { ApiService } from '../../../../services/api/api.service';
 import { ActivityEntity } from '../../../../services/api/entities/activity.entity';
 import { ActivityComponent } from '../../../../components/activity/activity.component';
-import { NgIf, NgFor } from '@angular/common';
+
 
 interface GroupedActivities {
   date: string;
@@ -16,10 +16,8 @@ interface GroupedActivities {
     styleUrls: ['./project-activity.component.scss'],
     standalone: true,
     imports: [
-        NgIf,
-        NgFor,
-        ActivityComponent,
-    ],
+    ActivityComponent
+],
 })
 export class ProjectActivityComponent implements OnInit {
   @Input() projectId!: string;

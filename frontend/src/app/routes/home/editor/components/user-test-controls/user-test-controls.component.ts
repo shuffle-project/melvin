@@ -13,7 +13,7 @@ import * as authSelectors from '../../../../../store/selectors/auth.selector';
 import * as editorSelectors from '../../../../../store/selectors/editor.selector';
 import { MatButtonModule } from '@angular/material/button';
 import { LetDirective, PushPipe } from '@ngrx/component';
-import { NgIf } from '@angular/common';
+
 
 @Component({
     selector: 'app-user-test-controls',
@@ -21,11 +21,10 @@ import { NgIf } from '@angular/common';
     styleUrls: ['./user-test-controls.component.scss'],
     standalone: true,
     imports: [
-        NgIf,
-        LetDirective,
-        MatButtonModule,
-        PushPipe,
-    ],
+    LetDirective,
+    MatButtonModule,
+    PushPipe
+],
 })
 export class UserTestControlsComponent implements OnInit {
   public show$ = this.store

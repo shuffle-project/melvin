@@ -21,18 +21,18 @@ import { MatButtonModule } from '@angular/material/button';
     styleUrls: ['./adjust-layout-dialog.component.scss'],
     standalone: true,
     imports: [
-        MatDialogTitle,
-        MatDialogContent,
-        MatButtonModule,
-        MatDialogClose,
-        MatIconModule,
-        MatSlideToggleModule,
-        MatFormFieldModule,
-        MatSelectModule,
-        MatOptionModule,
-        MatRadioModule,
-        PushPipe,
-    ],
+    MatDialogTitle,
+    MatDialogContent,
+    MatButtonModule,
+    MatDialogClose,
+    MatIconModule,
+    MatSlideToggleModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    MatOptionModule,
+    MatRadioModule,
+    PushPipe
+],
 })
 export class AdjustLayoutDialogComponent {
   public SizeOptions = SizeOptions;

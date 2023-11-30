@@ -5,23 +5,27 @@
       <mat-header-cell
         *matHeaderCellDef
         i18n="@@editorHelpDialogKeyboardShortcutsTableHeader"
-      >
+        >
         Key
       </mat-header-cell>
       <mat-cell *matCellDef="let element">
-        <div class="key-wrapper" *ngFor="let key of element.key; let i = index">
-          <div class="key">
-            <span>{{ key }}</span>
+        @for (key of element.key; track key; let i = $index) {
+          <div class="key-wrapper">
+            <div class="key">
+              <span>{{ key }}</span>
+            </div>
+            @if (i < element.key.length - 1) {
+              <span class="plus-symbol">+</span>
+            }
           </div>
-          <span class="plus-symbol" *ngIf="i < element.key.length - 1">+</span>
-        </div>
+        }
       </mat-cell>
     </ng-container>
     <ng-container matColumnDef="command">
       <mat-header-cell
         *matHeaderCellDef
         i18n="@@editorHelpDialogShortcutsCommandTableHeader"
-      >
+        >
         Command
       </mat-header-cell>
       <mat-cell *matCellDef="let element"> {{ element.command }} </mat-cell>

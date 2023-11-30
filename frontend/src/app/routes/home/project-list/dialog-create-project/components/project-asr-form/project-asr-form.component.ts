@@ -7,7 +7,7 @@ import { AppState } from 'src/app/store/app.state';
 import * as configSelector from '../../../../../../store/selectors/config.selector';
 import { ASRGroup } from '../../dialog-create-project.interfaces';
 import { MatOptionModule } from '@angular/material/core';
-import { NgFor, NgIf } from '@angular/common';
+
 import { MatSelectModule } from '@angular/material/select';
 import { LetDirective } from '@ngrx/component';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -19,15 +19,13 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
     templateUrl: './project-asr-form.component.html',
     standalone: true,
     imports: [
-        ReactiveFormsModule,
-        MatSlideToggleModule,
-        MatFormFieldModule,
-        LetDirective,
-        MatSelectModule,
-        NgFor,
-        MatOptionModule,
-        NgIf,
-    ],
+    ReactiveFormsModule,
+    MatSlideToggleModule,
+    MatFormFieldModule,
+    LetDirective,
+    MatSelectModule,
+    MatOptionModule
+],
 })
 export class ProjectASRFormComponent implements AfterViewInit {
   @Input() asrGroup!: FormGroup<ASRGroup>;

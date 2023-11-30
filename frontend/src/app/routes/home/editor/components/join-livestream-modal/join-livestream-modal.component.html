@@ -1,53 +1,60 @@
 <div class="container">
   <h1 mat-dialog-title>Livestream</h1>
   <div mat-dialog-content>
-    <div *ngIf="data.livestreamStarted">
-      <!-- there is an active livestream -->
-      <p>
-        You are joining an active livestream. The video will start
-        automatically.
-      </p>
-    </div>
+    @if (data.livestreamStarted) {
+      <div>
+        <!-- there is an active livestream -->
+        <p>
+          You are joining an active livestream. The video will start
+          automatically.
+        </p>
+      </div>
+    }
     <!-- there is NO active livestream -->
-    <div *ngIf="!data.livestreamStarted">
-      <p>Livestream did not start. Come back later.</p>
-    </div>
+    @if (!data.livestreamStarted) {
+      <div>
+        <p>Livestream did not start. Come back later.</p>
+      </div>
+    }
   </div>
   <div mat-dialog-actions class="flex justify-center">
-    <div *ngIf="data.livestreamStarted">
-      <!-- there is an active livestream -->
-      <button
-        mat-flat-button
-        (click)="onConfirm()"
-        color="primary"
-        cdkFocusInitial
-      >
-        Alright
-      </button>
-    </div>
-
-    <!-- there is NO active livestream -->
-    <div *ngIf="!data.livestreamStarted">
-      <button
-        mat-flat-button
-        (click)="onBack()"
-        color="primary"
-        cdkFocusInitial
-      >
-        Back to Home
-      </button>
-
-      <div *ngrxLet="isOwner$ as isOwner">
+    @if (data.livestreamStarted) {
+      <div>
+        <!-- there is an active livestream -->
         <button
-          *ngIf="isOwner"
           mat-flat-button
-          (click)="onStartLivestream()"
+          (click)="onConfirm()"
           color="primary"
           cdkFocusInitial
-        >
-          Start Livestream
+          >
+          Alright
         </button>
       </div>
-    </div>
+    }
+    <!-- there is NO active livestream -->
+    @if (!data.livestreamStarted) {
+      <div>
+        <button
+          mat-flat-button
+          (click)="onBack()"
+          color="primary"
+          cdkFocusInitial
+          >
+          Back to Home
+        </button>
+        <div *ngrxLet="isOwner$ as isOwner">
+          @if (isOwner) {
+            <button
+              mat-flat-button
+              (click)="onStartLivestream()"
+              color="primary"
+              cdkFocusInitial
+              >
+              Start Livestream
+            </button>
+          }
+        </div>
+      </div>
+    }
   </div>
 </div>

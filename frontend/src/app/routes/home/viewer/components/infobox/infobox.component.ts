@@ -11,11 +11,11 @@ import { MatExpansionModule } from '@angular/material/expansion';
     styleUrls: ['./infobox.component.scss'],
     standalone: true,
     imports: [
-        MatExpansionModule,
-        DatePipe,
-        LanguageCodePipe,
-        ProjectStatusPipe,
-    ],
+    MatExpansionModule,
+    DatePipe,
+    LanguageCodePipe,
+    ProjectStatusPipe
+],
 })
 export class InfoboxComponent {
   @Input({ required: true }) project!: ProjectEntity;

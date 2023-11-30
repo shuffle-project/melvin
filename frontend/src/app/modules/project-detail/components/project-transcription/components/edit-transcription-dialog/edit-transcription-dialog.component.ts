@@ -13,7 +13,7 @@ import * as editorSelectors from '../../../../../../store/selectors/editor.selec
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatOptionModule } from '@angular/material/core';
-import { NgFor } from '@angular/common';
+
 import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
 
@@ -23,15 +23,14 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     styleUrls: ['./edit-transcription-dialog.component.scss'],
     standalone: true,
     imports: [
-        MatDialogTitle,
-        ReactiveFormsModule,
-        MatFormFieldModule,
-        MatSelectModule,
-        NgFor,
-        MatOptionModule,
-        MatInputModule,
-        MatButtonModule,
-    ],
+    MatDialogTitle,
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    MatOptionModule,
+    MatInputModule,
+    MatButtonModule
+],
 })
 export class EditTranscriptionDialogComponent implements OnInit {
   languages = LANGUAGES;

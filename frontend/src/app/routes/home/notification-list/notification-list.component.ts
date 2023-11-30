@@ -12,7 +12,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatButtonModule } from '@angular/material/button';
-import { NgIf, NgFor } from '@angular/common';
+
 import { HeaderComponent } from '../../../components/header/header.component';
 
 @Component({
@@ -21,15 +21,13 @@ import { HeaderComponent } from '../../../components/header/header.component';
     styleUrls: ['./notification-list.component.scss'],
     standalone: true,
     imports: [
-        HeaderComponent,
-        NgIf,
-        MatButtonModule,
-        MatCheckboxModule,
-        MatTooltipModule,
-        MatDividerModule,
-        NgFor,
-        NotificationComponent,
-    ],
+    HeaderComponent,
+    MatButtonModule,
+    MatCheckboxModule,
+    MatTooltipModule,
+    MatDividerModule,
+    NotificationComponent
+],
 })
 export class NotificationListComponent implements OnDestroy, OnInit {
   private destroy$$ = new Subject<void>();

@@ -22,7 +22,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { LetDirective } from '@ngrx/component';
 import { MatIconModule } from '@angular/material/icon';
-import { NgFor, NgIf } from '@angular/common';
+
 import { ProjectMetadataFormComponent } from '../project-metadata-form/project-metadata-form.component';
 
 @Component({
@@ -31,18 +31,16 @@ import { ProjectMetadataFormComponent } from '../project-metadata-form/project-m
     templateUrl: './project-video-form.component.html',
     standalone: true,
     imports: [
-        ProjectMetadataFormComponent,
-        ReactiveFormsModule,
-        NgFor,
-        NgIf,
-        MatIconModule,
-        LetDirective,
-        MatFormFieldModule,
-        MatSelectModule,
-        MatOptionModule,
-        ProjectASRFormComponent,
-        AlertComponent,
-    ],
+    ProjectMetadataFormComponent,
+    ReactiveFormsModule,
+    MatIconModule,
+    LetDirective,
+    MatFormFieldModule,
+    MatSelectModule,
+    MatOptionModule,
+    ProjectASRFormComponent,
+    AlertComponent
+],
 })
 export class ProjectVideoFormComponent implements AfterViewInit, OnDestroy {
   @Input() videoGroup!: FormGroup<VideoGroup>;

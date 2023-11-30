@@ -14,7 +14,7 @@ import {
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { UploadFilesComponent } from '../../../../../../components/upload-files/upload-files.component';
-import { NgIf } from '@angular/common';
+
 import { MatRadioModule } from '@angular/material/radio';
 
 @Component({
@@ -23,13 +23,12 @@ import { MatRadioModule } from '@angular/material/radio';
     templateUrl: './project-source-form.component.html',
     standalone: true,
     imports: [
-        ReactiveFormsModule,
-        MatRadioModule,
-        NgIf,
-        UploadFilesComponent,
-        MatFormFieldModule,
-        MatInputModule,
-    ],
+    ReactiveFormsModule,
+    MatRadioModule,
+    UploadFilesComponent,
+    MatFormFieldModule,
+    MatInputModule
+],
 })
 export class ProjectSourceFormComponent implements AfterViewInit, OnDestroy {
   @Input() metadataGroup!: FormGroup<MetadataGroup>;

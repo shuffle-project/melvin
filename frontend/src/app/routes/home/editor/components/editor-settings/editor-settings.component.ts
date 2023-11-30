@@ -8,7 +8,7 @@ import * as editorSelectors from '../../../../../store/selectors/editor.selector
 import * as editorActions from './../../../../../store/actions/editor.actions';
 import { FeatureEnabledPipe } from '../../../../../pipes/feature-enabled-pipe/feature-enabled.pipe';
 import { PushPipe } from '@ngrx/component';
-import { NgIf } from '@angular/common';
+
 
 @Component({
     selector: 'app-editor-settings',
@@ -16,11 +16,10 @@ import { NgIf } from '@angular/common';
     styleUrls: ['./editor-settings.component.scss'],
     standalone: true,
     imports: [
-        NgIf,
-        MatSlideToggleModule,
-        PushPipe,
-        FeatureEnabledPipe,
-    ],
+    MatSlideToggleModule,
+    PushPipe,
+    FeatureEnabledPipe
+],
 })
 export class EditorSettingsComponent implements OnInit, OnDestroy {
   private destroy$$ = new Subject<void>();

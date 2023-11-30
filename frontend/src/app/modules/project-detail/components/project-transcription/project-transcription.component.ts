@@ -8,7 +8,7 @@ import { AppState } from 'src/app/store/app.state';
 import * as transcriptionsSelectors from '../../../../store/selectors/transcriptions.selector';
 import { ProjectDetailComponent } from '../../project-detail.component';
 import { TranscriptionComponent } from './components/transcription/transcription.component';
-import { NgFor } from '@angular/common';
+
 import { LetDirective } from '@ngrx/component';
 import { MatIconModule } from '@angular/material/icon';
 
@@ -18,11 +18,10 @@ import { MatIconModule } from '@angular/material/icon';
     styleUrls: ['./project-transcription.component.scss'],
     standalone: true,
     imports: [
-        MatIconModule,
-        LetDirective,
-        NgFor,
-        TranscriptionComponent,
-    ],
+    MatIconModule,
+    LetDirective,
+    TranscriptionComponent
+],
 })
 export class ProjectTranscriptionComponent {
   public transcriptionsList$: Observable<TranscriptionEntity[]>;

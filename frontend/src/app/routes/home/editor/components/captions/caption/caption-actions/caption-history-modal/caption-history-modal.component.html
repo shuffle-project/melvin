@@ -1,59 +1,53 @@
 <div class="container">
   <h1 mat-dialog-title>Caption history</h1>
-
-  <div *ngIf="loading">Loading!</div>
-
-  <div *ngIf="!loading" class="list">
-    <div *ngFor="let item of items" class="item">
-      <div class="date">01.01.2022</div>
-      <div class="text" [innerHTML]="item.html"></div>
-      <div class="text">{{ item.text }}</div>
+  @if (loading) {
+    <div>Loading!</div>
+  }
+  @if (!loading) {
+    <div class="list">
+      @for (item of items; track item) {
+        <div class="item">
+          <div class="date">01.01.2022</div>
+          <div class="text" [innerHTML]="item.html"></div>
+          <div class="text">{{ item.text }}</div>
+        </div>
+      }
     </div>
-  </div>
+  }
 </div>
-
 <!-- <div class="list">
-  <div class="item">
-    <div class="date">01.01.2022</div>
-    <div class="text">
-      Dieses Video eine Einführung in das Modell des "Universal Design for
-      Learning"
-    </div>
-  </div>
-
-  <div>
+<div class="item">
+  <div class="date">01.01.2022</div>
+  <div class="text">
     Dieses Video eine Einführung in das Modell des "Universal Design for
     Learning"
   </div>
-
-  <div>
-    Dieses Video eine Einführung in das Modell <del>das</del> des "Universal
-    Design for Learning"
-  </div>
-
-  <div>
-    Dieses <span class="substitution">Audio</span> eine
-    <span class="substitution">Verführung</span> in das Modell das des
-    "Universal Design for Learning"
-  </div>
+</div>
+<div>
+  Dieses Video eine Einführung in das Modell des "Universal Design for
+  Learning"
+</div>
+<div>
+Dieses Video eine Einführung in das Modell <del>das</del> des "Universal
+Design for Learning"
+</div>
+<div>
+Dieses <span class="substitution">Audio</span> eine
+<span class="substitution">Verführung</span> in das Modell das des
+"Universal Design for Learning"
+</div>
 </div> -->
-
 <!-- <div *ngIf="!loading && historyEntries" class="entry-list">
-
-
-  <div class="history-item">
-    <div class="time">current</div>
-    <div class="text">{{ data.caption.text }}</div>
-  </div>
-
-  <br />
-
-  <div *ngFor="let entry of historyEntries" class="history-item">
-    <div class="time">{{ entry.createdAt | timeDiff }}</div>
-    <div class="text">{{ entry.text }}</div>
-  </div>
-
-  <div *ngIf="historyEntries.length === 0">
-    There is no history for this caption.
-  </div>
+<div class="history-item">
+  <div class="time">current</div>
+  <div class="text">{{ data.caption.text }}</div>
+</div>
+<br />
+<div *ngFor="let entry of historyEntries" class="history-item">
+  <div class="time">{{ entry.createdAt | timeDiff }}</div>
+  <div class="text">{{ entry.text }}</div>
+</div>
+<div *ngIf="historyEntries.length === 0">
+  There is no history for this caption.
+</div>
 </div>-->

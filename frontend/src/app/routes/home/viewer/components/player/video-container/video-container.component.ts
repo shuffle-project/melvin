@@ -20,7 +20,7 @@ import { ViewerVideo } from '../player.component';
 import { PushPipe } from '@ngrx/component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { NgIf } from '@angular/common';
+
 
 @Component({
     selector: 'app-video-container',
@@ -28,11 +28,10 @@ import { NgIf } from '@angular/common';
     styleUrls: ['./video-container.component.scss'],
     standalone: true,
     imports: [
-        NgIf,
-        MatIconModule,
-        MatButtonModule,
-        PushPipe,
-    ],
+    MatIconModule,
+    MatButtonModule,
+    PushPipe
+],
 })
 export class VideoContainerComponent implements OnDestroy, OnChanges {
   private destroy$$ = new Subject<void>();

@@ -1,9 +1,9 @@
 <ng-container *ngrxLet="src$ as src">
   <!-- (loadedmetadata)="onLoadedMetadata()" -->
   <!--
-    [muted]="true"
-    autoplay
-    controls
+  [muted]="true"
+  autoplay
+  controls
   -->
   <video
     (loadedmetadata)="onLoadedMetadata()"
@@ -13,12 +13,13 @@
     #video
     preload="auto"
     muted
-  >
-    <source
-      *ngIf="src && project?.status !== 'live'"
-      [src]="src"
-      type="video/mp4"
-    />
+    >
+    @if (src && project?.status !== 'live') {
+      <source
+        [src]="src"
+        type="video/mp4"
+        />
+    }
   </video>
 </ng-container>
 <ng-content></ng-content>

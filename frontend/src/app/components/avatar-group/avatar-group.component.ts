@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { AvatarUser, AvatarComponent } from './avatar/avatar.component';
-import { NgFor, NgIf } from '@angular/common';
+
 import { MatMenuModule } from '@angular/material/menu';
 
 @Component({
@@ -9,11 +9,9 @@ import { MatMenuModule } from '@angular/material/menu';
     styleUrls: ['./avatar-group.component.scss'],
     standalone: true,
     imports: [
-        MatMenuModule,
-        NgFor,
-        AvatarComponent,
-        NgIf,
-    ],
+    MatMenuModule,
+    AvatarComponent
+],
 })
 export class AvatarGroupComponent {
   @Input() users!: AvatarUser[];

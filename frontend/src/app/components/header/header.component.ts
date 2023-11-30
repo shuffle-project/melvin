@@ -16,7 +16,7 @@ import { NotificationComponent } from '../notification/notification.component';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatButtonModule } from '@angular/material/button';
-import { NgIf, NgFor } from '@angular/common';
+
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatIconModule } from '@angular/material/icon';
 import { LogoComponent } from '../logo/logo.component';
@@ -37,22 +37,20 @@ import { LetDirective, PushPipe } from '@ngrx/component';
     ],
     standalone: true,
     imports: [
-        LetDirective,
-        MatToolbarModule,
-        LogoComponent,
-        RouterLink,
-        MatIconModule,
-        MatSlideToggleModule,
-        NgIf,
-        MatButtonModule,
-        MatMenuModule,
-        MatBadgeModule,
-        NgFor,
-        NotificationComponent,
-        MatTooltipModule,
-        PushPipe,
-        FeatureEnabledPipe,
-    ],
+    LetDirective,
+    MatToolbarModule,
+    LogoComponent,
+    RouterLink,
+    MatIconModule,
+    MatSlideToggleModule,
+    MatButtonModule,
+    MatMenuModule,
+    MatBadgeModule,
+    NotificationComponent,
+    MatTooltipModule,
+    PushPipe,
+    FeatureEnabledPipe
+],
 })
 export class HeaderComponent implements OnDestroy, OnInit {
   @Input() viewer = false;

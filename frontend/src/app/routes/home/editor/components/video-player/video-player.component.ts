@@ -1,4 +1,4 @@
-import { DOCUMENT, NgIf, NgFor } from '@angular/common';
+import { DOCUMENT } from '@angular/common';
 import {
   Component,
   ElementRef,
@@ -26,18 +26,16 @@ import { LetDirective, PushPipe } from '@ngrx/component';
     styleUrls: ['./video-player.component.scss'],
     standalone: true,
     imports: [
-        VideoPlayerMediaElementComponent,
-        NgIf,
-        LetDirective,
-        MatButtonModule,
-        MatTooltipModule,
-        MatIconModule,
-        MatSliderModule,
-        MatMenuModule,
-        NgFor,
-        PushPipe,
-        FeatureEnabledPipe,
-    ],
+    VideoPlayerMediaElementComponent,
+    LetDirective,
+    MatButtonModule,
+    MatTooltipModule,
+    MatIconModule,
+    MatSliderModule,
+    MatMenuModule,
+    PushPipe,
+    FeatureEnabledPipe
+],
 })
 export class VideoPlayerComponent implements OnInit {
   @ViewChild('mediaElement')

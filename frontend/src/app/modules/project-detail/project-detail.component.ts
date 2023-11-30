@@ -26,8 +26,8 @@ export interface ProjectDetailDialogData {
     ProjectGeneralComponent,
     ProjectTranscriptionComponent,
     ProjectActivityComponent,
-    UploadAdditionalContentComponent,
-  ],
+    UploadAdditionalContentComponent
+],
 })
 export class ProjectDetailComponent implements OnInit {
   private tabs: ProjectDetailDialogTab[] = [

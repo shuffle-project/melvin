@@ -3,12 +3,11 @@
     {{ transcription.language | writtenOutLanguage }}
     ({{ transcription.language }})
   </div>
-
   <button
     [matMenuTriggerFor]="transcriptionMenu"
     [matMenuTriggerData]="{transcription}"
     mat-icon-button
-  >
+    >
     <mat-icon svgIcon="dots-horizontal"></mat-icon>
   </button>
 </div>
@@ -54,14 +53,13 @@
     <div class="overflow-hidden">Original: Placeholder</div>
   </div>
 </div>
-
 <mat-menu #transcriptionMenu="matMenu" class="dense">
   <ng-template matMenuContent let-transcription="transcription">
     <button
       i18n="@@transcriptionEditTranscriptionButton"
       (click)="onClickEditTranscription(transcription)"
       mat-menu-item
-    >
+      >
       <mat-icon svgIcon="edit"></mat-icon>
       Edit
     </button>
@@ -69,35 +67,34 @@
       (click)="onOpenTranscription(transcription.id)"
       i18n="@@transcriptionOpenTranscriptionButton"
       mat-menu-item
-    >
+      >
       <mat-icon svgIcon="left"></mat-icon>
       Open
     </button>
-
     <button
       mat-menu-item
       [matMenuTriggerFor]="downloadMenu"
       i18n="@@transcriptionMenuFileDownloadLabel"
-    >
+      >
       <mat-icon svgIcon="download"></mat-icon>
       Download
     </button>
-    <div
-      *ngIf="transcription.createdBy === userId || project.createdBy === userId"
-    >
-      <mat-divider></mat-divider>
-      <button
-        (click)="onClickDeleteTranscription(transcription.id)"
-        i18n="@@transcriptionDeleteTranscriptionButton"
-        mat-menu-item
-      >
-        <mat-icon svgIcon="delete"></mat-icon>
-        Delete
-      </button>
-    </div>
+    @if (transcription.createdBy === userId || project.createdBy === userId) {
+      <div
+        >
+        <mat-divider></mat-divider>
+        <button
+          (click)="onClickDeleteTranscription(transcription.id)"
+          i18n="@@transcriptionDeleteTranscriptionButton"
+          mat-menu-item
+          >
+          <mat-icon svgIcon="delete"></mat-icon>
+          Delete
+        </button>
+      </div>
+    }
   </ng-template>
 </mat-menu>
-
 <mat-menu #downloadMenu="matMenu" class="dense">
   <button mat-menu-item (click)="onDownloadSubtitles('srt', transcription.id)">
     SubRip (.srt)

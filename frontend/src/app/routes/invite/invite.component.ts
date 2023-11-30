@@ -13,7 +13,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { NgIf } from '@angular/common';
+
 import { LetDirective } from '@ngrx/component';
 @Component({
     selector: 'app-invite',
@@ -21,14 +21,13 @@ import { LetDirective } from '@ngrx/component';
     styleUrls: ['./invite.component.scss'],
     standalone: true,
     imports: [
-        LetDirective,
-        NgIf,
-        MatProgressSpinnerModule,
-        MatCardModule,
-        MatIconModule,
-        MatButtonModule,
-        MatDividerModule,
-    ],
+    LetDirective,
+    MatProgressSpinnerModule,
+    MatCardModule,
+    MatIconModule,
+    MatButtonModule,
+    MatDividerModule
+],
 })
 export class InviteComponent implements OnInit, OnDestroy {
   private destroy$$ = new Subject<void>();

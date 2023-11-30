@@ -45,7 +45,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { AvatarGroupComponent } from '../../../components/avatar-group/avatar-group.component';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatOptionModule } from '@angular/material/core';
-import { NgFor, NgIf, NgClass } from '@angular/common';
+import { NgClass } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatButtonModule } from '@angular/material/button';
@@ -60,33 +60,31 @@ import { HeaderComponent } from '../../../components/header/header.component';
     styleUrls: ['./project-list.component.scss'],
     standalone: true,
     imports: [
-        HeaderComponent,
-        LetDirective,
-        MatFormFieldModule,
-        MatInputModule,
-        MatButtonModule,
-        MatTooltipModule,
-        MatIconModule,
-        MatButtonToggleModule,
-        MatSelectModule,
-        NgFor,
-        MatOptionModule,
-        NgIf,
-        MatTableModule,
-        MatSortModule,
-        MatChipsModule,
-        NgClass,
-        AvatarGroupComponent,
-        MatMenuModule,
-        MatDividerModule,
-        FooterComponent,
-        PushPipe,
-        FormatDatePipe,
-        DurationPipe,
-        LanguageCodePipe,
-        ProjectStatusPipe,
-        FeatureEnabledPipe,
-    ],
+    HeaderComponent,
+    LetDirective,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    MatTooltipModule,
+    MatIconModule,
+    MatButtonToggleModule,
+    MatSelectModule,
+    MatOptionModule,
+    MatTableModule,
+    MatSortModule,
+    MatChipsModule,
+    NgClass,
+    AvatarGroupComponent,
+    MatMenuModule,
+    MatDividerModule,
+    FooterComponent,
+    PushPipe,
+    FormatDatePipe,
+    DurationPipe,
+    LanguageCodePipe,
+    ProjectStatusPipe,
+    FeatureEnabledPipe
+],
 })
 export class ProjectListComponent implements OnInit, AfterViewInit, OnDestroy {
   ProjectSetEnum = ProjectSetEnum;

@@ -34,7 +34,7 @@ import { ProjectVideoFormComponent } from './components/project-video-form/proje
 import { ProjectSourceFormComponent } from './components/project-source-form/project-source-form.component';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
-import { NgIf } from '@angular/common';
+
 
 @Component({
     selector: 'app-dialog-create-project',
@@ -42,20 +42,19 @@ import { NgIf } from '@angular/common';
     templateUrl: './dialog-create-project.component.html',
     standalone: true,
     imports: [
-        NgIf,
-        MatButtonModule,
-        MatDialogClose,
-        MatIconModule,
-        MatStepperModule,
-        MatDialogContent,
-        ProjectSourceFormComponent,
-        ProjectVideoFormComponent,
-        ProjectLiveFormComponent,
-        ProjectOverviewFormComponent,
-        MatProgressBarModule,
-        MatFormFieldModule,
-        DurationPipe,
-    ],
+    MatButtonModule,
+    MatDialogClose,
+    MatIconModule,
+    MatStepperModule,
+    MatDialogContent,
+    ProjectSourceFormComponent,
+    ProjectVideoFormComponent,
+    ProjectLiveFormComponent,
+    ProjectOverviewFormComponent,
+    MatProgressBarModule,
+    MatFormFieldModule,
+    DurationPipe
+],
 })
 export class DialogCreateProjectComponent implements AfterViewInit, OnDestroy {
   loading = false;

@@ -35,7 +35,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { NgSwitch, NgSwitchCase, NgIf, NgFor } from '@angular/common';
+
 import { MatIconModule } from '@angular/material/icon';
 import { MatRadioModule } from '@angular/material/radio';
 
@@ -45,23 +45,19 @@ import { MatRadioModule } from '@angular/material/radio';
     styleUrls: ['./create-transcription-dialog.component.scss'],
     standalone: true,
     imports: [
-        MatDialogTitle,
-        ReactiveFormsModule,
-        MatRadioModule,
-        MatIconModule,
-        NgSwitch,
-        NgSwitchCase,
-        NgIf,
-        MatFormFieldModule,
-        MatSelectModule,
-        NgFor,
-        MatOptionModule,
-        MatInputModule,
-        MatProgressSpinnerModule,
-        MatButtonModule,
-        MatTooltipModule,
-        LetDirective,
-    ],
+    MatDialogTitle,
+    ReactiveFormsModule,
+    MatRadioModule,
+    MatIconModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    MatOptionModule,
+    MatInputModule,
+    MatProgressSpinnerModule,
+    MatButtonModule,
+    MatTooltipModule,
+    LetDirective
+],
 })
 export class CreateTranscriptionDialogComponent implements OnInit, OnDestroy {
   private destroy$$ = new Subject<void>();

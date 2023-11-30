@@ -28,7 +28,7 @@ import { MatOptionModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { NgIf, NgFor } from '@angular/common';
+
 
 interface FileUpload {
   id: string;
@@ -44,20 +44,18 @@ interface FileUpload {
     styleUrls: ['./upload-additional-content.component.scss'],
     standalone: true,
     imports: [
-        NgIf,
-        ReactiveFormsModule,
-        MatFormFieldModule,
-        MatInputModule,
-        MatSelectModule,
-        MatOptionModule,
-        MatButtonModule,
-        MatIconModule,
-        NgFor,
-        MatProgressBarModule,
-        LetDirective,
-        PushPipe,
-        MediaCategoryPipe,
-    ],
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+    MatOptionModule,
+    MatButtonModule,
+    MatIconModule,
+    MatProgressBarModule,
+    LetDirective,
+    PushPipe,
+    MediaCategoryPipe
+],
 })
 export class UploadAdditionalContentComponent implements OnInit {
   public selectableMediaCategories = [

@@ -7,7 +7,7 @@ import {
   CaptionEntity,
   CaptionHistoryEntity,
 } from '../../../../../../../../services/api/entities/caption.entity';
-import { NgIf, NgFor } from '@angular/common';
+
 
 interface HistoryItem {
   html: SafeHtml;
@@ -21,10 +21,8 @@ interface HistoryItem {
     styleUrls: ['./caption-history-modal.component.scss'],
     standalone: true,
     imports: [
-        MatDialogTitle,
-        NgIf,
-        NgFor,
-    ],
+    MatDialogTitle
+],
 })
 export class CaptionHistoryModalComponent implements OnInit {
   public displayedColumns = ['text', /*'createdBy',*/ 'createdAt'];

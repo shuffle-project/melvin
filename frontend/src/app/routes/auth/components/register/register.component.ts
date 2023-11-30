@@ -7,7 +7,7 @@ import * as authSelectors from '../../../../store/selectors/auth.selector';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatButtonModule } from '@angular/material/button';
 import { LetDirective } from '@ngrx/component';
-import { NgIf, AsyncPipe } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -18,16 +18,15 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     styleUrls: ['./register.component.scss'],
     standalone: true,
     imports: [
-        ReactiveFormsModule,
-        MatFormFieldModule,
-        MatIconModule,
-        MatInputModule,
-        NgIf,
-        LetDirective,
-        MatButtonModule,
-        MatProgressSpinnerModule,
-        AsyncPipe,
-    ],
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatIconModule,
+    MatInputModule,
+    LetDirective,
+    MatButtonModule,
+    MatProgressSpinnerModule,
+    AsyncPipe
+],
 })
 export class RegisterComponent implements OnInit {
   public formGroup!: FormGroup;

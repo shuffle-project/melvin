@@ -1,4 +1,4 @@
-import { DOCUMENT, NgIf } from '@angular/common';
+import { DOCUMENT } from '@angular/common';
 import {
   Component,
   ElementRef,
@@ -38,10 +38,9 @@ import { LetDirective, PushPipe } from '@ngrx/component';
     styleUrls: ['./video-player-media-element.component.scss'],
     standalone: true,
     imports: [
-        LetDirective,
-        NgIf,
-        PushPipe,
-    ],
+    LetDirective,
+    PushPipe
+],
 })
 export class VideoPlayerMediaElementComponent implements OnInit, OnDestroy {
   @ViewChild('video', { static: false })

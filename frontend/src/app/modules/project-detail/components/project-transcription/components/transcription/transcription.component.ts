@@ -14,7 +14,7 @@ import { EditTranscriptionDialogComponent } from '../edit-transcription-dialog/e
 import { WrittenOutLanguagePipe } from '../../../../../../pipes/written-out-language-pipe/written-out-language.pipe';
 import { FormatDatePipe } from '../../../../../../pipes/format-date-pipe/format-date.pipe';
 import { MatDividerModule } from '@angular/material/divider';
-import { NgIf } from '@angular/common';
+
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
@@ -26,15 +26,14 @@ import { MatButtonModule } from '@angular/material/button';
     styleUrls: ['./transcription.component.scss'],
     standalone: true,
     imports: [
-        MatButtonModule,
-        MatMenuModule,
-        MatIconModule,
-        MatTooltipModule,
-        NgIf,
-        MatDividerModule,
-        FormatDatePipe,
-        WrittenOutLanguagePipe,
-    ],
+    MatButtonModule,
+    MatMenuModule,
+    MatIconModule,
+    MatTooltipModule,
+    MatDividerModule,
+    FormatDatePipe,
+    WrittenOutLanguagePipe
+],
 })
 export class TranscriptionComponent implements OnInit, OnDestroy {
   @Input() transcription!: TranscriptionEntity;

@@ -13,14 +13,14 @@ import { filter, fromEvent, merge, Subject, takeUntil } from 'rxjs';
 import { environment } from '../../../../../../../environments/environment';
 import { MediaService } from '../../../services/media/media.service';
 import { WaveformCanvasSettings, WaveformService } from '../waveform.service';
-import { NgIf } from '@angular/common';
+
 
 @Component({
     selector: 'app-waveform-canvas',
     templateUrl: './waveform-canvas.component.html',
     styleUrls: ['./waveform-canvas.component.scss'],
     standalone: true,
-    imports: [NgIf],
+    imports: [],
 })
 export class WaveformCanvasComponent
   implements OnInit, OnChanges, AfterViewInit, OnDestroy

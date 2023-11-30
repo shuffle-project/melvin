@@ -17,7 +17,7 @@ import { TranscriptComponent } from './components/transcript/transcript.componen
 import { MatButtonModule } from '@angular/material/button';
 import { LetDirective } from '@ngrx/component';
 import { HeaderComponent } from '../../../components/header/header.component';
-import { NgIf } from '@angular/common';
+
 
 @Component({
     selector: 'app-viewer',
@@ -25,14 +25,13 @@ import { NgIf } from '@angular/common';
     styleUrls: ['./viewer.component.scss'],
     standalone: true,
     imports: [
-        NgIf,
-        HeaderComponent,
-        LetDirective,
-        MatButtonModule,
-        TranscriptComponent,
-        PlayerComponent,
-        InfoboxComponent,
-    ],
+    HeaderComponent,
+    LetDirective,
+    MatButtonModule,
+    TranscriptComponent,
+    PlayerComponent,
+    InfoboxComponent
+],
 })
 export class ViewerComponent implements OnInit {
   public projectId!: string;

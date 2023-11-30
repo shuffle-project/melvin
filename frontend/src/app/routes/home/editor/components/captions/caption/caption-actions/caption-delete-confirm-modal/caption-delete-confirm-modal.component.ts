@@ -17,11 +17,11 @@ export interface CaptionDeleteConfirmModalResult {
     styleUrls: ['./caption-delete-confirm-modal.component.scss'],
     standalone: true,
     imports: [
-        MatDialogTitle,
-        MatDialogContent,
-        MatDialogActions,
-        MatButtonModule,
-    ],
+    MatDialogTitle,
+    MatDialogContent,
+    MatDialogActions,
+    MatButtonModule
+],
 })
 export class CaptionDeleteConfirmModalComponent implements OnInit {
   constructor(

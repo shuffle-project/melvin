@@ -9,7 +9,7 @@ import * as editorSelector from '../../../../../store/selectors/editor.selector'
 import { LivestreamService } from '../../../livestream/livestream.service';
 import { LetDirective } from '@ngrx/component';
 import { MatButtonModule } from '@angular/material/button';
-import { NgIf } from '@angular/common';
+
 
 @Component({
     selector: 'app-join-livestream-modal',
@@ -17,13 +17,12 @@ import { NgIf } from '@angular/common';
     styleUrls: ['./join-livestream-modal.component.scss'],
     standalone: true,
     imports: [
-        MatDialogTitle,
-        MatDialogContent,
-        NgIf,
-        MatDialogActions,
-        MatButtonModule,
-        LetDirective,
-    ],
+    MatDialogTitle,
+    MatDialogContent,
+    MatDialogActions,
+    MatButtonModule,
+    LetDirective
+],
 })
 export class JoinLivestreamModalComponent implements OnInit {
   constructor(

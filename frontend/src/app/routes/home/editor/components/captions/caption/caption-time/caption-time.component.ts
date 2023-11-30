@@ -11,7 +11,7 @@ import { FeatureEnabledPipe } from '../../../../../../../pipes/feature-enabled-p
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatButtonModule } from '@angular/material/button';
-import { NgIf, NgClass } from '@angular/common';
+import { NgClass } from '@angular/common';
 
 interface CaptionTimeFormGroup {
   start: AbstractControl<string>;
@@ -24,14 +24,13 @@ interface CaptionTimeFormGroup {
     styleUrls: ['./caption-time.component.scss'],
     standalone: true,
     imports: [
-        NgIf,
-        MatButtonModule,
-        MatTooltipModule,
-        MatIconModule,
-        ReactiveFormsModule,
-        NgClass,
-        FeatureEnabledPipe,
-    ],
+    MatButtonModule,
+    MatTooltipModule,
+    MatIconModule,
+    ReactiveFormsModule,
+    NgClass,
+    FeatureEnabledPipe
+],
 })
 export class CaptionTimeComponent implements OnChanges {
   @Input() caption!: CaptionEntity;

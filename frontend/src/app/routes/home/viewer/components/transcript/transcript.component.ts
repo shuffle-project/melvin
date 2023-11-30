@@ -28,7 +28,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { LetDirective, PushPipe } from '@ngrx/component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { NgIf, NgStyle, NgFor } from '@angular/common';
+import { NgStyle } from '@angular/common';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -39,19 +39,17 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     styleUrls: ['./transcript.component.scss'],
     standalone: true,
     imports: [
-        MatFormFieldModule,
-        MatInputModule,
-        ReactiveFormsModule,
-        FormsModule,
-        NgIf,
-        MatIconModule,
-        MatButtonModule,
-        LetDirective,
-        NgStyle,
-        NgFor,
-        MatCheckboxModule,
-        PushPipe,
-    ],
+    MatFormFieldModule,
+    MatInputModule,
+    ReactiveFormsModule,
+    FormsModule,
+    MatIconModule,
+    MatButtonModule,
+    LetDirective,
+    NgStyle,
+    MatCheckboxModule,
+    PushPipe
+],
 })
 export class TranscriptComponent implements OnDestroy, OnInit {
   private destroy$$ = new Subject<void>();

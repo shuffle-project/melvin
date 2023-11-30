@@ -17,7 +17,7 @@ import * as authSelectors from '../../../../../store/selectors/auth.selector';
 import * as captionsSelectors from '../../../../../store/selectors/captions.selector';
 import { MediaService } from '../../services/media/media.service';
 import { CaptionComponent } from './caption/caption.component';
-import { NgIf, NgFor } from '@angular/common';
+
 import { LetDirective } from '@ngrx/component';
 
 @Component({
@@ -26,14 +26,12 @@ import { LetDirective } from '@ngrx/component';
     styleUrls: ['./captions.component.scss'],
     standalone: true,
     imports: [
-        LetDirective,
-        NgIf,
-        NgFor,
-        CdkVirtualScrollViewport,
-        CdkFixedSizeVirtualScroll,
-        CdkVirtualForOf,
-        CaptionComponent,
-    ],
+    LetDirective,
+    CdkVirtualScrollViewport,
+    CdkFixedSizeVirtualScroll,
+    CdkVirtualForOf,
+    CaptionComponent
+],
 })
 export class CaptionsComponent implements OnDestroy {
   @ViewChild('cdkVirtualScrollViewport')
