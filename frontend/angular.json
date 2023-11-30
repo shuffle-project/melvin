@@ -76,10 +76,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "docker": {
-              "browserTarget": "editor-frontend:build:docker"
+              "buildTarget": "editor-frontend:build:docker"
             },
             "development": {
-              "browserTarget": "editor-frontend:build:development"
+              "buildTarget": "editor-frontend:build:development"
             }
           },
           "defaultConfiguration": "development"
