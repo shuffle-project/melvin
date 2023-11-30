@@ -20,19 +20,26 @@
 
   <div class="main-controls">
     <div class="left">
+      @if (viewerService.audio.paused) {
       <button
         mat-icon-button
         class="md"
-        [matTooltip]="viewerService.audio.paused ? 'Play' : 'Pause'"
-        i18n-matTooltip="@@viewerControlsPlayPauseTooltip"
-        (click)="!viewerService.audio.paused ? onPauseVideo() : onPlayVideo()"
+        matTooltip="Play"
+        i18n-matTooltip="@@viewerControlsPlayPauseTooltipPlay"
+        (click)="onPlayVideo()"
       >
-        <mat-icon
-          [svgIcon]="
-            !viewerService.audio.paused ? 'pause-viewer' : 'play-viewer'
-          "
-        ></mat-icon>
+        <mat-icon svgIcon="play-viewer"></mat-icon></button
+      >}@else {
+      <button
+        mat-icon-button
+        class="md"
+        matTooltip="Pause"
+        i18n-matTooltip="@@viewerControlsPlayPauseTooltip"
+        (click)="onPauseVideo()"
+      >
+        <mat-icon svgIcon="pause-viewer"></mat-icon>
       </button>
+      }
 
       <!-- replay and forward -->
       <button
@@ -148,22 +155,27 @@
         <mat-icon svgIcon="speed"></mat-icon>
       </button>
 
+      @if (isFullscreenActive()) {
       <button
         mat-icon-button
         class="md fullscreen-button"
         (click)="onRequestFullscreen()"
-        [matTooltip]="
-          isFullscreenActive() ? 'Close fullscreen' : 'Open fullscreen'
-        "
-        i18n-matTooltip="@@viewerControlsFullscreenToggleTooltip"
+        matTooltip="Close fullscreen"
+        i18n-matTooltip="@@viewerControlsFullscreenToggleTooltipActive"
       >
-        <mat-icon
-          svgIcon="{{
-            isFullscreenActive() ? 'fullscreen-close' : 'fullscreen'
-          }}"
-          class="svg-black"
-        ></mat-icon>
+        <mat-icon svgIcon="fullscreen-close" class="svg-black"></mat-icon>
       </button>
+      }@else {
+      <button
+        mat-icon-button
+        class="md fullscreen-button"
+        (click)="onRequestFullscreen()"
+        matTooltip="Open fullscreen"
+        i18n-matTooltip="@@viewerControlsFullscreenToggleTooltipInactive"
+      >
+        <mat-icon svgIcon="fullscreen" class="svg-black"></mat-icon>
+      </button>
+      }
     </div>
   </div>
   <div class="information-row">

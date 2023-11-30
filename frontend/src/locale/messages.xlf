@@ -886,6 +886,54 @@
       <trans-unit id="dialogCreateProjectLoadingInfo" datatype="html">
         <source> Uploading data </source>
       </trans-unit>
+      <trans-unit id="viewerControlsPlayPauseTooltip" datatype="html">
+        <source>Pause</source>
+      </trans-unit>
+      <trans-unit id="viewerControlsPlayPauseTooltipPlay" datatype="html">
+        <source>Play</source>
+      </trans-unit>
+      <trans-unit id="viewerControlsFullscreenToggleTooltipActive" datatype="html">
+        <source>Close fullscreen</source>
+      </trans-unit>
+      <trans-unit id="viewerControlsFullscreenToggleTooltipInactive" datatype="html">
+        <source>Open fullscreen</source>
+      </trans-unit>
+      <trans-unit id="uploadAdditionalMediaListHeader" datatype="html">
+        <source>Videos</source>
+      </trans-unit>
+      <trans-unit id="uploadAdditionalMediaTitle" datatype="html">
+        <source> Upload additional media files </source>
+      </trans-unit>
+      <trans-unit id="uploadAdditionalMediaUploadButton" datatype="html">
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="Uploa"/> Upload </source>
+      </trans-unit>
+      <trans-unit id="uploadAdditionalMediaUploadingHeader" datatype="html">
+        <source>Uploading</source>
+      </trans-unit>
+      <trans-unit id="uploadAdditionalMediaVideoCategoryLabel" datatype="html">
+        <source>Choose a category</source>
+      </trans-unit>
+      <trans-unit id="uploadAdditionalMediaVideoTitleLabel" datatype="html">
+        <source>Video title</source>
+      </trans-unit>
+      <trans-unit id="uploadAdditionalMediaVideoTitlePlaceholder" datatype="html">
+        <source>Video title</source>
+      </trans-unit>
+      <trans-unit id="mediaCategoryMain" datatype="html">
+        <source>Main</source>
+      </trans-unit>
+      <trans-unit id="mediaCategoryOther" datatype="html">
+        <source>Other</source>
+      </trans-unit>
+      <trans-unit id="mediaCategorySignLanguage" datatype="html">
+        <source>Sign Language</source>
+      </trans-unit>
+      <trans-unit id="mediaCategorySlides" datatype="html">
+        <source>Slides</source>
+      </trans-unit>
+      <trans-unit id="mediaCategorySpeaker" datatype="html">
+        <source>Speaker</source>
+      </trans-unit>
     </body>
   </file>
 </xliff>
