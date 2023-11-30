@@ -79,22 +79,6 @@
         "hash": "12461020687504659668"
       },
       {
-        "file": ".nx/cache/file-map.json",
-        "hash": "14202321806403997228"
-      },
-      {
-        "file": ".nx/cache/lockfile.hash",
-        "hash": "2047012483654330006"
-      },
-      {
-        "file": ".nx/cache/parsed-lock-file.json",
-        "hash": "7133753387561324662"
-      },
-      {
-        "file": ".nx/cache/project-graph.json",
-        "hash": "1716507731760419307"
-      },
-      {
         "file": ".prettierrc",
         "hash": "16267754514737964994"
       },
@@ -108,7 +92,7 @@
       },
       {
         "file": "angular.json",
-        "hash": "8234822182567726301"
+        "hash": "542067120897542959"
       },
       {
         "file": "karma.conf.js",
@@ -124,11 +108,11 @@
       },
       {
         "file": "package-lock.json",
-        "hash": "12547188321619588670"
+        "hash": "14816199431604146931"
       },
       {
         "file": "package.json",
-        "hash": "13139756142923864418"
+        "hash": "2042653014297775691"
       },
       {
         "file": "src/app/app-routing.module.ts",
@@ -152,7 +136,7 @@
       },
       {
         "file": "src/app/app.module.ts",
-        "hash": "18131675511931873959"
+        "hash": "15540708367991842373"
       },
       {
         "file": "src/app/classes/logger.class.ts",
@@ -560,7 +544,7 @@
       },
       {
         "file": "src/app/modules/shared/shared.module.ts",
-        "hash": "17580051842436182265"
+        "hash": "6989682093027682543"
       },
       {
         "file": "src/app/pipes/duration-pipe/duration-pipe.module.ts",
@@ -1036,7 +1020,7 @@
       },
       {
         "file": "src/app/routes/home/editor/components/waveform/waveform.module.ts",
-        "hash": "10894298733930031739"
+        "hash": "16162468590771557300"
       },
       {
         "file": "src/app/routes/home/editor/components/waveform/waveform.service.spec.ts",
@@ -1080,7 +1064,7 @@
       },
       {
         "file": "src/app/routes/home/editor/editor.component.ts",
-        "hash": "15615649636564018191"
+        "hash": "10574355550583402477"
       },
       {
         "file": "src/app/routes/home/editor/editor.module.ts",
@@ -1784,7 +1768,7 @@
       },
       {
         "file": "src/app/store/actions/editor.actions.ts",
-        "hash": "15339420328186411229"
+        "hash": "6320637447063798335"
       },
       {
         "file": "src/app/store/actions/notifications.actions.ts",
@@ -1860,7 +1844,7 @@
       },
       {
         "file": "src/app/store/reducers/editor.reducer.ts",
-        "hash": "16140754626642985496"
+        "hash": "8160596284797163489"
       },
       {
         "file": "src/app/store/reducers/notifications.reducer.ts",

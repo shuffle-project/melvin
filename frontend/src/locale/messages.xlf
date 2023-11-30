@@ -794,11 +794,6 @@
       <trans-unit id="viewerControlsTimelineLabel" datatype="html">
         <source>Video timeline</source>
       </trans-unit>
-      <trans-unit id="viewerControlsPlayPauseTooltip" datatype="html">
-        <source>
-          <x id="INTERPOLATION" equiv-text="&apos; : &apos;Pause&apos; }}"/>
-        </source>
-      </trans-unit>
       <trans-unit id="viewerControlsRewindTooltip" datatype="html">
         <source>Rewind 10 seconds</source>
       </trans-unit>
@@ -827,11 +822,6 @@
       </trans-unit>
       <trans-unit id="viewerControlsPlaybackspeedMenuTooltip" datatype="html">
         <source>Playbackspeed menu</source>
-      </trans-unit>
-      <trans-unit id="viewerControlsFullscreenToggleTooltip" datatype="html">
-        <source>
-          <x id="INTERPOLATION" equiv-text="ullscreen&apos; : &apos;Open fullscreen&apos; }}"/>
-        </source>
       </trans-unit>
       <trans-unit id="viewerControlsDeactivateCaptionsLabel" datatype="html">
         <source>Deactivate</source>

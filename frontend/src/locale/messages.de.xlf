@@ -136,7 +136,7 @@
       </trans-unit>
       <trans-unit id="metadataFormAddMemberLabel" datatype="html">
         <source>Add team members</source>
-        <target state="new">Teammitglied hinzufügen</target>
+        <target state="final">Teammitglied hinzufügen</target>
       </trans-unit>
       <trans-unit id="metadataFormAddMemberError" datatype="html">
         <source> User unknown or e-mail address invalid</source>
@@ -1098,14 +1098,6 @@
         <source>Video timeline</source>
         <target state="final">Video Zeitleiste</target>
       </trans-unit>
-      <trans-unit id="viewerControlsPlayPauseTooltip" datatype="html">
-        <source>
-          <x id="INTERPOLATION" equiv-text="&apos; : &apos;Pause&apos; }}"/>
-        </source>
-        <target state="new">
-          <x id="INTERPOLATION" equiv-text="&apos; : &apos;Pause&apos; }}"/>
-        </target>
-      </trans-unit>
       <trans-unit id="viewerControlsRewindTooltip" datatype="html">
         <source>Rewind 10 seconds</source>
         <target state="final">10 Sekunden zurückspulen</target>
@@ -1145,14 +1137,6 @@
       <trans-unit id="viewerControlsPlaybackspeedMenuTooltip" datatype="html">
         <source>Playbackspeed menu</source>
         <target state="final">Wiedergabegeschwindigkeits Menü</target>
-      </trans-unit>
-      <trans-unit id="viewerControlsFullscreenToggleTooltip" datatype="html">
-        <source>
-          <x id="INTERPOLATION" equiv-text="ullscreen&apos; : &apos;Open fullscreen&apos; }}"/>
-        </source>
-        <target state="new">
-          <x id="INTERPOLATION" equiv-text="ullscreen&apos; : &apos;Open fullscreen&apos; }}"/>
-        </target>
       </trans-unit>
       <trans-unit id="viewerControlsDeactivateCaptionsLabel" datatype="html">
         <source>Deactivate</source>
