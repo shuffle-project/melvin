@@ -1,10 +1,9 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { Routes } from '@angular/router';
 import { HasRoleGuard } from '../../guards/has-role.guard';
 import { UserRole } from '../../interfaces/auth.interfaces';
 import { HomeComponent } from './home.component';
 
-const routes: Routes = [
+export const HomeRoutes: Routes = [
   {
     path: '',
     component: HomeComponent,
@@ -14,8 +13,8 @@ const routes: Routes = [
         canActivate: [HasRoleGuard],
         data: { roles: [UserRole.USER, UserRole.GUEST] },
         loadChildren: () =>
-          import('./project-list/project-list.module').then(
-            (m) => m.ProjectListModule
+          import('./project-list/projcet-list.routes').then(
+            (m) => m.ProjectListRoutes
           ),
       },
       {
@@ -23,36 +22,36 @@ const routes: Routes = [
         canActivate: [HasRoleGuard],
         data: { roles: [UserRole.USER, UserRole.GUEST] },
         loadChildren: () =>
-          import('./editor/editor.module').then((m) => m.EditorModule),
+          import('./editor/editor.routes').then((m) => m.EditorRoutes),
       },
       {
         path: 'viewer',
         canActivate: [HasRoleGuard],
         data: { roles: [UserRole.USER, UserRole.GUEST] },
         loadChildren: () =>
-          import('./viewer/viewer.module').then((m) => m.ViewerModule),
+          import('./viewer/viewer.routes').then((m) => m.ViewerRoutes),
       },
       {
         path: 'profile',
         canActivate: [HasRoleGuard],
         data: { roles: [UserRole.USER] },
         loadChildren: () =>
-          import('./profile/profile.module').then((m) => m.ProfileModule),
+          import('./profile/profile.routes').then((m) => m.ProfileRoutes),
       },
       {
         path: 'notifications',
         canActivate: [HasRoleGuard],
         data: { roles: [UserRole.USER] },
         loadChildren: () =>
-          import('./notification-list/notification-list.module').then(
-            (m) => m.NotificationListModule
+          import('./notification-list/notification-list.routes').then(
+            (m) => m.NotificationListRoutes
           ),
       },
       {
         path: 'livestream',
         loadChildren: () =>
-          import('./livestream/livestream.module').then(
-            (m) => m.LivestreamModule
+          import('./livestream/livestream.routes').then(
+            (m) => m.LivestreamRoutes
           ),
       },
       {
@@ -63,8 +62,8 @@ const routes: Routes = [
   },
 ];
 
-@NgModule({
-  imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule],
-})
-export class HomeRoutingModule {}
+// @NgModule({
+//   imports: [RouterModule.forChild(routes)],
+//   exports: [RouterModule],
+// })
+// export class HomeRoutingModule {}

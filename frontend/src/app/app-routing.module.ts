@@ -9,19 +9,19 @@ const routes: Routes = [
     path: 'auth',
     canActivate: [LoggedOutGuard],
     loadChildren: () =>
-      import('./routes/auth/auth.module').then((m) => m.AuthModule),
+      import('./routes/auth/auth.routes').then((m) => m.AuthRoutes),
   },
   {
     path: 'home',
     canActivate: [LoggedInGuard],
     loadChildren: () =>
-      import('./routes/home/home.module').then((m) => m.HomeModule),
+      import('./routes/home/home.routes').then((m) => m.HomeRoutes),
   },
   {
     path: 'invite/:inviteToken',
     canActivate: [IsInitializedGuard],
     loadChildren: () =>
-      import('./routes/invite/invite.module').then((m) => m.InviteModule),
+      import('./routes/invite/invite.routes').then((m) => m.InviteRoutes),
   },
   {
     path: '**',
@@ -30,7 +30,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, { enableTracing: false })],
+  imports: [RouterModule.forRoot(routes, { enableTracing: false })], // tracing is only debugging
   exports: [RouterModule],
 })
 export class AppRoutingModule {}
