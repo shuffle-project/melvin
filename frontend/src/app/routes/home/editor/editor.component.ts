@@ -1,5 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { Store } from '@ngrx/store';
 import {
@@ -13,12 +17,15 @@ import {
   tap,
 } from 'rxjs';
 import { AppState } from 'src/app/store/app.state';
+import { AvatarGroupComponent } from '../../../components/avatar-group/avatar-group.component';
 import { ShareProjectDialogComponent } from '../../../components/share-project-dialog/share-project-dialog.component';
 import {
   ProjectDetailComponent,
   ProjectDetailDialogData,
   ProjectDetailDialogTab,
 } from '../../../modules/project-detail/project-detail.component';
+import { DurationPipe } from '../../../pipes/duration-pipe/duration.pipe';
+import { FeatureEnabledPipe } from '../../../pipes/feature-enabled-pipe/feature-enabled.pipe';
 import { ApiService } from '../../../services/api/api.service';
 import {
   ProjectEntity,
@@ -32,35 +39,28 @@ import * as authSelectors from '../../../store/selectors/auth.selector';
 import * as editorSelectors from '../../../store/selectors/editor.selector';
 import * as transcriptionsSelectors from '../../../store/selectors/transcriptions.selector';
 import { LivestreamService } from '../livestream/livestream.service';
+import { CaptionsComponent } from './components/captions/captions.component';
+import { EditorSettingsComponent } from './components/editor-settings/editor-settings.component';
 import { JoinLivestreamModalComponent } from './components/join-livestream-modal/join-livestream-modal.component';
+import { LiveControlsComponent } from './components/live-controls/live-controls.component';
+import { UserTestControlsComponent } from './components/user-test-controls/user-test-controls.component';
+import { VideoPlayerComponent } from './components/video-player/video-player.component';
+import { WaveformComponent } from './components/waveform/waveform.component';
 import { DialogHelpEditorComponent } from './dialog-help-editor/dialog-help-editor.component';
 import { MediaService } from './services/media/media.service';
-import { FeatureEnabledPipe } from '../../../pipes/feature-enabled-pipe/feature-enabled.pipe';
-import { DurationPipe } from '../../../pipes/duration-pipe/duration.pipe';
-import { CaptionsComponent } from './components/captions/captions.component';
-import { UserTestControlsComponent } from './components/user-test-controls/user-test-controls.component';
-import { EditorSettingsComponent } from './components/editor-settings/editor-settings.component';
-import { VideoPlayerComponent } from './components/video-player/video-player.component';
-import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { LiveControlsComponent } from './components/live-controls/live-controls.component';
-import { WaveformComponent } from './components/waveform/waveform.component';
-import { AvatarGroupComponent } from '../../../components/avatar-group/avatar-group.component';
-import { MatDividerModule } from '@angular/material/divider';
-import { MatMenuModule } from '@angular/material/menu';
 
+import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { MatButtonModule } from '@angular/material/button';
 import { LetDirective, PushPipe } from '@ngrx/component';
 import { HeaderComponent } from '../../../components/header/header.component';
 
 @Component({
-    selector: 'app-editor',
-    templateUrl: './editor.component.html',
-    styleUrls: ['./editor.component.scss'],
-    standalone: true,
-    imports: [
+  selector: 'app-editor',
+  templateUrl: './editor.component.html',
+  styleUrls: ['./editor.component.scss'],
+  standalone: true,
+  imports: [
     HeaderComponent,
     LetDirective,
     MatButtonModule,
@@ -81,8 +81,8 @@ import { HeaderComponent } from '../../../components/header/header.component';
     CaptionsComponent,
     PushPipe,
     DurationPipe,
-    FeatureEnabledPipe
-],
+    FeatureEnabledPipe,
+  ],
 })
 export class EditorComponent implements OnInit, OnDestroy {
   private destroy$$ = new Subject<void>();

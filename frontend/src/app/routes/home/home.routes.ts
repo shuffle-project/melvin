@@ -13,7 +13,7 @@ export const HomeRoutes: Routes = [
         canActivate: [HasRoleGuard],
         data: { roles: [UserRole.USER, UserRole.GUEST] },
         loadChildren: () =>
-          import('./project-list/projcet-list.routes').then(
+          import('./project-list/project-list.routes').then(
             (m) => m.ProjectListRoutes
           ),
       },

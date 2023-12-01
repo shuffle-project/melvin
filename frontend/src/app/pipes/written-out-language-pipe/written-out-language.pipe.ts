@@ -1,9 +1,10 @@
-import { Pipe, PipeTransform } from '@angular/core';
+import { Injectable, Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-    name: 'writtenOutLanguage',
-    standalone: true,
+  name: 'writtenOutLanguage',
+  standalone: true,
 })
+@Injectable({ providedIn: 'root' })
 export class WrittenOutLanguagePipe implements PipeTransform {
   transform(languageCode: string) {
     switch (languageCode) {

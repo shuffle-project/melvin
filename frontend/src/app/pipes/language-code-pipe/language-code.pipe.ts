@@ -1,9 +1,10 @@
-import { Pipe, PipeTransform } from '@angular/core';
+import { Injectable, Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-    name: 'shortLanguageCode',
-    standalone: true,
+  name: 'shortLanguageCode',
+  standalone: true,
 })
+@Injectable({ providedIn: 'root' })
 export class LanguageCodePipe implements PipeTransform {
   getShortCode(longCode: string) {
     return longCode.toUpperCase().split('-')[0];

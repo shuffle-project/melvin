@@ -10,13 +10,24 @@ import {
   OnInit,
   ViewChild,
 } from '@angular/core';
-import { FormControl, NgForm, Validators } from '@angular/forms';
+import {
+  FormControl,
+  FormsModule,
+  NgForm,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import {
   MatAutocompleteModule,
   MatAutocompleteSelectedEvent,
 } from '@angular/material/autocomplete';
+import { MatButtonModule } from '@angular/material/button';
 import { MatChipsModule } from '@angular/material/chips';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { Store } from '@ngrx/store';
 import {
   Subject,
@@ -38,8 +49,6 @@ import { ProjectEntity } from '../../services/api/entities/project.entity';
 import { UserEntity } from '../../services/api/entities/user.entity';
 import { AppState } from '../../store/app.state';
 
-
-
 interface DialogData {
   project: ProjectEntity;
 }
@@ -50,11 +59,19 @@ interface DialogData {
   styleUrls: ['./share-project-dialog.component.scss'],
   imports: [
     CommonModule,
-    SharedModule,
     ClipboardModule,
     MatChipsModule,
-    MatAutocompleteModule
-],
+    MatAutocompleteModule,
+    MatDialogModule,
+    MatIconModule,
+    MatExpansionModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatProgressSpinnerModule,
+    MatFormFieldModule,
+    MatButtonModule,
+    SharedModule,
+  ],
   standalone: true,
 })
 export class ShareProjectDialogComponent implements OnInit, OnDestroy {

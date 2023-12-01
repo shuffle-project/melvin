@@ -11,7 +11,9 @@ import * as captionsActions from '../actions/captions.actions';
 import * as transcriptionsActions from '../actions/transcriptions.actions';
 import { selectQueryParam } from '../selectors/router.selectors';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class CaptionsEffects {
   constructor(
     private actions$: Actions,

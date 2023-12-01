@@ -1,10 +1,11 @@
-import { Pipe, PipeTransform } from '@angular/core';
+import { Injectable, Pipe, PipeTransform } from '@angular/core';
 import { MediaCategory } from '../../services/api/entities/project.entity';
 
 @Pipe({
   name: 'mediaCategory',
   standalone: true,
 })
+@Injectable({ providedIn: 'root' })
 export class MediaCategoryPipe implements PipeTransform {
   transform(value: string): string {
     switch (value) {
