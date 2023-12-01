@@ -1,3 +1,4 @@
+import { CdkAccordionModule } from '@angular/cdk/accordion';
 import { Clipboard, ClipboardModule } from '@angular/cdk/clipboard';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { CommonModule } from '@angular/common';
@@ -22,12 +23,23 @@ import {
   MatAutocompleteSelectedEvent,
 } from '@angular/material/autocomplete';
 import { MatButtonModule } from '@angular/material/button';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatCardModule } from '@angular/material/card';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatChipsModule } from '@angular/material/chips';
 import { MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatSliderModule } from '@angular/material/slider';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { Store } from '@ngrx/store';
 import {
   Subject,
@@ -42,7 +54,6 @@ import {
 } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { MemberEntry, MemberEntryType } from '../../constants/member.constants';
-import { SharedModule } from '../../modules/shared/shared.module';
 import { AlertService } from '../../services/alert/alert.service';
 import { ApiService } from '../../services/api/api.service';
 import { ProjectEntity } from '../../services/api/entities/project.entity';
@@ -58,19 +69,30 @@ interface DialogData {
   templateUrl: './share-project-dialog.component.html',
   styleUrls: ['./share-project-dialog.component.scss'],
   imports: [
-    CommonModule,
+    CdkAccordionModule,
     ClipboardModule,
-    MatChipsModule,
-    MatAutocompleteModule,
-    MatDialogModule,
-    MatIconModule,
-    MatExpansionModule,
+    CommonModule,
     FormsModule,
-    ReactiveFormsModule,
-    MatProgressSpinnerModule,
-    MatFormFieldModule,
+    MatAutocompleteModule,
     MatButtonModule,
-    SharedModule,
+    MatButtonToggleModule,
+    MatCardModule,
+    MatCheckboxModule,
+    MatChipsModule,
+    MatDialogModule,
+    MatExpansionModule,
+    MatFormFieldModule,
+    MatIconModule,
+    MatInputModule,
+    MatMenuModule,
+    MatProgressBarModule,
+    MatProgressSpinnerModule,
+    MatSliderModule,
+    MatSlideToggleModule,
+    MatTabsModule,
+    MatToolbarModule,
+    MatTooltipModule,
+    ReactiveFormsModule,
   ],
   standalone: true,
 })

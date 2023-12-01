@@ -13,13 +13,12 @@ import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { BrowserModule, bootstrapApplication } from '@angular/platform-browser';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideRouter } from '@angular/router';
-import { EffectsModule } from '@ngrx/effects';
-import { StoreRouterConnectingModule } from '@ngrx/router-store';
-import { StoreModule } from '@ngrx/store';
-import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { provideEffects } from '@ngrx/effects';
+import { provideRouterStore } from '@ngrx/router-store';
+import { provideStore } from '@ngrx/store';
+import { provideStoreDevtools } from '@ngrx/store-devtools';
 import { AppComponent } from './app/app.component';
 import { AppRoutes } from './app/app.routes';
-import { SharedModule } from './app/modules/shared/shared.module';
 import { DurationPipe } from './app/pipes/duration-pipe/duration.pipe';
 import { FeatureEnabledPipe } from './app/pipes/feature-enabled-pipe/feature-enabled.pipe';
 import { FormatDatePipe } from './app/pipes/format-date-pipe/format-date.pipe';
@@ -47,37 +46,35 @@ if (environment.production) {
 
 bootstrapApplication(AppComponent, {
   providers: [
-    importProvidersFrom(
-      BrowserModule,
-      // AppRoutingModule,
-      StoreModule.forRoot(actionReducerMap, {
-        metaReducers,
-        runtimeChecks: {
-          strictStateImmutability: true,
-          strictActionImmutability: true,
-          strictStateSerializability: true,
-          strictActionSerializability: false,
-          strictActionWithinNgZone: true,
-          strictActionTypeUniqueness: true,
-        },
-      }),
-      EffectsModule.forRoot(effectsList),
-      StoreDevtoolsModule.instrument({
-        maxAge: 25,
-        logOnly: environment.production,
-        connectInZone: true,
-      }),
-      StoreRouterConnectingModule.forRoot(),
-      SharedModule
-    ),
+    importProvidersFrom(BrowserModule),
     provideRouter(AppRoutes),
+    provideStore(actionReducerMap, {
+      metaReducers,
+      runtimeChecks: {
+        strictStateImmutability: true,
+        strictActionImmutability: true,
+        strictStateSerializability: true,
+        strictActionSerializability: false,
+        strictActionWithinNgZone: true,
+        strictActionTypeUniqueness: true,
+      },
+    }),
+    provideEffects(effectsList),
+    provideRouterStore(),
+    provideStoreDevtools({
+      maxAge: 25,
+      logOnly: environment.production,
+      connectInZone: true,
+    }),
     provideAnimations(),
     provideHttpClient(withInterceptorsFromDi()),
+
     // moved form shared module
     {
       provide: MAT_FORM_FIELD_DEFAULT_OPTIONS,
       useValue: { appearance: 'outline' },
     },
+
     // Provide pipes
     // TODO as an alternative to this we could make pipes injectable providedin root
     DurationPipe,
