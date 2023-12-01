@@ -1,10 +1,9 @@
-import { Injectable, Pipe, PipeTransform } from '@angular/core';
+import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
   name: 'highlight',
   standalone: true,
 })
-@Injectable({ providedIn: 'root' })
 export class HighlightPipe implements PipeTransform {
   transform(value: string, searchString: string): string {
     // if (searchString.length < 1) {

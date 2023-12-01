@@ -1,26 +1,39 @@
 import { enableProdMode, importProvidersFrom } from '@angular/core';
-import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import * as dayjs from 'dayjs';
 import 'dayjs/locale/de';
 import * as calendar from 'dayjs/plugin/calendar';
 import * as duration from 'dayjs/plugin/duration';
 import * as relativeTime from 'dayjs/plugin/relativeTime';
 
-import { environment } from './environments/environment';
-import { AppComponent } from './app/app.component';
-import { AlertModule } from './app/services/alert/alert.module';
-import { SharedModule } from './app/modules/shared/shared.module';
-import { StoreRouterConnectingModule } from '@ngrx/router-store';
-import { environment as environment_1 } from 'src/environments/environment';
-import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { EffectsModule } from '@ngrx/effects';
-import { actionReducerMap, metaReducers, effectsList } from './app/store/app.state';
-import { StoreModule } from '@ngrx/store';
-import { withInterceptorsFromDi, provideHttpClient } from '@angular/common/http';
-import { provideAnimations } from '@angular/platform-browser/animations';
-import { AppRoutingModule } from './app/app-routing.module';
+import {
+  provideHttpClient,
+  withInterceptorsFromDi,
+} from '@angular/common/http';
+import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { BrowserModule, bootstrapApplication } from '@angular/platform-browser';
+import { provideAnimations } from '@angular/platform-browser/animations';
+import { EffectsModule } from '@ngrx/effects';
+import { StoreRouterConnectingModule } from '@ngrx/router-store';
+import { StoreModule } from '@ngrx/store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { AppRoutingModule } from './app/app-routing.module';
+import { AppComponent } from './app/app.component';
+import { SharedModule } from './app/modules/shared/shared.module';
 import { DurationPipe } from './app/pipes/duration-pipe/duration.pipe';
+import { FeatureEnabledPipe } from './app/pipes/feature-enabled-pipe/feature-enabled.pipe';
+import { FormatDatePipe } from './app/pipes/format-date-pipe/format-date.pipe';
+import { LanguageCodePipe } from './app/pipes/language-code-pipe/language-code.pipe';
+import { MediaCategoryPipe } from './app/pipes/media-category-pipe/media-category.pipe';
+import { ProjectStatusPipe } from './app/pipes/project-status-pipe/project-status.pipe';
+import { TimeDifferencePipe } from './app/pipes/time-difference-pipe/time-difference.pipe';
+import { WrittenOutLanguagePipe } from './app/pipes/written-out-language-pipe/written-out-language.pipe';
+import { HighlightPipe } from './app/routes/home/viewer/components/highlight-pipe/highlight.pipe';
+import {
+  actionReducerMap,
+  effectsList,
+  metaReducers,
+} from './app/store/app.state';
+import { environment } from './environments/environment';
 
 dayjs.extend(duration);
 dayjs.extend(relativeTime);
@@ -32,25 +45,49 @@ if (environment.production) {
 }
 
 bootstrapApplication(AppComponent, {
-    providers: [
-        importProvidersFrom(BrowserModule, AppRoutingModule, StoreModule.forRoot(actionReducerMap, {
-            metaReducers,
-            runtimeChecks: {
-                strictStateImmutability: true,
-                strictActionImmutability: true,
-                strictStateSerializability: true,
-                strictActionSerializability: false,
-                strictActionWithinNgZone: true,
-                strictActionTypeUniqueness: true,
-            },
-        }), EffectsModule.forRoot(effectsList), StoreDevtoolsModule.instrument({
-            maxAge: 25,
-            logOnly: environment.production,
-            connectInZone: true,
-        }), StoreRouterConnectingModule.forRoot(), SharedModule, AlertModule),
-        DurationPipe,
-        provideAnimations(),
-        provideHttpClient(withInterceptorsFromDi()),
-    ]
-})
-  .catch((err) => console.error(err));
+  providers: [
+    importProvidersFrom(
+      BrowserModule,
+      AppRoutingModule,
+      StoreModule.forRoot(actionReducerMap, {
+        metaReducers,
+        runtimeChecks: {
+          strictStateImmutability: true,
+          strictActionImmutability: true,
+          strictStateSerializability: true,
+          strictActionSerializability: false,
+          strictActionWithinNgZone: true,
+          strictActionTypeUniqueness: true,
+        },
+      }),
+      EffectsModule.forRoot(effectsList),
+      StoreDevtoolsModule.instrument({
+        maxAge: 25,
+        logOnly: environment.production,
+        connectInZone: true,
+      }),
+      StoreRouterConnectingModule.forRoot(),
+      SharedModule
+    ),
+
+    provideAnimations(),
+    provideHttpClient(withInterceptorsFromDi()),
+    // moved form shared module
+    {
+      provide: MAT_FORM_FIELD_DEFAULT_OPTIONS,
+      useValue: { appearance: 'outline' },
+    },
+
+    // Provide pipes
+    // TODO as an alternative to this we could make pipes injectable providedin root
+    DurationPipe,
+    ProjectStatusPipe,
+    FeatureEnabledPipe,
+    FormatDatePipe,
+    LanguageCodePipe,
+    MediaCategoryPipe,
+    TimeDifferencePipe,
+    WrittenOutLanguagePipe,
+    HighlightPipe,
+  ],
+}).catch((err) => console.error(err));
