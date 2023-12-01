@@ -9,11 +9,20 @@ import * as authActions from './store/actions/auth.actions';
 import { AppState } from './store/app.state';
 import * as authSelectors from './store/selectors/auth.selector';
 import * as configSelector from './store/selectors/config.selector';
+import { PushPipe } from '@ngrx/component';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { RouterOutlet } from '@angular/router';
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss'],
+    selector: 'app-root',
+    templateUrl: './app.component.html',
+    styleUrls: ['./app.component.scss'],
+    standalone: true,
+    imports: [
+        RouterOutlet,
+        MatProgressSpinnerModule,
+        PushPipe,
+    ],
 })
 export class AppComponent implements OnInit, OnDestroy {
   private destroy$$ = new Subject<void>();
