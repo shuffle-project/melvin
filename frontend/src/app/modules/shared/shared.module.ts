@@ -28,12 +28,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { LetDirective, PushPipe } from '@ngrx/component';
 
-
-
 import { MediaCategoryPipe } from '../../pipes/media-category-pipe/media-category.pipe';
-
-
-import { ProjectStatusPipeModule } from './../../pipes/project-status-pipe/project-status-pipe.module';
 
 @NgModule({
   declarations: [],
@@ -58,7 +53,6 @@ import { ProjectStatusPipeModule } from './../../pipes/project-status-pipe/proje
     LetDirective,
     PushPipe,
     MatDividerModule,
-    ProjectStatusPipeModule,
     MatProgressSpinnerModule,
     MatCardModule,
     MatExpansionModule,
@@ -67,7 +61,7 @@ import { ProjectStatusPipeModule } from './../../pipes/project-status-pipe/proje
     MatProgressBarModule,
     MatSlideToggleModule,
     MediaCategoryPipe,
-],
+  ],
   providers: [
     {
       provide: MAT_FORM_FIELD_DEFAULT_OPTIONS,

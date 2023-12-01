@@ -4,7 +4,6 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatRadioModule } from '@angular/material/radio';
-import { HeaderModule } from '../../../components/header/header.module';
 import { SharedModule } from '../../../modules/shared/shared.module';
 import { AdjustLayoutDialogComponent } from './components/adjust-layout-dialog/adjust-layout-dialog.component';
 import { CaptionsSettingsDialogComponent } from './components/captions-settings-dialog/captions-settings-dialog.component';
@@ -18,24 +17,23 @@ import { ViewerRoutingModule } from './viewer-routing.module';
 import { ViewerComponent } from './viewer.component';
 
 @NgModule({
-    imports: [
-        CommonModule,
-        ViewerRoutingModule,
-        HeaderModule,
-        SharedModule,
-        MatRadioModule,
-        MatGridListModule,
-        ScrollingModule,
-        CdkDrag,
-        ViewerComponent,
-        AdjustLayoutDialogComponent,
-        TranscriptComponent,
-        InfoboxComponent,
-        PlayerComponent,
-        HighlightPipe,
-        CaptionsSettingsDialogComponent,
-        ControlsComponent,
-        VideoContainerComponent,
-    ],
+  imports: [
+    CommonModule,
+    ViewerRoutingModule,
+    SharedModule,
+    MatRadioModule,
+    MatGridListModule,
+    ScrollingModule,
+    CdkDrag,
+    ViewerComponent,
+    AdjustLayoutDialogComponent,
+    TranscriptComponent,
+    InfoboxComponent,
+    PlayerComponent,
+    HighlightPipe,
+    CaptionsSettingsDialogComponent,
+    ControlsComponent,
+    VideoContainerComponent,
+  ],
 })
 export class ViewerModule {}
