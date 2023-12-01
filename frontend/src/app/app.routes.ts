@@ -1,10 +1,9 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { Routes } from '@angular/router';
 import { IsInitializedGuard } from './guards/is-initialized.guard';
 import { LoggedInGuard } from './guards/logged-in.guard';
 import { LoggedOutGuard } from './guards/logged-out.guard';
 
-const routes: Routes = [
+export const AppRoutes: Routes = [
   {
     path: 'auth',
     canActivate: [LoggedOutGuard],
@@ -29,8 +28,8 @@ const routes: Routes = [
   },
 ];
 
-@NgModule({
-  imports: [RouterModule.forRoot(routes, { enableTracing: false })], // tracing is only debugging
-  exports: [RouterModule],
-})
-export class AppRoutingModule {}
+// @NgModule({
+//   imports: [RouterModule.forRoot(routes, { enableTracing: false })], // tracing is only debugging
+//   exports: [RouterModule],
+// })
+// export class AppRoutingModule {}

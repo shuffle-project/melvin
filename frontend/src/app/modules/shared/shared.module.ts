@@ -25,11 +25,9 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { LetDirective, PushPipe } from '@ngrx/component';
 
-import { MediaCategoryPipe } from '../../pipes/media-category-pipe/media-category.pipe';
-
 @NgModule({
   declarations: [],
-  imports: [CommonModule, LetDirective, PushPipe, MediaCategoryPipe],
+  imports: [CommonModule, LetDirective, PushPipe],
   exports: [
     MatToolbarModule,
     MatButtonModule,
@@ -57,7 +55,6 @@ import { MediaCategoryPipe } from '../../pipes/media-category-pipe/media-categor
     MatSliderModule,
     MatProgressBarModule,
     MatSlideToggleModule,
-    MediaCategoryPipe,
   ],
 })
 export class SharedModule {}

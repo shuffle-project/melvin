@@ -12,12 +12,13 @@ import {
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { BrowserModule, bootstrapApplication } from '@angular/platform-browser';
 import { provideAnimations } from '@angular/platform-browser/animations';
+import { provideRouter } from '@angular/router';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { AppRoutingModule } from './app/app-routing.module';
 import { AppComponent } from './app/app.component';
+import { AppRoutes } from './app/app.routes';
 import { SharedModule } from './app/modules/shared/shared.module';
 import { DurationPipe } from './app/pipes/duration-pipe/duration.pipe';
 import { FeatureEnabledPipe } from './app/pipes/feature-enabled-pipe/feature-enabled.pipe';
@@ -48,7 +49,7 @@ bootstrapApplication(AppComponent, {
   providers: [
     importProvidersFrom(
       BrowserModule,
-      AppRoutingModule,
+      // AppRoutingModule,
       StoreModule.forRoot(actionReducerMap, {
         metaReducers,
         runtimeChecks: {
@@ -69,7 +70,7 @@ bootstrapApplication(AppComponent, {
       StoreRouterConnectingModule.forRoot(),
       SharedModule
     ),
-
+    provideRouter(AppRoutes),
     provideAnimations(),
     provideHttpClient(withInterceptorsFromDi()),
     // moved form shared module
@@ -77,7 +78,6 @@ bootstrapApplication(AppComponent, {
       provide: MAT_FORM_FIELD_DEFAULT_OPTIONS,
       useValue: { appearance: 'outline' },
     },
-
     // Provide pipes
     // TODO as an alternative to this we could make pipes injectable providedin root
     DurationPipe,
