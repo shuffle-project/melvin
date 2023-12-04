@@ -8,8 +8,8 @@ describe('AdjustLayoutDialogComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [AdjustLayoutDialogComponent]
-    });
+    imports: [AdjustLayoutDialogComponent]
+});
     fixture = TestBed.createComponent(AdjustLayoutDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

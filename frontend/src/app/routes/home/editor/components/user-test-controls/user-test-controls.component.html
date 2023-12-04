@@ -1,35 +1,39 @@
-<div *ngIf="show$ | ngrxPush" class="container">
-  <h2>User-Test Controls</h2>
-
-  <ng-container *ngrxLet="project$ as project">
-    <div class="flex">
-      <button
-        *ngIf="!isLive"
-        mat-flat-button
-        color="warn"
-        (click)="onClickStart()"
-      >
-        Start
-      </button>
-      <button
-        *ngIf="!isLive"
-        mat-stroked-button
-        coolor="warn"
-        (click)="onClickReset()"
-      >
-        Reset
-      </button>
-      <button
-        *ngIf="isLive"
-        mat-stroked-button
-        color="warn"
-        (click)="onClickStop()"
-      >
-        Stop
-      </button>
-      <button mat-stroked-button color="primary" (click)="onClickDownload()">
-        Download Results
-      </button>
-    </div>
-  </ng-container>
-</div>
+@if (show$ | ngrxPush) {
+  <div class="container">
+    <h2>User-Test Controls</h2>
+    <ng-container *ngrxLet="project$ as project">
+      <div class="flex">
+        @if (!isLive) {
+          <button
+            mat-flat-button
+            color="warn"
+            (click)="onClickStart()"
+            >
+            Start
+          </button>
+        }
+        @if (!isLive) {
+          <button
+            mat-stroked-button
+            coolor="warn"
+            (click)="onClickReset()"
+            >
+            Reset
+          </button>
+        }
+        @if (isLive) {
+          <button
+            mat-stroked-button
+            color="warn"
+            (click)="onClickStop()"
+            >
+            Stop
+          </button>
+        }
+        <button mat-stroked-button color="primary" (click)="onClickDownload()">
+          Download Results
+        </button>
+      </div>
+    </ng-container>
+  </div>
+}

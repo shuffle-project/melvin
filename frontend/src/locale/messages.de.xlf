@@ -136,7 +136,7 @@
       </trans-unit>
       <trans-unit id="metadataFormAddMemberLabel" datatype="html">
         <source>Add team members</source>
-        <target state="new">Teammitglied hinzufügen</target>
+        <target state="final">Teammitglied hinzufügen</target>
       </trans-unit>
       <trans-unit id="metadataFormAddMemberError" datatype="html">
         <source> User unknown or e-mail address invalid</source>
@@ -1098,14 +1098,6 @@
         <source>Video timeline</source>
         <target state="final">Video Zeitleiste</target>
       </trans-unit>
-      <trans-unit id="viewerControlsPlayPauseTooltip" datatype="html">
-        <source>
-          <x id="INTERPOLATION" equiv-text="&apos; : &apos;Pause&apos; }}"/>
-        </source>
-        <target state="new">
-          <x id="INTERPOLATION" equiv-text="&apos; : &apos;Pause&apos; }}"/>
-        </target>
-      </trans-unit>
       <trans-unit id="viewerControlsRewindTooltip" datatype="html">
         <source>Rewind 10 seconds</source>
         <target state="final">10 Sekunden zurückspulen</target>
@@ -1145,14 +1137,6 @@
       <trans-unit id="viewerControlsPlaybackspeedMenuTooltip" datatype="html">
         <source>Playbackspeed menu</source>
         <target state="final">Wiedergabegeschwindigkeits Menü</target>
-      </trans-unit>
-      <trans-unit id="viewerControlsFullscreenToggleTooltip" datatype="html">
-        <source>
-          <x id="INTERPOLATION" equiv-text="ullscreen&apos; : &apos;Open fullscreen&apos; }}"/>
-        </source>
-        <target state="new">
-          <x id="INTERPOLATION" equiv-text="ullscreen&apos; : &apos;Open fullscreen&apos; }}"/>
-        </target>
       </trans-unit>
       <trans-unit id="viewerControlsDeactivateCaptionsLabel" datatype="html">
         <source>Deactivate</source>
@@ -1197,6 +1181,74 @@
       <trans-unit id="dialogCreateProjectLoadingInfo" datatype="html">
         <source> Uploading data </source>
         <target state="final"> Daten werden hochgeladen </target>
+      </trans-unit>
+      <trans-unit id="viewerControlsPlayPauseTooltipPlay" datatype="html">
+        <source>Play</source>
+        <target state="final">Abspielen</target>
+      </trans-unit>
+      <trans-unit id="viewerControlsPlayPauseTooltip" datatype="html">
+        <source>Pause</source>
+        <target state="final">Pausieren</target>
+      </trans-unit>
+      <trans-unit id="uploadAdditionalMediaTitle" datatype="html">
+        <source> Upload additional media files </source>
+        <target state="final"> Zusätzliche Medien hochladen </target>
+      </trans-unit>
+      <trans-unit id="uploadAdditionalMediaVideoTitleLabel" datatype="html">
+        <source>Video title</source>
+        <target state="final">Videotitel</target>
+      </trans-unit>
+      <trans-unit id="uploadAdditionalMediaVideoTitlePlaceholder" datatype="html">
+        <source>Video title</source>
+        <target state="final">Videotitel</target>
+      </trans-unit>
+      <trans-unit id="uploadAdditionalMediaVideoCategoryLabel" datatype="html">
+        <source>Choose a category</source>
+        <target state="final">Kategorie auswählen</target>
+      </trans-unit>
+      <trans-unit id="uploadAdditionalMediaUploadButton" datatype="html">
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="Uploa"/> Upload </source>
+        <target state="final"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="Uploa"/> Hochladen </target>
+      </trans-unit>
+      <trans-unit id="uploadAdditionalMediaUploadingHeader" datatype="html">
+        <source>Uploading</source>
+        <target state="final">Am hochladen</target>
+      </trans-unit>
+      <trans-unit id="uploadAdditionalMediaListHeader" datatype="html">
+        <source>Videos</source>
+        <target state="final">Videos</target>
+      </trans-unit>
+      <trans-unit id="viewerControlsFullscreenToggleTooltipActive" datatype="html">
+        <source>Close fullscreen</source>
+        <target state="final">Vollbild schließen</target>
+      </trans-unit>
+      <trans-unit id="viewerControlsFullscreenToggleTooltipInactive" datatype="html">
+        <source>Open fullscreen</source>
+        <target state="final">Vollbild öffnen</target>
+      </trans-unit>
+      <trans-unit id="mediaCategoryMain" datatype="html">
+        <source>Main</source>
+        <target state="new">Hauptanzeige</target>
+      </trans-unit>
+      <trans-unit id="mediaCategoryOther" datatype="html">
+        <source>Other</source>
+        <target state="final">Andere</target>
+      </trans-unit>
+      <trans-unit id="mediaCategorySignLanguage" datatype="html">
+        <source>Sign Language</source>
+        <target state="final">Gebärdensprache</target>
+      </trans-unit>
+      <trans-unit id="mediaCategorySlides" datatype="html">
+        <source>Slides</source>
+        <target state="final">Folien</target>
+      </trans-unit>
+      <trans-unit id="mediaCategorySpeaker" datatype="html">
+        <source>Speaker</source>
+        <target state="final">sprechende Person</target>
+      </trans-unit>
+      <trans-unit id="dialogCreateProjectCancelUpload" datatype="html">
+        <source> Cancel Upload </source>
+        <target state="final"> Upload abbrechen </target>
       </trans-unit>
     </body>
   </file>

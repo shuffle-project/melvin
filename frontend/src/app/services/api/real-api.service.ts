@@ -82,7 +82,9 @@ export interface CustomRequestOptions extends RequestOptions {
   skipJwt?: boolean;
 }
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class RealApiService implements ApiService {
   private baseUrl: string = environment.baseRestApi;
 

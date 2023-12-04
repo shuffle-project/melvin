@@ -8,8 +8,8 @@ describe('CaptionHistoryModalComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CaptionHistoryModalComponent ]
-    })
+    imports: [CaptionHistoryModalComponent]
+})
     .compileComponents();
 
     fixture = TestBed.createComponent(CaptionHistoryModalComponent);

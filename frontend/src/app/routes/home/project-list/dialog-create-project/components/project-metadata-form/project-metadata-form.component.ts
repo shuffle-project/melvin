@@ -7,10 +7,10 @@ import {
   OnInit,
   ViewChild,
 } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
-import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
-import { MatChipInputEvent } from '@angular/material/chips';
-import { ErrorStateMatcher } from '@angular/material/core';
+import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { MatAutocompleteSelectedEvent, MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatChipInputEvent, MatChipsModule } from '@angular/material/chips';
+import { ErrorStateMatcher, MatOptionModule } from '@angular/material/core';
 import {
   Subject,
   debounceTime,
@@ -29,10 +29,28 @@ import { ApiService } from '../../../../../../../app/services/api/api.service';
 import { UserEntity } from '../../../../../../../app/services/api/entities/user.entity';
 import { MetadataGroup } from '../../dialog-create-project.interfaces';
 
+import { MatIconModule } from '@angular/material/icon';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+
 @Component({
-  selector: 'app-project-metadata-form',
-  styleUrls: ['./project-metadata-form.component.scss'],
-  templateUrl: './project-metadata-form.component.html',
+    selector: 'app-project-metadata-form',
+    styleUrls: ['./project-metadata-form.component.scss'],
+    templateUrl: './project-metadata-form.component.html',
+    standalone: true,
+    imports: [
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    MatTooltipModule,
+    MatIconModule,
+    MatChipsModule,
+    MatAutocompleteModule,
+    MatOptionModule
+],
 })
 export class ProjectMetadataFormComponent implements OnInit, OnDestroy {
   @Input() metadataGroup!: FormGroup<MetadataGroup>;

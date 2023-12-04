@@ -11,10 +11,9 @@ describe('LoginComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [LoginComponent],
-      imports: [ReactiveFormsModule, SharedModule, NoopAnimationsModule],
-      providers: [provideMockStore()],
-    }).compileComponents();
+    imports: [ReactiveFormsModule, SharedModule, NoopAnimationsModule, LoginComponent],
+    providers: [provideMockStore()],
+}).compileComponents();
   });
 
   beforeEach(() => {

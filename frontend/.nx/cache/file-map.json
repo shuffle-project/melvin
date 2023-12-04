@@ -1,0 +1,2275 @@
+{
+  "version": "6.0",
+  "nxVersion": "17.1.2",
+  "deps": {
+    "@angular/animations": "^17.0.4",
+    "@angular/cdk": "^17.0.1",
+    "@angular/cdk-experimental": "^17.0.1",
+    "@angular/common": "^17.0.4",
+    "@angular/compiler": "^17.0.4",
+    "@angular/core": "^17.0.4",
+    "@angular/forms": "^17.0.4",
+    "@angular/material": "^17.0.1",
+    "@angular/platform-browser": "^17.0.4",
+    "@angular/platform-browser-dynamic": "^17.0.4",
+    "@angular/router": "^17.0.4",
+    "@fontsource/roboto": "^5.0.8",
+    "@ngrx/component": "^17.0.1",
+    "@ngrx/component-store": "^17.0.1",
+    "@ngrx/effects": "^17.0.1",
+    "@ngrx/router-store": "^17.0.1",
+    "@ngrx/signals": "^17.0.1",
+    "@ngrx/store": "^17.0.1",
+    "dayjs": "^1.11.10",
+    "diff-match-patch": "^1.0.5",
+    "rxjs": "~7.8.1",
+    "socket.io-client": "^4.7.2",
+    "tslib": "^2.6.2",
+    "uuid": "^9.0.1",
+    "zone.js": "~0.14.2",
+    "@angular-devkit/build-angular": "^17.0.3",
+    "@angular-eslint/builder": "17.1.0",
+    "@angular-eslint/eslint-plugin": "17.1.0",
+    "@angular-eslint/eslint-plugin-template": "17.1.0",
+    "@angular-eslint/schematics": "17.1.0",
+    "@angular-eslint/template-parser": "17.1.0",
+    "@angular/cli": "^17.0.3",
+    "@angular/compiler-cli": "^17.0.4",
+    "@angular/localize": "^17.0.4",
+    "@ngrx/store-devtools": "^17.0.1",
+    "@types/diff-match-patch": "^1.0.36",
+    "@types/jasmine": "~5.1.4",
+    "@types/node": "^20.10.0",
+    "@types/uuid": "^9.0.7",
+    "@typescript-eslint/eslint-plugin": "^6.13.1",
+    "@typescript-eslint/parser": "^6.13.1",
+    "eslint": "^8.54.0",
+    "jasmine-core": "~5.1.1",
+    "karma": "~6.4.2",
+    "karma-chrome-launcher": "~3.2.0",
+    "karma-coverage": "~2.2.1",
+    "karma-jasmine": "~5.1.0",
+    "karma-jasmine-html-reporter": "~2.1.0",
+    "ng-extract-i18n-merge": "^2.9.0",
+    "typescript": "~5.2.2"
+  },
+  "pathMappings": {},
+  "nxJsonPlugins": [],
+  "fileMap": {
+    "projectFileMap": {},
+    "nonProjectFiles": [
+      {
+        "file": ".dockerignore",
+        "hash": "13899361797210284508"
+      },
+      {
+        "file": ".editorconfig",
+        "hash": "6686520031028425313"
+      },
+      {
+        "file": ".eslintrc.json",
+        "hash": "7091999722501133185"
+      },
+      {
+        "file": ".gitignore",
+        "hash": "17884450377372542257"
+      },
+      {
+        "file": ".gitlab-ci.yml",
+        "hash": "12461020687504659668"
+      },
+      {
+        "file": ".nx/cache/file-map.json",
+        "hash": "10623907548364082039"
+      },
+      {
+        "file": ".nx/cache/lockfile.hash",
+        "hash": "17253788859157991946"
+      },
+      {
+        "file": ".nx/cache/parsed-lock-file.json",
+        "hash": "16746879722132117620"
+      },
+      {
+        "file": ".nx/cache/project-graph.json",
+        "hash": "9315037108626243529"
+      },
+      {
+        "file": ".prettierrc",
+        "hash": "16267754514737964994"
+      },
+      {
+        "file": "Dockerfile",
+        "hash": "6426273715467986642"
+      },
+      {
+        "file": "README.md",
+        "hash": "9092481897906350705"
+      },
+      {
+        "file": "angular.json",
+        "hash": "8234822182567726301"
+      },
+      {
+        "file": "karma.conf.js",
+        "hash": "1663422815914992199"
+      },
+      {
+        "file": "nginx.conf",
+        "hash": "18366460622542073934"
+      },
+      {
+        "file": "nginx.sh",
+        "hash": "14566804614365263028"
+      },
+      {
+        "file": "package-lock.json",
+        "hash": "12547188321619588670"
+      },
+      {
+        "file": "package.json",
+        "hash": "13139756142923864418"
+      },
+      {
+        "file": "src/app/app.component.html",
+        "hash": "15253942040451750431"
+      },
+      {
+        "file": "src/app/app.component.scss",
+        "hash": "3961951364524058110"
+      },
+      {
+        "file": "src/app/app.component.spec.ts",
+        "hash": "3923066182060340356"
+      },
+      {
+        "file": "src/app/app.component.ts",
+        "hash": "15161815599007560620"
+      },
+      {
+        "file": "src/app/app.routes.ts",
+        "hash": "5020223209553148663"
+      },
+      {
+        "file": "src/app/classes/logger.class.ts",
+        "hash": "2594690364225941837"
+      },
+      {
+        "file": "src/app/components/activity/activity.component.html",
+        "hash": "8453773331496814192"
+      },
+      {
+        "file": "src/app/components/activity/activity.component.scss",
+        "hash": "6229203497760873543"
+      },
+      {
+        "file": "src/app/components/activity/activity.component.ts",
+        "hash": "15512695152597795679"
+      },
+      {
+        "file": "src/app/components/alert/alert.component.html",
+        "hash": "1463917078826303346"
+      },
+      {
+        "file": "src/app/components/alert/alert.component.scss",
+        "hash": "10059469018056808047"
+      },
+      {
+        "file": "src/app/components/alert/alert.component.spec.ts",
+        "hash": "1302840798213101437"
+      },
+      {
+        "file": "src/app/components/alert/alert.component.ts",
+        "hash": "8171101668055044937"
+      },
+      {
+        "file": "src/app/components/avatar-group/avatar/avatar.component.html",
+        "hash": "2611369330566341586"
+      },
+      {
+        "file": "src/app/components/avatar-group/avatar/avatar.component.scss",
+        "hash": "406345087460270495"
+      },
+      {
+        "file": "src/app/components/avatar-group/avatar/avatar.component.spec.ts",
+        "hash": "15144938568573426839"
+      },
+      {
+        "file": "src/app/components/avatar-group/avatar/avatar.component.ts",
+        "hash": "2856241472469919442"
+      },
+      {
+        "file": "src/app/components/avatar-group/avatar-group.component.html",
+        "hash": "1358245299504515041"
+      },
+      {
+        "file": "src/app/components/avatar-group/avatar-group.component.scss",
+        "hash": "15489094311828260978"
+      },
+      {
+        "file": "src/app/components/avatar-group/avatar-group.component.ts",
+        "hash": "11867190207444902514"
+      },
+      {
+        "file": "src/app/components/footer/footer.component.html",
+        "hash": "8410158596487084882"
+      },
+      {
+        "file": "src/app/components/footer/footer.component.scss",
+        "hash": "16387420183499893938"
+      },
+      {
+        "file": "src/app/components/footer/footer.component.spec.ts",
+        "hash": "3244421341483603138"
+      },
+      {
+        "file": "src/app/components/footer/footer.component.ts",
+        "hash": "15595020860958298911"
+      },
+      {
+        "file": "src/app/components/header/header.component.html",
+        "hash": "1414575558130009649"
+      },
+      {
+        "file": "src/app/components/header/header.component.scss",
+        "hash": "16171874558334148517"
+      },
+      {
+        "file": "src/app/components/header/header.component.spec.ts",
+        "hash": "8944038228355603905"
+      },
+      {
+        "file": "src/app/components/header/header.component.ts",
+        "hash": "6923581659426749902"
+      },
+      {
+        "file": "src/app/components/logo/logo.component.html",
+        "hash": "18147527431955100394"
+      },
+      {
+        "file": "src/app/components/logo/logo.component.scss",
+        "hash": "7204612418203758225"
+      },
+      {
+        "file": "src/app/components/logo/logo.component.spec.ts",
+        "hash": "12695057270606532434"
+      },
+      {
+        "file": "src/app/components/logo/logo.component.ts",
+        "hash": "12223610467114789253"
+      },
+      {
+        "file": "src/app/components/notification/notification.component.html",
+        "hash": "4631117388289636576"
+      },
+      {
+        "file": "src/app/components/notification/notification.component.scss",
+        "hash": "3126185573578750601"
+      },
+      {
+        "file": "src/app/components/notification/notification.component.spec.ts",
+        "hash": "16139647665482965714"
+      },
+      {
+        "file": "src/app/components/notification/notification.component.ts",
+        "hash": "16405299552769459378"
+      },
+      {
+        "file": "src/app/components/share-project-dialog/share-project-dialog.component.html",
+        "hash": "14429520395291617303"
+      },
+      {
+        "file": "src/app/components/share-project-dialog/share-project-dialog.component.scss",
+        "hash": "12431264701460309400"
+      },
+      {
+        "file": "src/app/components/share-project-dialog/share-project-dialog.component.spec.ts",
+        "hash": "1531174922218109877"
+      },
+      {
+        "file": "src/app/components/share-project-dialog/share-project-dialog.component.ts",
+        "hash": "5114618463434104884"
+      },
+      {
+        "file": "src/app/components/upload-files/upload-files.component.html",
+        "hash": "6022300249703720169"
+      },
+      {
+        "file": "src/app/components/upload-files/upload-files.component.scss",
+        "hash": "17524787939003466169"
+      },
+      {
+        "file": "src/app/components/upload-files/upload-files.component.ts",
+        "hash": "5815964116683104319"
+      },
+      {
+        "file": "src/app/constants/animals.constants.ts",
+        "hash": "3231041248960966767"
+      },
+      {
+        "file": "src/app/constants/editor.constants.ts",
+        "hash": "13723758545402474426"
+      },
+      {
+        "file": "src/app/constants/icon.constants.ts",
+        "hash": "11599857663379341438"
+      },
+      {
+        "file": "src/app/constants/languages.constant.ts",
+        "hash": "10897879373567297464"
+      },
+      {
+        "file": "src/app/constants/member.constants.ts",
+        "hash": "14582644046292911052"
+      },
+      {
+        "file": "src/app/constants/mocks/activity.mock.ts",
+        "hash": "12538031444916637511"
+      },
+      {
+        "file": "src/app/constants/mocks/captions.mock.ts",
+        "hash": "10710787469702325524"
+      },
+      {
+        "file": "src/app/constants/mocks/mock.utils.ts",
+        "hash": "13766563869959643705"
+      },
+      {
+        "file": "src/app/constants/mocks/notifications.mock.ts",
+        "hash": "15269330052420216523"
+      },
+      {
+        "file": "src/app/constants/mocks/project.mock.ts",
+        "hash": "10467464651201505913"
+      },
+      {
+        "file": "src/app/constants/mocks/users.mock.ts",
+        "hash": "5636983776386220276"
+      },
+      {
+        "file": "src/app/guards/has-role.guard.spec.ts",
+        "hash": "16610583396240737045"
+      },
+      {
+        "file": "src/app/guards/has-role.guard.ts",
+        "hash": "1959292999297074784"
+      },
+      {
+        "file": "src/app/guards/is-initialized.guard.ts",
+        "hash": "6445168456295548515"
+      },
+      {
+        "file": "src/app/guards/logged-in.guard.ts",
+        "hash": "15667256766975526469"
+      },
+      {
+        "file": "src/app/guards/logged-out.guard.ts",
+        "hash": "8292599123389640512"
+      },
+      {
+        "file": "src/app/interfaces/auth.interfaces.ts",
+        "hash": "1159844684516288469"
+      },
+      {
+        "file": "src/app/interfaces/editor-user.interface.ts",
+        "hash": "7961209227386456325"
+      },
+      {
+        "file": "src/app/interfaces/project-filter.interface.ts",
+        "hash": "5418017927150485976"
+      },
+      {
+        "file": "src/app/modules/project-detail/components/project-activity/project-activity.component.html",
+        "hash": "16483447301325324653"
+      },
+      {
+        "file": "src/app/modules/project-detail/components/project-activity/project-activity.component.scss",
+        "hash": "6322030591678565961"
+      },
+      {
+        "file": "src/app/modules/project-detail/components/project-activity/project-activity.component.spec.ts",
+        "hash": "3907538932437458743"
+      },
+      {
+        "file": "src/app/modules/project-detail/components/project-activity/project-activity.component.ts",
+        "hash": "9366165625507999094"
+      },
+      {
+        "file": "src/app/modules/project-detail/components/project-general/project-general.component.html",
+        "hash": "1691550913757471492"
+      },
+      {
+        "file": "src/app/modules/project-detail/components/project-general/project-general.component.scss",
+        "hash": "1857326230574101354"
+      },
+      {
+        "file": "src/app/modules/project-detail/components/project-general/project-general.component.spec.ts",
+        "hash": "8084471936115085491"
+      },
+      {
+        "file": "src/app/modules/project-detail/components/project-general/project-general.component.ts",
+        "hash": "16669449299825673244"
+      },
+      {
+        "file": "src/app/modules/project-detail/components/project-transcription/components/create-transcription-dialog/create-transcription-dialog.component.html",
+        "hash": "8802425811244815748"
+      },
+      {
+        "file": "src/app/modules/project-detail/components/project-transcription/components/create-transcription-dialog/create-transcription-dialog.component.scss",
+        "hash": "999173695888454414"
+      },
+      {
+        "file": "src/app/modules/project-detail/components/project-transcription/components/create-transcription-dialog/create-transcription-dialog.component.ts",
+        "hash": "14311710348571277319"
+      },
+      {
+        "file": "src/app/modules/project-detail/components/project-transcription/components/edit-transcription-dialog/edit-transcription-dialog.component.html",
+        "hash": "5390140870859003669"
+      },
+      {
+        "file": "src/app/modules/project-detail/components/project-transcription/components/edit-transcription-dialog/edit-transcription-dialog.component.scss",
+        "hash": "14788498245344571348"
+      },
+      {
+        "file": "src/app/modules/project-detail/components/project-transcription/components/edit-transcription-dialog/edit-transcription-dialog.component.ts",
+        "hash": "6977956849630763257"
+      },
+      {
+        "file": "src/app/modules/project-detail/components/project-transcription/components/transcription/transcription.component.html",
+        "hash": "12769643500838711815"
+      },
+      {
+        "file": "src/app/modules/project-detail/components/project-transcription/components/transcription/transcription.component.scss",
+        "hash": "18223855214936452535"
+      },
+      {
+        "file": "src/app/modules/project-detail/components/project-transcription/components/transcription/transcription.component.ts",
+        "hash": "6847637657529781978"
+      },
+      {
+        "file": "src/app/modules/project-detail/components/project-transcription/project-transcription.component.html",
+        "hash": "9757686592652088414"
+      },
+      {
+        "file": "src/app/modules/project-detail/components/project-transcription/project-transcription.component.scss",
+        "hash": "14677461396789725501"
+      },
+      {
+        "file": "src/app/modules/project-detail/components/project-transcription/project-transcription.component.ts",
+        "hash": "6977988003288089083"
+      },
+      {
+        "file": "src/app/modules/project-detail/components/upload-additional-content/upload-additional-content.component.html",
+        "hash": "16898952163319096251"
+      },
+      {
+        "file": "src/app/modules/project-detail/components/upload-additional-content/upload-additional-content.component.scss",
+        "hash": "11243576600625762215"
+      },
+      {
+        "file": "src/app/modules/project-detail/components/upload-additional-content/upload-additional-content.component.spec.ts",
+        "hash": "12232952168433201520"
+      },
+      {
+        "file": "src/app/modules/project-detail/components/upload-additional-content/upload-additional-content.component.ts",
+        "hash": "2739236700156015522"
+      },
+      {
+        "file": "src/app/modules/project-detail/project-detail.component.html",
+        "hash": "4860912403582537342"
+      },
+      {
+        "file": "src/app/modules/project-detail/project-detail.component.scss",
+        "hash": "11792012941737804711"
+      },
+      {
+        "file": "src/app/modules/project-detail/project-detail.component.spec.ts",
+        "hash": "10287121760296861932"
+      },
+      {
+        "file": "src/app/modules/project-detail/project-detail.component.ts",
+        "hash": "4112873723492247402"
+      },
+      {
+        "file": "src/app/pipes/duration-pipe/duration.pipe.spec.ts",
+        "hash": "9288071903656786390"
+      },
+      {
+        "file": "src/app/pipes/duration-pipe/duration.pipe.ts",
+        "hash": "14247353519787902759"
+      },
+      {
+        "file": "src/app/pipes/feature-enabled-pipe/feature-enabled.pipe.spec.ts",
+        "hash": "13605598708304956746"
+      },
+      {
+        "file": "src/app/pipes/feature-enabled-pipe/feature-enabled.pipe.ts",
+        "hash": "10345889975926777818"
+      },
+      {
+        "file": "src/app/pipes/format-date-pipe/format-date.pipe.spec.ts",
+        "hash": "12788973289392223517"
+      },
+      {
+        "file": "src/app/pipes/format-date-pipe/format-date.pipe.ts",
+        "hash": "1874847854223869328"
+      },
+      {
+        "file": "src/app/pipes/language-code-pipe/language-code.pipe.ts",
+        "hash": "17479413547734723517"
+      },
+      {
+        "file": "src/app/pipes/media-category-pipe/media-category.pipe.spec.ts",
+        "hash": "9542408552475470106"
+      },
+      {
+        "file": "src/app/pipes/media-category-pipe/media-category.pipe.ts",
+        "hash": "13981198784871622921"
+      },
+      {
+        "file": "src/app/pipes/project-status-pipe/project-status.pipe.ts",
+        "hash": "15885187741058318950"
+      },
+      {
+        "file": "src/app/pipes/time-difference-pipe/time-difference.pipe.ts",
+        "hash": "11895084485089610548"
+      },
+      {
+        "file": "src/app/pipes/written-out-language-pipe/written-out-language.pipe.ts",
+        "hash": "15525928724228308590"
+      },
+      {
+        "file": "src/app/routes/auth/auth.component.html",
+        "hash": "18343726330503107121"
+      },
+      {
+        "file": "src/app/routes/auth/auth.component.scss",
+        "hash": "16523497912382925429"
+      },
+      {
+        "file": "src/app/routes/auth/auth.component.spec.ts",
+        "hash": "13375596492221712786"
+      },
+      {
+        "file": "src/app/routes/auth/auth.component.ts",
+        "hash": "13008320798557681825"
+      },
+      {
+        "file": "src/app/routes/auth/auth.routes.ts",
+        "hash": "2261365143557722336"
+      },
+      {
+        "file": "src/app/routes/auth/components/login/login.component.html",
+        "hash": "1361514486539476650"
+      },
+      {
+        "file": "src/app/routes/auth/components/login/login.component.scss",
+        "hash": "12681154896981901589"
+      },
+      {
+        "file": "src/app/routes/auth/components/login/login.component.spec.ts",
+        "hash": "7703699709385901468"
+      },
+      {
+        "file": "src/app/routes/auth/components/login/login.component.ts",
+        "hash": "7161614733029981374"
+      },
+      {
+        "file": "src/app/routes/auth/components/password-reset/password-reset.component.html",
+        "hash": "15752485991544712843"
+      },
+      {
+        "file": "src/app/routes/auth/components/password-reset/password-reset.component.scss",
+        "hash": "3244421341483603138"
+      },
+      {
+        "file": "src/app/routes/auth/components/password-reset/password-reset.component.spec.ts",
+        "hash": "840187143889430223"
+      },
+      {
+        "file": "src/app/routes/auth/components/password-reset/password-reset.component.ts",
+        "hash": "7335599349033950025"
+      },
+      {
+        "file": "src/app/routes/auth/components/register/register.component.html",
+        "hash": "16634747250507542599"
+      },
+      {
+        "file": "src/app/routes/auth/components/register/register.component.scss",
+        "hash": "12681154896981901589"
+      },
+      {
+        "file": "src/app/routes/auth/components/register/register.component.spec.ts",
+        "hash": "11887262562071383246"
+      },
+      {
+        "file": "src/app/routes/auth/components/register/register.component.ts",
+        "hash": "10365847581030268818"
+      },
+      {
+        "file": "src/app/routes/home/editor/components/captions/caption/caption-actions/caption-actions.component.html",
+        "hash": "872826480923698549"
+      },
+      {
+        "file": "src/app/routes/home/editor/components/captions/caption/caption-actions/caption-actions.component.scss",
+        "hash": "17212031260548312786"
+      },
+      {
+        "file": "src/app/routes/home/editor/components/captions/caption/caption-actions/caption-actions.component.spec.ts",
+        "hash": "4750352191193037602"
+      },
+      {
+        "file": "src/app/routes/home/editor/components/captions/caption/caption-actions/caption-actions.component.ts",
+        "hash": "2749675078988997607"
+      },
+      {
+        "file": "src/app/routes/home/editor/components/captions/caption/caption-actions/caption-delete-confirm-modal/caption-delete-confirm-modal.component.html",
+        "hash": "6728745934934085946"
+      },
+      {
+        "file": "src/app/routes/home/editor/components/captions/caption/caption-actions/caption-delete-confirm-modal/caption-delete-confirm-modal.component.scss",
+        "hash": "13186003593562826963"
+      },
+      {
+        "file": "src/app/routes/home/editor/components/captions/caption/caption-actions/caption-delete-confirm-modal/caption-delete-confirm-modal.component.spec.ts",
+        "hash": "8717130843382715972"
+      },
+      {
+        "file": "src/app/routes/home/editor/components/captions/caption/caption-actions/caption-delete-confirm-modal/caption-delete-confirm-modal.component.ts",
+        "hash": "5811549262257326261"
+      },
+      {
+        "file": "src/app/routes/home/editor/components/captions/caption/caption-actions/caption-history-modal/caption-history-modal.component.html",
+        "hash": "14868636317028933839"
+      },
+      {
+        "file": "src/app/routes/home/editor/components/captions/caption/caption-actions/caption-history-modal/caption-history-modal.component.scss",
+        "hash": "9269423279123111647"
+      },
+      {
+        "file": "src/app/routes/home/editor/components/captions/caption/caption-actions/caption-history-modal/caption-history-modal.component.spec.ts",
+        "hash": "1637595531695952780"
+      },
+      {
+        "file": "src/app/routes/home/editor/components/captions/caption/caption-actions/caption-history-modal/caption-history-modal.component.ts",
+        "hash": "5377449708594183373"
+      },
+      {
+        "file": "src/app/routes/home/editor/components/captions/caption/caption-speaker/caption-speaker.component.html",
+        "hash": "16289191724108581776"
+      },
+      {
+        "file": "src/app/routes/home/editor/components/captions/caption/caption-speaker/caption-speaker.component.scss",
+        "hash": "7181028352432970006"
+      },
+      {
+        "file": "src/app/routes/home/editor/components/captions/caption/caption-speaker/caption-speaker.component.spec.ts",
+        "hash": "16314648955809546183"
+      },
+      {
+        "file": "src/app/routes/home/editor/components/captions/caption/caption-speaker/caption-speaker.component.ts",
+        "hash": "4775493325235950800"
+      },
+      {
+        "file": "src/app/routes/home/editor/components/captions/caption/caption-speaker/edit-speaker-modal/edit-speaker-modal.component.html",
+        "hash": "12683499195960788313"
+      },
+      {
+        "file": "src/app/routes/home/editor/components/captions/caption/caption-speaker/edit-speaker-modal/edit-speaker-modal.component.scss",
+        "hash": "12551022393712141701"
+      },
+      {
+        "file": "src/app/routes/home/editor/components/captions/caption/caption-speaker/edit-speaker-modal/edit-speaker-modal.component.ts",
+        "hash": "2482171438880854996"
+      },
+      {
+        "file": "src/app/routes/home/editor/components/captions/caption/caption-text/caption-text.component.html",
+        "hash": "11455749802094827582"
+      },
+      {
+        "file": "src/app/routes/home/editor/components/captions/caption/caption-text/caption-text.component.scss",
+        "hash": "14473467391053112864"
+      },
+      {
+        "file": "src/app/routes/home/editor/components/captions/caption/caption-text/caption-text.component.spec.ts",
+        "hash": "3486754840623302967"
+      },
+      {
+        "file": "src/app/routes/home/editor/components/captions/caption/caption-text/caption-text.component.ts",
+        "hash": "16517234436612499278"
+      },
+      {
+        "file": "src/app/routes/home/editor/components/captions/caption/caption-time/caption-time.component.html",
+        "hash": "4506924428154537262"
+      },
+      {
+        "file": "src/app/routes/home/editor/components/captions/caption/caption-time/caption-time.component.scss",
+        "hash": "3290643950171179981"
+      },
+      {
+        "file": "src/app/routes/home/editor/components/captions/caption/caption-time/caption-time.component.spec.ts",
+        "hash": "4772521808507988229"
+      },
+      {
+        "file": "src/app/routes/home/editor/components/captions/caption/caption-time/caption-time.component.ts",
+        "hash": "18333675827984653509"
+      },
+      {
+        "file": "src/app/routes/home/editor/components/captions/caption/caption.component.html",
+        "hash": "11154458779595441878"
+      },
+      {
+        "file": "src/app/routes/home/editor/components/captions/caption/caption.component.scss",
+        "hash": "11643943744632171396"
+      },
+      {
+        "file": "src/app/routes/home/editor/components/captions/caption/caption.component.spec.ts",
+        "hash": "12468687460226625275"
+      },
+      {
+        "file": "src/app/routes/home/editor/components/captions/caption/caption.component.ts",
+        "hash": "7484230327596798240"
+      },
+      {
+        "file": "src/app/routes/home/editor/components/captions/captions.component.html",
+        "hash": "15810127376166882532"
+      },
+      {
+        "file": "src/app/routes/home/editor/components/captions/captions.component.scss",
+        "hash": "11981190294774400355"
+      },
+      {
+        "file": "src/app/routes/home/editor/components/captions/captions.component.spec.ts",
+        "hash": "1927308009852511006"
+      },
+      {
+        "file": "src/app/routes/home/editor/components/captions/captions.component.ts",
+        "hash": "1201557255342311364"
+      },
+      {
+        "file": "src/app/routes/home/editor/components/captions/edit-speaker-modal/edit-speaker-modal.component.html",
+        "hash": "12683499195960788313"
+      },
+      {
+        "file": "src/app/routes/home/editor/components/captions/edit-speaker-modal/edit-speaker-modal.component.scss",
+        "hash": "12551022393712141701"
+      },
+      {
+        "file": "src/app/routes/home/editor/components/captions/edit-speaker-modal/edit-speaker-modal.component.ts",
+        "hash": "10446942508858236205"
+      },
+      {
+        "file": "src/app/routes/home/editor/components/editor-settings/editor-settings.component.html",
+        "hash": "7688562985387211566"
+      },
+      {
+        "file": "src/app/routes/home/editor/components/editor-settings/editor-settings.component.scss",
+        "hash": "16337213683720674453"
+      },
+      {
+        "file": "src/app/routes/home/editor/components/editor-settings/editor-settings.component.spec.ts",
+        "hash": "4619666680519087516"
+      },
+      {
+        "file": "src/app/routes/home/editor/components/editor-settings/editor-settings.component.ts",
+        "hash": "10933890385019223022"
+      },
+      {
+        "file": "src/app/routes/home/editor/components/join-livestream-modal/join-livestream-modal.component.html",
+        "hash": "15524992025665329975"
+      },
+      {
+        "file": "src/app/routes/home/editor/components/join-livestream-modal/join-livestream-modal.component.scss",
+        "hash": "11792012941737804711"
+      },
+      {
+        "file": "src/app/routes/home/editor/components/join-livestream-modal/join-livestream-modal.component.spec.ts",
+        "hash": "1757332662503288954"
+      },
+      {
+        "file": "src/app/routes/home/editor/components/join-livestream-modal/join-livestream-modal.component.ts",
+        "hash": "2328855781663903749"
+      },
+      {
+        "file": "src/app/routes/home/editor/components/live-controls/live-controls.component.html",
+        "hash": "9635391641384903984"
+      },
+      {
+        "file": "src/app/routes/home/editor/components/live-controls/live-controls.component.scss",
+        "hash": "13278482548412648271"
+      },
+      {
+        "file": "src/app/routes/home/editor/components/live-controls/live-controls.component.spec.ts",
+        "hash": "18010929784630093329"
+      },
+      {
+        "file": "src/app/routes/home/editor/components/live-controls/live-controls.component.ts",
+        "hash": "4478884799580755137"
+      },
+      {
+        "file": "src/app/routes/home/editor/components/user-test-controls/user-test-controls.component.html",
+        "hash": "12807060284084207991"
+      },
+      {
+        "file": "src/app/routes/home/editor/components/user-test-controls/user-test-controls.component.scss",
+        "hash": "16326527812300679117"
+      },
+      {
+        "file": "src/app/routes/home/editor/components/user-test-controls/user-test-controls.component.spec.ts",
+        "hash": "8396465836119096522"
+      },
+      {
+        "file": "src/app/routes/home/editor/components/user-test-controls/user-test-controls.component.ts",
+        "hash": "8987633443027903471"
+      },
+      {
+        "file": "src/app/routes/home/editor/components/video-player/video-player-media-element/video-player-media-element.component.html",
+        "hash": "6166532792946086278"
+      },
+      {
+        "file": "src/app/routes/home/editor/components/video-player/video-player-media-element/video-player-media-element.component.scss",
+        "hash": "17181463482164811724"
+      },
+      {
+        "file": "src/app/routes/home/editor/components/video-player/video-player-media-element/video-player-media-element.component.spec.ts",
+        "hash": "5246374971526590235"
+      },
+      {
+        "file": "src/app/routes/home/editor/components/video-player/video-player-media-element/video-player-media-element.component.ts",
+        "hash": "17623504608112332923"
+      },
+      {
+        "file": "src/app/routes/home/editor/components/video-player/video-player.component.html",
+        "hash": "11120045818954166340"
+      },
+      {
+        "file": "src/app/routes/home/editor/components/video-player/video-player.component.scss",
+        "hash": "14233029405172500525"
+      },
+      {
+        "file": "src/app/routes/home/editor/components/video-player/video-player.component.spec.ts",
+        "hash": "16741702312701795445"
+      },
+      {
+        "file": "src/app/routes/home/editor/components/video-player/video-player.component.ts",
+        "hash": "13995212857060106077"
+      },
+      {
+        "file": "src/app/routes/home/editor/components/waveform/resize/resize.directive.spec.ts",
+        "hash": "11208509525765706310"
+      },
+      {
+        "file": "src/app/routes/home/editor/components/waveform/resize/resize.directive.ts",
+        "hash": "541565809145258081"
+      },
+      {
+        "file": "src/app/routes/home/editor/components/waveform/waveform-canvas/waveform-canvas.component.html",
+        "hash": "3147640698979288842"
+      },
+      {
+        "file": "src/app/routes/home/editor/components/waveform/waveform-canvas/waveform-canvas.component.scss",
+        "hash": "1005344457491861301"
+      },
+      {
+        "file": "src/app/routes/home/editor/components/waveform/waveform-canvas/waveform-canvas.component.spec.ts",
+        "hash": "14953004729486272402"
+      },
+      {
+        "file": "src/app/routes/home/editor/components/waveform/waveform-canvas/waveform-canvas.component.ts",
+        "hash": "12013021306996446295"
+      },
+      {
+        "file": "src/app/routes/home/editor/components/waveform/waveform-captions/waveform-captions.component.html",
+        "hash": "421952197631123284"
+      },
+      {
+        "file": "src/app/routes/home/editor/components/waveform/waveform-captions/waveform-captions.component.scss",
+        "hash": "11111416066665999915"
+      },
+      {
+        "file": "src/app/routes/home/editor/components/waveform/waveform-captions/waveform-captions.component.spec.ts",
+        "hash": "17558227936823894895"
+      },
+      {
+        "file": "src/app/routes/home/editor/components/waveform/waveform-captions/waveform-captions.component.ts",
+        "hash": "9651007883626040300"
+      },
+      {
+        "file": "src/app/routes/home/editor/components/waveform/waveform.component.html",
+        "hash": "5256162036867714440"
+      },
+      {
+        "file": "src/app/routes/home/editor/components/waveform/waveform.component.scss",
+        "hash": "2584667339064746708"
+      },
+      {
+        "file": "src/app/routes/home/editor/components/waveform/waveform.component.spec.ts",
+        "hash": "10346286432619758532"
+      },
+      {
+        "file": "src/app/routes/home/editor/components/waveform/waveform.component.ts",
+        "hash": "3993156026323485047"
+      },
+      {
+        "file": "src/app/routes/home/editor/components/waveform/waveform.service.spec.ts",
+        "hash": "2589394282402699876"
+      },
+      {
+        "file": "src/app/routes/home/editor/components/waveform/waveform.service.ts",
+        "hash": "13720212954297611272"
+      },
+      {
+        "file": "src/app/routes/home/editor/dialog-help-editor/dialog-help-editor.component.html",
+        "hash": "10858292997305561603"
+      },
+      {
+        "file": "src/app/routes/home/editor/dialog-help-editor/dialog-help-editor.component.scss",
+        "hash": "8366493997637947685"
+      },
+      {
+        "file": "src/app/routes/home/editor/dialog-help-editor/dialog-help-editor.component.ts",
+        "hash": "13935966003852508416"
+      },
+      {
+        "file": "src/app/routes/home/editor/editor.component.html",
+        "hash": "18255304168740757048"
+      },
+      {
+        "file": "src/app/routes/home/editor/editor.component.scss",
+        "hash": "4718011853892997980"
+      },
+      {
+        "file": "src/app/routes/home/editor/editor.component.spec.ts",
+        "hash": "12088753356642594558"
+      },
+      {
+        "file": "src/app/routes/home/editor/editor.component.ts",
+        "hash": "11326788434400628504"
+      },
+      {
+        "file": "src/app/routes/home/editor/editor.routes.ts",
+        "hash": "9961002914916976786"
+      },
+      {
+        "file": "src/app/routes/home/editor/services/media/media.service.spec.ts",
+        "hash": "18363466254516059031"
+      },
+      {
+        "file": "src/app/routes/home/editor/services/media/media.service.ts",
+        "hash": "13989829128746098349"
+      },
+      {
+        "file": "src/app/routes/home/home.component.html",
+        "hash": "17816966185630879015"
+      },
+      {
+        "file": "src/app/routes/home/home.component.scss",
+        "hash": "3244421341483603138"
+      },
+      {
+        "file": "src/app/routes/home/home.component.spec.ts",
+        "hash": "6056741223806947421"
+      },
+      {
+        "file": "src/app/routes/home/home.component.ts",
+        "hash": "6440752342769637003"
+      },
+      {
+        "file": "src/app/routes/home/home.routes.ts",
+        "hash": "749614946247160878"
+      },
+      {
+        "file": "src/app/routes/home/livestream/livestream.component.html",
+        "hash": "14784237557958027193"
+      },
+      {
+        "file": "src/app/routes/home/livestream/livestream.component.scss",
+        "hash": "6486113232159409821"
+      },
+      {
+        "file": "src/app/routes/home/livestream/livestream.component.spec.ts",
+        "hash": "4668369435204575722"
+      },
+      {
+        "file": "src/app/routes/home/livestream/livestream.component.ts",
+        "hash": "8570541353398394876"
+      },
+      {
+        "file": "src/app/routes/home/livestream/livestream.routes.ts",
+        "hash": "16731276186644712446"
+      },
+      {
+        "file": "src/app/routes/home/livestream/livestream.service.spec.ts",
+        "hash": "566485522744354624"
+      },
+      {
+        "file": "src/app/routes/home/livestream/livestream.service.ts",
+        "hash": "16514870877722461392"
+      },
+      {
+        "file": "src/app/routes/home/notification-list/notification-list.component.html",
+        "hash": "18053922143749954149"
+      },
+      {
+        "file": "src/app/routes/home/notification-list/notification-list.component.scss",
+        "hash": "10573226344696000866"
+      },
+      {
+        "file": "src/app/routes/home/notification-list/notification-list.component.ts",
+        "hash": "4536390242079405080"
+      },
+      {
+        "file": "src/app/routes/home/notification-list/notification-list.routes.ts",
+        "hash": "12001754356618821364"
+      },
+      {
+        "file": "src/app/routes/home/profile/profile.component.html",
+        "hash": "1317943195230290493"
+      },
+      {
+        "file": "src/app/routes/home/profile/profile.component.scss",
+        "hash": "14178179620769527869"
+      },
+      {
+        "file": "src/app/routes/home/profile/profile.component.spec.ts",
+        "hash": "4393158102722868685"
+      },
+      {
+        "file": "src/app/routes/home/profile/profile.component.ts",
+        "hash": "8209002647461147821"
+      },
+      {
+        "file": "src/app/routes/home/profile/profile.routes.ts",
+        "hash": "9568930678758424800"
+      },
+      {
+        "file": "src/app/routes/home/project-list/dialog-create-project/components/project-asr-form/project-asr-form.component.html",
+        "hash": "11036322591095471645"
+      },
+      {
+        "file": "src/app/routes/home/project-list/dialog-create-project/components/project-asr-form/project-asr-form.component.scss",
+        "hash": "8141068460666479186"
+      },
+      {
+        "file": "src/app/routes/home/project-list/dialog-create-project/components/project-asr-form/project-asr-form.component.ts",
+        "hash": "8021916986983802932"
+      },
+      {
+        "file": "src/app/routes/home/project-list/dialog-create-project/components/project-live-form/project-live-form.component.html",
+        "hash": "12723554510406957245"
+      },
+      {
+        "file": "src/app/routes/home/project-list/dialog-create-project/components/project-live-form/project-live-form.component.scss",
+        "hash": "3099741606496184878"
+      },
+      {
+        "file": "src/app/routes/home/project-list/dialog-create-project/components/project-live-form/project-live-form.component.ts",
+        "hash": "14560664427268161858"
+      },
+      {
+        "file": "src/app/routes/home/project-list/dialog-create-project/components/project-metadata-form/project-metadata-form.component.html",
+        "hash": "4169594817861723716"
+      },
+      {
+        "file": "src/app/routes/home/project-list/dialog-create-project/components/project-metadata-form/project-metadata-form.component.scss",
+        "hash": "2920654784901421587"
+      },
+      {
+        "file": "src/app/routes/home/project-list/dialog-create-project/components/project-metadata-form/project-metadata-form.component.ts",
+        "hash": "8816033431823784407"
+      },
+      {
+        "file": "src/app/routes/home/project-list/dialog-create-project/components/project-overview-form/project-overview-form.component.html",
+        "hash": "11533121206840672542"
+      },
+      {
+        "file": "src/app/routes/home/project-list/dialog-create-project/components/project-overview-form/project-overview-form.component.scss",
+        "hash": "7070471828893723039"
+      },
+      {
+        "file": "src/app/routes/home/project-list/dialog-create-project/components/project-overview-form/project-overview-form.component.ts",
+        "hash": "1942520529451436768"
+      },
+      {
+        "file": "src/app/routes/home/project-list/dialog-create-project/components/project-source-form/project-source-form.component.html",
+        "hash": "15665174433778427478"
+      },
+      {
+        "file": "src/app/routes/home/project-list/dialog-create-project/components/project-source-form/project-source-form.component.scss",
+        "hash": "8351922408346085875"
+      },
+      {
+        "file": "src/app/routes/home/project-list/dialog-create-project/components/project-source-form/project-source-form.component.ts",
+        "hash": "616276177840747219"
+      },
+      {
+        "file": "src/app/routes/home/project-list/dialog-create-project/components/project-video-form/project-video-form.component.html",
+        "hash": "6757168158676653686"
+      },
+      {
+        "file": "src/app/routes/home/project-list/dialog-create-project/components/project-video-form/project-video-form.component.scss",
+        "hash": "1008025675944401400"
+      },
+      {
+        "file": "src/app/routes/home/project-list/dialog-create-project/components/project-video-form/project-video-form.component.ts",
+        "hash": "13885270522461627799"
+      },
+      {
+        "file": "src/app/routes/home/project-list/dialog-create-project/dialog-create-project.component.html",
+        "hash": "12491247247668892267"
+      },
+      {
+        "file": "src/app/routes/home/project-list/dialog-create-project/dialog-create-project.component.scss",
+        "hash": "1395787995056155735"
+      },
+      {
+        "file": "src/app/routes/home/project-list/dialog-create-project/dialog-create-project.component.ts",
+        "hash": "912827566363383567"
+      },
+      {
+        "file": "src/app/routes/home/project-list/dialog-create-project/dialog-create-project.interfaces.ts",
+        "hash": "5099673253708044806"
+      },
+      {
+        "file": "src/app/routes/home/project-list/dialog-create-project/dialog-create-project.utils.ts",
+        "hash": "10048004249225963168"
+      },
+      {
+        "file": "src/app/routes/home/project-list/project-list.component.html",
+        "hash": "15257227141614123085"
+      },
+      {
+        "file": "src/app/routes/home/project-list/project-list.component.scss",
+        "hash": "13573013047062900530"
+      },
+      {
+        "file": "src/app/routes/home/project-list/project-list.component.spec.ts",
+        "hash": "16499263359208718041"
+      },
+      {
+        "file": "src/app/routes/home/project-list/project-list.component.ts",
+        "hash": "224902654967291450"
+      },
+      {
+        "file": "src/app/routes/home/project-list/project-list.routes.ts",
+        "hash": "8865747939564727795"
+      },
+      {
+        "file": "src/app/routes/home/viewer/components/adjust-layout-dialog/adjust-layout-dialog.component.html",
+        "hash": "5145421537618645721"
+      },
+      {
+        "file": "src/app/routes/home/viewer/components/adjust-layout-dialog/adjust-layout-dialog.component.scss",
+        "hash": "18355815097714034772"
+      },
+      {
+        "file": "src/app/routes/home/viewer/components/adjust-layout-dialog/adjust-layout-dialog.component.spec.ts",
+        "hash": "8120017833755457256"
+      },
+      {
+        "file": "src/app/routes/home/viewer/components/adjust-layout-dialog/adjust-layout-dialog.component.ts",
+        "hash": "11287830094520701733"
+      },
+      {
+        "file": "src/app/routes/home/viewer/components/captions-settings-dialog/captions-settings-dialog.component.html",
+        "hash": "5771654971803507944"
+      },
+      {
+        "file": "src/app/routes/home/viewer/components/captions-settings-dialog/captions-settings-dialog.component.scss",
+        "hash": "12800598904812415997"
+      },
+      {
+        "file": "src/app/routes/home/viewer/components/captions-settings-dialog/captions-settings-dialog.component.spec.ts",
+        "hash": "12924679802967123890"
+      },
+      {
+        "file": "src/app/routes/home/viewer/components/captions-settings-dialog/captions-settings-dialog.component.ts",
+        "hash": "9081935392083604772"
+      },
+      {
+        "file": "src/app/routes/home/viewer/components/highlight-pipe/highlight.pipe.spec.ts",
+        "hash": "15963004408304250891"
+      },
+      {
+        "file": "src/app/routes/home/viewer/components/highlight-pipe/highlight.pipe.ts",
+        "hash": "2949351308023280334"
+      },
+      {
+        "file": "src/app/routes/home/viewer/components/infobox/infobox.component.html",
+        "hash": "3940513825255669441"
+      },
+      {
+        "file": "src/app/routes/home/viewer/components/infobox/infobox.component.scss",
+        "hash": "11419007529513389440"
+      },
+      {
+        "file": "src/app/routes/home/viewer/components/infobox/infobox.component.spec.ts",
+        "hash": "8642626539512522517"
+      },
+      {
+        "file": "src/app/routes/home/viewer/components/infobox/infobox.component.ts",
+        "hash": "16843775580395333539"
+      },
+      {
+        "file": "src/app/routes/home/viewer/components/player/controls/controls.component.html",
+        "hash": "17759080089994013290"
+      },
+      {
+        "file": "src/app/routes/home/viewer/components/player/controls/controls.component.scss",
+        "hash": "16115752102611761911"
+      },
+      {
+        "file": "src/app/routes/home/viewer/components/player/controls/controls.component.spec.ts",
+        "hash": "1782422439977718017"
+      },
+      {
+        "file": "src/app/routes/home/viewer/components/player/controls/controls.component.ts",
+        "hash": "4450214681897950264"
+      },
+      {
+        "file": "src/app/routes/home/viewer/components/player/player.component.html",
+        "hash": "18274796640756617616"
+      },
+      {
+        "file": "src/app/routes/home/viewer/components/player/player.component.scss",
+        "hash": "9526535744529611738"
+      },
+      {
+        "file": "src/app/routes/home/viewer/components/player/player.component.spec.ts",
+        "hash": "9388418327183738555"
+      },
+      {
+        "file": "src/app/routes/home/viewer/components/player/player.component.ts",
+        "hash": "13606862337552256076"
+      },
+      {
+        "file": "src/app/routes/home/viewer/components/player/video-container/video-container.component.html",
+        "hash": "14993055681761215535"
+      },
+      {
+        "file": "src/app/routes/home/viewer/components/player/video-container/video-container.component.scss",
+        "hash": "16176480847347034969"
+      },
+      {
+        "file": "src/app/routes/home/viewer/components/player/video-container/video-container.component.spec.ts",
+        "hash": "11951949604428256547"
+      },
+      {
+        "file": "src/app/routes/home/viewer/components/player/video-container/video-container.component.ts",
+        "hash": "16229635134501414762"
+      },
+      {
+        "file": "src/app/routes/home/viewer/components/transcript/transcript.component.html",
+        "hash": "8650592319242638397"
+      },
+      {
+        "file": "src/app/routes/home/viewer/components/transcript/transcript.component.scss",
+        "hash": "8207504156128015947"
+      },
+      {
+        "file": "src/app/routes/home/viewer/components/transcript/transcript.component.spec.ts",
+        "hash": "1813919736029620450"
+      },
+      {
+        "file": "src/app/routes/home/viewer/components/transcript/transcript.component.ts",
+        "hash": "12536273755608886252"
+      },
+      {
+        "file": "src/app/routes/home/viewer/viewer.component.html",
+        "hash": "9240226991954428209"
+      },
+      {
+        "file": "src/app/routes/home/viewer/viewer.component.scss",
+        "hash": "2396897197603193019"
+      },
+      {
+        "file": "src/app/routes/home/viewer/viewer.component.spec.ts",
+        "hash": "13552283552729262435"
+      },
+      {
+        "file": "src/app/routes/home/viewer/viewer.component.ts",
+        "hash": "4458591319406637958"
+      },
+      {
+        "file": "src/app/routes/home/viewer/viewer.interfaces.ts",
+        "hash": "550082010918798705"
+      },
+      {
+        "file": "src/app/routes/home/viewer/viewer.routes.ts",
+        "hash": "17580619483354042474"
+      },
+      {
+        "file": "src/app/routes/home/viewer/viewer.service.spec.ts",
+        "hash": "17706099030986468378"
+      },
+      {
+        "file": "src/app/routes/home/viewer/viewer.service.ts",
+        "hash": "15648199334808770640"
+      },
+      {
+        "file": "src/app/routes/invite/components/guest-login/guest-login-dialog.component.html",
+        "hash": "12734923321537662412"
+      },
+      {
+        "file": "src/app/routes/invite/components/guest-login/guest-login-dialog.component.scss",
+        "hash": "11792012941737804711"
+      },
+      {
+        "file": "src/app/routes/invite/components/guest-login/guest-login-dialog.component.spec.ts",
+        "hash": "2789966944082482461"
+      },
+      {
+        "file": "src/app/routes/invite/components/guest-login/guest-login-dialog.component.ts",
+        "hash": "16532916706068353771"
+      },
+      {
+        "file": "src/app/routes/invite/invite.component.html",
+        "hash": "12191030807123966581"
+      },
+      {
+        "file": "src/app/routes/invite/invite.component.scss",
+        "hash": "13341956289612115954"
+      },
+      {
+        "file": "src/app/routes/invite/invite.component.spec.ts",
+        "hash": "1300573761059367600"
+      },
+      {
+        "file": "src/app/routes/invite/invite.component.ts",
+        "hash": "2067449784643404122"
+      },
+      {
+        "file": "src/app/routes/invite/invite.routes.ts",
+        "hash": "994605014978694709"
+      },
+      {
+        "file": "src/app/routes/invite/temp",
+        "hash": "4295748248347164711"
+      },
+      {
+        "file": "src/app/services/alert/alert.interfaces.ts",
+        "hash": "10435198749055234652"
+      },
+      {
+        "file": "src/app/services/alert/alert.service.spec.ts",
+        "hash": "13100053292442603514"
+      },
+      {
+        "file": "src/app/services/alert/alert.service.ts",
+        "hash": "3329967048626154576"
+      },
+      {
+        "file": "src/app/services/api/api.service.ts",
+        "hash": "14819591300332193693"
+      },
+      {
+        "file": "src/app/services/api/dto/auth.dto.ts",
+        "hash": "12307303208865218611"
+      },
+      {
+        "file": "src/app/services/api/dto/bulk-remove.dto.ts",
+        "hash": "10839702637421742475"
+      },
+      {
+        "file": "src/app/services/api/dto/connect-livestream.dto.ts",
+        "hash": "9911081127924588498"
+      },
+      {
+        "file": "src/app/services/api/dto/create-caption.dto.ts",
+        "hash": "5484378526785413502"
+      },
+      {
+        "file": "src/app/services/api/dto/create-project.dto.ts",
+        "hash": "4684049755032736909"
+      },
+      {
+        "file": "src/app/services/api/dto/create-speakers.dto.ts",
+        "hash": "16692708536135780274"
+      },
+      {
+        "file": "src/app/services/api/dto/create-transcription.dto.ts",
+        "hash": "4804581667169622804"
+      },
+      {
+        "file": "src/app/services/api/dto/pause-livestream.dto.ts",
+        "hash": "3203887329107556083"
+      },
+      {
+        "file": "src/app/services/api/dto/pause-recording,dto.ts",
+        "hash": "8939789458385040918"
+      },
+      {
+        "file": "src/app/services/api/dto/resume-livestream.dto.ts",
+        "hash": "14870895456141218615"
+      },
+      {
+        "file": "src/app/services/api/dto/resume-recording.dto.ts",
+        "hash": "7726038507995817317"
+      },
+      {
+        "file": "src/app/services/api/dto/start-livestream.dto.ts",
+        "hash": "8869850744114718576"
+      },
+      {
+        "file": "src/app/services/api/dto/start-recording.dto.ts",
+        "hash": "3523071720013393195"
+      },
+      {
+        "file": "src/app/services/api/dto/stop-livestream.dto.ts",
+        "hash": "7391441657847203634"
+      },
+      {
+        "file": "src/app/services/api/dto/stop-recording.dto.ts",
+        "hash": "9122818792302760026"
+      },
+      {
+        "file": "src/app/services/api/dto/update-caption.dto.ts",
+        "hash": "3480688491136591357"
+      },
+      {
+        "file": "src/app/services/api/dto/update-notification.dto.ts",
+        "hash": "7988150385955242200"
+      },
+      {
+        "file": "src/app/services/api/dto/update-project.dto.ts",
+        "hash": "9902673015258881004"
+      },
+      {
+        "file": "src/app/services/api/dto/update-speaker.dto.ts",
+        "hash": "1314005097773494863"
+      },
+      {
+        "file": "src/app/services/api/dto/update-transcription.dto.ts",
+        "hash": "13752490431130810872"
+      },
+      {
+        "file": "src/app/services/api/dto/upload-video.dto.ts",
+        "hash": "1672299752382878942"
+      },
+      {
+        "file": "src/app/services/api/entities/activitiy-list.entity.ts",
+        "hash": "4272346282931039152"
+      },
+      {
+        "file": "src/app/services/api/entities/activity.entity.ts",
+        "hash": "15718452037436582201"
+      },
+      {
+        "file": "src/app/services/api/entities/auth.entity.ts",
+        "hash": "3811717870464646506"
+      },
+      {
+        "file": "src/app/services/api/entities/caption-list.entity.ts",
+        "hash": "12288996692887455072"
+      },
+      {
+        "file": "src/app/services/api/entities/caption.entity.ts",
+        "hash": "10396878045860759704"
+      },
+      {
+        "file": "src/app/services/api/entities/config.entity.ts",
+        "hash": "14256205870882593288"
+      },
+      {
+        "file": "src/app/services/api/entities/connect-livestream.entity.ts",
+        "hash": "12816373824573050057"
+      },
+      {
+        "file": "src/app/services/api/entities/notification-list.entity.ts",
+        "hash": "5702004751073106351"
+      },
+      {
+        "file": "src/app/services/api/entities/notification.entity.ts",
+        "hash": "4868864894749698379"
+      },
+      {
+        "file": "src/app/services/api/entities/pause-livestream.entity.ts",
+        "hash": "13429947121392689441"
+      },
+      {
+        "file": "src/app/services/api/entities/pause-recording,entity.ts",
+        "hash": "4324464105086978085"
+      },
+      {
+        "file": "src/app/services/api/entities/project-invite-token.entity.ts",
+        "hash": "9643863390137964763"
+      },
+      {
+        "file": "src/app/services/api/entities/project-list.entity.ts",
+        "hash": "8431036029832119209"
+      },
+      {
+        "file": "src/app/services/api/entities/project.entity.ts",
+        "hash": "1319751582585984097"
+      },
+      {
+        "file": "src/app/services/api/entities/resume-livestream.entity.ts",
+        "hash": "8981951199142556899"
+      },
+      {
+        "file": "src/app/services/api/entities/resume-recording.ts",
+        "hash": "17105509423649082354"
+      },
+      {
+        "file": "src/app/services/api/entities/start-livestream.entity.ts",
+        "hash": "11424216388300807903"
+      },
+      {
+        "file": "src/app/services/api/entities/start-recording.entity.ts",
+        "hash": "15933061054783347604"
+      },
+      {
+        "file": "src/app/services/api/entities/stop-livestream.entity.ts",
+        "hash": "17350784769098180253"
+      },
+      {
+        "file": "src/app/services/api/entities/stop-recording.entity.ts",
+        "hash": "2095674594884753201"
+      },
+      {
+        "file": "src/app/services/api/entities/transcription.entity.ts",
+        "hash": "12584634418720465849"
+      },
+      {
+        "file": "src/app/services/api/entities/user.entity.ts",
+        "hash": "9964488186588693958"
+      },
+      {
+        "file": "src/app/services/api/entities/waveform-data.entity.ts",
+        "hash": "18171368063175684531"
+      },
+      {
+        "file": "src/app/services/api/fake-api.service.ts",
+        "hash": "12248081167401990762"
+      },
+      {
+        "file": "src/app/services/api/mocks/auth.mock.ts",
+        "hash": "15950270055504311569"
+      },
+      {
+        "file": "src/app/services/api/real-api.service.ts",
+        "hash": "7423224397780832713"
+      },
+      {
+        "file": "src/app/services/app/app.service.spec.ts",
+        "hash": "2919785635943624648"
+      },
+      {
+        "file": "src/app/services/app/app.service.ts",
+        "hash": "11324161858426945775"
+      },
+      {
+        "file": "src/app/services/color/color.service.spec.ts",
+        "hash": "3862416320148762000"
+      },
+      {
+        "file": "src/app/services/color/color.service.ts",
+        "hash": "18397811275804006236"
+      },
+      {
+        "file": "src/app/services/create-project/create-project.service.ts",
+        "hash": "17185898342094862970"
+      },
+      {
+        "file": "src/app/services/storage/storage-key.enum.ts",
+        "hash": "5752717098463626735"
+      },
+      {
+        "file": "src/app/services/storage/storage.service.spec.ts",
+        "hash": "9858457675316039179"
+      },
+      {
+        "file": "src/app/services/storage/storage.service.ts",
+        "hash": "9097867210055179333"
+      },
+      {
+        "file": "src/app/services/ws/ws.interfaces.ts",
+        "hash": "15087894545020048020"
+      },
+      {
+        "file": "src/app/services/ws/ws.service.spec.ts",
+        "hash": "4422188791974546448"
+      },
+      {
+        "file": "src/app/services/ws/ws.service.ts",
+        "hash": "13373152441052598661"
+      },
+      {
+        "file": "src/app/store/actions/auth.actions.ts",
+        "hash": "13088239557745948133"
+      },
+      {
+        "file": "src/app/store/actions/captions.actions.ts",
+        "hash": "7850742937495321276"
+      },
+      {
+        "file": "src/app/store/actions/config.actions.ts",
+        "hash": "4154555060424159019"
+      },
+      {
+        "file": "src/app/store/actions/editor.actions.ts",
+        "hash": "6320637447063798335"
+      },
+      {
+        "file": "src/app/store/actions/notifications.actions.ts",
+        "hash": "8601920382591236410"
+      },
+      {
+        "file": "src/app/store/actions/projects.actions.ts",
+        "hash": "607158647958966953"
+      },
+      {
+        "file": "src/app/store/actions/transcriptions.actions.ts",
+        "hash": "5140495496415886922"
+      },
+      {
+        "file": "src/app/store/actions/user-test.actions.ts",
+        "hash": "17687737341682834126"
+      },
+      {
+        "file": "src/app/store/actions/viewer.actions.ts",
+        "hash": "2234293166355123674"
+      },
+      {
+        "file": "src/app/store/app.state.ts",
+        "hash": "10936870028071782262"
+      },
+      {
+        "file": "src/app/store/effects/auth.effects.ts",
+        "hash": "4481475402530170515"
+      },
+      {
+        "file": "src/app/store/effects/captions.effects.ts",
+        "hash": "9738775646875002803"
+      },
+      {
+        "file": "src/app/store/effects/config.effects.ts",
+        "hash": "846113018396239837"
+      },
+      {
+        "file": "src/app/store/effects/editor.effects.ts",
+        "hash": "465393211407791082"
+      },
+      {
+        "file": "src/app/store/effects/notifications.effects.ts",
+        "hash": "2772877504481037634"
+      },
+      {
+        "file": "src/app/store/effects/projects.effects.ts",
+        "hash": "14852606129412965366"
+      },
+      {
+        "file": "src/app/store/effects/transcriptions.effects.ts",
+        "hash": "13226291637931475921"
+      },
+      {
+        "file": "src/app/store/effects/user-test.effects.ts",
+        "hash": "1256053104144734689"
+      },
+      {
+        "file": "src/app/store/effects/viewer.effects.ts",
+        "hash": "15287943170086199121"
+      },
+      {
+        "file": "src/app/store/reducers/auth.reducer.ts",
+        "hash": "9808204186410641762"
+      },
+      {
+        "file": "src/app/store/reducers/captions.reducer.ts",
+        "hash": "13791701942126276770"
+      },
+      {
+        "file": "src/app/store/reducers/config.reducer.ts",
+        "hash": "11358369695734177576"
+      },
+      {
+        "file": "src/app/store/reducers/editor.reducer.ts",
+        "hash": "8160596284797163489"
+      },
+      {
+        "file": "src/app/store/reducers/notifications.reducer.ts",
+        "hash": "12822675683868918353"
+      },
+      {
+        "file": "src/app/store/reducers/projects.reducer.ts",
+        "hash": "9240506182869926765"
+      },
+      {
+        "file": "src/app/store/reducers/transcriptions.reducer.ts",
+        "hash": "4306337226817227486"
+      },
+      {
+        "file": "src/app/store/reducers/viewer.reducer.ts",
+        "hash": "8255186407190520657"
+      },
+      {
+        "file": "src/app/store/selectors/auth.selector.ts",
+        "hash": "14685432542265282816"
+      },
+      {
+        "file": "src/app/store/selectors/captions.selector.ts",
+        "hash": "7303731426722332705"
+      },
+      {
+        "file": "src/app/store/selectors/config.selector.ts",
+        "hash": "10041224637085475494"
+      },
+      {
+        "file": "src/app/store/selectors/editor.selector.ts",
+        "hash": "2328465756723322522"
+      },
+      {
+        "file": "src/app/store/selectors/notifications.selector.ts",
+        "hash": "17582649471535654717"
+      },
+      {
+        "file": "src/app/store/selectors/projects.selector.ts",
+        "hash": "7606124494523353093"
+      },
+      {
+        "file": "src/app/store/selectors/router.selectors.ts",
+        "hash": "15841305754149351284"
+      },
+      {
+        "file": "src/app/store/selectors/transcriptions.selector.ts",
+        "hash": "8987725268030809542"
+      },
+      {
+        "file": "src/app/store/selectors/viewer.selector.ts",
+        "hash": "3538453721173104095"
+      },
+      {
+        "file": "src/assets/add-caption.svg",
+        "hash": "4738362337797325654"
+      },
+      {
+        "file": "src/assets/icons/account.svg",
+        "hash": "15071324596763603330"
+      },
+      {
+        "file": "src/assets/icons/account2.svg",
+        "hash": "7293018485910860118"
+      },
+      {
+        "file": "src/assets/icons/add-circle.svg",
+        "hash": "16055565139576511614"
+      },
+      {
+        "file": "src/assets/icons/add.svg",
+        "hash": "12296780396388658402"
+      },
+      {
+        "file": "src/assets/icons/alert.svg",
+        "hash": "6988286376729875542"
+      },
+      {
+        "file": "src/assets/icons/arrow-down-simple.svg",
+        "hash": "16952420300839629092"
+      },
+      {
+        "file": "src/assets/icons/arrow-down.svg",
+        "hash": "798442005680360692"
+      },
+      {
+        "file": "src/assets/icons/arrow-up.svg",
+        "hash": "5150312384904832444"
+      },
+      {
+        "file": "src/assets/icons/bell.svg",
+        "hash": "8400895056947414938"
+      },
+      {
+        "file": "src/assets/icons/calendar-add.svg",
+        "hash": "6596357799101910127"
+      },
+      {
+        "file": "src/assets/icons/calendar-edit.svg",
+        "hash": "7487214740904490968"
+      },
+      {
+        "file": "src/assets/icons/caption_not_selected.svg",
+        "hash": "9500039185247738167"
+      },
+      {
+        "file": "src/assets/icons/caption_selected.svg",
+        "hash": "11262415853468846353"
+      },
+      {
+        "file": "src/assets/icons/check-all.svg",
+        "hash": "17758235482038673426"
+      },
+      {
+        "file": "src/assets/icons/clear.svg",
+        "hash": "13964407847050616215"
+      },
+      {
+        "file": "src/assets/icons/close.svg",
+        "hash": "8075218606274185763"
+      },
+      {
+        "file": "src/assets/icons/copy-transcription.svg",
+        "hash": "8854657258357488594"
+      },
+      {
+        "file": "src/assets/icons/dark_mode.svg",
+        "hash": "1832402784257530333"
+      },
+      {
+        "file": "src/assets/icons/delete.svg",
+        "hash": "4229600407641512079"
+      },
+      {
+        "file": "src/assets/icons/done.svg",
+        "hash": "11505371123097273476"
+      },
+      {
+        "file": "src/assets/icons/dots-horizontal.svg",
+        "hash": "12541256538374823027"
+      },
+      {
+        "file": "src/assets/icons/dotted-line.svg",
+        "hash": "6573371376131563183"
+      },
+      {
+        "file": "src/assets/icons/download.svg",
+        "hash": "3078077873351385614"
+      },
+      {
+        "file": "src/assets/icons/edit.svg",
+        "hash": "17284403258144756774"
+      },
+      {
+        "file": "src/assets/icons/email.svg",
+        "hash": "7265978543922918063"
+      },
+      {
+        "file": "src/assets/icons/error.svg",
+        "hash": "7809741534464043635"
+      },
+      {
+        "file": "src/assets/icons/file_text.svg",
+        "hash": "7908409091800122796"
+      },
+      {
+        "file": "src/assets/icons/file_video.svg",
+        "hash": "10805315584518342902"
+      },
+      {
+        "file": "src/assets/icons/filter.svg",
+        "hash": "12616499279297765253"
+      },
+      {
+        "file": "src/assets/icons/flag.svg",
+        "hash": "3351328354732497834"
+      },
+      {
+        "file": "src/assets/icons/folder_back_outline.svg",
+        "hash": "8946546803259610652"
+      },
+      {
+        "file": "src/assets/icons/forward.svg",
+        "hash": "14776786909923782785"
+      },
+      {
+        "file": "src/assets/icons/forward_5.svg",
+        "hash": "15710815649443880117"
+      },
+      {
+        "file": "src/assets/icons/fullscreen-close.svg",
+        "hash": "10176764390295666352"
+      },
+      {
+        "file": "src/assets/icons/fullscreen.svg",
+        "hash": "14061029217679687537"
+      },
+      {
+        "file": "src/assets/icons/fullscreen_close.svg",
+        "hash": "10047478597961392954"
+      },
+      {
+        "file": "src/assets/icons/gallery.svg",
+        "hash": "1480111298150752444"
+      },
+      {
+        "file": "src/assets/icons/group_add.svg",
+        "hash": "8953198538793351908"
+      },
+      {
+        "file": "src/assets/icons/help-circle.svg",
+        "hash": "15174435987840012075"
+      },
+      {
+        "file": "src/assets/icons/history.svg",
+        "hash": "12170034911170427842"
+      },
+      {
+        "file": "src/assets/icons/joined.svg",
+        "hash": "9259077245303373544"
+      },
+      {
+        "file": "src/assets/icons/left.svg",
+        "hash": "17080323631956705003"
+      },
+      {
+        "file": "src/assets/icons/light_mode.svg",
+        "hash": "4388579352652380416"
+      },
+      {
+        "file": "src/assets/icons/link.svg",
+        "hash": "11438242471387262713"
+      },
+      {
+        "file": "src/assets/icons/lock.svg",
+        "hash": "5771575849459531353"
+      },
+      {
+        "file": "src/assets/icons/logout.svg",
+        "hash": "15600427825466296765"
+      },
+      {
+        "file": "src/assets/icons/manage_account.svg",
+        "hash": "3088136228335813840"
+      },
+      {
+        "file": "src/assets/icons/menu.svg",
+        "hash": "8018199450633657402"
+      },
+      {
+        "file": "src/assets/icons/minus.svg",
+        "hash": "5054731339442384263"
+      },
+      {
+        "file": "src/assets/icons/moon.svg",
+        "hash": "4347698037853870324"
+      },
+      {
+        "file": "src/assets/icons/more.svg",
+        "hash": "8770219136018947141"
+      },
+      {
+        "file": "src/assets/icons/no_account.svg",
+        "hash": "10980517380314422478"
+      },
+      {
+        "file": "src/assets/icons/party-popper.svg",
+        "hash": "652422417245931083"
+      },
+      {
+        "file": "src/assets/icons/pause-viewer.svg",
+        "hash": "3304880706521602923"
+      },
+      {
+        "file": "src/assets/icons/pause.svg",
+        "hash": "11805027433705355991"
+      },
+      {
+        "file": "src/assets/icons/pause_circle.svg",
+        "hash": "8677915638209914795"
+      },
+      {
+        "file": "src/assets/icons/person.svg",
+        "hash": "8817031032597620143"
+      },
+      {
+        "file": "src/assets/icons/person_add.svg",
+        "hash": "16644629650956986344"
+      },
+      {
+        "file": "src/assets/icons/person_remove.svg",
+        "hash": "3467494339732086896"
+      },
+      {
+        "file": "src/assets/icons/picture_in_picture.svg",
+        "hash": "9451527653819956750"
+      },
+      {
+        "file": "src/assets/icons/play-viewer.svg",
+        "hash": "15899154519630629709"
+      },
+      {
+        "file": "src/assets/icons/play.svg",
+        "hash": "8629435181874153709"
+      },
+      {
+        "file": "src/assets/icons/play_circle.svg",
+        "hash": "16675606604074956742"
+      },
+      {
+        "file": "src/assets/icons/plus.svg",
+        "hash": "10027502625082570566"
+      },
+      {
+        "file": "src/assets/icons/record.svg",
+        "hash": "10537924948620336376"
+      },
+      {
+        "file": "src/assets/icons/refresh.svg",
+        "hash": "12048648735909562885"
+      },
+      {
+        "file": "src/assets/icons/refresh2.svg",
+        "hash": "15360196094659607035"
+      },
+      {
+        "file": "src/assets/icons/repeat.svg",
+        "hash": "18296912185549546037"
+      },
+      {
+        "file": "src/assets/icons/replay.svg",
+        "hash": "18302999262829999849"
+      },
+      {
+        "file": "src/assets/icons/replay_5.svg",
+        "hash": "67612496233700011"
+      },
+      {
+        "file": "src/assets/icons/resize.svg",
+        "hash": "9342255532408459027"
+      },
+      {
+        "file": "src/assets/icons/save.svg",
+        "hash": "14878537272132095414"
+      },
+      {
+        "file": "src/assets/icons/search.svg",
+        "hash": "6450737565046327165"
+      },
+      {
+        "file": "src/assets/icons/setting.svg",
+        "hash": "16586668440173245968"
+      },
+      {
+        "file": "src/assets/icons/share.svg",
+        "hash": "8266380460993679312"
+      },
+      {
+        "file": "src/assets/icons/sign_language.svg",
+        "hash": "12052489084535098663"
+      },
+      {
+        "file": "src/assets/icons/skip_next.svg",
+        "hash": "9396990588844606041"
+      },
+      {
+        "file": "src/assets/icons/speaker1.svg",
+        "hash": "4755172665012319020"
+      },
+      {
+        "file": "src/assets/icons/speaker2.svg",
+        "hash": "16476019973702401939"
+      },
+      {
+        "file": "src/assets/icons/speed.svg",
+        "hash": "3175158076312848047"
+      },
+      {
+        "file": "src/assets/icons/stop.svg",
+        "hash": "517863819879206773"
+      },
+      {
+        "file": "src/assets/icons/subtitles.svg",
+        "hash": "7335931964306672655"
+      },
+      {
+        "file": "src/assets/icons/subtitles_off.svg",
+        "hash": "10827402920707511112"
+      },
+      {
+        "file": "src/assets/icons/sun.svg",
+        "hash": "6900754991008440686"
+      },
+      {
+        "file": "src/assets/icons/transcript.svg",
+        "hash": "7122280571140072690"
+      },
+      {
+        "file": "src/assets/icons/transcription-file.svg",
+        "hash": "17888074643378298658"
+      },
+      {
+        "file": "src/assets/icons/translate-transcription.svg",
+        "hash": "9192291332289832720"
+      },
+      {
+        "file": "src/assets/icons/upload-transcription.svg",
+        "hash": "10900799699308202293"
+      },
+      {
+        "file": "src/assets/icons/upload.svg",
+        "hash": "14570509909646353575"
+      },
+      {
+        "file": "src/assets/icons/video.svg",
+        "hash": "18083567290596138630"
+      },
+      {
+        "file": "src/assets/icons/volume-mute.svg",
+        "hash": "7514773811450273559"
+      },
+      {
+        "file": "src/assets/icons/volume.svg",
+        "hash": "10308822878627782824"
+      },
+      {
+        "file": "src/assets/icons/volume_off.svg",
+        "hash": "6390772296683222950"
+      },
+      {
+        "file": "src/assets/icons/volume_on.svg",
+        "hash": "1781991680701968795"
+      },
+      {
+        "file": "src/assets/icons/warning-circle.svg",
+        "hash": "4009203933952538172"
+      },
+      {
+        "file": "src/assets/icons/warning.svg",
+        "hash": "1663846231935991455"
+      },
+      {
+        "file": "src/assets/icons/zoom_in.svg",
+        "hash": "600593729652681393"
+      },
+      {
+        "file": "src/assets/icons/zoom_out.svg",
+        "hash": "11079323179462019373"
+      },
+      {
+        "file": "src/assets/logo-shuffle.svg",
+        "hash": "2042072408969782637"
+      },
+      {
+        "file": "src/assets/logo.svg",
+        "hash": "5094090995003142263"
+      },
+      {
+        "file": "src/environments/environment.docker.ts",
+        "hash": "14300510794148263903"
+      },
+      {
+        "file": "src/environments/environment.interface.ts",
+        "hash": "16777166487051167905"
+      },
+      {
+        "file": "src/environments/environment.ts",
+        "hash": "18338616982494120617"
+      },
+      {
+        "file": "src/favicon.ico",
+        "hash": "3464744996580215640"
+      },
+      {
+        "file": "src/index.html",
+        "hash": "3142898139111243279"
+      },
+      {
+        "file": "src/locale/messages.de.xlf",
+        "hash": "4804141633977447821"
+      },
+      {
+        "file": "src/locale/messages.xlf",
+        "hash": "5808136777990845052"
+      },
+      {
+        "file": "src/main.ts",
+        "hash": "31012201097538147"
+      },
+      {
+        "file": "src/polyfills.ts",
+        "hash": "1059635909413925467"
+      },
+      {
+        "file": "src/scss/caption.scss",
+        "hash": "17389363985036696972"
+      },
+      {
+        "file": "src/scss/flex.scss",
+        "hash": "4031558868340179694"
+      },
+      {
+        "file": "src/scss/font.scss",
+        "hash": "11599551543842477052"
+      },
+      {
+        "file": "src/scss/global.scss",
+        "hash": "9558145922181551607"
+      },
+      {
+        "file": "src/scss/material/expansion-panel.scss",
+        "hash": "10443306144156065197"
+      },
+      {
+        "file": "src/scss/material/mat-button.scss",
+        "hash": "1266569726168069341"
+      },
+      {
+        "file": "src/scss/material/mat-chip.scss",
+        "hash": "6491902131918461751"
+      },
+      {
+        "file": "src/scss/material/mat-form-field.scss",
+        "hash": "3244421341483603138"
+      },
+      {
+        "file": "src/scss/material/mat-icon.scss",
+        "hash": "12122711183533735365"
+      },
+      {
+        "file": "src/scss/material/mat-menu.scss",
+        "hash": "10929891245261527764"
+      },
+      {
+        "file": "src/scss/material/mat-progress-bar.scss",
+        "hash": "2471709296938503200"
+      },
+      {
+        "file": "src/scss/material/mat-slider.scss",
+        "hash": "8731681892111254988"
+      },
+      {
+        "file": "src/scss/material/mat-snack-bar.scss",
+        "hash": "17375021821249903860"
+      },
+      {
+        "file": "src/scss/material/mat-spinner.scss",
+        "hash": "425914321975050857"
+      },
+      {
+        "file": "src/scss/material/theme.scss",
+        "hash": "14602836704182590358"
+      },
+      {
+        "file": "src/scss/skeletons.scss",
+        "hash": "12681194481634506889"
+      },
+      {
+        "file": "src/scss/variables.scss",
+        "hash": "16774779045501272461"
+      },
+      {
+        "file": "src/scss/variables_dark.scss",
+        "hash": "3061768906079818220"
+      },
+      {
+        "file": "src/styles.scss",
+        "hash": "16777416609010896802"
+      },
+      {
+        "file": "src/test.ts",
+        "hash": "12412031923219697029"
+      },
+      {
+        "file": "tsconfig.app.json",
+        "hash": "9041030522571917449"
+      },
+      {
+        "file": "tsconfig.json",
+        "hash": "11615562117719129222"
+      },
+      {
+        "file": "tsconfig.spec.json",
+        "hash": "17198424518534092990"
+      }
+    ]
+  }
+}

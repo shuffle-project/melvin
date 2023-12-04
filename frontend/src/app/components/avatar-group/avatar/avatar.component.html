@@ -1,13 +1,17 @@
 <div class="container" [style.background]="outlineColor">
   <div class="background-inner">
     <div class="inner" [style.background]="backgroundColor">
-      <span
-        *ngIf="!showLogo"
-        class="letters"
-        [class.editor-view]="editorView"
-        >{{ letter }}</span
-      >
-      <app-logo *ngIf="showLogo" [size]="16"></app-logo>
+      @if (!showLogo) {
+        <span
+          class="letters"
+          [class.editor-view]="editorView"
+          >{{ letter }}</span
+          >
+        }
+        @if (showLogo) {
+          <app-logo [size]="16"></app-logo>
+        }
+      </div>
     </div>
   </div>
-</div>
+  

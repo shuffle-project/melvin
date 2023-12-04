@@ -17,11 +17,23 @@ import {
   MetadataGroup,
   VideoGroup,
 } from '../../dialog-create-project.interfaces';
+import { MatIconModule } from '@angular/material/icon';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatDividerModule } from '@angular/material/divider';
+
 
 @Component({
-  selector: 'app-project-overview-form',
-  templateUrl: './project-overview-form.component.html',
-  styleUrls: ['./project-overview-form.component.scss'],
+    selector: 'app-project-overview-form',
+    templateUrl: './project-overview-form.component.html',
+    styleUrls: ['./project-overview-form.component.scss'],
+    standalone: true,
+    imports: [
+    MatDividerModule,
+    MatChipsModule,
+    MatTooltipModule,
+    MatIconModule
+],
 })
 export class ProjectOverviewFormComponent implements OnInit, AfterViewInit {
   @Input() metadataGroup!: FormGroup<MetadataGroup>;

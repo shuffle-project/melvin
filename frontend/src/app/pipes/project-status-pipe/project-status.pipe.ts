@@ -3,6 +3,7 @@ import { ProjectStatus } from 'src/app/services/api/entities/project.entity';
 
 @Pipe({
   name: 'readableStatus',
+  standalone: true,
 })
 export class ProjectStatusPipe implements PipeTransform {
   transform(value: string): string {
@@ -15,7 +16,6 @@ export class ProjectStatusPipe implements PipeTransform {
         return $localize`:@@projectStatusWaiting:In queue`;
       case ProjectStatus.LIVE:
         return $localize`:@@projectStatusLive:Live`;
-
       case ProjectStatus.PROCESSING:
         return $localize`:@@projectStatusProcessing:Processing`;
       case ProjectStatus.ERROR:

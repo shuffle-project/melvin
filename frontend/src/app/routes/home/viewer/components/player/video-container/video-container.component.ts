@@ -17,11 +17,21 @@ import { AppState } from '../../../../../../store/app.state';
 import * as editorSelector from '../../../../../../store/selectors/editor.selector';
 import { ViewerService } from '../../../viewer.service';
 import { ViewerVideo } from '../player.component';
+import { PushPipe } from '@ngrx/component';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+
 
 @Component({
-  selector: 'app-video-container',
-  templateUrl: './video-container.component.html',
-  styleUrls: ['./video-container.component.scss'],
+    selector: 'app-video-container',
+    templateUrl: './video-container.component.html',
+    styleUrls: ['./video-container.component.scss'],
+    standalone: true,
+    imports: [
+    MatIconModule,
+    MatButtonModule,
+    PushPipe
+],
 })
 export class VideoContainerComponent implements OnDestroy, OnChanges {
   private destroy$$ = new Subject<void>();

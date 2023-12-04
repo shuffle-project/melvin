@@ -21,8 +21,10 @@ import * as captionsActions from '../../../../../../store/actions/captions.actio
 import { AppState } from '../../../../../../store/app.state';
 import * as captionsSelectors from '../../../../../../store/selectors/captions.selector';
 import { MediaService } from '../../../services/media/media.service';
-import { AppResizeEvent } from '../resize/resize.directive';
+import { AppResizeEvent, ResizeDirective } from '../resize/resize.directive';
 import { WaveformService } from '../waveform.service';
+
+import { LetDirective } from '@ngrx/component';
 
 export interface ViewCaption {
   caption: CaptionEntity;
@@ -33,9 +35,14 @@ export interface ViewCaption {
 }
 
 @Component({
-  selector: 'app-waveform-captions',
-  templateUrl: './waveform-captions.component.html',
-  styleUrls: ['./waveform-captions.component.scss'],
+    selector: 'app-waveform-captions',
+    templateUrl: './waveform-captions.component.html',
+    styleUrls: ['./waveform-captions.component.scss'],
+    standalone: true,
+    imports: [
+    LetDirective,
+    ResizeDirective
+],
 })
 export class WaveformCaptionsComponent implements OnInit, OnChanges, OnDestroy {
   @Input() hidden: boolean = false;

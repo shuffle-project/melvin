@@ -3,66 +3,72 @@
     #modeRadioGroup
     formControlName="sourceMode"
     class="mode-selection-wrapper"
-  >
+    >
     <mat-radio-button
       i18n="@@sourceFormVideoRadioButton"
       radioGroup="modeRadioGroup"
       value="video"
-    >
+      >
       Upload video or audio files</mat-radio-button
-    >
-    <mat-radio-button
-      i18n="@@sourceFormLiveRadioButton"
-      radioGroup="modeRadioGroup"
-      value="live"
-    >
-      Connect to livestream</mat-radio-button
-    >
-  </mat-radio-group>
-</form>
-
-<form
-  *ngIf="metadataGroup.value.sourceMode === 'video'"
-  [formGroup]="videoGroup"
->
-  <app-upload-files
-    formControlName="files"
-    [acceptedFileFormats]="acceptedFileFormats"
-  ></app-upload-files>
-  <div
-    *ngIf="
-      !videoGroup.controls.files.dirty &&
-      videoGroup.controls.files.hasError('videoRequired')
-    "
-    class="custom-hint"
-    i18n="@@sourceFormVideoRequiredError"
-  >
-    At least one video or audio file is required
-  </div>
-  <div
-    *ngIf="videoGroup.controls.files.hasError('tooManyVideos')"
-    class="custom-error"
-    i18n="@@sourceFormTooManyVideosError"
-  >
-    A maximum of one video or audio file may be uploaded
-  </div>
-</form>
-
-<form *ngIf="metadataGroup.value.sourceMode === 'live'" [formGroup]="liveGroup">
-  <mat-form-field>
-    <mat-label i18n="@@sourceFormURLInputLabel"
-      >URL to the livestream</mat-label
-    >
-    <input matInput formControlName="url" />
-    <mat-error
-      *ngIf="liveGroup.controls.url.hasError('required')"
-      i18n="@@sourceFormURLRequiredError"
-      >The URL to the livestream is required</mat-error
-    >
-    <mat-error
-      *ngIf="liveGroup.controls.url.hasError('pattern')"
-      i18n="@@sourceFormURLBadlyFormedError"
-      >The URL is badly formed or contains invalid characters</mat-error
-    >
-  </mat-form-field>
-</form>
+      >
+      <mat-radio-button
+        i18n="@@sourceFormLiveRadioButton"
+        radioGroup="modeRadioGroup"
+        value="live"
+        >
+        Connect to livestream</mat-radio-button
+        >
+      </mat-radio-group>
+    </form>
+    @if (metadataGroup.value.sourceMode === 'video') {
+      <form
+        [formGroup]="videoGroup"
+        >
+        <app-upload-files
+          formControlName="files"
+          [acceptedFileFormats]="acceptedFileFormats"
+        ></app-upload-files>
+        @if (
+          !videoGroup.controls.files.dirty &&
+          videoGroup.controls.files.hasError('videoRequired')
+          ) {
+          <div
+            class="custom-hint"
+            i18n="@@sourceFormVideoRequiredError"
+            >
+            At least one video or audio file is required
+          </div>
+        }
+        @if (videoGroup.controls.files.hasError('tooManyVideos')) {
+          <div
+            class="custom-error"
+            i18n="@@sourceFormTooManyVideosError"
+            >
+            A maximum of one video or audio file may be uploaded
+          </div>
+        }
+      </form>
+    }
+    @if (metadataGroup.value.sourceMode === 'live') {
+      <form [formGroup]="liveGroup">
+        <mat-form-field>
+          <mat-label i18n="@@sourceFormURLInputLabel"
+            >URL to the livestream</mat-label
+            >
+            <input matInput formControlName="url" />
+            @if (liveGroup.controls.url.hasError('required')) {
+              <mat-error
+                i18n="@@sourceFormURLRequiredError"
+                >The URL to the livestream is required</mat-error
+                >
+              }
+              @if (liveGroup.controls.url.hasError('pattern')) {
+                <mat-error
+                  i18n="@@sourceFormURLBadlyFormedError"
+                  >The URL is badly formed or contains invalid characters</mat-error
+                  >
+                }
+              </mat-form-field>
+            </form>
+          }
+          

@@ -7,129 +7,134 @@
     </td>
   </tr>
 </table>
-<mat-divider
-  *ngIf="metadataGroup.controls.members.value.length !== 0"
-></mat-divider>
-
+@if (metadataGroup.controls.members.value.length !== 0) {
+  <mat-divider
+  ></mat-divider>
+}
 <!-- Members -->
-<table
-  *ngIf="metadataGroup.controls.members.value.length !== 0"
-  cellpadding="7"
->
-  <tr>
-    <th i18n="@@overviewFormMembersHeader" class="member-table-header">
-      Teammembers
-    </th>
-    <td>
-      <mat-chip-listbox #userChipList aria-label="Project members">
-        <mat-chip
-          *ngFor="let memberEntry of metadataGroup.controls.members.value"
-          [class.user-exists]="memberEntry.type === 'user'"
-          [matTooltip]="memberEntry.user ? memberEntry.user.email : ''"
-        >
-          <mat-icon
-            *ngIf="memberEntry.type === 'user'"
-            class="chip-icons"
-            svgIcon="account2"
-          ></mat-icon>
-          <mat-icon
-            *ngIf="memberEntry.type === 'valid email'"
-            class="chip-icons"
-            svgIcon="email"
-          ></mat-icon>
-
-          {{ onDisplayMember(memberEntry) }}
-        </mat-chip>
-      </mat-chip-listbox>
-    </td>
-  </tr>
-</table>
+@if (metadataGroup.controls.members.value.length !== 0) {
+  <table
+    cellpadding="7"
+    >
+    <tr>
+      <th i18n="@@overviewFormMembersHeader" class="member-table-header">
+        Teammembers
+      </th>
+      <td>
+        <mat-chip-listbox #userChipList aria-label="Project members">
+          @for (memberEntry of metadataGroup.controls.members.value; track memberEntry) {
+            <mat-chip
+              [class.user-exists]="memberEntry.type === 'user'"
+              [matTooltip]="memberEntry.user ? memberEntry.user.email : ''"
+              >
+              @if (memberEntry.type === 'user') {
+                <mat-icon
+                  class="chip-icons"
+                  svgIcon="account2"
+                ></mat-icon>
+              }
+              @if (memberEntry.type === 'valid email') {
+                <mat-icon
+                  class="chip-icons"
+                  svgIcon="email"
+                ></mat-icon>
+              }
+              {{ onDisplayMember(memberEntry) }}
+            </mat-chip>
+          }
+        </mat-chip-listbox>
+      </td>
+    </tr>
+  </table>
+}
 <mat-divider></mat-divider>
-
 <!-- videoGroup files -->
-<table *ngIf="metadataGroup.value.sourceMode === 'video'" cellpadding="7">
-  <tr>
-    <th i18n="@@overviewFormFilesHeader">Files</th>
-    <td *ngFor="let file of videoGroup.value.uploadedFiles" class="files">
-      <div class="file">
-        <div class="file-content">
-          <p class="file-name">
-            {{ file.content?.name }} ({{ file.language?.toUpperCase() }})
-          </p>
-        </div>
-      </div>
-    </td>
-  </tr>
-</table>
-
+@if (metadataGroup.value.sourceMode === 'video') {
+  <table cellpadding="7">
+    <tr>
+      <th i18n="@@overviewFormFilesHeader">Files</th>
+      @for (file of videoGroup.value.uploadedFiles; track file) {
+        <td class="files">
+          <div class="file">
+            <div class="file-content">
+              <p class="file-name">
+                {{ file.content?.name }} ({{ file.language?.toUpperCase() }})
+              </p>
+            </div>
+          </div>
+        </td>
+      }
+    </tr>
+  </table>
+}
 <!-- videoGroup generate ASR -->
-<div
-  *ngIf="
-    metadataGroup.value.sourceMode === 'video' &&
-    videoGroup.controls.asrGroup.value.activated
-  "
-  class="tables-wrapper"
->
-  <mat-divider></mat-divider>
-  <table>
-    <tr>
-      <th i18n="@@overviewFormSubtitlesHeader">Subtitle Vendor</th>
-      <td>
-        {{ asrVendor }}
-      </td>
-    </tr>
-  </table>
-
-  <table>
-    <tr>
-      <th i18n="@@overviewFormSubtitleLanguageHeader">Subtitle Language</th>
-      <td>
-        {{ asrLanguage }}
-      </td>
-    </tr>
-  </table>
-</div>
-
+@if (
+  metadataGroup.value.sourceMode === 'video' &&
+  videoGroup.controls.asrGroup.value.activated
+  ) {
+  <div
+    class="tables-wrapper"
+    >
+    <mat-divider></mat-divider>
+    <table>
+      <tr>
+        <th i18n="@@overviewFormSubtitlesHeader">Subtitle Vendor</th>
+        <td>
+          {{ asrVendor }}
+        </td>
+      </tr>
+    </table>
+    <table>
+      <tr>
+        <th i18n="@@overviewFormSubtitleLanguageHeader">Subtitle Language</th>
+        <td>
+          {{ asrLanguage }}
+        </td>
+      </tr>
+    </table>
+  </div>
+}
 <!-- liveGroup general -->
-<div *ngIf="metadataGroup.value.sourceMode === 'live'" class="tables-wrapper">
-  <table>
-    <tr>
-      <th i18n="@@overviewFormURLHeader">Livestream URL</th>
-      <td>{{ liveGroup.value.url }}</td>
-    </tr>
-  </table>
-  <table>
-    <tr>
-      <th i18n="@@overviewFormURLLanguageHeader">Language</th>
-      <td>{{ livestreamLanguage }}</td>
-    </tr>
-  </table>
-</div>
-
+@if (metadataGroup.value.sourceMode === 'live') {
+  <div class="tables-wrapper">
+    <table>
+      <tr>
+        <th i18n="@@overviewFormURLHeader">Livestream URL</th>
+        <td>{{ liveGroup.value.url }}</td>
+      </tr>
+    </table>
+    <table>
+      <tr>
+        <th i18n="@@overviewFormURLLanguageHeader">Language</th>
+        <td>{{ livestreamLanguage }}</td>
+      </tr>
+    </table>
+  </div>
+}
 <!-- liveGroup generate ASR -->
-<div
-  *ngIf="
-    metadataGroup.value.sourceMode === 'live' &&
-    liveGroup.controls.asrGroup.value.activated
-  "
-  class="tables-wrapper"
->
-  <mat-divider></mat-divider>
-  <table>
-    <tr>
-      <th i18n="@@overviewFormASRVEndorHeader">Subtitle Vendor</th>
-      <td>
-        {{ asrVendor }}
-      </td>
-    </tr>
-  </table>
-
-  <table>
-    <tr>
-      <th i18n="@@overviewFormASRLanguageHeader">Subtitle Language</th>
-      <td>
-        {{ asrLanguage }}
-      </td>
-    </tr>
-  </table>
-</div>
+@if (
+  metadataGroup.value.sourceMode === 'live' &&
+  liveGroup.controls.asrGroup.value.activated
+  ) {
+  <div
+    class="tables-wrapper"
+    >
+    <mat-divider></mat-divider>
+    <table>
+      <tr>
+        <th i18n="@@overviewFormASRVEndorHeader">Subtitle Vendor</th>
+        <td>
+          {{ asrVendor }}
+        </td>
+      </tr>
+    </table>
+    <table>
+      <tr>
+        <th i18n="@@overviewFormASRLanguageHeader">Subtitle Language</th>
+        <td>
+          {{ asrLanguage }}
+        </td>
+      </tr>
+    </table>
+  </div>
+}

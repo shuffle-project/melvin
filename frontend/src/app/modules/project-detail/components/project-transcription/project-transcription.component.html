@@ -4,7 +4,7 @@
     role="button"
     tabindex="0"
     class="btn-add-transcription basic-form clickable"
-  >
+    >
     <div>
       <p i18n="@@projectTranscriptionAddButtonTop">Add</p>
       <p i18n="@@projectTranscriptionAddButtonBottom">Transcription</p>
@@ -12,11 +12,12 @@
     </div>
   </div>
   <ng-container *ngrxLet="transcriptionsList$ as transcriptions">
-    <div
-      *ngFor="let transcription of transcriptions"
-      class="transcription basic-form"
-    >
-      <app-transcription [transcription]="transcription"></app-transcription>
-    </div>
+    @for (transcription of transcriptions; track transcription) {
+      <div
+        class="transcription basic-form"
+        >
+        <app-transcription [transcription]="transcription"></app-transcription>
+      </div>
+    }
   </ng-container>
 </div>

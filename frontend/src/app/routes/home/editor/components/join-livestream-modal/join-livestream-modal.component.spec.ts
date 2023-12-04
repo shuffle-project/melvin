@@ -8,8 +8,8 @@ describe('JoinLivestreamModalComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ JoinLivestreamModalComponent ]
-    })
+    imports: [JoinLivestreamModalComponent]
+})
     .compileComponents();
 
     fixture = TestBed.createComponent(JoinLivestreamModalComponent);

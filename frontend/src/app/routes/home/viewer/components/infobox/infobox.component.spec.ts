@@ -8,8 +8,8 @@ describe('InfoboxComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [InfoboxComponent]
-    });
+    imports: [InfoboxComponent]
+});
     fixture = TestBed.createComponent(InfoboxComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

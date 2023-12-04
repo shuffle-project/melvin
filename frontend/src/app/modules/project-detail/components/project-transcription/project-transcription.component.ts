@@ -7,11 +7,21 @@ import { TranscriptionEntity } from 'src/app/services/api/entities/transcription
 import { AppState } from 'src/app/store/app.state';
 import * as transcriptionsSelectors from '../../../../store/selectors/transcriptions.selector';
 import { ProjectDetailComponent } from '../../project-detail.component';
+import { TranscriptionComponent } from './components/transcription/transcription.component';
+
+import { LetDirective } from '@ngrx/component';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
-  selector: 'app-project-transcription',
-  templateUrl: './project-transcription.component.html',
-  styleUrls: ['./project-transcription.component.scss'],
+    selector: 'app-project-transcription',
+    templateUrl: './project-transcription.component.html',
+    styleUrls: ['./project-transcription.component.scss'],
+    standalone: true,
+    imports: [
+    MatIconModule,
+    LetDirective,
+    TranscriptionComponent
+],
 })
 export class ProjectTranscriptionComponent {
   public transcriptionsList$: Observable<TranscriptionEntity[]>;

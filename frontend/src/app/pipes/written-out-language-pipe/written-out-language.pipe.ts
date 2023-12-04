@@ -2,6 +2,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
   name: 'writtenOutLanguage',
+  standalone: true,
 })
 export class WrittenOutLanguagePipe implements PipeTransform {
   transform(languageCode: string) {

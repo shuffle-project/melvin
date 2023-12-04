@@ -13,11 +13,23 @@ import {
   CaptionDeleteConfirmModalResult,
 } from './caption-delete-confirm-modal/caption-delete-confirm-modal.component';
 import { CaptionHistoryModalComponent } from './caption-history-modal/caption-history-modal.component';
+import { FeatureEnabledPipe } from '../../../../../../../pipes/feature-enabled-pipe/feature-enabled.pipe';
+
+import { MatIconModule } from '@angular/material/icon';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
-  selector: 'app-caption-actions',
-  templateUrl: './caption-actions.component.html',
-  styleUrls: ['./caption-actions.component.scss'],
+    selector: 'app-caption-actions',
+    templateUrl: './caption-actions.component.html',
+    styleUrls: ['./caption-actions.component.scss'],
+    standalone: true,
+    imports: [
+    MatButtonModule,
+    MatTooltipModule,
+    MatIconModule,
+    FeatureEnabledPipe
+],
 })
 export class CaptionActionsComponent implements OnInit {
   @Input() caption!: CaptionEntity;

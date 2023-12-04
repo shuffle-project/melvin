@@ -7,8 +7,8 @@ describe('GuestLoginComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [GuestLoginDialogComponent],
-    }).compileComponents();
+    imports: [GuestLoginDialogComponent],
+}).compileComponents();
   });
 
   beforeEach(() => {

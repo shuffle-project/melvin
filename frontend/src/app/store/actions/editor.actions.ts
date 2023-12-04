@@ -106,3 +106,7 @@ export const setCaptionTextValidationEnabled = createAction(
   '[EDITOR COMPONENT] Set caption text validation enabled',
   props<{ enabled: boolean }>()
 );
+
+export const resetEditorState = createAction(
+  '[EDITOR COMPONENT] Clear editor data'
+);

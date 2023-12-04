@@ -4,9 +4,9 @@ import {
   HttpEventType,
 } from '@angular/common/http';
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ErrorStateMatcher } from '@angular/material/core';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { FormControl, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { ErrorStateMatcher, MatOptionModule } from '@angular/material/core';
+import { MatDialog, MatDialogRef, MatDialogTitle } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
 import { firstValueFrom, Observable, Subject, takeUntil } from 'rxjs';
 import { LANGUAGES } from 'src/app/constants/languages.constant';
@@ -28,11 +28,36 @@ import * as transcriptionsActions from '../../../../../../store/actions/transcri
 import * as configSelectors from '../../../../../../store/selectors/config.selector';
 import * as editorSelectors from '../../../../../../store/selectors/editor.selector';
 import * as transcriptionsSelectors from '../../../../../../store/selectors/transcriptions.selector';
+import { LetDirective } from '@ngrx/component';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatButtonModule } from '@angular/material/button';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { MatFormFieldModule } from '@angular/material/form-field';
+
+import { MatIconModule } from '@angular/material/icon';
+import { MatRadioModule } from '@angular/material/radio';
 
 @Component({
-  selector: 'app-create-transcription-dialog',
-  templateUrl: './create-transcription-dialog.component.html',
-  styleUrls: ['./create-transcription-dialog.component.scss'],
+    selector: 'app-create-transcription-dialog',
+    templateUrl: './create-transcription-dialog.component.html',
+    styleUrls: ['./create-transcription-dialog.component.scss'],
+    standalone: true,
+    imports: [
+    MatDialogTitle,
+    ReactiveFormsModule,
+    MatRadioModule,
+    MatIconModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    MatOptionModule,
+    MatInputModule,
+    MatProgressSpinnerModule,
+    MatButtonModule,
+    MatTooltipModule,
+    LetDirective
+],
 })
 export class CreateTranscriptionDialogComponent implements OnInit, OnDestroy {
   private destroy$$ = new Subject<void>();

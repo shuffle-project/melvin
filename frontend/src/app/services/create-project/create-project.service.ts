@@ -24,7 +24,9 @@ interface Data {
   url?: string;
 }
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class CreateProjectService {
   create(formGroup: FormGroup<ProjectGroup>): FormData {
     const formData = new FormData();

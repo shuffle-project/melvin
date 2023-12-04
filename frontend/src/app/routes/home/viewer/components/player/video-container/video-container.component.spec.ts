@@ -8,8 +8,8 @@ describe('VideoContainerComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [VideoContainerComponent]
-    });
+    imports: [VideoContainerComponent]
+});
     fixture = TestBed.createComponent(VideoContainerComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

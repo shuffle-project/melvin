@@ -8,8 +8,9 @@ import { StorageKey } from '../../services/storage/storage-key.enum';
 import { StorageService } from '../../services/storage/storage.service';
 import * as configActions from '../actions/config.actions';
 import { darkMode } from '../selectors/config.selector';
-
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class ConfigEffects {
   constructor(
     private actions$: Actions,

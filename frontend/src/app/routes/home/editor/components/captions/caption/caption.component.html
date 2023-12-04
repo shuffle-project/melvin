@@ -3,20 +3,20 @@
   (focusin)="onFocus()"
   (focusout)="onFocusOut()"
   [tabindex]="1"
->
+  >
   <div class="left">
-    <app-caption-speaker
-      *ngIf="'showSpeaker' | featureEnabled"
-      [caption]="caption"
-      [captionBefore]="captionBefore"
-      [isFocused]="isFocused"
-    ></app-caption-speaker>
+    @if ('showSpeaker' | featureEnabled) {
+      <app-caption-speaker
+        [caption]="caption"
+        [captionBefore]="captionBefore"
+        [isFocused]="isFocused"
+      ></app-caption-speaker>
+    }
     <app-caption-actions
       [isFocused]="isFocused"
       [caption]="caption"
     ></app-caption-actions>
   </div>
-
   <div class="center">
     <app-caption-text
       [caption]="caption"
@@ -25,7 +25,6 @@
       [isFocused]="isFocused"
     ></app-caption-text>
   </div>
-
   <div class="right">
     <app-caption-time
       [caption]="caption"

@@ -8,8 +8,8 @@ describe('CaptionTimeComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CaptionTimeComponent ]
-    })
+    imports: [CaptionTimeComponent]
+})
     .compileComponents();
 
     fixture = TestBed.createComponent(CaptionTimeComponent);

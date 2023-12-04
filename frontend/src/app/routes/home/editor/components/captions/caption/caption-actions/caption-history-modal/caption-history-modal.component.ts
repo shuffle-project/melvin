@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA, MatDialogTitle } from '@angular/material/dialog';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { DIFF_DELETE, DIFF_INSERT, diff_match_patch } from 'diff-match-patch';
 import { ApiService } from '../../../../../../../../services/api/api.service';
@@ -8,6 +8,7 @@ import {
   CaptionHistoryEntity,
 } from '../../../../../../../../services/api/entities/caption.entity';
 
+
 interface HistoryItem {
   html: SafeHtml;
   text: string;
@@ -15,9 +16,13 @@ interface HistoryItem {
 }
 
 @Component({
-  selector: 'app-caption-history-modal',
-  templateUrl: './caption-history-modal.component.html',
-  styleUrls: ['./caption-history-modal.component.scss'],
+    selector: 'app-caption-history-modal',
+    templateUrl: './caption-history-modal.component.html',
+    styleUrls: ['./caption-history-modal.component.scss'],
+    standalone: true,
+    imports: [
+    MatDialogTitle
+],
 })
 export class CaptionHistoryModalComponent implements OnInit {
   public displayedColumns = ['text', /*'createdBy',*/ 'createdAt'];

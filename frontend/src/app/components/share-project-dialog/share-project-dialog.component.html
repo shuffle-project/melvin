@@ -1,13 +1,14 @@
 <div class="container">
   <h2 mat-dialog-title>{{ project.title }}</h2>
   <mat-dialog-content>
-    <mat-spinner
-      *ngIf="isLoading"
-      strokeWidth="2"
-      diameter="20"
-      color="primary"
-    ></mat-spinner>
-    <ng-container *ngIf="!isLoading">
+    @if (isLoading) {
+      <mat-spinner
+        strokeWidth="2"
+        diameter="20"
+        color="primary"
+      ></mat-spinner>
+    }
+    @if (!isLoading) {
       <mat-accordion>
         <!-- Invite member -->
         <mat-expansion-panel expanded="true">
@@ -17,50 +18,55 @@
               <h3 i18n="@@shareProjectWithPeopleHeader">Share with people</h3>
             </div>
           </mat-expansion-panel-header>
-
           <form #addMemberForm class="add-member-form">
             <mat-form-field>
               <mat-label i18n="@@shareProjectAddMemberLabel"
                 >Add team member</mat-label
-              >
-              <input
-                type="email"
-                matInput
-                [matAutocomplete]="auto"
-                [formControl]="userControl"
-              />
-              <mat-error *ngIf="userControl.touched && userControl.dirty">
-                <span class="materror" *ngIf="userControl.hasError('required')">
-                  Email is required
-                </span>
-                <span class="materror" *ngIf="userControl.hasError('email')">
-                  Email is invalid
-                </span>
-              </mat-error>
-
-              <mat-autocomplete
-                #auto="matAutocomplete"
-                (optionSelected)="onAddMemberThroughSelect($event)"
-              >
-                <mat-option *ngFor="let user of users" [value]="user">
-                  <span class="user-name">{{ user.name }}</span>
-                  <br />
-                  <span class="user-email">{{ user.email }}</span>
-                </mat-option>
-              </mat-autocomplete>
-            </mat-form-field>
-            <button
-              mat-flat-button
-              color="primary"
-              [disabled]="!userControl.valid"
-              (click)="inviteMember()"
-            >
-              Invite to project
-            </button>
-          </form>
-          <div #inviteResult class="invite-result"></div>
-
-          <!-- TODO -->
+                >
+                <input
+                  type="email"
+                  matInput
+                  [matAutocomplete]="auto"
+                  [formControl]="userControl"
+                  />
+                @if (userControl.touched && userControl.dirty) {
+                  <mat-error>
+                    @if (userControl.hasError('required')) {
+                      <span class="materror">
+                        Email is required
+                      </span>
+                    }
+                    @if (userControl.hasError('email')) {
+                      <span class="materror">
+                        Email is invalid
+                      </span>
+                    }
+                  </mat-error>
+                }
+                <mat-autocomplete
+                  #auto="matAutocomplete"
+                  (optionSelected)="onAddMemberThroughSelect($event)"
+                  >
+                  @for (user of users; track user) {
+                    <mat-option [value]="user">
+                      <span class="user-name">{{ user.name }}</span>
+                      <br />
+                      <span class="user-email">{{ user.email }}</span>
+                    </mat-option>
+                  }
+                </mat-autocomplete>
+              </mat-form-field>
+              <button
+                mat-flat-button
+                color="primary"
+                [disabled]="!userControl.valid"
+                (click)="inviteMember()"
+                >
+                Invite to project
+              </button>
+            </form>
+            <div #inviteResult class="invite-result"></div>
+            <!-- TODO -->
           <!-- <span>Enter-Email Component</span>
           <div class="flex flex-col">
             <div *ngFor="let user of users" class="user-row">
@@ -73,68 +79,65 @@
                 *ngIf="user.id === project.createdBy"
                 class="user-role"
                 i18n="@@shareProjectOwnerLabel"
-              >
+                >
                 Owner
               </div>
             </div>
           </div> -->
         </mat-expansion-panel>
-
         <!-- Share with link -->
         <mat-expansion-panel>
           <mat-expansion-panel-header
             ><div class="title">
-              <mat-icon svgIcon="link"></mat-icon>
-              <h3 i18n="@@shareProjectRetrieveLinkHeader">Retrieve link</h3>
-            </div>
-          </mat-expansion-panel-header>
-
-          <div class="flex flex-col">
-            <p i18n="@@shareProjectInviteLinkWarningText">
-              <b>Any person</b> who has this link can join the project
-              <b>registered or anonymously</b>.
-            </p>
-            <div class="flex">
-              <input matInput [value]="inviteLink" class="link" readonly />
-              <div>
-                <button
-                  mat-button
-                  (click)="onClickCopyLink()"
-                  color="primary"
-                  i18n="@@shareProjectCopyLinkLabel"
-                >
-                  Copy link
-                </button>
-              </div>
-            </div>
-            <div style="margin-top: 40px">
-              <p i18n="@@shareProjectGenerateNewLinkForProjectMessage">
-                If you want to <b>revoke access</b> for the current link, you
-                can generate a new link:
-              </p>
+            <mat-icon svgIcon="link"></mat-icon>
+            <h3 i18n="@@shareProjectRetrieveLinkHeader">Retrieve link</h3>
+          </div>
+        </mat-expansion-panel-header>
+        <div class="flex flex-col">
+          <p i18n="@@shareProjectInviteLinkWarningText">
+            <b>Any person</b> who has this link can join the project
+            <b>registered or anonymously</b>.
+          </p>
+          <div class="flex">
+            <input matInput [value]="inviteLink" class="link" readonly />
+            <div>
               <button
                 mat-button
-                (click)="onClickUpdate()"
-                i18n="@@shareProjectChangeAccessLinkButtonLabel"
-              >
-                Change access link
+                (click)="onClickCopyLink()"
+                color="primary"
+                i18n="@@shareProjectCopyLinkLabel"
+                >
+                Copy link
               </button>
             </div>
           </div>
-        </mat-expansion-panel>
-      </mat-accordion>
-    </ng-container>
-  </mat-dialog-content>
-
-  <mat-dialog-actions align="end">
-    <button
-      mat-flat-button
-      color="primary"
-      [mat-dialog-close]="true"
-      cdkFocusInitial
-      i18n="@@shareProjectDoneButtonLabel"
+          <div style="margin-top: 40px">
+            <p i18n="@@shareProjectGenerateNewLinkForProjectMessage">
+            If you want to <b>revoke access</b> for the current link, you
+            can generate a new link:
+          </p>
+          <button
+            mat-button
+            (click)="onClickUpdate()"
+            i18n="@@shareProjectChangeAccessLinkButtonLabel"
+            >
+            Change access link
+          </button>
+        </div>
+      </div>
+    </mat-expansion-panel>
+  </mat-accordion>
+}
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button
+    mat-flat-button
+    color="primary"
+    [mat-dialog-close]="true"
+    cdkFocusInitial
+    i18n="@@shareProjectDoneButtonLabel"
     >
-      Done
-    </button>
-  </mat-dialog-actions>
+    Done
+  </button>
+</mat-dialog-actions>
 </div>

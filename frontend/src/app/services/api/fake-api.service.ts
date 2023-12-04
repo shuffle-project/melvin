@@ -53,7 +53,9 @@ import { StopRecordingEntity } from './entities/stop-recording.entity';
 import { TranscriptionEntity } from './entities/transcription.entity';
 import { AUTH_TOKEN_GUEST_MOCK, AUTH_TOKEN_USER_MOCK } from './mocks/auth.mock';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class FakeApiService implements ApiService {
   private logger = new CustomLogger('FAKE API SERVICE');
 

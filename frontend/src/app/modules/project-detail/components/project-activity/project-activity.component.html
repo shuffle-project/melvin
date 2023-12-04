@@ -1,15 +1,18 @@
-<ng-container *ngIf="blocks">
-  <div class="block" *ngFor="let block of blocks">
-    <div class="date">
-      <div class="circle"></div>
-      <span>{{ block.date }} </span>
+@if (blocks) {
+  @for (block of blocks; track block) {
+    <div class="block">
+      <div class="date">
+        <div class="circle"></div>
+        <span>{{ block.date }} </span>
+      </div>
+      <div class="item">
+        @for (activity of block.activities; track activity) {
+          <app-activity
+            [viewType]="'timeline'"
+            [activity]="activity"
+          ></app-activity>
+        }
+      </div>
     </div>
-    <div class="item">
-      <app-activity
-        *ngFor="let activity of block.activities"
-        [viewType]="'timeline'"
-        [activity]="activity"
-      ></app-activity>
-    </div>
-  </div>
-</ng-container>
+  }
+}
