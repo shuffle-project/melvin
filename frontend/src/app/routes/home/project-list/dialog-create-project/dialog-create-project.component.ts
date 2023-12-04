@@ -13,8 +13,8 @@ import {
   ValidatorFn,
   Validators,
 } from '@angular/forms';
-import { MatDialogRef } from '@angular/material/dialog';
-import { MatStepper } from '@angular/material/stepper';
+import { MatDialogRef, MatDialogClose, MatDialogContent } from '@angular/material/dialog';
+import { MatStepper, MatStepperModule } from '@angular/material/stepper';
 import { Subject, Subscription, takeUntil } from 'rxjs';
 import { ApiService } from 'src/app/services/api/api.service';
 import { AsrVendors } from 'src/app/services/api/dto/create-transcription.dto';
@@ -25,11 +25,36 @@ import {
   MemberEntryType,
 } from '../../../../../app/constants/member.constants';
 import { ProjectGroup } from './dialog-create-project.interfaces';
+import { DurationPipe } from '../../../../pipes/duration-pipe/duration.pipe';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { ProjectOverviewFormComponent } from './components/project-overview-form/project-overview-form.component';
+import { ProjectLiveFormComponent } from './components/project-live-form/project-live-form.component';
+import { ProjectVideoFormComponent } from './components/project-video-form/project-video-form.component';
+import { ProjectSourceFormComponent } from './components/project-source-form/project-source-form.component';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+
 
 @Component({
-  selector: 'app-dialog-create-project',
-  styleUrls: ['./dialog-create-project.component.scss'],
-  templateUrl: './dialog-create-project.component.html',
+    selector: 'app-dialog-create-project',
+    styleUrls: ['./dialog-create-project.component.scss'],
+    templateUrl: './dialog-create-project.component.html',
+    standalone: true,
+    imports: [
+    MatButtonModule,
+    MatDialogClose,
+    MatIconModule,
+    MatStepperModule,
+    MatDialogContent,
+    ProjectSourceFormComponent,
+    ProjectVideoFormComponent,
+    ProjectLiveFormComponent,
+    ProjectOverviewFormComponent,
+    MatProgressBarModule,
+    MatFormFieldModule,
+    DurationPipe
+],
 })
 export class DialogCreateProjectComponent implements AfterViewInit, OnDestroy {
   loading = false;

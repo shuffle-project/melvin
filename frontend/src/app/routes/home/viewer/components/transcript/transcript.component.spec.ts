@@ -8,8 +8,8 @@ describe('TranscriptComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [TranscriptComponent]
-    });
+    imports: [TranscriptComponent]
+});
     fixture = TestBed.createComponent(TranscriptComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

@@ -2,6 +2,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
   name: 'shortLanguageCode',
+  standalone: true,
 })
 export class LanguageCodePipe implements PipeTransform {
   getShortCode(longCode: string) {

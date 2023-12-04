@@ -1,10 +1,17 @@
 import { Component, Input } from '@angular/core';
-import { AvatarUser } from './avatar/avatar.component';
+import { AvatarUser, AvatarComponent } from './avatar/avatar.component';
+
+import { MatMenuModule } from '@angular/material/menu';
 
 @Component({
-  selector: 'app-avatar-group',
-  templateUrl: './avatar-group.component.html',
-  styleUrls: ['./avatar-group.component.scss'],
+    selector: 'app-avatar-group',
+    templateUrl: './avatar-group.component.html',
+    styleUrls: ['./avatar-group.component.scss'],
+    standalone: true,
+    imports: [
+    MatMenuModule,
+    AvatarComponent
+],
 })
 export class AvatarGroupComponent {
   @Input() users!: AvatarUser[];

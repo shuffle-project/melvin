@@ -10,10 +10,9 @@ describe('CaptionsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [MatMenuModule, LetModule, PushModule],
-      declarations: [CaptionsComponent],
-      providers: [provideMockStore()],
-    }).compileComponents();
+    imports: [MatMenuModule, LetModule, PushModule, CaptionsComponent],
+    providers: [provideMockStore()],
+}).compileComponents();
   });
 
   beforeEach(() => {

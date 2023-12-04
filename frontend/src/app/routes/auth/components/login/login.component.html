@@ -9,9 +9,8 @@
       type="email"
       name="email"
       autocomplete="email"
-    />
+      />
   </mat-form-field>
-
   <mat-form-field appearance="outline">
     <mat-icon svgIcon="lock" matPrefix></mat-icon>
     <input
@@ -22,36 +21,37 @@
       type="password"
       name="password"
       autocomplete="current-password"
-    />
+      />
   </mat-form-field>
-
   <mat-checkbox
     formControlName="persistent"
     i18n="@@loginStayLoggedInCheckboxLabel"
     >Stay logged in</mat-checkbox
-  >
-
-  <div *ngIf="error$ | async as error">
-    {{ error }}
-  </div>
-
-  <div class="flex justify-center">
-    <button
-      mat-flat-button
-      type="submit"
-      [disabled]="!formGroup.valid || (loading$ | async)"
-      color="primary"
     >
-      <div class="flex items-center" i18n="@@loginLoginButtonLabel">
-        <mat-spinner
-          *ngIf="loading$ | async"
-          strokeWidth="2"
-          diameter="20"
-          color="primary"
-          style="margin-right: 10px"
-        ></mat-spinner>
-        Login
+    @if (error$ | async; as error) {
+      <div>
+        {{ error }}
       </div>
-    </button>
-  </div>
-</form>
+    }
+    <div class="flex justify-center">
+      <button
+        mat-flat-button
+        type="submit"
+        [disabled]="!formGroup.valid || (loading$ | async)"
+        color="primary"
+        >
+        <div class="flex items-center" i18n="@@loginLoginButtonLabel">
+          @if (loading$ | async) {
+            <mat-spinner
+              strokeWidth="2"
+              diameter="20"
+              color="primary"
+              style="margin-right: 10px"
+            ></mat-spinner>
+          }
+          Login
+        </div>
+      </button>
+    </div>
+  </form>
+  

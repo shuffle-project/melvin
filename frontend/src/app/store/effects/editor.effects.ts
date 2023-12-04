@@ -9,7 +9,9 @@ import { AppState } from '../app.state';
 import * as editorSelectors from '../selectors/editor.selector';
 import * as editorActions from './../actions/editor.actions';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class EditorEffects {
   constructor(
     private actions$: Actions,

@@ -10,10 +10,9 @@ describe('ProjectListComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [MatMenuModule, MatDialogModule],
-      declarations: [ProjectListComponent],
-      providers: [provideMockStore()],
-    }).compileComponents();
+    imports: [MatMenuModule, MatDialogModule, ProjectListComponent],
+    providers: [provideMockStore()],
+}).compileComponents();
   });
 
   beforeEach(() => {

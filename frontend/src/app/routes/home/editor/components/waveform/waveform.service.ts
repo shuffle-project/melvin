@@ -1,11 +1,11 @@
 import { ElementRef, Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import {
+  Subject,
   combineLatest,
   filter,
   fromEvent,
   startWith,
-  Subject,
   takeUntil,
   tap,
   throttleTime,
@@ -68,7 +68,9 @@ export interface WaveformValue {
   color: string;
 }
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class WaveformService {
   public canvasSettingsChanged$ = new Subject<WaveformCanvasSettings>();
   public waveformChanged$ = new Subject<void>();

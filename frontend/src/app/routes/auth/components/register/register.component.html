@@ -9,134 +9,151 @@
       type="text"
       name="name"
       autocomplete="name"
-    />
-    <mat-error
-      *ngIf="
-        formGroup.get('name')?.invalid &&
-        formGroup.get('name')?.errors &&
-        (formGroup.get('name')?.dirty || formGroup.get('name')?.touched)
-      "
-    >
-      <span *ngIf="formGroup.get('name')?.errors?.['required'] ">
-        Verpflichtendes Feld</span
-      >
-    </mat-error>
-  </mat-form-field>
-
-  <mat-form-field appearance="outline">
-    <mat-icon svgIcon="email" matPrefix></mat-icon>
-    <input
-      formControlName="email"
-      matInput
-      i18n-placeholder="@@registerEmailPlaceholder"
-      placeholder="Email"
-      type="email"
-      name="email"
-      autocomplete="email"
-    />
-    <mat-error
-      *ngIf="
+      />
+    @if (
+      formGroup.get('name')?.invalid &&
+      formGroup.get('name')?.errors &&
+      (formGroup.get('name')?.dirty || formGroup.get('name')?.touched)
+      ) {
+      <mat-error
+        >
+        @if (formGroup.get('name')?.errors?.['required'] ) {
+          <span>
+            Verpflichtendes Feld</span
+            >
+          }
+        </mat-error>
+      }
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-icon svgIcon="email" matPrefix></mat-icon>
+      <input
+        formControlName="email"
+        matInput
+        i18n-placeholder="@@registerEmailPlaceholder"
+        placeholder="Email"
+        type="email"
+        name="email"
+        autocomplete="email"
+        />
+      @if (
         formGroup.get('email')?.invalid &&
         formGroup.get('email')?.errors &&
         (formGroup.get('email')?.dirty || formGroup.get('email')?.touched)
-      "
-    >
-      <span *ngIf="formGroup.get('email')?.errors?.['required'] ">
-        Verpflichtendes Feld</span
-      >
-      <span *ngIf="formGroup.get('email')?.errors?.['email'] ">
-        Keine valide EMail</span
-      >
-    </mat-error>
-  </mat-form-field>
-
-  <mat-form-field appearance="outline">
-    <mat-icon svgIcon="lock" matPrefix></mat-icon>
-    <input
-      formControlName="password"
-      matInput
-      i18n-placeholder="@@registerPasswordPlaceholder"
-      placeholder="Password"
-      type="password"
-      name="password"
-      autocomplete="new-password"
-    />
-
-    <mat-error
-      *ngIf="
-        formGroup.get('password')?.invalid &&
-        formGroup.get('password')?.errors &&
-        (formGroup.get('password')?.dirty || formGroup.get('password')?.touched)
-      "
-    >
-      <span *ngIf="formGroup.get('password')?.errors?.['required'] ">
-        Verpflichtendes Feld</span
-      >
-      <span *ngIf="formGroup.get('password')?.errors?.['minlength'] ">
-        Mindestens 6 Zeichen.</span
-      >
-    </mat-error>
-  </mat-form-field>
-
-  <mat-form-field appearance="outline">
-    <mat-icon svgIcon="lock" matPrefix></mat-icon>
-    <input
-      formControlName="passwordConfirm"
-      matInput
-      i18n-placeholder="@@registerPasswordRepeatPlaceholder"
-      placeholder="Password (repeat)"
-      type="password"
-      name="password"
-      autocomplete="new-password"
-    />
-
-    <mat-error
-      *ngIf="
-        formGroup.get('passwordConfirm')?.invalid &&
-        formGroup.get('passwordConfirm')?.errors &&
-        (formGroup.get('passwordConfirm')?.dirty ||
-          formGroup.get('passwordConfirm')?.touched)
-      "
-    >
-      <span *ngIf="formGroup.get('passwordConfirm')?.errors?.['required'] ">
-        Verpflichtendes Feld</span
-      >
-      <span *ngIf="formGroup.get('passwordConfirm')?.errors?.['minlength'] ">
-        Mindestens 6 Zeichen.</span
-      >
-    </mat-error>
-  </mat-form-field>
-  <mat-error
-    *ngIf="
-    formGroup.get('password')?.valid &&
-    formGroup.get('passwordConfirm')?.valid &&
-    formGroup.errors?.['confirm']"
-  >
-    Die beiden Passwörter stimmen nicht überein.
-  </mat-error>
-  <ng-container *ngrxLet="error$ as error">
-    <mat-error *ngIf="error">
-      {{ error }}
-    </mat-error>
-  </ng-container>
-
-  <div class="flex justify-center">
-    <button
-      mat-flat-button
-      type="submit"
-      [disabled]="!formGroup.valid || (loading$ | async)"
-      color="primary"
-    >
-      <div class="flex items-center" i18n="@@registerLoginButtonLabel">
-        <mat-spinner
-          *ngIf="loading$ | async"
-          strokeWidth="2"
-          diameter="20"
-          color="primary"
-          style="margin-right: 10px"
-        ></mat-spinner>
-        Register
-      </div>
-    </button>
-  </div>
-</form>
+        ) {
+        <mat-error
+          >
+          @if (formGroup.get('email')?.errors?.['required'] ) {
+            <span>
+              Verpflichtendes Feld</span
+              >
+            }
+            @if (formGroup.get('email')?.errors?.['email'] ) {
+              <span>
+                Keine valide EMail</span
+                >
+              }
+            </mat-error>
+          }
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-icon svgIcon="lock" matPrefix></mat-icon>
+          <input
+            formControlName="password"
+            matInput
+            i18n-placeholder="@@registerPasswordPlaceholder"
+            placeholder="Password"
+            type="password"
+            name="password"
+            autocomplete="new-password"
+            />
+          @if (
+            formGroup.get('password')?.invalid &&
+            formGroup.get('password')?.errors &&
+            (formGroup.get('password')?.dirty || formGroup.get('password')?.touched)
+            ) {
+            <mat-error
+              >
+              @if (formGroup.get('password')?.errors?.['required'] ) {
+                <span>
+                  Verpflichtendes Feld</span
+                  >
+                }
+                @if (formGroup.get('password')?.errors?.['minlength'] ) {
+                  <span>
+                    Mindestens 6 Zeichen.</span
+                    >
+                  }
+                </mat-error>
+              }
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+              <mat-icon svgIcon="lock" matPrefix></mat-icon>
+              <input
+                formControlName="passwordConfirm"
+                matInput
+                i18n-placeholder="@@registerPasswordRepeatPlaceholder"
+                placeholder="Password (repeat)"
+                type="password"
+                name="password"
+                autocomplete="new-password"
+                />
+              @if (
+                formGroup.get('passwordConfirm')?.invalid &&
+                formGroup.get('passwordConfirm')?.errors &&
+                (formGroup.get('passwordConfirm')?.dirty ||
+                formGroup.get('passwordConfirm')?.touched)
+                ) {
+                <mat-error
+                  >
+                  @if (formGroup.get('passwordConfirm')?.errors?.['required'] ) {
+                    <span>
+                      Verpflichtendes Feld</span
+                      >
+                    }
+                    @if (formGroup.get('passwordConfirm')?.errors?.['minlength'] ) {
+                      <span>
+                        Mindestens 6 Zeichen.</span
+                        >
+                      }
+                    </mat-error>
+                  }
+                </mat-form-field>
+                @if (
+                  formGroup.get('password')?.valid &&
+                  formGroup.get('passwordConfirm')?.valid &&
+                  formGroup.errors?.['confirm']) {
+                  <mat-error
+                    >
+                    Die beiden Passwörter stimmen nicht überein.
+                  </mat-error>
+                }
+                <ng-container *ngrxLet="error$ as error">
+                  @if (error) {
+                    <mat-error>
+                      {{ error }}
+                    </mat-error>
+                  }
+                </ng-container>
+                <div class="flex justify-center">
+                  <button
+                    mat-flat-button
+                    type="submit"
+                    [disabled]="!formGroup.valid || (loading$ | async)"
+                    color="primary"
+                    >
+                    <div class="flex items-center" i18n="@@registerLoginButtonLabel">
+                      @if (loading$ | async) {
+                        <mat-spinner
+                          strokeWidth="2"
+                          diameter="20"
+                          color="primary"
+                          style="margin-right: 10px"
+                        ></mat-spinner>
+                      }
+                      Register
+                    </div>
+                  </button>
+                </div>
+              </form>
+              

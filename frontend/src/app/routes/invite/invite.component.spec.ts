@@ -8,8 +8,8 @@ describe('InviteComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ InviteComponent ]
-    })
+    imports: [InviteComponent]
+})
     .compileComponents();
   });
 

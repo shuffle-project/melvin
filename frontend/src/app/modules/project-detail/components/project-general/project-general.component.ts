@@ -4,16 +4,27 @@ import {
   FormBuilder,
   FormControl,
   FormGroup,
+  ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatOptionModule } from '@angular/material/core';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatSelectModule } from '@angular/material/select';
 import { ComponentStore, tapResponse } from '@ngrx/component-store';
 import { Observable, switchMap, tap } from 'rxjs';
+import { AlertComponent } from '../../../../components/alert/alert.component';
+import { ProjectStatusPipe } from '../../../../pipes/project-status-pipe/project-status.pipe';
 import { ApiService } from '../../../../services/api/api.service';
 import { UpdateProjectDto } from '../../../../services/api/dto/update-project.dto';
 import {
   ProjectEntity,
   ProjectStatus,
 } from '../../../../services/api/entities/project.entity';
+
+import { LetDirective } from '@ngrx/component';
 
 interface ProjectGeneralComponentState {
   isLoading: boolean;
@@ -35,6 +46,19 @@ const initialState: ProjectGeneralComponentState = {
   selector: 'app-project-general',
   templateUrl: './project-general.component.html',
   styleUrls: ['./project-general.component.scss'],
+  standalone: true,
+  imports: [
+    LetDirective,
+    MatProgressSpinnerModule,
+    AlertComponent,
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+    MatOptionModule,
+    MatButtonModule,
+    ProjectStatusPipe,
+  ],
 })
 export class ProjectGeneralComponent extends ComponentStore<ProjectGeneralComponentState> {
   private _projectId!: string;

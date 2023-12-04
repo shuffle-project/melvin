@@ -11,11 +11,20 @@ import {
 import { AppState } from '../../../../../store/app.state';
 import * as authSelectors from '../../../../../store/selectors/auth.selector';
 import * as editorSelectors from '../../../../../store/selectors/editor.selector';
+import { MatButtonModule } from '@angular/material/button';
+import { LetDirective, PushPipe } from '@ngrx/component';
+
 
 @Component({
-  selector: 'app-user-test-controls',
-  templateUrl: './user-test-controls.component.html',
-  styleUrls: ['./user-test-controls.component.scss'],
+    selector: 'app-user-test-controls',
+    templateUrl: './user-test-controls.component.html',
+    styleUrls: ['./user-test-controls.component.scss'],
+    standalone: true,
+    imports: [
+    LetDirective,
+    MatButtonModule,
+    PushPipe
+],
 })
 export class UserTestControlsComponent implements OnInit {
   public show$ = this.store

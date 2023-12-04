@@ -14,10 +14,13 @@ import { environment } from '../../../../../../../environments/environment';
 import { MediaService } from '../../../services/media/media.service';
 import { WaveformCanvasSettings, WaveformService } from '../waveform.service';
 
+
 @Component({
-  selector: 'app-waveform-canvas',
-  templateUrl: './waveform-canvas.component.html',
-  styleUrls: ['./waveform-canvas.component.scss'],
+    selector: 'app-waveform-canvas',
+    templateUrl: './waveform-canvas.component.html',
+    styleUrls: ['./waveform-canvas.component.scss'],
+    standalone: true,
+    imports: [],
 })
 export class WaveformCanvasComponent
   implements OnInit, OnChanges, AfterViewInit, OnDestroy

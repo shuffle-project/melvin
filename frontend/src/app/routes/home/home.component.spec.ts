@@ -8,9 +8,9 @@ describe('HomeComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [HomeComponent],
-      providers: [provideMockStore()],
-    }).compileComponents();
+    imports: [HomeComponent],
+    providers: [provideMockStore()],
+}).compileComponents();
   });
 
   beforeEach(() => {

@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, Input, OnDestroy } from '@angular/core';
-import { AbstractControl, FormArray, FormGroup } from '@angular/forms';
+import { AbstractControl, FormArray, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Subject, take, takeUntil } from 'rxjs';
 import { Language } from 'src/app/services/api/entities/config.entity';
@@ -15,11 +15,32 @@ import {
   findVideoFileWithLanguage,
   getSelectedVendorLanguage,
 } from '../../dialog-create-project.utils';
+import { AlertComponent } from '../../../../../../components/alert/alert.component';
+import { ProjectASRFormComponent } from '../project-asr-form/project-asr-form.component';
+import { MatOptionModule } from '@angular/material/core';
+import { MatSelectModule } from '@angular/material/select';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { LetDirective } from '@ngrx/component';
+import { MatIconModule } from '@angular/material/icon';
+
+import { ProjectMetadataFormComponent } from '../project-metadata-form/project-metadata-form.component';
 
 @Component({
-  selector: 'app-project-video-form',
-  styleUrls: ['./project-video-form.component.scss'],
-  templateUrl: './project-video-form.component.html',
+    selector: 'app-project-video-form',
+    styleUrls: ['./project-video-form.component.scss'],
+    templateUrl: './project-video-form.component.html',
+    standalone: true,
+    imports: [
+    ProjectMetadataFormComponent,
+    ReactiveFormsModule,
+    MatIconModule,
+    LetDirective,
+    MatFormFieldModule,
+    MatSelectModule,
+    MatOptionModule,
+    ProjectASRFormComponent,
+    AlertComponent
+],
 })
 export class ProjectVideoFormComponent implements AfterViewInit, OnDestroy {
   @Input() videoGroup!: FormGroup<VideoGroup>;

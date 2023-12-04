@@ -1,44 +1,47 @@
 <ng-container *ngrxLet="captionsLoading$ as captionsLoading">
   <!-- loading -->
-  <section *ngIf="captionsLoading">
-    <div class="sktn-caption-wrapper">
-      <div class="sktn-caption-speaker"></div>
-      <div *ngFor="let _ of [].constructor(3)" class="flex">
-        <div class="sktn-caption"></div>
-        <div class="sktn-caption-placeholder-right"></div>
-        <div class="sktn-caption-time-wrapper">
-          <div class="sktn-caption-time"></div>
-          <div class="sktn-caption-time"></div>
-        </div>
-
-        <div class="sktn-caption-placeholder-slider"></div>
+  @if (captionsLoading) {
+    <section>
+      <div class="sktn-caption-wrapper">
+        <div class="sktn-caption-speaker"></div>
+        @for (_ of [].constructor(3); track _) {
+          <div class="flex">
+            <div class="sktn-caption"></div>
+            <div class="sktn-caption-placeholder-right"></div>
+            <div class="sktn-caption-time-wrapper">
+              <div class="sktn-caption-time"></div>
+              <div class="sktn-caption-time"></div>
+            </div>
+            <div class="sktn-caption-placeholder-slider"></div>
+          </div>
+        }
       </div>
-    </div>
-  </section>
-
+    </section>
+  }
   <!-- loading finished -->
-
-  <section class="container-virtual-scroll" *ngIf="!captionsLoading">
-    <cdk-virtual-scroll-viewport
-      #cdkVirtualScrollViewport
-      class="document"
-      *ngrxLet="captions$ as captions"
-      itemSize="110"
-      minBufferPx="400"
-      maxBufferPx="800"
-    >
-      <app-caption
-        *cdkVirtualFor="
+  @if (!captionsLoading) {
+    <section class="container-virtual-scroll">
+      <cdk-virtual-scroll-viewport
+        #cdkVirtualScrollViewport
+        class="document"
+        *ngrxLet="captions$ as captions"
+        itemSize="110"
+        minBufferPx="400"
+        maxBufferPx="800"
+        >
+        <app-caption
+          *cdkVirtualFor="
           let caption of captions;
           index as index;
           first as first;
           last as last;
           trackBy: trackById
-        "
-        [caption]="caption"
-        [captionBefore]="first ? null : captions[index - 1]"
-        [captionAfter]="last ? null : captions[index + 1]"
-      ></app-caption>
-    </cdk-virtual-scroll-viewport>
-  </section>
+          "
+          [caption]="caption"
+          [captionBefore]="first ? null : captions[index - 1]"
+          [captionAfter]="last ? null : captions[index + 1]"
+        ></app-caption>
+      </cdk-virtual-scroll-viewport>
+    </section>
+  }
 </ng-container>

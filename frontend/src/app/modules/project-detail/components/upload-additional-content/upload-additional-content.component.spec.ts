@@ -8,8 +8,8 @@ describe('UploadAdditionalVideoComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [UploadAdditionalContentComponent],
-    });
+    imports: [UploadAdditionalContentComponent],
+});
     fixture = TestBed.createComponent(UploadAdditionalContentComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

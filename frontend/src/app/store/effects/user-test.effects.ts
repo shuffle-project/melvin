@@ -8,7 +8,9 @@ import { AppState } from '../app.state';
 import * as editorSelectors from '../selectors/editor.selector';
 import * as userTestActions from './../actions/user-test.actions';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class UserTestEffects {
   private timeOffset = 1000;
 

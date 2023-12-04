@@ -7,7 +7,9 @@ import { NotificationEntity } from 'src/app/services/api/entities/notification.e
 import { AlertService } from '../../services/alert/alert.service';
 import * as notificationsActions from '../actions/notifications.actions';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class NotificationsEffects {
   constructor(
     private actions$: Actions,

@@ -1,25 +1,26 @@
 <ng-container *ngrxLet="displayedCaptions$ as displayedCaptions">
   <div class="captions" [class.display-none]="hidden">
-    <div
-      *ngFor="let item of displayedCaptions; let i = index; trackBy: trackById"
-      class="caption waveform-caption"
-      [style.width.px]="item.width"
-      [style.transform]="'translateX(' + item.left + 'px)'"
-      [class.selected]="item.isSelected"
-      [class.playing]="item.isPlaying"
-      (click)="onClickCaption(item)"
-      appResize
-      (resizeEvent)="
+    @for (item of displayedCaptions; track trackById(i, item); let i = $index) {
+      <div
+        class="caption waveform-caption"
+        [style.width.px]="item.width"
+        [style.transform]="'translateX(' + item.left + 'px)'"
+        [class.selected]="item.isSelected"
+        [class.playing]="item.isPlaying"
+        (click)="onClickCaption(item)"
+        appResize
+        (resizeEvent)="
         onResizeCaption(
-          $event,
-          item,
-          displayedCaptions[i - 1],
-          displayedCaptions[i + 1]
+        $event,
+        item,
+        displayedCaptions[i - 1],
+        displayedCaptions[i + 1]
         )
-      "
-      (submitResizeEvent)="onSubmitResizeCaption()"
-    >
-      {{ item.caption.text }}
-    </div>
+        "
+        (submitResizeEvent)="onSubmitResizeCaption()"
+        >
+        {{ item.caption.text }}
+      </div>
+    }
   </div>
 </ng-container>

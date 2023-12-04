@@ -6,7 +6,9 @@ import { ApiService } from '../../services/api/api.service';
 import { ProjectListEntity } from '../../services/api/entities/project-list.entity';
 import * as projectsActions from '../actions/projects.actions';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class ProjectEffects {
   constructor(
     private actions$: Actions,

@@ -1,16 +1,31 @@
 import { AfterViewInit, Component, Input } from '@angular/core';
-import { FormGroup, Validators } from '@angular/forms';
+import { FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Subject, takeUntil } from 'rxjs';
 import { AsrServiceConfig } from 'src/app/services/api/entities/config.entity';
 import { AppState } from 'src/app/store/app.state';
 import * as configSelector from '../../../../../../store/selectors/config.selector';
 import { ASRGroup } from '../../dialog-create-project.interfaces';
+import { MatOptionModule } from '@angular/material/core';
+
+import { MatSelectModule } from '@angular/material/select';
+import { LetDirective } from '@ngrx/component';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 @Component({
-  selector: 'app-project-asr-form',
-  styleUrls: ['./project-asr-form.component.scss'],
-  templateUrl: './project-asr-form.component.html',
+    selector: 'app-project-asr-form',
+    styleUrls: ['./project-asr-form.component.scss'],
+    templateUrl: './project-asr-form.component.html',
+    standalone: true,
+    imports: [
+    ReactiveFormsModule,
+    MatSlideToggleModule,
+    MatFormFieldModule,
+    LetDirective,
+    MatSelectModule,
+    MatOptionModule
+],
 })
 export class ProjectASRFormComponent implements AfterViewInit {
   @Input() asrGroup!: FormGroup<ASRGroup>;

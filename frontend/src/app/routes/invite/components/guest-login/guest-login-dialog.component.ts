@@ -1,11 +1,25 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
-import { MatDialogRef } from '@angular/material/dialog';
+import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { MatDialogRef, MatDialogTitle, MatDialogContent } from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
+import { MatIconModule } from '@angular/material/icon';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 @Component({
-  selector: 'app-guest-login-dialog',
-  templateUrl: './guest-login-dialog.component.html',
-  styleUrls: ['./guest-login-dialog.component.scss'],
+    selector: 'app-guest-login-dialog',
+    templateUrl: './guest-login-dialog.component.html',
+    styleUrls: ['./guest-login-dialog.component.scss'],
+    standalone: true,
+    imports: [
+    MatDialogTitle,
+    MatDialogContent,
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatIconModule,
+    MatInputModule,
+    MatButtonModule
+],
 })
 export class GuestLoginDialogComponent implements OnInit {
   public formGroup!: FormGroup;

@@ -9,10 +9,9 @@ describe('RegisterComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [RegisterComponent],
-      imports: [ReactiveFormsModule],
-      providers: [provideMockStore()],
-    }).compileComponents();
+    imports: [ReactiveFormsModule, RegisterComponent],
+    providers: [provideMockStore()],
+}).compileComponents();
   });
 
   beforeEach(() => {

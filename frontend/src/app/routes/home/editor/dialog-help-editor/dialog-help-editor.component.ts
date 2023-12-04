@@ -1,14 +1,20 @@
 import { Component } from '@angular/core';
 
+import { MatTableModule } from '@angular/material/table';
+
 interface Shortcut {
   key: string[];
   command: string;
 }
 
 @Component({
-  selector: 'app-dialog-help-editor',
-  styleUrls: ['./dialog-help-editor.component.scss'],
-  templateUrl: './dialog-help-editor.component.html',
+    selector: 'app-dialog-help-editor',
+    styleUrls: ['./dialog-help-editor.component.scss'],
+    templateUrl: './dialog-help-editor.component.html',
+    standalone: true,
+    imports: [
+    MatTableModule
+],
 })
 export class DialogHelpEditorComponent {
   // Operating system detection to switch between mac keys and windows
