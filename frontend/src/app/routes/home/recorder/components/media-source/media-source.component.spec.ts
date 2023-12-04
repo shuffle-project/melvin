@@ -8,8 +8,8 @@ describe('MediaSourceComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [MediaSourceComponent]
-    });
+    imports: [MediaSourceComponent]
+});
     fixture = TestBed.createComponent(MediaSourceComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

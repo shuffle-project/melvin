@@ -1,5 +1,13 @@
+import { DatePipe, NgFor, NgIf } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { HeaderComponent } from '../../../components/header/header.component';
+import { MediaSourceComponent } from './components/media-source/media-source.component';
 import { AddAudioSourceComponent } from './dialogs/add-audio-source/add-audio-source.component';
 import { AddScreensharingSourceComponent } from './dialogs/add-screensharing-source/add-screensharing-source.component';
 import { AddVideoSourceComponent } from './dialogs/add-video-source/add-video-source.component';
@@ -10,6 +18,20 @@ import { RecorderService } from './recorder.service';
   selector: 'app-recorder',
   templateUrl: './recorder.component.html',
   styleUrls: ['./recorder.component.scss'],
+  standalone: true,
+  imports: [
+    NgIf,
+    NgFor,
+    MediaSourceComponent,
+    DatePipe,
+    HeaderComponent,
+    MatProgressSpinnerModule,
+    MatDialogModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatIconModule,
+    MatInputModule,
+  ],
 })
 export class RecorderComponent implements OnInit, OnDestroy {
   today = new Date();

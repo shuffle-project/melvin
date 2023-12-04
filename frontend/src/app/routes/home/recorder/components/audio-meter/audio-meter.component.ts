@@ -1,9 +1,10 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-audio-meter',
-  templateUrl: './audio-meter.component.html',
-  styleUrls: ['./audio-meter.component.scss'],
+    selector: 'app-audio-meter',
+    templateUrl: './audio-meter.component.html',
+    styleUrls: ['./audio-meter.component.scss'],
+    standalone: true,
 })
 export class AudioMeterComponent implements OnInit, OnDestroy {
   @Input({ required: true }) mediaStream!: MediaStream;

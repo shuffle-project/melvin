@@ -8,8 +8,8 @@ describe('AddScreensharingSourceComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [AddScreensharingSourceComponent]
-    });
+    imports: [AddScreensharingSourceComponent]
+});
     fixture = TestBed.createComponent(AddScreensharingSourceComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

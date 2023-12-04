@@ -1,7 +1,19 @@
+import { NgFor, NgIf } from '@angular/common';
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { FormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import {
+  MAT_DIALOG_DATA,
+  MatDialogModule,
+  MatDialogRef,
+} from '@angular/material/dialog';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatSelectModule } from '@angular/material/select';
 import { Subject } from 'rxjs';
 import { v4 } from 'uuid';
+import { AudioMeterComponent } from '../../components/audio-meter/audio-meter.component';
 import { AudioSource } from '../../recorder.interfaces';
 import { RecorderService } from '../../recorder.service';
 
@@ -9,6 +21,19 @@ import { RecorderService } from '../../recorder.service';
   selector: 'app-add-audio-source',
   templateUrl: './add-audio-source.component.html',
   styleUrls: ['./add-audio-source.component.scss'],
+  standalone: true,
+  imports: [
+    NgIf,
+    NgFor,
+    AudioMeterComponent,
+    MatIconModule,
+    MatDialogModule,
+    MatButtonModule,
+    MatProgressSpinnerModule,
+    MatSelectModule,
+    FormsModule,
+    MatInputModule,
+  ],
 })
 export class AddAudioSourceComponent implements OnInit, OnDestroy {
   private destroy$$ = new Subject<void>();

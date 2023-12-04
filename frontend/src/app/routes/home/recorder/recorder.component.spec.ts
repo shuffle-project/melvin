@@ -8,8 +8,8 @@ describe('RecorderComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [RecorderComponent]
-    });
+    imports: [RecorderComponent]
+});
     fixture = TestBed.createComponent(RecorderComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

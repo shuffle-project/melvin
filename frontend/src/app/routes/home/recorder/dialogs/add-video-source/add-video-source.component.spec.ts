@@ -8,8 +8,8 @@ describe('AddVideoSourceComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [AddVideoSourceComponent]
-    });
+    imports: [AddVideoSourceComponent]
+});
     fixture = TestBed.createComponent(AddVideoSourceComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

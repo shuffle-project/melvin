@@ -8,8 +8,8 @@ describe('AudioMeterComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [AudioMeterComponent]
-    });
+    imports: [AudioMeterComponent]
+});
     fixture = TestBed.createComponent(AudioMeterComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

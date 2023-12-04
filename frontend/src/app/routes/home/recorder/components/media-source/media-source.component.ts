@@ -1,4 +1,8 @@
+import { NgIf } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatIconModule } from '@angular/material/icon';
+import { MatMenuModule } from '@angular/material/menu';
 import { MediaCategory } from '../../../../../services/api/entities/project.entity';
 import {
   AudioSource,
@@ -6,11 +10,20 @@ import {
   VideoSource,
 } from '../../recorder.interfaces';
 import { RecorderService } from '../../recorder.service';
+import { AudioMeterComponent } from '../audio-meter/audio-meter.component';
 
 @Component({
   selector: 'app-media-source',
   templateUrl: './media-source.component.html',
   styleUrls: ['./media-source.component.scss'],
+  standalone: true,
+  imports: [
+    NgIf,
+    MatChipsModule,
+    AudioMeterComponent,
+    MatIconModule,
+    MatMenuModule,
+  ],
 })
 export class MediaSourceComponent implements OnInit {
   MediaCategory = MediaCategory;

@@ -1,5 +1,16 @@
+import { NgFor, NgIf } from '@angular/common';
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { FormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import {
+  MAT_DIALOG_DATA,
+  MatDialogModule,
+  MatDialogRef,
+} from '@angular/material/dialog';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatSelectModule } from '@angular/material/select';
 import { Subject } from 'rxjs';
 import { v4 } from 'uuid';
 import { MediaCategory } from '../../../../../services/api/entities/project.entity';
@@ -10,6 +21,19 @@ import { RecorderService } from '../../recorder.service';
   selector: 'app-add-video-source',
   templateUrl: './add-video-source.component.html',
   styleUrls: ['./add-video-source.component.scss'],
+  standalone: true,
+  imports: [
+    NgIf,
+    NgFor,
+    MatIconModule,
+    MatDialogModule,
+    MatButtonModule,
+    MatIconModule,
+    MatProgressSpinnerModule,
+    MatSelectModule,
+    FormsModule,
+    MatInputModule,
+  ],
 })
 export class AddVideoSourceComponent implements OnInit, OnDestroy {
   private destroy$$ = new Subject<void>();

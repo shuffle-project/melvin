@@ -36,7 +36,7 @@ export const HomeRoutes: Routes = [
         canActivate: [HasRoleGuard],
         data: { roles: [UserRole.USER] },
         loadChildren: () =>
-          import('./recorder/recorder.module').then((m) => m.RecorderModule),
+          import('./recorder/recorder.routes').then((m) => m.RecorderRoutes),
       },
       {
         path: 'profile',

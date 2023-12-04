@@ -8,8 +8,8 @@ describe('AddAudioSourceComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [AddAudioSourceComponent]
-    });
+    imports: [AddAudioSourceComponent]
+});
     fixture = TestBed.createComponent(AddAudioSourceComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
