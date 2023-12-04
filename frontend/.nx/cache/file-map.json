@@ -80,7 +80,7 @@
       },
       {
         "file": ".nx/cache/file-map.json",
-        "hash": "8368101807834751703"
+        "hash": "10623907548364082039"
       },
       {
         "file": ".nx/cache/lockfile.hash",
@@ -131,10 +131,6 @@
         "hash": "13139756142923864418"
       },
       {
-        "file": "src/app/app-routing.module.ts",
-        "hash": "295981743768645311"
-      },
-      {
         "file": "src/app/app.component.html",
         "hash": "15253942040451750431"
       },
@@ -148,7 +144,11 @@
       },
       {
         "file": "src/app/app.component.ts",
-        "hash": "5786623561038284745"
+        "hash": "15161815599007560620"
+      },
+      {
+        "file": "src/app/app.routes.ts",
+        "hash": "5020223209553148663"
       },
       {
         "file": "src/app/classes/logger.class.ts",
@@ -288,7 +288,7 @@
       },
       {
         "file": "src/app/components/share-project-dialog/share-project-dialog.component.ts",
-        "hash": "15948012744485427024"
+        "hash": "5114618463434104884"
       },
       {
         "file": "src/app/components/upload-files/upload-files.component.html",
@@ -491,16 +491,12 @@
         "hash": "4112873723492247402"
       },
       {
-        "file": "src/app/modules/shared/shared.module.ts",
-        "hash": "14854921398537630871"
-      },
-      {
         "file": "src/app/pipes/duration-pipe/duration.pipe.spec.ts",
         "hash": "9288071903656786390"
       },
       {
         "file": "src/app/pipes/duration-pipe/duration.pipe.ts",
-        "hash": "12539701870589997912"
+        "hash": "14247353519787902759"
       },
       {
         "file": "src/app/pipes/feature-enabled-pipe/feature-enabled.pipe.spec.ts",
@@ -508,7 +504,7 @@
       },
       {
         "file": "src/app/pipes/feature-enabled-pipe/feature-enabled.pipe.ts",
-        "hash": "9174047079055319726"
+        "hash": "10345889975926777818"
       },
       {
         "file": "src/app/pipes/format-date-pipe/format-date.pipe.spec.ts",
@@ -516,11 +512,11 @@
       },
       {
         "file": "src/app/pipes/format-date-pipe/format-date.pipe.ts",
-        "hash": "5607367891202045741"
+        "hash": "1874847854223869328"
       },
       {
         "file": "src/app/pipes/language-code-pipe/language-code.pipe.ts",
-        "hash": "87525744240326008"
+        "hash": "17479413547734723517"
       },
       {
         "file": "src/app/pipes/media-category-pipe/media-category.pipe.spec.ts",
@@ -528,19 +524,19 @@
       },
       {
         "file": "src/app/pipes/media-category-pipe/media-category.pipe.ts",
-        "hash": "11105048613134630650"
+        "hash": "13981198784871622921"
       },
       {
         "file": "src/app/pipes/project-status-pipe/project-status.pipe.ts",
-        "hash": "12521634475092898374"
+        "hash": "15885187741058318950"
       },
       {
         "file": "src/app/pipes/time-difference-pipe/time-difference.pipe.ts",
-        "hash": "9595027548133649309"
+        "hash": "11895084485089610548"
       },
       {
         "file": "src/app/pipes/written-out-language-pipe/written-out-language.pipe.ts",
-        "hash": "15059788479981354388"
+        "hash": "15525928724228308590"
       },
       {
         "file": "src/app/routes/auth/auth.component.html",
@@ -1196,7 +1192,7 @@
       },
       {
         "file": "src/app/routes/home/viewer/components/highlight-pipe/highlight.pipe.ts",
-        "hash": "10232733847217332419"
+        "hash": "2949351308023280334"
       },
       {
         "file": "src/app/routes/home/viewer/components/infobox/infobox.component.html",
@@ -1353,10 +1349,6 @@
       {
         "file": "src/app/services/alert/alert.interfaces.ts",
         "hash": "10435198749055234652"
-      },
-      {
-        "file": "src/app/services/alert/alert.module.ts",
-        "hash": "12516771179337787455"
       },
       {
         "file": "src/app/services/alert/alert.service.spec.ts",
@@ -1581,10 +1573,6 @@
       {
         "file": "src/app/services/storage/storage-key.enum.ts",
         "hash": "5752717098463626735"
-      },
-      {
-        "file": "src/app/services/storage/storage.module.ts",
-        "hash": "11426925843867520381"
       },
       {
         "file": "src/app/services/storage/storage.service.spec.ts",
@@ -2184,7 +2172,7 @@
       },
       {
         "file": "src/main.ts",
-        "hash": "1260045135585606057"
+        "hash": "31012201097538147"
       },
       {
         "file": "src/polyfills.ts",

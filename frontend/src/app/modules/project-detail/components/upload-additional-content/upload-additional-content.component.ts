@@ -4,7 +4,13 @@ import {
   HttpEventType,
 } from '@angular/common/http';
 import { Component, Input, OnInit } from '@angular/core';
-import { FormControl, FormGroup, NonNullableFormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
+import {
+  FormControl,
+  FormGroup,
+  NonNullableFormBuilder,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Subscription, combineLatest, firstValueFrom, map } from 'rxjs';
 import { ApiService } from '../../../../services/api/api.service';
@@ -17,18 +23,17 @@ import {
 import { AppState } from '../../../../store/app.state';
 import * as projectsSelector from '../../../../store/selectors/projects.selector';
 
-import * as uuid from 'uuid';
-import { selectUserId } from '../../../../store/selectors/auth.selector';
-import { MediaCategoryPipe } from '../../../../pipes/media-category-pipe/media-category.pipe';
-import { LetDirective, PushPipe } from '@ngrx/component';
-import { MatProgressBarModule } from '@angular/material/progress-bar';
-import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatOptionModule } from '@angular/material/core';
-import { MatSelectModule } from '@angular/material/select';
-import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
-
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatSelectModule } from '@angular/material/select';
+import { LetDirective, PushPipe } from '@ngrx/component';
+import * as uuid from 'uuid';
+import { MediaCategoryPipe } from '../../../../pipes/media-category-pipe/media-category.pipe';
+import { selectUserId } from '../../../../store/selectors/auth.selector';
 
 interface FileUpload {
   id: string;
@@ -39,11 +44,11 @@ interface FileUpload {
 }
 
 @Component({
-    selector: 'app-upload-additional-content',
-    templateUrl: './upload-additional-content.component.html',
-    styleUrls: ['./upload-additional-content.component.scss'],
-    standalone: true,
-    imports: [
+  selector: 'app-upload-additional-content',
+  templateUrl: './upload-additional-content.component.html',
+  styleUrls: ['./upload-additional-content.component.scss'],
+  standalone: true,
+  imports: [
     ReactiveFormsModule,
     MatFormFieldModule,
     MatInputModule,
@@ -54,8 +59,8 @@ interface FileUpload {
     MatProgressBarModule,
     LetDirective,
     PushPipe,
-    MediaCategoryPipe
-],
+    MediaCategoryPipe,
+  ],
 })
 export class UploadAdditionalContentComponent implements OnInit {
   public selectableMediaCategories = [

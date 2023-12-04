@@ -1,104 +1,97 @@
 @if (isOwner$ | ngrxPush) {
-  <h3 i18n="@@uploadAdditionalMediaTitle">
-    Upload additional media files
-  </h3>
-}
-@if (isOwner$ | ngrxPush) {
-  <form
-    class="upload-form"
-    [formGroup]="formGroup"
-    (ngSubmit)="onClickSubmit()"
+<h3 i18n="@@uploadAdditionalMediaTitle">Upload additional media files</h3>
+} @if (isOwner$ | ngrxPush) {
+<form class="upload-form" [formGroup]="formGroup">
+  <div class="first-row">
+    <mat-form-field appearance="fill" class="title">
+      <mat-label i18n="@@uploadAdditionalMediaVideoTitleLabel"
+        >Video title</mat-label
+      >
+      <input
+        matInput
+        formControlName="title"
+        placeholder="Video title"
+        i18n-placeholder="@@uploadAdditionalMediaVideoTitlePlaceholder"
+      />
+    </mat-form-field>
+    <mat-form-field class="category">
+      <mat-label i18n="@@uploadAdditionalMediaVideoCategoryLabel"
+        >Choose a category</mat-label
+      >
+      <mat-select formControlName="category">
+        <!-- TODO media category i18n -->
+        @for (selectableCategory of selectableMediaCategories; track $index) {
+        <mat-option [value]="selectableCategory">{{
+          selectableCategory | mediaCategory
+        }}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <div class="second-row">
+    <div class="upload-wrapper">
+      <input
+        #fileUpload
+        formControlName="file"
+        type="file"
+        name="file"
+        single
+        accept="video/*"
+        (change)="onFileChange($event)"
+      />
+    </div>
+    <button
+      (click)="onClickSubmit()"
+      mat-flat-button
+      color="primary"
+      [disabled]="formGroup.status === 'INVALID'"
+      i18n="@@uploadAdditionalMediaUploadButton"
     >
-    <div class="first-row">
-      <mat-form-field appearance="fill" class="title">
-        <mat-label i18n="@@uploadAdditionalMediaVideoTitleLabel"
-          >Video title</mat-label
-          >
-          <input
-            matInput
-            formControlName="title"
-            placeholder="Video title"
-            i18n-placeholder="@@uploadAdditionalMediaVideoTitlePlaceholder"
-            />
-        </mat-form-field>
-        <mat-form-field class="category">
-          <mat-label i18n="@@uploadAdditionalMediaVideoCategoryLabel"
-            >Choose a category</mat-label
-            >
-            <mat-select formControlName="category">
-              <!-- TODO media category i18n -->
-              @for (category of selectableMediaCategories; track $index) {
-                <mat-option value="category">{{ category | mediaCategory }}</mat-option>
-              }
-            </mat-select>
-          </mat-form-field>
-        </div>
-        <div class="second-row">
-          <div class="upload-wrapper">
-            <input
-              #fileUpload
-              formControlName="file"
-              type="file"
-              name="file"
-              single
-              accept="video/*"
-              (change)="onFileChange($event)"
-              />
-          </div>
-          <button
-            (click)="onClickSubmit()"
-            mat-flat-button
-            color="primary"
-            [disabled]="formGroup.status === 'INVALID'"
-            i18n="@@uploadAdditionalMediaUploadButton"
-            >
-            <mat-icon svgIcon="upload"></mat-icon>
-            Upload
-          </button>
-        </div>
-      </form>
-    }
-    @if (fileUploads.length > 0) {
-      <div>
-        <h3 i18n="@@uploadAdditionalMediaUploadingHeader">Uploading</h3>
-        <ul class="upload-list">
-          @for (fileUpload of fileUploads; track fileUpload) {
-            <li>
-              {{ fileUpload.name }}
-              @if (fileUpload.loaded && fileUpload.totalSize) {
-                <mat-progress-bar
-                  mode="determinate"
-                  [value]="(fileUpload.loaded / fileUpload.totalSize) * 100"
-                ></mat-progress-bar>
-              }
-              <!-- {{ (fileUpload.loaded / fileUpload.totalSize) * 100 }}% -->
-              <button mat-icon-button (click)="onCancelUpload(fileUpload)">
-                <mat-icon svgIcon="close"></mat-icon>
-              </button>
-            </li>
-          }
-        </ul>
-      </div>
-    }
-    <ng-container *ngrxLet="project$ as project">
-      <hr />
-      @if (project) {
-        <div>
-          <h3 i18n="@@uploadAdditionalMediaListHeader">Videos</h3>
-          <ul>
-            @for (video of project.videos; track video) {
-              <li>
-                {{ video.title }} -- {{ video.category }}
-                <button
-                  mat-icon-button
-                  (click)="onDeleteAdditionalMedia(project, video)"
-                  >
-                  <mat-icon svgIcon="delete"></mat-icon>
-                </button>
-              </li>
-            }
-          </ul>
-        </div>
+      <mat-icon svgIcon="upload"></mat-icon>
+      Upload
+    </button>
+  </div>
+</form>
+} @if (fileUploads.length > 0) {
+<div>
+  <h3 i18n="@@uploadAdditionalMediaUploadingHeader">Uploading</h3>
+  <ul class="upload-list">
+    @for (fileUpload of fileUploads; track fileUpload) {
+    <li>
+      {{ fileUpload.name }}
+      @if (fileUpload.loaded && fileUpload.totalSize) {
+      <mat-progress-bar
+        mode="determinate"
+        [value]="(fileUpload.loaded / fileUpload.totalSize) * 100"
+      ></mat-progress-bar>
       }
-    </ng-container>
-    
+      <!-- {{ (fileUpload.loaded / fileUpload.totalSize) * 100 }}% -->
+      <button mat-icon-button (click)="onCancelUpload(fileUpload)">
+        <mat-icon svgIcon="close"></mat-icon>
+      </button>
+    </li>
+    }
+  </ul>
+</div>
+}
+<ng-container *ngrxLet="project$ as project">
+  <hr />
+  @if (project) {
+  <div>
+    <h3 i18n="@@uploadAdditionalMediaListHeader">Videos</h3>
+    <ul>
+      @for (video of project.videos; track video) {
+      <li>
+        {{ video.title }} -- {{ video.category }}
+        <button
+          mat-icon-button
+          (click)="onDeleteAdditionalMedia(project, video)"
+        >
+          <mat-icon svgIcon="delete"></mat-icon>
+        </button>
+      </li>
+      }
+    </ul>
+  </div>
+  }
+</ng-container>
