@@ -12,16 +12,16 @@ describe('EditorComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [
+    imports: [
         RouterTestingModule,
         MatDialogModule,
         DurationPipeModule,
         LetModule,
         PushModule,
-      ],
-      declarations: [EditorComponent],
-      providers: [provideMockStore()],
-    }).compileComponents();
+        EditorComponent,
+    ],
+    providers: [provideMockStore()],
+}).compileComponents();
   });
 
   beforeEach(() => {

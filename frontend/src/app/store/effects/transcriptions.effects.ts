@@ -7,7 +7,9 @@ import { TranscriptionEntity } from '../../services/api/entities/transcription.e
 import * as editorActions from '../actions/editor.actions';
 import * as transcriptionsActions from '../actions/transcriptions.actions';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class TranscriptionsEffects {
   constructor(
     private actions$: Actions,

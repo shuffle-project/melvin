@@ -9,7 +9,9 @@ import * as viewerActions from '../actions/viewer.actions';
 import { AppState } from '../app.state';
 import * as viewerSelector from '../selectors/viewer.selector';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class ViewerEffects {
   constructor(
     private actions$: Actions,

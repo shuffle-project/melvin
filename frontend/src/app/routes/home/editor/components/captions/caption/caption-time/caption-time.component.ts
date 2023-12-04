@@ -1,5 +1,5 @@
 import { Component, Input, OnChanges } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import dayjs from 'dayjs';
 import { DurationPipe } from '../../../../../../../pipes/duration-pipe/duration.pipe';
@@ -7,6 +7,11 @@ import { AlertService } from '../../../../../../../services/alert/alert.service'
 import { CaptionEntity } from '../../../../../../../services/api/entities/caption.entity';
 import * as captionsActions from '../../../../../../../store/actions/captions.actions';
 import { AppState } from '../../../../../../../store/app.state';
+import { FeatureEnabledPipe } from '../../../../../../../pipes/feature-enabled-pipe/feature-enabled.pipe';
+import { MatIconModule } from '@angular/material/icon';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatButtonModule } from '@angular/material/button';
+import { NgClass } from '@angular/common';
 
 interface CaptionTimeFormGroup {
   start: AbstractControl<string>;
@@ -14,9 +19,18 @@ interface CaptionTimeFormGroup {
 }
 
 @Component({
-  selector: 'app-caption-time',
-  templateUrl: './caption-time.component.html',
-  styleUrls: ['./caption-time.component.scss'],
+    selector: 'app-caption-time',
+    templateUrl: './caption-time.component.html',
+    styleUrls: ['./caption-time.component.scss'],
+    standalone: true,
+    imports: [
+    MatButtonModule,
+    MatTooltipModule,
+    MatIconModule,
+    ReactiveFormsModule,
+    NgClass,
+    FeatureEnabledPipe
+],
 })
 export class CaptionTimeComponent implements OnChanges {
   @Input() caption!: CaptionEntity;

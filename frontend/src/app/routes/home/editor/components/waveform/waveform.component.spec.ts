@@ -9,9 +9,9 @@ describe('WaveformComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [WaveformComponent],
-      providers: [provideMockStore(), WaveformService],
-    }).compileComponents();
+    imports: [WaveformComponent],
+    providers: [provideMockStore(), WaveformService],
+}).compileComponents();
   });
 
   beforeEach(() => {

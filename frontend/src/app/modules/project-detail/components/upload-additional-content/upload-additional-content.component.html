@@ -1,13 +1,7 @@
-<h3 *ngIf="isOwner$ | ngrxPush" i18n="@@uploadAdditionalMediaTitle">
-  Upload additional media files
-</h3>
-
-<form
-  class="upload-form"
-  [formGroup]="formGroup"
-  (ngSubmit)="onClickSubmit()"
-  *ngIf="isOwner$ | ngrxPush"
->
+@if (isOwner$ | ngrxPush) {
+<h3 i18n="@@uploadAdditionalMediaTitle">Upload additional media files</h3>
+} @if (isOwner$ | ngrxPush) {
+<form class="upload-form" [formGroup]="formGroup">
   <div class="first-row">
     <mat-form-field appearance="fill" class="title">
       <mat-label i18n="@@uploadAdditionalMediaVideoTitleLabel"
@@ -20,15 +14,16 @@
         i18n-placeholder="@@uploadAdditionalMediaVideoTitlePlaceholder"
       />
     </mat-form-field>
-
     <mat-form-field class="category">
       <mat-label i18n="@@uploadAdditionalMediaVideoCategoryLabel"
         >Choose a category</mat-label
       >
       <mat-select formControlName="category">
         <!-- TODO media category i18n -->
-        @for (category of selectableMediaCategories; track $index) {
-        <mat-option value="category">{{ category | mediaCategory }}</mat-option>
+        @for (selectableCategory of selectableMediaCategories; track $index) {
+        <mat-option [value]="selectableCategory">{{
+          selectableCategory | mediaCategory
+        }}</mat-option>
         }
       </mat-select>
     </mat-form-field>
@@ -45,7 +40,6 @@
         (change)="onFileChange($event)"
       />
     </div>
-
     <button
       (click)="onClickSubmit()"
       mat-flat-button
@@ -58,32 +52,36 @@
     </button>
   </div>
 </form>
-<div *ngIf="fileUploads.length > 0">
+} @if (fileUploads.length > 0) {
+<div>
   <h3 i18n="@@uploadAdditionalMediaUploadingHeader">Uploading</h3>
   <ul class="upload-list">
-    <li *ngFor="let fileUpload of fileUploads">
+    @for (fileUpload of fileUploads; track fileUpload) {
+    <li>
       {{ fileUpload.name }}
+      @if (fileUpload.loaded && fileUpload.totalSize) {
       <mat-progress-bar
-        *ngIf="fileUpload.loaded && fileUpload.totalSize"
         mode="determinate"
         [value]="(fileUpload.loaded / fileUpload.totalSize) * 100"
       ></mat-progress-bar>
-
+      }
       <!-- {{ (fileUpload.loaded / fileUpload.totalSize) * 100 }}% -->
       <button mat-icon-button (click)="onCancelUpload(fileUpload)">
         <mat-icon svgIcon="close"></mat-icon>
       </button>
     </li>
+    }
   </ul>
 </div>
-
+}
 <ng-container *ngrxLet="project$ as project">
   <hr />
-
-  <div *ngIf="project">
+  @if (project) {
+  <div>
     <h3 i18n="@@uploadAdditionalMediaListHeader">Videos</h3>
     <ul>
-      <li *ngFor="let video of project.videos">
+      @for (video of project.videos; track video) {
+      <li>
         {{ video.title }} -- {{ video.category }}
         <button
           mat-icon-button
@@ -92,6 +90,8 @@
           <mat-icon svgIcon="delete"></mat-icon>
         </button>
       </li>
+      }
     </ul>
   </div>
+  }
 </ng-container>

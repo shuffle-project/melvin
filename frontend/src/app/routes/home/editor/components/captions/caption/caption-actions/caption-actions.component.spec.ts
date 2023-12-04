@@ -8,8 +8,8 @@ describe('CaptionActionsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CaptionActionsComponent ]
-    })
+    imports: [CaptionActionsComponent]
+})
     .compileComponents();
 
     fixture = TestBed.createComponent(CaptionActionsComponent);

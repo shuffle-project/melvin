@@ -1,6 +1,5 @@
 <div class="box">
   <h2 i18n="@@playerTranscriptHeader">Transcript</h2>
-
   <mat-form-field class="search-form-field">
     <mat-label i18n="@@playerTranscriptSearchLabel">Search</mat-label>
     <input
@@ -9,103 +8,97 @@
       [(ngModel)]="searchValue"
       (input)="onSearchChange($event)"
       (keydown)="onKeydownSearch($event)"
-    />
-    <mat-icon
-      *ngIf="searchValue.length === 0"
-      svgIcon="search"
-      matSuffix
-    ></mat-icon>
-
-    <button
-      *ngIf="searchValue.length > 0"
-      matSuffix
-      mat-icon-button
-      aria-label="Clear"
-      (click)="onClearSearchInput()"
-    >
-      <mat-icon svgIcon="close"></mat-icon>
-    </button>
+      />
+    @if (searchValue.length === 0) {
+      <mat-icon
+        svgIcon="search"
+        matSuffix
+      ></mat-icon>
+    }
+    @if (searchValue.length > 0) {
+      <button
+        matSuffix
+        mat-icon-button
+        aria-label="Clear"
+        (click)="onClearSearchInput()"
+        >
+        <mat-icon svgIcon="close"></mat-icon>
+      </button>
+    }
   </mat-form-field>
-
-  <div *ngIf="searchValue.length > 0" class="search-results-wrapper">
-    <button mat-icon-button class="md" (click)="onGoToRecentFound()">
-      <mat-icon svgIcon="arrow-up" class="svg-black"></mat-icon>
-    </button>
-    {{ searchFoundInCaptionIds.length > 0 ? foundItemsNumber : 0 }} /
-    {{ searchFoundInCaptionIds.length }}
-
-    <button mat-icon-button class="md" (click)="onGoToNextFound()">
-      <mat-icon svgIcon="arrow-down" class="svg-black"></mat-icon>
-    </button>
-  </div>
-
+  @if (searchValue.length > 0) {
+    <div class="search-results-wrapper">
+      <button mat-icon-button class="md" (click)="onGoToRecentFound()">
+        <mat-icon svgIcon="arrow-up" class="svg-black"></mat-icon>
+      </button>
+      {{ searchFoundInCaptionIds.length > 0 ? foundItemsNumber : 0 }} /
+      {{ searchFoundInCaptionIds.length }}
+      <button mat-icon-button class="md" (click)="onGoToNextFound()">
+        <mat-icon svgIcon="arrow-down" class="svg-black"></mat-icon>
+      </button>
+    </div>
+  }
   <ng-container *ngrxLet="availableSpeakers$ as availableSpeakers">
     <ng-container *ngrxLet="viewerService.currentTime$ as currentTime">
       <div
         id="captions-viewport"
         class="captions-viewport fontsize-{{ transcriptFontsize$ | ngrxPush }}"
         [ngStyle]="{
-          'font-size.%': transcriptFontsize$ | ngrxPush
+        'font-size.%': transcriptFontsize$ | ngrxPush
         }"
         (scroll)="onScrollInViewport()"
-      >
-        <div
-          *ngFor="
-            let transcriptParagraphs of transcriptNew;
-            index as indexParagraph;
-            first as firstParagraph
-          "
-          class="transcript-paragraph"
         >
-          <ng-container
-            *ngFor="
-              let item of transcriptParagraphs;
-              index as indexCaption;
-              first as firstCaption;
-              trackBy: trackById
-            "
-          >
-            <div
-              *ngIf="
+        @for (
+          transcriptParagraphs of transcriptNew; track
+          transcriptParagraphs; let indexParagraph = $index; let firstParagraph = $first) {
+          <div
+            class="transcript-paragraph"
+            >
+            @for (
+              item of transcriptParagraphs; track trackById(indexCaption,
+              item); let indexCaption = $index; let firstCaption = $first) {
+              @if (
                 (firstCaption && firstParagraph) ||
                 (!firstParagraph &&
-                  firstCaption &&
-                  transcriptNew[indexParagraph - 1][0].speakerId !==
-                    item.speakerId)
-              "
-              class="caption-speaker"
-            >
-              {{ getSpeakerName(item.speakerId, availableSpeakers) }}
-            </div>
-
-            <span
-              id="caption-{{ item.id }}"
-              class="caption-text {{
+                firstCaption &&
+                transcriptNew[indexParagraph - 1][0].speakerId !==
+                item.speakerId)
+                ) {
+                <div
+                  class="caption-speaker"
+                  >
+                  {{ getSpeakerName(item.speakerId, availableSpeakers) }}
+                </div>
+              }
+              <span
+                id="caption-{{ item.id }}"
+                class="caption-text {{
                 currentTime >= item.start / 1000 &&
                 currentTime < item.end / 1000
-                  ? 'current-caption'
-                  : ''
-              }}
-              "
-              (click)="onJumpInVideo(item)"
-              [innerHTML]="item.text"
-            >
-              <!-- [title]="item.start + ' ' + item.end" --> </span
-            >&nbsp;</ng-container
-          >
+                ? 'current-caption'
+                : ''
+                }}
+                "
+                (click)="onJumpInVideo(item)"
+                [innerHTML]="item.text"
+                >
+                <!-- [title]="item.start + ' ' + item.end" --> </span
+                >&nbsp;
+              }
+            </div>
+          }
         </div>
-      </div>
+      </ng-container>
     </ng-container>
-  </ng-container>
-
-  <div class="transcript-footer">
-    <mat-checkbox
-      class="auto-scroll"
-      labelPosition="before"
-      [(ngModel)]="autoScroll"
-      i18n="@@playerTranscriptAutomaticScrollLabel"
-    >
-      Scroll automatically
-    </mat-checkbox>
+    <div class="transcript-footer">
+      <mat-checkbox
+        class="auto-scroll"
+        labelPosition="before"
+        [(ngModel)]="autoScroll"
+        i18n="@@playerTranscriptAutomaticScrollLabel"
+        >
+        Scroll automatically
+      </mat-checkbox>
+    </div>
   </div>
-</div>
+  

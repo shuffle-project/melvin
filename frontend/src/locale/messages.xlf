@@ -934,6 +934,9 @@
       <trans-unit id="mediaCategorySpeaker" datatype="html">
         <source>Speaker</source>
       </trans-unit>
+      <trans-unit id="dialogCreateProjectCancelUpload" datatype="html">
+        <source> Cancel Upload </source>
+      </trans-unit>
     </body>
   </file>
 </xliff>

@@ -79,6 +79,22 @@
         "hash": "12461020687504659668"
       },
       {
+        "file": ".nx/cache/file-map.json",
+        "hash": "10623907548364082039"
+      },
+      {
+        "file": ".nx/cache/lockfile.hash",
+        "hash": "17253788859157991946"
+      },
+      {
+        "file": ".nx/cache/parsed-lock-file.json",
+        "hash": "16746879722132117620"
+      },
+      {
+        "file": ".nx/cache/project-graph.json",
+        "hash": "9315037108626243529"
+      },
+      {
         "file": ".prettierrc",
         "hash": "16267754514737964994"
       },
@@ -92,7 +108,7 @@
       },
       {
         "file": "angular.json",
-        "hash": "542067120897542959"
+        "hash": "8234822182567726301"
       },
       {
         "file": "karma.conf.js",
@@ -108,19 +124,15 @@
       },
       {
         "file": "package-lock.json",
-        "hash": "14816199431604146931"
+        "hash": "12547188321619588670"
       },
       {
         "file": "package.json",
-        "hash": "2042653014297775691"
-      },
-      {
-        "file": "src/app/app-routing.module.ts",
-        "hash": "15822739039381333378"
+        "hash": "13139756142923864418"
       },
       {
         "file": "src/app/app.component.html",
-        "hash": "15496445181701346414"
+        "hash": "15253942040451750431"
       },
       {
         "file": "src/app/app.component.scss",
@@ -128,15 +140,15 @@
       },
       {
         "file": "src/app/app.component.spec.ts",
-        "hash": "11713366748569431292"
+        "hash": "3923066182060340356"
       },
       {
         "file": "src/app/app.component.ts",
-        "hash": "9779703881313430161"
+        "hash": "15161815599007560620"
       },
       {
-        "file": "src/app/app.module.ts",
-        "hash": "15540708367991842373"
+        "file": "src/app/app.routes.ts",
+        "hash": "5020223209553148663"
       },
       {
         "file": "src/app/classes/logger.class.ts",
@@ -144,7 +156,7 @@
       },
       {
         "file": "src/app/components/activity/activity.component.html",
-        "hash": "16033193864346814632"
+        "hash": "8453773331496814192"
       },
       {
         "file": "src/app/components/activity/activity.component.scss",
@@ -152,11 +164,7 @@
       },
       {
         "file": "src/app/components/activity/activity.component.ts",
-        "hash": "16456681293142196604"
-      },
-      {
-        "file": "src/app/components/activity/activity.module.ts",
-        "hash": "8806282566170230419"
+        "hash": "15512695152597795679"
       },
       {
         "file": "src/app/components/alert/alert.component.html",
@@ -168,19 +176,15 @@
       },
       {
         "file": "src/app/components/alert/alert.component.spec.ts",
-        "hash": "14109152113276652070"
+        "hash": "1302840798213101437"
       },
       {
         "file": "src/app/components/alert/alert.component.ts",
-        "hash": "16189453123016264710"
-      },
-      {
-        "file": "src/app/components/alert/alert.module.ts",
-        "hash": "11872704626376649480"
+        "hash": "8171101668055044937"
       },
       {
         "file": "src/app/components/avatar-group/avatar/avatar.component.html",
-        "hash": "12321656371970998272"
+        "hash": "2611369330566341586"
       },
       {
         "file": "src/app/components/avatar-group/avatar/avatar.component.scss",
@@ -188,19 +192,15 @@
       },
       {
         "file": "src/app/components/avatar-group/avatar/avatar.component.spec.ts",
-        "hash": "304744719272238625"
+        "hash": "15144938568573426839"
       },
       {
         "file": "src/app/components/avatar-group/avatar/avatar.component.ts",
-        "hash": "5984975253438975458"
-      },
-      {
-        "file": "src/app/components/avatar-group/avatar/avatar.module.ts",
-        "hash": "6523964995840686953"
+        "hash": "2856241472469919442"
       },
       {
         "file": "src/app/components/avatar-group/avatar-group.component.html",
-        "hash": "15539663870669760248"
+        "hash": "1358245299504515041"
       },
       {
         "file": "src/app/components/avatar-group/avatar-group.component.scss",
@@ -208,15 +208,11 @@
       },
       {
         "file": "src/app/components/avatar-group/avatar-group.component.ts",
-        "hash": "13104613529276722636"
-      },
-      {
-        "file": "src/app/components/avatar-group/avatar-group.module.ts",
-        "hash": "6479325793482258673"
+        "hash": "11867190207444902514"
       },
       {
         "file": "src/app/components/footer/footer.component.html",
-        "hash": "16884678373956426335"
+        "hash": "8410158596487084882"
       },
       {
         "file": "src/app/components/footer/footer.component.scss",
@@ -228,15 +224,11 @@
       },
       {
         "file": "src/app/components/footer/footer.component.ts",
-        "hash": "17081546896760921936"
-      },
-      {
-        "file": "src/app/components/footer/footer.module.ts",
-        "hash": "6162488440230287437"
+        "hash": "15595020860958298911"
       },
       {
         "file": "src/app/components/header/header.component.html",
-        "hash": "9721907692291345054"
+        "hash": "1414575558130009649"
       },
       {
         "file": "src/app/components/header/header.component.scss",
@@ -244,15 +236,11 @@
       },
       {
         "file": "src/app/components/header/header.component.spec.ts",
-        "hash": "12666413403685239526"
+        "hash": "8944038228355603905"
       },
       {
         "file": "src/app/components/header/header.component.ts",
-        "hash": "7499718479369040313"
-      },
-      {
-        "file": "src/app/components/header/header.module.ts",
-        "hash": "6830192795376536982"
+        "hash": "6923581659426749902"
       },
       {
         "file": "src/app/components/logo/logo.component.html",
@@ -264,15 +252,11 @@
       },
       {
         "file": "src/app/components/logo/logo.component.spec.ts",
-        "hash": "11677520729864903470"
+        "hash": "12695057270606532434"
       },
       {
         "file": "src/app/components/logo/logo.component.ts",
-        "hash": "7985131977885318710"
-      },
-      {
-        "file": "src/app/components/logo/logo.module.ts",
-        "hash": "2782295539191630716"
+        "hash": "12223610467114789253"
       },
       {
         "file": "src/app/components/notification/notification.component.html",
@@ -284,19 +268,15 @@
       },
       {
         "file": "src/app/components/notification/notification.component.spec.ts",
-        "hash": "3245226090841795094"
+        "hash": "16139647665482965714"
       },
       {
         "file": "src/app/components/notification/notification.component.ts",
-        "hash": "12186690115632872461"
-      },
-      {
-        "file": "src/app/components/notification/notification.module.ts",
-        "hash": "2995223425400552773"
+        "hash": "16405299552769459378"
       },
       {
         "file": "src/app/components/share-project-dialog/share-project-dialog.component.html",
-        "hash": "5288896546330918451"
+        "hash": "14429520395291617303"
       },
       {
         "file": "src/app/components/share-project-dialog/share-project-dialog.component.scss",
@@ -304,15 +284,15 @@
       },
       {
         "file": "src/app/components/share-project-dialog/share-project-dialog.component.spec.ts",
-        "hash": "6824934191053422649"
+        "hash": "1531174922218109877"
       },
       {
         "file": "src/app/components/share-project-dialog/share-project-dialog.component.ts",
-        "hash": "1065145069178722258"
+        "hash": "5114618463434104884"
       },
       {
         "file": "src/app/components/upload-files/upload-files.component.html",
-        "hash": "16934560545959153340"
+        "hash": "6022300249703720169"
       },
       {
         "file": "src/app/components/upload-files/upload-files.component.scss",
@@ -320,11 +300,7 @@
       },
       {
         "file": "src/app/components/upload-files/upload-files.component.ts",
-        "hash": "10140574548897510421"
-      },
-      {
-        "file": "src/app/components/upload-files/upload-files.module.ts",
-        "hash": "15553759479450402304"
+        "hash": "5815964116683104319"
       },
       {
         "file": "src/app/constants/animals.constants.ts",
@@ -404,7 +380,7 @@
       },
       {
         "file": "src/app/modules/project-detail/components/project-activity/project-activity.component.html",
-        "hash": "7679150650812939330"
+        "hash": "16483447301325324653"
       },
       {
         "file": "src/app/modules/project-detail/components/project-activity/project-activity.component.scss",
@@ -412,19 +388,15 @@
       },
       {
         "file": "src/app/modules/project-detail/components/project-activity/project-activity.component.spec.ts",
-        "hash": "17598690969618332028"
+        "hash": "3907538932437458743"
       },
       {
         "file": "src/app/modules/project-detail/components/project-activity/project-activity.component.ts",
-        "hash": "14891102093427383098"
-      },
-      {
-        "file": "src/app/modules/project-detail/components/project-activity/project-activity.module.ts",
-        "hash": "11935537574661865820"
+        "hash": "9366165625507999094"
       },
       {
         "file": "src/app/modules/project-detail/components/project-general/project-general.component.html",
-        "hash": "4875716590532383"
+        "hash": "1691550913757471492"
       },
       {
         "file": "src/app/modules/project-detail/components/project-general/project-general.component.scss",
@@ -432,19 +404,15 @@
       },
       {
         "file": "src/app/modules/project-detail/components/project-general/project-general.component.spec.ts",
-        "hash": "17803895598602457334"
+        "hash": "8084471936115085491"
       },
       {
         "file": "src/app/modules/project-detail/components/project-general/project-general.component.ts",
-        "hash": "8754544790899325044"
-      },
-      {
-        "file": "src/app/modules/project-detail/components/project-general/project-general.module.ts",
-        "hash": "9368077922526022315"
+        "hash": "16669449299825673244"
       },
       {
         "file": "src/app/modules/project-detail/components/project-transcription/components/create-transcription-dialog/create-transcription-dialog.component.html",
-        "hash": "15214992578589373220"
+        "hash": "8802425811244815748"
       },
       {
         "file": "src/app/modules/project-detail/components/project-transcription/components/create-transcription-dialog/create-transcription-dialog.component.scss",
@@ -452,15 +420,11 @@
       },
       {
         "file": "src/app/modules/project-detail/components/project-transcription/components/create-transcription-dialog/create-transcription-dialog.component.ts",
-        "hash": "8216606349528782708"
-      },
-      {
-        "file": "src/app/modules/project-detail/components/project-transcription/components/create-transcription-dialog/create-transcription-dialog.module.ts",
-        "hash": "1096977056965256395"
+        "hash": "14311710348571277319"
       },
       {
         "file": "src/app/modules/project-detail/components/project-transcription/components/edit-transcription-dialog/edit-transcription-dialog.component.html",
-        "hash": "6122732727105595363"
+        "hash": "5390140870859003669"
       },
       {
         "file": "src/app/modules/project-detail/components/project-transcription/components/edit-transcription-dialog/edit-transcription-dialog.component.scss",
@@ -468,15 +432,11 @@
       },
       {
         "file": "src/app/modules/project-detail/components/project-transcription/components/edit-transcription-dialog/edit-transcription-dialog.component.ts",
-        "hash": "8409929652427932100"
-      },
-      {
-        "file": "src/app/modules/project-detail/components/project-transcription/components/edit-transcription-dialog/edit-transcription-dialog.module.ts",
-        "hash": "14088917565348112375"
+        "hash": "6977956849630763257"
       },
       {
         "file": "src/app/modules/project-detail/components/project-transcription/components/transcription/transcription.component.html",
-        "hash": "408509052428376167"
+        "hash": "12769643500838711815"
       },
       {
         "file": "src/app/modules/project-detail/components/project-transcription/components/transcription/transcription.component.scss",
@@ -484,15 +444,11 @@
       },
       {
         "file": "src/app/modules/project-detail/components/project-transcription/components/transcription/transcription.component.ts",
-        "hash": "13028842553662112669"
-      },
-      {
-        "file": "src/app/modules/project-detail/components/project-transcription/components/transcription/transcription.module.ts",
-        "hash": "3598628209981508896"
+        "hash": "6847637657529781978"
       },
       {
         "file": "src/app/modules/project-detail/components/project-transcription/project-transcription.component.html",
-        "hash": "128379418505496023"
+        "hash": "9757686592652088414"
       },
       {
         "file": "src/app/modules/project-detail/components/project-transcription/project-transcription.component.scss",
@@ -500,15 +456,11 @@
       },
       {
         "file": "src/app/modules/project-detail/components/project-transcription/project-transcription.component.ts",
-        "hash": "14314478464830896763"
-      },
-      {
-        "file": "src/app/modules/project-detail/components/project-transcription/project-transcription.module.ts",
-        "hash": "2548778180426960095"
+        "hash": "6977988003288089083"
       },
       {
         "file": "src/app/modules/project-detail/components/upload-additional-content/upload-additional-content.component.html",
-        "hash": "228846210403560420"
+        "hash": "16898952163319096251"
       },
       {
         "file": "src/app/modules/project-detail/components/upload-additional-content/upload-additional-content.component.scss",
@@ -516,11 +468,11 @@
       },
       {
         "file": "src/app/modules/project-detail/components/upload-additional-content/upload-additional-content.component.spec.ts",
-        "hash": "1667418952829859065"
+        "hash": "12232952168433201520"
       },
       {
         "file": "src/app/modules/project-detail/components/upload-additional-content/upload-additional-content.component.ts",
-        "hash": "6254187827276899393"
+        "hash": "2739236700156015522"
       },
       {
         "file": "src/app/modules/project-detail/project-detail.component.html",
@@ -532,23 +484,11 @@
       },
       {
         "file": "src/app/modules/project-detail/project-detail.component.spec.ts",
-        "hash": "6997512286345631390"
+        "hash": "10287121760296861932"
       },
       {
         "file": "src/app/modules/project-detail/project-detail.component.ts",
-        "hash": "5261775151777430314"
-      },
-      {
-        "file": "src/app/modules/project-detail/project-detail.module.ts",
-        "hash": "13275311488927087091"
-      },
-      {
-        "file": "src/app/modules/shared/shared.module.ts",
-        "hash": "6989682093027682543"
-      },
-      {
-        "file": "src/app/pipes/duration-pipe/duration-pipe.module.ts",
-        "hash": "7095419045954889475"
+        "hash": "4112873723492247402"
       },
       {
         "file": "src/app/pipes/duration-pipe/duration.pipe.spec.ts",
@@ -556,11 +496,7 @@
       },
       {
         "file": "src/app/pipes/duration-pipe/duration.pipe.ts",
-        "hash": "4055051452257898104"
-      },
-      {
-        "file": "src/app/pipes/feature-enabled-pipe/feature-enabled-pipe.module.ts",
-        "hash": "13208422026323394963"
+        "hash": "14247353519787902759"
       },
       {
         "file": "src/app/pipes/feature-enabled-pipe/feature-enabled.pipe.spec.ts",
@@ -568,11 +504,7 @@
       },
       {
         "file": "src/app/pipes/feature-enabled-pipe/feature-enabled.pipe.ts",
-        "hash": "14036823888662010185"
-      },
-      {
-        "file": "src/app/pipes/format-date-pipe/format-date-pipe.module.ts",
-        "hash": "5213978224121358106"
+        "hash": "10345889975926777818"
       },
       {
         "file": "src/app/pipes/format-date-pipe/format-date.pipe.spec.ts",
@@ -580,43 +512,31 @@
       },
       {
         "file": "src/app/pipes/format-date-pipe/format-date.pipe.ts",
-        "hash": "14259457761600756224"
-      },
-      {
-        "file": "src/app/pipes/language-code-pipe/language-code-pipe.module.ts",
-        "hash": "9623466311460760536"
+        "hash": "1874847854223869328"
       },
       {
         "file": "src/app/pipes/language-code-pipe/language-code.pipe.ts",
-        "hash": "16033464331158134905"
+        "hash": "17479413547734723517"
       },
       {
-        "file": "src/app/pipes/project-status-pipe/project-status-pipe.module.ts",
-        "hash": "1635039528436460709"
+        "file": "src/app/pipes/media-category-pipe/media-category.pipe.spec.ts",
+        "hash": "9542408552475470106"
+      },
+      {
+        "file": "src/app/pipes/media-category-pipe/media-category.pipe.ts",
+        "hash": "13981198784871622921"
       },
       {
         "file": "src/app/pipes/project-status-pipe/project-status.pipe.ts",
-        "hash": "14778920584725839761"
-      },
-      {
-        "file": "src/app/pipes/time-difference-pipe/time-difference-pipe.module.ts",
-        "hash": "17920011935618746743"
+        "hash": "15885187741058318950"
       },
       {
         "file": "src/app/pipes/time-difference-pipe/time-difference.pipe.ts",
-        "hash": "7502745090454267551"
-      },
-      {
-        "file": "src/app/pipes/written-out-language-pipe/written-out-language-pipe.module.ts",
-        "hash": "12283066448816847188"
+        "hash": "11895084485089610548"
       },
       {
         "file": "src/app/pipes/written-out-language-pipe/written-out-language.pipe.ts",
-        "hash": "6263692946183145447"
-      },
-      {
-        "file": "src/app/routes/auth/auth-routing.module.ts",
-        "hash": "2545365738391758765"
+        "hash": "15525928724228308590"
       },
       {
         "file": "src/app/routes/auth/auth.component.html",
@@ -628,19 +548,19 @@
       },
       {
         "file": "src/app/routes/auth/auth.component.spec.ts",
-        "hash": "17828950073077797477"
+        "hash": "13375596492221712786"
       },
       {
         "file": "src/app/routes/auth/auth.component.ts",
-        "hash": "5336788733942069525"
+        "hash": "13008320798557681825"
       },
       {
-        "file": "src/app/routes/auth/auth.module.ts",
-        "hash": "9519107165041472131"
+        "file": "src/app/routes/auth/auth.routes.ts",
+        "hash": "2261365143557722336"
       },
       {
         "file": "src/app/routes/auth/components/login/login.component.html",
-        "hash": "4630490538801154795"
+        "hash": "1361514486539476650"
       },
       {
         "file": "src/app/routes/auth/components/login/login.component.scss",
@@ -648,11 +568,11 @@
       },
       {
         "file": "src/app/routes/auth/components/login/login.component.spec.ts",
-        "hash": "6770318682444463033"
+        "hash": "7703699709385901468"
       },
       {
         "file": "src/app/routes/auth/components/login/login.component.ts",
-        "hash": "10639066221180647363"
+        "hash": "7161614733029981374"
       },
       {
         "file": "src/app/routes/auth/components/password-reset/password-reset.component.html",
@@ -664,15 +584,15 @@
       },
       {
         "file": "src/app/routes/auth/components/password-reset/password-reset.component.spec.ts",
-        "hash": "9864373483979068837"
+        "hash": "840187143889430223"
       },
       {
         "file": "src/app/routes/auth/components/password-reset/password-reset.component.ts",
-        "hash": "5286107989359581539"
+        "hash": "7335599349033950025"
       },
       {
         "file": "src/app/routes/auth/components/register/register.component.html",
-        "hash": "17343922131888515748"
+        "hash": "16634747250507542599"
       },
       {
         "file": "src/app/routes/auth/components/register/register.component.scss",
@@ -680,15 +600,15 @@
       },
       {
         "file": "src/app/routes/auth/components/register/register.component.spec.ts",
-        "hash": "14597396272157904151"
+        "hash": "11887262562071383246"
       },
       {
         "file": "src/app/routes/auth/components/register/register.component.ts",
-        "hash": "5036947975966449535"
+        "hash": "10365847581030268818"
       },
       {
         "file": "src/app/routes/home/editor/components/captions/caption/caption-actions/caption-actions.component.html",
-        "hash": "17454089322454565317"
+        "hash": "872826480923698549"
       },
       {
         "file": "src/app/routes/home/editor/components/captions/caption/caption-actions/caption-actions.component.scss",
@@ -696,11 +616,11 @@
       },
       {
         "file": "src/app/routes/home/editor/components/captions/caption/caption-actions/caption-actions.component.spec.ts",
-        "hash": "2719439507488178462"
+        "hash": "4750352191193037602"
       },
       {
         "file": "src/app/routes/home/editor/components/captions/caption/caption-actions/caption-actions.component.ts",
-        "hash": "11455055719989304042"
+        "hash": "2749675078988997607"
       },
       {
         "file": "src/app/routes/home/editor/components/captions/caption/caption-actions/caption-delete-confirm-modal/caption-delete-confirm-modal.component.html",
@@ -712,15 +632,15 @@
       },
       {
         "file": "src/app/routes/home/editor/components/captions/caption/caption-actions/caption-delete-confirm-modal/caption-delete-confirm-modal.component.spec.ts",
-        "hash": "168900997804424406"
+        "hash": "8717130843382715972"
       },
       {
         "file": "src/app/routes/home/editor/components/captions/caption/caption-actions/caption-delete-confirm-modal/caption-delete-confirm-modal.component.ts",
-        "hash": "17831135001048628663"
+        "hash": "5811549262257326261"
       },
       {
         "file": "src/app/routes/home/editor/components/captions/caption/caption-actions/caption-history-modal/caption-history-modal.component.html",
-        "hash": "6796410224308642411"
+        "hash": "14868636317028933839"
       },
       {
         "file": "src/app/routes/home/editor/components/captions/caption/caption-actions/caption-history-modal/caption-history-modal.component.scss",
@@ -728,11 +648,11 @@
       },
       {
         "file": "src/app/routes/home/editor/components/captions/caption/caption-actions/caption-history-modal/caption-history-modal.component.spec.ts",
-        "hash": "14188838631618394236"
+        "hash": "1637595531695952780"
       },
       {
         "file": "src/app/routes/home/editor/components/captions/caption/caption-actions/caption-history-modal/caption-history-modal.component.ts",
-        "hash": "1767923422424580043"
+        "hash": "5377449708594183373"
       },
       {
         "file": "src/app/routes/home/editor/components/captions/caption/caption-speaker/caption-speaker.component.html",
@@ -744,15 +664,15 @@
       },
       {
         "file": "src/app/routes/home/editor/components/captions/caption/caption-speaker/caption-speaker.component.spec.ts",
-        "hash": "17413017821607079348"
+        "hash": "16314648955809546183"
       },
       {
         "file": "src/app/routes/home/editor/components/captions/caption/caption-speaker/caption-speaker.component.ts",
-        "hash": "16316969025146080325"
+        "hash": "4775493325235950800"
       },
       {
         "file": "src/app/routes/home/editor/components/captions/caption/caption-speaker/edit-speaker-modal/edit-speaker-modal.component.html",
-        "hash": "7758523165265635677"
+        "hash": "12683499195960788313"
       },
       {
         "file": "src/app/routes/home/editor/components/captions/caption/caption-speaker/edit-speaker-modal/edit-speaker-modal.component.scss",
@@ -760,11 +680,11 @@
       },
       {
         "file": "src/app/routes/home/editor/components/captions/caption/caption-speaker/edit-speaker-modal/edit-speaker-modal.component.ts",
-        "hash": "6897461943365113553"
+        "hash": "2482171438880854996"
       },
       {
         "file": "src/app/routes/home/editor/components/captions/caption/caption-text/caption-text.component.html",
-        "hash": "15519025659217382378"
+        "hash": "11455749802094827582"
       },
       {
         "file": "src/app/routes/home/editor/components/captions/caption/caption-text/caption-text.component.scss",
@@ -772,15 +692,15 @@
       },
       {
         "file": "src/app/routes/home/editor/components/captions/caption/caption-text/caption-text.component.spec.ts",
-        "hash": "17026105491884648564"
+        "hash": "3486754840623302967"
       },
       {
         "file": "src/app/routes/home/editor/components/captions/caption/caption-text/caption-text.component.ts",
-        "hash": "303363719969870982"
+        "hash": "16517234436612499278"
       },
       {
         "file": "src/app/routes/home/editor/components/captions/caption/caption-time/caption-time.component.html",
-        "hash": "4263672404989549021"
+        "hash": "4506924428154537262"
       },
       {
         "file": "src/app/routes/home/editor/components/captions/caption/caption-time/caption-time.component.scss",
@@ -788,15 +708,15 @@
       },
       {
         "file": "src/app/routes/home/editor/components/captions/caption/caption-time/caption-time.component.spec.ts",
-        "hash": "8364623616655068046"
+        "hash": "4772521808507988229"
       },
       {
         "file": "src/app/routes/home/editor/components/captions/caption/caption-time/caption-time.component.ts",
-        "hash": "9804286953776037362"
+        "hash": "18333675827984653509"
       },
       {
         "file": "src/app/routes/home/editor/components/captions/caption/caption.component.html",
-        "hash": "17430701441195472522"
+        "hash": "11154458779595441878"
       },
       {
         "file": "src/app/routes/home/editor/components/captions/caption/caption.component.scss",
@@ -804,19 +724,15 @@
       },
       {
         "file": "src/app/routes/home/editor/components/captions/caption/caption.component.spec.ts",
-        "hash": "3541856543814538090"
+        "hash": "12468687460226625275"
       },
       {
         "file": "src/app/routes/home/editor/components/captions/caption/caption.component.ts",
-        "hash": "2081438557909982732"
-      },
-      {
-        "file": "src/app/routes/home/editor/components/captions/caption/caption.module.ts",
-        "hash": "9699766152859532718"
+        "hash": "7484230327596798240"
       },
       {
         "file": "src/app/routes/home/editor/components/captions/captions.component.html",
-        "hash": "16986244542783177757"
+        "hash": "15810127376166882532"
       },
       {
         "file": "src/app/routes/home/editor/components/captions/captions.component.scss",
@@ -824,19 +740,15 @@
       },
       {
         "file": "src/app/routes/home/editor/components/captions/captions.component.spec.ts",
-        "hash": "1287351193284342355"
+        "hash": "1927308009852511006"
       },
       {
         "file": "src/app/routes/home/editor/components/captions/captions.component.ts",
-        "hash": "6973955897027388996"
-      },
-      {
-        "file": "src/app/routes/home/editor/components/captions/captions.module.ts",
-        "hash": "10029796464720536797"
+        "hash": "1201557255342311364"
       },
       {
         "file": "src/app/routes/home/editor/components/captions/edit-speaker-modal/edit-speaker-modal.component.html",
-        "hash": "7758523165265635677"
+        "hash": "12683499195960788313"
       },
       {
         "file": "src/app/routes/home/editor/components/captions/edit-speaker-modal/edit-speaker-modal.component.scss",
@@ -844,11 +756,11 @@
       },
       {
         "file": "src/app/routes/home/editor/components/captions/edit-speaker-modal/edit-speaker-modal.component.ts",
-        "hash": "9648514199631449655"
+        "hash": "10446942508858236205"
       },
       {
         "file": "src/app/routes/home/editor/components/editor-settings/editor-settings.component.html",
-        "hash": "11533544762150006414"
+        "hash": "7688562985387211566"
       },
       {
         "file": "src/app/routes/home/editor/components/editor-settings/editor-settings.component.scss",
@@ -856,19 +768,15 @@
       },
       {
         "file": "src/app/routes/home/editor/components/editor-settings/editor-settings.component.spec.ts",
-        "hash": "10612461154391248305"
+        "hash": "4619666680519087516"
       },
       {
         "file": "src/app/routes/home/editor/components/editor-settings/editor-settings.component.ts",
-        "hash": "13195548362075105571"
-      },
-      {
-        "file": "src/app/routes/home/editor/components/editor-settings/editor-settings.module.ts",
-        "hash": "17325154423509923826"
+        "hash": "10933890385019223022"
       },
       {
         "file": "src/app/routes/home/editor/components/join-livestream-modal/join-livestream-modal.component.html",
-        "hash": "14622793536204757352"
+        "hash": "15524992025665329975"
       },
       {
         "file": "src/app/routes/home/editor/components/join-livestream-modal/join-livestream-modal.component.scss",
@@ -876,19 +784,15 @@
       },
       {
         "file": "src/app/routes/home/editor/components/join-livestream-modal/join-livestream-modal.component.spec.ts",
-        "hash": "18296268390277956868"
+        "hash": "1757332662503288954"
       },
       {
         "file": "src/app/routes/home/editor/components/join-livestream-modal/join-livestream-modal.component.ts",
-        "hash": "1196911008981930031"
-      },
-      {
-        "file": "src/app/routes/home/editor/components/join-livestream-modal/join-livestream-modal.module.ts",
-        "hash": "17437649539242576119"
+        "hash": "2328855781663903749"
       },
       {
         "file": "src/app/routes/home/editor/components/live-controls/live-controls.component.html",
-        "hash": "1026104426324057232"
+        "hash": "9635391641384903984"
       },
       {
         "file": "src/app/routes/home/editor/components/live-controls/live-controls.component.scss",
@@ -896,19 +800,15 @@
       },
       {
         "file": "src/app/routes/home/editor/components/live-controls/live-controls.component.spec.ts",
-        "hash": "5990411237034266430"
+        "hash": "18010929784630093329"
       },
       {
         "file": "src/app/routes/home/editor/components/live-controls/live-controls.component.ts",
-        "hash": "217555351832678239"
-      },
-      {
-        "file": "src/app/routes/home/editor/components/live-controls/live-controls.module.ts",
-        "hash": "5524310661370521439"
+        "hash": "4478884799580755137"
       },
       {
         "file": "src/app/routes/home/editor/components/user-test-controls/user-test-controls.component.html",
-        "hash": "367074343407016369"
+        "hash": "12807060284084207991"
       },
       {
         "file": "src/app/routes/home/editor/components/user-test-controls/user-test-controls.component.scss",
@@ -916,19 +816,15 @@
       },
       {
         "file": "src/app/routes/home/editor/components/user-test-controls/user-test-controls.component.spec.ts",
-        "hash": "8870548087054933945"
+        "hash": "8396465836119096522"
       },
       {
         "file": "src/app/routes/home/editor/components/user-test-controls/user-test-controls.component.ts",
-        "hash": "6128768505807930803"
-      },
-      {
-        "file": "src/app/routes/home/editor/components/user-test-controls/user-test-controls.module.ts",
-        "hash": "906821967501533617"
+        "hash": "8987633443027903471"
       },
       {
         "file": "src/app/routes/home/editor/components/video-player/video-player-media-element/video-player-media-element.component.html",
-        "hash": "9338096860363859320"
+        "hash": "6166532792946086278"
       },
       {
         "file": "src/app/routes/home/editor/components/video-player/video-player-media-element/video-player-media-element.component.scss",
@@ -936,15 +832,15 @@
       },
       {
         "file": "src/app/routes/home/editor/components/video-player/video-player-media-element/video-player-media-element.component.spec.ts",
-        "hash": "12936554776534484846"
+        "hash": "5246374971526590235"
       },
       {
         "file": "src/app/routes/home/editor/components/video-player/video-player-media-element/video-player-media-element.component.ts",
-        "hash": "13368699012316378572"
+        "hash": "17623504608112332923"
       },
       {
         "file": "src/app/routes/home/editor/components/video-player/video-player.component.html",
-        "hash": "12562600844266824132"
+        "hash": "11120045818954166340"
       },
       {
         "file": "src/app/routes/home/editor/components/video-player/video-player.component.scss",
@@ -952,15 +848,11 @@
       },
       {
         "file": "src/app/routes/home/editor/components/video-player/video-player.component.spec.ts",
-        "hash": "8000489704389686492"
+        "hash": "16741702312701795445"
       },
       {
         "file": "src/app/routes/home/editor/components/video-player/video-player.component.ts",
-        "hash": "15937609249483161031"
-      },
-      {
-        "file": "src/app/routes/home/editor/components/video-player/video-player.module.ts",
-        "hash": "6588585591152726108"
+        "hash": "13995212857060106077"
       },
       {
         "file": "src/app/routes/home/editor/components/waveform/resize/resize.directive.spec.ts",
@@ -968,11 +860,11 @@
       },
       {
         "file": "src/app/routes/home/editor/components/waveform/resize/resize.directive.ts",
-        "hash": "5667934341972846568"
+        "hash": "541565809145258081"
       },
       {
         "file": "src/app/routes/home/editor/components/waveform/waveform-canvas/waveform-canvas.component.html",
-        "hash": "11456619115148571375"
+        "hash": "3147640698979288842"
       },
       {
         "file": "src/app/routes/home/editor/components/waveform/waveform-canvas/waveform-canvas.component.scss",
@@ -980,15 +872,15 @@
       },
       {
         "file": "src/app/routes/home/editor/components/waveform/waveform-canvas/waveform-canvas.component.spec.ts",
-        "hash": "11344680020075474154"
+        "hash": "14953004729486272402"
       },
       {
         "file": "src/app/routes/home/editor/components/waveform/waveform-canvas/waveform-canvas.component.ts",
-        "hash": "4556636034501792613"
+        "hash": "12013021306996446295"
       },
       {
         "file": "src/app/routes/home/editor/components/waveform/waveform-captions/waveform-captions.component.html",
-        "hash": "3443349179585422575"
+        "hash": "421952197631123284"
       },
       {
         "file": "src/app/routes/home/editor/components/waveform/waveform-captions/waveform-captions.component.scss",
@@ -996,11 +888,11 @@
       },
       {
         "file": "src/app/routes/home/editor/components/waveform/waveform-captions/waveform-captions.component.spec.ts",
-        "hash": "12941267929148174003"
+        "hash": "17558227936823894895"
       },
       {
         "file": "src/app/routes/home/editor/components/waveform/waveform-captions/waveform-captions.component.ts",
-        "hash": "6205843433176687694"
+        "hash": "9651007883626040300"
       },
       {
         "file": "src/app/routes/home/editor/components/waveform/waveform.component.html",
@@ -1012,15 +904,11 @@
       },
       {
         "file": "src/app/routes/home/editor/components/waveform/waveform.component.spec.ts",
-        "hash": "13277036967376443028"
+        "hash": "10346286432619758532"
       },
       {
         "file": "src/app/routes/home/editor/components/waveform/waveform.component.ts",
-        "hash": "1924110883235601978"
-      },
-      {
-        "file": "src/app/routes/home/editor/components/waveform/waveform.module.ts",
-        "hash": "16162468590771557300"
+        "hash": "3993156026323485047"
       },
       {
         "file": "src/app/routes/home/editor/components/waveform/waveform.service.spec.ts",
@@ -1028,11 +916,11 @@
       },
       {
         "file": "src/app/routes/home/editor/components/waveform/waveform.service.ts",
-        "hash": "9836276828675580558"
+        "hash": "13720212954297611272"
       },
       {
         "file": "src/app/routes/home/editor/dialog-help-editor/dialog-help-editor.component.html",
-        "hash": "1321027202161265336"
+        "hash": "10858292997305561603"
       },
       {
         "file": "src/app/routes/home/editor/dialog-help-editor/dialog-help-editor.component.scss",
@@ -1040,19 +928,11 @@
       },
       {
         "file": "src/app/routes/home/editor/dialog-help-editor/dialog-help-editor.component.ts",
-        "hash": "7172398756227154613"
-      },
-      {
-        "file": "src/app/routes/home/editor/dialog-help-editor/dialog-help-editor.module.ts",
-        "hash": "14573033004743004985"
-      },
-      {
-        "file": "src/app/routes/home/editor/editor-routing.module.ts",
-        "hash": "13102153486328874538"
+        "hash": "13935966003852508416"
       },
       {
         "file": "src/app/routes/home/editor/editor.component.html",
-        "hash": "13182048262410105301"
+        "hash": "18255304168740757048"
       },
       {
         "file": "src/app/routes/home/editor/editor.component.scss",
@@ -1060,15 +940,15 @@
       },
       {
         "file": "src/app/routes/home/editor/editor.component.spec.ts",
-        "hash": "9708807507444788831"
+        "hash": "12088753356642594558"
       },
       {
         "file": "src/app/routes/home/editor/editor.component.ts",
-        "hash": "10574355550583402477"
+        "hash": "11326788434400628504"
       },
       {
-        "file": "src/app/routes/home/editor/editor.module.ts",
-        "hash": "10666592097662946283"
+        "file": "src/app/routes/home/editor/editor.routes.ts",
+        "hash": "9961002914916976786"
       },
       {
         "file": "src/app/routes/home/editor/services/media/media.service.spec.ts",
@@ -1077,10 +957,6 @@
       {
         "file": "src/app/routes/home/editor/services/media/media.service.ts",
         "hash": "13989829128746098349"
-      },
-      {
-        "file": "src/app/routes/home/home-routing.module.ts",
-        "hash": "6687356883380130902"
       },
       {
         "file": "src/app/routes/home/home.component.html",
@@ -1092,19 +968,15 @@
       },
       {
         "file": "src/app/routes/home/home.component.spec.ts",
-        "hash": "1914118298397844046"
+        "hash": "6056741223806947421"
       },
       {
         "file": "src/app/routes/home/home.component.ts",
-        "hash": "2198449750627348629"
+        "hash": "6440752342769637003"
       },
       {
-        "file": "src/app/routes/home/home.module.ts",
-        "hash": "6662146261485324756"
-      },
-      {
-        "file": "src/app/routes/home/livestream/livestream-routing.module.ts",
-        "hash": "12614459901732890435"
+        "file": "src/app/routes/home/home.routes.ts",
+        "hash": "749614946247160878"
       },
       {
         "file": "src/app/routes/home/livestream/livestream.component.html",
@@ -1116,15 +988,15 @@
       },
       {
         "file": "src/app/routes/home/livestream/livestream.component.spec.ts",
-        "hash": "4565131248508531699"
+        "hash": "4668369435204575722"
       },
       {
         "file": "src/app/routes/home/livestream/livestream.component.ts",
-        "hash": "1362053577252481287"
+        "hash": "8570541353398394876"
       },
       {
-        "file": "src/app/routes/home/livestream/livestream.module.ts",
-        "hash": "18248784384410362514"
+        "file": "src/app/routes/home/livestream/livestream.routes.ts",
+        "hash": "16731276186644712446"
       },
       {
         "file": "src/app/routes/home/livestream/livestream.service.spec.ts",
@@ -1135,12 +1007,8 @@
         "hash": "16514870877722461392"
       },
       {
-        "file": "src/app/routes/home/notification-list/notification-list-routing.module.ts",
-        "hash": "599866425968416258"
-      },
-      {
         "file": "src/app/routes/home/notification-list/notification-list.component.html",
-        "hash": "17244450287005023708"
+        "hash": "18053922143749954149"
       },
       {
         "file": "src/app/routes/home/notification-list/notification-list.component.scss",
@@ -1148,15 +1016,11 @@
       },
       {
         "file": "src/app/routes/home/notification-list/notification-list.component.ts",
-        "hash": "14111448545296116559"
+        "hash": "4536390242079405080"
       },
       {
-        "file": "src/app/routes/home/notification-list/notification-list.module.ts",
-        "hash": "7970438718119264115"
-      },
-      {
-        "file": "src/app/routes/home/profile/profile-routing.module.ts",
-        "hash": "9753840775749959743"
+        "file": "src/app/routes/home/notification-list/notification-list.routes.ts",
+        "hash": "12001754356618821364"
       },
       {
         "file": "src/app/routes/home/profile/profile.component.html",
@@ -1168,19 +1032,19 @@
       },
       {
         "file": "src/app/routes/home/profile/profile.component.spec.ts",
-        "hash": "14164602570633242666"
+        "hash": "4393158102722868685"
       },
       {
         "file": "src/app/routes/home/profile/profile.component.ts",
-        "hash": "1084158254883392477"
+        "hash": "8209002647461147821"
       },
       {
-        "file": "src/app/routes/home/profile/profile.module.ts",
-        "hash": "6090788721237461331"
+        "file": "src/app/routes/home/profile/profile.routes.ts",
+        "hash": "9568930678758424800"
       },
       {
         "file": "src/app/routes/home/project-list/dialog-create-project/components/project-asr-form/project-asr-form.component.html",
-        "hash": "6189114061145821615"
+        "hash": "11036322591095471645"
       },
       {
         "file": "src/app/routes/home/project-list/dialog-create-project/components/project-asr-form/project-asr-form.component.scss",
@@ -1188,11 +1052,11 @@
       },
       {
         "file": "src/app/routes/home/project-list/dialog-create-project/components/project-asr-form/project-asr-form.component.ts",
-        "hash": "3149905212783352987"
+        "hash": "8021916986983802932"
       },
       {
         "file": "src/app/routes/home/project-list/dialog-create-project/components/project-live-form/project-live-form.component.html",
-        "hash": "11605485657467640716"
+        "hash": "12723554510406957245"
       },
       {
         "file": "src/app/routes/home/project-list/dialog-create-project/components/project-live-form/project-live-form.component.scss",
@@ -1200,11 +1064,11 @@
       },
       {
         "file": "src/app/routes/home/project-list/dialog-create-project/components/project-live-form/project-live-form.component.ts",
-        "hash": "511513358321421729"
+        "hash": "14560664427268161858"
       },
       {
         "file": "src/app/routes/home/project-list/dialog-create-project/components/project-metadata-form/project-metadata-form.component.html",
-        "hash": "4757794710446595867"
+        "hash": "4169594817861723716"
       },
       {
         "file": "src/app/routes/home/project-list/dialog-create-project/components/project-metadata-form/project-metadata-form.component.scss",
@@ -1212,11 +1076,11 @@
       },
       {
         "file": "src/app/routes/home/project-list/dialog-create-project/components/project-metadata-form/project-metadata-form.component.ts",
-        "hash": "8210783625685377433"
+        "hash": "8816033431823784407"
       },
       {
         "file": "src/app/routes/home/project-list/dialog-create-project/components/project-overview-form/project-overview-form.component.html",
-        "hash": "15140023201712465935"
+        "hash": "11533121206840672542"
       },
       {
         "file": "src/app/routes/home/project-list/dialog-create-project/components/project-overview-form/project-overview-form.component.scss",
@@ -1224,11 +1088,11 @@
       },
       {
         "file": "src/app/routes/home/project-list/dialog-create-project/components/project-overview-form/project-overview-form.component.ts",
-        "hash": "6856442347305218973"
+        "hash": "1942520529451436768"
       },
       {
         "file": "src/app/routes/home/project-list/dialog-create-project/components/project-source-form/project-source-form.component.html",
-        "hash": "12691674686910035699"
+        "hash": "15665174433778427478"
       },
       {
         "file": "src/app/routes/home/project-list/dialog-create-project/components/project-source-form/project-source-form.component.scss",
@@ -1236,11 +1100,11 @@
       },
       {
         "file": "src/app/routes/home/project-list/dialog-create-project/components/project-source-form/project-source-form.component.ts",
-        "hash": "9135353254432741547"
+        "hash": "616276177840747219"
       },
       {
         "file": "src/app/routes/home/project-list/dialog-create-project/components/project-video-form/project-video-form.component.html",
-        "hash": "6819919045016387127"
+        "hash": "6757168158676653686"
       },
       {
         "file": "src/app/routes/home/project-list/dialog-create-project/components/project-video-form/project-video-form.component.scss",
@@ -1248,11 +1112,11 @@
       },
       {
         "file": "src/app/routes/home/project-list/dialog-create-project/components/project-video-form/project-video-form.component.ts",
-        "hash": "2159290442096317900"
+        "hash": "13885270522461627799"
       },
       {
         "file": "src/app/routes/home/project-list/dialog-create-project/dialog-create-project.component.html",
-        "hash": "12615339508834508542"
+        "hash": "12491247247668892267"
       },
       {
         "file": "src/app/routes/home/project-list/dialog-create-project/dialog-create-project.component.scss",
@@ -1260,27 +1124,19 @@
       },
       {
         "file": "src/app/routes/home/project-list/dialog-create-project/dialog-create-project.component.ts",
-        "hash": "175015737844653189"
+        "hash": "912827566363383567"
       },
       {
         "file": "src/app/routes/home/project-list/dialog-create-project/dialog-create-project.interfaces.ts",
         "hash": "5099673253708044806"
       },
       {
-        "file": "src/app/routes/home/project-list/dialog-create-project/dialog-create-project.module.ts",
-        "hash": "4974320115851459371"
-      },
-      {
         "file": "src/app/routes/home/project-list/dialog-create-project/dialog-create-project.utils.ts",
         "hash": "10048004249225963168"
       },
       {
-        "file": "src/app/routes/home/project-list/project-list-routing.module.ts",
-        "hash": "12558358984528074624"
-      },
-      {
         "file": "src/app/routes/home/project-list/project-list.component.html",
-        "hash": "15257534887124746228"
+        "hash": "15257227141614123085"
       },
       {
         "file": "src/app/routes/home/project-list/project-list.component.scss",
@@ -1288,15 +1144,15 @@
       },
       {
         "file": "src/app/routes/home/project-list/project-list.component.spec.ts",
-        "hash": "17103990756924435623"
+        "hash": "16499263359208718041"
       },
       {
         "file": "src/app/routes/home/project-list/project-list.component.ts",
-        "hash": "7837537586379119405"
+        "hash": "224902654967291450"
       },
       {
-        "file": "src/app/routes/home/project-list/project-list.module.ts",
-        "hash": "3721819436176219182"
+        "file": "src/app/routes/home/project-list/project-list.routes.ts",
+        "hash": "8865747939564727795"
       },
       {
         "file": "src/app/routes/home/viewer/components/adjust-layout-dialog/adjust-layout-dialog.component.html",
@@ -1308,11 +1164,11 @@
       },
       {
         "file": "src/app/routes/home/viewer/components/adjust-layout-dialog/adjust-layout-dialog.component.spec.ts",
-        "hash": "2185693301791438093"
+        "hash": "8120017833755457256"
       },
       {
         "file": "src/app/routes/home/viewer/components/adjust-layout-dialog/adjust-layout-dialog.component.ts",
-        "hash": "17799615976035868950"
+        "hash": "11287830094520701733"
       },
       {
         "file": "src/app/routes/home/viewer/components/captions-settings-dialog/captions-settings-dialog.component.html",
@@ -1324,11 +1180,11 @@
       },
       {
         "file": "src/app/routes/home/viewer/components/captions-settings-dialog/captions-settings-dialog.component.spec.ts",
-        "hash": "16560662530379661184"
+        "hash": "12924679802967123890"
       },
       {
         "file": "src/app/routes/home/viewer/components/captions-settings-dialog/captions-settings-dialog.component.ts",
-        "hash": "17826516927659518753"
+        "hash": "9081935392083604772"
       },
       {
         "file": "src/app/routes/home/viewer/components/highlight-pipe/highlight.pipe.spec.ts",
@@ -1336,7 +1192,7 @@
       },
       {
         "file": "src/app/routes/home/viewer/components/highlight-pipe/highlight.pipe.ts",
-        "hash": "13944782935382135294"
+        "hash": "2949351308023280334"
       },
       {
         "file": "src/app/routes/home/viewer/components/infobox/infobox.component.html",
@@ -1348,15 +1204,15 @@
       },
       {
         "file": "src/app/routes/home/viewer/components/infobox/infobox.component.spec.ts",
-        "hash": "11055347648241856583"
+        "hash": "8642626539512522517"
       },
       {
         "file": "src/app/routes/home/viewer/components/infobox/infobox.component.ts",
-        "hash": "4196798594151921525"
+        "hash": "16843775580395333539"
       },
       {
         "file": "src/app/routes/home/viewer/components/player/controls/controls.component.html",
-        "hash": "17276537831358749409"
+        "hash": "17759080089994013290"
       },
       {
         "file": "src/app/routes/home/viewer/components/player/controls/controls.component.scss",
@@ -1364,15 +1220,15 @@
       },
       {
         "file": "src/app/routes/home/viewer/components/player/controls/controls.component.spec.ts",
-        "hash": "5434580194145426984"
+        "hash": "1782422439977718017"
       },
       {
         "file": "src/app/routes/home/viewer/components/player/controls/controls.component.ts",
-        "hash": "7103511954734911367"
+        "hash": "4450214681897950264"
       },
       {
         "file": "src/app/routes/home/viewer/components/player/player.component.html",
-        "hash": "6114678765125370464"
+        "hash": "18274796640756617616"
       },
       {
         "file": "src/app/routes/home/viewer/components/player/player.component.scss",
@@ -1380,15 +1236,15 @@
       },
       {
         "file": "src/app/routes/home/viewer/components/player/player.component.spec.ts",
-        "hash": "5039248145783212722"
+        "hash": "9388418327183738555"
       },
       {
         "file": "src/app/routes/home/viewer/components/player/player.component.ts",
-        "hash": "8277365429603130475"
+        "hash": "13606862337552256076"
       },
       {
         "file": "src/app/routes/home/viewer/components/player/video-container/video-container.component.html",
-        "hash": "6520426703925263151"
+        "hash": "14993055681761215535"
       },
       {
         "file": "src/app/routes/home/viewer/components/player/video-container/video-container.component.scss",
@@ -1396,15 +1252,15 @@
       },
       {
         "file": "src/app/routes/home/viewer/components/player/video-container/video-container.component.spec.ts",
-        "hash": "1053266331647825130"
+        "hash": "11951949604428256547"
       },
       {
         "file": "src/app/routes/home/viewer/components/player/video-container/video-container.component.ts",
-        "hash": "5039583561202707364"
+        "hash": "16229635134501414762"
       },
       {
         "file": "src/app/routes/home/viewer/components/transcript/transcript.component.html",
-        "hash": "12064034360096150224"
+        "hash": "8650592319242638397"
       },
       {
         "file": "src/app/routes/home/viewer/components/transcript/transcript.component.scss",
@@ -1412,19 +1268,15 @@
       },
       {
         "file": "src/app/routes/home/viewer/components/transcript/transcript.component.spec.ts",
-        "hash": "3210391689505772767"
+        "hash": "1813919736029620450"
       },
       {
         "file": "src/app/routes/home/viewer/components/transcript/transcript.component.ts",
-        "hash": "17059826331870497708"
-      },
-      {
-        "file": "src/app/routes/home/viewer/viewer-routing.module.ts",
-        "hash": "785086970161171847"
+        "hash": "12536273755608886252"
       },
       {
         "file": "src/app/routes/home/viewer/viewer.component.html",
-        "hash": "15086211612272838593"
+        "hash": "9240226991954428209"
       },
       {
         "file": "src/app/routes/home/viewer/viewer.component.scss",
@@ -1432,19 +1284,19 @@
       },
       {
         "file": "src/app/routes/home/viewer/viewer.component.spec.ts",
-        "hash": "8916987411650579707"
+        "hash": "13552283552729262435"
       },
       {
         "file": "src/app/routes/home/viewer/viewer.component.ts",
-        "hash": "4503675048172928967"
+        "hash": "4458591319406637958"
       },
       {
         "file": "src/app/routes/home/viewer/viewer.interfaces.ts",
         "hash": "550082010918798705"
       },
       {
-        "file": "src/app/routes/home/viewer/viewer.module.ts",
-        "hash": "8392630841086365064"
+        "file": "src/app/routes/home/viewer/viewer.routes.ts",
+        "hash": "17580619483354042474"
       },
       {
         "file": "src/app/routes/home/viewer/viewer.service.spec.ts",
@@ -1464,19 +1316,15 @@
       },
       {
         "file": "src/app/routes/invite/components/guest-login/guest-login-dialog.component.spec.ts",
-        "hash": "5732790963430466099"
+        "hash": "2789966944082482461"
       },
       {
         "file": "src/app/routes/invite/components/guest-login/guest-login-dialog.component.ts",
-        "hash": "17262332430333091434"
-      },
-      {
-        "file": "src/app/routes/invite/invite-routing.module.ts",
-        "hash": "13364069504941037381"
+        "hash": "16532916706068353771"
       },
       {
         "file": "src/app/routes/invite/invite.component.html",
-        "hash": "2270481410207403656"
+        "hash": "12191030807123966581"
       },
       {
         "file": "src/app/routes/invite/invite.component.scss",
@@ -1484,15 +1332,15 @@
       },
       {
         "file": "src/app/routes/invite/invite.component.spec.ts",
-        "hash": "5095951661824281192"
+        "hash": "1300573761059367600"
       },
       {
         "file": "src/app/routes/invite/invite.component.ts",
-        "hash": "12132961391828566522"
+        "hash": "2067449784643404122"
       },
       {
-        "file": "src/app/routes/invite/invite.module.ts",
-        "hash": "6071807873755865601"
+        "file": "src/app/routes/invite/invite.routes.ts",
+        "hash": "994605014978694709"
       },
       {
         "file": "src/app/routes/invite/temp",
@@ -1501,10 +1349,6 @@
       {
         "file": "src/app/services/alert/alert.interfaces.ts",
         "hash": "10435198749055234652"
-      },
-      {
-        "file": "src/app/services/alert/alert.module.ts",
-        "hash": "12516771179337787455"
       },
       {
         "file": "src/app/services/alert/alert.service.spec.ts",
@@ -1656,7 +1500,7 @@
       },
       {
         "file": "src/app/services/api/entities/project.entity.ts",
-        "hash": "13276123505749282778"
+        "hash": "1319751582585984097"
       },
       {
         "file": "src/app/services/api/entities/resume-livestream.entity.ts",
@@ -1696,7 +1540,7 @@
       },
       {
         "file": "src/app/services/api/fake-api.service.ts",
-        "hash": "13004328865798786323"
+        "hash": "12248081167401990762"
       },
       {
         "file": "src/app/services/api/mocks/auth.mock.ts",
@@ -1704,7 +1548,7 @@
       },
       {
         "file": "src/app/services/api/real-api.service.ts",
-        "hash": "8622329759402154598"
+        "hash": "7423224397780832713"
       },
       {
         "file": "src/app/services/app/app.service.spec.ts",
@@ -1724,15 +1568,11 @@
       },
       {
         "file": "src/app/services/create-project/create-project.service.ts",
-        "hash": "11307920406078357269"
+        "hash": "17185898342094862970"
       },
       {
         "file": "src/app/services/storage/storage-key.enum.ts",
         "hash": "5752717098463626735"
-      },
-      {
-        "file": "src/app/services/storage/storage.module.ts",
-        "hash": "11426925843867520381"
       },
       {
         "file": "src/app/services/storage/storage.service.spec.ts",
@@ -1800,35 +1640,35 @@
       },
       {
         "file": "src/app/store/effects/captions.effects.ts",
-        "hash": "3434604369399627588"
+        "hash": "9738775646875002803"
       },
       {
         "file": "src/app/store/effects/config.effects.ts",
-        "hash": "8635895727602370345"
+        "hash": "846113018396239837"
       },
       {
         "file": "src/app/store/effects/editor.effects.ts",
-        "hash": "6831058173481522778"
+        "hash": "465393211407791082"
       },
       {
         "file": "src/app/store/effects/notifications.effects.ts",
-        "hash": "13504370492037183041"
+        "hash": "2772877504481037634"
       },
       {
         "file": "src/app/store/effects/projects.effects.ts",
-        "hash": "2517147245499092322"
+        "hash": "14852606129412965366"
       },
       {
         "file": "src/app/store/effects/transcriptions.effects.ts",
-        "hash": "4529890090239156141"
+        "hash": "13226291637931475921"
       },
       {
         "file": "src/app/store/effects/user-test.effects.ts",
-        "hash": "15388636242702694141"
+        "hash": "1256053104144734689"
       },
       {
         "file": "src/app/store/effects/viewer.effects.ts",
-        "hash": "15042018749395310863"
+        "hash": "15287943170086199121"
       },
       {
         "file": "src/app/store/reducers/auth.reducer.ts",
@@ -2324,15 +2164,15 @@
       },
       {
         "file": "src/locale/messages.de.xlf",
-        "hash": "10725692356176453106"
+        "hash": "4804141633977447821"
       },
       {
         "file": "src/locale/messages.xlf",
-        "hash": "5174974025584457903"
+        "hash": "5808136777990845052"
       },
       {
         "file": "src/main.ts",
-        "hash": "4454767701760120370"
+        "hash": "31012201097538147"
       },
       {
         "file": "src/polyfills.ts",

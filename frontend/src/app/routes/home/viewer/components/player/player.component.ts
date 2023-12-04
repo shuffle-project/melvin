@@ -27,6 +27,11 @@ import * as captionsSelector from '../../../../../store/selectors/captions.selec
 import * as editorSelector from '../../../../../store/selectors/editor.selector';
 import * as viewerSelector from '../../../../../store/selectors/viewer.selector';
 import { ViewerService } from '../../viewer.service';
+import { ControlsComponent } from './controls/controls.component';
+import { VideoContainerComponent } from './video-container/video-container.component';
+import { LetDirective, PushPipe } from '@ngrx/component';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { NgStyle } from '@angular/common';
 
 export interface ViewerVideo {
   id: string;
@@ -37,12 +42,21 @@ export interface ViewerVideo {
 }
 
 @Component({
-  selector: 'app-player',
-  templateUrl: './player.component.html',
-  styleUrls: ['./player.component.scss'],
-  providers: [
-    { provide: OverlayContainer, useClass: FullscreenOverlayContainer },
-  ],
+    selector: 'app-player',
+    templateUrl: './player.component.html',
+    styleUrls: ['./player.component.scss'],
+    providers: [
+        { provide: OverlayContainer, useClass: FullscreenOverlayContainer },
+    ],
+    standalone: true,
+    imports: [
+    MatProgressSpinnerModule,
+    LetDirective,
+    VideoContainerComponent,
+    NgStyle,
+    ControlsComponent,
+    PushPipe
+],
 })
 export class PlayerComponent
   implements OnDestroy, AfterViewInit, OnInit, OnChanges

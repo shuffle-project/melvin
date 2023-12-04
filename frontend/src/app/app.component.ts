@@ -1,6 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatIconRegistry } from '@angular/material/icon';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { DomSanitizer } from '@angular/platform-browser';
+import { RouterOutlet } from '@angular/router';
+import { PushPipe } from '@ngrx/component';
 import { Store } from '@ngrx/store';
 import { Observable, Subject, takeUntil, tap } from 'rxjs';
 import { ICONS } from './constants/icon.constants';
@@ -14,6 +17,8 @@ import * as configSelector from './store/selectors/config.selector';
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
+  standalone: true,
+  imports: [RouterOutlet, MatProgressSpinnerModule, PushPipe],
 })
 export class AppComponent implements OnInit, OnDestroy {
   private destroy$$ = new Subject<void>();

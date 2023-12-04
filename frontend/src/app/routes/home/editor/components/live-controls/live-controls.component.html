@@ -1,10 +1,9 @@
 <div class="container">
-  <ng-container *ngIf="showMenu">
+  @if (showMenu) {
     <button mat-flat-button color="warn" [matMenuTriggerFor]="menu">
       <mat-icon [svgIcon]="icon"></mat-icon>
       <span>{{ text }}</span>
     </button>
-
     <mat-menu #menu="matMenu">
       <button mat-menu-item (click)="onClickPause()">
         <mat-icon svgIcon="pause"></mat-icon>
@@ -15,17 +14,16 @@
         <span>Aufzeichnung beenden</span>
       </button>
     </mat-menu>
-  </ng-container>
-
-  <ng-container *ngIf="!showMenu">
+  }
+  @if (!showMenu) {
     <button
       mat-flat-button
       color="warn"
       (click)="onClickStart()"
       [class.disabled]="disabled"
-    >
+      >
       <mat-icon [svgIcon]="icon"></mat-icon>
       <span>{{ text }}</span>
     </button>
-  </ng-container>
+  }
 </div>
