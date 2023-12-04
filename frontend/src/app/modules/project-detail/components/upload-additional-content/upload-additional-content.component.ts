@@ -59,8 +59,8 @@ interface FileUpload {
     MatProgressBarModule,
     LetDirective,
     PushPipe,
-    MediaCategoryPipe,
-  ],
+    MediaCategoryPipe
+],
 })
 export class UploadAdditionalContentComponent implements OnInit {
   public selectableMediaCategories = [

@@ -1,4 +1,4 @@
-import { DatePipe, NgFor, NgIf } from '@angular/common';
+import { DatePipe } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
@@ -20,8 +20,6 @@ import { RecorderService } from './recorder.service';
   styleUrls: ['./recorder.component.scss'],
   standalone: true,
   imports: [
-    NgIf,
-    NgFor,
     MediaSourceComponent,
     DatePipe,
     HeaderComponent,
@@ -30,8 +28,8 @@ import { RecorderService } from './recorder.service';
     MatButtonModule,
     MatFormFieldModule,
     MatIconModule,
-    MatInputModule,
-  ],
+    MatInputModule
+],
 })
 export class RecorderComponent implements OnInit, OnDestroy {
   today = new Date();

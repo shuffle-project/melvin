@@ -1,4 +1,4 @@
-import { NgFor, NgIf } from '@angular/common';
+
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -23,8 +23,6 @@ import { RecorderService } from '../../recorder.service';
   styleUrls: ['./add-audio-source.component.scss'],
   standalone: true,
   imports: [
-    NgIf,
-    NgFor,
     AudioMeterComponent,
     MatIconModule,
     MatDialogModule,
@@ -32,8 +30,8 @@ import { RecorderService } from '../../recorder.service';
     MatProgressSpinnerModule,
     MatSelectModule,
     FormsModule,
-    MatInputModule,
-  ],
+    MatInputModule
+],
 })
 export class AddAudioSourceComponent implements OnInit, OnDestroy {
   private destroy$$ = new Subject<void>();

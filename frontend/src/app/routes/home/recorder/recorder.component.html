@@ -2,145 +2,138 @@
   <span class="project-title" #projectTitle> Recorder </span>
   <div class="viewer-header-buttons"></div>
 </app-header>
-
 <section class="content">
-  <ng-container *ngIf="loading">
-    <div class="flex justify-center" style="margin-top: 20px">
-      <mat-spinner></mat-spinner>
-    </div>
-  </ng-container>
-
-  <ng-container *ngIf="!loading">
-    <div class="recording-wrapper">
-      <mat-form-field class="" style="min-width: 300px">
-        <mat-label>Aufnahmetitel</mat-label>
-        <input
-          matInput
-          placeholder="Aufnahmetitel"
-          value="Aufnahme vom {{ today | date }}"
-        />
-      </mat-form-field>
-
-      <!-- setup buttons -->
-      <div class="buttons" style="margin-left: auto">
-        <div *ngIf="recorderService.mode === 'setup'">
-          <button
-            color="primary"
-            mat-flat-button
-            (click)="onClickReady()"
-            [disabled]=""
-          >
-            Bereit
-          </button>
-        </div>
-
-        <!-- record buttons -->
-        <div *ngIf="recorderService.mode === 'record'">
-          <button
-            color="primary"
-            mat-flat-button
-            (click)="onClickStartRecord()"
-            [disabled]="recording"
-          >
-            Start Record
-          </button>
-          <button
-            color="primary"
-            mat-flat-button
-            (click)="onClickStopRecord()"
-            [disabled]="!recording"
-          >
-            Stop Record
-          </button>
-
-          <div *ngIf="recording" class="recording"></div>
-        </div>
-      </div>
-    </div>
-
-    <hr />
-
-    <div class="all-media-wrapper">
-      <div class="media-category-wrapper">
-        <h2>Audioquellen</h2>
-        <p *ngIf="recorderService.audios.length === 0">
-          <i>Kein Audio hinzugefügt</i>
-        </p>
-        <div class="media-list-wrapper">
-          <ng-container
-            *ngFor="let audio of recorderService.audios; let index = index"
-          >
-            <app-media-source [mediaSource]="audio"></app-media-source>
-          </ng-container>
-        </div>
-
-        <!--  -->
-
+  @if (loading) {
+  <div class="flex justify-center" style="margin-top: 20px">
+    <mat-spinner></mat-spinner>
+  </div>
+  } @if (!loading) {
+  <div class="recording-wrapper">
+    <mat-form-field class="" style="min-width: 300px">
+      <mat-label>Aufnahmetitel</mat-label>
+      <input
+        matInput
+        placeholder="Aufnahmetitel"
+        value="Aufnahme vom {{ today | date }}"
+      />
+    </mat-form-field>
+    <!-- setup buttons -->
+    <div class="buttons" style="margin-left: auto">
+      @if (recorderService.mode === 'setup') {
+      <div>
         <button
-          *ngIf="recorderService.mode === 'setup'"
-          color="primary"
-          class="add-btn"
-          mat-flat-button
-          (click)="onAddAudioSource()"
-        >
-          add microphone
-        </button>
-      </div>
-
-      <div class="media-category-wrapper">
-        <h2>Videoquellen</h2>
-        <p *ngIf="recorderService.videos.length === 0">
-          <i>Kein Video hinzugefügt</i>
-        </p>
-        <div class="media-list-wrapper">
-          <ng-container
-            *ngFor="let video of recorderService.videos; let index = index"
-          >
-            <app-media-source [mediaSource]="video"></app-media-source>
-          </ng-container>
-        </div>
-
-        <!--  -->
-
-        <button
-          *ngIf="recorderService.mode === 'setup'"
-          color="primary"
-          class="add-btn"
-          mat-flat-button
-          (click)="onAddVideoSource()"
-        >
-          add video
-        </button>
-      </div>
-
-      <div class="media-category-wrapper">
-        <h2>Screensharingquellen</h2>
-        <p *ngIf="recorderService.screensharings.length === 0">
-          <i>Kein Screensharing hinzugefügt</i>
-        </p>
-        <div class="media-list-wrapper">
-          <ng-container
-            *ngFor="
-              let screen of recorderService.screensharings;
-              let index = index
-            "
-          >
-            <app-media-source [mediaSource]="screen"></app-media-source>
-          </ng-container>
-        </div>
-
-        <!--  -->
-
-        <button
-          *ngIf="recorderService.mode === 'setup'"
-          class="add-btn"
           color="primary"
           mat-flat-button
-          (click)="onAddScreenSharingSource()"
+          (click)="onClickReady()"
+          [disabled]=""
         >
-          add screen sharing
+          Bereit
         </button>
       </div>
+      }
+      <!-- record buttons -->
+      @if (recorderService.mode === 'record') {
+      <div>
+        <button
+          color="primary"
+          mat-flat-button
+          (click)="onClickStartRecord()"
+          [disabled]="recording"
+        >
+          Start Record
+        </button>
+        <button
+          color="primary"
+          mat-flat-button
+          (click)="onClickStopRecord()"
+          [disabled]="!recording"
+        >
+          Stop Record
+        </button>
+        @if (recording) {
+        <div class="recording"></div>
+        }
+      </div>
+      }
     </div>
-  </ng-container>
+  </div>
+  <hr />
+  <div class="all-media-wrapper">
+    <div class="media-category-wrapper">
+      <h2>Audioquellen</h2>
+      @if (recorderService.audios.length === 0) {
+      <p>
+        <i>Kein Audio hinzugefügt</i>
+      </p>
+      }
+      <div class="media-list-wrapper">
+        @for (audio of recorderService.audios; track audio; let index = $index)
+        {
+        <app-media-source [mediaSource]="audio"></app-media-source>
+        }
+      </div>
+      <!--  -->
+      @if (recorderService.mode === 'setup') {
+      <button
+        color="primary"
+        class="add-btn"
+        mat-flat-button
+        (click)="onAddAudioSource()"
+      >
+        add microphone
+      </button>
+      }
+    </div>
+    <div class="media-category-wrapper">
+      <h2>Videoquellen</h2>
+      @if (recorderService.videos.length === 0) {
+      <p>
+        <i>Kein Video hinzugefügt</i>
+      </p>
+      }
+      <div class="media-list-wrapper">
+        @for (video of recorderService.videos; track video; let index = $index)
+        {
+        <app-media-source [mediaSource]="video"></app-media-source>
+        }
+      </div>
+      <!--  -->
+      @if (recorderService.mode === 'setup') {
+      <button
+        color="primary"
+        class="add-btn"
+        mat-flat-button
+        (click)="onAddVideoSource()"
+      >
+        add video
+      </button>
+      }
+    </div>
+    <div class="media-category-wrapper">
+      <h2>Screensharingquellen</h2>
+      @if (recorderService.screensharings.length === 0) {
+      <p>
+        <i>Kein Screensharing hinzugefügt</i>
+      </p>
+      }
+      <div class="media-list-wrapper">
+        @for ( screen of recorderService.screensharings; track screen; let index
+        = $index) {
+        <app-media-source [mediaSource]="screen"></app-media-source>
+        }
+      </div>
+      <!--  -->
+      @if (recorderService.mode === 'setup') {
+      <button
+        class="add-btn"
+        color="primary"
+        mat-flat-button
+        (click)="onAddScreenSharingSource()"
+      >
+        add screen sharing
+      </button>
+      }
+    </div>
+  </div>
+  }
 </section>

@@ -81,8 +81,8 @@ import { HeaderComponent } from '../../../components/header/header.component';
     CaptionsComponent,
     PushPipe,
     DurationPipe,
-    FeatureEnabledPipe,
-  ],
+    FeatureEnabledPipe
+],
 })
 export class EditorComponent implements OnInit, OnDestroy {
   private destroy$$ = new Subject<void>();

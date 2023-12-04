@@ -1,8 +1,13 @@
-import { NgIf } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
 import { MatChipsModule } from '@angular/material/chips';
+import { MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatSelectModule } from '@angular/material/select';
 import { MediaCategory } from '../../../../../services/api/entities/project.entity';
 import {
   AudioSource,
@@ -18,11 +23,16 @@ import { AudioMeterComponent } from '../audio-meter/audio-meter.component';
   styleUrls: ['./media-source.component.scss'],
   standalone: true,
   imports: [
-    NgIf,
     MatChipsModule,
     AudioMeterComponent,
     MatIconModule,
     MatMenuModule,
+    MatDialogModule,
+    MatButtonModule,
+    MatProgressSpinnerModule,
+    MatSelectModule,
+    FormsModule,
+    MatInputModule,
   ],
 })
 export class MediaSourceComponent implements OnInit {

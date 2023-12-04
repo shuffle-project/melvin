@@ -57,8 +57,8 @@ const initialState: ProjectGeneralComponentState = {
     MatSelectModule,
     MatOptionModule,
     MatButtonModule,
-    ProjectStatusPipe,
-  ],
+    ProjectStatusPipe
+],
 })
 export class ProjectGeneralComponent extends ComponentStore<ProjectGeneralComponentState> {
   private _projectId!: string;

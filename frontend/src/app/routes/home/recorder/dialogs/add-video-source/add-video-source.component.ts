@@ -1,4 +1,3 @@
-import { NgFor, NgIf } from '@angular/common';
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -23,8 +22,6 @@ import { RecorderService } from '../../recorder.service';
   styleUrls: ['./add-video-source.component.scss'],
   standalone: true,
   imports: [
-    NgIf,
-    NgFor,
     MatIconModule,
     MatDialogModule,
     MatButtonModule,

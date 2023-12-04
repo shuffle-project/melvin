@@ -1,77 +1,76 @@
 <h2 mat-dialog-title>Add Audiosource</h2>
-
 <mat-dialog-content class="mat-dialog-content">
-  <ng-container *ngIf="loading">
+  @if (loading) {
     <div class="flex justify-center" style="margin-top: 20px">
       <mat-spinner></mat-spinner>
     </div>
-  </ng-container>
-
-  <ng-container *ngIf="loadingError">
+  }
+  @if (loadingError) {
     {{ loadingError }}
-  </ng-container>
-
-  <ng-container *ngIf="!loading && !loadingError">
+  }
+  @if (!loading && !loadingError) {
     <mat-form-field style="width: 100%">
       <mat-label>sources</mat-label>
       <mat-select
         [(ngModel)]="currentInput"
         (selectionChange)="onSelectionChange()"
-      >
-        <mat-option *ngFor="let audioInput of audioinputs" [value]="audioInput">
-          {{ audioInput.label }}
-        </mat-option>
+        >
+        @for (audioInput of audioinputs; track audioInput) {
+          <mat-option [value]="audioInput">
+            {{ audioInput.label }}
+          </mat-option>
+        }
       </mat-select>
     </mat-form-field>
-
     <mat-form-field style="width: 100%">
       <mat-label>Title</mat-label>
       <input matInput type="text" [(ngModel)]="audioSource.title" />
     </mat-form-field>
-
     <br />
-
-    <div *ngIf="audioSource.mediaStream" class="audio-wrapper">
-      <audio [srcObject]="audioSource.mediaStream" autoplay></audio>
-      <div class="meter-wrapper">
-        <span> Audio level </span>
-        <div class="meter">
-          <app-audio-meter
-            [mediaStream]="audioSource.mediaStream"
-          ></app-audio-meter>
+    @if (audioSource.mediaStream) {
+      <div class="audio-wrapper">
+        <audio [srcObject]="audioSource.mediaStream" autoplay></audio>
+        <div class="meter-wrapper">
+          <span> Audio level </span>
+          <div class="meter">
+            <app-audio-meter
+              [mediaStream]="audioSource.mediaStream"
+            ></app-audio-meter>
+          </div>
         </div>
       </div>
-    </div>
-
-    <div
-      *ngIf="!audioSource.mediaStream"
-      class="flex justify-center"
-      style="margin-top: 20px; width: 100%; height: 80px"
-    >
-      <mat-spinner></mat-spinner>
-    </div>
-  </ng-container>
+    }
+    @if (!audioSource.mediaStream) {
+      <div
+        class="flex justify-center"
+        style="margin-top: 20px; width: 100%; height: 80px"
+        >
+        <mat-spinner></mat-spinner>
+      </div>
+    }
+  }
 </mat-dialog-content>
 <mat-dialog-actions>
   <button color="primary" mat-flat-button (click)="onCloseDialog()">
     Cancel
   </button>
-  <button
-    *ngIf="!loadingError && !loading && !loadingError"
-    color="primary"
-    mat-flat-button
-    (click)="onSubmitDialog()"
-  >
-    Add
-  </button>
-
-  <button
-    *ngIf="loadingError"
-    color="primary"
-    mat-flat-button
-    (click)="onClickTryAgain()"
-  >
-    Erneut versuchen
-    <mat-icon svgIcon="repeat" class="svg-black"></mat-icon>
-  </button>
+  @if (!loadingError && !loading && !loadingError) {
+    <button
+      color="primary"
+      mat-flat-button
+      (click)="onSubmitDialog()"
+      >
+      Add
+    </button>
+  }
+  @if (loadingError) {
+    <button
+      color="primary"
+      mat-flat-button
+      (click)="onClickTryAgain()"
+      >
+      Erneut versuchen
+      <mat-icon svgIcon="repeat" class="svg-black"></mat-icon>
+    </button>
+  }
 </mat-dialog-actions>

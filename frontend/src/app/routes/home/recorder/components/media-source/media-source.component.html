@@ -3,133 +3,128 @@
     <div>
       <h3 class="title">{{ mediaSource.title }}</h3>
       <div class="subtitle">
-        <mat-chip
-          *ngIf="
-            videoSource?.mediaCategory || screensharingSource?.mediaCategory
-          "
-          class="media-category {{
+        @if (
+          videoSource?.mediaCategory || screensharingSource?.mediaCategory
+          ) {
+          <mat-chip
+            class="media-category {{
             recorderService.mode === 'record' ? '' : 'clickable'
-          }}"
-          [matMenuTriggerFor]="mediaCategoryMenu"
-          [disabled]="recorderService.mode === 'record'"
-          >{{
+            }}"
+            [matMenuTriggerFor]="mediaCategoryMenu"
+            [disabled]="recorderService.mode === 'record'"
+            >{{
             videoSource?.mediaCategory || screensharingSource?.mediaCategory
-          }}</mat-chip
-        >
-        {{ videoSource?.label || audioSource?.label }}
-      </div>
-    </div>
-
-    <mat-menu #mediaCategoryMenu="matMenu">
-      <button mat-menu-item (click)="onChangeCategory(MediaCategory.OTHER)">
-        <mat-icon
-          [svgIcon]="
-            videoSource?.mediaCategory === MediaCategory.OTHER ||
-            screensharingSource?.mediaCategory === MediaCategory.OTHER
-              ? 'check'
-              : ''
-          "
-        ></mat-icon>
-        Other
-      </button>
-      <button
-        mat-menu-item
-        (click)="onChangeCategory(MediaCategory.SIGN_LANGUAGE)"
-      >
-        <mat-icon
-          [svgIcon]="
-            videoSource?.mediaCategory === MediaCategory.SIGN_LANGUAGE ||
-            screensharingSource?.mediaCategory === MediaCategory.SIGN_LANGUAGE
-              ? 'check'
-              : ''
-          "
-        ></mat-icon>
-        Sign Language
-      </button>
-      <button mat-menu-item (click)="onChangeCategory(MediaCategory.SLIDES)">
-        <mat-icon
-          [svgIcon]="
-            videoSource?.mediaCategory === MediaCategory.SLIDES ||
-            screensharingSource?.mediaCategory === MediaCategory.SLIDES
-              ? 'check'
-              : ''
-          "
-        ></mat-icon>
-        Slides
-      </button>
-      <button mat-menu-item (click)="onChangeCategory(MediaCategory.SPEAKER)">
-        <mat-icon
-          [svgIcon]="
-            videoSource?.mediaCategory === MediaCategory.SPEAKER ||
-            screensharingSource?.mediaCategory === MediaCategory.SPEAKER
-              ? 'check'
-              : ''
-          "
-        ></mat-icon>
-        Speaker
-      </button>
-    </mat-menu>
-
-    <div class="header-buttons">
-      <!-- <div
-        *ngIf="
-          screensharingSource &&
-          screensharingSource.mediaStream &&
-          screensharingSource.sound === true
-        "
-        class="flex"
-      > -->
-      <!-- <div class="meter-wrapper">
-          <app-audio-meter
-            [mediaStream]="screensharingSource.mediaStream"
-          ></app-audio-meter>
-        </div> -->
-      <!-- <button mat-icon-button class="md" matTooltip="">
-          <mat-icon svgIcon="volume_on"></mat-icon>
-        </button> -->
-      <!-- </div> -->
-      <!-- <button
-        *ngIf="screensharingSource && screensharingSource.sound === false"
-        mat-icon-button
-        class="md"
-        matTooltip="Ton wurde nicht genehmigt. Bitte neu hinzufügen."
-      >
-        <mat-icon svgIcon="volume_off"></mat-icon>
-      </button> -->
-      <button mat-icon-button class="md" (click)="onRemoveMediaSource()">
-        <mat-icon svgIcon="delete"></mat-icon>
-      </button>
-    </div>
-  </div>
-  <div class="tile-content">
-    <ng-container *ngIf="audioSource && audioSource.mediaStream">
-      <audio [srcObject]="audioSource.mediaStream" autoplay muted></audio>
-
-      <div class="meter-wrapper">
-        <span> Audio level </span>
-        <div class="meter">
-          <app-audio-meter
-            [mediaStream]="audioSource.mediaStream"
-          ></app-audio-meter>
+            }}</mat-chip
+            >
+          }
+          {{ videoSource?.label || audioSource?.label }}
         </div>
       </div>
-    </ng-container>
-
-    <ng-container *ngIf="videoSource">
-      <video [srcObject]="videoSource.mediaStream" autoplay muted></video
-    ></ng-container>
-
-    <ng-container *ngIf="screensharingSource">
-      <video
-        *ngIf="screensharingSource.mediaStream"
-        [srcObject]="screensharingSource.mediaStream"
-        autoplay
-        muted
-      ></video>
-
-      <ng-container
-        *ngIf="screensharingSource.sound && screensharingSource.mediaStream"
+      <mat-menu #mediaCategoryMenu="matMenu">
+        <button mat-menu-item (click)="onChangeCategory(MediaCategory.OTHER)">
+          <mat-icon
+            [svgIcon]="
+            videoSource?.mediaCategory === MediaCategory.OTHER ||
+            screensharingSource?.mediaCategory === MediaCategory.OTHER
+            ? 'check'
+            : ''
+            "
+          ></mat-icon>
+          Other
+        </button>
+        <button
+          mat-menu-item
+          (click)="onChangeCategory(MediaCategory.SIGN_LANGUAGE)"
+          >
+          <mat-icon
+            [svgIcon]="
+            videoSource?.mediaCategory === MediaCategory.SIGN_LANGUAGE ||
+            screensharingSource?.mediaCategory === MediaCategory.SIGN_LANGUAGE
+            ? 'check'
+            : ''
+            "
+          ></mat-icon>
+          Sign Language
+        </button>
+        <button mat-menu-item (click)="onChangeCategory(MediaCategory.SLIDES)">
+          <mat-icon
+            [svgIcon]="
+            videoSource?.mediaCategory === MediaCategory.SLIDES ||
+            screensharingSource?.mediaCategory === MediaCategory.SLIDES
+            ? 'check'
+            : ''
+            "
+          ></mat-icon>
+          Slides
+        </button>
+        <button mat-menu-item (click)="onChangeCategory(MediaCategory.SPEAKER)">
+          <mat-icon
+            [svgIcon]="
+            videoSource?.mediaCategory === MediaCategory.SPEAKER ||
+            screensharingSource?.mediaCategory === MediaCategory.SPEAKER
+            ? 'check'
+            : ''
+            "
+          ></mat-icon>
+          Speaker
+        </button>
+      </mat-menu>
+      <div class="header-buttons">
+        <!-- <div
+        *ngIf="
+        screensharingSource &&
+        screensharingSource.mediaStream &&
+        screensharingSource.sound === true
+        "
+        class="flex"
+        > -->
+        <!-- <div class="meter-wrapper">
+        <app-audio-meter
+          [mediaStream]="screensharingSource.mediaStream"
+        ></app-audio-meter>
+      </div> -->
+      <!-- <button mat-icon-button class="md" matTooltip="">
+      <mat-icon svgIcon="volume_on"></mat-icon>
+    </button> -->
+  <!-- </div> -->
+  <!-- <button
+  *ngIf="screensharingSource && screensharingSource.sound === false"
+  mat-icon-button
+  class="md"
+  matTooltip="Ton wurde nicht genehmigt. Bitte neu hinzufügen."
+  >
+  <mat-icon svgIcon="volume_off"></mat-icon>
+</button> -->
+<button mat-icon-button class="md" (click)="onRemoveMediaSource()">
+  <mat-icon svgIcon="delete"></mat-icon>
+</button>
+</div>
+</div>
+<div class="tile-content">
+  @if (audioSource && audioSource.mediaStream) {
+    <audio [srcObject]="audioSource.mediaStream" autoplay muted></audio>
+    <div class="meter-wrapper">
+      <span> Audio level </span>
+      <div class="meter">
+        <app-audio-meter
+          [mediaStream]="audioSource.mediaStream"
+        ></app-audio-meter>
+      </div>
+    </div>
+  }
+  @if (videoSource) {
+    <video [srcObject]="videoSource.mediaStream" autoplay muted></video
       >
+    }
+    @if (screensharingSource) {
+      @if (screensharingSource.mediaStream) {
+        <video
+          [srcObject]="screensharingSource.mediaStream"
+          autoplay
+          muted
+        ></video>
+      }
+      @if (screensharingSource.sound && screensharingSource.mediaStream) {
         <div class="meter-wrapper">
           <span> Audio level </span>
           <div class="meter">
@@ -138,7 +133,7 @@
             ></app-audio-meter>
           </div>
         </div>
-      </ng-container>
-    </ng-container>
+      }
+    }
   </div>
 </div>

@@ -92,8 +92,8 @@ interface DialogData {
     MatTabsModule,
     MatToolbarModule,
     MatTooltipModule,
-    ReactiveFormsModule,
-  ],
+    ReactiveFormsModule
+],
   standalone: true,
 })
 export class ShareProjectDialogComponent implements OnInit, OnDestroy {
