@@ -80,7 +80,7 @@
       },
       {
         "file": ".nx/cache/file-map.json",
-        "hash": "10623907548364082039"
+        "hash": "10827986586581611995"
       },
       {
         "file": ".nx/cache/lockfile.hash",
@@ -460,7 +460,7 @@
       },
       {
         "file": "src/app/modules/project-detail/components/upload-additional-content/upload-additional-content.component.html",
-        "hash": "16898952163319096251"
+        "hash": "4908113643582537248"
       },
       {
         "file": "src/app/modules/project-detail/components/upload-additional-content/upload-additional-content.component.scss",
@@ -472,7 +472,7 @@
       },
       {
         "file": "src/app/modules/project-detail/components/upload-additional-content/upload-additional-content.component.ts",
-        "hash": "2739236700156015522"
+        "hash": "17313762991820970371"
       },
       {
         "file": "src/app/modules/project-detail/project-detail.component.html",
