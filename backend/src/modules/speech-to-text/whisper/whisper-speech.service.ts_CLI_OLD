@@ -1,0 +1,94 @@
+import { Injectable } from '@nestjs/common';
+import { spawn } from 'child_process';
+import { Language } from '../../../app.interfaces';
+import { ProjectEntity } from '../../../resources/project/entities/project.entity';
+import { CustomLogger } from '../../logger/logger.service';
+import { PathService } from '../../path/path.service';
+import { ISepechToTextService } from '../speech-to-text.interfaces';
+// npm rebuild bcrypt --build-from-source
+@Injectable()
+export class WhisperSpeechService implements ISepechToTextService {
+  constructor(private logger: CustomLogger, private pathService: PathService) {
+    this.logger.setContext(this.constructor.name);
+  }
+
+  async fetchLanguages(): Promise<Language[]> {
+    try {
+      await this.execAsStream(['-h']);
+    } catch (e) {
+      return null;
+    }
+
+    return new Promise((resolve) => {
+      resolve([
+        { code: 'en', name: 'English' },
+        { code: 'de', name: 'German' },
+        { code: 'fr', name: 'French' },
+        { code: 'es', name: 'Spanish' },
+
+        // von whisper -h
+        //
+        // af,am,ar,as,az,ba,be,bg,bn,bo,br,bs,ca,cs,cy,da,de,el,en,es,et,eu,fa,fi,fo,fr,gl,
+        // gu,ha,haw,he,hi,hr,ht,hu,hy,id,is,it,ja,jw,ka,kk,km,kn,ko,la,lb,ln,lo,lt,lv,mg,mi,
+        // mk,ml,mn,mr,ms,mt,my,ne,nl,nn,no,oc,pa,pl,ps,pt,ro,ru,sa,sd,si,sk,sl,sn,so,sq,sr,su,
+        // sv,sw,ta,te,tg,th,tk,tl,tr,tt,uk,ur,uz,vi,yi,yo,zh,
+        // Afrikaans,Albanian,Amharic,Arabic,Armenian,Assamese,Azerbaijani,Bashkir,Basque,Belarusian,
+        // Bengali,Bosnian,Breton,Bulgarian,Burmese,Castilian,Catalan,Chinese,Croatian,Czech,Danish,Dutch,English,
+        // Estonian,Faroese,Finnish,Flemish,French,Galician,Georgian,German,Greek,Gujarati,Haitian,Haitian Creole,Hausa,
+        // Hawaiian,Hebrew,Hindi,Hungarian,Icelandic,Indonesian,Italian,Japanese,Javanese,Kannada,Kazakh,Khmer,Korean,Lao,
+        // Latin,Latvian,Letzeburgesch,Lingala,Lithuanian,Luxembourgish,Macedonian,Malagasy,Malay,Malayalam,Maltese,Maori,
+        // Marathi,Moldavian,Moldovan,Mongolian,Myanmar,Nepali,Norwegian,Nynorsk,Occitan,Panjabi,Pashto,Persian,Polish,
+        // Portuguese,Punjabi,Pushto,Romanian,Russian,Sanskrit,Serbian,Shona,Sindhi,Sinhala,Sinhalese,Slovak,Slovenian,
+        // Somali,Spanish,Sundanese,Swahili,Swedish,Tagalog,Tajik,Tamil,Tatar,Telugu,Thai,Tibetan,Turkish,Turkmen,Ukrainian,
+        // Urdu,Uzbek,Valencian,Vietnamese,Welsh,Yiddish,Yoruba
+      ]);
+    });
+  }
+
+  async run(project: ProjectEntity): Promise<string> {
+    const command = [
+      // 'whisper',
+      this.pathService.getWavFile(project._id.toString()),
+      '--model',
+      'medium',
+      '--verbose',
+      'False',
+      '--output_dir',
+      this.pathService.getProjectDirectory(project._id.toString()),
+      '--output_format',
+      'vtt',
+      '--language',
+      project.language,
+    ];
+
+    await this.execAsStream(command);
+
+    const whisperVtt = project._id.toString();
+    const vttFilePath = this.pathService.getVttFile(whisperVtt);
+
+    return vttFilePath;
+  }
+
+  private execAsStream(args: string[]): Promise<any> {
+    const child = spawn('whisper', args);
+
+    const stdout = [];
+    const stderr = [];
+
+    return new Promise((resolve, reject) => {
+      child.stdout.on('data', (chunk) => stdout.push(chunk));
+      child.stderr.on('data', (chunk) => stderr.push(chunk));
+
+      child.on('error', (err) => reject(err));
+
+      child.on('close', (code) => {
+        if (code !== 0) {
+          const error = Buffer.concat(stderr).toString();
+          reject(new Error(error));
+        } else {
+          resolve(Buffer.concat(stdout));
+        }
+      });
+    });
+  }
+}

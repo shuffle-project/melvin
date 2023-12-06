@@ -1,24 +1,37 @@
-import { Injectable } from '@nestjs/common';
-import { spawn } from 'child_process';
+import { HttpService } from '@nestjs/axios';
+import { HttpException, Injectable } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
+import { AxiosError, AxiosResponse } from 'axios';
+import FormData from 'form-data';
+import { readFile } from 'fs-extra';
+import { catchError, lastValueFrom, map } from 'rxjs';
 import { Language } from '../../../app.interfaces';
 import { ProjectEntity } from '../../../resources/project/entities/project.entity';
+import { DbService } from '../../db/db.service';
 import { CustomLogger } from '../../logger/logger.service';
 import { PathService } from '../../path/path.service';
-import { ISepechToTextService } from '../speech-to-text.interfaces';
+import {
+  ISepechToTextService,
+  TranscriptEntity,
+  WordEntity,
+} from '../speech-to-text.interfaces';
+import { WhiTranscriptEntity } from './whisper.interfaces';
+
 // npm rebuild bcrypt --build-from-source
+
 @Injectable()
 export class WhisperSpeechService implements ISepechToTextService {
-  constructor(private logger: CustomLogger, private pathService: PathService) {
+  constructor(
+    private logger: CustomLogger,
+    private pathService: PathService,
+    private httpService: HttpService,
+    private db: DbService,
+    private configService: ConfigService,
+  ) {
     this.logger.setContext(this.constructor.name);
   }
 
   async fetchLanguages(): Promise<Language[]> {
-    try {
-      await this.execAsStream(['-h']);
-    } catch (e) {
-      return null;
-    }
-
     return new Promise((resolve) => {
       resolve([
         { code: 'en', name: 'English' },
@@ -45,50 +58,123 @@ export class WhisperSpeechService implements ISepechToTextService {
     });
   }
 
-  async run(project: ProjectEntity): Promise<string> {
-    const command = [
-      // 'whisper',
-      this.pathService.getWavFile(project._id.toString()),
-      '--model',
-      'medium',
-      '--verbose',
-      'False',
-      '--output_dir',
-      this.pathService.getProjectDirectory(project._id.toString()),
-      '--output_format',
-      'vtt',
-      '--language',
-      project.language,
-    ];
+  async run(project: ProjectEntity): Promise<TranscriptEntity> {
+    const transcribe = await this._transcribe(project._id.toString());
+    // console.log(JSON.stringify(transcribe));
 
-    await this.execAsStream(command);
+    // use cronJob/queue instead of
+    const transcriptEntity: WhiTranscriptEntity = await new Promise(
+      (resolve) => {
+        const interval = setInterval(async () => {
+          const transcriptEntityTemp = await this._getTranscript(
+            transcribe.transcription_id,
+          );
+          // console.log(JSON.stringify(transcriptEntityTemp));
+          if (
+            transcriptEntityTemp.status === 'finished' ||
+            transcriptEntityTemp.status === 'error'
+          ) {
+            clearInterval(interval);
+            resolve(transcriptEntityTemp);
+          }
+        }, 10000);
+      },
+    );
 
-    const whisperVtt = project._id.toString();
-    const vttFilePath = this.pathService.getVttFile(whisperVtt);
+    if (transcriptEntity.status === 'error') {
+      throw new Error(transcriptEntity.error_message);
+    }
 
-    return vttFilePath;
-  }
+    // console.log(JSON.stringify(transcriptEntity));
 
-  private execAsStream(args: string[]): Promise<any> {
-    const child = spawn('whisper', args);
-
-    const stdout = [];
-    const stderr = [];
-
-    return new Promise((resolve, reject) => {
-      child.stdout.on('data', (chunk) => stdout.push(chunk));
-      child.stderr.on('data', (chunk) => stderr.push(chunk));
-
-      child.on('error', (err) => reject(err));
-
-      child.on('close', (code) => {
-        if (code !== 0) {
-          const error = Buffer.concat(stderr).toString();
-          reject(new Error(error));
-        } else {
-          resolve(Buffer.concat(stdout));
-        }
+    let currentMS = 0;
+    const words: WordEntity[] = [];
+    transcriptEntity.transcript.transcription.forEach((sentence) => {
+      const splittedText = sentence.text.split(' ');
+      const msSentence = sentence.offsets.to - sentence.offsets.from;
+      const msPerWord = msSentence / splittedText.length;
+      splittedText.forEach((word) => {
+        words.push({ word, startMs: currentMS, endMs: currentMS + msPerWord });
+        currentMS += msPerWord;
       });
     });
+
+    // transcriptEntity.transcript
+
+    return { words };
+  }
+
+  async _transcribe(projectId: string) {
+    const audioPath = this.pathService.getWavFile(projectId);
+
+    const file = await readFile(audioPath);
+
+    const formData = new FormData();
+    formData.append('file', file, 'audio.wav');
+    formData.append('settings', '{}');
+
+    // console.log(formData.getHeaders());
+
+    const response = await lastValueFrom(
+      this.httpService
+        .post<WhiTranscriptEntity>(
+          `http://localhost:8041/transcribe`,
+          formData,
+          {
+            headers: {
+              // authorization: this.apikey,
+              // 'Transfer-Encoding': 'chunked',
+              'Content-Type': 'multipart/form-data',
+              ...formData.getHeaders(),
+            },
+          },
+        )
+        .pipe(
+          map((res: AxiosResponse<WhiTranscriptEntity>) => res.data),
+          catchError((error: AxiosError) => {
+            // console.log(error.response);
+            if (error?.response?.status) {
+              throw new HttpException(
+                error.response.data,
+                error.response.status,
+              );
+            } else {
+              throw new HttpException('unknown error', 500);
+            }
+          }),
+        ),
+    );
+
+    return response;
+  }
+
+  async _getTranscript(transcriptId: string): Promise<WhiTranscriptEntity> {
+    const response = await lastValueFrom(
+      this.httpService
+        .get<WhiTranscriptEntity>(
+          `http://localhost:8041/get_transcription_status/${transcriptId}`,
+          {
+            headers: {
+              // authorization: this.apikey,
+            },
+          },
+        )
+        .pipe(
+          map((res: AxiosResponse<WhiTranscriptEntity>) => res.data),
+          catchError((error: AxiosError) => {
+            // console.log(error.response);
+            if (error?.response?.status) {
+              throw new HttpException(
+                error.response.data,
+                error.response.status,
+              );
+            } else {
+              throw new HttpException('unknown error', 500);
+            }
+          }),
+        ),
+    );
+
+    return response;
   }
 }
