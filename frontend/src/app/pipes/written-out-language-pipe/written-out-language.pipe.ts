@@ -10,9 +10,9 @@ export class WrittenOutLanguagePipe implements PipeTransform {
       case 'de-DE':
         return $localize`:@@writtenLanguageDE-DE:German`;
       case 'en-GB':
-        return $localize`:@@writtenLanguageEN-GB:English`;
+        return $localize`:@@writtenLanguageEN-GB:English (GB)`;
       case 'en-US':
-        return $localize`:@@writtenLanguageEN-US:English`;
+        return $localize`:@@writtenLanguageEN-US:English (US)`;
       case 'es-ES':
         return $localize`:@@writtenLanguageES-ES:Spanish`;
       case 'fr-FR':

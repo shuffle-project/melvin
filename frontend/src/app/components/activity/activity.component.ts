@@ -1,5 +1,8 @@
+import { NgClass } from '@angular/common';
 import { Component, Input, OnChanges } from '@angular/core';
+import { MatIconModule } from '@angular/material/icon';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import { RouterLink } from '@angular/router';
 import {
   ActivitiesMap,
   ActivityEntity,
@@ -8,24 +11,21 @@ import { IconName } from '../../constants/icon.constants';
 import { ProjectStatusPipe } from '../../pipes/project-status-pipe/project-status.pipe';
 import { TimeDifferencePipe } from '../../pipes/time-difference-pipe/time-difference.pipe';
 import { AvatarComponent } from '../avatar-group/avatar/avatar.component';
-import { RouterLink } from '@angular/router';
-import { MatIconModule } from '@angular/material/icon';
-import { NgClass } from '@angular/common';
 
 export type ActivityViewType = 'list' | 'popup' | 'timeline';
 
 @Component({
-    selector: 'app-activity',
-    templateUrl: './activity.component.html',
-    styleUrls: ['./activity.component.scss'],
-    standalone: true,
-    imports: [
+  selector: 'app-activity',
+  templateUrl: './activity.component.html',
+  styleUrls: ['./activity.component.scss'],
+  standalone: true,
+  imports: [
     NgClass,
     MatIconModule,
     RouterLink,
     AvatarComponent,
-    TimeDifferencePipe
-],
+    TimeDifferencePipe,
+  ],
 })
 export class ActivityComponent implements OnChanges {
   @Input() activity!: ActivityEntity;
