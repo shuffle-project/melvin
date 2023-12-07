@@ -7,52 +7,50 @@
         labelPosition="before"
         i18n="@@asrFormFieldsetLegend"
         >Generate automatic subtitles</mat-slide-toggle
-        >
-      </legend>
-      <mat-form-field>
-        <mat-label i18n="@@asrFormVendorLabel">Vendor</mat-label>
-        <mat-select
-          *ngrxLet="asrServices$ as asrServices"
-          formControlName="asrVendor"
-          >
-          @for (service of asrServices; track service) {
-            <mat-option
-              value="{{ service.asrVendor }}"
-              >{{ service.fullName }}</mat-option
-              >
-            }
-          </mat-select>
-          <mat-error i18n="@@asrFormVendorError">
-            Please select an ASR vendor
-          </mat-error>
-        </mat-form-field>
-        <mat-form-field *ngrxLet="asrServices$ as asrServices">
-          <mat-label i18n="@@asrFormLanguageLabel">Language</mat-label>
-          <!-- *ngFor="let service of asrServices" -->
-          <mat-select formControlName="language">
-            @for (language of getLanguages(asrServices); track language) {
-              <div>
-                <mat-option value="{{ language.code }}">{{
-                  language.name
-                }}</mat-option>
-              </div>
-            }
-          </mat-select>
-          <mat-error i18n="@@asrFormLanguageError">
-            Please select a language
-          </mat-error>
-          <mat-hint i18n="@@asrFormLanguageHint"
-            >The available languages are vendor dependent</mat-hint
-            >
-          </mat-form-field>
-        </fieldset>
-        @if (asrGroup.controls.activated.disabled) {
-          <div class="fieldset-hint">
-            <p i18n="@@asrFormDisabledInfoText">
-              Automatic subtitle generation is disabled due to already uploaded subtitle
-              files
-            </p>
-          </div>
+      >
+    </legend>
+    <mat-form-field>
+      <mat-label i18n="@@asrFormVendorLabel">Vendor</mat-label>
+      <mat-select
+        *ngrxLet="asrServices$ as asrServices"
+        formControlName="asrVendor"
+      >
+        @for (service of asrServices; track service) {
+        <mat-option value="{{ service.asrVendor }}">{{
+          service.fullName
+        }}</mat-option>
         }
-      </form>
-      
+      </mat-select>
+      <mat-error i18n="@@asrFormVendorError">
+        Please select an ASR vendor
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field *ngrxLet="asrServices$ as asrServices">
+      <mat-label i18n="@@asrFormLanguageLabel">Language</mat-label>
+      <!-- *ngFor="let service of asrServices" -->
+      <mat-select formControlName="language">
+        @for (language of getLanguages(asrServices); track language) {
+        <div>
+          <mat-option value="{{ language.code }}" matTooltip="language.name">{{
+            language.code | writtenOutLanguage
+          }}</mat-option>
+        </div>
+        }
+      </mat-select>
+      <mat-error i18n="@@asrFormLanguageError">
+        Please select a language
+      </mat-error>
+      <mat-hint i18n="@@asrFormLanguageHint"
+        >The available languages are vendor dependent</mat-hint
+      >
+    </mat-form-field>
+  </fieldset>
+  @if (asrGroup.controls.activated.disabled) {
+  <div class="fieldset-hint">
+    <p i18n="@@asrFormDisabledInfoText">
+      Automatic subtitle generation is disabled due to already uploaded subtitle
+      files
+    </p>
+  </div>
+  }
+</form>
