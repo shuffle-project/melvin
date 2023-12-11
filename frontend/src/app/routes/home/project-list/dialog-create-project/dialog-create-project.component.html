@@ -34,9 +34,9 @@
           <button
             mat-button
             matStepperNext
-            [disabled]="formGroup.hasError('mediaSourceStepInvalid')"
             i18n="@@dialogCreateProjectNextStepButton"
           >
+            <!-- [disabled]="formGroup.hasError('mediaSourceStepInvalid')" -->
             Next
           </button>
         </div>
@@ -66,9 +66,9 @@
           <button
             mat-button
             matStepperNext
-            [disabled]="formGroup.hasError('videoStepInvalid')"
             i18n="@@dialogCreateProjectNextStepButton"
           >
+            <!-- [disabled]="formGroup.hasError('videoStepInvalid')" -->
             Next
           </button>
         </div>
@@ -89,11 +89,8 @@
         </div>
         <div class="stepper-navigation middle">
           <button mat-button matStepperPrevious>Back</button>
-          <button
-            mat-button
-            matStepperNext
-            [disabled]="formGroup.hasError('liveStepInvalid')"
-          >
+          <button mat-button matStepperNext>
+            <!-- [disabled]="formGroup.hasError('liveStepInvalid')" -->
             Next
           </button>
         </div>
