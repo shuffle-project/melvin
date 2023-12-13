@@ -5,328 +5,312 @@
   <div
     class="filter-options-wrapper"
     *ngrxLet="projectFilter$ as projectFilter"
-    >
+  >
     <div class="flex">
       <div class="search-field-wrapper">
         <mat-form-field class="search-field">
           <mat-label i18n="@@projectListSearchFieldPlaceholder"
             >Search title</mat-label
-            >
-            <input
-              #searchTitle
-              [value]="projectFilter.searchString"
-              matInput
-              type="text"
-              />
-            <button
-              matSuffix
-              i18n-matTooltip="@@projectListSearchWithTitleTooltip"
-              matTooltip="Search with Projecttitle"
-              i18n-aria-label="@@projectListSearchWithTitleTooltip"
-              aria-label="Search with Projecttitle"
-              mat-icon-button
-              (click)="filterProjects()"
-              >
-              <mat-icon svgIcon="search"></mat-icon>
-            </button>
-          </mat-form-field>
-        </div>
-        <div class="project-set-wrapper">
-          <mat-button-toggle-group
-            #projectSetGroup="matButtonToggleGroup"
-            (change)="filterProjects()"
-            [value]="projectFilter.selectedProjectSet"
-            >
-            <mat-button-toggle
-              i18n="@@projectListFilterAllProjects"
-              [value]="ProjectSetEnum.All"
-              >
-              All Projects
-            </mat-button-toggle>
-            <mat-button-toggle
-              i18n="@@projectListFilterOwnProjects"
-              [value]="ProjectSetEnum.OWN"
-              >
-              Own Projects
-            </mat-button-toggle>
-            <mat-button-toggle
-              i18n="@@projectListFilterSharedProjects"
-              [value]="ProjectSetEnum.SHARED"
-              >
-              Shared Projects
-            </mat-button-toggle>
-          </mat-button-toggle-group>
-        </div>
-        <div class="project-status-wrapper">
-          <mat-form-field>
-            <mat-label i18n="@@projectListFilterStatusLabel"
-              >Project status</mat-label
-              >
-              <mat-select
-                #projectStatusSelect
-                (selectionChange)="filterProjects()"
-                [value]="projectFilter.selectedProjectStatus"
-                >
-                @for (status of projectStatus; track status) {
-                  <mat-option [value]="status">
-                    {{ status | readableStatus }}
-                  </mat-option>
-                }
-              </mat-select>
-            </mat-form-field>
-          </div>
-        </div>
-        <div>
-          @if ('projectCreate' | featureEnabled) {
-            <button
-              (click)="onOpenDialogCreateProject()"
-              mat-raised-button
-              color="primary"
-              class="new-project-button"
-              i18n="@@projectListCreateProjectButtonLabel"
-              >
-              New project
-            </button>
-          }
-        </div>
+          >
+          <input
+            #searchTitle
+            [value]="projectFilter.searchString"
+            matInput
+            type="text"
+          />
+          <button
+            matSuffix
+            i18n-matTooltip="@@projectListSearchWithTitleTooltip"
+            matTooltip="Search with Projecttitle"
+            i18n-aria-label="@@projectListSearchWithTitleTooltip"
+            aria-label="Search with Projecttitle"
+            mat-icon-button
+            (click)="filterProjects()"
+          >
+            <mat-icon svgIcon="search"></mat-icon>
+          </button>
+        </mat-form-field>
       </div>
-      <table
-        mat-table
-        [dataSource]="tableDataSource"
-        matSort
-        (matSortChange)="announceSortChange($any($event))"
+      <div class="project-set-wrapper">
+        <mat-button-toggle-group
+          #projectSetGroup="matButtonToggleGroup"
+          (change)="filterProjects()"
+          [value]="projectFilter.selectedProjectSet"
         >
-        <!-- Title Column -->
-        <ng-container matColumnDef="title">
-          <th
-            mat-header-cell
-            *matHeaderCellDef
-            mat-sort-header
-            sortActionDescription="Sort by title"
-            i18n="@@projectListTableHeaderTitleLabel"
-            >
-            Title
-          </th>
-          <!--
+          <mat-button-toggle
+            i18n="@@projectListFilterAllProjects"
+            [value]="ProjectSetEnum.All"
+          >
+            All Projects
+          </mat-button-toggle>
+          <mat-button-toggle
+            i18n="@@projectListFilterOwnProjects"
+            [value]="ProjectSetEnum.OWN"
+          >
+            Own Projects
+          </mat-button-toggle>
+          <mat-button-toggle
+            i18n="@@projectListFilterSharedProjects"
+            [value]="ProjectSetEnum.SHARED"
+          >
+            Shared Projects
+          </mat-button-toggle>
+        </mat-button-toggle-group>
+      </div>
+      <div class="project-status-wrapper">
+        <mat-form-field>
+          <mat-label i18n="@@projectListFilterStatusLabel"
+            >Project status</mat-label
+          >
+          <mat-select
+            #projectStatusSelect
+            (selectionChange)="filterProjects()"
+            [value]="projectFilter.selectedProjectStatus"
+          >
+            @for (status of projectStatus; track status) {
+            <mat-option [value]="status">
+              {{ status | readableStatus }}
+            </mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+    <div>
+      @if ('projectCreate' | featureEnabled) {
+      <button
+        (click)="onOpenDialogCreateProject()"
+        mat-raised-button
+        color="primary"
+        class="new-project-button"
+        i18n="@@projectListCreateProjectButtonLabel"
+      >
+        New project
+      </button>
+      }
+    </div>
+  </div>
+  <table
+    mat-table
+    [dataSource]="tableDataSource"
+    matSort
+    (matSortChange)="announceSortChange($any($event))"
+  >
+    <!-- Title Column -->
+    <ng-container matColumnDef="title">
+      <th
+        mat-header-cell
+        *matHeaderCellDef
+        mat-sort-header
+        sortActionDescription="Sort by title"
+        i18n="@@projectListTableHeaderTitleLabel"
+      >
+        Title
+      </th>
+      <!--
           class="clickable"
           (click)="onClickTitle(element)"
           [routerLink]="isClickable(element) ? ['/home/editor', element.id] : []"
           -->
-          <td
-            [class.clickable]="isClickable(element)"
-            (click)="onClickTitle(element)"
-            mat-cell
-            *matCellDef="let element"
-            >
-            {{ element.title }}
-          </td>
-        </ng-container>
-        <!-- Language Column -->
-        <ng-container matColumnDef="language">
-          <th
-            mat-header-cell
-            *matHeaderCellDef
-            i18n="@@projectListTableHeaderLanguagesLabel"
-            >
-            Languages
-          </th>
-          <td mat-cell *matCellDef="let element">
+      <td
+        [class.clickable]="isClickable(element)"
+        (click)="onClickTitle(element)"
+        mat-cell
+        *matCellDef="let element"
+      >
+        {{ element.title }}
+      </td>
+    </ng-container>
+    <!-- Language Column -->
+    <ng-container matColumnDef="language">
+      <th
+        mat-header-cell
+        *matHeaderCellDef
+        i18n="@@projectListTableHeaderLanguagesLabel"
+      >
+        Languages
+      </th>
+      <td mat-cell *matCellDef="let element">
+        <div class="flex">
+          @for ( languageCode of getProjectLanguages(element); track
+          languageCode; let i = $index) {
+          <div [matTooltip]="getProjectLanguages(element) | shortLanguageCode">
             <div class="flex">
-              @for (
-                languageCode of getProjectLanguages(element); track
-                languageCode; let i = $index) {
-                <div
-                  [matTooltip]="getProjectLanguages(element) | shortLanguageCode"
-                  >
-                  <div class="flex">
-                    @if (i < 2) {
-                      <span>{{ languageCode | shortLanguageCode }}</span>
-                    }
-                    @if (i === 2) {
-                      <span
-                        >+{{ getProjectLanguages(element).length - 2 }}</span
-                        >
-                      }
-                      @if (i < getProjectLanguages(element).length - 1 && i < 2) {
-                        <div
-                          class="language-divider"
-                          role="separator"
-                        ></div>
-                      }
-                    </div>
-                  </div>
-                }
-              </div>
-            </td>
-          </ng-container>
-          <!-- Status Column -->
-          <ng-container matColumnDef="status">
-            <th
-              mat-header-cell
-              *matHeaderCellDef
-              mat-sort-header
-              sortActionDescription="Sort by status"
-              i18n="@@projectListTableHeaderStatusLabel"
-              >
-              Status
-            </th>
-            <td mat-cell *matCellDef="let element">
-              <mat-chip-listbox>
-                <mat-chip
-                  [ngClass]="element.status"
-                  (click)="onClickProjectDetail(element, 'activity')"
-                  >
-                  <mat-icon
-                    class="status-icon"
-                    [ngClass]="element.status"
-                    [svgIcon]="onGetCorrectIcon(element.status)"
-                  ></mat-icon>
-                  <span class="nowrap">{{ element.status | readableStatus }}</span>
-                </mat-chip>
-              </mat-chip-listbox>
-            </td>
-          </ng-container>
-          <!-- Duration Column -->
-          <ng-container matColumnDef="duration">
-            <th
-              mat-header-cell
-              *matHeaderCellDef
-              mat-sort-header
-              sortActionDescription="Sort by duration"
-              i18n="@@projectListTableHeaderDurationLabel"
-              >
-              Duration
-            </th>
-            <td mat-cell *matCellDef="let element">
-              {{ element.duration | duration }}
-            </td>
-          </ng-container>
-          <!-- ModifiedAt Column -->
-          <ng-container matColumnDef="updatedAt">
-            <th
-              mat-header-cell
-              *matHeaderCellDef
-              mat-sort-header
-              sortActionDescription="Sort by updatedAt"
-              i18n="@@projectListTableHeaderUpdatedAtLabel"
-              >
-              Updated At
-            </th>
-            <td mat-cell *matCellDef="let element">
-              {{ element.updatedAt | formatDate }}
-            </td>
-          </ng-container>
-          <!-- CreatedAt Column -->
-          <ng-container matColumnDef="createdAt">
-            <th
-              mat-header-cell
-              *matHeaderCellDef
-              mat-sort-header
-              sortActionDescription="Sort by createdAt"
-              i18n="@@projectListTableHeaderCreatedAtLabel"
-              >
-              Created at
-            </th>
-            <td mat-cell *matCellDef="let element">
-              {{ element.createdAt | formatDate }}
-            </td>
-          </ng-container>
-          <!-- Editors Column -->
-          <ng-container matColumnDef="members">
-            <th
-              mat-header-cell
-              *matHeaderCellDef
-              i18n="@@projectListTableHeaderMembersLabel"
-              >
-              Members
-            </th>
-            <td mat-cell *matCellDef="let element">
-              <app-avatar-group
-                [users]="element.users"
-                [outlineColor]="
-                !isClickable(element)
-                ? 'var(--color-background-grey)'
-                : 'var(--color-white)'
-                "
-              ></app-avatar-group>
-            </td>
-          </ng-container>
-          <!-- Options Column || Share or download project -->
-          <ng-container matColumnDef="more">
-            <th
-              mat-header-cell
-              *matHeaderCellDef
-              i18n="@@projectListTableHeaderMoreLabel"
-              >
-              More
-            </th>
-            <td mat-cell *matCellDef="let element">
-              <button
-                [matMenuTriggerData]="{ element: element }"
-                [matMenuTriggerFor]="projectOptionsMenu"
-                mat-icon-button
-                i18n-aria-label="@@projectListMoreMenuAriaLabel"
-                aria-label="Open/Close menu"
-                >
-                <mat-icon svgIcon="more"></mat-icon>
-              </button>
-            </td>
-          </ng-container>
-          <mat-menu #projectOptionsMenu="matMenu" class="dense">
-            <ng-template matMenuContent let-element="element">
-              @if ('projectEdit' | featureEnabled) {
-                <button
-                  mat-menu-item
-                  (click)="onClickProjectDetail(element, 'general')"
-                  i18n="@@projectListMoreMenuEditLabel"
-                  >
-                  <mat-icon svgIcon="edit"></mat-icon>
-                  Edit
-                </button>
+              @if (i < 2) {
+              <span>{{ languageCode | shortLanguageCode }}</span>
+              } @if (i === 2) {
+              <span>+{{ getProjectLanguages(element).length - 2 }}</span>
+              } @if (i < getProjectLanguages(element).length - 1 && i < 2) {
+              <div class="language-divider" role="separator"></div>
               }
-              @if ('projectShare' | featureEnabled) {
-                <button
-                  mat-menu-item
-                  (click)="onClickShare(element)"
-                  i18n="@@projectListMoreMenuShareLabel"
-                  >
-                  <mat-icon svgIcon="share"></mat-icon>
-                  Share
-                </button>
-              }
-              @if ('download' | featureEnabled) {
-                <button
-                  mat-menu-item
-                  i18n="@@projectListMoreMenuDownloadLabel"
-                  >
-                  <mat-icon svgIcon="download"></mat-icon>
-                  Download
-                </button>
-              }
-              <button mat-menu-item (click)="onOpenViewer(element)">
-                <mat-icon svgIcon="share"></mat-icon>
-                Viewer
-              </button>
-              @if (element.createdBy === (userId$ | ngrxPush)) {
-                <mat-divider></mat-divider>
-                <button
-                  (click)="onDeleteProject(element.id)"
-                  mat-menu-item
-                  i18n="@@projectListMoreMenuDeleteLabel"
-                  >
-                  <mat-icon svgIcon="delete"></mat-icon>
-                  Delete
-                </button>
-              }
-            </ng-template>
-          </mat-menu>
-          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-          <tr
-            mat-row
-            *matRowDef="let row; columns: displayedColumns"
-            [class.disabled]="!isClickable(row)"
-          ></tr>
-        </table>
-      </section>
-      <app-footer></app-footer>
-      
+            </div>
+          </div>
+          }
+        </div>
+      </td>
+    </ng-container>
+    <!-- Status Column -->
+    <ng-container matColumnDef="status">
+      <th
+        mat-header-cell
+        *matHeaderCellDef
+        mat-sort-header
+        sortActionDescription="Sort by status"
+        i18n="@@projectListTableHeaderStatusLabel"
+      >
+        Status
+      </th>
+      <td mat-cell *matCellDef="let element">
+        <mat-chip-listbox>
+          <mat-chip
+            [ngClass]="element.status"
+            (click)="onClickProjectDetail(element, 'activity')"
+          >
+            <mat-icon
+              class="status-icon"
+              [ngClass]="element.status"
+              [svgIcon]="onGetCorrectIcon(element.status)"
+            ></mat-icon>
+            <span class="nowrap">{{ element.status | readableStatus }}</span>
+          </mat-chip>
+        </mat-chip-listbox>
+      </td>
+    </ng-container>
+    <!-- Duration Column -->
+    <ng-container matColumnDef="duration">
+      <th
+        mat-header-cell
+        *matHeaderCellDef
+        mat-sort-header
+        sortActionDescription="Sort by duration"
+        i18n="@@projectListTableHeaderDurationLabel"
+      >
+        Duration
+      </th>
+      <td mat-cell *matCellDef="let element">
+        {{ element.duration | duration }}
+      </td>
+    </ng-container>
+    <!-- ModifiedAt Column -->
+    <ng-container matColumnDef="updatedAt">
+      <th
+        mat-header-cell
+        *matHeaderCellDef
+        mat-sort-header
+        sortActionDescription="Sort by updatedAt"
+        i18n="@@projectListTableHeaderUpdatedAtLabel"
+      >
+        Updated At
+      </th>
+      <td mat-cell *matCellDef="let element">
+        {{ element.updatedAt | formatDate }}
+      </td>
+    </ng-container>
+    <!-- CreatedAt Column -->
+    <ng-container matColumnDef="createdAt">
+      <th
+        mat-header-cell
+        *matHeaderCellDef
+        mat-sort-header
+        sortActionDescription="Sort by createdAt"
+        i18n="@@projectListTableHeaderCreatedAtLabel"
+      >
+        Created at
+      </th>
+      <td mat-cell *matCellDef="let element">
+        {{ element.createdAt | formatDate }}
+      </td>
+    </ng-container>
+    <!-- Editors Column -->
+    <ng-container matColumnDef="members">
+      <th
+        mat-header-cell
+        *matHeaderCellDef
+        i18n="@@projectListTableHeaderMembersLabel"
+      >
+        Members
+      </th>
+      <td mat-cell *matCellDef="let element">
+        <app-avatar-group
+          [users]="element.users"
+          [outlineColor]="
+            !isClickable(element)
+              ? 'var(--color-background-grey)'
+              : 'var(--color-white)'
+          "
+        ></app-avatar-group>
+      </td>
+    </ng-container>
+    <!-- Options Column || Share or download project -->
+    <ng-container matColumnDef="more">
+      <th
+        mat-header-cell
+        *matHeaderCellDef
+        i18n="@@projectListTableHeaderMoreLabel"
+      >
+        More
+      </th>
+      <td mat-cell *matCellDef="let element">
+        <button
+          [matMenuTriggerData]="{ element: element }"
+          [matMenuTriggerFor]="projectOptionsMenu"
+          mat-icon-button
+          i18n-aria-label="@@projectListMoreMenuAriaLabel"
+          aria-label="Open/Close menu"
+        >
+          <mat-icon svgIcon="more"></mat-icon>
+        </button>
+      </td>
+    </ng-container>
+    <mat-menu #projectOptionsMenu="matMenu" class="dense">
+      <ng-template matMenuContent let-element="element">
+        @if ('projectEdit' | featureEnabled) {
+        <button
+          mat-menu-item
+          (click)="onClickProjectDetail(element, 'general')"
+          i18n="@@projectListMoreMenuEditLabel"
+        >
+          <mat-icon svgIcon="edit"></mat-icon>
+          Edit
+        </button>
+        } @if ('projectShare' | featureEnabled) {
+        <button
+          mat-menu-item
+          (click)="onClickShare(element)"
+          i18n="@@projectListMoreMenuShareLabel"
+        >
+          <mat-icon svgIcon="share"></mat-icon>
+          Share
+        </button>
+        } @if ('download' | featureEnabled) {
+        <button mat-menu-item i18n="@@projectListMoreMenuDownloadLabel">
+          <mat-icon svgIcon="download"></mat-icon>
+          Download
+        </button>
+        }
+        <button mat-menu-item (click)="onOpenViewer(element)">
+          <mat-icon svgIcon="share"></mat-icon>
+          Viewer
+        </button>
+        @if (element.createdBy === (userId$ | ngrxPush)) {
+        <mat-divider></mat-divider>
+        <button
+          (click)="onDeleteProject(element.id)"
+          mat-menu-item
+          i18n="@@projectListMoreMenuDeleteLabel"
+        >
+          <mat-icon svgIcon="delete"></mat-icon>
+          Delete
+        </button>
+        }
+      </ng-template>
+    </mat-menu>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr
+      mat-row
+      *matRowDef="let row; columns: displayedColumns"
+      [class.disabled]="!isClickable(row)"
+    ></tr>
+  </table>
+</section>
+<app-footer></app-footer>

@@ -114,7 +114,10 @@ export class UploadAdditionalContentComponent implements OnInit {
   }
 
   async onClickSubmit() {
-    if (this.formGroup.valid) {
+    if (!this.formGroup.valid) {
+      console.log('invalid');
+      this.formGroup.markAllAsTouched();
+    } else {
       const id = uuid.v4();
       this.fileUploads.push({
         id,

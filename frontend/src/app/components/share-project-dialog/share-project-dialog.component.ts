@@ -184,11 +184,11 @@ export class ShareProjectDialogComponent implements OnInit, OnDestroy {
   }
 
   async inviteMember() {
-    console.log('invite');
-    if (this.userControl.valid) {
-      // const newUser = this.users.find(
-      //   (item) => item.email === this.userControl.value
-      // );
+    if (!this.userControl.valid) {
+      this.userControl.markAsDirty();
+      this.userControl.markAllAsTouched();
+    } else {
+      console.log('invite');
 
       const res = await lastValueFrom(
         this.api.invite(this.project.id, [this.userControl.value])

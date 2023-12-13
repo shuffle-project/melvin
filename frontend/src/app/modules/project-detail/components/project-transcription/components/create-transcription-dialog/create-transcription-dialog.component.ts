@@ -4,11 +4,27 @@ import {
   HttpEventType,
 } from '@angular/common/http';
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import {
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
 import { ErrorStateMatcher, MatOptionModule } from '@angular/material/core';
-import { MatDialog, MatDialogRef, MatDialogTitle } from '@angular/material/dialog';
+import {
+  MatDialog,
+  MatDialogRef,
+  MatDialogTitle,
+} from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatSelectModule } from '@angular/material/select';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { LetDirective } from '@ngrx/component';
 import { Store } from '@ngrx/store';
-import { firstValueFrom, Observable, Subject, takeUntil } from 'rxjs';
+import { Observable, Subject, firstValueFrom, takeUntil } from 'rxjs';
 import { LANGUAGES } from 'src/app/constants/languages.constant';
 import { ProjectDetailComponent } from 'src/app/modules/project-detail/project-detail.component';
 import { TranscriptionEntity } from 'src/app/services/api/entities/transcription.entity';
@@ -28,23 +44,16 @@ import * as transcriptionsActions from '../../../../../../store/actions/transcri
 import * as configSelectors from '../../../../../../store/selectors/config.selector';
 import * as editorSelectors from '../../../../../../store/selectors/editor.selector';
 import * as transcriptionsSelectors from '../../../../../../store/selectors/transcriptions.selector';
-import { LetDirective } from '@ngrx/component';
-import { MatTooltipModule } from '@angular/material/tooltip';
-import { MatButtonModule } from '@angular/material/button';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { MatInputModule } from '@angular/material/input';
-import { MatSelectModule } from '@angular/material/select';
-import { MatFormFieldModule } from '@angular/material/form-field';
 
 import { MatIconModule } from '@angular/material/icon';
 import { MatRadioModule } from '@angular/material/radio';
 
 @Component({
-    selector: 'app-create-transcription-dialog',
-    templateUrl: './create-transcription-dialog.component.html',
-    styleUrls: ['./create-transcription-dialog.component.scss'],
-    standalone: true,
-    imports: [
+  selector: 'app-create-transcription-dialog',
+  templateUrl: './create-transcription-dialog.component.html',
+  styleUrls: ['./create-transcription-dialog.component.scss'],
+  standalone: true,
+  imports: [
     MatDialogTitle,
     ReactiveFormsModule,
     MatRadioModule,
@@ -56,8 +65,8 @@ import { MatRadioModule } from '@angular/material/radio';
     MatProgressSpinnerModule,
     MatButtonModule,
     MatTooltipModule,
-    LetDirective
-],
+    LetDirective,
+  ],
 })
 export class CreateTranscriptionDialogComponent implements OnInit, OnDestroy {
   private destroy$$ = new Subject<void>();
@@ -261,6 +270,13 @@ export class CreateTranscriptionDialogComponent implements OnInit, OnDestroy {
   }
 
   async onCreateTranscription() {
+    const valid = this.onValidInputForCreateOption();
+
+    if (!valid) {
+      this.transcriptionGroup.markAllAsTouched();
+      return;
+    }
+
     const {
       title,
       language,
