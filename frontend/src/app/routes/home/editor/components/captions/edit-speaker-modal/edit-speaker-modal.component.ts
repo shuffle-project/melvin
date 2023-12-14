@@ -6,8 +6,22 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
-import { AbstractControl, FormControl, ValidationErrors, ValidatorFn, Validators, ReactiveFormsModule } from '@angular/forms';
+import {
+  AbstractControl,
+  FormControl,
+  ReactiveFormsModule,
+  ValidationErrors,
+  ValidatorFn,
+  Validators,
+} from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
 import { ErrorStateMatcher } from '@angular/material/core';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatMenuModule } from '@angular/material/menu';
+import { PushPipe } from '@ngrx/component';
 import { Store } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
 import { CaptionEntity } from '../../../../../../services/api/entities/caption.entity';
@@ -15,21 +29,13 @@ import { SpeakerEntity } from '../../../../../../services/api/entities/transcrip
 import * as captionsActions from '../../../../../../store/actions/captions.actions';
 import * as transcriptionsActions from '../../../../../../store/actions/transcriptions.actions';
 import * as transcriptionsSelectors from '../../../../../../store/selectors/transcriptions.selector';
-import { PushPipe } from '@ngrx/component';
-import { MatInputModule } from '@angular/material/input';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatButtonModule } from '@angular/material/button';
-import { MatDividerModule } from '@angular/material/divider';
-import { MatIconModule } from '@angular/material/icon';
-import { MatMenuModule } from '@angular/material/menu';
-
 
 @Component({
-    selector: 'app-edit-speaker-modal',
-    templateUrl: './edit-speaker-modal.component.html',
-    styleUrls: ['./edit-speaker-modal.component.scss'],
-    standalone: true,
-    imports: [
+  selector: 'app-edit-speaker-modal',
+  templateUrl: './edit-speaker-modal.component.html',
+  styleUrls: ['./edit-speaker-modal.component.scss'],
+  standalone: true,
+  imports: [
     MatMenuModule,
     MatIconModule,
     MatDividerModule,
@@ -37,8 +43,8 @@ import { MatMenuModule } from '@angular/material/menu';
     MatFormFieldModule,
     MatInputModule,
     ReactiveFormsModule,
-    PushPipe
-],
+    PushPipe,
+  ],
 })
 export class EditSpeakerModalComponent implements OnInit, OnDestroy {
   @Input() caption!: CaptionEntity;
@@ -86,13 +92,17 @@ export class EditSpeakerModalComponent implements OnInit, OnDestroy {
   }
 
   onAddSpeaker(caption: CaptionEntity, newSpeaker: string) {
-    const createSpeakersDto = { names: [newSpeaker] };
-    this.store.dispatch(
-      transcriptionsActions.createSpeakers({
-        transcriptionId: caption.transcription,
-        createSpeakersDto,
-      })
-    );
+    if (this.newSpeakerForm.invalid) {
+      this.newSpeakerForm.markAllAsTouched();
+    } else {
+      const createSpeakersDto = { names: [newSpeaker] };
+      this.store.dispatch(
+        transcriptionsActions.createSpeakers({
+          transcriptionId: caption.transcription,
+          createSpeakersDto,
+        })
+      );
+    }
   }
 
   onAddSpeakerMode() {

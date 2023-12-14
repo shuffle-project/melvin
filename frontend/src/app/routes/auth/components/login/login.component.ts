@@ -1,5 +1,17 @@
+import { AsyncPipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, NonNullableFormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
+import {
+  FormGroup,
+  NonNullableFormBuilder,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { StorageKey } from '../../../../services/storage/storage-key.enum';
@@ -7,20 +19,13 @@ import { StorageService } from '../../../../services/storage/storage.service';
 import * as authActions from '../../../../store/actions/auth.actions';
 import { AppState } from '../../../../store/app.state';
 import * as authSelectors from '../../../../store/selectors/auth.selector';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { MatButtonModule } from '@angular/material/button';
-import { AsyncPipe } from '@angular/common';
-import { MatCheckboxModule } from '@angular/material/checkbox';
-import { MatInputModule } from '@angular/material/input';
-import { MatIconModule } from '@angular/material/icon';
-import { MatFormFieldModule } from '@angular/material/form-field';
 
 @Component({
-    selector: 'app-login',
-    templateUrl: './login.component.html',
-    styleUrls: ['./login.component.scss'],
-    standalone: true,
-    imports: [
+  selector: 'app-login',
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.scss'],
+  standalone: true,
+  imports: [
     ReactiveFormsModule,
     MatFormFieldModule,
     MatIconModule,
@@ -28,8 +33,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     MatCheckboxModule,
     MatButtonModule,
     MatProgressSpinnerModule,
-    AsyncPipe
-],
+    AsyncPipe,
+  ],
 })
 export class LoginComponent implements OnInit {
   public formGroup!: FormGroup;
@@ -60,8 +65,10 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit(): void {
-    const { email, password, persistent } = this.formGroup.value;
+    if (this.formGroup.valid) {
+      const { email, password, persistent } = this.formGroup.value;
 
-    this.store.dispatch(authActions.login({ email, password, persistent }));
+      this.store.dispatch(authActions.login({ email, password, persistent }));
+    }
   }
 }

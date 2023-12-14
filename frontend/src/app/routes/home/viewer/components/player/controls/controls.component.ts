@@ -1,5 +1,13 @@
 import { Component } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDialog } from '@angular/material/dialog';
+import { MatIconModule } from '@angular/material/icon';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatSliderModule } from '@angular/material/slider';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { LetDirective, PushPipe } from '@ngrx/component';
 import { Store } from '@ngrx/store';
 import { combineLatest, map } from 'rxjs';
 import { DurationPipe } from '../../../../../../pipes/duration-pipe/duration.pipe';
@@ -15,21 +23,13 @@ import * as viewerSelector from '../../../../../../store/selectors/viewer.select
 import { ViewerService } from '../../../viewer.service';
 import { CaptionsSettingsDialogComponent } from '../../captions-settings-dialog/captions-settings-dialog.component';
 import { ViewerVideo } from '../player.component';
-import { MatCheckboxModule } from '@angular/material/checkbox';
-import { LetDirective, PushPipe } from '@ngrx/component';
-import { MatMenuModule } from '@angular/material/menu';
-import { MatIconModule } from '@angular/material/icon';
-import { MatTooltipModule } from '@angular/material/tooltip';
-import { MatButtonModule } from '@angular/material/button';
-import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { MatSliderModule } from '@angular/material/slider';
 
 @Component({
-    selector: 'app-controls',
-    templateUrl: './controls.component.html',
-    styleUrls: ['./controls.component.scss'],
-    standalone: true,
-    imports: [
+  selector: 'app-controls',
+  templateUrl: './controls.component.html',
+  styleUrls: ['./controls.component.scss'],
+  standalone: true,
+  imports: [
     MatSliderModule,
     ReactiveFormsModule,
     FormsModule,
@@ -40,8 +40,8 @@ import { MatSliderModule } from '@angular/material/slider';
     LetDirective,
     MatCheckboxModule,
     PushPipe,
-    DurationPipe
-],
+    DurationPipe,
+  ],
 })
 export class ControlsComponent {
   public volume$ = this.store.select(editorSelector.selectVolume);
@@ -168,6 +168,7 @@ export class ControlsComponent {
     } else if ((document as any).webkitExitFullscreen) {
       await (document as any).webkitExitFullscreen();
     }
+    // this.store.dispatch(viewerActions.showTranscript());
   }
 
   onRequestFullscreen() {
@@ -175,11 +176,21 @@ export class ControlsComponent {
       this.onExitFullscreen();
     } else {
       const doc = document.getElementsByTagName('body').item(0);
+      if (doc) {
+        this.store.dispatch(viewerActions.hideTranscript());
 
-      if (doc?.requestFullscreen) {
-        doc.requestFullscreen();
-      } else if ((doc as any).webkitRequestFullscreen) {
-        (doc as any).webkitRequestFullscreen();
+        // show transcript again on closing fullscreen
+        doc.onfullscreenchange = () => {
+          if (!this.isFullscreenActive()) {
+            this.store.dispatch(viewerActions.showTranscript());
+          }
+        };
+
+        if (doc.requestFullscreen) {
+          doc.requestFullscreen();
+        } else if ((doc as any).webkitRequestFullscreen) {
+          (doc as any).webkitRequestFullscreen();
+        }
       }
     }
   }

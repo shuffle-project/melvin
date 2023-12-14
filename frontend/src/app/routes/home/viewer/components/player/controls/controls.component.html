@@ -1,210 +1,200 @@
 @if (viewerService.audio) {
-  <div class="controls">
+<div class="controls">
   <!--mat-progress-bar mode="determinate" value="40"></mat-progress-bar-->
   <div class="video-progress-slider-wrapper">
     <mat-slider
-      class="video-progress-slider"
+      class="video-progress-slider black"
       min="0"
       [max]="viewerService.audio.duration"
       discrete
       [displayWith]="audioProgressLabel"
-      >
+    >
       <input
         aria-label="Video timeline"
         i18n-aria-label="@@viewerControlsTimelineLabel"
         matSliderThumb
         [(ngModel)]="viewerService.audio.currentTime"
-        />
+      />
       <!-- (input)="onVideoProgressChange($event)" -->
     </mat-slider>
   </div>
   <div class="main-controls">
     <div class="left">
       @if (viewerService.audio.paused) {
-        <button
-          mat-icon-button
-          class="md"
-          matTooltip="Play"
-          i18n-matTooltip="@@viewerControlsPlayPauseTooltipPlay"
-          (click)="onPlayVideo()"
-          >
-          <mat-icon svgIcon="play-viewer"></mat-icon></button
-          >}@else {
-          <button
-            mat-icon-button
-            class="md"
-            matTooltip="Pause"
-            i18n-matTooltip="@@viewerControlsPlayPauseTooltip"
-            (click)="onPauseVideo()"
-            >
-            <mat-icon svgIcon="pause-viewer"></mat-icon>
-          </button>
-        }
-        <!-- replay and forward -->
-        <button
-          mat-icon-button
-          class="md"
-          (click)="onSeek($event.shiftKey ? -30 : -10)"
-          matTooltip="Rewind 10 seconds"
-          i18n-matTooltip="@@viewerControlsRewindTooltip"
-          >
-          <mat-icon [svgIcon]="'replay'"></mat-icon>
-        </button>
-        <button
-          mat-icon-button
-          class="md"
-          (click)="onSeek($event.shiftKey ? 30 : 10)"
-          matTooltip="Fast-forward 10 seconds"
-          i18n-matTooltip="@@viewerControlsforwardTooltip"
-          >
-          <mat-icon [svgIcon]="'forward'"></mat-icon>
-        </button>
-        <!-- sound -->
-        <button
-          mat-icon-button
-          class="md"
-          matTooltip="{{
+      <button
+        mat-icon-button
+        class="md"
+        matTooltip="Play"
+        i18n-matTooltip="@@viewerControlsPlayPauseTooltipPlay"
+        (click)="onPlayVideo()"
+      >
+        <mat-icon svgIcon="play-viewer"></mat-icon></button
+      >}@else {
+      <button
+        mat-icon-button
+        class="md"
+        matTooltip="Pause"
+        i18n-matTooltip="@@viewerControlsPlayPauseTooltip"
+        (click)="onPauseVideo()"
+      >
+        <mat-icon svgIcon="pause-viewer"></mat-icon>
+      </button>
+      }
+      <!-- replay and forward -->
+      <button
+        mat-icon-button
+        class="md"
+        (click)="onSeek($event.shiftKey ? -30 : -10)"
+        matTooltip="Rewind 10 seconds"
+        i18n-matTooltip="@@viewerControlsRewindTooltip"
+      >
+        <mat-icon [svgIcon]="'replay'"></mat-icon>
+      </button>
+      <button
+        mat-icon-button
+        class="md"
+        (click)="onSeek($event.shiftKey ? 30 : 10)"
+        matTooltip="Fast-forward 10 seconds"
+        i18n-matTooltip="@@viewerControlsforwardTooltip"
+      >
+        <mat-icon [svgIcon]="'forward'"></mat-icon>
+      </button>
+      <!-- sound -->
+      <button
+        mat-icon-button
+        class="md"
+        matTooltip="{{
           viewerService.audio.muted ? 'Unmute sound' : 'Mute sound'
-          }}"
-          (click)="onMuteAudio()"
-          i18n-matTooltip="@@viewerControlsMuteUnmuteTooltip"
-          >
-          @if (!viewerService.audio.muted) {
-            <mat-icon
-              svgIcon="volume"
-              class="svg-black"
-            ></mat-icon>
-          }
-          @if (viewerService.audio.muted) {
-            <mat-icon
-              svgIcon="volume-mute"
-              class="svg-black"
-            ></mat-icon>
-          }
-        </button>
-        <mat-slider
-          class="volume-slider"
-          min="0"
-          max="1"
-          step="0.01"
-          discrete
-          [displayWith]="sliderLabelVolume"
-          [disabled]="viewerService.audio.muted"
-          >
-          <input
-            aria-label="Volume"
-            i18n-aria-label="@@viewerControlsVolumeSlideLabel"
-            matSliderThumb
-            [value]="volume$ | ngrxPush"
-            (change)="onVolumeChange($event)"
-            />
-        </mat-slider>
-      </div>
-      <div class="center">
-        <button
-          mat-icon-button
-          class="md"
-          [matMenuTriggerFor]="captionMenu"
-          matTooltip="Captions menu"
-          i18n-matTooltip="@@viewerControlsCaptionMenuTooltip"
-          >
-          <mat-icon svgIcon="caption_not_selected" class="svg-black"></mat-icon>
-        </button>
-        <button
-          mat-icon-button
-          class="md"
-          (click)="onToggleShowTranscript()"
-          matTooltip="Toggle show/hide transcript"
-          i18n-matTooltip="@@viewerControlsTranscriptToggleTooltip"
-          >
-          <mat-icon svgIcon="transcript" class="svg-black"></mat-icon>
-        </button>
-        <button
-          mat-icon-button
-          class="md"
-          [disabled]="!(signLanguageAvailable$ | ngrxPush)"
-          (click)="onToggleSignLanguageVideo()"
-          matTooltip="Toggle show/hide sign language videos"
-          i18n-matTooltip="@@viewerControlsSignLanguageToggleTooltip"
-          >
-          <mat-icon svgIcon="sign_language" class="svg-black"></mat-icon>
-        </button>
-        <button
-          mat-icon-button
-          class="md"
-          [matMenuTriggerFor]="galleryMenu"
-          matTooltip="Shown video selection"
-          i18n-matTooltip="@@viewerControlsGalleryMenuTooltip"
-          >
-          <mat-icon svgIcon="gallery" class="svg-black"></mat-icon>
-        </button>
-      </div>
-      <div class="right">
-        <button
-          mat-icon-button
-          class="md"
-          [matMenuTriggerFor]="playbackSpeedMenu"
-          matTooltip="Playbackspeed menu"
-          i18n-matTooltip="@@viewerControlsPlaybackspeedMenuTooltip"
-          >
-          <mat-icon svgIcon="speed"></mat-icon>
-        </button>
-        @if (isFullscreenActive()) {
-          <button
-            mat-icon-button
-            class="md fullscreen-button"
-            (click)="onRequestFullscreen()"
-            matTooltip="Close fullscreen"
-            i18n-matTooltip="@@viewerControlsFullscreenToggleTooltipActive"
-            >
-            <mat-icon svgIcon="fullscreen-close" class="svg-black"></mat-icon>
-          </button>
-          }@else {
-          <button
-            mat-icon-button
-            class="md fullscreen-button"
-            (click)="onRequestFullscreen()"
-            matTooltip="Open fullscreen"
-            i18n-matTooltip="@@viewerControlsFullscreenToggleTooltipInactive"
-            >
-            <mat-icon svgIcon="fullscreen" class="svg-black"></mat-icon>
-          </button>
+        }}"
+        (click)="onMuteAudio()"
+        i18n-matTooltip="@@viewerControlsMuteUnmuteTooltip"
+      >
+        @if (!viewerService.audio.muted) {
+        <mat-icon svgIcon="volume" class="svg-black"></mat-icon>
+        } @if (viewerService.audio.muted) {
+        <mat-icon svgIcon="volume-mute" class="svg-black"></mat-icon>
         }
-      </div>
+      </button>
+      <mat-slider
+        class="volume-slider black"
+        min="0"
+        max="1"
+        step="0.01"
+        discrete
+        [displayWith]="sliderLabelVolume"
+        [disabled]="viewerService.audio.muted"
+      >
+        <input
+          aria-label="Volume"
+          i18n-aria-label="@@viewerControlsVolumeSlideLabel"
+          matSliderThumb
+          [value]="volume$ | ngrxPush"
+          (change)="onVolumeChange($event)"
+        />
+      </mat-slider>
     </div>
-    <div class="information-row">
-      <div>
-        {{ viewerService.audio.currentTime * 1000 | duration }} /
-        {{
-        viewerService.audio.duration
-        ? (viewerService.audio.duration * 1000 | duration)
-        : '-'
-        }}
-      </div>
-      <div i8n="@@viewerControlsPausedOrStartedInfo">
-        {{ viewerService.audio.paused ? 'Paused' : 'Started' }}
-      </div>
+    <div class="center">
+      <button
+        mat-icon-button
+        class="md"
+        [matMenuTriggerFor]="captionMenu"
+        matTooltip="Captions menu"
+        i18n-matTooltip="@@viewerControlsCaptionMenuTooltip"
+      >
+        <mat-icon svgIcon="caption_not_selected" class="svg-black"></mat-icon>
+      </button>
+      <button
+        mat-icon-button
+        class="md"
+        (click)="onToggleShowTranscript()"
+        matTooltip="Toggle show/hide transcript"
+        i18n-matTooltip="@@viewerControlsTranscriptToggleTooltip"
+      >
+        <mat-icon svgIcon="transcript" class="svg-black"></mat-icon>
+      </button>
+      <button
+        mat-icon-button
+        class="md"
+        [disabled]="!(signLanguageAvailable$ | ngrxPush)"
+        (click)="onToggleSignLanguageVideo()"
+        matTooltip="Toggle show/hide sign language videos"
+        i18n-matTooltip="@@viewerControlsSignLanguageToggleTooltip"
+      >
+        <mat-icon svgIcon="sign_language" class="svg-black"></mat-icon>
+      </button>
+      <button
+        mat-icon-button
+        class="md"
+        [matMenuTriggerFor]="galleryMenu"
+        matTooltip="Shown video selection"
+        i18n-matTooltip="@@viewerControlsGalleryMenuTooltip"
+      >
+        <mat-icon svgIcon="gallery" class="svg-black"></mat-icon>
+      </button>
+    </div>
+    <div class="right">
+      <button
+        mat-icon-button
+        class="md"
+        [matMenuTriggerFor]="playbackSpeedMenu"
+        matTooltip="Playbackspeed menu"
+        i18n-matTooltip="@@viewerControlsPlaybackspeedMenuTooltip"
+      >
+        <mat-icon svgIcon="speed"></mat-icon>
+      </button>
+      @if (isFullscreenActive()) {
+      <button
+        mat-icon-button
+        class="md fullscreen-button"
+        (click)="onRequestFullscreen()"
+        matTooltip="Close fullscreen"
+        i18n-matTooltip="@@viewerControlsFullscreenToggleTooltipActive"
+      >
+        <mat-icon svgIcon="fullscreen-close" class="svg-black"></mat-icon>
+      </button>
+      }@else {
+      <button
+        mat-icon-button
+        class="md fullscreen-button"
+        (click)="onRequestFullscreen()"
+        matTooltip="Open fullscreen"
+        i18n-matTooltip="@@viewerControlsFullscreenToggleTooltipInactive"
+      >
+        <mat-icon svgIcon="fullscreen" class="svg-black"></mat-icon>
+      </button>
+      }
     </div>
   </div>
+  <div class="information-row">
+    <div>
+      {{ viewerService.audio.currentTime * 1000 | duration }} /
+      {{
+        viewerService.audio.duration
+          ? (viewerService.audio.duration * 1000 | duration)
+          : '-'
+      }}
+    </div>
+    <div i8n="@@viewerControlsPausedOrStartedInfo">
+      {{ viewerService.audio.paused ? 'Paused' : 'Started' }}
+    </div>
+  </div>
+</div>
 }
 <!-- playbackSpeed menu -->
 <mat-menu #playbackSpeedMenu="matMenu">
-<!-- <h3>Tempo</h3>
+  <!-- <h3>Tempo</h3>
 <hr /> -->
-<ng-container *ngrxLet="currentSpeed$ as currentSpeed">
-  @for (speed of [0.25, 0.5, 0.75, 1, 1.25, 1.5, 2, 2.5, 3]; track speed) {
-    <button
-      mat-menu-item
-      (click)="changePlaybackSpeed(speed)"
-      >
+  <ng-container *ngrxLet="currentSpeed$ as currentSpeed">
+    @for (speed of [0.25, 0.5, 0.75, 1, 1.25, 1.5, 2, 2.5, 3]; track speed) {
+    <button mat-menu-item (click)="changePlaybackSpeed(speed)">
       <mat-icon
         svgIcon="{{ currentSpeed === speed ? 'check-all' : '' }}"
         class="svg-black"
       ></mat-icon>
       <span> {{ speed }}x</span>
     </button>
-  }
-</ng-container>
+    }
+  </ng-container>
 </mat-menu>
 <!-- caption menu -->
 <mat-menu #captionMenu="matMenu">
@@ -213,27 +203,27 @@
       <button
         mat-menu-item
         (click)="onTurnOffCaptions(subtitlesEnabledInVideo)"
-        >
+      >
         <mat-icon
           svgIcon="{{ subtitlesEnabledInVideo ? '' : 'done' }}"
         ></mat-icon>
         <span i18n="@@viewerControlsDeactivateCaptionsLabel">Deactivate</span>
       </button>
       @for (transcription of transcriptions.list; track transcription) {
-        <button
-          mat-menu-item
-          (click)="onChangeTranscription(transcription, subtitlesEnabledInVideo)"
-          >
-          <mat-icon
-            svgIcon="{{
+      <button
+        mat-menu-item
+        (click)="onChangeTranscription(transcription, subtitlesEnabledInVideo)"
+      >
+        <mat-icon
+          svgIcon="{{
             subtitlesEnabledInVideo &&
             transcription.id === transcriptions.selectedId
-            ? 'done'
-            : ''
-            }}"
-          ></mat-icon>
-          <span>{{ transcription.title }}</span>
-        </button>
+              ? 'done'
+              : ''
+          }}"
+        ></mat-icon>
+        <span>{{ transcription.title }}</span>
+      </button>
       }
     </ng-container>
     <hr />
@@ -245,26 +235,23 @@
 </mat-menu>
 <!-- gallery Menu  -->
 <mat-menu #galleryMenu="matMenu">
-<!-- <h3>Weitere Ansichten</h3>
+  <!-- <h3>Weitere Ansichten</h3>
 <hr /> -->
-<!-- //TODO Wollen wir hier das main video anzeigen?  -->
-@for (video of smallVideos$ | ngrxPush; track video) {
+  <!-- //TODO Wollen wir hier das main video anzeigen?  -->
+  @for (video of smallVideos$ | ngrxPush; track video) {
   <div
     class="mat-menu-item-wrapper"
     mat-menu-item
     (click)="onClickToggleVideoShown($event, video)"
     (keydown)="onKeypressToggleVideoShown($event, video)"
-    >
+  >
     <!-- (change)="onCheckToggleVideoShown($event, video)" -->
     <mat-checkbox [checked]="video.shown">
       {{ video.title }}
       @if (video.category === 'sign_language') {
-        <mat-icon
-          svgIcon="sign_language"
-          class="svg-black"
-        ></mat-icon>
+      <mat-icon svgIcon="sign_language" class="svg-black"></mat-icon>
       }
     </mat-checkbox>
   </div>
-}
+  }
 </mat-menu>

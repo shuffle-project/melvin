@@ -71,6 +71,12 @@ export const viewerReducer = createReducer(
   on(viewerActions.toggleTranscript, (state) => {
     return { ...state, transcriptEnabled: !state.transcriptEnabled };
   }),
+  on(viewerActions.showTranscript, (state) => {
+    return { ...state, transcriptEnabled: true };
+  }),
+  on(viewerActions.hideTranscript, (state) => {
+    return { ...state, transcriptEnabled: false };
+  }),
   on(
     viewerActions.changeTranscriptFontsize,
     (state, { transcriptFontsize }) => {
