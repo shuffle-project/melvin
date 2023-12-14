@@ -1,58 +1,53 @@
 <div>
   @for (speaker of availableSpeaker$ | ngrxPush; track speaker) {
-    <button
-      mat-menu-item
-      (click)="changeSpeaker(caption, speaker)"
-      class="stayfocused-{{ caption.id }}"
-      >
-      <mat-icon svgIcon="speaker1"></mat-icon>
-      <span>{{ speaker.name }}</span>
-    </button>
+  <button
+    mat-menu-item
+    (click)="changeSpeaker(caption, speaker)"
+    class="stayfocused-{{ caption.id }}"
+  >
+    <mat-icon svgIcon="speaker1"></mat-icon>
+    <span>{{ speaker.name }}</span>
+  </button>
   }
   <mat-divider class="speaker-mat-divider"></mat-divider>
   <div (click)="$event.stopPropagation()" class="add-speaker-wrapper">
     @if (!addSpeakerMode) {
-      <button
-        mat-stroked-button
-        class="speaker-mode-button stayfocused-{{ caption.id }}"
-        (click)="onAddSpeakerMode()"
-        i18n="@@captionsAddNewSpeakerButtonLabel"
+    <button
+      mat-stroked-button
+      class="speaker-mode-button stayfocused-{{ caption.id }}"
+      (click)="onAddSpeakerMode()"
+      i18n="@@captionsAddNewSpeakerButtonLabel"
+    >
+      <mat-icon svgIcon="add"></mat-icon>
+      Add speaker
+    </button>
+    } @if (addSpeakerMode) {
+    <div class="add-speaker-mode-wrapper">
+      <mat-form-field class="speaker-form-field">
+        <mat-label i18n="@@captionsNewSpeakerNameLabel"
+          >New speaker name</mat-label
         >
-        <mat-icon svgIcon="add"></mat-icon>
-        Add speaker
+        <input
+          #newSpeaker
+          [errorStateMatcher]="errorStateMatcher"
+          matInput="text"
+          [formControl]="newSpeakerForm"
+          class="stayfocused-{{ caption.id }}"
+        />
+        @if (!newSpeakerForm.valid) {
+        <mat-error>{{ onNewSpeakerInvalid() }}</mat-error>
+        }
+      </mat-form-field>
+      <button
+        mat-flat-button
+        color="primary"
+        (click)="onAddSpeaker(caption, newSpeaker.value)"
+        i18n="@@captionsAddSpeakerButtonLabel"
+        class="stayfocused-{{ caption.id }}"
+      >
+        Add
       </button>
-    }
-    @if (addSpeakerMode) {
-      <div class="add-speaker-mode-wrapper">
-        <mat-form-field class="speaker-form-field">
-          <mat-label i18n="@@captionsNewSpeakerNameLabel"
-            >New speaker name</mat-label
-            >
-            <input
-              #newSpeaker
-              [errorStateMatcher]="errorStateMatcher"
-              matInput="text"
-              [formControl]="newSpeakerForm"
-              class="stayfocused-{{ caption.id }}"
-              />
-            @if (!newSpeakerForm.valid) {
-              <mat-error>{{
-                onNewSpeakerInvalid()
-              }}</mat-error>
-            }
-          </mat-form-field>
-          <button
-            [disabled]="!newSpeakerForm.valid"
-            mat-flat-button
-            color="primary"
-            (click)="onAddSpeaker(caption, newSpeaker.value)"
-            i18n="@@captionsAddSpeakerButtonLabel"
-            class="stayfocused-{{ caption.id }}"
-            >
-            Add
-          </button>
-        </div>
-      }
     </div>
+    }
   </div>
-  
+</div>

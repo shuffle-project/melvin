@@ -3,7 +3,7 @@
 } @if (isOwner$ | ngrxPush) {
 <form class="upload-form" [formGroup]="formGroup">
   <div class="first-row">
-    <mat-form-field appearance="fill" class="title">
+    <mat-form-field class="title">
       <mat-label i18n="@@uploadAdditionalMediaVideoTitleLabel"
         >Video title</mat-label
       >
@@ -44,7 +44,6 @@
       (click)="onClickSubmit()"
       mat-flat-button
       color="primary"
-      [disabled]="formGroup.status === 'INVALID'"
       i18n="@@uploadAdditionalMediaUploadButton"
     >
       <mat-icon svgIcon="upload"></mat-icon>
