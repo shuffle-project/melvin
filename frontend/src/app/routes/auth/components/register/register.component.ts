@@ -1,23 +1,30 @@
+import { AsyncPipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormGroup, NonNullableFormBuilder, ValidationErrors, Validators, ReactiveFormsModule } from '@angular/forms';
+import {
+  AbstractControl,
+  FormGroup,
+  NonNullableFormBuilder,
+  ReactiveFormsModule,
+  ValidationErrors,
+  Validators,
+} from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { LetDirective } from '@ngrx/component';
 import { Store } from '@ngrx/store';
 import * as authActions from '../../../../store/actions/auth.actions';
 import { AppState } from '../../../../store/app.state';
 import * as authSelectors from '../../../../store/selectors/auth.selector';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { MatButtonModule } from '@angular/material/button';
-import { LetDirective } from '@ngrx/component';
-import { AsyncPipe } from '@angular/common';
-import { MatInputModule } from '@angular/material/input';
-import { MatIconModule } from '@angular/material/icon';
-import { MatFormFieldModule } from '@angular/material/form-field';
 
 @Component({
-    selector: 'app-register',
-    templateUrl: './register.component.html',
-    styleUrls: ['./register.component.scss'],
-    standalone: true,
-    imports: [
+  selector: 'app-register',
+  templateUrl: './register.component.html',
+  styleUrls: ['./register.component.scss'],
+  standalone: true,
+  imports: [
     ReactiveFormsModule,
     MatFormFieldModule,
     MatIconModule,
@@ -25,8 +32,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     LetDirective,
     MatButtonModule,
     MatProgressSpinnerModule,
-    AsyncPipe
-],
+    AsyncPipe,
+  ],
 })
 export class RegisterComponent implements OnInit {
   public formGroup!: FormGroup;
@@ -65,14 +72,16 @@ export class RegisterComponent implements OnInit {
   }
 
   onSubmit(): void {
-    const { email, name, password } = this.formGroup.value;
+    if (this.formGroup.valid) {
+      const { email, name, password } = this.formGroup.value;
 
-    this.store.dispatch(
-      authActions.register({
-        email,
-        password,
-        name,
-      })
-    );
+      this.store.dispatch(
+        authActions.register({
+          email,
+          password,
+          name,
+        })
+      );
+    }
   }
 }

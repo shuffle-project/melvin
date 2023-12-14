@@ -9,7 +9,18 @@
       type="email"
       name="email"
       autocomplete="email"
-      />
+    />
+
+    @if ( formGroup.get('email')?.invalid && formGroup.get('email')?.errors &&
+    (formGroup.get('email')?.dirty || formGroup.get('email')?.touched) ) {
+    <mat-error>
+      @if (formGroup.get('email')?.errors?.['required'] ) {
+      <span> Verpflichtendes Feld</span>
+      } @if (formGroup.get('email')?.errors?.['email'] ) {
+      <span> Keine valide EMail</span>
+      }
+    </mat-error>
+    }
   </mat-form-field>
   <mat-form-field appearance="outline">
     <mat-icon svgIcon="lock" matPrefix></mat-icon>
@@ -21,37 +32,44 @@
       type="password"
       name="password"
       autocomplete="current-password"
-      />
+    />
+    @if ( formGroup.get('password')?.invalid &&
+    formGroup.get('password')?.errors && (formGroup.get('password')?.dirty ||
+    formGroup.get('password')?.touched) ) {
+    <mat-error>
+      @if (formGroup.get('password')?.errors?.['required'] ) {
+      <span> Verpflichtendes Feld</span>
+      }
+    </mat-error>
+    }
   </mat-form-field>
   <mat-checkbox
     formControlName="persistent"
     i18n="@@loginStayLoggedInCheckboxLabel"
     >Stay logged in</mat-checkbox
+  >
+  @if (error$ | async; as error) {
+  <div>
+    {{ error }}
+  </div>
+  }
+  <div class="flex justify-center">
+    <button
+      mat-flat-button
+      type="submit"
+      [disabled]="loading$ | async"
+      color="primary"
     >
-    @if (error$ | async; as error) {
-      <div>
-        {{ error }}
+      <div class="flex items-center" i18n="@@loginLoginButtonLabel">
+        @if (loading$ | async) {
+        <mat-spinner
+          strokeWidth="2"
+          diameter="20"
+          color="primary"
+          style="margin-right: 10px"
+        ></mat-spinner>
+        } Login
       </div>
-    }
-    <div class="flex justify-center">
-      <button
-        mat-flat-button
-        type="submit"
-        [disabled]="!formGroup.valid || (loading$ | async)"
-        color="primary"
-        >
-        <div class="flex items-center" i18n="@@loginLoginButtonLabel">
-          @if (loading$ | async) {
-            <mat-spinner
-              strokeWidth="2"
-              diameter="20"
-              color="primary"
-              style="margin-right: 10px"
-            ></mat-spinner>
-          }
-          Login
-        </div>
-      </button>
-    </div>
-  </form>
-  
+    </button>
+  </div>
+</form>
