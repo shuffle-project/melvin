@@ -14,6 +14,7 @@ export class RecorderService {
 
   // devices
   private enumeratedDevices: MediaDeviceInfo[] | null = null;
+
   public videos: VideoSource[] = [];
   public audios: AudioSource[] = [];
   public screensharings: ScreensharingSource[] = [];
