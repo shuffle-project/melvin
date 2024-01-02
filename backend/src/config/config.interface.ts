@@ -123,6 +123,16 @@ export class GoogleSpeechConfig {
   client_email: string;
 }
 
+export class WhisperConfig {
+  @IsString()
+  @IsDefined()
+  host: string;
+
+  @IsString()
+  @IsDefined()
+  apikey: string;
+}
+
 export class PopulateUser {
   @IsString()
   name: string;
@@ -177,4 +187,7 @@ export class Config {
 
   @ValidateNested({ each: true })
   googleSpeech: GoogleSpeechConfig;
+
+  @ValidateNested({ each: true })
+  whisper: WhisperConfig;
 }
