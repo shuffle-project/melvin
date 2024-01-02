@@ -6,6 +6,7 @@ import FormData from 'form-data';
 import { readFile } from 'fs-extra';
 import { catchError, lastValueFrom, map } from 'rxjs';
 import { Language } from '../../../app.interfaces';
+import { WhisperConfig } from '../../../config/config.interface';
 import { ProjectEntity } from '../../../resources/project/entities/project.entity';
 import { DbService } from '../../db/db.service';
 import { CustomLogger } from '../../logger/logger.service';
@@ -21,6 +22,11 @@ import { WhiTranscribeDto, WhiTranscriptEntity } from './whisper.interfaces';
 
 @Injectable()
 export class WhisperSpeechService implements ISepechToTextService {
+  private whisperConfig: WhisperConfig;
+
+  private host: string;
+  private apikey: string;
+
   constructor(
     private logger: CustomLogger,
     private pathService: PathService,
@@ -29,15 +35,25 @@ export class WhisperSpeechService implements ISepechToTextService {
     private configService: ConfigService,
   ) {
     this.logger.setContext(this.constructor.name);
+
+    this.whisperConfig = this.configService.get<WhisperConfig>('whisper');
+
+    this.host = this.whisperConfig.host;
+    this.apikey = this.whisperConfig.apikey;
   }
 
   async fetchLanguages(): Promise<Language[]> {
+    if (!this.whisperConfig) {
+      return null;
+    }
+
     return new Promise((resolve) => {
       resolve([
         { code: 'en', name: 'English' },
         { code: 'de', name: 'German' },
         { code: 'fr', name: 'French' },
         { code: 'es', name: 'Spanish' },
+        { code: 'auto', name: 'Auto' },
 
         // von whisper -h
         //
@@ -123,13 +139,13 @@ export class WhisperSpeechService implements ISepechToTextService {
     const response = await lastValueFrom(
       this.httpService
         .post<WhiTranscriptEntity>(
-          `http://localhost:8393/transcriptions`,
+          `http://${this.host}:8393/transcriptions`,
           formData,
           {
             headers: {
               // authorization: this.apikey,
               // 'Transfer-Encoding': 'chunked',
-              key: 'shuffle2024',
+              key: this.apikey,
               'Content-Type': 'multipart/form-data',
               ...formData.getHeaders(),
             },
@@ -161,11 +177,11 @@ export class WhisperSpeechService implements ISepechToTextService {
     const response = await lastValueFrom(
       this.httpService
         .get<WhiTranscriptEntity>(
-          `http://localhost:8393/transcriptions/${transcriptId}`,
+          `http://${this.host}:8393/transcriptions/${transcriptId}`,
           {
             headers: {
               // authorization: this.apikey,
-              key: 'shuffle2024',
+              key: this.apikey,
             },
           },
         )
