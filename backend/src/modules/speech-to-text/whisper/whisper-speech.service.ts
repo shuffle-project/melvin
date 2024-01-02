@@ -15,7 +15,7 @@ import {
   TranscriptEntity,
   WordEntity,
 } from '../speech-to-text.interfaces';
-import { WhiTranscriptEntity } from './whisper.interfaces';
+import { WhiTranscribeDto, WhiTranscriptEntity } from './whisper.interfaces';
 
 // npm rebuild bcrypt --build-from-source
 
@@ -59,7 +59,10 @@ export class WhisperSpeechService implements ISepechToTextService {
   }
 
   async run(project: ProjectEntity): Promise<TranscriptEntity> {
-    const transcribe = await this._transcribe(project._id.toString());
+    const transcribe = await this._transcribe(
+      project._id.toString(),
+      project.language,
+    );
     // console.log(JSON.stringify(transcribe));
 
     // use cronJob/queue instead of
@@ -71,6 +74,7 @@ export class WhisperSpeechService implements ISepechToTextService {
           );
           // console.log(JSON.stringify(transcriptEntityTemp));
           if (
+            transcriptEntityTemp.status === 'done' ||
             transcriptEntityTemp.status === 'finished' ||
             transcriptEntityTemp.status === 'error'
           ) {
@@ -104,33 +108,38 @@ export class WhisperSpeechService implements ISepechToTextService {
     return { words };
   }
 
-  async _transcribe(projectId: string) {
+  async _transcribe(projectId: string, language: string) {
     const audioPath = this.pathService.getWavFile(projectId);
 
     const file = await readFile(audioPath);
 
     const formData = new FormData();
     formData.append('file', file, 'audio.wav');
-    formData.append('settings', '{}');
+    const settings: WhiTranscribeDto = { language: language };
+    formData.append('settings', JSON.stringify(settings));
 
     // console.log(formData.getHeaders());
 
     const response = await lastValueFrom(
       this.httpService
         .post<WhiTranscriptEntity>(
-          `http://localhost:8041/transcribe`,
+          `http://localhost:8393/transcriptions`,
           formData,
           {
             headers: {
               // authorization: this.apikey,
               // 'Transfer-Encoding': 'chunked',
+              key: 'shuffle2024',
               'Content-Type': 'multipart/form-data',
               ...formData.getHeaders(),
             },
           },
         )
         .pipe(
-          map((res: AxiosResponse<WhiTranscriptEntity>) => res.data),
+          map((res: AxiosResponse<WhiTranscriptEntity>) => {
+            // console.log(res.data);
+            return res.data;
+          }),
           catchError((error: AxiosError) => {
             // console.log(error.response);
             if (error?.response?.status) {
@@ -152,10 +161,11 @@ export class WhisperSpeechService implements ISepechToTextService {
     const response = await lastValueFrom(
       this.httpService
         .get<WhiTranscriptEntity>(
-          `http://localhost:8041/get_transcription_status/${transcriptId}`,
+          `http://localhost:8393/transcriptions/${transcriptId}`,
           {
             headers: {
               // authorization: this.apikey,
+              key: 'shuffle2024',
             },
           },
         )
