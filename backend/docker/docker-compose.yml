@@ -1,5 +1,10 @@
 version: '3'
 
+volumes:
+  audio_files:
+  transcripts:
+  status:
+
 services:
   mongodb:
     image: mongo:5
@@ -26,6 +31,27 @@ services:
       - ../media/kurento/:/var/lib/kurento/:rw
     environment:
       - -GST_DEBUG="Kurento*:5"
+
+  api:
+    image: ghcr.io/shuffle-project/asr-api-api:deploy
+    container_name: ${COMPOSE_PROJECT_NAME}-asr-api-api
+    volumes:
+      - audio_files:/data/audio_files
+      - transcripts:/data/transcripts
+      - status:/data/status
+    ports:
+      - '8393:8393'
+      - '8394:8394'
+
+  whispercpp_runner:
+    image: ghcr.io/shuffle-project/asr-api-whispercpp_runner:deploy
+    container_name: ${COMPOSE_PROJECT_NAME}-asr-api-whispercpp_runner
+    volumes:
+      - audio_files:/data/audio_files
+      - transcripts:/data/transcripts
+      - status:/data/status
+    depends_on:
+      - api
 
   # whisper:
   #   container_name: ${COMPOSE_PROJECT_NAME}-whisper

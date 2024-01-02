@@ -79,9 +79,13 @@ export class ProjectProcessor {
 
     const systemUser = await this.authService.findSystemAuthUser();
 
-    await this.projectService.update(systemUser, projectId, {
-      status: ProjectStatus.PROCESSING,
-    });
+    try {
+      await this.projectService.update(systemUser, projectId, {
+        status: ProjectStatus.PROCESSING,
+      });
+    } catch (err) {
+      console.log(err);
+    }
 
     this.logger.verbose(
       `Video processing START: Job ${job.id}, ProjectId: ${projectId}`,

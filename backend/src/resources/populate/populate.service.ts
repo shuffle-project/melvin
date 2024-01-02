@@ -1,6 +1,8 @@
+import { InjectQueue } from '@nestjs/bull';
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { parse } from '@plussub/srt-vtt-parser';
+import { Queue } from 'bull';
 import { randomBytes } from 'crypto';
 import dayjs from 'dayjs';
 import { emptyDir, ensureDir, symlink } from 'fs-extra';
@@ -30,6 +32,10 @@ import { Transcription } from '../../modules/db/schemas/transcription.schema';
 import { User } from '../../modules/db/schemas/user.schema';
 import { CustomLogger } from '../../modules/logger/logger.service';
 import { PathService } from '../../modules/path/path.service';
+import {
+  ProcessProjectJob,
+  ProcessSubtitlesJob,
+} from '../../processors/processor.interfaces';
 import { isSameObjectId } from '../../utils/objectid';
 import { CreateActivityDto } from '../activity/dto/create-activity.dto';
 import { UserRole } from '../user/user.interfaces';
@@ -49,6 +55,9 @@ export class PopulateService {
     private logger: CustomLogger,
     private pathService: PathService,
     private configService: ConfigService,
+    @InjectQueue('subtitles')
+    private subtitlesQueue: Queue<ProcessSubtitlesJob>,
+    @InjectQueue('project') private projectQueue: Queue<ProcessProjectJob>,
   ) {
     this.logger.setContext(this.constructor.name);
     const initialUsers = this.configService.get<PopulateUser[]>('initialUsers');
@@ -68,6 +77,9 @@ export class PopulateService {
   }
 
   async _clearDatabase(): Promise<void> {
+    await this.projectQueue.clean(1000);
+    await this.subtitlesQueue.clean(1000);
+
     // Clear all collections
     await Promise.all([
       this.db.userModel.deleteMany({}),
@@ -392,7 +404,7 @@ export class PopulateService {
   }
 
   async populate(persons: Person[], numProjects: number): Promise<any> {
-    this.logger.verbose('Clear database');
+    this.logger.verbose('Clear database and queues');
     await this._clearDatabase();
     this.logger.verbose('Database cleared');
 

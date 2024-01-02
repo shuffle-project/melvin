@@ -178,18 +178,23 @@ export class SubtitlesProcessor {
       { error: err },
     );
 
-    await this.projectService.update(systemUser, project._id.toString(), {
-      status: ProjectStatus.ERROR,
-    });
+    try {
+      await this.projectService.update(systemUser, project._id.toString(), {
+        status: ProjectStatus.ERROR,
+      });
 
-    this.logger.error(
-      `Subtitle creation FAIL: Job ${
-        job.id
-      }, ProjectId: ${project._id.toString()}, Error: ${err.name} - ${
-        err.message
-      }`,
-    );
-    this.logger.error(err.stack);
+      this.logger.error(
+        `Subtitle creation FAIL: Job ${
+          job.id
+        }, ProjectId: ${project._id.toString()}, Error: ${err.name} - ${
+          err.message
+        }`,
+      );
+      this.logger.error(err.stack);
+    } catch (err) {
+      // TODO
+      console.log(err);
+    }
   }
 
   // generate captions
