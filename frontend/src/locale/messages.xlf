@@ -255,7 +255,7 @@
         <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="Downl"/> Download </source>
       </trans-unit>
       <trans-unit id="transcriptionDeleteTranscriptionButton" datatype="html">
-        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="Del"/> Delete </source>
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="D"/> Delete </source>
       </trans-unit>
       <trans-unit id="projectTranscriptionAddButtonTop" datatype="html">
         <source>Add</source>
@@ -294,10 +294,10 @@
         <source>German</source>
       </trans-unit>
       <trans-unit id="writtenLanguageEN-GB" datatype="html">
-        <source>English</source>
+        <source>English (GB)</source>
       </trans-unit>
       <trans-unit id="writtenLanguageEN-US" datatype="html">
-        <source>English</source>
+        <source>English (US)</source>
       </trans-unit>
       <trans-unit id="writtenLanguageES-ES" datatype="html">
         <source>Spanish</source>
@@ -339,7 +339,7 @@
         <source>Stay logged in</source>
       </trans-unit>
       <trans-unit id="loginLoginButtonLabel" datatype="html">
-        <source><x id="START_TAG_MAT_SPINNER" ctype="x-mat_spinner" equiv-text="=&quot;loading$ | async&quot; strokeWidth=&quot;2&quot; diameter=&quot;20&quot; color=&quot;primary&quot; style=&quot;margin-right: 10px&quot; &gt;"/><x id="CLOSE_TAG_MAT_SPINNER" ctype="x-mat_spinner" equiv-text="Log"/> Login </source>
+        <source><x id="START_BLOCK_IF"/><x id="START_TAG_MAT_SPINNER" ctype="x-mat_spinner" equiv-text="&lt;mat-spinner strokeWidth=&quot;2&quot; diameter=&quot;20&quot; color=&quot;primary&quot; style=&quot;margin-right: 10px&quot; &gt;"/><x id="CLOSE_TAG_MAT_SPINNER" ctype="x-mat_spinner" equiv-text="}"/><x id="CLOSE_BLOCK_IF" equiv-text="}"/> Login </source>
       </trans-unit>
       <trans-unit id="registerNamePlaceholder" datatype="html">
         <source>Name</source>
@@ -354,7 +354,7 @@
         <source>Password (repeat)</source>
       </trans-unit>
       <trans-unit id="registerLoginButtonLabel" datatype="html">
-        <source><x id="START_TAG_MAT_SPINNER" ctype="x-mat_spinner" equiv-text="oading$ | async&quot; strokeWidth=&quot;2&quot; diameter=&quot;20&quot; color=&quot;primary&quot; style=&quot;margin-right: 10px&quot; &gt;"/><x id="CLOSE_TAG_MAT_SPINNER" ctype="x-mat_spinner" equiv-text="Reg"/> Register </source>
+        <source><x id="START_BLOCK_IF"/><x id="START_TAG_MAT_SPINNER" ctype="x-mat_spinner" equiv-text="&lt;mat-spinner strokeWidth=&quot;2&quot; diameter=&quot;20&quot; color=&quot;primary&quot; style=&quot;margin-right: 10px&quot; &gt;"/><x id="CLOSE_TAG_MAT_SPINNER" ctype="x-mat_spinner"/><x id="CLOSE_BLOCK_IF" equiv-text="}"/> Register </source>
       </trans-unit>
       <trans-unit id="captionDeleteCaptionTooltip" datatype="html">
         <source>Delete caption</source>
@@ -450,10 +450,10 @@
         <source> File </source>
       </trans-unit>
       <trans-unit id="editorMenuFileEditLabel" datatype="html">
-        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="E"/> Edit </source>
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon"/> Edit </source>
       </trans-unit>
       <trans-unit id="editorMenuFileDownloadLabel" datatype="html">
-        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="D"/> Download </source>
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon"/> Download </source>
       </trans-unit>
       <trans-unit id="editorMenuFileDeleteLabel" datatype="html">
         <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon"/> Delete </source>
@@ -902,7 +902,7 @@
         <source>Videos</source>
       </trans-unit>
       <trans-unit id="uploadAdditionalMediaTitle" datatype="html">
-        <source> Upload additional media files </source>
+        <source>Upload additional media files</source>
       </trans-unit>
       <trans-unit id="uploadAdditionalMediaUploadButton" datatype="html">
         <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="Uploa"/> Upload </source>

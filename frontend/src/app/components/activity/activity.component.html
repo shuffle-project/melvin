@@ -1,58 +1,72 @@
 <div class="container" [ngClass]="[level, viewType]">
-  @switch (viewType) {
-    @case ('list') {
-      <mat-icon [svgIcon]="icon"></mat-icon>
-      <div
-        class="text-container clickable"
-        [routerLink]="['/home/editor/' + activity.project.id]"
-        >
-        <span class="project-title">{{ activity.project.title }}</span>
-        <div class="description" [innerHTML]="description"></div>
-      </div>
-      <app-avatar
-        [user]="activity.createdBy"
-        [outlineColor]="'transparent'"
-      ></app-avatar>
-      <span class="time-ago">{{ activity.createdAt | timeDiff }}</span>
-      <div class="checkbox">
-        @if (false) {
-          <div></div>
-        } @else {
-          <ng-content></ng-content>
-        }
-      </div>
-    }
-    @case ('popup') {
-      <mat-icon [svgIcon]="icon"></mat-icon>
-      <div
-        class="text-container clickable"
-        [routerLink]="['/home/editor/' + activity.project.id]"
-        >
-        <span class="project-title">{{ activity.project.title }}</span>
-        <div class="description" [innerHTML]="description"></div>
-        <div>
-          <span class="time-ago">{{ activity.createdAt | timeDiff }}</span>
-          <span class="user-name">von {{ activity.createdBy.name }}</span>
-        </div>
-      </div>
-      @if (false) {
-        <div></div>
-      } @else {
-        <ng-content></ng-content>
-      }
-    }
-    @case ('timeline') {
-      <mat-icon [svgIcon]="icon"></mat-icon>
-      <div class="text-container">
-        <div class="description" [innerHTML]="description"></div>
-      </div>
-      <div class="flex items-center">
-        <span class="user-name">{{ activity.createdBy.name }}</span>
-        <app-avatar
-          [user]="activity.createdBy"
-          [outlineColor]="'transparent'"
-        ></app-avatar>
-      </div>
-    }
+  @switch (viewType) { @case ('list') {
+  <mat-icon [svgIcon]="icon"></mat-icon>
+
+  @if (activity.project) {
+  <div
+    class="text-container clickable"
+    [routerLink]="['/home/editor/' + activity.project.id]"
+  >
+    <span class="project-title">{{ activity.project.title }}</span>
+    <div class="description" [innerHTML]="description"></div>
+  </div>
+  } @else {
+  <div class="text-container">
+    <span class="project-title">deleted project</span>
+    <div class="description" [innerHTML]="description"></div>
+  </div>
   }
+  <app-avatar
+    [user]="activity.createdBy"
+    [outlineColor]="'transparent'"
+  ></app-avatar>
+  <span class="time-ago">{{ activity.createdAt | timeDiff }}</span>
+  <div class="checkbox">
+    @if (false) {
+    <div></div>
+    } @else {
+    <ng-content></ng-content>
+    }
+  </div>
+  } @case ('popup') {
+  <mat-icon [svgIcon]="icon"></mat-icon>
+  @if (activity.project) {
+
+  <div
+    class="text-container clickable"
+    [routerLink]="['/home/editor/' + activity.project.id]"
+  >
+    <span class="project-title">{{ activity.project.title }}</span>
+    <div class="description" [innerHTML]="description"></div>
+    <div>
+      <span class="time-ago">{{ activity.createdAt | timeDiff }}</span>
+      <span class="user-name">von {{ activity.createdBy.name }}</span>
+    </div>
+  </div>
+  }@else {
+  <div class="text-container">
+    <span class="project-title">deleted project</span>
+    <div class="description" [innerHTML]="description"></div>
+    <div>
+      <span class="time-ago">{{ activity.createdAt | timeDiff }}</span>
+      <span class="user-name">von {{ activity.createdBy.name }}</span>
+    </div>
+  </div>
+  } @if (false) {
+  <div></div>
+  } @else {
+  <ng-content></ng-content>
+  } } @case ('timeline') {
+  <mat-icon [svgIcon]="icon"></mat-icon>
+  <div class="text-container">
+    <div class="description" [innerHTML]="description"></div>
+  </div>
+  <div class="flex items-center">
+    <span class="user-name">{{ activity.createdBy.name }}</span>
+    <app-avatar
+      [user]="activity.createdBy"
+      [outlineColor]="'transparent'"
+    ></app-avatar>
+  </div>
+  } }
 </div>

@@ -15,6 +15,13 @@ export const toggleTranscript = createAction(
   '[VIEWER VIDEO COMPONENT] Toggle Transcript enabled'
 );
 
+export const hideTranscript = createAction(
+  '[CONTROLS COMPONENT] Hide Transcript'
+);
+export const showTranscript = createAction(
+  '[CONTROLS COMPONENT] Show Transcript'
+);
+
 export const changeTranscriptFontsize = createAction(
   '[ADJUST LAYOUT COMPONENT] Change Fontsize',
   props<{ transcriptFontsize: SizeOptions }>()

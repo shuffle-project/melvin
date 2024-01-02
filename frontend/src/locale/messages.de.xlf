@@ -183,11 +183,11 @@
         <target state="final"> Datei </target>
       </trans-unit>
       <trans-unit id="editorMenuFileEditLabel" datatype="html">
-        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="E"/> Edit </source>
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon"/> Edit </source>
         <target state="final"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="E"/> Bearbeiten </target>
       </trans-unit>
       <trans-unit id="editorMenuFileDownloadLabel" datatype="html">
-        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="D"/> Download </source>
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon"/> Download </source>
         <target state="final"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="D"/> Herunterladen </target>
       </trans-unit>
       <trans-unit id="editorMenuFileDeleteLabel" datatype="html">
@@ -311,7 +311,7 @@
         <target state="final">Angemeldet bleiben</target>
       </trans-unit>
       <trans-unit id="loginLoginButtonLabel" datatype="html">
-        <source><x id="START_TAG_MAT_SPINNER" ctype="x-mat_spinner" equiv-text="=&quot;loading$ | async&quot; strokeWidth=&quot;2&quot; diameter=&quot;20&quot; color=&quot;primary&quot; style=&quot;margin-right: 10px&quot; &gt;"/><x id="CLOSE_TAG_MAT_SPINNER" ctype="x-mat_spinner" equiv-text="Log"/> Login </source>
+        <source><x id="START_BLOCK_IF"/><x id="START_TAG_MAT_SPINNER" ctype="x-mat_spinner" equiv-text="&lt;mat-spinner strokeWidth=&quot;2&quot; diameter=&quot;20&quot; color=&quot;primary&quot; style=&quot;margin-right: 10px&quot; &gt;"/><x id="CLOSE_TAG_MAT_SPINNER" ctype="x-mat_spinner" equiv-text="}"/><x id="CLOSE_BLOCK_IF" equiv-text="}"/> Login </source>
         <target state="final"><x id="START_TAG_MAT_SPINNER" ctype="x-mat_spinner" equiv-text="$ | async&quot; strokeWidth=&quot;2&quot; diameter=&quot;20&quot; color=&quot;primary&quot; style=&quot;margin-right: 10px&quot; &gt;"/><x id="CLOSE_TAG_MAT_SPINNER" ctype="x-mat_spinner" equiv-text="Log"/> Anmelden </target>
       </trans-unit>
       <trans-unit id="registerNamePlaceholder" datatype="html">
@@ -331,7 +331,7 @@
         <target state="final">Passwort (Wiederholung)</target>
       </trans-unit>
       <trans-unit id="registerLoginButtonLabel" datatype="html">
-        <source><x id="START_TAG_MAT_SPINNER" ctype="x-mat_spinner" equiv-text="oading$ | async&quot; strokeWidth=&quot;2&quot; diameter=&quot;20&quot; color=&quot;primary&quot; style=&quot;margin-right: 10px&quot; &gt;"/><x id="CLOSE_TAG_MAT_SPINNER" ctype="x-mat_spinner" equiv-text="Reg"/> Register </source>
+        <source><x id="START_BLOCK_IF"/><x id="START_TAG_MAT_SPINNER" ctype="x-mat_spinner" equiv-text="&lt;mat-spinner strokeWidth=&quot;2&quot; diameter=&quot;20&quot; color=&quot;primary&quot; style=&quot;margin-right: 10px&quot; &gt;"/><x id="CLOSE_TAG_MAT_SPINNER" ctype="x-mat_spinner"/><x id="CLOSE_BLOCK_IF" equiv-text="}"/> Register </source>
         <target state="final"><x id="START_TAG_MAT_SPINNER" ctype="x-mat_spinner" equiv-text="async&quot; strokeWidth=&quot;2&quot; diameter=&quot;20&quot; color=&quot;primary&quot; style=&quot;margin-right: 10px&quot; &gt;"/><x id="CLOSE_TAG_MAT_SPINNER" ctype="x-mat_spinner" equiv-text="Log"/> Registrieren </target>
       </trans-unit>
       <trans-unit id="videoMuteUnmuteSoundTooltip" datatype="html">
@@ -383,12 +383,12 @@
         <target state="final">Deutsch</target>
       </trans-unit>
       <trans-unit id="writtenLanguageEN-GB" datatype="html">
-        <source>English</source>
-        <target state="final">Englisch</target>
+        <source>English (GB)</source>
+        <target state="final">Englisch (GB)</target>
       </trans-unit>
       <trans-unit id="writtenLanguageEN-US" datatype="html">
-        <source>English</source>
-        <target state="final">Englisch</target>
+        <source>English (US)</source>
+        <target state="final">Englisch (US)</target>
       </trans-unit>
       <trans-unit id="writtenLanguageES-ES" datatype="html">
         <source>Spanish</source>
@@ -607,7 +607,7 @@
         <target state="final"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt; Edit"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="Edit"/> Bearbeiten </target>
       </trans-unit>
       <trans-unit id="transcriptionDeleteTranscriptionButton" datatype="html">
-        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="Del"/> Delete </source>
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="D"/> Delete </source>
         <target state="final"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt; Delete"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="Del"/> Löschen </target>
       </trans-unit>
       <trans-unit id="projectTranscriptionAddButtonTop" datatype="html">
@@ -1191,7 +1191,7 @@
         <target state="final">Pausieren</target>
       </trans-unit>
       <trans-unit id="uploadAdditionalMediaTitle" datatype="html">
-        <source> Upload additional media files </source>
+        <source>Upload additional media files</source>
         <target state="final"> Zusätzliche Medien hochladen </target>
       </trans-unit>
       <trans-unit id="uploadAdditionalMediaVideoTitleLabel" datatype="html">
@@ -1228,7 +1228,7 @@
       </trans-unit>
       <trans-unit id="mediaCategoryMain" datatype="html">
         <source>Main</source>
-        <target state="new">Hauptanzeige</target>
+        <target state="final">Hauptanzeige</target>
       </trans-unit>
       <trans-unit id="mediaCategoryOther" datatype="html">
         <source>Other</source>
