@@ -339,7 +339,7 @@
         <source>Stay logged in</source>
       </trans-unit>
       <trans-unit id="loginLoginButtonLabel" datatype="html">
-        <source><x id="START_BLOCK_IF"/><x id="START_TAG_MAT_SPINNER" ctype="x-mat_spinner" equiv-text="&lt;mat-spinner strokeWidth=&quot;2&quot; diameter=&quot;20&quot; color=&quot;primary&quot; style=&quot;margin-right: 10px&quot; &gt;"/><x id="CLOSE_TAG_MAT_SPINNER" ctype="x-mat_spinner" equiv-text="}"/><x id="CLOSE_BLOCK_IF" equiv-text="}"/> Login </source>
+        <source><x id="START_BLOCK_IF"/><x id="START_TAG_MAT_SPINNER" ctype="x-mat_spinner" equiv-text="&lt;mat-spinner strokeWidth=&quot;2&quot; diameter=&quot;20&quot; color=&quot;primary&quot; style=&quot;margin-right: 10px&quot; &gt;"/><x id="CLOSE_TAG_MAT_SPINNER" ctype="x-mat_spinner" equiv-text="} L"/><x id="CLOSE_BLOCK_IF" equiv-text="}"/> Login </source>
       </trans-unit>
       <trans-unit id="registerNamePlaceholder" datatype="html">
         <source>Name</source>
@@ -354,7 +354,7 @@
         <source>Password (repeat)</source>
       </trans-unit>
       <trans-unit id="registerLoginButtonLabel" datatype="html">
-        <source><x id="START_BLOCK_IF"/><x id="START_TAG_MAT_SPINNER" ctype="x-mat_spinner" equiv-text="&lt;mat-spinner strokeWidth=&quot;2&quot; diameter=&quot;20&quot; color=&quot;primary&quot; style=&quot;margin-right: 10px&quot; &gt;"/><x id="CLOSE_TAG_MAT_SPINNER" ctype="x-mat_spinner"/><x id="CLOSE_BLOCK_IF" equiv-text="}"/> Register </source>
+        <source><x id="START_BLOCK_IF"/><x id="START_TAG_MAT_SPINNER" ctype="x-mat_spinner" equiv-text="&lt;mat-spinner strokeWidth=&quot;2&quot; diameter=&quot;20&quot; color=&quot;primary&quot; style=&quot;margin-right: 10px&quot; &gt;"/><x id="CLOSE_TAG_MAT_SPINNER" ctype="x-mat_spinner" equiv-text="} R"/><x id="CLOSE_BLOCK_IF" equiv-text="}"/> Register </source>
       </trans-unit>
       <trans-unit id="captionDeleteCaptionTooltip" datatype="html">
         <source>Delete caption</source>
@@ -936,6 +936,9 @@
       </trans-unit>
       <trans-unit id="dialogCreateProjectCancelUpload" datatype="html">
         <source> Cancel Upload </source>
+      </trans-unit>
+      <trans-unit id="writtenLanguageEN" datatype="html">
+        <source>English</source>
       </trans-unit>
     </body>
   </file>
