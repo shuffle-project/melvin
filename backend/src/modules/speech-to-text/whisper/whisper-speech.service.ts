@@ -53,7 +53,6 @@ export class WhisperSpeechService implements ISepechToTextService {
         { code: 'de', name: 'German' },
         { code: 'fr', name: 'French' },
         { code: 'es', name: 'Spanish' },
-        { code: 'auto', name: 'Auto' },
 
         // von whisper -h
         //
@@ -157,7 +156,6 @@ export class WhisperSpeechService implements ISepechToTextService {
             return res.data;
           }),
           catchError((error: AxiosError) => {
-            // console.log(error.response);
             if (error?.response?.status) {
               throw new HttpException(
                 error.response.data,
@@ -188,7 +186,6 @@ export class WhisperSpeechService implements ISepechToTextService {
         .pipe(
           map((res: AxiosResponse<WhiTranscriptEntity>) => res.data),
           catchError((error: AxiosError) => {
-            // console.log(error.response);
             if (error?.response?.status) {
               throw new HttpException(
                 error.response.data,
