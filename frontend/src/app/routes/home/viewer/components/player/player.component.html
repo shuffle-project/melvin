@@ -4,103 +4,94 @@
     (loadedmetadata)="onAudioLoadMetadata($event)"
     [volume]="volume$ | ngrxPush"
     [playbackRate]="currentSpeed$ | ngrxPush"
-    >
+  >
     @if (project.media?.video) {
-      <source
-        src="{{ project.media?.video }}"
-        type="video/mp4"
-        />
+    <source src="{{ project.media?.video }}" type="video/mp4" />
     }
   </audio>
   <!--  -->
+
   <div class="position-relative">
     @if (viewerAudio.readyState === 1 && viewerService.loadingData) {
-      <div
-        class="loading-spinner"
-        >
-        <mat-spinner mode="indeterminate"></mat-spinner>
-      </div>
+    <div class="loading-spinner">
+      <mat-spinner mode="indeterminate"></mat-spinner>
+    </div>
     }
     <div
       #allVideosContainerRef
       class="video-wrapper"
       *ngrxLet="bigVideo$ as bigVideo"
-      >
+    >
       <!-- main video  -->
       <ng-container *ngrxLet="shownSmallVideos$ as shownSmallVideos">
         @if (bigVideo) {
-          <div
-            #mainVideoContainerRef
-            class="main-video-container"
-            [style.width.%]="
+        <div
+          #mainVideoContainerRef
+          class="main-video-container"
+          [style.width.%]="
             shownSmallVideos.length === 0 ? 100 : mainVideoContainerWidthPercent
-            "
-            [style.min-width.%]="
+          "
+          [style.min-width.%]="
             shownSmallVideos.length === 0 ? 100 : mainVideoContainerWidthPercent
-            "
-            >
+          "
+        >
+          <app-video-container
+            size="big"
+            [video]="bigVideo"
+          ></app-video-container>
+        </div>
+        } @if (shownSmallVideos.length > 0) {
+        <div
+          tabindex="0"
+          class="inner-resizer-wrapper"
+          (mousedown)="onMouseDown($event)"
+          (keydown)="onKeyDown($event)"
+          role="separator"
+          aria-orientation="vertical"
+          aria-label="Move to resize video"
+        >
+          <!-- TODO da reinschreiben, dass man pfeiltasten benutzen soll zum resizen find ich irgendwie komisch. -->
+          <div class="inner-resizer">
+            <div class="visual-resize-handle"></div>
+            <div class="visual-resize-handle"></div>
+          </div>
+        </div>
+        } @if (shownSmallVideos.length > 0) {
+        <div class="secondary-videos">
+          <div class="scrollable-view">
+            <div class="spacer"></div>
+            <!-- secondary video -->
+            @for (video of shownSmallVideos; track video) { @if (video.shown) {
             <app-video-container
-              size="big"
-              [video]="bigVideo"
+              size="small"
+              [video]="video"
             ></app-video-container>
+            } }
+            <div class="spacer"></div>
           </div>
-        }
-        @if (shownSmallVideos.length > 0) {
-          <div
-            tabindex="0"
-            class="inner-resizer-wrapper"
-            (mousedown)="onMouseDown($event)"
-            (keydown)="onKeyDown($event)"
-            role="separator"
-            aria-orientation="vertical"
-            aria-label="Move to resize video"
-            >
-            <!-- TODO da reinschreiben, dass man pfeiltasten benutzen soll zum resizen find ich irgendwie komisch. -->
-            <div class="inner-resizer">
-              <div class="visual-resize-handle"></div>
-              <div class="visual-resize-handle"></div>
-            </div>
-          </div>
-        }
-        @if (shownSmallVideos.length > 0) {
-          <div class="secondary-videos">
-            <div class="scrollable-view">
-              <div class="spacer"></div>
-              <!-- secondary video -->
-              @for (video of shownSmallVideos; track video) {
-                @if (video.shown) {
-                  <app-video-container
-                    size="small"
-                    [video]="video"
-                  ></app-video-container>
-                }
-              }
-              <div class="spacer"></div>
-            </div>
-          </div>
+        </div>
         }
       </ng-container>
     </div>
     @if (subtitlesEnabledInVideo$ | ngrxPush) {
-      <div
-        *ngrxLet="combinedCaptionsStyling$ as combined"
-        class="viewer-caption {{ combined.position }}"
-        >
-        <!-- over / under -->
-        <span
-          *ngrxLet="viewerService.currentCaption$ as currentCaption"
-          class=""
-          [ngStyle]="{
+    <div
+      *ngrxLet="combinedCaptionsStyling$ as combined"
+      class="viewer-caption {{ combined.position }}"
+    >
+      <!-- over / under -->
+      <span
+        *ngrxLet="viewerService.currentCaption$ as currentCaption"
+        class=""
+        [ngStyle]="{
           'font-size.%': combined.fontsize,
           color: combined.color,
           'background-color': combined.backgroundColor
-          }"
-          >
-          {{ currentCaption?.text || '-' }}</span
-          >
-        </div>
-      }
+        }"
+      >
+        {{ currentCaption?.text || '-' }}</span
+      >
     </div>
-    <app-controls> </app-controls>
+    }
   </div>
-  
+  <app-controls> </app-controls>
+</div>

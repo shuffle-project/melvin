@@ -15,6 +15,10 @@ export const toggleTranscript = createAction(
   '[VIEWER VIDEO COMPONENT] Toggle Transcript enabled'
 );
 
+export const toggleTranscriptOnlyMode = createAction(
+  '[VIEWER VIDEO COMPONENT] Toggle Transcript ony mode'
+);
+
 export const hideTranscript = createAction(
   '[CONTROLS COMPONENT] Hide Transcript'
 );

@@ -2,6 +2,7 @@ import {
   FullscreenOverlayContainer,
   OverlayContainer,
 } from '@angular/cdk/overlay';
+import { NgStyle } from '@angular/common';
 import {
   AfterViewInit,
   ChangeDetectorRef,
@@ -14,6 +15,8 @@ import {
   OnInit,
   ViewChild,
 } from '@angular/core';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { LetDirective, PushPipe } from '@ngrx/component';
 import { Store } from '@ngrx/store';
 import { Subject, combineLatest, map } from 'rxjs';
 import {
@@ -29,9 +32,6 @@ import * as viewerSelector from '../../../../../store/selectors/viewer.selector'
 import { ViewerService } from '../../viewer.service';
 import { ControlsComponent } from './controls/controls.component';
 import { VideoContainerComponent } from './video-container/video-container.component';
-import { LetDirective, PushPipe } from '@ngrx/component';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { NgStyle } from '@angular/common';
 
 export interface ViewerVideo {
   id: string;
@@ -42,21 +42,21 @@ export interface ViewerVideo {
 }
 
 @Component({
-    selector: 'app-player',
-    templateUrl: './player.component.html',
-    styleUrls: ['./player.component.scss'],
-    providers: [
-        { provide: OverlayContainer, useClass: FullscreenOverlayContainer },
-    ],
-    standalone: true,
-    imports: [
+  selector: 'app-player',
+  templateUrl: './player.component.html',
+  styleUrls: ['./player.component.scss'],
+  providers: [
+    { provide: OverlayContainer, useClass: FullscreenOverlayContainer },
+  ],
+  standalone: true,
+  imports: [
     MatProgressSpinnerModule,
     LetDirective,
     VideoContainerComponent,
     NgStyle,
     ControlsComponent,
-    PushPipe
-],
+    PushPipe,
+  ],
 })
 export class PlayerComponent
   implements OnDestroy, AfterViewInit, OnInit, OnChanges
@@ -83,6 +83,10 @@ export class PlayerComponent
   public currentSpeed$ = this.store.select(editorSelector.selectCurrentSpeed);
   public subtitlesEnabledInVideo$ = this.store.select(
     editorSelector.selectSubtitlesEnabledInVideo
+  );
+
+  public transcriptOnlyMode$ = this.store.select(
+    viewerSelector.selectTranscriptOnlyMode
   );
 
   public captions$ = this.store.select(captionsSelector.selectCaptions);

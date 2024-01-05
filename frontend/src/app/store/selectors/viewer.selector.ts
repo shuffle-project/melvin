@@ -22,6 +22,13 @@ export const selectTranscriptPosition = createSelector(
   }
 );
 
+export const selectTranscriptOnlyMode = createSelector(
+  selectViewerState,
+  (state: ViewerState) => {
+    return state.transcriptOnlyMode;
+  }
+);
+
 export const selectCaptionsBackgroundColor = createSelector(
   selectViewerState,
   (state: ViewerState) => {
