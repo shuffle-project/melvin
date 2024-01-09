@@ -32,27 +32,51 @@ services:
     environment:
       - -GST_DEBUG="Kurento*:5"
 
-  api:
-    image: ghcr.io/shuffle-project/asr-api-api:deploy
-    container_name: ${COMPOSE_PROJECT_NAME}-asr-api-api
+  # api:
+  #   image: ghcr.io/shuffle-project/asr-api-api:deploy
+  #   container_name: ${COMPOSE_PROJECT_NAME}-asr-api-api
+  #   volumes:
+  #     - audio_files:/data/audio_files
+  #     - transcripts:/data/transcripts
+  #     - status:/data/status
+  #   ports:
+  #     - '8393:8393'
+  #     - '8394:8394'
+
+  # whispercpp_runner:
+  #   image: ghcr.io/shuffle-project/asr-api-whispercpp_runner:deploy
+  #   container_name: ${COMPOSE_PROJECT_NAME}-asr-api-whispercpp_runner
+  #   volumes:
+  #     - audio_files:/data/audio_files
+  #     - transcripts:/data/transcripts
+  #     - status:/data/status
+  #   depends_on:
+  #     - api
+
+  asr-api:
+    image: ghcr.io/shuffle-project/asr-api:main
+    container_name: asr-api
     volumes:
-      - audio_files:/data/audio_files
-      - transcripts:/data/transcripts
-      - status:/data/status
+      - ./data/models:/asr-api/data/models
+      - ./data/audio_files:/asr-api/data/audio_files
+      - ./data/status:/asr-api/data/status
+    environment:
+      - ENVIRONMENT=production
+      - PORT=8393
+      - WEBSOCKET_PORT=8394
+      - HOST=0.0.0.0
+      - API_KEY=shuffle2024
+      - DEBUG=True
+      - AVAILABLE_MODELS=["tiny"]
+      - MODEL_PATH=/data/models/
+      - DEFAULT_REST_MODEL=tiny
+      - STREAM_MODEL=tiny
+      - AUDIO_FILE_PATH=/data/audio_files/
+      - STATUS_PATH=/data/status/
+      - AUDIO_FILE_FORMAT=.wav
     ports:
       - '8393:8393'
       - '8394:8394'
-
-  whispercpp_runner:
-    image: ghcr.io/shuffle-project/asr-api-whispercpp_runner:deploy
-    container_name: ${COMPOSE_PROJECT_NAME}-asr-api-whispercpp_runner
-    volumes:
-      - audio_files:/data/audio_files
-      - transcripts:/data/transcripts
-      - status:/data/status
-    depends_on:
-      - api
-
   # whisper:
   #   container_name: ${COMPOSE_PROJECT_NAME}-whisper
   #   build:
