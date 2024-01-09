@@ -1,19 +1,19 @@
 @if (!isFullscreenActive()) {
-  <app-header [viewer]="true">
-    <span class="project-title" #projectTitle *ngrxLet="project$ as project">
-      {{ project?.title }}
-    </span>
-    <div class="viewer-header-buttons">
-      <button mat-stroked-button i18n="@@viewerHeaderHelpLabel">Help</button>
-      <button
-        mat-stroked-button
-        (click)="onOpenAdjustLayoutDialog()"
-        i18n="@@viewerHeaderHeaderAdjustLayout"
-        >
-        Adjust Layout
-      </button>
-      <!-- //TODO -->
-      <!-- <div class="dark-mode-wrapper" *ngrxLet="darkMode$ as darkMode">
+<app-header [viewer]="true">
+  <span class="project-title" #projectTitle *ngrxLet="project$ as project">
+    {{ project?.title }}
+  </span>
+  <div class="viewer-header-buttons">
+    <button mat-stroked-button i18n="@@viewerHeaderHelpLabel">Help</button>
+    <button
+      mat-stroked-button
+      (click)="onOpenAdjustLayoutDialog()"
+      i18n="@@viewerHeaderHeaderAdjustLayout"
+    >
+      Adjust Layout
+    </button>
+    <!-- //TODO -->
+    <!-- <div class="dark-mode-wrapper" *ngrxLet="darkMode$ as darkMode">
       <mat-icon svgIcon="light_mode" class="svg-black"></mat-icon>
       <mat-slide-toggle
         [checked]="darkMode"
@@ -27,48 +27,37 @@
 <section
   class="content {{ isFullscreenActive() ? 'fullscreen-active' : '' }}"
   *ngrxLet="project$ as project"
-  >
+>
   @if (project) {
-    <ng-container *ngrxLet="layoutSettings$ as layout">
-      <div class="default-main-content horizontal">
-        @if (
-          layout.transcriptEnabled && layout.transcriptPosition === 'left'
-          ) {
-          <div
-            class="transcript"
-            >
-            <app-transcript></app-transcript>
-          </div>
-        }
-        <div
-          class="player {{
-          layout.transcriptEnabled
-          ? 'transcript-enabled'
-          : 'transcript-hidden'
-          }}"
-          >
-          <app-player [project]="project!"></app-player>
-        </div>
-        @if (
-          layout.transcriptEnabled && layout.transcriptPosition === 'right'
-          ) {
-          <div
-            class="transcript"
-            >
-            <app-transcript></app-transcript>
-          </div>
-        }
-        <!-- <app-transcript
+  <ng-container *ngrxLet="layoutSettings$ as layout">
+    <div class="default-main-content horizontal">
+      @if ( layout.transcriptEnabled && layout.transcriptPosition === 'left' ) {
+      <div class="transcript">
+        <app-transcript></app-transcript>
+      </div>
+      }
+      <div
+        class="player {{
+          layout.transcriptEnabled ? 'transcript-enabled' : 'transcript-hidden'
+        }}"
+      >
+        <app-player [project]="project!"></app-player>
+      </div>
+      @if ( layout.transcriptEnabled && layout.transcriptPosition === 'right' )
+      {
+      <div class="transcript">
+        <app-transcript></app-transcript>
+      </div>
+      }
+      <!-- <app-transcript
         *ngIf="
         layout.transcriptEnabled && layout.transcriptPosition === 'bottom'
         "
       ></app-transcript> -->
     </div>
     @if (!isFullscreenActive()) {
-      <app-infobox
-        [project]="project!"
-      ></app-infobox>
+    <app-infobox [project]="project!"></app-infobox>
     }
   </ng-container>
-}
+  }
 </section>

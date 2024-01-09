@@ -1,21 +1,49 @@
-import { Injectable } from '@nestjs/common';
-import { spawn } from 'child_process';
+import { HttpService } from '@nestjs/axios';
+import { HttpException, Injectable } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
+import { AxiosError, AxiosResponse } from 'axios';
+import FormData from 'form-data';
+import { readFile } from 'fs-extra';
+import { catchError, lastValueFrom, map } from 'rxjs';
 import { Language } from '../../../app.interfaces';
+import { WhisperConfig } from '../../../config/config.interface';
 import { ProjectEntity } from '../../../resources/project/entities/project.entity';
+import { DbService } from '../../db/db.service';
 import { CustomLogger } from '../../logger/logger.service';
 import { PathService } from '../../path/path.service';
-import { ISepechToTextService } from '../speech-to-text.interfaces';
+import {
+  ISepechToTextService,
+  TranscriptEntity,
+  WordEntity,
+} from '../speech-to-text.interfaces';
+import { WhiTranscribeDto, WhiTranscriptEntity } from './whisper.interfaces';
+
 // npm rebuild bcrypt --build-from-source
+
 @Injectable()
 export class WhisperSpeechService implements ISepechToTextService {
-  constructor(private logger: CustomLogger, private pathService: PathService) {
+  private whisperConfig: WhisperConfig;
+
+  private host: string;
+  private apikey: string;
+
+  constructor(
+    private logger: CustomLogger,
+    private pathService: PathService,
+    private httpService: HttpService,
+    private db: DbService,
+    private configService: ConfigService,
+  ) {
     this.logger.setContext(this.constructor.name);
+
+    this.whisperConfig = this.configService.get<WhisperConfig>('whisper');
+
+    this.host = this.whisperConfig.host;
+    this.apikey = this.whisperConfig.apikey;
   }
 
   async fetchLanguages(): Promise<Language[]> {
-    try {
-      await this.execAsStream(['-h']);
-    } catch (e) {
+    if (!this.whisperConfig) {
       return null;
     }
 
@@ -25,6 +53,7 @@ export class WhisperSpeechService implements ISepechToTextService {
         { code: 'de', name: 'German' },
         { code: 'fr', name: 'French' },
         { code: 'es', name: 'Spanish' },
+        { code: 'auto', name: 'Auto' },
 
         // von whisper -h
         //
@@ -45,50 +74,147 @@ export class WhisperSpeechService implements ISepechToTextService {
     });
   }
 
-  async run(project: ProjectEntity): Promise<string> {
-    const command = [
-      // 'whisper',
-      this.pathService.getWavFile(project._id.toString()),
-      '--model',
-      'medium',
-      '--verbose',
-      'False',
-      '--output_dir',
-      this.pathService.getProjectDirectory(project._id.toString()),
-      '--output_format',
-      'vtt',
-      '--language',
+  async run(project: ProjectEntity): Promise<TranscriptEntity> {
+    const transcribe = await this._transcribe(
+      project._id.toString(),
       project.language,
-    ];
+    );
+    // console.log(JSON.stringify(transcribe));
 
-    await this.execAsStream(command);
+    // use cronJob/queue instead of
+    const transcriptEntity: WhiTranscriptEntity = await new Promise(
+      (resolve) => {
+        const interval = setInterval(async () => {
+          const transcriptEntityTemp = await this._getTranscript(
+            transcribe.transcription_id,
+          );
+          // console.log(JSON.stringify(transcriptEntityTemp));
+          if (
+            transcriptEntityTemp.status === 'done' ||
+            transcriptEntityTemp.status === 'finished' ||
+            transcriptEntityTemp.status === 'error'
+          ) {
+            clearInterval(interval);
+            resolve(transcriptEntityTemp);
+          }
+        }, 10000);
+      },
+    );
 
-    const whisperVtt = project._id.toString();
-    const vttFilePath = this.pathService.getVttFile(whisperVtt);
+    if (transcriptEntity.status === 'error') {
+      throw new Error(transcriptEntity.error_message);
+    }
 
-    return vttFilePath;
-  }
+    // console.log(JSON.stringify(transcriptEntity));
 
-  private execAsStream(args: string[]): Promise<any> {
-    const child = spawn('whisper', args);
+    let currentMS = 0;
+    const words: WordEntity[] = [];
 
-    const stdout = [];
-    const stderr = [];
+    transcriptEntity.transcript.segments.forEach((segment) => {
+      const from = segment[2] as number;
+      const to = segment[3] as number;
+      const sentence = segment[4] as string;
+      // console.log(from, to, sentence);
 
-    return new Promise((resolve, reject) => {
-      child.stdout.on('data', (chunk) => stdout.push(chunk));
-      child.stderr.on('data', (chunk) => stderr.push(chunk));
-
-      child.on('error', (err) => reject(err));
-
-      child.on('close', (code) => {
-        if (code !== 0) {
-          const error = Buffer.concat(stderr).toString();
-          reject(new Error(error));
-        } else {
-          resolve(Buffer.concat(stdout));
-        }
+      const splittedText = sentence.split(' ');
+      const msSentence = to * 1000 - from * 1000;
+      const msPerWord = msSentence / splittedText.length;
+      splittedText.forEach((word) => {
+        words.push({ word, startMs: currentMS, endMs: currentMS + msPerWord });
+        currentMS += msPerWord;
       });
     });
+
+    // transcriptEntity.transcript.transcription.forEach((sentence) => {
+    //   const splittedText = sentence.text.split(' ');
+    //   const msSentence = sentence.offsets.to - sentence.offsets.from;
+    //   const msPerWord = msSentence / splittedText.length;
+    //   splittedText.forEach((word) => {
+    //     words.push({ word, startMs: currentMS, endMs: currentMS + msPerWord });
+    //     currentMS += msPerWord;
+    //   });
+    // });
+
+    // transcriptEntity.transcript
+
+    return { words };
+  }
+
+  async _transcribe(projectId: string, language: string) {
+    const audioPath = this.pathService.getWavFile(projectId);
+
+    const file = await readFile(audioPath);
+
+    const formData = new FormData();
+    formData.append('file', file, 'audio.wav');
+    const settings: WhiTranscribeDto = { language: language };
+    formData.append('settings', JSON.stringify(settings));
+
+    // console.log(formData.getHeaders());
+
+    const response = await lastValueFrom(
+      this.httpService
+        .post<WhiTranscriptEntity>(
+          `http://${this.host}:8393/transcriptions`,
+          formData,
+          {
+            headers: {
+              // authorization: this.apikey,
+              // 'Transfer-Encoding': 'chunked',
+              key: this.apikey,
+              'Content-Type': 'multipart/form-data',
+              ...formData.getHeaders(),
+            },
+          },
+        )
+        .pipe(
+          map((res: AxiosResponse<WhiTranscriptEntity>) => {
+            // console.log(res.data);
+            return res.data;
+          }),
+          catchError((error: AxiosError) => {
+            if (error?.response?.status) {
+              throw new HttpException(
+                error.response.data,
+                error.response.status,
+              );
+            } else {
+              throw new HttpException('unknown error', 500);
+            }
+          }),
+        ),
+    );
+
+    return response;
+  }
+
+  async _getTranscript(transcriptId: string): Promise<WhiTranscriptEntity> {
+    const response = await lastValueFrom(
+      this.httpService
+        .get<WhiTranscriptEntity>(
+          `http://${this.host}:8393/transcriptions/${transcriptId}`,
+          {
+            headers: {
+              // authorization: this.apikey,
+              key: this.apikey,
+            },
+          },
+        )
+        .pipe(
+          map((res: AxiosResponse<WhiTranscriptEntity>) => res.data),
+          catchError((error: AxiosError) => {
+            if (error?.response?.status) {
+              throw new HttpException(
+                error.response.data,
+                error.response.status,
+              );
+            } else {
+              throw new HttpException('unknown error', 500);
+            }
+          }),
+        ),
+    );
+
+    return response;
   }
 }

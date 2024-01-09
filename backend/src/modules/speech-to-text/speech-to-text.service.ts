@@ -118,31 +118,32 @@ export class SpeechToTextService {
     switch (vendor) {
       case AsrVendors.ASSEMBLYAI:
         res = await this.assemblyAiService.run(project);
+        captions = this._wordsToCaptions(project, transcription, res);
         break;
       case AsrVendors.GOOGLE:
         res = await this.googleSpeechService.run(project);
+        captions = this._wordsToCaptions(project, transcription, res);
         break;
       case AsrVendors.WHISPER:
         res = await this.whisperSpeechService.run(project);
+        captions = this._wordsToCaptions(project, transcription, res);
+        break;
       case AsrVendors.RANDOM:
         captions = this.populateService._generateRandomCaptions(
           project,
           transcription,
         );
+        captions = await this._vttFilePathToCaptions(
+          res as string,
+          transcription,
+          project,
+        );
+        break;
       default:
         // empty transcription
         break;
     }
 
-    if (res && res instanceof TranscriptEntity) {
-      captions = this._wordsToCaptions(project, transcription, res);
-    } else if (res) {
-      captions = await this._vttFilePathToCaptions(
-        res as string,
-        transcription,
-        project,
-      );
-    }
     // else if (vendor === AsrVendors.WHISPER) {
     //   const whisperVtt = project._id.toString() + '.vtt';
     //   const vttFilePath = this.pathService.getWavFile(whisperVtt);

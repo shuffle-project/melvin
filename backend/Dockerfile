@@ -12,9 +12,9 @@ RUN npm ci && npm run build && npm prune --production
 
 FROM node:18
 
-RUN apt-get update || : && apt-get install python3 python3-pip git ffmpeg -y
+# RUN apt-get update || : && apt-get install python3 python3-pip git ffmpeg -y
 # TODO https://pythonspeed.com/articles/externally-managed-environment-pep-668/
-RUN pip3 install "git+https://github.com/openai/whisper.git" --break-system-packages
+# RUN pip3 install "git+https://github.com/openai/whisper.git" --break-system-packages
 
 ENV NODE_ENV production
 

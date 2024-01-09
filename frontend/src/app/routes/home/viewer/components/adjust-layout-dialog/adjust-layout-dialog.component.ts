@@ -1,26 +1,35 @@
 import { Component } from '@angular/core';
-import { MatDialog, MatDialogRef, MatDialogTitle, MatDialogContent, MatDialogClose } from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
+import { MatOptionModule } from '@angular/material/core';
+import {
+  MatDialog,
+  MatDialogClose,
+  MatDialogContent,
+  MatDialogRef,
+  MatDialogTitle,
+} from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
 import { MatRadioChange, MatRadioModule } from '@angular/material/radio';
 import { MatSelectChange, MatSelectModule } from '@angular/material/select';
-import { MatSlideToggleChange, MatSlideToggleModule } from '@angular/material/slide-toggle';
+import {
+  MatSlideToggleChange,
+  MatSlideToggleModule,
+} from '@angular/material/slide-toggle';
+import { PushPipe } from '@ngrx/component';
 import { Store } from '@ngrx/store';
 import * as viewerActions from '../../../../../store/actions/viewer.actions';
 import { AppState } from '../../../../../store/app.state';
 import * as viewerSelector from '../../../../../store/selectors/viewer.selector';
 import { TranscriptPosition } from '../../viewer.interfaces';
 import { SizeOptions } from '../captions-settings-dialog/captions-settings-dialog.component';
-import { PushPipe } from '@ngrx/component';
-import { MatOptionModule } from '@angular/material/core';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatIconModule } from '@angular/material/icon';
-import { MatButtonModule } from '@angular/material/button';
 
 @Component({
-    selector: 'app-adjust-layout-dialog',
-    templateUrl: './adjust-layout-dialog.component.html',
-    styleUrls: ['./adjust-layout-dialog.component.scss'],
-    standalone: true,
-    imports: [
+  selector: 'app-adjust-layout-dialog',
+  templateUrl: './adjust-layout-dialog.component.html',
+  styleUrls: ['./adjust-layout-dialog.component.scss'],
+  standalone: true,
+  imports: [
     MatDialogTitle,
     MatDialogContent,
     MatButtonModule,
@@ -31,8 +40,8 @@ import { MatButtonModule } from '@angular/material/button';
     MatSelectModule,
     MatOptionModule,
     MatRadioModule,
-    PushPipe
-],
+    PushPipe,
+  ],
 })
 export class AdjustLayoutDialogComponent {
   public SizeOptions = SizeOptions;
@@ -46,6 +55,10 @@ export class AdjustLayoutDialogComponent {
   );
   public transcriptPosition$ = this.store.select(
     viewerSelector.selectTranscriptPosition
+  );
+
+  public transcriptOnlyMode$ = this.store.select(
+    viewerSelector.selectTranscriptOnlyMode
   );
 
   constructor(
@@ -76,5 +89,9 @@ export class AdjustLayoutDialogComponent {
         transcriptEnabled: event.checked,
       })
     );
+  }
+
+  onTranscriptOnlyModeChanged(event: MatSlideToggleChange) {
+    this.store.dispatch(viewerActions.toggleTranscriptOnlyMode());
   }
 }

@@ -311,7 +311,7 @@
         <target state="final">Angemeldet bleiben</target>
       </trans-unit>
       <trans-unit id="loginLoginButtonLabel" datatype="html">
-        <source><x id="START_BLOCK_IF"/><x id="START_TAG_MAT_SPINNER" ctype="x-mat_spinner" equiv-text="&lt;mat-spinner strokeWidth=&quot;2&quot; diameter=&quot;20&quot; color=&quot;primary&quot; style=&quot;margin-right: 10px&quot; &gt;"/><x id="CLOSE_TAG_MAT_SPINNER" ctype="x-mat_spinner" equiv-text="}"/><x id="CLOSE_BLOCK_IF" equiv-text="}"/> Login </source>
+        <source><x id="START_BLOCK_IF"/><x id="START_TAG_MAT_SPINNER" ctype="x-mat_spinner" equiv-text="&lt;mat-spinner strokeWidth=&quot;2&quot; diameter=&quot;20&quot; color=&quot;primary&quot; style=&quot;margin-right: 10px&quot; &gt;"/><x id="CLOSE_TAG_MAT_SPINNER" ctype="x-mat_spinner" equiv-text="} L"/><x id="CLOSE_BLOCK_IF" equiv-text="}"/> Login </source>
         <target state="final"><x id="START_TAG_MAT_SPINNER" ctype="x-mat_spinner" equiv-text="$ | async&quot; strokeWidth=&quot;2&quot; diameter=&quot;20&quot; color=&quot;primary&quot; style=&quot;margin-right: 10px&quot; &gt;"/><x id="CLOSE_TAG_MAT_SPINNER" ctype="x-mat_spinner" equiv-text="Log"/> Anmelden </target>
       </trans-unit>
       <trans-unit id="registerNamePlaceholder" datatype="html">
@@ -331,7 +331,7 @@
         <target state="final">Passwort (Wiederholung)</target>
       </trans-unit>
       <trans-unit id="registerLoginButtonLabel" datatype="html">
-        <source><x id="START_BLOCK_IF"/><x id="START_TAG_MAT_SPINNER" ctype="x-mat_spinner" equiv-text="&lt;mat-spinner strokeWidth=&quot;2&quot; diameter=&quot;20&quot; color=&quot;primary&quot; style=&quot;margin-right: 10px&quot; &gt;"/><x id="CLOSE_TAG_MAT_SPINNER" ctype="x-mat_spinner"/><x id="CLOSE_BLOCK_IF" equiv-text="}"/> Register </source>
+        <source><x id="START_BLOCK_IF"/><x id="START_TAG_MAT_SPINNER" ctype="x-mat_spinner" equiv-text="&lt;mat-spinner strokeWidth=&quot;2&quot; diameter=&quot;20&quot; color=&quot;primary&quot; style=&quot;margin-right: 10px&quot; &gt;"/><x id="CLOSE_TAG_MAT_SPINNER" ctype="x-mat_spinner" equiv-text="} R"/><x id="CLOSE_BLOCK_IF" equiv-text="}"/> Register </source>
         <target state="final"><x id="START_TAG_MAT_SPINNER" ctype="x-mat_spinner" equiv-text="async&quot; strokeWidth=&quot;2&quot; diameter=&quot;20&quot; color=&quot;primary&quot; style=&quot;margin-right: 10px&quot; &gt;"/><x id="CLOSE_TAG_MAT_SPINNER" ctype="x-mat_spinner" equiv-text="Log"/> Registrieren </target>
       </trans-unit>
       <trans-unit id="videoMuteUnmuteSoundTooltip" datatype="html">
@@ -1249,6 +1249,10 @@
       <trans-unit id="dialogCreateProjectCancelUpload" datatype="html">
         <source> Cancel Upload </source>
         <target state="final"> Upload abbrechen </target>
+      </trans-unit>
+      <trans-unit id="writtenLanguageEN" datatype="html">
+        <source>English</source>
+        <target state="final">Englisch</target>
       </trans-unit>
     </body>
   </file>
