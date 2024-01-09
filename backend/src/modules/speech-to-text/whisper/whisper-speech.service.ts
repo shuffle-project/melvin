@@ -53,7 +53,6 @@ export class WhisperSpeechService implements ISepechToTextService {
         { code: 'de', name: 'German' },
         { code: 'fr', name: 'French' },
         { code: 'es', name: 'Spanish' },
-        { code: 'auto', name: 'Auto' },
 
         // von whisper -h
         //
