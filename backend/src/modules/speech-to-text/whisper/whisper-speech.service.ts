@@ -109,15 +109,31 @@ export class WhisperSpeechService implements ISepechToTextService {
 
     let currentMS = 0;
     const words: WordEntity[] = [];
-    transcriptEntity.transcript.transcription.forEach((sentence) => {
-      const splittedText = sentence.text.split(' ');
-      const msSentence = sentence.offsets.to - sentence.offsets.from;
+
+    transcriptEntity.transcript.segments.forEach((segment) => {
+      const from = segment[2] as number;
+      const to = segment[3] as number;
+      const sentence = segment[4] as string;
+      // console.log(from, to, sentence);
+
+      const splittedText = sentence.split(' ');
+      const msSentence = to * 1000 - from * 1000;
       const msPerWord = msSentence / splittedText.length;
       splittedText.forEach((word) => {
         words.push({ word, startMs: currentMS, endMs: currentMS + msPerWord });
         currentMS += msPerWord;
       });
     });
+
+    // transcriptEntity.transcript.transcription.forEach((sentence) => {
+    //   const splittedText = sentence.text.split(' ');
+    //   const msSentence = sentence.offsets.to - sentence.offsets.from;
+    //   const msPerWord = msSentence / splittedText.length;
+    //   splittedText.forEach((word) => {
+    //     words.push({ word, startMs: currentMS, endMs: currentMS + msPerWord });
+    //     currentMS += msPerWord;
+    //   });
+    // });
 
     // transcriptEntity.transcript
 

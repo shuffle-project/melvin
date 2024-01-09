@@ -105,6 +105,16 @@
       </mat-radio-button> -->
       </mat-radio-group>
     </div>
+
+    <div class="input-wrapper">
+      <!-- i18n="@@viewerAdjustLayoutDialogTranscriptToggleLabel" -->
+      <mat-slide-toggle
+        [checked]="transcriptOnlyMode$ | ngrxPush"
+        (change)="onTranscriptOnlyModeChanged($event)"
+      >
+        Transcript only mode</mat-slide-toggle
+      >
+    </div>
   </div>
 
   <!-- <div mat-dialog-actions>

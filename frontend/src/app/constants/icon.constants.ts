@@ -89,6 +89,7 @@ export const ICONS = [
   'volume_on',
   'volume-mute',
   'volume',
+  'viewer',
   'warning-circle',
   'warning',
   'zoom_in',

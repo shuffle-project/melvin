@@ -17,6 +17,7 @@ export interface ViewerState {
   transcriptEnabled: boolean;
   transcriptFontsize: SizeOptions;
   transcriptPosition: TranscriptPosition;
+  transcriptOnlyMode: boolean;
   captionsBackgroundColor: ColorOptions;
   captionsColor: ColorOptions;
   captionsFontsize: SizeOptions;
@@ -41,6 +42,7 @@ export const initalState: ViewerState = {
     StorageKey.VIEWER_TRANSCRIPT_POSITION,
     TranscriptPosition.RIGHT
   ) as TranscriptPosition,
+  transcriptOnlyMode: false,
   captionsBackgroundColor: storage.getFromLocalStorage(
     StorageKey.CAPTIONS_BACKGROUND_COLOR,
     ColorOptions.BLACK
@@ -77,6 +79,11 @@ export const viewerReducer = createReducer(
   on(viewerActions.hideTranscript, (state) => {
     return { ...state, transcriptEnabled: false };
   }),
+
+  on(viewerActions.toggleTranscriptOnlyMode, (state) => {
+    return { ...state, transcriptOnlyMode: !state.transcriptOnlyMode };
+  }),
+
   on(
     viewerActions.changeTranscriptFontsize,
     (state, { transcriptFontsize }) => {
