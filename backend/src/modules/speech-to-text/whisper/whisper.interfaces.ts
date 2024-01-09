@@ -42,10 +42,16 @@ export class WhiTranscriptEntity {
   start_time: string;
   status: 'done' | 'error' | 'finished' | 'error';
   transcript: {
-    transcription: {
-      offsets: { from: number; to: number };
-      text: string;
-      timestamps: { from: string; to: string };
-    }[];
+    info: any;
+    segments: any[];
+    //segments[x][2] will be the start
+    //segments[x][3] will be the end
+    //segments[x][4] will be the text
+
+    // transcription: {
+    //   offsets: { from: number; to: number };
+    //   text: string;
+    //   timestamps: { from: string; to: string };
+    // }[];
   };
 }

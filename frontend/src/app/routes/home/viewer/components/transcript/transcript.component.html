@@ -8,35 +8,46 @@
       [(ngModel)]="searchValue"
       (input)="onSearchChange($event)"
       (keydown)="onKeydownSearch($event)"
-      />
+    />
     @if (searchValue.length === 0) {
-      <mat-icon
-        svgIcon="search"
-        matSuffix
-      ></mat-icon>
-    }
-    @if (searchValue.length > 0) {
-      <button
-        matSuffix
-        mat-icon-button
-        aria-label="Clear"
-        (click)="onClearSearchInput()"
-        >
-        <mat-icon svgIcon="close"></mat-icon>
-      </button>
+    <mat-icon svgIcon="search" matSuffix></mat-icon>
+    } @if (searchValue.length > 0) {
+    <button
+      matSuffix
+      mat-icon-button
+      aria-label="Clear"
+      (click)="onClearSearchInput()"
+    >
+      <mat-icon svgIcon="close"></mat-icon>
+    </button>
     }
   </mat-form-field>
   @if (searchValue.length > 0) {
-    <div class="search-results-wrapper">
-      <button mat-icon-button class="md" (click)="onGoToRecentFound()">
-        <mat-icon svgIcon="arrow-up" class="svg-black"></mat-icon>
-      </button>
-      {{ searchFoundInCaptionIds.length > 0 ? foundItemsNumber : 0 }} /
-      {{ searchFoundInCaptionIds.length }}
-      <button mat-icon-button class="md" (click)="onGoToNextFound()">
-        <mat-icon svgIcon="arrow-down" class="svg-black"></mat-icon>
-      </button>
-    </div>
+  <div class="search-results-wrapper">
+    @if(searchFoundInCaptionIds.length===0){
+    <span>No matches found</span>
+    } @else {
+
+    <button
+      mat-icon-button
+      class="md"
+      (click)="onGoToRecentFound()"
+      [disabled]="searchFoundInCaptionIds.length === 0"
+    >
+      <mat-icon svgIcon="arrow-up" class="svg-black"></mat-icon>
+    </button>
+    {{ searchFoundInCaptionIds.length > 0 ? foundItemsNumber : 0 }} /
+    {{ searchFoundInCaptionIds.length }}
+    <button
+      mat-icon-button
+      class="md"
+      (click)="onGoToNextFound()"
+      [disabled]="searchFoundInCaptionIds.length === 0"
+    >
+      <mat-icon svgIcon="arrow-down" class="svg-black"></mat-icon>
+    </button>
+    }
+  </div>
   }
   <ng-container *ngrxLet="availableSpeakers$ as availableSpeakers">
     <ng-container *ngrxLet="viewerService.currentTime$ as currentTime">
@@ -44,61 +55,49 @@
         id="captions-viewport"
         class="captions-viewport fontsize-{{ transcriptFontsize$ | ngrxPush }}"
         [ngStyle]="{
-        'font-size.%': transcriptFontsize$ | ngrxPush
+          'font-size.%': transcriptFontsize$ | ngrxPush
         }"
         (scroll)="onScrollInViewport()"
-        >
-        @for (
-          transcriptParagraphs of transcriptNew; track
-          transcriptParagraphs; let indexParagraph = $index; let firstParagraph = $first) {
-          <div
-            class="transcript-paragraph"
-            >
-            @for (
-              item of transcriptParagraphs; track trackById(indexCaption,
-              item); let indexCaption = $index; let firstCaption = $first) {
-              @if (
-                (firstCaption && firstParagraph) ||
-                (!firstParagraph &&
-                firstCaption &&
-                transcriptNew[indexParagraph - 1][0].speakerId !==
-                item.speakerId)
-                ) {
-                <div
-                  class="caption-speaker"
-                  >
-                  {{ getSpeakerName(item.speakerId, availableSpeakers) }}
-                </div>
-              }
-              <span
-                id="caption-{{ item.id }}"
-                class="caption-text {{
-                currentTime >= item.start / 1000 &&
-                currentTime < item.end / 1000
+      >
+        @for ( transcriptParagraphs of transcriptNew; track
+        transcriptParagraphs; let indexParagraph = $index; let firstParagraph =
+        $first) {
+        <div class="transcript-paragraph">
+          @for ( item of transcriptParagraphs; track trackById(indexCaption,
+          item); let indexCaption = $index; let firstCaption = $first) { @if (
+          (firstCaption && firstParagraph) || (!firstParagraph && firstCaption
+          && transcriptNew[indexParagraph - 1][0].speakerId !== item.speakerId)
+          ) {
+          <div class="caption-speaker">
+            {{ getSpeakerName(item.speakerId, availableSpeakers) }}
+          </div>
+          }
+          <span
+            id="caption-{{ item.id }}"
+            class="caption-text {{
+              currentTime >= item.start / 1000 && currentTime < item.end / 1000
                 ? 'current-caption'
                 : ''
-                }}
+            }}
                 "
-                (click)="onJumpInVideo(item)"
-                [innerHTML]="item.text"
-                >
-                <!-- [title]="item.start + ' ' + item.end" --> </span
-                >&nbsp;
-              }
-            </div>
-          }
+            (click)="onJumpInVideo(item)"
+            [innerHTML]="item.text"
+          >
+            <!-- [title]="item.start + ' ' + item.end" --> </span
+          >&nbsp; }
         </div>
-      </ng-container>
+        }
+      </div>
     </ng-container>
-    <div class="transcript-footer">
-      <mat-checkbox
-        class="auto-scroll"
-        labelPosition="before"
-        [(ngModel)]="autoScroll"
-        i18n="@@playerTranscriptAutomaticScrollLabel"
-        >
-        Scroll automatically
-      </mat-checkbox>
-    </div>
+  </ng-container>
+  <div class="transcript-footer">
+    <mat-checkbox
+      class="auto-scroll"
+      labelPosition="before"
+      [(ngModel)]="autoScroll"
+      i18n="@@playerTranscriptAutomaticScrollLabel"
+    >
+      Scroll automatically
+    </mat-checkbox>
   </div>
-  
+</div>

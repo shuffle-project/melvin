@@ -260,6 +260,15 @@
         >
           <mat-icon svgIcon="more"></mat-icon>
         </button>
+
+        <button
+          mat-icon-button
+          i18n-aria-label="@@projectListOpenViewerAriaLabel"
+          aria-label="Open Viewer"
+          (click)="onOpenViewer(element)"
+        >
+          <mat-icon svgIcon="viewer"></mat-icon>
+        </button>
       </td>
     </ng-container>
     <mat-menu #projectOptionsMenu="matMenu" class="dense">
