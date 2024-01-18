@@ -84,28 +84,30 @@ export class LivestreamService {
       }
     }
 
-    this.events.onClientIceCandidate$.subscribe(async (event) => {
-      const candidate = JSON.parse(event.candidate);
-      if (candidate) {
-        const project = await this.db.findProjectByIdOrThrow(event.projectId);
-        const pipelineId = await this._getPipelineIdOrThrow(project);
-        const { clients } = await this._getEndpoints(pipelineId);
-        await Promise.all(
-          clients.map(async (client) => {
-            const clientName = await client.getName();
-            if (clientName === event.userId) {
-              // console.log(`add candidate for ${client.id}`);
-              await client.addIceCandidate(
-                candidate,
-                //   (err) => {
-                //   if (err) console.log('error in addIceCandidate', err);
-                // }
-              );
-            }
-          }),
-        );
-      }
-    });
+    if (this.client) {
+      this.events.onClientIceCandidate$.subscribe(async (event) => {
+        const candidate = JSON.parse(event.candidate);
+        if (candidate) {
+          const project = await this.db.findProjectByIdOrThrow(event.projectId);
+          const pipelineId = await this._getPipelineIdOrThrow(project);
+          const { clients } = await this._getEndpoints(pipelineId);
+          await Promise.all(
+            clients.map(async (client) => {
+              const clientName = await client.getName();
+              if (clientName === event.userId) {
+                // console.log(`add candidate for ${client.id}`);
+                await client.addIceCandidate(
+                  candidate,
+                  //   (err) => {
+                  //   if (err) console.log('error in addIceCandidate', err);
+                  // }
+                );
+              }
+            }),
+          );
+        }
+      });
+    }
   }
 
   async connect(
