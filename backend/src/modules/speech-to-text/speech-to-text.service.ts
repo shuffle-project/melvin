@@ -205,6 +205,7 @@ export class SpeechToTextService {
             project: project._id,
           }),
         );
+        console.log(captions[captions.length - 1]);
         lastStart = word.startMs;
         text = word.word + '';
       }

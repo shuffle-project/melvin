@@ -8,7 +8,6 @@ export class WrittenOutLanguagePipe implements PipeTransform {
   transform(languageCode: string) {
     switch (languageCode) {
       case 'de-DE':
-        return $localize`:@@writtenLanguageDE-DE:German`;
       case 'de':
         return $localize`:@@writtenLanguageDE-DE:German`;
       case 'en':
@@ -18,15 +17,14 @@ export class WrittenOutLanguagePipe implements PipeTransform {
       case 'en-US':
         return $localize`:@@writtenLanguageEN-US:English (US)`;
       case 'es-ES':
-        return $localize`:@@writtenLanguageES-ES:Spanish`;
       case 'es':
         return $localize`:@@writtenLanguageES-ES:Spanish`;
       case 'fr-FR':
-        return $localize`:@@writtenLanguageFR-FR:French`;
       case 'fr':
         return $localize`:@@writtenLanguageFR-FR:French`;
       default:
-        return $localize`:@@writtenLanguageUnknown:Unknown`;
+        return languageCode;
+      // return $localize`:@@writtenLanguageUnknown:Unknown`;
     }
   }
 }
