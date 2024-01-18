@@ -9,11 +9,11 @@ import {
 } from '@angular/core';
 import { Store } from '@ngrx/store';
 import {
+  Observable,
+  Subject,
   combineLatest,
   filter,
   map,
-  Observable,
-  Subject,
   takeUntil,
 } from 'rxjs';
 import { CaptionEntity } from '../../../../../../services/api/entities/caption.entity';
@@ -35,14 +35,11 @@ export interface ViewCaption {
 }
 
 @Component({
-    selector: 'app-waveform-captions',
-    templateUrl: './waveform-captions.component.html',
-    styleUrls: ['./waveform-captions.component.scss'],
-    standalone: true,
-    imports: [
-    LetDirective,
-    ResizeDirective
-],
+  selector: 'app-waveform-captions',
+  templateUrl: './waveform-captions.component.html',
+  styleUrls: ['./waveform-captions.component.scss'],
+  standalone: true,
+  imports: [LetDirective, ResizeDirective],
 })
 export class WaveformCaptionsComponent implements OnInit, OnChanges, OnDestroy {
   @Input() hidden: boolean = false;
@@ -411,7 +408,10 @@ export class WaveformCaptionsComponent implements OnInit, OnChanges, OnDestroy {
       this.store.dispatch(
         captionsActions.updateEffectOnly({
           id: caption.id,
-          updateDto: { start: caption.start, end: caption.end },
+          updateDto: {
+            start: +caption.start.toFixed(0),
+            end: +caption.end.toFixed(0),
+          },
         })
       );
     }
