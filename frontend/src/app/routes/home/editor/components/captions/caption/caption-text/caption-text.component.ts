@@ -8,8 +8,21 @@ import {
   OnInit,
   SimpleChanges,
 } from '@angular/core';
-import { AbstractControl, FormControl, ValidationErrors, ValidatorFn, Validators, ReactiveFormsModule } from '@angular/forms';
+import {
+  AbstractControl,
+  FormControl,
+  ReactiveFormsModule,
+  ValidationErrors,
+  ValidatorFn,
+  Validators,
+} from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
+import { MatIconModule } from '@angular/material/icon';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { LetDirective } from '@ngrx/component';
 import { Store } from '@ngrx/store';
 import {
   Observable,
@@ -22,6 +35,7 @@ import {
 } from 'rxjs';
 import { EDITOR_USER_UNKNOWN } from '../../../../../../../constants/editor.constants';
 import { EditorUser } from '../../../../../../../interfaces/editor-user.interface';
+import { FeatureEnabledPipe } from '../../../../../../../pipes/feature-enabled-pipe/feature-enabled.pipe';
 import { CaptionEntity } from '../../../../../../../services/api/entities/caption.entity';
 import * as captionsActions from '../../../../../../../store/actions/captions.actions';
 import * as editorActions from '../../../../../../../store/actions/editor.actions';
@@ -33,21 +47,13 @@ import {
   CaptionDeleteConfirmModalComponent,
   CaptionDeleteConfirmModalResult,
 } from '../caption-actions/caption-delete-confirm-modal/caption-delete-confirm-modal.component';
-import { FeatureEnabledPipe } from '../../../../../../../pipes/feature-enabled-pipe/feature-enabled.pipe';
-import { MatProgressBarModule } from '@angular/material/progress-bar';
-import { LetDirective } from '@ngrx/component';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { MatIconModule } from '@angular/material/icon';
-import { MatTooltipModule } from '@angular/material/tooltip';
-import { MatButtonModule } from '@angular/material/button';
-
 
 @Component({
-    selector: 'app-caption-text',
-    templateUrl: './caption-text.component.html',
-    styleUrls: ['./caption-text.component.scss'],
-    standalone: true,
-    imports: [
+  selector: 'app-caption-text',
+  templateUrl: './caption-text.component.html',
+  styleUrls: ['./caption-text.component.scss'],
+  standalone: true,
+  imports: [
     MatButtonModule,
     MatTooltipModule,
     MatIconModule,
@@ -55,8 +61,8 @@ import { MatButtonModule } from '@angular/material/button';
     MatProgressSpinnerModule,
     LetDirective,
     MatProgressBarModule,
-    FeatureEnabledPipe
-],
+    FeatureEnabledPipe,
+  ],
 })
 export class CaptionTextComponent
   implements OnInit, AfterViewInit, OnChanges, OnDestroy
@@ -387,13 +393,13 @@ export class CaptionTextComponent
       speakerId: this.caption.speakerId,
       text: lastPart,
       transcription: this.caption.transcription,
-      start: this.caption.start + Math.floor(timeCurrent / 2),
+      start: +(this.caption.start + Math.floor(timeCurrent / 2)).toFixed(0),
       end: this.caption.end,
     };
 
     const updateCaptionDto = {
       text: firstPart,
-      end: this.caption.start + Math.floor(timeCurrent / 2),
+      end: +(this.caption.start + Math.floor(timeCurrent / 2)).toFixed(),
     };
 
     this.store.dispatch(
