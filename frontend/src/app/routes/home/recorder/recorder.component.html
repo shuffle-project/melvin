@@ -14,9 +14,27 @@
       <input
         matInput
         placeholder="Aufnahmetitel"
-        value="Aufnahme vom {{ today | date }}"
+        [(ngModel)]="recordingTitle"
+        required
       />
+      <!-- value="Aufnahme vom {{ today | date }}" -->
     </mat-form-field>
+    <mat-form-field *ngrxLet="languages$ as languages">
+      <mat-label i18n="@@videoFormLanguageLabel">Language</mat-label>
+      <mat-select required [(ngModel)]="language">
+        @for (language of languages; track language) {
+        <div>
+          <mat-option [value]="language.code">
+            {{ language.name }}
+          </mat-option>
+        </div>
+        }
+      </mat-select>
+      <mat-error i18n="@@videoFormLanguageRequiredError"
+        >Please select the primary language of the file content</mat-error
+      >
+    </mat-form-field>
+
     <!-- setup buttons -->
     <div class="buttons" style="margin-left: auto">
       @if (recorderService.mode === 'setup') {
