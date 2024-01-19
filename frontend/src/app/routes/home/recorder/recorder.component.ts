@@ -5,12 +5,16 @@ import {
   HttpEventType,
 } from '@angular/common/http';
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatSelectModule } from '@angular/material/select';
+import { LetDirective } from '@ngrx/component';
+import { Store } from '@ngrx/store';
 import { HeaderComponent } from '../../../components/header/header.component';
 import { ApiService } from '../../../services/api/api.service';
 import { AsrVendors } from '../../../services/api/dto/create-transcription.dto';
@@ -18,6 +22,8 @@ import {
   MediaCategory,
   ProjectEntity,
 } from '../../../services/api/entities/project.entity';
+import { AppState } from '../../../store/app.state';
+import * as configSelector from '../../../store/selectors/config.selector';
 import { MediaSourceComponent } from './components/media-source/media-source.component';
 import { AddAudioSourceComponent } from './dialogs/add-audio-source/add-audio-source.component';
 import { AddScreensharingSourceComponent } from './dialogs/add-screensharing-source/add-screensharing-source.component';
@@ -47,9 +53,15 @@ interface Recording {
     MatFormFieldModule,
     MatIconModule,
     MatInputModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatSelectModule,
+    LetDirective,
   ],
 })
 export class RecorderComponent implements OnInit, OnDestroy {
+  public languages$ = this.store.select(configSelector.languagesConfig);
+
   today = new Date();
   videoMimeType = 'video/webm';
   //   "video/webm;codecs=vp8",
@@ -59,6 +71,9 @@ export class RecorderComponent implements OnInit, OnDestroy {
   // 'video/mp4; codecs="avc1.424028, mp4a.40.2';
   // "audio/webm;codecs=opus",
   // "video/mpeg",
+
+  recordingTitle: string = 'Aufnahme vom ' + this.today.toLocaleDateString();
+  language = 'de';
 
   loading = true;
   recording = false;
@@ -72,7 +87,8 @@ export class RecorderComponent implements OnInit, OnDestroy {
   constructor(
     public dialog: MatDialog,
     public recorderService: RecorderService,
-    private api: ApiService
+    private api: ApiService,
+    private store: Store<AppState>
   ) {}
 
   async ngOnInit() {
@@ -226,12 +242,12 @@ export class RecorderComponent implements OnInit, OnDestroy {
 
   private async createProject() {
     const data = {
-      title: 'testtitle',
-      language: 'de',
+      title: this.recordingTitle,
+      language: this.language,
       sourceMode: 'video',
       asrVendor: AsrVendors.WHISPER,
-      asrLanguage: 'de',
-      videoLanguage: 'de',
+      asrLanguage: this.language,
+      videoLanguage: this.language,
     };
 
     const formData: FormData = new FormData();
