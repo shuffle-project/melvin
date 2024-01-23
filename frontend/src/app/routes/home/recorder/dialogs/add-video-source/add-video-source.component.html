@@ -42,7 +42,12 @@
   <br />
   @if (videoSource.mediaStream) {
   <div>
-    <video [srcObject]="videoSource.mediaStream" autoplay controls></video>
+    <video
+      [srcObject]="videoSource.mediaStream"
+      autoplay
+      controls
+      muted
+    ></video>
   </div>
   } @if (!videoSource.mediaStream) {
   <div

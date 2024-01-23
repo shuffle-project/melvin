@@ -1,77 +1,68 @@
 <!-- hide all while loading screen selection -->
 @if (!loading) {
-  <h2 mat-dialog-title>Add Screensharing</h2>
-  <mat-dialog-content class="mat-dialog-content">
-    @if (loadingError) {
-      <p>
-        Bei der Auswahl beim teilen des Bildschirms ist ein Fehler aufgetreten.
-      </p>
-    }
-    @if (!loading && !loadingError) {
-      <div class="controls">
-        <mat-form-field class="title-form-field">
-          <mat-label>Title</mat-label>
-          <input matInput type="text" [(ngModel)]="screensharingSource.title" />
-        </mat-form-field>
-        <mat-form-field class="category-form-field">
-          <mat-label>Media Category</mat-label>
-          <mat-select [(ngModel)]="screensharingSource.mediaCategory">
-            <mat-option value="{{ MediaCategory.OTHER }}">Other</mat-option>
-            <mat-option value="{{ MediaCategory.SIGN_LANGUAGE }}"
-              >Sign Language</mat-option
-              >
-              <mat-option value="{{ MediaCategory.SLIDES }}">Slides</mat-option>
-              <mat-option value="{{ MediaCategory.SPEAKER }}">Speaker</mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div>
-        <br />
-        @if (screensharingSource.mediaStream) {
-          <div>
-            <video
-              [srcObject]="screensharingSource.mediaStream"
-              autoplay
-              controls
-            ></video>
-          </div>
-        }
-        @if (screensharingSource.mediaStream && screensharingSource.sound) {
-          <div
-            class="meter-wrapper"
-            >
-            <span> Audio level </span>
-            <div class="meter">
-              <app-audio-meter
-                [mediaStream]="screensharingSource.mediaStream"
-              ></app-audio-meter>
-            </div>
-          </div>
-        }
-        @if (!screensharingSource.mediaStream) {
-          <div
-            class="flex justify-center"
-            style="margin-top: 20px; width: 100%; height: 200px"
-            >
-            <mat-spinner></mat-spinner>
-          </div>
-        }
-      }
-    </mat-dialog-content>
-    <mat-dialog-actions>
-      <button color="primary" mat-flat-button (click)="onCloseDialog()">
-        Cancel
-      </button>
-      @if (!loadingError) {
-        <button color="primary" mat-flat-button (click)="onSubmitDialog()">
-          Add
-        </button>
-      }
-      @if (loadingError) {
-        <button color="primary" mat-flat-button (click)="fetchStream()">
-          Erneut versuchen
-          <mat-icon svgIcon="repeat" class="svg-black"></mat-icon>
-        </button>
-      }
-    </mat-dialog-actions>
+<h2 mat-dialog-title>Add Screensharing</h2>
+<mat-dialog-content class="mat-dialog-content">
+  @if (loadingError) {
+  <p>Bei der Auswahl beim teilen des Bildschirms ist ein Fehler aufgetreten.</p>
+  } @if (!loading && !loadingError) {
+  <div class="controls">
+    <mat-form-field class="title-form-field">
+      <mat-label>Title</mat-label>
+      <input matInput type="text" [(ngModel)]="screensharingSource.title" />
+    </mat-form-field>
+    <mat-form-field class="category-form-field">
+      <mat-label>Media Category</mat-label>
+      <mat-select [(ngModel)]="screensharingSource.mediaCategory">
+        <mat-option value="{{ MediaCategory.OTHER }}">Other</mat-option>
+        <mat-option value="{{ MediaCategory.SIGN_LANGUAGE }}"
+          >Sign Language</mat-option
+        >
+        <mat-option value="{{ MediaCategory.SLIDES }}">Slides</mat-option>
+        <mat-option value="{{ MediaCategory.SPEAKER }}">Speaker</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <br />
+  @if (screensharingSource.mediaStream) {
+  <div>
+    <video
+      [srcObject]="screensharingSource.mediaStream"
+      autoplay
+      controls
+      muted
+    ></video>
+  </div>
+  } @if (screensharingSource.mediaStream && screensharingSource.sound) {
+  <div class="meter-wrapper">
+    <span> Audio level </span>
+    <div class="meter">
+      <app-audio-meter
+        [mediaStream]="screensharingSource.mediaStream"
+      ></app-audio-meter>
+    </div>
+  </div>
+  } @if (!screensharingSource.mediaStream) {
+  <div
+    class="flex justify-center"
+    style="margin-top: 20px; width: 100%; height: 200px"
+  >
+    <mat-spinner></mat-spinner>
+  </div>
+  } }
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button color="primary" mat-flat-button (click)="onCloseDialog()">
+    Cancel
+  </button>
+  @if (!loadingError) {
+  <button color="primary" mat-flat-button (click)="onSubmitDialog()">
+    Add
+  </button>
+  } @if (loadingError) {
+  <button color="primary" mat-flat-button (click)="fetchStream()">
+    Erneut versuchen
+    <mat-icon svgIcon="repeat" class="svg-black"></mat-icon>
+  </button>
   }
-  
+</mat-dialog-actions>
+}

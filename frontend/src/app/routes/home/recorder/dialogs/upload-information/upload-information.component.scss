@@ -1,0 +1,17 @@
+.mat-dialog-content {
+  padding-top: 5px;
+  width: 600px;
+}
+
+.upload-list {
+  margin: 5px;
+  padding: 0;
+  li {
+    margin: 5px;
+    list-style-type: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+  }
+}

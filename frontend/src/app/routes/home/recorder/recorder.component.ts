@@ -28,9 +28,11 @@ import { MediaSourceComponent } from './components/media-source/media-source.com
 import { AddAudioSourceComponent } from './dialogs/add-audio-source/add-audio-source.component';
 import { AddScreensharingSourceComponent } from './dialogs/add-screensharing-source/add-screensharing-source.component';
 import { AddVideoSourceComponent } from './dialogs/add-video-source/add-video-source.component';
+import { UploadInformationComponent } from './dialogs/upload-information/upload-information.component';
 import { RecorderService } from './recorder.service';
 
 interface Recording {
+  id: string;
   title: string;
   category: MediaCategory;
   mediaRecorder: MediaRecorder;
@@ -81,6 +83,8 @@ export class RecorderComponent implements OnInit, OnDestroy {
   // chunks: Blob[] = [];
 
   recordings: Recording[] = [];
+
+  uploads: { id: string; progress: number }[] | null = null;
 
   // mediaRecorders: MediaRecorder[] = [];
 
@@ -157,6 +161,13 @@ export class RecorderComponent implements OnInit, OnDestroy {
       if (i !== 0) allStreams.push({ source, stream: source.mediaStream! });
     });
 
+    this.uploads = allStreams.map((stream) => {
+      return {
+        id: stream.source.id,
+        progress: 0,
+      };
+    });
+
     console.log('stream counter', allStreams.length);
 
     allStreams.forEach((streamToRecord) => {
@@ -164,6 +175,7 @@ export class RecorderComponent implements OnInit, OnDestroy {
       const mediaRecorder = new MediaRecorder(streamToRecord.stream);
 
       const recording: Recording = {
+        id: streamToRecord.source.id,
         mediaRecorder,
         chunks,
         title: streamToRecord.source.title,
@@ -191,6 +203,8 @@ export class RecorderComponent implements OnInit, OnDestroy {
     this.recordings.forEach((recording) => {
       recording.mediaRecorder.stop();
     });
+
+    this.dialog.open(UploadInformationComponent, { data: this.uploads });
   }
 
   onStopSaveRecording(e: Event, recording: Recording) {
@@ -235,7 +249,7 @@ export class RecorderComponent implements OnInit, OnDestroy {
       )
       .subscribe({
         next: (event: HttpEvent<ProjectEntity>) =>
-          console.log(rec.title, event),
+          this.handleHttpEvent(event, rec),
         error: (error: HttpErrorResponse) => console.log(rec.title, error),
       });
   }
@@ -268,6 +282,11 @@ export class RecorderComponent implements OnInit, OnDestroy {
         this.api.createProject(formData).subscribe({
           next: (event: HttpEvent<ProjectEntity>) => {
             switch (event.type) {
+              case HttpEventType.UploadProgress:
+                if (event.total && this.uploads)
+                  this.uploads[0].progress = (event.loaded / event.total) * 100;
+
+                break;
               case HttpEventType.Response:
                 resolve(event.body);
                 break;
@@ -287,6 +306,28 @@ export class RecorderComponent implements OnInit, OnDestroy {
       }
     );
     return newProject;
+  }
+
+  handleHttpEvent(event: HttpEvent<ProjectEntity>, rec: Recording) {
+    switch (event.type) {
+      case HttpEventType.UploadProgress:
+        if (this.uploads) {
+          const upload = this.uploads.find((x) => x.id === rec.id);
+          if (event.total && upload) {
+            upload.progress = (event.loaded / event.total) * 100;
+          }
+        }
+
+        break;
+      case HttpEventType.Response:
+        console.log(event);
+        break;
+
+      default:
+        // reject('dunno');
+        //
+        break;
+    }
   }
 
   onClickReady() {
