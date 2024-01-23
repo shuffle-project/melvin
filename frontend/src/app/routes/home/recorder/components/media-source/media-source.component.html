@@ -101,7 +101,12 @@
   </div>
   <div class="tile-content">
     @if (audioSource && audioSource.mediaStream) {
-    <audio [srcObject]="audioSource.mediaStream" autoplay muted></audio>
+    <audio
+      [srcObject]="audioSource.mediaStream"
+      autoplay
+      [muted]="true"
+      muted
+    ></audio>
     <div class="meter-wrapper">
       <span> Audio level </span>
       <div class="meter">
@@ -111,17 +116,9 @@
       </div>
     </div>
     } @if (videoSource) {
-    <video
-      [srcObject]="videoSource.mediaStream"
-      autoplay
-      [muted]="true"
-    ></video>
+    <video [srcObject]="videoSource.mediaStream" autoplay muted></video>
     } @if (screensharingSource) { @if (screensharingSource.mediaStream) {
-    <video
-      [srcObject]="screensharingSource.mediaStream"
-      autoplay
-      [muted]="true"
-    ></video>
+    <video [srcObject]="screensharingSource.mediaStream" autoplay muted></video>
     } @if (screensharingSource.sound && screensharingSource.mediaStream) {
     <div class="meter-wrapper">
       <span> Audio level </span>

@@ -1,4 +1,3 @@
-
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -30,8 +29,8 @@ import { RecorderService } from '../../recorder.service';
     MatProgressSpinnerModule,
     MatSelectModule,
     FormsModule,
-    MatInputModule
-],
+    MatInputModule,
+  ],
 })
 export class AddAudioSourceComponent implements OnInit, OnDestroy {
   private destroy$$ = new Subject<void>();
