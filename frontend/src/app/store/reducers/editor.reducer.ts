@@ -1,6 +1,9 @@
 import { createReducer, on } from '@ngrx/store';
 import { EditorUserColor } from '../../constants/editor.constants';
-import { ProjectEntity } from '../../services/api/entities/project.entity';
+import {
+  ProjectEntity,
+  ProjectMediaEntity,
+} from '../../services/api/entities/project.entity';
 import { StorageKey } from '../../services/storage/storage-key.enum';
 import { StorageService } from '../../services/storage/storage.service';
 import * as editorActions from '../actions/editor.actions';
@@ -17,6 +20,7 @@ export interface EditorActiveUser {
 export interface EditorState {
   projectLoading: boolean;
   project: ProjectEntity | null;
+  media: ProjectMediaEntity | null;
 
   isPlaying: boolean;
   isLiveInSync: boolean;
@@ -31,6 +35,7 @@ export interface EditorState {
 export const initalState: EditorState = {
   projectLoading: false,
   project: null,
+  media: null,
   isPlaying: false,
   isLiveInSync: false,
   currentSpeed: 1,
@@ -174,6 +179,14 @@ export const editorReducer = createReducer(
         : {}),
     };
   }),
+
+  // project media
+
+  on(editorActions.findProjectMediaSuccess, (state, { media }) => {
+    return { ...state, media };
+  }),
+
+  // waveform
 
   on(editorActions.getWaveformSuccess, (state, { values }) => {
     return {

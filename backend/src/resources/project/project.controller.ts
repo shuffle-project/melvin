@@ -30,7 +30,7 @@ import { UpdateProjectDto } from './dto/update-project.dto';
 import { UploadVideoDto } from './dto/upload-media.dto';
 import { ProjectInviteTokenEntity } from './entities/project-invite.entity';
 import { ProjectListEntity } from './entities/project-list.entity';
-import { ProjectEntity } from './entities/project.entity';
+import { ProjectEntity, ProjectMediaEntity } from './entities/project.entity';
 import { MediaFileInterceptor } from './interceptors/media-file.interceptor';
 import { MultiFileInterceptor } from './interceptors/multi-file.interceptor';
 import { ProjectService } from './project.service';
@@ -79,7 +79,7 @@ export class ProjectController {
   findOne(
     @User() authUser: AuthUser,
     @Param('id', IsValidObjectIdPipe) id: string,
-  ): Promise<Project> {
+  ): Promise<ProjectEntity> {
     return this.projectService.findOne(authUser, id);
   }
 
@@ -186,20 +186,20 @@ export class ProjectController {
     return this.projectService.getWaveformData(authUser, id);
   }
 
-  @UseGuards(JwtAuthGuard)
-  @Get(':id/media/video')
-  @ApiResponse({ status: HttpStatus.PARTIAL_CONTENT })
-  async getVideoChunk(
-    @Param('id', IsValidObjectIdPipe) id: string,
-    @MediaUser() mediaAccessUser: MediaAccessUser,
-    @Req() req: Request,
-    @Res() res: Response,
-  ) {
-    return this.projectService.getVideoChunk(id, mediaAccessUser, req, res);
-  }
+  // @UseGuards(JwtAuthGuard)
+  // @Get(':id/media/video')
+  // @ApiResponse({ status: HttpStatus.PARTIAL_CONTENT })
+  // async getVideoChunk(
+  //   @Param('id', IsValidObjectIdPipe) id: string,
+  //   @MediaUser() mediaAccessUser: MediaAccessUser,
+  //   @Req() req: Request,
+  //   @Res() res: Response,
+  // ) {
+  //   return this.projectService.getVideoChunk(id, mediaAccessUser, req, res);
+  // }
 
   @UseGuards(JwtAuthGuard)
-  @Get(':id/media/video/:videoId')
+  @Get(':id/video/:videoId')
   @ApiResponse({ status: HttpStatus.PARTIAL_CONTENT })
   async getAdditionalVideoChunk(
     @Param('id', IsValidObjectIdPipe) id: string,
@@ -218,15 +218,22 @@ export class ProjectController {
   }
 
   @UseGuards(JwtAuthGuard)
-  @Get(':id/media/audio')
+  @Get(':id/audio/:audioId')
   @ApiResponse({ status: HttpStatus.PARTIAL_CONTENT })
   async getAdditionalAudioChunk(
     @Param('id', IsValidObjectIdPipe) id: string,
+    @Param('audioId', IsValidObjectIdPipe) audioId: string,
     @MediaUser() mediaAccessUser: MediaAccessUser,
     @Req() req: Request,
     @Res() res: Response,
   ) {
-    return this.projectService.getAudioChunk(id, mediaAccessUser, req, res);
+    return this.projectService.getAudioChunk(
+      id,
+      mediaAccessUser,
+      req,
+      res,
+      audioId,
+    );
   }
 
   @UseGuards(JwtAuthGuard)
@@ -251,5 +258,14 @@ export class ProjectController {
     @Param('mediaId', IsValidObjectIdPipe) mediaId: string,
   ) {
     return this.projectService.deleteMedia(authUser, id, mediaId);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Get(':id/media')
+  getMediaEntity(
+    @User() authUser: AuthUser,
+    @Param('id', IsValidObjectIdPipe) id: string,
+  ): Promise<ProjectMediaEntity> {
+    return this.projectService.getMediaEntity(authUser, id);
   }
 }

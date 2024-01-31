@@ -103,7 +103,6 @@ export class PopulateService {
   }
 
   _generateUsers(persons: Person[]): User[] {
-    console.log(persons);
     return [
       new this.db.userModel({ ...EXAMPLE_USER, projects: [] }),
       ...new Array(persons.length).fill(null).map((o, i) => {
@@ -375,16 +374,29 @@ export class PopulateService {
     const files: Array<{ src: string; dst: string }> = [];
 
     for (const project of projects) {
+      const video = project.videos[0];
+      const audio = project.audios[0];
+
       const projectDirectory = this.pathService.getProjectDirectory(
         project._id.toString(),
       );
       directories.push(projectDirectory);
 
       files.push(
-        ...filepaths.map((src) => ({
-          src,
-          dst: join(projectDirectory, basename(src)),
-        })),
+        ...filepaths.map((src) => {
+          let name = basename(src);
+          if (name === 'video.mp4') {
+            name = video._id.toString() + '.mp4';
+          }
+          if (name === 'audio.mp3') {
+            name = audio._id.toString() + '.mp3';
+          }
+
+          return {
+            src,
+            dst: join(projectDirectory, name),
+          };
+        }),
       );
     }
 

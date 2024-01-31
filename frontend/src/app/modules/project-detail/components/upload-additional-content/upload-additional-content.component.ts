@@ -33,7 +33,9 @@ import { MatSelectModule } from '@angular/material/select';
 import { LetDirective, PushPipe } from '@ngrx/component';
 import * as uuid from 'uuid';
 import { MediaCategoryPipe } from '../../../../pipes/media-category-pipe/media-category.pipe';
+import { findProjectMedia } from '../../../../store/actions/editor.actions';
 import { selectUserId } from '../../../../store/selectors/auth.selector';
+import * as editorSelector from '../../../../store/selectors/editor.selector';
 
 interface FileUpload {
   id: string;
@@ -59,8 +61,8 @@ interface FileUpload {
     MatProgressBarModule,
     LetDirective,
     PushPipe,
-    MediaCategoryPipe
-],
+    MediaCategoryPipe,
+  ],
 })
 export class UploadAdditionalContentComponent implements OnInit {
   public selectableMediaCategories = [
@@ -78,6 +80,7 @@ export class UploadAdditionalContentComponent implements OnInit {
       projectEntities.find((project) => project.id === this.projectId)
     )
   );
+  public media$ = this.store.select(editorSelector.selectMedia);
 
   public isOwner$ = combineLatest([
     this.store.select(selectUserId),
@@ -100,6 +103,8 @@ export class UploadAdditionalContentComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.store.dispatch(findProjectMedia({ projectId: this.projectId }));
+
     this.formGroup = this.fb.group({
       title: this.fb.control<string>('', [Validators.required]),
       file: this.fb.control<File | null>(null, [Validators.required]),

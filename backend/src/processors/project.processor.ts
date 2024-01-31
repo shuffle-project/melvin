@@ -9,7 +9,14 @@ import {
 import { Job, JobStatus, Queue } from 'bull';
 import { rm } from 'fs-extra';
 import { writeFile } from 'fs/promises';
-import { ProjectStatus } from '../modules/db/schemas/project.schema';
+import { Types } from 'mongoose';
+import { DbService } from '../modules/db/db.service';
+import {
+  Audio,
+  MediaCategory,
+  MediaStatus,
+  ProjectStatus,
+} from '../modules/db/schemas/project.schema';
 import { WaveformData } from '../modules/ffmpeg/ffmpeg.interfaces';
 import { FfmpegService } from '../modules/ffmpeg/ffmpeg.service';
 import { CustomLogger } from '../modules/logger/logger.service';
@@ -30,44 +37,85 @@ export class ProjectProcessor {
     private activityService: ActivityService,
     @InjectQueue('subtitles')
     private subtitlesQueue: Queue<ProcessSubtitlesJob>,
+    private db: DbService,
   ) {
     this.logger.setContext(this.constructor.name);
   }
 
   @Process()
   async processProject(job: Job<ProcessProjectJob>) {
-    const { project, file, videoId } = job.data;
+    const { project, file, video } = job.data;
     const projectId = project._id.toString();
     const systemUser = await this.authService.findSystemAuthUser();
 
     // process video
-    await this.ffmpegService.processVideoFile(file.path, projectId, videoId);
+    await this.ffmpegService.processVideoFile(file.path, projectId, video);
 
     // stop if it is not the main video
-    if (videoId) {
+    if (video.category !== MediaCategory.MAIN) {
       return null;
     }
 
     // create wav
-    await this.ffmpegService.createWavFile(file.path, projectId);
+    // this.projectService.update() // TODO
+
+    const wav: Audio = {
+      _id: new Types.ObjectId(),
+      category: MediaCategory.OTHER,
+      originalFileName: '', // TODO
+      status: MediaStatus.PROCESSING, // TODO
+      title: '', //TODO
+      extension: 'wav',
+    };
+
+    const mp3: Audio = {
+      _id: new Types.ObjectId(),
+      category: MediaCategory.OTHER,
+      originalFileName: '', // TODO
+      status: MediaStatus.PROCESSING, // TODO
+      title: '', //TODO
+      extension: 'mp3',
+    };
+
+    await this.db.projectModel
+      .findByIdAndUpdate(projectId, {
+        $push: {
+          audios: mp3,
+        },
+      })
+      .lean()
+      .exec();
+    await this.db.projectModel
+      .findByIdAndUpdate(projectId, {
+        $push: {
+          audios: wav,
+        },
+      })
+      .lean()
+      .exec();
+
+    await this.ffmpegService.createWavFile(projectId, video, wav);
+    await this.ffmpegService.createMp3File(projectId, video, mp3);
 
     //get duration via ffprobe
-    const duration = await this.ffmpegService.getVideoDuration(projectId);
-    // set duration in project
-    const updatedProject = await this.projectService.update(
-      systemUser,
+    const duration = await this.ffmpegService.getVideoDuration(
       projectId,
-      {
-        duration,
-      },
+      video,
     );
+    // set duration in project
+    await this.projectService.update(systemUser, projectId, {
+      duration,
+    });
+
+    const updatedProject = await this.db.projectModel.findById(projectId);
 
     //push to subtitles queue with updated project
     job.data.subsequentJobs.forEach((job) =>
+      // TODO funktioniert das ?
       this.subtitlesQueue.add({ ...job, project: updatedProject }),
     );
 
-    await this.generateWaveformData(job.data);
+    await this.generateWaveformData(job.data, wav);
 
     return null;
   }
@@ -156,14 +204,14 @@ export class ProjectProcessor {
     this.logger.error(err.stack);
   }
 
-  async generateWaveformData(data: ProcessProjectJob) {
+  async generateWaveformData(data: ProcessProjectJob, wav: Audio) {
     const { project } = data;
     const projectId = project._id.toString();
 
     const waveformPath = this.pathService.getWaveformFile(projectId);
 
     const generatedData: WaveformData =
-      await this.ffmpegService.getWaveformData(projectId);
+      await this.ffmpegService.getWaveformData(project, wav);
 
     await writeFile(waveformPath, JSON.stringify(generatedData));
   }

@@ -46,7 +46,7 @@ import { PauseLivestreamEntity } from './entities/pause-livestream.entity';
 import { PauseRecordingEntity } from './entities/pause-recording,entity';
 import { ProjectInviteTokenEntity } from './entities/project-invite-token.entity';
 import { ProjectListEntity } from './entities/project-list.entity';
-import { ProjectEntity } from './entities/project.entity';
+import { ProjectEntity, ProjectMediaEntity } from './entities/project.entity';
 import { ResumeLivestreamEntity } from './entities/resume-livestream.entity';
 import { ResumeRecordingEntity } from './entities/resume-recording';
 import { StartLivestreamEntity } from './entities/start-livestream.entity';
@@ -200,11 +200,11 @@ export class RealApiService implements ApiService {
     return this._post<{ token: string }>(`/auth/refresh-token`, { token });
   }
 
-  mediaAccessToken(projectId: string): Observable<{ token: string }> {
-    return this._post<{ token: string }>(`/auth/media-access-token`, {
-      projectId,
-    });
-  }
+  // mediaAccessToken(projectId: string): Observable<{ token: string }> {
+  //   return this._post<{ token: string }>(`/auth/media-access-token`, {
+  //     projectId,
+  //   });
+  // }
 
   // verifyEmail() {}
   // guestLogin() {}
@@ -300,6 +300,10 @@ export class RealApiService implements ApiService {
 
   findOneProject(projectId: string): Observable<ProjectEntity> {
     return this._get<ProjectEntity>(`/projects/${projectId}`);
+  }
+
+  findProjectMediaEntity(projectId: string): Observable<ProjectMediaEntity> {
+    return this._get<ProjectMediaEntity>(`/projects/${projectId}/media`);
   }
 
   updateProject(

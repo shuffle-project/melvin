@@ -11,6 +11,7 @@ import { ProjectEntity } from '../../resources/project/entities/project.entity';
 import { TranscriptionEntity } from '../../resources/transcription/entities/transcription.entity';
 import { DbService } from '../db/db.service';
 import { Caption } from '../db/schemas/caption.schema';
+import { Project } from '../db/schemas/project.schema';
 import { CustomLogger } from '../logger/logger.service';
 import { PathService } from '../path/path.service';
 import { AssemblyAiService } from './assemblyai/assemblyai.service';
@@ -105,7 +106,7 @@ export class SpeechToTextService {
   }
 
   async generate(
-    project: ProjectEntity,
+    project: Project,
     transcription: TranscriptionEntity,
     vendor: AsrVendors,
   ) {
@@ -205,7 +206,6 @@ export class SpeechToTextService {
             project: project._id,
           }),
         );
-        console.log(captions[captions.length - 1]);
         lastStart = word.startMs;
         text = word.word + '';
       }

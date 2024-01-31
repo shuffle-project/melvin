@@ -2,8 +2,8 @@ import { Injectable } from '@nestjs/common';
 import { exec, spawn } from 'child_process';
 import ffmpegPath from 'ffmpeg-static';
 import ffprobePath from 'ffprobe-static';
-import { ensureDir } from 'fs-extra';
 import { join } from 'path';
+import { Audio, Project, Video } from '../db/schemas/project.schema';
 import { CustomLogger } from '../logger/logger.service';
 import { PathService } from '../path/path.service';
 import { WaveformData } from './ffmpeg.interfaces';
@@ -24,9 +24,14 @@ export class FfmpegService {
     this.logger.setContext(this.constructor.name);
   }
 
-  public async getWaveformData(projectId: string): Promise<WaveformData> {
-    const videoFilepath = this.pathService.getVideoFile(projectId);
-
+  public async getWaveformData(
+    project: Project,
+    wav: Audio,
+  ): Promise<WaveformData> {
+    const projectId = project._id.toString();
+    // const videoFilepath = this.pathService.getVideoFile(projectId);
+    // const audioFilepath = this.pathService.getMp3File(projectId);
+    const audioFilepath = this.pathService.getMediaFile(projectId, wav);
     const args = [
       // logging
       '-loglevel',
@@ -35,7 +40,7 @@ export class FfmpegService {
       // fatal = Only show fatal errors which could lead the process to crash, such as an assertion failure.
       // input file
       '-i',
-      `${videoFilepath}`,
+      `${audioFilepath}`,
       // audio codec
       '-codec:a',
       'pcm_s16le',
@@ -81,22 +86,22 @@ export class FfmpegService {
   public async processVideoFile(
     filePath: string,
     projectId: string,
-    videoId: string | null,
+    video: Video,
   ): Promise<void> {
     // create dir if does not exist
-    const projDir = this.pathService.getProjectDirectory(projectId);
-    await ensureDir(join(projDir, 'videos'));
+    // const projDir = this.pathService.getProjectDirectory(projectId);
+    // await ensureDir(join(projDir, 'videos'));
 
-    let videoFilepath: string;
-    if (videoId === null) {
-      videoFilepath = this.pathService.getVideoFile(projectId);
-    } else {
-      // loop through additinal file indexes until the first path who wasnt created yet
-      videoFilepath = this.pathService.getAdditionalVideoFile(
-        projectId,
-        videoId,
-      );
-    }
+    const videoFilepath = this.pathService.getMediaFile(projectId, video);
+    // if (videoId === null) {
+    //   videoFilepath = this.pathService.getVideoFile(projectId);
+    // } else {
+    //   // loop through additinal file indexes until the first path who wasnt created yet
+    //   videoFilepath = this.pathService.getAdditionalVideoFile(
+    //     projectId,
+    //     videoId,
+    //   );
+    // }
 
     // TODO limit size of file
     const commands = [
@@ -133,9 +138,10 @@ export class FfmpegService {
     await this.execAsStream(commands);
   }
 
-  async createWavFile(filePath: string, projectId: string) {
-    const videoFilepath = this.pathService.getVideoFile(projectId);
-    const audioFilepath = this.pathService.getWavFile(projectId);
+  async createWavFile(projectId: string, video: Video, audio: Audio) {
+    const videoFilepath = this.pathService.getMediaFile(projectId, video);
+    // const audioFilepath = this.pathService.getWavFile(projectId);
+    const audioFilepath = this.pathService.getMediaFile(projectId, audio);
 
     const commands = [
       '-i',
@@ -147,8 +153,24 @@ export class FfmpegService {
     await this.execAsStream(commands);
   }
 
-  public async getVideoDuration(projectId: string) {
-    const videoFilepath = this.pathService.getVideoFile(projectId);
+  async createMp3File(projectId: string, video: Video, audio: Audio) {
+    const videoFilepath = this.pathService.getMediaFile(projectId, video);
+    // const audioFilepath = this.pathService.getMp3File(projectId);
+
+    const audioFilepath = this.pathService.getMediaFile(projectId, audio);
+
+    const commands = [
+      '-i',
+      videoFilepath,
+      '-ac',
+      '1', // reduce to mono
+      audioFilepath,
+    ];
+    await this.execAsStream(commands);
+  }
+
+  public async getVideoDuration(projectId: string, video: Video) {
+    const videoFilepath = this.pathService.getMediaFile(projectId, video);
     const commands = [
       this.ffprobe, // `ffprobe`,
       '-loglevel',

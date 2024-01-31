@@ -1,5 +1,4 @@
 import { Injectable } from '@nestjs/common';
-import { move } from 'fs-extra';
 import {
   ClientInstance,
   getSingleton,
@@ -360,11 +359,11 @@ export class LivestreamService {
 
     // TODO get duration of recording
 
-    await move(
-      this.pathService.getRecordingFile(dto.projectId),
-      this.pathService.getVideoFile(dto.projectId),
-      { overwrite: true },
-    );
+    // await move(
+    //   this.pathService.getRecordingFile(dto.projectId),
+    //   this.pathService.getVideoFile(dto.projectId),
+    //   { overwrite: true }, // TODO getVideoFile does not longer exist
+    // );
 
     // TODO change to correct duration
     const newDuration = this._getNewDuration(recordingTimestamps);

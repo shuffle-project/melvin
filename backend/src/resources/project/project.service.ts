@@ -6,16 +6,17 @@ import { plainToInstance } from 'class-transformer';
 import { randomBytes } from 'crypto';
 import { Request, Response } from 'express';
 import { ReadStream, createReadStream } from 'fs';
-import { remove, rm } from 'fs-extra';
+import { ensureDir, remove, rm } from 'fs-extra';
 import { readFile, stat } from 'fs/promises';
 import { Types } from 'mongoose';
 import { LeanUserDocument } from 'src/modules/db/schemas/user.schema';
 import { DbService } from '../../modules/db/db.service';
 import {
-  LeanProjectDocument,
+  MediaCategory,
+  MediaStatus,
+  Project,
   ProjectStatus,
   Video,
-  VideoStatus,
 } from '../../modules/db/schemas/project.schema';
 import { WaveformData } from '../../modules/ffmpeg/ffmpeg.interfaces';
 import { CustomLogger } from '../../modules/logger/logger.service';
@@ -49,11 +50,7 @@ import { UpdateProjectDto } from './dto/update-project.dto';
 import { UploadVideoDto } from './dto/upload-media.dto';
 import { ProjectInviteTokenEntity } from './entities/project-invite.entity';
 import { ProjectListEntity } from './entities/project-list.entity';
-import {
-  MediaLinksEntity,
-  ProjectEntity,
-  VideoLinkEntity,
-} from './entities/project.entity';
+import { ProjectEntity, ProjectMediaEntity } from './entities/project.entity';
 @Injectable()
 export class ProjectService {
   private serverBaseUrl: string;
@@ -85,45 +82,48 @@ export class ProjectService {
     );
   }
 
-  async _getMediaLinksEntity(
-    project: LeanProjectDocument,
-    authUser: AuthUser,
-  ): Promise<MediaLinksEntity> {
-    const mediaAuthToken = await this.authService.createMediaAccessToken(
-      authUser,
-      {
-        projectId: project._id.toString(),
-      },
-    );
+  // async _getMediaLinksEntity(
+  //   project: LeanProjectDocument,
+  //   authUser: AuthUser,
+  // ): Promise<MediaLinksEntity> {
+  //   const mediaAuthToken = await this.authService.createMediaAccessToken(
+  //     authUser,
+  //     {
+  //       projectId: project._id.toString(),
+  //     },
+  //   );
 
-    const video = `${
-      this.serverBaseUrl
-    }/projects/${project._id.toString()}/media/video?Authorization=${
-      mediaAuthToken.token
-    }`;
+  //   const videoId = project.videos[0]._id.toString();
+  //   const audioId = project.audios[0]._id.toString();
 
-    const audio = `${
-      this.serverBaseUrl
-    }/projects/${project._id.toString()}/media/audio?Authorization=${
-      mediaAuthToken.token
-    }`;
+  //   const video = `${
+  //     this.serverBaseUrl
+  //   }/projects/${project._id.toString()}/video/${videoId}?Authorization=${
+  //     mediaAuthToken.token
+  //   }`;
 
-    //  additionalVideos
-    const additionalVideos: VideoLinkEntity[] = project.videos.map((media) => ({
-      id: media._id.toString(),
-      status: media.status,
-      title: media.title,
-      originalFileName: media.originalFileName,
-      category: media.category,
-      url: `${
-        this.serverBaseUrl
-      }/projects/${project._id.toString()}/media/video/${media._id.toString()}?Authorization=${
-        mediaAuthToken.token
-      }`,
-    }));
+  //   const audio = `${
+  //     this.serverBaseUrl
+  //   }/projects/${project._id.toString()}/audio/${audioId}?Authorization=${
+  //     mediaAuthToken.token
+  //   }`;
 
-    return { video, audio, videos: additionalVideos };
-  }
+  //   //  additionalVideos
+  //   const additionalVideos: VideoLinkEntity[] = project.videos.map((media) => ({
+  //     id: media._id.toString(),
+  //     status: media.status,
+  //     title: media.title,
+  //     originalFileName: media.originalFileName,
+  //     category: media.category,
+  //     url: `${
+  //       this.serverBaseUrl
+  //     }/projects/${project._id.toString()}/video/${media._id.toString()}?Authorization=${
+  //       mediaAuthToken.token
+  //     }`,
+  //   }));
+
+  //   return { video, audio, videos: additionalVideos };
+  // }
 
   async create(
     authUser: AuthUser,
@@ -152,6 +152,14 @@ export class ProjectService {
       ? ProjectStatus.LIVE
       : ProjectStatus.WAITING;
 
+    const mainVideo: Video = {
+      _id: new Types.ObjectId(),
+      category: MediaCategory.MAIN,
+      extension: 'mp4',
+      originalFileName: '', // TODO
+      status: MediaStatus.PROCESSING,
+      title: 'mainvideo', // TODO
+    };
     //create project
     const project = await this.db.projectModel.create({
       ...createProjectDto,
@@ -159,7 +167,13 @@ export class ProjectService {
       users: [authUser.id, ...userIds],
       status,
       inviteToken,
+      videos: [mainVideo],
+      audios: [],
     });
+
+    await ensureDir(
+      this.pathService.getProjectDirectory(project._id.toString()),
+    );
 
     // add project to owner and invited users
     await this.db.userModel
@@ -199,21 +213,29 @@ export class ProjectService {
       'transcriptions',
     ]);
 
-    const media = await this._getMediaLinksEntity(populatedProject, authUser);
+    // const media = await this._getMediaLinksEntity(populatedProject, authUser);
 
-    const entity = plainToInstance(ProjectEntity, {
-      ...populatedProject.toObject(),
-      media,
-    }) as unknown as ProjectEntity;
+    // const entity = await this._toProjectEntity(
+    //   populatedProject.toObject(),
+    //   authUser,
+    // );
 
     // handle video and subtitle files / add queue jobs / generate subtitles
+
     await this._handleFilesAndTranscriptions(
       authUser,
-      entity,
+      populatedProject,
       video,
       subtitles,
       createProjectDto,
+      mainVideo,
     );
+
+    const entity = plainToInstance(ProjectEntity, {
+      // TODO noch benötigt?
+      ...populatedProject.toObject(),
+      // media,
+    }) as unknown as ProjectEntity;
 
     // Send events
     this.events.projectCreated(entity);
@@ -223,10 +245,11 @@ export class ProjectService {
 
   async _handleFilesAndTranscriptions(
     authUser: AuthUser,
-    entity: ProjectEntity,
+    project: Project,
     video: Express.Multer.File[],
     subtitles: Express.Multer.File[],
     createProjectDto: CreateProjectDto,
+    mainVideo: Video,
   ) {
     //either add jobs to queue or add to subsequent jobs to run after video processing
     const subsequentJobs: ProcessSubtitlesJob[] = [];
@@ -237,9 +260,9 @@ export class ProjectService {
           this.transcriptionService.create(
             authUser,
             {
-              project: new Types.ObjectId(entity._id),
-              language: entity.language,
-              title: `${entity.title} - ${entity.language}`,
+              project: new Types.ObjectId(project._id),
+              language: project.language,
+              title: `${project.title} - ${project.language}`,
             },
             file,
           );
@@ -249,15 +272,15 @@ export class ProjectService {
       const createdTranscription = await this.transcriptionService.create(
         authUser,
         {
-          project: new Types.ObjectId(entity._id),
-          language: entity.language,
-          title: `${entity.title} - ${entity.language}`,
+          project: new Types.ObjectId(project._id),
+          language: project.language,
+          title: `${project.title} - ${project.language}`,
         },
       );
 
       // generate subtitles
       subsequentJobs.push({
-        project: entity,
+        project: project,
         transcription: createdTranscription,
         payload: {
           type: SubtitlesType.FROM_ASR,
@@ -270,11 +293,12 @@ export class ProjectService {
     if (video) {
       const mediaFile = video[0];
       await this.projectQueue.add({
-        project: entity,
+        project: project,
         authUser,
         file: mediaFile,
         subsequentJobs,
-        videoId: null,
+        // videoId: null,
+        video: mainVideo,
       });
     }
   }
@@ -310,15 +334,16 @@ export class ProjectService {
 
   async findOne(authUser: AuthUser, id: string): Promise<ProjectEntity> {
     const project = await this.db.findProjectByIdOrThrow(id);
-
     if (!this.permissions.isProjectMember(project, authUser)) {
       throw new CustomForbiddenException('access_to_project_denied');
     }
 
-    const media = await this._getMediaLinksEntity(project, authUser);
+    // const media = await this._getMediaLinksEntity(project, authUser);
+
+    // const entity = await this._toProjectEntity(project, authUser);
 
     // Entity
-    const entity = plainToInstance(ProjectEntity, { ...project, media });
+    const entity = plainToInstance(ProjectEntity, project); //
 
     return entity;
   }
@@ -346,6 +371,15 @@ export class ProjectService {
     await this.events.projectPartiallyUpdated(
       { ...updatePartialDto },
       updatedProject,
+      // {
+      //   ...updatedProject,
+      //   audios: updatedProject.audios.map((audio) => {
+      //     return { ...audio, url: '' };
+      //   }),
+      //   videos: updatedProject.videos.map((video) => {
+      //     return { ...video, url: '' };
+      //   }),
+      // },
     );
     return updatedProject;
   }
@@ -425,20 +459,22 @@ export class ProjectService {
     }
 
     // append media object
-    const media = await this._getMediaLinksEntity(updatedProject, authUser);
+    // const media = await this._getMediaLinksEntity(updatedProject, authUser);
 
     // Entity
-    const entity = plainToInstance(ProjectEntity, { ...updatedProject, media });
+    // const entity = await this._toProjectEntity(updatedProject, authUser);
+    const entity = plainToInstance(ProjectEntity, updatedProject); // media
 
     if (mediaFile) {
       //update media file
-      await this.projectQueue.add({
-        project: entity,
-        authUser,
-        file: mediaFile,
-        subsequentJobs: [],
-        videoId: null,
-      });
+      // TODO
+      // await this.projectQueue.add({
+      //   project: entity,
+      //   authUser,
+      //   file: mediaFile,
+      //   subsequentJobs: [],
+      //   videoId: null,
+      // });
     }
 
     // Send events
@@ -646,7 +682,7 @@ export class ProjectService {
     mediaAccessUser: MediaAccessUser,
     request: Request,
     response: Response,
-    videoId: string = null,
+    videoId: string,
   ) {
     if (mediaAccessUser.projectId !== projectId) {
       throw new CustomForbiddenException();
@@ -656,16 +692,16 @@ export class ProjectService {
     // https://betterprogramming.pub/video-stream-with-node-js-and-html5-320b3191a6b6
     // https://www.geeksforgeeks.org/how-to-stream-large-mp4-files/
 
-    let videoFilepath: string;
-    if (videoId === null) {
-      videoFilepath = this.pathService.getVideoFile(projectId);
-    } else {
-      videoFilepath = this.pathService.getAdditionalVideoFile(
-        projectId,
-        videoId,
-      );
-    }
-
+    // let videoFilepath: string;
+    // if (videoId === null) {
+    //   videoFilepath = this.pathService.getVideoFile(projectId);
+    // } else {
+    //   videoFilepath = this.pathService.getAdditionalVideoFile(
+    //     projectId,
+    //     videoId,
+    //   );
+    // }
+    const videoFilepath = this.pathService.getFile(projectId, videoId, 'mp4');
     try {
       const videoStats = await stat(videoFilepath);
 
@@ -720,6 +756,7 @@ export class ProjectService {
     mediaAccessUser: MediaAccessUser,
     request: Request,
     response: Response,
+    audioId: string,
   ) {
     if (mediaAccessUser.projectId !== projectId) {
       throw new CustomForbiddenException();
@@ -729,7 +766,8 @@ export class ProjectService {
     // https://betterprogramming.pub/video-stream-with-node-js-and-html5-320b3191a6b6
     // https://www.geeksforgeeks.org/how-to-stream-large-mp4-files/
 
-    const audioFilepath = this.pathService.getWavFile(projectId);
+    // const audioFilepath = this.pathService.getMp3File(projectId);
+    const audioFilepath = this.pathService.getFile(projectId, audioId, 'mp3');
 
     try {
       const audioStats = await stat(audioFilepath);
@@ -757,7 +795,7 @@ export class ProjectService {
           'Content-Range': `bytes ${start}-${end}/${audioStats.size}`,
           'Accept-Ranges': 'bytes',
           'Content-length': chunksize,
-          'Content-Type': 'audio/wav',
+          'Content-Type': 'audio/mp3',
         });
         readStream = createReadStream(audioFilepath, {
           start: start,
@@ -768,7 +806,7 @@ export class ProjectService {
         response.status(200);
         response.header({
           'Content-Length': audioStats.size,
-          'Content-Type': 'audio/wav',
+          'Content-Type': 'audio/mp3',
         });
         readStream = createReadStream(audioFilepath);
       }
@@ -801,7 +839,8 @@ export class ProjectService {
       ...uploadVideoDto,
       _id: new Types.ObjectId(),
       originalFileName: '', // TODO
-      status: VideoStatus.WAITING, // TODO
+      status: MediaStatus.WAITING, // TODO
+      extension: 'mp4',
     };
     const updatedProject = await this.db.projectModel
       .findByIdAndUpdate(
@@ -821,9 +860,10 @@ export class ProjectService {
       project,
       file,
       subsequentJobs: [],
-      videoId: video._id.toString(),
+      video,
     });
 
+    // return await this._toProjectEntity(updatedProject, authUser);
     return updatedProject;
   }
 
@@ -846,7 +886,7 @@ export class ProjectService {
       throw new CustomNotFoundException();
     }
 
-    const path = this.pathService.getAdditionalVideoFile(projectId, mediaId);
+    const path = this.pathService.getFile(projectId, mediaId, 'mp4');
     remove(path);
 
     // TODO does not work
@@ -860,10 +900,93 @@ export class ProjectService {
     const updatedProject = await this.db.findProjectByIdOrThrow(projectId);
 
     // append media object
-    const media = await this._getMediaLinksEntity(updatedProject, authUser);
+    // const media = await this._getMediaLinksEntity(updatedProject, authUser);
+
     // Entity
-    const entity = plainToInstance(ProjectEntity, { ...updatedProject, media });
+    // const entity = await this._toProjectEntity(updatedProject, authUser); // TODO
+    const entity = plainToInstance(ProjectEntity, updatedProject); // , media
 
     await this.events.projectUpdated(entity);
   }
+
+  async getMediaEntity(
+    authUser: AuthUser,
+    projectId: string,
+  ): Promise<ProjectMediaEntity> {
+    const project = await this.db.findProjectByIdOrThrow(projectId);
+    if (!this.permissions.isProjectMember(project, authUser)) {
+      throw new CustomForbiddenException('access_to_project_denied');
+    }
+
+    const mediaAuthToken = this.authService.createMediaAccessToken(projectId);
+
+    const audios = project.audios.map((audio) => ({
+      ...audio,
+      mimetype: this._getMimetype(audio.extension),
+      url: `${
+        this.serverBaseUrl
+      }/projects/${project._id.toString()}/audio/${audio._id.toString()}?Authorization=${mediaAuthToken}`,
+    }));
+    const videos = project.videos.map((video) => ({
+      ...video,
+      mimetype: this._getMimetype(video.extension),
+      url: `${
+        this.serverBaseUrl
+      }/projects/${project._id.toString()}/video/${video._id.toString()}?Authorization=${mediaAuthToken}`,
+    }));
+
+    return plainToInstance(ProjectMediaEntity, { audios, videos });
+  }
+
+  private _getMimetype(extension: string) {
+    switch (extension) {
+      // AUDIO
+      case 'mp3':
+        return 'audio/mp3';
+      case 'wav':
+        return 'audio/wav';
+
+      // VIDEO
+      case 'mp4':
+        return 'video/mp4';
+
+      // unknown
+      default:
+        return 'text/plain';
+    }
+  }
+
+  // async _toProjectEntity(
+  //   project: Project,
+  //   authUser: AuthUser,
+  // ): Promise<ProjectEntity> {
+  //   const mediaAuthToken = this.authService.createMediaAccessToken(
+  //     project._id.toString(),
+  //   );
+
+  //   const audios = project.audios.map((audio) => ({
+  //     ...audio,
+  //     mimetype:"audio/mp3",
+  //     url: `${
+  //       this.serverBaseUrl
+  //     }/projects/${project._id.toString()}/audio/${audio._id.toString()}?Authorization=${
+  //       mediaAuthToken
+  //     }`,
+  //   }));
+  //   const videos = project.videos.map((video) => ({
+  //     ...video,
+  //     mimetype: "video/mp4"
+  //     url: `${
+  //       this.serverBaseUrl
+  //     }/projects/${project._id.toString()}/video/${video._id.toString()}?Authorization=${
+  //       mediaAuthToken
+  //     }`,
+  //   }));
+
+  //   return plainToInstance(ProjectEntity, {
+  //     ...project,
+  //     audios,
+  //     videos,
+  //   });
+  // }
 }

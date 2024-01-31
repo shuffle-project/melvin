@@ -6,8 +6,8 @@ import { readFile } from 'fs-extra';
 import { catchError, lastValueFrom, map } from 'rxjs';
 import { Language } from '../../../app.interfaces';
 import { AssmeblyAiConfig } from '../../../config/config.interface';
-import { ProjectEntity } from '../../../resources/project/entities/project.entity';
 import { DbService } from '../../db/db.service';
+import { Project } from '../../db/schemas/project.schema';
 import { CustomLogger } from '../../logger/logger.service';
 import { PathService } from '../../path/path.service';
 import {
@@ -81,10 +81,10 @@ export class AssemblyAiService implements ISepechToTextService {
     return null;
   }
 
-  async run(project: ProjectEntity): Promise<TranscriptEntity> {
+  async run(project: Project): Promise<TranscriptEntity> {
     const targetLang = project.language.substring(0, 2);
 
-    const uploadEntity = await this._upload(project._id.toString());
+    const uploadEntity = await this._upload(project);
 
     const transcribe = await this._transcribe(
       uploadEntity.upload_url,
@@ -122,8 +122,14 @@ export class AssemblyAiService implements ISepechToTextService {
     };
   }
 
-  async _upload(projectId: string) {
-    const videoPath = this.pathService.getVideoFile(projectId);
+  async _upload(project: Project) {
+    // const videoPath = this.pathService.getVideoFile(projectId);
+
+    const mp4 = project.audios.find((audio) => audio.extension === 'mp4');
+    const videoPath = this.pathService.getMediaFile(
+      project._id.toString(),
+      mp4,
+    );
 
     const file = await readFile(videoPath);
 

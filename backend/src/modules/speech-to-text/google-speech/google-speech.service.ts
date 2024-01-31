@@ -5,8 +5,8 @@ import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { Language } from '../../../app.interfaces';
 import { GoogleSpeechConfig } from '../../../config/config.interface';
-import { ProjectEntity } from '../../../resources/project/entities/project.entity';
 import { DbService } from '../../db/db.service';
+import { Project } from '../../db/schemas/project.schema';
 import { CustomLogger } from '../../logger/logger.service';
 import { PathService } from '../../path/path.service';
 import {
@@ -88,7 +88,7 @@ export class GoogleSpeechService implements ISepechToTextService {
     }
   }
 
-  async run(project: ProjectEntity): Promise<TranscriptEntity> {
+  async run(project: Project): Promise<TranscriptEntity> {
     try {
       await this._uploadFileToBucket(project);
       const response = await this._execSpeechToText(project);
@@ -118,8 +118,13 @@ export class GoogleSpeechService implements ISepechToTextService {
     return null;
   }
 
-  async _uploadFileToBucket(project: ProjectEntity) {
-    const localAudioPath = this.pathService.getWavFile(project._id.toString());
+  async _uploadFileToBucket(project: Project) {
+    // const localAudioPath = this.pathService.getWavFile(project._id.toString());
+    const wav = project.audios.find((audio) => audio.extension === 'wav');
+    const localAudioPath = this.pathService.getMediaFile(
+      project._id.toString(),
+      wav,
+    );
     const destination = `${project._id.toString()}/audio.wav`;
 
     await this.bucket.upload(localAudioPath, { destination });
@@ -127,11 +132,11 @@ export class GoogleSpeechService implements ISepechToTextService {
     return;
   }
 
-  async _deleteFilesInBucket(project: ProjectEntity) {
+  async _deleteFilesInBucket(project: Project) {
     await this.bucket.deleteFiles({ prefix: `${project._id.toString()}` });
   }
 
-  async _execSpeechToText(project: ProjectEntity) {
+  async _execSpeechToText(project: Project) {
     const uri = `gs://${this.bucketName}/${project._id.toString()}/audio.wav`;
     const encoding = 0;
     const sampleRateHertz = 48000;

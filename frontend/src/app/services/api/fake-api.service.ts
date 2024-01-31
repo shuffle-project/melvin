@@ -43,7 +43,7 @@ import { PauseLivestreamEntity } from './entities/pause-livestream.entity';
 import { PauseRecordingEntity } from './entities/pause-recording,entity';
 import { ProjectInviteTokenEntity } from './entities/project-invite-token.entity';
 import { ProjectListEntity } from './entities/project-list.entity';
-import { ProjectEntity } from './entities/project.entity';
+import { ProjectEntity, ProjectMediaEntity } from './entities/project.entity';
 import { ResumeLivestreamEntity } from './entities/resume-livestream.entity';
 import { ResumeRecordingEntity } from './entities/resume-recording';
 import { StartLivestreamEntity } from './entities/start-livestream.entity';
@@ -98,9 +98,9 @@ export class FakeApiService implements ApiService {
     return of({ token });
   }
 
-  mediaAccessToken(projectId: string): Observable<{ token: string }> {
-    return of();
-  }
+  // mediaAccessToken(projectId: string): Observable<{ token: string }> {
+  //   return of();
+  // }
 
   // verifyEmail() {}
 
@@ -162,6 +162,11 @@ export class FakeApiService implements ApiService {
   findOneProject(projectId: string): Observable<ProjectEntity> {
     this.logger.verbose('findOneProject mocked');
     return of(PROJECT_ENTITY_MOCK[0]);
+  }
+
+  findProjectMediaEntity(projectId: string): Observable<ProjectMediaEntity> {
+    this.logger.verbose('findProjectMedia mocked');
+    return of({ audios: [], videos: [] });
   }
 
   updateProject(

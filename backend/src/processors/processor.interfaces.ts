@@ -1,5 +1,5 @@
+import { Project, Video } from '../modules/db/schemas/project.schema';
 import { AuthUser } from '../resources/auth/auth.interfaces';
-import { ProjectEntity } from '../resources/project/entities/project.entity';
 import { TranscriptionEntity } from '../resources/transcription/entities/transcription.entity';
 
 export enum TranslateVendors {
@@ -44,16 +44,17 @@ export interface CopyPayload {
 }
 
 export interface ProcessSubtitlesJob {
-  project: ProjectEntity;
+  project: Project;
   transcription: TranscriptionEntity;
   payload: FilePayload | AsrPayload | TranslationPayload | CopyPayload | null;
 }
 
 // Project Processor
 export interface ProcessProjectJob {
-  project: ProjectEntity;
+  project: Project;
   authUser: AuthUser;
   file: Express.Multer.File;
   subsequentJobs: ProcessSubtitlesJob[];
-  videoId: string | null;
+  // videoId: string | null;
+  video: Video;
 }

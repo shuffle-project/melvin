@@ -26,7 +26,6 @@ import {
   AuthGuestLoginResponseDto,
 } from './dto/auth-guest-login.dto';
 import { AuthLoginDto, AuthLoginResponseDto } from './dto/auth-login.dto';
-import { AuthMediaAccessTokenDto } from './dto/auth-media-access-token.dto';
 import {
   AuthRefreshTokenDto,
   AuthRefreshTokenResponseDto,
@@ -239,18 +238,18 @@ export class AuthService {
     return this.jwtService.decode(token);
   }
 
-  async createMediaAccessToken(
-    authUser: AuthUser,
-    dto: AuthMediaAccessTokenDto,
-  ): Promise<{ token: string }> {
-    const project = await this.db.findProjectByIdOrThrow(dto.projectId);
+  createMediaAccessToken(
+    // authUser: AuthUser,
+    projectId: string,
+  ): string {
+    // const project = await this.db.findProjectByIdOrThrow(dto.projectId);
 
-    if (!this.permissions.isProjectMember(project, authUser)) {
-      throw new CustomForbiddenException('access_to_project_denied');
-    }
+    // if (!this.permissions.isProjectMember(project, authUser)) {
+    //   throw new CustomForbiddenException('access_to_project_denied');
+    // }
 
     const payload: MediaAccessJwtPayload = {
-      projectId: project._id.toString(),
+      projectId,
     };
 
     const token = this.jwtService.sign(payload, {
@@ -260,7 +259,7 @@ export class AuthService {
       jwtid: v4(),
       expiresIn: '8h',
     });
-    return { token };
+    return token;
   }
 
   async findSystemAuthUser(): Promise<AuthUser> {

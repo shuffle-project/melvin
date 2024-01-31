@@ -1,15 +1,10 @@
-import {
-  ApiProperty,
-  ApiPropertyOptional,
-  OmitType,
-  PickType,
-} from '@nestjs/swagger';
+import { ApiProperty, OmitType, PickType } from '@nestjs/swagger';
 import { Exclude, Expose, Type } from 'class-transformer';
 import { PopulatedDoc } from 'mongoose';
 import {
-  MediaCategory as MediaCategory,
+  Audio,
   Project,
-  VideoStatus,
+  Video,
 } from '../../../modules/db/schemas/project.schema';
 import { Transcription } from '../../../modules/db/schemas/transcription.schema';
 import { UserEntity } from '../../user/entities/user.entity';
@@ -23,47 +18,79 @@ export class ProjectTranscriptionEntity extends PickType(Transcription, [
   language: string;
 }
 
-export class VideoLinkEntity {
-  @ApiProperty({ type: String })
-  @Type(() => String)
-  id: string;
+// export class VideoLinkEntity {
+//   @ApiProperty({ type: String })
+//   @Type(() => String)
+//   id: string;
 
+//   @ApiProperty({ type: String })
+//   @Type(() => String)
+//   url: string;
+
+//   @ApiProperty({ type: String })
+//   @Type(() => String)
+//   title: string;
+
+//   @ApiProperty({ type: String })
+//   @Type(() => String)
+//   originalFileName: string;
+
+//   @ApiProperty({ enum: MediaStatus, example: MediaStatus.FINISHED })
+//   status: MediaStatus;
+
+//   @ApiProperty({ enum: MediaCategory, example: MediaCategory.OTHER })
+//   category: MediaCategory;
+// }
+
+// export class MediaLinksEntity {
+//   @ApiProperty({ type: String })
+//   @Type(() => String)
+//   video: string;
+
+//   @ApiProperty({ type: String })
+//   @Type(() => String)
+//   audio: string;
+
+//   @ApiProperty({ type: [VideoLinkEntity] })
+//   @Type(() => VideoLinkEntity)
+//   videos: VideoLinkEntity[];
+// }
+
+export class VideoEntity extends Video {
   @ApiProperty({ type: String })
   @Type(() => String)
   url: string;
 
   @ApiProperty({ type: String })
   @Type(() => String)
-  title: string;
-
-  @ApiProperty({ type: String })
-  @Type(() => String)
-  originalFileName: string;
-
-  @ApiProperty({ enum: VideoStatus, example: VideoStatus.FINISHED })
-  status: VideoStatus;
-
-  @ApiProperty({ enum: MediaCategory, example: MediaCategory.OTHER })
-  category: MediaCategory;
+  mimetype: string;
 }
 
-export class MediaLinksEntity {
+export class AudioEntity extends Audio {
   @ApiProperty({ type: String })
   @Type(() => String)
-  video: string;
+  url: string;
 
   @ApiProperty({ type: String })
   @Type(() => String)
-  audio: string;
+  mimetype: string;
+}
 
-  @ApiProperty({ type: [VideoLinkEntity] })
-  @Type(() => VideoLinkEntity)
-  videos: VideoLinkEntity[];
+export class ProjectMediaEntity {
+  @ApiProperty({ type: [AudioEntity] })
+  @Type(() => AudioEntity)
+  audios: AudioEntity[];
+
+  @ApiProperty({ type: [VideoEntity] })
+  @Type(() => VideoEntity)
+  videos: VideoEntity[];
 }
 
 export class ProjectEntity extends OmitType(Project, [
   'transcriptions',
   'users',
+  'audios',
+  'videos',
 ] as const) {
   @ApiProperty({ type: [ProjectTranscriptionEntity] })
   @Type(() => ProjectTranscriptionEntity)
@@ -73,7 +100,15 @@ export class ProjectEntity extends OmitType(Project, [
   @Type(() => UserEntity)
   users: PopulatedDoc<UserEntity>[];
 
-  @ApiPropertyOptional({ type: MediaLinksEntity })
-  @Type(() => MediaLinksEntity)
-  media?: MediaLinksEntity;
+  // @ApiPropertyOptional({ type: MediaLinksEntity })
+  // @Type(() => MediaLinksEntity)
+  // media?: MediaLinksEntity;
+
+  // @ApiProperty({ type: [AudioEntity] })
+  // @Type(() => AudioEntity)
+  // audios: AudioEntity[];
+
+  // @ApiProperty({ type: [VideoEntity] })
+  // @Type(() => VideoEntity)
+  // videos: VideoEntity[];
 }

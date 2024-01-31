@@ -74,23 +74,25 @@
 </div>
 }
 <ng-container *ngrxLet="project$ as project">
-  <hr />
-  @if (project) {
-  <div>
-    <h3 i18n="@@uploadAdditionalMediaListHeader">Videos</h3>
-    <ul>
-      @for (video of project.videos; track video) {
-      <li>
-        {{ video.title }} -- {{ video.category }}
-        <button
-          mat-icon-button
-          (click)="onDeleteAdditionalMedia(project, video)"
-        >
-          <mat-icon svgIcon="delete"></mat-icon>
-        </button>
-      </li>
-      }
-    </ul>
-  </div>
-  }
+  <ng-container *ngrxLet="media$ as media">
+    <hr />
+    @if ( project && media) {
+    <div>
+      <h3 i18n="@@uploadAdditionalMediaListHeader">Videos</h3>
+      <ul>
+        @for (video of media.videos; track video) {
+        <li>
+          {{ video.title }} -- {{ video.category }}
+          <button
+            mat-icon-button
+            (click)="onDeleteAdditionalMedia(project, video)"
+          >
+            <mat-icon svgIcon="delete"></mat-icon>
+          </button>
+        </li>
+        }
+      </ul>
+    </div>
+    }
+  </ng-container>
 </ng-container>

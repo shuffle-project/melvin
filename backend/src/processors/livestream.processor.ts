@@ -37,7 +37,6 @@ export class LivestreamProcessor {
 
         const min = random(0, 50);
         const max = random(min, 100);
-
         await Promise.all([
           this.projectService.update(systemUser, project._id.toString(), {
             duration: project.duration + 1000,

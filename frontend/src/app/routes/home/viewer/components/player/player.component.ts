@@ -20,9 +20,10 @@ import { LetDirective, PushPipe } from '@ngrx/component';
 import { Store } from '@ngrx/store';
 import { Subject, combineLatest, map } from 'rxjs';
 import {
-  MediaCategory,
+  AudioEntity,
   ProjectEntity,
-  VideoLinkEntity,
+  ProjectMediaEntity,
+  VideoEntity,
 } from '../../../../../services/api/entities/project.entity';
 import * as viewerActions from '../../../../../store/actions/viewer.actions';
 import { AppState } from '../../../../../store/app.state';
@@ -33,12 +34,8 @@ import { ViewerService } from '../../viewer.service';
 import { ControlsComponent } from './controls/controls.component';
 import { VideoContainerComponent } from './video-container/video-container.component';
 
-export interface ViewerVideo {
-  id: string;
-  title: string;
-  url: string;
+export interface ViewerVideo extends VideoEntity {
   shown: boolean;
-  category: MediaCategory;
 }
 
 @Component({
@@ -64,6 +61,8 @@ export class PlayerComponent
   private destroy$$ = new Subject<void>();
 
   @Input({ required: true }) project!: ProjectEntity;
+  @Input({ required: true }) media!: ProjectMediaEntity;
+  playingAudio: AudioEntity | null = null;
 
   @ViewChild('allVideosContainerRef')
   private _allVideosContainerRef!: ElementRef<HTMLDivElement>;
@@ -130,34 +129,42 @@ export class PlayerComponent
 
   ngOnInit() {
     this.setVideosInStore();
+    this.chooseAudio();
   }
 
   ngOnChanges(): void {
     this.setVideosInStore();
   }
 
+  chooseAudio() {
+    const mp3 = this.media.audios.find((obj) => obj.extension === 'mp3');
+    if (mp3) {
+      this.playingAudio = mp3;
+    } else if (this.media.audios.length > 0) {
+      this.playingAudio = this.media.audios[0];
+    } else {
+      // TODO
+    }
+  }
+
   //TODO maybe move this method to store, as a following action from the findOneProject
   setVideosInStore() {
-    const videos: ViewerVideo[] = [
-      {
-        id: this.project!.id,
-        title: 'Hauptviedeo',
-        url: this.project!.media!.video,
-        category: MediaCategory.MAIN,
-        shown: true,
-      },
-    ];
-    this.project.media?.videos.forEach((element: VideoLinkEntity) => {
-      videos.push({
-        ...element,
-        shown: true,
-      });
-    });
-
+    // const videos: ViewerVideo[] = [
+    //   {
+    //     id: this.project!.id,
+    //     title: 'Hauptviedeo',
+    //     url: this.project!.media!.video,
+    //     category: MediaCategory.MAIN,
+    //     shown: true,
+    //   },
+    // ];
     this.store.dispatch(
       viewerActions.initVideos({
-        viewerVideos: videos,
-        bigVideoId: this.project!.id,
+        viewerVideos: this.media.videos.map((video) => ({
+          ...video,
+          shown: true,
+        })),
+        bigVideoId: this.media.videos[0].id,
       })
     );
   }

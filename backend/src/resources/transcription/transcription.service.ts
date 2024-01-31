@@ -99,11 +99,17 @@ export class TranscriptionService {
       transcription.toObject(),
     ) as unknown as TranscriptionEntity;
 
+    const updatedProjectEntity =
+      // await this.projectService._toProjectEntity(
+      { ...updatedProject, audios: [], videos: [] };
+    // authUser,
+    // );
+
     // add queue job to fill transcription
     if (subtitleFile) {
       // fill with subtitles file
       this.subtitlesQueue.add({
-        project: updatedProject,
+        project: updatedProjectEntity,
         transcription: entity,
         payload: {
           type: SubtitlesType.FROM_FILE,
@@ -112,7 +118,7 @@ export class TranscriptionService {
       });
     } else if (createTranscriptionDto.asrDto) {
       this.subtitlesQueue.add({
-        project: updatedProject,
+        project: updatedProjectEntity,
         transcription: entity,
         payload: {
           type: SubtitlesType.FROM_ASR,
@@ -121,7 +127,7 @@ export class TranscriptionService {
       });
     } else if (createTranscriptionDto.translateDto) {
       this.subtitlesQueue.add({
-        project: updatedProject,
+        project: updatedProjectEntity,
         transcription: entity,
         payload: {
           type: SubtitlesType.FROM_TRANSLATION,
@@ -130,7 +136,7 @@ export class TranscriptionService {
       });
     } else if (createTranscriptionDto.copyDto) {
       this.subtitlesQueue.add({
-        project: updatedProject,
+        project: updatedProjectEntity,
         transcription: entity,
         payload: {
           type: SubtitlesType.FROM_COPY,
@@ -142,8 +148,8 @@ export class TranscriptionService {
     }
 
     // Send events
-    this.events.projectUpdated(updatedProject);
-    this.events.transcriptionCreated(updatedProject, entity);
+    this.events.projectUpdated(updatedProjectEntity);
+    this.events.transcriptionCreated(updatedProjectEntity, entity);
 
     return entity;
   }
@@ -266,9 +272,15 @@ export class TranscriptionService {
       ),
     ]);
 
+    const updatedProjectEntity = { ...updatedProject, audios: [], videos: [] };
+    // await this.projectService._toProjectEntity(
+    //   project,
+    //   authUser,
+    // );
+
     // Send events
-    this.events.projectUpdated(updatedProject);
-    this.events.transcriptionRemoved(updatedProject, transcription);
+    this.events.projectUpdated(updatedProjectEntity);
+    this.events.transcriptionRemoved(updatedProjectEntity, transcription);
   }
 
   async downloadSubtitles(

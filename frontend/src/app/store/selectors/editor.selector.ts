@@ -61,6 +61,13 @@ export const selectProject = createSelector(
   }
 );
 
+export const selectMedia = createSelector(
+  selectEditorState,
+  (state: EditorState) => {
+    return state.media;
+  }
+);
+
 export const selectActiveUsers = createSelector(
   selectEditorState,
   authSelectors.selectUserId,

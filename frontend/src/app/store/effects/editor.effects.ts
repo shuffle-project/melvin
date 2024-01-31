@@ -66,8 +66,29 @@ export class EditorEffects {
       switchMap((action) =>
         this.api.findOneProject(action.projectId).pipe(
           map((project) => editorActions.findProjectSuccess({ project })),
-          catchError((errorRes) =>
-            of(editorActions.findProjectFail({ error: errorRes }))
+          catchError(
+            (errorRes) => of(editorActions.findProjectFail({ error: errorRes })) // TODO
+          )
+        )
+      )
+    )
+  );
+
+  // media
+
+  findMedia$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(
+        editorActions.findProjectMedia,
+        editorActions.findProjectFromEditor,
+        editorActions.findProjectFromViewer
+      ),
+      switchMap((action) =>
+        this.api.findProjectMediaEntity(action.projectId).pipe(
+          map((media) => editorActions.findProjectMediaSuccess({ media })),
+          catchError(
+            (errorRes) =>
+              of(editorActions.findProjectMediaFail({ error: errorRes })) // TODO
           )
         )
       )

@@ -2,41 +2,41 @@ import { Component, HostListener, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 // use own viewer actions
+import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
+import { LetDirective } from '@ngrx/component';
 import { combineLatest, map } from 'rxjs';
+import { HeaderComponent } from '../../../components/header/header.component';
 import * as editorActions from '../../../store/actions/editor.actions';
 import { AppState } from '../../../store/app.state';
 import * as configSelector from '../../../store/selectors/config.selector';
 import * as editorSelector from '../../../store/selectors/editor.selector';
 import * as viewerSelector from '../../../store/selectors/viewer.selector';
 import { AdjustLayoutDialogComponent } from './components/adjust-layout-dialog/adjust-layout-dialog.component';
-import { ViewerService } from './viewer.service';
 import { InfoboxComponent } from './components/infobox/infobox.component';
 import { PlayerComponent } from './components/player/player.component';
 import { TranscriptComponent } from './components/transcript/transcript.component';
-import { MatButtonModule } from '@angular/material/button';
-import { LetDirective } from '@ngrx/component';
-import { HeaderComponent } from '../../../components/header/header.component';
-
+import { ViewerService } from './viewer.service';
 
 @Component({
-    selector: 'app-viewer',
-    templateUrl: './viewer.component.html',
-    styleUrls: ['./viewer.component.scss'],
-    standalone: true,
-    imports: [
+  selector: 'app-viewer',
+  templateUrl: './viewer.component.html',
+  styleUrls: ['./viewer.component.scss'],
+  standalone: true,
+  imports: [
     HeaderComponent,
     LetDirective,
     MatButtonModule,
     TranscriptComponent,
     PlayerComponent,
-    InfoboxComponent
-],
+    InfoboxComponent,
+  ],
 })
 export class ViewerComponent implements OnInit {
   public projectId!: string;
 
   public project$ = this.store.select(editorSelector.selectProject);
+  public media$ = this.store.select(editorSelector.selectMedia);
   public darkMode$ = this.store.select(configSelector.darkMode);
 
   // TODO layout according to this settings

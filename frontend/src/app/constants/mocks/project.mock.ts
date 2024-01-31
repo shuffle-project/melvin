@@ -18,9 +18,7 @@ export const PROJECT_ENTITY_MOCK: ProjectEntity[] = [
     duration: 2700000,
     start: 0,
     end: 2700000,
-    additionalMedia: [],
     language: 'de-DE',
     exports: ['6200e98275f8fc58715da44a'],
-    videos: [],
   },
 ];
