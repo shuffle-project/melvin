@@ -17,6 +17,10 @@ const WAVEFORM_NORMALIZED_MAXIMUM = 100;
 
 @Injectable()
 export class FfmpegService {
+  //  HOW MUCH THREADS
+  //  -threds 0,1,...
+  // https://superuser.com/questions/155305/how-many-threads-does-ffmpeg-use-by-default
+
   private ffmpeg = ffmpegPath;
   private ffprobe = ffprobePath.path;
 
@@ -26,12 +30,12 @@ export class FfmpegService {
 
   public async getWaveformData(
     project: Project,
-    wav: Audio,
+    audio: Audio,
   ): Promise<WaveformData> {
     const projectId = project._id.toString();
     // const videoFilepath = this.pathService.getVideoFile(projectId);
     // const audioFilepath = this.pathService.getMp3File(projectId);
-    const audioFilepath = this.pathService.getMediaFile(projectId, wav);
+    const audioFilepath = this.pathService.getMediaFile(projectId, audio);
     const args = [
       // logging
       '-loglevel',

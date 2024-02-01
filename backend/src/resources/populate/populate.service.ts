@@ -367,7 +367,12 @@ export class PopulateService {
     const exampleProjectDirectory =
       this.pathService.getExampleProjectDirectory();
     const filenames = await readdir(exampleProjectDirectory);
-    const filepaths = filenames.map((o) => join(exampleProjectDirectory, o));
+    const filteredFilenames = filenames.filter(
+      (file) => !file.startsWith('old'),
+    );
+    const filepaths = filteredFilenames.map((o) =>
+      join(exampleProjectDirectory, o),
+    );
 
     // Generate project directory and symlink paths
     const directories: string[] = [];
@@ -387,9 +392,10 @@ export class PopulateService {
           let name = basename(src);
           if (name === 'video.mp4') {
             name = video._id.toString() + '.mp4';
-          }
-          if (name === 'audio.mp3') {
+          } else if (name === 'audio.mp3') {
             name = audio._id.toString() + '.mp3';
+          } else if (name === 'waveform.json') {
+            name = audio._id.toString() + '.json';
           }
 
           return {

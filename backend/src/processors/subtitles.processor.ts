@@ -235,6 +235,7 @@ export class SubtitlesProcessor {
     await this.speechToTextService.generate(
       project,
       updatedTranscription,
+      payload.audio,
       payload.vendor,
     );
   }

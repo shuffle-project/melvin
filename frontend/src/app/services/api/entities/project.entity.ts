@@ -40,7 +40,9 @@ export interface MediaEntity {
 
 export interface VideoEntity extends MediaEntity {}
 
-export interface AudioEntity extends MediaEntity {}
+export interface AudioEntity extends MediaEntity {
+  waveform: string;
+}
 
 export interface VideoLinkEntity {
   id: string;
@@ -96,15 +98,9 @@ export interface ProjectEntity {
   end: number;
   language: string;
   exports: string[];
-  // transcriptions: string[];
   transcriptions: ShortTranscriptionEntity[];
-  // users: string[];
   users: UserEntity[];
-  // media?: MediaLinksEntity;
-  // additionalMedia: AdditionalMedia[];
   livestream?: LivestreamEntity;
-  // audios: AudioEntity[];
-  // videos: VideoEntity[];
 }
 
 export interface ProjectMediaEntity {

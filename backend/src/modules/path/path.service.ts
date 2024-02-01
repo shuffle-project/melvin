@@ -37,49 +37,20 @@ export class PathService {
     return join(this.getAssetsDirectory(), 'example-project');
   }
 
-  // getVideoFile(projectId: string): string {
-  //   return join(this.getProjectDirectory(projectId), 'video.mp4');
-  // }
-
-  // getAdditionalVideoFile(projectId: string, videoId: string): string {
-  //   // return join( //TODO
-  //   //   this.getProjectDirectory(projectId),
-  //   //   'video' + videoId + '.mp4',
-  //   // );
-  //   return join(
-  //     this.getProjectDirectory(projectId),
-  //     'videos',
-  //     videoId + '.mp4',
-  //   );
-  // }
-
-  //todo
   getMediaFile(projectId: string, media: Audio | Video): string {
     const filename = media._id + '.' + media.extension;
     return join(this.getProjectDirectory(projectId), filename);
   }
 
-  getFile(projectId: string, fileId: string, extension: string): string {
+  getFileWithExt(projectId: string, fileId: string, extension: string): string {
     return join(this.getProjectDirectory(projectId), fileId + '.' + extension);
   }
 
-  // getWavFile(projectId: string): string {
-  //   return join(this.getProjectDirectory(projectId), 'audio.wav');
-  // }
-
-  // getMp3File(projectId: string): string {
-  //   return join(this.getProjectDirectory(projectId), 'audio.mp3');
-  // }
-
-  getVttFile(projectId: string): string {
-    return join(this.getProjectDirectory(projectId), 'audio.vtt');
+  getFile(projectId: string, filename: string): string {
+    return join(this.getProjectDirectory(projectId), filename);
   }
 
-  getWaveformFile(projectId: string) {
-    return join(this.getProjectDirectory(projectId), 'waveform.json');
-  }
-
-  new_getWaveformFile(projectId: string, audio: Audio) {
+  getWaveformFile(projectId: string, audio: Audio) {
     return join(this.getProjectDirectory(projectId), audio._id + '.json');
   }
 

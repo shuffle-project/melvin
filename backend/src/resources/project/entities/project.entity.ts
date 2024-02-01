@@ -74,6 +74,10 @@ export class AudioEntity extends Audio {
   @ApiProperty({ type: String })
   @Type(() => String)
   mimetype: string;
+
+  @ApiProperty({ type: String })
+  @Type(() => String)
+  waveform: string;
 }
 
 export class ProjectMediaEntity {
@@ -84,6 +88,8 @@ export class ProjectMediaEntity {
   @ApiProperty({ type: [VideoEntity] })
   @Type(() => VideoEntity)
   videos: VideoEntity[];
+
+  // files: FileEntity[];
 }
 
 export class ProjectEntity extends OmitType(Project, [

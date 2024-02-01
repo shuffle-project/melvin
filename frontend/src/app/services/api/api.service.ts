@@ -99,7 +99,9 @@ export abstract class ApiService {
 
   abstract findOneProject(projectId: string): Observable<ProjectEntity>;
 
-  abstract findProjectMediaEntity(projectId: string): Observable<ProjectMediaEntity>;
+  abstract findProjectMediaEntity(
+    projectId: string
+  ): Observable<ProjectMediaEntity>;
 
   abstract updateProject(
     projectId: string,
@@ -128,7 +130,8 @@ export abstract class ApiService {
 
   abstract uploadMedia(projectId: string, file: File): Observable<void>;
 
-  abstract getWaveformData(projectId: string): Observable<WaveformData>;
+  // abstract getWaveformData(projectId: string): Observable<WaveformData>;
+  abstract getWaveformData(waveformUrl: string): Observable<WaveformData>;
   // joinProject(inviteLink: string): Observable<Project> {}
 
   abstract subscribeProject(projectId: string): Observable<void>;

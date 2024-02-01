@@ -19,6 +19,7 @@ import {
 import { ApiConsumes, ApiResponse } from '@nestjs/swagger';
 import { Request, Response } from 'express';
 import { Project } from '../../modules/db/schemas/project.schema';
+import { IsValidFilenamePipe } from '../../pipes/is-valid-filename.pipe';
 import { IsValidObjectIdPipe } from '../../pipes/is-valid-objectid.pipe';
 import { MediaUser, User } from '../auth/auth.decorator';
 import { AuthUser, MediaAccessUser } from '../auth/auth.interfaces';
@@ -175,64 +176,22 @@ export class ProjectController {
   }
 
   // file management
-
   @UseGuards(JwtAuthGuard)
-  @Get(':id/media/waveform')
-  getWaveformData(
-    @User() authUser: AuthUser,
-    @Param('id', IsValidObjectIdPipe) id: string,
-  ): any {
-    //todo switch to serve file
-    return this.projectService.getWaveformData(authUser, id);
-  }
-
-  // @UseGuards(JwtAuthGuard)
-  // @Get(':id/media/video')
-  // @ApiResponse({ status: HttpStatus.PARTIAL_CONTENT })
-  // async getVideoChunk(
-  //   @Param('id', IsValidObjectIdPipe) id: string,
-  //   @MediaUser() mediaAccessUser: MediaAccessUser,
-  //   @Req() req: Request,
-  //   @Res() res: Response,
-  // ) {
-  //   return this.projectService.getVideoChunk(id, mediaAccessUser, req, res);
-  // }
-
-  @UseGuards(JwtAuthGuard)
-  @Get(':id/video/:videoId')
+  @Get(':id/media/:filename')
   @ApiResponse({ status: HttpStatus.PARTIAL_CONTENT })
   async getAdditionalVideoChunk(
     @Param('id', IsValidObjectIdPipe) id: string,
-    @Param('videoId', IsValidObjectIdPipe) videoId: string,
+    @Param('filename', IsValidFilenamePipe) filename: string,
     @MediaUser() mediaAccessUser: MediaAccessUser,
     @Req() req: Request,
     @Res() res: Response,
   ) {
-    return this.projectService.getVideoChunk(
+    return this.projectService.getMediaChunk(
       id,
       mediaAccessUser,
       req,
       res,
-      videoId,
-    );
-  }
-
-  @UseGuards(JwtAuthGuard)
-  @Get(':id/audio/:audioId')
-  @ApiResponse({ status: HttpStatus.PARTIAL_CONTENT })
-  async getAdditionalAudioChunk(
-    @Param('id', IsValidObjectIdPipe) id: string,
-    @Param('audioId', IsValidObjectIdPipe) audioId: string,
-    @MediaUser() mediaAccessUser: MediaAccessUser,
-    @Req() req: Request,
-    @Res() res: Response,
-  ) {
-    return this.projectService.getAudioChunk(
-      id,
-      mediaAccessUser,
-      req,
-      res,
-      audioId,
+      filename,
     );
   }
 

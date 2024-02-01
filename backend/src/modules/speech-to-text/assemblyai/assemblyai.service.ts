@@ -7,7 +7,7 @@ import { catchError, lastValueFrom, map } from 'rxjs';
 import { Language } from '../../../app.interfaces';
 import { AssmeblyAiConfig } from '../../../config/config.interface';
 import { DbService } from '../../db/db.service';
-import { Project } from '../../db/schemas/project.schema';
+import { Audio, Project } from '../../db/schemas/project.schema';
 import { CustomLogger } from '../../logger/logger.service';
 import { PathService } from '../../path/path.service';
 import {
@@ -81,7 +81,7 @@ export class AssemblyAiService implements ISepechToTextService {
     return null;
   }
 
-  async run(project: Project): Promise<TranscriptEntity> {
+  async run(project: Project, audio: Audio): Promise<TranscriptEntity> {
     const targetLang = project.language.substring(0, 2);
 
     const uploadEntity = await this._upload(project);

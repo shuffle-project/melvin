@@ -8,7 +8,7 @@ import { catchError, lastValueFrom, map } from 'rxjs';
 import { Language } from '../../../app.interfaces';
 import { WhisperConfig } from '../../../config/config.interface';
 import { DbService } from '../../db/db.service';
-import { Project } from '../../db/schemas/project.schema';
+import { Audio, Project } from '../../db/schemas/project.schema';
 import { CustomLogger } from '../../logger/logger.service';
 import { PathService } from '../../path/path.service';
 import {
@@ -73,8 +73,8 @@ export class WhisperSpeechService implements ISepechToTextService {
     });
   }
 
-  async run(project: Project): Promise<TranscriptEntity> {
-    const transcribe = await this._transcribe(project);
+  async run(project: Project, audio: Audio): Promise<TranscriptEntity> {
+    const transcribe = await this._transcribe(project, audio);
     // console.log(JSON.stringify(transcribe));
 
     // use cronJob/queue instead of
@@ -136,17 +136,16 @@ export class WhisperSpeechService implements ISepechToTextService {
     return { words };
   }
 
-  async _transcribe(project: Project) {
-    const wav = project.audios.find((audio) => audio.extension === 'wav');
+  async _transcribe(project: Project, audio: Audio) {
     const audioPath = this.pathService.getMediaFile(
       project._id.toString(),
-      wav,
+      audio,
     );
 
     const file = await readFile(audioPath);
 
     const formData = new FormData();
-    formData.append('file', file, 'audio.wav');
+    formData.append('file', file, audio._id.toString() + '.' + audio.extension);
     const settings: WhiTranscribeDto = { language: project.language };
     formData.append('settings', JSON.stringify(settings));
 

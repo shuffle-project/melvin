@@ -6,7 +6,7 @@ import { ConfigService } from '@nestjs/config';
 import { Language } from '../../../app.interfaces';
 import { GoogleSpeechConfig } from '../../../config/config.interface';
 import { DbService } from '../../db/db.service';
-import { Project } from '../../db/schemas/project.schema';
+import { Audio, Project } from '../../db/schemas/project.schema';
 import { CustomLogger } from '../../logger/logger.service';
 import { PathService } from '../../path/path.service';
 import {
@@ -88,10 +88,10 @@ export class GoogleSpeechService implements ISepechToTextService {
     }
   }
 
-  async run(project: Project): Promise<TranscriptEntity> {
+  async run(project: Project, audio: Audio): Promise<TranscriptEntity> {
     try {
-      await this._uploadFileToBucket(project);
-      const response = await this._execSpeechToText(project);
+      await this._uploadFileToBucket(project, audio);
+      const response = await this._execSpeechToText(project, audio);
 
       // concat and reformat words from google format to our format
       const allWords: WordEntity[] = [];
@@ -118,14 +118,14 @@ export class GoogleSpeechService implements ISepechToTextService {
     return null;
   }
 
-  async _uploadFileToBucket(project: Project) {
+  async _uploadFileToBucket(project: Project, audio: Audio) {
     // const localAudioPath = this.pathService.getWavFile(project._id.toString());
-    const wav = project.audios.find((audio) => audio.extension === 'wav');
+    // const wav = project.audios.find((audio) => audio.extension === 'wav');
     const localAudioPath = this.pathService.getMediaFile(
       project._id.toString(),
-      wav,
+      audio,
     );
-    const destination = `${project._id.toString()}/audio.wav`;
+    const destination = `${project._id.toString()}/audio.${audio.extension}`;
 
     await this.bucket.upload(localAudioPath, { destination });
 
@@ -136,8 +136,10 @@ export class GoogleSpeechService implements ISepechToTextService {
     await this.bucket.deleteFiles({ prefix: `${project._id.toString()}` });
   }
 
-  async _execSpeechToText(project: Project) {
-    const uri = `gs://${this.bucketName}/${project._id.toString()}/audio.wav`;
+  async _execSpeechToText(project: Project, audio: Audio) {
+    const uri = `gs://${this.bucketName}/${project._id.toString()}/audio.${
+      audio.extension
+    }`;
     const encoding = 0;
     const sampleRateHertz = 48000;
 

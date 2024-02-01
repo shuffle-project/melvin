@@ -3,7 +3,6 @@ import { ConfigService } from '@nestjs/config';
 import { parse } from '@plussub/srt-vtt-parser';
 import { readFile } from 'fs/promises';
 import { AsrServiceConfig } from '../../app.interfaces';
-import { ASR_TEST_LANGUGAGE } from '../../constants/languages.constants';
 import { AsrVendors } from '../../processors/processor.interfaces';
 import { CaptionEntity } from '../../resources/caption/entities/caption.entity';
 import { PopulateService } from '../../resources/populate/populate.service';
@@ -11,7 +10,7 @@ import { ProjectEntity } from '../../resources/project/entities/project.entity';
 import { TranscriptionEntity } from '../../resources/transcription/entities/transcription.entity';
 import { DbService } from '../db/db.service';
 import { Caption } from '../db/schemas/caption.schema';
-import { Project } from '../db/schemas/project.schema';
+import { Audio, Project } from '../db/schemas/project.schema';
 import { CustomLogger } from '../logger/logger.service';
 import { PathService } from '../path/path.service';
 import { AssemblyAiService } from './assemblyai/assemblyai.service';
@@ -95,12 +94,12 @@ export class SpeechToTextService {
       asrServiceConfigs.push(this.serviceConfigs.whisper);
     }
 
-    // TODO only for random populate
-    asrServiceConfigs.push({
-      asrVendor: AsrVendors.RANDOM,
-      fullName: 'Random texts',
-      languages: ASR_TEST_LANGUGAGE,
-    });
+    //  only for random populate
+    // asrServiceConfigs.push({
+    //   asrVendor: AsrVendors.RANDOM,
+    //   fullName: 'Random texts',
+    //   languages: ASR_TEST_LANGUGAGE,
+    // });
 
     return asrServiceConfigs;
   }
@@ -108,6 +107,7 @@ export class SpeechToTextService {
   async generate(
     project: Project,
     transcription: TranscriptionEntity,
+    audio: Audio,
     vendor: AsrVendors,
   ) {
     this.logger.verbose(
@@ -118,15 +118,15 @@ export class SpeechToTextService {
     let res: TranscriptEntity | string;
     switch (vendor) {
       case AsrVendors.ASSEMBLYAI:
-        res = await this.assemblyAiService.run(project);
+        res = await this.assemblyAiService.run(project, audio);
         captions = this._wordsToCaptions(project, transcription, res);
         break;
       case AsrVendors.GOOGLE:
-        res = await this.googleSpeechService.run(project);
+        res = await this.googleSpeechService.run(project, audio);
         captions = this._wordsToCaptions(project, transcription, res);
         break;
       case AsrVendors.WHISPER:
-        res = await this.whisperSpeechService.run(project);
+        res = await this.whisperSpeechService.run(project, audio);
         captions = this._wordsToCaptions(project, transcription, res);
         break;
       case AsrVendors.RANDOM:

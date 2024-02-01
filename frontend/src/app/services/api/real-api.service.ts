@@ -326,9 +326,12 @@ export class RealApiService implements ApiService {
       observe: 'events' as any,
     });
   }
-
-  getWaveformData(projectId: string): Observable<WaveformData> {
-    return this._get<WaveformData>(`/projects/${projectId}/media/waveform`);
+  //  old
+  // getWaveformData(projectId: string): Observable<WaveformData> {
+  //   return this._get<WaveformData>(`/projects/${projectId}/media/waveform`);
+  // }
+  getWaveformData(waveformUrl: string): Observable<WaveformData> {
+    return this.httpClient.get<WaveformData>(waveformUrl);
   }
 
   invite(projectId: string, emails: string[]): Observable<void> {

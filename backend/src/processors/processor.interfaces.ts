@@ -1,4 +1,4 @@
-import { Project, Video } from '../modules/db/schemas/project.schema';
+import { Audio, Project, Video } from '../modules/db/schemas/project.schema';
 import { AuthUser } from '../resources/auth/auth.interfaces';
 import { TranscriptionEntity } from '../resources/transcription/entities/transcription.entity';
 
@@ -30,6 +30,7 @@ export interface FilePayload {
 export interface AsrPayload {
   type: SubtitlesType.FROM_ASR;
   vendor: AsrVendors;
+  audio: Audio;
 }
 export interface TranslationPayload {
   type: SubtitlesType.FROM_TRANSLATION;
@@ -56,5 +57,6 @@ export interface ProcessProjectJob {
   file: Express.Multer.File;
   subsequentJobs: ProcessSubtitlesJob[];
   // videoId: string | null;
-  video: Video;
+  mainVideo: Video;
+  mainAudio?: Audio;
 }
