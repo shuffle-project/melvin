@@ -162,17 +162,17 @@ export class ProjectService {
       category: MediaCategory.MAIN,
       extension: 'mp4',
       originalFileName: '', // TODO
-      status: MediaStatus.PROCESSING,
-      title: 'mainvideo', // TODO
+      status: MediaStatus.WAITING, // TODO
+      title: 'mainvideo',
     };
 
     const mainAudio: Audio = {
       _id: new Types.ObjectId(),
-      category: MediaCategory.OTHER,
-      originalFileName: '', // TODO
-      status: MediaStatus.PROCESSING, // TODO
-      title: '', //TODO
+      category: MediaCategory.MAIN,
       extension: 'mp3',
+      originalFileName: '', // TODO
+      status: MediaStatus.WAITING, // TODO
+      title: 'mainaudio',
     };
 
     //create project
@@ -498,7 +498,13 @@ export class ProjectService {
 
     // TODO remove files on delete proj -> vllt in eine queue? damit es wiederholt wird falls es failed
     const projectDir = this.pathService.getProjectDirectory(id);
-    rm(projectDir, { recursive: true, force: true });
+    try {
+      rm(projectDir, { recursive: true, force: true });
+    } catch (e) {
+      // TODO coudl not delete files
+      console.log('could not delete files ' + id);
+      console.log(e);
+    }
 
     // Send events
     this.events.projectRemoved(project);
@@ -735,7 +741,7 @@ export class ProjectService {
       ...uploadVideoDto,
       _id: new Types.ObjectId(),
       originalFileName: file.filename,
-      status: MediaStatus.WAITING, // TODO
+      status: MediaStatus.WAITING,
       extension: 'mp4',
     };
     const updatedProject = await this.db.projectModel
@@ -762,8 +768,27 @@ export class ProjectService {
     return updatedProject;
   }
 
+  async _updateMediaStatus(
+    projectId: string,
+    media: Audio | Video,
+    newStatus: MediaStatus,
+  ) {
+    // TODO quick and dirty - pls refactor me
+
+    const project = await this.db.projectModel.findById(projectId);
+
+    const audio = project.audios.find((a) => isSameObjectId(a._id, media._id));
+    if (audio) audio.status = newStatus;
+
+    const video = project.videos.find((a) => isSameObjectId(a._id, media._id));
+    if (video) video.status = newStatus;
+
+    await project.save();
+  }
+
   async deleteMedia(authUser: AuthUser, projectId: string, mediaId: string) {
     const project = await this.db.findProjectByIdOrThrow(projectId);
+    // TODO refactor -> what if main delted?
 
     if (!this.permissions.isProjectMember(project, authUser)) {
       throw new CustomForbiddenException('access_to_project_denied');
@@ -781,7 +806,11 @@ export class ProjectService {
       throw new CustomNotFoundException();
     }
 
-    const path = this.pathService.getFileWithExt(projectId, mediaId, 'mp4');
+    if (mediaObj.category === MediaCategory.MAIN) {
+      throw new CustomForbiddenException('can_not_delete_main_video');
+    }
+
+    const path = this.pathService.getMediaFile(projectId, mediaObj);
     remove(path);
 
     // TODO does not work

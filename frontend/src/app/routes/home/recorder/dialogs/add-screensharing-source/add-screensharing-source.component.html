@@ -29,7 +29,7 @@
       [srcObject]="screensharingSource.mediaStream"
       autoplay
       controls
-      muted
+      [muted]="true"
     ></video>
   </div>
   } @if (screensharingSource.mediaStream && screensharingSource.sound) {

@@ -82,13 +82,15 @@
       <ul>
         @for (video of media.videos; track video) {
         <li>
-          {{ video.title }} -- {{ video.category }}
+          {{ video.title }} -- {{ video.category }} -- {{ video.status }}
+          @if (video.category !== 'main') {
           <button
             mat-icon-button
             (click)="onDeleteAdditionalMedia(project, video)"
           >
             <mat-icon svgIcon="delete"></mat-icon>
           </button>
+          }
         </li>
         }
       </ul>

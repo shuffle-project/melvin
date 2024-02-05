@@ -13,6 +13,7 @@ import { DbService } from '../modules/db/db.service';
 import {
   Audio,
   MediaCategory,
+  MediaStatus,
   ProjectStatus,
 } from '../modules/db/schemas/project.schema';
 import { WaveformData } from '../modules/ffmpeg/ffmpeg.interfaces';
@@ -47,7 +48,18 @@ export class ProjectProcessor {
     const systemUser = await this.authService.findSystemAuthUser();
 
     // process video
+
+    await this.projectService._updateMediaStatus(
+      projectId,
+      mainVideo,
+      MediaStatus.PROCESSING,
+    );
     await this.ffmpegService.processVideoFile(file.path, projectId, mainVideo);
+    await this.projectService._updateMediaStatus(
+      projectId,
+      mainVideo,
+      MediaStatus.FINISHED,
+    );
 
     // stop if it is not the main video
     if (mainVideo.category !== MediaCategory.MAIN) {
@@ -66,8 +78,18 @@ export class ProjectProcessor {
     });
 
     if (mainAudio) {
+      await this.projectService._updateMediaStatus(
+        projectId,
+        mainAudio,
+        MediaStatus.PROCESSING,
+      );
       await this.ffmpegService.createMp3File(projectId, mainVideo, mainAudio);
       await this.generateWaveformData(job.data, mainAudio);
+      await this.projectService._updateMediaStatus(
+        projectId,
+        mainAudio,
+        MediaStatus.FINISHED,
+      );
     }
 
     const updatedProject = await this.db.projectModel.findById(projectId);
