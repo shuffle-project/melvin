@@ -31,8 +31,6 @@ jobs:
       - name: Checkout repository
         id: checkout
         uses: actions/checkout@v4
-      - run: |
-          echo "VERSION=$(node -p "require('./backend/package.json').version")" >> "$GITHUB_OUTPUT"
 
       - name: Log in to the Container registry
         uses: docker/login-action@v3
@@ -48,9 +46,8 @@ jobs:
           images: |
             ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}-backend
           tags: |
-            type=raw,
             type=ref,event=branch
-            type=semver,pattern={{version}},value=${{steps.checkout.outputs.VERSION}}
+            type=semver,pattern={{version}}
           # type=sha
           flavor: |
             latest=true
@@ -72,7 +69,6 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-      - run: VERSION=$(node -p "require('./frontend/package.json').version")
 
       - name: Log in to the Container registry
         uses: docker/login-action@v3
