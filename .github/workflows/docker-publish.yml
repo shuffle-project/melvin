@@ -31,6 +31,7 @@ jobs:
       - name: Checkout repository
         id: checkout
         uses: actions/checkout@v4
+
       - name: Extract version and set it to TAG env var
         run: |
           echo "TAG=$(jq -r '.version' backend/package.json)" >> $GITHUB_ENV
