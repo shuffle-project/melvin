@@ -23,6 +23,7 @@ import { isSameObjectId } from '../../utils/objectid';
 import { AuthUser } from '../auth/auth.interfaces';
 import { CaptionService } from '../caption/caption.service';
 import { EventsGateway } from '../events/events.gateway';
+import { ProjectEntity } from '../project/entities/project.entity';
 import { CreateSpeakersDto } from './dto/create-speakers.dto';
 import { CreateTranscriptionDto } from './dto/create-transcription.dto';
 import {
@@ -145,9 +146,11 @@ export class TranscriptionService {
       // empty transcription
     }
 
+    const projectEntity = plainToInstance(ProjectEntity, updatedProject);
+
     // Send events
-    this.events.projectUpdated(updatedProject);
-    this.events.transcriptionCreated(updatedProject, entity);
+    this.events.projectUpdated(projectEntity);
+    this.events.transcriptionCreated(projectEntity, entity);
 
     return entity;
   }
@@ -270,11 +273,11 @@ export class TranscriptionService {
       ),
     ]);
 
-    const updatedProjectEntity = { ...updatedProject, audios: [], videos: [] };
+    const projectEntity = plainToInstance(ProjectEntity, updatedProject);
 
     // Send events
-    this.events.projectUpdated(updatedProjectEntity);
-    this.events.transcriptionRemoved(updatedProjectEntity, transcription);
+    this.events.projectUpdated(projectEntity);
+    this.events.transcriptionRemoved(projectEntity, transcription);
   }
 
   async downloadSubtitles(

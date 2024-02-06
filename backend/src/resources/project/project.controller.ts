@@ -215,7 +215,7 @@ export class ProjectController {
     @User() authUser: AuthUser,
     @Param('id', IsValidObjectIdPipe) id: string,
     @Param('mediaId', IsValidObjectIdPipe) mediaId: string,
-  ) {
+  ): Promise<ProjectMediaEntity> {
     return this.projectService.deleteMedia(authUser, id, mediaId);
   }
 

@@ -101,6 +101,21 @@ export const findProjectMediaFail = createAction(
   props<{ error: HttpErrorResponse }>()
 );
 
+export const deleteProjectMedia = createAction(
+  '[UPLOAD ADDITIONAL MEDIA COMPONENT] Delete project media',
+  props<{ projectId: string; mediaId: string }>()
+);
+
+export const deleteProjectMediaSuccess = createAction(
+  '[PROJECT API] Delete project media success',
+  props<{ media: ProjectMediaEntity }>()
+);
+
+export const deleteProjectMediaFail = createAction(
+  '[PROJECT API] Delete project media faiiled',
+  props<{ error: HttpErrorResponse }>()
+);
+
 // waveform
 
 export const getWaveform = createAction(

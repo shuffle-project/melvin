@@ -19,12 +19,6 @@ export enum MediaCategory {
   SPEAKER = 'speaker',
 }
 
-export interface AdditionalMedia {
-  id: string;
-  title: string;
-  mediaType: MediaType;
-}
-
 export interface MediaEntity {
   id: string;
   updatedAt: string;
@@ -51,12 +45,6 @@ export interface VideoLinkEntity {
   originalFileName: string;
   status: MediaStatus;
   category: MediaCategory;
-}
-
-export interface MediaLinksEntity {
-  video: string;
-  audio: string;
-  videos: VideoLinkEntity[];
 }
 
 export enum LivestreamStatus {

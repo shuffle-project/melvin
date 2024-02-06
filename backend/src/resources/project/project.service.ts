@@ -352,8 +352,7 @@ export class ProjectService {
     return entity;
   }
 
-  // TODO
-  async updatePartial(id: string, updatePartialDto: UpdatePartialProjectDto) {
+  async _updatePartial(id: string, updatePartialDto: UpdatePartialProjectDto) {
     const project = await this.db.findProjectByIdOrThrow(id);
     const updatedProject = await this.db.projectModel
       .findByIdAndUpdate(
@@ -453,16 +452,12 @@ export class ProjectService {
       );
     }
 
-    // append media object
-    // const media = await this._getMediaLinksEntity(updatedProject, authUser);
-
     // Entity
-    // const entity = await this._toProjectEntity(updatedProject, authUser);
-    const entity = plainToInstance(ProjectEntity, updatedProject); // media
+    const entity = plainToInstance(ProjectEntity, updatedProject);
 
+    // TODO What should happen if someone updates the project with a mediafile
     if (mediaFile) {
       //update media file
-      // TODO
       // await this.projectQueue.add({
       //   project: entity,
       //   authUser,
@@ -501,7 +496,7 @@ export class ProjectService {
     try {
       rm(projectDir, { recursive: true, force: true });
     } catch (e) {
-      // TODO coudl not delete files
+      // TODO could not delete files
       console.log('could not delete files ' + id);
       console.log(e);
     }
@@ -786,7 +781,11 @@ export class ProjectService {
     await project.save();
   }
 
-  async deleteMedia(authUser: AuthUser, projectId: string, mediaId: string) {
+  async deleteMedia(
+    authUser: AuthUser,
+    projectId: string,
+    mediaId: string,
+  ): Promise<ProjectMediaEntity> {
     const project = await this.db.findProjectByIdOrThrow(projectId);
     // TODO refactor -> what if main delted?
 
@@ -813,7 +812,6 @@ export class ProjectService {
     const path = this.pathService.getMediaFile(projectId, mediaObj);
     remove(path);
 
-    // TODO does not work
     await this.db.projectModel
       .findByIdAndUpdate(projectId, {
         $pull: { videos: { _id: new Types.ObjectId(mediaId) } },
@@ -827,6 +825,8 @@ export class ProjectService {
     const entity = plainToInstance(ProjectEntity, updatedProject);
 
     await this.events.projectUpdated(entity);
+
+    return this.getMediaEntity(authUser, projectId);
   }
 
   async getMediaEntity(

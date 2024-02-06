@@ -12,13 +12,12 @@ import {
   Validators,
 } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { Subscription, combineLatest, firstValueFrom, map } from 'rxjs';
+import { Subscription, combineLatest, map } from 'rxjs';
 import { ApiService } from '../../../../services/api/api.service';
 import {
-  AdditionalMedia,
   MediaCategory,
+  MediaEntity,
   ProjectEntity,
-  VideoEntity,
 } from '../../../../services/api/entities/project.entity';
 import { AppState } from '../../../../store/app.state';
 import * as projectsSelector from '../../../../store/selectors/projects.selector';
@@ -32,8 +31,9 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSelectModule } from '@angular/material/select';
 import { LetDirective, PushPipe } from '@ngrx/component';
 import * as uuid from 'uuid';
+import { FormatDatePipe } from '../../../../pipes/format-date-pipe/format-date.pipe';
 import { MediaCategoryPipe } from '../../../../pipes/media-category-pipe/media-category.pipe';
-import { findProjectMedia } from '../../../../store/actions/editor.actions';
+import * as editorActions from '../../../../store/actions/editor.actions';
 import { selectUserId } from '../../../../store/selectors/auth.selector';
 import * as editorSelector from '../../../../store/selectors/editor.selector';
 
@@ -62,6 +62,7 @@ interface FileUpload {
     LetDirective,
     PushPipe,
     MediaCategoryPipe,
+    FormatDatePipe,
   ],
 })
 export class UploadAdditionalContentComponent implements OnInit {
@@ -103,7 +104,9 @@ export class UploadAdditionalContentComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.store.dispatch(findProjectMedia({ projectId: this.projectId }));
+    this.store.dispatch(
+      editorActions.findProjectMedia({ projectId: this.projectId })
+    );
 
     this.formGroup = this.fb.group({
       title: this.fb.control<string>('', [Validators.required]),
@@ -176,6 +179,10 @@ export class UploadAdditionalContentComponent implements OnInit {
           1
         );
 
+        this.store.dispatch(
+          editorActions.findProjectMedia({ projectId: this.projectId })
+        );
+
         break;
       default:
         break;
@@ -191,9 +198,30 @@ export class UploadAdditionalContentComponent implements OnInit {
 
   async onDeleteAdditionalMedia(
     project: ProjectEntity,
-    additional: AdditionalMedia | VideoEntity
+    mediaEntity: MediaEntity
   ) {
     // TODO move to effect and delete obj in reducer
-    await firstValueFrom(this.api.deleteMedia(project.id, additional.id));
+    // await firstValueFrom(this.api.deleteMedia(project.id, additional.id));
+
+    this.store.dispatch(
+      editorActions.deleteProjectMedia({
+        projectId: project.id,
+        mediaId: mediaEntity.id,
+      })
+    );
+  }
+
+  getIcon(category: MediaCategory) {
+    switch (category) {
+      case MediaCategory.SPEAKER:
+        return 'speaker2';
+
+      case MediaCategory.SIGN_LANGUAGE:
+        return 'sign_language';
+
+      // TODO more icons for categories
+      default:
+        return 'viewer';
+    }
   }
 }

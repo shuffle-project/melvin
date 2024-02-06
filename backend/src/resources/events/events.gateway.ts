@@ -330,7 +330,7 @@ export class EventsGateway implements OnGatewayConnection {
   }
 
   async transcriptionCreated(
-    project: LeanProjectDocument,
+    project: ProjectEntity,
     transcription: TranscriptionEntity,
   ) {
     const room = this._getProjectRoom(project._id.toString());
@@ -340,7 +340,7 @@ export class EventsGateway implements OnGatewayConnection {
   }
 
   async transcriptionUpdated(
-    project: LeanProjectDocument,
+    project: ProjectEntity,
     transcription: TranscriptionEntity,
   ) {
     const room = this._getProjectRoom(project._id.toString());
@@ -350,7 +350,7 @@ export class EventsGateway implements OnGatewayConnection {
   }
 
   async transcriptionRemoved(
-    project: LeanProjectDocument,
+    project: ProjectEntity,
     transcription: TranscriptionEntity,
   ) {
     const room = this._getProjectRoom(project._id.toString());

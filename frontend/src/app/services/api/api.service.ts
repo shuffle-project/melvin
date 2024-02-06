@@ -110,7 +110,10 @@ export abstract class ApiService {
 
   abstract removeProject(projectId: string): Observable<void>;
 
-  abstract deleteMedia(projectId: string, mediaId: string): Observable<void>;
+  abstract deleteMedia(
+    projectId: string,
+    mediaId: string
+  ): Observable<ProjectMediaEntity>;
 
   abstract uploadVideo(
     projectId: string,

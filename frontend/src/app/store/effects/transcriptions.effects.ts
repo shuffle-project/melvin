@@ -5,6 +5,7 @@ import { AlertService } from '../../services/alert/alert.service';
 import { ApiService } from '../../services/api/api.service';
 import { TranscriptionEntity } from '../../services/api/entities/transcription.entity';
 import * as editorActions from '../actions/editor.actions';
+import * as projectsActions from '../actions/projects.actions';
 import * as transcriptionsActions from '../actions/transcriptions.actions';
 
 @Injectable({
@@ -20,7 +21,7 @@ export class TranscriptionsEffects {
   //TODO better naming than prepare___
   prepareFetchTranscription$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(editorActions.findProjectSuccess),
+      ofType(editorActions.findProjectSuccess, projectsActions.findOneSuccess),
       map((action) => {
         return transcriptionsActions.findAllFromEffect({
           projectId: action.project.id,

@@ -77,7 +77,6 @@ export class EditorEffects {
   );
 
   // media
-
   findMedia$ = createEffect(() =>
     this.actions$.pipe(
       ofType(
@@ -91,6 +90,21 @@ export class EditorEffects {
           catchError(
             (errorRes) =>
               of(editorActions.findProjectMediaFail({ error: errorRes })) // TODO
+          )
+        )
+      )
+    )
+  );
+
+  deleteMedia$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(editorActions.deleteProjectMedia),
+      switchMap((action) =>
+        this.api.deleteMedia(action.projectId, action.mediaId).pipe(
+          map((media) => editorActions.deleteProjectMediaSuccess({ media })),
+          catchError(
+            (errorRes) =>
+              of(editorActions.deleteProjectMediaFail({ error: errorRes })) // TODO
           )
         )
       )

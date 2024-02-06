@@ -140,13 +140,17 @@ export const editorReducer = createReducer(
     }
   ),
 
-  on(editorActions.findProjectSuccess, (state, { project }) => {
-    return {
-      ...state,
-      project: { ...project },
-      projectLoading: false,
-    };
-  }),
+  on(
+    editorActions.findProjectSuccess,
+    projectsActions.findOneSuccess,
+    (state, { project }) => {
+      return {
+        ...state,
+        project: { ...project },
+        projectLoading: false,
+      };
+    }
+  ),
 
   on(
     projectsActions.updateSuccess,
@@ -182,9 +186,13 @@ export const editorReducer = createReducer(
 
   // project media
 
-  on(editorActions.findProjectMediaSuccess, (state, { media }) => {
-    return { ...state, media };
-  }),
+  on(
+    editorActions.findProjectMediaSuccess,
+    editorActions.deleteProjectMediaSuccess,
+    (state, { media }) => {
+      return { ...state, media };
+    }
+  ),
 
   // waveform
 
