@@ -48,8 +48,9 @@ jobs:
           images: |
             ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}-backend
           tags: |
+            type=raw,
             type=ref,event=branch
-            type=semver,pattern={{version}},value={{steps.checkout.outputs.VERSION}}
+            type=semver,pattern={{version}},value=${{steps.checkout.outputs.VERSION}}
           # type=sha
           flavor: |
             latest=true
