@@ -32,10 +32,6 @@ jobs:
         id: checkout
         uses: actions/checkout@v4
 
-      - name: Extract version and set it to TAG env var
-        run: |
-          echo "TAG=$(jq -r '.version' backend/package.json)" >> $GITHUB_ENV
-
       - name: Log in to the Container registry
         uses: docker/login-action@v3
         with:
@@ -51,7 +47,7 @@ jobs:
             ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}-backend
           tags: |
             type=ref,event=branch
-            type=semver,value=${{ env.TAG }}
+            type=semver,value=${{ env.TAG }},pattern={{version}}
           # type=sha
           flavor: |
             latest=true
@@ -74,10 +70,6 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Extract version and set it to TAG env var
-        run: |
-          echo "TAG=$(jq -r '.version' frontend/package.json)" >> $GITHUB_ENV
-
       - name: Log in to the Container registry
         uses: docker/login-action@v3
         with:
@@ -93,7 +85,7 @@ jobs:
             ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}-frontend
           tags: |
             type=ref,event=branch
-            type=semver,value=${{ env.TAG }}
+            type=semver,value=${{ env.TAG }},pattern={{version}}
           #  type=sha
           flavor: |
             latest=true
