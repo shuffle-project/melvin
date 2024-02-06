@@ -86,6 +86,7 @@ jobs:
           tags: |
             type=ref,event=branch
             type=semver,pattern={{version}}
+
           #  type=sha
           flavor: |
             latest=true
