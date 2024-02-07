@@ -9,7 +9,13 @@ import {
 import { Job, JobStatus, Queue } from 'bull';
 import { rm } from 'fs-extra';
 import { writeFile } from 'fs/promises';
-import { ProjectStatus } from '../modules/db/schemas/project.schema';
+import { DbService } from '../modules/db/db.service';
+import {
+  Audio,
+  MediaCategory,
+  MediaStatus,
+  ProjectStatus,
+} from '../modules/db/schemas/project.schema';
 import { WaveformData } from '../modules/ffmpeg/ffmpeg.interfaces';
 import { FfmpegService } from '../modules/ffmpeg/ffmpeg.service';
 import { CustomLogger } from '../modules/logger/logger.service';
@@ -30,44 +36,68 @@ export class ProjectProcessor {
     private activityService: ActivityService,
     @InjectQueue('subtitles')
     private subtitlesQueue: Queue<ProcessSubtitlesJob>,
+    private db: DbService,
   ) {
     this.logger.setContext(this.constructor.name);
   }
 
   @Process()
   async processProject(job: Job<ProcessProjectJob>) {
-    const { project, file, videoId } = job.data;
+    const { project, file, mainVideo, mainAudio } = job.data;
     const projectId = project._id.toString();
     const systemUser = await this.authService.findSystemAuthUser();
 
     // process video
-    await this.ffmpegService.processVideoFile(file.path, projectId, videoId);
+
+    await this.projectService._updateMediaStatus(
+      projectId,
+      mainVideo,
+      MediaStatus.PROCESSING,
+    );
+    await this.ffmpegService.processVideoFile(file.path, projectId, mainVideo);
+    await this.projectService._updateMediaStatus(
+      projectId,
+      mainVideo,
+      MediaStatus.FINISHED,
+    );
 
     // stop if it is not the main video
-    if (videoId) {
+    if (mainVideo.category !== MediaCategory.MAIN) {
       return null;
     }
 
-    // create wav
-    await this.ffmpegService.createWavFile(file.path, projectId);
-
     //get duration via ffprobe
-    const duration = await this.ffmpegService.getVideoDuration(projectId);
-    // set duration in project
-    const updatedProject = await this.projectService.update(
-      systemUser,
+    const duration = await this.ffmpegService.getVideoDuration(
       projectId,
-      {
-        duration,
-      },
+      mainVideo,
     );
+
+    // set duration in project
+    await this.projectService.update(systemUser, projectId, {
+      duration,
+    });
+
+    if (mainAudio) {
+      await this.projectService._updateMediaStatus(
+        projectId,
+        mainAudio,
+        MediaStatus.PROCESSING,
+      );
+      await this.ffmpegService.createMp3File(projectId, mainVideo, mainAudio);
+      await this.generateWaveformData(job.data, mainAudio);
+      await this.projectService._updateMediaStatus(
+        projectId,
+        mainAudio,
+        MediaStatus.FINISHED,
+      );
+    }
+
+    const updatedProject = await this.db.projectModel.findById(projectId);
 
     //push to subtitles queue with updated project
     job.data.subsequentJobs.forEach((job) =>
       this.subtitlesQueue.add({ ...job, project: updatedProject }),
     );
-
-    await this.generateWaveformData(job.data);
 
     return null;
   }
@@ -156,14 +186,14 @@ export class ProjectProcessor {
     this.logger.error(err.stack);
   }
 
-  async generateWaveformData(data: ProcessProjectJob) {
+  async generateWaveformData(data: ProcessProjectJob, audio: Audio) {
     const { project } = data;
     const projectId = project._id.toString();
 
-    const waveformPath = this.pathService.getWaveformFile(projectId);
+    const waveformPath = this.pathService.getWaveformFile(projectId, audio);
 
     const generatedData: WaveformData =
-      await this.ffmpegService.getWaveformData(projectId);
+      await this.ffmpegService.getWaveformData(project, audio);
 
     await writeFile(waveformPath, JSON.stringify(generatedData));
   }

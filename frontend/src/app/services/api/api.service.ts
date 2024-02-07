@@ -37,7 +37,7 @@ import { PauseLivestreamEntity } from './entities/pause-livestream.entity';
 import { PauseRecordingEntity } from './entities/pause-recording,entity';
 import { ProjectInviteTokenEntity } from './entities/project-invite-token.entity';
 import { ProjectListEntity } from './entities/project-list.entity';
-import { ProjectEntity } from './entities/project.entity';
+import { ProjectEntity, ProjectMediaEntity } from './entities/project.entity';
 import { ResumeLivestreamEntity } from './entities/resume-livestream.entity';
 import { ResumeRecordingEntity } from './entities/resume-recording';
 import { StartLivestreamEntity } from './entities/start-livestream.entity';
@@ -74,7 +74,7 @@ export abstract class ApiService {
 
   abstract refreshToken(token: string): Observable<{ token: string }>;
 
-  abstract mediaAccessToken(projectId: string): Observable<{ token: string }>;
+  // abstract mediaAccessToken(projectId: string): Observable<{ token: string }>;
 
   // verifyEmail() {}
 
@@ -99,6 +99,10 @@ export abstract class ApiService {
 
   abstract findOneProject(projectId: string): Observable<ProjectEntity>;
 
+  abstract findProjectMediaEntity(
+    projectId: string
+  ): Observable<ProjectMediaEntity>;
+
   abstract updateProject(
     projectId: string,
     project: UpdateProjectDto
@@ -106,7 +110,10 @@ export abstract class ApiService {
 
   abstract removeProject(projectId: string): Observable<void>;
 
-  abstract deleteMedia(projectId: string, mediaId: string): Observable<void>;
+  abstract deleteMedia(
+    projectId: string,
+    mediaId: string
+  ): Observable<ProjectMediaEntity>;
 
   abstract uploadVideo(
     projectId: string,
@@ -126,7 +133,8 @@ export abstract class ApiService {
 
   abstract uploadMedia(projectId: string, file: File): Observable<void>;
 
-  abstract getWaveformData(projectId: string): Observable<WaveformData>;
+  // abstract getWaveformData(projectId: string): Observable<WaveformData>;
+  abstract getWaveformData(waveformUrl: string): Observable<WaveformData>;
   // joinProject(inviteLink: string): Observable<Project> {}
 
   abstract subscribeProject(projectId: string): Observable<void>;

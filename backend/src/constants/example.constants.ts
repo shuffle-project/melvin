@@ -29,6 +29,24 @@ export const EXAMPLE_PROJECT = {
   transcriptions: [ids.transcription],
   inviteToken:
     'yelFMz2hoS_Bh9ZCa9NTwvlqN1okIu3uTiEkxx5xoNTFivfsrfoJl3DxpxJU9KhaqOd8EQ9ucpTpsK3-kUbvjw',
+  audios: [
+    {
+      category: 'main',
+      extension: 'mp3',
+      status: 'finished',
+      originalFileName: '',
+      title: 'mainaudio',
+    },
+  ],
+  videos: [
+    {
+      category: 'main',
+      extension: 'mp4',
+      status: 'finished',
+      originalFileName: '',
+      title: 'mainvideo',
+    },
+  ],
 };
 
 export const EXAMPLE_PROJECT_INVITE = {

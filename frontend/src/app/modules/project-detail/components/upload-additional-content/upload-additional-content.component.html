@@ -74,23 +74,44 @@
 </div>
 }
 <ng-container *ngrxLet="project$ as project">
-  <hr />
-  @if (project) {
-  <div>
-    <h3 i18n="@@uploadAdditionalMediaListHeader">Videos</h3>
-    <ul>
-      @for (video of project.videos; track video) {
-      <li>
-        {{ video.title }} -- {{ video.category }}
-        <button
-          mat-icon-button
-          (click)="onDeleteAdditionalMedia(project, video)"
-        >
-          <mat-icon svgIcon="delete"></mat-icon>
-        </button>
-      </li>
-      }
-    </ul>
-  </div>
-  }
+  <ng-container *ngrxLet="media$ as media">
+    <hr />
+    @if ( project && media) {
+    <div>
+      <h3 i18n="@@uploadAdditionalMediaListHeader">Videos</h3>
+      <div class="media-list">
+        @for (video of media.videos; track video) {
+        <div class="media-item">
+          <div class="row">
+            <mat-icon svgIcon="video"></mat-icon>
+            <h3>
+              {{ video.title }}
+            </h3>
+          </div>
+
+          <div class="row">
+            <mat-icon svgIcon="{{ getIcon(video.category) }}"></mat-icon>
+            {{ video.category | mediaCategory }}
+          </div>
+
+          <div class="row">
+            <mat-icon matTooltip="Created at" svgIcon="calendar-add"></mat-icon>
+            {{ video.createdAt | formatDate }}
+          </div>
+
+          @if (video.category !== 'main') {
+          <button
+            class="delete-btn"
+            mat-icon-button
+            (click)="onDeleteAdditionalMedia(project, video)"
+          >
+            <mat-icon svgIcon="delete"></mat-icon>
+          </button>
+          }
+        </div>
+        }
+      </div>
+    </div>
+    }
+  </ng-container>
 </ng-container>

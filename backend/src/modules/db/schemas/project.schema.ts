@@ -33,7 +33,7 @@ export enum ProjectStatus {
   ERROR = 'error',
 }
 
-export enum VideoStatus {
+export enum MediaStatus {
   WAITING = 'waiting',
   PROCESSING = 'processing',
   FINISHED = 'finished',
@@ -74,6 +74,56 @@ export class RecordingTimestamp {
 @Schema({
   timestamps: true,
 })
+export class Audio {
+  @ApiProperty({ name: 'id', example: EXAMPLE_PROJECT._id })
+  @Expose({ name: 'id' })
+  //TODO https://github.com/typestack/class-transformer/issues/991
+  @Transform(({ obj }) => obj._id.toString())
+  _id: Types.ObjectId;
+
+  @Exclude()
+  __v?: number;
+
+  @ApiProperty()
+  @Prop()
+  @IsDate()
+  createdAt?: Date;
+
+  @ApiProperty()
+  @Prop()
+  @IsDate()
+  updatedAt?: Date;
+
+  @ApiProperty()
+  @IsString()
+  @Prop()
+  title: string;
+
+  @ApiProperty()
+  @IsString()
+  @Prop()
+  originalFileName: string;
+
+  @ApiProperty()
+  @IsString()
+  @Prop()
+  extension: string;
+
+  @ApiProperty({ enum: MediaCategory, example: MediaCategory.OTHER })
+  @Prop()
+  @IsEnum(MediaCategory)
+  category: MediaCategory;
+
+  @ApiProperty({ enum: MediaStatus, example: MediaStatus.FINISHED })
+  @Prop()
+  @IsEnum(MediaStatus)
+  status: MediaStatus;
+}
+const AudioSchema = SchemaFactory.createForClass(Audio);
+
+@Schema({
+  timestamps: true,
+})
 export class Video {
   @ApiProperty({ name: 'id', example: EXAMPLE_PROJECT._id })
   @Expose({ name: 'id' })
@@ -104,16 +154,22 @@ export class Video {
   @Prop()
   originalFileName: string;
 
+  @ApiProperty()
+  @IsString()
+  @Prop()
+  extension: string;
+
   @ApiProperty({ enum: MediaCategory, example: MediaCategory.OTHER })
   @Prop()
   @IsEnum(MediaCategory)
   category: MediaCategory;
 
-  @ApiProperty({ enum: VideoStatus, example: VideoStatus.FINISHED })
+  @ApiProperty({ enum: MediaStatus, example: MediaStatus.FINISHED })
   @Prop()
-  @IsEnum(VideoStatus)
-  status: VideoStatus;
+  @IsEnum(MediaStatus)
+  status: MediaStatus;
 }
+const VideoSchema = SchemaFactory.createForClass(Video);
 
 @Schema({
   timestamps: true,
@@ -241,10 +297,17 @@ export class Project {
   @Prop()
   livestream: Livestream;
 
+  @ApiProperty({ type: [Audio] })
+  @Prop({ type: [AudioSchema] })
+  @Type(() => Audio)
+  // @Exclude()
+  audios: Audio[];
+
   @ApiProperty({ type: [Video] })
+  @Prop({ type: [VideoSchema] })
   @Type(() => Video)
-  @Prop({ default: [] })
-  videos: Video[] = [];
+  // @Exclude()
+  videos: Video[];
 }
 
 export const ProjectSchema = SchemaFactory.createForClass(Project);

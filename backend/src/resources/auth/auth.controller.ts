@@ -1,13 +1,10 @@
-import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
-import { User } from './auth.decorator';
-import { AuthUser } from './auth.interfaces';
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import {
   AuthGuestLoginDto,
   AuthGuestLoginResponseDto,
 } from './dto/auth-guest-login.dto';
 import { AuthLoginDto, AuthLoginResponseDto } from './dto/auth-login.dto';
-import { AuthMediaAccessTokenDto } from './dto/auth-media-access-token.dto';
 import {
   AuthRefreshTokenDto,
   AuthRefreshTokenResponseDto,
@@ -18,7 +15,6 @@ import {
   AuthVerifyEmailResponseDto,
 } from './dto/auth-verify-email.dto';
 import { AuthInviteEntity } from './entities/auth-invite.entity';
-import { JwtAuthGuard } from './guards/jwt-auth.guard';
 
 @Controller('auth')
 export class AuthController {
@@ -36,14 +32,14 @@ export class AuthController {
     return this.authService.refreshToken(dto);
   }
 
-  @UseGuards(JwtAuthGuard)
-  @Post('/media-access-token')
-  async createMediaAccessToken(
-    @User() authUser: AuthUser,
-    @Body() dto: AuthMediaAccessTokenDto,
-  ): Promise<{ token: string }> {
-    return this.authService.createMediaAccessToken(authUser, dto);
-  }
+  // @UseGuards(JwtAuthGuard)
+  // @Post('/media-access-token')
+  // async createMediaAccessToken(
+  //   @User() authUser: AuthUser,
+  //   @Body() dto: AuthMediaAccessTokenDto,
+  // ): Promise<{ token: string }> {
+  //   return this.authService.createMediaAccessToken(authUser, dto);
+  // }
 
   @Post('/register')
   async register(@Body() dto: AuthRegisterDto): Promise<any> {

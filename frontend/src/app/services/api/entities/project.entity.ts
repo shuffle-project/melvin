@@ -4,7 +4,7 @@ import { UserEntity } from './user.entity';
 export enum MediaType {
   VIEDEO = 'video',
 }
-export enum VideoStatus {
+export enum MediaStatus {
   FINISHED = 'finished',
   WAITING = 'waiting',
   PROCESSING = 'processing',
@@ -12,25 +12,30 @@ export enum VideoStatus {
 }
 
 export enum MediaCategory {
-  MAIN = 'main', // only in frontend availeble
+  MAIN = 'main',
   OTHER = 'other',
   SIGN_LANGUAGE = 'sign_language',
   SLIDES = 'slides',
   SPEAKER = 'speaker',
 }
 
-export interface AdditionalMedia {
+export interface MediaEntity {
   id: string;
-  title: string;
-  mediaType: MediaType;
-}
-
-export interface VideoEntity {
-  id: string;
-  status: VideoStatus;
+  updatedAt: string;
+  createdAt: string;
+  status: MediaStatus;
   title: string;
   originalFileName: string;
   category: MediaCategory;
+  extension: string;
+  url: string;
+  mimetype: string;
+}
+
+export interface VideoEntity extends MediaEntity {}
+
+export interface AudioEntity extends MediaEntity {
+  waveform: string;
 }
 
 export interface VideoLinkEntity {
@@ -38,14 +43,8 @@ export interface VideoLinkEntity {
   url: string;
   title: string;
   originalFileName: string;
-  status: VideoStatus;
+  status: MediaStatus;
   category: MediaCategory;
-}
-
-export interface MediaLinksEntity {
-  video: string;
-  audio: string;
-  videos: VideoLinkEntity[];
 }
 
 export enum LivestreamStatus {
@@ -87,13 +86,13 @@ export interface ProjectEntity {
   end: number;
   language: string;
   exports: string[];
-  // transcriptions: string[];
   transcriptions: ShortTranscriptionEntity[];
-  // users: string[];
   users: UserEntity[];
-  media?: MediaLinksEntity;
-  additionalMedia: AdditionalMedia[];
   livestream?: LivestreamEntity;
+}
+
+export interface ProjectMediaEntity {
+  audios: AudioEntity[];
   videos: VideoEntity[];
 }
 

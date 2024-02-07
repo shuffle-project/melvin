@@ -5,8 +5,8 @@
     [volume]="volume$ | ngrxPush"
     [playbackRate]="currentSpeed$ | ngrxPush"
   >
-    @if (project.media?.video) {
-    <source src="{{ project.media?.video }}" type="video/mp4" />
+    @if (playingAudio) {
+    <source src="{{ playingAudio.url }}" type="{{ playingAudio.mimetype }}" />
     }
   </audio>
   <!--  -->

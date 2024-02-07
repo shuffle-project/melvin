@@ -1,5 +1,4 @@
 import { Injectable } from '@nestjs/common';
-import { move } from 'fs-extra';
 import {
   ClientInstance,
   getSingleton,
@@ -207,7 +206,7 @@ export class LivestreamService {
     // await endpoint.connect(filter);
     // await filter.connect(endpoint);
 
-    await this.projectSerivce.updatePartial(dto.projectId, {
+    await this.projectSerivce._updatePartial(dto.projectId, {
       status: ProjectStatus.LIVE,
       duration: 0,
       livestream: {
@@ -236,7 +235,7 @@ export class LivestreamService {
     await player.stop();
     await pipeline.release();
 
-    await this.projectSerivce.updatePartial(dto.projectId, {
+    await this.projectSerivce._updatePartial(dto.projectId, {
       status: ProjectStatus.DRAFT,
       livestream: {
         url: null,
@@ -264,7 +263,7 @@ export class LivestreamService {
 
     await player.play();
 
-    await this.projectSerivce.updatePartial(dto.projectId, {
+    await this.projectSerivce._updatePartial(dto.projectId, {
       status: ProjectStatus.LIVE,
       livestream: {
         livestreamStatus: LivestreamStatus.STARTED,
@@ -288,7 +287,7 @@ export class LivestreamService {
 
     await player.pause();
 
-    await this.projectSerivce.updatePartial(dto.projectId, {
+    await this.projectSerivce._updatePartial(dto.projectId, {
       status: ProjectStatus.LIVE,
       livestream: {
         livestreamStatus: LivestreamStatus.PAUSED,
@@ -318,7 +317,7 @@ export class LivestreamService {
 
     await recorder.record();
 
-    await this.projectSerivce.updatePartial(dto.projectId, {
+    await this.projectSerivce._updatePartial(dto.projectId, {
       status: ProjectStatus.LIVE,
       livestream: {
         recordingStatus: RecordingStatus.RECORDING,
@@ -360,16 +359,16 @@ export class LivestreamService {
 
     // TODO get duration of recording
 
-    await move(
-      this.pathService.getRecordingFile(dto.projectId),
-      this.pathService.getVideoFile(dto.projectId),
-      { overwrite: true },
-    );
+    // await move(
+    //   this.pathService.getRecordingFile(dto.projectId),
+    //   this.pathService.getVideoFile(dto.projectId),
+    //   { overwrite: true }, // TODO getVideoFile does not longer exist
+    // );
 
     // TODO change to correct duration
     const newDuration = this._getNewDuration(recordingTimestamps);
 
-    await this.projectSerivce.updatePartial(dto.projectId, {
+    await this.projectSerivce._updatePartial(dto.projectId, {
       duration: newDuration,
       status: ProjectStatus.LIVE,
       livestream: {
@@ -418,7 +417,7 @@ export class LivestreamService {
 
     await recorder.record();
 
-    await this.projectSerivce.updatePartial(dto.projectId, {
+    await this.projectSerivce._updatePartial(dto.projectId, {
       status: ProjectStatus.LIVE,
       livestream: {
         recordingStatus: RecordingStatus.RECORDING,
@@ -456,7 +455,7 @@ export class LivestreamService {
 
     await recorder.pause();
 
-    await this.projectSerivce.updatePartial(dto.projectId, {
+    await this.projectSerivce._updatePartial(dto.projectId, {
       status: ProjectStatus.LIVE,
       livestream: {
         recordingStatus: RecordingStatus.PAUSED,

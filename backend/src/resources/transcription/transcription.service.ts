@@ -23,6 +23,7 @@ import { isSameObjectId } from '../../utils/objectid';
 import { AuthUser } from '../auth/auth.interfaces';
 import { CaptionService } from '../caption/caption.service';
 import { EventsGateway } from '../events/events.gateway';
+import { ProjectEntity } from '../project/entities/project.entity';
 import { CreateSpeakersDto } from './dto/create-speakers.dto';
 import { CreateTranscriptionDto } from './dto/create-transcription.dto';
 import {
@@ -111,12 +112,16 @@ export class TranscriptionService {
         },
       });
     } else if (createTranscriptionDto.asrDto) {
+      const audio = // TODO this id should be in the DTO I guess ?
+        updatedProject.audios.find((audio) => audio.extension === 'mp3') ||
+        updatedProject.audios[0];
       this.subtitlesQueue.add({
         project: updatedProject,
         transcription: entity,
         payload: {
           type: SubtitlesType.FROM_ASR,
           ...createTranscriptionDto.asrDto,
+          audio,
         },
       });
     } else if (createTranscriptionDto.translateDto) {
@@ -141,9 +146,11 @@ export class TranscriptionService {
       // empty transcription
     }
 
+    const projectEntity = plainToInstance(ProjectEntity, updatedProject);
+
     // Send events
-    this.events.projectUpdated(updatedProject);
-    this.events.transcriptionCreated(updatedProject, entity);
+    this.events.projectUpdated(projectEntity);
+    this.events.transcriptionCreated(projectEntity, entity);
 
     return entity;
   }
@@ -266,9 +273,11 @@ export class TranscriptionService {
       ),
     ]);
 
+    const projectEntity = plainToInstance(ProjectEntity, updatedProject);
+
     // Send events
-    this.events.projectUpdated(updatedProject);
-    this.events.transcriptionRemoved(updatedProject, transcription);
+    this.events.projectUpdated(projectEntity);
+    this.events.transcriptionRemoved(projectEntity, transcription);
   }
 
   async downloadSubtitles(

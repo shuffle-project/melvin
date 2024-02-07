@@ -108,7 +108,10 @@ export class TranscriptComponent implements OnDestroy, OnInit {
           tempCurrentTextLength += captionAtIndex.text.length;
         }
 
-        // finalTranscriptParagraphs.push(tempTranscriptParagraph);
+        const lastCaption = captionIndex === captions.length - 1;
+        if (lastCaption)
+          finalTranscriptParagraphs.push(tempTranscriptParagraph);
+
         captionIndex++;
       }
 

@@ -7,8 +7,8 @@ import { readFile } from 'fs-extra';
 import { catchError, lastValueFrom, map } from 'rxjs';
 import { Language } from '../../../app.interfaces';
 import { WhisperConfig } from '../../../config/config.interface';
-import { ProjectEntity } from '../../../resources/project/entities/project.entity';
 import { DbService } from '../../db/db.service';
+import { Audio, Project } from '../../db/schemas/project.schema';
 import { CustomLogger } from '../../logger/logger.service';
 import { PathService } from '../../path/path.service';
 import {
@@ -73,11 +73,8 @@ export class WhisperSpeechService implements ISepechToTextService {
     });
   }
 
-  async run(project: ProjectEntity): Promise<TranscriptEntity> {
-    const transcribe = await this._transcribe(
-      project._id.toString(),
-      project.language,
-    );
+  async run(project: Project, audio: Audio): Promise<TranscriptEntity> {
+    const transcribe = await this._transcribe(project, audio);
     // console.log(JSON.stringify(transcribe));
 
     // use cronJob/queue instead of
@@ -139,14 +136,17 @@ export class WhisperSpeechService implements ISepechToTextService {
     return { words };
   }
 
-  async _transcribe(projectId: string, language: string) {
-    const audioPath = this.pathService.getWavFile(projectId);
+  async _transcribe(project: Project, audio: Audio) {
+    const audioPath = this.pathService.getMediaFile(
+      project._id.toString(),
+      audio,
+    );
 
     const file = await readFile(audioPath);
 
     const formData = new FormData();
-    formData.append('file', file, 'audio.wav');
-    const settings: WhiTranscribeDto = { language: language };
+    formData.append('file', file, audio._id.toString() + '.' + audio.extension);
+    const settings: WhiTranscribeDto = { language: project.language };
     formData.append('settings', JSON.stringify(settings));
 
     // console.log(formData.getHeaders());

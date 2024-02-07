@@ -7,6 +7,7 @@ import {
   OnInit,
   ViewChild,
 } from '@angular/core';
+import { LetDirective, PushPipe } from '@ngrx/component';
 import { Store } from '@ngrx/store';
 import {
   Observable,
@@ -23,6 +24,7 @@ import {
 } from 'rxjs';
 import {
   LivestreamStatus,
+  MediaCategory,
   ProjectStatus,
 } from '../../../../../../services/api/entities/project.entity';
 import * as editorActions from '../../../../../../store/actions/editor.actions';
@@ -30,17 +32,13 @@ import { AppState } from '../../../../../../store/app.state';
 import * as editorSelectors from '../../../../../../store/selectors/editor.selector';
 import { LivestreamService } from '../../../../livestream/livestream.service';
 import { MediaService } from '../../../services/media/media.service';
-import { LetDirective, PushPipe } from '@ngrx/component';
 
 @Component({
-    selector: 'app-video-player-media-element',
-    templateUrl: './video-player-media-element.component.html',
-    styleUrls: ['./video-player-media-element.component.scss'],
-    standalone: true,
-    imports: [
-    LetDirective,
-    PushPipe
-],
+  selector: 'app-video-player-media-element',
+  templateUrl: './video-player-media-element.component.html',
+  styleUrls: ['./video-player-media-element.component.scss'],
+  standalone: true,
+  imports: [LetDirective, PushPipe],
 })
 export class VideoPlayerMediaElementComponent implements OnInit, OnDestroy {
   @ViewChild('video', { static: false })
@@ -48,9 +46,16 @@ export class VideoPlayerMediaElementComponent implements OnInit, OnDestroy {
 
   private destroy$$ = new Subject<void>();
 
-  public src$ = this.store
-    .select(editorSelectors.selectProject)
-    .pipe(map((project) => project?.media?.video));
+  public playingVideo$ = this.store
+    .select(editorSelectors.selectMedia)
+    .pipe(
+      map(
+        (media) =>
+          media?.videos.find(
+            (video) => video.category === MediaCategory.MAIN
+          ) || media?.videos[0]
+      )
+    );
 
   public project$ = this.store.select(editorSelectors.selectProject);
 

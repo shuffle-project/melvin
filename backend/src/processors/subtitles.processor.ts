@@ -9,7 +9,8 @@ import {
 import { Job, JobStatus, Queue } from 'bull';
 import { plainToInstance } from 'class-transformer';
 import { rm } from 'fs/promises';
-import { ProjectStatus } from '../modules/db/schemas/project.schema';
+import { DbService } from '../modules/db/db.service';
+import { Project, ProjectStatus } from '../modules/db/schemas/project.schema';
 import { CustomLogger } from '../modules/logger/logger.service';
 import { PathService } from '../modules/path/path.service';
 import { SpeechToTextService } from '../modules/speech-to-text/speech-to-text.service';
@@ -21,7 +22,6 @@ import { AuthService } from '../resources/auth/auth.service';
 import { CaptionService } from '../resources/caption/caption.service';
 import { CreateCaptionDto } from '../resources/caption/dto/create-caption.dto';
 import { EventsGateway } from '../resources/events/events.gateway';
-import { ProjectEntity } from '../resources/project/entities/project.entity';
 import { ProjectService } from '../resources/project/project.service';
 import { TranscriptionEntity } from '../resources/transcription/entities/transcription.entity';
 import { TranscriptionService } from '../resources/transcription/transcription.service';
@@ -50,6 +50,7 @@ export class SubtitlesProcessor {
     private captionService: CaptionService,
     private activityService: ActivityService,
     private events: EventsGateway,
+    private db: DbService,
     @InjectQueue('project') private projectQueue: Queue<ProcessProjectJob>,
   ) {
     this.logger.setContext(this.constructor.name);
@@ -219,7 +220,7 @@ export class SubtitlesProcessor {
   }
 
   async _generateCaptionsFromASR(
-    project: ProjectEntity,
+    project: Project,
     transcription: TranscriptionEntity,
     payload: AsrPayload,
   ) {
@@ -234,12 +235,13 @@ export class SubtitlesProcessor {
     await this.speechToTextService.generate(
       project,
       updatedTranscription,
+      payload.audio,
       payload.vendor,
     );
   }
 
   async _generateCaptionsFromTranslation(
-    project: ProjectEntity,
+    project: Project,
     target: TranscriptionEntity,
     payload: TranslationPayload,
   ) {
@@ -258,7 +260,7 @@ export class SubtitlesProcessor {
   }
 
   async _generateCaptionsFromCopy(
-    project: ProjectEntity,
+    project: Project,
     target: TranscriptionEntity,
     payload: CopyPayload,
   ) {

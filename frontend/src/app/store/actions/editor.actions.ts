@@ -1,7 +1,10 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { createAction, props } from '@ngrx/store';
 import { EditorUserColor } from 'src/app/constants/editor.constants';
-import { ProjectEntity } from '../../services/api/entities/project.entity';
+import {
+  ProjectEntity,
+  ProjectMediaEntity,
+} from '../../services/api/entities/project.entity';
 import { WaveformData } from '../../services/api/entities/waveform-data.entity';
 
 export const playFromCaption = createAction(
@@ -81,6 +84,39 @@ export const findProjectFail = createAction(
   '[PROJECT API] Find project fail',
   props<{ error: HttpErrorResponse }>()
 );
+
+// project media
+export const findProjectMedia = createAction(
+  '[UPLOAD ADDITIONAL MEDIA COMPONENT] Find project media',
+  props<{ projectId: string }>()
+);
+
+export const findProjectMediaSuccess = createAction(
+  '[PROJECT API] Find project media success',
+  props<{ media: ProjectMediaEntity }>()
+);
+
+export const findProjectMediaFail = createAction(
+  '[PROJECT API] Find project media fail',
+  props<{ error: HttpErrorResponse }>()
+);
+
+export const deleteProjectMedia = createAction(
+  '[UPLOAD ADDITIONAL MEDIA COMPONENT] Delete project media',
+  props<{ projectId: string; mediaId: string }>()
+);
+
+export const deleteProjectMediaSuccess = createAction(
+  '[PROJECT API] Delete project media success',
+  props<{ media: ProjectMediaEntity }>()
+);
+
+export const deleteProjectMediaFail = createAction(
+  '[PROJECT API] Delete project media faiiled',
+  props<{ error: HttpErrorResponse }>()
+);
+
+// waveform
 
 export const getWaveform = createAction(
   '[PROJECT API] Get waveform',

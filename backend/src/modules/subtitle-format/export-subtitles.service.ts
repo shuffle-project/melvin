@@ -25,7 +25,8 @@ export class ExportSubtitlesService {
       lines.push('');
       lines.push(index + 1); // optional
       lines.push(`${formattedStart} --> ${formattedEnd}`);
-      lines.push(`<v ${speakerName}>${caption.text}`);
+      // lines.push(`<v ${speakerName}>${caption.text}`);
+      lines.push(`${caption.text}`);
     });
 
     // Add empty new line to the end of the file for correct vtt parsing

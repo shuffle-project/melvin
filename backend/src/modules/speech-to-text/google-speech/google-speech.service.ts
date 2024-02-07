@@ -5,8 +5,8 @@ import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { Language } from '../../../app.interfaces';
 import { GoogleSpeechConfig } from '../../../config/config.interface';
-import { ProjectEntity } from '../../../resources/project/entities/project.entity';
 import { DbService } from '../../db/db.service';
+import { Audio, Project } from '../../db/schemas/project.schema';
 import { CustomLogger } from '../../logger/logger.service';
 import { PathService } from '../../path/path.service';
 import {
@@ -88,10 +88,10 @@ export class GoogleSpeechService implements ISepechToTextService {
     }
   }
 
-  async run(project: ProjectEntity): Promise<TranscriptEntity> {
+  async run(project: Project, audio: Audio): Promise<TranscriptEntity> {
     try {
-      await this._uploadFileToBucket(project);
-      const response = await this._execSpeechToText(project);
+      await this._uploadFileToBucket(project, audio);
+      const response = await this._execSpeechToText(project, audio);
 
       // concat and reformat words from google format to our format
       const allWords: WordEntity[] = [];
@@ -118,21 +118,28 @@ export class GoogleSpeechService implements ISepechToTextService {
     return null;
   }
 
-  async _uploadFileToBucket(project: ProjectEntity) {
-    const localAudioPath = this.pathService.getWavFile(project._id.toString());
-    const destination = `${project._id.toString()}/audio.wav`;
+  async _uploadFileToBucket(project: Project, audio: Audio) {
+    // const localAudioPath = this.pathService.getWavFile(project._id.toString());
+    // const wav = project.audios.find((audio) => audio.extension === 'wav');
+    const localAudioPath = this.pathService.getMediaFile(
+      project._id.toString(),
+      audio,
+    );
+    const destination = `${project._id.toString()}/audio.${audio.extension}`;
 
     await this.bucket.upload(localAudioPath, { destination });
 
     return;
   }
 
-  async _deleteFilesInBucket(project: ProjectEntity) {
+  async _deleteFilesInBucket(project: Project) {
     await this.bucket.deleteFiles({ prefix: `${project._id.toString()}` });
   }
 
-  async _execSpeechToText(project: ProjectEntity) {
-    const uri = `gs://${this.bucketName}/${project._id.toString()}/audio.wav`;
+  async _execSpeechToText(project: Project, audio: Audio) {
+    const uri = `gs://${this.bucketName}/${project._id.toString()}/audio.${
+      audio.extension
+    }`;
     const encoding = 0;
     const sampleRateHertz = 48000;
 

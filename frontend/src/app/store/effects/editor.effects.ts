@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
@@ -17,7 +18,8 @@ export class EditorEffects {
     private actions$: Actions,
     private storageService: StorageService,
     private api: ApiService,
-    private store: Store<AppState>
+    private store: Store<AppState>,
+    private httpClient: HttpClient
   ) {}
 
   changeVolume$ = createEffect(
@@ -66,24 +68,66 @@ export class EditorEffects {
       switchMap((action) =>
         this.api.findOneProject(action.projectId).pipe(
           map((project) => editorActions.findProjectSuccess({ project })),
-          catchError((errorRes) =>
-            of(editorActions.findProjectFail({ error: errorRes }))
+          catchError(
+            (errorRes) => of(editorActions.findProjectFail({ error: errorRes })) // TODO
           )
         )
       )
     )
   );
 
-  getWaveform$ = createEffect(() =>
+  // media
+  findMedia$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(editorActions.findProjectSuccess),
+      ofType(
+        editorActions.findProjectMedia,
+        editorActions.findProjectFromEditor,
+        editorActions.findProjectFromViewer
+      ),
       switchMap((action) =>
-        this.api.getWaveformData(action.project.id).pipe(
-          map((data) => editorActions.getWaveformSuccess(data)),
-          catchError((errorRes) =>
-            of(editorActions.getWaveformFail({ error: errorRes }))
+        this.api.findProjectMediaEntity(action.projectId).pipe(
+          map((media) => editorActions.findProjectMediaSuccess({ media })),
+          catchError(
+            (errorRes) =>
+              of(editorActions.findProjectMediaFail({ error: errorRes })) // TODO
           )
         )
+      )
+    )
+  );
+
+  deleteMedia$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(editorActions.deleteProjectMedia),
+      switchMap((action) =>
+        this.api.deleteMedia(action.projectId, action.mediaId).pipe(
+          map((media) => editorActions.deleteProjectMediaSuccess({ media })),
+          catchError(
+            (errorRes) =>
+              of(editorActions.deleteProjectMediaFail({ error: errorRes })) // TODO
+          )
+        )
+      )
+    )
+  );
+
+  // this.httpClient.get(action.media.audios[0].waveform)
+
+  getWaveform$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(editorActions.findProjectMediaSuccess),
+      // TODO maybe this should not happen every time after fetching the mediaEntity
+      // and choosing the audio somewhere is at some point necessary
+      switchMap((action) =>
+        this.api
+          .getWaveformData(action.media.audios[0].waveform)
+          // this.httpClient.get<WaveformData>(action.media.audios[0].waveform)
+          .pipe(
+            map((data) => editorActions.getWaveformSuccess(data)),
+            catchError((errorRes) =>
+              of(editorActions.getWaveformFail({ error: errorRes }))
+            )
+          )
       )
     )
   );
