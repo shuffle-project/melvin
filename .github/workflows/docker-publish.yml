@@ -7,7 +7,7 @@
 # To get a newer version, you will need to update the SHA.
 # You can also reference a tag or branch, but the action may change without warning.
 
-name: Create and publish a Docker image
+name: Create and publish a tagged Docker image
 
 on:
   push:
@@ -49,6 +49,8 @@ jobs:
             type=semver,pattern={{version}}
             type=raw,value=latest,enable=${{ !endsWith(github.ref, 'dev') }}
             type=raw,value=dev,enable=${{ endsWith(github.ref, 'dev') }}
+          flavor: |
+            latest=false
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v5
