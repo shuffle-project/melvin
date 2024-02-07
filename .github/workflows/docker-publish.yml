@@ -47,8 +47,8 @@ jobs:
           tags: |
             # type=ref,event=branch
             type=semver,pattern={{version}}
-            type=raw,value=latest,enable=${{ !endsWith(github.ref, 'dev') }}
-            type=raw,value=dev,enable=${{ endsWith(github.ref, 'dev') }}
+            type=raw,value=latest,enable=${{ !contains(github.ref, 'dev') }}
+            type=raw,value=dev,enable=${{ contains(github.ref, 'dev') }}
           flavor: |
             latest=false
 
