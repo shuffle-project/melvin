@@ -48,7 +48,7 @@ jobs:
             # type=ref,event=branch
             type=semver,pattern={{version}}
             type=raw,value=latest,enable=${{ !contains(github.ref, 'dev') }}
-            type=raw,value=dev,enable=${{ contains(github.ref, 'dev') }}
+            type=raw,value=dev,priority=1000,enable=${{ contains(github.ref, 'dev') }}
           flavor: |
             latest=false
 
@@ -87,7 +87,7 @@ jobs:
             # type=ref,event=branch
             type=semver,pattern={{version}}
             type=raw,value=latest,enable=${{ !contains(github.ref, 'dev') }}
-            type=raw,value=dev,enable=${{ contains(github.ref, 'dev') }}
+            type=raw,value=dev,priority=1000,enable=${{ contains(github.ref, 'dev') }}
           flavor: |
             latest=false
 
