@@ -24,7 +24,7 @@ export class ConfigEffects {
     this.actions$.pipe(
       ofType(configActions.fetch),
       mergeMap(
-        (action) =>
+        () =>
           this.api.getConfig().pipe(
             map((resData) => {
               return configActions.fetchSuccess({ configEntity: resData });
