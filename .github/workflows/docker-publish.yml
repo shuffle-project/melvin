@@ -46,7 +46,9 @@ jobs:
             ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}-backend
           tags: |
             # type=ref,event=branch
-            type=semver,pattern={{version}}
+            type=semver,pattern={{version}} # short for major.minor.patch
+            type=semver,pattern={{major}}.{{minor}}
+            type=semver,pattern={{major}}
             type=raw,value=latest,enable=${{ !contains(github.ref, 'dev') }}
             type=raw,value=dev,priority=1000,enable=${{ contains(github.ref, 'dev') }}
           flavor: |
@@ -85,7 +87,9 @@ jobs:
             ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}-frontend
           tags: |
             # type=ref,event=branch
-            type=semver,pattern={{version}}
+            type=semver,pattern={{version}} # short for major.minor.patch
+            type=semver,pattern={{major}}.{{minor}}
+            type=semver,pattern={{major}}
             type=raw,value=latest,enable=${{ !contains(github.ref, 'dev') }}
             type=raw,value=dev,priority=1000,enable=${{ contains(github.ref, 'dev') }}
           flavor: |
