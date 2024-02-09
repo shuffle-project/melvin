@@ -23,8 +23,7 @@ export class CaptionsEffects {
     private mediaService: MediaService
   ) {}
 
-  //TODO better naming than prepare___
-  prepareFetchCaptions$ = createEffect(() =>
+  setupFetchCaptions$ = createEffect(() =>
     this.actions$.pipe(
       ofType(transcriptionsActions.findAllSuccess),
       withLatestFrom(this.store.select(selectQueryParam('transcriptionId'))),

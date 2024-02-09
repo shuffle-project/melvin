@@ -1,9 +1,11 @@
 <h2 mat-dialog-title>Upload</h2>
 <mat-dialog-content class="mat-dialog-content">
   <div>
+    <h3>Dateien werden hochgeladen.</h3>
+    Sobald alle Dateien hochgeladen wurden, taucht das Projekt in der
+    Projektübersicht auf.
     <ul class="upload-list">
       @for (upload of data; track $index) {
-
       <li>
         <!-- {{ upload.name }} -->
         <mat-progress-bar

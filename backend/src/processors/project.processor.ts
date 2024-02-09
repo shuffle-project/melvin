@@ -49,13 +49,13 @@ export class ProjectProcessor {
 
     // process video
 
-    await this.projectService._updateMediaStatus(
+    await this.projectService._updateMedia(
       projectId,
       mainVideo,
       MediaStatus.PROCESSING,
     );
     await this.ffmpegService.processVideoFile(file.path, projectId, mainVideo);
-    await this.projectService._updateMediaStatus(
+    await this.projectService._updateMedia(
       projectId,
       mainVideo,
       MediaStatus.FINISHED,
@@ -78,14 +78,14 @@ export class ProjectProcessor {
     });
 
     if (mainAudio) {
-      await this.projectService._updateMediaStatus(
+      await this.projectService._updateMedia(
         projectId,
         mainAudio,
         MediaStatus.PROCESSING,
       );
       await this.ffmpegService.createMp3File(projectId, mainVideo, mainAudio);
       await this.generateWaveformData(job.data, mainAudio);
-      await this.projectService._updateMediaStatus(
+      await this.projectService._updateMedia(
         projectId,
         mainAudio,
         MediaStatus.FINISHED,

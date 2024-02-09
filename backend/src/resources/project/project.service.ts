@@ -161,18 +161,18 @@ export class ProjectService {
       _id: new Types.ObjectId(),
       category: MediaCategory.MAIN,
       extension: 'mp4',
-      originalFileName: '', // TODO
-      status: MediaStatus.WAITING, // TODO
-      title: 'mainvideo',
+      originalFileName: '',
+      status: MediaStatus.WAITING,
+      title: 'Main Video',
     };
 
     const mainAudio: Audio = {
       _id: new Types.ObjectId(),
       category: MediaCategory.MAIN,
       extension: 'mp3',
-      originalFileName: '', // TODO
-      status: MediaStatus.WAITING, // TODO
-      title: 'mainaudio',
+      originalFileName: '',
+      status: MediaStatus.WAITING,
+      title: 'Main Audio',
     };
 
     //create project
@@ -763,22 +763,28 @@ export class ProjectService {
     return updatedProject;
   }
 
-  async _updateMediaStatus(
+  async _updateMedia(
     projectId: string,
     media: Audio | Video,
     newStatus: MediaStatus,
   ) {
-    // TODO quick and dirty - pls refactor me
+    // const project = await this.db.projectModel.findById(projectId);
 
-    const project = await this.db.projectModel.findById(projectId);
+    await Promise.all([
+      this.db.projectModel
+        .updateOne(
+          { _id: projectId, 'audios._id': media._id },
+          { $set: { 'audios.$.status': newStatus } },
+        )
+        .exec(),
 
-    const audio = project.audios.find((a) => isSameObjectId(a._id, media._id));
-    if (audio) audio.status = newStatus;
-
-    const video = project.videos.find((a) => isSameObjectId(a._id, media._id));
-    if (video) video.status = newStatus;
-
-    await project.save();
+      this.db.projectModel
+        .updateOne(
+          { _id: projectId, 'videos._id': media._id },
+          { $set: { 'videos.$.status': newStatus } },
+        )
+        .exec(),
+    ]);
   }
 
   async deleteMedia(
