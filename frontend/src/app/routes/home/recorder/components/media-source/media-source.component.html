@@ -116,9 +116,17 @@
       </div>
     </div>
     } @if (videoSource) {
-    <video [srcObject]="videoSource.mediaStream" autoplay muted></video>
+    <video
+      [srcObject]="videoSource.mediaStream"
+      autoplay
+      [muted]="true"
+    ></video>
     } @if (screensharingSource) { @if (screensharingSource.mediaStream) {
-    <video [srcObject]="screensharingSource.mediaStream" autoplay muted></video>
+    <video
+      [srcObject]="screensharingSource.mediaStream"
+      autoplay
+      [muted]="true"
+    ></video>
     } @if (screensharingSource.sound && screensharingSource.mediaStream) {
     <div class="meter-wrapper">
       <span> Audio level </span>
