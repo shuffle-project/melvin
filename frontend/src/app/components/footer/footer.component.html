@@ -1,10 +1,10 @@
 <footer>
   <div class="spacer"></div>
   @if (showAdminControls$ | ngrxPush) {
-    <div class="admin">
-      <span>Admin:</span>
-      <button mat-stroked-button (click)="onPopulate()">Populate DB</button>
-    </div>
+  <!-- <div class="admin">
+    <span>Admin:</span>
+    <button mat-stroked-button (click)="onPopulate()">Populate DB</button>
+  </div> -->
   }
   <div class="links">
     <ul>
@@ -26,11 +26,11 @@
         alt="Logo SHUFFLE"
         [height]="60"
         [width]="60"
-        />
+      />
     </div>
   </div>
   <div class="copyright">
-  &copy; <a href="https://www.shuffle-projekt.de" target="_blank">SHUFFLE</a>
-  {{ year }}
-</div>
+    &copy; <a href="https://www.shuffle-projekt.de" target="_blank">SHUFFLE</a>
+    {{ year }}
+  </div>
 </footer>

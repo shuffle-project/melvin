@@ -53,13 +53,10 @@ export class LoginComponent implements OnInit {
 
     this.formGroup = this.fb.group({
       email: this.fb.control(
-        this.storageService.getFromLocalStorage(
-          StorageKey.LOGIN_EMAIL,
-          'jane.doe@example.com'
-        ),
+        this.storageService.getFromLocalStorage(StorageKey.LOGIN_EMAIL, ''),
         [Validators.required, Validators.email]
       ),
-      password: this.fb.control('secret', Validators.required),
+      password: this.fb.control('', Validators.required),
       persistent: this.fb.control(false),
     });
   }

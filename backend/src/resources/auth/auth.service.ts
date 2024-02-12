@@ -5,7 +5,6 @@ import * as bcrypt from 'bcrypt';
 import { randomBytes } from 'crypto';
 import { v4 } from 'uuid';
 import { JwtConfig } from '../../config/config.interface';
-import { EXAMPLE_PROJECT } from '../../constants/example.constants';
 import { DbService } from '../../modules/db/db.service';
 import { LeanUserDocument, User } from '../../modules/db/schemas/user.schema';
 import { PermissionsService } from '../../modules/permissions/permissions.service';
@@ -14,6 +13,7 @@ import {
   CustomForbiddenException,
   CustomInternalServerException,
 } from '../../utils/exceptions';
+import { PopulateService } from '../populate/populate.service';
 import { UserRole } from '../user/user.interfaces';
 import {
   AuthUser,
@@ -46,6 +46,7 @@ export class AuthService {
     private configService: ConfigService,
     private db: DbService,
     private permissions: PermissionsService,
+    private populateService: PopulateService,
   ) {
     this.config = this.configService.get<JwtConfig>('jwt');
   }
@@ -128,15 +129,17 @@ export class AuthService {
       name: dto.name,
       isEmailVerified: false,
       emailVerificationToken,
-      projects: [EXAMPLE_PROJECT._id],
+      // projects: [EXAMPLE_PROJECT._id],
+      projects: [],
     });
 
     // Add user to default project
-    await this.db.projectModel.findByIdAndUpdate(EXAMPLE_PROJECT._id, {
-      $push: { users: user._id.toString() },
-    });
+    // await this.db.projectModel.findByIdAndUpdate(EXAMPLE_PROJECT._id, {
+    //   $push: { users: user._id.toString() },
+    // });
 
-    // add user to default project
+    //  Create default project
+    await this.populateService._generateDefaultProject(user);
 
     // TODO: Send email with verificationToken
   }
