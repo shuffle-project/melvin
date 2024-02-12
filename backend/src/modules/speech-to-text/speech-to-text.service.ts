@@ -127,7 +127,11 @@ export class SpeechToTextService {
         break;
       case AsrVendors.WHISPER:
         res = await this.whisperSpeechService.run(project, audio);
-        captions = this._wordsToCaptions(project, transcription, res);
+        if (res.captions) {
+          captions = this._toCaptions(project, transcription, res.captions);
+        } else {
+          captions = this._wordsToCaptions(project, transcription, res);
+        }
         break;
       case AsrVendors.RANDOM:
         captions = this.populateService._generateRandomCaptions(
@@ -226,5 +230,23 @@ export class SpeechToTextService {
     );
 
     return captions;
+  }
+
+  _toCaptions(
+    project: ProjectEntity,
+    transcription: TranscriptionEntity,
+    serviceResponseEntity: { from: number; to: number; sentence: string }[],
+  ): CaptionEntity[] {
+    return serviceResponseEntity.map((obj) => {
+      return new this.db.captionModel({
+        start: obj.from * 1000,
+        end: obj.to * 1000,
+        speakerId: transcription.speakers[0]._id.toString(),
+        text: obj.sentence,
+        initialText: obj.sentence,
+        transcription: transcription._id,
+        project: project._id,
+      });
+    });
   }
 }

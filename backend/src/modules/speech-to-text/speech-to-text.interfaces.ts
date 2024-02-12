@@ -16,4 +16,5 @@ export class WordEntity {
 // extend this class to get more values from asr services
 export class TranscriptEntity {
   words: WordEntity[];
+  captions?: { sentence: string; from: number; to: number }[];
 }
