@@ -537,7 +537,7 @@ export class PopulateService {
     const transcription = new this.db.transcriptionModel({
       ...EXAMPLE_TRANSCRIPTION,
       _id: transcriptionId,
-      createdBy: projectId,
+      createdBy: user._id,
       project: projectId,
       speakers: [
         {
