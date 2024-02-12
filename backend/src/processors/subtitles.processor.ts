@@ -233,11 +233,10 @@ export class SubtitlesProcessor {
       },
     );
 
-    const wav = project.audios.find((audio) => audio.extension === 'wav');
     await this.speechToTextService.generate(
       project,
       updatedTranscription,
-      wav ?? payload.audio,
+      payload.audio,
       payload.vendor,
     );
   }
