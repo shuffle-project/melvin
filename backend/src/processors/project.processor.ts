@@ -9,6 +9,7 @@ import {
 import { Job, JobStatus, Queue } from 'bull';
 import { rm } from 'fs-extra';
 import { writeFile } from 'fs/promises';
+import { Types } from 'mongoose';
 import { DbService } from '../modules/db/db.service';
 import {
   Audio,
@@ -77,6 +78,7 @@ export class ProjectProcessor {
       duration,
     });
 
+    let wav: Audio | null = null;
     if (mainAudio) {
       await this.projectService._updateMedia(
         projectId,
@@ -84,6 +86,21 @@ export class ProjectProcessor {
         MediaStatus.PROCESSING,
       );
       await this.ffmpegService.createMp3File(projectId, mainVideo, mainAudio);
+      wav = {
+        _id: new Types.ObjectId(),
+        category: MediaCategory.OTHER,
+        extension: 'wav',
+        originalFileName: '',
+        status: MediaStatus.FINISHED,
+        title: 'testwav',
+      };
+      // TODO ADD WAV
+      this.db.projectModel.findByIdAndUpdate(projectId, {
+        $push: { audios: wav },
+      });
+      await this.ffmpegService.createWavFile(projectId, mainVideo, wav);
+      // TODO ADD WAV
+
       await this.generateWaveformData(job.data, mainAudio);
       await this.projectService._updateMedia(
         projectId,
