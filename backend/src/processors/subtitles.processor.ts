@@ -232,6 +232,7 @@ export class SubtitlesProcessor {
         names: ['Sprecher 1'],
       },
     );
+
     await this.speechToTextService.generate(
       project,
       updatedTranscription,

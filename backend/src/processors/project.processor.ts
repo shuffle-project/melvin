@@ -84,6 +84,7 @@ export class ProjectProcessor {
         MediaStatus.PROCESSING,
       );
       await this.ffmpegService.createMp3File(projectId, mainVideo, mainAudio);
+
       await this.generateWaveformData(job.data, mainAudio);
       await this.projectService._updateMedia(
         projectId,

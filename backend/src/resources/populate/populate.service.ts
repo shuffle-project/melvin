@@ -174,8 +174,16 @@ export class PopulateService {
     });
   }
 
-  _generateTranscriptions(project: Project): Transcription[] {
-    return new Array(this._random(1, MAX_TRANSCRIPTIONS_PER_PROJECT))
+  _generateTranscriptions(
+    project: Project,
+    maxTranscriptionsPerProject?: number,
+  ): Transcription[] {
+    return new Array(
+      this._random(
+        1,
+        maxTranscriptionsPerProject ?? MAX_TRANSCRIPTIONS_PER_PROJECT,
+      ),
+    )
       .fill(null)
       .map((o, i) => {
         const value =
@@ -505,5 +513,55 @@ export class PopulateService {
     await this._copyMediaFiles(projects);
 
     this.logger.verbose('Populate finished');
+  }
+
+  async _generateDefaultProject(user: User) {
+    const projectId = new Types.ObjectId();
+    const transcriptionId = new Types.ObjectId();
+
+    // create project
+    const project = new this.db.projectModel({
+      ...EXAMPLE_PROJECT,
+      _id: projectId,
+      users: [user._id],
+      createdBy: user._id,
+      transcriptions: [transcriptionId],
+    });
+
+    // add project to user
+    await this.db.userModel.findByIdAndUpdate(user._id, {
+      $push: { projects: projectId },
+    });
+
+    // transcription
+    const transcription = new this.db.transcriptionModel({
+      ...EXAMPLE_TRANSCRIPTION,
+      _id: transcriptionId,
+      createdBy: user._id,
+      project: projectId,
+      speakers: [
+        {
+          _id: new Types.ObjectId(),
+          name: 'Sprecherin 1',
+        },
+      ],
+    });
+
+    // captions
+    const captions = await this._generateDefaultCaptions(
+      project,
+      transcription,
+    );
+
+    await Promise.all([
+      this.db.projectModel.insertMany([project]),
+      this.db.transcriptionModel.insertMany([transcription]),
+      this.db.captionModel.insertMany(captions),
+      // this.db.activityModel.insertMany(activities),
+      // this.db.notificationModel.insertMany(notifications),
+    ]);
+
+    await this._copyMediaFiles([project]);
+    return;
   }
 }

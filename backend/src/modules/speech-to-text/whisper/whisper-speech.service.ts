@@ -121,6 +121,13 @@ export class WhisperSpeechService implements ISepechToTextService {
       });
     });
 
+    const captions = transcriptEntity.transcript.segments.map((segment) => {
+      const from = segment[2] as number;
+      const to = segment[3] as number;
+      const sentence = segment[4] as string;
+      return { from, to, sentence };
+    });
+
     // transcriptEntity.transcript.transcription.forEach((sentence) => {
     //   const splittedText = sentence.text.split(' ');
     //   const msSentence = sentence.offsets.to - sentence.offsets.from;
@@ -133,7 +140,7 @@ export class WhisperSpeechService implements ISepechToTextService {
 
     // transcriptEntity.transcript
 
-    return { words };
+    return { words, captions };
   }
 
   async _transcribe(project: Project, audio: Audio) {
