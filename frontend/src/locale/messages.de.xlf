@@ -310,19 +310,19 @@
         <source><x id="START_BLOCK_IF"/><x id="START_TAG_MAT_SPINNER" ctype="x-mat_spinner" equiv-text="&lt;mat-spinner strokeWidth=&quot;2&quot; diameter=&quot;20&quot; color=&quot;primary&quot; style=&quot;margin-right: 10px&quot; &gt;"/><x id="CLOSE_TAG_MAT_SPINNER" ctype="x-mat_spinner" equiv-text="} L"/><x id="CLOSE_BLOCK_IF" equiv-text="}"/> Login </source>
         <target state="final"><x id="START_TAG_MAT_SPINNER" ctype="x-mat_spinner" equiv-text="$ | async&quot; strokeWidth=&quot;2&quot; diameter=&quot;20&quot; color=&quot;primary&quot; style=&quot;margin-right: 10px&quot; &gt;"/><x id="CLOSE_TAG_MAT_SPINNER" ctype="x-mat_spinner" equiv-text="Log"/> Anmelden </target>
       </trans-unit>
-      <trans-unit id="registerNamePlaceholder" datatype="html">
+      <trans-unit id="registerNameLabel" datatype="html">
         <source>Name</source>
         <target state="final">Name</target>
       </trans-unit>
-      <trans-unit id="registerEmailPlaceholder" datatype="html">
+      <trans-unit id="registerEmailLabel" datatype="html">
         <source>Email</source>
         <target state="final">Email</target>
       </trans-unit>
-      <trans-unit id="registerPasswordPlaceholder" datatype="html">
+      <trans-unit id="registerPasswordLabel" datatype="html">
         <source>Password</source>
         <target state="final">Passwort</target>
       </trans-unit>
-      <trans-unit id="registerPasswordRepeatPlaceholder" datatype="html">
+      <trans-unit id="registerPasswordRepeatLabel" datatype="html">
         <source>Password (repeat)</source>
         <target state="final">Passwort (Wiederholung)</target>
       </trans-unit>
@@ -1252,7 +1252,7 @@
       </trans-unit>
       <trans-unit id="loginEmailErrorRequired" datatype="html">
         <source>Email is required</source>
-        <target state="final">Pflichtfeld</target>
+        <target state="final">Email benötigt</target>
       </trans-unit>
       <trans-unit id="projectListOpenViewerAriaLabel" datatype="html">
         <source>Open Viewer</source>
@@ -1260,7 +1260,39 @@
       </trans-unit>
       <trans-unit id="loginPasswordErrorRequired" datatype="html">
         <source> Password is required </source>
-        <target state="final"> Pflichtfeld </target>
+        <target state="final"> Passwort benötigt </target>
+      </trans-unit>
+      <trans-unit id="registerNameErrorRequired" datatype="html">
+        <source> Name is required </source>
+        <target state="new"> Name benötigt </target>
+      </trans-unit>
+      <trans-unit id="registerEmailErrorNotValid" datatype="html">
+        <source>Email address is not valid</source>
+        <target state="new">Email ist nicht valide</target>
+      </trans-unit>
+      <trans-unit id="registerEmailErrorRequired" datatype="html">
+        <source>Email is required</source>
+        <target state="new">Email benötigt</target>
+      </trans-unit>
+      <trans-unit id="registerPasswordErrorMinimum" datatype="html">
+        <source>Minimum 6 characters</source>
+        <target state="final">Mindestens 6 Zeichen</target>
+      </trans-unit>
+      <trans-unit id="registerPasswordErrorRequired" datatype="html">
+        <source>Password is required</source>
+        <target state="final">Passwort benötigt</target>
+      </trans-unit>
+      <trans-unit id="registerPasswordRepeatErrorMinimum" datatype="html">
+        <source>Minimum 6 characters</source>
+        <target state="final">Mindestens 6 Zeichen</target>
+      </trans-unit>
+      <trans-unit id="registerPasswordRepeatErrorRequired" datatype="html">
+        <source>Password (repeat) is required</source>
+        <target state="new">Passwort (Wiederholung) benötigt</target>
+      </trans-unit>
+      <trans-unit id="registerPasswordsNotMatch" datatype="html">
+        <source>Passwords do not match</source>
+        <target state="final">Passwörter stimmen nicht überein</target>
       </trans-unit>
     </body>
   </file>

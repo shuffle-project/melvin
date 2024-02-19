@@ -9,11 +9,25 @@
 form {
   display: flex;
   flex-direction: column;
+  gap: 0.375rem;
 }
 
 .mat-mdc-checkbox {
   font-size: 0.8rem;
   margin-left: 6px;
+}
+
+.error-message {
+  display: flex;
+  align-items: center;
+
+  gap: 0.625rem;
+  background-color: rgba(var(--color-red-rgb), 0.2);
+  padding: 0.625rem 0.75rem;
+
+  p {
+    margin: 0;
+  }
 }
 
 button {
