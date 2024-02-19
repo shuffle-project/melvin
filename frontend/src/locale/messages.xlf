@@ -444,13 +444,13 @@
         <source> File </source>
       </trans-unit>
       <trans-unit id="editorMenuFileEditLabel" datatype="html">
-        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon"/> Edit </source>
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="E"/> Edit </source>
       </trans-unit>
       <trans-unit id="editorMenuFileDownloadLabel" datatype="html">
-        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon"/> Download </source>
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="D"/> Download </source>
       </trans-unit>
       <trans-unit id="editorMenuFileDeleteLabel" datatype="html">
-        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon"/> Delete </source>
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="D"/> Delete </source>
       </trans-unit>
       <trans-unit id="editorMenuFileDownloadConfigureLabel" datatype="html">
         <source> Configure ... </source>
@@ -969,6 +969,12 @@
       </trans-unit>
       <trans-unit id="registerPasswordsNotMatch" datatype="html">
         <source>Passwords do not match</source>
+      </trans-unit>
+      <trans-unit id="projectListTableHeaderPlayerLabel" datatype="html">
+        <source> Player </source>
+      </trans-unit>
+      <trans-unit id="projectStatusAll" datatype="html">
+        <source>All</source>
       </trans-unit>
     </body>
   </file>

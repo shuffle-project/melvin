@@ -86,8 +86,8 @@ import { DialogCreateProjectComponent } from './dialog-create-project/dialog-cre
     DurationPipe,
     LanguageCodePipe,
     ProjectStatusPipe,
-    FeatureEnabledPipe
-],
+    FeatureEnabledPipe,
+  ],
 })
 export class ProjectListComponent implements OnInit, AfterViewInit, OnDestroy {
   ProjectSetEnum = ProjectSetEnum;
@@ -101,6 +101,7 @@ export class ProjectListComponent implements OnInit, AfterViewInit, OnDestroy {
     'createdAt',
     'members',
     'more',
+    'player',
   ];
 
   // Table data

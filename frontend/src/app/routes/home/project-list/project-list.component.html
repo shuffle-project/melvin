@@ -31,6 +31,26 @@
           </button>
         </mat-form-field>
       </div>
+
+      <div class="project-status-wrapper">
+        <mat-form-field>
+          <mat-label i18n="@@projectListFilterStatusLabel"
+            >Project status</mat-label
+          >
+          <mat-select
+            #projectStatusSelect
+            (selectionChange)="filterProjects()"
+            [value]="projectFilter.selectedProjectStatus"
+          >
+            @for (status of projectStatus; track status) {
+            <mat-option [value]="status">
+              {{ status | readableStatus }}
+            </mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+      </div>
+
       <div class="project-set-wrapper">
         <mat-button-toggle-group
           #projectSetGroup="matButtonToggleGroup"
@@ -56,24 +76,6 @@
             Shared Projects
           </mat-button-toggle>
         </mat-button-toggle-group>
-      </div>
-      <div class="project-status-wrapper">
-        <mat-form-field>
-          <mat-label i18n="@@projectListFilterStatusLabel"
-            >Project status</mat-label
-          >
-          <mat-select
-            #projectStatusSelect
-            (selectionChange)="filterProjects()"
-            [value]="projectFilter.selectedProjectStatus"
-          >
-            @for (status of projectStatus; track status) {
-            <mat-option [value]="status">
-              {{ status | readableStatus }}
-            </mat-option>
-            }
-          </mat-select>
-        </mat-form-field>
       </div>
     </div>
     <div>
@@ -167,6 +169,7 @@
             (click)="onClickProjectDetail(element, 'activity')"
           >
             <mat-icon
+              matChipAvatar
               class="status-icon"
               [ngClass]="element.status"
               [svgIcon]="onGetCorrectIcon(element.status)"
@@ -260,7 +263,19 @@
         >
           <mat-icon svgIcon="more"></mat-icon>
         </button>
+      </td>
+    </ng-container>
+    <!-- Player column -->
+    <ng-container matColumnDef="player">
+      <th
+        mat-header-cell
+        *matHeaderCellDef
+        i18n="@@projectListTableHeaderPlayerLabel"
+      >
+        Player
+      </th>
 
+      <td mat-cell *matCellDef="let element">
         <button
           mat-icon-button
           i18n-aria-label="@@projectListOpenViewerAriaLabel"
@@ -297,10 +312,10 @@
           Download
         </button>
         }
-        <button mat-menu-item (click)="onOpenViewer(element)">
-          <mat-icon svgIcon="share"></mat-icon>
+        <!-- <button mat-menu-item (click)="onOpenViewer(element)">
+          <mat-icon svgIcon="viewer"></mat-icon>
           Viewer
-        </button>
+        </button> -->
         @if (element.createdBy === (userId$ | ngrxPush)) {
         <mat-divider></mat-divider>
         <button

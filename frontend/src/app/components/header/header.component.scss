@@ -8,6 +8,10 @@ header {
 
   z-index: 1;
 
+  .logo {
+    margin-right: 0.625rem;
+  }
+
   mat-toolbar {
     min-height: 60px;
     height: auto;
@@ -21,6 +25,16 @@ header {
     }
     display: flex;
     align-items: center;
+  }
+}
+
+.show-notifications-button {
+  margin-right: 0.75rem;
+  min-width: 2rem;
+
+  .mat-icon {
+    min-height: 100%;
+    margin: 0;
   }
 }
 

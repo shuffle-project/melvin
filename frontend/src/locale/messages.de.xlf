@@ -183,16 +183,16 @@
         <target state="final"> Datei </target>
       </trans-unit>
       <trans-unit id="editorMenuFileEditLabel" datatype="html">
-        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon"/> Edit </source>
-        <target state="final"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="E"/> Bearbeiten </target>
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="E"/> Edit </source>
+        <target state="new"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="E"/> Bearbeiten </target>
       </trans-unit>
       <trans-unit id="editorMenuFileDownloadLabel" datatype="html">
-        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon"/> Download </source>
-        <target state="final"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="D"/> Herunterladen </target>
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="D"/> Download </source>
+        <target state="new"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="D"/> Herunterladen </target>
       </trans-unit>
       <trans-unit id="editorMenuFileDeleteLabel" datatype="html">
-        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon"/> Delete </source>
-        <target state="final"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="D"/> Löschen </target>
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="D"/> Delete </source>
+        <target state="new"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="D"/> Löschen </target>
       </trans-unit>
       <trans-unit id="editorMenuFileDownloadConfigureLabel" datatype="html">
         <source> Configure ... </source>
@@ -1293,6 +1293,14 @@
       <trans-unit id="registerPasswordsNotMatch" datatype="html">
         <source>Passwords do not match</source>
         <target state="final">Passwörter stimmen nicht überein</target>
+      </trans-unit>
+      <trans-unit id="projectStatusAll" datatype="html">
+        <source>All</source>
+        <target state="final">Alle</target>
+      </trans-unit>
+      <trans-unit id="projectListTableHeaderPlayerLabel" datatype="html">
+        <source> Player </source>
+        <target state="final"> Player </target>
       </trans-unit>
     </body>
   </file>

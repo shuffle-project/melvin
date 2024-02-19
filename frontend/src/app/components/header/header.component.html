@@ -2,12 +2,21 @@
   <div *ngrxLet="recentNotifications$ as notifications">
     <div *ngrxLet="totalUnreadNotifications$ as totalUnreadNotifications">
       <mat-toolbar>
-        <app-logo
-          class="clickable"
-          [routerLink]="['/home/projects']"
-        ></app-logo>
-        <ng-content></ng-content>
+        <app-logo class="clickable logo" [routerLink]="['/home/projects']" />
+        <ng-content />
         <div class="header-buttons {{ !viewer ? 'margin-left' : '' }}">
+          @if (('notifications' | featureEnabled) && !viewer) {
+          <button
+            mat-stroked-button
+            class="show-notifications-button"
+            [mat-menu-trigger-for]="notificationMenu"
+            [matBadge]="totalUnreadNotifications"
+            [matBadgeHidden]="totalUnreadNotifications === 0"
+            matBadgeColor="accent"
+          >
+            <mat-icon svgIcon="bell" />
+          </button>
+          }
           <div class="dark-mode-wrapper" *ngrxLet="darkMode$ as darkMode">
             <mat-icon svgIcon="light_mode" class="svg-black"></mat-icon>
             <mat-slide-toggle
@@ -18,36 +27,23 @@
             ></mat-slide-toggle>
             <mat-icon svgIcon="dark_mode" class="svg-black"></mat-icon>
           </div>
-          @if (('notifications' | featureEnabled) && !viewer) {
-            <button
-              mat-icon-button
-              [mat-menu-trigger-for]="notificationMenu"
-              >
-              <mat-icon
-                svgIcon="bell"
-                [matBadge]="totalUnreadNotifications"
-                [matBadgeHidden]="totalUnreadNotifications === 0"
-                >
-              </mat-icon>
-            </button>
-          }
           @if (isLoggedIn$ | ngrxPush) {
-            <button
-              mat-icon-button
-              [mat-menu-trigger-for]="usermenu"
-              (menuOpened)="isMenuOpen = true"
-              (onMenuClose)="isMenuOpen = false"
-              >
-              @if (!isMenuOpen) {
-                <mat-icon @fadeIn svgIcon="menu"></mat-icon>
-              }
-              @if (isMenuOpen) {
-                <mat-icon @fadeIn svgIcon="clear"></mat-icon>
-              }
-            </button>
+          <button
+            mat-icon-button
+            [mat-menu-trigger-for]="usermenu"
+            (menuOpened)="isMenuOpen = true"
+            (onMenuClose)="isMenuOpen = false"
+          >
+            @if (!isMenuOpen) {
+            <mat-icon @fadeIn svgIcon="menu"></mat-icon>
+            } @if (isMenuOpen) {
+            <mat-icon @fadeIn svgIcon="clear"></mat-icon>
+            }
+          </button>
           }
         </div>
       </mat-toolbar>
+
       <mat-menu #notificationMenu="matMenu" class="mat-menu">
         <ng-template matMenuContent>
           <div class="notification-menu">
@@ -58,37 +54,36 @@
             </div>
             <div class="notification-wrapper">
               @for (notification of notifications; track notification) {
-                <div
-                  class="notifications"
+              <div class="notifications">
+                <app-notification
+                  [viewType]="'popup'"
+                  [notification]="notification"
+                >
+                  <button
+                    (click)="onClickNotificationRead(notification.id, $event)"
+                    mat-icon-button
+                    class="read-notification-button"
+                    i18n-matTooltip="@@headerMarkAsReadButtonLabel"
+                    matTooltip="Mark as read"
                   >
-                  <app-notification
-                    [viewType]="'popup'"
-                    [notification]="notification"
-                    >
-                    <button
-                      (click)="onClickNotificationRead(notification.id, $event)"
-                      mat-icon-button
-                      class="read-notification-button"
-                      i18n-matTooltip="@@headerMarkAsReadButtonLabel"
+                    <mat-icon
                       matTooltip="Mark as read"
-                      >
-                      <mat-icon
-                        matTooltip="Mark as read"
-                        svgIcon="clear"
-                      ></mat-icon>
-                    </button>
-                  </app-notification>
-                </div>
+                      svgIcon="clear"
+                    ></mat-icon>
+                  </button>
+                </app-notification>
+              </div>
               }
             </div>
             <a
               [matBadge]="totalUnreadNotifications"
               [matBadgeHidden]="totalUnreadNotifications === 0"
+              matBadgeColor="accent"
               matBadgeOverlap="false"
               class="all-notifications-link"
               routerLink="/home/notifications"
               i18n="@@headerShowAllNotifications"
-              >
+            >
               Show all notifications
             </a>
           </div>
@@ -101,7 +96,7 @@
           matTooltip="Go to your Profile"
           i18n="@@headerMenuProfileButton"
           i18n-matTooltip="@@headerMenuProfileButtonTooltip"
-          >
+        >
           <mat-icon svgIcon="person"></mat-icon>Profile
         </button>
         <button
@@ -110,7 +105,7 @@
           matTooltip="Logout"
           i18n="@@headerMenuLogoutButton"
           i18n-matTooltip="@@headerMenuLogoutButtonTooltip"
-          >
+        >
           <mat-icon svgIcon="logout"></mat-icon>Logout
         </button>
       </mat-menu>

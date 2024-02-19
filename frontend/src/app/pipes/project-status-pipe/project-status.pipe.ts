@@ -8,6 +8,8 @@ import { ProjectStatus } from 'src/app/services/api/entities/project.entity';
 export class ProjectStatusPipe implements PipeTransform {
   transform(value: string): string {
     switch (value) {
+      case 'all':
+        return $localize`:@@projectStatusAll:All`;
       case ProjectStatus.DRAFT:
         return $localize`:@@projectStatusDraft:Draft`;
       case ProjectStatus.FINISHED:
