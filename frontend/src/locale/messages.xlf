@@ -305,9 +305,6 @@
       <trans-unit id="writtenLanguageFR-FR" datatype="html">
         <source>French</source>
       </trans-unit>
-      <trans-unit id="writtenLanguageUnknown" datatype="html">
-        <source>Unknown</source>
-      </trans-unit>
       <trans-unit id="authLoginHeader" datatype="html">
         <source>Login</source>
       </trans-unit>
@@ -329,11 +326,8 @@
       <trans-unit id="authToLoginFromPasswordResetLabel" datatype="html">
         <source>Login</source>
       </trans-unit>
-      <trans-unit id="loginEmailPlaceholder" datatype="html">
+      <trans-unit id="loginEmailLabel" datatype="html">
         <source>Email</source>
-      </trans-unit>
-      <trans-unit id="loginPasswordPlaceholder" datatype="html">
-        <source>Password</source>
       </trans-unit>
       <trans-unit id="loginStayLoggedInCheckboxLabel" datatype="html">
         <source>Stay logged in</source>
@@ -939,6 +933,18 @@
       </trans-unit>
       <trans-unit id="writtenLanguageEN" datatype="html">
         <source>English</source>
+      </trans-unit>
+      <trans-unit id="loginEmailErrorNotValid" datatype="html">
+        <source>Email address is not valid</source>
+      </trans-unit>
+      <trans-unit id="loginEmailErrorRequired" datatype="html">
+        <source>Email is required</source>
+      </trans-unit>
+      <trans-unit id="projectListOpenViewerAriaLabel" datatype="html">
+        <source>Open Viewer</source>
+      </trans-unit>
+      <trans-unit id="loginPasswordErrorRequired" datatype="html">
+        <source> Password is required </source>
       </trans-unit>
     </body>
   </file>

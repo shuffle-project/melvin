@@ -8,6 +8,11 @@ mat-form-field {
   --mdc-outlined-text-field-error-outline-color: var(--color-warn-500);
 }
 
+.mat-mdc-form-field-infix {
+  display: flex;
+  align-items: center;
+}
+
 // --mdc-filled-text-field-caret-color: #3f51b5;
 // --mdc-filled-text-field-focus-active-indicator-color: #3f51b5;
 // --mdc-filled-text-field-focus-label-text-color: rgba(63, 81, 181, .87);
