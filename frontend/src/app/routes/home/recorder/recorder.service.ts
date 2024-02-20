@@ -1,18 +1,8 @@
-import {
-  HttpErrorResponse,
-  HttpEvent,
-  HttpEventType,
-} from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ApiService } from '../../../services/api/api.service';
-import { AsrVendors } from '../../../services/api/dto/create-transcription.dto';
-import { UploadVideoDto } from '../../../services/api/dto/upload-video.dto';
-import {
-  MediaCategory,
-  ProjectEntity,
-} from '../../../services/api/entities/project.entity';
-import { UploadInformationComponent } from './dialogs/upload-information/upload-information.component';
+import { MediaCategory } from '../../../services/api/entities/project.entity';
+import { UploadRecordingComponent } from './dialogs/upload-recording/upload-recording.component';
 import {
   AudioSource,
   Recording,
@@ -131,37 +121,21 @@ export class RecorderService {
    * recording
    */
 
-  stopRecording(title: string, langauge: string) {
+  stopRecording(title: string, language: string) {
     if (!this.recording) return;
 
     this.title = title;
-    this.language = langauge;
+    this.language = language;
 
     this.recordings.forEach((recording) => {
       recording.mediaRecorder.stop();
     });
 
     // TODO
-    this.dialog.open(UploadInformationComponent, { data: this.recordings });
-  }
-
-  async finishRecording() {
-    const newProject: ProjectEntity = await this.createProject(
-      this.recordings[0],
-      this.title,
-      this.language
-    );
-
-    this.recordings.forEach((rec, i) => {
-      if (i === 0) return;
-      // TODO upload rec as extra video
-      console.log(newProject.id);
-      console.log('todo upload video to created project');
-
-      this.uploadAdditionalFile(rec, newProject);
+    this.dialog.open(UploadRecordingComponent, {
+      data: { title, language, recordings: this.recordings },
+      disableClose: true,
     });
-
-    this.recording = false;
   }
 
   startRecording() {
@@ -242,8 +216,10 @@ export class RecorderService {
     recording.complete = true;
 
     // all recordings finished?
-    if (!this.recordings.some((rec) => rec.complete === false))
-      this.finishRecording();
+    if (!this.recordings.some((rec) => rec.complete === false)) {
+      // this.finishRecording();
+      this.recording = false;
+    }
   }
 
   getMergedAudioTracks(...streams: MediaStream[]): MediaStreamTrack[] {
@@ -256,95 +232,5 @@ export class RecorderService {
     });
 
     return destination.stream.getAudioTracks();
-  }
-
-  /**
-   * Create projekt
-   */
-
-  async createProject(rec: Recording, title: string, language: string) {
-    const formData: FormData = this.buildFormData(rec, title, language);
-
-    this.api.createProject(formData).subscribe({
-      next: (event: HttpEvent<ProjectEntity>) =>
-        this._onNextHttpEvent(event, rec),
-      error: (error: HttpErrorResponse) => this._onErrorHttpEvent(rec, error),
-    });
-
-    // TODO wait until upload is done
-    while (!rec.upload.result) {
-      await new Promise((resolve) => {
-        setTimeout(() => {
-          resolve(null);
-        }, 1000);
-      });
-    }
-
-    return rec.upload.result;
-  }
-
-  buildFormData(recording: Recording, title: string, language: string) {
-    const data = {
-      title: title,
-      language: language,
-      sourceMode: 'video',
-      asrVendor: AsrVendors.WHISPER,
-      asrLanguage: language,
-      videoLanguage: language,
-    };
-
-    const formData: FormData = new FormData();
-    Object.entries(data).forEach((o) => {
-      const key = o[0];
-      const value = o[1];
-      formData.append(key, value);
-    });
-
-    const file = new File(recording.chunks, 'video.webm', {
-      type: 'video/webm',
-    });
-
-    formData.append('video', file, 'video.webm');
-    return formData;
-  }
-
-  uploadAdditionalFile(rec: Recording, newProject: ProjectEntity) {
-    const recFile = new File(rec.chunks, 'video.webm', {
-      type: 'video/webm',
-    });
-
-    const uploadVideoDto: UploadVideoDto = {
-      title: rec.title,
-      category: rec.category,
-    };
-
-    rec.upload.progress = 0;
-
-    this.api.uploadVideo(newProject.id, uploadVideoDto, recFile).subscribe({
-      next: (event: HttpEvent<ProjectEntity>) =>
-        this._onNextHttpEvent(event, rec),
-      error: (error: HttpErrorResponse) => this._onErrorHttpEvent(rec, error),
-    });
-  }
-
-  _onNextHttpEvent(event: HttpEvent<ProjectEntity>, rec: Recording) {
-    switch (event.type) {
-      case HttpEventType.UploadProgress:
-        if (event.total)
-          rec.upload.progress = (event.loaded / event.total) * 100;
-
-        break;
-      case HttpEventType.Response:
-        rec.upload.progress = 100;
-        rec.upload.result = event.body ?? undefined;
-        break;
-
-      default:
-        break;
-    }
-  }
-
-  _onErrorHttpEvent(rec: Recording, error: HttpErrorResponse) {
-    rec.upload.error = error;
   }
 }
