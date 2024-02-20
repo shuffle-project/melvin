@@ -15,6 +15,12 @@
   border-radius: 10px;
 }
 
+.transcription-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
 .transcription {
   background: var(--color-background-grey);
   border: 1px solid var(--color-border-grey);
@@ -89,16 +95,16 @@
   justify-content: center;
   align-items: center;
   font-weight: 600;
-  font-size: 20px;
-  color: var(--color-white);
+  font-size: 1.25rem;
   text-align: center;
 
   p {
-    margin: 4px;
+    margin: 0.25rem;
+    color: var(--color-white);
   }
 
   .mat-icon {
     transform: scale(1.5);
-    margin-top: 15px;
+    margin-top: 1rem;
   }
 }

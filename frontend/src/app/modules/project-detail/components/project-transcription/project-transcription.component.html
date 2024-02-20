@@ -1,23 +1,21 @@
-<div class="main-wrapper">
-  <div
+<ul class="main-wrapper transcription-list">
+  <li
     (click)="onClickAddTranscription()"
     role="button"
     tabindex="0"
     class="btn-add-transcription basic-form clickable"
-    >
+  >
     <div>
       <p i18n="@@projectTranscriptionAddButtonTop">Add</p>
       <p i18n="@@projectTranscriptionAddButtonBottom">Transcription</p>
-      <mat-icon svgIcon="add-circle"></mat-icon>
+      <mat-icon svgIcon="add-circle" class="svg-white"></mat-icon>
     </div>
-  </div>
+  </li>
   <ng-container *ngrxLet="transcriptionsList$ as transcriptions">
     @for (transcription of transcriptions; track transcription) {
-      <div
-        class="transcription basic-form"
-        >
-        <app-transcription [transcription]="transcription"></app-transcription>
-      </div>
+    <li class="transcription basic-form">
+      <app-transcription [transcription]="transcription"></app-transcription>
+    </li>
     }
   </ng-container>
-</div>
+</ul>

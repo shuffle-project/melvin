@@ -14,8 +14,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { ErrorStateMatcher, MatOptionModule } from '@angular/material/core';
 import {
   MatDialog,
+  MatDialogModule,
   MatDialogRef,
-  MatDialogTitle,
 } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -54,7 +54,6 @@ import { MatRadioModule } from '@angular/material/radio';
   styleUrls: ['./create-transcription-dialog.component.scss'],
   standalone: true,
   imports: [
-    MatDialogTitle,
     ReactiveFormsModule,
     MatRadioModule,
     MatIconModule,
@@ -66,6 +65,7 @@ import { MatRadioModule } from '@angular/material/radio';
     MatButtonModule,
     MatTooltipModule,
     LetDirective,
+    MatDialogModule,
   ],
 })
 export class CreateTranscriptionDialogComponent implements OnInit, OnDestroy {

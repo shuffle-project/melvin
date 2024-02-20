@@ -1,9 +1,19 @@
-import { Component, Inject, OnInit } from '@angular/core';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Component, Inject } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
+import {
+  MAT_DIALOG_DATA,
+  MatDialog,
+  MatDialogModule,
+} from '@angular/material/dialog';
+import { MatIconModule } from '@angular/material/icon';
 import { MatTabsModule } from '@angular/material/tabs';
+import { PushPipe } from '@ngrx/component';
 import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { ProjectEntity } from 'src/app/services/api/entities/project.entity';
 import { AppState } from 'src/app/store/app.state';
 import * as projectsActions from '../../store/actions/projects.actions';
+import * as editorSelectors from '../../store/selectors/editor.selector';
 import { ProjectActivityComponent } from './components/project-activity/project-activity.component';
 import { ProjectGeneralComponent } from './components/project-general/project-general.component';
 import { ProjectTranscriptionComponent } from './components/project-transcription/project-transcription.component';
@@ -22,14 +32,19 @@ export interface ProjectDetailDialogData {
   styleUrls: ['./project-detail.component.scss'],
   standalone: true,
   imports: [
+    MatDialogModule,
     MatTabsModule,
     ProjectGeneralComponent,
     ProjectTranscriptionComponent,
     ProjectActivityComponent,
-    UploadAdditionalContentComponent
-],
+    UploadAdditionalContentComponent,
+    PushPipe,
+    MatIconModule,
+    MatButtonModule,
+  ],
 })
-export class ProjectDetailComponent implements OnInit {
+export class ProjectDetailComponent {
+  public project$: Observable<ProjectEntity | null>;
   private tabs: ProjectDetailDialogTab[] = [
     'general',
     'transcription',
@@ -41,13 +56,12 @@ export class ProjectDetailComponent implements OnInit {
 
   constructor(
     @Inject(MAT_DIALOG_DATA) data: ProjectDetailDialogData,
+    public dialog: MatDialog,
     private store: Store<AppState>
   ) {
     this.selectedTabIndex = this.tabs.findIndex((o) => o === data.tab) || 0;
     this.projectId = data.projectId;
-  }
-
-  ngOnInit(): void {
     this.store.dispatch(projectsActions.findOne({ projectId: this.projectId }));
+    this.project$ = this.store.select(editorSelectors.selectProject);
   }
 }

@@ -7,7 +7,7 @@
     [matMenuTriggerFor]="transcriptionMenu"
     [matMenuTriggerData]="{transcription}"
     mat-icon-button
-    >
+  >
     <mat-icon svgIcon="dots-horizontal"></mat-icon>
   </button>
 </div>
@@ -20,6 +20,7 @@
       i18n-matTooltip="@@transcriptionCreatedByTooltip"
       matTooltip="Created by"
       svgIcon="account2"
+      class="svg-black"
     ></mat-icon>
     <div class="name">
       {{ transcription.createdBy.name }}
@@ -31,6 +32,7 @@
         i18n-matTooltip="@@transcriptionCreatedAtTooltip"
         matTooltip="Created at"
         svgIcon="calendar-add"
+        class="svg-black"
       ></mat-icon>
       {{ transcription.createdAt | formatDate }}
     </div>
@@ -39,6 +41,7 @@
         i18n-matTooltip="@@transcriptionLastUpdatedAtTooltip"
         matTooltip="Last updated at"
         svgIcon="calendar-edit"
+        class="svg-black"
       ></mat-icon>
       {{ transcription.updatedAt | formatDate }}
     </div>
@@ -59,7 +62,7 @@
       i18n="@@transcriptionEditTranscriptionButton"
       (click)="onClickEditTranscription(transcription)"
       mat-menu-item
-      >
+    >
       <mat-icon svgIcon="edit"></mat-icon>
       Edit
     </button>
@@ -67,7 +70,7 @@
       (click)="onOpenTranscription(transcription.id)"
       i18n="@@transcriptionOpenTranscriptionButton"
       mat-menu-item
-      >
+    >
       <mat-icon svgIcon="left"></mat-icon>
       Open
     </button>
@@ -75,23 +78,22 @@
       mat-menu-item
       [matMenuTriggerFor]="downloadMenu"
       i18n="@@transcriptionMenuFileDownloadLabel"
-      >
+    >
       <mat-icon svgIcon="download"></mat-icon>
       Download
     </button>
     @if (transcription.createdBy === userId || project.createdBy === userId) {
-      <div
-        >
-        <mat-divider></mat-divider>
-        <button
-          (click)="onClickDeleteTranscription(transcription.id)"
-          i18n="@@transcriptionDeleteTranscriptionButton"
-          mat-menu-item
-          >
-          <mat-icon svgIcon="delete"></mat-icon>
-          Delete
-        </button>
-      </div>
+    <div>
+      <mat-divider></mat-divider>
+      <button
+        (click)="onClickDeleteTranscription(transcription.id)"
+        i18n="@@transcriptionDeleteTranscriptionButton"
+        mat-menu-item
+      >
+        <mat-icon svgIcon="delete"></mat-icon>
+        Delete
+      </button>
+    </div>
     }
   </ng-template>
 </mat-menu>
