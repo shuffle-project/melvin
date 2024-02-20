@@ -13,6 +13,22 @@
   .recording-wrapper {
     display: flex;
     margin-top: 10px;
+
+    .infotext {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      p {
+        text-align: center;
+        margin: 0;
+      }
+    }
+
+    .buttons {
+      margin-left: auto;
+    }
   }
 
   .all-media-wrapper {

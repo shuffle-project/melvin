@@ -7,10 +7,10 @@
         {
         <mat-chip
           class="media-category {{
-            recorderService.mode === 'record' ? '' : 'clickable'
+            recorderService.editMode ? 'clickable' : ''
           }}"
           [matMenuTriggerFor]="mediaCategoryMenu"
-          [disabled]="recorderService.mode === 'record'"
+          [disabled]="!recorderService.editMode"
           >{{
             videoSource?.mediaCategory || screensharingSource?.mediaCategory
           }}</mat-chip

@@ -7,7 +7,9 @@ import {
   MatDialogRef,
 } from '@angular/material/dialog';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { Recording } from '../../recorder.interfaces';
 
+// TODO maybe rename to upload recording?
 @Component({
   selector: 'app-upload-information',
   standalone: true,
@@ -25,7 +27,7 @@ export class UploadInformationComponent {
   constructor(
     public dialogRef: MatDialogRef<UploadInformationComponent>,
     @Inject(MAT_DIALOG_DATA)
-    public data: { id: string; progress: number }[]
+    public data: Recording[]
   ) {
     console.log(data);
   }

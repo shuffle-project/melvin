@@ -5,14 +5,14 @@
     Sobald alle Dateien hochgeladen wurden, taucht das Projekt in der
     Projektübersicht auf.
     <ul class="upload-list">
-      @for (upload of data; track $index) {
+      @for (recording of data; track $index) {
       <li>
         <!-- {{ upload.name }} -->
         <mat-progress-bar
           mode="determinate"
-          [value]="upload.progress"
+          [value]="recording.upload.progress"
         ></mat-progress-bar>
-        {{ upload.progress | number : '1.0-0' }}%
+        {{ recording.upload.progress | number : '1.0-0' }}%
         <!-- {{ (fileUpload.loaded / fileUpload.totalSize) * 100 }}% -->
         <!-- <button mat-icon-button (click)="onCancelUpload(fileUpload)">
           <mat-icon svgIcon="close"></mat-icon>

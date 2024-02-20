@@ -13,6 +13,10 @@ jwt:
   issuer: http://localhost:3000
   audience: http://localhost:4200
 
+whisper:
+  host: localhost
+  apikey: shuffle2024
+
 basicAuth:
   username: admin
   password: secret

@@ -1,4 +1,8 @@
-import { MediaCategory } from '../../../services/api/entities/project.entity';
+import { HttpErrorResponse } from '@angular/common/http';
+import {
+  MediaCategory,
+  ProjectEntity,
+} from '../../../services/api/entities/project.entity';
 
 export interface SourceObject {
   id: string;
@@ -23,4 +27,18 @@ export interface ScreensharingSource extends SourceObject {
   type: 'screensharing';
   mediaCategory: MediaCategory;
   sound: boolean;
+}
+
+export interface Recording {
+  id: string;
+  title: string;
+  category: MediaCategory;
+  mediaRecorder: MediaRecorder;
+  chunks: Blob[];
+  complete: boolean;
+  upload: {
+    progress: number;
+    result?: ProjectEntity;
+    error?: HttpErrorResponse;
+  };
 }
