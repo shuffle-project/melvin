@@ -1,7 +1,11 @@
 import { Injectable } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { ApiService } from '../../../services/api/api.service';
 import { MediaCategory } from '../../../services/api/entities/project.entity';
+import { UploadRecordingComponent } from './dialogs/upload-recording/upload-recording.component';
 import {
   AudioSource,
+  Recording,
   ScreensharingSource,
   VideoSource,
 } from './recorder.interfaces';
@@ -10,7 +14,11 @@ import {
   providedIn: 'root',
 })
 export class RecorderService {
-  public mode: 'setup' | 'record' = 'setup';
+  public editMode = true;
+  public recording = false;
+
+  public title: string = '';
+  public language: string = 'de';
 
   // devices
   private enumeratedDevices: MediaDeviceInfo[] | null = null;
@@ -20,17 +28,26 @@ export class RecorderService {
   public screensharings: ScreensharingSource[] = [];
 
   //recording
+  recordings: Recording[] = [];
 
-  constructor() {
+  constructor(private api: ApiService, public dialog: MatDialog) {
     this.reloadDevices();
   }
 
   /**
-   * devices
+   * manage devices
    */
 
-  reloadDevices() {
+  async reloadDevices() {
     this.enumeratedDevices = null;
+
+    await navigator.mediaDevices
+      .getUserMedia({
+        video: true,
+        audio: true,
+      })
+      .then((x) => x.getTracks().forEach((tr) => tr.stop()));
+
     navigator.mediaDevices
       .enumerateDevices()
       .then((enumerated) => {
@@ -103,4 +120,117 @@ export class RecorderService {
   /**
    * recording
    */
+
+  stopRecording(title: string, language: string) {
+    if (!this.recording) return;
+
+    this.title = title;
+    this.language = language;
+
+    this.recordings.forEach((recording) => {
+      recording.mediaRecorder.stop();
+    });
+
+    // TODO
+    this.dialog.open(UploadRecordingComponent, {
+      data: { title, language, recordings: this.recordings },
+      disableClose: true,
+    });
+  }
+
+  startRecording() {
+    if (this.recording) return;
+
+    // cleanup;
+    this.recordings = []; // TODO
+
+    // build main audio + video
+
+    const audioStreams: MediaStream[] = [];
+    this.audios.forEach((audio) => {
+      if (audio.mediaStream) audioStreams.push(audio.mediaStream);
+    });
+    this.screensharings.forEach((screensharing) => {
+      if (
+        screensharing.mediaStream?.getAudioTracks() &&
+        screensharing.mediaStream?.getAudioTracks().length > 0
+      ) {
+        audioStreams.push(screensharing.mediaStream);
+      } else {
+      }
+    });
+
+    const allVisualSources = [...this.screensharings, ...this.videos];
+
+    const mainAudioTracks = this.getMergedAudioTracks(...audioStreams);
+    const mainVisualSource = allVisualSources[0];
+    const mainVideoTracks = mainVisualSource.mediaStream!.getVideoTracks();
+
+    const mainStream = new MediaStream([
+      ...mainAudioTracks, // all audios
+      ...mainVideoTracks, // main video
+    ]);
+
+    // this
+
+    const allStreams = [{ source: mainVisualSource, stream: mainStream }];
+    allVisualSources.forEach((source, i) => {
+      if (i !== 0) allStreams.push({ source, stream: source.mediaStream! });
+    });
+
+    allStreams.forEach((streamToRecord) => {
+      const chunks: Blob[] = [];
+      const mediaRecorder = new MediaRecorder(streamToRecord.stream);
+
+      const recording: Recording = {
+        id: streamToRecord.source.id,
+        mediaRecorder: mediaRecorder,
+        chunks,
+        title: streamToRecord.source.title,
+        category: streamToRecord.source.mediaCategory,
+        complete: false,
+        upload: { progress: -1 },
+      };
+      this.recordings.push(recording);
+
+      mediaRecorder.onerror = (e) => {
+        console.log('error in recording');
+        console.log(recording);
+        console.log(e);
+      };
+      mediaRecorder.ondataavailable = (e) =>
+        this.onDataAvailableMediaRecorder(e, recording);
+      mediaRecorder.onstop = (e) => this.onStopMediaRecorder(e, recording);
+
+      mediaRecorder.start();
+
+      this.recording = true;
+    });
+  }
+
+  onDataAvailableMediaRecorder(e: BlobEvent, recording: Recording) {
+    if (e.data.size > 0) recording.chunks.push(e.data);
+  }
+
+  onStopMediaRecorder(e: Event, recording: Recording) {
+    recording.complete = true;
+
+    // all recordings finished?
+    if (!this.recordings.some((rec) => rec.complete === false)) {
+      // this.finishRecording();
+      this.recording = false;
+    }
+  }
+
+  getMergedAudioTracks(...streams: MediaStream[]): MediaStreamTrack[] {
+    const audioCtx = new AudioContext();
+    const destination = audioCtx.createMediaStreamDestination();
+
+    streams.forEach((stream) => {
+      const source = audioCtx.createMediaStreamSource(stream);
+      source.connect(destination);
+    });
+
+    return destination.stream.getAudioTracks();
+  }
 }

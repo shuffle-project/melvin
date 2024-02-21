@@ -35,47 +35,65 @@
       >
     </mat-form-field>
 
+    <div class="infotext">
+      @if (recorderService.recording) {
+      <div class="recording"></div>
+      }
+
+      <!--  -->
+      @if (this.recorderService.editMode) {
+      <p>
+        Edit mode. You can add or delete sources. You need at least 1 source to
+        continue.
+      </p>
+      <p>Switch Edit Mode to start recording.</p>
+      } @else if (!this.recorderService.recording) {
+      <p>Click Start Record to start the Recording</p>
+      <p>Switch Edit mode to add or delete Sources again.</p>
+      }@else {
+      <p>
+        Recording ongoing. Press Stop recording if you want to save or dismiss
+        your recording.
+      </p>
+      }
+    </div>
+
     <!-- setup buttons -->
-    <div class="buttons" style="margin-left: auto">
-      @if (recorderService.mode === 'setup') {
-      <div>
-        <button
-          color="primary"
-          mat-flat-button
-          (click)="onClickReady()"
-          [disabled]=""
-        >
-          Bereit
-        </button>
-      </div>
-      }
+    <div class="buttons">
+      <mat-slide-toggle
+        [(ngModel)]="recorderService.editMode"
+        [disabled]="
+          recorderService.recording ||
+          (recorderService.audios.length === 0 &&
+            recorderService.videos.length === 0 &&
+            recorderService.screensharings.length === 0)
+        "
+        color="primary"
+      >
+        Edit Modus
+      </mat-slide-toggle>
+
       <!-- record buttons -->
-      @if (recorderService.mode === 'record') {
-      <div>
-        <button
-          color="primary"
-          mat-flat-button
-          (click)="onClickStartRecord()"
-          [disabled]="recording"
-        >
-          Start Record
-        </button>
-        <button
-          color="primary"
-          mat-flat-button
-          (click)="onClickStopRecord()"
-          [disabled]="!recording"
-        >
-          Stop Record
-        </button>
-        @if (recording) {
-        <div class="recording"></div>
-        }
-      </div>
-      }
+      <button
+        color="primary"
+        mat-flat-button
+        (click)="onClickStartRecord()"
+        [disabled]="recorderService.editMode || recorderService.recording"
+      >
+        Start Record
+      </button>
+      <button
+        color="primary"
+        mat-flat-button
+        (click)="onClickStopRecord()"
+        [disabled]="recorderService.editMode || !recorderService.recording"
+      >
+        Stop Record
+      </button>
     </div>
   </div>
   <hr />
+
   <div class="all-media-wrapper">
     <div class="media-category-wrapper">
       <h2>Audioquellen</h2>
@@ -91,7 +109,7 @@
         }
       </div>
       <!--  -->
-      @if (recorderService.mode === 'setup') {
+      @if (recorderService.editMode) {
       <button
         color="primary"
         class="add-btn"
@@ -116,7 +134,7 @@
         }
       </div>
       <!--  -->
-      @if (recorderService.mode === 'setup') {
+      @if (recorderService.editMode ) {
       <button
         color="primary"
         class="add-btn"
@@ -141,7 +159,7 @@
         }
       </div>
       <!--  -->
-      @if (recorderService.mode === 'setup') {
+      @if (recorderService.editMode) {
       <button
         class="add-btn"
         color="primary"

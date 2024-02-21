@@ -26,10 +26,10 @@ import { RecorderService } from '../../recorder.service';
     MatIconModule,
     MatDialogModule,
     MatButtonModule,
-    MatProgressSpinnerModule,
     MatSelectModule,
     FormsModule,
     MatInputModule,
+    MatProgressSpinnerModule,
   ],
 })
 export class AddAudioSourceComponent implements OnInit, OnDestroy {

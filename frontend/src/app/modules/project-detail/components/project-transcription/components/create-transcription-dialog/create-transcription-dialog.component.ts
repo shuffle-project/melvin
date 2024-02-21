@@ -36,6 +36,7 @@ import {
   TranslateVendors,
 } from '../../../../../../services/api/dto/create-transcription.dto';
 import {
+  AsrServiceConfig,
   Language,
   TranslationServiceConfig,
 } from '../../../../../../services/api/entities/config.entity';
@@ -47,6 +48,7 @@ import * as transcriptionsSelectors from '../../../../../../store/selectors/tran
 
 import { MatIconModule } from '@angular/material/icon';
 import { MatRadioModule } from '@angular/material/radio';
+import { WrittenOutLanguagePipe } from '../../../../../../pipes/written-out-language-pipe/written-out-language.pipe';
 
 @Component({
   selector: 'app-create-transcription-dialog',
@@ -66,10 +68,12 @@ import { MatRadioModule } from '@angular/material/radio';
     MatTooltipModule,
     LetDirective,
     MatDialogModule,
+    WrittenOutLanguagePipe,
   ],
 })
 export class CreateTranscriptionDialogComponent implements OnInit, OnDestroy {
   private destroy$$ = new Subject<void>();
+
   languages = LANGUAGES;
   public loading = false;
 
@@ -117,6 +121,7 @@ export class CreateTranscriptionDialogComponent implements OnInit, OnDestroy {
   public translationServices$ = this.store.select(
     configSelectors.translationServiceConfig
   );
+  public asrServices$ = this.store.select(configSelectors.asrServiceConfig);
 
   constructor(
     private store: Store<AppState>,
@@ -361,5 +366,12 @@ export class CreateTranscriptionDialogComponent implements OnInit, OnDestroy {
     return (
       services.find((obj) => obj.translateVendor === vendor)?.languages || []
     );
+  }
+
+  getLanguages(asrServices: AsrServiceConfig[]) {
+    const selectedService = asrServices.find(
+      (s) => s.asrVendor === this.transcriptionGroup.value.asrVendor
+    );
+    return selectedService?.languages;
   }
 }
