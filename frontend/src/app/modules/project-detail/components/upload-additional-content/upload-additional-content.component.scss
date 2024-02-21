@@ -8,11 +8,10 @@
 
   .first-row {
     display: flex;
-    gap: 5px;
-    margin: 0 5px;
+    gap: 1.25rem;
 
     .title {
-      flex-grow: 2;
+      flex-grow: 3;
     }
     .category {
       flex-grow: 1;
@@ -27,27 +26,36 @@
 }
 
 .upload-wrapper {
-  margin: 10px;
+  &.error {
+    input[type='file'] {
+      border: 1px solid var(--color-warn);
+    }
+  }
+
+  .file-error {
+    color: var(--color-warn);
+    font-size: 0.75rem;
+    margin-left: 1.25rem;
+    margin-top: 0.25rem;
+    font-weight: 300;
+  }
 
   input[type='file'] {
-    width: 350px;
-    max-width: 100%;
     color: var(--color-text);
-    padding: 5px;
+    padding: 0.625rem 0.9375rem;
     background: var(--color-background-grey);
-    border-radius: 10px;
+    border-radius: 0.3125rem;
     border: 1px solid var(--color-light-grey);
   }
 
   input[type='file']::file-selector-button {
-    margin-right: 20px;
+    margin-right: 1.25rem;
     border: none;
     background: var(--color-primary-500);
-    padding: 10px 20px;
-    border-radius: 10px;
+    padding: 0.625rem 1.25rem;
+    border-radius: 0.3125rem;
     color: var(--color-white);
     cursor: pointer;
-    // transition: background 0.2s ease-in-out;
   }
 
   input[type='file']::file-selector-button:hover {
@@ -56,8 +64,8 @@
 }
 
 .upload-list {
-  margin: 5px;
   padding: 0;
+
   li {
     list-style-type: none;
     display: flex;
@@ -67,52 +75,56 @@
   }
 }
 
-.media-list {
-  // padding-top: 50px;
-  margin: 0 20px;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  flex-wrap: wrap;
+.uploaded-media-wrapper {
+  margin-top: 2.5rem;
 
-  .media-item {
-    position: relative;
-    background: var(--color-background-grey);
-    border: 1px solid var(--color-border-grey);
-    width: 100%;
-    width: 265px;
-    height: 235px;
-    margin: 15px;
-    // padding: 5px;
-    border-radius: 10px;
-
+  .media-list {
+    // padding-top: 50px;
+    margin: 0 20px;
     display: flex;
-    flex-direction: column;
-    // align-items: center;
+    flex-direction: row;
     justify-content: center;
+    flex-wrap: wrap;
 
-    .row {
-      box-sizing: border-box;
+    .media-item {
+      position: relative;
+      background: var(--color-background-grey);
+      border: 1px solid var(--color-border-grey);
       width: 100%;
+      width: 265px;
+      height: 235px;
+      margin: 15px;
+      // padding: 5px;
+      border-radius: 10px;
+
       display: flex;
-      align-items: center;
-      padding: 10px;
+      flex-direction: column;
+      // align-items: center;
+      justify-content: center;
 
-      overflow: hidden;
+      .row {
+        box-sizing: border-box;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        padding: 10px;
 
-      h3 {
-        margin: 0;
+        overflow: hidden;
+
+        h3 {
+          margin: 0;
+        }
+        mat-icon {
+          margin: 0px 5px;
+          min-width: 30px;
+        }
       }
-      mat-icon {
-        margin: 0px 5px;
-        min-width: 30px;
-      }
-    }
 
-    .delete-btn {
-      position: absolute;
-      top: 0;
-      right: 0;
+      .delete-btn {
+        position: absolute;
+        top: 0;
+        right: 0;
+      }
     }
   }
 }

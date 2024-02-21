@@ -1,19 +1,20 @@
 <div class="wrapper">
   @if (isOwner$ | ngrxPush) {
   <h2 i18n="@@uploadAdditionalMediaTitle">Upload additional media files</h2>
-  } @if (isOwner$ | ngrxPush) {
+
   <form class="upload-form" [formGroup]="formGroup">
     <div class="first-row">
       <mat-form-field class="title">
         <mat-label i18n="@@uploadAdditionalMediaVideoTitleLabel"
           >Video title</mat-label
         >
-        <input
-          matInput
-          formControlName="title"
-          placeholder="Video title"
-          i18n-placeholder="@@uploadAdditionalMediaVideoTitlePlaceholder"
-        />
+        <input matInput formControlName="title" />
+
+        @if( formGroup.get('title')?.hasError('required')){
+        <mat-error i18n="@@uploadAdditionalMediaVideoTitleErrorRequired">
+          Title is required
+        </mat-error>
+        }
       </mat-form-field>
       <mat-form-field class="category">
         <mat-label i18n="@@uploadAdditionalMediaVideoCategoryLabel"
@@ -27,10 +28,23 @@
           }}</mat-option>
           }
         </mat-select>
+
+        @if( formGroup.get('category')?.hasError('required')){
+        <mat-error i18n="@@uploadAdditionalMediaVideoCategoryErrorRequired">
+          Category is required
+        </mat-error>
+        }
       </mat-form-field>
     </div>
     <div class="second-row">
-      <div class="upload-wrapper">
+      <div
+        class="upload-wrapper"
+        [ngClass]="{
+          error:
+            formGroup.get('file')?.hasError('required') &&
+            formGroup.get('file')?.touched
+        }"
+      >
         <input
           #fileUpload
           formControlName="file"
@@ -39,7 +53,20 @@
           single
           accept="video/*"
           (change)="onFileChange($event)"
+          aria-describedby="file-error-info"
         />
+
+        @if( formGroup.get('file')?.hasError('required') &&
+        formGroup.get('file')?.touched ){
+        <p
+          id="file-error-info"
+          aria-live="polite"
+          class="file-error"
+          i18n="@@uploadAdditionalMediaVideoFileErrorRequired"
+        >
+          A video file is required
+        </p>
+        }
       </div>
       <button
         (click)="onClickSubmit()"
@@ -47,7 +74,7 @@
         color="primary"
         i18n="@@uploadAdditionalMediaUploadButton"
       >
-        <mat-icon svgIcon="upload"></mat-icon>
+        <mat-icon svgIcon="upload" />
         Upload
       </button>
     </div>
@@ -76,10 +103,9 @@
   }
   <ng-container *ngrxLet="project$ as project">
     <ng-container *ngrxLet="media$ as media">
-      <hr />
       @if ( project && media) {
-      <div>
-        <h3 i18n="@@uploadAdditionalMediaListHeader">Videos</h3>
+      <div class="uploaded-media-wrapper">
+        <h2 i18n="@@uploadAdditionalMediaListHeader">Uploaded media</h2>
         <div class="media-list">
           @for (video of media.videos; track video) {
           <div class="media-item">

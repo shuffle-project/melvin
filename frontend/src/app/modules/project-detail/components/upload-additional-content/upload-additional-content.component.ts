@@ -22,6 +22,7 @@ import {
 import { AppState } from '../../../../store/app.state';
 import * as projectsSelector from '../../../../store/selectors/projects.selector';
 
+import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatOptionModule } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -63,6 +64,7 @@ interface FileUpload {
     PushPipe,
     MediaCategoryPipe,
     FormatDatePipe,
+    CommonModule,
   ],
 })
 export class UploadAdditionalContentComponent implements OnInit {
