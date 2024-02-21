@@ -8,3 +8,9 @@
     margin: 0;
   }
 }
+
+.mat-mdc-tab-group {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  height: 100%;
+}
