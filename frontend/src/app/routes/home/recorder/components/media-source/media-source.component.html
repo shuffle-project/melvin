@@ -7,10 +7,10 @@
         {
         <mat-chip
           class="media-category {{
-            recorderService.editMode ? 'clickable' : ''
+            !recorderService.recordingMode ? 'clickable' : ''
           }}"
           [matMenuTriggerFor]="mediaCategoryMenu"
-          [disabled]="!recorderService.editMode"
+          [disabled]="recorderService.recordingMode"
           >{{
             videoSource?.mediaCategory || screensharingSource?.mediaCategory
           }}</mat-chip
@@ -94,9 +94,12 @@
   >
   <mat-icon svgIcon="volume_off"></mat-icon>
 </button> -->
+
+      @if (!recorderService.recordingMode) {
       <button mat-icon-button class="md" (click)="onRemoveMediaSource()">
         <mat-icon svgIcon="delete"></mat-icon>
       </button>
+      }
     </div>
   </div>
   <div class="tile-content">

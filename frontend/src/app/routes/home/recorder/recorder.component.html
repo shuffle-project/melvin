@@ -41,12 +41,12 @@
       }
 
       <!--  -->
-      @if (this.recorderService.editMode) {
+      @if (!this.recorderService.recordingMode) {
       <p>
         Edit mode. You can add or delete sources. You need at least 1 source to
         continue.
       </p>
-      <p>Switch Edit Mode to start recording.</p>
+      <p>Switch to Recording Mode to start recording.</p>
       } @else if (!this.recorderService.recording) {
       <p>Click Start Record to start the Recording</p>
       <p>Switch Edit mode to add or delete Sources again.</p>
@@ -61,7 +61,7 @@
     <!-- setup buttons -->
     <div class="buttons">
       <mat-slide-toggle
-        [(ngModel)]="recorderService.editMode"
+        [(ngModel)]="recorderService.recordingMode"
         [disabled]="
           recorderService.recording ||
           (recorderService.audios.length === 0 &&
@@ -70,7 +70,7 @@
         "
         color="primary"
       >
-        Edit Modus
+        Aufnahme modus
       </mat-slide-toggle>
 
       <!-- record buttons -->
@@ -78,7 +78,7 @@
         color="primary"
         mat-flat-button
         (click)="onClickStartRecord()"
-        [disabled]="recorderService.editMode || recorderService.recording"
+        [disabled]="!recorderService.recordingMode || recorderService.recording"
       >
         Start Record
       </button>
@@ -86,7 +86,9 @@
         color="primary"
         mat-flat-button
         (click)="onClickStopRecord()"
-        [disabled]="recorderService.editMode || !recorderService.recording"
+        [disabled]="
+          !recorderService.recordingMode || !recorderService.recording
+        "
       >
         Stop Record
       </button>
@@ -109,7 +111,7 @@
         }
       </div>
       <!--  -->
-      @if (recorderService.editMode) {
+      @if (!recorderService.recordingMode) {
       <button
         color="primary"
         class="add-btn"
@@ -134,7 +136,7 @@
         }
       </div>
       <!--  -->
-      @if (recorderService.editMode ) {
+      @if (!recorderService.recordingMode ) {
       <button
         color="primary"
         class="add-btn"
@@ -159,7 +161,7 @@
         }
       </div>
       <!--  -->
-      @if (recorderService.editMode) {
+      @if (!recorderService.recordingMode) {
       <button
         class="add-btn"
         color="primary"
