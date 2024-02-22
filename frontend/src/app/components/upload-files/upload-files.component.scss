@@ -1,5 +1,6 @@
 .dropzone {
   width: 100%;
+  box-sizing: border-box;
   text-align: center;
   background: var(--color-background-grey);
   border-radius: 5px;

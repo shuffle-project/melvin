@@ -1,3 +1,47 @@
 <h2>Upload a new transcription</h2>
 
-<form [formGroup]="transcriptionGroup"></form>
+<form [formGroup]="transcriptionGroup">
+  <div class="language-title-wrapper">
+    <mat-form-field>
+      <mat-label>Language</mat-label>
+      <mat-select
+        (selectionChange)="onSelectLanguage($event.value)"
+        formControlName="language"
+      >
+        @for (language of languages; track language) {
+        <mat-option [value]="language.code"
+          >{{ language.name }} ({{ language.code }})</mat-option
+        >
+        }
+      </mat-select>
+      <mat-error>Select a language</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Title</mat-label>
+      <input matInput formControlName="title" />
+      <mat-error>Add a title to the transcription</mat-error>
+    </mat-form-field>
+  </div>
+
+  <div class="file-dropzone-wrapper">
+    <app-upload-files
+      formControlName="file"
+      [acceptedFileFormats]="acceptedFileFormats"
+      [acceptOnlyOneFile]="true"
+      ariaDesribedByIds="transcript-file-error-maximum transcript-file-error-required"
+      label="transcription"
+    />
+  </div>
+  <!-- TODO find a better solution for ariadesribedby with these ids -->
+  <div class="file-errors-wrapper">
+    @if(transcriptionGroup.controls['file'].hasError('maxlength')){
+    <p id="transcript-file-error-maximum" aria-live="polite">Maximum 1 file</p>
+    } @if(transcriptionGroup.controls['file'].hasError('required') &&
+    transcriptionGroup.controls['file'].touched){
+    <p id="transcript-file-error-required" aria-live="polite">
+      A transcription file (.vtt or .srt) is required
+    </p>
+    }
+  </div>
+</form>

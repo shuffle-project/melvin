@@ -51,6 +51,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { WrittenOutLanguagePipe } from '../../../../../../pipes/written-out-language-pipe/written-out-language.pipe';
 import { CopyTranscriptionComponent } from './components/copy-transcription/copy-transcription/copy-transcription.component';
 import { TranslateTranscriptionComponent } from './components/translate-transcription/translate-transcription/translate-transcription.component';
+import { UploadTranscriptionComponent } from './components/upload-transcription/upload-transcription/upload-transcription.component';
 
 @Component({
   selector: 'app-create-transcription-dialog',
@@ -73,6 +74,7 @@ import { TranslateTranscriptionComponent } from './components/translate-transcri
     MatTabsModule,
     CopyTranscriptionComponent,
     TranslateTranscriptionComponent,
+    UploadTranscriptionComponent,
   ],
 })
 export class CreateTranscriptionDialogComponent implements OnInit, OnDestroy {

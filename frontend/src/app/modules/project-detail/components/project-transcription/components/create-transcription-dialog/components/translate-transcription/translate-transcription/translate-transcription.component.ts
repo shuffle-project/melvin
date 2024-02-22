@@ -87,9 +87,12 @@ export class TranslateTranscriptionComponent {
       nonNullable: true,
       validators: [Validators.required],
     }),
-    language: new FormControl<string>('', {
-      nonNullable: true,
-      validators: [Validators.required],
-    }),
+    language: new FormControl<string>(
+      { value: '', disabled: true },
+      {
+        nonNullable: true,
+        validators: [Validators.required],
+      }
+    ),
   });
 }
