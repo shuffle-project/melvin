@@ -42,3 +42,14 @@ a {
 .display-none {
   display: none !important;
 }
+
+.dialog-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.625rem;
+
+  h1 {
+    margin: 0;
+  }
+}

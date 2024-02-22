@@ -1,0 +1,24 @@
+<h2>Copy an existing transcription</h2>
+
+<form [formGroup]="transcriptionGroup">
+  <mat-form-field>
+    <mat-label>Transcription</mat-label>
+    <mat-select
+      formControlName="transcription"
+      (selectionChange)="onSelectTranscription($event.value)"
+    >
+      @for (transcription of transcriptionList; track transcription) {
+      <mat-option [value]="transcription.id"
+        >{{ transcription.language }} | {{ transcription.title }}</mat-option
+      >
+      }
+    </mat-select>
+    <mat-error>Select a transcription</mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="title">
+    <mat-label>Title</mat-label>
+    <input matInput formControlName="title" />
+    <mat-error>Title is required</mat-error>
+  </mat-form-field>
+</form>

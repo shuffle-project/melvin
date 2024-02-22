@@ -47,10 +47,8 @@ import * as editorSelectors from '../../../../../../store/selectors/editor.selec
 import * as transcriptionsSelectors from '../../../../../../store/selectors/transcriptions.selector';
 
 import { MatIconModule } from '@angular/material/icon';
-import { MatTabsModule } from '@angular/material/tabs';
+import { MatRadioModule } from '@angular/material/radio';
 import { WrittenOutLanguagePipe } from '../../../../../../pipes/written-out-language-pipe/written-out-language.pipe';
-import { CopyTranscriptionComponent } from './components/copy-transcription/copy-transcription/copy-transcription.component';
-import { TranslateTranscriptionComponent } from './components/translate-transcription/translate-transcription/translate-transcription.component';
 
 @Component({
   selector: 'app-create-transcription-dialog',
@@ -59,6 +57,7 @@ import { TranslateTranscriptionComponent } from './components/translate-transcri
   standalone: true,
   imports: [
     ReactiveFormsModule,
+    MatRadioModule,
     MatIconModule,
     MatFormFieldModule,
     MatSelectModule,
@@ -70,12 +69,11 @@ import { TranslateTranscriptionComponent } from './components/translate-transcri
     LetDirective,
     MatDialogModule,
     WrittenOutLanguagePipe,
-    MatTabsModule,
-    CopyTranscriptionComponent,
-    TranslateTranscriptionComponent,
   ],
 })
-export class CreateTranscriptionDialogComponent implements OnInit, OnDestroy {
+export class OLD_CreateTranscriptionDialogComponent
+  implements OnInit, OnDestroy
+{
   private destroy$$ = new Subject<void>();
 
   languages = LANGUAGES;
@@ -119,7 +117,7 @@ export class CreateTranscriptionDialogComponent implements OnInit, OnDestroy {
   });
 
   public transcriptionsList$: Observable<TranscriptionEntity[]>;
-  public transcriptionList!: TranscriptionEntity[];
+  public transcriptionsList!: TranscriptionEntity[];
   public project!: ProjectEntity;
 
   public translationServices$ = this.store.select(
@@ -139,7 +137,7 @@ export class CreateTranscriptionDialogComponent implements OnInit, OnDestroy {
     this.transcriptionsList$
       .pipe(takeUntil(this.destroy$$))
       .subscribe((transcriptionList) => {
-        this.transcriptionList = transcriptionList;
+        this.transcriptionsList = transcriptionList;
       });
   }
 
@@ -147,12 +145,6 @@ export class CreateTranscriptionDialogComponent implements OnInit, OnDestroy {
     this.project = (await firstValueFrom(
       this.store.select(editorSelectors.selectProject)
     )) as ProjectEntity;
-
-    this.transcriptionGroup.controls['title'].valueChanges.subscribe(
-      (newValue) => {
-        console.log(newValue);
-      }
-    );
   }
 
   ngOnDestroy() {
@@ -201,6 +193,24 @@ export class CreateTranscriptionDialogComponent implements OnInit, OnDestroy {
       return { transcriptionRequired: true };
     }
     return null;
+  }
+
+  onSelectLanguage(languageCode: string) {
+    let selectedLanguage = this.languages.find(
+      (language) => language.code === languageCode
+    );
+
+    let currentTitle = this.transcriptionGroup.value.title;
+
+    let currentTitleIsALanguage = this.languages.some(
+      (language) => language.name === currentTitle
+    );
+
+    if (currentTitleIsALanguage || currentTitle === '') {
+      this.transcriptionGroup.controls['title'].setValue(
+        selectedLanguage?.name || languageCode
+      );
+    }
   }
 
   onAddTranscriptionFiles(event: any) {
@@ -297,10 +307,10 @@ export class CreateTranscriptionDialogComponent implements OnInit, OnDestroy {
         newTranscription.copyDto = {
           sourceTranscriptionId: transcriptionId,
         };
-        // const source = this.transcriptionsList.find(
-        //   (obj) => obj.id === transcriptionId
-        // );
-        // if (source) newTranscription.language = source.language;
+        const source = this.transcriptionsList.find(
+          (obj) => obj.id === transcriptionId
+        );
+        if (source) newTranscription.language = source.language;
         break;
       case 'translate-transcript':
         if (translationVendor)

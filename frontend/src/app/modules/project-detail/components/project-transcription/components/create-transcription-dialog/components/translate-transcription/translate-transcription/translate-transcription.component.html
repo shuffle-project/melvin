@@ -1,0 +1,66 @@
+<h2>Translate an existing transcription</h2>
+
+<form [formGroup]="transcriptionGroup">
+  <mat-form-field class="transcription-dropdown">
+    <mat-label>Transcription</mat-label>
+    <mat-select formControlName="transcription">
+      @for (transcription of transcriptionList; track transcription) {
+      <mat-option [value]="transcription.id"
+        >{{ transcription.language }} | {{ transcription.title }}</mat-option
+      >
+      }
+    </mat-select>
+    <mat-error>Select a transcription</mat-error>
+  </mat-form-field>
+  <div
+    class="vendor-language-wrapper"
+    *ngrxLet="translationServices$ as translationServices"
+  >
+    <mat-form-field>
+      <mat-label>Vendor</mat-label>
+      <mat-select
+        formControlName="translationVendor"
+        (valueChange)="transcriptionGroup.get('language')?.reset()"
+      >
+        <!-- reset language field if vendor changes -->
+        @for (service of translationServices; track service) {
+        <mat-option value="{{ service.translateVendor }}">
+          {{ service.fullName }}
+        </mat-option>
+        }
+      </mat-select>
+      <mat-hint>The available languages are vendor dependent </mat-hint>
+      <mat-error>Select a vendor to translate the transcription</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Language</mat-label>
+
+      <mat-select
+        [disabled]="
+          transcriptionGroup.controls['translationVendor'].value === ''
+        "
+        formControlName="language"
+      >
+        <!-- show languages depeding on chosen vendor -->
+        @if( translationLanguages$ | ngrxPush; as translationLanguages ) { @for
+        (language of translationLanguages; track language) {
+        <mat-option value="{{ language.code }}">
+          {{ language.name }} ({{ language.code }})
+        </mat-option>
+        } }
+      </mat-select>
+
+      @if(transcriptionGroup.controls['translationVendor'].value === '') {
+      <mat-hint>First select a vendor</mat-hint>
+      }
+
+      <mat-error>Select a language </mat-error>
+    </mat-form-field>
+  </div>
+  <mat-form-field class="title">
+    <mat-label>Title</mat-label>
+    <input matInput formControlName="title" />
+    <mat-error>Title is required</mat-error>
+  </mat-form-field>
+</form>

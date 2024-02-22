@@ -1,14 +1,3 @@
-.dialog-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 0.625rem;
-
-  h1 {
-    margin: 0;
-  }
-}
-
 .mat-mdc-tab-group {
   display: grid;
   grid-template-rows: auto 1fr;

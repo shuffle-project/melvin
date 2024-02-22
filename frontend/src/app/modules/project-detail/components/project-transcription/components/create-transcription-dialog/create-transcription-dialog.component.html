@@ -1,509 +1,68 @@
 <div mat-dialog-title>
-  <h1 i18n="@@createTranscriptionModalTitle" mat-dialog-title>
-    Add transcription
-  </h1>
+  <div class="dialog-header">
+    <h1 i18n="@@createTranscriptionDialogTitle">Add transcription</h1>
+    <button
+      mat-icon-button
+      [mat-dialog-close]="true"
+      aria-label="Close"
+      i18n-aria-label="@@createTranscriptionDialogCloseButton"
+    >
+      <mat-icon svgIcon="close" class="svg-black" />
+    </button>
+  </div>
 </div>
 
 <mat-dialog-content>
-  <form [formGroup]="transcriptionGroup" (ngSubmit)="onCreateTranscription()">
-    <mat-radio-group
-      #createOptionsGroup
-      formControlName="createOption"
-      class="create-transcript-options"
-    >
-      <div class="radio-button-container">
-        <mat-radio-button
-          value="upload-transcript"
-          radioGroup="createOptionsGroup"
-          class="radio-create-option"
-          i18n="@@createTranscriptionUploadRadioButton"
-        >
-          <div class="radio-button-content">
-            <mat-icon svgIcon="upload-transcription"> </mat-icon>
-            Upload
-          </div></mat-radio-button
-        >
-      </div>
-      <div class="radio-button-container">
-        <mat-radio-button
-          value="copy-transcript"
-          radioGroup="createOptionsGroup"
-          class="radio-create-option"
-          i18n="@@createTranscriptionCopyRadioButton"
-        >
-          <div class="radio-button-content">
-            <mat-icon svgIcon="copy-transcription"> </mat-icon>
-            Copy
-          </div></mat-radio-button
-        >
-      </div>
-      <div class="radio-button-container">
-        <mat-radio-button
-          value="translate-transcript"
-          radioGroup="createOptionsGroup"
-          class="radio-create-option"
-          i18n="@@createTranscriptionTranslateRadioButton"
-        >
-          <div class="radio-button-content">
-            <mat-icon svgIcon="translate-transcription"> </mat-icon>
-            Translate
-          </div></mat-radio-button
-        >
-      </div>
-      <div class="radio-button-container">
-        <mat-radio-button
-          value="create-from-video"
-          radioGroup="createOptionsGroup"
-          class="radio-create-option"
-          i18n="@@createTranscriptionFromVideoRadioButton"
-        >
-          <div class="radio-button-content">
-            <mat-icon svgIcon="video"> </mat-icon>
-            Create from audio/video
-          </div>
-        </mat-radio-button>
-      </div>
-    </mat-radio-group>
-    <div>
-      @switch (transcriptionGroup.get('createOption')?.value) { @case
-      ('upload-transcript') {
-      <h2 i18n="@@createTranscriptionUploadHeader">Upload file (.vtt, .srt)</h2>
-      } @case ('copy-transcript') {
-      <h2 i18n="@@createTranscriptionCopyHeader">
-        Copy existing transcription
-      </h2>
-      } @case ('translate-transcript') {
-      <h2 i18n="@@createTranscriptionTranslateHeader">
-        Translate to other language
-      </h2>
-      } @case ('create-from-video') {
-      <h2 i18n="@@createTranscriptionFromVideoHeader">
-        Create from audio/video (Speech-To-Text)
-      </h2>
-      } }
-    </div>
-    <!-- language (upload transcription) and title -->
-    <div
-      [class.no-language]="
-        transcriptionGroup.get('createOption')?.value !== 'upload-transcript'
-      "
-      class="language-title-wrapper"
-    >
-      @if ( transcriptionGroup.get('createOption')?.value ===
-      'upload-transcript' ) {
-      <mat-form-field>
-        <mat-label i18n="@@createTranscriptionModalLanguageLabel"
-          >Language</mat-label
-        >
-        <mat-select
-          (selectionChange)="onSelectLanguage($event.value)"
-          formControlName="language"
-        >
-          @for (language of languages; track language) {
-          <mat-option [value]="language.code"
-            >{{ language.name }} ({{ language.code }})</mat-option
-          >
-          }
-        </mat-select>
-        <mat-error i18n="@@createTranscriptionModalLanguageError"
-          >Select a language</mat-error
-        >
-      </mat-form-field>
-      }
-      <mat-form-field class="title">
-        <mat-label i18n="@@createTranscriptionModalTitleLabel">Title</mat-label>
-        <input matInput formControlName="title" />
-        <mat-error i18n="@@createTranscriptionModalTitleError"
-          >Add a title to the transcription</mat-error
-        >
-      </mat-form-field>
-    </div>
-    <!-- Switch case depending on radio button selection -->
-    <div>
-      @switch (transcriptionGroup.get('createOption')?.value) {
-      <!-- ---------------------------- -->
-      <!-- Upload Transcript File -->
-      <!-- ---------------------------- -->
-      @case ('upload-transcript') {
-      <div>
-        <div
-          class="dropzone"
-          [class.invalid-input]="
-            transcriptionGroup.controls['transcriptionFiles'].dirty &&
-            transcriptionGroup.controls['transcriptionFiles'].invalid
-          "
-          [class.valid-input]="
-            transcriptionGroup.controls['transcriptionFiles'].valid &&
-            transcriptionGroup.controls['transcriptionFiles'].dirty
-          "
-        >
-          @if (loading) {
-          <div class="spinner-wrapper">
-            <mat-progress-spinner
-              mode="determinate"
-              value="{{ uploadProgress }}"
-            ></mat-progress-spinner>
-          </div>
-          } @if (!loading) {
-          <div>
-            <div
-              class="input-ready-dropzone"
-              [class.empty]="
-                transcriptionGroup.value.transcriptionFiles?.length === 0
-              "
-            >
-              @if ( transcriptionGroup.value.transcriptionFiles?.length !== 0 )
-              {
-              <div>
-                @for ( file of transcriptionGroup.value.transcriptionFiles ;
-                track file) {
-                <div class="file">
-                  <div class="file-content">
-                    <mat-icon svgIcon="transcription-file"></mat-icon>
-                    <div>
-                      {{ file.name }}
-                    </div>
-                  </div>
-                  <button
-                    mat-icon-button
-                    (click)="
-                      onRemoveFile(file, 'transcriptionFiles');
-                      $event.stopPropagation()
-                    "
-                    i18n-matTooltip="
-                      @@createTranscriptionModalRemoveFileTooltip"
-                    matTooltip="Remove file"
-                  >
-                    <mat-icon svgIcon="delete"></mat-icon>
-                  </button>
-                </div>
-                }
-              </div>
-              }
-              <div>
-                <input
-                  type="file"
-                  #fileDropRef
-                  id="fileDropRef"
-                  (change)="onAddTranscriptionFiles($event)"
-                  required
-                  accept=".vtt,.srt"
-                />
-                <mat-icon svgIcon="upload"></mat-icon>
-                <div i18n="@@createTranscriptionModalDropzoneTranscription">
-                  Drag transcription file * here
-                </div>
-                <div i18n="@@createTranscriptionModalDropzoneTranscription2">
-                  or
-                </div>
-                <br />
-                <label
-                  for="fileDropRef"
-                  i18n="@@createTranscriptionModalDropzoneTranscriptionButton"
-                  >Choose file
-                </label>
-              </div>
-            </div>
-          </div>
-          }
-        </div>
-        @if ( transcriptionGroup.controls['transcriptionFiles'].dirty &&
-        transcriptionGroup.controls['transcriptionFiles'].hasError(
-        'transcriptionRequired' ) ) {
-        <mat-error
-          class="custom-mat-error"
-          i18n="@@createTranscriptionModalTranscriptionRequiredError"
-        >
-          At least one transcription file is required.
-        </mat-error>
-        } @if ( transcriptionGroup.controls['transcriptionFiles'].dirty &&
-        transcriptionGroup.controls['transcriptionFiles'].hasError(
-        'tooManyTranscriptions' ) ) {
-        <mat-error
-          class="custom-mat-error"
-          i18n="@@createTranscriptionModalTooManyTranscriptionsError"
-        >
-          You can select maximum one transcription file.
-        </mat-error>
-        }
-        <div
-          class="error-padding"
-          [class.error-above]="
-            (transcriptionGroup.controls['transcriptionFiles'].dirty &&
-              transcriptionGroup.controls['transcriptionFiles'].hasError(
-                'tooManyTranscriptions'
-              )) ||
-            (transcriptionGroup.controls['transcriptionFiles'].dirty &&
-              transcriptionGroup.controls['transcriptionFiles'].hasError(
-                'transcriptionRequired'
-              ))
-          "
-        ></div>
-      </div>
-      }
-      <!-- ---------------------------- -->
-      <!-- Copy Transcript -->
-      <!-- ---------------------------- -->
-      @case ('copy-transcript') {
-      <div>
-        <mat-form-field class="transcription-dropdown">
-          <mat-label i18n="@@createTranscriptionModalCopyTranscriptionLabel"
-            >Transcription</mat-label
-          >
-          <mat-select formControlName="transcription">
-            @for (transcription of transcriptionsList; track transcription) {
-            <mat-option [value]="transcription.id"
-              >{{ transcription.language }} |
-              {{ transcription.title }}</mat-option
-            >
-            }
-          </mat-select>
-          <mat-error i18n="@@createTranscriptionModalCopyTranscriptionError"
-            >Select a transcription</mat-error
-          >
-        </mat-form-field>
-      </div>
-      }
-      <!-- ---------------------------- -->
-      <!-- Translate Transcript -->
-      <!-- ---------------------------- -->
-      @case ('translate-transcript') {
-      <div class="translate-transcription">
-        <mat-form-field class="transcription-dropdown">
-          <mat-label
-            i18n="@@createTranscriptionModalTranslateTranscriptionLabel"
-            >Transcription</mat-label
-          >
-          <mat-select formControlName="transcription">
-            @for (transcription of transcriptionsList; track transcription) {
-            <mat-option [value]="transcription.id"
-              >{{ transcription.language }} |
-              {{ transcription.title }}</mat-option
-            >
-            }
-          </mat-select>
-          <mat-error
-            i18n="@@createTranscriptionModalTranslateTranscriptionError"
-            >Select a transcription</mat-error
-          >
-        </mat-form-field>
-        <div
-          class="settings-wrapper"
-          *ngrxLet="translationServices$ as translationServices"
-        >
-          <mat-form-field>
-            <mat-label i18n="@@createTranscriptionModalTranslateVendorLabel"
-              >Vendor</mat-label
-            >
-            <mat-select
-              formControlName="translationVendor"
-              (valueChange)="transcriptionGroup.get('language')?.reset()"
-            >
-              <!-- reset language field if vendor changes -->
-              @for (service of translationServices; track service) {
-              <mat-option value="{{ service.translateVendor }}">{{
-                service.fullName
-              }}</mat-option>
-              }
-            </mat-select>
-            <mat-hint i18n="@@createTranscriptionModalTranslateVendorHint">
-              The available languages are vendor dependent
-            </mat-hint>
-            <mat-error i18n="@@createTranscriptionModalTranslateVendorError"
-              >Select a vendor to translate the transcription</mat-error
-            >
-          </mat-form-field>
-          <mat-form-field>
-            <mat-label i18n="@@createTranscriptionModalTranslateLanguageLabel"
-              >Language</mat-label
-            >
-            <mat-select
-              [disabled]="
-                transcriptionGroup.controls['translationVendor'].value === ''
-              "
-              formControlName="language"
-            >
-              <!-- show languages depeding on chosen vendor -->
-              <ng-container>
-                @for ( lang of extractLanguages( translationServices,
-                transcriptionGroup.controls['translationVendor'].value ) ; track
-                lang) {
-                <mat-option value="{{ lang.code }}"
-                  >{{ lang.name }} ({{ lang.code }})</mat-option
-                >
-                }
-              </ng-container>
-            </mat-select>
-            <mat-error i18n="@@createTranscriptionModalTranslateLanguageError"
-              >Select a language into which the transcript will be
-              translated</mat-error
-            >
-          </mat-form-field>
-        </div>
-      </div>
-      }
-      <!-- ---------------------------- -->
-      <!-- Create Transcript from Video -->
-      <!-- ---------------------------- -->
-      @case ('create-from-video') {
-      <div>
-        <div
-          class="dropzone"
-          [class.invalid-input]="
-            transcriptionGroup.controls['videoFiles'].dirty &&
-            transcriptionGroup.controls['videoFiles'].invalid
-          "
-          [class.valid-input]="
-            transcriptionGroup.controls['videoFiles'].valid &&
-            transcriptionGroup.controls['videoFiles'].dirty
-          "
-        >
-          @if (!loading) {
-          <div>
-            <div
-              class="input-ready-dropzone"
-              [class.empty]="
-                this.transcriptionGroup.value.videoFiles?.length === 0
-              "
-            >
-              @if (this.transcriptionGroup.value.videoFiles?.length !== 0) {
-              <div>
-                @for (file of this.transcriptionGroup.value.videoFiles; track
-                file) {
-                <div class="file">
-                  <div class="file-content">
-                    <mat-icon svgIcon="file_video"></mat-icon>
-                    <div>
-                      {{ file.name }}
-                    </div>
-                  </div>
-                  <button
-                    mat-icon-button
-                    (click)="
-                      onRemoveFile(file, 'videoFiles'); $event.stopPropagation()
-                    "
-                    i18n-matTooltip="
-                      @@createTranscriptionModalRemoveFileTooltip"
-                    matTooltip="Remove file"
-                  >
-                    <mat-icon svgIcon="delete"></mat-icon>
-                  </button>
-                </div>
-                }
-              </div>
-              }
-              <div>
-                <input
-                  type="file"
-                  #fileDropRef
-                  id="fileDropRef"
-                  (change)="onAddVideoFiles($event)"
-                  required
-                  accept="audio/*,video/*"
-                />
-                <mat-icon svgIcon="upload"></mat-icon>
-                <div i18n="@@createTranscriptionModalDropzoneVideo">
-                  Drag video file * here
-                </div>
-                <div i18n="@@createTranscriptionModalDropzoneVideo2">or</div>
-                <br />
-                <label
-                  for="fileDropRef"
-                  i18n="@@createTranscriptionModalDropzoneVideoButton"
-                  >Choose file
-                </label>
-              </div>
-            </div>
-          </div>
-          }
-        </div>
-        @if ( transcriptionGroup.controls['videoFiles'].dirty &&
-        transcriptionGroup.controls['videoFiles'].hasError('videoRequired') ) {
-        <mat-error
-          class="custom-mat-error"
-          i18n="@@createTranscriptionModalVideoRequiredError"
-        >
-          At least one video file is required.
-        </mat-error>
-        } @if ( transcriptionGroup.controls['videoFiles'].dirty &&
-        transcriptionGroup.controls['videoFiles'].hasError('tooManyVideos') ) {
-        <mat-error
-          class="custom-mat-error"
-          i18n="@@createTranscriptionModalTooManyVideosError"
-        >
-          You can select maximum one video file.
-        </mat-error>
-        }
-        <div
-          class="error-padding"
-          [class.error-above]="
-            (transcriptionGroup.controls['videoFiles'].dirty &&
-              transcriptionGroup.controls['videoFiles'].hasError(
-                'tooManyVideos'
-              )) ||
-            (transcriptionGroup.controls['videoFiles'].dirty &&
-              transcriptionGroup.controls['videoFiles'].hasError(
-                'videoRequired'
-              ))
-          "
-        ></div>
-        <div class="settings-wrapper" *ngrxLet="asrServices$ as asrServices">
-          <mat-form-field>
-            <mat-label i18n="@@createTranscriptionModalASRVendorLabel"
-              >Vendor</mat-label
-            >
-            <mat-select formControlName="asrVendor">
-              @for (asrService of asrServices; track $index) {
-              <mat-option value="{{ asrService.asrVendor }}">{{
-                asrService.fullName
-              }}</mat-option>
-              }
-            </mat-select>
-            <mat-hint i18n="@@createTranscriptionModalASRVendorHint">
-              The available languages are vendor dependent
-            </mat-hint>
-            <mat-error i18n="@@createTranscriptionModalASRVendorError"
-              >Select a vendor to transcribe the audio/video</mat-error
-            >
-          </mat-form-field>
-          <mat-form-field>
-            <mat-label i18n="@@createTranscriptionModalASRLanguageLabel"
-              >Language</mat-label
-            >
-            <mat-select
-              [disabled]="transcriptionGroup.controls['asrVendor'].value === ''"
-              formControlName="language"
-            >
-              @for (language of getLanguages(asrServices); track language) {
-              <mat-option
-                value="{{ language.code }}"
-                matTooltip="language.name"
-                >{{ language.code | writtenOutLanguage }}</mat-option
-              >
-              }
-            </mat-select>
-            <mat-error i18n="@@createTranscriptionModalASRLanguageError"
-              >Select a language into which the audio/video will be transcribed
-              to</mat-error
-            >
-          </mat-form-field>
-        </div>
-      </div>
-      } }
-    </div>
-    <!-- ---------------------------- -->
-    <!-- Submit button -->
-    <!-- ---------------------------- -->
-    <!-- [disabled]="!onValidInputForCreateOption()" -->
-    <div class="submit-btn-wrapper">
-      <button
-        mat-raised-button
-        color="primary"
-        type="submit"
-        i18n="@@createTranscriptionModalCreateTranscriptionButton"
+  <mat-tab-group dynamicHeight>
+    <mat-tab>
+      <ng-template
+        mat-tab-label
+        i18n="@@createTranscriptionDialogTabUploadLabel"
       >
-        Create transcription
-      </button>
-    </div>
-  </form>
+        <mat-icon svgIcon="upload" class="svg-black tab-icon" />
+        Upload
+      </ng-template>
+    </mat-tab>
+
+    <mat-tab>
+      <ng-template mat-tab-label i18n="@@createTranscriptionDialogTabCopyLabel">
+        <mat-icon svgIcon="copy-file" class="svg-black tab-icon" />
+        Copy
+      </ng-template>
+      <app-copy-transcription
+        [transcriptionList]="transcriptionList"
+        class="mat-tab-content"
+      />
+    </mat-tab>
+
+    <mat-tab>
+      <ng-template
+        mat-tab-label
+        i18n="@@createTranscriptionDialogTabTranslateLabel"
+      >
+        <mat-icon svgIcon="translate" class="svg-black tab-icon" />
+        Translate
+      </ng-template>
+      <app-translate-transcription [transcriptionList]="transcriptionList" />
+    </mat-tab>
+
+    <mat-tab>
+      <ng-template
+        mat-tab-label
+        i18n="@@createTranscriptionDialogTabFromMediaLabel"
+      >
+        <mat-icon svgIcon="video" class="svg-black tab-icon" />
+        From Media
+      </ng-template>
+    </mat-tab>
+  </mat-tab-group>
 </mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button
+    mat-raised-button
+    color="primary"
+    i18n="@@createTranscriptionDialogSubmitButtonLabel"
+  >
+    Create transcription
+  </button>
+</mat-dialog-actions>
