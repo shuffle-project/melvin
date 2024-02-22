@@ -14,7 +14,7 @@ import {
   providedIn: 'root',
 })
 export class RecorderService {
-  public editMode = true;
+  public recordingMode = false;
   public recording = false;
 
   public title: string = '';
