@@ -1,5 +1,7 @@
 <h2>Translate an existing transcription</h2>
 
+@if(translationServices$ | ngrxPush; as translationServices ){ @if
+(translationServices.length !== 0){
 <form [formGroup]="transcriptionGroup">
   <mat-form-field class="transcription-dropdown">
     <mat-label>Transcription</mat-label>
@@ -12,10 +14,7 @@
     </mat-select>
     <mat-error>Select a transcription</mat-error>
   </mat-form-field>
-  <div
-    class="vendor-language-wrapper"
-    *ngrxLet="translationServices$ as translationServices"
-  >
+  <div class="vendor-language-wrapper">
     <mat-form-field>
       <mat-label>Vendor</mat-label>
       <mat-select
@@ -71,3 +70,9 @@
     <mat-error>Title is required</mat-error>
   </mat-form-field>
 </form>
+}@else {
+<p class="no-vendor-info">
+  There is currently no translation provider connected to Melvin. Please contact
+  the person who manages this Melvin instance.
+</p>
+} }

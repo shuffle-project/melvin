@@ -13,7 +13,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { LetDirective, PushPipe } from '@ngrx/component';
 import { Store } from '@ngrx/store';
-import { Observable, from, map, switchMap } from 'rxjs';
+import { Observable, map, switchMap } from 'rxjs';
 import { WrittenOutLanguagePipe } from 'src/app/pipes/written-out-language-pipe/written-out-language.pipe';
 import { TranslateVendors } from 'src/app/services/api/dto/create-transcription.dto';
 import {
@@ -22,6 +22,7 @@ import {
 } from 'src/app/services/api/entities/config.entity';
 import { TranscriptionEntity } from 'src/app/services/api/entities/transcription.entity';
 import { AppState } from 'src/app/store/app.state';
+import * as configSelectors from '../../../../../../../../../store/selectors/config.selector';
 
 @Component({
   selector: 'app-translate-transcription',
@@ -63,23 +64,23 @@ export class TranslateTranscriptionComponent {
     );
   }
 
-  translationServices: TranslationServiceConfig[] = [
-    {
-      fullName: 'Test 1',
-      translateVendor: TranslateVendors.DEEPL,
-      languages: [{ code: 'de-DE', name: 'Deutsch' }],
-    },
-    {
-      fullName: 'Test 2',
-      translateVendor: TranslateVendors.GOOGLE,
-      languages: [{ code: 'en-US', name: 'Englisch' }],
-    },
-  ];
-  public translationServices$ = from([this.translationServices]);
+  // translationServices: TranslationServiceConfig[] = [
+  //   {
+  //     fullName: 'Test 1',
+  //     translateVendor: TranslateVendors.DEEPL,
+  //     languages: [{ code: 'de-DE', name: 'Deutsch' }],
+  //   },
+  //   {
+  //     fullName: 'Test 2',
+  //     translateVendor: TranslateVendors.GOOGLE,
+  //     languages: [{ code: 'en-US', name: 'Englisch' }],
+  //   },
+  // ];
+  // public translationServices$ = from([this.translationServices]);
 
-  // public translationServices$ = this.store.select(
-  //   configSelectors.translationServiceConfig
-  // );
+  public translationServices$ = this.store.select(
+    configSelectors.translationServiceConfig
+  );
   public translationLanguages$: Observable<Language[] | undefined>;
 
   transcriptionGroup = new FormGroup({

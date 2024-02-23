@@ -82,7 +82,7 @@
   @if ( formGroup.get('password')?.valid &&
   formGroup.get('passwordConfirm')?.valid && formGroup.errors?.['confirm']) {
   <div class="error-message" aria-live="polite">
-    <mat-icon svgIcon="alert"></mat-icon>
+    <mat-icon svgIcon="warning"></mat-icon>
     <p i18n="@@registerPasswordsNotMatch">Passwords do not match</p>
   </div>
 
@@ -91,7 +91,7 @@
   <ng-container *ngrxLet="error$ as error">
     @if (error) {
     <div class="error-message" aria-live="polite">
-      <mat-icon svgIcon="alert"></mat-icon>
+      <mat-icon svgIcon="warning"></mat-icon>
       <p>{{ error }}</p>
     </div>
 

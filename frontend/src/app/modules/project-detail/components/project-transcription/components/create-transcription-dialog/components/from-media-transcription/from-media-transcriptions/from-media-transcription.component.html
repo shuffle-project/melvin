@@ -1,16 +1,16 @@
 <h2>Generate a new transcription from media</h2>
 
+@if(asrServices$ | ngrxPush; as asrServices) { @if(asrServices.length > 0) {
 <form [formGroup]="transcriptionGroup">
   <div class="vendor-language-wrapper">
     <mat-form-field>
       <mat-label>Vendor</mat-label>
       <mat-select formControlName="asrVendor">
-        @if(asrServices$ | ngrxPush; as asrServices) { @for (asrService of
-        asrServices; track $index) {
+        @for (asrService of asrServices; track $index) {
         <mat-option value="{{ asrService.asrVendor }}">{{
           asrService.fullName
         }}</mat-option>
-        } }
+        }
       </mat-select>
       <mat-hint> Languages are vendor dependent </mat-hint>
       <mat-error>Select a vendor </mat-error>
@@ -69,3 +69,9 @@
     }
   </div>
 </form>
+} @else{
+<p class="no-vendor-info">
+  There is currently no translation provider connected to Melvin. Please contact
+  the person who manages this Melvin instance.
+</p>
+} }

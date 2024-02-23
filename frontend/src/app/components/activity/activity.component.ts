@@ -49,7 +49,7 @@ export class ActivityComponent implements OnChanges {
         this.description = $localize`:@@activityVideoProcessingFinishedDescription:Video was processed successfully.`;
         break;
       case 'video-processing-failed':
-        this.icon = 'alert';
+        this.icon = 'warning';
         this.level = 'warn';
         this.description = $localize`:@@activityVideoProcessingFailedDescription:Video processing failed.`;
         break;
@@ -58,7 +58,7 @@ export class ActivityComponent implements OnChanges {
         this.description = $localize`:@@activitySubtitlesProcessingFinishedDescription:Subtitles were created successfully.`;
         break;
       case 'subtitles-processing-failed':
-        this.icon = 'alert';
+        this.icon = 'warning';
         this.level = 'warn';
         this.description = $localize`:@@activitySubtitlesProcessingFailedDescription:Subtitle creation failed.`;
         break;
