@@ -6,7 +6,9 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { LANGUAGES } from 'src/app/constants/languages.constant';
@@ -21,6 +23,8 @@ import { TranscriptionEntity } from 'src/app/services/api/entities/transcription
     MatSelectModule,
     ReactiveFormsModule,
     MatInputModule,
+    MatIconModule,
+    MatButtonModule,
   ],
   templateUrl: './copy-transcription.component.html',
   styleUrl: './copy-transcription.component.scss',
@@ -52,5 +56,9 @@ export class CopyTranscriptionComponent {
       // TODO consider language
       titleControl.setValue(`${selectedTranscription?.title} (copy)`);
     }
+  }
+
+  onClearTitle() {
+    this.transcriptionGroup.controls['title'].setValue('');
   }
 }

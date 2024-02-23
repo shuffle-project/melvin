@@ -19,6 +19,12 @@
   <mat-form-field class="title">
     <mat-label>Title</mat-label>
     <input matInput formControlName="title" />
+    @if(transcriptionGroup.controls['title'].value !== '') {
+    <button type="button" mat-icon-button matSuffix (click)="onClearTitle()">
+      <mat-icon svgIcon="close-small" />
+    </button>
+    }
+
     <mat-error>Title is required</mat-error>
   </mat-form-field>
 </form>

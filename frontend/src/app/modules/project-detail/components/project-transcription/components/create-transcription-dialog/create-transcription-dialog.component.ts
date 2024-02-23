@@ -50,6 +50,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatTabsModule } from '@angular/material/tabs';
 import { WrittenOutLanguagePipe } from '../../../../../../pipes/written-out-language-pipe/written-out-language.pipe';
 import { CopyTranscriptionComponent } from './components/copy-transcription/copy-transcription/copy-transcription.component';
+import { FromMediaTranscriptionComponent } from './components/from-media-transcription/from-media-transcriptions/from-media-transcription.component';
 import { TranslateTranscriptionComponent } from './components/translate-transcription/translate-transcription/translate-transcription.component';
 import { UploadTranscriptionComponent } from './components/upload-transcription/upload-transcription/upload-transcription.component';
 
@@ -75,6 +76,7 @@ import { UploadTranscriptionComponent } from './components/upload-transcription/
     CopyTranscriptionComponent,
     TranslateTranscriptionComponent,
     UploadTranscriptionComponent,
+    FromMediaTranscriptionComponent,
   ],
 })
 export class CreateTranscriptionDialogComponent implements OnInit, OnDestroy {

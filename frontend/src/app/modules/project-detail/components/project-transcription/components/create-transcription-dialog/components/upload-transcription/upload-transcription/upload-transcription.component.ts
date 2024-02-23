@@ -6,7 +6,9 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { UploadFilesComponent } from 'src/app/components/upload-files/upload-files.component';
@@ -22,6 +24,8 @@ import { LANGUAGES } from 'src/app/constants/languages.constant';
     ReactiveFormsModule,
     UploadFilesComponent,
     MatInputModule,
+    MatIconModule,
+    MatButtonModule,
   ],
   templateUrl: './upload-transcription.component.html',
   styleUrl: './upload-transcription.component.scss',
@@ -60,5 +64,9 @@ export class UploadTranscriptionComponent {
         selectedLanguage?.name || languageCode
       );
     }
+  }
+
+  onClearTitle() {
+    this.transcriptionGroup.controls['title'].setValue('');
   }
 }

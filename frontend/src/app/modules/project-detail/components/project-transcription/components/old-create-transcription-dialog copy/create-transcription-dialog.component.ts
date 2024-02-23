@@ -49,6 +49,7 @@ import * as transcriptionsSelectors from '../../../../../../store/selectors/tran
 import { MatIconModule } from '@angular/material/icon';
 import { MatRadioModule } from '@angular/material/radio';
 import { WrittenOutLanguagePipe } from '../../../../../../pipes/written-out-language-pipe/written-out-language.pipe';
+import { CreateTranscriptionDialogComponent } from '../create-transcription-dialog/create-transcription-dialog.component';
 
 @Component({
   selector: 'app-create-transcription-dialog',

@@ -1,17 +1,20 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, Input, inject } from '@angular/core';
 import {
   FormControl,
   FormGroup,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { LetDirective, PushPipe } from '@ngrx/component';
 import { Store } from '@ngrx/store';
 import { Observable, from, map, switchMap } from 'rxjs';
+import { WrittenOutLanguagePipe } from 'src/app/pipes/written-out-language-pipe/written-out-language.pipe';
 import { TranslateVendors } from 'src/app/services/api/dto/create-transcription.dto';
 import {
   Language,
@@ -31,12 +34,17 @@ import { AppState } from 'src/app/store/app.state';
     MatInputModule,
     LetDirective,
     PushPipe,
+    WrittenOutLanguagePipe,
+    MatButtonModule,
+    MatIconModule,
   ],
   templateUrl: './translate-transcription.component.html',
   styleUrl: './translate-transcription.component.scss',
 })
 export class TranslateTranscriptionComponent {
   @Input() transcriptionList: TranscriptionEntity[] = [];
+
+  writtenOutLanguagePipe = inject(WrittenOutLanguagePipe);
 
   constructor(private store: Store<AppState>) {
     this.translationLanguages$ = this.transcriptionGroup.controls[
@@ -95,4 +103,17 @@ export class TranslateTranscriptionComponent {
       }
     ),
   });
+
+  onSelectLanguage(selectedLanguageCode: string) {
+    if (this.transcriptionGroup.controls['title'].value !== '') return;
+
+    const selectedLanguageName =
+      this.writtenOutLanguagePipe.transform(selectedLanguageCode);
+
+    this.transcriptionGroup.controls['title'].setValue(selectedLanguageName);
+  }
+
+  onClearTitle() {
+    this.transcriptionGroup.controls['title'].setValue('');
+  }
 }

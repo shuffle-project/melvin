@@ -15,6 +15,7 @@ export const ICONS = [
   'check-all',
   'check',
   'close',
+  'close-small',
   'clear',
   'copy-transcription',
   'delete',

@@ -1,0 +1,71 @@
+<h2>Generate a new transcription from media</h2>
+
+<form [formGroup]="transcriptionGroup">
+  <div class="vendor-language-wrapper">
+    <mat-form-field>
+      <mat-label>Vendor</mat-label>
+      <mat-select formControlName="asrVendor">
+        @if(asrServices$ | ngrxPush; as asrServices) { @for (asrService of
+        asrServices; track $index) {
+        <mat-option value="{{ asrService.asrVendor }}">{{
+          asrService.fullName
+        }}</mat-option>
+        } }
+      </mat-select>
+      <mat-hint> Languages are vendor dependent </mat-hint>
+      <mat-error>Select a vendor </mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Language</mat-label>
+      <mat-select
+        [disabled]="transcriptionGroup.controls['asrVendor'].value === ''"
+        formControlName="language"
+        (selectionChange)="onSelectLanguage($event.value)"
+      >
+        @if(asrLanguages$ | ngrxPush; as asrLanguages) { @for (language of
+        asrLanguages; track language) {
+        <mat-option value="{{ language.code }}" matTooltip="language.name"
+          >{{ language.code | writtenOutLanguage }} ({{
+            language.code
+          }})</mat-option
+        >
+        } }
+      </mat-select>
+      @if(transcriptionGroup.controls['asrVendor'].value === '') {
+      <mat-hint>Select a vendor first</mat-hint>
+      }
+      <mat-error>Select a language </mat-error>
+    </mat-form-field>
+  </div>
+
+  <mat-form-field class="title">
+    <mat-label>Title</mat-label>
+    <input matInput formControlName="title" />
+    @if(transcriptionGroup.controls['title'].value !== '') {
+    <button type="button" mat-icon-button matSuffix (click)="onClearTitle()">
+      <mat-icon svgIcon="close-small" />
+    </button>
+    }
+
+    <mat-error>Title is required</mat-error>
+  </mat-form-field>
+
+  <app-upload-files
+    formControlName="file"
+    [acceptedFileFormats]="acceptedFileFormats"
+    [acceptOnlyOneFile]="true"
+    ariaDesribedByIds="video-audio-file-error-maximum video-audio-file-error-required"
+    label="media"
+  />
+  <!-- TODO find a better solution for ariadesribedby with these ids -->
+  <div class="file-errors-wrapper">
+    @if(transcriptionGroup.controls['file'].hasError('maxlength')){
+    <p id="video-audio-file-error-maximum" aria-live="polite">Maximum 1 file</p>
+    } @if(transcriptionGroup.controls['file'].hasError('required') &&
+    transcriptionGroup.controls['file'].touched){
+    <p id="video-audio-file-error-required" aria-live="polite">
+      An audio or video file is required
+    </p>
+    }
+  </div>
+</form>

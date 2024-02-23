@@ -5,20 +5,19 @@ h2 {
 form {
   width: 100%;
 
-  .language-title-wrapper {
+  .vendor-language-wrapper {
     display: flex;
     gap: 1.25rem;
-    width: 100%;
     margin-bottom: 0.625rem;
 
     :first-child,
     :last-child {
-      width: 100%;
+      flex-grow: 1;
     }
   }
 
-  .file-dropzone-wrapper {
-    max-width: 100%;
+  .title {
+    width: 100%;
   }
 
   .file-errors-wrapper {
