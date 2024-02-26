@@ -21,7 +21,6 @@ export class RecorderService {
   public language: string = 'de';
 
   // devices
-  private enumeratedDevices: MediaDeviceInfo[] | null = null;
 
   public videos: VideoSource[] = [];
   public audios: AudioSource[] = [];
@@ -30,46 +29,42 @@ export class RecorderService {
   //recording
   recordings: Recording[] = [];
 
-  constructor(private api: ApiService, public dialog: MatDialog) {
-    this.reloadDevices();
-  }
+  constructor(private api: ApiService, public dialog: MatDialog) {}
 
   /**
    * manage devices
    */
 
-  async reloadDevices() {
-    this.enumeratedDevices = null;
+  // async reloadDevices() {
 
-    await navigator.mediaDevices
-      .getUserMedia({
-        video: true,
-        audio: true,
-      })
-      .then((x) => x.getTracks().forEach((tr) => tr.stop()));
+  //   await navigator.mediaDevices
+  //     .getUserMedia({
+  //       video: true,
+  //       audio: true,
+  //     })
+  //     .then((x) => x.getTracks().forEach((tr) => tr.stop()));
 
-    navigator.mediaDevices
-      .enumerateDevices()
-      .then((enumerated) => {
-        this.enumeratedDevices = enumerated.filter(
-          (device) => device.deviceId !== ''
-        );
-      })
-      .finally(() => {
-        if (!this.enumeratedDevices) this.enumeratedDevices = [];
-      });
-  }
+  //   navigator.mediaDevices
+  //     .enumerateDevices()
+  //     .then((enumerated) => {
+  //       this.enumeratedDevices = enumerated.filter(
+  //         (device) => device.deviceId !== ''
+  //       );
+  //     })
+  //     .finally(() => {
+  //       if (!this.enumeratedDevices) this.enumeratedDevices = [];
+  //     });
+  // }
 
   async getDevices(
     type?: 'audioinput' | 'videoinput'
   ): Promise<MediaDeviceInfo[]> {
-    while (!this.enumeratedDevices) {
-      await new Promise((resolve) => setTimeout(resolve, 500));
-    }
+    let enumerate = await navigator.mediaDevices.enumerateDevices();
+    enumerate = enumerate.filter((device) => device.deviceId !== '');
 
     return type
-      ? this.enumeratedDevices.filter((device) => device.kind === type)
-      : this.enumeratedDevices;
+      ? enumerate.filter((device) => device.kind === type)
+      : enumerate;
   }
 
   resetData() {

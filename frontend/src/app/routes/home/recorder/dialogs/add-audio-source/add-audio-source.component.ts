@@ -67,14 +67,22 @@ export class AddAudioSourceComponent implements OnInit, OnDestroy {
     this.destroy$$.next();
   }
 
-  async load(refresh = false) {
+  async load() {
     this.loading = true;
     this.loadingError = null;
     this.deviceError = null;
 
-    if (refresh) {
-      this.recorderService.reloadDevices();
-    }
+    // if (refresh) {
+    //   this.recorderService.reloadDevices();
+    // }
+
+    const userMedia = await navigator.mediaDevices.getUserMedia({
+      video: false,
+      audio: true,
+    });
+    this.audioSource.deviceId = userMedia.id;
+    this.audioSource.label = 'default';
+    this.audioSource.mediaStream = userMedia;
 
     this.audioinputs = await this.recorderService.getDevices('audioinput');
 
@@ -115,7 +123,7 @@ export class AddAudioSourceComponent implements OnInit, OnDestroy {
   }
 
   onClickTryAgain() {
-    this.load(true);
+    this.load();
   }
 
   onCloseDialog() {

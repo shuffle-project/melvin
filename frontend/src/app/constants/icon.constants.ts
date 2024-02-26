@@ -96,6 +96,7 @@ export const ICONS = [
   'zoom_out',
   'gallery',
   'sign_language',
+  'info',
 ] as const;
 
 export type IconName = (typeof ICONS)[number];

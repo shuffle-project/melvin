@@ -5,26 +5,18 @@
     <h3>Zusammenfassung</h3>
     <p>Titel: {{ data.title }}</p>
     <p>Sprache: {{ data.language }}</p>
-    <p>Dateie:</p>
-    @for (recording of data.recordings;track recording.id; let idx = $index) {
-    <p>
-      video@if (idx===0) {&audio}
-      {{ recording.title }} -{{ recording.category }}
-      @if (recording.complete) {- file ready} @else {- processing}
-    </p>
-    }
   </div>
 
   <div>
     @if (readyToUpload) {
-    <p>
-      <strong>i</strong> Alle Daten sind bereit. Du kannst das Projekt jetzt
-      hochladen.
+    <p class="infotext">
+      <mat-icon svgIcon="info"></mat-icon> Alle Daten sind bereit. Du kannst das
+      Projekt jetzt hochladen.
     </p>
     }@else{
-    <p>
-      <strong>i</strong> Die Dateien werden verarbeite, bitte warte bis alle
-      Dateien fertig sind.
+    <p class="infotext">
+      <mat-icon svgIcon="info"></mat-icon> Die Dateien werden verarbeite, bittey
+      warte bis alle Dateien fertig sind.
     </p>
     }
   </div>
@@ -53,12 +45,16 @@
 
     <div>
       @if (this.uploadingDone) {
-      <p>
-        <strong>i</strong> Das Projekt wurde erfolgreich erstellt, du kannst
-        diesen Dialog jetzt schließen!
+      <p class="infotext">
+        <mat-icon svgIcon="info"></mat-icon>
+        Das Projekt wurde erfolgreich erstellt, du kannst diesen Dialog jetzt
+        schließen!
       </p>
       }@else {
-      <p><strong>i</strong> Bitte warte bis alle Dateien hochgeladen wurden.</p>
+      <p class="infotext">
+        <mat-icon svgIcon="info"></mat-icon> Bitte warte bis alle Dateien
+        hochgeladen wurden.
+      </p>
       }
     </div>
   </div>
