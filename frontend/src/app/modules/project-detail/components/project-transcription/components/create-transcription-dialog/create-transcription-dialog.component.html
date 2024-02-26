@@ -11,10 +11,12 @@
     </button>
   </div>
 </div>
-
 <mat-dialog-content>
-  <mat-tab-group dynamicHeight>
-    <mat-tab>
+  <mat-tab-group
+    dynamicHeight
+    (selectedTabChange)="onSelectedTabChange($event.index)"
+  >
+    <mat-tab [disabled]="loading">
       <ng-template
         mat-tab-label
         i18n="@@createTranscriptionDialogTabUploadLabel"
@@ -22,10 +24,13 @@
         <mat-icon svgIcon="upload" class="svg-black tab-icon" />
         Upload
       </ng-template>
-      <app-upload-transcription />
+      <app-upload-transcription
+        #uploadForm
+        (loadingEvent)="onLoadingEvent($event)"
+      />
     </mat-tab>
 
-    <mat-tab>
+    <mat-tab [disabled]="loading">
       <ng-template mat-tab-label i18n="@@createTranscriptionDialogTabCopyLabel">
         <mat-icon svgIcon="copy-file" class="svg-black tab-icon" />
         Copy
@@ -33,10 +38,11 @@
       <app-copy-transcription
         [transcriptionList]="transcriptionList"
         class="mat-tab-content"
+        #copyForm
       />
     </mat-tab>
 
-    <mat-tab>
+    <mat-tab [disabled]="loading">
       <ng-template
         mat-tab-label
         i18n="@@createTranscriptionDialogTabTranslateLabel"
@@ -44,10 +50,13 @@
         <mat-icon svgIcon="translate" class="svg-black tab-icon" />
         Translate
       </ng-template>
-      <app-translate-transcription [transcriptionList]="transcriptionList" />
+      <app-translate-transcription
+        [transcriptionList]="transcriptionList"
+        #translateForm
+      />
     </mat-tab>
 
-    <mat-tab>
+    <mat-tab [disabled]="loading">
       <ng-template
         mat-tab-label
         i18n="@@createTranscriptionDialogTabFromMediaLabel"
@@ -55,7 +64,7 @@
         <mat-icon svgIcon="video" class="svg-black tab-icon" />
         From Media
       </ng-template>
-      <app-from-media-transcription />
+      <app-from-media-transcription #asrForm />
     </mat-tab>
   </mat-tab-group>
 </mat-dialog-content>
@@ -64,6 +73,8 @@
     mat-raised-button
     color="primary"
     i18n="@@createTranscriptionDialogSubmitButtonLabel"
+    (click)="onSubmitCurrentTabForm()"
+    [disabled]="loading"
   >
     Create transcription
   </button>

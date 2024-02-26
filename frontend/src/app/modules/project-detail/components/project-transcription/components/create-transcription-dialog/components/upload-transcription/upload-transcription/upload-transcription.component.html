@@ -1,5 +1,12 @@
 <h2>Upload a new transcription</h2>
 
+@if(loading) {
+<p>Uploads</p>
+<mat-progress-bar
+  mode="determinate"
+  [value]="uploadProgress"
+></mat-progress-bar>
+} @else {
 <form [formGroup]="transcriptionGroup">
   <div class="language-title-wrapper">
     <mat-form-field>
@@ -52,3 +59,4 @@
     }
   </div>
 </form>
+}

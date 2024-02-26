@@ -15,13 +15,17 @@ import { LetDirective, PushPipe } from '@ngrx/component';
 import { Store } from '@ngrx/store';
 import { Observable, map, switchMap } from 'rxjs';
 import { WrittenOutLanguagePipe } from 'src/app/pipes/written-out-language-pipe/written-out-language.pipe';
-import { TranslateVendors } from 'src/app/services/api/dto/create-transcription.dto';
+import {
+  CreateTranscriptionDto,
+  TranslateVendors,
+} from 'src/app/services/api/dto/create-transcription.dto';
 import {
   Language,
   TranslationServiceConfig,
 } from 'src/app/services/api/entities/config.entity';
 import { TranscriptionEntity } from 'src/app/services/api/entities/transcription.entity';
 import { AppState } from 'src/app/store/app.state';
+import * as transcriptionsActions from '../../../../../../../../../store/actions/transcriptions.actions';
 import * as configSelectors from '../../../../../../../../../store/selectors/config.selector';
 
 @Component({
@@ -116,5 +120,30 @@ export class TranslateTranscriptionComponent {
 
   onClearTitle() {
     this.transcriptionGroup.controls['title'].setValue('');
+  }
+
+  submit(projectId: string) {
+    if (!this.transcriptionGroup.valid) {
+      this.transcriptionGroup.markAllAsTouched();
+      return;
+    }
+
+    const { title, language, transcription, translationVendor } =
+      this.transcriptionGroup.getRawValue();
+
+    if (translationVendor) {
+      const newTranscription: CreateTranscriptionDto = {
+        project: projectId,
+        title,
+        language,
+        translateDto: {
+          sourceTranscriptionId: transcription,
+          vendor: translationVendor,
+          targetLanguage: language,
+        },
+      };
+
+      this.store.dispatch(transcriptionsActions.create({ newTranscription }));
+    }
   }
 }

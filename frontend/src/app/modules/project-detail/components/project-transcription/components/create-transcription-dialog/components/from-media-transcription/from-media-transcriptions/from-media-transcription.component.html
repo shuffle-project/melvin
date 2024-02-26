@@ -1,6 +1,7 @@
 <h2>Generate a new transcription from media</h2>
 
-@if(asrServices$ | ngrxPush; as asrServices) { @if(asrServices.length > 0) {
+@if(!loading && asrServices$ | ngrxPush; as asrServices ) {
+@if(asrServices.length > 0) {
 <form [formGroup]="transcriptionGroup">
   <div class="vendor-language-wrapper">
     <mat-form-field>
@@ -74,4 +75,10 @@
   There is currently no translation provider connected to Melvin. Please contact
   the person who manages this Melvin instance.
 </p>
-} }
+} } @else {
+<p>Uploads</p>
+<mat-progress-bar
+  mode="determinate"
+  [value]="uploadProgress"
+></mat-progress-bar>
+}

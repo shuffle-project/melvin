@@ -11,8 +11,12 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
+import { Store } from '@ngrx/store';
 import { LANGUAGES } from 'src/app/constants/languages.constant';
+import { CreateTranscriptionDto } from 'src/app/services/api/dto/create-transcription.dto';
 import { TranscriptionEntity } from 'src/app/services/api/entities/transcription.entity';
+import { AppState } from 'src/app/store/app.state';
+import * as transcriptionsActions from '../../../../../../../../../store/actions/transcriptions.actions';
 
 @Component({
   selector: 'app-copy-transcription',
@@ -31,6 +35,8 @@ import { TranscriptionEntity } from 'src/app/services/api/entities/transcription
 })
 export class CopyTranscriptionComponent {
   @Input() transcriptionList: TranscriptionEntity[] = [];
+
+  constructor(private store: Store<AppState>) {}
 
   languages = LANGUAGES;
 
@@ -52,7 +58,6 @@ export class CopyTranscriptionComponent {
       const selectedTranscription = this.transcriptionList.find(
         (ts) => ts.id === selectedTranscriptionId
       );
-
       // TODO consider language
       titleControl.setValue(`${selectedTranscription?.title} (copy)`);
     }
@@ -60,5 +65,29 @@ export class CopyTranscriptionComponent {
 
   onClearTitle() {
     this.transcriptionGroup.controls['title'].setValue('');
+  }
+
+  submit(projectId: string) {
+    if (!this.transcriptionGroup.valid) {
+      this.transcriptionGroup.markAllAsTouched();
+      return;
+    }
+
+    const { title, transcription } = this.transcriptionGroup.getRawValue();
+
+    const language = this.transcriptionList.find(
+      (ts) => ts.id === transcription
+    )?.language!;
+
+    const newTranscription: CreateTranscriptionDto = {
+      project: projectId,
+      title,
+      language,
+      copyDto: {
+        sourceTranscriptionId: transcription,
+      },
+    };
+
+    this.store.dispatch(transcriptionsActions.create({ newTranscription }));
   }
 }
