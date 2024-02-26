@@ -262,16 +262,15 @@ export class TranscriptionService {
     }
 
     //TODO als transaction
-    const [_, updatedProject] = await Promise.all([
-      this.db.transcriptionModel.findByIdAndRemove(id),
-      this.db.projectModel.findByIdAndUpdate(
-        project._id,
-        {
-          $pullAll: { transcriptions: [transcription._id] },
-        },
-        { new: true },
-      ),
-    ]);
+
+    await this.db.transcriptionModel.findByIdAndRemove(id);
+    await this.db.projectModel.findByIdAndUpdate(project._id, {
+      $pullAll: { transcriptions: [transcription._id] },
+    });
+
+    const updatedProject = await this.db.findProjectByIdOrThrow(
+      project._id.toString(),
+    );
 
     const projectEntity = plainToInstance(ProjectEntity, updatedProject);
 
