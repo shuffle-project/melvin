@@ -102,10 +102,11 @@
               >
             </button>
           </div>
+          } @if (transcriptionList.length > 0) {
+          <mat-divider class="transcription-mat-divider" />
           }
         </div>
         @if ('editTranscriptions' | featureEnabled) {
-        <mat-divider class="transcription-mat-divider"></mat-divider>
         <div class="transcription-button-wrapper">
           <button
             (click)="onClickProjectEdit('transcription')"

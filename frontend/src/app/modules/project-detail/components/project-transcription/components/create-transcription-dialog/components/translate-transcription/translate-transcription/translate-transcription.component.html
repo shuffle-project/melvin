@@ -1,4 +1,6 @@
-<h2>Translate an existing transcription</h2>
+<h2 i18n="@@translateTranscriptionTabHeading">
+  Translate an existing transcription
+</h2>
 
 @if(translationServices$ | ngrxPush; as translationServices ){ @if
 (translationServices.length !== 0){
@@ -12,11 +14,15 @@
       >
       }
     </mat-select>
-    <mat-error>Select a transcription</mat-error>
+    <mat-error i18n="@@translateTranscriptionTabTranscriptionErrorRequired"
+      >Select a transcription</mat-error
+    >
   </mat-form-field>
   <div class="vendor-language-wrapper">
     <mat-form-field>
-      <mat-label>Vendor</mat-label>
+      <mat-label i18n="@@translateTranscriptionTabVendorLabel"
+        >Vendor</mat-label
+      >
       <mat-select
         formControlName="translationVendor"
         (valueChange)="transcriptionGroup.get('language')?.reset()"
@@ -28,12 +34,18 @@
         </mat-option>
         }
       </mat-select>
-      <mat-hint>Languages are vendor dependent </mat-hint>
-      <mat-error>Select a vendor</mat-error>
+      <mat-hint i18n="@@translateTranscriptionTabVendorHint"
+        >Languages are vendor dependent
+      </mat-hint>
+      <mat-error i18n="@@translateTranscriptionTabVendorErrorRequired"
+        >Select a vendor</mat-error
+      >
     </mat-form-field>
 
     <mat-form-field>
-      <mat-label>Language</mat-label>
+      <mat-label i18n="@@translateTranscriptionTabLanguageLabel"
+        >Language</mat-label
+      >
 
       <mat-select
         [disabled]="
@@ -52,14 +64,18 @@
       </mat-select>
 
       @if(transcriptionGroup.controls['translationVendor'].value === '') {
-      <mat-hint>Select a vendor first</mat-hint>
+      <mat-hint i18n="@@translateTranscriptionTabLanguageHint"
+        >Select a vendor first</mat-hint
+      >
       }
 
-      <mat-error>Select a language </mat-error>
+      <mat-error i18n="@@translateTranscriptionTabLanguageErrorRequired"
+        >Select a language
+      </mat-error>
     </mat-form-field>
   </div>
   <mat-form-field>
-    <mat-label>Title</mat-label>
+    <mat-label i18n="@@translateTranscriptionTabTitleLabel">Title</mat-label>
     <input matInput formControlName="title" />
 
     @if(transcriptionGroup.controls['title'].value !== '') {
@@ -67,12 +83,14 @@
       <mat-icon svgIcon="close-small" />
     </button>
     }
-    <mat-error>Title is required</mat-error>
+    <mat-error i18n="@@translateTranscriptionTabTitleErrorRequired"
+      >Title is required</mat-error
+    >
   </mat-form-field>
 </form>
 }@else {
-<p class="no-vendor-info">
-  There is currently no translation provider connected to Melvin. Please contact
+<p class="no-vendor-info" i18n="@@translateTranscriptionTabNoTranslationVendor">
+  There is currently no translation vendor connected to Melvin. Please contact
   the person who manages this Melvin instance.
 </p>
 } }

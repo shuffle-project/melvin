@@ -1,7 +1,7 @@
-<h2>Upload a new transcription</h2>
+<h2 i18n="@@uploadTranscriptionTabHeading">Upload a new transcription</h2>
 
 @if(loading) {
-<p>Uploads</p>
+<p i18n="@@uploadTranscriptionTabUploadsInfo">Uploads</p>
 <mat-progress-bar
   mode="determinate"
   [value]="uploadProgress"
@@ -10,7 +10,9 @@
 <form [formGroup]="transcriptionGroup">
   <div class="language-title-wrapper">
     <mat-form-field>
-      <mat-label>Language</mat-label>
+      <mat-label i18n="@@uploadTranscriptionTabLanguageLabel"
+        >Language</mat-label
+      >
       <mat-select
         (selectionChange)="onSelectLanguage($event.value)"
         formControlName="language"
@@ -23,18 +25,22 @@
         >
         }
       </mat-select>
-      <mat-error>Select a language</mat-error>
+      <mat-error i18n="@@uploadTranscriptionTabLanguageErrorRequired"
+        >Select a language</mat-error
+      >
     </mat-form-field>
 
     <mat-form-field>
-      <mat-label>Title</mat-label>
+      <mat-label i18n="@@uploadTranscriptionTabTitleLabel">Title</mat-label>
       <input matInput formControlName="title" />
       @if(transcriptionGroup.controls['title'].value !== '') {
       <button type="button" mat-icon-button matSuffix (click)="onClearTitle()">
         <mat-icon svgIcon="close-small" />
       </button>
       }
-      <mat-error>Title is required</mat-error>
+      <mat-error i18n="@@uploadTranscriptionTabTitleErrorRequired"
+        >Title is required</mat-error
+      >
     </mat-form-field>
   </div>
 
@@ -50,10 +56,20 @@
   <!-- TODO find a better solution for ariadesribedby with these ids -->
   <div class="file-errors-wrapper">
     @if(transcriptionGroup.controls['file'].hasError('maxlength')){
-    <p id="transcript-file-error-maximum" aria-live="polite">Maximum 1 file</p>
+    <p
+      id="transcript-file-error-maximum"
+      aria-live="polite"
+      i18n="@@uploadTranscriptionTabFileErrorMaximum"
+    >
+      Maximum 1 file
+    </p>
     } @if(transcriptionGroup.controls['file'].hasError('required') &&
     transcriptionGroup.controls['file'].touched){
-    <p id="transcript-file-error-required" aria-live="polite">
+    <p
+      id="transcript-file-error-required"
+      aria-live="polite"
+      i18n="@@uploadTranscriptionTabFileErrorRequired"
+    >
       A transcription file (.vtt or .srt) is required
     </p>
     }

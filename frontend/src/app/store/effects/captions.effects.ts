@@ -33,11 +33,27 @@ export class CaptionsEffects {
           queryParam &&
           action.transcriptions.some((obj) => obj.id === queryParam)
             ? queryParam
-            : action.transcriptions[0].id;
+            : action.transcriptions.length > 0
+            ? action.transcriptions[0].id
+            : '';
 
-        return captionsActions.findAllFromEffect({
-          transcriptionId: choosenTranscription,
-        });
+        // if statement handles scenario where the project has no transcriptions and therefore
+        // no captions
+        if (choosenTranscription) {
+          return captionsActions.findAllFromEffect({
+            transcriptionId: choosenTranscription,
+          });
+        } else {
+          // add empty caption list to prevent this scenario:
+          // If you go in Project B (with transcripts / editor mode) and then into
+          // Project A (with no transcripts / editor mode), the old transcriptions will still show up.
+          const captionListEntity = {
+            captions: [],
+            total: 0,
+            page: 0,
+          };
+          return captionsActions.findAllSuccess({ captionListEntity });
+        }
       })
     )
   );

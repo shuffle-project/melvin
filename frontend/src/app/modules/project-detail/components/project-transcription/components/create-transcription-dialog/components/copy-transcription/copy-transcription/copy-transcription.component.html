@@ -1,8 +1,10 @@
-<h2>Copy an existing transcription</h2>
+<h2 i18n="@@copyTranscriptionTabHeading">Copy an existing transcription</h2>
 
 <form [formGroup]="transcriptionGroup">
   <mat-form-field>
-    <mat-label>Transcription</mat-label>
+    <mat-label i18n="@@copyTranscriptionTabTranscriptionLabel"
+      >Transcription</mat-label
+    >
     <mat-select
       formControlName="transcription"
       (selectionChange)="onSelectTranscription($event.value)"
@@ -13,11 +15,13 @@
       >
       }
     </mat-select>
-    <mat-error>Select a transcription</mat-error>
+    <mat-error i18n="@@copyTranscriptionTabTranscriptionErrorRequired"
+      >Select a transcription</mat-error
+    >
   </mat-form-field>
 
   <mat-form-field class="title">
-    <mat-label>Title</mat-label>
+    <mat-label i18n="@@copyTranscriptionTabTitleLabel">Title</mat-label>
     <input matInput formControlName="title" />
     @if(transcriptionGroup.controls['title'].value !== '') {
     <button type="button" mat-icon-button matSuffix (click)="onClearTitle()">
@@ -25,6 +29,8 @@
     </button>
     }
 
-    <mat-error>Title is required</mat-error>
+    <mat-error i18n="@@copyTranscriptionTabTitleErrorRequired"
+      >Title is required</mat-error
+    >
   </mat-form-field>
 </form>
