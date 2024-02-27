@@ -70,20 +70,28 @@ export class AddVideoSourceComponent implements OnInit, OnDestroy {
     this.destroy$$.next();
   }
 
-  async load(refresh = false) {
+  async load() {
     this.loading = true;
     this.loadingError = null;
     this.deviceError = null;
 
-    if (refresh) {
-      this.recorderService.reloadDevices();
-    }
+    // if (refresh) {
+    //   this.recorderService.reloadDevices();
+    // }
+
+    const userMedia = await navigator.mediaDevices.getUserMedia({
+      video: true,
+      audio: false,
+    });
+    this.videoSource.deviceId = userMedia.id;
+    this.videoSource.label = 'default';
+    this.videoSource.mediaStream = userMedia;
 
     this.videoinputs = await this.recorderService.getDevices('videoinput');
 
     if (this.videoinputs.length > 0) {
       this.currentInput = this.videoinputs[0];
-      await this.resetVideoSource(this.videoinputs[0]);
+      await this.resetVideoSourceDevice(this.videoinputs[0]);
     } else {
       // TODO permissions ? keine geräte ? show error
       this.loadingError =
@@ -93,7 +101,7 @@ export class AddVideoSourceComponent implements OnInit, OnDestroy {
     this.loading = false;
   }
 
-  async resetVideoSource(mediaDeviceInfo: MediaDeviceInfo) {
+  async resetVideoSourceDevice(mediaDeviceInfo: MediaDeviceInfo) {
     this.videoSource.deviceId = mediaDeviceInfo.deviceId;
     this.videoSource.label = mediaDeviceInfo.label;
 
@@ -115,11 +123,11 @@ export class AddVideoSourceComponent implements OnInit, OnDestroy {
   }
 
   onSelectionChange() {
-    this.resetVideoSource(this.currentInput);
+    this.resetVideoSourceDevice(this.currentInput);
   }
 
   onClickTryAgain() {
-    this.load(true);
+    this.load();
   }
 
   onCloseDialog() {

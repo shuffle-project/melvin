@@ -99,6 +99,7 @@ export const ICONS = [
   'sign_language',
   'copy-file',
   'translate',
+  'info',
 ] as const;
 
 export type IconName = (typeof ICONS)[number];

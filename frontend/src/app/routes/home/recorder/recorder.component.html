@@ -42,15 +42,18 @@
 
       <!--  -->
       @if (!this.recorderService.recordingMode) {
+      <mat-icon svgIcon="info"></mat-icon>
       <p>
         Edit mode. You can add or delete sources. You need at least 1 source to
         continue.
       </p>
       <p>Switch to Recording Mode to start recording.</p>
       } @else if (!this.recorderService.recording) {
+      <mat-icon svgIcon="info"></mat-icon>
       <p>Click Start Record to start the Recording</p>
       <p>Switch Edit mode to add or delete Sources again.</p>
       }@else {
+      <mat-icon svgIcon="info"></mat-icon>
       <p>
         Recording ongoing. Press Stop recording if you want to save or dismiss
         your recording.

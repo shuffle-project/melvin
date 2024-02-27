@@ -11,6 +11,7 @@ import {
   MatDialogModule,
   MatDialogRef,
 } from '@angular/material/dialog';
+import { MatIconModule } from '@angular/material/icon';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { ApiService } from '../../../../../services/api/api.service';
 import { AsrVendors } from '../../../../../services/api/dto/create-transcription.dto';
@@ -27,6 +28,7 @@ import { Recording } from '../../recorder.interfaces';
     MatButtonModule,
     MatProgressBarModule,
     MatButtonModule,
+    MatIconModule,
   ],
   templateUrl: './upload-recording.component.html',
   styleUrl: './upload-recording.component.scss',
@@ -41,9 +43,7 @@ export class UploadRecordingComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA)
     public data: { title: string; language: string; recordings: Recording[] },
     public api: ApiService
-  ) {
-    console.log(data);
-  }
+  ) {}
 
   async ngOnInit() {
     const timer = setInterval(() => {
