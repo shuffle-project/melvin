@@ -17,12 +17,13 @@
     .infotext {
       flex: 1;
       display: flex;
-      flex-direction: column;
+      // flex-direction: column;
       justify-content: center;
       align-items: center;
-      p {
-        text-align: center;
-        margin: 0;
+      gap: 10px;
+      span {
+        max-width: 400px;
+        text-align: left;
       }
     }
 

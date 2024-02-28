@@ -116,11 +116,10 @@ export class RecorderService {
    * recording
    */
 
-  stopRecording(title: string, language: string) {
+  stopRecording(title: string) {
     if (!this.recording) return;
 
     this.title = title;
-    this.language = language;
 
     this.recordings.forEach((recording) => {
       recording.mediaRecorder.stop();
@@ -128,7 +127,7 @@ export class RecorderService {
 
     // TODO
     this.dialog.open(UploadRecordingComponent, {
-      data: { title, language, recordings: this.recordings },
+      data: { title, recordings: this.recordings },
       disableClose: true,
     });
   }
@@ -184,7 +183,7 @@ export class RecorderService {
         title: streamToRecord.source.title,
         category: streamToRecord.source.mediaCategory,
         complete: false,
-        upload: { progress: -1 },
+        upload: { progress: 0 },
       };
       this.recordings.push(recording);
 

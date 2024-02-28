@@ -1,21 +1,42 @@
 .mat-dialog-content {
   padding-top: 5px;
   width: 600px;
-}
 
-.infotext {
-  // todo
-}
-
-.upload-list {
-  margin: 5px;
-  padding: 0;
-  li {
-    margin: 5px;
-    list-style-type: none;
+  .progress-wrapper {
     display: flex;
-    justify-content: center;
+    margin: 20px;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .inputs {
+    display: flex;
+    margin: 10px;
+    justify-content: stretch;
+    flex-direction: column;
+  }
+
+  .infotext {
+    display: flex;
+    justify-content: start;
     align-items: center;
     gap: 5px;
   }
+
+  .upload-list {
+    margin: 5px;
+    padding: 0;
+    li {
+      margin: 5px;
+      list-style-type: none;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 5px;
+    }
+  }
+}
+
+.mat-mdc-dialog-actions {
+  --mat-dialog-actions-alignment: end;
 }

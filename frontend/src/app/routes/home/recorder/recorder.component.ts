@@ -46,7 +46,6 @@ export class RecorderComponent implements OnInit, OnDestroy {
   public languages$ = this.store.select(configSelector.languagesConfig);
 
   recordingTitle: string = 'Aufnahme vom ' + new Date().toLocaleDateString();
-  language = 'de';
 
   loading = true;
 
@@ -87,6 +86,6 @@ export class RecorderComponent implements OnInit, OnDestroy {
   }
 
   async onClickStopRecord() {
-    this.recorderService.stopRecording(this.recordingTitle, this.language);
+    this.recorderService.stopRecording(this.recordingTitle);
   }
 }

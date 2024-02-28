@@ -1,68 +1,120 @@
-<h2 mat-dialog-title>Upload</h2>
+<h2 mat-dialog-title>Upload and Project creation: {{ data.title }}</h2>
 <mat-dialog-content class="mat-dialog-content">
   @if (!uploading) {
-  <div>
-    <h3>Zusammenfassung</h3>
-    <p>Titel: {{ data.title }}</p>
-    <p>Sprache: {{ data.language }}</p>
+  <div class="inputs">
+    <mat-form-field *ngrxLet="asrServiceConfig$ as asrServiceConfig">
+      <mat-label>ASR Service</mat-label>
+      <mat-select
+        required
+        [(value)]="asrSelection"
+        (selectionChange)="onChangeAsrService($event)"
+      >
+        @for (service of asrServiceConfig; track service.asrVendor ) {
+        <mat-option [value]="service">
+          {{ service.fullName }}
+        </mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Language</mat-label>
+      <mat-select required [(value)]="language" [disabled]="!asrSelection">
+        @if (asrSelection) { @for (lang of asrSelection.languages; track lang )
+        {
+        <mat-option [value]="lang.code">
+          {{ lang.name }}
+        </mat-option>
+        } }
+      </mat-select>
+    </mat-form-field>
   </div>
 
   <div>
-    @if (readyToUpload) {
-    <p class="infotext">
-      <mat-icon svgIcon="info"></mat-icon> Alle Daten sind bereit. Du kannst das
-      Projekt jetzt hochladen.
-    </p>
-    }@else{
-    <p class="infotext">
-      <mat-icon svgIcon="info"></mat-icon> Die Dateien werden verarbeite, bittey
-      warte bis alle Dateien fertig sind.
-    </p>
-    }
-  </div>
-
-  } @else {
-  <div>
-    <h3>Dateien werden hochgeladen.</h3>
-    Sobald alle Dateien hochgeladen wurden, taucht das Projekt in der
-    Projektübersicht auf.
-    <ul class="upload-list">
-      @for (recording of data.recordings; track $index) {
-      <li>
-        <!-- {{ upload.name }} -->
-        <mat-progress-bar
-          mode="determinate"
-          [value]="recording.upload.progress"
-        ></mat-progress-bar>
-        {{ recording.upload.progress | number : '1.0-0' }}%
-        <!-- {{ (fileUpload.loaded / fileUpload.totalSize) * 100 }}% -->
-        <!-- <button mat-icon-button (click)="onCancelUpload(fileUpload)">
-            <mat-icon svgIcon="close"></mat-icon>
-          </button> -->
-      </li>
-      }
-    </ul>
-
-    <div>
-      @if (this.uploadingDone) {
-      <p class="infotext">
-        <mat-icon svgIcon="info"></mat-icon>
-        Das Projekt wurde erfolgreich erstellt, du kannst diesen Dialog jetzt
-        schließen!
-      </p>
-      }@else {
-      <p class="infotext">
-        <mat-icon svgIcon="info"></mat-icon> Bitte warte bis alle Dateien
-        hochgeladen wurden.
-      </p>
+    <div class="infotext">
+      <mat-icon svgIcon="info"></mat-icon>
+      @if (readyToUpload) {
+      <span>
+        Alle Daten sind bereit. Du kannst das Projekt jetzt hochladen oder dir
+        die Dateie lokal runterladen.
+      </span>
+      }@else{
+      <span>
+        Die Dateien werden verarbeite, bitte warte bis alle Dateien fertig sind.
+      </span>
       }
     </div>
   </div>
 
+  } @else {
+  <div>
+    @if (!this.uploadingDone) {
+    <div class="progress-wrapper">
+      <h3>Dateien werden hochgeladen.</h3>
+      <mat-progress-bar
+        mode="determinate"
+        [value]="displayCompleteUploadProgress()"
+      ></mat-progress-bar>
+    </div>
+
+    <div>
+      <div class="infotext">
+        <mat-icon svgIcon="info"></mat-icon>
+        <span> Bitte warte bis alle Dateien hochgeladen wurden. </span>
+      </div>
+    </div>
+
+    }@else{
+    <!--  -->
+    @if (uploadingError) {
+    <h3>Fehler!</h3>
+
+    @if (data.recordings[0].upload.error) {
+    <div class="infotext">
+      <mat-icon svgIcon="info"></mat-icon>
+      <span>
+        Lade die Videos manuell runter und versuche das Projekte mit den Dateien
+        manuell zu erstellen.
+      </span>
+    </div>
+
+    }@else {
+    <div class="infotext">
+      <mat-icon svgIcon="info"></mat-icon>
+      <span>
+        Das Projekt und die Hauptdatei konnte hochgeladen und erstellt werden!
+        Es ist aber ein Problem bei einem zusätzlichen Video aufgetreten. Prüfe
+        in den Projektdetails welches Video nicht hochgeladen werden konnte und
+        lade es bei Bedarf manuell hoch.
+      </span>
+    </div>
+    }
+    <!--  -->
+    } @else {
+
+    <h3>Erfolgreich!</h3>
+
+    <div class="infotext">
+      <mat-icon svgIcon="info"></mat-icon>
+      <span>
+        Das Projekt wurde erfolgreich erstellt, du kannst diesen Dialog jetzt
+        schließen!
+      </span>
+    </div>
+    } }
+  </div>
   }
 </mat-dialog-content>
 
 <mat-dialog-actions>
+  <button
+    mat-flat-button
+    [disabled]="!readyToUpload"
+    (click)="onDownloadVideosLocally()"
+    color="accent"
+  >
+    Videos lokal runterladen
+  </button>
+
   @if (!uploading) {
 
   <button color="warn" mat-flat-button (click)="onClose()">

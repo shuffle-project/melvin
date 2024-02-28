@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { parse } from '@plussub/srt-vtt-parser';
 import { Entry } from '@plussub/srt-vtt-parser/dist/src/types';
-import { readFile } from 'fs/promises';
+import { readFile } from 'fs-extra';
 import { Types } from 'mongoose';
 import { AuthUser } from '../../resources/auth/auth.interfaces';
 import { CaptionService } from '../../resources/caption/caption.service';
@@ -21,7 +21,10 @@ export class ImportSubtitlesService {
     transcriptionId: string,
     speakerId: string,
   ) {
-    const content = await readFile(file.path, 'utf-8');
+    // TODO Read utf-16 file etc.
+    let content = await readFile(file.path, 'utf-8');
+    content = content.replace(/^\uFEFF/gm, '').replace(/^\u00BB\u00BF/gm, ''); // remove BOM-tag from Utf-8-BOM
+
     try {
       if (file.originalname.endsWith('json')) {
         await this.fromDeepspeechModel(

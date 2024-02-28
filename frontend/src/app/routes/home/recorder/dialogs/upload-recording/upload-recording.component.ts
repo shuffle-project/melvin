@@ -13,10 +13,20 @@ import {
 } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatSelectChange, MatSelectModule } from '@angular/material/select';
+import { LetDirective } from '@ngrx/component';
+import { Store } from '@ngrx/store';
+import { take } from 'rxjs';
 import { ApiService } from '../../../../../services/api/api.service';
 import { AsrVendors } from '../../../../../services/api/dto/create-transcription.dto';
 import { UploadVideoDto } from '../../../../../services/api/dto/upload-video.dto';
+import {
+  AsrServiceConfig,
+  Language,
+} from '../../../../../services/api/entities/config.entity';
 import { ProjectEntity } from '../../../../../services/api/entities/project.entity';
+import { AppState } from '../../../../../store/app.state';
+import { asrServiceConfig } from '../../../../../store/selectors/config.selector';
 import { Recording } from '../../recorder.interfaces';
 
 @Component({
@@ -29,6 +39,8 @@ import { Recording } from '../../recorder.interfaces';
     MatProgressBarModule,
     MatButtonModule,
     MatIconModule,
+    MatSelectModule,
+    LetDirective,
   ],
   templateUrl: './upload-recording.component.html',
   styleUrl: './upload-recording.component.scss',
@@ -37,15 +49,23 @@ export class UploadRecordingComponent implements OnInit {
   readyToUpload = false;
   uploading = false;
   uploadingDone = false;
+  uploadingError = false;
+
+  asrServiceConfig$ = this.store.select(asrServiceConfig);
+  asrSelection!: AsrServiceConfig;
+  language!: string;
 
   constructor(
     public dialogRef: MatDialogRef<UploadRecordingComponent>,
     @Inject(MAT_DIALOG_DATA)
-    public data: { title: string; language: string; recordings: Recording[] },
-    public api: ApiService
+    public data: { title: string; recordings: Recording[] },
+    public api: ApiService,
+    public store: Store<AppState>
   ) {}
 
   async ngOnInit() {
+    this.selectInitalInputs();
+
     const timer = setInterval(() => {
       this.checkReady();
       if (this.readyToUpload) {
@@ -64,13 +84,42 @@ export class UploadRecordingComponent implements OnInit {
     this.dialogRef.close();
   }
 
+  onChangeAsrService(change: MatSelectChange) {
+    const languages: Language[] = change.value.languages;
+
+    // choose same language again if it is possible for the new asrservice
+    const prev = languages.find((l) => l.code === this.language);
+    if (prev) {
+      this.language = prev.code;
+    } else if (languages.length > 0) {
+      // choose first language (should always be possible)
+      this.language = languages[0].code;
+    }
+  }
+
+  selectInitalInputs() {
+    this.asrServiceConfig$.pipe(take(1)).subscribe((configs) => {
+      // preselect asr config
+      const whisperConfig = configs.find(
+        (config) => config.asrVendor === AsrVendors.WHISPER
+      );
+      if (whisperConfig) {
+        this.asrSelection = whisperConfig;
+        this.language = whisperConfig.languages[0].code;
+      } else if (configs.length > 0) {
+        this.asrSelection = configs[0];
+        this.language = configs[0].languages[0].code;
+      }
+    });
+  }
+
   async onUploadRecording() {
     this.uploading = true;
 
     const newProject: ProjectEntity = await this.createProject(
       this.data.recordings[0],
       this.data.title,
-      this.data.language
+      this.language
     );
 
     this.data.recordings.forEach((rec, i) => {
@@ -81,23 +130,6 @@ export class UploadRecordingComponent implements OnInit {
 
       this.uploadAdditionalFile(rec, newProject);
     });
-  }
-
-  async createProject(rec: Recording, title: string, language: string) {
-    const formData: FormData = this.buildFormData(rec, title, language);
-
-    this.api.createProject(formData).subscribe({
-      next: (event: HttpEvent<ProjectEntity>) =>
-        this._onNextHttpEvent(event, rec),
-      error: (error: HttpErrorResponse) => this._onErrorHttpEvent(rec, error),
-    });
-
-    // TODO wait until upload is done
-    while (!rec.upload.result) {
-      await this.waitMS(1000);
-    }
-
-    return rec.upload.result;
   }
 
   buildFormData(recording: Recording, title: string, language: string) {
@@ -123,6 +155,48 @@ export class UploadRecordingComponent implements OnInit {
 
     formData.append('video', file, 'video.webm');
     return formData;
+  }
+
+  displayCompleteUploadProgress() {
+    return (
+      this.data.recordings
+        .map((rec) => rec.upload.progress)
+        .reduce((v1, v2) => v1 + v2) / this.data.recordings.length
+    );
+  }
+
+  onDownloadVideosLocally() {
+    this.data.recordings.forEach((rec, i) => {
+      const filename = i + 1 + '_' + rec.title.replace(/\s/g, '_') + '.webm';
+      const file = new File(rec.chunks, filename, {
+        type: 'video/webm',
+      });
+      const objectURL = window.URL.createObjectURL(file);
+      const downloadElement = document.createElement('a');
+      downloadElement.href = objectURL;
+      downloadElement.download = filename;
+      // downloadElement.target ='_blank'
+      downloadElement.click();
+      downloadElement.remove();
+      window.URL.revokeObjectURL(objectURL);
+    });
+  }
+
+  async createProject(rec: Recording, title: string, language: string) {
+    const formData: FormData = this.buildFormData(rec, title, language);
+
+    this.api.createProject(formData).subscribe({
+      next: (event: HttpEvent<ProjectEntity>) =>
+        this._onNextHttpEvent(event, rec),
+      error: (error: HttpErrorResponse) => this._onErrorHttpEvent(rec, error),
+    });
+
+    // TODO wait until upload is done
+    while (!rec.upload.result) {
+      await this.waitMS(1000);
+    }
+
+    return rec.upload.result;
   }
 
   uploadAdditionalFile(rec: Recording, newProject: ProjectEntity) {
@@ -155,9 +229,7 @@ export class UploadRecordingComponent implements OnInit {
         rec.upload.progress = 100;
         rec.upload.result = event.body ?? undefined;
 
-        if (this.data.recordings.every((rec) => rec.upload.result)) {
-          this.uploadingDone = true;
-        }
+        this.checkUploadingDone();
         break;
 
       default:
@@ -166,7 +238,12 @@ export class UploadRecordingComponent implements OnInit {
   }
 
   _onErrorHttpEvent(rec: Recording, error: HttpErrorResponse) {
+    rec.upload.progress = 100;
     rec.upload.error = error;
+
+    this.uploadingError = true;
+
+    this.checkUploadingDone();
   }
 
   private async waitMS(ms: number) {
@@ -175,5 +252,11 @@ export class UploadRecordingComponent implements OnInit {
         resolve(null);
       }, ms);
     });
+  }
+
+  private checkUploadingDone() {
+    if (this.data.recordings.every((rec) => rec.upload.progress >= 100)) {
+      this.uploadingDone = true;
+    }
   }
 }
