@@ -375,6 +375,7 @@ export class ProjectService {
       { ...updatePartialDto },
       updatedProject,
     );
+
     return updatedProject;
   }
 

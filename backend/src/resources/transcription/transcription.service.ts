@@ -73,7 +73,7 @@ export class TranscriptionService {
     const transcriptionId = new Types.ObjectId();
 
     // TODO use transactions
-    const [transcription, updatedProject] = await Promise.all([
+    const [transcription, _updatedProject] = await Promise.all([
       this.db.transcriptionModel.create({
         ...dto,
         createdBy: authUser.id,
@@ -91,6 +91,11 @@ export class TranscriptionService {
         .lean()
         .exec(),
     ]);
+
+    // TODO (GitHub Issue: https://github.com/shuffle-project/melvin/issues/76)
+    const updatedProject = await this.db.findProjectByIdOrThrow(
+      _updatedProject._id.toString(),
+    );
 
     transcription.populate('createdBy');
 

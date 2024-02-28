@@ -69,6 +69,7 @@ export const projectsReducer = createReducer(
       if (item.id !== updatedProject.id) {
         return item;
       }
+
       return {
         ...item,
         ...updatedProject,
@@ -116,6 +117,7 @@ export const projectsReducer = createReducer(
         if (item.id !== updatedProject.id) {
           return item;
         }
+
         return {
           ...item,
           ...updatedProject,
