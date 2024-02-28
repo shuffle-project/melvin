@@ -3,7 +3,7 @@
     <h1 i18n="@@createTranscriptionDialogTitle">Add transcription</h1>
     <button
       mat-icon-button
-      [mat-dialog-close]="true"
+      mat-dialog-close
       aria-label="Close"
       i18n-aria-label="@@createTranscriptionDialogCloseButton"
     >
@@ -65,6 +65,17 @@
         From Media
       </ng-template>
       <app-from-media-transcription #asrForm />
+    </mat-tab>
+
+    <mat-tab [disabled]="loading">
+      <ng-template
+        mat-tab-label
+        i18n="@@createTranscriptionDialogTabEmptyFileLabel"
+      >
+        <mat-icon svgIcon="add" class="svg-black tab-icon" />
+        Empty file
+      </ng-template>
+      <app-empty-file-transcription #emptyFileForm />
     </mat-tab>
   </mat-tab-group>
 </mat-dialog-content>

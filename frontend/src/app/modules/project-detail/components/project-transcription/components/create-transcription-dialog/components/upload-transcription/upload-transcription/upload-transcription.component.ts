@@ -12,6 +12,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
+import { MatDialogRef } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
@@ -23,6 +24,7 @@ import { WrittenOutLanguagePipe } from 'src/app/pipes/written-out-language-pipe/
 import { ApiService } from 'src/app/services/api/api.service';
 import { CreateTranscriptionDto } from 'src/app/services/api/dto/create-transcription.dto';
 import { TranscriptionEntity } from 'src/app/services/api/entities/transcription.entity';
+import { CreateTranscriptionDialogComponent } from '../../../create-transcription-dialog.component';
 
 @Component({
   selector: 'app-upload-transcription',
@@ -50,8 +52,9 @@ export class UploadTranscriptionComponent {
 
   languages = LANGUAGES;
   acceptedFileFormats = ['.vtt', '.srt'];
-  writtenOutLanguagePipe = inject(WrittenOutLanguagePipe);
 
+  writtenOutLanguagePipe = inject(WrittenOutLanguagePipe);
+  dialogRef = inject(MatDialogRef<CreateTranscriptionDialogComponent>);
   api = inject(ApiService);
 
   transcriptionGroup = new FormGroup({
@@ -109,6 +112,7 @@ export class UploadTranscriptionComponent {
                 100;
             } else if (event.type === HttpEventType.Response) {
               resolve(event);
+              this.dialogRef.close();
             }
           },
           error: (error: HttpErrorResponse) => {

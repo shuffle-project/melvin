@@ -37,7 +37,7 @@ export class ProjectTranscriptionComponent {
     this.dialogRefProjectDetail.close();
     this.dialog.open(CreateTranscriptionDialogComponent, {
       width: '100%',
-      maxWidth: '700px',
+      maxWidth: '800px',
       maxHeight: '90vh',
     });
   }

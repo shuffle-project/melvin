@@ -18,6 +18,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
+import { MatDialogRef } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
@@ -36,6 +37,7 @@ import { Language } from 'src/app/services/api/entities/config.entity';
 import { TranscriptionEntity } from 'src/app/services/api/entities/transcription.entity';
 import { AppState } from 'src/app/store/app.state';
 import * as configSelectors from '../../../../../../../../../store/selectors/config.selector';
+import { CreateTranscriptionDialogComponent } from '../../../create-transcription-dialog.component';
 
 @Component({
   selector: 'app-from-media-transcription',
@@ -66,9 +68,9 @@ export class FromMediaTranscriptionComponent {
 
   acceptedFileFormats = ['audio/*', 'video/*', 'audio', 'video'];
 
+  dialogRef = inject(MatDialogRef<CreateTranscriptionDialogComponent>);
   destroyRef = inject(DestroyRef);
   writtenOutLanguagePipe = inject(WrittenOutLanguagePipe);
-
   api = inject(ApiService);
 
   constructor(private store: Store<AppState>) {
@@ -155,6 +157,7 @@ export class FromMediaTranscriptionComponent {
                   100;
               } else if (event.type === HttpEventType.Response) {
                 resolve(event);
+                this.dialogRef.close();
               }
             },
             error: (error: HttpErrorResponse) => {

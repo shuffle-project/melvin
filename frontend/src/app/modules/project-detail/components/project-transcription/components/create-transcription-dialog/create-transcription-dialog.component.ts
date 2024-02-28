@@ -11,12 +11,11 @@ import * as transcriptionsSelectors from '../../../../../../store/selectors/tran
 
 import { MatIconModule } from '@angular/material/icon';
 import { MatTabsModule } from '@angular/material/tabs';
-import { ProjectDetailComponent } from 'src/app/modules/project-detail/project-detail.component';
 import { CopyTranscriptionComponent } from './components/copy-transcription/copy-transcription/copy-transcription.component';
+import { EmptyFileTranscriptionComponent } from './components/empty-file-transcription/empty-file-transcription/empty-file-transcription.component';
 import { FromMediaTranscriptionComponent } from './components/from-media-transcription/from-media-transcriptions/from-media-transcription.component';
 import { TranslateTranscriptionComponent } from './components/translate-transcription/translate-transcription/translate-transcription.component';
 import { UploadTranscriptionComponent } from './components/upload-transcription/upload-transcription/upload-transcription.component';
-
 @Component({
   selector: 'app-create-transcription-dialog',
   templateUrl: './create-transcription-dialog.component.html',
@@ -31,6 +30,7 @@ import { UploadTranscriptionComponent } from './components/upload-transcription/
     TranslateTranscriptionComponent,
     UploadTranscriptionComponent,
     FromMediaTranscriptionComponent,
+    EmptyFileTranscriptionComponent,
   ],
 })
 export class CreateTranscriptionDialogComponent implements OnInit, OnDestroy {
@@ -38,13 +38,14 @@ export class CreateTranscriptionDialogComponent implements OnInit, OnDestroy {
 
   public loading = false;
 
-  tabs = ['upload', 'copy', 'translate', 'from media'];
+  tabs = ['upload', 'copy', 'translate', 'from media', 'empty file'];
   selectedTab = 'upload';
 
   @ViewChild('uploadForm') uploadForm!: UploadTranscriptionComponent;
   @ViewChild('copyForm') copyForm!: CopyTranscriptionComponent;
   @ViewChild('asrForm') asrForm!: CopyTranscriptionComponent;
   @ViewChild('translateForm') translateForm!: CopyTranscriptionComponent;
+  @ViewChild('emptyFileForm') emptyFileForm!: EmptyFileTranscriptionComponent;
 
   uploadProgress: number = 0;
 
@@ -93,6 +94,9 @@ export class CreateTranscriptionDialogComponent implements OnInit, OnDestroy {
       case 'from media':
         this.asrForm.submit(this.project.id);
         break;
+      case 'empty file':
+        this.emptyFileForm.submit(this.project.id);
+        break;
       default:
         console.log('Missing tab handling');
     }
@@ -100,14 +104,5 @@ export class CreateTranscriptionDialogComponent implements OnInit, OnDestroy {
 
   onLoadingEvent(loading: boolean) {
     this.loading = loading;
-  }
-
-  onCloseDialog() {
-    this.dialog.open(ProjectDetailComponent, {
-      data: { tab: 'transcription' },
-      width: '100%',
-      maxWidth: '700px',
-      maxHeight: '90vh',
-    });
   }
 }

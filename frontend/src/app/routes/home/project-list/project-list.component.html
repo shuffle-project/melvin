@@ -134,20 +134,21 @@
       </th>
       <td mat-cell *matCellDef="let element">
         <div class="flex">
-          @for ( languageCode of getProjectLanguages(element); track
-          languageCode; let i = $index) {
-          <div [matTooltip]="getProjectLanguages(element) | shortLanguageCode">
-            <div class="flex">
-              @if (i < 2) {
-              <span>{{ languageCode | shortLanguageCode }}</span>
-              } @if (i === 2) {
-              <span>+{{ getProjectLanguages(element).length - 2 }}</span>
-              } @if (i < getProjectLanguages(element).length - 1 && i < 2) {
-              <div class="language-divider" role="separator"></div>
-              }
-            </div>
-          </div>
+          @for ( languageCode of (element | projectLanguagesSet); track
+          languageCode; let index = $index) { @if (index <= 1) { @if (index ===
+          1) {
+          <div class="language-divider" role="separator"></div>
           }
+          <span
+            [attr.aria-label]="languageCode | writtenOutLanguage"
+            [matTooltip]="languageCode | writtenOutLanguage"
+          >
+            {{ languageCode | shortLanguageCode }}
+          </span>
+          } @else if (index === 2) {
+          <div class="language-divider" role="separator"></div>
+          <span>+{{ (element | projectLanguagesSet).length - 2 }}</span>
+          }}
         </div>
       </td>
     </ng-container>

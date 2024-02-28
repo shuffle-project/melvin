@@ -27,7 +27,9 @@
         >
         <mat-select formControlName="language">
           @for (language of languages; track language) {
-          <mat-option [value]="language.code">{{ language.name }}</mat-option>
+          <mat-option [value]="language.code"
+            >{{ language.name }} ({{ language.code }})</mat-option
+          >
           }
         </mat-select>
         <mat-error i18n="@@editTranscriptionModalLanguageError"

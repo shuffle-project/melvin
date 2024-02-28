@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -14,32 +14,32 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { Store } from '@ngrx/store';
 import { LANGUAGES } from 'src/app/constants/languages.constant';
+import { WrittenOutLanguagePipe } from 'src/app/pipes/written-out-language-pipe/written-out-language.pipe';
 import { CreateTranscriptionDto } from 'src/app/services/api/dto/create-transcription.dto';
-import { TranscriptionEntity } from 'src/app/services/api/entities/transcription.entity';
 import { AppState } from 'src/app/store/app.state';
 import * as transcriptionsActions from '../../../../../../../../../store/actions/transcriptions.actions';
 import { CreateTranscriptionDialogComponent } from '../../../create-transcription-dialog.component';
 
 @Component({
-  selector: 'app-copy-transcription',
+  selector: 'app-empty-file-transcription',
   standalone: true,
   imports: [
     CommonModule,
     MatFormFieldModule,
-    MatSelectModule,
-    ReactiveFormsModule,
     MatInputModule,
-    MatIconModule,
+    MatSelectModule,
     MatButtonModule,
+    MatIconModule,
+    WrittenOutLanguagePipe,
+    ReactiveFormsModule,
   ],
-  templateUrl: './copy-transcription.component.html',
-  styleUrl: './copy-transcription.component.scss',
+  templateUrl: './empty-file-transcription.component.html',
+  styleUrl: './empty-file-transcription.component.scss',
 })
-export class CopyTranscriptionComponent {
-  @Input() transcriptionList: TranscriptionEntity[] = [];
-
+export class EmptyFileTranscriptionComponent {
+  writtenOutLanguagePipe = inject(WrittenOutLanguagePipe);
+  store = inject(Store<AppState>);
   dialogRef = inject(MatDialogRef<CreateTranscriptionDialogComponent>);
-  constructor(private store: Store<AppState>) {}
 
   languages = LANGUAGES;
 
@@ -48,22 +48,19 @@ export class CopyTranscriptionComponent {
       nonNullable: true,
       validators: [Validators.required],
     }),
-    transcription: new FormControl<string>('', {
+    language: new FormControl<string>('', {
       nonNullable: true,
       validators: [Validators.required],
     }),
   });
 
-  onSelectTranscription(selectedTranscriptionId: string) {
-    const titleControl = this.transcriptionGroup.controls['title'];
+  onSelectLanguage(selectedLanguageCode: string) {
+    if (this.transcriptionGroup.controls['title'].value !== '') return;
 
-    if (!titleControl.value) {
-      const selectedTranscription = this.transcriptionList.find(
-        (ts) => ts.id === selectedTranscriptionId
-      );
-      // TODO consider language
-      titleControl.setValue(`${selectedTranscription?.title} (copy)`);
-    }
+    const selectedLanguageName =
+      this.writtenOutLanguagePipe.transform(selectedLanguageCode);
+
+    this.transcriptionGroup.controls['title'].setValue(selectedLanguageName);
   }
 
   onClearTitle() {
@@ -76,19 +73,12 @@ export class CopyTranscriptionComponent {
       return;
     }
 
-    const { title, transcription } = this.transcriptionGroup.getRawValue();
-
-    const language = this.transcriptionList.find(
-      (ts) => ts.id === transcription
-    )?.language!;
+    const { title, language } = this.transcriptionGroup.getRawValue();
 
     const newTranscription: CreateTranscriptionDto = {
       project: projectId,
       title,
       language,
-      copyDto: {
-        sourceTranscriptionId: transcription,
-      },
     };
 
     this.store.dispatch(transcriptionsActions.create({ newTranscription }));

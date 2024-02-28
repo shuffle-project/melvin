@@ -10,10 +10,14 @@ export class LanguageCodePipe implements PipeTransform {
   }
 
   transform(value: string | string[]) {
-    if (typeof value === 'string') {
-      return this.getShortCode(value);
+    if (value) {
+      if (typeof value === 'string') {
+        return this.getShortCode(value);
+      } else {
+        return value.map((lang) => ' ' + this.getShortCode(lang)).toString();
+      }
     } else {
-      return value.map((lang) => ' ' + this.getShortCode(lang)).toString();
+      return '';
     }
   }
 }

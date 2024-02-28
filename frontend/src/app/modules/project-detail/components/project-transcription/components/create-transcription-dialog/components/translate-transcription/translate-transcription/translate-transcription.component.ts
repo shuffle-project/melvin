@@ -7,6 +7,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
+import { MatDialogRef } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
@@ -27,6 +28,7 @@ import { TranscriptionEntity } from 'src/app/services/api/entities/transcription
 import { AppState } from 'src/app/store/app.state';
 import * as transcriptionsActions from '../../../../../../../../../store/actions/transcriptions.actions';
 import * as configSelectors from '../../../../../../../../../store/selectors/config.selector';
+import { CreateTranscriptionDialogComponent } from '../../../create-transcription-dialog.component';
 
 @Component({
   selector: 'app-translate-transcription',
@@ -50,6 +52,7 @@ export class TranslateTranscriptionComponent {
   @Input() transcriptionList: TranscriptionEntity[] = [];
 
   writtenOutLanguagePipe = inject(WrittenOutLanguagePipe);
+  dialogRef = inject(MatDialogRef<CreateTranscriptionDialogComponent>);
 
   constructor(private store: Store<AppState>) {
     this.translationLanguages$ = this.transcriptionGroup.controls[
@@ -144,6 +147,7 @@ export class TranslateTranscriptionComponent {
       };
 
       this.store.dispatch(transcriptionsActions.create({ newTranscription }));
+      this.dialogRef.close();
     }
   }
 }

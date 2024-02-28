@@ -33,6 +33,8 @@ import {
   ProjectFilter,
   ProjectSetEnum,
 } from 'src/app/interfaces/project-filter.interface';
+import { ProjectLanguagesSetPipe } from 'src/app/pipes/project-languages-set-pipe/project-languages-set.pipe';
+import { WrittenOutLanguagePipe } from 'src/app/pipes/written-out-language-pipe/written-out-language.pipe';
 import { AppState } from 'src/app/store/app.state';
 import { AvatarGroupComponent } from '../../../components/avatar-group/avatar-group.component';
 import { FooterComponent } from '../../../components/footer/footer.component';
@@ -87,6 +89,8 @@ import { DialogCreateProjectComponent } from './dialog-create-project/dialog-cre
     LanguageCodePipe,
     ProjectStatusPipe,
     FeatureEnabledPipe,
+    ProjectLanguagesSetPipe,
+    WrittenOutLanguagePipe,
   ],
 })
 export class ProjectListComponent implements OnInit, AfterViewInit, OnDestroy {
@@ -169,13 +173,6 @@ export class ProjectListComponent implements OnInit, AfterViewInit, OnDestroy {
         },
       })
     );
-  }
-
-  getProjectLanguages(project: ProjectEntity) {
-    //SET will filter duplicates
-    return [
-      ...new Set(project.transcriptions.map((transc) => transc.language)),
-    ];
   }
 
   onClickTitle(project: ProjectEntity) {
