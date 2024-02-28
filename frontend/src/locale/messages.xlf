@@ -86,140 +86,23 @@
       <trans-unit id="shareProjectLinkCopiedMessage" datatype="html">
         <source>Link copied</source>
       </trans-unit>
-      <trans-unit id="dialogCreateProjectRemoveFileTooltip" datatype="html">
+      <trans-unit id="uploadFilesFormRemoveFileTooltip" datatype="html">
         <source>Remove file</source>
       </trans-unit>
-      <trans-unit id="dialogCreateProjectAddFilesButton" datatype="html">
-        <source>Add more files </source>
+      <trans-unit id="uploadFilesFormDropzoneText" datatype="html">
+        <source> Drag your audio, video and subtitle file * here </source>
       </trans-unit>
-      <trans-unit id="dialogCreateProjectDropzoneText" datatype="html">
-        <source> Drag your audio, video and subtitle files here </source>
-      </trans-unit>
-      <trans-unit id="dialogCreateProjectDropzoneText2" datatype="html">
+      <trans-unit id="uploadFilesFormDropzoneTextOr" datatype="html">
         <source>or</source>
       </trans-unit>
-      <trans-unit id="dialogCreateProjectChooseFile" datatype="html">
+      <trans-unit id="uploadFilesFormChooseFile" datatype="html">
         <source>Choose file </source>
       </trans-unit>
-      <trans-unit id="createTranscriptionModalTitle" datatype="html">
-        <source> Add transcription </source>
-      </trans-unit>
-      <trans-unit id="createTranscriptionUploadRadioButton" datatype="html">
-        <source><x id="START_TAG_DIV" ctype="x-div"/><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;upload-transcription&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/> Upload <x id="CLOSE_TAG_DIV" ctype="x-div" equiv-text="&lt;/div&gt;"/></source>
-      </trans-unit>
-      <trans-unit id="createTranscriptionCopyRadioButton" datatype="html">
-        <source><x id="START_TAG_DIV" ctype="x-div"/><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;copy-transcription&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/> Copy <x id="CLOSE_TAG_DIV" ctype="x-div" equiv-text="&lt;/div&gt;"/></source>
-      </trans-unit>
-      <trans-unit id="createTranscriptionTranslateRadioButton" datatype="html">
-        <source><x id="START_TAG_DIV" ctype="x-div"/><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;translate-transcription&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/> Translate <x id="CLOSE_TAG_DIV" ctype="x-div" equiv-text="&lt;/div&gt;"/></source>
-      </trans-unit>
-      <trans-unit id="createTranscriptionFromVideoRadioButton" datatype="html">
-        <source><x id="START_TAG_DIV" ctype="x-div"/><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;video&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/> Create from audio/video <x id="CLOSE_TAG_DIV" ctype="x-div" equiv-text="&lt;/div&gt;"/></source>
-      </trans-unit>
-      <trans-unit id="createTranscriptionUploadHeader" datatype="html">
-        <source> Upload file (.vtt, .srt) </source>
-      </trans-unit>
-      <trans-unit id="createTranscriptionCopyHeader" datatype="html">
-        <source> Copy existing transcription </source>
-      </trans-unit>
-      <trans-unit id="createTranscriptionTranslateHeader" datatype="html">
-        <source> Translate to other language </source>
-      </trans-unit>
-      <trans-unit id="createTranscriptionFromVideoHeader" datatype="html">
-        <source> Create from audio/video (Speech-To-Text) </source>
-      </trans-unit>
-      <trans-unit id="createTranscriptionModalLanguageLabel" datatype="html">
-        <source>Language</source>
-      </trans-unit>
-      <trans-unit id="createTranscriptionModalLanguageError" datatype="html">
-        <source>Select a language</source>
-      </trans-unit>
-      <trans-unit id="createTranscriptionModalTitleLabel" datatype="html">
-        <source>Title</source>
-      </trans-unit>
-      <trans-unit id="createTranscriptionModalTitleError" datatype="html">
-        <source>Add a title to the transcription</source>
-      </trans-unit>
-      <trans-unit id="createTranscriptionModalRemoveFileTooltip" datatype="html">
-        <source>Remove file</source>
-      </trans-unit>
-      <trans-unit id="createTranscriptionModalDropzoneTranscription" datatype="html">
-        <source> Drag transcription file * here </source>
-      </trans-unit>
-      <trans-unit id="createTranscriptionModalDropzoneTranscription2" datatype="html">
-        <source> or </source>
-      </trans-unit>
-      <trans-unit id="createTranscriptionModalDropzoneTranscriptionButton" datatype="html">
-        <source>Choose file </source>
-      </trans-unit>
-      <trans-unit id="createTranscriptionModalTranscriptionRequiredError" datatype="html">
-        <source> At least one transcription file is required. </source>
-      </trans-unit>
-      <trans-unit id="createTranscriptionModalTooManyTranscriptionsError" datatype="html">
-        <source> You can select maximum one transcription file. </source>
-      </trans-unit>
-      <trans-unit id="createTranscriptionModalCopyTranscriptionLabel" datatype="html">
-        <source>Transcription</source>
-      </trans-unit>
-      <trans-unit id="createTranscriptionModalCopyTranscriptionError" datatype="html">
-        <source>Select a transcription</source>
-      </trans-unit>
-      <trans-unit id="createTranscriptionModalTranslateTranscriptionLabel" datatype="html">
-        <source>Transcription</source>
-      </trans-unit>
-      <trans-unit id="createTranscriptionModalTranslateTranscriptionError" datatype="html">
-        <source>Select a transcription</source>
-      </trans-unit>
-      <trans-unit id="createTranscriptionModalTranslateVendorLabel" datatype="html">
-        <source>Vendor</source>
-      </trans-unit>
-      <trans-unit id="createTranscriptionModalTranslateVendorHint" datatype="html">
-        <source> The available languages are vendor dependent </source>
-      </trans-unit>
-      <trans-unit id="createTranscriptionModalTranslateVendorError" datatype="html">
-        <source>Select a vendor to translate the transcription</source>
-      </trans-unit>
-      <trans-unit id="createTranscriptionModalTranslateLanguageLabel" datatype="html">
-        <source>Language</source>
-      </trans-unit>
-      <trans-unit id="createTranscriptionModalTranslateLanguageError" datatype="html">
-        <source>Select a language into which the transcript will be translated</source>
-      </trans-unit>
-      <trans-unit id="createTranscriptionModalDropzoneVideo" datatype="html">
-        <source> Drag video file * here </source>
-      </trans-unit>
-      <trans-unit id="createTranscriptionModalDropzoneVideo2" datatype="html">
-        <source>or</source>
-      </trans-unit>
-      <trans-unit id="createTranscriptionModalDropzoneVideoButton" datatype="html">
-        <source>Choose file </source>
-      </trans-unit>
-      <trans-unit id="createTranscriptionModalVideoRequiredError" datatype="html">
-        <source> At least one video file is required. </source>
-      </trans-unit>
-      <trans-unit id="createTranscriptionModalTooManyVideosError" datatype="html">
-        <source> You can select maximum one video file. </source>
-      </trans-unit>
-      <trans-unit id="createTranscriptionModalASRVendorLabel" datatype="html">
-        <source>Vendor</source>
-      </trans-unit>
-      <trans-unit id="createTranscriptionModalASRVendorHint" datatype="html">
-        <source> The available languages are vendor dependent </source>
-      </trans-unit>
-      <trans-unit id="createTranscriptionModalASRVendorError" datatype="html">
-        <source>Select a vendor to transcribe the audio/video</source>
-      </trans-unit>
-      <trans-unit id="createTranscriptionModalASRLanguageLabel" datatype="html">
-        <source>Language</source>
-      </trans-unit>
-      <trans-unit id="createTranscriptionModalASRLanguageError" datatype="html">
-        <source>Select a language into which the audio/video will be transcribed to</source>
-      </trans-unit>
-      <trans-unit id="createTranscriptionModalCreateTranscriptionButton" datatype="html">
-        <source> Create transcription </source>
+      <trans-unit id="createTranscriptionDialogTitle" datatype="html">
+        <source>Add transcription</source>
       </trans-unit>
       <trans-unit id="editTranscriptionModalTitle" datatype="html">
-        <source> Edit transcription </source>
+        <source>Edit transcription</source>
       </trans-unit>
       <trans-unit id="editTranscriptionModalLanguageLabel" datatype="html">
         <source>Language</source>
@@ -255,7 +138,7 @@
         <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="Downl"/> Download </source>
       </trans-unit>
       <trans-unit id="transcriptionDeleteTranscriptionButton" datatype="html">
-        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="D"/> Delete </source>
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="Del"/> Delete </source>
       </trans-unit>
       <trans-unit id="projectTranscriptionAddButtonTop" datatype="html">
         <source>Add</source>
@@ -305,9 +188,6 @@
       <trans-unit id="writtenLanguageFR-FR" datatype="html">
         <source>French</source>
       </trans-unit>
-      <trans-unit id="writtenLanguageUnknown" datatype="html">
-        <source>Unknown</source>
-      </trans-unit>
       <trans-unit id="authLoginHeader" datatype="html">
         <source>Login</source>
       </trans-unit>
@@ -329,11 +209,8 @@
       <trans-unit id="authToLoginFromPasswordResetLabel" datatype="html">
         <source>Login</source>
       </trans-unit>
-      <trans-unit id="loginEmailPlaceholder" datatype="html">
+      <trans-unit id="loginEmailLabel" datatype="html">
         <source>Email</source>
-      </trans-unit>
-      <trans-unit id="loginPasswordPlaceholder" datatype="html">
-        <source>Password</source>
       </trans-unit>
       <trans-unit id="loginStayLoggedInCheckboxLabel" datatype="html">
         <source>Stay logged in</source>
@@ -341,16 +218,16 @@
       <trans-unit id="loginLoginButtonLabel" datatype="html">
         <source><x id="START_BLOCK_IF"/><x id="START_TAG_MAT_SPINNER" ctype="x-mat_spinner" equiv-text="&lt;mat-spinner strokeWidth=&quot;2&quot; diameter=&quot;20&quot; color=&quot;primary&quot; style=&quot;margin-right: 10px&quot; &gt;"/><x id="CLOSE_TAG_MAT_SPINNER" ctype="x-mat_spinner" equiv-text="} L"/><x id="CLOSE_BLOCK_IF" equiv-text="}"/> Login </source>
       </trans-unit>
-      <trans-unit id="registerNamePlaceholder" datatype="html">
+      <trans-unit id="registerNameLabel" datatype="html">
         <source>Name</source>
       </trans-unit>
-      <trans-unit id="registerEmailPlaceholder" datatype="html">
+      <trans-unit id="registerEmailLabel" datatype="html">
         <source>Email</source>
       </trans-unit>
-      <trans-unit id="registerPasswordPlaceholder" datatype="html">
+      <trans-unit id="registerPasswordLabel" datatype="html">
         <source>Password</source>
       </trans-unit>
-      <trans-unit id="registerPasswordRepeatPlaceholder" datatype="html">
+      <trans-unit id="registerPasswordRepeatLabel" datatype="html">
         <source>Password (repeat)</source>
       </trans-unit>
       <trans-unit id="registerLoginButtonLabel" datatype="html">
@@ -450,13 +327,13 @@
         <source> File </source>
       </trans-unit>
       <trans-unit id="editorMenuFileEditLabel" datatype="html">
-        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon"/> Edit </source>
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="E"/> Edit </source>
       </trans-unit>
       <trans-unit id="editorMenuFileDownloadLabel" datatype="html">
-        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon"/> Download </source>
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="D"/> Download </source>
       </trans-unit>
       <trans-unit id="editorMenuFileDeleteLabel" datatype="html">
-        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon"/> Delete </source>
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="D"/> Delete </source>
       </trans-unit>
       <trans-unit id="editorMenuFileDownloadConfigureLabel" datatype="html">
         <source> Configure ... </source>
@@ -899,13 +776,13 @@
         <source>Open fullscreen</source>
       </trans-unit>
       <trans-unit id="uploadAdditionalMediaListHeader" datatype="html">
-        <source>Videos</source>
+        <source>Uploaded media</source>
       </trans-unit>
       <trans-unit id="uploadAdditionalMediaTitle" datatype="html">
         <source>Upload additional media files</source>
       </trans-unit>
       <trans-unit id="uploadAdditionalMediaUploadButton" datatype="html">
-        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="Uploa"/> Upload </source>
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="Up"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="/button&gt; &lt;/div"/> Upload </source>
       </trans-unit>
       <trans-unit id="uploadAdditionalMediaUploadingHeader" datatype="html">
         <source>Uploading</source>
@@ -914,9 +791,6 @@
         <source>Choose a category</source>
       </trans-unit>
       <trans-unit id="uploadAdditionalMediaVideoTitleLabel" datatype="html">
-        <source>Video title</source>
-      </trans-unit>
-      <trans-unit id="uploadAdditionalMediaVideoTitlePlaceholder" datatype="html">
         <source>Video title</source>
       </trans-unit>
       <trans-unit id="mediaCategoryMain" datatype="html">
@@ -939,6 +813,198 @@
       </trans-unit>
       <trans-unit id="writtenLanguageEN" datatype="html">
         <source>English</source>
+      </trans-unit>
+      <trans-unit id="loginEmailErrorNotValid" datatype="html">
+        <source>Email address is not valid</source>
+      </trans-unit>
+      <trans-unit id="loginEmailErrorRequired" datatype="html">
+        <source>Email is required</source>
+      </trans-unit>
+      <trans-unit id="projectListOpenViewerAriaLabel" datatype="html">
+        <source>Open Viewer</source>
+      </trans-unit>
+      <trans-unit id="loginPasswordErrorRequired" datatype="html">
+        <source> Password is required </source>
+      </trans-unit>
+      <trans-unit id="registerEmailErrorNotValid" datatype="html">
+        <source>Email address is not valid</source>
+      </trans-unit>
+      <trans-unit id="registerEmailErrorRequired" datatype="html">
+        <source>Email is required</source>
+      </trans-unit>
+      <trans-unit id="registerNameErrorRequired" datatype="html">
+        <source> Name is required </source>
+      </trans-unit>
+      <trans-unit id="registerPasswordErrorMinimum" datatype="html">
+        <source>Minimum 6 characters</source>
+      </trans-unit>
+      <trans-unit id="registerPasswordErrorRequired" datatype="html">
+        <source>Password is required</source>
+      </trans-unit>
+      <trans-unit id="registerPasswordRepeatErrorMinimum" datatype="html">
+        <source>Minimum 6 characters</source>
+      </trans-unit>
+      <trans-unit id="registerPasswordRepeatErrorRequired" datatype="html">
+        <source>Password (repeat) is required</source>
+      </trans-unit>
+      <trans-unit id="registerPasswordsNotMatch" datatype="html">
+        <source>Passwords do not match</source>
+      </trans-unit>
+      <trans-unit id="projectListTableHeaderPlayerLabel" datatype="html">
+        <source> Player </source>
+      </trans-unit>
+      <trans-unit id="projectStatusAll" datatype="html">
+        <source>All</source>
+      </trans-unit>
+      <trans-unit id="createTranscriptionDialogCloseButton" datatype="html">
+        <source>Close</source>
+      </trans-unit>
+      <trans-unit id="dialogProjectDetailCloseButton" datatype="html">
+        <source>Close</source>
+      </trans-unit>
+      <trans-unit id="uploadAdditionalMediaVideoCategoryErrorRequired" datatype="html">
+        <source> Category is required </source>
+      </trans-unit>
+      <trans-unit id="uploadAdditionalMediaVideoFileErrorRequired" datatype="html">
+        <source> A video file is required </source>
+      </trans-unit>
+      <trans-unit id="uploadAdditionalMediaVideoTitleErrorRequired" datatype="html">
+        <source> Title is required </source>
+      </trans-unit>
+      <trans-unit id="createTranscriptionDialogTabUploadLabel" datatype="html">
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="b-icon&quot; /&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="/ng-template&gt;"/> Upload </source>
+      </trans-unit>
+      <trans-unit id="copyTranscriptionTabHeading" datatype="html">
+        <source>Copy an existing transcription</source>
+      </trans-unit>
+      <trans-unit id="copyTranscriptionTabTitleErrorRequired" datatype="html">
+        <source>Title is required</source>
+      </trans-unit>
+      <trans-unit id="copyTranscriptionTabTitleLabel" datatype="html">
+        <source>Title</source>
+      </trans-unit>
+      <trans-unit id="copyTranscriptionTabTranscriptionErrorRequired" datatype="html">
+        <source>Select a transcription</source>
+      </trans-unit>
+      <trans-unit id="copyTranscriptionTabTranscriptionLabel" datatype="html">
+        <source>Transcription</source>
+      </trans-unit>
+      <trans-unit id="createTranscriptionDialogSubmitButtonLabel" datatype="html">
+        <source> Create transcription </source>
+      </trans-unit>
+      <trans-unit id="createTranscriptionDialogTabCopyLabel" datatype="html">
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="ck tab-icon&quot; /&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="g-template&gt;"/> Copy </source>
+      </trans-unit>
+      <trans-unit id="createTranscriptionDialogTabFromMediaLabel" datatype="html">
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="on&quot; /&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/ng-template&gt;"/> From Media </source>
+      </trans-unit>
+      <trans-unit id="createTranscriptionDialogTabTranslateLabel" datatype="html">
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="b-icon&quot; /&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/ng-template&gt;"/> Translate </source>
+      </trans-unit>
+      <trans-unit id="fromMediaTranscriptionTabFileErrorMaximum" datatype="html">
+        <source> Maximum 1 file </source>
+      </trans-unit>
+      <trans-unit id="fromMediaTranscriptionTabFileErrorRequired" datatype="html">
+        <source> An audio or video file is required </source>
+      </trans-unit>
+      <trans-unit id="fromMediaTranscriptionTabHeading" datatype="html">
+        <source> Generate a new transcription from media </source>
+      </trans-unit>
+      <trans-unit id="fromMediaTranscriptionTabLanguageErrorRequired" datatype="html">
+        <source>Select a language </source>
+      </trans-unit>
+      <trans-unit id="fromMediaTranscriptionTabLanguageHint" datatype="html">
+        <source>Select a vendor first</source>
+      </trans-unit>
+      <trans-unit id="fromMediaTranscriptionTabLanguageLabel" datatype="html">
+        <source>Language</source>
+      </trans-unit>
+      <trans-unit id="fromMediaTranscriptionTabNoASRVendor" datatype="html">
+        <source> There is currently no ASR vendor connected to Melvin. Please contact the person who manages this Melvin instance. </source>
+      </trans-unit>
+      <trans-unit id="fromMediaTranscriptionTabTitleErrorRequired" datatype="html">
+        <source>Title is required</source>
+      </trans-unit>
+      <trans-unit id="fromMediaTranscriptionTabTitleLabel" datatype="html">
+        <source>Title</source>
+      </trans-unit>
+      <trans-unit id="fromMediaTranscriptionTabVendorErrorRequired" datatype="html">
+        <source>Select a vendor </source>
+      </trans-unit>
+      <trans-unit id="fromMediaTranscriptionTabVendorHint" datatype="html">
+        <source> Languages are vendor dependent </source>
+      </trans-unit>
+      <trans-unit id="fromMediaTranscriptionTabVendorLabel" datatype="html">
+        <source>Vendor</source>
+      </trans-unit>
+      <trans-unit id="fromMediaTranscriptionUploadsInfo" datatype="html">
+        <source>Uploads</source>
+      </trans-unit>
+      <trans-unit id="translateTranscriptionTabHeading" datatype="html">
+        <source> Translate an existing transcription </source>
+      </trans-unit>
+      <trans-unit id="translateTranscriptionTabLanguageErrorRequired" datatype="html">
+        <source>Select a language </source>
+      </trans-unit>
+      <trans-unit id="translateTranscriptionTabLanguageHint" datatype="html">
+        <source>Select a vendor first</source>
+      </trans-unit>
+      <trans-unit id="translateTranscriptionTabLanguageLabel" datatype="html">
+        <source>Language</source>
+      </trans-unit>
+      <trans-unit id="translateTranscriptionTabNoTranslationVendor" datatype="html">
+        <source> There is currently no translation vendor connected to Melvin. Please contact the person who manages this Melvin instance. </source>
+      </trans-unit>
+      <trans-unit id="translateTranscriptionTabTitleErrorRequired" datatype="html">
+        <source>Title is required</source>
+      </trans-unit>
+      <trans-unit id="translateTranscriptionTabTitleLabel" datatype="html">
+        <source>Title</source>
+      </trans-unit>
+      <trans-unit id="translateTranscriptionTabTranscriptionErrorRequired" datatype="html">
+        <source>Select a transcription</source>
+      </trans-unit>
+      <trans-unit id="translateTranscriptionTabVendorErrorRequired" datatype="html">
+        <source>Select a vendor</source>
+      </trans-unit>
+      <trans-unit id="translateTranscriptionTabVendorHint" datatype="html">
+        <source>Languages are vendor dependent </source>
+      </trans-unit>
+      <trans-unit id="translateTranscriptionTabVendorLabel" datatype="html">
+        <source>Vendor</source>
+      </trans-unit>
+      <trans-unit id="uploadFilesFormDropzoneTextMedia" datatype="html">
+        <source> Drag your audio or video file * here </source>
+      </trans-unit>
+      <trans-unit id="uploadFilesFormDropzoneTextTranscription" datatype="html">
+        <source> Drag your subtitle file (.vtt or .srt) * here </source>
+      </trans-unit>
+      <trans-unit id="uploadFilesFormRemoveFileAriaLabel" datatype="html">
+        <source>Remove file</source>
+      </trans-unit>
+      <trans-unit id="uploadTranscriptionTabFileErrorMaximum" datatype="html">
+        <source> Maximum 1 file </source>
+      </trans-unit>
+      <trans-unit id="uploadTranscriptionTabFileErrorRequired" datatype="html">
+        <source> A transcription file (.vtt or .srt) is required </source>
+      </trans-unit>
+      <trans-unit id="uploadTranscriptionTabHeading" datatype="html">
+        <source>Upload a new transcription</source>
+      </trans-unit>
+      <trans-unit id="uploadTranscriptionTabLanguageErrorRequired" datatype="html">
+        <source>Select a language</source>
+      </trans-unit>
+      <trans-unit id="uploadTranscriptionTabLanguageLabel" datatype="html">
+        <source>Language</source>
+      </trans-unit>
+      <trans-unit id="uploadTranscriptionTabTitleErrorRequired" datatype="html">
+        <source>Title is required</source>
+      </trans-unit>
+      <trans-unit id="uploadTranscriptionTabTitleLabel" datatype="html">
+        <source>Title</source>
+      </trans-unit>
+      <trans-unit id="uploadTranscriptionTabUploadsInfo" datatype="html">
+        <source>Uploads</source>
       </trans-unit>
     </body>
   </file>

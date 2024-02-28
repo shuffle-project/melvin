@@ -1,8 +1,27 @@
-<div class="container">
+<div mat-dialog-title>
+  <div class="dialog-header">
+    @if (project$ | ngrxPush; as project) {
+    <h1>{{ project.title }}</h1>
+    } @else {
+    <div class="sktn-dialog-title"></div>
+    }
+    <button
+      mat-icon-button
+      [mat-dialog-close]="true"
+      aria-label="Close"
+      i18n-aria-label="@@dialogProjectDetailCloseButton"
+    >
+      <mat-icon svgIcon="close" class="svg-black" />
+    </button>
+  </div>
+</div>
+
+<mat-dialog-content>
   <mat-tab-group [selectedIndex]="selectedTabIndex">
     <mat-tab i18n-label="@@projectDetailTabMenuGeneral" label="General">
       <app-project-general [projectId]="projectId"></app-project-general>
     </mat-tab>
+
     <mat-tab
       i18n-label="@@projectDetailTabMenuTranscription"
       label="Transcription"
@@ -13,6 +32,7 @@
         ></app-project-transcription>
       </ng-template>
     </mat-tab>
+
     <mat-tab i18n-label="@@projectDetailTabMenuActivity" label="Activity">
       <ng-template matTabContent>
         <app-project-activity [projectId]="projectId"></app-project-activity>
@@ -27,4 +47,4 @@
       </ng-template>
     </mat-tab>
   </mat-tab-group>
-</div>
+</mat-dialog-content>

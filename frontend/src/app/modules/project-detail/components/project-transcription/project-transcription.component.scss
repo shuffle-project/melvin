@@ -1,18 +1,20 @@
-.main-wrapper {
-  padding-top: 50px;
-  margin: 0 20px;
+.transcription-list {
   display: flex;
   flex-direction: row;
   justify-content: center;
   flex-wrap: wrap;
+
+  list-style: none;
+  margin: 0;
+  padding: 1.25rem 0 0;
 }
 
 .basic-form {
   width: 100%;
   width: 265px;
   height: 235px;
-  margin: 15px;
-  border-radius: 10px;
+  margin: 0 0.625rem 1.25rem;
+  border-radius: 0.625rem;
 }
 
 .transcription {
@@ -89,16 +91,16 @@
   justify-content: center;
   align-items: center;
   font-weight: 600;
-  font-size: 20px;
-  color: var(--color-white);
+  font-size: 1.25rem;
   text-align: center;
 
   p {
-    margin: 4px;
+    margin: 0.25rem;
+    color: var(--color-white);
   }
 
   .mat-icon {
     transform: scale(1.5);
-    margin-top: 15px;
+    margin-top: 1rem;
   }
 }

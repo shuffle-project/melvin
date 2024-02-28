@@ -13,6 +13,10 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 })
 export class UploadFilesComponent implements ControlValueAccessor {
   @Input() acceptedFileFormats!: string[];
+  @Input() acceptOnlyOneFile = false;
+  @Input() ariaDesribedByIds = '';
+  @Input() label: 'transcription' | 'media' | 'mediaAndTranscription' =
+    'mediaAndTranscription';
 
   files: File[] = [];
   touched = false;

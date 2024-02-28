@@ -28,6 +28,17 @@
     cubic-bezier(0.45, 0.05, 0.46, 0.93) infinite alternate;
 }
 
+// Dialog
+
+.sktn-dialog-title {
+  height: 2rem;
+  width: 100%;
+  max-width: 20rem;
+  margin-bottom: 1rem;
+  border-radius: 0.25rem;
+  @include skeleton-background-color;
+}
+
 // Caption
 
 .sktn-caption-wrapper {

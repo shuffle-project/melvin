@@ -31,7 +31,8 @@ export const transcriptionsReducer = createReducer(
     return {
       ...state,
       transcriptionsList: action.transcriptions,
-      selectedTranscriptionId: action.transcriptions[0].id,
+      selectedTranscriptionId:
+        action.transcriptions.length > 0 ? action.transcriptions[0].id : '',
       loading: false,
     };
   }),

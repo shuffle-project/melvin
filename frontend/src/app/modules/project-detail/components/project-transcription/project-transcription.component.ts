@@ -9,19 +9,15 @@ import * as transcriptionsSelectors from '../../../../store/selectors/transcript
 import { ProjectDetailComponent } from '../../project-detail.component';
 import { TranscriptionComponent } from './components/transcription/transcription.component';
 
-import { LetDirective } from '@ngrx/component';
 import { MatIconModule } from '@angular/material/icon';
+import { LetDirective, PushPipe } from '@ngrx/component';
 
 @Component({
-    selector: 'app-project-transcription',
-    templateUrl: './project-transcription.component.html',
-    styleUrls: ['./project-transcription.component.scss'],
-    standalone: true,
-    imports: [
-    MatIconModule,
-    LetDirective,
-    TranscriptionComponent
-],
+  selector: 'app-project-transcription',
+  templateUrl: './project-transcription.component.html',
+  styleUrls: ['./project-transcription.component.scss'],
+  standalone: true,
+  imports: [MatIconModule, LetDirective, TranscriptionComponent, PushPipe],
 })
 export class ProjectTranscriptionComponent {
   public transcriptionsList$: Observable<TranscriptionEntity[]>;
@@ -41,7 +37,7 @@ export class ProjectTranscriptionComponent {
     this.dialogRefProjectDetail.close();
     this.dialog.open(CreateTranscriptionDialogComponent, {
       width: '100%',
-      maxWidth: '700px',
+      maxWidth: '800px',
       maxHeight: '90vh',
     });
   }

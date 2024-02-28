@@ -1,6 +1,19 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatDialogTitle } from '@angular/material/dialog';
+import {
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatOptionModule } from '@angular/material/core';
+import {
+  MAT_DIALOG_DATA,
+  MatDialog,
+  MatDialogModule,
+  MatDialogRef,
+} from '@angular/material/dialog';
+import { MatInputModule } from '@angular/material/input';
 import { Store } from '@ngrx/store';
 import { firstValueFrom } from 'rxjs';
 import { LANGUAGES } from 'src/app/constants/languages.constant';
@@ -10,27 +23,26 @@ import { TranscriptionEntity } from 'src/app/services/api/entities/transcription
 import { AppState } from 'src/app/store/app.state';
 import * as transcriptionsActions from '../../../../../../store/actions/transcriptions.actions';
 import * as editorSelectors from '../../../../../../store/selectors/editor.selector';
-import { MatButtonModule } from '@angular/material/button';
-import { MatInputModule } from '@angular/material/input';
-import { MatOptionModule } from '@angular/material/core';
 
-import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatSelectModule } from '@angular/material/select';
 
 @Component({
-    selector: 'app-edit-transcription-dialog',
-    templateUrl: './edit-transcription-dialog.component.html',
-    styleUrls: ['./edit-transcription-dialog.component.scss'],
-    standalone: true,
-    imports: [
-    MatDialogTitle,
+  selector: 'app-edit-transcription-dialog',
+  templateUrl: './edit-transcription-dialog.component.html',
+  styleUrls: ['./edit-transcription-dialog.component.scss'],
+  standalone: true,
+  imports: [
+    MatDialogModule,
     ReactiveFormsModule,
     MatFormFieldModule,
     MatSelectModule,
     MatOptionModule,
     MatInputModule,
-    MatButtonModule
-],
+    MatButtonModule,
+    MatIconModule,
+  ],
 })
 export class EditTranscriptionDialogComponent implements OnInit {
   languages = LANGUAGES;

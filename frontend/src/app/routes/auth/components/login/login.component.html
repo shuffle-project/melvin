@@ -1,45 +1,38 @@
 <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
   <mat-form-field appearance="outline">
     <mat-icon svgIcon="email" matPrefix></mat-icon>
+    <mat-label i18n="@@loginEmailLabel">Email</mat-label>
     <input
       formControlName="email"
-      matInput
-      i18n-placeholder="@@loginEmailPlaceholder"
-      placeholder="Email"
       type="email"
       name="email"
       autocomplete="email"
+      matInput
     />
 
-    @if ( formGroup.get('email')?.invalid && formGroup.get('email')?.errors &&
-    (formGroup.get('email')?.dirty || formGroup.get('email')?.touched) ) {
-    <mat-error>
-      @if (formGroup.get('email')?.errors?.['required'] ) {
-      <span> Verpflichtendes Feld</span>
-      } @if (formGroup.get('email')?.errors?.['email'] ) {
-      <span> Keine valide EMail</span>
-      }
-    </mat-error>
+    @if(formGroup.get('email')?.errors &&
+    !formGroup.get('email')?.hasError('required')) {
+    <mat-error i18n="@@loginEmailErrorNotValid"
+      >Email address is not valid</mat-error
+    >
+    } @if( formGroup.get('email')?.hasError('required')) {
+    <mat-error i18n="@@loginEmailErrorRequired">Email is required</mat-error>
     }
   </mat-form-field>
+
   <mat-form-field appearance="outline">
     <mat-icon svgIcon="lock" matPrefix></mat-icon>
+    <mat-label i18n-placeholder="@@loginPasswordLabel">Password</mat-label>
     <input
       formControlName="password"
       matInput
-      i18n-placeholder="@@loginPasswordPlaceholder"
-      placeholder="Password"
       type="password"
       name="password"
       autocomplete="current-password"
     />
-    @if ( formGroup.get('password')?.invalid &&
-    formGroup.get('password')?.errors && (formGroup.get('password')?.dirty ||
-    formGroup.get('password')?.touched) ) {
-    <mat-error>
-      @if (formGroup.get('password')?.errors?.['required'] ) {
-      <span> Verpflichtendes Feld</span>
-      }
+    @if( formGroup.get('password')?.hasError('required')){
+    <mat-error i18n="@@loginPasswordErrorRequired">
+      Password is required
     </mat-error>
     }
   </mat-form-field>
@@ -48,11 +41,14 @@
     i18n="@@loginStayLoggedInCheckboxLabel"
     >Stay logged in</mat-checkbox
   >
+
   @if (error$ | async; as error) {
-  <div>
+  <p class="error-message" aria-live="polite">
+    <mat-icon svgIcon="warning"></mat-icon>
     {{ error }}
-  </div>
+  </p>
   }
+
   <div class="flex justify-center">
     <button
       mat-flat-button

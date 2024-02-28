@@ -1,7 +1,6 @@
 import { Component, Input, OnChanges } from '@angular/core';
 import { LogoComponent } from '../../logo/logo.component';
 
-
 export interface AvatarUser {
   name: string;
   color?: string;
@@ -9,11 +8,11 @@ export interface AvatarUser {
 }
 
 @Component({
-    selector: 'app-avatar',
-    templateUrl: './avatar.component.html',
-    styleUrls: ['./avatar.component.scss'],
-    standalone: true,
-    imports: [LogoComponent],
+  selector: 'app-avatar',
+  templateUrl: './avatar.component.html',
+  styleUrls: ['./avatar.component.scss'],
+  standalone: true,
+  imports: [LogoComponent],
 })
 export class AvatarComponent implements OnChanges {
   @Input() user!: AvatarUser;

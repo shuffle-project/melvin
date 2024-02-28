@@ -59,23 +59,3 @@
     }
   }
 }
-
-.btn-add-transcription {
-  background-color: var(--color-primary);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-weight: 600;
-  font-size: 20px;
-  color: var(--color-white);
-  text-align: center;
-
-  p {
-    margin: 4px;
-  }
-
-  .mat-icon {
-    transform: scale(1.5);
-    margin-top: 15px;
-  }
-}

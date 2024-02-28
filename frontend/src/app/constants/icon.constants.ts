@@ -15,6 +15,7 @@ export const ICONS = [
   'check-all',
   'check',
   'close',
+  'close-small',
   'clear',
   'copy-transcription',
   'delete',
@@ -96,6 +97,8 @@ export const ICONS = [
   'zoom_out',
   'gallery',
   'sign_language',
+  'copy-file',
+  'translate',
   'info',
 ] as const;
 

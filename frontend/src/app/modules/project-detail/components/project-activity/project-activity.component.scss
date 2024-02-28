@@ -1,11 +1,5 @@
-:host {
-  display: flex;
-  flex-direction: column;
-  margin-top: 10px;
-}
-
 .block {
-  margin-left: 20px;
+  margin-inline: 1.25rem;
   padding-left: 20px;
   padding-top: 10px;
   border-left: 2px solid var(--color-border-grey);
@@ -16,6 +10,7 @@
   display: flex;
   align-items: center;
   margin-bottom: 15px;
+
   .circle {
     display: block;
     height: 20px;
@@ -29,7 +24,4 @@
   span {
     margin-left: 12px;
   }
-}
-
-.item {
 }

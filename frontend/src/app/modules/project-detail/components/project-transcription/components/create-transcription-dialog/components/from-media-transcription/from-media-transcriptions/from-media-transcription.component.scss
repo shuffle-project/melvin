@@ -1,0 +1,37 @@
+h2 {
+  padding-top: 1.25rem;
+}
+
+form {
+  width: 100%;
+
+  .vendor-language-wrapper {
+    display: flex;
+    gap: 1.25rem;
+    margin-bottom: 0.625rem;
+
+    :first-child,
+    :last-child {
+      flex-grow: 1;
+    }
+  }
+
+  .title {
+    width: 100%;
+  }
+
+  .file-errors-wrapper {
+    margin-top: 0.25rem;
+    padding-left: 1.25rem;
+
+    p {
+      color: var(--color-warn);
+      font-size: 0.75rem;
+      font-weight: 300;
+    }
+  }
+}
+
+.no-vendor-info {
+  line-height: 150%;
+}
