@@ -2,16 +2,13 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
-import * as dayjs from 'dayjs';
 import { catchError, map, mergeMap, of, tap, withLatestFrom } from 'rxjs';
 import { AlertService } from '../../services/alert/alert.service';
 import { ApiService } from '../../services/api/api.service';
 import { StorageKey } from '../../services/storage/storage-key.enum';
 import { StorageService } from '../../services/storage/storage.service';
 import * as configActions from '../actions/config.actions';
-import { PageLanguage } from '../reducers/config.reducer';
-import { darkMode, language } from '../selectors/config.selector';
-import * as routerSelectors from '../selectors/router.selectors';
+import { darkMode } from '../selectors/config.selector';
 @Injectable({
   providedIn: 'root',
 })
@@ -51,61 +48,61 @@ export class ConfigEffects {
     { dispatch: false }
   );
 
-  changeLanguageFromUrl$ = createEffect(
-    () =>
-      this.store.select(routerSelectors.selectUrl).pipe(
-        withLatestFrom(this.store.select(language)),
-        tap(([url, language]) => {
-          console.log('====================');
-          console.log(url, language);
-          $localize.locale;
-          if (!url) return;
+  // changeLanguageFromUrl$ = createEffect(
+  //   () =>
+  //     this.store.select(routerSelectors.selectUrl).pipe(
+  //       withLatestFrom(this.store.select(language)),
+  //       tap(([url, language]) => {
+  //         console.log('====================');
+  //         console.log(url, language);
+  //         $localize.locale;
+  //         if (!url) return;
 
-          const languageInUrl = url.split('/')[0];
-          if (languageInUrl === language) return;
+  //         const languageInUrl = url.split('/')[0];
+  //         if (languageInUrl === language) return;
 
-          const availableLanguages: string[] = [
-            PageLanguage.DE_DE,
-            PageLanguage.EN_US,
-          ];
-          if (!availableLanguages.includes(languageInUrl)) return;
+  //         const availableLanguages: string[] = [
+  //           PageLanguage.DE_DE,
+  //           PageLanguage.EN_US,
+  //         ];
+  //         if (!availableLanguages.includes(languageInUrl)) return;
 
-          this.store.dispatch(
-            configActions.changeLanguage({
-              language: languageInUrl as PageLanguage,
-            })
-          );
-        })
-      ),
-    { dispatch: false }
-  );
+  //         this.store.dispatch(
+  //           configActions.changeLanguage({
+  //             language: languageInUrl as PageLanguage,
+  //           })
+  //         );
+  //       })
+  //     ),
+  //   { dispatch: false }
+  // );
 
-  changeLanguage$ = createEffect(
-    () =>
-      this.actions$.pipe(
-        ofType(configActions.changeLanguage),
-        tap((action) => {
-          this.storageService.storeInLocalStorage(
-            StorageKey.LANGUAGE_SETTING,
-            action.language
-          );
+  // changeLanguage$ = createEffect(
+  //   () =>
+  //     this.actions$.pipe(
+  //       ofType(configActions.changeLanguage),
+  //       tap((action) => {
+  //         this.storageService.storeInLocalStorage(
+  //           StorageKey.LANGUAGE_SETTING,
+  //           action.language
+  //         );
 
-          switch (action.language) {
-            case PageLanguage.DE_DE:
-              dayjs.locale('de');
-              break;
-            case PageLanguage.EN_US:
-              dayjs.locale('en');
-              break;
+  //         switch (action.language) {
+  //           case PageLanguage.DE_DE:
+  //             dayjs.locale('de');
+  //             break;
+  //           case PageLanguage.EN_US:
+  //             dayjs.locale('en');
+  //             break;
 
-            default:
-              dayjs.locale('en');
-              break;
-          }
-        })
-      ),
-    { dispatch: false }
-  );
+  //           default:
+  //             dayjs.locale('en');
+  //             break;
+  //         }
+  //       })
+  //     ),
+  //   { dispatch: false }
+  // );
 
   toggleDarkMode$ = createEffect(
     () =>

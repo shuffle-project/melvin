@@ -5,6 +5,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { RouterOutlet } from '@angular/router';
 import { PushPipe } from '@ngrx/component';
 import { Store } from '@ngrx/store';
+import dayjs from 'dayjs';
 import { Observable, Subject, takeUntil, tap } from 'rxjs';
 import { ICONS } from './constants/icon.constants';
 import { AppService } from './services/app/app.service';
@@ -38,6 +39,8 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    dayjs.locale($localize.locale);
+
     this.store.dispatch(authActions.init());
     this.appService.init();
 
