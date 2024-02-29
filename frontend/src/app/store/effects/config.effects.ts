@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { catchError, map, mergeMap, of, tap, withLatestFrom } from 'rxjs';
@@ -18,8 +17,7 @@ export class ConfigEffects {
     private api: ApiService,
     private alert: AlertService,
     private store: Store,
-    private storageService: StorageService,
-    private router: Router
+    private storageService: StorageService
   ) {}
 
   fetchConfig = createEffect(() =>
