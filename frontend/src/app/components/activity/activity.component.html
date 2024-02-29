@@ -2,7 +2,13 @@
   @switch (viewType) { @case ('list') {
   <mat-icon [svgIcon]="icon"></mat-icon>
 
-  @if (activity.project) {
+  @if (activity.project) { @if(!read) {
+  <div
+    class="unread-indicator"
+    aria-label="Not yet read"
+    i18n-aria-label="@@notificationAriaLabelNotYetRead"
+  ></div>
+  }
   <div
     class="text-container clickable"
     [routerLink]="['/home/editor/' + activity.project.id]"
@@ -21,13 +27,6 @@
     [outlineColor]="'transparent'"
   ></app-avatar>
   <span class="time-ago">{{ activity.createdAt | timeDiff }}</span>
-  <div class="checkbox">
-    @if (false) {
-    <div></div>
-    } @else {
-    <ng-content></ng-content>
-    }
-  </div>
   } @case ('popup') {
   <mat-icon [svgIcon]="icon"></mat-icon>
   @if (activity.project) {
@@ -52,10 +51,6 @@
       <span class="user-name">von {{ activity.createdBy.name }}</span>
     </div>
   </div>
-  } @if (false) {
-  <div></div>
-  } @else {
-  <ng-content></ng-content>
   } } @case ('timeline') {
   <mat-icon [svgIcon]="icon"></mat-icon>
   <div class="text-container">
@@ -69,4 +64,6 @@
     ></app-avatar>
   </div>
   } }
+
+  <ng-content></ng-content>
 </div>

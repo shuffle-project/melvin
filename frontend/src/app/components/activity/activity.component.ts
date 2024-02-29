@@ -30,6 +30,7 @@ export type ActivityViewType = 'list' | 'popup' | 'timeline';
 export class ActivityComponent implements OnChanges {
   @Input() activity!: ActivityEntity;
   @Input() viewType: ActivityViewType = 'list';
+  @Input() read: boolean = true;
 
   public icon: IconName = 'bell';
   public description!: SafeHtml;

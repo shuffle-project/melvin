@@ -1,3 +1,8 @@
-<app-activity [activity]="notification.activity" [viewType]="viewType">
+<app-activity
+  [activity]="notification.activity"
+  [viewType]="viewType"
+  [read]="notification.read"
+  class="notification"
+>
   <ng-content></ng-content>
 </app-activity>

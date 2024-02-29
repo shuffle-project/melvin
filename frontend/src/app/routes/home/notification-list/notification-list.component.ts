@@ -1,33 +1,33 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { Store } from '@ngrx/store';
 import dayjs from 'dayjs';
-import { lastValueFrom, Observable, Subject, take, takeUntil } from 'rxjs';
+import { Observable, Subject, lastValueFrom, take, takeUntil } from 'rxjs';
+import { NotificationComponent } from '../../../components/notification/notification.component';
 import { UpdateNotificationDtoWithId } from '../../../services/api/dto/update-notification.dto';
 import { DateSortedNotifications } from '../../../services/api/entities/notification-list.entity';
 import * as notificationsActions from '../../../store/actions/notifications.actions';
 import * as authSelectors from '../../../store/selectors/auth.selector';
 import * as notificationsSelectors from '../../../store/selectors/notifications.selector';
-import { NotificationComponent } from '../../../components/notification/notification.component';
-import { MatDividerModule } from '@angular/material/divider';
-import { MatTooltipModule } from '@angular/material/tooltip';
-import { MatCheckboxModule } from '@angular/material/checkbox';
-import { MatButtonModule } from '@angular/material/button';
 
 import { HeaderComponent } from '../../../components/header/header.component';
 
 @Component({
-    selector: 'app-notification-list',
-    templateUrl: './notification-list.component.html',
-    styleUrls: ['./notification-list.component.scss'],
-    standalone: true,
-    imports: [
+  selector: 'app-notification-list',
+  templateUrl: './notification-list.component.html',
+  styleUrls: ['./notification-list.component.scss'],
+  standalone: true,
+  imports: [
     HeaderComponent,
     MatButtonModule,
     MatCheckboxModule,
     MatTooltipModule,
     MatDividerModule,
-    NotificationComponent
-],
+    NotificationComponent,
+  ],
 })
 export class NotificationListComponent implements OnDestroy, OnInit {
   private destroy$$ = new Subject<void>();
