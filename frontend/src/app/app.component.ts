@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, Inject, LOCALE_ID, OnDestroy, OnInit } from '@angular/core';
 import { MatIconRegistry } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { DomSanitizer } from '@angular/platform-browser';
@@ -30,7 +30,8 @@ export class AppComponent implements OnInit, OnDestroy {
     private domSanitizer: DomSanitizer,
     private matIconRegistry: MatIconRegistry,
     private store: Store<AppState>,
-    private appService: AppService
+    private appService: AppService,
+    @Inject(LOCALE_ID) public locale: string
   ) {
     this.registerIcons();
 
@@ -38,6 +39,10 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    console.log('>>>>>');
+    console.log(this.locale);
+    console.log($localize.locale);
+
     this.store.dispatch(authActions.init());
     this.appService.init();
 
