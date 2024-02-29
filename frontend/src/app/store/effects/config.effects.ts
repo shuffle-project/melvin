@@ -58,7 +58,7 @@ export class ConfigEffects {
         tap(([url, language]) => {
           console.log('====================');
           console.log(url, language);
-
+          $localize.locale;
           if (!url) return;
 
           const languageInUrl = url.split('/')[0];
