@@ -1,6 +1,6 @@
 import { enableProdMode, importProvidersFrom } from '@angular/core';
 import * as dayjs from 'dayjs';
-import 'dayjs/locale/de';
+import 'dayjs/locale/en';
 import * as calendar from 'dayjs/plugin/calendar';
 import * as duration from 'dayjs/plugin/duration';
 import * as relativeTime from 'dayjs/plugin/relativeTime';
@@ -38,7 +38,7 @@ import { environment } from './environments/environment';
 dayjs.extend(duration);
 dayjs.extend(relativeTime);
 dayjs.extend(calendar);
-dayjs.locale('de');
+dayjs.locale('en');
 
 if (environment.production) {
   enableProdMode();
