@@ -26,8 +26,7 @@ export class ProfileComponent implements OnInit {
   constructor(private store: Store) {}
 
   onLanguageSwitched(event: MatSelectChange) {
-    console.log(window.location.href, event);
-    window.location.href = '/' + event.value;
+    console.log('change to', event);
 
     // console.log(this.router.url);
     // console.log(this.activeLocale);
