@@ -243,7 +243,7 @@ export class UploadRecordingComponent implements OnInit {
 
     this.uploadingError = true;
 
-    this.checkUploadingDone();
+    this.checkUploadingDone(true);
   }
 
   private async waitMS(ms: number) {
@@ -254,8 +254,11 @@ export class UploadRecordingComponent implements OnInit {
     });
   }
 
-  private checkUploadingDone() {
-    if (this.data.recordings.every((rec) => rec.upload.progress >= 100)) {
+  private checkUploadingDone(error = false) {
+    if (
+      error ||
+      this.data.recordings.every((rec) => rec.upload.progress >= 100)
+    ) {
       this.uploadingDone = true;
     }
   }

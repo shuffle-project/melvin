@@ -1,6 +1,7 @@
 import { enableProdMode, importProvidersFrom } from '@angular/core';
 import * as dayjs from 'dayjs';
 import 'dayjs/locale/de';
+import 'dayjs/locale/en';
 import * as calendar from 'dayjs/plugin/calendar';
 import * as duration from 'dayjs/plugin/duration';
 import * as relativeTime from 'dayjs/plugin/relativeTime';
@@ -17,6 +18,8 @@ import { provideEffects } from '@ngrx/effects';
 import { provideRouterStore } from '@ngrx/router-store';
 import { provideStore } from '@ngrx/store';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
+import 'dayjs/locale/de';
+import 'dayjs/locale/en';
 import { AppComponent } from './app/app.component';
 import { AppRoutes } from './app/app.routes';
 import { DurationPipe } from './app/pipes/duration-pipe/duration.pipe';
@@ -38,7 +41,6 @@ import { environment } from './environments/environment';
 dayjs.extend(duration);
 dayjs.extend(relativeTime);
 dayjs.extend(calendar);
-dayjs.locale('de');
 
 if (environment.production) {
   enableProdMode();

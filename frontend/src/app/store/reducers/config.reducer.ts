@@ -6,11 +6,21 @@ import {
 } from '../../services/api/entities/config.entity';
 import { StorageKey } from '../../services/storage/storage-key.enum';
 import { StorageService } from '../../services/storage/storage.service';
-import { fetchSuccess, toggleDarkMode } from '../actions/config.actions';
+import {
+  changeLanguage,
+  fetchSuccess,
+  toggleDarkMode,
+} from '../actions/config.actions';
 
 const storage = new StorageService();
 
+export enum PageLanguage {
+  DE_DE = 'de-DE',
+  EN_US = 'en-US',
+}
+
 export interface ConfigState {
+  language: PageLanguage;
   darkMode: boolean;
 
   //
@@ -20,6 +30,10 @@ export interface ConfigState {
   languages: Language[];
 }
 export const initialState: ConfigState = {
+  language: storage.getFromLocalStorage(
+    StorageKey.LANGUAGE_SETTING,
+    PageLanguage.EN_US
+  ) as PageLanguage,
   darkMode: storage.getFromLocalStorage(StorageKey.DARK_MODE, false) as boolean,
 
   //
@@ -41,5 +55,10 @@ export const configReducer = createReducer(
   on(toggleDarkMode, (state) => ({
     ...state,
     darkMode: !state.darkMode,
+  })),
+
+  on(changeLanguage, (state, { language }) => ({
+    ...state,
+    language,
   }))
 );

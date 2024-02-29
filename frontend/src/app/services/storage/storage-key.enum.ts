@@ -6,6 +6,7 @@ export enum StorageKey {
   CAPTION_TEXT_VALIDATION_ENABLED = 'caption-text-validation-enabled',
 
   DARK_MODE = 'dark-mode',
+  LANGUAGE_SETTING = 'language-setting',
 
   // viewer settings
   VIEWER_VIEW_SELECTION_ENABLED = 'viewer-view-selection-enabled',

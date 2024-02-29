@@ -1,42 +1,42 @@
 import { animate, style, transition, trigger } from '@angular/animations';
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { MatBadgeModule } from '@angular/material/badge';
+import { MatButtonModule } from '@angular/material/button';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { Router, RouterLink } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable, Subject, lastValueFrom, take } from 'rxjs';
 import { NotificationEntity } from 'src/app/services/api/entities/notification.entity';
 import * as authActions from 'src/app/store/actions/auth.actions';
+import { FeatureEnabledPipe } from '../../pipes/feature-enabled-pipe/feature-enabled.pipe';
 import { toggleDarkMode } from '../../store/actions/config.actions';
 import * as notificationsActions from '../../store/actions/notifications.actions';
 import * as authSelectors from '../../store/selectors/auth.selector';
 import * as configSelector from '../../store/selectors/config.selector';
 import * as notificationsSelectors from '../../store/selectors/notifications.selector';
-import { FeatureEnabledPipe } from '../../pipes/feature-enabled-pipe/feature-enabled.pipe';
-import { MatTooltipModule } from '@angular/material/tooltip';
 import { NotificationComponent } from '../notification/notification.component';
-import { MatBadgeModule } from '@angular/material/badge';
-import { MatMenuModule } from '@angular/material/menu';
-import { MatButtonModule } from '@angular/material/button';
 
-import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatIconModule } from '@angular/material/icon';
-import { LogoComponent } from '../logo/logo.component';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { LetDirective, PushPipe } from '@ngrx/component';
+import { LogoComponent } from '../logo/logo.component';
 
 @Component({
-    selector: 'app-header',
-    templateUrl: './header.component.html',
-    styleUrls: ['./header.component.scss'],
-    animations: [
-        trigger('fadeIn', [
-            transition(':enter', [
-                style({ opacity: 0 }),
-                animate('100ms', style({ opacity: 1 })),
-            ]),
-        ]),
-    ],
-    standalone: true,
-    imports: [
+  selector: 'app-header',
+  templateUrl: './header.component.html',
+  styleUrls: ['./header.component.scss'],
+  animations: [
+    trigger('fadeIn', [
+      transition(':enter', [
+        style({ opacity: 0 }),
+        animate('100ms', style({ opacity: 1 })),
+      ]),
+    ]),
+  ],
+  standalone: true,
+  imports: [
     LetDirective,
     MatToolbarModule,
     LogoComponent,
@@ -49,8 +49,8 @@ import { LetDirective, PushPipe } from '@ngrx/component';
     NotificationComponent,
     MatTooltipModule,
     PushPipe,
-    FeatureEnabledPipe
-],
+    FeatureEnabledPipe,
+  ],
 })
 export class HeaderComponent implements OnDestroy, OnInit {
   @Input() viewer = false;
@@ -101,6 +101,10 @@ export class HeaderComponent implements OnDestroy, OnInit {
         updateDto: { read: true },
       })
     );
+  }
+
+  onOpenRecorder() {
+    this.router.navigate(['/home/recorder']);
   }
 
   openProfile() {

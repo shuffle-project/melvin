@@ -22,3 +22,8 @@ export const darkMode = createSelector(
   configState,
   (state: ConfigState) => state.darkMode
 );
+
+export const language = createSelector(
+  configState,
+  (state: ConfigState) => state.language
+);

@@ -1,6 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { createAction, props } from '@ngrx/store';
 import { ConfigEntity } from '../../services/api/entities/config.entity';
+import { PageLanguage } from '../reducers/config.reducer';
 
 export const fetch = createAction('[HOME COMPONENT] Fetch inital configs');
 
@@ -16,4 +17,9 @@ export const fetchFailed = createAction(
 
 export const toggleDarkMode = createAction(
   '[VIEWER COMPONENT] Toggle DarkMode'
+);
+
+export const changeLanguage = createAction(
+  '[CONFIG EFFECTS] Change Language',
+  props<{ language: PageLanguage }>()
 );
