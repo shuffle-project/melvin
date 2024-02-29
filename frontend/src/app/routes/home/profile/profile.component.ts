@@ -6,7 +6,6 @@ import { Observable } from 'rxjs';
 import { HeaderComponent } from '../../../components/header/header.component';
 import { AuthUser } from '../../../interfaces/auth.interfaces';
 import * as authSelectors from '../../../store/selectors/auth.selector';
-import * as configSelector from '../../../store/selectors/config.selector';
 
 @Component({
   selector: 'app-profile',
@@ -18,7 +17,8 @@ import * as configSelector from '../../../store/selectors/config.selector';
 export class ProfileComponent implements OnInit {
   user$!: Observable<AuthUser | null>;
 
-  language$ = this.store.select(configSelector.language);
+  // language$ = this.store.select(configSelector.language);
+  locale = $localize.locale;
 
   newNotifications$!: Observable<ReadonlyArray<Notification>>;
   oldNotifications$!: Observable<ReadonlyArray<Notification>>;
@@ -26,6 +26,9 @@ export class ProfileComponent implements OnInit {
   constructor(private store: Store) {}
 
   onLanguageSwitched(event: MatSelectChange) {
+    console.log(window.location.href, event);
+    window.location.href = '/' + event.value;
+
     // console.log(this.router.url);
     // console.log(this.activeLocale);
     // console.log($localize.locale);
