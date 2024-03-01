@@ -1,10 +1,4 @@
 <ng-container *ngrxLet="playingVideo$ as playingVideo">
-  <!-- (loadedmetadata)="onLoadedMetadata()" -->
-  <!--
-  [muted]="true"
-  autoplay
-  controls
-  -->
   <video
     (loadedmetadata)="onLoadedMetadata()"
     *ngrxLet="project$ as project"
@@ -12,7 +6,6 @@
     [volume]="volume$ | ngrxPush"
     #video
     preload="auto"
-    muted
   >
     @if (playingVideo && project?.status !== 'live') {
     <source [src]="playingVideo.url" [type]="playingVideo.mimetype" />

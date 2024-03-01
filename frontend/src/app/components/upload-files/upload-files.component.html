@@ -53,23 +53,24 @@
         @if (files.length === 0) {
         <div>
           <mat-icon svgIcon="upload"></mat-icon>
+          <div class="intruction-text">
+            @if (label === 'mediaAndTranscription') {
+            <p i18n="@@uploadFilesFormDropzoneText">
+              Drag your audio, video and subtitle file * here
+            </p>
+            } @else if (label === 'transcription') {
+            <p i18n="@@uploadFilesFormDropzoneTextTranscription">
+              Drag your subtitle file (.vtt or .srt) * here
+            </p>
+            } @else if (label === 'media') {
+            <p i18n="@@uploadFilesFormDropzoneTextMedia">
+              Drag your audio or video file * here
+            </p>
+            }
 
-          @if (label === 'mediaAndTranscription') {
-          <p i18n="@@uploadFilesFormDropzoneText">
-            Drag your audio, video and subtitle file * here
-          </p>
-          } @else if (label === 'transcription') {
-          <p i18n="@@uploadFilesFormDropzoneTextTranscription">
-            Drag your subtitle file (.vtt or .srt) * here
-          </p>
-          } @else if (label === 'media') {
-          <p i18n="@@uploadFilesFormDropzoneTextMedia">
-            Drag your audio or video file * here
-          </p>
-          }
+            <p i18n="@@uploadFilesFormDropzoneTextOr">or</p>
+          </div>
 
-          <p i18n="@@uploadFilesFormDropzoneTextOr">or</p>
-          <br />
           <label
             class="label-empty"
             for="fileDropRef"
