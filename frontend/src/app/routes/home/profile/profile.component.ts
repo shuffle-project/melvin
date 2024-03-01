@@ -28,7 +28,7 @@ export class ProfileComponent implements OnInit {
 
   onLanguageSwitched(event: MatSelectChange) {
     console.log('change to', event);
-    console.log(window.location);
+    // console.log(window.location);
 
     this.router.navigateByUrl('/' + event.value + '/home/profile');
 
