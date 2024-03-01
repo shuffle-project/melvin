@@ -30,7 +30,7 @@ export class ProfileComponent implements OnInit {
     console.log('change to', event);
     console.log(window.location);
 
-    this.router.navigate([event.value, 'profile']);
+    this.router.navigateByUrl('/' + event.value + '/home/profile');
 
     // console.log(this.router.url);
     // console.log(this.activeLocale);
