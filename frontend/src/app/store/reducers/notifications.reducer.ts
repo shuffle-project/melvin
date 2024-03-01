@@ -100,27 +100,23 @@ export const notificationReducer = createReducer(
     notificationsActions.removeFromWS,
     notificationsActions.bulkRemoveSuccess,
     (state, action) => {
-      let removedNotification = state.notificationList.filter((item) =>
-        action.removedNotificationIds.includes(item.id)
+      const notificationList = state.notificationList.filter(
+        (item) => !action.removedNotificationIds.includes(item.id)
       );
 
-      let newUnreadCount = state.unread;
+      const unread = notificationList.filter(
+        (notification) => !notification.read
+      ).length;
 
-      if (removedNotification[0] !== undefined) {
-        if (!removedNotification[0].read) {
-          newUnreadCount = state.unread - 1;
-        }
-      }
+      const recent = state.recent.filter(
+        (item) => !action.removedNotificationIds.includes(item.id)
+      );
 
       return {
         ...state,
-        unread: newUnreadCount,
-        recent: state.recent.filter(
-          (item) => !action.removedNotificationIds.includes(item.id)
-        ),
-        notificationList: state.notificationList.filter(
-          (item) => !action.removedNotificationIds.includes(item.id)
-        ),
+        unread,
+        recent,
+        notificationList,
       };
     }
   ),

@@ -6,7 +6,7 @@
   border-radius: 5px;
   position: relative;
   min-height: 130px;
-  padding: 20px 0;
+  padding: 1.25rem 1.25rem 2.5rem;
 
   &.invalid-input {
     border: 2px solid rgba(var(--color-red-rgb), 1);
@@ -28,6 +28,10 @@
     height: 100%;
     top: 0;
     left: 0;
+  }
+
+  .intruction-text {
+    margin: 0.625rem 0 1.25rem 0;
   }
 
   .input-ready-dropzone {

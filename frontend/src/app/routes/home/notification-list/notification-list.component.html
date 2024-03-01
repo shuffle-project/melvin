@@ -2,68 +2,63 @@
   <h1 i18n="@@notificationListTitle">Notifications</h1>
 </app-header>
 @if (dateSortedNotifications.length === 0) {
-  <div
-    class="default-information-text"
-    i18n="@@notificationListNotNotifications"
-    >
-    No notifications
-  </div>
-}
-@if (dateSortedNotifications.length !== 0) {
-  <div>
-    <div class="fixated-list-header">
-      <div class="buttons-wrapper">
-        <button
-          (click)="onNotificationRead()"
-          [disabled]="selectedNotifications.length === 0"
-          [class.read-notification-button]="selectedNotifications.length !== 0"
-          mat-flat-button
-          i18n="@@notificationListReadButton"
-          >
-          Read
-        </button>
-        <button
-          (click)="onNotificationDelete()"
-          [disabled]="selectedNotifications.length === 0"
-          [class.delete-notification-button]="selectedNotifications.length !== 0"
-          mat-flat-button
-          i18n="@@notificationListDeleteButton"
-          >
-          Delete
-        </button>
-        <mat-checkbox
-          class="all-notifications-selector"
-          matTooltip="All notifications"
-          i18n-matTooltip="@@notificationListAllNotificationsCheckboxTooltip"
-          [checked]="allNotificationsSelected"
-          [indeterminate]="onSomeNotificationsSelected()"
-          (change)="onSelectAllNotifications($event.checked)"
-          >
-        </mat-checkbox>
-      </div>
-      <div>
-        <mat-divider></mat-divider>
-      </div>
+<div class="default-information-text" i18n="@@notificationListNotNotifications">
+  No notifications
+</div>
+} @if (dateSortedNotifications.length !== 0) {
+<div>
+  <div class="fixated-list-header">
+    <div class="buttons-wrapper">
+      <button
+        (click)="onNotificationRead()"
+        [disabled]="selectedNotifications.length === 0"
+        [class.read-notification-button]="selectedNotifications.length !== 0"
+        mat-flat-button
+        i18n="@@notificationListReadButton"
+      >
+        Read
+      </button>
+      <button
+        (click)="onNotificationDelete()"
+        [disabled]="selectedNotifications.length === 0"
+        [class.delete-notification-button]="selectedNotifications.length !== 0"
+        mat-flat-button
+        i18n="@@notificationListDeleteButton"
+      >
+        Delete
+      </button>
+      <mat-checkbox
+        class="all-notifications-selector"
+        matTooltip="All notifications"
+        i18n-matTooltip="@@notificationListAllNotificationsCheckboxTooltip"
+        [checked]="allNotificationsSelected"
+        [indeterminate]="onSomeNotificationsSelected()"
+        (change)="onSelectAllNotifications($event.checked)"
+      >
+      </mat-checkbox>
     </div>
     <div>
-      <div class="notifications-wrapper">
-        @for (day of dateSortedNotifications; track day) {
-          <div class="list-wrapper">
-            <div class="date">{{ onFormatDate(day.date) }}</div>
-            <mat-divider></mat-divider>
-            @for (notification of day.notifications; track notification) {
-              <div>
-                <app-notification [notification]="notification" [viewType]="'list'">
-                  <mat-checkbox
-                    [checked]="onCheckIfSelected(notification.id)"
-                    (change)="onToggleNotificationSelection(notification.id)"
-                  ></mat-checkbox>
-                </app-notification>
-              </div>
-            }
-          </div>
-        }
-      </div>
+      <mat-divider></mat-divider>
     </div>
   </div>
+  <div>
+    <div class="notifications-wrapper">
+      @for (day of dateSortedNotifications; track day) {
+      <div class="list-wrapper">
+        <div class="date">{{ onFormatDate(day.date) }}</div>
+        <mat-divider></mat-divider>
+        @for (notification of day.notifications; track notification) {
+
+        <app-notification [notification]="notification" [viewType]="'list'">
+          <mat-checkbox
+            [checked]="onCheckIfSelected(notification.id)"
+            (change)="onToggleNotificationSelection(notification.id)"
+          ></mat-checkbox>
+        </app-notification>
+        }
+      </div>
+      }
+    </div>
+  </div>
+</div>
 }

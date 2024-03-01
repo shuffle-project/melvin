@@ -41,6 +41,7 @@ import { environment } from './environments/environment';
 dayjs.extend(duration);
 dayjs.extend(relativeTime);
 dayjs.extend(calendar);
+dayjs.locale('en');
 
 if (environment.production) {
   enableProdMode();

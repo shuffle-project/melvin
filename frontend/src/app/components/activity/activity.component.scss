@@ -8,6 +8,7 @@
   align-items: center;
   padding: 5px 0;
   margin: 5px 0;
+  position: relative;
 
   --bg-color: var(--color-background-grey);
   --border-color: var(--color-border-grey);
@@ -42,10 +43,17 @@
       color: var(--icon-color);
     }
   }
-}
 
-.checkbox {
-  margin-left: 20px;
+  .unread-indicator {
+    position: absolute;
+    left: 0.25rem;
+    top: 0.25rem;
+
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 50%;
+    background-color: var(--color-primary);
+  }
 }
 
 mat-icon {
