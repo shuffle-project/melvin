@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatSelectChange, MatSelectModule } from '@angular/material/select';
+import { Router } from '@angular/router';
 import { LetDirective } from '@ngrx/component';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
@@ -23,10 +24,13 @@ export class ProfileComponent implements OnInit {
   newNotifications$!: Observable<ReadonlyArray<Notification>>;
   oldNotifications$!: Observable<ReadonlyArray<Notification>>;
 
-  constructor(private store: Store) {}
+  constructor(private store: Store, private router: Router) {}
 
   onLanguageSwitched(event: MatSelectChange) {
     console.log('change to', event);
+    console.log(window.location);
+
+    this.router.navigate([event.value, 'profile']);
 
     // console.log(this.router.url);
     // console.log(this.activeLocale);
