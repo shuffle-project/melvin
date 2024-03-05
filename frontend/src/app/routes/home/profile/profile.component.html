@@ -3,6 +3,15 @@
 <section *ngrxLet="user$ as user">
   <h1>Hello {{ user?.email }}!</h1>
 
+  <ul>
+    <li>
+      <a href="de-DE"> Deutsch (de-DE) </a>
+    </li>
+    <li>
+      <a href="en-US"> Englisch (en-US) </a>
+    </li>
+  </ul>
+
   <mat-form-field>
     <mat-label>Sprache</mat-label>
     <mat-select [value]="locale" (selectionChange)="onLanguageSwitched($event)">
