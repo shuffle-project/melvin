@@ -1,17 +1,22 @@
 .custom-fieldset {
-  margin-top: 20px;
-  padding: 20px 30px;
-  border-radius: 6px;
+  padding: 1.875rem 1.25rem;
+  border-radius: 0.375rem;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  gap: 1.25rem;
 }
 
 .fieldset-hint {
-  font-size: 12px;
-  margin: 5px 0 0 15px;
+  margin-top: 0.25rem;
+  padding-left: 1.25rem;
+
+  p {
+    color: var(--color-text);
+    font-size: 0.75rem;
+    font-weight: 300;
+  }
 }
 
 .mat-mdc-form-field {
-  width: 45%;
+  width: 100%;
 }

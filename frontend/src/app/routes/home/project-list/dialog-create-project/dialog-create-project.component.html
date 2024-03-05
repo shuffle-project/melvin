@@ -1,136 +1,129 @@
-<div class="dialog-wrapper">
-  <div class="header">
+<div mat-dialog-title>
+  <div class="dialog-header">
     <div>
       <h1 i18n="@@dialogCreateProjectHeadline">New Project</h1>
     </div>
-    @if (!loading) {
+
     <button
       mat-icon-button
-      color="secondary"
       [mat-dialog-close]="true"
       aria-label="Close"
       i18n-aria-label="@@dialogCreateProjectCloseButton"
+      [disabled]="loading"
     >
-      <mat-icon svgIcon="clear"></mat-icon>
+      <mat-icon svgIcon="close" class="svg-black"></mat-icon>
     </button>
-    }
   </div>
+</div>
+
+<mat-dialog-content>
   @if (!loading) {
+
   <mat-stepper linear="true" #stepper>
     <mat-step [completed]="!formGroup.hasError('mediaSourceStepInvalid')">
       <ng-template i18n="@@dialogCreateProjectMediaStep" matStepLabel
         >Media source</ng-template
       >
-      <mat-dialog-content>
-        <div class="stepper-content-wrapper">
-          <app-project-source-form
-            [metadataGroup]="formGroup.controls.metadataGroup"
-            [videoGroup]="formGroup.controls.videoGroup"
-            [liveGroup]="formGroup.controls.liveGroup"
-            [acceptedFileFormats]="acceptedFileFormats"
-          ></app-project-source-form>
-        </div>
-        <div class="stepper-navigation start">
-          <button
-            mat-button
-            matStepperNext
-            i18n="@@dialogCreateProjectNextStepButton"
-          >
-            <!-- [disabled]="formGroup.hasError('mediaSourceStepInvalid')" -->
-            Next
-          </button>
-        </div>
-      </mat-dialog-content>
+
+      <div class="stepper-content-wrapper">
+        <app-project-source-form
+          [metadataGroup]="formGroup.controls.metadataGroup"
+          [videoGroup]="formGroup.controls.videoGroup"
+          [liveGroup]="formGroup.controls.liveGroup"
+          [acceptedFileFormats]="acceptedFileFormats"
+        ></app-project-source-form>
+      </div>
+      <div class="stepper-navigation start">
+        <button
+          mat-button
+          matStepperNext
+          i18n="@@dialogCreateProjectNextStepButton"
+          (click)="onHandleFirstStep()"
+        >
+          Next
+        </button>
+      </div>
     </mat-step>
     @if (formGroup.value.metadataGroup?.sourceMode === 'video') {
     <mat-step [completed]="!formGroup.hasError('videoStepInvalid')">
       <ng-template i18n="@@dialogCreateProjectVideoStep" matStepLabel
         >Video settings</ng-template
       >
-      <mat-dialog-content>
-        <div class="stepper-content-wrapper">
-          <app-project-video-form
-            [videoGroup]="formGroup.controls.videoGroup"
-            [metadataGroup]="formGroup.controls.metadataGroup"
-            class="stepper-content-wrapper"
-          ></app-project-video-form>
-        </div>
-        <div class="stepper-navigation middle">
-          <button
-            i18n="@@dialogCreateProjectBackStepButton"
-            mat-button
-            matStepperPrevious
-          >
-            Back
-          </button>
-          <button
-            mat-button
-            matStepperNext
-            i18n="@@dialogCreateProjectNextStepButton"
-          >
-            <!-- [disabled]="formGroup.hasError('videoStepInvalid')" -->
-            Next
-          </button>
-        </div>
-      </mat-dialog-content>
+      <div class="stepper-content-wrapper">
+        <app-project-video-form
+          [videoGroup]="formGroup.controls.videoGroup"
+          [metadataGroup]="formGroup.controls.metadataGroup"
+          class="stepper-content-wrapper"
+        ></app-project-video-form>
+      </div>
+      <div class="stepper-navigation middle">
+        <button
+          i18n="@@dialogCreateProjectBackStepButton"
+          mat-button
+          matStepperPrevious
+        >
+          Back
+        </button>
+        <button
+          mat-button
+          matStepperNext
+          i18n="@@dialogCreateProjectNextStepButton"
+        >
+          <!-- [disabled]="formGroup.hasError('videoStepInvalid')" -->
+          Next
+        </button>
+      </div>
     </mat-step>
     } @if (formGroup.value.metadataGroup?.sourceMode === 'live') {
     <mat-step [completed]="!formGroup.hasError('liveStepInvalid')">
       <ng-template i18n="@@dialogCreateProjectLiveStep" matStepLabel
         >Live settings</ng-template
       >
-      <mat-dialog-content>
-        <div class="stepper-content-wrapper">
-          <app-project-live-form
-            [liveGroup]="formGroup.controls.liveGroup"
-            [metadataGroup]="formGroup.controls.metadataGroup"
-            class="stepper-content-wrapper"
-          ></app-project-live-form>
-        </div>
-        <div class="stepper-navigation middle">
-          <button mat-button matStepperPrevious>Back</button>
-          <button mat-button matStepperNext>
-            <!-- [disabled]="formGroup.hasError('liveStepInvalid')" -->
-            Next
-          </button>
-        </div>
-      </mat-dialog-content>
+      <div class="stepper-content-wrapper">
+        <app-project-live-form
+          [liveGroup]="formGroup.controls.liveGroup"
+          [metadataGroup]="formGroup.controls.metadataGroup"
+          class="stepper-content-wrapper"
+        ></app-project-live-form>
+      </div>
+      <div class="stepper-navigation middle">
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button matStepperNext>Next</button>
+      </div>
     </mat-step>
     }
     <mat-step>
       <ng-template matStepLabel i18n="@@dialogCreateProjectOverviewStep"
         >Overview</ng-template
       >
-      <mat-dialog-content>
-        <div class="stepper-content-wrapper">
-          <app-project-overview-form
-            [metadataGroup]="formGroup.controls.metadataGroup"
-            [videoGroup]="formGroup.controls.videoGroup"
-            [liveGroup]="formGroup.controls.liveGroup"
-          ></app-project-overview-form>
-        </div>
-        <div class="stepper-navigation end">
+      <div class="stepper-content-wrapper">
+        <app-project-overview-form
+          [metadataGroup]="formGroup.controls.metadataGroup"
+          [videoGroup]="formGroup.controls.videoGroup"
+          [liveGroup]="formGroup.controls.liveGroup"
+        ></app-project-overview-form>
+      </div>
+      <div class="stepper-navigation end">
+        <button
+          mat-button
+          matStepperPrevious
+          i18n="@@dialogCreateProjectBackStepButton"
+        >
+          Back
+        </button>
+        <div class="create-project-btn-wrapper">
           <button
-            mat-button
-            matStepperPrevious
-            i18n="@@dialogCreateProjectBackStepButton"
+            class="create-project-btn"
+            mat-raised-button
+            color="primary"
+            type="button"
+            i18n="@@dialogCreateProjectCreateLabel"
+            (click)="onCreateProject()"
           >
-            Back
+            Create Project
           </button>
-          <div class="create-project-btn-wrapper">
-            <button
-              class="create-project-btn"
-              mat-raised-button
-              color="primary"
-              type="button"
-              i18n="@@dialogCreateProjectCreateLabel"
-              (click)="onCreateProject()"
-            >
-              Create Project
-            </button>
-          </div>
         </div>
-      </mat-dialog-content>
+      </div>
     </mat-step>
   </mat-stepper>
   } @if (loading) {
@@ -159,6 +152,7 @@
     }
   </div>
   }
+
   <div>
     @if (error) {
     <mat-error i18n="@@dialogCreateProjectCreateError"
@@ -166,4 +160,4 @@
     >
     }
   </div>
-</div>
+</mat-dialog-content>

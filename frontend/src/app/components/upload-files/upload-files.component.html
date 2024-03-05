@@ -1,4 +1,4 @@
-<div class="dropzone" [class.invalid-input]="showError && touched">
+<div class="dropzone" [class.invalid-input]="showError">
   <div>
     <div class="input-ready-dropzone">
       @if (files.length !== 0) {
@@ -30,7 +30,7 @@
         } @if(!acceptOnlyOneFile){
         <div class="file add-btn">
           <div class="file-content">
-            <mat-icon svgIcon="add"></mat-icon>
+            <mat-icon svgIcon="add" class="svg-white" />
             <label i18n="@@uploadFilesFormRemoveFileAriaLabel" for="fileDropRef"
               >Add more files
             </label>

@@ -1,17 +1,9 @@
-.mode-selection-wrapper {
-  background: var(--theme-gradient);
-  border-radius: 6px;
-  padding: 20px 30px 10px 30px;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  margin-bottom: 40px;
+.mat-button-toggle-group {
+  width: 100%;
+  margin-bottom: 2.5rem;
 
-  .mat-mdc-radio-button {
-    background-color: var(--color-white);
-    border-radius: 15px;
-    padding: 5px 10px;
-    margin: 0 5px 10px 5px;
+  * {
+    width: 50%;
   }
 }
 
@@ -19,13 +11,15 @@
   width: 100%;
 }
 
-.custom-hint {
-  font-size: 12px;
-  margin: 5px 0 0 15px;
-}
+.files-error-wrapper {
+  min-height: 1.25rem;
 
-.custom-error {
-  color: var(--color-red);
-  font-size: 12px;
-  margin: 5px 0 0 15px;
+  margin-top: 0.25rem;
+  padding-left: 1.25rem;
+
+  p {
+    color: var(--color-warn);
+    font-size: 0.75rem;
+    font-weight: 300;
+  }
 }
