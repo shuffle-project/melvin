@@ -47,14 +47,67 @@
 
   } @else {
   <div>
+    <div>
+      <ul class="actions-list">
+        @for (recording of data.recordings; track recording.id; let i = $index)
+        {
+        <li class="action-item">
+          <div class="status">
+            <mat-icon
+              [svgIcon]="
+                recording.upload.error
+                  ? 'warning'
+                  : recording.upload.result
+                  ? 'check'
+                  : 'setting'
+              "
+            ></mat-icon>
+          </div>
+          <div class="content">
+            <div class="title">
+              <span class="header">
+                @if(i ===0){Metadaten und Hauptvideo}@else {Zusätzliches Video}
+              </span>
+              <span class="subheader">
+                {{ recording.title }}
+              </span>
+            </div>
+            @if (recording.upload.result) {
+            <!-- recording successfully uploaded -->
+            <div>Successfully uploaded!</div>
+            } @else if (recording.upload.error) {
+            <!-- recording upload failed -->
+            <div>
+              Failed with error: {{ recording.upload.error.error.message }}
+            </div>
+            } @else {
+            <!-- upload ongoing -->
+            <div class="progressbar-wrapper">
+              <mat-progress-bar
+                mode="determinate"
+                [value]="recording.upload.progress"
+              ></mat-progress-bar>
+            </div>
+            }
+          </div>
+          <div class="actions">
+            <button mat-icon-button (click)="onDownloadVideoLocally(recording)">
+              <mat-icon svgIcon="download"></mat-icon>
+            </button>
+          </div>
+        </li>
+        }
+      </ul>
+    </div>
+
     @if (!this.uploadingDone) {
-    <div class="progress-wrapper">
+    <!-- <div class="progress-wrapper">
       <h3>Dateien werden hochgeladen.</h3>
       <mat-progress-bar
         mode="determinate"
         [value]="displayCompleteUploadProgress()"
       ></mat-progress-bar>
-    </div>
+    </div> -->
 
     <div>
       <div class="infotext">
@@ -65,10 +118,7 @@
 
     }@else{
     <!--  -->
-    @if (uploadingError) {
-    <h3>Fehler!</h3>
-
-    @if (data.recordings[0].upload.error) {
+    @if (uploadingError) { @if (data.recordings[0].upload.error) {
     <div class="infotext">
       <mat-icon svgIcon="info"></mat-icon>
       <span>
@@ -76,6 +126,7 @@
         manuell zu erstellen.
       </span>
     </div>
+    <button mat-flat-button color="accent">Try again!</button>
 
     }@else {
     <div class="infotext">
@@ -87,11 +138,11 @@
         lade es bei Bedarf manuell hoch.
       </span>
     </div>
+    <button mat-flat-button color="accent">Try again!</button>
+
     }
     <!--  -->
     } @else {
-
-    <h3>Erfolgreich!</h3>
 
     <div class="infotext">
       <mat-icon svgIcon="info"></mat-icon>
@@ -112,7 +163,7 @@
     (click)="onDownloadVideosLocally()"
     color="accent"
   >
-    Videos lokal runterladen
+    Alle Videos lokal runterladen
   </button>
 
   @if (!uploading) {

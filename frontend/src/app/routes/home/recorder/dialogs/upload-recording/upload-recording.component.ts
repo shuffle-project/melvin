@@ -167,19 +167,24 @@ export class UploadRecordingComponent implements OnInit {
 
   onDownloadVideosLocally() {
     this.data.recordings.forEach((rec, i) => {
-      const filename = i + 1 + '_' + rec.title.replace(/\s/g, '_') + '.webm';
-      const file = new File(rec.chunks, filename, {
-        type: 'video/webm',
-      });
-      const objectURL = window.URL.createObjectURL(file);
-      const downloadElement = document.createElement('a');
-      downloadElement.href = objectURL;
-      downloadElement.download = filename;
-      // downloadElement.target ='_blank'
-      downloadElement.click();
-      downloadElement.remove();
-      window.URL.revokeObjectURL(objectURL);
+      this.onDownloadVideoLocally(rec, i);
     });
+  }
+
+  onDownloadVideoLocally(rec: Recording, i = -1) {
+    const prefix = i < 0 ? '' : i + 1 + '_';
+    const filename = prefix + rec.title.replace(/\s/g, '_') + '.webm';
+    const file = new File(rec.chunks, filename, {
+      type: 'video/webm',
+    });
+    const objectURL = window.URL.createObjectURL(file);
+    const downloadElement = document.createElement('a');
+    downloadElement.href = objectURL;
+    downloadElement.download = filename;
+    // downloadElement.target ='_blank'
+    downloadElement.click();
+    downloadElement.remove();
+    window.URL.revokeObjectURL(objectURL);
   }
 
   async createProject(rec: Recording, title: string, language: string) {
@@ -238,6 +243,7 @@ export class UploadRecordingComponent implements OnInit {
   }
 
   _onErrorHttpEvent(rec: Recording, error: HttpErrorResponse) {
+    console.log(error);
     rec.upload.progress = 100;
     rec.upload.error = error;
 

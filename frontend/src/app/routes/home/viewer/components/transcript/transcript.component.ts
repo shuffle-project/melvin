@@ -122,7 +122,8 @@ export class TranscriptComponent implements OnDestroy, OnInit {
     })
   );
 
-  autoScroll: boolean = true;
+  autoScroll = true;
+  programmaticScroll = false;
 
   constructor(
     public store: Store<AppState>,
@@ -268,12 +269,18 @@ export class TranscriptComponent implements OnDestroy, OnInit {
 
   scrollToCaption(id: string) {
     // this.searchFoundInCaptionId = id;
+    this.programmaticScroll = true;
     document
       .getElementById('caption-' + id)
       ?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 
     // TODO switch to block, but only scroll in inner div, not in out div
     // block: 'center'
+
+    // TODO are there other ways to wait until the scroll is finished?
+    setTimeout(() => {
+      this.programmaticScroll = false;
+    }, 1000);
   }
 
   getSpeakerName(speakerId: string, availableSpeakers: SpeakerEntity[]) {
@@ -289,6 +296,9 @@ export class TranscriptComponent implements OnDestroy, OnInit {
   }
 
   onScrollInViewport() {
+    // dont reset autoscroll if scrolling is programatically
+    if (this.programmaticScroll) return;
+
     this.autoScroll = false;
   }
 }
