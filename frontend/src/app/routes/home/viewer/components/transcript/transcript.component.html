@@ -4,7 +4,6 @@
     <mat-label i18n="@@playerTranscriptSearchLabel">Search</mat-label>
     <input
       matInput
-      placeholder="Search"
       [(ngModel)]="searchValue"
       (input)="onSearchChange($event)"
       (keydown)="onKeydownSearch($event)"
@@ -16,36 +15,44 @@
       matSuffix
       mat-icon-button
       aria-label="Clear"
+      i18n-aria-label="@@playerTranscriptSearchClearButton"
       (click)="onClearSearchInput()"
     >
-      <mat-icon svgIcon="close"></mat-icon>
+      <mat-icon svgIcon="clear" />
     </button>
     }
   </mat-form-field>
   @if (searchValue.length > 0) {
   <div class="search-results-wrapper">
     @if(searchFoundInCaptionIds.length===0){
-    <span>No matches found</span>
+    <span i18n="@@playerTranscriptSearchNoMatches">No matches found</span>
     } @else {
 
-    <button
-      mat-icon-button
-      class="md"
-      (click)="onGoToRecentFound()"
-      [disabled]="searchFoundInCaptionIds.length === 0"
-    >
-      <mat-icon svgIcon="arrow-up" class="svg-black"></mat-icon>
-    </button>
-    {{ searchFoundInCaptionIds.length > 0 ? foundItemsNumber : 0 }} /
-    {{ searchFoundInCaptionIds.length }}
-    <button
-      mat-icon-button
-      class="md"
-      (click)="onGoToNextFound()"
-      [disabled]="searchFoundInCaptionIds.length === 0"
-    >
-      <mat-icon svgIcon="arrow-down" class="svg-black"></mat-icon>
-    </button>
+    <p>
+      {{ searchFoundInCaptionIds.length > 0 ? foundItemsNumber : 0 }}
+      <span i18n="@@playerTranscriptSearchOfPart">of</span>
+      {{ searchFoundInCaptionIds.length }}
+      <span i18n="@@playerTranscriptSearchResultsPart">results</span>
+    </p>
+    <div class="buttons-wrapper">
+      <button
+        mat-icon-button
+        class="md"
+        (click)="onGoToRecentFound()"
+        [disabled]="searchFoundInCaptionIds.length === 0"
+      >
+        <mat-icon svgIcon="arrow-up" class="svg-black"></mat-icon>
+      </button>
+      <button
+        mat-icon-button
+        class="md"
+        (click)="onGoToNextFound()"
+        [disabled]="searchFoundInCaptionIds.length === 0"
+      >
+        <mat-icon svgIcon="arrow-down" class="svg-black"></mat-icon>
+      </button>
+    </div>
+
     }
   </div>
   }
@@ -54,11 +61,11 @@
       <div
         id="captions-viewport"
         class="captions-viewport fontsize-{{ transcriptFontsize$ | ngrxPush }}"
-        [ngStyle]="{
-          'font-size.%': transcriptFontsize$ | ngrxPush
-        }"
         (scroll)="onScrollInViewport()"
       >
+        <!-- [ngStyle]="{
+          'font-size.%': transcriptFontsize$ | ngrxPush
+        }" -->
         @for ( transcriptParagraphs of transcriptNew; track
         transcriptParagraphs; let indexParagraph = $index; let firstParagraph =
         $first) {

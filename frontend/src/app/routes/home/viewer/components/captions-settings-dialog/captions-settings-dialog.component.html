@@ -1,200 +1,191 @@
-<div class="dialog-wrapper">
-  <!-- <div mat-dialog-actions> -->
-  <!-- </div> -->
+<div mat-dialog-title>
+  <div class="dialog-header">
+    <h1 i18n="@@viewerCaptionsSettingsDialogTitle">
+      Appearance of the captions
+    </h1>
 
-  <h2 mat-dialog-title i18n="@@viewerCaptionsSettingsDialogTitle">
-    Appearance of the captions
-  </h2>
-
-  <div mat-dialog-content>
     <button
-      class="close-button"
       mat-icon-button
       mat-dialog-close
       cdkFocusInitial
+      i18n-aria-label="@@viewerCaptionsSettingsDialogCloseButton"
+      aria-label="Close"
     >
-      <mat-icon svgIcon="close"></mat-icon>
+      <mat-icon svgIcon="close" />
     </button>
+  </div>
+</div>
 
-    <div class="hint" i18n="@@viewerCaptionsSettingsDialogHint">
-      The settings are applied directly.
-    </div>
-    <!--  -->
+<div mat-dialog-content>
+  <div class="hint" i18n="@@viewerCaptionsSettingsDialogHint">
+    The settings are applied directly.
+  </div>
 
-    <div
-      class="form-field-wrapper"
-      *ngrxLet="backgroundColor$ as backgroundColor"
+  <div
+    class="form-field-wrapper"
+    *ngrxLet="backgroundColor$ as backgroundColor"
+  >
+    <mat-label
+      for="captionsBackgroundColor"
+      i18n="@@viewerCaptionsSettingsDialogBackgroundColorLabel"
     >
-      <mat-label
-        for="captionsBackgroundColor"
-        i18n="@@viewerCaptionsSettingsDialogBackgroundColorLabel"
+      Captions background color
+    </mat-label>
+    <mat-form-field appearance="fill">
+      <mat-select
+        id="captionsBackgroundColor"
+        [value]="backgroundColor"
+        (selectionChange)="onChangeBackgroundColor($event)"
       >
-        Captions background color
-      </mat-label>
-      <mat-form-field appearance="fill">
-        <mat-select
-          id="captionsBackgroundColor"
-          [value]="backgroundColor"
-          (selectionChange)="onChangeBackgroundColor($event)"
-        >
-          <mat-option
-            value="{{ ColorOptions.BLACK }}"
-            i18n="@@viewerCaptionsSettingsDialogBackgroundColorOptionBlack"
-            >black
-          </mat-option>
-          <mat-option
-            value="{{ ColorOptions.WHITE }}"
-            i18n="@@viewerCaptionsSettingsDialogBackgroundColorOptionWhite"
-            >white
-          </mat-option>
-          <mat-option
-            value="{{ ColorOptions.YELLOW }}"
-            i18n="@@viewerCaptionsSettingsDialogBackgroundColorOptionYellow"
-            >yellow
-          </mat-option>
-          <mat-option
-            value="{{ ColorOptions.RED }}"
-            i18n="@@viewerCaptionsSettingsDialogBackgroundColorOptionRed"
-            >red
-          </mat-option>
-          <mat-option
-            value="{{ ColorOptions.BLUE }}"
-            i18n="@@viewerCaptionsSettingsDialogBackgroundColorOptionBlue"
-            >blue
-          </mat-option>
-          <mat-option
-            value="{{ ColorOptions.TRANSPARENT }}"
-            i18n="
-              @@viewerCaptionsSettingsDialogBackgroundColorOptionTransparent"
-            >transparent
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
+        <mat-option
+          value="{{ ColorOptions.BLACK }}"
+          i18n="@@viewerCaptionsSettingsDialogBackgroundColorOptionBlack"
+          >black
+        </mat-option>
+        <mat-option
+          value="{{ ColorOptions.WHITE }}"
+          i18n="@@viewerCaptionsSettingsDialogBackgroundColorOptionWhite"
+          >white
+        </mat-option>
+        <mat-option
+          value="{{ ColorOptions.YELLOW }}"
+          i18n="@@viewerCaptionsSettingsDialogBackgroundColorOptionYellow"
+          >yellow
+        </mat-option>
+        <mat-option
+          value="{{ ColorOptions.RED }}"
+          i18n="@@viewerCaptionsSettingsDialogBackgroundColorOptionRed"
+          >red
+        </mat-option>
+        <mat-option
+          value="{{ ColorOptions.BLUE }}"
+          i18n="@@viewerCaptionsSettingsDialogBackgroundColorOptionBlue"
+          >blue
+        </mat-option>
+        <mat-option
+          value="{{ ColorOptions.TRANSPARENT }}"
+          i18n="@@viewerCaptionsSettingsDialogBackgroundColorOptionTransparent"
+          >transparent
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
 
-    <div class="form-field-wrapper" *ngrxLet="color$ as color">
-      <mat-label
-        for="captionColor"
-        i18n="@@viewerCaptionsSettingsDialogFontColorLabel"
-      >
-        Captions fontcolor</mat-label
-      >
-      <mat-form-field appearance="fill">
-        <mat-select
-          id="captionsColor"
-          [value]="color"
-          (selectionChange)="onChangeColor($event)"
-        >
-          <mat-option
-            value="{{ ColorOptions.BLACK }}"
-            i18n="@@viewerCaptionsSettingsDialogFontColorOptionBlack"
-            >black</mat-option
-          >
-          <mat-option
-            value="{{ ColorOptions.WHITE }}"
-            i18n="@@viewerCaptionsSettingsDialogFontColorOptionWhite"
-            >white</mat-option
-          >
-          <mat-option
-            value="{{ ColorOptions.YELLOW }}"
-            i18n="@@viewerCaptionsSettingsDialogFontColorOptionYellow"
-            >yellow</mat-option
-          >
-          <mat-option
-            value="{{ ColorOptions.RED }}"
-            i18n="@@viewerCaptionsSettingsDialogFontColorOptionRed"
-            >red</mat-option
-          >
-          <mat-option
-            value="{{ ColorOptions.BLUE }}"
-            i18n="@@viewerCaptionsSettingsDialogFontColorOptionBlue"
-            >blue</mat-option
-          >
-        </mat-select>
-      </mat-form-field>
-    </div>
-
-    <div class="form-field-wrapper" *ngrxLet="fontsize$ as fontsize">
-      <mat-label
-        for="captionsFontsize"
-        i18n="@@viewerCaptionsSettingsDialogFontsize"
-      >
-        Captions fontsize
-      </mat-label>
-      <mat-form-field appearance="fill">
-        <mat-select
-          id="captionsFontsize"
-          [value]="fontsize"
-          (selectionChange)="onChangeFontsize($event)"
-        >
-          <mat-option value="{{ SizeOptions.P80 }}"
-            >{{ SizeOptions.P80 }}%
-          </mat-option>
-          <mat-option value="{{ SizeOptions.P100 }}"
-            >{{ SizeOptions.P100 }}%
-          </mat-option>
-          <mat-option value="{{ SizeOptions.P120 }}"
-            >{{ SizeOptions.P120 }}%
-          </mat-option>
-          <mat-option value="{{ SizeOptions.P140 }}"
-            >{{ SizeOptions.P140 }}%
-          </mat-option>
-          <mat-option value="{{ SizeOptions.P160 }}"
-            >{{ SizeOptions.P160 }}%
-          </mat-option>
-          <mat-option value="{{ SizeOptions.P180 }}"
-            >{{ SizeOptions.P180 }}%
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
-
-    <div class="form-field-wrapper" *ngrxLet="position$ as position">
-      <mat-label
-        for="captionsFontsize"
-        i18n="@@viewerCaptionsSettingsDialogPositionLabel"
-      >
-        Captions position
-      </mat-label>
-      <mat-form-field appearance="fill">
-        <mat-select
-          id="captionsPosition"
-          [value]="position"
-          (selectionChange)="onChangePosition($event)"
-        >
-          <mat-option
-            value="{{ CaptionPositionOptions.OVER_VIDEO }}"
-            i18n="@@viewerCaptionsSettingsDialogPositionOptionOver"
-          >
-            Above the video.
-          </mat-option>
-          <mat-option
-            value="{{ CaptionPositionOptions.UNDER_VIDEO }}"
-            i18n="@@viewerCaptionsSettingsDialogPositionOptionUnder"
-          >
-            Below the video.
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
-
-    <div
-      *ngrxLet="combined$ as combined"
-      class="like-captions-text color-{{ combined.color }} backgroundColor-{{
-        combined.backgroundColor
-      }}"
-      i18n="@@viewerCaptionsSettingsDialogExampletext"
-      [ngStyle]="{
-        'font-size.%': combined.fontsize,
-        color: combined.color,
-        'background-color': combined.backgroundColor
-      }"
+  <div class="form-field-wrapper" *ngrxLet="color$ as color">
+    <mat-label
+      for="captionColor"
+      i18n="@@viewerCaptionsSettingsDialogFontColorLabel"
     >
-      Example text: This is what the subtitles will look like.
-    </div>
+      Captions fontcolor</mat-label
+    >
+    <mat-form-field appearance="fill">
+      <mat-select
+        id="captionsColor"
+        [value]="color"
+        (selectionChange)="onChangeColor($event)"
+      >
+        <mat-option
+          value="{{ ColorOptions.BLACK }}"
+          i18n="@@viewerCaptionsSettingsDialogFontColorOptionBlack"
+          >black</mat-option
+        >
+        <mat-option
+          value="{{ ColorOptions.WHITE }}"
+          i18n="@@viewerCaptionsSettingsDialogFontColorOptionWhite"
+          >white</mat-option
+        >
+        <mat-option
+          value="{{ ColorOptions.YELLOW }}"
+          i18n="@@viewerCaptionsSettingsDialogFontColorOptionYellow"
+          >yellow</mat-option
+        >
+        <mat-option
+          value="{{ ColorOptions.RED }}"
+          i18n="@@viewerCaptionsSettingsDialogFontColorOptionRed"
+          >red</mat-option
+        >
+        <mat-option
+          value="{{ ColorOptions.BLUE }}"
+          i18n="@@viewerCaptionsSettingsDialogFontColorOptionBlue"
+          >blue</mat-option
+        >
+      </mat-select>
+    </mat-form-field>
+  </div>
 
-    <!-- <div mat-dialog-actions>
-      <button mat-button mat-dialog-close cdkFocusInitial>Close</button>
-    </div> -->
+  <div class="form-field-wrapper" *ngrxLet="fontsize$ as fontsize">
+    <mat-label
+      for="captionsFontsize"
+      i18n="@@viewerCaptionsSettingsDialogFontsize"
+    >
+      Captions fontsize
+    </mat-label>
+    <mat-form-field appearance="fill">
+      <mat-select
+        id="captionsFontsize"
+        [value]="fontsize"
+        (selectionChange)="onChangeFontsize($event)"
+      >
+        <mat-option value="{{ SizeOptions.P80 }}"
+          >{{ SizeOptions.P80 }}%
+        </mat-option>
+        <mat-option value="{{ SizeOptions.P100 }}"
+          >{{ SizeOptions.P100 }}%
+        </mat-option>
+        <mat-option value="{{ SizeOptions.P120 }}"
+          >{{ SizeOptions.P120 }}%
+        </mat-option>
+        <mat-option value="{{ SizeOptions.P140 }}"
+          >{{ SizeOptions.P140 }}%
+        </mat-option>
+        <mat-option value="{{ SizeOptions.P160 }}"
+          >{{ SizeOptions.P160 }}%
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <div class="form-field-wrapper" *ngrxLet="position$ as position">
+    <mat-label
+      for="captionsFontsize"
+      i18n="@@viewerCaptionsSettingsDialogPositionLabel"
+    >
+      Captions position
+    </mat-label>
+    <mat-form-field appearance="fill">
+      <mat-select
+        id="captionsPosition"
+        [value]="position"
+        (selectionChange)="onChangePosition($event)"
+      >
+        <mat-option
+          value="{{ CaptionPositionOptions.OVER_VIDEO }}"
+          i18n="@@viewerCaptionsSettingsDialogPositionOptionOver"
+        >
+          Above the video.
+        </mat-option>
+        <mat-option
+          value="{{ CaptionPositionOptions.UNDER_VIDEO }}"
+          i18n="@@viewerCaptionsSettingsDialogPositionOptionUnder"
+        >
+          Below the video.
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <div
+    *ngrxLet="combined$ as combined"
+    class="like-captions-text color-{{ combined.color }} backgroundColor-{{
+      combined.backgroundColor
+    }}"
+    i18n="@@viewerCaptionsSettingsDialogExampletext"
+    [ngStyle]="{
+      'font-size.%': combined.fontsize,
+      color: combined.color,
+      'background-color': combined.backgroundColor
+    }"
+  >
+    Example text: This is what the subtitles will look like.
   </div>
 </div>
