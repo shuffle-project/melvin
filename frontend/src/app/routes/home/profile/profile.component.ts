@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { MatSelectChange, MatSelectModule } from '@angular/material/select';
-import { Router } from '@angular/router';
 import { LetDirective } from '@ngrx/component';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
@@ -25,31 +24,11 @@ export class ProfileComponent implements OnInit {
   newNotifications$!: Observable<ReadonlyArray<Notification>>;
   oldNotifications$!: Observable<ReadonlyArray<Notification>>;
 
-  constructor(private store: Store, private router: Router) {}
+  constructor(private store: Store) {}
 
   onLanguageSwitched(event: MatSelectChange) {
-    console.log('change to', event);
-    // console.log(window.location);
-
-    this.router.navigateByUrl(
-      `${environment.frontendBaseUrl}/${event.value}/home/profile`
-    );
-
-    // console.log(this.router.url);
-    // console.log(this.activeLocale);
-    // console.log($localize.locale);
-    // console.log(environment);
-    // this.store.dispatch(changeLanguage({ language: event.value }));
-    // console.log(window.location.href);
-    // window.location.href = `/${event.value}`;
-    // console.log(window.location.href);
-    // if (environment.production) {
-    //   // in prod, change language via url and this will change the store value automatically
-    //   // this.router.url.
-    // } else {
-    //   //in dev, change language directly
-    //   this.store.dispatch(changeLanguage({ language: event.value }));
-    // }
+    // TODO
+    document.location.href = `${environment.frontendBaseUrl}/${event.value}/home/profile`;
   }
 
   ngOnInit() {
