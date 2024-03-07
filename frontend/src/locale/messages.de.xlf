@@ -143,8 +143,8 @@
         <target state="final"> Nutzer unbekannt oder E-Mail-Adresse invalide.</target>
       </trans-unit>
       <trans-unit id="metadataFormAddMemberHint" datatype="html">
-        <source> Enter the email addresses of your team members. Addresses that are not associated with an account will be invited to the project via email. </source>
-        <target state="final">Gib hierfür die E-Mail-Adressen der Teammitglieder an. Adressen, die keinem Account zugeordnet werden können, werden via E-Mail zu dem Projekt eingeladen.</target>
+        <source>Enter the email addresses of your team members. Addresses that are not linked to an account will be invited to the project via email. </source>
+        <target state="new">Gib hierfür die E-Mail-Adressen der Teammitglieder an. Adressen, die keinem Account zugeordnet werden können, werden via E-Mail zu dem Projekt eingeladen.</target>
       </trans-unit>
       <trans-unit id="dialogCreateProjectCloseButton" datatype="html">
         <source>Close</source>
@@ -742,13 +742,13 @@
         <source>Subtitle Language</source>
         <target state="final">Untertitelsprache</target>
       </trans-unit>
-      <trans-unit id="sourceFormVideoRadioButton" datatype="html">
-        <source> Upload video or audio files</source>
-        <target state="final"> Video- oder Audiodatei hochladen</target>
+      <trans-unit id="sourceFormVideoToggleButton" datatype="html">
+        <source>Upload video or audio files </source>
+        <target state="new"> Video- oder Audiodatei hochladen</target>
       </trans-unit>
-      <trans-unit id="sourceFormLiveRadioButton" datatype="html">
-        <source> Connect to livestream</source>
-        <target state="final"> Mit Livestream verbinden</target>
+      <trans-unit id="sourceFormLiveToggleButton" datatype="html">
+        <source> Connect to livestream </source>
+        <target state="new"> Mit Livestream verbinden</target>
       </trans-unit>
       <trans-unit id="sourceFormTooManyVideosError" datatype="html">
         <source> A maximum of one video or audio file may be uploaded </source>
@@ -1208,7 +1208,7 @@
       </trans-unit>
       <trans-unit id="fromMediaTranscriptionTabVendorHint" datatype="html">
         <source> Languages are vendor dependent </source>
-        <target state="final"> Sprachen sind Anbieterabhängig  </target>
+        <target state="final"> Sprachen sind Anbieterabhängig </target>
       </trans-unit>
       <trans-unit id="fromMediaTranscriptionTabVendorErrorRequired" datatype="html">
         <source>Select a vendor </source>
@@ -1279,8 +1279,8 @@
         <target state="final">Ein Anbieter muss zuerst augewählt werden</target>
       </trans-unit>
       <trans-unit id="translateTranscriptionTabLanguageErrorRequired" datatype="html">
-        <source>Select a language</source>
-        <target state="final">Sprache wird benötigt</target>
+        <source>Select a language </source>
+        <target state="new">Sprache wird benötigt</target>
       </trans-unit>
       <trans-unit id="translateTranscriptionTabTitleLabel" datatype="html">
         <source>Title</source>
@@ -1341,6 +1341,54 @@
       <trans-unit id="createTranscriptionDialogSubmitButtonLabel" datatype="html">
         <source> Create transcription </source>
         <target state="final"> Transkription erstellen </target>
+      </trans-unit>
+      <trans-unit id="notificationAriaLabelNotYetRead" datatype="html">
+        <source>Not yet read</source>
+        <target state="final">Noch nicht bereit</target>
+      </trans-unit>
+      <trans-unit id="createTranscriptionDialogTabEmptyFileLabel" datatype="html">
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&quot; /&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/ng-template&gt;"/> Empty file </source>
+        <target state="final"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&quot; /&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/ng-template&gt;"/> Leere Datei </target>
+      </trans-unit>
+      <trans-unit id="metadataFormUserSelection" datatype="html">
+        <source>User selection</source>
+        <target state="final">Mitglieder auswahl</target>
+      </trans-unit>
+      <trans-unit id="sourceFormToggleButtonAriaLabel" datatype="html">
+        <source>Project source mode</source>
+        <target state="final">Projektquellenmodus</target>
+      </trans-unit>
+      <trans-unit id="viewerAdjustLayoutDialogCloseButton" datatype="html">
+        <source>Close</source>
+        <target state="final">Schließen</target>
+      </trans-unit>
+      <trans-unit id="viewerCaptionsSettingsDialogCloseButton" datatype="html">
+        <source>Close</source>
+        <target state="final">Schließen</target>
+      </trans-unit>
+      <trans-unit id="viewerControlsPausedInfo" datatype="html">
+        <source>Paused</source>
+        <target state="final">Pausiert</target>
+      </trans-unit>
+      <trans-unit id="viewerControlsStartedInfo" datatype="html">
+        <source>Started</source>
+        <target state="final">Gestartet</target>
+      </trans-unit>
+      <trans-unit id="playerTranscriptSearchClearButton" datatype="html">
+        <source>Clear</source>
+        <target state="final">Suche löschen</target>
+      </trans-unit>
+      <trans-unit id="playerTranscriptSearchNoMatches" datatype="html">
+        <source>No matches found</source>
+        <target state="final">Keine Ergebnisse gefunden</target>
+      </trans-unit>
+      <trans-unit id="playerTranscriptSearchOfPart" datatype="html">
+        <source>of</source>
+        <target state="final">von</target>
+      </trans-unit>
+      <trans-unit id="playerTranscriptSearchResultsPart" datatype="html">
+        <source>results</source>
+        <target state="final">Ergebnisse</target>
       </trans-unit>
     </body>
   </file>

@@ -432,7 +432,7 @@
         <source> User unknown or e-mail address invalid</source>
       </trans-unit>
       <trans-unit id="metadataFormAddMemberHint" datatype="html">
-        <source> Enter the email addresses of your team members. Addresses that are not associated with an account will be invited to the project via email. </source>
+        <source>Enter the email addresses of your team members. Addresses that are not linked to an account will be invited to the project via email. </source>
       </trans-unit>
       <trans-unit id="overviewFormTitleHeader" datatype="html">
         <source>Title</source>
@@ -461,11 +461,11 @@
       <trans-unit id="overviewFormASRLanguageHeader" datatype="html">
         <source>Subtitle Language</source>
       </trans-unit>
-      <trans-unit id="sourceFormVideoRadioButton" datatype="html">
-        <source> Upload video or audio files</source>
+      <trans-unit id="sourceFormVideoToggleButton" datatype="html">
+        <source>Upload video or audio files </source>
       </trans-unit>
-      <trans-unit id="sourceFormLiveRadioButton" datatype="html">
-        <source> Connect to livestream</source>
+      <trans-unit id="sourceFormLiveToggleButton" datatype="html">
+        <source> Connect to livestream </source>
       </trans-unit>
       <trans-unit id="sourceFormVideoRequiredError" datatype="html">
         <source> At least one video or audio file is required </source>
@@ -1005,6 +1005,42 @@
       </trans-unit>
       <trans-unit id="uploadTranscriptionTabUploadsInfo" datatype="html">
         <source>Uploads</source>
+      </trans-unit>
+      <trans-unit id="createTranscriptionDialogTabEmptyFileLabel" datatype="html">
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&quot; /&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/ng-template&gt;"/> Empty file </source>
+      </trans-unit>
+      <trans-unit id="metadataFormUserSelection" datatype="html">
+        <source>User selection</source>
+      </trans-unit>
+      <trans-unit id="notificationAriaLabelNotYetRead" datatype="html">
+        <source>Not yet read</source>
+      </trans-unit>
+      <trans-unit id="playerTranscriptSearchClearButton" datatype="html">
+        <source>Clear</source>
+      </trans-unit>
+      <trans-unit id="playerTranscriptSearchNoMatches" datatype="html">
+        <source>No matches found</source>
+      </trans-unit>
+      <trans-unit id="playerTranscriptSearchOfPart" datatype="html">
+        <source>of</source>
+      </trans-unit>
+      <trans-unit id="playerTranscriptSearchResultsPart" datatype="html">
+        <source>results</source>
+      </trans-unit>
+      <trans-unit id="sourceFormToggleButtonAriaLabel" datatype="html">
+        <source>Project source mode</source>
+      </trans-unit>
+      <trans-unit id="viewerAdjustLayoutDialogCloseButton" datatype="html">
+        <source>Close</source>
+      </trans-unit>
+      <trans-unit id="viewerCaptionsSettingsDialogCloseButton" datatype="html">
+        <source>Close</source>
+      </trans-unit>
+      <trans-unit id="viewerControlsPausedInfo" datatype="html">
+        <source>Paused</source>
+      </trans-unit>
+      <trans-unit id="viewerControlsStartedInfo" datatype="html">
+        <source>Started</source>
       </trans-unit>
     </body>
   </file>

@@ -174,9 +174,11 @@
           : '-'
       }}
     </div>
-    <div i88n="@@viewerControlsPausedOrStartedInfo">
-      {{ viewerService.audio.paused ? 'Paused' : 'Started' }}
-    </div>
+    @if (viewerService.audio.paused) {
+    <div i18n="@@viewerControlsPausedInfo">Paused</div>
+    } @else {
+    <div i18n="@@viewerControlsStartedInfo">Started</div>
+    }
   </div>
 </div>
 }

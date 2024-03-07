@@ -1,9 +1,10 @@
 .viewer-header-buttons {
   margin-left: auto;
   display: flex;
+  gap: 0.625rem;
+  margin-right: 0.625rem;
 
   > * {
-    margin: 2px;
     height: 100%;
   }
 }
