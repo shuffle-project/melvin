@@ -1,37 +1,32 @@
 export class WhiTranscribeDto {
-  // Audio Processing Options
-  offset_t?: number; //Time offset in milliseconds for audio processing. Default value is 0.
-  offset_n?: number; // Segment index offset. Default value is 0.
-  duration?: number; // Duration of the audio to process, specified in milliseconds. Default value is 0.
+  language?: string;
+  condition_on_previous_text?: boolean;
 
-  // Context and Length Settings
-  max_context?: number; // Maximum number of text context tokens to store. Default is -1, indicating no limit.
-  max_len?: number; // Maximum length for a text segment, measured in characters. Default value is 0.
-
-  // Text Segmentation
-  split_on_word?: boolean; //Determines whether to split text based on words. Default is False, indicating splitting on tokens.
-
-  // Decoding and Search Settings
-  best_of?: number; // Number of best candidates to keep during processing. Default value is 2.
-  beam_size?: number; //Size of the beam for beam search algorithms. Default is -1, which implies a standard setting.
-  word_thold?: number; // Threshold for word timestamp probability. Default value is 0.01.
-  entropy_thold?: number; // Entropy threshold for the decoder to identify fail conditions. Default value is 2.40.
-  logprob_thold?: number; //Log probability threshold for decoder failure conditions. Default value is -1.00.
-
-  // Debugging and Modes
-  debug_mode?: boolean; // Toggles debug mode. Default is False.
-  translate?: boolean; //Enables translation from the source language to English. Default is False.
-  diarize?: boolean; //Enables stereo audio diarization. Default is False.
-  tinydiarize?: boolean; //Activates a smaller, possibly less resource-intensive diarization model. Default is False.
-  no_fallback?: boolean; //Disables the use of temperature fallback while decoding. Default is False.
-  no_timestamps?: boolean; //Opts out of printing timestamps in outputs. Default is False.
-
-  // Language and Input Settings
-  language?: string; //Specifies the language of the input. Default is None, which may imply automatic detection or a standard language setting.
-  prompt?: string; //Initial prompt for the system. Default is None, indicating no initial prompt.
-
-  // Hardware and Execution Settings
-  ov_e_device?: string; //Specifies the OpenVINO device used for encode inference. Default setting is "CPU".
+  // "language": None,
+  // "task": "transcribe",
+  // "beam_size": 5,
+  // "best_of": 5,
+  // "patience": 1.0,
+  // "length_penalty": 1.0,
+  // "repetition_penalty": 1.0,
+  // "no_repeat_ngram_size": 0,
+  // "temperature": [0, 0.2, 0.4, 0.6, 0.8, 1],
+  // "compression_ratio_threshold": 2.4,
+  // "log_prob_threshold": -1,
+  // "no_speech_threshold": 0.6,
+  // "condition_on_previous_text": True,
+  // "prompt_reset_on_temperature": 0.5,
+  // "initial_prompt": None,
+  // "prefix": None,
+  // "suppress_blank": True,
+  // "suppress_tokens": [-1],
+  // "without_timestamps": False,
+  // "max_initial_timestamp": 1,
+  // "word_timestamps": False,
+  // "prepend_punctuations": "\"'“¿([{-",
+  // "append_punctuations": "\"'.。,，!！?？:：”)]}、",
+  // "vad_filter": False,
+  // "vad_parameters": None,
 }
 
 export class WhiTranscriptEntity {

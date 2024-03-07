@@ -153,7 +153,10 @@ export class WhisperSpeechService implements ISepechToTextService {
 
     const formData = new FormData();
     formData.append('file', file, audio._id.toString() + '.' + audio.extension);
-    const settings: WhiTranscribeDto = { language: project.language };
+    const settings: WhiTranscribeDto = {
+      language: project.language,
+      condition_on_previous_text: false,
+    };
     formData.append('settings', JSON.stringify(settings));
 
     // console.log(formData.getHeaders());

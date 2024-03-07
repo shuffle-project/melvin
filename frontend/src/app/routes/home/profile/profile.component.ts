@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { LetDirective } from '@ngrx/component';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
+import { environment } from '../../../../environments/environment';
 import { HeaderComponent } from '../../../components/header/header.component';
 import { AuthUser } from '../../../interfaces/auth.interfaces';
 import * as authSelectors from '../../../store/selectors/auth.selector';
@@ -30,7 +31,9 @@ export class ProfileComponent implements OnInit {
     console.log('change to', event);
     // console.log(window.location);
 
-    this.router.navigateByUrl('/' + event.value + '/home/profile');
+    this.router.navigateByUrl(
+      `${environment.frontendBaseUrl}/${event.value}/home/profile`
+    );
 
     // console.log(this.router.url);
     // console.log(this.activeLocale);
