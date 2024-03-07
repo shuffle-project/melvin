@@ -1,0 +1,25 @@
+# config.yml
+# This file is used to configure the service for a production stage in a Docker container
+debug: True
+host: "0.0.0.0"
+api_keys:
+  - "shuffle2024"
+
+# Runner Configuration
+# The max. count of runners for rest_runner is 10
+# The max. count of runners for stream_runner is 1
+# Example:
+# identifier:
+#   device: "cpu" or "cuda"
+#   model: model_name
+#   compute_type: "int8" (cpu), "float16" (cuda), "int8_float16" (cuda)
+
+stream_runner:
+  - device: cpu
+    model: tiny
+    compute_type: int8
+
+rest_runner:
+  - device: cpu
+    model: tiny
+    compute_type: int8
