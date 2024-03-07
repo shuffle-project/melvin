@@ -24,6 +24,7 @@ import {
   map,
   takeUntil,
   tap,
+  throttleTime,
 } from 'rxjs';
 import { CaptionEntity } from '../../../../../services/api/entities/caption.entity';
 import { SpeakerEntity } from '../../../../../services/api/entities/transcription.entity';
@@ -135,14 +136,14 @@ export class TranscriptComponent implements OnDestroy, OnInit {
     combineLatest([this.viewerService.currentCaption$, this.captions$])
       .pipe(
         takeUntil(this.destroy$$),
-        // debounceTime(10),
+        throttleTime(1000, undefined, { leading: true, trailing: true }),
         tap(([currentCaption, captions]) => {
           if (currentCaption && this.autoScroll) {
             const index = captions.findIndex(
               (caption) => caption.id === currentCaption.id
             );
 
-            if (index) {
+            if (index && this.autoScroll) {
               this.scrollToCaption(currentCaption.id);
             }
           }
@@ -269,10 +270,20 @@ export class TranscriptComponent implements OnDestroy, OnInit {
 
   scrollToCaption(id: string) {
     // this.searchFoundInCaptionId = id;
+
+    const viewportEle = document.getElementById('captions-viewport');
+    const captionEle = document.getElementById('caption-' + id);
+    const captionParentEle = captionEle?.parentElement;
+
+    if (!viewportEle || !captionEle || !captionParentEle) return;
     this.programmaticScroll = true;
-    document
-      .getElementById('caption-' + id)
-      ?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+
+    const newScrollTop = captionParentEle.offsetTop - 150;
+
+    viewportEle.scrollTo({
+      behavior: 'smooth',
+      top: newScrollTop,
+    });
 
     // TODO switch to block, but only scroll in inner div, not in out div
     // block: 'center'
