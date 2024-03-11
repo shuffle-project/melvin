@@ -1,17 +1,22 @@
+import { NgStyle } from '@angular/common';
 import { Component } from '@angular/core';
-import { MatDialogRef, MatDialogTitle, MatDialogContent, MatDialogClose } from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
+import { MatOptionModule } from '@angular/material/core';
+import {
+  MatDialogClose,
+  MatDialogContent,
+  MatDialogRef,
+  MatDialogTitle,
+} from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
 import { MatSelectChange, MatSelectModule } from '@angular/material/select';
+import { LetDirective } from '@ngrx/component';
 import { Store } from '@ngrx/store';
 import { combineLatest, map } from 'rxjs';
 import * as viewerActions from '../../../../../store/actions/viewer.actions';
 import { AppState } from '../../../../../store/app.state';
 import * as viewerSelector from '../../../../../store/selectors/viewer.selector';
-import { NgStyle } from '@angular/common';
-import { MatOptionModule } from '@angular/material/core';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { LetDirective } from '@ngrx/component';
-import { MatIconModule } from '@angular/material/icon';
-import { MatButtonModule } from '@angular/material/button';
 
 export enum ColorOptions {
   BLACK = 'black',
@@ -28,7 +33,6 @@ export enum SizeOptions {
   P120 = '120',
   P140 = '140',
   P160 = '160',
-  P180 = '180',
 }
 
 export enum CaptionPositionOptions {
@@ -37,11 +41,11 @@ export enum CaptionPositionOptions {
 }
 
 @Component({
-    selector: 'app-captions-settings-dialog',
-    templateUrl: './captions-settings-dialog.component.html',
-    styleUrls: ['./captions-settings-dialog.component.scss'],
-    standalone: true,
-    imports: [
+  selector: 'app-captions-settings-dialog',
+  templateUrl: './captions-settings-dialog.component.html',
+  styleUrls: ['./captions-settings-dialog.component.scss'],
+  standalone: true,
+  imports: [
     MatDialogTitle,
     MatDialogContent,
     MatButtonModule,
@@ -51,8 +55,8 @@ export enum CaptionPositionOptions {
     MatFormFieldModule,
     MatSelectModule,
     MatOptionModule,
-    NgStyle
-],
+    NgStyle,
+  ],
 })
 export class CaptionsSettingsDialogComponent {
   ColorOptions = ColorOptions;

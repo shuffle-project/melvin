@@ -1,12 +1,15 @@
 <div class="box">
-  <mat-expansion-panel>
+  <mat-expansion-panel
+    (opened)="panelOpenState = true"
+    (closed)="panelOpenState = false"
+  >
     <mat-expansion-panel-header>
-      <mat-panel-title>
-        <h2>{{ project.title }}</h2>
-      </mat-panel-title>
-      <mat-panel-description> Infobox </mat-panel-description>
+      <mat-panel-title> Informationen zum Video </mat-panel-title>
+      <mat-panel-description>
+        {{ panelOpenState ? 'Weniger anzeigen' : 'Mehr anzeigen' }}
+      </mat-panel-description>
     </mat-expansion-panel-header>
-    <h3>Metadaten</h3>
+
     <p>Veröffentlichung: {{ project.createdAt | date }}</p>
     <p>Status: {{ project.status | readableStatus }}</p>
     <p>Sprache: {{ project.language | shortLanguageCode }}</p>

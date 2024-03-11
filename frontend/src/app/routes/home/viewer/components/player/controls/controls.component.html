@@ -28,7 +28,7 @@
         i18n-matTooltip="@@viewerControlsPlayPauseTooltipPlay"
         (click)="onPlayVideo()"
       >
-        <mat-icon svgIcon="play-viewer"></mat-icon></button
+        <mat-icon svgIcon="play"></mat-icon></button
       >}@else {
       <button
         mat-icon-button
@@ -37,7 +37,7 @@
         i18n-matTooltip="@@viewerControlsPlayPauseTooltip"
         (click)="onPauseVideo()"
       >
-        <mat-icon svgIcon="pause-viewer"></mat-icon>
+        <mat-icon svgIcon="pause"></mat-icon>
       </button>
       }
       <!-- replay and forward -->
@@ -110,7 +110,7 @@
         matTooltip="Toggle show/hide transcript"
         i18n-matTooltip="@@viewerControlsTranscriptToggleTooltip"
       >
-        <mat-icon svgIcon="transcript" class="svg-black"></mat-icon>
+        <mat-icon svgIcon="transcription-viewer" class="svg-black"></mat-icon>
       </button>
       <button
         mat-icon-button
@@ -121,15 +121,6 @@
         i18n-matTooltip="@@viewerControlsSignLanguageToggleTooltip"
       >
         <mat-icon svgIcon="sign_language" class="svg-black"></mat-icon>
-      </button>
-      <button
-        mat-icon-button
-        class="md"
-        [matMenuTriggerFor]="galleryMenu"
-        matTooltip="Shown video selection"
-        i18n-matTooltip="@@viewerControlsGalleryMenuTooltip"
-      >
-        <mat-icon svgIcon="gallery" class="svg-black"></mat-icon>
       </button>
     </div>
     <div class="right">
@@ -142,6 +133,15 @@
       >
         <mat-icon svgIcon="speed"></mat-icon>
       </button>
+      <button
+        mat-icon-button
+        class="md"
+        [matMenuTriggerFor]="galleryMenu"
+        matTooltip="Shown video selection"
+        i18n-matTooltip="@@viewerControlsGalleryMenuTooltip"
+      >
+        <mat-icon svgIcon="gallery" class="svg-black"></mat-icon>
+      </button>
       @if (isFullscreenActive()) {
       <button
         mat-icon-button
@@ -150,7 +150,7 @@
         matTooltip="Close fullscreen"
         i18n-matTooltip="@@viewerControlsFullscreenToggleTooltipActive"
       >
-        <mat-icon svgIcon="fullscreen-close" class="svg-black"></mat-icon>
+        <mat-icon svgIcon="fullscreen_close" class="svg-black"></mat-icon>
       </button>
       }@else {
       <button
@@ -174,9 +174,11 @@
           : '-'
       }}
     </div>
-    <div i88n="@@viewerControlsPausedOrStartedInfo">
-      {{ viewerService.audio.paused ? 'Paused' : 'Started' }}
-    </div>
+    @if (viewerService.audio.paused) {
+    <div i18n="@@viewerControlsPausedInfo">Paused</div>
+    } @else {
+    <div i18n="@@viewerControlsStartedInfo">Started</div>
+    }
   </div>
 </div>
 }

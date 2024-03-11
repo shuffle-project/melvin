@@ -1,6 +1,13 @@
 import { AfterViewInit, Component, Input, OnDestroy } from '@angular/core';
-import { FormGroup, NonNullableFormBuilder, ReactiveFormsModule } from '@angular/forms';
+import {
+  FormGroup,
+  NonNullableFormBuilder,
+  ReactiveFormsModule,
+} from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 import { Subject, takeUntil } from 'rxjs';
+import { UploadFilesComponent } from '../../../../../../components/upload-files/upload-files.component';
 import {
   LiveGroup,
   MetadataGroup,
@@ -11,24 +18,23 @@ import {
   findVideoFile,
   nameWithoutExtension,
 } from '../../dialog-create-project.utils';
-import { MatInputModule } from '@angular/material/input';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { UploadFilesComponent } from '../../../../../../components/upload-files/upload-files.component';
 
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatRadioModule } from '@angular/material/radio';
 
 @Component({
-    selector: 'app-project-source-form',
-    styleUrls: ['./project-source-form.component.scss'],
-    templateUrl: './project-source-form.component.html',
-    standalone: true,
-    imports: [
+  selector: 'app-project-source-form',
+  styleUrls: ['./project-source-form.component.scss'],
+  templateUrl: './project-source-form.component.html',
+  standalone: true,
+  imports: [
     ReactiveFormsModule,
     MatRadioModule,
     UploadFilesComponent,
     MatFormFieldModule,
-    MatInputModule
-],
+    MatInputModule,
+    MatButtonToggleModule,
+  ],
 })
 export class ProjectSourceFormComponent implements AfterViewInit, OnDestroy {
   @Input() metadataGroup!: FormGroup<MetadataGroup>;

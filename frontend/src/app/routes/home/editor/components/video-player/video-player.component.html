@@ -44,7 +44,7 @@ aria-label="Start or stop video"
     [matTooltipShowDelay]="500"
   >
     <mat-icon
-      [svgIcon]="(volume$ | ngrxPush) === 0 ? 'volume_off' : 'volume_on'"
+      [svgIcon]="(volume$ | ngrxPush) === 0 ? 'volume-mute' : 'volume'"
     ></mat-icon>
   </button>
   <ng-container class="volume-container">

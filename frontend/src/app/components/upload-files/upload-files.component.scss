@@ -3,13 +3,14 @@
   box-sizing: border-box;
   text-align: center;
   background: var(--color-background-grey);
+  border: 2px solid rgba(var(--color-background-grey), 1);
   border-radius: 5px;
   position: relative;
   min-height: 130px;
   padding: 1.25rem 1.25rem 2.5rem;
 
   &.invalid-input {
-    border: 2px solid rgba(var(--color-red-rgb), 1);
+    border: 2px solid var(--color-warn);
   }
 
   .label-empty {
@@ -28,6 +29,7 @@
     height: 100%;
     top: 0;
     left: 0;
+    cursor: pointer;
   }
 
   .intruction-text {
@@ -45,19 +47,27 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 2px 0 2px 10px;
-      margin: 5px 0px;
+      gap: 0.625rem;
+
+      padding-block: 0.125rem;
+      margin-bottom: 0.375rem;
+
       min-height: 40px;
       background-color: var(--color-white);
       border: 1px solid var(--color-border-grey);
       border-radius: 10px;
-      width: 350px;
-      text-align: left;
+
+      min-width: 15rem;
+      width: 100%;
+      max-width: 22.5rem;
+
+      overflow-wrap: break-word;
+      word-break: break-all;
 
       &.add-btn {
         border: 1px solid var(--color-primary);
         background-color: var(--color-primary);
-        color: var(--color-white);
+
         justify-content: flex-start;
       }
 
@@ -66,7 +76,11 @@
         align-items: center;
 
         .mat-icon {
-          margin-right: 5px;
+          margin-inline: 0.625rem;
+        }
+
+        label {
+          color: var(--color-white);
         }
       }
 

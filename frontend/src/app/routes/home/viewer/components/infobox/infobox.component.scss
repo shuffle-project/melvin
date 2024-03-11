@@ -1,5 +1,9 @@
 .mat-expansion-panel {
-  box-shadow: none;
+  box-shadow: none !important;
+}
+
+.box {
+  padding: 0;
 }
 
 .downloads {

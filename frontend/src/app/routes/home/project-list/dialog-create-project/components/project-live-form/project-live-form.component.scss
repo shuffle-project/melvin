@@ -1,17 +1,13 @@
-.mat-mdc-form-field {
-  margin-top: 5px;
-  width: 100%;
-}
-
-.stepper-navigation-btns {
-  margin-top: 15px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
 .custom-fieldset {
-  margin-top: 20px;
-  padding: 20px 30px;
-  border-radius: 6px;
+  border: none;
+  padding: 1.25rem 0;
+  margin-bottom: 1.25rem;
+
+  .mat-mdc-form-field {
+    width: 100%;
+  }
+}
+
+form {
+  margin: 2.5rem 0;
 }

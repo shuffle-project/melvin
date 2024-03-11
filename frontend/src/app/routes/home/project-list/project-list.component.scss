@@ -33,8 +33,10 @@ section {
 }
 
 .mat-mdc-chip {
-  color: var(--color-black);
-  font-size: 0.875rem;
+  * {
+    color: rgba(var(--color-black-rgb), 0.75);
+  }
+
   background: linear-gradient(
     90deg,
     var(--color-gradient-a) 0%,

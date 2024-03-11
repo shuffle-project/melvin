@@ -194,7 +194,12 @@ export class ProjectListComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   onOpenDialogCreateProject() {
-    this.dialog.open(DialogCreateProjectComponent, { disableClose: true });
+    this.dialog.open(DialogCreateProjectComponent, {
+      disableClose: true,
+      width: '100%',
+      maxWidth: '800px',
+      maxHeight: '90vh',
+    });
   }
 
   onDeleteProject(projectId: string) {

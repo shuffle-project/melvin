@@ -1,41 +1,45 @@
 <form [formGroup]="metadataGroup">
-  <mat-radio-group
-    #modeRadioGroup
+  <mat-button-toggle-group
+    i18n-aria-label="@@sourceFormToggleButtonAriaLabel"
+    aria-label="Project source mode"
     formControlName="sourceMode"
-    class="mode-selection-wrapper"
   >
-    <mat-radio-button
-      i18n="@@sourceFormVideoRadioButton"
-      radioGroup="modeRadioGroup"
-      value="video"
-    >
-      Upload video or audio files</mat-radio-button
-    >
-    <mat-radio-button
-      i18n="@@sourceFormLiveRadioButton"
-      radioGroup="modeRadioGroup"
-      value="live"
-    >
-      Connect to livestream</mat-radio-button
-    >
-  </mat-radio-group>
+    <mat-button-toggle value="video" i18n="@@sourceFormVideoToggleButton"
+      >Upload video or audio files
+    </mat-button-toggle>
+    <mat-button-toggle value="live" i18n="@@sourceFormLiveToggleButton">
+      Connect to livestream
+    </mat-button-toggle>
+  </mat-button-toggle-group>
 </form>
+
 @if (metadataGroup.value.sourceMode === 'video') {
 <form [formGroup]="videoGroup">
   <app-upload-files
     formControlName="files"
     [acceptedFileFormats]="acceptedFileFormats"
+    ariaDesribedByIds="new-project-video-audio-file-error-required new-project-too-many-audio-video-error"
   ></app-upload-files>
-  @if ( videoGroup.controls.files.dirty &&
-  videoGroup.controls.files.hasError('videoRequired') ) {
-  <div class="custom-hint" i18n="@@sourceFormVideoRequiredError">
-    At least one video or audio file is required
+  <div class="files-error-wrapper">
+    @if ( videoGroup.controls.files.touched &&
+    videoGroup.controls.files.hasError('videoRequired') ) {
+    <p
+      id="new-project-video-audio-file-error-required"
+      aria-live="polite"
+      i18n="@@sourceFormVideoRequiredError"
+    >
+      At least one video or audio file is required
+    </p>
+    } @if (videoGroup.controls.files.hasError('tooManyVideos')) {
+    <p
+      id="new-project-too-many-audio-video-error"
+      aria-live="polite"
+      i18n="@@sourceFormTooManyVideosError"
+    >
+      A maximum of one video or audio file may be uploaded
+    </p>
+    }
   </div>
-  } @if (videoGroup.controls.files.hasError('tooManyVideos')) {
-  <div class="custom-error" i18n="@@sourceFormTooManyVideosError">
-    A maximum of one video or audio file may be uploaded
-  </div>
-  }
 </form>
 } @if (metadataGroup.value.sourceMode === 'live') {
 <form [formGroup]="liveGroup">

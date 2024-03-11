@@ -1,10 +1,10 @@
 <div
   class="{{
-  size === 'small'
-  ? 'inner-secondary-video-container'
-  : 'inner-main-video-container'
+    size === 'small'
+      ? 'inner-secondary-video-container'
+      : 'inner-main-video-container'
   }}"
-  >
+>
   <video
     #viewerVideo
     title="{{ video.title }}"
@@ -12,30 +12,27 @@
     [muted]="true"
     [playbackRate]="currentSpeed$ | ngrxPush"
     (loadedmetadata)="onVideoLoadMetadata($event)"
-    >
+  >
     <source src="{{ video.url }}" type="video/mp4" />
   </video>
   @if (size === 'small') {
-    <div class="video-overlay">
-      <div class="title">
-        @if (video.category === 'sign_language') {
-          <mat-icon
-            svgIcon="sign_language"
-            class="svg-white"
-          ></mat-icon>
-        }
-        {{ video.title }}
-      </div>
-      <button
-        mat-stroked-button
-        color="basic"
-        (click)="onChangeMainVideo()"
-        tabindex="0"
-        i18n="@@viewerVideoContainerToMainview"
-        attr.aria-label="Move video '{{ video.title }}' to main view"
-        >
-        Move video to main view
-      </button>
+  <div class="video-overlay">
+    <div class="title">
+      @if (video.category === 'sign_language') {
+      <mat-icon svgIcon="sign_language" class="svg-white"></mat-icon>
+      }
+      {{ video.title }}
     </div>
+    <button
+      mat-stroked-button
+      color="basic"
+      (click)="onChangeMainVideo()"
+      tabindex="0"
+      i18n="@@viewerVideoContainerToMainview"
+      attr.aria-label="Move video '{{ video.title }}' to main view"
+    >
+      Move video to main view
+    </button>
+  </div>
   }
 </div>

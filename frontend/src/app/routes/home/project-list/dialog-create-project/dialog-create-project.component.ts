@@ -15,8 +15,8 @@ import {
 } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import {
-  MatDialogClose,
   MatDialogContent,
+  MatDialogModule,
   MatDialogRef,
 } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -46,7 +46,7 @@ import { ProjectGroup } from './dialog-create-project.interfaces';
   standalone: true,
   imports: [
     MatButtonModule,
-    MatDialogClose,
+    MatDialogModule,
     MatIconModule,
     MatStepperModule,
     MatDialogContent,
@@ -173,6 +173,13 @@ export class DialogCreateProjectComponent implements AfterViewInit, OnDestroy {
   ngAfterViewInit() {
     this.stepper._getIndicatorType = () => 'number';
 
+    // TODO workaround to trigger/ show the error message when file upload field is invalid
+    this.stepper.steps.first.interactedStream
+      .pipe(takeUntil(this.destroy$$))
+      .subscribe(() => {
+        this.formGroup.controls.videoGroup.controls.files.markAsTouched();
+      });
+
     this.formGroup.controls.videoGroup.controls.files.valueChanges
       .pipe(takeUntil(this.destroy$$))
       .subscribe((value) => {
@@ -294,6 +301,11 @@ export class DialogCreateProjectComponent implements AfterViewInit, OnDestroy {
 
       return invalidEntryExist ? { invalidEntry: true } : null;
     };
+  }
+
+  // TODO workaround to trigger/ show the error message when file upload field is invalid
+  onHandleFirstStep() {
+    this.formGroup.controls.videoGroup.controls.files.markAsTouched();
   }
 
   onCreateProject() {
