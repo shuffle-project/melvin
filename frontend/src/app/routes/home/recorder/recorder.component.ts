@@ -88,4 +88,13 @@ export class RecorderComponent implements OnInit, OnDestroy {
   async onClickStopRecord() {
     this.recorderService.stopRecording(this.recordingTitle);
   }
+
+  recordingModeDisabled() {
+    return (
+      this.recorderService.recording ||
+      (this.recorderService.audios.length === 0 &&
+        this.recorderService.screensharings.filter((value) => value.sound)
+          .length === 0)
+    );
+  }
 }

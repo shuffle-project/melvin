@@ -214,9 +214,14 @@ export class RecorderService {
       // this.finishRecording();
       this.recording = false;
     }
+    recording.mediaRecorder.ondataavailable = null;
   }
 
   getMergedAudioTracks(...streams: MediaStream[]): MediaStreamTrack[] {
+    if (streams.length < 1) {
+      return [];
+    }
+
     const audioCtx = new AudioContext();
     const destination = audioCtx.createMediaStreamDestination();
 

@@ -29,7 +29,8 @@
       @if (!this.recorderService.recordingMode) {
       <span>
         Edit mode. You can add or delete sources. <br />
-        You need at least 1 source to be able to switch to recording Mode.
+        You need at least 1 source with audio to be able to switch to recording
+        Mode.
       </span>
       } @else if (!this.recorderService.recording) {
       <span>
@@ -48,12 +49,7 @@
     <div class="buttons">
       <mat-slide-toggle
         [(ngModel)]="recorderService.recordingMode"
-        [disabled]="
-          recorderService.recording ||
-          (recorderService.audios.length === 0 &&
-            recorderService.videos.length === 0 &&
-            recorderService.screensharings.length === 0)
-        "
+        [disabled]="recordingModeDisabled()"
       >
         Aufnahme modus
       </mat-slide-toggle>

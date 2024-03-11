@@ -5,13 +5,13 @@
         <app-logo class="clickable logo" [routerLink]="['/home/projects']" />
         <ng-content />
         <div class="header-buttons {{ !viewer ? 'margin-left' : '' }}">
-          <button
+          <!-- <button
             mat-stroked-button
             class="show-notifications-button"
             (click)="onOpenRecorder()"
           >
             <mat-icon svgIcon="play" />
-          </button>
+          </button> -->
 
           @if (('notifications' | featureEnabled) && !viewer) {
           <button
