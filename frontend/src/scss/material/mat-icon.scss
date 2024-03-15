@@ -17,6 +17,11 @@ mat-icon.lg {
   filter: brightness(0) saturate(100%);
 }
 
+.svg-red {
+  filter: invert(10%) sepia(97%) saturate(7311%) hue-rotate(6deg)
+    brightness(107%) contrast(112%);
+}
+
 .svg-white {
   filter: brightness(0) saturate(100%) invert(100%) sepia(1%) saturate(86%)
     hue-rotate(216deg) brightness(102%) contrast(100%);

@@ -254,6 +254,10 @@ export class ProjectListComponent implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
+  onOpenRecorder() {
+    this.router.navigate(['/home/recorder']);
+  }
+
   isClickable(project: ProjectEntity) {
     return [
       ProjectStatus.DRAFT,

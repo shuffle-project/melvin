@@ -1,5 +1,21 @@
+@keyframes live-record {
+  0% {
+    opacity: 10%;
+  }
+  50% {
+    opacity: 100%;
+  }
+  100% {
+    opacity: 10%;
+  }
+}
+
 .project-title {
   margin-left: 13px;
+}
+
+.recording-indicator {
+  animation: 3s ease-in-out infinite live-record;
 }
 
 .content {
@@ -10,7 +26,7 @@
   display: flex;
   flex-direction: column;
 
-  .recording-wrapper {
+  .head-wrapper {
     display: flex;
     margin-top: 10px;
 
@@ -29,6 +45,13 @@
 
     .buttons {
       margin-left: auto;
+      display: flex;
+      gap: 3px;
+      height: fit-content;
+      align-items: center;
+      .action-btn {
+        min-width: 150px;
+      }
     }
   }
 

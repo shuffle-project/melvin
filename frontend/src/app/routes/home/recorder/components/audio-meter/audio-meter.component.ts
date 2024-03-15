@@ -1,12 +1,18 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  Input,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
 
 @Component({
-    selector: 'app-audio-meter',
-    templateUrl: './audio-meter.component.html',
-    styleUrls: ['./audio-meter.component.scss'],
-    standalone: true,
+  selector: 'app-audio-meter',
+  templateUrl: './audio-meter.component.html',
+  styleUrls: ['./audio-meter.component.scss'],
+  standalone: true,
 })
-export class AudioMeterComponent implements OnInit, OnDestroy {
+export class AudioMeterComponent implements OnInit, AfterViewInit, OnDestroy {
   @Input({ required: true }) mediaStream!: MediaStream;
 
   destroyed = false;
@@ -14,7 +20,7 @@ export class AudioMeterComponent implements OnInit, OnDestroy {
 
   constructor() {}
 
-  ngOnInit(): void {
+  ngAfterViewInit(): void {
     const audioContext = new AudioContext();
     const mediaStreamAudioSourceNode = audioContext.createMediaStreamSource(
       this.mediaStream
@@ -35,10 +41,13 @@ export class AudioMeterComponent implements OnInit, OnDestroy {
       const newVolumeLevel = Math.sqrt(sumSquares / pcmData.length) * 750;
       this.volumeLevel =
         newVolumeLevel > 100 ? 100 : Number(newVolumeLevel.toFixed());
+
       window.requestAnimationFrame(onFrame);
     };
     window.requestAnimationFrame(onFrame);
   }
+
+  ngOnInit(): void {}
 
   ngOnDestroy(): void {
     this.destroyed = true;

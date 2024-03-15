@@ -14,8 +14,12 @@ import {
   providedIn: 'root',
 })
 export class RecorderService {
-  public recordingMode = false;
+  // public recordingMode = false;
   public recording = false;
+  public recordingPaused = false;
+
+  public previousDuration = 0;
+  public recordingTimestamp!: number;
 
   public title: string = '';
   public language: string = 'de';
@@ -116,6 +120,19 @@ export class RecorderService {
    * recording
    */
 
+  onPauseMediaRecorder() {
+    this.previousDuration =
+      this.previousDuration + (Date.now() - this.recordingTimestamp);
+    this.recordings.forEach((rec) => rec.mediaRecorder.pause());
+    this.recordingPaused = true;
+  }
+  
+  onResumeMediaRecorder() {
+    this.recordingTimestamp = Date.now();
+    this.recordings.forEach((rec) => rec.mediaRecorder.resume());
+    this.recordingPaused = false;
+  }
+
   stopRecording(title: string) {
     if (!this.recording) return;
 
@@ -134,6 +151,7 @@ export class RecorderService {
 
   startRecording() {
     if (this.recording) return;
+    this.recordingTimestamp = Date.now();
 
     // cleanup;
     this.recordings = []; // TODO

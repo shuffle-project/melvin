@@ -103,10 +103,6 @@ export class HeaderComponent implements OnDestroy, OnInit {
     );
   }
 
-  onOpenRecorder() {
-    this.router.navigate(['/home/recorder']);
-  }
-
   openProfile() {
     this.router.navigate(['/home/profile']);
   }

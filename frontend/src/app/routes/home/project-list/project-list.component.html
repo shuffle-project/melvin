@@ -79,6 +79,15 @@
       </div>
     </div>
     <div>
+      <button
+        mat-raised-button
+        color="primary"
+        class="new-project-button"
+        (click)="onOpenRecorder()"
+      >
+        Recorder
+      </button>
+
       @if ('projectCreate' | featureEnabled) {
       <button
         (click)="onOpenDialogCreateProject()"

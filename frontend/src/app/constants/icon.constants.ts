@@ -61,6 +61,7 @@ export const ICONS = [
   'play',
   'plus',
   'record',
+  'recording',
   'refresh',
   'refresh2',
   'repeat',

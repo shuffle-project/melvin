@@ -12,6 +12,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { LetDirective } from '@ngrx/component';
 import { Store } from '@ngrx/store';
 import { HeaderComponent } from '../../../components/header/header.component';
+import { DurationPipe } from '../../../pipes/duration-pipe/duration.pipe';
 import { AppState } from '../../../store/app.state';
 import * as configSelector from '../../../store/selectors/config.selector';
 import { MediaSourceComponent } from './components/media-source/media-source.component';
@@ -39,6 +40,7 @@ import { RecorderService } from './recorder.service';
     ReactiveFormsModule,
     MatSelectModule,
     LetDirective,
+    DurationPipe,
     MatSlideToggleModule,
   ],
 })
@@ -81,6 +83,20 @@ export class RecorderComponent implements OnInit, OnDestroy {
     });
   }
 
+  getCurrentDuration() {
+    if (
+      this.recorderService.recordingPaused ||
+      !this.recorderService.recording
+    ) {
+      return this.recorderService.previousDuration;
+    } else {
+      return (
+        this.recorderService.previousDuration +
+        (Date.now() - this.recorderService.recordingTimestamp)
+      );
+    }
+  }
+
   onClickStartRecord() {
     this.recorderService.startRecording();
   }
@@ -89,12 +105,25 @@ export class RecorderComponent implements OnInit, OnDestroy {
     this.recorderService.stopRecording(this.recordingTitle);
   }
 
-  recordingModeDisabled() {
+  onClickTogglePauseRecording() {
+    if (this.recorderService.recordingPaused) {
+      this.recorderService.onResumeMediaRecorder();
+    } else {
+      this.recorderService.onPauseMediaRecorder();
+    }
+  }
+
+  recordingDisabled() {
+    const noAudioAvailable =
+      this.recorderService.audios.length === 0 &&
+      this.recorderService.screensharings.filter((value) => value.sound)
+        .length === 0;
+    const noVideoAvailable =
+      this.recorderService.videos.length === 0 &&
+      this.recorderService.screensharings.length === 0;
+
     return (
-      this.recorderService.recording ||
-      (this.recorderService.audios.length === 0 &&
-        this.recorderService.screensharings.filter((value) => value.sound)
-          .length === 0)
+      this.recorderService.recording || noAudioAvailable || noVideoAvailable
     );
   }
 }
