@@ -290,6 +290,7 @@
           mat-icon-button
           i18n-aria-label="@@projectListOpenViewerAriaLabel"
           aria-label="Open Viewer"
+          [disabled]="!isClickable(element)"
           (click)="onOpenViewer(element)"
         >
           <mat-icon svgIcon="viewer"></mat-icon>

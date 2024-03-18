@@ -1,5 +1,13 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnDestroy,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { MatDividerModule } from '@angular/material/divider';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Subject, lastValueFrom, take, takeUntil } from 'rxjs';
@@ -7,36 +15,37 @@ import { ProjectDetailComponent } from 'src/app/modules/project-detail/project-d
 import { ProjectEntity } from 'src/app/services/api/entities/project.entity';
 import { TranscriptionEntity } from 'src/app/services/api/entities/transcription.entity';
 import { AppState } from 'src/app/store/app.state';
+import { FormatDatePipe } from '../../../../../../pipes/format-date-pipe/format-date.pipe';
+import { WrittenOutLanguagePipe } from '../../../../../../pipes/written-out-language-pipe/written-out-language.pipe';
 import * as transcriptionsActions from '../../../../../../store/actions/transcriptions.actions';
 import * as authSelectors from '../../../../../../store/selectors/auth.selector';
 import * as editorSelectors from '../../../../../../store/selectors/editor.selector';
 import { EditTranscriptionDialogComponent } from '../edit-transcription-dialog/edit-transcription-dialog.component';
-import { WrittenOutLanguagePipe } from '../../../../../../pipes/written-out-language-pipe/written-out-language.pipe';
-import { FormatDatePipe } from '../../../../../../pipes/format-date-pipe/format-date.pipe';
-import { MatDividerModule } from '@angular/material/divider';
 
-import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
-import { MatButtonModule } from '@angular/material/button';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @Component({
-    selector: 'app-transcription',
-    templateUrl: './transcription.component.html',
-    styleUrls: ['./transcription.component.scss'],
-    standalone: true,
-    imports: [
+  selector: 'app-transcription',
+  templateUrl: './transcription.component.html',
+  styleUrls: ['./transcription.component.scss'],
+  standalone: true,
+  imports: [
     MatButtonModule,
     MatMenuModule,
     MatIconModule,
     MatTooltipModule,
     MatDividerModule,
     FormatDatePipe,
-    WrittenOutLanguagePipe
-],
+    WrittenOutLanguagePipe,
+  ],
 })
 export class TranscriptionComponent implements OnInit, OnDestroy {
   @Input() transcription!: TranscriptionEntity;
+
+  @Output() deleteTranscription = new EventEmitter<TranscriptionEntity>();
 
   public userId!: string | null;
   public project!: ProjectEntity;
@@ -69,10 +78,8 @@ export class TranscriptionComponent implements OnInit, OnDestroy {
     this.destroy$$.next();
   }
 
-  onClickDeleteTranscription(transcriptId: string) {
-    this.store.dispatch(
-      transcriptionsActions.removeFromEditor({ transcriptionId: transcriptId })
-    );
+  onClickDeleteTranscription() {
+    this.deleteTranscription.emit(this.transcription);
   }
 
   onOpenTranscription(transcriptionId: string) {

@@ -14,7 +14,12 @@
   <ng-container *ngrxLet="transcriptionsList$ as transcriptions">
     @for (transcription of transcriptions; track transcription) {
     <li class="transcription basic-form">
-      <app-transcription [transcription]="transcription"></app-transcription>
+      <app-transcription
+        [transcription]="transcription"
+        (deleteTranscription)="
+          onEventDeleteTranscription($event, transcriptions.length)
+        "
+      ></app-transcription>
     </li>
     }
   </ng-container>

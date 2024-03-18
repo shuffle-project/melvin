@@ -11,6 +11,7 @@ import { TranscriptionComponent } from './components/transcription/transcription
 
 import { MatIconModule } from '@angular/material/icon';
 import { LetDirective, PushPipe } from '@ngrx/component';
+import * as transcriptionsActions from '../../../../store/actions/transcriptions.actions';
 
 @Component({
   selector: 'app-project-transcription',
@@ -40,5 +41,20 @@ export class ProjectTranscriptionComponent {
       maxWidth: '800px',
       maxHeight: '90vh',
     });
+  }
+
+  onEventDeleteTranscription(
+    transcription: TranscriptionEntity,
+    transcriptionsLength: number
+  ) {
+    if (transcriptionsLength < 2) {
+      // TODO dont remove if there is just one transcription
+      return;
+    }
+    this.store.dispatch(
+      transcriptionsActions.removeFromEditor({
+        transcriptionId: transcription.id,
+      })
+    );
   }
 }
