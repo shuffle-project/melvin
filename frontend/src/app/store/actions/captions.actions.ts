@@ -12,6 +12,10 @@ export const create = createAction(
   props<{ captionDto: CreateCaptionDto }>()
 );
 
+export const createInitialCaption = createAction(
+  '[CAPTIONS COMPONENT] Create initial empty caption'
+);
+
 export const createSuccess = createAction(
   '[CAPTION API] Add caption success',
   props<{ newCaption: CaptionEntity }>()

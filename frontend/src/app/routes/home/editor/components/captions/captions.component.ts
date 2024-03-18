@@ -1,4 +1,8 @@
-import { CdkVirtualScrollViewport, CdkFixedSizeVirtualScroll, CdkVirtualForOf } from '@angular/cdk/scrolling';
+import {
+  CdkFixedSizeVirtualScroll,
+  CdkVirtualForOf,
+  CdkVirtualScrollViewport,
+} from '@angular/cdk/scrolling';
 import { Component, OnDestroy, ViewChild } from '@angular/core';
 import { Store } from '@ngrx/store';
 import {
@@ -18,20 +22,23 @@ import * as captionsSelectors from '../../../../../store/selectors/captions.sele
 import { MediaService } from '../../services/media/media.service';
 import { CaptionComponent } from './caption/caption.component';
 
+import { MatButtonModule } from '@angular/material/button';
 import { LetDirective } from '@ngrx/component';
+import * as captionsActions from '../../../../../store/actions/captions.actions';
 
 @Component({
-    selector: 'app-captions',
-    templateUrl: './captions.component.html',
-    styleUrls: ['./captions.component.scss'],
-    standalone: true,
-    imports: [
+  selector: 'app-captions',
+  templateUrl: './captions.component.html',
+  styleUrls: ['./captions.component.scss'],
+  standalone: true,
+  imports: [
     LetDirective,
     CdkVirtualScrollViewport,
     CdkFixedSizeVirtualScroll,
     CdkVirtualForOf,
-    CaptionComponent
-],
+    CaptionComponent,
+    MatButtonModule,
+  ],
 })
 export class CaptionsComponent implements OnDestroy {
   @ViewChild('cdkVirtualScrollViewport')
@@ -119,5 +126,9 @@ export class CaptionsComponent implements OnDestroy {
 
   scrollToIndex(index: number) {
     this.cdkVirtualScrollViewport.scrollToIndex(index);
+  }
+
+  createInitialCaption() {
+    this.store.dispatch(captionsActions.createInitialCaption());
   }
 }

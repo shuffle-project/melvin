@@ -296,6 +296,23 @@ export class ProjectService {
           audio: mainAudio,
         },
       });
+    } else {
+      //  create empty transcription
+      const emptyTranscription = await this.transcriptionService.create(
+        authUser,
+        {
+          project: new Types.ObjectId(project._id),
+          language: project.language,
+          title: `${project.title} - ${project.language}`,
+        },
+      );
+      await this.transcriptionService.createSpeakers(
+        authUser,
+        emptyTranscription._id.toString(),
+        {
+          names: ['Sprecher 1'],
+        },
+      );
     }
 
     // media file

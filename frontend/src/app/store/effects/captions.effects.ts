@@ -10,6 +10,10 @@ import { CaptionEntity } from '../../services/api/entities/caption.entity';
 import * as captionsActions from '../actions/captions.actions';
 import * as transcriptionsActions from '../actions/transcriptions.actions';
 import { selectQueryParam } from '../selectors/router.selectors';
+import {
+  selectAvailableSpeakers,
+  selectTranscriptionId,
+} from '../selectors/transcriptions.selector';
 
 @Injectable({
   providedIn: 'root',
@@ -73,6 +77,33 @@ export class CaptionsEffects {
             ),
             catchError((error) => of(captionsActions.findAllFail({ error })))
           ) //todo further error handling
+      )
+    )
+  );
+
+  createInitialCaption$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(captionsActions.createInitialCaption),
+      withLatestFrom(
+        this.store.select(selectTranscriptionId),
+        this.store.select(selectAvailableSpeakers)
+      ),
+      mergeMap(
+        ([action, transcriptionId, speakers]) =>
+          this.api
+            .createCaption({
+              start: 0,
+              end: 30000,
+              text: 'First caption!',
+              transcription: transcriptionId,
+              speakerId: speakers[0].id,
+            })
+            .pipe(
+              map((newCaption) => {
+                return captionsActions.createSuccess({ newCaption });
+              }),
+              catchError((error) => of(captionsActions.createFailed({ error })))
+            ) //TODO further error handling
       )
     )
   );
