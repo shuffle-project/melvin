@@ -326,7 +326,7 @@
           <mat-icon svgIcon="viewer"></mat-icon>
           Viewer
         </button> -->
-        @if (element.createdBy === (userId$ | ngrxPush)) {
+        @if (element.createdBy.id === (userId$ | ngrxPush)) {
         <mat-divider></mat-divider>
         <button
           (click)="onDeleteProject(element.id)"
