@@ -1,0 +1,30 @@
+<div class="container">
+  <h1 mat-dialog-title i18n="@@deleteConfirmationDialogTitle">
+    Delete {{ data.subject }}
+  </h1>
+  <div mat-dialog-content>
+    @if (data.description) {
+    <p class="text">{{ data.description }}</p>
+    }
+    <p i18n="@@deleteConfirmationDialogAreYouSure">
+      Are you sure you want to delete this {{ data.subject }}?
+    </p>
+  </div>
+  <div mat-dialog-actions align="end">
+    <button
+      mat-button
+      (click)="onAbort()"
+      i18n="@@deleteConfirmationDialogAbortButton"
+    >
+      Abort
+    </button>
+    <button
+      mat-button
+      (click)="onConfirm()"
+      i18n="@@deleteConfirmationDialogConfirmButton"
+      cdkFocusInitial
+    >
+      Confirm
+    </button>
+  </div>
+</div>

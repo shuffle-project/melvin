@@ -330,7 +330,7 @@
         @if (element.createdBy.id === (userId$ | ngrxPush)) {
         <mat-divider></mat-divider>
         <button
-          (click)="onDeleteProject(element.id)"
+          (click)="onDeleteProject(element)"
           mat-menu-item
           i18n="@@projectListMoreMenuDeleteLabel"
         >

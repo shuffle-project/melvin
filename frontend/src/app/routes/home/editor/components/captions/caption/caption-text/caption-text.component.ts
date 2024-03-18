@@ -24,15 +24,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { LetDirective } from '@ngrx/component';
 import { Store } from '@ngrx/store';
-import {
-  Observable,
-  Subject,
-  map,
-  take,
-  takeUntil,
-  tap,
-  throttleTime,
-} from 'rxjs';
+import { Observable, Subject, map, takeUntil, tap, throttleTime } from 'rxjs';
+import { DeleteConfirmationService } from '../../../../../../../components/delete-confirmation-dialog/delete-confirmation.service';
 import { EDITOR_USER_UNKNOWN } from '../../../../../../../constants/editor.constants';
 import { EditorUser } from '../../../../../../../interfaces/editor-user.interface';
 import { FeatureEnabledPipe } from '../../../../../../../pipes/feature-enabled-pipe/feature-enabled.pipe';
@@ -43,10 +36,6 @@ import { AppState } from '../../../../../../../store/app.state';
 import * as authSelectors from '../../../../../../../store/selectors/auth.selector';
 import * as editorSelectors from '../../../../../../../store/selectors/editor.selector';
 import { MediaService } from '../../../../services/media/media.service';
-import {
-  CaptionDeleteConfirmModalComponent,
-  CaptionDeleteConfirmModalResult,
-} from '../caption-actions/caption-delete-confirm-modal/caption-delete-confirm-modal.component';
 
 @Component({
   selector: 'app-caption-text',
@@ -130,7 +119,8 @@ export class CaptionTextComponent
     private elementRef: ElementRef,
     private mediaService: MediaService,
     private store: Store<AppState>,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private deleteService: DeleteConfirmationService
   ) {}
 
   ngOnInit(): void {
@@ -451,21 +441,9 @@ export class CaptionTextComponent
       this.markedForDeletion = true;
     } else {
       // delete caption
-      const dialogRef = this.dialog.open(CaptionDeleteConfirmModalComponent, {
-        data: { caption: this.caption },
-      });
-
-      dialogRef
-        .afterClosed()
-        .pipe(take(1))
-        .subscribe((data: CaptionDeleteConfirmModalResult) => {
-          if (data?.delete) {
-            this.store.dispatch(
-              captionsActions.remove({ removeCaptionId: this.caption.id })
-            );
-            this.markedForDeletion = true;
-          }
-        });
+      this.deleteService.deleteCaption(this.caption);
+      this.markedForDeletion = true;
+      // this.deleteService.confirm(
     }
   }
 }

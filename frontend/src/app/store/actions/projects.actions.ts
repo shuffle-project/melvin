@@ -12,7 +12,7 @@ export const createFromWS = createAction(
 );
 
 export const remove = createAction(
-  '[not used] Remove Project',
+  '[DELETE SERVICE] Remove Project',
   props<{ removeProjectId: string }>()
 );
 

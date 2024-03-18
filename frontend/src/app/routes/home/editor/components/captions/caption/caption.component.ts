@@ -1,24 +1,23 @@
 import { Component, Input } from '@angular/core';
-import { CaptionEntity } from '../../../../../../services/api/entities/caption.entity';
 import { FeatureEnabledPipe } from '../../../../../../pipes/feature-enabled-pipe/feature-enabled.pipe';
-import { CaptionTimeComponent } from './caption-time/caption-time.component';
-import { CaptionTextComponent } from './caption-text/caption-text.component';
+import { CaptionEntity } from '../../../../../../services/api/entities/caption.entity';
 import { CaptionActionsComponent } from './caption-actions/caption-actions.component';
 import { CaptionSpeakerComponent } from './caption-speaker/caption-speaker.component';
-
+import { CaptionTextComponent } from './caption-text/caption-text.component';
+import { CaptionTimeComponent } from './caption-time/caption-time.component';
 
 @Component({
-    selector: 'app-caption',
-    templateUrl: './caption.component.html',
-    styleUrls: ['./caption.component.scss'],
-    standalone: true,
-    imports: [
+  selector: 'app-caption',
+  templateUrl: './caption.component.html',
+  styleUrls: ['./caption.component.scss'],
+  standalone: true,
+  imports: [
     CaptionSpeakerComponent,
     CaptionActionsComponent,
     CaptionTextComponent,
     CaptionTimeComponent,
-    FeatureEnabledPipe
-],
+    FeatureEnabledPipe,
+  ],
 })
 export class CaptionComponent {
   @Input() caption!: CaptionEntity;

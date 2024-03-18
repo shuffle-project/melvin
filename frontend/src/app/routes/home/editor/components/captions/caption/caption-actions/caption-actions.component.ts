@@ -1,35 +1,31 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
-import { take } from 'rxjs';
+import { FeatureEnabledPipe } from '../../../../../../../pipes/feature-enabled-pipe/feature-enabled.pipe';
 import {
   CaptionEntity,
   CaptionStatusEnum,
 } from '../../../../../../../services/api/entities/caption.entity';
 import * as captionsActions from '../../../../../../../store/actions/captions.actions';
 import { AppState } from '../../../../../../../store/app.state';
-import {
-  CaptionDeleteConfirmModalComponent,
-  CaptionDeleteConfirmModalResult,
-} from './caption-delete-confirm-modal/caption-delete-confirm-modal.component';
 import { CaptionHistoryModalComponent } from './caption-history-modal/caption-history-modal.component';
-import { FeatureEnabledPipe } from '../../../../../../../pipes/feature-enabled-pipe/feature-enabled.pipe';
 
+import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { MatButtonModule } from '@angular/material/button';
+import { DeleteConfirmationService } from '../../../../../../../components/delete-confirmation-dialog/delete-confirmation.service';
 
 @Component({
-    selector: 'app-caption-actions',
-    templateUrl: './caption-actions.component.html',
-    styleUrls: ['./caption-actions.component.scss'],
-    standalone: true,
-    imports: [
+  selector: 'app-caption-actions',
+  templateUrl: './caption-actions.component.html',
+  styleUrls: ['./caption-actions.component.scss'],
+  standalone: true,
+  imports: [
     MatButtonModule,
     MatTooltipModule,
     MatIconModule,
-    FeatureEnabledPipe
-],
+    FeatureEnabledPipe,
+  ],
 })
 export class CaptionActionsComponent implements OnInit {
   @Input() caption!: CaptionEntity;
@@ -39,7 +35,11 @@ export class CaptionActionsComponent implements OnInit {
     return this.caption?.status === CaptionStatusEnum.FLAGGED;
   }
 
-  constructor(private store: Store<AppState>, private dialog: MatDialog) {}
+  constructor(
+    private store: Store<AppState>,
+    private dialog: MatDialog,
+    private deleteService: DeleteConfirmationService
+  ) {}
 
   ngOnInit(): void {}
 
@@ -66,19 +66,6 @@ export class CaptionActionsComponent implements OnInit {
   }
 
   onClickDelete() {
-    const dialogRef = this.dialog.open(CaptionDeleteConfirmModalComponent, {
-      data: { caption: this.caption },
-    });
-
-    dialogRef
-      .afterClosed()
-      .pipe(take(1))
-      .subscribe((data: CaptionDeleteConfirmModalResult) => {
-        if (data?.delete) {
-          this.store.dispatch(
-            captionsActions.remove({ removeCaptionId: this.caption.id })
-          );
-        }
-      });
+    this.deleteService.deleteCaption(this.caption);
   }
 }

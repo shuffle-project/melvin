@@ -37,6 +37,7 @@ import { ProjectLanguagesSetPipe } from 'src/app/pipes/project-languages-set-pip
 import { WrittenOutLanguagePipe } from 'src/app/pipes/written-out-language-pipe/written-out-language.pipe';
 import { AppState } from 'src/app/store/app.state';
 import { AvatarGroupComponent } from '../../../components/avatar-group/avatar-group.component';
+import { DeleteConfirmationService } from '../../../components/delete-confirmation-dialog/delete-confirmation.service';
 import { FooterComponent } from '../../../components/footer/footer.component';
 import { HeaderComponent } from '../../../components/header/header.component';
 import { ShareProjectDialogComponent } from '../../../components/share-project-dialog/share-project-dialog.component';
@@ -140,6 +141,7 @@ export class ProjectListComponent implements OnInit, AfterViewInit, OnDestroy {
     private _liveAnnouncer: LiveAnnouncer,
     private store: Store<AppState>,
     private dialog: MatDialog,
+    private deleteService: DeleteConfirmationService,
     private router: Router
   ) {
     this.projectFilter$ = this.store.select(
@@ -202,8 +204,8 @@ export class ProjectListComponent implements OnInit, AfterViewInit, OnDestroy {
     });
   }
 
-  onDeleteProject(projectId: string) {
-    this.store.dispatch(projectsActions.remove({ removeProjectId: projectId }));
+  onDeleteProject(project: ProjectEntity) {
+    this.deleteService.deleteProject(project);
   }
 
   ngOnDestroy(): void {
@@ -259,10 +261,12 @@ export class ProjectListComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   isClickable(project: ProjectEntity) {
-    return [
-      ProjectStatus.DRAFT,
-      ProjectStatus.FINISHED,
-      ProjectStatus.LIVE,
-    ].includes(project.status);
+    return (
+      [
+        ProjectStatus.DRAFT,
+        ProjectStatus.FINISHED,
+        ProjectStatus.LIVE,
+      ].includes(project.status) && project.transcriptions.length > 0
+    );
   }
 }

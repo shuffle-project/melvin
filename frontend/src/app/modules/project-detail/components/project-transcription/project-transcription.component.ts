@@ -11,7 +11,7 @@ import { TranscriptionComponent } from './components/transcription/transcription
 
 import { MatIconModule } from '@angular/material/icon';
 import { LetDirective, PushPipe } from '@ngrx/component';
-import * as transcriptionsActions from '../../../../store/actions/transcriptions.actions';
+import { DeleteConfirmationService } from '../../../../components/delete-confirmation-dialog/delete-confirmation.service';
 
 @Component({
   selector: 'app-project-transcription',
@@ -27,7 +27,8 @@ export class ProjectTranscriptionComponent {
   constructor(
     private store: Store<AppState>,
     private dialogRefProjectDetail: MatDialogRef<ProjectDetailComponent>,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private deleteService: DeleteConfirmationService
   ) {
     this.transcriptionsList$ = this.store.select(
       transcriptionsSelectors.selectTranscriptionList
@@ -51,10 +52,7 @@ export class ProjectTranscriptionComponent {
       // TODO dont remove if there is just one transcription
       return;
     }
-    this.store.dispatch(
-      transcriptionsActions.removeFromEditor({
-        transcriptionId: transcription.id,
-      })
-    );
+
+    this.deleteService.deleteTranscription(transcription);
   }
 }
