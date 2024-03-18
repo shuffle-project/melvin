@@ -35,7 +35,7 @@ import {
   CustomInternalServerException,
   CustomNotFoundException,
 } from '../../utils/exceptions';
-import { isSameObjectId } from '../../utils/objectid';
+import { getObjectIdAsString, isSameObjectId } from '../../utils/objectid';
 import { ActivityService } from '../activity/activity.service';
 import { AuthUser, MediaAccessUser } from '../auth/auth.interfaces';
 import { AuthService } from '../auth/auth.service';
@@ -217,7 +217,8 @@ export class ProjectService {
     // Create activity
     await this.activityService.create(
       project.toObject(),
-      (project.createdBy as Types.ObjectId).toString(),
+      getObjectIdAsString(project.createdBy),
+      // (project.createdBy as Types.ObjectId).toString(),
       'project-created',
       {},
     );
@@ -347,7 +348,7 @@ export class ProjectService {
     }
 
     // Entity
-    const entity = plainToInstance(ProjectEntity, project); //
+    const entity = plainToInstance(ProjectEntity, project);
 
     return entity;
   }
@@ -415,28 +416,12 @@ export class ProjectService {
       //   projectId: project._id,
       // });
     }
-    const oldProject = await this.db.projectModel
-      .findByIdAndUpdate(
-        id,
-        {
-          $set: updateProjectDto,
-        },
-        {
-          // new: true,
-          populate: ['transcriptions', 'users'],
-        },
-      )
-      .lean()
-      .exec();
-
-    // TODO not pretty
-    const updatedProject = await this.db.findProjectByIdOrThrow(id);
+    const updatedProject = await this.db.updateProjectByIdAndReturn(id, {
+      $set: updateProjectDto,
+    });
 
     // create activites
-    if (
-      updateProjectDto.status &&
-      oldProject.status !== updatedProject.status
-    ) {
+    if (updateProjectDto.status && project.status !== updatedProject.status) {
       await this.activityService.create(
         updatedProject,
         authUser.id,
@@ -544,10 +529,7 @@ export class ProjectService {
   }
 
   async invite(authUser: AuthUser, id: string, dto: InviteDto): Promise<void> {
-    const project = await this.db.findProjectByIdOrThrowAndPopulate(
-      id,
-      'createdBy users',
-    );
+    const project = await this.db.findProjectByIdOrThrow(id);
 
     if (!this.permissions.isProjectOwner(project, authUser)) {
       throw new CustomForbiddenException('must_be_owner');
@@ -740,18 +722,24 @@ export class ProjectService {
       status: MediaStatus.WAITING,
       extension: 'mp4',
     };
-    const updatedProject = await this.db.projectModel
-      .findByIdAndUpdate(
-        projectId,
-        {
-          $push: {
-            videos: video,
-          },
-        },
-        { populate: ['users'], new: true },
-      )
-      .lean()
-      .exec();
+
+    const updatedProject = await this.db.updateProjectByIdAndReturn(projectId, {
+      $push: {
+        videos: video,
+      },
+    });
+    // const updatedProject = await this.db.projectModel
+    //   .findByIdAndUpdate(
+    //     projectId,
+    //     {
+    //       $push: {
+    //         videos: video,
+    //       },
+    //     },
+    //     { populate: ['users'], new: true },
+    //   )
+    //   .lean()
+    //   .exec();
 
     this.projectQueue.add({
       authUser,
@@ -769,8 +757,6 @@ export class ProjectService {
     media: Audio | Video,
     newStatus: MediaStatus,
   ) {
-    // const project = await this.db.projectModel.findById(projectId);
-
     await Promise.all([
       this.db.projectModel
         .updateOne(

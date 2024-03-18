@@ -79,7 +79,8 @@ export interface ProjectEntity {
   title: string;
   createdAt: string;
   updatedAt: string;
-  createdBy: string;
+  // createdBy: string;
+  createdBy: UserEntity;
   duration: number;
   status: ProjectStatus;
   start: number;

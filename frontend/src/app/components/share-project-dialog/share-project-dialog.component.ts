@@ -6,10 +6,10 @@ import { HttpErrorResponse } from '@angular/common/http';
 import {
   Component,
   ElementRef,
-  Inject,
   OnDestroy,
   OnInit,
   ViewChild,
+  inject,
 } from '@angular/core';
 import {
   FormControl,
@@ -92,14 +92,15 @@ interface DialogData {
     MatTabsModule,
     MatToolbarModule,
     MatTooltipModule,
-    ReactiveFormsModule
-],
+    ReactiveFormsModule,
+  ],
   standalone: true,
 })
 export class ShareProjectDialogComponent implements OnInit, OnDestroy {
   private destroy$$ = new Subject<void>();
 
-  public project: ProjectEntity;
+  project = inject<DialogData>(MAT_DIALOG_DATA).project;
+
   public inviteToken!: string;
   public isLoading!: boolean;
   public error!: string | null;
@@ -123,15 +124,12 @@ export class ShareProjectDialogComponent implements OnInit, OnDestroy {
   // }),
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) data: DialogData,
     private apiService: ApiService,
     private clipboard: Clipboard,
     private alertService: AlertService,
     private api: ApiService,
     private store: Store<AppState>
-  ) {
-    this.project = data.project;
-  }
+  ) {}
 
   get inviteLink(): string {
     return `${environment.frontendBaseUrl}/invite/${this.inviteToken}`;

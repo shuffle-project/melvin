@@ -72,17 +72,20 @@ export class AddAudioSourceComponent implements OnInit, OnDestroy {
     this.loadingError = null;
     this.deviceError = null;
 
-    // if (refresh) {
-    //   this.recorderService.reloadDevices();
-    // }
+    try {
+      const userMedia = await navigator.mediaDevices.getUserMedia({
+        video: false,
+        audio: true,
+      });
 
-    const userMedia = await navigator.mediaDevices.getUserMedia({
-      video: false,
-      audio: true,
-    });
-    this.audioSource.deviceId = userMedia.id;
-    this.audioSource.label = 'default';
-    this.audioSource.mediaStream = userMedia;
+      this.audioSource.deviceId = userMedia.id;
+      this.audioSource.label = 'default';
+      this.audioSource.mediaStream = userMedia;
+    } catch (error) {
+      console.log(error);
+      this.deviceError =
+        'Der Zugriff auf das Gerät war nicht erfolgreich. Eventuell wird das Gerät von einem anderen Programm verwendet.';
+    }
 
     this.audioinputs = await this.recorderService.getDevices('audioinput');
 
@@ -98,6 +101,8 @@ export class AddAudioSourceComponent implements OnInit, OnDestroy {
   }
 
   async resetAudioSource(mediaDeviceInfo: MediaDeviceInfo) {
+    this.deviceError = null;
+
     this.audioSource.deviceId = mediaDeviceInfo.deviceId;
     this.audioSource.label = mediaDeviceInfo.label;
 

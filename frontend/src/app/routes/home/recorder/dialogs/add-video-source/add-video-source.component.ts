@@ -75,17 +75,19 @@ export class AddVideoSourceComponent implements OnInit, OnDestroy {
     this.loadingError = null;
     this.deviceError = null;
 
-    // if (refresh) {
-    //   this.recorderService.reloadDevices();
-    // }
-
-    const userMedia = await navigator.mediaDevices.getUserMedia({
-      video: true,
-      audio: false,
-    });
-    this.videoSource.deviceId = userMedia.id;
-    this.videoSource.label = 'default';
-    this.videoSource.mediaStream = userMedia;
+    try {
+      const userMedia = await navigator.mediaDevices.getUserMedia({
+        video: true,
+        audio: false,
+      });
+      this.videoSource.deviceId = userMedia.id;
+      this.videoSource.label = 'default';
+      this.videoSource.mediaStream = userMedia;
+    } catch (error) {
+      console.log(error);
+      this.deviceError =
+        'Der Zugriff auf das Gerät war nicht erfolgreich. Eventuell wird das Gerät von einem anderen Programm verwendet.';
+    }
 
     this.videoinputs = await this.recorderService.getDevices('videoinput');
 
@@ -102,6 +104,8 @@ export class AddVideoSourceComponent implements OnInit, OnDestroy {
   }
 
   async resetVideoSourceDevice(mediaDeviceInfo: MediaDeviceInfo) {
+    this.deviceError = null;
+
     this.videoSource.deviceId = mediaDeviceInfo.deviceId;
     this.videoSource.label = mediaDeviceInfo.label;
 

@@ -132,7 +132,7 @@ export class EditorComponent implements OnInit, OnDestroy {
   public isOwner$ = combineLatest([
     this.store.select(authSelectors.selectUserId),
     this.store.select(editorSelectors.selectProject),
-  ]).pipe(map(([userId, project]) => userId === project?.createdBy));
+  ]).pipe(map(([userId, project]) => userId === project?.createdBy.id));
 
   public showZoomedWave = false;
   public projectId!: string;

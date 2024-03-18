@@ -88,7 +88,7 @@ export class UploadAdditionalContentComponent implements OnInit {
   public isOwner$ = combineLatest([
     this.store.select(selectUserId),
     this.project$,
-  ]).pipe(map(([userId, project]) => userId === project?.createdBy));
+  ]).pipe(map(([userId, project]) => userId === project?.createdBy.id));
 
   public formGroup!: FormGroup<{
     title: FormControl<string>;

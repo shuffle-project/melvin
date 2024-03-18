@@ -79,7 +79,7 @@ export class TranscriptionService {
         createdBy: authUser.id,
         _id: transcriptionId,
         project: projectId,
-      }),
+      }), // ,{populate:'createdBy'}
       this.db.projectModel
         .findByIdAndUpdate(
           projectId,
@@ -269,7 +269,8 @@ export class TranscriptionService {
     //TODO als transaction
 
     await this.db.transcriptionModel.findByIdAndRemove(id);
-    await this.db.projectModel.findByIdAndUpdate(project._id, {
+
+    await this.db.updateProjectByIdAndReturn(project._id, {
       $pullAll: { transcriptions: [transcription._id] },
     });
 

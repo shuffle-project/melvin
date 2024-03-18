@@ -95,12 +95,17 @@ export class ProjectMediaEntity {
 export class ProjectEntity extends OmitType(Project, [
   'transcriptions',
   'users',
+  'createdBy',
   'audios',
   'videos',
 ] as const) {
   @ApiProperty({ type: [ProjectTranscriptionEntity] })
   @Type(() => ProjectTranscriptionEntity)
   transcriptions: PopulatedDoc<Transcription>[];
+
+  @ApiProperty({ type: UserEntity })
+  @Type(() => UserEntity)
+  createdBy: PopulatedDoc<UserEntity>;
 
   @ApiProperty({ type: [UserEntity] })
   @Type(() => UserEntity)

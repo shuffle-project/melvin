@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { ApiService } from '../../../services/api/api.service';
 import { MediaCategory } from '../../../services/api/entities/project.entity';
 import { UploadRecordingComponent } from './dialogs/upload-recording/upload-recording.component';
 import {
@@ -33,32 +32,11 @@ export class RecorderService {
   //recording
   recordings: Recording[] = [];
 
-  constructor(private api: ApiService, public dialog: MatDialog) {}
+  constructor(public dialog: MatDialog) {}
 
   /**
    * manage devices
    */
-
-  // async reloadDevices() {
-
-  //   await navigator.mediaDevices
-  //     .getUserMedia({
-  //       video: true,
-  //       audio: true,
-  //     })
-  //     .then((x) => x.getTracks().forEach((tr) => tr.stop()));
-
-  //   navigator.mediaDevices
-  //     .enumerateDevices()
-  //     .then((enumerated) => {
-  //       this.enumeratedDevices = enumerated.filter(
-  //         (device) => device.deviceId !== ''
-  //       );
-  //     })
-  //     .finally(() => {
-  //       if (!this.enumeratedDevices) this.enumeratedDevices = [];
-  //     });
-  // }
 
   async getDevices(
     type?: 'audioinput' | 'videoinput'
@@ -73,8 +51,7 @@ export class RecorderService {
 
   resetData() {
     [...this.videos, ...this.screensharings, ...this.audios].forEach((obj) => {
-      if (obj.mediaStream)
-        obj.mediaStream.getTracks().forEach((track) => track.stop());
+      this.stopMediastream(obj.mediaStream);
     });
 
     this.videos = [];
@@ -126,7 +103,7 @@ export class RecorderService {
     this.recordings.forEach((rec) => rec.mediaRecorder.pause());
     this.recordingPaused = true;
   }
-  
+
   onResumeMediaRecorder() {
     this.recordingTimestamp = Date.now();
     this.recordings.forEach((rec) => rec.mediaRecorder.resume());

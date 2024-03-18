@@ -82,7 +82,8 @@
       <mat-icon svgIcon="download"></mat-icon>
       Download
     </button>
-    @if (transcription.createdBy === userId || project.createdBy === userId) {
+    @if (transcription.createdBy === userId || project.createdBy.id === userId)
+    {
     <div>
       <mat-divider></mat-divider>
       <button

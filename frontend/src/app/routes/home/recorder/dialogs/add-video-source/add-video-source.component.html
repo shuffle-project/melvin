@@ -40,7 +40,9 @@
     </mat-form-field>
   </div>
   <br />
-  @if (videoSource.mediaStream) {
+  @if (deviceError) {
+  {{ deviceError }}
+  } @else if (videoSource.mediaStream) {
   <div>
     <video
       [srcObject]="videoSource.mediaStream"
@@ -49,7 +51,7 @@
       muted
     ></video>
   </div>
-  } @if (!videoSource.mediaStream) {
+  } @else {
   <div
     class="flex justify-center"
     style="margin-top: 20px; width: 100%; height: 200px"
@@ -63,7 +65,12 @@
     Cancel
   </button>
   @if (!loadingError && !loading && !loadingError) {
-  <button color="primary" mat-flat-button (click)="onSubmitDialog()">
+  <button
+    color="primary"
+    mat-flat-button
+    [disabled]="deviceError"
+    (click)="onSubmitDialog()"
+  >
     Add
   </button>
   } @if (loadingError) {

@@ -1,6 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatMenuModule } from '@angular/material/menu';
 import { Store } from '@ngrx/store';
-import { combineLatest, Subject, takeUntil } from 'rxjs';
+import { Subject, combineLatest, takeUntil } from 'rxjs';
 import {
   ProjectEntity,
   RecordingStatus,
@@ -9,21 +12,13 @@ import { AppState } from '../../../../../store/app.state';
 import * as authSelectors from '../../../../../store/selectors/auth.selector';
 import * as editorSelectors from '../../../../../store/selectors/editor.selector';
 import { LivestreamService } from '../../../livestream/livestream.service';
-import { MatIconModule } from '@angular/material/icon';
-import { MatMenuModule } from '@angular/material/menu';
-import { MatButtonModule } from '@angular/material/button';
-
 
 @Component({
-    selector: 'app-live-controls',
-    templateUrl: './live-controls.component.html',
-    styleUrls: ['./live-controls.component.scss'],
-    standalone: true,
-    imports: [
-    MatButtonModule,
-    MatMenuModule,
-    MatIconModule
-],
+  selector: 'app-live-controls',
+  templateUrl: './live-controls.component.html',
+  styleUrls: ['./live-controls.component.scss'],
+  standalone: true,
+  imports: [MatButtonModule, MatMenuModule, MatIconModule],
 })
 export class LiveControlsComponent implements OnInit, OnDestroy {
   private destroy$$ = new Subject<void>();
@@ -50,7 +45,7 @@ export class LiveControlsComponent implements OnInit, OnDestroy {
           return;
         }
 
-        const isOwner = project.createdBy === user?.id;
+        const isOwner = project.createdBy.id === user?.id;
         this.project = project;
 
         this.showMenu = false;

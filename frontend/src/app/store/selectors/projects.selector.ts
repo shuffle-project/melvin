@@ -18,14 +18,14 @@ export const selectOwnProjects = createSelector(
   selectProjectsState,
   authSelectors.selectUserId,
   (state: ProjectsState, authUserId: string | null) =>
-    state.projectsList.filter((project) => project.createdBy === authUserId)
+    state.projectsList.filter((project) => project.createdBy.id === authUserId)
 );
 
 export const selectSharedProjects = createSelector(
   selectProjectsState,
   authSelectors.selectUserId,
   (state: ProjectsState, authUserId: string | null) =>
-    state.projectsList.filter((project) => project.createdBy !== authUserId)
+    state.projectsList.filter((project) => project.createdBy.id !== authUserId)
 );
 
 export const selectProjectFilter = createSelector(
@@ -43,12 +43,12 @@ export const selectFilteredProjects = createSelector(
       .filter((project) => {
         if (
           filter.selectedProjectSet === ProjectSetEnum.OWN &&
-          project.createdBy !== authUserId
+          project.createdBy.id !== authUserId
         )
           return false;
         if (
           filter.selectedProjectSet === ProjectSetEnum.SHARED &&
-          project.createdBy === authUserId
+          project.createdBy.id === authUserId
         )
           return false;
 

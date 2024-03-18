@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
+import { Model, Types, UpdateQuery } from 'mongoose';
 import { CustomBadRequestException } from '../../utils/exceptions';
 import { CustomLogger } from '../logger/logger.service';
 import { Activity, ActivityDocument } from './schemas/activity.schema';
@@ -46,11 +46,14 @@ export class DbService {
     this.logger.setContext(this.constructor.name);
   }
 
-  async findProjectByIdOrThrow(id: string): Promise<LeanProjectDocument> {
+  async findProjectByIdOrThrow(
+    id: string | Types.ObjectId,
+  ): Promise<LeanProjectDocument> {
     const project = await this.projectModel
       .findById(id)
       .populate('transcriptions')
       .populate('users')
+      .populate('createdBy')
       .lean()
       .exec();
 
@@ -61,20 +64,21 @@ export class DbService {
     return project;
   }
 
-  async findProjectByIdOrThrowAndPopulate(
-    id: string,
-    path: string,
+  /**
+   * @returns return new object with correct populate path
+   */
+  async updateProjectByIdAndReturn(
+    id: string | Types.ObjectId,
+    update: UpdateQuery<Project>,
   ): Promise<LeanProjectDocument> {
-    const project = await this.projectModel
-      .findById(id)
-      .populate(path)
+    const updatedProject = await this.projectModel
+      .findByIdAndUpdate(id, update, {
+        new: true,
+        populate: ['transcriptions', 'users', 'createdBy'],
+      })
       .lean()
       .exec();
 
-    if (!project) {
-      throw new CustomBadRequestException('unknown_project_id');
-    }
-
-    return project;
+    return updatedProject;
   }
 }

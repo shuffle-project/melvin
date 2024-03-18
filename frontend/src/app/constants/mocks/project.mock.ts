@@ -8,7 +8,12 @@ export const PROJECT_ENTITY_MOCK: ProjectEntity[] = [
     id: '6200e98c9f6b0de828dbe34a',
     createdAt: '2022-02-10T16:06:41.987Z',
     updatedAt: '2022-02-10T16:06:41.987Z',
-    createdBy: '6200e990a252dd82c266326e',
+    createdBy: {
+      id: '6200e990a252dd82c266326e',
+      email: 'example@example.de',
+      name: 'example',
+      role: 'user',
+    },
     title: 'Dangerous superficial knowledge',
     users: [],
     // users: ['6200e990a252dd82c266326e'],
