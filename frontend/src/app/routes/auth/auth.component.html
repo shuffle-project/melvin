@@ -3,6 +3,16 @@
     <!-- Logo-Container -->
     <div class="logo-container">
       <app-logo [size]="96"></app-logo>
+
+      <!-- TODO INFO TEXT  -->
+      <div style="text-align: center">
+        Diese Anwendung befindet sich in der Entwicklung. Es können also
+        unerwartete Fehler auftreten. Mehr Informationen findest du auf der
+        Webseite des
+        <a href="https://shuffle-projekt.de/">Forschungsprojekts SHUFFLE</a>
+        Bei Feedback oder Fragen findest du dort auch eine Kontaktmöglichkeit.
+      </div>
+
       <button mat-stroked-button color="primary" (click)="onClickToggleView()">
         {{ this.toggleLabel }}
       </button>
