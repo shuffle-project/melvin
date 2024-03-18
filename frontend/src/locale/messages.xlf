@@ -1042,6 +1042,81 @@
       <trans-unit id="viewerControlsStartedInfo" datatype="html">
         <source>Started</source>
       </trans-unit>
+      <trans-unit id="deleteConfirmationDialogAbortButton" datatype="html">
+        <source> Abort </source>
+      </trans-unit>
+      <trans-unit id="deleteConfirmationDialogAreYouSure" datatype="html">
+        <source> Are you sure you want to delete this <x id="INTERPOLATION" equiv-text="{{ data.subject }}"/>? </source>
+      </trans-unit>
+      <trans-unit id="deleteConfirmationDialogConfirmButton" datatype="html">
+        <source> Confirm </source>
+      </trans-unit>
+      <trans-unit id="deleteConfirmationDialogTitle" datatype="html">
+        <source> Delete <x id="INTERPOLATION" equiv-text="{{ data.subject }}"/> </source>
+      </trans-unit>
+      <trans-unit id="deleteServiceSubjectCaption" datatype="html">
+        <source>Caption</source>
+      </trans-unit>
+      <trans-unit id="deleteServiceSubjectProject" datatype="html">
+        <source>Project</source>
+      </trans-unit>
+      <trans-unit id="deleteServiceSubjectTranscription" datatype="html">
+        <source>Transcription</source>
+      </trans-unit>
+      <trans-unit id="recorderAddAudioSourceButton" datatype="html">
+        <source> Add audio source </source>
+      </trans-unit>
+      <trans-unit id="recorderAddScreensharingButton" datatype="html">
+        <source> Add screensharing source </source>
+      </trans-unit>
+      <trans-unit id="recorderAddVideoSourceButton" datatype="html">
+        <source> Add video source </source>
+      </trans-unit>
+      <trans-unit id="recorderAudioSourcesTitle" datatype="html">
+        <source>Audio sources</source>
+      </trans-unit>
+      <trans-unit id="recorderNoAudioAdded" datatype="html">
+        <source><x id="START_ITALIC_TEXT" ctype="x-i" equiv-text="No audio source added&lt;/i"/>No audio source added<x id="CLOSE_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;/i&gt;"/></source>
+      </trans-unit>
+      <trans-unit id="recorderNoScreensharingAdded" datatype="html">
+        <source><x id="START_ITALIC_TEXT" ctype="x-i" equiv-text="No screensharing source added&lt;/i"/>No screensharing source added<x id="CLOSE_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;/i&gt;"/></source>
+      </trans-unit>
+      <trans-unit id="recorderNotRecordingHints" datatype="html">
+        <source> You can add or delete sources. <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br /&gt;"/> To start the recording you need at least 1 visual and 1 auditive source. </source>
+      </trans-unit>
+      <trans-unit id="recorderNoVideoAdded" datatype="html">
+        <source><x id="START_ITALIC_TEXT" ctype="x-i" equiv-text="No video source added&lt;/i"/>No video source added<x id="CLOSE_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;/i&gt;"/></source>
+      </trans-unit>
+      <trans-unit id="recorderPauseRecordingButton" datatype="html">
+        <source> Pause recording </source>
+      </trans-unit>
+      <trans-unit id="recorderRecordingHints" datatype="html">
+        <source> Recording ongoing. Press Stop recording if you want to save or dismiss your recording. </source>
+      </trans-unit>
+      <trans-unit id="recorderRecordingTitleLabel" datatype="html">
+        <source>Recording title</source>
+      </trans-unit>
+      <trans-unit id="recorderResumeRecordingButton" datatype="html">
+        <source> Resume recording </source>
+      </trans-unit>
+      <trans-unit id="recorderScreensharingSourcesTitle" datatype="html">
+        <source>Screensharing sources</source>
+      </trans-unit>
+      <trans-unit id="recorderStartRecordingButton" datatype="html">
+        <source> Start recording </source>
+      </trans-unit>
+      <trans-unit id="recorderStopRecordingButton" datatype="html">
+        <source> Stop recording </source>
+      </trans-unit>
+      <trans-unit id="recorderTitle" datatype="html">
+        <source> Recorder </source>
+      </trans-unit>
+      <trans-unit id="recorderVideoSourcesTitle" datatype="html">
+        <source>Video sources</source>
+      </trans-unit>
+      <trans-unit id="uploadFilesForAddMoreFileAriaLabel" datatype="html">
+        <source>Add more files </source>
+      </trans-unit>
     </body>
   </file>
 </xliff>

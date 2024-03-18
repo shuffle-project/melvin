@@ -1,5 +1,7 @@
 <app-header>
-  <span class="project-title" #projectTitle> Recorder </span>
+  <span class="project-title" #projectTitle i18n="@@recorderTitle">
+    Recorder
+  </span>
   <div class="viewer-header-buttons"></div>
 </app-header>
 <section class="content">
@@ -10,7 +12,9 @@
   } @if (!loading) {
   <div class="head-wrapper">
     <mat-form-field style="min-width: 300px">
-      <mat-label>Aufnahmetitel</mat-label>
+      <mat-label i18n="@@recorderRecordingTitleLabel"
+        >Recording title</mat-label
+      >
       <input
         matInput
         placeholder="Aufnahmetitel"
@@ -23,12 +27,12 @@
     <div class="infotext">
       <mat-icon svgIcon="info"></mat-icon>
       @if (!this.recorderService.recording) {
-      <span>
+      <span i18n="@@recorderNotRecordingHints">
         You can add or delete sources. <br />
         To start the recording you need at least 1 visual and 1 auditive source.
       </span>
       }@else {
-      <span>
+      <span i18n="@@recorderRecordingHints">
         Recording ongoing. Press Stop recording if you want to save or dismiss
         your recording.
       </span>
@@ -59,8 +63,9 @@
         mat-flat-button
         (click)="onClickStopRecord()"
         [disabled]="!recorderService.recording"
+        i18n="@@recorderStopRecordingButton"
       >
-        Stop Record
+        Stop recording
       </button>
       }@else {
       <button
@@ -69,8 +74,9 @@
         mat-flat-button
         (click)="onClickStartRecord()"
         [disabled]="recordingDisabled() || recorderService.recording"
+        i18n="@@recorderStartRecordingButton"
       >
-        Start Record
+        Start recording
       </button>
       }
       <!-- pause & resume -->
@@ -85,8 +91,9 @@
           (recorderService.recording && !recorderService.recordingPaused)
         "
         (click)="onClickTogglePauseRecording()"
+        i18n="@@recorderResumeRecordingButton"
       >
-        Resume Record
+        Resume recording
       </button>
       }@else {
       <button
@@ -98,8 +105,9 @@
           (recorderService.recording && recorderService.recordingPaused)
         "
         (click)="onClickTogglePauseRecording()"
+        i18n="@@recorderPauseRecordingButton"
       >
-        Pause Record
+        Pause recording
       </button>
 
       }
@@ -109,10 +117,10 @@
 
   <div class="all-media-wrapper">
     <div class="media-category-wrapper">
-      <h2>Audioquellen</h2>
+      <h2 i18n="@@recorderAudioSourcesTitle">Audio sources</h2>
       @if (recorderService.audios.length === 0) {
-      <p>
-        <i>Kein Audio hinzugefügt</i>
+      <p i18n="@@recorderNoAudioAdded">
+        <i>No audio source added</i>
       </p>
       }
       <div class="media-list-wrapper">
@@ -128,16 +136,17 @@
         class="add-btn"
         mat-flat-button
         (click)="onAddAudioSource()"
+        i18n="@@recorderAddAudioSourceButton"
       >
-        add microphone
+        Add audio source
       </button>
       }
     </div>
     <div class="media-category-wrapper">
-      <h2>Videoquellen</h2>
+      <h2 i18n="@@recorderVideoSourcesTitle">Video sources</h2>
       @if (recorderService.videos.length === 0) {
-      <p>
-        <i>Kein Video hinzugefügt</i>
+      <p i18n="@@recorderNoVideoAdded">
+        <i>No video source added</i>
       </p>
       }
       <div class="media-list-wrapper">
@@ -153,16 +162,17 @@
         class="add-btn"
         mat-flat-button
         (click)="onAddVideoSource()"
+        i18n="@@recorderAddVideoSourceButton"
       >
-        add video
+        Add video source
       </button>
       }
     </div>
     <div class="media-category-wrapper">
-      <h2>Screensharingquellen</h2>
+      <h2 i18n="@@recorderScreensharingSourcesTitle">Screensharing sources</h2>
       @if (recorderService.screensharings.length === 0) {
-      <p>
-        <i>Kein Screensharing hinzugefügt</i>
+      <p i18n="@@recorderNoScreensharingAdded">
+        <i>No screensharing source added</i>
       </p>
       }
       <div class="media-list-wrapper">
@@ -178,8 +188,9 @@
         color="primary"
         mat-flat-button
         (click)="onAddScreenSharingSource()"
+        i18n="@@recorderAddScreensharingButton"
       >
-        add screen sharing
+        Add screensharing source
       </button>
       }
     </div>
