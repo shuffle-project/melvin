@@ -1490,6 +1490,70 @@
         <source>Add more files </source>
         <target state="final">Mehr Dateien hinzufügen </target>
       </trans-unit>
+      <trans-unit id="uploadRecordingTitle" datatype="html">
+        <source> Upload and Project creation: <x id="INTERPOLATION" equiv-text="{{ data.title }}"/> </source>
+        <target state="new"> Upload und Projekterstellung: <x id="INTERPOLATION" equiv-text="{{ data.title }}"/> </target>
+      </trans-unit>
+      <trans-unit id="uploadRecordingAsrServiceLabel" datatype="html">
+        <source>ASR Service</source>
+        <target state="new">ASR Service</target>
+      </trans-unit>
+      <trans-unit id="uploadRecordingLanguageLabel" datatype="html">
+        <source>Language</source>
+        <target state="new">Sprache</target>
+      </trans-unit>
+      <trans-unit id="uploadRecordingReadyToUploadHint" datatype="html">
+        <source> All files are ready. You can now upload the project or download the files locally. </source>
+        <target state="new"> Alle Dateien sind fertig. Sie können das Projekt jetzt hochladen oder die Dateien lokal herunterladen. </target>
+      </trans-unit>
+      <trans-unit id="uploadRecordingFilesProcessingHint" datatype="html">
+        <source> The files are being processed, please wait until all files are ready. </source>
+        <target state="new"> Die Dateien werden gerade verarbeitet, bitte warten Sie, bis alle Dateien fertig sind. </target>
+      </trans-unit>
+      <trans-unit id="uploadRecordingFileHeader" datatype="html">
+        <source><x id="START_BLOCK_IF" equiv-text="Metadata and main v"/> Metadata and main video <x id="CLOSE_BLOCK_IF" equiv-text="}"/><x id="START_BLOCK_ELSE" equiv-text="@else {"/> Aditional Video <x id="CLOSE_BLOCK_ELSE" equiv-text="}"/></source>
+        <target state="new"><x id="START_BLOCK_IF" equiv-text="Metadata and main v"/> Metadaten und Hauptvideo <x id="CLOSE_BLOCK_IF" equiv-text="}"/><x id="START_BLOCK_ELSE" equiv-text="@else {"/> Aditional Video <x id="CLOSE_BLOCK_ELSE" equiv-text="}"/></target>
+      </trans-unit>
+      <trans-unit id="uploadRecordingSuccessfullyUploaded" datatype="html">
+        <source> Successfully uploaded! </source>
+        <target state="new"> Erfolgreich hochgeladen! </target>
+      </trans-unit>
+      <trans-unit id="uploadRecordingFailedWithError" datatype="html">
+        <source> Failed with error: <x id="INTERPOLATION" equiv-text="{{ recording.upload.error.error.message }}"/> </source>
+        <target state="new"> Fehlgeschlagen: <x id="INTERPOLATION" equiv-text="{{ recording.upload.error.error.message }}"/> </target>
+      </trans-unit>
+      <trans-unit id="uploadRecordingWaitingForUploadHint" datatype="html">
+        <source> Please wait until all files have been uploaded. </source>
+        <target state="new"> Laden Sie die Videos manuell herunter und versuchen Sie, die Projekte mit den Dateien manuell zu erstellen. </target>
+      </trans-unit>
+      <trans-unit id="uploadRecordingDownloadLocallyHint" datatype="html">
+        <source> Download the videos manually and try to create the projects with the files manually. </source>
+        <target state="new"> Laden Sie die Videos manuell herunter und versuchen Sie, die Projekte mit den Dateien manuell zu erstellen. </target>
+      </trans-unit>
+      <trans-unit id="uploadRecordingAdditionalVideoFailedHint" datatype="html">
+        <source> The project and the main file could be uploaded and created! However, a problem has occurred with an additional video. Check in the project details which video could not be uploaded and upload it manually if necessary. </source>
+        <target state="new"> Das Projekt und die Hauptdatei konnten hochgeladen und erstellt werden! Es ist jedoch ein Problem mit einem zusätzlichen Video aufgetreten. Prüfen Sie in den Projektdetails, welches Video nicht hochgeladen werden konnte und laden Sie es ggf. manuell hoch. </target>
+      </trans-unit>
+      <trans-unit id="uploadRecordingAllSuccessfulHint" datatype="html">
+        <source> The project has been successfully created, you can now close this dialogue close this dialogue! You will find the project in the project list, but it may still be possibly still being processed. </source>
+        <target state="new"> Das Projekt wurde erfolgreich erstellt, Sie können diesen Dialog nun schließen. Schließen Sie diesen Dialog! Sie finden das Projekt in der Projektliste, es befindet sich aber möglicherweise noch in der Bearbeitung. </target>
+      </trans-unit>
+      <trans-unit id="uploadRecordingDownloadFilesButton" datatype="html">
+        <source> Download recordings locally </source>
+        <target state="new"> Aufnahmedateien runterladen </target>
+      </trans-unit>
+      <trans-unit id="uploadRecordingDiscardButton" datatype="html">
+        <source> Discard and close </source>
+        <target state="new"> Verwerfen und schließen </target>
+      </trans-unit>
+      <trans-unit id="uploadRecordingUploadButton" datatype="html">
+        <source> Upload and create project </source>
+        <target state="new"> Hochladen und Projekt erstellen </target>
+      </trans-unit>
+      <trans-unit id="uploadRecordingRecordAnotherVideoButton" datatype="html">
+        <source> Record another video </source>
+        <target state="new"> Weiteres Video aufnehmen </target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

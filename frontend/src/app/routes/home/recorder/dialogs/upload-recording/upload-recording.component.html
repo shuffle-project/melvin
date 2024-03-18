@@ -1,9 +1,11 @@
-<h2 mat-dialog-title>Upload and Project creation: {{ data.title }}</h2>
+<h2 mat-dialog-title i18n="@@uploadRecordingTitle">
+  Upload and Project creation: {{ data.title }}
+</h2>
 <mat-dialog-content class="mat-dialog-content">
   @if (!uploading) {
   <div class="inputs">
     <mat-form-field *ngrxLet="asrServiceConfig$ as asrServiceConfig">
-      <mat-label>ASR Service</mat-label>
+      <mat-label i18n="@@uploadRecordingAsrServiceLabel">ASR Service</mat-label>
       <mat-select
         required
         [(value)]="asrSelection"
@@ -17,7 +19,7 @@
       </mat-select>
     </mat-form-field>
     <mat-form-field>
-      <mat-label>Language</mat-label>
+      <mat-label i18n="@@uploadRecordingLanguageLabel">Language</mat-label>
       <mat-select required [(value)]="language" [disabled]="!asrSelection">
         @if (asrSelection) { @for (lang of asrSelection.languages; track lang )
         {
@@ -33,13 +35,13 @@
     <div class="infotext">
       <mat-icon svgIcon="info"></mat-icon>
       @if (readyToUpload) {
-      <span>
-        Alle Daten sind bereit. Du kannst das Projekt jetzt hochladen oder dir
-        die Dateie lokal runterladen.
+      <span i18n="@@uploadRecordingReadyToUploadHint">
+        All files are ready. You can now upload the project or download the
+        files locally.
       </span>
       }@else{
-      <span>
-        Die Dateien werden verarbeite, bitte warte bis alle Dateien fertig sind.
+      <span i18n="@@uploadRecordingFilesProcessingHint">
+        The files are being processed, please wait until all files are ready.
       </span>
       }
     </div>
@@ -65,8 +67,8 @@
           </div>
           <div class="content">
             <div class="title">
-              <span class="header">
-                @if(i ===0){Metadaten und Hauptvideo}@else {Zusätzliches Video}
+              <span class="header" i18n="@@uploadRecordingFileHeader">
+                @if(i ===0){ Metadata and main video } @else { Aditional Video }
               </span>
               <span class="subheader">
                 {{ recording.title }}
@@ -74,10 +76,12 @@
             </div>
             @if (recording.upload.result) {
             <!-- recording successfully uploaded -->
-            <div>Successfully uploaded!</div>
+            <div i18n="@@uploadRecordingSuccessfullyUploaded">
+              Successfully uploaded!
+            </div>
             } @else if (recording.upload.error) {
             <!-- recording upload failed -->
-            <div>
+            <div i18n="@@uploadRecordingFailedWithError">
               Failed with error: {{ recording.upload.error.error.message }}
             </div>
             } @else {
@@ -112,7 +116,9 @@
     <div>
       <div class="infotext">
         <mat-icon svgIcon="info"></mat-icon>
-        <span> Bitte warte bis alle Dateien hochgeladen wurden. </span>
+        <span i18n="@@uploadRecordingWaitingForUploadHint">
+          Please wait until all files have been uploaded.
+        </span>
       </div>
     </div>
 
@@ -121,9 +127,9 @@
     @if (uploadingError) { @if (data.recordings[0].upload.error) {
     <div class="infotext">
       <mat-icon svgIcon="info"></mat-icon>
-      <span>
-        Lade die Videos manuell runter und versuche das Projekte mit den Dateien
-        manuell zu erstellen.
+      <span i18n="@@uploadRecordingDownloadLocallyHint">
+        Download the videos manually and try to create the projects with the
+        files manually.
       </span>
     </div>
     <!-- TODO -->
@@ -132,11 +138,11 @@
     }@else {
     <div class="infotext">
       <mat-icon svgIcon="info"></mat-icon>
-      <span>
-        Das Projekt und die Hauptdatei konnte hochgeladen und erstellt werden!
-        Es ist aber ein Problem bei einem zusätzlichen Video aufgetreten. Prüfe
-        in den Projektdetails welches Video nicht hochgeladen werden konnte und
-        lade es bei Bedarf manuell hoch.
+      <span i18n="@@uploadRecordingAdditionalVideoFailedHint">
+        The project and the main file could be uploaded and created! However, a
+        problem has occurred with an additional video. Check in the project
+        details which video could not be uploaded and upload it manually if
+        necessary.
       </span>
     </div>
     <!-- TODO -->
@@ -148,10 +154,10 @@
 
     <div class="infotext">
       <mat-icon svgIcon="info"></mat-icon>
-      <span>
-        Das Projekt wurde erfolgreich erstellt, du kannst diesen Dialog jetzt
-        schließen! Du findest das Projekt in der Projektliste, es ist aber
-        eventuell noch in der Verarbeitung.
+      <span i18n="@@uploadRecordingAllSuccessfulHint">
+        The project has been successfully created, you can now close this
+        dialogue close this dialogue! You will find the project in the project
+        list, but it may still be possibly still being processed.
       </span>
     </div>
     } }
@@ -165,14 +171,20 @@
     [disabled]="!readyToUpload"
     (click)="onDownloadVideosLocally()"
     color="accent"
+    i18n="@@uploadRecordingDownloadFilesButton"
   >
-    Aufnahmen lokal runterladen
+    Download recordings locally
   </button>
 
   @if (!uploading) {
 
-  <button color="warn" mat-flat-button (click)="onClose()">
-    Verwerfen und schließen
+  <button
+    color="warn"
+    mat-flat-button
+    (click)="onClose()"
+    i18n="@@uploadRecordingDiscardButton"
+  >
+    Discard and close
   </button>
 
   <button
@@ -180,8 +192,9 @@
     mat-flat-button
     [disabled]="!readyToUpload"
     (click)="onUploadRecording()"
+    i18n="@@uploadRecordingUploadButton"
   >
-    Hochladen und Projekt erstellen
+    Upload and create project
   </button>
 
   }@else {
@@ -191,8 +204,9 @@
     mat-flat-button
     [disabled]="!uploadingDone"
     (click)="onClose()"
+    i18n="@@uploadRecordingRecordAnotherVideoButton"
   >
-    Ein weiteres Video aufnehmen
+    Record another video
   </button>
 
   }

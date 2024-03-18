@@ -1117,6 +1117,54 @@
       <trans-unit id="uploadFilesForAddMoreFileAriaLabel" datatype="html">
         <source>Add more files </source>
       </trans-unit>
+      <trans-unit id="uploadRecordingAdditionalVideoFailedHint" datatype="html">
+        <source> The project and the main file could be uploaded and created! However, a problem has occurred with an additional video. Check in the project details which video could not be uploaded and upload it manually if necessary. </source>
+      </trans-unit>
+      <trans-unit id="uploadRecordingAllSuccessfulHint" datatype="html">
+        <source> The project has been successfully created, you can now close this dialogue close this dialogue! You will find the project in the project list, but it may still be possibly still being processed. </source>
+      </trans-unit>
+      <trans-unit id="uploadRecordingAsrServiceLabel" datatype="html">
+        <source>ASR Service</source>
+      </trans-unit>
+      <trans-unit id="uploadRecordingDiscardButton" datatype="html">
+        <source> Discard and close </source>
+      </trans-unit>
+      <trans-unit id="uploadRecordingDownloadFilesButton" datatype="html">
+        <source> Download recordings locally </source>
+      </trans-unit>
+      <trans-unit id="uploadRecordingDownloadLocallyHint" datatype="html">
+        <source> Download the videos manually and try to create the projects with the files manually. </source>
+      </trans-unit>
+      <trans-unit id="uploadRecordingFailedWithError" datatype="html">
+        <source> Failed with error: <x id="INTERPOLATION" equiv-text="{{ recording.upload.error.error.message }}"/> </source>
+      </trans-unit>
+      <trans-unit id="uploadRecordingFileHeader" datatype="html">
+        <source><x id="START_BLOCK_IF" equiv-text="Metadata and main v"/> Metadata and main video <x id="CLOSE_BLOCK_IF" equiv-text="}"/><x id="START_BLOCK_ELSE" equiv-text="@else {"/> Aditional Video <x id="CLOSE_BLOCK_ELSE" equiv-text="}"/></source>
+      </trans-unit>
+      <trans-unit id="uploadRecordingFilesProcessingHint" datatype="html">
+        <source> The files are being processed, please wait until all files are ready. </source>
+      </trans-unit>
+      <trans-unit id="uploadRecordingLanguageLabel" datatype="html">
+        <source>Language</source>
+      </trans-unit>
+      <trans-unit id="uploadRecordingReadyToUploadHint" datatype="html">
+        <source> All files are ready. You can now upload the project or download the files locally. </source>
+      </trans-unit>
+      <trans-unit id="uploadRecordingRecordAnotherVideoButton" datatype="html">
+        <source> Record another video </source>
+      </trans-unit>
+      <trans-unit id="uploadRecordingSuccessfullyUploaded" datatype="html">
+        <source> Successfully uploaded! </source>
+      </trans-unit>
+      <trans-unit id="uploadRecordingTitle" datatype="html">
+        <source> Upload and Project creation: <x id="INTERPOLATION" equiv-text="{{ data.title }}"/> </source>
+      </trans-unit>
+      <trans-unit id="uploadRecordingUploadButton" datatype="html">
+        <source> Upload and create project </source>
+      </trans-unit>
+      <trans-unit id="uploadRecordingWaitingForUploadHint" datatype="html">
+        <source> Please wait until all files have been uploaded. </source>
+      </trans-unit>
     </body>
   </file>
 </xliff>
