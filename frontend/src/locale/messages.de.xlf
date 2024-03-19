@@ -1492,67 +1492,187 @@
       </trans-unit>
       <trans-unit id="uploadRecordingTitle" datatype="html">
         <source> Upload and Project creation: <x id="INTERPOLATION" equiv-text="{{ data.title }}"/> </source>
-        <target state="new"> Upload und Projekterstellung: <x id="INTERPOLATION" equiv-text="{{ data.title }}"/> </target>
+        <target state="final"> Upload und Projekterstellung: <x id="INTERPOLATION" equiv-text="{{ data.title }}"/> </target>
       </trans-unit>
       <trans-unit id="uploadRecordingAsrServiceLabel" datatype="html">
         <source>ASR Service</source>
-        <target state="new">ASR Service</target>
+        <target state="final">ASR Service</target>
       </trans-unit>
       <trans-unit id="uploadRecordingLanguageLabel" datatype="html">
         <source>Language</source>
-        <target state="new">Sprache</target>
+        <target state="final">Sprache</target>
       </trans-unit>
       <trans-unit id="uploadRecordingReadyToUploadHint" datatype="html">
         <source> All files are ready. You can now upload the project or download the files locally. </source>
-        <target state="new"> Alle Dateien sind fertig. Sie können das Projekt jetzt hochladen oder die Dateien lokal herunterladen. </target>
+        <target state="final"> Alle Dateien sind fertig. Sie können das Projekt jetzt hochladen oder die Dateien lokal herunterladen. </target>
       </trans-unit>
       <trans-unit id="uploadRecordingFilesProcessingHint" datatype="html">
         <source> The files are being processed, please wait until all files are ready. </source>
-        <target state="new"> Die Dateien werden gerade verarbeitet, bitte warten Sie, bis alle Dateien fertig sind. </target>
+        <target state="final"> Die Dateien werden gerade verarbeitet, bitte warten Sie, bis alle Dateien fertig sind. </target>
       </trans-unit>
       <trans-unit id="uploadRecordingFileHeader" datatype="html">
         <source><x id="START_BLOCK_IF" equiv-text="Metadata and main v"/> Metadata and main video <x id="CLOSE_BLOCK_IF" equiv-text="}"/><x id="START_BLOCK_ELSE" equiv-text="@else {"/> Aditional Video <x id="CLOSE_BLOCK_ELSE" equiv-text="}"/></source>
-        <target state="new"><x id="START_BLOCK_IF" equiv-text="Metadata and main v"/> Metadaten und Hauptvideo <x id="CLOSE_BLOCK_IF" equiv-text="}"/><x id="START_BLOCK_ELSE" equiv-text="@else {"/> Aditional Video <x id="CLOSE_BLOCK_ELSE" equiv-text="}"/></target>
+        <target state="final"><x id="START_BLOCK_IF" equiv-text="Metadata and main v"/> Metadaten und Hauptvideo <x id="CLOSE_BLOCK_IF" equiv-text="}"/><x id="START_BLOCK_ELSE" equiv-text="@else {"/> Aditional Video <x id="CLOSE_BLOCK_ELSE" equiv-text="}"/></target>
       </trans-unit>
       <trans-unit id="uploadRecordingSuccessfullyUploaded" datatype="html">
         <source> Successfully uploaded! </source>
-        <target state="new"> Erfolgreich hochgeladen! </target>
+        <target state="final"> Erfolgreich hochgeladen! </target>
       </trans-unit>
       <trans-unit id="uploadRecordingFailedWithError" datatype="html">
         <source> Failed with error: <x id="INTERPOLATION" equiv-text="{{ recording.upload.error.error.message }}"/> </source>
-        <target state="new"> Fehlgeschlagen: <x id="INTERPOLATION" equiv-text="{{ recording.upload.error.error.message }}"/> </target>
+        <target state="final"> Fehlgeschlagen: <x id="INTERPOLATION" equiv-text="{{ recording.upload.error.error.message }}"/> </target>
       </trans-unit>
       <trans-unit id="uploadRecordingWaitingForUploadHint" datatype="html">
         <source> Please wait until all files have been uploaded. </source>
-        <target state="new"> Laden Sie die Videos manuell herunter und versuchen Sie, die Projekte mit den Dateien manuell zu erstellen. </target>
+        <target state="final"> Laden Sie die Videos manuell herunter und versuchen Sie, die Projekte mit den Dateien manuell zu erstellen. </target>
       </trans-unit>
       <trans-unit id="uploadRecordingDownloadLocallyHint" datatype="html">
         <source> Download the videos manually and try to create the projects with the files manually. </source>
-        <target state="new"> Laden Sie die Videos manuell herunter und versuchen Sie, die Projekte mit den Dateien manuell zu erstellen. </target>
+        <target state="final"> Laden Sie die Videos manuell herunter und versuchen Sie, die Projekte mit den Dateien manuell zu erstellen. </target>
       </trans-unit>
       <trans-unit id="uploadRecordingAdditionalVideoFailedHint" datatype="html">
         <source> The project and the main file could be uploaded and created! However, a problem has occurred with an additional video. Check in the project details which video could not be uploaded and upload it manually if necessary. </source>
-        <target state="new"> Das Projekt und die Hauptdatei konnten hochgeladen und erstellt werden! Es ist jedoch ein Problem mit einem zusätzlichen Video aufgetreten. Prüfen Sie in den Projektdetails, welches Video nicht hochgeladen werden konnte und laden Sie es ggf. manuell hoch. </target>
+        <target state="final"> Das Projekt und die Hauptdatei konnten hochgeladen und erstellt werden! Es ist jedoch ein Problem mit einem zusätzlichen Video aufgetreten. Prüfen Sie in den Projektdetails, welches Video nicht hochgeladen werden konnte und laden Sie es ggf. manuell hoch. </target>
       </trans-unit>
       <trans-unit id="uploadRecordingAllSuccessfulHint" datatype="html">
         <source> The project has been successfully created, you can now close this dialogue close this dialogue! You will find the project in the project list, but it may still be possibly still being processed. </source>
-        <target state="new"> Das Projekt wurde erfolgreich erstellt, Sie können diesen Dialog nun schließen. Schließen Sie diesen Dialog! Sie finden das Projekt in der Projektliste, es befindet sich aber möglicherweise noch in der Bearbeitung. </target>
+        <target state="final"> Das Projekt wurde erfolgreich erstellt, Sie können diesen Dialog nun schließen. Schließen Sie diesen Dialog! Sie finden das Projekt in der Projektliste, es befindet sich aber möglicherweise noch in der Bearbeitung. </target>
       </trans-unit>
       <trans-unit id="uploadRecordingDownloadFilesButton" datatype="html">
         <source> Download recordings locally </source>
-        <target state="new"> Aufnahmedateien runterladen </target>
+        <target state="final"> Aufnahmedateien runterladen </target>
       </trans-unit>
       <trans-unit id="uploadRecordingDiscardButton" datatype="html">
         <source> Discard and close </source>
-        <target state="new"> Verwerfen und schließen </target>
+        <target state="final"> Verwerfen und schließen </target>
       </trans-unit>
       <trans-unit id="uploadRecordingUploadButton" datatype="html">
         <source> Upload and create project </source>
-        <target state="new"> Hochladen und Projekt erstellen </target>
+        <target state="final"> Hochladen und Projekt erstellen </target>
       </trans-unit>
       <trans-unit id="uploadRecordingRecordAnotherVideoButton" datatype="html">
         <source> Record another video </source>
-        <target state="new"> Weiteres Video aufnehmen </target>
+        <target state="final"> Weiteres Video aufnehmen </target>
+      </trans-unit>
+      <trans-unit id="recorderAddAudioSourceTitle" datatype="html">
+        <source>Add Audiosource</source>
+        <target state="final">Audioquelle hinzufügen</target>
+      </trans-unit>
+      <trans-unit id="recorderAddAudioSourceSelectionLabel" datatype="html">
+        <source>Sources</source>
+        <target state="final">Quellen</target>
+      </trans-unit>
+      <trans-unit id="recorderAddAudioSourceTitleLabel" datatype="html">
+        <source>Title</source>
+        <target state="final">Title</target>
+      </trans-unit>
+      <trans-unit id="recorderAddAudioAudioLevel" datatype="html">
+        <source> Audio level </source>
+        <target state="final"> Audio level </target>
+      </trans-unit>
+      <trans-unit id="recorderAddAudioSourceCancelBtn" datatype="html">
+        <source> Cancel </source>
+        <target state="final"> Abbrechen </target>
+      </trans-unit>
+      <trans-unit id="recorderAddAudioSourceAddBtn" datatype="html">
+        <source> Add </source>
+        <target state="final"> Hinzufügen </target>
+      </trans-unit>
+      <trans-unit id="recorderAddAudioSourceRetryBtn" datatype="html">
+        <source> Retry <x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;repeat&quot; class=&quot;svg-black&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/button&gt;"/></source>
+        <target state="final"> Erneut versuchen <x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;repeat&quot; class=&quot;svg-black&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/button&gt;"/></target>
+      </trans-unit>
+      <trans-unit id="recorderAddScreensharingTitle" datatype="html">
+        <source> Add Screensharing </source>
+        <target state="final"> Bildschirmfreigabe hinzufügen </target>
+      </trans-unit>
+      <trans-unit id="recorderAddScreensharingSelectionError" datatype="html">
+        <source> An error occurred during the selection when sharing the screen. </source>
+        <target state="final"> Bei der Auswahl beim teilen des Bildschirms ist ein Fehler aufgetreten. </target>
+      </trans-unit>
+      <trans-unit id="recorderAddScreensharingTitleLabel" datatype="html">
+        <source>Title</source>
+        <target state="final">Title</target>
+      </trans-unit>
+      <trans-unit id="recorderAddScreensharingMediaCategoryTitleLabel" datatype="html">
+        <source>Media Category</source>
+        <target state="final">Medienkategorie</target>
+      </trans-unit>
+      <trans-unit id="recorderAddScreensharingMediaCategorySignLanguage" datatype="html">
+        <source>Sign Language</source>
+        <target state="final">Gebärdensprache</target>
+      </trans-unit>
+      <trans-unit id="recorderAddScreensharingMediaCategorySlides" datatype="html">
+        <source>Slides</source>
+        <target state="final">Folien</target>
+      </trans-unit>
+      <trans-unit id="recorderAddScreensharingMediaCategorySpeaker" datatype="html">
+        <source>Speaker</source>
+        <target state="final">Sprechende Person</target>
+      </trans-unit>
+      <trans-unit id="recorderAddScreensharingMediaCategoryOther" datatype="html">
+        <source>Other</source>
+        <target state="final">Andere</target>
+      </trans-unit>
+      <trans-unit id="recorderAddScreensharingAudioLevel" datatype="html">
+        <source> Audio level </source>
+        <target state="final"> Audio level </target>
+      </trans-unit>
+      <trans-unit id="recorderAddScreensharingCancelBtn" datatype="html">
+        <source> Cancel </source>
+        <target state="final"> Abbrechen </target>
+      </trans-unit>
+      <trans-unit id="recorderAddScreensharingAddBtn" datatype="html">
+        <source> Add </source>
+        <target state="final"> Hinzufügen </target>
+      </trans-unit>
+      <trans-unit id="recorderAddScreensharingRetryBtn" datatype="html">
+        <source> Retry <x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;repeat&quot; class=&quot;svg-black&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/button&gt;"/></source>
+        <target state="final"> Erneut versuchen <x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;repeat&quot; class=&quot;svg-black&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/button&gt;"/></target>
+      </trans-unit>
+      <trans-unit id="recorderAddVideoSourceTitle" datatype="html">
+        <source>Add Videosource</source>
+        <target state="final">Videoquelle hinzufügen</target>
+      </trans-unit>
+      <trans-unit id="recorderAddVideoSourceSelectionLabel" datatype="html">
+        <source>Sources</source>
+        <target state="final">Quellen</target>
+      </trans-unit>
+      <trans-unit id="recorderAddVideoSourceTitleLabel" datatype="html">
+        <source>Title</source>
+        <target state="final">Title</target>
+      </trans-unit>
+      <trans-unit id="recorderAddVideoSourceMediaCategoryLabel" datatype="html">
+        <source>Media Category</source>
+        <target state="final">Medienkategorie</target>
+      </trans-unit>
+      <trans-unit id="recorderAddVideoSourceMediaCategorySignLanguage" datatype="html">
+        <source>Sign Language</source>
+        <target state="final">Gebärdensprache</target>
+      </trans-unit>
+      <trans-unit id="recorderAddVideoSourceMediaCategorySlides" datatype="html">
+        <source>Slides</source>
+        <target state="final">Folien</target>
+      </trans-unit>
+      <trans-unit id="recorderAddVideoSourceMediaCategorySpeaker" datatype="html">
+        <source>Speaker</source>
+        <target state="final">Sprechende Person</target>
+      </trans-unit>
+      <trans-unit id="recorderAddVideoSourceMediaCategoryOther" datatype="html">
+        <source>Other</source>
+        <target state="final">Andere</target>
+      </trans-unit>
+      <trans-unit id="recorderAddVideoSourceCancelButton" datatype="html">
+        <source> Cancel </source>
+        <target state="final"> Abbrechen </target>
+      </trans-unit>
+      <trans-unit id="recorderAddVideoSourceAddButton" datatype="html">
+        <source> Add </source>
+        <target state="final"> Hinzufügen </target>
+      </trans-unit>
+      <trans-unit id="recorderAddVideoSourceRetryButton" datatype="html">
+        <source> Retry <x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;repeat&quot; class=&quot;svg-black&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/button&gt;"/></source>
+        <target state="final"> Erneut versuchen <x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;repeat&quot; class=&quot;svg-black&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/button&gt;"/></target>
       </trans-unit>
     </body>
   </file>

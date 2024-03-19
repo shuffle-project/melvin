@@ -1,4 +1,4 @@
-<h2 mat-dialog-title>Add Audiosource</h2>
+<h2 mat-dialog-title i18n="@@recorderAddAudioSourceTitle">Add Audiosource</h2>
 <mat-dialog-content class="mat-dialog-content">
   @if (loading) {
   <div class="flex justify-center" style="margin-top: 20px">
@@ -8,7 +8,7 @@
   {{ loadingError }}
   } @if (!loading && !loadingError) {
   <mat-form-field style="width: 100%">
-    <mat-label>sources</mat-label>
+    <mat-label i18n="@@recorderAddAudioSourceSelectionLabel">Sources</mat-label>
     <mat-select
       [(ngModel)]="currentInput"
       (selectionChange)="onSelectionChange()"
@@ -21,7 +21,7 @@
     </mat-select>
   </mat-form-field>
   <mat-form-field style="width: 100%">
-    <mat-label>Title</mat-label>
+    <mat-label i18n="@@recorderAddAudioSourceTitleLabel">Title</mat-label>
     <input matInput type="text" [(ngModel)]="audioSource.title" />
   </mat-form-field>
   <br />
@@ -35,7 +35,7 @@
       [muted]="true"
     ></audio>
     <div class="meter-wrapper">
-      <span> Audio level </span>
+      <span i18n="@@recorderAddAudioAudioLevel"> Audio level </span>
       <div class="meter">
         <app-audio-meter
           [mediaStream]="audioSource.mediaStream"
@@ -53,7 +53,12 @@
   } }
 </mat-dialog-content>
 <mat-dialog-actions>
-  <button color="primary" mat-flat-button (click)="onCloseDialog()">
+  <button
+    color="primary"
+    mat-flat-button
+    (click)="onCloseDialog()"
+    i18n="@@recorderAddAudioSourceCancelBtn"
+  >
     Cancel
   </button>
   @if (!loadingError && !loading && !loadingError) {
@@ -62,12 +67,18 @@
     mat-flat-button
     [disabled]="deviceError"
     (click)="onSubmitDialog()"
+    i18n="@@recorderAddAudioSourceAddBtn"
   >
     Add
   </button>
   } @if (loadingError) {
-  <button color="primary" mat-flat-button (click)="onClickTryAgain()">
-    Erneut versuchen
+  <button
+    color="primary"
+    mat-flat-button
+    (click)="onClickTryAgain()"
+    i18n="@@recorderAddAudioSourceRetryBtn"
+  >
+    Retry
     <mat-icon svgIcon="repeat" class="svg-black"></mat-icon>
   </button>
   }

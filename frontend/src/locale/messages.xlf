@@ -1165,6 +1165,96 @@
       <trans-unit id="uploadRecordingWaitingForUploadHint" datatype="html">
         <source> Please wait until all files have been uploaded. </source>
       </trans-unit>
+      <trans-unit id="recorderAddAudioAudioLevel" datatype="html">
+        <source> Audio level </source>
+      </trans-unit>
+      <trans-unit id="recorderAddAudioSourceAddBtn" datatype="html">
+        <source> Add </source>
+      </trans-unit>
+      <trans-unit id="recorderAddAudioSourceCancelBtn" datatype="html">
+        <source> Cancel </source>
+      </trans-unit>
+      <trans-unit id="recorderAddAudioSourceRetryBtn" datatype="html">
+        <source> Retry <x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;repeat&quot; class=&quot;svg-black&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/button&gt;"/></source>
+      </trans-unit>
+      <trans-unit id="recorderAddAudioSourceSelectionLabel" datatype="html">
+        <source>Sources</source>
+      </trans-unit>
+      <trans-unit id="recorderAddAudioSourceTitle" datatype="html">
+        <source>Add Audiosource</source>
+      </trans-unit>
+      <trans-unit id="recorderAddAudioSourceTitleLabel" datatype="html">
+        <source>Title</source>
+      </trans-unit>
+      <trans-unit id="recorderAddScreensharingAddBtn" datatype="html">
+        <source> Add </source>
+      </trans-unit>
+      <trans-unit id="recorderAddScreensharingAudioLevel" datatype="html">
+        <source> Audio level </source>
+      </trans-unit>
+      <trans-unit id="recorderAddScreensharingCancelBtn" datatype="html">
+        <source> Cancel </source>
+      </trans-unit>
+      <trans-unit id="recorderAddScreensharingMediaCategoryOther" datatype="html">
+        <source>Other</source>
+      </trans-unit>
+      <trans-unit id="recorderAddScreensharingMediaCategorySignLanguage" datatype="html">
+        <source>Sign Language</source>
+      </trans-unit>
+      <trans-unit id="recorderAddScreensharingMediaCategorySlides" datatype="html">
+        <source>Slides</source>
+      </trans-unit>
+      <trans-unit id="recorderAddScreensharingMediaCategorySpeaker" datatype="html">
+        <source>Speaker</source>
+      </trans-unit>
+      <trans-unit id="recorderAddScreensharingMediaCategoryTitleLabel" datatype="html">
+        <source>Media Category</source>
+      </trans-unit>
+      <trans-unit id="recorderAddScreensharingRetryBtn" datatype="html">
+        <source> Retry <x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;repeat&quot; class=&quot;svg-black&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/button&gt;"/></source>
+      </trans-unit>
+      <trans-unit id="recorderAddScreensharingSelectionError" datatype="html">
+        <source> An error occurred during the selection when sharing the screen. </source>
+      </trans-unit>
+      <trans-unit id="recorderAddScreensharingTitle" datatype="html">
+        <source> Add Screensharing </source>
+      </trans-unit>
+      <trans-unit id="recorderAddScreensharingTitleLabel" datatype="html">
+        <source>Title</source>
+      </trans-unit>
+      <trans-unit id="recorderAddVideoSourceAddButton" datatype="html">
+        <source> Add </source>
+      </trans-unit>
+      <trans-unit id="recorderAddVideoSourceCancelButton" datatype="html">
+        <source> Cancel </source>
+      </trans-unit>
+      <trans-unit id="recorderAddVideoSourceMediaCategoryLabel" datatype="html">
+        <source>Media Category</source>
+      </trans-unit>
+      <trans-unit id="recorderAddVideoSourceMediaCategoryOther" datatype="html">
+        <source>Other</source>
+      </trans-unit>
+      <trans-unit id="recorderAddVideoSourceMediaCategorySignLanguage" datatype="html">
+        <source>Sign Language</source>
+      </trans-unit>
+      <trans-unit id="recorderAddVideoSourceMediaCategorySlides" datatype="html">
+        <source>Slides</source>
+      </trans-unit>
+      <trans-unit id="recorderAddVideoSourceMediaCategorySpeaker" datatype="html">
+        <source>Speaker</source>
+      </trans-unit>
+      <trans-unit id="recorderAddVideoSourceRetryButton" datatype="html">
+        <source> Retry <x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;repeat&quot; class=&quot;svg-black&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/button&gt;"/></source>
+      </trans-unit>
+      <trans-unit id="recorderAddVideoSourceSelectionLabel" datatype="html">
+        <source>Sources</source>
+      </trans-unit>
+      <trans-unit id="recorderAddVideoSourceTitle" datatype="html">
+        <source>Add Videosource</source>
+      </trans-unit>
+      <trans-unit id="recorderAddVideoSourceTitleLabel" datatype="html">
+        <source>Title</source>
+      </trans-unit>
     </body>
   </file>
 </xliff>

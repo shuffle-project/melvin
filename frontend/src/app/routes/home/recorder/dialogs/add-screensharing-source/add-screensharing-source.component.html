@@ -1,24 +1,44 @@
 <!-- hide all while loading screen selection -->
 @if (!loading) {
-<h2 mat-dialog-title>Add Screensharing</h2>
+<h2 mat-dialog-title i18n="@@recorderAddScreensharingTitle">
+  Add Screensharing
+</h2>
 <mat-dialog-content class="mat-dialog-content">
   @if (loadingError) {
-  <p>Bei der Auswahl beim teilen des Bildschirms ist ein Fehler aufgetreten.</p>
+  <p i18n="@@recorderAddScreensharingSelectionError">
+    An error occurred during the selection when sharing the screen.
+  </p>
   } @if (!loading && !loadingError) {
   <div class="controls">
     <mat-form-field class="title-form-field">
-      <mat-label>Title</mat-label>
+      <mat-label i18n="@@recorderAddScreensharingTitleLabel">Title</mat-label>
       <input matInput type="text" [(ngModel)]="screensharingSource.title" />
     </mat-form-field>
     <mat-form-field class="category-form-field">
-      <mat-label>Media Category</mat-label>
+      <mat-label i18n="@@recorderAddScreensharingMediaCategoryTitleLabel"
+        >Media Category</mat-label
+      >
       <mat-select [(ngModel)]="screensharingSource.mediaCategory">
-        <mat-option value="{{ MediaCategory.OTHER }}">Other</mat-option>
-        <mat-option value="{{ MediaCategory.SIGN_LANGUAGE }}"
+        <mat-option
+          value="{{ MediaCategory.SIGN_LANGUAGE }}"
+          i18n="@@recorderAddScreensharingMediaCategorySignLanguage"
           >Sign Language</mat-option
         >
-        <mat-option value="{{ MediaCategory.SLIDES }}">Slides</mat-option>
-        <mat-option value="{{ MediaCategory.SPEAKER }}">Speaker</mat-option>
+        <mat-option
+          value="{{ MediaCategory.SLIDES }}"
+          i18n="@@recorderAddScreensharingMediaCategorySlides"
+          >Slides</mat-option
+        >
+        <mat-option
+          value="{{ MediaCategory.SPEAKER }}"
+          i18n="@@recorderAddScreensharingMediaCategorySpeaker"
+          >Speaker</mat-option
+        >
+        <mat-option
+          value="{{ MediaCategory.OTHER }}"
+          i18n="@@recorderAddScreensharingMediaCategoryOther"
+          >Other</mat-option
+        >
       </mat-select>
     </mat-form-field>
   </div>
@@ -34,7 +54,7 @@
   </div>
   } @if (screensharingSource.mediaStream && screensharingSource.sound) {
   <div class="meter-wrapper">
-    <span> Audio level </span>
+    <span i18n="@@recorderAddScreensharingAudioLevel"> Audio level </span>
     <div class="meter">
       <app-audio-meter
         [mediaStream]="screensharingSource.mediaStream"
@@ -51,16 +71,31 @@
   } }
 </mat-dialog-content>
 <mat-dialog-actions>
-  <button color="primary" mat-flat-button (click)="onCloseDialog()">
+  <button
+    color="primary"
+    mat-flat-button
+    (click)="onCloseDialog()"
+    i18n="@@recorderAddScreensharingCancelBtn"
+  >
     Cancel
   </button>
   @if (!loadingError) {
-  <button color="primary" mat-flat-button (click)="onSubmitDialog()">
+  <button
+    color="primary"
+    mat-flat-button
+    (click)="onSubmitDialog()"
+    i18n="@@recorderAddScreensharingAddBtn"
+  >
     Add
   </button>
   } @if (loadingError) {
-  <button color="primary" mat-flat-button (click)="fetchStream()">
-    Erneut versuchen
+  <button
+    color="primary"
+    mat-flat-button
+    (click)="fetchStream()"
+    i18n="@@recorderAddScreensharingRetryBtn"
+  >
+    Retry
     <mat-icon svgIcon="repeat" class="svg-black"></mat-icon>
   </button>
   }

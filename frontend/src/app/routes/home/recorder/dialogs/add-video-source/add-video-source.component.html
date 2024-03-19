@@ -1,4 +1,4 @@
-<h2 mat-dialog-title>Add Videosource</h2>
+<h2 mat-dialog-title i18n="@@recorderAddVideoSourceTitle">Add Videosource</h2>
 <mat-dialog-content class="mat-dialog-content">
   @if (loading) {
   <div class="flex justify-center" style="margin-top: 20px">
@@ -10,7 +10,7 @@
   </p>
   } @if (!loading && !loadingError) {
   <mat-form-field style="width: 100%">
-    <mat-label>sources</mat-label>
+    <mat-label i18n="@@recorderAddVideoSourceSelectionLabel">Sources</mat-label>
     <mat-select
       (selectionChange)="onSelectionChange()"
       [(ngModel)]="currentInput"
@@ -24,18 +24,34 @@
   </mat-form-field>
   <div class="controls">
     <mat-form-field class="title-form-field">
-      <mat-label>Title</mat-label>
+      <mat-label i18n="@@recorderAddVideoSourceTitleLabel">Title</mat-label>
       <input matInput type="text" [(ngModel)]="videoSource.title" />
     </mat-form-field>
     <mat-form-field class="category-form-field">
-      <mat-label>Media Category</mat-label>
+      <mat-label i18n="@@recorderAddVideoSourceMediaCategoryLabel"
+        >Media Category</mat-label
+      >
       <mat-select [(ngModel)]="videoSource.mediaCategory">
-        <mat-option value="{{ MediaCategory.OTHER }}">Other</mat-option>
-        <mat-option value="{{ MediaCategory.SIGN_LANGUAGE }}"
+        <mat-option
+          value="{{ MediaCategory.SIGN_LANGUAGE }}"
+          i18n="@@recorderAddVideoSourceMediaCategorySignLanguage"
           >Sign Language</mat-option
         >
-        <mat-option value="{{ MediaCategory.SLIDES }}">Slides</mat-option>
-        <mat-option value="{{ MediaCategory.SPEAKER }}">Speaker</mat-option>
+        <mat-option
+          value="{{ MediaCategory.SLIDES }}"
+          i18n="@@recorderAddVideoSourceMediaCategorySlides"
+          >Slides</mat-option
+        >
+        <mat-option
+          value="{{ MediaCategory.SPEAKER }}"
+          i18n="@@recorderAddVideoSourceMediaCategorySpeaker"
+          >Speaker</mat-option
+        >
+        <mat-option
+          value="{{ MediaCategory.OTHER }}"
+          i18n="@@recorderAddVideoSourceMediaCategoryOther"
+          >Other</mat-option
+        >
       </mat-select>
     </mat-form-field>
   </div>
@@ -61,7 +77,12 @@
   } }
 </mat-dialog-content>
 <mat-dialog-actions>
-  <button color="primary" mat-flat-button (click)="onCloseDialog()">
+  <button
+    color="primary"
+    mat-flat-button
+    (click)="onCloseDialog()"
+    i18n="@@recorderAddVideoSourceCancelButton"
+  >
     Cancel
   </button>
   @if (!loadingError && !loading && !loadingError) {
@@ -70,12 +91,18 @@
     mat-flat-button
     [disabled]="deviceError"
     (click)="onSubmitDialog()"
+    i18n="@@recorderAddVideoSourceAddButton"
   >
     Add
   </button>
   } @if (loadingError) {
-  <button color="primary" mat-flat-button (click)="onClickTryAgain()">
-    Erneut versuchen
+  <button
+    color="primary"
+    mat-flat-button
+    (click)="onClickTryAgain()"
+    i18n="@@recorderAddVideoSourceRetryButton"
+  >
+    Retry
     <mat-icon svgIcon="repeat" class="svg-black"></mat-icon>
   </button>
   }
