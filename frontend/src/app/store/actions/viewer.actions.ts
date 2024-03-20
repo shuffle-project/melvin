@@ -26,6 +26,13 @@ export const showTranscript = createAction(
   '[CONTROLS COMPONENT] Show Transcript'
 );
 
+export const hideTranscriptForFullscreen = createAction(
+  '[VIEWER SERVICE] Hide Transcript'
+);
+export const showTranscriptForFullscreen = createAction(
+  '[VIEWER SERVICE] Show Transcript'
+);
+
 export const changeTranscriptFontsize = createAction(
   '[ADJUST LAYOUT COMPONENT] Change Fontsize',
   props<{ transcriptFontsize: SizeOptions }>()

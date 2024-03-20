@@ -156,45 +156,6 @@ export class ControlsComponent {
     }
   }
 
-  isFullscreenActive() {
-    return (
-      document.fullscreenElement || (document as any).webkitFullscreenElement
-    );
-  }
-
-  async onExitFullscreen() {
-    if (document.exitFullscreen) {
-      await document.exitFullscreen();
-    } else if ((document as any).webkitExitFullscreen) {
-      await (document as any).webkitExitFullscreen();
-    }
-    // this.store.dispatch(viewerActions.showTranscript());
-  }
-
-  onRequestFullscreen() {
-    if (this.isFullscreenActive()) {
-      this.onExitFullscreen();
-    } else {
-      const doc = document.getElementsByTagName('body').item(0);
-      if (doc) {
-        this.store.dispatch(viewerActions.hideTranscript());
-
-        // show transcript again on closing fullscreen
-        doc.onfullscreenchange = () => {
-          if (!this.isFullscreenActive()) {
-            this.store.dispatch(viewerActions.showTranscript());
-          }
-        };
-
-        if (doc.requestFullscreen) {
-          doc.requestFullscreen();
-        } else if ((doc as any).webkitRequestFullscreen) {
-          (doc as any).webkitRequestFullscreen();
-        }
-      }
-    }
-  }
-
   onToggleSignLanguageVideo() {
     this.store.dispatch(viewerActions.toggleSignLanguageVideos());
   }

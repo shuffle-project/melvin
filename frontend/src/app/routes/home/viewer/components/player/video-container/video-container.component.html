@@ -12,6 +12,8 @@
     [muted]="true"
     [playbackRate]="currentSpeed$ | ngrxPush"
     (loadedmetadata)="onVideoLoadMetadata($event)"
+    (click)="onClickVideo()"
+    (dblclick)="onDblClickVideo()"
   >
     <source src="{{ video.url }}" type="video/mp4" />
   </video>

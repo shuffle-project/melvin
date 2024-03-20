@@ -11,27 +11,22 @@ import {
 } from '@angular/core';
 import { Store } from '@ngrx/store';
 
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { PushPipe } from '@ngrx/component';
 import { Subject, fromEvent, merge, takeUntil, tap } from 'rxjs';
 import { switchToNewBigVideo } from '../../../../../../store/actions/viewer.actions';
 import { AppState } from '../../../../../../store/app.state';
 import * as editorSelector from '../../../../../../store/selectors/editor.selector';
 import { ViewerService } from '../../../viewer.service';
 import { ViewerVideo } from '../player.component';
-import { PushPipe } from '@ngrx/component';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
-
 
 @Component({
-    selector: 'app-video-container',
-    templateUrl: './video-container.component.html',
-    styleUrls: ['./video-container.component.scss'],
-    standalone: true,
-    imports: [
-    MatIconModule,
-    MatButtonModule,
-    PushPipe
-],
+  selector: 'app-video-container',
+  templateUrl: './video-container.component.html',
+  styleUrls: ['./video-container.component.scss'],
+  standalone: true,
+  imports: [MatIconModule, MatButtonModule, PushPipe],
 })
 export class VideoContainerComponent implements OnDestroy, OnChanges {
   private destroy$$ = new Subject<void>();
@@ -69,6 +64,22 @@ export class VideoContainerComponent implements OnDestroy, OnChanges {
 
   onChangeMainVideo() {
     this.store.dispatch(switchToNewBigVideo({ newBigVideoId: this.video.id }));
+  }
+
+  onClickVideo() {
+    if (this.size === 'big' && this.viewerService.audio) {
+      if (this.viewerService.audio.paused) {
+        this.viewerService.audio.play();
+      } else {
+        this.viewerService.audio.pause();
+      }
+    }
+  }
+
+  onDblClickVideo() {
+    if (this.size === 'big') {
+      this.viewerService.onRequestFullscreen();
+    }
   }
 
   onVideoLoadMetadata(event: Event) {

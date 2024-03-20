@@ -73,12 +73,20 @@ export const viewerReducer = createReducer(
   on(viewerActions.toggleTranscript, (state) => {
     return { ...state, transcriptEnabled: !state.transcriptEnabled };
   }),
-  on(viewerActions.showTranscript, (state) => {
-    return { ...state, transcriptEnabled: true };
-  }),
-  on(viewerActions.hideTranscript, (state) => {
-    return { ...state, transcriptEnabled: false };
-  }),
+  on(
+    viewerActions.showTranscript,
+    viewerActions.showTranscriptForFullscreen,
+    (state) => {
+      return { ...state, transcriptEnabled: true };
+    }
+  ),
+  on(
+    viewerActions.hideTranscript,
+    viewerActions.hideTranscriptForFullscreen,
+    (state) => {
+      return { ...state, transcriptEnabled: false };
+    }
+  ),
 
   on(viewerActions.toggleTranscriptOnlyMode, (state) => {
     return { ...state, transcriptOnlyMode: !state.transcriptOnlyMode };
