@@ -116,6 +116,10 @@ export class TranscriptComponent implements OnDestroy, OnInit {
         captionIndex++;
       }
 
+      if (captions.length === 1) {
+        finalTranscriptParagraphs.push(tempTranscriptParagraph);
+      }
+
       this.transcriptNew = JSON.parse(
         JSON.stringify(finalTranscriptParagraphs)
       );
