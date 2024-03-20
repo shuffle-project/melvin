@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { join } from 'path';
 import { v4 } from 'uuid';
+import { Export } from '../db/schemas/export.schema';
 import { Audio, Video } from '../db/schemas/project.schema';
 import { CustomLogger } from '../logger/logger.service';
 
@@ -37,7 +38,7 @@ export class PathService {
     return join(this.getAssetsDirectory(), 'example-project');
   }
 
-  getMediaFile(projectId: string, media: Audio | Video): string {
+  getMediaFile(projectId: string, media: Audio | Video | Export): string {
     const filename = media._id + '.' + media.extension;
     return join(this.getProjectDirectory(projectId), filename);
   }

@@ -113,6 +113,8 @@ export class RecorderService {
   stopRecording(title: string) {
     if (!this.recording) return;
 
+    this.previousDuration = 0;
+
     this.title = title;
 
     this.recordings.forEach((recording) => {

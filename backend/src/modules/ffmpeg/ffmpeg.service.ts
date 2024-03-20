@@ -3,6 +3,7 @@ import { exec, spawn } from 'child_process';
 import ffmpegPath from 'ffmpeg-static';
 import ffprobePath from 'ffprobe-static';
 import { join } from 'path';
+import { Export } from '../db/schemas/export.schema';
 import { Audio, Project, Video } from '../db/schemas/project.schema';
 import { CustomLogger } from '../logger/logger.service';
 import { PathService } from '../path/path.service';
@@ -169,6 +170,27 @@ export class FfmpegService {
       '-ac',
       '1', // reduce to mono
       audioFilepath,
+    ];
+    await this.execAsStream(commands);
+  }
+
+  async bakeSubtitlesInMp4(
+    projectId: string,
+    video: Video,
+    subtitleFile: string,
+    exportObj: Export,
+  ) {
+    const videoFilepath = this.pathService.getMediaFile(projectId, video);
+    const exportFilepath = this.pathService.getMediaFile(projectId, exportObj);
+
+    const commands = [
+      '-i',
+      videoFilepath,
+      '-vf',
+      'subtitles=' + subtitleFile,
+      '-c:a',
+      'copy',
+      exportFilepath,
     ];
     await this.execAsStream(commands);
   }

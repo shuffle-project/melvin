@@ -224,10 +224,12 @@ export class ProjectService {
     );
 
     // Entity
-    const populatedProject = await project.populate([
-      'users',
-      'transcriptions',
-    ]);
+
+    const populatedProject = await this.db.findProjectByIdOrThrow(project._id);
+    // await project.populate([
+    //   'users',
+    //   'transcriptions',
+    // ]);
 
     // handle video and subtitle files / add queue jobs / generate subtitles
     await this._handleFilesAndTranscriptions(
@@ -241,7 +243,7 @@ export class ProjectService {
     );
 
     const entity = plainToInstance(ProjectEntity, {
-      ...populatedProject.toObject(),
+      ...populatedProject,
     }) as unknown as ProjectEntity;
 
     // Send events
