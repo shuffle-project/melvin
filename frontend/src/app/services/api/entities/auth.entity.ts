@@ -8,3 +8,7 @@ export interface GuestLoginEntity {
   token: string;
   projectId: string;
 }
+
+export interface ChangePasswordEntity {
+  token: string;
+}

@@ -13,8 +13,12 @@ import {
   withLatestFrom,
 } from 'rxjs';
 import { CustomLogger } from '../../classes/logger.class';
+import { AlertService } from '../../services/alert/alert.service';
 import { ApiService } from '../../services/api/api.service';
-import { GuestLoginEntity } from '../../services/api/entities/auth.entity';
+import {
+  ChangePasswordEntity,
+  GuestLoginEntity,
+} from '../../services/api/entities/auth.entity';
 import { StorageKey } from '../../services/storage/storage-key.enum';
 import { StorageService } from '../../services/storage/storage.service';
 import * as authActions from '../actions/auth.actions';
@@ -31,7 +35,8 @@ export class AuthEffects {
     private actions$: Actions,
     private router: Router,
     private api: ApiService,
-    private storage: StorageService
+    private storage: StorageService,
+    private alert: AlertService
   ) {}
 
   // Initialization
@@ -143,6 +148,29 @@ export class AuthEffects {
     { dispatch: false }
   );
 
+  // Change password
+  changePassword$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(authActions.changePassword),
+      exhaustMap((action) =>
+        this.api.changePassword(action.dto).pipe(
+          map((entity: ChangePasswordEntity) => {
+            const token = entity.token;
+
+            this._replaceTokenInStorage(token);
+
+            this.alert.success('Password successfully changed!');
+
+            return authActions.changePasswordSuccess({ entity });
+          }),
+          catchError((res: HttpErrorResponse) => {
+            return of(authActions.changePasswordError({ error: res.error }));
+          })
+        )
+      )
+    )
+  );
+
   // Logout
 
   logout$ = createEffect(
@@ -251,4 +279,24 @@ export class AuthEffects {
       ),
     { dispatch: false }
   );
+
+  private _replaceTokenInStorage(token: string) {
+    // if token exists in localstorage, replace
+    const tokenInLocalStorage = this.storage.getFromLocalStorage(
+      StorageKey.ACCESS_TOKEN,
+      token
+    );
+    if (tokenInLocalStorage) {
+      this.storage.storeInLocalStorage(StorageKey.ACCESS_TOKEN, token);
+    }
+
+    // if token exists in sessionstorage, replace
+    const tokenInSessionstorage = this.storage.getFromSessionStorage(
+      StorageKey.ACCESS_TOKEN,
+      token
+    );
+    if (tokenInSessionstorage) {
+      this.storage.storeInSessionStorage(StorageKey.ACCESS_TOKEN, token);
+    }
+  }
 }

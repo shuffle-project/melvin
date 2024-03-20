@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { UserEntity } from 'src/app/services/api/entities/user.entity';
 import { environment } from '../../../environments/environment';
+import { ChangePasswordDto } from './dto/auth.dto';
 import { BulkRemoveDto } from './dto/bulk-remove.dto';
 import { ConnectLivestreamDto } from './dto/connect-livestream.dto';
 import { CreateCaptionDto } from './dto/create-caption.dto';
@@ -26,7 +27,11 @@ import { UpdateSpeakerDto } from './dto/update-speaker.dto';
 import { UpdateTranscriptionDto } from './dto/update-transcription.dto';
 import { UploadVideoDto } from './dto/upload-video.dto';
 import { ActivityListEntity } from './entities/activitiy-list.entity';
-import { GuestLoginEntity, InviteEntity } from './entities/auth.entity';
+import {
+  ChangePasswordEntity,
+  GuestLoginEntity,
+  InviteEntity,
+} from './entities/auth.entity';
 import { CaptionListEntity } from './entities/caption-list.entity';
 import { CaptionEntity, CaptionHistoryEntity } from './entities/caption.entity';
 import { ConfigEntity } from './entities/config.entity';
@@ -71,6 +76,10 @@ export abstract class ApiService {
     password: string,
     name: string
   ): Observable<void>;
+
+  abstract changePassword(
+    dto: ChangePasswordDto
+  ): Observable<ChangePasswordEntity>;
 
   abstract refreshToken(token: string): Observable<{ token: string }>;
 

@@ -1,5 +1,7 @@
 import { createAction, props } from '@ngrx/store';
+import { ChangePasswordDto } from '../../services/api/dto/auth.dto';
 import {
+  ChangePasswordEntity,
   GuestLoginEntity,
   InviteEntity,
 } from '../../services/api/entities/auth.entity';
@@ -32,6 +34,22 @@ export const loginSuccess = createAction(
 
 export const loginError = createAction(
   '[AUTH EFFECTS] Login error',
+  props<{ error: Error }>()
+);
+
+// change password
+export const changePassword = createAction(
+  '[PROFILE COMPONENT] Change password',
+  props<{ dto: ChangePasswordDto }>()
+);
+
+export const changePasswordSuccess = createAction(
+  '[AUTH EFFECTS] Change password success',
+  props<{ entity: ChangePasswordEntity }>()
+);
+
+export const changePasswordError = createAction(
+  '[AUTH EFFECTS] Change password failed',
   props<{ error: Error }>()
 );
 

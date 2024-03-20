@@ -12,6 +12,7 @@ import { UserEntity } from 'src/app/services/api/entities/user.entity';
 import { environment } from 'src/environments/environment';
 import * as authSelectors from '../../store/selectors/auth.selector';
 import { ApiService } from './api.service';
+import { ChangePasswordDto } from './dto/auth.dto';
 import { BulkRemoveDto } from './dto/bulk-remove.dto';
 import { ConnectLivestreamDto } from './dto/connect-livestream.dto';
 import { CreateCaptionDto } from './dto/create-caption.dto';
@@ -35,7 +36,11 @@ import { UpdateSpeakerDto } from './dto/update-speaker.dto';
 import { UpdateTranscriptionDto } from './dto/update-transcription.dto';
 import { UploadVideoDto } from './dto/upload-video.dto';
 import { ActivityListEntity } from './entities/activitiy-list.entity';
-import { GuestLoginEntity, InviteEntity } from './entities/auth.entity';
+import {
+  ChangePasswordEntity,
+  GuestLoginEntity,
+  InviteEntity,
+} from './entities/auth.entity';
 import { CaptionListEntity } from './entities/caption-list.entity';
 import { CaptionEntity, CaptionHistoryEntity } from './entities/caption.entity';
 import { ConfigEntity } from './entities/config.entity';
@@ -194,6 +199,12 @@ export class RealApiService implements ApiService {
       },
       { skipJwt: true }
     );
+  }
+
+  changePassword(dto: ChangePasswordDto): Observable<ChangePasswordEntity> {
+    return this._post<{ token: string }>(`/auth/change-password`, dto, {
+      skipJwt: true,
+    });
   }
 
   refreshToken(token: string): Observable<{ token: string }> {

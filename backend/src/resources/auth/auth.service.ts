@@ -35,7 +35,9 @@ import {
   AuthVerifyEmailDto,
   AuthVerifyEmailResponseDto,
 } from './dto/auth-verify-email.dto';
+import { ChangePasswordDto } from './dto/change-password.dto';
 import { AuthInviteEntity } from './entities/auth-invite.entity';
+import { ChangePasswordEntity } from './entities/change-password.entity';
 
 @Injectable()
 export class AuthService {
@@ -49,6 +51,49 @@ export class AuthService {
     private populateService: PopulateService,
   ) {
     this.config = this.configService.get<JwtConfig>('jwt');
+  }
+
+  async changePassword(dto: ChangePasswordDto): Promise<ChangePasswordEntity> {
+    await new Promise((resolve) => setTimeout(resolve, 5000));
+
+    // Find user by email
+    const user = await this.db.userModel
+      .findOne({ email: dto.email.toLowerCase() })
+      .lean()
+      .exec();
+
+    // Invalid email
+    if (!user) {
+      throw new CustomBadRequestException('unknown_email');
+    }
+
+    // Block system user login
+    if (user.role === UserRole.SYSTEM) {
+      throw new CustomForbiddenException('system_user_login_is_blocked');
+    }
+
+    // Invalid password
+    const isMatch = await bcrypt.compare(dto.oldPassword, user.hashedPassword);
+
+    if (!isMatch) {
+      throw new CustomBadRequestException('invalid_password');
+    }
+
+    // update password
+    const newHashedPassword = await bcrypt.hash(dto.newPassword, 10);
+
+    const updatedUser = await this.db.userModel.findByIdAndUpdate(
+      user._id,
+      {
+        $set: { hashedPassword: newHashedPassword },
+      },
+      { new: true },
+    );
+
+    // Create access token
+    const token = this.createAccessToken(updatedUser);
+
+    return { token };
   }
 
   async login(dto: AuthLoginDto): Promise<AuthLoginResponseDto> {

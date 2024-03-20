@@ -14,7 +14,9 @@ import {
   AuthVerifyEmailDto,
   AuthVerifyEmailResponseDto,
 } from './dto/auth-verify-email.dto';
+import { ChangePasswordDto } from './dto/change-password.dto';
 import { AuthInviteEntity } from './entities/auth-invite.entity';
+import { ChangePasswordEntity } from './entities/change-password.entity';
 
 @Controller('auth')
 export class AuthController {
@@ -23,6 +25,13 @@ export class AuthController {
   @Post('/login')
   async login(@Body() dto: AuthLoginDto): Promise<AuthLoginResponseDto> {
     return this.authService.login(dto);
+  }
+
+  @Post('/change-password')
+  async changePassword(
+    @Body() dto: ChangePasswordDto,
+  ): Promise<ChangePasswordEntity> {
+    return this.authService.changePassword(dto);
   }
 
   @Post('/refresh-token')
