@@ -3,7 +3,6 @@ import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { Queue } from 'bull';
 import { plainToInstance } from 'class-transformer';
-import { randomBytes } from 'crypto';
 import { Request, Response } from 'express';
 import { ReadStream, createReadStream } from 'fs';
 import { ensureDir, remove, rm } from 'fs-extra';
@@ -29,6 +28,7 @@ import {
   ProcessSubtitlesJob,
   SubtitlesType,
 } from '../../processors/processor.interfaces';
+import { generateSecureToken } from '../../utils/crypto';
 import {
   CustomBadRequestException,
   CustomForbiddenException,
@@ -77,14 +77,6 @@ export class ProjectService {
   ) {
     this.logger.setContext(this.constructor.name);
     this.serverBaseUrl = this.configService.get<string>('baseUrl');
-  }
-
-  _generateInviteToken(): Promise<string> {
-    return new Promise((resolve, reject) =>
-      randomBytes(64, (err, buffer) =>
-        err ? reject(err) : resolve(buffer.toString('base64url')),
-      ),
-    );
   }
 
   // async _getMediaLinksEntity(
@@ -136,8 +128,6 @@ export class ProjectService {
     videoFiles: Array<Express.Multer.File> | null = null,
     subtitleFiles: Array<Express.Multer.File> | null = null,
   ): Promise<ProjectEntity> {
-    const inviteToken = await this._generateInviteToken();
-
     let users = null;
     let userIds: Types.ObjectId[] = [];
     // find all users
@@ -181,7 +171,8 @@ export class ProjectService {
       createdBy: authUser.id,
       users: [authUser.id, ...userIds],
       status,
-      inviteToken,
+      inviteToken: generateSecureToken(),
+      viewerToken: generateSecureToken(),
       videos: [mainVideo],
       audios: [mainAudio],
     });
@@ -616,7 +607,7 @@ export class ProjectService {
       throw new CustomForbiddenException('must_be_owner');
     }
 
-    const inviteToken = await this._generateInviteToken();
+    const inviteToken = generateSecureToken();
 
     await this.db.projectModel.findByIdAndUpdate(id, {
       $set: { inviteToken },

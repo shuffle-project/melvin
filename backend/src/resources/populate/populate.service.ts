@@ -3,7 +3,6 @@ import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { parse } from '@plussub/srt-vtt-parser';
 import { Queue } from 'bull';
-import { randomBytes } from 'crypto';
 import dayjs from 'dayjs';
 import { emptyDir, ensureDir, symlink } from 'fs-extra';
 import { copyFile, readFile, readdir } from 'fs/promises';
@@ -36,6 +35,7 @@ import {
   ProcessProjectJob,
   ProcessSubtitlesJob,
 } from '../../processors/processor.interfaces';
+import { generateSecureToken } from '../../utils/crypto';
 import { isSameObjectId } from '../../utils/objectid';
 import { CreateActivityDto } from '../activity/dto/create-activity.dto';
 import { UserRole } from '../user/user.interfaces';
@@ -168,7 +168,8 @@ export class PopulateService {
           start: 0,
           end: duration,
           language: LANGUAGES[this._random(0, LANGUAGES.length - 1)],
-          inviteToken: randomBytes(64).toString('base64url'),
+          inviteToken: generateSecureToken(),
+          viewerToken: generateSecureToken(),
         });
       }
     });

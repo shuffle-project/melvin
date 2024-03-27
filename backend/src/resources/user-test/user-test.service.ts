@@ -1,6 +1,5 @@
 import { Injectable } from '@nestjs/common';
 import { plainToInstance } from 'class-transformer';
-import { randomBytes } from 'crypto';
 import { ensureDir, readdir, readFile, symlink } from 'fs-extra';
 import { chunk } from 'lodash';
 import { Types } from 'mongoose';
@@ -30,6 +29,7 @@ import { PopulateService } from '../populate/populate.service';
 import { parse } from '@plussub/srt-vtt-parser';
 
 import { Entry } from '@plussub/srt-vtt-parser/dist/src/types';
+import { generateSecureToken } from '../../utils/crypto';
 import { ProjectService } from '../project/project.service';
 
 const SHORTS = [
@@ -126,7 +126,8 @@ export class UserTestService {
         start: 0,
         end: duration,
         language: 'de-DE',
-        inviteToken: randomBytes(64).toString('base64url'),
+        inviteToken: generateSecureToken(),
+        viewerToken: generateSecureToken(),
       });
     });
   }
