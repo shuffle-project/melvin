@@ -29,6 +29,8 @@ export const EXAMPLE_PROJECT = {
   transcriptions: [ids.transcription],
   inviteToken:
     'yelFMz2hoS_Bh9ZCa9NTwvlqN1okIu3uTiEkxx5xoNTFivfsrfoJl3DxpxJU9KhaqOd8EQ9ucpTpsK3-kUbvjw',
+  viewerToken:
+    'xelFMz2hoS_Bh9ZCa9NTwvlqN1okIu3uTiEkxx5xoNTFivfsrfoJl3DxpxJU9KhaqOd8EQ9ucpTpsK3-kUbvjw',
   audios: [
     {
       category: 'main',

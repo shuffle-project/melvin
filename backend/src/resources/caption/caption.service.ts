@@ -126,7 +126,8 @@ export class CaptionService {
 
     // Check project permissions
     const project = transcription.project as ProjectDocument;
-    if (!this.permissions.isProjectMember(project, authUser)) {
+    // if (!this.permissions.isProjectMember(project, authUser)) {
+    if (!this.permissions.isProjectReadable(project, authUser)) {
       throw new CustomForbiddenException('must_be_project_member');
     }
 

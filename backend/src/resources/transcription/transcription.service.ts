@@ -159,7 +159,8 @@ export class TranscriptionService {
       .lean()
       .exec();
 
-    if (!this.permissions.isProjectMember(project, authUser)) {
+    if (!this.permissions.isProjectReadable(project, authUser)) {
+      // if (!this.permissions.isProjectMember(project, authUser)) {
       throw new CustomForbiddenException('access_to_project_denied');
     }
 
@@ -183,7 +184,8 @@ export class TranscriptionService {
       .exec();
 
     const project = transcription.project as LeanProjectDocument;
-    if (!this.permissions.isProjectMember(project, authUser)) {
+    // if (!this.permissions.isProjectMember(project, authUser)) {
+    if (!this.permissions.isProjectReadable(project, authUser)) {
       throw new CustomForbiddenException('access_to_transcription_denied');
     }
 

@@ -50,6 +50,7 @@ import { UpdateProjectDto } from './dto/update-project.dto';
 import { UploadVideoDto } from './dto/upload-media.dto';
 import { ProjectInviteTokenEntity } from './entities/project-invite.entity';
 import { ProjectListEntity } from './entities/project-list.entity';
+import { ProjectViewerTokenEntity } from './entities/project-viewer.entity';
 import {
   AudioEntity,
   ProjectEntity,
@@ -79,7 +80,7 @@ export class ProjectService {
     this.serverBaseUrl = this.configService.get<string>('baseUrl');
   }
 
-  _generateInviteToken(): Promise<string> {
+  _generateToken(): Promise<string> {
     return new Promise((resolve, reject) =>
       randomBytes(64, (err, buffer) =>
         err ? reject(err) : resolve(buffer.toString('base64url')),
@@ -87,56 +88,14 @@ export class ProjectService {
     );
   }
 
-  // async _getMediaLinksEntity(
-  //   project: LeanProjectDocument,
-  //   authUser: AuthUser,
-  // ): Promise<MediaLinksEntity> {
-  //   const mediaAuthToken = await this.authService.createMediaAccessToken(
-  //     authUser,
-  //     {
-  //       projectId: project._id.toString(),
-  //     },
-  //   );
-
-  //   const videoId = project.videos[0]._id.toString();
-  //   const audioId = project.audios[0]._id.toString();
-
-  //   const video = `${
-  //     this.serverBaseUrl
-  //   }/projects/${project._id.toString()}/video/${videoId}?Authorization=${
-  //     mediaAuthToken.token
-  //   }`;
-
-  //   const audio = `${
-  //     this.serverBaseUrl
-  //   }/projects/${project._id.toString()}/audio/${audioId}?Authorization=${
-  //     mediaAuthToken.token
-  //   }`;
-
-  //   //  additionalVideos
-  //   const additionalVideos: VideoLinkEntity[] = project.videos.map((media) => ({
-  //     id: media._id.toString(),
-  //     status: media.status,
-  //     title: media.title,
-  //     originalFileName: media.originalFileName,
-  //     category: media.category,
-  //     url: `${
-  //       this.serverBaseUrl
-  //     }/projects/${project._id.toString()}/video/${media._id.toString()}?Authorization=${
-  //       mediaAuthToken.token
-  //     }`,
-  //   }));
-
-  //   return { video, audio, videos: additionalVideos };
-  // }
-
   async create(
     authUser: AuthUser,
     createProjectDto: CreateProjectDto,
     videoFiles: Array<Express.Multer.File> | null = null,
     subtitleFiles: Array<Express.Multer.File> | null = null,
   ): Promise<ProjectEntity> {
-    const inviteToken = await this._generateInviteToken();
+    const inviteToken = await this._generateToken();
+    const viewerToken = await this._generateToken();
 
     let users = null;
     let userIds: Types.ObjectId[] = [];
@@ -182,6 +141,7 @@ export class ProjectService {
       users: [authUser.id, ...userIds],
       status,
       inviteToken,
+      viewerToken,
       videos: [mainVideo],
       audios: [mainAudio],
     });
@@ -362,7 +322,8 @@ export class ProjectService {
 
   async findOne(authUser: AuthUser, id: string): Promise<ProjectEntity> {
     const project = await this.db.findProjectByIdOrThrow(id);
-    if (!this.permissions.isProjectMember(project, authUser)) {
+
+    if (!this.permissions.isProjectReadable(project, authUser)) {
       throw new CustomForbiddenException('access_to_project_denied');
     }
 
@@ -593,6 +554,38 @@ export class ProjectService {
     }
   }
 
+  async getViewerToken(
+    authUser: AuthUser,
+    id: string,
+  ): Promise<ProjectViewerTokenEntity> {
+    const project = await this.db.findProjectByIdOrThrow(id);
+
+    if (!this.permissions.isProjectOwner(project, authUser)) {
+      throw new CustomForbiddenException('must_be_owner');
+    }
+
+    return { viewerToken: project.viewerToken };
+  }
+
+  async updateViewerToken(
+    authUser: AuthUser,
+    id: string,
+  ): Promise<ProjectViewerTokenEntity> {
+    const project = await this.db.findProjectByIdOrThrow(id);
+
+    if (!this.permissions.isProjectOwner(project, authUser)) {
+      throw new CustomForbiddenException('must_be_owner');
+    }
+
+    const viewerToken = await this._generateToken();
+
+    await this.db.projectModel.findByIdAndUpdate(id, {
+      $set: { viewerToken },
+    });
+
+    return { viewerToken };
+  }
+
   async getInviteToken(
     authUser: AuthUser,
     id: string,
@@ -616,7 +609,7 @@ export class ProjectService {
       throw new CustomForbiddenException('must_be_owner');
     }
 
-    const inviteToken = await this._generateInviteToken();
+    const inviteToken = await this._generateToken();
 
     await this.db.projectModel.findByIdAndUpdate(id, {
       $set: { inviteToken },
@@ -846,7 +839,9 @@ export class ProjectService {
     projectId: string,
   ): Promise<ProjectMediaEntity> {
     const project = await this.db.findProjectByIdOrThrow(projectId);
-    if (!this.permissions.isProjectMember(project, authUser)) {
+
+    // if (!this.permissions.isProjectMember(project, authUser)) {
+    if (!this.permissions.isProjectReadable(project, authUser)) {
       throw new CustomForbiddenException('access_to_project_denied');
     }
 

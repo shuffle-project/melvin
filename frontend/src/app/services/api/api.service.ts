@@ -31,6 +31,7 @@ import {
   ChangePasswordEntity,
   GuestLoginEntity,
   InviteEntity,
+  ViewerLoginEntity,
 } from './entities/auth.entity';
 import { CaptionListEntity } from './entities/caption-list.entity';
 import { CaptionEntity, CaptionHistoryEntity } from './entities/caption.entity';
@@ -42,6 +43,7 @@ import { PauseLivestreamEntity } from './entities/pause-livestream.entity';
 import { PauseRecordingEntity } from './entities/pause-recording,entity';
 import { ProjectInviteTokenEntity } from './entities/project-invite-token.entity';
 import { ProjectListEntity } from './entities/project-list.entity';
+import { ProjectViewerTokenEntity } from './entities/project-viewer-token.entity';
 import { ProjectEntity, ProjectMediaEntity } from './entities/project.entity';
 import { ResumeLivestreamEntity } from './entities/resume-livestream.entity';
 import { ResumeRecordingEntity } from './entities/resume-recording';
@@ -96,6 +98,8 @@ export abstract class ApiService {
     name?: string
   ): Observable<GuestLoginEntity>;
 
+  abstract viewerLogin(viewerToken: string): Observable<ViewerLoginEntity>;
+
   // users
   abstract findAllUsers(search: string): Observable<UserEntity[]>;
 
@@ -106,10 +110,14 @@ export abstract class ApiService {
 
   abstract findAllProjects(): Observable<ProjectListEntity>;
 
-  abstract findOneProject(projectId: string): Observable<ProjectEntity>;
+  abstract findOneProject(
+    projectId: string,
+    useViewerToken?: boolean
+  ): Observable<ProjectEntity>;
 
   abstract findProjectMediaEntity(
-    projectId: string
+    projectId: string,
+    useViewerToken?: boolean
   ): Observable<ProjectMediaEntity>;
 
   abstract updateProject(
@@ -136,9 +144,17 @@ export abstract class ApiService {
     projectId: string
   ): Observable<ProjectInviteTokenEntity>;
 
+  abstract getProjectViewerToken(
+    projectId: string
+  ): Observable<ProjectViewerTokenEntity>;
+
   abstract updateProjectInviteToken(
     projectId: string
   ): Observable<ProjectInviteTokenEntity>;
+
+  abstract updateProjectViewerToken(
+    projectId: string
+  ): Observable<ProjectViewerTokenEntity>;
 
   abstract uploadMedia(projectId: string, file: File): Observable<void>;
 
@@ -162,7 +178,8 @@ export abstract class ApiService {
   ): Observable<HttpEvent<TranscriptionEntity>>;
 
   abstract findAllTranscriptions(
-    projectId: string
+    projectId: string,
+    useViewerToken?: boolean
   ): Observable<TranscriptionEntity[]>;
 
   //findOneTranscription() {}
@@ -203,7 +220,8 @@ export abstract class ApiService {
   ): Observable<CaptionEntity>;
 
   abstract findAllCaptions(
-    transcriptionId: string
+    transcriptionId: string,
+    useViewerToken?: boolean
   ): Observable<CaptionListEntity>;
 
   //findOneCaption() {}

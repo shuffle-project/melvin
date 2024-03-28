@@ -11,6 +11,7 @@ import { Observable } from 'rxjs';
 import { UserEntity } from 'src/app/services/api/entities/user.entity';
 import { environment } from 'src/environments/environment';
 import * as authSelectors from '../../store/selectors/auth.selector';
+import * as viewerSelector from '../../store/selectors/viewer.selector';
 import { ApiService } from './api.service';
 import { ChangePasswordDto } from './dto/auth.dto';
 import { BulkRemoveDto } from './dto/bulk-remove.dto';
@@ -40,6 +41,7 @@ import {
   ChangePasswordEntity,
   GuestLoginEntity,
   InviteEntity,
+  ViewerLoginEntity,
 } from './entities/auth.entity';
 import { CaptionListEntity } from './entities/caption-list.entity';
 import { CaptionEntity, CaptionHistoryEntity } from './entities/caption.entity';
@@ -51,6 +53,7 @@ import { PauseLivestreamEntity } from './entities/pause-livestream.entity';
 import { PauseRecordingEntity } from './entities/pause-recording,entity';
 import { ProjectInviteTokenEntity } from './entities/project-invite-token.entity';
 import { ProjectListEntity } from './entities/project-list.entity';
+import { ProjectViewerTokenEntity } from './entities/project-viewer-token.entity';
 import { ProjectEntity, ProjectMediaEntity } from './entities/project.entity';
 import { ResumeLivestreamEntity } from './entities/resume-livestream.entity';
 import { ResumeRecordingEntity } from './entities/resume-recording';
@@ -85,6 +88,7 @@ export interface RequestOptions {
 
 export interface CustomRequestOptions extends RequestOptions {
   skipJwt?: boolean;
+  useViewerToken?: boolean;
 }
 
 @Injectable({
@@ -93,24 +97,32 @@ export interface CustomRequestOptions extends RequestOptions {
 export class RealApiService implements ApiService {
   private baseUrl: string = environment.baseRestApi;
 
-  private authToken$: Observable<string | null>;
+  private authToken$ = this.store.select(authSelectors.selectToken);
   private authToken!: string | null;
 
+  private viewerToken$ = this.store.select(viewerSelector.selectViewerToken);
+  private viewerToken!: string | null;
+
   constructor(private httpClient: HttpClient, private store: Store) {
-    this.authToken$ = this.store.select(authSelectors.selectToken);
-    this.store.select(authSelectors.selectToken).subscribe((token) => {
+    this.authToken$.subscribe((token) => {
       this.authToken = token;
+    });
+    this.viewerToken$.subscribe((token) => {
+      this.viewerToken = token;
     });
   }
 
   _transformRequestOptions(options: CustomRequestOptions): RequestOptions {
     const { headers = {}, skipJwt, ...requestOptions } = options;
 
+    const chosenToken = options.useViewerToken
+      ? this.viewerToken
+      : this.authToken;
     return {
       headers: {
-        ...(skipJwt || !this.authToken
+        ...(skipJwt || !chosenToken
           ? {}
-          : { Authorization: `Bearer ${this.authToken}` }),
+          : { Authorization: `Bearer ${chosenToken}` }),
         ...headers,
       },
       ...requestOptions,
@@ -244,6 +256,14 @@ export class RealApiService implements ApiService {
     );
   }
 
+  viewerLogin(token: string): Observable<ViewerLoginEntity> {
+    return this._post<ViewerLoginEntity>(
+      `/auth/viewer-login`,
+      { viewerToken: token },
+      { skipJwt: true }
+    );
+  }
+
   // users
   findAllUsers(search: string): Observable<UserEntity[]> {
     return this._get<UserEntity[]>('/users', { params: { search } });
@@ -314,12 +334,22 @@ export class RealApiService implements ApiService {
     return this._get<ProjectListEntity>('/projects');
   }
 
-  findOneProject(projectId: string): Observable<ProjectEntity> {
-    return this._get<ProjectEntity>(`/projects/${projectId}`);
+  findOneProject(
+    projectId: string,
+    useViewerToken?: boolean
+  ): Observable<ProjectEntity> {
+    return this._get<ProjectEntity>(`/projects/${projectId}`, {
+      useViewerToken,
+    });
   }
 
-  findProjectMediaEntity(projectId: string): Observable<ProjectMediaEntity> {
-    return this._get<ProjectMediaEntity>(`/projects/${projectId}/media`);
+  findProjectMediaEntity(
+    projectId: string,
+    useViewerToken?: boolean
+  ): Observable<ProjectMediaEntity> {
+    return this._get<ProjectMediaEntity>(`/projects/${projectId}/media`, {
+      useViewerToken,
+    });
   }
 
   updateProject(
@@ -352,6 +382,23 @@ export class RealApiService implements ApiService {
 
   invite(projectId: string, emails: string[]): Observable<void> {
     return this._post<void>(`/projects/${projectId}/invite`, { emails });
+  }
+
+  getProjectViewerToken(
+    projectId: string
+  ): Observable<ProjectViewerTokenEntity> {
+    return this._get<ProjectViewerTokenEntity>(
+      `/projects/${projectId}/viewer-token`
+    );
+  }
+
+  updateProjectViewerToken(
+    projectId: string
+  ): Observable<ProjectViewerTokenEntity> {
+    return this._post<ProjectViewerTokenEntity>(
+      `/projects/${projectId}/viewer-token`,
+      {}
+    );
   }
 
   getProjectInviteToken(
@@ -410,9 +457,13 @@ export class RealApiService implements ApiService {
     );
   }
 
-  findAllTranscriptions(projectId: string): Observable<TranscriptionEntity[]> {
+  findAllTranscriptions(
+    projectId: string,
+    useViewerToken?: boolean
+  ): Observable<TranscriptionEntity[]> {
     return this._get<TranscriptionEntity[]>(`/transcriptions`, {
       params: { projectId },
+      useViewerToken,
     });
   }
 
@@ -478,9 +529,13 @@ export class RealApiService implements ApiService {
     return this._post<CaptionEntity>(`/captions`, { ...captionDto });
   }
 
-  findAllCaptions(transcriptionId: string): Observable<CaptionListEntity> {
+  findAllCaptions(
+    transcriptionId: string,
+    useViewerToken?: boolean
+  ): Observable<CaptionListEntity> {
     return this._get<CaptionListEntity>(`/captions`, {
       params: { transcriptionId },
+      useViewerToken,
     });
   }
   //findOneCaption() {}

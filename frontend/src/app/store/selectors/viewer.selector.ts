@@ -3,6 +3,24 @@ import { ViewerState } from '../reducers/viewer.reducer';
 
 export const selectViewerState = createFeatureSelector<ViewerState>('viewer');
 
+/**
+ * LOGIN
+ */
+export const selectViewerToken = createSelector(
+  selectViewerState,
+  (state: ViewerState) => {
+    return state.access_token;
+  }
+);
+
+/**
+ * DATA
+ */
+
+/**
+ * SETTINGS
+ */
+
 export const selectTranscriptEnabled = createSelector(
   selectViewerState,
   (state: ViewerState) => {

@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { createAction, props } from '@ngrx/store';
 import {
   CaptionPositionOptions,
@@ -6,6 +7,112 @@ import {
 } from '../../routes/home/viewer/components/captions-settings-dialog/captions-settings-dialog.component';
 import { ViewerVideo } from '../../routes/home/viewer/components/player/player.component';
 import { TranscriptPosition } from '../../routes/home/viewer/viewer.interfaces';
+import { ViewerLoginEntity } from '../../services/api/entities/auth.entity';
+import { CaptionListEntity } from '../../services/api/entities/caption-list.entity';
+import {
+  ProjectEntity,
+  ProjectMediaEntity,
+} from '../../services/api/entities/project.entity';
+import { TranscriptionEntity } from '../../services/api/entities/transcription.entity';
+
+/**
+ * INIT
+ */
+
+// viewer login
+export const viewerLogin = createAction(
+  '[VIEWER COMPONENT] viewer login',
+  props<{ token: string }>()
+);
+
+export const viewerLoginSuccess = createAction(
+  '[AUTH API] viewer login success',
+  props<{ viewerLoginEntity: ViewerLoginEntity }>()
+);
+
+export const viewerLoginFail = createAction(
+  '[AUTH API] viewer login fail',
+  props<{ error: HttpErrorResponse }>()
+);
+
+/**
+ * DATA
+ */
+
+// find project
+export const findProject = createAction(
+  '[new_VIEWER COMPONENT] Find project',
+  props<{ projectId: string }>()
+);
+
+export const findProjectSuccess = createAction(
+  '[new_PROJECT API] Find project success',
+  props<{ project: ProjectEntity }>()
+);
+
+export const findProjectFail = createAction(
+  '[new_PROJECT API] Find project fail',
+  props<{ error: HttpErrorResponse }>()
+);
+
+// find project media
+export const findProjectMedia = createAction(
+  '[new_VIEWER COMPONENT] Find project media',
+  props<{ projectId: string }>()
+);
+
+export const findProjectMediaSuccess = createAction(
+  '[new_PROJECT API] Find project media success',
+  props<{ media: ProjectMediaEntity }>()
+);
+
+export const findProjectMediaFail = createAction(
+  '[new_PROJECT API] Find project media fail',
+  props<{ error: HttpErrorResponse }>()
+);
+
+// findOneTranscription ?
+
+// findAllTranscription
+export const findTranscriptions = createAction(
+  '[new_VIEWER COMPONENT] Fetch all Transcriptions of Project',
+  props<{ projectId: string }>()
+);
+
+export const findTranscriptionsSuccess = createAction(
+  '[new_ TRANSCRIPTION API] Fetch all Transcriptions of Project success',
+  props<{ transcriptions: TranscriptionEntity[] }>()
+);
+
+export const findTranscriptionsFail = createAction(
+  '[new_ TRANSCRIPTION API] Fetch all Transcriptions of Project fail',
+  props<{ error: HttpErrorResponse }>()
+);
+
+export const changeTranscriptionId = createAction(
+  '[TODO] Change transcriptionId',
+  props<{ transcriptionId: string }>()
+);
+
+// findAll captions
+export const findCaptions = createAction(
+  '[new_ VIEWER COMPONENT] Fetch Captions of Transcription',
+  props<{ transcriptionId: string }>()
+);
+
+export const findCaptionsSuccess = createAction(
+  '[new_ CAPTION API] Fetch Captions of Transcription success',
+  props<{ captionListEntity: CaptionListEntity }>()
+);
+
+export const findCaptionsFail = createAction(
+  '[new_ CAPTION API] Fetch Captions of Transcription fail',
+  props<{ error: HttpErrorResponse }>()
+);
+
+/**
+ * SETTINGS
+ */
 
 export const changeTranscriptEnabled = createAction(
   '[ADJUST LAYOUT COMPONENT] Change Transcript Enabled',

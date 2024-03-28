@@ -3,10 +3,11 @@ import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
 import { randomBytes } from 'crypto';
+import { Types } from 'mongoose';
 import { v4 } from 'uuid';
 import { JwtConfig } from '../../config/config.interface';
 import { DbService } from '../../modules/db/db.service';
-import { LeanUserDocument, User } from '../../modules/db/schemas/user.schema';
+import { User } from '../../modules/db/schemas/user.schema';
 import { PermissionsService } from '../../modules/permissions/permissions.service';
 import {
   CustomBadRequestException,
@@ -35,9 +36,18 @@ import {
   AuthVerifyEmailDto,
   AuthVerifyEmailResponseDto,
 } from './dto/auth-verify-email.dto';
+import { AuthViewerLoginDto } from './dto/auth-viewer.dto';
 import { ChangePasswordDto } from './dto/change-password.dto';
 import { AuthInviteEntity } from './entities/auth-invite.entity';
+import { AuthViewerLoginResponseEntity } from './entities/auth-viewer.entity';
 import { ChangePasswordEntity } from './entities/change-password.entity';
+
+interface SignTokenUser {
+  _id: string | Types.ObjectId;
+  role: UserRole;
+  name: string;
+  email: string;
+}
 
 @Injectable()
 export class AuthService {
@@ -54,8 +64,6 @@ export class AuthService {
   }
 
   async changePassword(dto: ChangePasswordDto): Promise<ChangePasswordEntity> {
-    await new Promise((resolve) => setTimeout(resolve, 5000));
-
     // Find user by email
     const user = await this.db.userModel
       .findOne({ email: dto.email.toLowerCase() })
@@ -263,7 +271,28 @@ export class AuthService {
     return { token, projectId: project._id.toString() };
   }
 
-  createAccessToken(user: LeanUserDocument): string {
+  async viewerLogin(
+    dto: AuthViewerLoginDto,
+  ): Promise<AuthViewerLoginResponseEntity> {
+    const project = await this.db.projectModel.findOne({
+      viewerToken: dto.viewerToken,
+    });
+
+    if (!project) {
+      throw new CustomBadRequestException('Unknown viewer token');
+    }
+
+    const accessToken = this.createAccessToken({
+      _id: project._id,
+      role: UserRole.VIEWER,
+      name: 'viewer',
+      email: 'viewer@shuffle-projekt.de',
+    });
+
+    return { token: accessToken, projectId: project._id.toString() };
+  }
+
+  createAccessToken(user: SignTokenUser): string {
     const payload: JwtPayload = {
       id: user._id.toString(),
       role: user.role,

@@ -291,6 +291,12 @@ export class Project {
   @IsString()
   inviteToken: string;
 
+  // @Exclude()
+  @ApiProperty({ example: EXAMPLE_PROJECT.viewerToken })
+  @Prop()
+  @IsString()
+  viewerToken: string;
+
   @ApiProperty({ type: Livestream })
   @Type(() => Livestream)
   @ValidateNested()

@@ -48,6 +48,7 @@ import { PauseLivestreamEntity } from './entities/pause-livestream.entity';
 import { PauseRecordingEntity } from './entities/pause-recording,entity';
 import { ProjectInviteTokenEntity } from './entities/project-invite-token.entity';
 import { ProjectListEntity } from './entities/project-list.entity';
+import { ProjectViewerTokenEntity } from './entities/project-viewer-token.entity';
 import { ProjectEntity, ProjectMediaEntity } from './entities/project.entity';
 import { ResumeLivestreamEntity } from './entities/resume-livestream.entity';
 import { ResumeRecordingEntity } from './entities/resume-recording';
@@ -136,6 +137,14 @@ export class FakeApiService implements ApiService {
     });
   }
 
+  viewerLogin(token: string): Observable<GuestLoginEntity> {
+    this.logger.verbose('viewerLogin mocked');
+    return of({
+      projectId: PROJECT_ENTITY_MOCK[0].id,
+      token: AUTH_TOKEN_GUEST_MOCK,
+    });
+  }
+
   // users
   findAllUsers(search: string): Observable<UserEntity[]> {
     this.logger.verbose('findallUsers mocked');
@@ -207,12 +216,32 @@ export class FakeApiService implements ApiService {
     });
   }
 
+  getProjectViewerToken(
+    projectId: string
+  ): Observable<ProjectViewerTokenEntity> {
+    this.logger.verbose('getProjectInviteToken mocked');
+    return of({
+      viewerToken:
+        'yelFMz2hoS_Bh9ZCa9NTwvlqN1okIu3uTiEkxx5xoNTFivfsrfoJl3DxpxJU9KhaqOd8EQ9ucpTpsK3-kUbvjw',
+    });
+  }
+
   updateProjectInviteToken(
     projectId: string
   ): Observable<ProjectInviteTokenEntity> {
     this.logger.verbose('updateProjectInviteToken mocked');
     return of({
       inviteToken:
+        'yelFMz2hoS_Bh9ZCa9NTwvlqN1okIu3uTiEkxx5xoNTFivfsrfoJl3DxpxJU9KhaqOd8EQ9ucpTpsK3-kUbvjw',
+    });
+  }
+
+  updateProjectViewerToken(
+    projectId: string
+  ): Observable<ProjectViewerTokenEntity> {
+    this.logger.verbose('updateProjectViewerToken mocked');
+    return of({
+      viewerToken:
         'yelFMz2hoS_Bh9ZCa9NTwvlqN1okIu3uTiEkxx5xoNTFivfsrfoJl3DxpxJU9KhaqOd8EQ9ucpTpsK3-kUbvjw',
     });
   }

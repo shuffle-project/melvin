@@ -23,6 +23,14 @@ export const AppRoutes: Routes = [
       import('./routes/invite/invite.routes').then((m) => m.InviteRoutes),
   },
   {
+    path: 'viewer',
+    // canActivate: [IsInitializedGuard],
+    loadChildren: () =>
+      import('./routes/viewer-wrapper/viewer.routes').then(
+        (m) => m.ViewerRoutes
+      ),
+  },
+  {
     path: '**',
     redirectTo: 'auth',
   },

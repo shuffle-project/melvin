@@ -6,7 +6,13 @@ import {
 } from '../../routes/home/viewer/components/captions-settings-dialog/captions-settings-dialog.component';
 import { ViewerVideo } from '../../routes/home/viewer/components/player/player.component';
 import { TranscriptPosition } from '../../routes/home/viewer/viewer.interfaces';
-import { MediaCategory } from '../../services/api/entities/project.entity';
+import { CaptionListEntity } from '../../services/api/entities/caption-list.entity';
+import {
+  MediaCategory,
+  ProjectEntity,
+  ProjectMediaEntity,
+} from '../../services/api/entities/project.entity';
+import { TranscriptionEntity } from '../../services/api/entities/transcription.entity';
 import { StorageKey } from '../../services/storage/storage-key.enum';
 import { StorageService } from '../../services/storage/storage.service';
 import * as viewerActions from '../actions/viewer.actions';
@@ -14,6 +20,18 @@ import * as viewerActions from '../actions/viewer.actions';
 const storage = new StorageService();
 
 export interface ViewerState {
+  loading: boolean;
+
+  // DATA
+  access_token: string | null;
+  projectId: string | null;
+  project: ProjectEntity | null;
+  projectMedia: ProjectMediaEntity | null;
+  transcriptions: TranscriptionEntity[];
+  transcriptionId: string | null;
+  captions: CaptionListEntity | null;
+
+  //SETTINGS
   transcriptEnabled: boolean;
   transcriptFontsize: SizeOptions;
   transcriptPosition: TranscriptPosition;
@@ -29,6 +47,17 @@ export interface ViewerState {
 }
 
 export const initalState: ViewerState = {
+  loading: false,
+
+  // DATA
+  access_token: null,
+  projectId: null,
+  project: null,
+  projectMedia: null,
+  transcriptions: [],
+  transcriptionId: null,
+  captions: null,
+
   // viewer settings
   transcriptEnabled: storage.getFromLocalStorage(
     StorageKey.VIEWER_TRANSCRIPT_ENABLED,
@@ -66,6 +95,32 @@ export const initalState: ViewerState = {
 
 export const viewerReducer = createReducer(
   initalState,
+
+  // DATA
+  on(viewerActions.viewerLoginSuccess, (state, action) => {
+    return {
+      ...state,
+      access_token: action.viewerLoginEntity.token,
+      projectId: action.viewerLoginEntity.projectId,
+    };
+  }),
+  on(viewerActions.findProjectSuccess, (state, action) => {
+    return { ...state, project: action.project };
+  }),
+  on(viewerActions.findProjectMediaSuccess, (state, action) => {
+    return { ...state, projectMedia: action.media };
+  }),
+  on(viewerActions.findTranscriptionsSuccess, (state, action) => {
+    return { ...state, transcriptions: action.transcriptions };
+  }),
+  on(viewerActions.changeTranscriptionId, (state, action) => {
+    return { ...state, transcriptionId: action.transcriptionId };
+  }),
+  on(viewerActions.findCaptionsSuccess, (state, action) => {
+    return { ...state, captions: action.captionListEntity };
+  }),
+
+  // SETTINGS
 
   on(viewerActions.changeTranscriptEnabled, (state, { transcriptEnabled }) => {
     return { ...state, transcriptEnabled };

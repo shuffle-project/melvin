@@ -1,4 +1,4 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, HostListener, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 // use own viewer actions
@@ -33,6 +33,8 @@ import { ViewerService } from './viewer.service';
   ],
 })
 export class ViewerComponent implements OnInit {
+  @Input() public _projectId!: string;
+
   public projectId!: string;
 
   public project$ = this.store.select(editorSelector.selectProject);
@@ -65,7 +67,11 @@ export class ViewerComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.projectId = this.route.snapshot.params['id'];
+    if (this._projectId) {
+      this.projectId = this._projectId;
+    } else {
+      this.projectId = this.route.snapshot.params['id'];
+    }
 
     this.store.dispatch(
       editorActions.findProjectFromViewer({ projectId: this.projectId })
