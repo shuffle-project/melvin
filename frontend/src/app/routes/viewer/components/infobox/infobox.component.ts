@@ -1,9 +1,9 @@
 import { DatePipe } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { MatExpansionModule } from '@angular/material/expansion';
-import { LanguageCodePipe } from '../../../../../pipes/language-code-pipe/language-code.pipe';
-import { ProjectStatusPipe } from '../../../../../pipes/project-status-pipe/project-status.pipe';
-import { ProjectEntity } from '../../../../../services/api/entities/project.entity';
+import { LanguageCodePipe } from '../../../../pipes/language-code-pipe/language-code.pipe';
+import { ProjectStatusPipe } from '../../../../pipes/project-status-pipe/project-status.pipe';
+import { ProjectEntity } from '../../../../services/api/entities/project.entity';
 
 @Component({
   selector: 'app-infobox',

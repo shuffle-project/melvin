@@ -14,9 +14,9 @@ import { MatSelectChange, MatSelectModule } from '@angular/material/select';
 import { LetDirective } from '@ngrx/component';
 import { Store } from '@ngrx/store';
 import { combineLatest, map } from 'rxjs';
-import * as viewerActions from '../../../../../store/actions/viewer.actions';
-import { AppState } from '../../../../../store/app.state';
-import * as viewerSelector from '../../../../../store/selectors/viewer.selector';
+import * as viewerActions from '../../../../store/actions/viewer.actions';
+import { AppState } from '../../../../store/app.state';
+import * as viewerSelector from '../../../../store/selectors/viewer.selector';
 
 export enum ColorOptions {
   BLACK = 'black',

@@ -24,12 +24,12 @@ import {
   ProjectEntity,
   ProjectMediaEntity,
   VideoEntity,
-} from '../../../../../services/api/entities/project.entity';
-import * as viewerActions from '../../../../../store/actions/viewer.actions';
-import { AppState } from '../../../../../store/app.state';
-import * as editorSelector from '../../../../../store/selectors/editor.selector';
-import * as viewerSelector from '../../../../../store/selectors/viewer.selector';
-import { ViewerService } from '../../viewer.service';
+} from '../../../../services/api/entities/project.entity';
+import * as viewerActions from '../../../../store/actions/viewer.actions';
+import { AppState } from '../../../../store/app.state';
+import * as editorSelector from '../../../../store/selectors/editor.selector';
+import * as viewerSelector from '../../../../store/selectors/viewer.selector';
+import { ViewerService } from '../../../viewer/viewer.service';
 import { ControlsComponent } from './controls/controls.component';
 import { VideoContainerComponent } from './video-container/video-container.component';
 

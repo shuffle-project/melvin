@@ -4,16 +4,18 @@ import { Store } from '@ngrx/store';
 // use own viewer actions
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { LetDirective } from '@ngrx/component';
 import { combineLatest, map } from 'rxjs';
-import { HeaderComponent } from '../../../components/header/header.component';
-import { AppState } from '../../../store/app.state';
-import * as configSelector from '../../../store/selectors/config.selector';
-import * as viewerSelector from '../../../store/selectors/viewer.selector';
-import { AdjustLayoutDialogComponent } from './components/adjust-layout-dialog/adjust-layout-dialog.component';
-import { InfoboxComponent } from './components/infobox/infobox.component';
-import { PlayerComponent } from './components/player/player.component';
-import { TranscriptComponent } from './components/transcript/transcript.component';
+import { HeaderComponent } from '../../components/header/header.component';
+import * as viewerActions from '../../store/actions/viewer.actions';
+import { AppState } from '../../store/app.state';
+import * as configSelector from '../../store/selectors/config.selector';
+import * as viewerSelector from '../../store/selectors/viewer.selector';
+import { AdjustLayoutDialogComponent } from '../viewer/components/adjust-layout-dialog/adjust-layout-dialog.component';
+import { InfoboxComponent } from '../viewer/components/infobox/infobox.component';
+import { PlayerComponent } from '../viewer/components/player/player.component';
+import { TranscriptComponent } from '../viewer/components/transcript/transcript.component';
 import { ViewerService } from './viewer.service';
 
 @Component({
@@ -27,10 +29,15 @@ import { ViewerService } from './viewer.service';
     MatButtonModule,
     TranscriptComponent,
     PlayerComponent,
+    MatProgressSpinnerModule,
     InfoboxComponent,
   ],
 })
 export class ViewerComponent implements OnInit {
+  viewerError$ = this.store.select(viewerSelector.selectViewerError);
+  selectLoading$ = this.store.select(viewerSelector.selectLoading);
+  // this.store.select()
+
   @Input() public _projectId!: string;
 
   public projectId!: string;
@@ -65,6 +72,9 @@ export class ViewerComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    const token = this.route.snapshot.params['token'];
+    this.store.dispatch(viewerActions.viewerLogin({ token }));
+
     // if (this._projectId) {
     //   this.projectId = this._projectId;
     // } else {

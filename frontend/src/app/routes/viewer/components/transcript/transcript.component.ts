@@ -26,11 +26,11 @@ import {
   tap,
   throttleTime,
 } from 'rxjs';
-import { CaptionEntity } from '../../../../../services/api/entities/caption.entity';
-import { SpeakerEntity } from '../../../../../services/api/entities/transcription.entity';
-import { AppState } from '../../../../../store/app.state';
-import * as viewerSelector from '../../../../../store/selectors/viewer.selector';
-import { ViewerService } from '../../viewer.service';
+import { CaptionEntity } from '../../../../services/api/entities/caption.entity';
+import { SpeakerEntity } from '../../../../services/api/entities/transcription.entity';
+import { AppState } from '../../../../store/app.state';
+import * as viewerSelector from '../../../../store/selectors/viewer.selector';
+import { ViewerService } from '../../../viewer/viewer.service';
 
 @Component({
   selector: 'app-transcript',

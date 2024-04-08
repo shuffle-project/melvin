@@ -26,9 +26,7 @@ export const AppRoutes: Routes = [
     path: 'viewer',
     // canActivate: [IsInitializedGuard],
     loadChildren: () =>
-      import('./routes/viewer-wrapper/viewer.routes').then(
-        (m) => m.ViewerRoutes
-      ),
+      import('./routes/viewer/viewer.routes').then((m) => m.ViewerRoutes),
   },
   {
     path: '**',

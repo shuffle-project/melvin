@@ -1,10 +1,10 @@
 import { Routes } from '@angular/router';
-import { ViewerWrapperComponent } from './viewer-wrapper.component';
+import { ViewerComponent } from './viewer.component';
 
 export const ViewerRoutes: Routes = [
   {
     path: ':token',
-    component: ViewerWrapperComponent,
+    component: ViewerComponent,
   },
 ];
 

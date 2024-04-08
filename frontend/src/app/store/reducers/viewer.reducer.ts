@@ -3,9 +3,9 @@ import {
   CaptionPositionOptions,
   ColorOptions,
   SizeOptions,
-} from '../../routes/viewer-wrapper/viewer/components/captions-settings-dialog/captions-settings-dialog.component';
-import { ViewerVideo } from '../../routes/viewer-wrapper/viewer/components/player/player.component';
-import { TranscriptPosition } from '../../routes/viewer-wrapper/viewer/viewer.interfaces';
+} from '../../routes/viewer/components/captions-settings-dialog/captions-settings-dialog.component';
+import { ViewerVideo } from '../../routes/viewer/components/player/player.component';
+import { TranscriptPosition } from '../../routes/viewer/viewer.interfaces';
 import { CaptionListEntity } from '../../services/api/entities/caption-list.entity';
 import {
   MediaCategory,
@@ -21,6 +21,7 @@ const storage = new StorageService();
 
 export interface ViewerState {
   loading: boolean;
+  tokenError: string | null;
 
   // DATA
   access_token: string | null;
@@ -47,7 +48,8 @@ export interface ViewerState {
 }
 
 export const initalState: ViewerState = {
-  loading: false,
+  loading: true,
+  tokenError: null,
 
   // DATA
   access_token: null,
@@ -96,14 +98,23 @@ export const initalState: ViewerState = {
 export const viewerReducer = createReducer(
   initalState,
 
-  // DATA
+  on(viewerActions.viewerLogin, (state, action) => {
+    return { ...state, loading: true };
+  }),
   on(viewerActions.viewerLoginSuccess, (state, action) => {
     return {
       ...state,
       access_token: action.viewerLoginEntity.token,
       projectId: action.viewerLoginEntity.projectId,
+      loading: false,
+      tokenError: null,
     };
   }),
+  on(viewerActions.viewerLoginFail, (state, action) => {
+    return { ...state, tokenError: action.error.message, loading: false };
+  }),
+
+  // DATA
   on(viewerActions.findProjectSuccess, (state, action) => {
     return { ...state, project: action.project };
   }),

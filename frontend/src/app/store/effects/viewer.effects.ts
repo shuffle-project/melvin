@@ -134,7 +134,7 @@ export class ViewerEffects {
     )
   );
 
-  post_fetchTranscriptions$ = createEffect(
+  postFetchTranscriptions$ = createEffect(
     () =>
       this.actions$.pipe(
         ofType(viewerActions.findTranscriptionsSuccess),

@@ -8,8 +8,8 @@ describe('ViewerComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-    imports: [ViewerComponent]
-});
+      imports: [ViewerComponent],
+    });
     fixture = TestBed.createComponent(ViewerComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

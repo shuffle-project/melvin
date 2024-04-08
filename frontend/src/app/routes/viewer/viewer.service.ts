@@ -11,12 +11,12 @@ import {
   takeUntil,
   tap,
 } from 'rxjs';
-import { CaptionEntity } from '../../../services/api/entities/caption.entity';
-import { StorageKey } from '../../../services/storage/storage-key.enum';
-import { StorageService } from '../../../services/storage/storage.service';
-import * as viewerActions from '../../../store/actions/viewer.actions';
-import { AppState } from '../../../store/app.state';
-import * as viewerSelector from '../../../store/selectors/viewer.selector';
+import { CaptionEntity } from '../../services/api/entities/caption.entity';
+import { StorageKey } from '../../services/storage/storage-key.enum';
+import { StorageService } from '../../services/storage/storage.service';
+import * as viewerActions from '../../store/actions/viewer.actions';
+import { AppState } from '../../store/app.state';
+import * as viewerSelector from '../../store/selectors/viewer.selector';
 
 @Injectable({
   providedIn: 'root',

@@ -12,6 +12,19 @@ export const selectViewerToken = createSelector(
     return state.access_token;
   }
 );
+export const selectLoading = createSelector(
+  selectViewerState,
+  (state: ViewerState) => {
+    return state.loading;
+  }
+);
+
+export const selectViewerError = createSelector(
+  selectViewerState,
+  (state: ViewerState) => {
+    return state.tokenError;
+  }
+);
 
 /**
  * DATA

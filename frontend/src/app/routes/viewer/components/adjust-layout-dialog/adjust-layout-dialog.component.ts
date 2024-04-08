@@ -18,10 +18,10 @@ import {
 } from '@angular/material/slide-toggle';
 import { PushPipe } from '@ngrx/component';
 import { Store } from '@ngrx/store';
-import * as viewerActions from '../../../../../store/actions/viewer.actions';
-import { AppState } from '../../../../../store/app.state';
-import * as viewerSelector from '../../../../../store/selectors/viewer.selector';
-import { TranscriptPosition } from '../../viewer.interfaces';
+import * as viewerActions from '../../../../store/actions/viewer.actions';
+import { AppState } from '../../../../store/app.state';
+import * as viewerSelector from '../../../../store/selectors/viewer.selector';
+import { TranscriptPosition } from '../../../viewer/viewer.interfaces';
 import { SizeOptions } from '../captions-settings-dialog/captions-settings-dialog.component';
 
 @Component({
