@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { PopulateService } from '../../resources/populate/populate.service';
+import { generateSecureToken } from '../../utils/crypto';
 import { DbService } from '../db/db.service';
 import { CustomLogger } from '../logger/logger.service';
 
@@ -24,10 +25,15 @@ export class MigrationService {
       await this.populateService.populate([], 1);
     }
 
-    const version = settings.dbSchemaVersion;
-
-    // if (version < 2) {
-    //   // Do migration here
-    // }
+    if (settings.dbSchemaVersion < 2) {
+      const projects = await this.db.projectModel.find({});
+      for (const project of projects) {
+        project.inviteToken = generateSecureToken();
+        project.viewerToken = generateSecureToken();
+        await project.save();
+      }
+      settings.dbSchemaVersion = 2;
+      await settings.save();
+    }
   }
 }

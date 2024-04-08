@@ -483,14 +483,12 @@ describe('ProjectService', () => {
       'findProjectByIdOrThrow',
     );
     const spy_isProjectOwner = jest.spyOn(permissionsService, 'isProjectOwner');
-    const spy_generateInviteToken = jest.spyOn(service, '_generateInviteToken');
 
     // Test
     const response = await service.updateInviteToken(authUser, projectId);
 
     expect(findProjectByIdOrThrow).toBeCalledTimes(1);
     expect(spy_isProjectOwner).toBeCalledTimes(1);
-    expect(spy_generateInviteToken).toBeCalledTimes(1);
     expect(response.inviteToken).not.toEqual(EXAMPLE_PROJECT.inviteToken);
 
     const updatedProj = await dbService.projectModel.findById(projectId);

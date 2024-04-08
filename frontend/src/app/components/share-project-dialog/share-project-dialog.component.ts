@@ -137,7 +137,7 @@ export class ShareProjectDialogComponent implements OnInit, OnDestroy {
   }
 
   get viewerLink(): string {
-    return `${environment.frontendBaseUrl}/viewer/${this.viewerToken}`;
+    return `${environment.frontendBaseUrl}/viewer/${this.project.viewerToken}`;
   }
 
   async ngOnDestroy(): Promise<void> {
@@ -152,13 +152,6 @@ export class ShareProjectDialogComponent implements OnInit, OnDestroy {
         this.apiService
           .getProjectInviteToken(this.project.id)
           .pipe(map((o) => o.inviteToken))
-      );
-
-      // TODO refactor
-      this.viewerToken = await lastValueFrom(
-        this.apiService
-          .getProjectViewerToken(this.project.id)
-          .pipe(map((o) => o.viewerToken))
       );
     } catch (err: unknown) {
       this.error = (err as HttpErrorResponse).message;

@@ -2,13 +2,13 @@ import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
-import { randomBytes } from 'crypto';
 import { Types } from 'mongoose';
 import { v4 } from 'uuid';
 import { JwtConfig } from '../../config/config.interface';
 import { DbService } from '../../modules/db/db.service';
 import { User } from '../../modules/db/schemas/user.schema';
 import { PermissionsService } from '../../modules/permissions/permissions.service';
+import { generateSecureToken } from '../../utils/crypto';
 import {
   CustomBadRequestException,
   CustomForbiddenException,
@@ -173,7 +173,7 @@ export class AuthService {
 
     // Create new user
     const hashedPassword = await bcrypt.hash(dto.password, 10);
-    const emailVerificationToken = randomBytes(32).toString();
+    const emailVerificationToken = generateSecureToken();
 
     const user = await this.db.userModel.create({
       email: dto.email.toLowerCase(),

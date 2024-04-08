@@ -1,7 +1,6 @@
 import { JwtService } from '@nestjs/jwt';
 import { Test, TestingModule } from '@nestjs/testing';
 import * as bcrypt from 'bcrypt';
-import { randomBytes } from 'crypto';
 import { Types } from 'mongoose';
 import { v4 } from 'uuid';
 import { ConfigTestModule } from '../../../test/config-test.module';
@@ -15,6 +14,7 @@ import {
   EXAMPLE_USER,
 } from '../../constants/example.constants';
 import { DbService } from '../../modules/db/db.service';
+import { generateSecureToken } from '../../utils/crypto';
 import {
   CustomBadRequestException,
   CustomForbiddenException,
@@ -221,7 +221,7 @@ describe('AuthService', () => {
 
   it('verifyEmail() should verify', async () => {
     // Setup
-    const emailVerificationToken = randomBytes(32).toString();
+    const emailVerificationToken = generateSecureToken();
     const user = await dbService.userModel.create({
       email: TEST_DATA.email,
       isEmailVerified: false,
@@ -247,14 +247,14 @@ describe('AuthService', () => {
     await dbService.userModel.create({
       email: TEST_DATA.email,
       isEmailVerified: false,
-      emailVerificationToken: randomBytes(32).toString(),
+      emailVerificationToken: generateSecureToken(),
     });
 
     // Test
     let error: CustomBadRequestException;
     try {
       await service.verifyEmail({
-        verificationToken: randomBytes(32).toString(),
+        verificationToken: generateSecureToken(),
       });
     } catch (err) {
       error = err;

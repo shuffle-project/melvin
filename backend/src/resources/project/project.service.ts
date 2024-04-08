@@ -3,7 +3,6 @@ import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { Queue } from 'bull';
 import { plainToInstance } from 'class-transformer';
-import { randomBytes } from 'crypto';
 import { Request, Response } from 'express';
 import { ReadStream, createReadStream } from 'fs';
 import { ensureDir, remove, rm } from 'fs-extra';
@@ -29,6 +28,7 @@ import {
   ProcessSubtitlesJob,
   SubtitlesType,
 } from '../../processors/processor.interfaces';
+import { generateSecureToken } from '../../utils/crypto';
 import {
   CustomBadRequestException,
   CustomForbiddenException,
@@ -80,13 +80,56 @@ export class ProjectService {
     this.serverBaseUrl = this.configService.get<string>('baseUrl');
   }
 
-  _generateToken(): Promise<string> {
-    return new Promise((resolve, reject) =>
-      randomBytes(64, (err, buffer) =>
-        err ? reject(err) : resolve(buffer.toString('base64url')),
-      ),
-    );
-  }
+  // _generateInviteToken(): Promise<string> {
+  //   return new Promise((resolve, reject) =>
+  //     randomBytes(64, (err, buffer) =>
+  //       err ? reject(err) : resolve(buffer.toString('base64url')),
+  //     ),
+  //   );
+  // }
+
+  // async _getMediaLinksEntity(
+  //   project: LeanProjectDocument,
+  //   authUser: AuthUser,
+  // ): Promise<MediaLinksEntity> {
+  //   const mediaAuthToken = await this.authService.createMediaAccessToken(
+  //     authUser,
+  //     {
+  //       projectId: project._id.toString(),
+  //     },
+  //   );
+
+  //   const videoId = project.videos[0]._id.toString();
+  //   const audioId = project.audios[0]._id.toString();
+
+  //   const video = `${
+  //     this.serverBaseUrl
+  //   }/projects/${project._id.toString()}/video/${videoId}?Authorization=${
+  //     mediaAuthToken.token
+  //   }`;
+
+  //   const audio = `${
+  //     this.serverBaseUrl
+  //   }/projects/${project._id.toString()}/audio/${audioId}?Authorization=${
+  //     mediaAuthToken.token
+  //   }`;
+
+  //   //  additionalVideos
+  //   const additionalVideos: VideoLinkEntity[] = project.videos.map((media) => ({
+  //     id: media._id.toString(),
+  //     status: media.status,
+  //     title: media.title,
+  //     originalFileName: media.originalFileName,
+  //     category: media.category,
+  //     url: `${
+  //       this.serverBaseUrl
+  //     }/projects/${project._id.toString()}/video/${media._id.toString()}?Authorization=${
+  //       mediaAuthToken.token
+  //     }`,
+  //   }));
+
+  //   return { video, audio, videos: additionalVideos };
+  // }
 
   async create(
     authUser: AuthUser,
@@ -94,8 +137,7 @@ export class ProjectService {
     videoFiles: Array<Express.Multer.File> | null = null,
     subtitleFiles: Array<Express.Multer.File> | null = null,
   ): Promise<ProjectEntity> {
-    const inviteToken = await this._generateToken();
-    const viewerToken = await this._generateToken();
+    // const inviteToken = await this._generateInviteToken();
 
     let users = null;
     let userIds: Types.ObjectId[] = [];
@@ -140,8 +182,8 @@ export class ProjectService {
       createdBy: authUser.id,
       users: [authUser.id, ...userIds],
       status,
-      inviteToken,
-      viewerToken,
+      inviteToken: generateSecureToken(),
+      viewerToken: generateSecureToken(),
       videos: [mainVideo],
       audios: [mainAudio],
     });
@@ -577,7 +619,7 @@ export class ProjectService {
       throw new CustomForbiddenException('must_be_owner');
     }
 
-    const viewerToken = await this._generateToken();
+    const viewerToken = generateSecureToken();
 
     await this.db.projectModel.findByIdAndUpdate(id, {
       $set: { viewerToken },
@@ -609,7 +651,7 @@ export class ProjectService {
       throw new CustomForbiddenException('must_be_owner');
     }
 
-    const inviteToken = await this._generateToken();
+    const inviteToken = generateSecureToken();
 
     await this.db.projectModel.findByIdAndUpdate(id, {
       $set: { inviteToken },
