@@ -7,10 +7,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { LetDirective } from '@ngrx/component';
 import { combineLatest, map } from 'rxjs';
 import { HeaderComponent } from '../../../components/header/header.component';
-import * as editorActions from '../../../store/actions/editor.actions';
 import { AppState } from '../../../store/app.state';
 import * as configSelector from '../../../store/selectors/config.selector';
-import * as editorSelector from '../../../store/selectors/editor.selector';
 import * as viewerSelector from '../../../store/selectors/viewer.selector';
 import { AdjustLayoutDialogComponent } from './components/adjust-layout-dialog/adjust-layout-dialog.component';
 import { InfoboxComponent } from './components/infobox/infobox.component';
@@ -37,8 +35,8 @@ export class ViewerComponent implements OnInit {
 
   public projectId!: string;
 
-  public project$ = this.store.select(editorSelector.selectProject);
-  public media$ = this.store.select(editorSelector.selectMedia);
+  public project$ = this.store.select(viewerSelector.vProject);
+  public media$ = this.store.select(viewerSelector.vProjectMedia);
   public darkMode$ = this.store.select(configSelector.darkMode);
 
   // TODO layout according to this settings
@@ -67,15 +65,14 @@ export class ViewerComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    if (this._projectId) {
-      this.projectId = this._projectId;
-    } else {
-      this.projectId = this.route.snapshot.params['id'];
-    }
-
-    this.store.dispatch(
-      editorActions.findProjectFromViewer({ projectId: this.projectId })
-    );
+    // if (this._projectId) {
+    //   this.projectId = this._projectId;
+    // } else {
+    //   this.projectId = this.route.snapshot.params['id'];
+    // }
+    // this.store.dispatch(
+    //   editorActions.findProjectFromViewer({ projectId: this.projectId })
+    // );
   }
 
   @HostListener('window:keydown.ArrowRight', ['$event'])

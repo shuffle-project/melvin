@@ -29,8 +29,6 @@ import {
 import { CaptionEntity } from '../../../../../services/api/entities/caption.entity';
 import { SpeakerEntity } from '../../../../../services/api/entities/transcription.entity';
 import { AppState } from '../../../../../store/app.state';
-import * as captionsSelector from '../../../../../store/selectors/captions.selector';
-import * as transcriptionsSelector from '../../../../../store/selectors/transcriptions.selector';
 import * as viewerSelector from '../../../../../store/selectors/viewer.selector';
 import { ViewerService } from '../../viewer.service';
 
@@ -58,11 +56,9 @@ export class TranscriptComponent implements OnDestroy, OnInit {
   // @ViewChild(CdkVirtualScrollViewport) viewPort!: CdkVirtualScrollViewport;
   @ViewChildren('.match') matches!: QueryList<HTMLElement>;
 
-  captions$ = this.store.select(captionsSelector.selectCaptions);
+  captions$ = this.store.select(viewerSelector.vCaptions);
 
-  availableSpeakers$ = this.store.select(
-    transcriptionsSelector.selectAvailableSpeakers
-  );
+  availableSpeakers$ = this.store.select(viewerSelector.vAvailableSpeakers);
   transcriptFontsize$ = this.store.select(
     viewerSelector.selectTranscriptFontsize
   );

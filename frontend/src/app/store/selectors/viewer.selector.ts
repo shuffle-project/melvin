@@ -17,6 +17,57 @@ export const selectViewerToken = createSelector(
  * DATA
  */
 
+export const vProject = createSelector(
+  selectViewerState,
+  (state: ViewerState) => {
+    return state.project;
+  }
+);
+
+export const vProjectMedia = createSelector(
+  selectViewerState,
+  (state: ViewerState) => {
+    return state.projectMedia;
+  }
+);
+
+export const vTranscriptions = createSelector(
+  selectViewerState,
+  (state: ViewerState) => {
+    return state.transcriptions;
+  }
+);
+
+export const vTranscription = createSelector(
+  selectViewerState,
+  (state: ViewerState) => {
+    return state.transcriptionId
+      ? state.transcriptions.find((obj) => obj.id === state.transcriptionId)
+      : null;
+  }
+);
+
+export const vTranscriptionId = createSelector(
+  selectViewerState,
+  (state: ViewerState) => {
+    return state.transcriptionId;
+  }
+);
+
+export const vAvailableSpeakers = createSelector(
+  selectViewerState,
+  (state: ViewerState) =>
+    state.transcriptions.find((o) => o.id === state.transcriptionId)
+      ?.speakers || []
+);
+
+export const vCaptions = createSelector(
+  selectViewerState,
+  (state: ViewerState) => {
+    return state.captions?.captions || [];
+  }
+);
+
 /**
  * SETTINGS
  */

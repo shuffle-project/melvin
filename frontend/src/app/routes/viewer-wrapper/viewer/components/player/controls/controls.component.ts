@@ -14,11 +14,9 @@ import { DurationPipe } from '../../../../../../pipes/duration-pipe/duration.pip
 import { MediaCategory } from '../../../../../../services/api/entities/project.entity';
 import { TranscriptionEntity } from '../../../../../../services/api/entities/transcription.entity';
 import * as editorActions from '../../../../../../store/actions/editor.actions';
-import * as transcriptionsActions from '../../../../../../store/actions/transcriptions.actions';
 import * as viewerActions from '../../../../../../store/actions/viewer.actions';
 import { AppState } from '../../../../../../store/app.state';
 import * as editorSelector from '../../../../../../store/selectors/editor.selector';
-import * as transcriptionsSelector from '../../../../../../store/selectors/transcriptions.selector';
 import * as viewerSelector from '../../../../../../store/selectors/viewer.selector';
 import { ViewerService } from '../../../viewer.service';
 import { CaptionsSettingsDialogComponent } from '../../captions-settings-dialog/captions-settings-dialog.component';
@@ -44,20 +42,17 @@ import { ViewerVideo } from '../player.component';
   ],
 })
 export class ControlsComponent {
-  public volume$ = this.store.select(editorSelector.selectVolume);
-  public currentSpeed$ = this.store.select(editorSelector.selectCurrentSpeed);
+  public volume$ = this.store.select(editorSelector.selectVolume); // TODO move to viewerSelector
+  public currentSpeed$ = this.store.select(editorSelector.selectCurrentSpeed); // TODO move to viewerSelector
   public subtitlesEnabledInVideo$ = this.store.select(
+    // TODO move to viewerSelector
     editorSelector.selectSubtitlesEnabledInVideo
   );
 
   public transcriptions$ = combineLatest([
-    this.store.select(transcriptionsSelector.selectTranscriptionList),
-    this.store.select(transcriptionsSelector.selectTranscriptionId),
-  ]).pipe(
-    map(([list, selectedId]) => {
-      return { list, selectedId };
-    })
-  );
+    this.store.select(viewerSelector.vTranscriptions),
+    this.store.select(viewerSelector.vTranscriptionId),
+  ]).pipe(map(([list, selectedId]) => ({ list, selectedId })));
 
   public smallVideos$ = this.store.select(viewerSelector.selectSmallVideos);
   signLanguageAvailable$ = this.smallVideos$.pipe(
@@ -127,10 +122,13 @@ export class ControlsComponent {
     }
 
     this.store.dispatch(
-      transcriptionsActions.selectFromViewer({
-        transcriptionId: transcription.id,
-      })
+      viewerActions.changeTranscriptionId({ transcriptionId: transcription.id })
     );
+    // this.store.dispatch(
+    //   transcriptionsActions.selectFromViewer({
+    //     transcriptionId: transcription.id,
+    //   })
+    // );
   }
 
   onOpenCaptionsSettingsDialog() {

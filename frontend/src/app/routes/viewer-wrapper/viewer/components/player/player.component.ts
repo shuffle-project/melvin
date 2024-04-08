@@ -27,7 +27,6 @@ import {
 } from '../../../../../services/api/entities/project.entity';
 import * as viewerActions from '../../../../../store/actions/viewer.actions';
 import { AppState } from '../../../../../store/app.state';
-import * as captionsSelector from '../../../../../store/selectors/captions.selector';
 import * as editorSelector from '../../../../../store/selectors/editor.selector';
 import * as viewerSelector from '../../../../../store/selectors/viewer.selector';
 import { ViewerService } from '../../viewer.service';
@@ -78,9 +77,10 @@ export class PlayerComponent
 
   public audioPlayer: HTMLAudioElement | null = null;
 
-  public volume$ = this.store.select(editorSelector.selectVolume);
-  public currentSpeed$ = this.store.select(editorSelector.selectCurrentSpeed);
+  public volume$ = this.store.select(editorSelector.selectVolume); // TODO move to viewerSelector
+  public currentSpeed$ = this.store.select(editorSelector.selectCurrentSpeed); // TODO move to viewerSelector
   public subtitlesEnabledInVideo$ = this.store.select(
+    // TODO move to viewerSelector
     editorSelector.selectSubtitlesEnabledInVideo
   );
 
@@ -88,7 +88,7 @@ export class PlayerComponent
     viewerSelector.selectTranscriptOnlyMode
   );
 
-  public captions$ = this.store.select(captionsSelector.selectCaptions);
+  public captions$ = this.store.select(viewerSelector.vCaptions);
 
   // captions in video
   combinedCaptionsStyling$ = combineLatest([

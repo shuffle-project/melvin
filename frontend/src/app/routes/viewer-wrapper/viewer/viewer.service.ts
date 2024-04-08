@@ -16,7 +16,7 @@ import { StorageKey } from '../../../services/storage/storage-key.enum';
 import { StorageService } from '../../../services/storage/storage.service';
 import * as viewerActions from '../../../store/actions/viewer.actions';
 import { AppState } from '../../../store/app.state';
-import * as captionsSelector from '../../../store/selectors/captions.selector';
+import * as viewerSelector from '../../../store/selectors/viewer.selector';
 
 @Injectable({
   providedIn: 'root',
@@ -36,7 +36,7 @@ export class ViewerService {
 
   public seeking$ = new Subject<number>();
 
-  private captions$ = this.store.select(captionsSelector.selectCaptions);
+  private captions$ = this.store.select(viewerSelector.vCaptions);
 
   public currentCaption$: BehaviorSubject<null | undefined | CaptionEntity> =
     new BehaviorSubject<CaptionEntity | undefined | null>(null);

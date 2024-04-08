@@ -30,7 +30,7 @@ import { MediaCategoryPipe } from './app/pipes/media-category-pipe/media-categor
 import { ProjectStatusPipe } from './app/pipes/project-status-pipe/project-status.pipe';
 import { TimeDifferencePipe } from './app/pipes/time-difference-pipe/time-difference.pipe';
 import { WrittenOutLanguagePipe } from './app/pipes/written-out-language-pipe/written-out-language.pipe';
-import { HighlightPipe } from './app/routes/home/viewer/components/highlight-pipe/highlight.pipe';
+import { HighlightPipe } from './app/routes/viewer-wrapper/viewer/components/highlight-pipe/highlight.pipe';
 import {
   actionReducerMap,
   effectsList,

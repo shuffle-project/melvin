@@ -3,9 +3,9 @@ import {
   CaptionPositionOptions,
   ColorOptions,
   SizeOptions,
-} from '../../routes/home/viewer/components/captions-settings-dialog/captions-settings-dialog.component';
-import { ViewerVideo } from '../../routes/home/viewer/components/player/player.component';
-import { TranscriptPosition } from '../../routes/home/viewer/viewer.interfaces';
+} from '../../routes/viewer-wrapper/viewer/components/captions-settings-dialog/captions-settings-dialog.component';
+import { ViewerVideo } from '../../routes/viewer-wrapper/viewer/components/player/player.component';
+import { TranscriptPosition } from '../../routes/viewer-wrapper/viewer/viewer.interfaces';
 import { CaptionListEntity } from '../../services/api/entities/caption-list.entity';
 import {
   MediaCategory,
