@@ -6,20 +6,20 @@ export const selectViewerState = createFeatureSelector<ViewerState>('viewer');
 /**
  * LOGIN
  */
-export const selectViewerToken = createSelector(
+export const vAccessToken = createSelector(
   selectViewerState,
   (state: ViewerState) => {
     return state.access_token;
   }
 );
-export const selectLoading = createSelector(
+export const vLoginLoading = createSelector(
   selectViewerState,
   (state: ViewerState) => {
     return state.loading;
   }
 );
 
-export const selectViewerError = createSelector(
+export const vLoginError = createSelector(
   selectViewerState,
   (state: ViewerState) => {
     return state.tokenError;
@@ -85,70 +85,91 @@ export const vCaptions = createSelector(
  * SETTINGS
  */
 
-export const selectTranscriptEnabled = createSelector(
+export const vTranscriptEnabled = createSelector(
   selectViewerState,
   (state: ViewerState) => {
     return state.transcriptEnabled;
   }
 );
-export const selectTranscriptFontsize = createSelector(
+export const vTranscriptFontsize = createSelector(
   selectViewerState,
   (state: ViewerState) => {
     return state.transcriptFontsize;
   }
 );
-export const selectTranscriptPosition = createSelector(
+export const vTranscriptPosition = createSelector(
   selectViewerState,
   (state: ViewerState) => {
     return state.transcriptPosition;
   }
 );
 
-export const selectTranscriptOnlyMode = createSelector(
+export const vTranscriptOnly = createSelector(
   selectViewerState,
   (state: ViewerState) => {
     return state.transcriptOnlyMode;
   }
 );
 
-export const selectCaptionsBackgroundColor = createSelector(
+export const vCaptionsBackgroundColor = createSelector(
   selectViewerState,
   (state: ViewerState) => {
     return state.captionsBackgroundColor;
   }
 );
 
-export const selectCaptionsColor = createSelector(
+export const vCaptionsColor = createSelector(
   selectViewerState,
   (state: ViewerState) => {
     return state.captionsColor;
   }
 );
 
-export const selectCaptionFontsize = createSelector(
+export const vCaptionFontsize = createSelector(
   selectViewerState,
   (state: ViewerState) => {
     return state.captionsFontsize;
   }
 );
 
-export const selectCaptionPosition = createSelector(
+export const vCaptionPosition = createSelector(
   selectViewerState,
   (state: ViewerState) => {
     return state.captionsPosition;
   }
 );
 
-export const selectBigVideo = createSelector(
+export const vBigVideo = createSelector(
   selectViewerState,
   (state: ViewerState) => {
     return state.viewerVideos.find((video) => video.id === state.bigVideoId);
   }
 );
 
-export const selectSmallVideos = createSelector(
+export const vSmallVideos = createSelector(
   selectViewerState,
   (state: ViewerState) => {
     return state.viewerVideos?.filter((video) => video.id !== state.bigVideoId);
+  }
+);
+
+export const vVolume = createSelector(
+  selectViewerState,
+  (state: ViewerState) => {
+    return state.volume;
+  }
+);
+
+export const vSubtitlesEnabled = createSelector(
+  selectViewerState,
+  (state: ViewerState) => {
+    return state.subtitlesEnabled;
+  }
+);
+
+export const vCurrentSpeed = createSelector(
+  selectViewerState,
+  (state: ViewerState) => {
+    return state.currentSpeed;
   }
 );

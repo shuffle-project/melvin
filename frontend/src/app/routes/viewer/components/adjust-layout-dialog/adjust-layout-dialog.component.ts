@@ -48,17 +48,17 @@ export class AdjustLayoutDialogComponent {
   public TranscriptPosition = TranscriptPosition;
 
   public transcriptEnabled$ = this.store.select(
-    viewerSelector.selectTranscriptEnabled
+    viewerSelector.vTranscriptEnabled
   );
   public transcriptFontsize$ = this.store.select(
-    viewerSelector.selectTranscriptFontsize
+    viewerSelector.vTranscriptFontsize
   );
   public transcriptPosition$ = this.store.select(
-    viewerSelector.selectTranscriptPosition
+    viewerSelector.vTranscriptPosition
   );
 
   public transcriptOnlyMode$ = this.store.select(
-    viewerSelector.selectTranscriptOnlyMode
+    viewerSelector.vTranscriptOnly
   );
 
   constructor(

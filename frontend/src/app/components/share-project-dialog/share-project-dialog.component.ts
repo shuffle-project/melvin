@@ -137,7 +137,7 @@ export class ShareProjectDialogComponent implements OnInit, OnDestroy {
   }
 
   get viewerLink(): string {
-    return `${environment.frontendBaseUrl}/viewer/${this.project.viewerToken}`;
+    return `${environment.frontendBaseUrl}/view/${this.project.viewerToken}`;
   }
 
   async ngOnDestroy(): Promise<void> {

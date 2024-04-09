@@ -63,12 +63,10 @@ export class CaptionsSettingsDialogComponent {
   SizeOptions = SizeOptions;
   CaptionPositionOptions = CaptionPositionOptions;
 
-  backgroundColor$ = this.store.select(
-    viewerSelector.selectCaptionsBackgroundColor
-  );
-  color$ = this.store.select(viewerSelector.selectCaptionsColor);
-  fontsize$ = this.store.select(viewerSelector.selectCaptionFontsize);
-  position$ = this.store.select(viewerSelector.selectCaptionPosition);
+  backgroundColor$ = this.store.select(viewerSelector.vCaptionsBackgroundColor);
+  color$ = this.store.select(viewerSelector.vCaptionsColor);
+  fontsize$ = this.store.select(viewerSelector.vCaptionFontsize);
+  position$ = this.store.select(viewerSelector.vCaptionPosition);
 
   combined$ = combineLatest([
     this.backgroundColor$,

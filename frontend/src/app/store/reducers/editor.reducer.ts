@@ -95,50 +95,34 @@ export const editorReducer = createReducer(
     isLiveInSync: true,
     currentSpeed: 1,
   })),
-  on(
-    editorActions.changeSpeedFromEditor,
-    editorActions.changeSpeedFromViewer,
-    (state, action) => ({
-      ...state,
-      currentSpeed: action.speed,
-    })
-  ),
-  on(
-    editorActions.changeVolumeFromVideoComponent,
-    editorActions.changeVolumeFromViewerComponent,
-    (state, action) => ({
-      ...state,
-      volume: action.volume,
-    })
-  ),
+  on(editorActions.changeSpeedFromEditor, (state, action) => ({
+    ...state,
+    currentSpeed: action.speed,
+  })),
+  on(editorActions.changeVolumeFromVideoComponent, (state, action) => ({
+    ...state,
+    volume: action.volume,
+  })),
   on(editorActions.toggleVolumeFromVideoComponent, (state) => ({
     ...state,
     volume: state.volume > 0 ? 0 : 1,
   })),
-  on(
-    editorActions.toggleSubtitlesFromEditor,
-    editorActions.toggleSubtitlesFromViewer,
-    (state) => ({
-      ...state,
-      subtitlesEnabledInVideo: !state.subtitlesEnabledInVideo,
-    })
-  ),
+  on(editorActions.toggleSubtitlesFromEditor, (state) => ({
+    ...state,
+    subtitlesEnabledInVideo: !state.subtitlesEnabledInVideo,
+  })),
   on(editorActions.updateActiveUsers, (state, action) => {
     return {
       ...state,
       activeUsers: [...action.activeUsers],
     };
   }),
-  on(
-    editorActions.findProjectFromEditor,
-    editorActions.findProjectFromViewer,
-    (state) => {
-      return {
-        ...state,
-        projectLoading: true,
-      };
-    }
-  ),
+  on(editorActions.findProjectFromEditor, (state) => {
+    return {
+      ...state,
+      projectLoading: true,
+    };
+  }),
 
   on(
     editorActions.findProjectSuccess,

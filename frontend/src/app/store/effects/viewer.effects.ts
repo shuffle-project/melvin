@@ -208,9 +208,7 @@ export class ViewerEffects {
     () =>
       this.actions$.pipe(
         ofType(viewerActions.toggleTranscript),
-        withLatestFrom(
-          this.store.select(viewerSelector.selectTranscriptEnabled)
-        ),
+        withLatestFrom(this.store.select(viewerSelector.vTranscriptEnabled)),
         tap(([action, transcriptEnabled]) => {
           this.storageService.storeInLocalStorage(
             StorageKey.VIEWER_TRANSCRIPT_ENABLED,
@@ -299,6 +297,35 @@ export class ViewerEffects {
           this.storageService.storeInLocalStorage(
             StorageKey.CAPTIONS_POSITION,
             action.captionsPosition
+          );
+        })
+      ),
+    { dispatch: false }
+  );
+
+  changeVolume$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(viewerActions.changeVolume),
+        tap((action) => {
+          this.storageService.storeInSessionStorage(
+            StorageKey.VIEWER_MEDIA_VOLUME,
+            action.newVolume
+          );
+        })
+      ),
+    { dispatch: false }
+  );
+
+  subtitlesEnabledInVideo$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(viewerActions.toggleSubtitles),
+        withLatestFrom(this.store.select(viewerSelector.vSubtitlesEnabled)),
+        map(([action, enabled]) => {
+          this.storageService.storeInLocalStorage(
+            StorageKey.VIEWER_SUBTITLES_ENABLED,
+            enabled
           );
         })
       ),

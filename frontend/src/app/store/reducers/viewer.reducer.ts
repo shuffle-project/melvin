@@ -41,6 +41,9 @@ export interface ViewerState {
   captionsColor: ColorOptions;
   captionsFontsize: SizeOptions;
   captionsPosition: CaptionPositionOptions;
+  currentSpeed: number;
+  volume: number;
+  subtitlesEnabled: boolean;
 
   // TODO new names?
   viewerVideos: ViewerVideo[];
@@ -61,6 +64,7 @@ export const initalState: ViewerState = {
   captions: null,
 
   // viewer settings
+  currentSpeed: 1,
   transcriptEnabled: storage.getFromLocalStorage(
     StorageKey.VIEWER_TRANSCRIPT_ENABLED,
     true
@@ -90,6 +94,14 @@ export const initalState: ViewerState = {
     StorageKey.CAPTIONS_POSITION,
     CaptionPositionOptions.OVER_VIDEO
   ) as CaptionPositionOptions,
+  volume: storage.getFromSessionStorage(
+    StorageKey.VIEWER_MEDIA_VOLUME,
+    1
+  ) as number,
+  subtitlesEnabled: storage.getFromLocalStorage(
+    StorageKey.VIEWER_SUBTITLES_ENABLED,
+    false
+  ) as boolean,
 
   viewerVideos: [],
   bigVideoId: '',
@@ -185,10 +197,25 @@ export const viewerReducer = createReducer(
   on(viewerActions.changeCaptionsPosition, (state, { captionsPosition }) => {
     return { ...state, captionsPosition };
   }),
-
+  on(viewerActions.toggleSubtitles, (state) => {
+    return { ...state, subtitlesEnabled: !state.subtitlesEnabled };
+  }),
+  on(viewerActions.changeVolume, (state, { newVolume: volume }) => {
+    return { ...state, volume };
+  }),
+  on(viewerActions.changeSpeed, (state, { newSpeed: speed }) => {
+    return { ...state, currentSpeed: speed };
+  }),
   // videos
-  on(viewerActions.initVideos, (state, { bigVideoId, viewerVideos }) => {
-    return { ...state, viewerVideos, bigVideoId };
+  on(viewerActions.findProjectMediaSuccess, (state, { media }) => {
+    return {
+      ...state,
+      viewerVideos: media.videos.map((video) => ({
+        ...video,
+        shown: true,
+      })),
+      bigVideoId: media.videos[0].id,
+    };
   }),
   on(viewerActions.switchToNewBigVideo, (state, { newBigVideoId }) => {
     return { ...state, bigVideoId: newBigVideoId };

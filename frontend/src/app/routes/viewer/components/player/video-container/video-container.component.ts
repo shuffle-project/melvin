@@ -17,7 +17,7 @@ import { PushPipe } from '@ngrx/component';
 import { Subject, fromEvent, merge, takeUntil, tap } from 'rxjs';
 import { switchToNewBigVideo } from '../../../../../store/actions/viewer.actions';
 import { AppState } from '../../../../../store/app.state';
-import * as editorSelector from '../../../../../store/selectors/editor.selector';
+import * as viewerSelector from '../../../../../store/selectors/viewer.selector';
 import { ViewerService } from '../../../../viewer/viewer.service';
 import { ViewerVideo } from '../player.component';
 
@@ -43,7 +43,7 @@ export class VideoContainerComponent implements OnDestroy, OnChanges {
 
   @Output() public videoMetadataLoaded = new EventEmitter<void>();
 
-  public currentSpeed$ = this.store.select(editorSelector.selectCurrentSpeed);
+  public currentSpeed$ = this.store.select(viewerSelector.vCurrentSpeed);
 
   constructor(
     private store: Store<AppState>,

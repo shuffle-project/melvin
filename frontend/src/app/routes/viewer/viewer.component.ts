@@ -1,4 +1,4 @@
-import { Component, HostListener, Input, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 // use own viewer actions
@@ -34,13 +34,8 @@ import { ViewerService } from './viewer.service';
   ],
 })
 export class ViewerComponent implements OnInit {
-  viewerError$ = this.store.select(viewerSelector.selectViewerError);
-  selectLoading$ = this.store.select(viewerSelector.selectLoading);
-  // this.store.select()
-
-  @Input() public _projectId!: string;
-
-  public projectId!: string;
+  public viewerError$ = this.store.select(viewerSelector.vLoginError);
+  public selectLoading$ = this.store.select(viewerSelector.vLoginLoading);
 
   public project$ = this.store.select(viewerSelector.vProject);
   public media$ = this.store.select(viewerSelector.vProjectMedia);
@@ -48,10 +43,10 @@ export class ViewerComponent implements OnInit {
 
   // TODO layout according to this settings
   public transcriptEnabled$ = this.store.select(
-    viewerSelector.selectTranscriptEnabled
+    viewerSelector.vTranscriptEnabled
   );
   public transcriptPosition$ = this.store.select(
-    viewerSelector.selectTranscriptPosition
+    viewerSelector.vTranscriptPosition
   );
 
   layoutSettings$ = combineLatest([
@@ -74,15 +69,6 @@ export class ViewerComponent implements OnInit {
   ngOnInit(): void {
     const token = this.route.snapshot.params['token'];
     this.store.dispatch(viewerActions.viewerLogin({ token }));
-
-    // if (this._projectId) {
-    //   this.projectId = this._projectId;
-    // } else {
-    //   this.projectId = this.route.snapshot.params['id'];
-    // }
-    // this.store.dispatch(
-    //   editorActions.findProjectFromViewer({ projectId: this.projectId })
-    // );
   }
 
   @HostListener('window:keydown.ArrowRight', ['$event'])

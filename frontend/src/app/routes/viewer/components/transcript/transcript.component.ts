@@ -59,9 +59,7 @@ export class TranscriptComponent implements OnDestroy, OnInit {
   captions$ = this.store.select(viewerSelector.vCaptions);
 
   availableSpeakers$ = this.store.select(viewerSelector.vAvailableSpeakers);
-  transcriptFontsize$ = this.store.select(
-    viewerSelector.selectTranscriptFontsize
-  );
+  transcriptFontsize$ = this.store.select(viewerSelector.vTranscriptFontsize);
 
   searchValue$: BehaviorSubject<string> = new BehaviorSubject('');
   searchValue: string = ''; // for ngModel

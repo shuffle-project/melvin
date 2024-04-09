@@ -13,10 +13,8 @@ import { combineLatest, map } from 'rxjs';
 import { DurationPipe } from '../../../../../pipes/duration-pipe/duration.pipe';
 import { MediaCategory } from '../../../../../services/api/entities/project.entity';
 import { TranscriptionEntity } from '../../../../../services/api/entities/transcription.entity';
-import * as editorActions from '../../../../../store/actions/editor.actions';
 import * as viewerActions from '../../../../../store/actions/viewer.actions';
 import { AppState } from '../../../../../store/app.state';
-import * as editorSelector from '../../../../../store/selectors/editor.selector';
 import * as viewerSelector from '../../../../../store/selectors/viewer.selector';
 import { ViewerService } from '../../../../viewer/viewer.service';
 import { CaptionsSettingsDialogComponent } from '../../captions-settings-dialog/captions-settings-dialog.component';
@@ -42,11 +40,10 @@ import { ViewerVideo } from '../player.component';
   ],
 })
 export class ControlsComponent {
-  public volume$ = this.store.select(editorSelector.selectVolume); // TODO move to viewerSelector
-  public currentSpeed$ = this.store.select(editorSelector.selectCurrentSpeed); // TODO move to viewerSelector
+  public volume$ = this.store.select(viewerSelector.vVolume);
+  public currentSpeed$ = this.store.select(viewerSelector.vCurrentSpeed);
   public subtitlesEnabledInVideo$ = this.store.select(
-    // TODO move to viewerSelector
-    editorSelector.selectSubtitlesEnabledInVideo
+    viewerSelector.vSubtitlesEnabled
   );
 
   public transcriptions$ = combineLatest([
@@ -54,7 +51,7 @@ export class ControlsComponent {
     this.store.select(viewerSelector.vTranscriptionId),
   ]).pipe(map(([list, selectedId]) => ({ list, selectedId })));
 
-  public smallVideos$ = this.store.select(viewerSelector.selectSmallVideos);
+  public smallVideos$ = this.store.select(viewerSelector.vSmallVideos);
   signLanguageAvailable$ = this.smallVideos$.pipe(
     map((smallVideos) => {
       const signLanguageVideos = smallVideos.findIndex(
@@ -95,8 +92,8 @@ export class ControlsComponent {
 
   onVolumeChange(event: any) {
     this.store.dispatch(
-      editorActions.changeVolumeFromViewerComponent({
-        volume: event.target.value,
+      viewerActions.changeVolume({
+        newVolume: event.target.value,
       })
     );
   }
@@ -108,7 +105,7 @@ export class ControlsComponent {
   onTurnOffCaptions(subtitlesEnabledInVideo: boolean) {
     // disable captions in video
     if (subtitlesEnabledInVideo) {
-      this.store.dispatch(editorActions.toggleSubtitlesFromViewer());
+      this.store.dispatch(viewerActions.toggleSubtitles());
     }
   }
 
@@ -118,17 +115,12 @@ export class ControlsComponent {
   ) {
     // enable captions in video
     if (!subtitlesEnabledInVideo) {
-      this.store.dispatch(editorActions.toggleSubtitlesFromViewer());
+      this.store.dispatch(viewerActions.toggleSubtitles());
     }
 
     this.store.dispatch(
       viewerActions.changeTranscriptionId({ transcriptionId: transcription.id })
     );
-    // this.store.dispatch(
-    //   transcriptionsActions.selectFromViewer({
-    //     transcriptionId: transcription.id,
-    //   })
-    // );
   }
 
   onOpenCaptionsSettingsDialog() {
@@ -144,8 +136,8 @@ export class ControlsComponent {
   //   if (currentSpeed < 3) this.changePlaybackSpeed((currentSpeed += 0.25));
   // }
 
-  changePlaybackSpeed(speed: number) {
-    this.store.dispatch(editorActions.changeSpeedFromViewer({ speed }));
+  changePlaybackSpeed(newSpeed: number) {
+    this.store.dispatch(viewerActions.changeSpeed({ newSpeed }));
   }
 
   onSeek(seconds: number) {

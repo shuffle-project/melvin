@@ -25,10 +25,7 @@ export class EditorEffects {
   changeVolume$ = createEffect(
     () =>
       this.actions$.pipe(
-        ofType(
-          editorActions.changeVolumeFromVideoComponent,
-          editorActions.changeVolumeFromViewerComponent
-        ),
+        ofType(editorActions.changeVolumeFromVideoComponent),
         tap((action) => {
           this.storageService.storeInSessionStorage(
             StorageKey.MEDIA_VOLUME,
@@ -42,10 +39,7 @@ export class EditorEffects {
   subtitlesEnabledInVideo$ = createEffect(
     () =>
       this.actions$.pipe(
-        ofType(
-          editorActions.toggleSubtitlesFromEditor,
-          editorActions.toggleSubtitlesFromViewer
-        ),
+        ofType(editorActions.toggleSubtitlesFromEditor),
         withLatestFrom(
           this.store.select(editorSelectors.selectSubtitlesEnabledInVideo)
         ),
@@ -61,10 +55,7 @@ export class EditorEffects {
 
   findProject$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(
-        editorActions.findProjectFromEditor,
-        editorActions.findProjectFromViewer
-      ),
+      ofType(editorActions.findProjectFromEditor),
       switchMap((action) =>
         this.api.findOneProject(action.projectId).pipe(
           map((project) => editorActions.findProjectSuccess({ project })),
@@ -81,8 +72,7 @@ export class EditorEffects {
     this.actions$.pipe(
       ofType(
         editorActions.findProjectMedia,
-        editorActions.findProjectFromEditor,
-        editorActions.findProjectFromViewer
+        editorActions.findProjectFromEditor
       ),
       switchMap((action) =>
         this.api.findProjectMediaEntity(action.projectId).pipe(

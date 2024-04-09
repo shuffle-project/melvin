@@ -105,8 +105,8 @@ export class ProjectListComponent implements OnInit, AfterViewInit, OnDestroy {
     'updatedAt',
     'createdAt',
     'members',
-    'more',
     'player',
+    'more',
   ];
 
   // Table data
@@ -233,9 +233,9 @@ export class ProjectListComponent implements OnInit, AfterViewInit, OnDestroy {
     });
   }
 
-  onOpenViewer(project: ProjectEntity) {
-    this.router.navigate(['/viewer', project.viewerToken]);
-  }
+  // onOpenViewer(project: ProjectEntity) {
+  //   this.router.navigate(['/viewer', project.viewerToken]);
+  // }
 
   onGetCorrectIcon(status: string) {
     switch (status) {

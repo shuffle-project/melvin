@@ -100,7 +100,7 @@ export class RealApiService implements ApiService {
   private authToken$ = this.store.select(authSelectors.selectToken);
   private authToken!: string | null;
 
-  private viewerToken$ = this.store.select(viewerSelector.selectViewerToken);
+  private viewerToken$ = this.store.select(viewerSelector.vAccessToken);
   private viewerToken!: string | null;
 
   constructor(private httpClient: HttpClient, private store: Store) {

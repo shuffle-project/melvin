@@ -73,7 +73,7 @@
         }
       </ng-container>
     </div>
-    @if (subtitlesEnabledInVideo$ | ngrxPush) {
+    @if (subtitlesEnabled$ | ngrxPush) {
     <div
       *ngrxLet="combinedCaptionsStyling$ as combined"
       class="viewer-caption {{ combined.position }}"
