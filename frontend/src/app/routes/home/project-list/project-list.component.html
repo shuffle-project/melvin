@@ -318,12 +318,17 @@
           <mat-icon svgIcon="share"></mat-icon>
           Share
         </button>
-        } @if ('download' | featureEnabled) {
-        <button mat-menu-item i18n="@@projectListMoreMenuDownloadLabel">
+        }
+        <!-- @if ('download' | featureEnabled) {
+        <button
+          mat-menu-item
+          i18n="@@projectListMoreMenuDownloadLabel"
+          (click)="onDownloadProject(element)"
+        >
           <mat-icon svgIcon="download"></mat-icon>
           Download
         </button>
-        }
+        } -->
         <!-- <button mat-menu-item (click)="onOpenViewer(element)">
           <mat-icon svgIcon="viewer"></mat-icon>
           Viewer

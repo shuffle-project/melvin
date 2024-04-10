@@ -61,6 +61,15 @@
         }
       </mat-menu>
       <mat-menu #downloadMenu="matMenu" class="dense">
+        <ng-container *ngrxLet="projectMedia$ as projectMedia">
+          @if (projectMedia) { @for (video of projectMedia.videos; track $index)
+          {
+          <button mat-menu-item (click)="onDownloadVideo(video)">
+            {{ video.title }} (.{{ video.extension }})
+          </button>
+          } }
+        </ng-container>
+
         <button mat-menu-item (click)="onDownloadSubtitles('srt')">
           SubRip (.srt)
         </button>

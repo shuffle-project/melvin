@@ -34,6 +34,7 @@ export class MigrationService {
       }
       settings.dbSchemaVersion = 2;
       await settings.save();
+      this.logger.info('Migrated to version 2');
     }
   }
 }
