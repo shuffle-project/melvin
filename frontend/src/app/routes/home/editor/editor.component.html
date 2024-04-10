@@ -80,10 +80,10 @@
         <button mat-menu-item (click)="onDownloadSubtitles('vtt')">
           WebVTT (.vtt)
         </button>
-        <mat-divider></mat-divider>
-        <button mat-menu-item i18n="@@editorMenuFileDownloadConfigureLabel">
+        <!-- <mat-divider></mat-divider> -->
+        <!-- <button mat-menu-item i18n="@@editorMenuFileDownloadConfigureLabel">
           Configure ...
-        </button>
+        </button> -->
       </mat-menu>
       <!-- Transcription Menu -->
       @if ('transcriptionsMenu' | featureEnabled) {
@@ -134,9 +134,10 @@
       </mat-menu>
       <!-- Help Menu -->
       @if ('helpMenu' | featureEnabled) {
-      <button mat-button (click)="onOpenHelpDialog()" i18n="@@editorMenuHelp">
+      <!-- TODO removed to make the ui cleaner -->
+      <!-- <button mat-button (click)="onOpenHelpDialog()" i18n="@@editorMenuHelp">
         Help
-      </button>
+      </button> -->
       }
     </div>
   </div>
@@ -269,7 +270,8 @@
   <div class="content">
     <div class="left">
       <app-video-player></app-video-player>
-      <app-editor-settings></app-editor-settings>
+      <!-- TODO removed to make the ui cleaner -->
+      <!-- <app-editor-settings></app-editor-settings> -->
       <app-user-test-controls></app-user-test-controls>
       @if ('live' | featureEnabled) {
       <div *ngrxLet="project$ as project">
