@@ -119,3 +119,8 @@ export const downloadSubtitles = createAction(
   '[EDITOR COMPONENT] Start download subtitles in a format',
   props<{ transcriptionId: string; format: 'srt' | 'vtt' }>()
 );
+
+export const downloadTranscript = createAction(
+  '[EDITOR COMPONENT] Download transcript as txt',
+  props<{ transcriptionId: string }>()
+);

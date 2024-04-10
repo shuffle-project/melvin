@@ -31,6 +31,7 @@ import { SpeakerEntity } from '../../../../services/api/entities/transcription.e
 import { AppState } from '../../../../store/app.state';
 import * as viewerSelector from '../../../../store/selectors/viewer.selector';
 import { ViewerService } from '../../../viewer/viewer.service';
+import { generateTranscript } from './transcript.utils';
 
 @Component({
   selector: 'app-transcript',
@@ -72,52 +73,9 @@ export class TranscriptComponent implements OnDestroy, OnInit {
 
   transcript$: Observable<CaptionEntity[][]> = this.captions$.pipe(
     map((captions) => {
-      if (captions.length === 0) return [];
-
-      const finalTranscriptParagraphs: CaptionEntity[][] = [];
-
-      let tempTranscriptParagraph: CaptionEntity[] = [captions[0]];
-      let tempCurrentTextLength = captions[0].text.length;
-
-      let captionIndex = 1; // start at second item, first item is already in temp
-      while (captionIndex < captions.length) {
-        const captionAtIndex = captions[captionIndex];
-        const captionPreviousIndex = captions[captionIndex - 1];
-
-        const speakerChange =
-          captionPreviousIndex.speakerId !== captionAtIndex.speakerId;
-        const tooLongAndSentenceFinished =
-          tempCurrentTextLength > 400 &&
-          (captionPreviousIndex.text.endsWith('.') ||
-            captionPreviousIndex.text.endsWith('!') ||
-            captionPreviousIndex.text.endsWith('?'));
-        const wayTooLong = tempCurrentTextLength > 1000;
-
-        if (speakerChange || tooLongAndSentenceFinished || wayTooLong) {
-          // speaker change or sentence finished/caption too long -> new Paragraph
-          finalTranscriptParagraphs.push(tempTranscriptParagraph);
-          tempTranscriptParagraph = [captionAtIndex];
-          tempCurrentTextLength = captionAtIndex.text.length;
-        } else {
-          tempTranscriptParagraph.push(captionAtIndex);
-          tempCurrentTextLength += captionAtIndex.text.length;
-        }
-
-        const lastCaption = captionIndex === captions.length - 1;
-        if (lastCaption)
-          finalTranscriptParagraphs.push(tempTranscriptParagraph);
-
-        captionIndex++;
-      }
-
-      if (captions.length === 1) {
-        finalTranscriptParagraphs.push(tempTranscriptParagraph);
-      }
-
-      this.transcriptNew = JSON.parse(
-        JSON.stringify(finalTranscriptParagraphs)
-      );
-      return finalTranscriptParagraphs;
+      const transcript = generateTranscript(captions);
+      this.transcriptNew = JSON.parse(JSON.stringify(transcript));
+      return transcript;
     })
   );
 

@@ -267,6 +267,13 @@ export class EditorComponent implements OnInit, OnDestroy {
     );
   }
 
+  async onDownloadTranscript() {
+    const transcriptionId = await firstValueFrom(this.selectedTranscriptionId$);
+    this.store.dispatch(
+      transcriptionsActions.downloadTranscript({ transcriptionId })
+    );
+  }
+
   async onClickProjectEdit(tab: ProjectDetailDialogTab) {
     const project = (await firstValueFrom(this.project$)) as ProjectEntity;
 

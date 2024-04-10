@@ -1,12 +1,17 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { catchError, map, mergeMap, of, tap } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { catchError, map, mergeMap, of, tap, withLatestFrom } from 'rxjs';
+import { DurationPipe } from '../../pipes/duration-pipe/duration.pipe';
+import { generateTranscript } from '../../routes/viewer/components/transcript/transcript.utils';
 import { AlertService } from '../../services/alert/alert.service';
 import { ApiService } from '../../services/api/api.service';
 import { TranscriptionEntity } from '../../services/api/entities/transcription.entity';
 import * as editorActions from '../actions/editor.actions';
 import * as projectsActions from '../actions/projects.actions';
 import * as transcriptionsActions from '../actions/transcriptions.actions';
+import { AppState } from '../app.state';
+import * as captionsSelector from '../selectors/captions.selector';
 
 @Injectable({
   providedIn: 'root',
@@ -15,7 +20,8 @@ export class TranscriptionsEffects {
   constructor(
     private actions$: Actions,
     private api: ApiService,
-    private alert: AlertService
+    private alert: AlertService,
+    private store: Store<AppState>
   ) {}
 
   //TODO better naming than prepare___
@@ -162,6 +168,45 @@ export class TranscriptionsEffects {
               })
             )
         )
+      ),
+    { dispatch: false }
+  );
+
+  downloadTranscript$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(transcriptionsActions.downloadTranscript),
+        withLatestFrom(this.store.select(captionsSelector.selectCaptions)),
+        tap(([action, captions]) => {
+          // TODO maybe refactor
+          const transcript = generateTranscript(captions);
+
+          let text = '';
+
+          const formatDatePipe = new DurationPipe();
+          transcript.forEach((entitiesList) => {
+            const formattedDate = formatDatePipe.transform(
+              entitiesList[0].start
+            );
+            text += formattedDate + '\n';
+            entitiesList.forEach((entity) => {
+              text += entity.text + ' ';
+            });
+
+            text += '\n';
+          });
+
+          const file = new Blob([text], { type: 'text/plain' });
+
+          const downloadAnchor = document.createElement('a');
+          downloadAnchor.style.display = 'none';
+
+          const fileURL = URL.createObjectURL(file);
+          downloadAnchor.href = fileURL;
+          downloadAnchor.download = 'transcript.txt';
+          downloadAnchor.click();
+          downloadAnchor.remove();
+        })
       ),
     { dispatch: false }
   );
