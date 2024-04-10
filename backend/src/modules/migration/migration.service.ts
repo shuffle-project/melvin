@@ -18,14 +18,26 @@ export class MigrationService {
     this.logger.info('Initialize migration check');
     let settings = await this.db.settingsModel.findOne({});
 
+    this.logger.info('settings', settings);
+
     if (settings === null) {
       this.logger.info('First application start');
-      settings = await this.db.settingsModel.create({ version: 1 });
+      settings = await this.db.settingsModel.create({ dbSchemaVersion: 1 });
       this.logger.info('Create example project');
       await this.populateService.populate([], 1);
     }
 
+    // Fix for legacy migration
+    if (settings.dbSchemaVersion === undefined) {
+      this.logger.info('Fix dbSchemaVersion');
+      settings.dbSchemaVersion = 1;
+      await settings.save();
+    }
+
+    this.logger.info('settings', settings);
+
     if (settings.dbSchemaVersion < 2) {
+      this.logger.info('Migrate to version 2');
       const projects = await this.db.projectModel.find({});
       for (const project of projects) {
         project.inviteToken = generateSecureToken();
@@ -34,7 +46,7 @@ export class MigrationService {
       }
       settings.dbSchemaVersion = 2;
       await settings.save();
-      this.logger.info('Migrated to version 2');
+      this.logger.info('Migration successful');
     }
   }
 }
