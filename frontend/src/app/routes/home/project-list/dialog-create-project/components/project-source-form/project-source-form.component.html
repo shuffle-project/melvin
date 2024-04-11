@@ -1,5 +1,5 @@
 <form [formGroup]="metadataGroup">
-  <mat-button-toggle-group
+  <!-- <mat-button-toggle-group
     i18n-aria-label="@@sourceFormToggleButtonAriaLabel"
     aria-label="Project source mode"
     formControlName="sourceMode"
@@ -10,7 +10,7 @@
     <mat-button-toggle value="live" i18n="@@sourceFormLiveToggleButton">
       Connect to livestream
     </mat-button-toggle>
-  </mat-button-toggle-group>
+  </mat-button-toggle-group> -->
 </form>
 
 @if (metadataGroup.value.sourceMode === 'video') {

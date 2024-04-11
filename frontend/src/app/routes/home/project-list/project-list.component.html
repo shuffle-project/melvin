@@ -87,18 +87,18 @@
         color="primary"
         i18n="@@projectListCreateProjectButtonLabel"
       >
-        <mat-icon svgIcon="more"></mat-icon>
+        <mat-icon svgIcon="plus"></mat-icon>
         New project
       </button>
 
       <mat-menu #newProjectMenu xPosition="before">
         <menu mat-menu-item (click)="onOpenDialogCreateProject()">
-          <mat-icon svgIcon="file_video"></mat-icon>
-          via File</menu
+          <mat-icon svgIcon="upload"></mat-icon>
+          Upload file</menu
         >
-        <menu mat-menu-item (click)="onOpenDialogCreateProject()"
-          ><mat-icon svgIcon="recording"></mat-icon> live</menu
-        >
+        <!-- <menu mat-menu-item (click)="onOpenDialogCreateProject()"
+          ><mat-icon svgIcon="recording"></mat-icon>Live</menu
+        > -->
         <menu mat-menu-item (click)="onOpenRecorder()">
           <mat-icon svgIcon="record"></mat-icon> Recorder</menu
         >

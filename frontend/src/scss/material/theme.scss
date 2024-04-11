@@ -229,7 +229,7 @@ DEFINE
 $typography: mat.define-typography-config(
   $font-family: 'Roboto, Arial, sans-serif',
   $button:
-    mat.define-typography-level(null, null, 500, null, $letter-spacing: wider),
+    mat.define-typography-level(14px, 14px, 500, null, $letter-spacing: wider),
   $body-1:
     mat.define-typography-level(14px, 14px, null, null, $letter-spacing: wider),
 );
