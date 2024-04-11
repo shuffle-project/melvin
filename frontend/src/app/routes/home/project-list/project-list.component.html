@@ -79,25 +79,30 @@
       </div>
     </div>
     <div>
-      <button
-        mat-raised-button
-        color="primary"
-        class="new-project-button"
-        (click)="onOpenRecorder()"
-      >
-        Recorder
-      </button>
-
       @if ('projectCreate' | featureEnabled) {
       <button
-        (click)="onOpenDialogCreateProject()"
+        [matMenuTriggerFor]="newProjectMenu"
         mat-raised-button
         color="primary"
-        class="new-project-button"
         i18n="@@projectListCreateProjectButtonLabel"
       >
+        <mat-icon svgIcon="more"></mat-icon>
         New project
       </button>
+
+      <mat-menu #newProjectMenu xPosition="before">
+        <menu mat-menu-item (click)="onOpenDialogCreateProject()">
+          <mat-icon svgIcon="file_video"></mat-icon>
+          via File</menu
+        >
+        <menu mat-menu-item (click)="onOpenDialogCreateProject()"
+          ><mat-icon svgIcon="recording"></mat-icon> live</menu
+        >
+        <menu mat-menu-item (click)="onOpenRecorder()">
+          <mat-icon svgIcon="record"></mat-icon> Recorder</menu
+        >
+      </mat-menu>
+
       }
     </div>
   </div>
