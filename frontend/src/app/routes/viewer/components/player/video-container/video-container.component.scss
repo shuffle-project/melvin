@@ -53,8 +53,7 @@ video {
     background: rgba($color: black, $alpha: 0.7); // TODO invert in dark mode?
 
     .title {
-      // color: var(--color-white);
-      color: white;
+      color: white; // TODO invert in dark mode?
       max-height: 50%;
       height: 50%;
       text-align: center;
@@ -63,6 +62,9 @@ video {
       display: flex;
       justify-content: center;
       align-items: center;
+      mat-icon {
+        fill: white; // TODO invert in dark mode?
+      }
     }
 
     button {
