@@ -35,8 +35,8 @@
         <target state="final">Projekt Status</target>
       </trans-unit>
       <trans-unit id="projectListCreateProjectButtonLabel" datatype="html">
-        <source> New project </source>
-        <target state="final"> Neues Projekt </target>
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;more&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/> New project </source>
+        <target state="final"> <x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;more&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/> Neues Projekt  </target>
       </trans-unit>
       <trans-unit id="projectListTableHeaderTitleLabel" datatype="html">
         <source> Title </source>
@@ -78,10 +78,6 @@
         <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;share&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/> Share </source>
         <target state="final"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;share&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/> Freigeben </target>
       </trans-unit>
-      <trans-unit id="projectListMoreMenuDownloadLabel" datatype="html">
-        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;download&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/> Download </source>
-        <target state="final"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;download&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/> Herunterladen </target>
-      </trans-unit>
       <trans-unit id="projectListMoreMenuDeleteLabel" datatype="html">
         <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;delete&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/> Delete </source>
         <target state="final"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;delete&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/> Löschen </target>
@@ -120,7 +116,7 @@
       </trans-unit>
       <trans-unit id="uploadFilesFormDropzoneText" datatype="html">
         <source> Drag your audio, video and subtitle file * here </source>
-        <target state="new"> Video- * oder Untertitel-Datei hierhin ziehen </target>
+        <target state="final"> Video- * oder Untertitel-Datei hierhin ziehen </target>
       </trans-unit>
       <trans-unit id="uploadFilesFormDropzoneTextOr" datatype="html">
         <source>or</source>
@@ -144,7 +140,7 @@
       </trans-unit>
       <trans-unit id="metadataFormAddMemberHint" datatype="html">
         <source>Enter the email addresses of your team members. Addresses that are not linked to an account will be invited to the project via email. </source>
-        <target state="new">Gib hierfür die E-Mail-Adressen der Teammitglieder an. Adressen, die keinem Account zugeordnet werden können, werden via E-Mail zu dem Projekt eingeladen.</target>
+        <target state="final">Gib hierfür die E-Mail-Adressen der Teammitglieder an. Adressen, die keinem Account zugeordnet werden können, werden via E-Mail zu dem Projekt eingeladen.</target>
       </trans-unit>
       <trans-unit id="dialogCreateProjectCloseButton" datatype="html">
         <source>Close</source>
@@ -193,10 +189,6 @@
       <trans-unit id="editorMenuFileDeleteLabel" datatype="html">
         <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="D"/> Delete </source>
         <target state="final"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="D"/> Löschen </target>
-      </trans-unit>
-      <trans-unit id="editorMenuFileDownloadConfigureLabel" datatype="html">
-        <source> Configure ... </source>
-        <target state="final"> Konfigurieren ... </target>
       </trans-unit>
       <trans-unit id="editorMenuTranscriptionLabel" datatype="html">
         <source> Transcription </source>
@@ -438,10 +430,6 @@
         <source><x id="START_LINK" ctype="x-a" equiv-text="&gt;"/>Contact<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/></source>
         <target state="final"><x id="START_LINK" ctype="x-a" equiv-text="Contact&lt;"/>Kontakt<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/></target>
       </trans-unit>
-      <trans-unit id="editorMenuHelp" datatype="html">
-        <source> Help </source>
-        <target state="final"> Hilfe </target>
-      </trans-unit>
       <trans-unit id="editorRewind5SecondsButtonLabel" datatype="html">
         <source>Rewind 5 seconds</source>
         <target state="final">5 Sekunden zurückspulen</target>
@@ -488,11 +476,11 @@
       </trans-unit>
       <trans-unit id="createTranscriptionDialogTitle" datatype="html">
         <source>Add transcription</source>
-        <target state="new"> Transkription hinzufügen </target>
+        <target state="final"> Transkription hinzufügen </target>
       </trans-unit>
       <trans-unit id="editTranscriptionModalTitle" datatype="html">
         <source>Edit transcription</source>
-        <target state="new"> Transkription bearbeiten </target>
+        <target state="final"> Transkription bearbeiten </target>
       </trans-unit>
       <trans-unit id="editTranscriptionModalLanguageLabel" datatype="html">
         <source>Language</source>
@@ -814,10 +802,6 @@
         <source>Loop this caption.</source>
         <target state="final">Wiederholen dieser Caption.</target>
       </trans-unit>
-      <trans-unit id="viewerHeaderHelpLabel" datatype="html">
-        <source>Help</source>
-        <target state="final">Hilfe</target>
-      </trans-unit>
       <trans-unit id="viewerHeaderHeaderAdjustLayout" datatype="html">
         <source> Adjust Layout </source>
         <target state="final"> Layout anpassen </target>
@@ -944,9 +928,9 @@
       </trans-unit>
       <trans-unit id="viewerControlsMuteUnmuteTooltip" datatype="html">
         <source>
-          <x id="INTERPOLATION" equiv-text="? &apos;Unmute sound&apos; : &apos;Mute sound&apos; }}"/>
+          <x id="INTERPOLATION" equiv-text="{{ viewerService.audio.muted ? &apos;Unmute sound&apos; : &apos;Mute sound&apos; }}"/>
         </source>
-        <target state="final">
+        <target state="new">
           <x id="INTERPOLATION" equiv-text="? &apos;Ton einschalten&apos; : &apos;Ton ausschalten&apos; }}"/>
         </target>
       </trans-unit>
@@ -961,10 +945,6 @@
       <trans-unit id="viewerControlsTranscriptToggleTooltip" datatype="html">
         <source>Toggle show/hide transcript</source>
         <target state="final">Ein/Ausblenden des Trankskripts</target>
-      </trans-unit>
-      <trans-unit id="viewerControlsSignLanguageToggleTooltip" datatype="html">
-        <source>Toggle show/hide sign language videos</source>
-        <target state="final">Ein/Ausblenden der Gebärdensprachvideos</target>
       </trans-unit>
       <trans-unit id="viewerControlsGalleryMenuTooltip" datatype="html">
         <source>Shown video selection</source>
@@ -1095,8 +1075,8 @@
         <target state="final">Email benötigt</target>
       </trans-unit>
       <trans-unit id="projectListOpenViewerAriaLabel" datatype="html">
-        <source>Open Viewer</source>
-        <target state="new">Open Viewer</target>
+        <source>Open Viewer in new Tab</source>
+        <target state="new">Open Viewer in new Tab</target>
       </trans-unit>
       <trans-unit id="loginPasswordErrorRequired" datatype="html">
         <source> Password is required </source>

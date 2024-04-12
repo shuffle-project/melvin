@@ -11,6 +11,7 @@ import {
   TRANSCIRPTIONS_ENITITY_MOCK,
 } from '../../constants/mocks/captions.mock';
 import { ApiService } from './api.service';
+import { ChangePasswordDto } from './dto/auth.dto';
 import { BulkRemoveDto } from './dto/bulk-remove.dto';
 import { ConnectLivestreamDto } from './dto/connect-livestream.dto';
 import { CreateCaptionDto } from './dto/create-caption.dto';
@@ -33,7 +34,11 @@ import { UpdateSpeakerDto } from './dto/update-speaker.dto';
 import { UpdateTranscriptionDto } from './dto/update-transcription.dto';
 import { UploadVideoDto } from './dto/upload-video.dto';
 import { ActivityListEntity } from './entities/activitiy-list.entity';
-import { GuestLoginEntity, InviteEntity } from './entities/auth.entity';
+import {
+  ChangePasswordEntity,
+  GuestLoginEntity,
+  InviteEntity,
+} from './entities/auth.entity';
 import { CaptionListEntity } from './entities/caption-list.entity';
 import { CaptionEntity } from './entities/caption.entity';
 import { ConnectLivestreamEntity } from './entities/connect-livestream.entity';
@@ -43,6 +48,7 @@ import { PauseLivestreamEntity } from './entities/pause-livestream.entity';
 import { PauseRecordingEntity } from './entities/pause-recording,entity';
 import { ProjectInviteTokenEntity } from './entities/project-invite-token.entity';
 import { ProjectListEntity } from './entities/project-list.entity';
+import { ProjectViewerTokenEntity } from './entities/project-viewer-token.entity';
 import { ProjectEntity, ProjectMediaEntity } from './entities/project.entity';
 import { ResumeLivestreamEntity } from './entities/resume-livestream.entity';
 import { ResumeRecordingEntity } from './entities/resume-recording';
@@ -93,6 +99,11 @@ export class FakeApiService implements ApiService {
     return of();
   }
 
+  changePassword(dto: ChangePasswordDto): Observable<ChangePasswordEntity> {
+    this.logger.verbose('changePassword');
+    return of();
+  }
+
   refreshToken(token: string): Observable<{ token: string }> {
     this.logger.verbose('refreshToken mocked');
     return of({ token });
@@ -120,6 +131,14 @@ export class FakeApiService implements ApiService {
 
   guestLogin(token: string, name: string): Observable<GuestLoginEntity> {
     this.logger.verbose('guestLogin mocked');
+    return of({
+      projectId: PROJECT_ENTITY_MOCK[0].id,
+      token: AUTH_TOKEN_GUEST_MOCK,
+    });
+  }
+
+  viewerLogin(token: string): Observable<GuestLoginEntity> {
+    this.logger.verbose('viewerLogin mocked');
     return of({
       projectId: PROJECT_ENTITY_MOCK[0].id,
       token: AUTH_TOKEN_GUEST_MOCK,
@@ -197,12 +216,32 @@ export class FakeApiService implements ApiService {
     });
   }
 
+  getProjectViewerToken(
+    projectId: string
+  ): Observable<ProjectViewerTokenEntity> {
+    this.logger.verbose('getProjectInviteToken mocked');
+    return of({
+      viewerToken:
+        'yelFMz2hoS_Bh9ZCa9NTwvlqN1okIu3uTiEkxx5xoNTFivfsrfoJl3DxpxJU9KhaqOd8EQ9ucpTpsK3-kUbvjw',
+    });
+  }
+
   updateProjectInviteToken(
     projectId: string
   ): Observable<ProjectInviteTokenEntity> {
     this.logger.verbose('updateProjectInviteToken mocked');
     return of({
       inviteToken:
+        'yelFMz2hoS_Bh9ZCa9NTwvlqN1okIu3uTiEkxx5xoNTFivfsrfoJl3DxpxJU9KhaqOd8EQ9ucpTpsK3-kUbvjw',
+    });
+  }
+
+  updateProjectViewerToken(
+    projectId: string
+  ): Observable<ProjectViewerTokenEntity> {
+    this.logger.verbose('updateProjectViewerToken mocked');
+    return of({
+      viewerToken:
         'yelFMz2hoS_Bh9ZCa9NTwvlqN1okIu3uTiEkxx5xoNTFivfsrfoJl3DxpxJU9KhaqOd8EQ9ucpTpsK3-kUbvjw',
     });
   }

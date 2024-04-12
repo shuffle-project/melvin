@@ -10,17 +10,13 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { LetDirective, PushPipe } from '@ngrx/component';
 import { Store } from '@ngrx/store';
 import { combineLatest, map } from 'rxjs';
-import { DurationPipe } from '../../../../../../pipes/duration-pipe/duration.pipe';
-import { MediaCategory } from '../../../../../../services/api/entities/project.entity';
-import { TranscriptionEntity } from '../../../../../../services/api/entities/transcription.entity';
-import * as editorActions from '../../../../../../store/actions/editor.actions';
-import * as transcriptionsActions from '../../../../../../store/actions/transcriptions.actions';
-import * as viewerActions from '../../../../../../store/actions/viewer.actions';
-import { AppState } from '../../../../../../store/app.state';
-import * as editorSelector from '../../../../../../store/selectors/editor.selector';
-import * as transcriptionsSelector from '../../../../../../store/selectors/transcriptions.selector';
-import * as viewerSelector from '../../../../../../store/selectors/viewer.selector';
-import { ViewerService } from '../../../viewer.service';
+import { DurationPipe } from '../../../../../pipes/duration-pipe/duration.pipe';
+import { MediaCategory } from '../../../../../services/api/entities/project.entity';
+import { TranscriptionEntity } from '../../../../../services/api/entities/transcription.entity';
+import * as viewerActions from '../../../../../store/actions/viewer.actions';
+import { AppState } from '../../../../../store/app.state';
+import * as viewerSelector from '../../../../../store/selectors/viewer.selector';
+import { ViewerService } from '../../../../viewer/viewer.service';
 import { CaptionsSettingsDialogComponent } from '../../captions-settings-dialog/captions-settings-dialog.component';
 import { ViewerVideo } from '../player.component';
 
@@ -44,22 +40,18 @@ import { ViewerVideo } from '../player.component';
   ],
 })
 export class ControlsComponent {
-  public volume$ = this.store.select(editorSelector.selectVolume);
-  public currentSpeed$ = this.store.select(editorSelector.selectCurrentSpeed);
+  public volume$ = this.store.select(viewerSelector.vVolume);
+  public currentSpeed$ = this.store.select(viewerSelector.vCurrentSpeed);
   public subtitlesEnabledInVideo$ = this.store.select(
-    editorSelector.selectSubtitlesEnabledInVideo
+    viewerSelector.vSubtitlesEnabled
   );
 
   public transcriptions$ = combineLatest([
-    this.store.select(transcriptionsSelector.selectTranscriptionList),
-    this.store.select(transcriptionsSelector.selectTranscriptionId),
-  ]).pipe(
-    map(([list, selectedId]) => {
-      return { list, selectedId };
-    })
-  );
+    this.store.select(viewerSelector.vTranscriptions),
+    this.store.select(viewerSelector.vTranscriptionId),
+  ]).pipe(map(([list, selectedId]) => ({ list, selectedId })));
 
-  public smallVideos$ = this.store.select(viewerSelector.selectSmallVideos);
+  public smallVideos$ = this.store.select(viewerSelector.vSmallVideos);
   signLanguageAvailable$ = this.smallVideos$.pipe(
     map((smallVideos) => {
       const signLanguageVideos = smallVideos.findIndex(
@@ -100,8 +92,8 @@ export class ControlsComponent {
 
   onVolumeChange(event: any) {
     this.store.dispatch(
-      editorActions.changeVolumeFromViewerComponent({
-        volume: event.target.value,
+      viewerActions.changeVolume({
+        newVolume: event.target.value,
       })
     );
   }
@@ -113,7 +105,7 @@ export class ControlsComponent {
   onTurnOffCaptions(subtitlesEnabledInVideo: boolean) {
     // disable captions in video
     if (subtitlesEnabledInVideo) {
-      this.store.dispatch(editorActions.toggleSubtitlesFromViewer());
+      this.store.dispatch(viewerActions.toggleSubtitles());
     }
   }
 
@@ -123,13 +115,11 @@ export class ControlsComponent {
   ) {
     // enable captions in video
     if (!subtitlesEnabledInVideo) {
-      this.store.dispatch(editorActions.toggleSubtitlesFromViewer());
+      this.store.dispatch(viewerActions.toggleSubtitles());
     }
 
     this.store.dispatch(
-      transcriptionsActions.selectFromViewer({
-        transcriptionId: transcription.id,
-      })
+      viewerActions.changeTranscriptionId({ transcriptionId: transcription.id })
     );
   }
 
@@ -146,52 +136,13 @@ export class ControlsComponent {
   //   if (currentSpeed < 3) this.changePlaybackSpeed((currentSpeed += 0.25));
   // }
 
-  changePlaybackSpeed(speed: number) {
-    this.store.dispatch(editorActions.changeSpeedFromViewer({ speed }));
+  changePlaybackSpeed(newSpeed: number) {
+    this.store.dispatch(viewerActions.changeSpeed({ newSpeed }));
   }
 
   onSeek(seconds: number) {
     if (this.viewerService.audio) {
       this.viewerService.audio.currentTime += seconds;
-    }
-  }
-
-  isFullscreenActive() {
-    return (
-      document.fullscreenElement || (document as any).webkitFullscreenElement
-    );
-  }
-
-  async onExitFullscreen() {
-    if (document.exitFullscreen) {
-      await document.exitFullscreen();
-    } else if ((document as any).webkitExitFullscreen) {
-      await (document as any).webkitExitFullscreen();
-    }
-    // this.store.dispatch(viewerActions.showTranscript());
-  }
-
-  onRequestFullscreen() {
-    if (this.isFullscreenActive()) {
-      this.onExitFullscreen();
-    } else {
-      const doc = document.getElementsByTagName('body').item(0);
-      if (doc) {
-        this.store.dispatch(viewerActions.hideTranscript());
-
-        // show transcript again on closing fullscreen
-        doc.onfullscreenchange = () => {
-          if (!this.isFullscreenActive()) {
-            this.store.dispatch(viewerActions.showTranscript());
-          }
-        };
-
-        if (doc.requestFullscreen) {
-          doc.requestFullscreen();
-        } else if ((doc as any).webkitRequestFullscreen) {
-          (doc as any).webkitRequestFullscreen();
-        }
-      }
     }
   }
 

@@ -291,7 +291,7 @@ export class Project {
   @IsString()
   inviteToken: string;
 
-  @Exclude()
+  // @Exclude()
   @ApiProperty({ example: EXAMPLE_PROJECT.viewerToken })
   @Prop()
   @IsString()

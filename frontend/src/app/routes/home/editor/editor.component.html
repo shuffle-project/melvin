@@ -61,16 +61,29 @@
         }
       </mat-menu>
       <mat-menu #downloadMenu="matMenu" class="dense">
+        <ng-container *ngrxLet="projectMedia$ as projectMedia">
+          @if (projectMedia) { @for (video of projectMedia.videos; track $index)
+          {
+          <button mat-menu-item (click)="onDownloadVideo(video)">
+            {{ video.title }} (.{{ video.extension }})
+          </button>
+          } }
+        </ng-container>
+
+        <button mat-menu-item (click)="onDownloadTranscript()">
+          Transcript (.txt)
+        </button>
+
         <button mat-menu-item (click)="onDownloadSubtitles('srt')">
           SubRip (.srt)
         </button>
         <button mat-menu-item (click)="onDownloadSubtitles('vtt')">
           WebVTT (.vtt)
         </button>
-        <mat-divider></mat-divider>
-        <button mat-menu-item i18n="@@editorMenuFileDownloadConfigureLabel">
+        <!-- <mat-divider></mat-divider> -->
+        <!-- <button mat-menu-item i18n="@@editorMenuFileDownloadConfigureLabel">
           Configure ...
-        </button>
+        </button> -->
       </mat-menu>
       <!-- Transcription Menu -->
       @if ('transcriptionsMenu' | featureEnabled) {
@@ -121,9 +134,10 @@
       </mat-menu>
       <!-- Help Menu -->
       @if ('helpMenu' | featureEnabled) {
-      <button mat-button (click)="onOpenHelpDialog()" i18n="@@editorMenuHelp">
+      <!-- TODO removed to make the ui cleaner -->
+      <!-- <button mat-button (click)="onOpenHelpDialog()" i18n="@@editorMenuHelp">
         Help
-      </button>
+      </button> -->
       }
     </div>
   </div>
@@ -256,7 +270,8 @@
   <div class="content">
     <div class="left">
       <app-video-player></app-video-player>
-      <app-editor-settings></app-editor-settings>
+      <!-- TODO removed to make the ui cleaner -->
+      <!-- <app-editor-settings></app-editor-settings> -->
       <app-user-test-controls></app-user-test-controls>
       @if ('live' | featureEnabled) {
       <div *ngrxLet="project$ as project">

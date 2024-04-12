@@ -102,6 +102,7 @@ export class ShareProjectDialogComponent implements OnInit, OnDestroy {
   project = inject<DialogData>(MAT_DIALOG_DATA).project;
 
   public inviteToken!: string;
+  public viewerToken!: string;
   public isLoading!: boolean;
   public error!: string | null;
 
@@ -133,6 +134,10 @@ export class ShareProjectDialogComponent implements OnInit, OnDestroy {
 
   get inviteLink(): string {
     return `${environment.frontendBaseUrl}/invite/${this.inviteToken}`;
+  }
+
+  get viewerLink(): string {
+    return `${environment.frontendBaseUrl}/view/${this.project.viewerToken}`;
   }
 
   async ngOnDestroy(): Promise<void> {
@@ -211,14 +216,26 @@ export class ShareProjectDialogComponent implements OnInit, OnDestroy {
     // });
   }
 
-  onClickCopyLink() {
-    this.clipboard.copy(this.inviteLink);
+  onClickCopyLink(link: string) {
+    this.clipboard.copy(link);
     this.alertService.success(
       $localize`:@@shareProjectLinkCopiedMessage:Link copied`
     );
   }
 
-  async onClickUpdate() {
+  async onClickUpdateViewer() {
+    try {
+      this.viewerToken = await lastValueFrom(
+        this.apiService
+          .updateProjectViewerToken(this.project.id)
+          .pipe(map((o) => o.viewerToken))
+      );
+    } catch (err: unknown) {
+      console.error(err);
+    }
+  }
+
+  async onClickUpdateInvite() {
     try {
       this.inviteToken = await lastValueFrom(
         this.apiService

@@ -11,11 +11,12 @@ import {
   takeUntil,
   tap,
 } from 'rxjs';
-import { CaptionEntity } from '../../../services/api/entities/caption.entity';
-import { StorageKey } from '../../../services/storage/storage-key.enum';
-import { StorageService } from '../../../services/storage/storage.service';
-import { AppState } from '../../../store/app.state';
-import * as captionsSelector from '../../../store/selectors/captions.selector';
+import { CaptionEntity } from '../../services/api/entities/caption.entity';
+import { StorageKey } from '../../services/storage/storage-key.enum';
+import { StorageService } from '../../services/storage/storage.service';
+import * as viewerActions from '../../store/actions/viewer.actions';
+import { AppState } from '../../store/app.state';
+import * as viewerSelector from '../../store/selectors/viewer.selector';
 
 @Injectable({
   providedIn: 'root',
@@ -35,7 +36,7 @@ export class ViewerService {
 
   public seeking$ = new Subject<number>();
 
-  private captions$ = this.store.select(captionsSelector.selectCaptions);
+  private captions$ = this.store.select(viewerSelector.vCaptions);
 
   public currentCaption$: BehaviorSubject<null | undefined | CaptionEntity> =
     new BehaviorSubject<CaptionEntity | undefined | null>(null);
@@ -170,5 +171,50 @@ export class ViewerService {
         })
       )
       .subscribe();
+  }
+
+  /**
+   *
+   * FULLSCREEN
+   *
+   */
+
+  isFullscreenActive() {
+    return (
+      document.fullscreenElement || (document as any).webkitFullscreenElement
+    );
+  }
+
+  async onExitFullscreen() {
+    if (document.exitFullscreen) {
+      await document.exitFullscreen();
+    } else if ((document as any).webkitExitFullscreen) {
+      await (document as any).webkitExitFullscreen();
+    }
+    // this.store.dispatch(viewerActions.showTranscript());
+  }
+
+  onRequestFullscreen() {
+    if (this.isFullscreenActive()) {
+      this.onExitFullscreen();
+    } else {
+      const doc = document.getElementsByTagName('body').item(0);
+      if (doc) {
+        this.store.dispatch(viewerActions.hideTranscript());
+
+        // show transcript again on closing fullscreen
+        doc.onfullscreenchange = () => {
+          if (!this.isFullscreenActive()) {
+            this.store.dispatch(viewerActions.showTranscript());
+          }
+        };
+
+        if (doc.requestFullscreen) {
+          doc.requestFullscreen();
+        } else if ((doc as any).webkitRequestFullscreen) {
+          (doc as any).webkitRequestFullscreen();
+        }
+      }
+    }
   }
 }

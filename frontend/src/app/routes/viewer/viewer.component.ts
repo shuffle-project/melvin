@@ -4,18 +4,18 @@ import { Store } from '@ngrx/store';
 // use own viewer actions
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { LetDirective } from '@ngrx/component';
 import { combineLatest, map } from 'rxjs';
-import { HeaderComponent } from '../../../components/header/header.component';
-import * as editorActions from '../../../store/actions/editor.actions';
-import { AppState } from '../../../store/app.state';
-import * as configSelector from '../../../store/selectors/config.selector';
-import * as editorSelector from '../../../store/selectors/editor.selector';
-import * as viewerSelector from '../../../store/selectors/viewer.selector';
-import { AdjustLayoutDialogComponent } from './components/adjust-layout-dialog/adjust-layout-dialog.component';
-import { InfoboxComponent } from './components/infobox/infobox.component';
-import { PlayerComponent } from './components/player/player.component';
-import { TranscriptComponent } from './components/transcript/transcript.component';
+import { HeaderComponent } from '../../components/header/header.component';
+import * as viewerActions from '../../store/actions/viewer.actions';
+import { AppState } from '../../store/app.state';
+import * as configSelector from '../../store/selectors/config.selector';
+import * as viewerSelector from '../../store/selectors/viewer.selector';
+import { AdjustLayoutDialogComponent } from '../viewer/components/adjust-layout-dialog/adjust-layout-dialog.component';
+import { InfoboxComponent } from '../viewer/components/infobox/infobox.component';
+import { PlayerComponent } from '../viewer/components/player/player.component';
+import { TranscriptComponent } from '../viewer/components/transcript/transcript.component';
 import { ViewerService } from './viewer.service';
 
 @Component({
@@ -29,22 +29,24 @@ import { ViewerService } from './viewer.service';
     MatButtonModule,
     TranscriptComponent,
     PlayerComponent,
+    MatProgressSpinnerModule,
     InfoboxComponent,
   ],
 })
 export class ViewerComponent implements OnInit {
-  public projectId!: string;
+  public viewerError$ = this.store.select(viewerSelector.vLoginError);
+  public selectLoading$ = this.store.select(viewerSelector.vLoginLoading);
 
-  public project$ = this.store.select(editorSelector.selectProject);
-  public media$ = this.store.select(editorSelector.selectMedia);
+  public project$ = this.store.select(viewerSelector.vProject);
+  public media$ = this.store.select(viewerSelector.vProjectMedia);
   public darkMode$ = this.store.select(configSelector.darkMode);
 
   // TODO layout according to this settings
   public transcriptEnabled$ = this.store.select(
-    viewerSelector.selectTranscriptEnabled
+    viewerSelector.vTranscriptEnabled
   );
   public transcriptPosition$ = this.store.select(
-    viewerSelector.selectTranscriptPosition
+    viewerSelector.vTranscriptPosition
   );
 
   layoutSettings$ = combineLatest([
@@ -65,11 +67,8 @@ export class ViewerComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.projectId = this.route.snapshot.params['id'];
-
-    this.store.dispatch(
-      editorActions.findProjectFromViewer({ projectId: this.projectId })
-    );
+    const token = this.route.snapshot.params['token'];
+    this.store.dispatch(viewerActions.viewerLogin({ token }));
   }
 
   @HostListener('window:keydown.ArrowRight', ['$event'])

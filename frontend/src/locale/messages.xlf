@@ -335,17 +335,11 @@
       <trans-unit id="editorMenuFileDeleteLabel" datatype="html">
         <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="D"/> Delete </source>
       </trans-unit>
-      <trans-unit id="editorMenuFileDownloadConfigureLabel" datatype="html">
-        <source> Configure ... </source>
-      </trans-unit>
       <trans-unit id="editorMenuTranscriptionLabel" datatype="html">
         <source> Transcription </source>
       </trans-unit>
       <trans-unit id="editorMenuTranscriptionEditLabel" datatype="html">
         <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon"/> Edit Transcriptions </source>
-      </trans-unit>
-      <trans-unit id="editorMenuHelp" datatype="html">
-        <source> Help </source>
       </trans-unit>
       <trans-unit id="editorShareProjectButtonLabel" datatype="html">
         <source> Share </source>
@@ -546,7 +540,7 @@
         <source>Project status</source>
       </trans-unit>
       <trans-unit id="projectListCreateProjectButtonLabel" datatype="html">
-        <source> New project </source>
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;more&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/> New project </source>
       </trans-unit>
       <trans-unit id="projectListTableHeaderTitleLabel" datatype="html">
         <source> Title </source>
@@ -580,9 +574,6 @@
       </trans-unit>
       <trans-unit id="projectListMoreMenuShareLabel" datatype="html">
         <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;share&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/> Share </source>
-      </trans-unit>
-      <trans-unit id="projectListMoreMenuDownloadLabel" datatype="html">
-        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;download&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/> Download </source>
       </trans-unit>
       <trans-unit id="projectListMoreMenuDeleteLabel" datatype="html">
         <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;delete&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/> Delete </source>
@@ -679,7 +670,7 @@
       </trans-unit>
       <trans-unit id="viewerControlsMuteUnmuteTooltip" datatype="html">
         <source>
-          <x id="INTERPOLATION" equiv-text="? &apos;Unmute sound&apos; : &apos;Mute sound&apos; }}"/>
+          <x id="INTERPOLATION" equiv-text="{{ viewerService.audio.muted ? &apos;Unmute sound&apos; : &apos;Mute sound&apos; }}"/>
         </source>
       </trans-unit>
       <trans-unit id="viewerControlsVolumeSlideLabel" datatype="html">
@@ -690,9 +681,6 @@
       </trans-unit>
       <trans-unit id="viewerControlsTranscriptToggleTooltip" datatype="html">
         <source>Toggle show/hide transcript</source>
-      </trans-unit>
-      <trans-unit id="viewerControlsSignLanguageToggleTooltip" datatype="html">
-        <source>Toggle show/hide sign language videos</source>
       </trans-unit>
       <trans-unit id="viewerControlsGalleryMenuTooltip" datatype="html">
         <source>Shown video selection</source>
@@ -717,9 +705,6 @@
       </trans-unit>
       <trans-unit id="playerTranscriptAutomaticScrollLabel" datatype="html">
         <source> Scroll automatically </source>
-      </trans-unit>
-      <trans-unit id="viewerHeaderHelpLabel" datatype="html">
-        <source>Help</source>
       </trans-unit>
       <trans-unit id="viewerHeaderHeaderAdjustLayout" datatype="html">
         <source> Adjust Layout </source>
@@ -821,7 +806,7 @@
         <source>Email is required</source>
       </trans-unit>
       <trans-unit id="projectListOpenViewerAriaLabel" datatype="html">
-        <source>Open Viewer</source>
+        <source>Open Viewer in new Tab</source>
       </trans-unit>
       <trans-unit id="loginPasswordErrorRequired" datatype="html">
         <source> Password is required </source>

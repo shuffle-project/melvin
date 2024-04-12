@@ -18,10 +18,10 @@ import {
 } from '@angular/material/slide-toggle';
 import { PushPipe } from '@ngrx/component';
 import { Store } from '@ngrx/store';
-import * as viewerActions from '../../../../../store/actions/viewer.actions';
-import { AppState } from '../../../../../store/app.state';
-import * as viewerSelector from '../../../../../store/selectors/viewer.selector';
-import { TranscriptPosition } from '../../viewer.interfaces';
+import * as viewerActions from '../../../../store/actions/viewer.actions';
+import { AppState } from '../../../../store/app.state';
+import * as viewerSelector from '../../../../store/selectors/viewer.selector';
+import { TranscriptPosition } from '../../../viewer/viewer.interfaces';
 import { SizeOptions } from '../captions-settings-dialog/captions-settings-dialog.component';
 
 @Component({
@@ -48,17 +48,17 @@ export class AdjustLayoutDialogComponent {
   public TranscriptPosition = TranscriptPosition;
 
   public transcriptEnabled$ = this.store.select(
-    viewerSelector.selectTranscriptEnabled
+    viewerSelector.vTranscriptEnabled
   );
   public transcriptFontsize$ = this.store.select(
-    viewerSelector.selectTranscriptFontsize
+    viewerSelector.vTranscriptFontsize
   );
   public transcriptPosition$ = this.store.select(
-    viewerSelector.selectTranscriptPosition
+    viewerSelector.vTranscriptPosition
   );
 
   public transcriptOnlyMode$ = this.store.select(
-    viewerSelector.selectTranscriptOnlyMode
+    viewerSelector.vTranscriptOnly
   );
 
   constructor(

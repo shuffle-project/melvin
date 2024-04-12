@@ -3,10 +3,16 @@ import {
   CaptionPositionOptions,
   ColorOptions,
   SizeOptions,
-} from '../../routes/home/viewer/components/captions-settings-dialog/captions-settings-dialog.component';
-import { ViewerVideo } from '../../routes/home/viewer/components/player/player.component';
-import { TranscriptPosition } from '../../routes/home/viewer/viewer.interfaces';
-import { MediaCategory } from '../../services/api/entities/project.entity';
+} from '../../routes/viewer/components/captions-settings-dialog/captions-settings-dialog.component';
+import { ViewerVideo } from '../../routes/viewer/components/player/player.component';
+import { TranscriptPosition } from '../../routes/viewer/viewer.interfaces';
+import { CaptionListEntity } from '../../services/api/entities/caption-list.entity';
+import {
+  MediaCategory,
+  ProjectEntity,
+  ProjectMediaEntity,
+} from '../../services/api/entities/project.entity';
+import { TranscriptionEntity } from '../../services/api/entities/transcription.entity';
 import { StorageKey } from '../../services/storage/storage-key.enum';
 import { StorageService } from '../../services/storage/storage.service';
 import * as viewerActions from '../actions/viewer.actions';
@@ -14,6 +20,19 @@ import * as viewerActions from '../actions/viewer.actions';
 const storage = new StorageService();
 
 export interface ViewerState {
+  loading: boolean;
+  tokenError: string | null;
+
+  // DATA
+  access_token: string | null;
+  projectId: string | null;
+  project: ProjectEntity | null;
+  projectMedia: ProjectMediaEntity | null;
+  transcriptions: TranscriptionEntity[];
+  transcriptionId: string | null;
+  captions: CaptionListEntity | null;
+
+  //SETTINGS
   transcriptEnabled: boolean;
   transcriptFontsize: SizeOptions;
   transcriptPosition: TranscriptPosition;
@@ -22,6 +41,9 @@ export interface ViewerState {
   captionsColor: ColorOptions;
   captionsFontsize: SizeOptions;
   captionsPosition: CaptionPositionOptions;
+  currentSpeed: number;
+  volume: number;
+  subtitlesEnabled: boolean;
 
   // TODO new names?
   viewerVideos: ViewerVideo[];
@@ -29,7 +51,20 @@ export interface ViewerState {
 }
 
 export const initalState: ViewerState = {
+  loading: true,
+  tokenError: null,
+
+  // DATA
+  access_token: null,
+  projectId: null,
+  project: null,
+  projectMedia: null,
+  transcriptions: [],
+  transcriptionId: null,
+  captions: null,
+
   // viewer settings
+  currentSpeed: 1,
   transcriptEnabled: storage.getFromLocalStorage(
     StorageKey.VIEWER_TRANSCRIPT_ENABLED,
     true
@@ -59,6 +94,14 @@ export const initalState: ViewerState = {
     StorageKey.CAPTIONS_POSITION,
     CaptionPositionOptions.OVER_VIDEO
   ) as CaptionPositionOptions,
+  volume: storage.getFromSessionStorage(
+    StorageKey.VIEWER_MEDIA_VOLUME,
+    1
+  ) as number,
+  subtitlesEnabled: storage.getFromLocalStorage(
+    StorageKey.VIEWER_SUBTITLES_ENABLED,
+    false
+  ) as boolean,
 
   viewerVideos: [],
   bigVideoId: '',
@@ -67,18 +110,61 @@ export const initalState: ViewerState = {
 export const viewerReducer = createReducer(
   initalState,
 
+  on(viewerActions.viewerLogin, (state, action) => {
+    return { ...state, loading: true };
+  }),
+  on(viewerActions.viewerLoginSuccess, (state, action) => {
+    return {
+      ...state,
+      access_token: action.viewerLoginEntity.token,
+      projectId: action.viewerLoginEntity.projectId,
+      loading: false,
+      tokenError: null,
+    };
+  }),
+  on(viewerActions.viewerLoginFail, (state, action) => {
+    return { ...state, tokenError: action.error.message, loading: false };
+  }),
+
+  // DATA
+  on(viewerActions.findProjectSuccess, (state, action) => {
+    return { ...state, project: action.project };
+  }),
+  on(viewerActions.findProjectMediaSuccess, (state, action) => {
+    return { ...state, projectMedia: action.media };
+  }),
+  on(viewerActions.findTranscriptionsSuccess, (state, action) => {
+    return { ...state, transcriptions: action.transcriptions };
+  }),
+  on(viewerActions.changeTranscriptionId, (state, action) => {
+    return { ...state, transcriptionId: action.transcriptionId };
+  }),
+  on(viewerActions.findCaptionsSuccess, (state, action) => {
+    return { ...state, captions: action.captionListEntity };
+  }),
+
+  // SETTINGS
+
   on(viewerActions.changeTranscriptEnabled, (state, { transcriptEnabled }) => {
     return { ...state, transcriptEnabled };
   }),
   on(viewerActions.toggleTranscript, (state) => {
     return { ...state, transcriptEnabled: !state.transcriptEnabled };
   }),
-  on(viewerActions.showTranscript, (state) => {
-    return { ...state, transcriptEnabled: true };
-  }),
-  on(viewerActions.hideTranscript, (state) => {
-    return { ...state, transcriptEnabled: false };
-  }),
+  on(
+    viewerActions.showTranscript,
+    viewerActions.showTranscriptForFullscreen,
+    (state) => {
+      return { ...state, transcriptEnabled: true };
+    }
+  ),
+  on(
+    viewerActions.hideTranscript,
+    viewerActions.hideTranscriptForFullscreen,
+    (state) => {
+      return { ...state, transcriptEnabled: false };
+    }
+  ),
 
   on(viewerActions.toggleTranscriptOnlyMode, (state) => {
     return { ...state, transcriptOnlyMode: !state.transcriptOnlyMode };
@@ -111,10 +197,25 @@ export const viewerReducer = createReducer(
   on(viewerActions.changeCaptionsPosition, (state, { captionsPosition }) => {
     return { ...state, captionsPosition };
   }),
-
+  on(viewerActions.toggleSubtitles, (state) => {
+    return { ...state, subtitlesEnabled: !state.subtitlesEnabled };
+  }),
+  on(viewerActions.changeVolume, (state, { newVolume: volume }) => {
+    return { ...state, volume };
+  }),
+  on(viewerActions.changeSpeed, (state, { newSpeed: speed }) => {
+    return { ...state, currentSpeed: speed };
+  }),
   // videos
-  on(viewerActions.initVideos, (state, { bigVideoId, viewerVideos }) => {
-    return { ...state, viewerVideos, bigVideoId };
+  on(viewerActions.findProjectMediaSuccess, (state, { media }) => {
+    return {
+      ...state,
+      viewerVideos: media.videos.map((video) => ({
+        ...video,
+        shown: true,
+      })),
+      bigVideoId: media.videos[0].id,
+    };
   }),
   on(viewerActions.switchToNewBigVideo, (state, { newBigVideoId }) => {
     return { ...state, bigVideoId: newBigVideoId };

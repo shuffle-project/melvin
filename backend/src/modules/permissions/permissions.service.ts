@@ -10,7 +10,25 @@ import { LeanTranscriptionDocument } from '../db/schemas/transcription.schema';
 
 @Injectable()
 export class PermissionsService {
+  isProjectReadable(project: LeanProjectDocument, authUser: AuthUser): boolean {
+    return (
+      this.isProjectMember(project, authUser) ||
+      this.isProjectViewer(project, authUser)
+    );
+  }
+
+  isProjectViewer(project: LeanProjectDocument, authUser: AuthUser): boolean {
+    if (authUser.role !== UserRole.VIEWER) {
+      return false;
+    }
+
+    return isSameObjectId(authUser.id, project);
+  }
+
   isProjectOwner(project: LeanProjectDocument, authUser: AuthUser): boolean {
+    if (authUser.role === UserRole.VIEWER) {
+      return false;
+    }
     if (authUser.role === UserRole.SYSTEM) {
       return true;
     }
@@ -18,6 +36,9 @@ export class PermissionsService {
   }
 
   isProjectMember(project: LeanProjectDocument, authUser: AuthUser): boolean {
+    if (authUser.role === UserRole.VIEWER) {
+      return false;
+    }
     if (authUser.role === UserRole.SYSTEM) {
       return true;
     }
@@ -28,6 +49,9 @@ export class PermissionsService {
     transcription: LeanTranscriptionDocument,
     authUser: AuthUser,
   ): boolean {
+    if (authUser.role === UserRole.VIEWER) {
+      return false;
+    }
     if (authUser.role === UserRole.SYSTEM) {
       return true;
     }

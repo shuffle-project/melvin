@@ -112,7 +112,7 @@
       >
         <mat-icon svgIcon="transcription-viewer" class="svg-black"></mat-icon>
       </button>
-      <button
+      <!-- <button
         mat-icon-button
         class="md"
         [disabled]="!(signLanguageAvailable$ | ngrxPush)"
@@ -121,7 +121,7 @@
         i18n-matTooltip="@@viewerControlsSignLanguageToggleTooltip"
       >
         <mat-icon svgIcon="sign_language" class="svg-black"></mat-icon>
-      </button>
+      </button> -->
     </div>
     <div class="right">
       <button
@@ -142,11 +142,11 @@
       >
         <mat-icon svgIcon="gallery" class="svg-black"></mat-icon>
       </button>
-      @if (isFullscreenActive()) {
+      @if (viewerService.isFullscreenActive()) {
       <button
         mat-icon-button
         class="md fullscreen-button"
-        (click)="onRequestFullscreen()"
+        (click)="viewerService.onRequestFullscreen()"
         matTooltip="Close fullscreen"
         i18n-matTooltip="@@viewerControlsFullscreenToggleTooltipActive"
       >
@@ -156,7 +156,7 @@
       <button
         mat-icon-button
         class="md fullscreen-button"
-        (click)="onRequestFullscreen()"
+        (click)="viewerService.onRequestFullscreen()"
         matTooltip="Open fullscreen"
         i18n-matTooltip="@@viewerControlsFullscreenToggleTooltipInactive"
       >

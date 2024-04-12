@@ -14,9 +14,9 @@ import { MatSelectChange, MatSelectModule } from '@angular/material/select';
 import { LetDirective } from '@ngrx/component';
 import { Store } from '@ngrx/store';
 import { combineLatest, map } from 'rxjs';
-import * as viewerActions from '../../../../../store/actions/viewer.actions';
-import { AppState } from '../../../../../store/app.state';
-import * as viewerSelector from '../../../../../store/selectors/viewer.selector';
+import * as viewerActions from '../../../../store/actions/viewer.actions';
+import { AppState } from '../../../../store/app.state';
+import * as viewerSelector from '../../../../store/selectors/viewer.selector';
 
 export enum ColorOptions {
   BLACK = 'black',
@@ -63,12 +63,10 @@ export class CaptionsSettingsDialogComponent {
   SizeOptions = SizeOptions;
   CaptionPositionOptions = CaptionPositionOptions;
 
-  backgroundColor$ = this.store.select(
-    viewerSelector.selectCaptionsBackgroundColor
-  );
-  color$ = this.store.select(viewerSelector.selectCaptionsColor);
-  fontsize$ = this.store.select(viewerSelector.selectCaptionFontsize);
-  position$ = this.store.select(viewerSelector.selectCaptionPosition);
+  backgroundColor$ = this.store.select(viewerSelector.vCaptionsBackgroundColor);
+  color$ = this.store.select(viewerSelector.vCaptionsColor);
+  fontsize$ = this.store.select(viewerSelector.vCaptionFontsize);
+  position$ = this.store.select(viewerSelector.vCaptionPosition);
 
   combined$ = combineLatest([
     this.backgroundColor$,

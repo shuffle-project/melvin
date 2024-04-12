@@ -50,6 +50,7 @@ import { UpdateProjectDto } from './dto/update-project.dto';
 import { UploadVideoDto } from './dto/upload-media.dto';
 import { ProjectInviteTokenEntity } from './entities/project-invite.entity';
 import { ProjectListEntity } from './entities/project-list.entity';
+import { ProjectViewerTokenEntity } from './entities/project-viewer.entity';
 import {
   AudioEntity,
   ProjectEntity,
@@ -78,6 +79,14 @@ export class ProjectService {
     this.logger.setContext(this.constructor.name);
     this.serverBaseUrl = this.configService.get<string>('baseUrl');
   }
+
+  // _generateInviteToken(): Promise<string> {
+  //   return new Promise((resolve, reject) =>
+  //     randomBytes(64, (err, buffer) =>
+  //       err ? reject(err) : resolve(buffer.toString('base64url')),
+  //     ),
+  //   );
+  // }
 
   // async _getMediaLinksEntity(
   //   project: LeanProjectDocument,
@@ -128,6 +137,8 @@ export class ProjectService {
     videoFiles: Array<Express.Multer.File> | null = null,
     subtitleFiles: Array<Express.Multer.File> | null = null,
   ): Promise<ProjectEntity> {
+    // const inviteToken = await this._generateInviteToken();
+
     let users = null;
     let userIds: Types.ObjectId[] = [];
     // find all users
@@ -353,7 +364,8 @@ export class ProjectService {
 
   async findOne(authUser: AuthUser, id: string): Promise<ProjectEntity> {
     const project = await this.db.findProjectByIdOrThrow(id);
-    if (!this.permissions.isProjectMember(project, authUser)) {
+
+    if (!this.permissions.isProjectReadable(project, authUser)) {
       throw new CustomForbiddenException('access_to_project_denied');
     }
 
@@ -582,6 +594,38 @@ export class ProjectService {
         missingEmails,
       );
     }
+  }
+
+  async getViewerToken(
+    authUser: AuthUser,
+    id: string,
+  ): Promise<ProjectViewerTokenEntity> {
+    const project = await this.db.findProjectByIdOrThrow(id);
+
+    if (!this.permissions.isProjectOwner(project, authUser)) {
+      throw new CustomForbiddenException('must_be_owner');
+    }
+
+    return { viewerToken: project.viewerToken };
+  }
+
+  async updateViewerToken(
+    authUser: AuthUser,
+    id: string,
+  ): Promise<ProjectViewerTokenEntity> {
+    const project = await this.db.findProjectByIdOrThrow(id);
+
+    if (!this.permissions.isProjectOwner(project, authUser)) {
+      throw new CustomForbiddenException('must_be_owner');
+    }
+
+    const viewerToken = generateSecureToken();
+
+    await this.db.projectModel.findByIdAndUpdate(id, {
+      $set: { viewerToken },
+    });
+
+    return { viewerToken };
   }
 
   async getInviteToken(
@@ -837,7 +881,9 @@ export class ProjectService {
     projectId: string,
   ): Promise<ProjectMediaEntity> {
     const project = await this.db.findProjectByIdOrThrow(projectId);
-    if (!this.permissions.isProjectMember(project, authUser)) {
+
+    // if (!this.permissions.isProjectMember(project, authUser)) {
+    if (!this.permissions.isProjectReadable(project, authUser)) {
       throw new CustomForbiddenException('access_to_project_denied');
     }
 

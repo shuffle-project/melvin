@@ -29,10 +29,6 @@ export const changeSpeedFromEditor = createAction(
   '[VIDEO COMPONENT] Change Speed',
   props<{ speed: number }>()
 );
-export const changeSpeedFromViewer = createAction(
-  '[VIEWER PLAYER COMPONENT] Change Speed',
-  props<{ speed: number }>()
-);
 
 export const updateActiveUsers = createAction(
   '[FROM WS] Overwrite active users from WS event',
@@ -44,11 +40,6 @@ export const changeVolumeFromVideoComponent = createAction(
   props<{ volume: number }>()
 );
 
-export const changeVolumeFromViewerComponent = createAction(
-  '[VIEWER PLAYER COMPONENT] Change Volume',
-  props<{ volume: number }>()
-);
-
 export const toggleVolumeFromVideoComponent = createAction(
   '[VIDEO COMPONENT] Toggle Volume'
 );
@@ -57,21 +48,12 @@ export const toggleSubtitlesFromEditor = createAction(
   '[VIDEO COMPONENT] Toggle subtitles'
 );
 
-export const toggleSubtitlesFromViewer = createAction(
-  '[VIEWER VIDEO COMPONENT] Toggle subtitles'
-);
-
 export const pauseFromVideoComponent = createAction(
   '[VIDEO COMPONENT] isPlaying on false'
 );
 
 export const findProjectFromEditor = createAction(
   '[EDITOR COMPONENT] Find project',
-  props<{ projectId: string }>()
-);
-
-export const findProjectFromViewer = createAction(
-  '[VIEWER COMPONENT] Find project',
   props<{ projectId: string }>()
 );
 

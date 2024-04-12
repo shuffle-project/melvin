@@ -31,6 +31,7 @@ import { UpdateProjectDto } from './dto/update-project.dto';
 import { UploadVideoDto } from './dto/upload-media.dto';
 import { ProjectInviteTokenEntity } from './entities/project-invite.entity';
 import { ProjectListEntity } from './entities/project-list.entity';
+import { ProjectViewerTokenEntity } from './entities/project-viewer.entity';
 import { ProjectEntity, ProjectMediaEntity } from './entities/project.entity';
 import { MediaFileInterceptor } from './interceptors/media-file.interceptor';
 import { MultiFileInterceptor } from './interceptors/multi-file.interceptor';
@@ -127,6 +128,28 @@ export class ProjectController {
     @Param('id', IsValidObjectIdPipe) id: string,
   ): Promise<void> {
     return this.projectService.unsubscribe(authUser, id);
+  }
+
+  // viewer
+
+  @UseGuards(JwtAuthGuard)
+  @Get(':id/viewer-token')
+  @ApiResponse({ status: HttpStatus.OK, type: ProjectViewerTokenEntity })
+  getViewerToken(
+    @User() authUser: AuthUser,
+    @Param('id', IsValidObjectIdPipe) id: string,
+  ): Promise<ProjectViewerTokenEntity> {
+    return this.projectService.getViewerToken(authUser, id);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Post(':id/viewer-token')
+  @ApiResponse({ status: HttpStatus.OK, type: ProjectInviteTokenEntity })
+  updateViewerToken(
+    @User() authUser: AuthUser,
+    @Param('id', IsValidObjectIdPipe) id: string,
+  ): Promise<ProjectViewerTokenEntity> {
+    return this.projectService.updateViewerToken(authUser, id);
   }
 
   // invites

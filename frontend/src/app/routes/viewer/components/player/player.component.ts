@@ -24,13 +24,11 @@ import {
   ProjectEntity,
   ProjectMediaEntity,
   VideoEntity,
-} from '../../../../../services/api/entities/project.entity';
-import * as viewerActions from '../../../../../store/actions/viewer.actions';
-import { AppState } from '../../../../../store/app.state';
-import * as captionsSelector from '../../../../../store/selectors/captions.selector';
-import * as editorSelector from '../../../../../store/selectors/editor.selector';
-import * as viewerSelector from '../../../../../store/selectors/viewer.selector';
-import { ViewerService } from '../../viewer.service';
+} from '../../../../services/api/entities/project.entity';
+import * as viewerActions from '../../../../store/actions/viewer.actions';
+import { AppState } from '../../../../store/app.state';
+import * as viewerSelector from '../../../../store/selectors/viewer.selector';
+import { ViewerService } from '../../../viewer/viewer.service';
 import { ControlsComponent } from './controls/controls.component';
 import { VideoContainerComponent } from './video-container/video-container.component';
 
@@ -78,33 +76,33 @@ export class PlayerComponent
 
   public audioPlayer: HTMLAudioElement | null = null;
 
-  public volume$ = this.store.select(editorSelector.selectVolume);
-  public currentSpeed$ = this.store.select(editorSelector.selectCurrentSpeed);
-  public subtitlesEnabledInVideo$ = this.store.select(
-    editorSelector.selectSubtitlesEnabledInVideo
+  public volume$ = this.store.select(viewerSelector.vVolume);
+  public currentSpeed$ = this.store.select(viewerSelector.vCurrentSpeed);
+  public subtitlesEnabled$ = this.store.select(
+    viewerSelector.vSubtitlesEnabled
   );
 
   public transcriptOnlyMode$ = this.store.select(
-    viewerSelector.selectTranscriptOnlyMode
+    viewerSelector.vTranscriptOnly
   );
 
-  public captions$ = this.store.select(captionsSelector.selectCaptions);
+  public captions$ = this.store.select(viewerSelector.vCaptions);
 
   // captions in video
   combinedCaptionsStyling$ = combineLatest([
     this.captions$,
-    this.store.select(viewerSelector.selectCaptionsBackgroundColor),
-    this.store.select(viewerSelector.selectCaptionsColor),
-    this.store.select(viewerSelector.selectCaptionFontsize),
-    this.store.select(viewerSelector.selectCaptionPosition),
+    this.store.select(viewerSelector.vCaptionsBackgroundColor),
+    this.store.select(viewerSelector.vCaptionsColor),
+    this.store.select(viewerSelector.vCaptionFontsize),
+    this.store.select(viewerSelector.vCaptionPosition),
   ]).pipe(
     map(([captions, backgroundColor, color, fontsize, position]) => {
       return { captions, backgroundColor, color, fontsize, position };
     })
   );
 
-  public bigVideo$ = this.store.select(viewerSelector.selectBigVideo);
-  public smallVideos$ = this.store.select(viewerSelector.selectSmallVideos);
+  public bigVideo$ = this.store.select(viewerSelector.vBigVideo);
+  public smallVideos$ = this.store.select(viewerSelector.vSmallVideos);
   public shownSmallVideos$ = this.smallVideos$.pipe(
     map((list) => list.filter((video) => video.shown))
   );
@@ -128,13 +126,10 @@ export class PlayerComponent
   }
 
   ngOnInit() {
-    this.setVideosInStore();
     this.chooseAudio();
   }
 
-  ngOnChanges(): void {
-    this.setVideosInStore();
-  }
+  ngOnChanges(): void {}
 
   chooseAudio() {
     const mp3 = this.media.audios.find((obj) => obj.extension === 'mp3');
@@ -145,28 +140,6 @@ export class PlayerComponent
     } else {
       // TODO
     }
-  }
-
-  //TODO maybe move this method to store, as a following action from the findOneProject
-  setVideosInStore() {
-    // const videos: ViewerVideo[] = [
-    //   {
-    //     id: this.project!.id,
-    //     title: 'Hauptviedeo',
-    //     url: this.project!.media!.video,
-    //     category: MediaCategory.MAIN,
-    //     shown: true,
-    //   },
-    // ];
-    this.store.dispatch(
-      viewerActions.initVideos({
-        viewerVideos: this.media.videos.map((video) => ({
-          ...video,
-          shown: true,
-        })),
-        bigVideoId: this.media.videos[0].id,
-      })
-    );
   }
 
   ngAfterViewInit(): void {}

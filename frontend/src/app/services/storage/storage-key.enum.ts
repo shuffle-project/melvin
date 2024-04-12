@@ -13,6 +13,8 @@ export enum StorageKey {
   VIEWER_TRANSCRIPT_ENABLED = 'viewer-transcript-enabled',
   VIEWER_TRANSCRIPT_FONTSIZE = 'viewer-transcript-fontsize',
   VIEWER_TRANSCRIPT_POSITION = 'viewer-transcript-position',
+  VIEWER_MEDIA_VOLUME = 'viewer-media-volume',
+  VIEWER_SUBTITLES_ENABLED = 'viewer-subtitles-enabled',
 
   // capptions settings
   CAPTIONS_BACKGROUND_COLOR = 'captions-background-color',

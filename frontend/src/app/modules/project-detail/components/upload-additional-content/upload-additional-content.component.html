@@ -129,6 +129,12 @@
               {{ video.createdAt | formatDate }}
             </div>
 
+            <div class="row download">
+              <button mat-icon-button (click)="onDownloadMedia(project, video)">
+                <mat-icon svgIcon="download"></mat-icon>
+              </button>
+            </div>
+
             @if (video.category !== 'main') {
             <button
               class="delete-btn"

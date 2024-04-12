@@ -12,6 +12,10 @@ export interface AuthState {
   loginLoading: boolean;
   loginError: string | null;
 
+  // Change password
+  changePasswordLoading: boolean;
+  changePasswordError: string | null;
+
   // Register
   registerLoading: boolean;
   registerError: string | null;
@@ -36,6 +40,10 @@ export const initialState: AuthState = {
   // Login
   loginLoading: false,
   loginError: null,
+
+  // change password
+  changePasswordLoading: false,
+  changePasswordError: null,
 
   // Register
   registerLoading: false,
@@ -67,6 +75,7 @@ export const authReducer = createReducer(
     ...state,
     loginLoading: true,
     loginError: null,
+    persistent: action.persistent,
   })),
   on(authActions.loginSuccess, (state, action) => ({
     ...state,
@@ -77,6 +86,24 @@ export const authReducer = createReducer(
     ...state,
     loginLoading: false,
     loginError: action.error.message,
+  })),
+
+  //change password
+
+  on(authActions.changePassword, (state, action) => ({
+    ...state,
+    changePasswordLoading: true,
+    loginError: null,
+  })),
+  on(authActions.changePasswordSuccess, (state, action) => ({
+    ...state,
+    changePasswordLoading: false,
+    token: action.entity.token,
+  })),
+  on(authActions.changePasswordError, (state, action) => ({
+    ...state,
+    changePasswordLoading: false,
+    changePasswordError: action.error.message,
   })),
 
   // guest login

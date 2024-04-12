@@ -1,4 +1,5 @@
 import {
+  HttpClient,
   HttpErrorResponse,
   HttpEvent,
   HttpEventType,
@@ -102,7 +103,8 @@ export class UploadAdditionalContentComponent implements OnInit {
   constructor(
     private fb: NonNullableFormBuilder,
     private store: Store<AppState>,
-    private api: ApiService
+    private api: ApiService,
+    private httpClient: HttpClient
   ) {}
 
   ngOnInit(): void {
@@ -211,6 +213,20 @@ export class UploadAdditionalContentComponent implements OnInit {
         mediaId: mediaEntity.id,
       })
     );
+  }
+
+  onDownloadMedia(project: ProjectEntity, mediaEntity: MediaEntity) {
+    console.log(project, mediaEntity);
+    fetch;
+
+    const downloadElement = document.createElement('a');
+    downloadElement.href = mediaEntity.url;
+    downloadElement.download = mediaEntity.title;
+    downloadElement.target = '_blank';
+    downloadElement.click();
+    downloadElement.remove();
+
+    // window.URL.revokeObjectURL(objectURL);
   }
 
   getIcon(category: MediaCategory) {

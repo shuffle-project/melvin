@@ -30,6 +30,7 @@ import { ApiService } from '../../../services/api/api.service';
 import {
   ProjectEntity,
   ProjectStatus,
+  VideoEntity,
 } from '../../../services/api/entities/project.entity';
 import { AppService } from '../../../services/app/app.service';
 import * as editorActions from '../../../store/actions/editor.actions';
@@ -49,6 +50,7 @@ import { WaveformComponent } from './components/waveform/waveform.component';
 import { DialogHelpEditorComponent } from './dialog-help-editor/dialog-help-editor.component';
 import { MediaService } from './services/media/media.service';
 
+import { HttpClient } from '@angular/common/http';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
@@ -115,6 +117,9 @@ export class EditorComponent implements OnInit, OnDestroy {
       }
     })
   );
+
+  public projectMedia$ = this.store.select(editorSelectors.selectMedia);
+
   public transcriptionsList$ = this.store.select(
     transcriptionsSelectors.selectTranscriptionList
   );
@@ -144,7 +149,8 @@ export class EditorComponent implements OnInit, OnDestroy {
     private api: ApiService,
     private mediaService: MediaService,
     private appService: AppService,
-    public livestreamService: LivestreamService
+    public livestreamService: LivestreamService,
+    public http: HttpClient
   ) {}
 
   async ngOnInit() {
@@ -239,10 +245,32 @@ export class EditorComponent implements OnInit, OnDestroy {
     });
   }
 
+  onDownloadVideo(video: VideoEntity) {
+    // TODO refactor, nur provisorisch
+    this.http.get(video.url, { responseType: 'blob' }).subscribe((response) => {
+      const urlCreator = window.URL || window.webkitURL;
+      const imageUrl = urlCreator.createObjectURL(response);
+      const tag = document.createElement('a');
+      tag.href = imageUrl;
+      tag.target = '_blank';
+      tag.download = video.title + '.' + video.extension;
+      document.body.appendChild(tag);
+      tag.click();
+      document.body.removeChild(tag);
+    });
+  }
+
   async onDownloadSubtitles(format: 'srt' | 'vtt') {
     const transcriptionId = await firstValueFrom(this.selectedTranscriptionId$);
     this.store.dispatch(
       transcriptionsActions.downloadSubtitles({ transcriptionId, format })
+    );
+  }
+
+  async onDownloadTranscript() {
+    const transcriptionId = await firstValueFrom(this.selectedTranscriptionId$);
+    this.store.dispatch(
+      transcriptionsActions.downloadTranscript({ transcriptionId })
     );
   }
 

@@ -6,7 +6,8 @@
         <ng-content />
         <div class="header-buttons {{ !viewer ? 'margin-left' : '' }}">
           @if (('notifications' | featureEnabled) && !viewer) {
-          <button
+          <!-- TODO removed to make the ui cleaner -->
+          <!-- <button
             mat-stroked-button
             class="show-notifications-button"
             [mat-menu-trigger-for]="notificationMenu"
@@ -15,7 +16,7 @@
             matBadgeColor="accent"
           >
             <mat-icon svgIcon="bell" />
-          </button>
+          </button> -->
           }
           <div class="dark-mode-wrapper" *ngrxLet="darkMode$ as darkMode">
             <mat-icon svgIcon="light_mode" class="svg-black"></mat-icon>

@@ -53,6 +53,16 @@ export const selectLoginError = createSelector(
   (state) => state.loginError
 );
 
+// change password
+export const selectChangePasswordLoading = createSelector(
+  authState,
+  (state) => state.changePasswordLoading
+);
+export const selectChangePasswordError = createSelector(
+  authState,
+  (state) => state.changePasswordError
+);
+
 // Register
 
 export const selectRegisterLoading = createSelector(

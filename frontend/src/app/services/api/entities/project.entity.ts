@@ -86,6 +86,7 @@ export interface ProjectEntity {
   start: number;
   end: number;
   language: string;
+  viewerToken: string;
   exports: string[];
   transcriptions: ShortTranscriptionEntity[];
   users: UserEntity[];

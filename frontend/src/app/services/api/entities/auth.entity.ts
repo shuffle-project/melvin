@@ -8,3 +8,12 @@ export interface GuestLoginEntity {
   token: string;
   projectId: string;
 }
+
+export interface ChangePasswordEntity {
+  token: string;
+}
+
+export interface ViewerLoginEntity {
+  token: string;
+  projectId: string;
+}
