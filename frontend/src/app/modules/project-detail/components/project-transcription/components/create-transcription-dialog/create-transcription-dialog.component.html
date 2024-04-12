@@ -7,7 +7,7 @@
       aria-label="Close"
       i18n-aria-label="@@createTranscriptionDialogCloseButton"
     >
-      <mat-icon svgIcon="close" class="svg-black" />
+      <mat-icon svgIcon="close" />
     </button>
   </div>
 </div>
@@ -21,7 +21,7 @@
         mat-tab-label
         i18n="@@createTranscriptionDialogTabUploadLabel"
       >
-        <mat-icon svgIcon="upload" class="svg-black tab-icon" />
+        <mat-icon svgIcon="upload" class="tab-icon" />
         Upload
       </ng-template>
       <app-upload-transcription
@@ -32,7 +32,7 @@
 
     <mat-tab [disabled]="loading">
       <ng-template mat-tab-label i18n="@@createTranscriptionDialogTabCopyLabel">
-        <mat-icon svgIcon="copy-file" class="svg-black tab-icon" />
+        <mat-icon svgIcon="copy-file" class="tab-icon" />
         Copy
       </ng-template>
       <app-copy-transcription
@@ -47,7 +47,7 @@
         mat-tab-label
         i18n="@@createTranscriptionDialogTabTranslateLabel"
       >
-        <mat-icon svgIcon="translate" class="svg-black tab-icon" />
+        <mat-icon svgIcon="translate" class="tab-icon" />
         Translate
       </ng-template>
       <app-translate-transcription
@@ -61,7 +61,7 @@
         mat-tab-label
         i18n="@@createTranscriptionDialogTabFromMediaLabel"
       >
-        <mat-icon svgIcon="video" class="svg-black tab-icon" />
+        <mat-icon svgIcon="video" class="tab-icon" />
         From Media
       </ng-template>
       <app-from-media-transcription #asrForm />
@@ -72,7 +72,7 @@
         mat-tab-label
         i18n="@@createTranscriptionDialogTabEmptyFileLabel"
       >
-        <mat-icon svgIcon="add" class="svg-black tab-icon" />
+        <mat-icon svgIcon="add" class="tab-icon" />
         Empty file
       </ng-template>
       <app-empty-file-transcription #emptyFileForm />

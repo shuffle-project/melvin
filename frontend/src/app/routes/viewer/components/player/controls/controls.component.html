@@ -70,9 +70,9 @@
         i18n-matTooltip="@@viewerControlsMuteUnmuteTooltip"
       >
         @if (!viewerService.audio.muted) {
-        <mat-icon svgIcon="volume" class="svg-black"></mat-icon>
+        <mat-icon svgIcon="volume"></mat-icon>
         } @if (viewerService.audio.muted) {
-        <mat-icon svgIcon="volume-mute" class="svg-black"></mat-icon>
+        <mat-icon svgIcon="volume-mute"></mat-icon>
         }
       </button>
       <mat-slider
@@ -101,7 +101,7 @@
         matTooltip="Captions menu"
         i18n-matTooltip="@@viewerControlsCaptionMenuTooltip"
       >
-        <mat-icon svgIcon="caption_not_selected" class="svg-black"></mat-icon>
+        <mat-icon svgIcon="caption_not_selected"></mat-icon>
       </button>
       <button
         mat-icon-button
@@ -110,7 +110,7 @@
         matTooltip="Toggle show/hide transcript"
         i18n-matTooltip="@@viewerControlsTranscriptToggleTooltip"
       >
-        <mat-icon svgIcon="transcription-viewer" class="svg-black"></mat-icon>
+        <mat-icon svgIcon="transcription-viewer"></mat-icon>
       </button>
       <!-- <button
         mat-icon-button
@@ -120,7 +120,7 @@
         matTooltip="Toggle show/hide sign language videos"
         i18n-matTooltip="@@viewerControlsSignLanguageToggleTooltip"
       >
-        <mat-icon svgIcon="sign_language" class="svg-black"></mat-icon>
+        <mat-icon svgIcon="sign_language" ></mat-icon>
       </button> -->
     </div>
     <div class="right">
@@ -140,7 +140,7 @@
         matTooltip="Shown video selection"
         i18n-matTooltip="@@viewerControlsGalleryMenuTooltip"
       >
-        <mat-icon svgIcon="gallery" class="svg-black"></mat-icon>
+        <mat-icon svgIcon="gallery"></mat-icon>
       </button>
       @if (viewerService.isFullscreenActive()) {
       <button
@@ -150,7 +150,7 @@
         matTooltip="Close fullscreen"
         i18n-matTooltip="@@viewerControlsFullscreenToggleTooltipActive"
       >
-        <mat-icon svgIcon="fullscreen_close" class="svg-black"></mat-icon>
+        <mat-icon svgIcon="fullscreen_close"></mat-icon>
       </button>
       }@else {
       <button
@@ -160,7 +160,7 @@
         matTooltip="Open fullscreen"
         i18n-matTooltip="@@viewerControlsFullscreenToggleTooltipInactive"
       >
-        <mat-icon svgIcon="fullscreen" class="svg-black"></mat-icon>
+        <mat-icon svgIcon="fullscreen"></mat-icon>
       </button>
       }
     </div>
@@ -191,7 +191,6 @@
     <button mat-menu-item (click)="changePlaybackSpeed(speed)">
       <mat-icon
         svgIcon="{{ currentSpeed === speed ? 'check-all' : '' }}"
-        class="svg-black"
       ></mat-icon>
       <span> {{ speed }}x</span>
     </button>
@@ -251,7 +250,7 @@
     <mat-checkbox [checked]="video.shown">
       {{ video.title }}
       @if (video.category === 'sign_language') {
-      <mat-icon svgIcon="sign_language" class="svg-black"></mat-icon>
+      <mat-icon svgIcon="sign_language"></mat-icon>
       }
     </mat-checkbox>
   </div>

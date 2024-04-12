@@ -19,14 +19,14 @@
           </button> -->
           }
           <div class="dark-mode-wrapper" *ngrxLet="darkMode$ as darkMode">
-            <mat-icon svgIcon="light_mode" class="svg-black"></mat-icon>
+            <mat-icon svgIcon="light_mode"></mat-icon>
             <mat-slide-toggle
               aria-label="Activate darkmode"
               i18n-aria-label="@@headerToggleActivateDarkmode"
               [checked]="darkMode"
               (toggleChange)="onToggleChangeDarkMode()"
             ></mat-slide-toggle>
-            <mat-icon svgIcon="dark_mode" class="svg-black"></mat-icon>
+            <mat-icon svgIcon="dark_mode"></mat-icon>
           </div>
           @if (isLoggedIn$ | ngrxPush) {
           <button
