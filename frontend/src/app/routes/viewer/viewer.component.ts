@@ -1,5 +1,5 @@
 import { Component, HostListener, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { Store } from '@ngrx/store';
 // use own viewer actions
 import { MatButtonModule } from '@angular/material/button';
@@ -8,6 +8,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { LetDirective } from '@ngrx/component';
 import { combineLatest, map } from 'rxjs';
 import { HeaderComponent } from '../../components/header/header.component';
+import { LogoComponent } from '../../components/logo/logo.component';
 import * as viewerActions from '../../store/actions/viewer.actions';
 import { AppState } from '../../store/app.state';
 import * as configSelector from '../../store/selectors/config.selector';
@@ -31,6 +32,8 @@ import { ViewerService } from './viewer.service';
     PlayerComponent,
     MatProgressSpinnerModule,
     InfoboxComponent,
+    LogoComponent,
+    RouterLink,
   ],
 })
 export class ViewerComponent implements OnInit {

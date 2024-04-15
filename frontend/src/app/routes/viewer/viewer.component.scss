@@ -51,11 +51,6 @@
   height: 100%; // header is 60px
   // max-height: calc(100vh - 60px);
 
-  .video-title {
-    position: absolute;
-    margin: 20px;
-  }
-
   &.fullscreen-active {
     height: 100%;
   }
@@ -74,6 +69,23 @@
     .player {
       width: 70%;
       height: 100%;
+      position: relative;
+
+      .title-wrapper {
+        z-index: 5;
+        position: absolute;
+        // padding: 20px;
+        width: 100%;
+
+        display: flex;
+        gap: 5px;
+        justify-content: space-between;
+
+        h2,
+        app-logo {
+          margin: 15px;
+        }
+      }
 
       &.transcript-hidden {
         width: 100%;

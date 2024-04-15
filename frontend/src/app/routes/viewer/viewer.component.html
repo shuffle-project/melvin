@@ -56,9 +56,12 @@
                   : 'transcript-hidden'
               }}"
             >
-              <h2 class="video-title" *ngrxLet="project$ as project">
-                {{ project?.title }}
-              </h2>
+              <div class="title-wrapper">
+                <h2>
+                  {{ project?.title }}
+                </h2>
+                <app-logo class="clickable" [routerLink]="['']" />
+              </div>
               <app-player [project]="project!" [media]="media!"></app-player>
             </div>
             @if ( layout.transcriptEnabled && layout.transcriptPosition ===
