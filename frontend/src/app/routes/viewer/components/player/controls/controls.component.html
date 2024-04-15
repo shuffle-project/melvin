@@ -2,6 +2,9 @@
 <div class="controls">
   <!--mat-progress-bar mode="determinate" value="40"></mat-progress-bar-->
   <div class="video-progress-slider-wrapper">
+    <span class="time-info">{{
+      viewerService.audio.currentTime * 1000 | duration : 'mm:ss'
+    }}</span>
     <mat-slider
       class="video-progress-slider black"
       min="0"
@@ -17,6 +20,9 @@
       />
       <!-- (input)="onVideoProgressChange($event)" -->
     </mat-slider>
+    <span class="time-info">{{
+      viewerService.audio.duration * 1000 | duration : 'mm:ss'
+    }}</span>
   </div>
   <div class="main-controls">
     <div class="left">
@@ -171,7 +177,7 @@
       }
     </div>
   </div>
-  <div class="information-row">
+  <!-- <div class="information-row">
     <div>
       {{ viewerService.audio.currentTime * 1000 | duration }} /
       {{
@@ -185,7 +191,7 @@
     } @else {
     <div i18n="@@viewerControlsStartedInfo">Started</div>
     }
-  </div>
+  </div> -->
 </div>
 }
 

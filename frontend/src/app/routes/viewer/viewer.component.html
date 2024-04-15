@@ -1,11 +1,11 @@
-@if (!isFullscreenActive()) {
+<!-- @if (!isFullscreenActive()) {
 <app-header [viewer]="true">
   <span class="project-title" #projectTitle *ngrxLet="project$ as project">
     {{ project?.title }}
   </span>
   <div class="viewer-header-buttons"></div>
 </app-header>
-}
+} -->
 
 <ng-container *ngrxLet="selectLoading$ as selectLoading">
   <ng-container *ngrxLet="viewerError$ as viewerError">
@@ -56,6 +56,9 @@
                   : 'transcript-hidden'
               }}"
             >
+              <h2 class="video-title" *ngrxLet="project$ as project">
+                {{ project?.title }}
+              </h2>
               <app-player [project]="project!" [media]="media!"></app-player>
             </div>
             @if ( layout.transcriptEnabled && layout.transcriptPosition ===

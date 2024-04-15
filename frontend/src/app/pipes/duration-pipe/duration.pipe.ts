@@ -6,7 +6,7 @@ import * as dayjs from 'dayjs';
   standalone: true,
 })
 export class DurationPipe implements PipeTransform {
-  transform(value: number): string {
-    return dayjs.duration(value).format('HH:mm:ss');
+  transform(value: number, format = 'HH:mm:ss'): string {
+    return dayjs.duration(value).format(format);
   }
 }

@@ -48,8 +48,13 @@
   padding: 5px;
   // height: ;
   background-color: var(--color-background-grey);
-  height: calc(100% - 60px); // header is 60px
+  height: 100%; // header is 60px
   // max-height: calc(100vh - 60px);
+
+  .video-title {
+    position: absolute;
+    margin: 20px;
+  }
 
   &.fullscreen-active {
     height: 100%;
