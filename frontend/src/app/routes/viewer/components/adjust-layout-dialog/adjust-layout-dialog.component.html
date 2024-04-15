@@ -39,15 +39,6 @@
     </mat-radio-group> -->
 
   <h3 i18n="@@viewerAdjustLayoutDialogTranscriptHeader">Transcript</h3>
-  <div class="input-wrapper">
-    <mat-slide-toggle
-      [checked]="transcriptEnabled$ | ngrxPush"
-      (change)="onTranscriptEnabledChanged($event)"
-      i18n="@@viewerAdjustLayoutDialogTranscriptToggleLabel"
-    >
-      Show transcript</mat-slide-toggle
-    >
-  </div>
 
   <div class="input-wrapper">
     <mat-form-field appearance="fill">

@@ -114,14 +114,6 @@ export const findCaptionsFail = createAction(
  * SETTINGS
  */
 
-export const changeTranscriptEnabled = createAction(
-  '[ADJUST LAYOUT COMPONENT] Change Transcript Enabled',
-  props<{ transcriptEnabled: boolean }>()
-);
-export const toggleTranscript = createAction(
-  '[VIEWER VIDEO COMPONENT] Toggle Transcript enabled'
-);
-
 export const toggleTranscriptOnlyMode = createAction(
   '[VIEWER VIDEO COMPONENT] Toggle Transcript ony mode'
 );
@@ -146,7 +138,7 @@ export const changeTranscriptFontsize = createAction(
 );
 
 export const changeTranscriptPosition = createAction(
-  '[ADJUST LAYOUT COMPONENT] Change Transcript Position',
+  '[CONTROLS COMPONENT] Change Transcript Position',
   props<{ transcriptPosition: TranscriptPosition }>()
 );
 

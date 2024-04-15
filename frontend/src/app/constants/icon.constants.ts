@@ -73,6 +73,7 @@ export const ICONS = [
   'setting',
   'share',
   'skip_next',
+  'speechbubble',
   'speaker1',
   'speaker2',
   'speed',

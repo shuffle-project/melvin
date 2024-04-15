@@ -94,7 +94,7 @@
       </mat-slider>
     </div>
     <div class="center">
-      <button
+      <!-- <button
         mat-icon-button
         class="md"
         [matMenuTriggerFor]="captionMenu"
@@ -111,7 +111,7 @@
         i18n-matTooltip="@@viewerControlsTranscriptToggleTooltip"
       >
         <mat-icon svgIcon="transcription-viewer"></mat-icon>
-      </button>
+      </button> -->
       <!-- <button
         mat-icon-button
         class="md"
@@ -124,15 +124,10 @@
       </button> -->
     </div>
     <div class="right">
-      <button
-        mat-icon-button
-        class="md"
-        [matMenuTriggerFor]="playbackSpeedMenu"
-        matTooltip="Playbackspeed menu"
-        i18n-matTooltip="@@viewerControlsPlaybackspeedMenuTooltip"
-      >
-        <mat-icon svgIcon="speed"></mat-icon>
+      <button mat-icon-button class="md" [matMenuTriggerFor]="languageMenu">
+        <mat-icon svgIcon="speechbubble"></mat-icon>
       </button>
+
       <button
         mat-icon-button
         class="md"
@@ -142,6 +137,17 @@
       >
         <mat-icon svgIcon="gallery"></mat-icon>
       </button>
+
+      <button
+        mat-icon-button
+        class="md"
+        [matMenuTriggerFor]="settingsMenu"
+        matTooltip="Settings Menu"
+        i18n-matTooltip="@@viewerControlsSettingsMenuTooltip"
+      >
+        <mat-icon svgIcon="setting"></mat-icon>
+      </button>
+
       @if (viewerService.isFullscreenActive()) {
       <button
         mat-icon-button
@@ -182,62 +188,147 @@
   </div>
 </div>
 }
-<!-- playbackSpeed menu -->
-<mat-menu #playbackSpeedMenu="matMenu">
-  <!-- <h3>Tempo</h3>
-<hr /> -->
+
+<!-- NEW STUFF -->
+<!-- NEW STUFF -->
+<!-- NEW STUFF -->
+
+<!-- LANGUAGE MENU -->
+<mat-menu #languageMenu="matMenu">
+  <button mat-menu-item [matMenuTriggerFor]="audioMenu">Audio</button>
+  <button mat-menu-item [matMenuTriggerFor]="textlanguageMenu">
+    Textlanguage
+  </button>
+  <button mat-menu-item [matMenuTriggerFor]="captionsMenu">Captions</button>
+  <button mat-menu-item [matMenuTriggerFor]="transcriptMenu">Transcript</button>
+</mat-menu>
+
+<mat-menu #audioMenu="matMenu">
+  <!-- foreach audios -->
+  <button mat-menu-item>
+    <mat-icon svgIcon="{{ true ? 'check' : '' }}"></mat-icon>German
+  </button>
+</mat-menu>
+
+<mat-menu #textlanguageMenu="matMenu">
+  <!-- foreach transcriptions -->
+  <ng-container *ngrxLet="transcriptions$ as transcriptions">
+    @for (transcription of transcriptions.list; track $index) {
+    <button mat-menu-item (click)="onChangeTranscription(transcription)">
+      <mat-icon
+        svgIcon="{{
+          transcription.id === transcriptions.selectedId ? 'check' : ''
+        }}"
+      ></mat-icon
+      >{{ transcription.language }} ({{ transcription.title }})
+    </button>
+    }
+  </ng-container>
+</mat-menu>
+
+<mat-menu #captionsMenu="matMenu">
+  <ng-container *ngrxLet="subtitlesEnabledInVideo$ as subtitlesEnabledInVideo">
+    <button
+      mat-menu-item
+      (click)="onChangeCaptions(false, subtitlesEnabledInVideo)"
+    >
+      <mat-icon
+        svgIcon="{{ !subtitlesEnabledInVideo ? 'check' : '' }}"
+      ></mat-icon
+      >Aus
+    </button>
+    <button
+      mat-menu-item
+      (click)="onChangeCaptions(true, subtitlesEnabledInVideo)"
+    >
+      <mat-icon
+        svgIcon="{{ subtitlesEnabledInVideo ? 'check' : '' }}"
+      ></mat-icon
+      >An
+    </button>
+  </ng-container>
+  <button mat-menu-item (click)="onOpenCaptionsSettingsDialog()">
+    <mat-icon svgIcon=""></mat-icon>Einstellungen
+  </button>
+</mat-menu>
+
+<mat-menu #transcriptMenu="matMenu">
+  <ng-container *ngrxLet="transcriptPosition$ as transcriptPosition">
+    <button
+      mat-menu-item
+      (click)="onChangeTranscriptPosition(tanscriptPositionENUM.OFF)"
+    >
+      <mat-icon
+        svgIcon="{{
+          transcriptPosition === tanscriptPositionENUM.OFF ? 'check' : ''
+        }}"
+      ></mat-icon
+      >Aus
+    </button>
+    <button
+      mat-menu-item
+      (click)="onChangeTranscriptPosition(tanscriptPositionENUM.LEFT)"
+    >
+      <mat-icon
+        svgIcon="{{
+          transcriptPosition === tanscriptPositionENUM.LEFT ? 'check' : ''
+        }}"
+      ></mat-icon
+      >Links
+    </button>
+    <button
+      mat-menu-item
+      (click)="onChangeTranscriptPosition(tanscriptPositionENUM.RIGHT)"
+    >
+      <mat-icon
+        svgIcon="{{
+          transcriptPosition === tanscriptPositionENUM.RIGHT ? 'check' : ''
+        }}"
+      ></mat-icon
+      >Rechts
+    </button>
+    <button mat-menu-item (click)="onOpenTranscriptSettingsDialog()">
+      <mat-icon svgIcon=""></mat-icon>Einstellungen
+    </button></ng-container
+  >
+</mat-menu>
+
+<!-- SETTINGS MENU -->
+<mat-menu #settingsMenu="matMenu">
+  <button mat-menu-item [matMenuTriggerFor]="darkmodeMenu">Darkmode</button>
+  <button mat-menu-item [matMenuTriggerFor]="playspeedMenu">Playspeed</button>
+  <button mat-menu-item>Hilfe</button>
+</mat-menu>
+
+<mat-menu #darkmodeMenu="matMenu">
+  <ng-container *ngrxLet="darkMode$ as darkMode">
+    <button mat-menu-item>
+      <mat-icon svgIcon="{{ false ? 'check' : '' }}"></mat-icon>Automatisch
+    </button>
+    <button mat-menu-item (click)="onToggleDarkmode(darkMode, false)">
+      <mat-icon svgIcon="{{ !darkMode ? 'check' : '' }}"></mat-icon>Hell
+    </button>
+    <button mat-menu-item (click)="onToggleDarkmode(darkMode, true)">
+      <mat-icon svgIcon="{{ darkMode ? 'check' : '' }}"></mat-icon>Dunkel
+    </button>
+  </ng-container>
+</mat-menu>
+
+<mat-menu #playspeedMenu="matMenu">
   <ng-container *ngrxLet="currentSpeed$ as currentSpeed">
-    @for (speed of [0.25, 0.5, 0.75, 1, 1.25, 1.5, 2, 2.5, 3]; track speed) {
+    @for (speed of [0.25, 0.5, 0.75, 1, 1.25, 1.5, 2]; track speed) {
     <button mat-menu-item (click)="changePlaybackSpeed(speed)">
       <mat-icon
-        svgIcon="{{ currentSpeed === speed ? 'check-all' : '' }}"
+        svgIcon="{{ currentSpeed === speed ? 'check' : '' }}"
       ></mat-icon>
       <span> {{ speed }}x</span>
     </button>
     }
   </ng-container>
 </mat-menu>
-<!-- caption menu -->
-<mat-menu #captionMenu="matMenu">
-  <ng-container *ngrxLet="subtitlesEnabledInVideo$ as subtitlesEnabledInVideo">
-    <ng-container *ngrxLet="transcriptions$ as transcriptions">
-      <button
-        mat-menu-item
-        (click)="onTurnOffCaptions(subtitlesEnabledInVideo)"
-      >
-        <mat-icon
-          svgIcon="{{ subtitlesEnabledInVideo ? '' : 'done' }}"
-        ></mat-icon>
-        <span i18n="@@viewerControlsDeactivateCaptionsLabel">Deactivate</span>
-      </button>
-      @for (transcription of transcriptions.list; track transcription) {
-      <button
-        mat-menu-item
-        (click)="onChangeTranscription(transcription, subtitlesEnabledInVideo)"
-      >
-        <mat-icon
-          svgIcon="{{
-            subtitlesEnabledInVideo &&
-            transcription.id === transcriptions.selectedId
-              ? 'done'
-              : ''
-          }}"
-        ></mat-icon>
-        <span>{{ transcription.title }}</span>
-      </button>
-      }
-    </ng-container>
-    <hr />
-    <button mat-menu-item (click)="onOpenCaptionsSettingsDialog()">
-      <mat-icon svgIcon="setting"></mat-icon>
-      <span i18n="@@viewerControlsOpenSettingsDialogLabel">Settings</span>
-    </button>
-  </ng-container>
-</mat-menu>
-<!-- gallery Menu  -->
+
+<!-- GALLERY MENU  -->
 <mat-menu #galleryMenu="matMenu">
-  <!-- <h3>Weitere Ansichten</h3>
-<hr /> -->
   <!-- //TODO Wollen wir hier das main video anzeigen?  -->
   @for (video of smallVideos$ | ngrxPush; track video) {
   <div

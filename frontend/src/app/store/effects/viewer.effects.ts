@@ -190,34 +190,34 @@ export class ViewerEffects {
    * SETTINGS
    */
 
-  changeTranscriptEnabled$ = createEffect(
-    () =>
-      this.actions$.pipe(
-        ofType(viewerActions.changeTranscriptEnabled),
-        tap((action) => {
-          this.storageService.storeInLocalStorage(
-            StorageKey.VIEWER_TRANSCRIPT_ENABLED,
-            action.transcriptEnabled
-          );
-        })
-      ),
-    { dispatch: false }
-  );
+  // changeTranscriptEnabled$ = createEffect(
+  //   () =>
+  //     this.actions$.pipe(
+  //       ofType(viewerActions.changeTranscriptEnabled),
+  //       tap((action) => {
+  //         this.storageService.storeInLocalStorage(
+  //           StorageKey.VIEWER_TRANSCRIPT_ENABLED,
+  //           action.transcriptEnabled
+  //         );
+  //       })
+  //     ),
+  //   { dispatch: false }
+  // );
 
-  toggleTranscriptEnabled$ = createEffect(
-    () =>
-      this.actions$.pipe(
-        ofType(viewerActions.toggleTranscript),
-        withLatestFrom(this.store.select(viewerSelector.vTranscriptEnabled)),
-        tap(([action, transcriptEnabled]) => {
-          this.storageService.storeInLocalStorage(
-            StorageKey.VIEWER_TRANSCRIPT_ENABLED,
-            transcriptEnabled
-          );
-        })
-      ),
-    { dispatch: false }
-  );
+  // toggleTranscriptEnabled$ = createEffect(
+  //   () =>
+  //     this.actions$.pipe(
+  //       ofType(viewerActions.toggleTranscript),
+  //       withLatestFrom(this.store.select(viewerSelector.vTranscriptEnabled)),
+  //       tap(([action, transcriptEnabled]) => {
+  //         this.storageService.storeInLocalStorage(
+  //           StorageKey.VIEWER_TRANSCRIPT_ENABLED,
+  //           transcriptEnabled
+  //         );
+  //       })
+  //     ),
+  //   { dispatch: false }
+  // );
 
   changeTranscriptFontsize$ = createEffect(
     () =>

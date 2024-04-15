@@ -5,6 +5,7 @@ export enum TranscriptFontsize {
 }
 
 export enum TranscriptPosition {
+  OFF = 'off',
   RIGHT = 'right',
   LEFT = 'left',
   BOTTOM = 'bottom',
