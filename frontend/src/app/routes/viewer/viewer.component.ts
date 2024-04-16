@@ -5,6 +5,7 @@ import { Store } from '@ngrx/store';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LetDirective } from '@ngrx/component';
 import { combineLatest, map } from 'rxjs';
 import { HeaderComponent } from '../../components/header/header.component';
@@ -17,6 +18,7 @@ import { AdjustLayoutDialogComponent } from '../viewer/components/adjust-layout-
 import { InfoboxComponent } from '../viewer/components/infobox/infobox.component';
 import { PlayerComponent } from '../viewer/components/player/player.component';
 import { TranscriptComponent } from '../viewer/components/transcript/transcript.component';
+import { ControlsComponent } from './components/player/controls/controls.component';
 import { ViewerService } from './viewer.service';
 
 @Component({
@@ -34,6 +36,8 @@ import { ViewerService } from './viewer.service';
     InfoboxComponent,
     LogoComponent,
     RouterLink,
+    ControlsComponent,
+    BrowserAnimationsModule,
   ],
 })
 export class ViewerComponent implements OnInit {

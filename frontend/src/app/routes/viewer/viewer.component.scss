@@ -45,7 +45,7 @@
   // flex-direction: column;
   // justify-content: stretch;
   width: 100%;
-  padding: 5px;
+  // padding: 5px;
   // height: ;
   background-color: var(--color-background-grey);
   height: 100%; // header is 60px
@@ -72,10 +72,11 @@
       position: relative;
 
       .title-wrapper {
-        z-index: 5;
         position: absolute;
-        // padding: 20px;
+        z-index: 10;
         width: 100%;
+        background-color: red;
+        top: 0;
 
         display: flex;
         gap: 5px;
@@ -85,6 +86,18 @@
         app-logo {
           margin: 15px;
         }
+      }
+
+      .controls-wrapper {
+        position: absolute;
+        z-index: 10;
+        width: 100%;
+        background-color: violet;
+        bottom: 0;
+      }
+
+      &.transcript-visible {
+        width: 70%;
       }
 
       &.transcript-hidden {
@@ -97,9 +110,16 @@
 
       width: 30%;
       min-width: 300px;
-      max-width: 600px;
+      // max-width: 600px;
 
       max-height: 100%;
+
+      &.left {
+        border-right: 1px solid var(--color-border-grey);
+      }
+      &.right {
+        border-left: 1px solid var(--color-border-grey);
+      }
     }
   }
 
@@ -107,13 +127,13 @@
 }
 
 ::ng-deep .box {
-  margin: 5px;
+  // margin: 5px;
   padding: 7px;
 
   background-color: var(--color-white);
   box-shadow: none;
-  border: 1px solid var(--color-border-grey);
-  border-radius: 5px;
+  // border: 1px solid var(--color-border-grey);
+  // border-radius: 5px;
 
   &:has(video) {
     padding: 0px;

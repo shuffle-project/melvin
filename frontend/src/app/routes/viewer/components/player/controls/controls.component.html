@@ -46,25 +46,7 @@
         <mat-icon svgIcon="pause"></mat-icon>
       </button>
       }
-      <!-- replay and forward -->
-      <button
-        mat-icon-button
-        class="md"
-        (click)="onSeek($event.shiftKey ? -30 : -10)"
-        matTooltip="Rewind 10 seconds"
-        i18n-matTooltip="@@viewerControlsRewindTooltip"
-      >
-        <mat-icon [svgIcon]="'replay'"></mat-icon>
-      </button>
-      <button
-        mat-icon-button
-        class="md"
-        (click)="onSeek($event.shiftKey ? 30 : 10)"
-        matTooltip="Fast-forward 10 seconds"
-        i18n-matTooltip="@@viewerControlsforwardTooltip"
-      >
-        <mat-icon [svgIcon]="'forward'"></mat-icon>
-      </button>
+
       <!-- sound -->
       <button
         mat-icon-button
@@ -99,36 +81,7 @@
         />
       </mat-slider>
     </div>
-    <div class="center">
-      <!-- <button
-        mat-icon-button
-        class="md"
-        [matMenuTriggerFor]="captionMenu"
-        matTooltip="Captions menu"
-        i18n-matTooltip="@@viewerControlsCaptionMenuTooltip"
-      >
-        <mat-icon svgIcon="caption_not_selected"></mat-icon>
-      </button>
-      <button
-        mat-icon-button
-        class="md"
-        (click)="onToggleShowTranscript()"
-        matTooltip="Toggle show/hide transcript"
-        i18n-matTooltip="@@viewerControlsTranscriptToggleTooltip"
-      >
-        <mat-icon svgIcon="transcription-viewer"></mat-icon>
-      </button> -->
-      <!-- <button
-        mat-icon-button
-        class="md"
-        [disabled]="!(signLanguageAvailable$ | ngrxPush)"
-        (click)="onToggleSignLanguageVideo()"
-        matTooltip="Toggle show/hide sign language videos"
-        i18n-matTooltip="@@viewerControlsSignLanguageToggleTooltip"
-      >
-        <mat-icon svgIcon="sign_language" ></mat-icon>
-      </button> -->
-    </div>
+    <div class="center"></div>
     <div class="right">
       <button mat-icon-button class="md" [matMenuTriggerFor]="languageMenu">
         <mat-icon svgIcon="speechbubble"></mat-icon>

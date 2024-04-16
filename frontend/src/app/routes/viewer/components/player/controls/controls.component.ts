@@ -11,7 +11,6 @@ import { LetDirective, PushPipe } from '@ngrx/component';
 import { Store } from '@ngrx/store';
 import { combineLatest, map } from 'rxjs';
 import { DurationPipe } from '../../../../../pipes/duration-pipe/duration.pipe';
-import { MediaCategory } from '../../../../../services/api/entities/project.entity';
 import { TranscriptionEntity } from '../../../../../services/api/entities/transcription.entity';
 import { toggleDarkModeFromViewer } from '../../../../../store/actions/config.actions';
 import * as viewerActions from '../../../../../store/actions/viewer.actions';
@@ -46,28 +45,27 @@ import { ViewerVideo } from '../player.component';
 export class ControlsComponent {
   public tanscriptPositionENUM = TranscriptPosition;
 
+  /**
+   * DATA
+   */
   public volume$ = this.store.select(viewerSelector.vVolume);
   public currentSpeed$ = this.store.select(viewerSelector.vCurrentSpeed);
   public darkMode$ = this.store.select(configSelector.darkMode);
   public subtitlesEnabledInVideo$ = this.store.select(
     viewerSelector.vSubtitlesEnabled
   );
-
   public transcriptions$ = combineLatest([
     this.store.select(viewerSelector.vTranscriptions),
     this.store.select(viewerSelector.vTranscriptionId),
   ]).pipe(map(([list, selectedId]) => ({ list, selectedId })));
-
-  transcriptPosition$ = this.store.select(viewerSelector.vTranscriptPosition);
-  public smallVideos$ = this.store.select(viewerSelector.vSmallVideos);
-  signLanguageAvailable$ = this.smallVideos$.pipe(
-    map((smallVideos) => {
-      const signLanguageVideos = smallVideos.findIndex(
-        (element) => element.category === MediaCategory.SIGN_LANGUAGE
-      );
-      return signLanguageVideos < 0 ? false : true;
-    })
+  public transcriptPosition$ = this.store.select(
+    viewerSelector.vTranscriptPosition
   );
+  public smallVideos$ = this.store.select(viewerSelector.vSmallVideos);
+
+  /**
+   * WHATS VISIBLE CONTROLS
+   */
 
   constructor(
     private store: Store<AppState>,
@@ -112,28 +110,13 @@ export class ControlsComponent {
     );
   }
 
-  onTurnOffCaptions(subtitlesEnabledInVideo: boolean) {
-    // disable captions in video
-    if (subtitlesEnabledInVideo) {
-      this.store.dispatch(viewerActions.toggleSubtitles());
-    }
-  }
-
   onChangeCaptions(switchTo: boolean, switchFrom: boolean) {
     if (switchTo !== switchFrom) {
       this.store.dispatch(viewerActions.toggleSubtitles());
     }
   }
 
-  onChangeTranscription(
-    transcription: TranscriptionEntity
-    // subtitlesEnabledInVideo: boolean
-  ) {
-    // enable captions in video
-    // if (!subtitlesEnabledInVideo) {
-    //   this.store.dispatch(viewerActions.toggleSubtitles());
-    // }
-
+  onChangeTranscription(transcription: TranscriptionEntity) {
     this.store.dispatch(
       viewerActions.changeTranscriptionId({ transcriptionId: transcription.id })
     );
@@ -150,13 +133,6 @@ export class ControlsComponent {
     // TODO do we want to play after closing the dialog??
     this.dialog.open(AdjustLayoutDialogComponent);
   }
-
-  // decreasePlaybackSpeed(currentSpeed: number) {
-  //   if (currentSpeed > 0.25) this.changePlaybackSpeed((currentSpeed -= 0.25));
-  // }
-  // increasePlaybackSpeed(currentSpeed: number) {
-  //   if (currentSpeed < 3) this.changePlaybackSpeed((currentSpeed += 0.25));
-  // }
 
   changePlaybackSpeed(newSpeed: number) {
     this.store.dispatch(viewerActions.changeSpeed({ newSpeed }));

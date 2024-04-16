@@ -1,5 +1,5 @@
 .box {
-  height: calc(100% - 12px);
+  height: calc(100%);
   display: flex;
   flex-direction: column;
   // justify-content: ;
@@ -90,7 +90,7 @@
   flex-grow: 1;
   display: flex;
   flex-direction: column;
-  max-height: calc(100% - 100px); // controls are 125px
+  max-height: 100%;
 }
 
 .loading-spinner {

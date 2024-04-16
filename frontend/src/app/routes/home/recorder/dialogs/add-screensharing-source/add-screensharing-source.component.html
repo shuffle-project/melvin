@@ -7,6 +7,9 @@
   @if (loadingError) {
   <p i18n="@@recorderAddScreensharingSelectionError">
     An error occurred during the selection when sharing the screen.
+    <br />
+    Please make sure that your Browser does have the necessary permissions to
+    share the screen.
   </p>
   } @if (!loading && !loadingError) {
   <div class="controls">
