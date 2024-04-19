@@ -1,13 +1,19 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { Store } from '@ngrx/store';
 // use own viewer actions
+import {
+  animate,
+  state,
+  style,
+  transition,
+  trigger,
+} from '@angular/animations';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LetDirective } from '@ngrx/component';
-import { combineLatest, map } from 'rxjs';
+import { Subject } from 'rxjs';
 import { HeaderComponent } from '../../components/header/header.component';
 import { LogoComponent } from '../../components/logo/logo.component';
 import * as viewerActions from '../../store/actions/viewer.actions';
@@ -19,7 +25,8 @@ import { InfoboxComponent } from '../viewer/components/infobox/infobox.component
 import { PlayerComponent } from '../viewer/components/player/player.component';
 import { TranscriptComponent } from '../viewer/components/transcript/transcript.component';
 import { ControlsComponent } from './components/player/controls/controls.component';
-import { ViewerService } from './viewer.service';
+import { OverlayService } from './services/overlay.service';
+import { ViewerService } from './services/viewer.service';
 
 @Component({
   selector: 'app-viewer',
@@ -37,51 +44,51 @@ import { ViewerService } from './viewer.service';
     LogoComponent,
     RouterLink,
     ControlsComponent,
-    BrowserAnimationsModule,
+  ],
+  animations: [
+    trigger('fade', [
+      state('show', style({ opacity: 1 })),
+      state('hide', style({ opacity: 0 })),
+      transition('hide => show', [style({ opacity: 1 })]),
+      transition('show => hide', [animate(2000, style({ opacity: 0 }))]),
+    ]),
   ],
 })
-export class ViewerComponent implements OnInit {
+export class ViewerComponent implements OnInit, OnDestroy {
+  private destroy$$ = new Subject<void>();
+  /**
+   * DATA
+   */
   public viewerError$ = this.store.select(viewerSelector.vLoginError);
   public selectLoading$ = this.store.select(viewerSelector.vLoginLoading);
 
   public project$ = this.store.select(viewerSelector.vProject);
   public media$ = this.store.select(viewerSelector.vProjectMedia);
   public darkMode$ = this.store.select(configSelector.darkMode);
-
-  // TODO layout according to this settings
-  public transcriptEnabled$ = this.store.select(
-    viewerSelector.vTranscriptEnabled
-  );
   public transcriptPosition$ = this.store.select(
     viewerSelector.vTranscriptPosition
-  );
-
-  layoutSettings$ = combineLatest([
-    this.transcriptEnabled$,
-    this.transcriptPosition$,
-  ]).pipe(
-    map(([transcriptEnabled, transcriptPosition]) => ({
-      transcriptEnabled,
-      transcriptPosition,
-    }))
   );
 
   constructor(
     private route: ActivatedRoute,
     private store: Store<AppState>,
     public dialog: MatDialog,
-    private viewerService: ViewerService
-  ) {}
+    private viewerService: ViewerService,
+    public overlayService: OverlayService
+  ) {
+    this.overlayService.init();
+  }
 
   ngOnInit(): void {
     const token = this.route.snapshot.params['token'];
     this.store.dispatch(viewerActions.viewerLogin({ token }));
+
+    this.overlayService.init();
   }
 
-  @HostListener('window:keydown.ArrowRight', ['$event'])
-  arrowRight(event: any) {
-    // TODOD wenn man hier vor/zurückspielt müsste man alle events innerhalt mit stopPropagation versehen.. Was teilweise nicht so einfach ist bei material sachen
-    // console.log(event);
+  ngOnDestroy() {
+    this.overlayService.destroy();
+    this.destroy$$.next();
   }
 
   onOpenAdjustLayoutDialog() {
@@ -95,8 +102,4 @@ export class ViewerComponent implements OnInit {
       document.fullscreenElement || (document as any).webkitFullscreenElement
     );
   }
-
-  // onToggleChange() {
-  //   this.store.dispatch(configActions.toggleDarkMode());
-  // }
 }

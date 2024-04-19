@@ -17,7 +17,8 @@ import * as viewerActions from '../../../../../store/actions/viewer.actions';
 import { AppState } from '../../../../../store/app.state';
 import * as configSelector from '../../../../../store/selectors/config.selector';
 import * as viewerSelector from '../../../../../store/selectors/viewer.selector';
-import { ViewerService } from '../../../../viewer/viewer.service';
+import { OverlayService } from '../../../services/overlay.service';
+import { ViewerService } from '../../../services/viewer.service';
 import { TranscriptPosition } from '../../../viewer.interfaces';
 import { AdjustLayoutDialogComponent } from '../../adjust-layout-dialog/adjust-layout-dialog.component';
 import { CaptionsSettingsDialogComponent } from '../../captions-settings-dialog/captions-settings-dialog.component';
@@ -45,9 +46,6 @@ import { ViewerVideo } from '../player.component';
 export class ControlsComponent {
   public tanscriptPositionENUM = TranscriptPosition;
 
-  /**
-   * DATA
-   */
   public volume$ = this.store.select(viewerSelector.vVolume);
   public currentSpeed$ = this.store.select(viewerSelector.vCurrentSpeed);
   public darkMode$ = this.store.select(configSelector.darkMode);
@@ -63,14 +61,11 @@ export class ControlsComponent {
   );
   public smallVideos$ = this.store.select(viewerSelector.vSmallVideos);
 
-  /**
-   * WHATS VISIBLE CONTROLS
-   */
-
   constructor(
     private store: Store<AppState>,
     public viewerService: ViewerService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    public overlayService: OverlayService
   ) {}
 
   sliderLabelVolume(value: number): string {
@@ -163,5 +158,13 @@ export class ControlsComponent {
     if (darkModeCurrent !== darkModeNew) {
       this.store.dispatch(toggleDarkModeFromViewer());
     }
+  }
+
+  onMenuOpened() {
+    this.overlayService.menuOpen$.next(true);
+  }
+
+  onMenuClosed() {
+    this.overlayService.menuOpen$.next(false);
   }
 }

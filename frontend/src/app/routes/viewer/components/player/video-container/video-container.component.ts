@@ -18,7 +18,7 @@ import { Subject, fromEvent, merge, takeUntil, tap } from 'rxjs';
 import { switchToNewBigVideo } from '../../../../../store/actions/viewer.actions';
 import { AppState } from '../../../../../store/app.state';
 import * as viewerSelector from '../../../../../store/selectors/viewer.selector';
-import { ViewerService } from '../../../../viewer/viewer.service';
+import { ViewerService } from '../../../services/viewer.service';
 import { ViewerVideo } from '../player.component';
 
 @Component({

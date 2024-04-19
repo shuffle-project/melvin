@@ -32,34 +32,42 @@
     >
       <ng-container *ngrxLet="media$ as media">
         @if (project && media) {
-        <ng-container *ngrxLet="layoutSettings$ as layout">
+
+        <ng-container *ngrxLet="transcriptPosition$ as transcriptPosition">
           <div class="default-main-content">
-            @if ( layout.transcriptEnabled && layout.transcriptPosition ===
-            'left' ) {
+            @if ( transcriptPosition === 'left' ) {
             <div class="transcript left">
               <app-transcript></app-transcript>
             </div>
             }
             <div
               class="player {{
-                layout.transcriptEnabled
-                  ? 'transcript-visible'
-                  : 'transcript-hidden'
+                transcriptPosition === 'off'
+                  ? 'transcript-hidden'
+                  : 'transcript-visible'
               }}"
             >
-              <div class="title-wrapper">
+              <div
+                #titleoverlay
+                class="title-wrapper overlay"
+                [@fade]="overlayService.showOverlay ? 'show' : 'hide'"
+              >
                 <h2>
                   {{ project?.title }}
                 </h2>
                 <app-logo class="clickable" [routerLink]="['']" />
               </div>
               <app-player [project]="project!" [media]="media!"></app-player>
-              <div class="controls-wrapper">
+
+              <div
+                #controlsoverlay
+                class="controls-wrapper overlay"
+                [@fade]="overlayService.showOverlay ? 'show' : 'hide'"
+              >
                 <app-controls> </app-controls>
               </div>
             </div>
-            @if ( layout.transcriptEnabled && layout.transcriptPosition ===
-            'right' ) {
+            @if ( transcriptPosition === 'right' ) {
             <div class="transcript right">
               <app-transcript></app-transcript>
             </div>

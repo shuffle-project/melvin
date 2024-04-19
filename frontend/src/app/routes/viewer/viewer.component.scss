@@ -71,11 +71,19 @@
       height: 100%;
       position: relative;
 
+      &.transcript-visible {
+        width: 70%;
+      }
+
+      &.transcript-hidden {
+        width: 100%;
+      }
+
       .title-wrapper {
         position: absolute;
         z-index: 10;
         width: 100%;
-        background-color: red;
+        background: rgba(255, 0, 0, 0.5);
         top: 0;
 
         display: flex;
@@ -92,16 +100,8 @@
         position: absolute;
         z-index: 10;
         width: 100%;
-        background-color: violet;
+        background: rgba(255, 0, 208, 0.5);
         bottom: 0;
-      }
-
-      &.transcript-visible {
-        width: 70%;
-      }
-
-      &.transcript-hidden {
-        width: 100%;
       }
     }
 

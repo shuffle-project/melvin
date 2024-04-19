@@ -28,7 +28,7 @@ import {
 import * as viewerActions from '../../../../store/actions/viewer.actions';
 import { AppState } from '../../../../store/app.state';
 import * as viewerSelector from '../../../../store/selectors/viewer.selector';
-import { ViewerService } from '../../../viewer/viewer.service';
+import { ViewerService } from '../../services/viewer.service';
 import { ControlsComponent } from './controls/controls.component';
 import { VideoContainerComponent } from './video-container/video-container.component';
 

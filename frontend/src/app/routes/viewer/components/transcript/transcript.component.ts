@@ -30,7 +30,7 @@ import { CaptionEntity } from '../../../../services/api/entities/caption.entity'
 import { SpeakerEntity } from '../../../../services/api/entities/transcription.entity';
 import { AppState } from '../../../../store/app.state';
 import * as viewerSelector from '../../../../store/selectors/viewer.selector';
-import { ViewerService } from '../../../viewer/viewer.service';
+import { ViewerService } from '../../services/viewer.service';
 import { generateTranscript } from './transcript.utils';
 
 @Component({
