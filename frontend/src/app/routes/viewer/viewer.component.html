@@ -27,7 +27,9 @@
     }@else {
 
     <section
-      class="content {{ isFullscreenActive() ? 'fullscreen-active' : '' }}"
+      class="content {{
+        overlayService.showOverlay ? 'overlay-visible' : 'overlay-hidden'
+      }} {{ isFullscreenActive() ? 'fullscreen-active' : '' }}"
       *ngrxLet="project$ as project"
     >
       <ng-container *ngrxLet="media$ as media">
@@ -45,7 +47,7 @@
                 transcriptPosition === 'off'
                   ? 'transcript-hidden'
                   : 'transcript-visible'
-              }}"
+              }} "
             >
               <div
                 #titleoverlay

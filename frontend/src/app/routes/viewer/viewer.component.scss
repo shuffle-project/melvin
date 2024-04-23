@@ -39,6 +39,10 @@
   }
 }
 
+.overlay-hidden {
+  cursor: none !important;
+}
+
 .content {
   box-sizing: border-box;
   // display: flex;
@@ -47,7 +51,7 @@
   width: 100%;
   // padding: 5px;
   // height: ;
-  background-color: var(--color-background-grey);
+  // background-color: var(--color-background-grey);
   height: 100%; // header is 60px
   // max-height: calc(100vh - 60px);
 
