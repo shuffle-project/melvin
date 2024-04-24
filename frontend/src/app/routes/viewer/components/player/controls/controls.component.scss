@@ -1,3 +1,7 @@
+:focus {
+  outline: 1.5px solid var(--color-black);
+}
+
 .controls {
   height: 100px;
 
@@ -96,12 +100,6 @@
   display: flex;
 
   gap: 5px;
-
-  .info-icon {
-    position: absolute;
-    left: 5px;
-    top: 5px;
-  }
 
   .menu-column {
     flex: 50%;

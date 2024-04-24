@@ -149,6 +149,13 @@
     text-align: center;
     transition: transform 0.2s;
     // height: fit-content;
+
+    &.overlay-shown {
+      transform: translate(0, -100px);
+    }
+    &.overlay-hidden {
+      transition: 4s ease;
+    }
   }
 
   &.under-video {
@@ -166,6 +173,10 @@
       align-items: center;
       text-align: center;
     }
+  }
+
+  &.translate-top {
+    transform: translate(0, -60px);
   }
 
   span {
