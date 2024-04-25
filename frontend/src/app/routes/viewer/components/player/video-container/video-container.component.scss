@@ -69,7 +69,8 @@ video {
 
     button {
       justify-self: flex-end;
-      width: 96%;
+      // width: 96%;
+      // max-width: 70px;
       margin-top: 2px;
       color: var(--color-black);
       background-color: var(--color-white);

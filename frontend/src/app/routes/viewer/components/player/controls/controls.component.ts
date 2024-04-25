@@ -99,37 +99,52 @@ export class ControlsComponent {
     );
   }
 
-  onChangeTranscriptPosition(transcriptPosition: TranscriptPosition) {
+  onChangeTranscriptPosition(
+    event: Event,
+    transcriptPosition: TranscriptPosition
+  ) {
+    event.stopPropagation();
+
     this.store.dispatch(
       viewerActions.changeTranscriptPosition({ transcriptPosition })
     );
   }
 
-  onChangeCaptions(switchTo: boolean, switchFrom: boolean) {
+  onChangeCaptions(event: Event, switchTo: boolean, switchFrom: boolean) {
+    event.stopPropagation();
+
     if (switchTo !== switchFrom) {
       this.store.dispatch(viewerActions.toggleSubtitles());
     }
   }
 
-  onChangeTranscription(transcription: TranscriptionEntity) {
+  onChangeTranscription(event: Event, transcription: TranscriptionEntity) {
+    event.stopPropagation();
+
     this.store.dispatch(
       viewerActions.changeTranscriptionId({ transcriptionId: transcription.id })
     );
   }
 
-  onOpenCaptionsSettingsDialog() {
+  onOpenCaptionsSettingsDialog(event: Event) {
+    event.stopPropagation();
+
     this.viewerService.audio?.pause();
     // TODO do we want to play after closing the dialog??
     this.dialog.open(CaptionsSettingsDialogComponent);
   }
 
-  onOpenTranscriptSettingsDialog() {
+  onOpenTranscriptSettingsDialog(event: Event) {
+    event.stopPropagation();
+
     this.viewerService.audio?.pause();
     // TODO do we want to play after closing the dialog??
     this.dialog.open(AdjustLayoutDialogComponent);
   }
 
-  changePlaybackSpeed(newSpeed: number) {
+  changePlaybackSpeed(event: Event, newSpeed: number) {
+    event.stopPropagation();
+
     this.store.dispatch(viewerActions.changeSpeed({ newSpeed }));
   }
 
@@ -154,7 +169,13 @@ export class ControlsComponent {
       this.store.dispatch(viewerActions.toggleShowVideo({ id: video.id }));
   }
 
-  onToggleDarkmode(darkModeCurrent: boolean, darkModeNew: boolean) {
+  onToggleDarkmode(
+    event: Event,
+    darkModeCurrent: boolean,
+    darkModeNew: boolean
+  ) {
+    event.stopPropagation();
+
     if (darkModeCurrent !== darkModeNew) {
       this.store.dispatch(toggleDarkModeFromViewer());
     }

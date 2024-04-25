@@ -87,7 +87,7 @@
         position: absolute;
         z-index: 10;
         width: 100%;
-        background: rgba(255, 255, 255, 1);
+        background: var(--color-white);
         top: 0;
 
         display: flex;
@@ -104,7 +104,7 @@
         position: absolute;
         z-index: 10;
         width: 100%;
-        background: rgba(255, 255, 255, 1);
+        background: var(--color-white);
         bottom: 0;
       }
     }
