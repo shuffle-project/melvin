@@ -1,8 +1,3 @@
-button:focus,
-button:hover {
-  outline: 1.5px solid var(--color-black);
-}
-
 .controls {
   height: 100px;
 
@@ -35,6 +30,11 @@ button:hover {
     display: flex;
     align-items: center;
     margin: 0 1.25rem;
+
+    button:focus,
+    button:hover {
+      outline: 1.5px solid var(--color-black);
+    }
 
     .left {
       flex-basis: 33.333%;

@@ -1,6 +1,5 @@
 @if (viewerService.audio) {
 <div class="controls">
-  <!--mat-progress-bar mode="determinate" value="40"></mat-progress-bar-->
   <div class="video-progress-slider-wrapper">
     <span class="time-info">{{
       viewerService.audio.currentTime * 1000 | duration : 'mm:ss'
@@ -18,7 +17,6 @@
         matSliderThumb
         [(ngModel)]="viewerService.audio.currentTime"
       />
-      <!-- (input)="onVideoProgressChange($event)" -->
     </mat-slider>
     <span class="time-info">{{
       viewerService.audio.duration * 1000 | duration : 'mm:ss'
