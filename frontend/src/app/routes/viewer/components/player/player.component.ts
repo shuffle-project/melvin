@@ -18,7 +18,7 @@ import {
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { LetDirective, PushPipe } from '@ngrx/component';
 import { Store } from '@ngrx/store';
-import { Subject, combineLatest, map } from 'rxjs';
+import { Subject, combineLatest, map, withLatestFrom } from 'rxjs';
 import {
   AudioEntity,
   ProjectEntity,
@@ -103,7 +103,13 @@ export class PlayerComponent
   );
 
   public bigVideo$ = this.store.select(viewerSelector.vBigVideo);
-  public smallVideos$ = this.store.select(viewerSelector.vSmallVideos);
+  public smallVideos$ = this.store.select(viewerSelector.vViewerVideos).pipe(
+    withLatestFrom(this.bigVideo$),
+    map(([list, bigVideo]) =>
+      list.filter((video) => video.shown && video.id !== bigVideo?.id)
+    )
+  );
+
   public shownSmallVideos$ = this.smallVideos$.pipe(
     map((list) => list.filter((video) => video.shown))
   );

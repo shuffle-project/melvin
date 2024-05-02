@@ -50,7 +50,7 @@ import { ViewerService } from './services/viewer.service';
       state('show', style({ opacity: 1 })),
       state('hide', style({ opacity: 0 })),
       transition('hide => show', [style({ opacity: 1 })]),
-      transition('show => hide', [animate(2000, style({ opacity: 0 }))]),
+      transition('show => hide', [animate(0, style({ opacity: 0 }))]),
     ]),
   ],
 })

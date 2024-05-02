@@ -140,17 +140,17 @@ export const vCaptionPosition = createSelector(
   }
 );
 
+export const vViewerVideos = createSelector(
+  selectViewerState,
+  (state: ViewerState) => {
+    return state.viewerVideos;
+  }
+);
+
 export const vBigVideo = createSelector(
   selectViewerState,
   (state: ViewerState) => {
     return state.viewerVideos.find((video) => video.id === state.bigVideoId);
-  }
-);
-
-export const vSmallVideos = createSelector(
-  selectViewerState,
-  (state: ViewerState) => {
-    return state.viewerVideos?.filter((video) => video.id !== state.bigVideoId);
   }
 );
 

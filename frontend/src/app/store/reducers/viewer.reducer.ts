@@ -207,7 +207,16 @@ export const viewerReducer = createReducer(
     };
   }),
   on(viewerActions.switchToNewBigVideo, (state, { newBigVideoId }) => {
-    return { ...state, bigVideoId: newBigVideoId };
+    return {
+      ...state,
+      viewerVideos: state.viewerVideos.map((video) => {
+        return {
+          ...video,
+          shown: newBigVideoId === state.bigVideoId ? true : video.shown,
+        };
+      }),
+      bigVideoId: newBigVideoId,
+    };
   }),
   on(viewerActions.toggleShowVideo, (state, { id }) => {
     return {

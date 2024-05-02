@@ -31,8 +31,7 @@
     align-items: center;
     margin: 0 1.25rem;
 
-    button:focus,
-    button:hover {
+    button:focus-visible {
       outline: 1.5px solid var(--color-black);
     }
 

@@ -59,7 +59,9 @@ export class ControlsComponent {
   public transcriptPosition$ = this.store.select(
     viewerSelector.vTranscriptPosition
   );
-  public smallVideos$ = this.store.select(viewerSelector.vSmallVideos);
+  public bigVideo$ = this.store.select(viewerSelector.vBigVideo);
+
+  public vViewerVideos$ = this.store.select(viewerSelector.vViewerVideos);
 
   constructor(
     private store: Store<AppState>,
@@ -158,15 +160,44 @@ export class ControlsComponent {
     this.store.dispatch(viewerActions.toggleSignLanguageVideos());
   }
 
-  onClickToggleVideoShown(event: MouseEvent, video: ViewerVideo) {
-    this.store.dispatch(viewerActions.toggleShowVideo({ id: video.id }));
+  onClickToggleVideoShown(
+    event: MouseEvent,
+    video: ViewerVideo,
+    bigVideoId: ViewerVideo | undefined,
+    videos: ViewerVideo[]
+  ) {
+    this._toggleShowVideo(bigVideoId, video, videos);
     event.stopPropagation();
   }
 
-  onKeypressToggleVideoShown(event: KeyboardEvent, video: ViewerVideo) {
-    console.log(event.key);
-    if (event.key === 'Enter' || event.key === ' ')
-      this.store.dispatch(viewerActions.toggleShowVideo({ id: video.id }));
+  onKeypressToggleVideoShown(
+    event: KeyboardEvent,
+    video: ViewerVideo,
+    bigVideoId: ViewerVideo | undefined,
+    videos: ViewerVideo[]
+  ) {
+    if (event.key === 'Enter' || event.key === ' ') {
+      this._toggleShowVideo(bigVideoId, video, videos);
+    }
+  }
+
+  private _toggleShowVideo(
+    bigVideoId: ViewerVideo | undefined,
+    video: ViewerVideo,
+    videos: ViewerVideo[]
+  ) {
+    if (bigVideoId?.id === video.id) {
+      const makeNewBig = videos.find(
+        (video) => video.shown && video.id !== bigVideoId.id
+      );
+      if (makeNewBig) {
+        this.store.dispatch(
+          viewerActions.switchToNewBigVideo({ newBigVideoId: makeNewBig.id })
+        );
+      }
+    }
+
+    this.store.dispatch(viewerActions.toggleShowVideo({ id: video.id }));
   }
 
   onToggleDarkmode(

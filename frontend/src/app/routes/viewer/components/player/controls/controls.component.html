@@ -93,17 +93,21 @@
         <mat-icon svgIcon="speechbubble"></mat-icon>
       </button>
 
-      <button
-        mat-icon-button
-        class="md"
-        [matMenuTriggerFor]="galleryMenu"
-        (menuOpened)="onMenuOpened()"
-        (menuClosed)="onMenuClosed()"
-        matTooltip="Shown video selection"
-        i18n-matTooltip="@@viewerControlsGalleryMenuTooltip"
-      >
-        <mat-icon svgIcon="gallery"></mat-icon>
-      </button>
+      <ng-container *ngrxLet="vViewerVideos$ as videos">
+        @if (videos.length>1) {
+        <button
+          mat-icon-button
+          class="md"
+          [matMenuTriggerFor]="galleryMenu"
+          (menuOpened)="onMenuOpened()"
+          (menuClosed)="onMenuClosed()"
+          matTooltip="Shown video selection"
+          i18n-matTooltip="@@viewerControlsGalleryMenuTooltip"
+        >
+          <mat-icon svgIcon="gallery"></mat-icon>
+        </button>
+        }
+      </ng-container>
 
       <button
         mat-icon-button
@@ -279,25 +283,33 @@
     <div class="menu-column">
       <div class="menu-section">
         <span class="section-title">Videos</span>
-        @for (video of smallVideos$ | ngrxPush; track video) {
-        <div
-          class="mat-menu-item-wrapper"
-          mat-menu-item
-          (click)="onClickToggleVideoShown($event, video)"
-          (keydown)="onKeypressToggleVideoShown($event, video)"
-        >
-          <!-- (change)="onCheckToggleVideoShown($event, video)" -->
-          <mat-checkbox [checked]="video.shown">
-            {{ video.title }}
-            @if (video.category === 'sign_language') {
-            <mat-icon
-              style="margin-left: auto; margin-right: 0"
-              svgIcon="sign_language"
-            ></mat-icon>
+        <ng-container *ngrxLet="vViewerVideos$ as videos">
+          <ng-container *ngrxLet="bigVideo$ as bigVideo">
+            @for (video of videos; track video) {
+            <div
+              class="mat-menu-item-wrapper"
+              mat-menu-item
+              (click)="onClickToggleVideoShown($event, video, bigVideo, videos)"
+              (keydown)="
+                onKeypressToggleVideoShown($event, video, bigVideo, videos)
+              "
+            >
+              <!-- (change)="onCheckToggleVideoShown($event, video)" -->
+              <mat-checkbox
+                [checked]="video.id === bigVideo?.id || video.shown"
+              >
+                {{ video.title }}
+                @if (video.category === 'sign_language') {
+                <mat-icon
+                  style="margin-left: auto; margin-right: 0"
+                  svgIcon="sign_language"
+                ></mat-icon>
+                }
+              </mat-checkbox>
+            </div>
             }
-          </mat-checkbox>
-        </div>
-        }
+          </ng-container>
+        </ng-container>
       </div>
     </div>
   </div>
