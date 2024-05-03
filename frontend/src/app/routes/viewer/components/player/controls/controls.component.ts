@@ -22,6 +22,7 @@ import { ViewerService } from '../../../services/viewer.service';
 import { TranscriptPosition } from '../../../viewer.interfaces';
 import { AdjustLayoutDialogComponent } from '../../adjust-layout-dialog/adjust-layout-dialog.component';
 import { CaptionsSettingsDialogComponent } from '../../captions-settings-dialog/captions-settings-dialog.component';
+import { HelpDialogComponent } from '../../help-dialog/help-dialog.component';
 import { ViewerVideo } from '../player.component';
 @Component({
   selector: 'app-controls',
@@ -141,6 +142,13 @@ export class ControlsComponent {
     this.viewerService.audio?.pause();
     // TODO do we want to play after closing the dialog??
     this.dialog.open(AdjustLayoutDialogComponent);
+  }
+
+  onOpenHelpDialog(event: Event) {
+    event.stopPropagation();
+
+    this.viewerService.audio?.pause();
+    this.dialog.open(HelpDialogComponent);
   }
 
   changePlaybackSpeed(event: Event, newSpeed: number) {
