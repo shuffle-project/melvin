@@ -82,6 +82,40 @@ export class VideoContainerComponent implements OnDestroy, OnChanges {
     }
   }
 
+  onKeyDownVideo(event: KeyboardEvent) {
+    if (this.size === 'big' && this.viewerService.audio) {
+      switch (event.key) {
+        case ' ':
+          if (this.viewerService.audio.paused) {
+            this.viewerService.audio.play();
+          } else {
+            this.viewerService.audio.pause();
+          }
+          break;
+        // case 'ArrowRight':
+        //   if (
+        //     this.viewerService.audio.currentTime + 3000 <
+        //     this.viewerService.audio.duration
+        //   )
+        //     this.viewerService.audio.currentTime += 3000;
+        //   break;
+        // case 'ArrowLeft':
+        //   if (this.viewerService.audio.currentTime - 3000 > 0)
+        //     this.viewerService.audio.currentTime -= 3000;
+
+        //   break;
+        // case 'ArrowUp':
+        //   if (this.viewerService.audio.volume < 1)
+        //     this.viewerService.audio.volume += 0.1;
+        //   break;
+        // case 'ArrowDown':
+        //   if (this.viewerService.audio.volume > 0)
+        //     this.viewerService.audio.volume -= 0.1;
+        //   break;
+      }
+    }
+  }
+
   onVideoLoadMetadata(event: Event) {
     this.connectToAudio(event);
 

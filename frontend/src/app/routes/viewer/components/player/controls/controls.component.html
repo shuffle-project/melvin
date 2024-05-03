@@ -55,10 +55,10 @@
         (click)="onMuteAudio()"
         i18n-matTooltip="@@viewerControlsMuteUnmuteTooltip"
       >
-        @if (!viewerService.audio.muted) {
-        <mat-icon svgIcon="volume-on"></mat-icon>
-        } @if (viewerService.audio.muted) {
+        @if (viewerService.audio.muted ||viewerService.audio.volume === 0) {
         <mat-icon svgIcon="volume-off"></mat-icon>
+        } @else {
+        <mat-icon svgIcon="volume-on"></mat-icon>
         }
       </button>
 
@@ -155,15 +155,22 @@
   <div class="menu-wrapper">
     <div class="menu-column">
       <div class="menu-section">
-        <span class="section-title">Audio</span>
+        <span
+          id="audio-title"
+          class="section-title"
+          i18n="@@viewerControlsAudioTitle"
+          >Audiolanguage</span
+        >
         <!-- foreach audios -->
-        <button mat-menu-item>
+        <button mat-menu-item aria-describedby="audio-title">
           <mat-icon svgIcon="{{ true ? 'check' : '' }}"></mat-icon>German
         </button>
       </div>
 
       <div class="menu-section">
-        <span class="section-title">Textsprache</span>
+        <span class="section-title" i18n="@@viewerControlsTextlanguageTitle"
+          >Textlanguage</span
+        >
         <!-- foreach transcriptions -->
         <ng-container *ngrxLet="transcriptions$ as transcriptions">
           @for (transcription of transcriptions.list; track $index) {
@@ -187,72 +194,94 @@
 
     <div class="menu-column">
       <div class="menu-section">
-        <span class="section-title">Untertitel</span>
+        <span
+          id="captions-title"
+          class="section-title"
+          i18n="@@viewerControlsCaptionsTitle"
+          >Captions</span
+        >
         <ng-container
           *ngrxLet="subtitlesEnabledInVideo$ as subtitlesEnabledInVideo"
         >
           <button
+            aria-describedby="captions-title"
             mat-menu-item
             (click)="onChangeCaptions($event, false, subtitlesEnabledInVideo)"
+            i18n="@@viewerControlsCaptionsOffLabel"
           >
             <mat-icon
               svgIcon="{{ !subtitlesEnabledInVideo ? 'check' : '' }}"
             ></mat-icon
-            >Aus
+            >Off
           </button>
           <button
+            aria-describedby="captions-title"
             mat-menu-item
             (click)="onChangeCaptions($event, true, subtitlesEnabledInVideo)"
+            i18n="@@viewerControlsCaptionsOnLabel"
           >
             <mat-icon
               svgIcon="{{ subtitlesEnabledInVideo ? 'check' : '' }}"
             ></mat-icon
-            >An
+            >On
           </button>
         </ng-container>
         <button
+          aria-describedby="captions-title"
           mat-menu-item
           class="simple-button"
           (click)="onOpenCaptionsSettingsDialog($event)"
+          i18n="@@viewerControlsCaptionsSettingsLabel"
         >
-          Einstellungen
+          Settings
         </button>
       </div>
 
       <div class="menu-section">
-        <span class="section-title">Transkript</span>
+        <span
+          id="transcript-title"
+          class="section-title"
+          i18n="@@viewerControlsTranscriptTitle"
+          >Transcript</span
+        >
         <ng-container *ngrxLet="transcriptPosition$ as transcriptPosition">
           <button
+            aria-describedby="transcript-title"
             mat-menu-item
             (click)="
               onChangeTranscriptPosition($event, tanscriptPositionENUM.OFF)
             "
+            i18n="@@viewerControlsTranscriptOffLabel"
           >
             <mat-icon
               svgIcon="{{
                 transcriptPosition === tanscriptPositionENUM.OFF ? 'check' : ''
               }}"
             ></mat-icon
-            >Aus
+            >Off
           </button>
           <button
+            aria-describedby="transcript-title"
             mat-menu-item
             (click)="
               onChangeTranscriptPosition($event, tanscriptPositionENUM.LEFT)
             "
+            i18n="@@viewerControlsTranscriptLeftLabel"
           >
             <mat-icon
               svgIcon="{{
                 transcriptPosition === tanscriptPositionENUM.LEFT ? 'check' : ''
               }}"
             ></mat-icon
-            >Links
+            >Left
           </button>
           <button
+            aria-describedby="transcript-title"
             mat-menu-item
             (click)="
               onChangeTranscriptPosition($event, tanscriptPositionENUM.RIGHT)
             "
+            i18n="@@viewerControlsTranscriptRightLabel"
           >
             <mat-icon
               svgIcon="{{
@@ -261,14 +290,16 @@
                   : ''
               }}"
             ></mat-icon
-            >Rechts
+            >Right
           </button>
           <button
+            aria-describedby="transcript-title"
             mat-menu-item
             class="simple-button"
             (click)="onOpenTranscriptSettingsDialog($event)"
+            i18n="@@viewerControlsTranscriptSettingsLabel"
           >
-            Einstellungen
+            Settings
           </button></ng-container
         >
       </div>
@@ -283,11 +314,18 @@
   <div class="menu-wrapper">
     <div class="menu-column">
       <div class="menu-section">
-        <span class="section-title">Videos</span>
+        <span
+          id="videos-title"
+          class="section-title"
+          i18n="@@viewerControlsTranscriptVideosTitle"
+        >
+          Videos</span
+        >
         <ng-container *ngrxLet="vViewerVideos$ as videos">
           <ng-container *ngrxLet="bigVideo$ as bigVideo">
             @for (video of videos; track video) {
             <div
+              aria-describedby="videos-title"
               class="mat-menu-item-wrapper"
               mat-menu-item
               (click)="onClickToggleVideoShown($event, video, bigVideo, videos)"
@@ -321,36 +359,63 @@
   <div class="menu-wrapper">
     <div class="menu-column">
       <div class="menu-section">
-        <span class="section-title">Darkmode</span>
+        <span
+          id="darkmode-title"
+          class="section-title"
+          i18n="@@viewerControlsDarkmodeTitle"
+          >Darkmode</span
+        >
         <ng-container *ngrxLet="darkMode$ as darkMode">
-          <button mat-menu-item>
-            <mat-icon svgIcon="{{ false ? 'check' : '' }}"></mat-icon
-            >Automatisch
+          <button
+            mat-menu-item
+            i18n="@@viewerControlsDarkmodeAutoLabel"
+            aria-describedby="darkmode-title"
+          >
+            <mat-icon svgIcon="{{ false ? 'check' : '' }}"></mat-icon>Automatic
           </button>
           <button
             mat-menu-item
             (click)="onToggleDarkmode($event, darkMode, false)"
+            i18n="@@viewerControlsDarkmodeLight"
+            aria-describedby="darkmode-title"
           >
-            <mat-icon svgIcon="{{ !darkMode ? 'check' : '' }}"></mat-icon>Hell
+            <mat-icon svgIcon="{{ !darkMode ? 'check' : '' }}"></mat-icon>Light
           </button>
           <button
             mat-menu-item
             (click)="onToggleDarkmode($event, darkMode, true)"
+            i18n="@@viewerControlsTranscriptDarkLabel"
+            aria-describedby="darkmode-title"
           >
-            <mat-icon svgIcon="{{ darkMode ? 'check' : '' }}"></mat-icon>Dunkel
+            <mat-icon svgIcon="{{ darkMode ? 'check' : '' }}"></mat-icon>Dark
           </button>
         </ng-container>
       </div>
       <div class="menu-section">
-        <button mat-menu-item class="simple-button">Help</button>
+        <button
+          mat-menu-item
+          class="simple-button"
+          i18n="@@viewerControlsHelpLabel"
+        >
+          Help
+        </button>
       </div>
     </div>
     <div class="menu-column">
       <div class="menu-section">
-        <span class="section-title">Wiedergabegeschwindigkeit</span>
+        <span
+          id="playbackspeed-title"
+          class="section-title"
+          i18n="@@viewerControlsPlaybackspeedTitle"
+          >Playbackspeed</span
+        >
         <ng-container *ngrxLet="currentSpeed$ as currentSpeed">
           @for (speed of [0.25, 0.5, 0.75, 1, 1.25, 1.5,1.75, 2]; track speed) {
-          <button mat-menu-item (click)="changePlaybackSpeed($event, speed)">
+          <button
+            mat-menu-item
+            (click)="changePlaybackSpeed($event, speed)"
+            aria-describedby="playbackspeed-title"
+          >
             <mat-icon
               svgIcon="{{ currentSpeed === speed ? 'check' : '' }}"
             ></mat-icon>

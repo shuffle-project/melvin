@@ -67,6 +67,7 @@ export class ViewerService {
     this.projectId = projectId;
     this.audio = audioElement;
 
+    // TODO take until destory
     this.loadCurrentTimeFromStorage();
     this.play$.subscribe(() => this.isPlaying$.next(true));
     this.pause$.subscribe(() => this.isPlaying$.next(false));

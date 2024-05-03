@@ -33,6 +33,7 @@ export enum SizeOptions {
   P120 = '120',
   P140 = '140',
   P160 = '160',
+  P200 = '200',
 }
 
 export enum CaptionPositionOptions {

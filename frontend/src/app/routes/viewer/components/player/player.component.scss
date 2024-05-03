@@ -35,6 +35,9 @@
   }
 
   .inner-resizer-wrapper {
+    outline-width: 2px;
+    outline-offset: -1px;
+
     .inner-resizer {
       display: flex;
       align-items: center;
@@ -43,12 +46,16 @@
 
       align-self: center;
 
-      padding-left: 3px;
-      padding-right: 3px;
-      margin-left: 1px;
-      margin-right: 1px;
+      width: 1.375rem;
+      margin-inline: 1px;
+      box-sizing: border-box;
+      padding-inline: 0.1875rem;
 
-      width: 5px;
+      // width: 5px;
+      // padding-left: 3px;
+      // padding-right: 3px;
+      // margin-left: 1px;
+      // margin-right: 1px;
 
       background-color: var(--color-background-grey);
 
