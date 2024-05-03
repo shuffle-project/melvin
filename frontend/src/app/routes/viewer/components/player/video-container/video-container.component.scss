@@ -8,7 +8,7 @@ video {
   width: 100%;
   max-width: 100%;
   height: fit-content;
-  border-radius: 6px;
+  // border-radius: 6px;
 }
 
 .main-video {
@@ -43,7 +43,7 @@ video {
     width: 100%;
     height: 100%;
 
-    border-radius: 6px;
+    // border-radius: 6px;
     top: 0;
     display: flex;
     flex-direction: column;
@@ -53,8 +53,7 @@ video {
     background: rgba($color: black, $alpha: 0.7); // TODO invert in dark mode?
 
     .title {
-      // color: var(--color-white);
-      color: white;
+      color: white; // TODO invert in dark mode?
       max-height: 50%;
       height: 50%;
       text-align: center;
@@ -63,14 +62,25 @@ video {
       display: flex;
       justify-content: center;
       align-items: center;
+      mat-icon {
+        margin-right: 0.25rem;
+        fill: white; // TODO invert in dark mode?
+      }
     }
 
     button {
       justify-self: flex-end;
-      width: 96%;
+      // width: 96%;
+      // max-width: 70px;
       margin-top: 2px;
       color: var(--color-black);
       background-color: var(--color-white);
+
+      &:focus-visible {
+        outline-offset: 3px;
+        outline: 2px solid var(--color-white);
+        // background-color: red;
+      }
     }
   }
 

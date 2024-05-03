@@ -39,16 +39,20 @@
   }
 }
 
+.overlay-hidden {
+  cursor: none !important;
+}
+
 .content {
   box-sizing: border-box;
   // display: flex;
   // flex-direction: column;
   // justify-content: stretch;
   width: 100%;
-  padding: 5px;
+  // padding: 5px;
   // height: ;
-  background-color: var(--color-background-grey);
-  height: calc(100% - 60px); // header is 60px
+  // background-color: var(--color-background-grey);
+  height: 100%; // header is 60px
   // max-height: calc(100vh - 60px);
 
   &.fullscreen-active {
@@ -69,9 +73,39 @@
     .player {
       width: 70%;
       height: 100%;
+      position: relative;
+
+      &.transcript-visible {
+        width: 70%;
+      }
 
       &.transcript-hidden {
         width: 100%;
+      }
+
+      .title-wrapper {
+        position: absolute;
+        z-index: 10;
+        width: 100%;
+        background: var(--color-white);
+        top: 0;
+
+        display: flex;
+        gap: 5px;
+        justify-content: space-between;
+
+        h1,
+        app-logo {
+          margin: 15px;
+        }
+      }
+
+      .controls-wrapper {
+        position: absolute;
+        z-index: 10;
+        width: 100%;
+        background: var(--color-white);
+        bottom: 0;
       }
     }
 
@@ -80,9 +114,16 @@
 
       width: 30%;
       min-width: 300px;
-      max-width: 600px;
+      // max-width: 600px;
 
       max-height: 100%;
+
+      &.left {
+        border-right: 1px solid var(--color-border-grey);
+      }
+      &.right {
+        border-left: 1px solid var(--color-border-grey);
+      }
     }
   }
 
@@ -90,13 +131,13 @@
 }
 
 ::ng-deep .box {
-  margin: 5px;
+  // margin: 5px;
   padding: 7px;
 
   background-color: var(--color-white);
   box-shadow: none;
-  border: 1px solid var(--color-border-grey);
-  border-radius: 5px;
+  // border: 1px solid var(--color-border-grey);
+  // border-radius: 5px;
 
   &:has(video) {
     padding: 0px;

@@ -11,15 +11,19 @@ import { LetDirective, PushPipe } from '@ngrx/component';
 import { Store } from '@ngrx/store';
 import { combineLatest, map } from 'rxjs';
 import { DurationPipe } from '../../../../../pipes/duration-pipe/duration.pipe';
-import { MediaCategory } from '../../../../../services/api/entities/project.entity';
 import { TranscriptionEntity } from '../../../../../services/api/entities/transcription.entity';
+import { toggleDarkModeFromViewer } from '../../../../../store/actions/config.actions';
 import * as viewerActions from '../../../../../store/actions/viewer.actions';
 import { AppState } from '../../../../../store/app.state';
+import * as configSelector from '../../../../../store/selectors/config.selector';
 import * as viewerSelector from '../../../../../store/selectors/viewer.selector';
-import { ViewerService } from '../../../../viewer/viewer.service';
+import { OverlayService } from '../../../services/overlay.service';
+import { ViewerService } from '../../../services/viewer.service';
+import { TranscriptPosition } from '../../../viewer.interfaces';
+import { AdjustLayoutDialogComponent } from '../../adjust-layout-dialog/adjust-layout-dialog.component';
 import { CaptionsSettingsDialogComponent } from '../../captions-settings-dialog/captions-settings-dialog.component';
+import { HelpDialogComponent } from '../../help-dialog/help-dialog.component';
 import { ViewerVideo } from '../player.component';
-
 @Component({
   selector: 'app-controls',
   templateUrl: './controls.component.html',
@@ -40,31 +44,30 @@ import { ViewerVideo } from '../player.component';
   ],
 })
 export class ControlsComponent {
+  public tanscriptPositionENUM = TranscriptPosition;
+
   public volume$ = this.store.select(viewerSelector.vVolume);
   public currentSpeed$ = this.store.select(viewerSelector.vCurrentSpeed);
+  public darkMode$ = this.store.select(configSelector.darkMode);
   public subtitlesEnabledInVideo$ = this.store.select(
     viewerSelector.vSubtitlesEnabled
   );
-
   public transcriptions$ = combineLatest([
     this.store.select(viewerSelector.vTranscriptions),
     this.store.select(viewerSelector.vTranscriptionId),
   ]).pipe(map(([list, selectedId]) => ({ list, selectedId })));
-
-  public smallVideos$ = this.store.select(viewerSelector.vSmallVideos);
-  signLanguageAvailable$ = this.smallVideos$.pipe(
-    map((smallVideos) => {
-      const signLanguageVideos = smallVideos.findIndex(
-        (element) => element.category === MediaCategory.SIGN_LANGUAGE
-      );
-      return signLanguageVideos < 0 ? false : true;
-    })
+  public transcriptPosition$ = this.store.select(
+    viewerSelector.vTranscriptPosition
   );
+  public bigVideo$ = this.store.select(viewerSelector.vBigVideo);
+
+  public vViewerVideos$ = this.store.select(viewerSelector.vViewerVideos);
 
   constructor(
     private store: Store<AppState>,
     public viewerService: ViewerService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    public overlayService: OverlayService
   ) {}
 
   sliderLabelVolume(value: number): string {
@@ -98,45 +101,59 @@ export class ControlsComponent {
     );
   }
 
-  onToggleShowTranscript() {
-    this.store.dispatch(viewerActions.toggleTranscript());
-  }
-
-  onTurnOffCaptions(subtitlesEnabledInVideo: boolean) {
-    // disable captions in video
-    if (subtitlesEnabledInVideo) {
-      this.store.dispatch(viewerActions.toggleSubtitles());
-    }
-  }
-
-  onChangeTranscription(
-    transcription: TranscriptionEntity,
-    subtitlesEnabledInVideo: boolean
+  onChangeTranscriptPosition(
+    event: Event,
+    transcriptPosition: TranscriptPosition
   ) {
-    // enable captions in video
-    if (!subtitlesEnabledInVideo) {
+    event.stopPropagation();
+
+    this.store.dispatch(
+      viewerActions.changeTranscriptPosition({ transcriptPosition })
+    );
+  }
+
+  onChangeCaptions(event: Event, switchTo: boolean, switchFrom: boolean) {
+    event.stopPropagation();
+
+    if (switchTo !== switchFrom) {
       this.store.dispatch(viewerActions.toggleSubtitles());
     }
+  }
+
+  onChangeTranscription(event: Event, transcription: TranscriptionEntity) {
+    event.stopPropagation();
 
     this.store.dispatch(
       viewerActions.changeTranscriptionId({ transcriptionId: transcription.id })
     );
   }
 
-  onOpenCaptionsSettingsDialog() {
+  onOpenCaptionsSettingsDialog(event: Event) {
+    event.stopPropagation();
+
     this.viewerService.audio?.pause();
     // TODO do we want to play after closing the dialog??
     this.dialog.open(CaptionsSettingsDialogComponent);
   }
 
-  // decreasePlaybackSpeed(currentSpeed: number) {
-  //   if (currentSpeed > 0.25) this.changePlaybackSpeed((currentSpeed -= 0.25));
-  // }
-  // increasePlaybackSpeed(currentSpeed: number) {
-  //   if (currentSpeed < 3) this.changePlaybackSpeed((currentSpeed += 0.25));
-  // }
+  onOpenTranscriptSettingsDialog(event: Event) {
+    event.stopPropagation();
 
-  changePlaybackSpeed(newSpeed: number) {
+    this.viewerService.audio?.pause();
+    // TODO do we want to play after closing the dialog??
+    this.dialog.open(AdjustLayoutDialogComponent);
+  }
+
+  onOpenHelpDialog(event: Event) {
+    event.stopPropagation();
+
+    this.viewerService.audio?.pause();
+    this.dialog.open(HelpDialogComponent);
+  }
+
+  changePlaybackSpeed(event: Event, newSpeed: number) {
+    event.stopPropagation();
+
     this.store.dispatch(viewerActions.changeSpeed({ newSpeed }));
   }
 
@@ -150,14 +167,63 @@ export class ControlsComponent {
     this.store.dispatch(viewerActions.toggleSignLanguageVideos());
   }
 
-  onClickToggleVideoShown(event: MouseEvent, video: ViewerVideo) {
-    this.store.dispatch(viewerActions.toggleShowVideo({ id: video.id }));
+  onClickToggleVideoShown(
+    event: MouseEvent,
+    video: ViewerVideo,
+    bigVideoId: ViewerVideo | undefined,
+    videos: ViewerVideo[]
+  ) {
+    this._toggleShowVideo(bigVideoId, video, videos);
     event.stopPropagation();
   }
 
-  onKeypressToggleVideoShown(event: KeyboardEvent, video: ViewerVideo) {
-    console.log(event.key);
-    if (event.key === 'Enter' || event.key === ' ')
-      this.store.dispatch(viewerActions.toggleShowVideo({ id: video.id }));
+  onKeypressToggleVideoShown(
+    event: KeyboardEvent,
+    video: ViewerVideo,
+    bigVideoId: ViewerVideo | undefined,
+    videos: ViewerVideo[]
+  ) {
+    if (event.key === 'Enter' || event.key === ' ') {
+      this._toggleShowVideo(bigVideoId, video, videos);
+    }
+  }
+
+  private _toggleShowVideo(
+    bigVideoId: ViewerVideo | undefined,
+    video: ViewerVideo,
+    videos: ViewerVideo[]
+  ) {
+    if (bigVideoId?.id === video.id) {
+      const makeNewBig = videos.find(
+        (video) => video.shown && video.id !== bigVideoId.id
+      );
+      if (makeNewBig) {
+        this.store.dispatch(
+          viewerActions.switchToNewBigVideo({ newBigVideoId: makeNewBig.id })
+        );
+      }
+    }
+
+    this.store.dispatch(viewerActions.toggleShowVideo({ id: video.id }));
+  }
+
+  onToggleDarkmode(
+    event: Event,
+    darkModeCurrent: boolean,
+    darkModeNew: boolean
+  ) {
+    event.stopPropagation();
+
+    if (darkModeCurrent !== darkModeNew) {
+      this.store.dispatch(toggleDarkModeFromViewer());
+    }
+  }
+
+  onMenuOpened() {
+    this.overlayService.menuOpen$.next(true);
+  }
+
+  onMenuClosed() {
+    this.overlayService.menuOpen$.next(false);
   }
 }

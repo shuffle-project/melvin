@@ -9,11 +9,13 @@
     #viewerVideo
     title="{{ video.title }}"
     class="{{ size === 'small' ? 'secondary-video' : 'main-video' }}"
+    tabindex="{{ size === 'big' ? 0 : -1 }}"
     [muted]="true"
     [playbackRate]="currentSpeed$ | ngrxPush"
     (loadedmetadata)="onVideoLoadMetadata($event)"
     (click)="onClickVideo()"
     (dblclick)="onDblClickVideo()"
+    (keydown)="onKeyDownVideo($event)"
   >
     <source src="{{ video.url }}" type="video/mp4" />
   </video>
@@ -21,19 +23,21 @@
   <div class="video-overlay">
     <div class="title">
       @if (video.category === 'sign_language') {
-      <mat-icon svgIcon="sign_language" class="svg-white"></mat-icon>
+      <mat-icon svgIcon="sign_language"></mat-icon>
       }
       {{ video.title }}
     </div>
     <button
+      class="switch-button"
       mat-stroked-button
       color="basic"
       (click)="onChangeMainVideo()"
       tabindex="0"
       i18n="@@viewerVideoContainerToMainview"
       attr.aria-label="Move video '{{ video.title }}' to main view"
+      i18n-attr.aria-label="@@viewerVideoContainerMoveToMainviewAriaLabel"
     >
-      Move video to main view
+      Switch
     </button>
   </div>
   }

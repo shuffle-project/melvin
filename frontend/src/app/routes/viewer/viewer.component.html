@@ -1,30 +1,3 @@
-@if (!isFullscreenActive()) {
-<app-header [viewer]="true">
-  <span class="project-title" #projectTitle *ngrxLet="project$ as project">
-    {{ project?.title }}
-  </span>
-  <div class="viewer-header-buttons">
-    <!-- <button mat-stroked-button i18n="@@viewerHeaderHelpLabel">Help</button> -->
-    <button
-      mat-stroked-button
-      (click)="onOpenAdjustLayoutDialog()"
-      i18n="@@viewerHeaderHeaderAdjustLayout"
-    >
-      Adjust Layout
-    </button>
-    <!-- //TODO -->
-    <!-- <div class="dark-mode-wrapper" *ngrxLet="darkMode$ as darkMode">
-      <mat-icon svgIcon="light_mode" class="svg-black"></mat-icon>
-      <mat-slide-toggle
-        [checked]="darkMode"
-        (toggleChange)="onToggleChange()"
-      ></mat-slide-toggle>
-      <mat-icon svgIcon="dark_mode" class="svg-black"></mat-icon>
-    </div> -->
-  </div>
-</app-header>
-}
-
 <ng-container *ngrxLet="selectLoading$ as selectLoading">
   <ng-container *ngrxLet="viewerError$ as viewerError">
     @if (selectLoading) {
@@ -35,62 +8,78 @@
 
     }@else if (viewerError) {
     <section class="login-error">
-      <h2>Fehler</h2>
-      <p class="error-message">
-        Das Projekt ist nicht mehr unter diesem Link verfügbar. Möglicherweise
-        wurde der Zugriffslink geändert oder das Projekt existiert nicht mehr.
+      <h2 i18n="@@viewerErrorTitle">Error while loading the project</h2>
+      <p class="error-message" i18n="@@viewerErrorDescription">
+        The project is no longer available under this link. The access link may
+        have been changed or the project may no longer exist.
       </p>
 
       <div class="error-buttons">
         <!-- TODO -->
-        <button mat-stroked-button>zum Login??</button>
+        <!-- <button mat-stroked-button>zum Login??</button>
         <button mat-stroked-button>
           zur Projektliste ? (anzeigen wenn eingeloggt?)
         </button>
 
-        <button mat-stroked-button>Try Again??</button>
+        <button mat-stroked-button>Try Again??</button> -->
       </div>
     </section>
     }@else {
 
     <section
-      class="content {{ isFullscreenActive() ? 'fullscreen-active' : '' }}"
+      class="content {{
+        overlayService.showOverlay ? 'overlay-visible' : 'overlay-hidden'
+      }} {{ isFullscreenActive() ? 'fullscreen-active' : '' }}"
       *ngrxLet="project$ as project"
     >
       <ng-container *ngrxLet="media$ as media">
         @if (project && media) {
-        <ng-container *ngrxLet="layoutSettings$ as layout">
-          <div class="default-main-content horizontal">
-            @if ( layout.transcriptEnabled && layout.transcriptPosition ===
-            'left' ) {
-            <div class="transcript">
+
+        <ng-container *ngrxLet="transcriptPosition$ as transcriptPosition">
+          <div class="default-main-content">
+            @if ( transcriptPosition === 'left' ) {
+            <div class="transcript left">
               <app-transcript></app-transcript>
             </div>
             }
             <div
               class="player {{
-                layout.transcriptEnabled
-                  ? 'transcript-enabled'
-                  : 'transcript-hidden'
-              }}"
+                transcriptPosition === 'off'
+                  ? 'transcript-hidden'
+                  : 'transcript-visible'
+              }} "
             >
+              <div
+                #titleoverlay
+                class="title-wrapper overlay"
+                [@fade]="overlayService.showOverlay ? 'show' : 'hide'"
+              >
+                <h1>
+                  {{ project?.title }}
+                </h1>
+                <app-logo
+                  class="clickable"
+                  [routerLink]="['']"
+                  aria-label="Melvin Logo, to main webpage"
+                  i18n-aria-label="@@viewerLogoAriaLabel"
+                />
+              </div>
               <app-player [project]="project!" [media]="media!"></app-player>
+
+              <div
+                #controlsoverlay
+                class="controls-wrapper overlay"
+                [@fade]="overlayService.showOverlay ? 'show' : 'hide'"
+              >
+                <app-controls> </app-controls>
+              </div>
             </div>
-            @if ( layout.transcriptEnabled && layout.transcriptPosition ===
-            'right' ) {
-            <div class="transcript">
+            @if ( transcriptPosition === 'right' ) {
+            <div class="transcript right">
               <app-transcript></app-transcript>
             </div>
             }
-            <!-- <app-transcript
-        *ngIf="
-        layout.transcriptEnabled && layout.transcriptPosition === 'bottom'
-        "
-      ></app-transcript> -->
           </div>
-          @if (!isFullscreenActive()) {
-          <!-- <app-infobox [project]="project!"></app-infobox> -->
-          }
         </ng-container>
         }
       </ng-container>

@@ -1,4 +1,5 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
+import { TranscriptPosition } from '../../routes/viewer/viewer.interfaces';
 import { ViewerState } from '../reducers/viewer.reducer';
 
 export const selectViewerState = createFeatureSelector<ViewerState>('viewer');
@@ -88,7 +89,7 @@ export const vCaptions = createSelector(
 export const vTranscriptEnabled = createSelector(
   selectViewerState,
   (state: ViewerState) => {
-    return state.transcriptEnabled;
+    return state.transcriptPosition !== TranscriptPosition.OFF;
   }
 );
 export const vTranscriptFontsize = createSelector(
@@ -139,17 +140,17 @@ export const vCaptionPosition = createSelector(
   }
 );
 
+export const vViewerVideos = createSelector(
+  selectViewerState,
+  (state: ViewerState) => {
+    return state.viewerVideos;
+  }
+);
+
 export const vBigVideo = createSelector(
   selectViewerState,
   (state: ViewerState) => {
     return state.viewerVideos.find((video) => video.id === state.bigVideoId);
-  }
-);
-
-export const vSmallVideos = createSelector(
-  selectViewerState,
-  (state: ViewerState) => {
-    return state.viewerVideos?.filter((video) => video.id !== state.bigVideoId);
   }
 );
 

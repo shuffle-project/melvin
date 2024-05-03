@@ -18,7 +18,7 @@ import { Subject, fromEvent, merge, takeUntil, tap } from 'rxjs';
 import { switchToNewBigVideo } from '../../../../../store/actions/viewer.actions';
 import { AppState } from '../../../../../store/app.state';
 import * as viewerSelector from '../../../../../store/selectors/viewer.selector';
-import { ViewerService } from '../../../../viewer/viewer.service';
+import { ViewerService } from '../../../services/viewer.service';
 import { ViewerVideo } from '../player.component';
 
 @Component({
@@ -79,6 +79,40 @@ export class VideoContainerComponent implements OnDestroy, OnChanges {
   onDblClickVideo() {
     if (this.size === 'big') {
       this.viewerService.onRequestFullscreen();
+    }
+  }
+
+  onKeyDownVideo(event: KeyboardEvent) {
+    if (this.size === 'big' && this.viewerService.audio) {
+      switch (event.key) {
+        case ' ':
+          if (this.viewerService.audio.paused) {
+            this.viewerService.audio.play();
+          } else {
+            this.viewerService.audio.pause();
+          }
+          break;
+        // case 'ArrowRight':
+        //   if (
+        //     this.viewerService.audio.currentTime + 3000 <
+        //     this.viewerService.audio.duration
+        //   )
+        //     this.viewerService.audio.currentTime += 3000;
+        //   break;
+        // case 'ArrowLeft':
+        //   if (this.viewerService.audio.currentTime - 3000 > 0)
+        //     this.viewerService.audio.currentTime -= 3000;
+
+        //   break;
+        // case 'ArrowUp':
+        //   if (this.viewerService.audio.volume < 1)
+        //     this.viewerService.audio.volume += 0.1;
+        //   break;
+        // case 'ArrowDown':
+        //   if (this.viewerService.audio.volume > 0)
+        //     this.viewerService.audio.volume -= 0.1;
+        //   break;
+      }
     }
   }
 

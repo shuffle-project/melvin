@@ -6,11 +6,7 @@ import {
 } from '../../services/api/entities/config.entity';
 import { StorageKey } from '../../services/storage/storage-key.enum';
 import { StorageService } from '../../services/storage/storage.service';
-import {
-  changeLanguage,
-  fetchSuccess,
-  toggleDarkMode,
-} from '../actions/config.actions';
+import * as configActions from '../actions/config.actions';
 
 const storage = new StorageService();
 
@@ -45,19 +41,23 @@ export const initialState: ConfigState = {
 
 export const configReducer = createReducer(
   initialState,
-  on(fetchSuccess, (state, action) => ({
+  on(configActions.fetchSuccess, (state, action) => ({
     ...state,
     translationServices: action.configEntity.translationServices,
     asrServices: action.configEntity.asrServices,
     languages: action.configEntity.languages,
   })),
 
-  on(toggleDarkMode, (state) => ({
-    ...state,
-    darkMode: !state.darkMode,
-  })),
+  on(
+    configActions.toggleDarkMode,
+    configActions.toggleDarkModeFromViewer,
+    (state) => ({
+      ...state,
+      darkMode: !state.darkMode,
+    })
+  ),
 
-  on(changeLanguage, (state, { language }) => ({
+  on(configActions.changeLanguage, (state, { language }) => ({
     ...state,
     language,
   }))

@@ -83,14 +83,6 @@ export class AdjustLayoutDialogComponent {
     );
   }
 
-  onTranscriptEnabledChanged(event: MatSlideToggleChange) {
-    this.store.dispatch(
-      viewerActions.changeTranscriptEnabled({
-        transcriptEnabled: event.checked,
-      })
-    );
-  }
-
   onTranscriptOnlyModeChanged(event: MatSlideToggleChange) {
     this.store.dispatch(viewerActions.toggleTranscriptOnlyMode());
   }

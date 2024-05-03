@@ -35,8 +35,8 @@
         <target state="final">Projekt Status</target>
       </trans-unit>
       <trans-unit id="projectListCreateProjectButtonLabel" datatype="html">
-        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;more&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/> New project </source>
-        <target state="final"> <x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;more&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/> Neues Projekt  </target>
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;plus&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/> New project </source>
+        <target state="final"> <x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;plus&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/> Neues Projekt</target>
       </trans-unit>
       <trans-unit id="projectListTableHeaderTitleLabel" datatype="html">
         <source> Title </source>
@@ -730,14 +730,6 @@
         <source>Subtitle Language</source>
         <target state="final">Untertitelsprache</target>
       </trans-unit>
-      <trans-unit id="sourceFormVideoToggleButton" datatype="html">
-        <source>Upload video or audio files </source>
-        <target state="final"> Video- oder Audiodatei hochladen</target>
-      </trans-unit>
-      <trans-unit id="sourceFormLiveToggleButton" datatype="html">
-        <source> Connect to livestream </source>
-        <target state="final"> Mit Livestream verbinden</target>
-      </trans-unit>
       <trans-unit id="sourceFormTooManyVideosError" datatype="html">
         <source> A maximum of one video or audio file may be uploaded </source>
         <target state="final"> Es kann maximal eine Video- oder Audiodatei hochgeladen werden </target>
@@ -802,10 +794,6 @@
         <source>Loop this caption.</source>
         <target state="final">Wiederholen dieser Caption.</target>
       </trans-unit>
-      <trans-unit id="viewerHeaderHeaderAdjustLayout" datatype="html">
-        <source> Adjust Layout </source>
-        <target state="final"> Layout anpassen </target>
-      </trans-unit>
       <trans-unit id="viewerAdjustLayoutDialogTitle" datatype="html">
         <source>Adjust Layout</source>
         <target state="final">Layout anpassen</target>
@@ -818,21 +806,9 @@
         <source>Transcript</source>
         <target state="final">Transkript</target>
       </trans-unit>
-      <trans-unit id="viewerAdjustLayoutDialogTranscriptToggleLabel" datatype="html">
-        <source> Show transcript</source>
-        <target state="final"> Transkript anzeigen</target>
-      </trans-unit>
       <trans-unit id="viewerAdjustLayoutDialogFontsizeLabel" datatype="html">
         <source>Font Size</source>
         <target state="final">Schriftgröße</target>
-      </trans-unit>
-      <trans-unit id="viewerAdjustLayoutDialogTranscriptPositionLeft" datatype="html">
-        <source> Transcript left </source>
-        <target state="final"> Transkript links </target>
-      </trans-unit>
-      <trans-unit id="viewerAdjustLayoutDialogTranscriptPositionRight" datatype="html">
-        <source> Transcript right </source>
-        <target state="final"> Transkript rechts </target>
       </trans-unit>
       <trans-unit id="viewerCaptionsSettingsDialogTitle" datatype="html">
         <source> Appearance of the captions </source>
@@ -918,14 +894,6 @@
         <source>Video timeline</source>
         <target state="final">Video Zeitleiste</target>
       </trans-unit>
-      <trans-unit id="viewerControlsRewindTooltip" datatype="html">
-        <source>Rewind 10 seconds</source>
-        <target state="final">10 Sekunden zurückspulen</target>
-      </trans-unit>
-      <trans-unit id="viewerControlsforwardTooltip" datatype="html">
-        <source>Fast-forward 10 seconds</source>
-        <target state="final">10 Sekunden vorspulen</target>
-      </trans-unit>
       <trans-unit id="viewerControlsMuteUnmuteTooltip" datatype="html">
         <source>
           <x id="INTERPOLATION" equiv-text="{{ viewerService.audio.muted ? &apos;Unmute sound&apos; : &apos;Mute sound&apos; }}"/>
@@ -938,29 +906,9 @@
         <source>Volume</source>
         <target state="final">Lautstärke</target>
       </trans-unit>
-      <trans-unit id="viewerControlsCaptionMenuTooltip" datatype="html">
-        <source>Captions menu</source>
-        <target state="final">Untertitel Menü</target>
-      </trans-unit>
-      <trans-unit id="viewerControlsTranscriptToggleTooltip" datatype="html">
-        <source>Toggle show/hide transcript</source>
-        <target state="final">Ein/Ausblenden des Trankskripts</target>
-      </trans-unit>
       <trans-unit id="viewerControlsGalleryMenuTooltip" datatype="html">
         <source>Shown video selection</source>
         <target state="final">Gezeigte Videoauswahl</target>
-      </trans-unit>
-      <trans-unit id="viewerControlsPlaybackspeedMenuTooltip" datatype="html">
-        <source>Playbackspeed menu</source>
-        <target state="final">Wiedergabegeschwindigkeits Menü</target>
-      </trans-unit>
-      <trans-unit id="viewerControlsDeactivateCaptionsLabel" datatype="html">
-        <source>Deactivate</source>
-        <target state="final">Deaktivieren</target>
-      </trans-unit>
-      <trans-unit id="viewerControlsOpenSettingsDialogLabel" datatype="html">
-        <source>Settings</source>
-        <target state="final">Einstellungen</target>
       </trans-unit>
       <trans-unit id="headerToggleActivateDarkmode" datatype="html">
         <source>Activate darkmode</source>
@@ -971,8 +919,8 @@
         <target state="final">Fehler bei der Projekterstellung: <x id="INTERPOLATION" equiv-text="{{ error.error.message }}"/></target>
       </trans-unit>
       <trans-unit id="viewerVideoContainerToMainview" datatype="html">
-        <source> Move video to main view </source>
-        <target state="final"> Video in der Hauptanzeige anzeigen </target>
+        <source> Switch </source>
+        <target state="final"> Wechseln </target>
       </trans-unit>
       <trans-unit id="playerTranscriptHeader" datatype="html">
         <source>Transcript</source>
@@ -983,8 +931,8 @@
         <target state="final">Suche</target>
       </trans-unit>
       <trans-unit id="playerTranscriptAutomaticScrollLabel" datatype="html">
-        <source> Scroll automatically </source>
-        <target state="final"> Automatisch mitscrollen </target>
+        <source> Automatic scrolling </source>
+        <target state="new"> Automatisch mitscrollen </target>
       </trans-unit>
       <trans-unit id="shareProjectAddMemberLabel" datatype="html">
         <source>Add team member</source>
@@ -1076,7 +1024,7 @@
       </trans-unit>
       <trans-unit id="projectListOpenViewerAriaLabel" datatype="html">
         <source>Open Viewer in new Tab</source>
-        <target state="new">Open Viewer in new Tab</target>
+        <target state="final">Viewer in neuem Tab öffnen</target>
       </trans-unit>
       <trans-unit id="loginPasswordErrorRequired" datatype="html">
         <source> Password is required </source>
@@ -1084,7 +1032,7 @@
       </trans-unit>
       <trans-unit id="registerNameErrorRequired" datatype="html">
         <source> Name is required </source>
-        <target state="new"> Name benötigt </target>
+        <target state="final"> Name benötigt </target>
       </trans-unit>
       <trans-unit id="registerEmailErrorNotValid" datatype="html">
         <source>Email address is not valid</source>
@@ -1108,7 +1056,7 @@
       </trans-unit>
       <trans-unit id="registerPasswordRepeatErrorRequired" datatype="html">
         <source>Password (repeat) is required</source>
-        <target state="new">Passwort (Wiederholung) benötigt</target>
+        <target state="final">Passwort (Wiederholung) benötigt</target>
       </trans-unit>
       <trans-unit id="registerPasswordsNotMatch" datatype="html">
         <source>Passwords do not match</source>
@@ -1143,8 +1091,8 @@
         <target state="final"> Video-Datei wird benötigt </target>
       </trans-unit>
       <trans-unit id="createTranscriptionDialogTabUploadLabel" datatype="html">
-        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="b-icon&quot; /&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="/ng-template&gt;"/> Upload </source>
-        <target state="final"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="ck&quot; /&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="/ng-template&gt;"/> Hochladen </target>
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="/ng-template&gt;"/> Upload </source>
+        <target state="final"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="/ng-template&gt;"/> Hochladen </target>
       </trans-unit>
       <trans-unit id="uploadFilesFormRemoveFileAriaLabel" datatype="html">
         <source>Remove file</source>
@@ -1260,7 +1208,7 @@
       </trans-unit>
       <trans-unit id="translateTranscriptionTabLanguageErrorRequired" datatype="html">
         <source>Select a language </source>
-        <target state="new">Sprache wird benötigt</target>
+        <target state="final">Sprachauswahl wird benötigt</target>
       </trans-unit>
       <trans-unit id="translateTranscriptionTabTitleLabel" datatype="html">
         <source>Title</source>
@@ -1307,16 +1255,16 @@
         <target state="final"> Eine Transkriptions-Datei (.vtt / .srt) wird benötigt</target>
       </trans-unit>
       <trans-unit id="createTranscriptionDialogTabCopyLabel" datatype="html">
-        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="ck tab-icon&quot; /&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="g-template&gt;"/> Copy </source>
-        <target state="final"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="ck tab-icon&quot; /&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="g-template&gt;"/> Kopieren </target>
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="n&quot; /&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="g-template&gt;"/> Copy </source>
+        <target state="final"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="n&quot; /&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="g-template&gt;"/> Kopieren </target>
       </trans-unit>
       <trans-unit id="createTranscriptionDialogTabTranslateLabel" datatype="html">
-        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="b-icon&quot; /&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/ng-template&gt;"/> Translate </source>
-        <target state="final"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="b-icon&quot; /&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/ng-template&gt;"/> Übersetzen </target>
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/ng-template&gt;"/> Translate </source>
+        <target state="final"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/ng-template&gt;"/> Übersetzen </target>
       </trans-unit>
       <trans-unit id="createTranscriptionDialogTabFromMediaLabel" datatype="html">
-        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="on&quot; /&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/ng-template&gt;"/> From Media </source>
-        <target state="final"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="on&quot; /&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/ng-template&gt;"/> Aus Medien </target>
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/ng-template&gt;"/> From Media </source>
+        <target state="final"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/ng-template&gt;"/> From Media </target>
       </trans-unit>
       <trans-unit id="createTranscriptionDialogSubmitButtonLabel" datatype="html">
         <source> Create transcription </source>
@@ -1327,16 +1275,12 @@
         <target state="final">Noch nicht bereit</target>
       </trans-unit>
       <trans-unit id="createTranscriptionDialogTabEmptyFileLabel" datatype="html">
-        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&quot; /&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/ng-template&gt;"/> Empty file </source>
-        <target state="final"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&quot; /&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/ng-template&gt;"/> Leere Datei </target>
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/ng-template&gt;"/> Empty file </source>
+        <target state="final"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/ng-template&gt;"/> Leere Datei </target>
       </trans-unit>
       <trans-unit id="metadataFormUserSelection" datatype="html">
         <source>User selection</source>
         <target state="final">Mitglieder auswahl</target>
-      </trans-unit>
-      <trans-unit id="sourceFormToggleButtonAriaLabel" datatype="html">
-        <source>Project source mode</source>
-        <target state="final">Projektquellenmodus</target>
       </trans-unit>
       <trans-unit id="viewerAdjustLayoutDialogCloseButton" datatype="html">
         <source>Close</source>
@@ -1345,14 +1289,6 @@
       <trans-unit id="viewerCaptionsSettingsDialogCloseButton" datatype="html">
         <source>Close</source>
         <target state="final">Schließen</target>
-      </trans-unit>
-      <trans-unit id="viewerControlsPausedInfo" datatype="html">
-        <source>Paused</source>
-        <target state="final">Pausiert</target>
-      </trans-unit>
-      <trans-unit id="viewerControlsStartedInfo" datatype="html">
-        <source>Started</source>
-        <target state="final">Gestartet</target>
       </trans-unit>
       <trans-unit id="playerTranscriptSearchClearButton" datatype="html">
         <source>Clear</source>
@@ -1376,7 +1312,7 @@
       </trans-unit>
       <trans-unit id="deleteConfirmationDialogAreYouSure" datatype="html">
         <source> Are you sure you want to delete this <x id="INTERPOLATION" equiv-text="{{ data.subject }}"/>? </source>
-        <target state="new"> Sind Sie sicher, dass Sie dies löschen möchten? <x id="INTERPOLATION" equiv-text="{{ data.subject }}"/>? </target>
+        <target state="final"> Sind Sie sicher, dass Sie dies löschen möchten? <x id="INTERPOLATION" equiv-text="{{ data.subject }}"/>? </target>
       </trans-unit>
       <trans-unit id="deleteConfirmationDialogAbortButton" datatype="html">
         <source> Abort </source>
@@ -1559,16 +1495,16 @@
         <target state="final"> Hinzufügen </target>
       </trans-unit>
       <trans-unit id="recorderAddAudioSourceRetryBtn" datatype="html">
-        <source> Retry <x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;repeat&quot; class=&quot;svg-black&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/button&gt;"/></source>
-        <target state="final"> Erneut versuchen <x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;repeat&quot; class=&quot;svg-black&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/button&gt;"/></target>
+        <source> Retry <x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;repeat&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/button&gt;"/></source>
+        <target state="final"> Erneut versuchen <x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;repeat&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/button&gt;"/></target>
       </trans-unit>
       <trans-unit id="recorderAddScreensharingTitle" datatype="html">
         <source> Add Screensharing </source>
         <target state="final"> Bildschirmfreigabe hinzufügen </target>
       </trans-unit>
       <trans-unit id="recorderAddScreensharingSelectionError" datatype="html">
-        <source> An error occurred during the selection when sharing the screen. </source>
-        <target state="final"> Bei der Auswahl beim teilen des Bildschirms ist ein Fehler aufgetreten. </target>
+        <source> An error occurred during the selection when sharing the screen. <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br /&gt;"/> Please make sure that your Browser does have the necessary permissions to share the screen. </source>
+        <target state="final"> Bei der Auswahl zur gemeinsamen Nutzung des Bildschirms ist ein Fehler aufgetreten. <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br /&gt;"/> Bitte vergewissern Sie sich, dass Ihr Browser über die erforderlichen Berechtigungen für die Freigabe des Bildschirms verfügt. </target>
       </trans-unit>
       <trans-unit id="recorderAddScreensharingTitleLabel" datatype="html">
         <source>Title</source>
@@ -1607,8 +1543,8 @@
         <target state="final"> Hinzufügen </target>
       </trans-unit>
       <trans-unit id="recorderAddScreensharingRetryBtn" datatype="html">
-        <source> Retry <x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;repeat&quot; class=&quot;svg-black&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/button&gt;"/></source>
-        <target state="final"> Erneut versuchen <x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;repeat&quot; class=&quot;svg-black&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/button&gt;"/></target>
+        <source> Retry <x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;repeat&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/button&gt;"/></source>
+        <target state="final"> Erneut versuchen <x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;repeat&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/button&gt;"/></target>
       </trans-unit>
       <trans-unit id="recorderAddVideoSourceTitle" datatype="html">
         <source>Add Videosource</source>
@@ -1651,8 +1587,112 @@
         <target state="final"> Hinzufügen </target>
       </trans-unit>
       <trans-unit id="recorderAddVideoSourceRetryButton" datatype="html">
-        <source> Retry <x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;repeat&quot; class=&quot;svg-black&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/button&gt;"/></source>
-        <target state="final"> Erneut versuchen <x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;repeat&quot; class=&quot;svg-black&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/button&gt;"/></target>
+        <source> Retry <x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;repeat&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/button&gt;"/></source>
+        <target state="final"> Erneut <x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;repeat&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/button&gt;"/></target>
+      </trans-unit>
+      <trans-unit id="viewerControlsLanguageMenuTooltip" datatype="html">
+        <source>Show language menu</source>
+        <target state="final">Sprachen Menü</target>
+      </trans-unit>
+      <trans-unit id="viewerControlsSettingsMenuTooltip" datatype="html">
+        <source>Settings Menu</source>
+        <target state="final">Einstellungs Menü</target>
+      </trans-unit>
+      <trans-unit id="viewerErrorTitle" datatype="html">
+        <source>Error while loading the project</source>
+        <target state="final">Fehler beim Laden des Projekts</target>
+      </trans-unit>
+      <trans-unit id="viewerErrorDescription" datatype="html">
+        <source> The project is no longer available under this link. The access link may have been changed or the project may no longer exist. </source>
+        <target state="final"> Das Projekt ist unter diesem Link nicht mehr verfügbar. Möglicherweise wurde der Zugangslink geändert oder das Projekt existiert nicht mehr. </target>
+      </trans-unit>
+      <trans-unit id="viewerControlsAudioTitle" datatype="html">
+        <source>Audiolanguage</source>
+        <target state="final">Audiosprache</target>
+      </trans-unit>
+      <trans-unit id="viewerControlsTextlanguageTitle" datatype="html">
+        <source>Textlanguage</source>
+        <target state="final">Textsprache</target>
+      </trans-unit>
+      <trans-unit id="viewerControlsCaptionsTitle" datatype="html">
+        <source>Captions</source>
+        <target state="final">Untertitel</target>
+      </trans-unit>
+      <trans-unit id="viewerControlsCaptionsOffLabel" datatype="html">
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;{{ !subtitlesEnabledInVideo ? &apos;check&apos; : &apos;&apos; }}&quot; &gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon &gt;"/>Off </source>
+        <target state="final"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;{{ !subtitlesEnabledInVideo ? &apos;check&apos; : &apos;&apos; }}&quot; &gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon &gt;"/>Aus </target>
+      </trans-unit>
+      <trans-unit id="viewerControlsCaptionsOnLabel" datatype="html">
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;{{ subtitlesEnabledInVideo ? &apos;check&apos; : &apos;&apos; }}&quot; &gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon &gt;"/>On </source>
+        <target state="final"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;{{ subtitlesEnabledInVideo ? &apos;check&apos; : &apos;&apos; }}&quot; &gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon &gt;"/>An </target>
+      </trans-unit>
+      <trans-unit id="viewerControlsCaptionsSettingsLabel" datatype="html">
+        <source> Settings </source>
+        <target state="final"> Einstellungen </target>
+      </trans-unit>
+      <trans-unit id="viewerControlsTranscriptTitle" datatype="html">
+        <source>Transcript</source>
+        <target state="final">Transkript</target>
+      </trans-unit>
+      <trans-unit id="viewerControlsTranscriptOffLabel" datatype="html">
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;{{ transcriptPosition === tanscriptPositionENUM.OFF ? &apos;check&apos; : &apos;&apos; }}&quot; &gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon &gt;"/>Off </source>
+        <target state="final"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;{{ transcriptPosition === tanscriptPositionENUM.OFF ? &apos;check&apos; : &apos;&apos; }}&quot; &gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon &gt;"/>Aus </target>
+      </trans-unit>
+      <trans-unit id="viewerControlsTranscriptLeftLabel" datatype="html">
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;{{ transcriptPosition === tanscriptPositionENUM.LEFT ? &apos;check&apos; : &apos;&apos; }}&quot; &gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon &gt;"/>Left </source>
+        <target state="final"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;{{ transcriptPosition === tanscriptPositionENUM.LEFT ? &apos;check&apos; : &apos;&apos; }}&quot; &gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon &gt;"/>Links </target>
+      </trans-unit>
+      <trans-unit id="viewerControlsTranscriptRightLabel" datatype="html">
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;{{ transcriptPosition === tanscriptPositionENUM.RIGHT ? &apos;check&apos; : &apos;&apos; }}&quot; &gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon &gt;"/>Right </source>
+        <target state="final"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;{{ transcriptPosition === tanscriptPositionENUM.RIGHT ? &apos;check&apos; : &apos;&apos; }}&quot; &gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon &gt;"/>Rechts </target>
+      </trans-unit>
+      <trans-unit id="viewerControlsTranscriptSettingsLabel" datatype="html">
+        <source> Settings </source>
+        <target state="final"> Einstellungen </target>
+      </trans-unit>
+      <trans-unit id="viewerControlsTranscriptVideosTitle" datatype="html">
+        <source> Videos</source>
+        <target state="final"> Videos</target>
+      </trans-unit>
+      <trans-unit id="viewerControlsDarkmodeTitle" datatype="html">
+        <source>Darkmode</source>
+        <target state="final">Dunkler Modus</target>
+      </trans-unit>
+      <trans-unit id="viewerControlsDarkmodeAutoLabel" datatype="html">
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;{{ false ? &apos;check&apos; : &apos;&apos; }}&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/>Automatic </source>
+        <target state="final"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;{{ false ? &apos;check&apos; : &apos;&apos; }}&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/>Automatisch </target>
+      </trans-unit>
+      <trans-unit id="viewerControlsDarkmodeLight" datatype="html">
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;{{ !darkMode ? &apos;check&apos; : &apos;&apos; }}&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/>Light </source>
+        <target state="final"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;{{ !darkMode ? &apos;check&apos; : &apos;&apos; }}&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/>Hell </target>
+      </trans-unit>
+      <trans-unit id="viewerControlsTranscriptDarkLabel" datatype="html">
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;{{ darkMode ? &apos;check&apos; : &apos;&apos; }}&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/>Dark </source>
+        <target state="final"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;{{ darkMode ? &apos;check&apos; : &apos;&apos; }}&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/>Dunkel </target>
+      </trans-unit>
+      <trans-unit id="viewerControlsHelpLabel" datatype="html">
+        <source> Help </source>
+        <target state="final"> Hilfe </target>
+      </trans-unit>
+      <trans-unit id="viewerControlsPlaybackspeedTitle" datatype="html">
+        <source>Playbackspeed</source>
+        <target state="final">Wiedergabegeschwindigkeit</target>
+      </trans-unit>
+      <trans-unit id="viewerVideoContainerMoveToMainviewAriaLabel" datatype="html">
+        <source>Move video &apos;<x id="INTERPOLATION" equiv-text="{{ video.title }}"/>&apos; to main view</source>
+        <target state="final">Verschhiebe das Video &apos;<x id="INTERPOLATION" equiv-text="{{ video.title }}"/>&apos; zur Hauptansicht</target>
+      </trans-unit>
+      <trans-unit id="transcriptRecentFindAriaLabel" datatype="html">
+        <source>Recent find</source>
+        <target state="final">Vorheriger Fund</target>
+      </trans-unit>
+      <trans-unit id="transcriptNextFindAriaLabel" datatype="html">
+        <source>Next find</source>
+        <target state="final">Nächster Fund</target>
+      </trans-unit>
+      <trans-unit id="viewerLogoAriaLabel" datatype="html">
+        <source>Melvin Logo, to main webpage</source>
+        <target state="final">Melvin Logo, zur hauptwebseite</target>
       </trans-unit>
     </body>
   </file>

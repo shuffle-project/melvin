@@ -18,7 +18,7 @@ import {
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { LetDirective, PushPipe } from '@ngrx/component';
 import { Store } from '@ngrx/store';
-import { Subject, combineLatest, map } from 'rxjs';
+import { Subject, combineLatest, map, withLatestFrom } from 'rxjs';
 import {
   AudioEntity,
   ProjectEntity,
@@ -28,7 +28,8 @@ import {
 import * as viewerActions from '../../../../store/actions/viewer.actions';
 import { AppState } from '../../../../store/app.state';
 import * as viewerSelector from '../../../../store/selectors/viewer.selector';
-import { ViewerService } from '../../../viewer/viewer.service';
+import { OverlayService } from '../../services/overlay.service';
+import { ViewerService } from '../../services/viewer.service';
 import { ControlsComponent } from './controls/controls.component';
 import { VideoContainerComponent } from './video-container/video-container.component';
 
@@ -102,7 +103,13 @@ export class PlayerComponent
   );
 
   public bigVideo$ = this.store.select(viewerSelector.vBigVideo);
-  public smallVideos$ = this.store.select(viewerSelector.vSmallVideos);
+  public smallVideos$ = this.store.select(viewerSelector.vViewerVideos).pipe(
+    withLatestFrom(this.bigVideo$),
+    map(([list, bigVideo]) =>
+      list.filter((video) => video.shown && video.id !== bigVideo?.id)
+    )
+  );
+
   public shownSmallVideos$ = this.smallVideos$.pipe(
     map((list) => list.filter((video) => video.shown))
   );
@@ -120,7 +127,8 @@ export class PlayerComponent
   constructor(
     private store: Store<AppState>,
     public viewerService: ViewerService,
-    private ref: ChangeDetectorRef
+    private ref: ChangeDetectorRef,
+    public overlayService: OverlayService
   ) {
     this.viewerService.isLoading('audio');
   }

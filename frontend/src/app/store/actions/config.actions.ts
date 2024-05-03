@@ -19,6 +19,10 @@ export const toggleDarkMode = createAction(
   '[VIEWER COMPONENT] Toggle DarkMode'
 );
 
+export const toggleDarkModeFromViewer = createAction(
+  '[VIEWER CONTROLS COMPONENT] Toggle DarkMode'
+);
+
 export const changeLanguage = createAction(
   '[CONFIG EFFECTS] Change Language',
   props<{ language: PageLanguage }>()

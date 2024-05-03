@@ -1,11 +1,24 @@
 .controls {
-  height: 125px;
+  height: 100px;
 
-  border-top: 1px solid var(--color-border-grey);
+  // border-top: 1px solid var(--color-border-grey);
 
   .video-progress-slider-wrapper {
     display: flex;
     justify-content: center;
+
+    .time-info {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      &:first-child {
+        margin-left: 1rem;
+      }
+      &:last-child {
+        margin-right: 1rem;
+      }
+    }
 
     .mat-mdc-slider {
       width: 100%;
@@ -17,6 +30,10 @@
     display: flex;
     align-items: center;
     margin: 0 1.25rem;
+
+    button:focus-visible {
+      outline: 1.5px solid var(--color-black);
+    }
 
     .left {
       flex-basis: 33.333%;
@@ -70,5 +87,44 @@
     display: flex;
     justify-content: space-between;
     margin: 0 1.25rem;
+  }
+}
+
+::ng-deep {
+  .mat-mdc-menu-panel {
+    max-width: unset !important;
+  }
+}
+
+.menu-wrapper {
+  display: flex;
+
+  gap: 5px;
+  padding: 3px;
+
+  .menu-column {
+    flex: 50%;
+
+    .menu-section {
+      padding-top: 15px;
+      padding-bottom: 20px;
+
+      .section-title {
+        padding-left: calc(16px + 24px + 16px);
+        font-weight: bold;
+        padding-right: 10px;
+
+        // margin 16px + 24px icon + padding icon 16px
+      }
+
+      .simple-button {
+        padding-left: calc(16px + 24px + 16px);
+        text-decoration: underline;
+      }
+
+      button:focus-visible {
+        outline: 1px solid var(--color-black);
+      }
+    }
   }
 }

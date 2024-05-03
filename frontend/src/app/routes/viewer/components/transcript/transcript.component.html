@@ -40,16 +40,20 @@
         class="md"
         (click)="onGoToRecentFound()"
         [disabled]="searchFoundInCaptionIds.length === 0"
+        aria-label="Recent find"
+        i18n-aria-label="@@transcriptRecentFindAriaLabel"
       >
-        <mat-icon svgIcon="arrow-up" class="svg-black"></mat-icon>
+        <mat-icon svgIcon="arrow-up"></mat-icon>
       </button>
       <button
         mat-icon-button
         class="md"
         (click)="onGoToNextFound()"
         [disabled]="searchFoundInCaptionIds.length === 0"
+        aria-label="Next find"
+        i18n-aria-label="@@transcriptNextFindAriaLabel"
       >
-        <mat-icon svgIcon="arrow-down" class="svg-black"></mat-icon>
+        <mat-icon svgIcon="arrow-down"></mat-icon>
       </button>
     </div>
 
@@ -104,7 +108,7 @@
       [(ngModel)]="autoScroll"
       i18n="@@playerTranscriptAutomaticScrollLabel"
     >
-      Scroll automatically
+      Automatic scrolling
     </mat-checkbox>
   </div>
 </div>

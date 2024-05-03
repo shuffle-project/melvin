@@ -10,7 +10,6 @@ export enum StorageKey {
 
   // viewer settings
   VIEWER_VIEW_SELECTION_ENABLED = 'viewer-view-selection-enabled',
-  VIEWER_TRANSCRIPT_ENABLED = 'viewer-transcript-enabled',
   VIEWER_TRANSCRIPT_FONTSIZE = 'viewer-transcript-fontsize',
   VIEWER_TRANSCRIPT_POSITION = 'viewer-transcript-position',
   VIEWER_MEDIA_VOLUME = 'viewer-media-volume',

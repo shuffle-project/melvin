@@ -11,12 +11,12 @@ import {
   takeUntil,
   tap,
 } from 'rxjs';
-import { CaptionEntity } from '../../services/api/entities/caption.entity';
-import { StorageKey } from '../../services/storage/storage-key.enum';
-import { StorageService } from '../../services/storage/storage.service';
-import * as viewerActions from '../../store/actions/viewer.actions';
-import { AppState } from '../../store/app.state';
-import * as viewerSelector from '../../store/selectors/viewer.selector';
+import { CaptionEntity } from '../../../services/api/entities/caption.entity';
+import { StorageKey } from '../../../services/storage/storage-key.enum';
+import { StorageService } from '../../../services/storage/storage.service';
+import * as viewerActions from '../../../store/actions/viewer.actions';
+import { AppState } from '../../../store/app.state';
+import * as viewerSelector from '../../../store/selectors/viewer.selector';
 
 @Injectable({
   providedIn: 'root',
@@ -33,6 +33,8 @@ export class ViewerService {
 
   public play$ = new Subject<void>();
   public pause$ = new Subject<void>();
+
+  public isPlaying$ = new BehaviorSubject<boolean>(false);
 
   public seeking$ = new Subject<number>();
 
@@ -65,7 +67,10 @@ export class ViewerService {
     this.projectId = projectId;
     this.audio = audioElement;
 
+    // TODO take until destory
     this.loadCurrentTimeFromStorage();
+    this.play$.subscribe(() => this.isPlaying$.next(true));
+    this.pause$.subscribe(() => this.isPlaying$.next(false));
 
     // current time
     fromEvent(audioElement, 'timeupdate')
@@ -85,7 +90,6 @@ export class ViewerService {
       .subscribe();
 
     // pause
-
     merge(fromEvent(audioElement, 'pause'), fromEvent(audioElement, 'waiting'))
       .pipe(
         takeUntil(this.destroy$$),

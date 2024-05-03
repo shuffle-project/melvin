@@ -33,7 +33,6 @@ export interface ViewerState {
   captions: CaptionListEntity | null;
 
   //SETTINGS
-  transcriptEnabled: boolean;
   transcriptFontsize: SizeOptions;
   transcriptPosition: TranscriptPosition;
   transcriptOnlyMode: boolean;
@@ -65,10 +64,6 @@ export const initalState: ViewerState = {
 
   // viewer settings
   currentSpeed: 1,
-  transcriptEnabled: storage.getFromLocalStorage(
-    StorageKey.VIEWER_TRANSCRIPT_ENABLED,
-    true
-  ) as boolean,
   transcriptFontsize: storage.getFromLocalStorage(
     StorageKey.VIEWER_TRANSCRIPT_FONTSIZE,
     SizeOptions.P100
@@ -145,12 +140,6 @@ export const viewerReducer = createReducer(
 
   // SETTINGS
 
-  on(viewerActions.changeTranscriptEnabled, (state, { transcriptEnabled }) => {
-    return { ...state, transcriptEnabled };
-  }),
-  on(viewerActions.toggleTranscript, (state) => {
-    return { ...state, transcriptEnabled: !state.transcriptEnabled };
-  }),
   on(
     viewerActions.showTranscript,
     viewerActions.showTranscriptForFullscreen,
@@ -218,7 +207,16 @@ export const viewerReducer = createReducer(
     };
   }),
   on(viewerActions.switchToNewBigVideo, (state, { newBigVideoId }) => {
-    return { ...state, bigVideoId: newBigVideoId };
+    return {
+      ...state,
+      viewerVideos: state.viewerVideos.map((video) => {
+        return {
+          ...video,
+          shown: newBigVideoId === state.bigVideoId ? true : video.shown,
+        };
+      }),
+      bigVideoId: newBigVideoId,
+    };
   }),
   on(viewerActions.toggleShowVideo, (state, { id }) => {
     return {

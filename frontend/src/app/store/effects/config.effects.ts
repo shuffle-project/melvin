@@ -105,7 +105,10 @@ export class ConfigEffects {
   toggleDarkMode$ = createEffect(
     () =>
       this.actions$.pipe(
-        ofType(configActions.toggleDarkMode),
+        ofType(
+          configActions.toggleDarkMode,
+          configActions.toggleDarkModeFromViewer
+        ),
         withLatestFrom(this.store.select(darkMode)),
         tap(([action, darkMode]) => {
           this.storageService.storeInLocalStorage(

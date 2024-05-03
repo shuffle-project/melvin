@@ -39,15 +39,6 @@
     </mat-radio-group> -->
 
   <h3 i18n="@@viewerAdjustLayoutDialogTranscriptHeader">Transcript</h3>
-  <div class="input-wrapper">
-    <mat-slide-toggle
-      [checked]="transcriptEnabled$ | ngrxPush"
-      (change)="onTranscriptEnabledChanged($event)"
-      i18n="@@viewerAdjustLayoutDialogTranscriptToggleLabel"
-    >
-      Show transcript</mat-slide-toggle
-    >
-  </div>
 
   <div class="input-wrapper">
     <mat-form-field appearance="fill">
@@ -78,7 +69,7 @@
     </mat-form-field>
   </div>
 
-  <div class="input-wrapper">
+  <!-- <div class="input-wrapper">
     <mat-radio-group
       aria-label="Position"
       [value]="transcriptPosition$ | ngrxPush"
@@ -97,14 +88,9 @@
       >
         Transcript right
       </mat-radio-button>
-      <!-- <mat-radio-button value="{{ TranscriptPosition.BOTTOM }}">
-        Transkript unten
-      </mat-radio-button> -->
-      <!-- <mat-radio-button value="{{ TranscriptPosition.TOP }}">
-        Transkript oben
-      </mat-radio-button> -->
+
     </mat-radio-group>
-  </div>
+  </div> -->
 
   <!-- <div class="input-wrapper">
     <mat-slide-toggle

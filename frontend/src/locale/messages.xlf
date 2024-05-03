@@ -455,12 +455,6 @@
       <trans-unit id="overviewFormASRLanguageHeader" datatype="html">
         <source>Subtitle Language</source>
       </trans-unit>
-      <trans-unit id="sourceFormVideoToggleButton" datatype="html">
-        <source>Upload video or audio files </source>
-      </trans-unit>
-      <trans-unit id="sourceFormLiveToggleButton" datatype="html">
-        <source> Connect to livestream </source>
-      </trans-unit>
       <trans-unit id="sourceFormVideoRequiredError" datatype="html">
         <source> At least one video or audio file is required </source>
       </trans-unit>
@@ -540,7 +534,7 @@
         <source>Project status</source>
       </trans-unit>
       <trans-unit id="projectListCreateProjectButtonLabel" datatype="html">
-        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;more&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/> New project </source>
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;plus&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/> New project </source>
       </trans-unit>
       <trans-unit id="projectListTableHeaderTitleLabel" datatype="html">
         <source> Title </source>
@@ -587,17 +581,8 @@
       <trans-unit id="viewerAdjustLayoutDialogTranscriptHeader" datatype="html">
         <source>Transcript</source>
       </trans-unit>
-      <trans-unit id="viewerAdjustLayoutDialogTranscriptToggleLabel" datatype="html">
-        <source> Show transcript</source>
-      </trans-unit>
       <trans-unit id="viewerAdjustLayoutDialogFontsizeLabel" datatype="html">
         <source>Font Size</source>
-      </trans-unit>
-      <trans-unit id="viewerAdjustLayoutDialogTranscriptPositionLeft" datatype="html">
-        <source> Transcript left </source>
-      </trans-unit>
-      <trans-unit id="viewerAdjustLayoutDialogTranscriptPositionRight" datatype="html">
-        <source> Transcript right </source>
       </trans-unit>
       <trans-unit id="viewerCaptionsSettingsDialogTitle" datatype="html">
         <source> Appearance of the captions </source>
@@ -662,12 +647,6 @@
       <trans-unit id="viewerControlsTimelineLabel" datatype="html">
         <source>Video timeline</source>
       </trans-unit>
-      <trans-unit id="viewerControlsRewindTooltip" datatype="html">
-        <source>Rewind 10 seconds</source>
-      </trans-unit>
-      <trans-unit id="viewerControlsforwardTooltip" datatype="html">
-        <source>Fast-forward 10 seconds</source>
-      </trans-unit>
       <trans-unit id="viewerControlsMuteUnmuteTooltip" datatype="html">
         <source>
           <x id="INTERPOLATION" equiv-text="{{ viewerService.audio.muted ? &apos;Unmute sound&apos; : &apos;Mute sound&apos; }}"/>
@@ -676,26 +655,11 @@
       <trans-unit id="viewerControlsVolumeSlideLabel" datatype="html">
         <source>Volume</source>
       </trans-unit>
-      <trans-unit id="viewerControlsCaptionMenuTooltip" datatype="html">
-        <source>Captions menu</source>
-      </trans-unit>
-      <trans-unit id="viewerControlsTranscriptToggleTooltip" datatype="html">
-        <source>Toggle show/hide transcript</source>
-      </trans-unit>
       <trans-unit id="viewerControlsGalleryMenuTooltip" datatype="html">
         <source>Shown video selection</source>
       </trans-unit>
-      <trans-unit id="viewerControlsPlaybackspeedMenuTooltip" datatype="html">
-        <source>Playbackspeed menu</source>
-      </trans-unit>
-      <trans-unit id="viewerControlsDeactivateCaptionsLabel" datatype="html">
-        <source>Deactivate</source>
-      </trans-unit>
-      <trans-unit id="viewerControlsOpenSettingsDialogLabel" datatype="html">
-        <source>Settings</source>
-      </trans-unit>
       <trans-unit id="viewerVideoContainerToMainview" datatype="html">
-        <source> Move video to main view </source>
+        <source> Switch </source>
       </trans-unit>
       <trans-unit id="playerTranscriptHeader" datatype="html">
         <source>Transcript</source>
@@ -704,10 +668,7 @@
         <source>Search</source>
       </trans-unit>
       <trans-unit id="playerTranscriptAutomaticScrollLabel" datatype="html">
-        <source> Scroll automatically </source>
-      </trans-unit>
-      <trans-unit id="viewerHeaderHeaderAdjustLayout" datatype="html">
-        <source> Adjust Layout </source>
+        <source> Automatic scrolling </source>
       </trans-unit>
       <trans-unit id="guestLoginDialogHeader" datatype="html">
         <source>Login as Guest</source>
@@ -857,7 +818,7 @@
         <source> Title is required </source>
       </trans-unit>
       <trans-unit id="createTranscriptionDialogTabUploadLabel" datatype="html">
-        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="b-icon&quot; /&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="/ng-template&gt;"/> Upload </source>
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="/ng-template&gt;"/> Upload </source>
       </trans-unit>
       <trans-unit id="copyTranscriptionTabHeading" datatype="html">
         <source>Copy an existing transcription</source>
@@ -878,13 +839,13 @@
         <source> Create transcription </source>
       </trans-unit>
       <trans-unit id="createTranscriptionDialogTabCopyLabel" datatype="html">
-        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="ck tab-icon&quot; /&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="g-template&gt;"/> Copy </source>
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="n&quot; /&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="g-template&gt;"/> Copy </source>
       </trans-unit>
       <trans-unit id="createTranscriptionDialogTabFromMediaLabel" datatype="html">
-        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="on&quot; /&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/ng-template&gt;"/> From Media </source>
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/ng-template&gt;"/> From Media </source>
       </trans-unit>
       <trans-unit id="createTranscriptionDialogTabTranslateLabel" datatype="html">
-        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="b-icon&quot; /&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/ng-template&gt;"/> Translate </source>
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/ng-template&gt;"/> Translate </source>
       </trans-unit>
       <trans-unit id="fromMediaTranscriptionTabFileErrorMaximum" datatype="html">
         <source> Maximum 1 file </source>
@@ -992,7 +953,7 @@
         <source>Uploads</source>
       </trans-unit>
       <trans-unit id="createTranscriptionDialogTabEmptyFileLabel" datatype="html">
-        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&quot; /&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/ng-template&gt;"/> Empty file </source>
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/ng-template&gt;"/> Empty file </source>
       </trans-unit>
       <trans-unit id="metadataFormUserSelection" datatype="html">
         <source>User selection</source>
@@ -1012,20 +973,11 @@
       <trans-unit id="playerTranscriptSearchResultsPart" datatype="html">
         <source>results</source>
       </trans-unit>
-      <trans-unit id="sourceFormToggleButtonAriaLabel" datatype="html">
-        <source>Project source mode</source>
-      </trans-unit>
       <trans-unit id="viewerAdjustLayoutDialogCloseButton" datatype="html">
         <source>Close</source>
       </trans-unit>
       <trans-unit id="viewerCaptionsSettingsDialogCloseButton" datatype="html">
         <source>Close</source>
-      </trans-unit>
-      <trans-unit id="viewerControlsPausedInfo" datatype="html">
-        <source>Paused</source>
-      </trans-unit>
-      <trans-unit id="viewerControlsStartedInfo" datatype="html">
-        <source>Started</source>
       </trans-unit>
       <trans-unit id="deleteConfirmationDialogAbortButton" datatype="html">
         <source> Abort </source>
@@ -1160,7 +1112,7 @@
         <source> Cancel </source>
       </trans-unit>
       <trans-unit id="recorderAddAudioSourceRetryBtn" datatype="html">
-        <source> Retry <x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;repeat&quot; class=&quot;svg-black&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/button&gt;"/></source>
+        <source> Retry <x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;repeat&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/button&gt;"/></source>
       </trans-unit>
       <trans-unit id="recorderAddAudioSourceSelectionLabel" datatype="html">
         <source>Sources</source>
@@ -1196,10 +1148,10 @@
         <source>Media Category</source>
       </trans-unit>
       <trans-unit id="recorderAddScreensharingRetryBtn" datatype="html">
-        <source> Retry <x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;repeat&quot; class=&quot;svg-black&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/button&gt;"/></source>
+        <source> Retry <x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;repeat&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/button&gt;"/></source>
       </trans-unit>
       <trans-unit id="recorderAddScreensharingSelectionError" datatype="html">
-        <source> An error occurred during the selection when sharing the screen. </source>
+        <source> An error occurred during the selection when sharing the screen. <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br /&gt;"/> Please make sure that your Browser does have the necessary permissions to share the screen. </source>
       </trans-unit>
       <trans-unit id="recorderAddScreensharingTitle" datatype="html">
         <source> Add Screensharing </source>
@@ -1229,7 +1181,7 @@
         <source>Speaker</source>
       </trans-unit>
       <trans-unit id="recorderAddVideoSourceRetryButton" datatype="html">
-        <source> Retry <x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;repeat&quot; class=&quot;svg-black&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/button&gt;"/></source>
+        <source> Retry <x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;repeat&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/button&gt;"/></source>
       </trans-unit>
       <trans-unit id="recorderAddVideoSourceSelectionLabel" datatype="html">
         <source>Sources</source>
@@ -1239,6 +1191,84 @@
       </trans-unit>
       <trans-unit id="recorderAddVideoSourceTitleLabel" datatype="html">
         <source>Title</source>
+      </trans-unit>
+      <trans-unit id="viewerControlsLanguageMenuTooltip" datatype="html">
+        <source>Show language menu</source>
+      </trans-unit>
+      <trans-unit id="viewerControlsSettingsMenuTooltip" datatype="html">
+        <source>Settings Menu</source>
+      </trans-unit>
+      <trans-unit id="viewerErrorDescription" datatype="html">
+        <source> The project is no longer available under this link. The access link may have been changed or the project may no longer exist. </source>
+      </trans-unit>
+      <trans-unit id="viewerErrorTitle" datatype="html">
+        <source>Error while loading the project</source>
+      </trans-unit>
+      <trans-unit id="transcriptNextFindAriaLabel" datatype="html">
+        <source>Next find</source>
+      </trans-unit>
+      <trans-unit id="transcriptRecentFindAriaLabel" datatype="html">
+        <source>Recent find</source>
+      </trans-unit>
+      <trans-unit id="viewerControlsAudioTitle" datatype="html">
+        <source>Audiolanguage</source>
+      </trans-unit>
+      <trans-unit id="viewerControlsCaptionsOffLabel" datatype="html">
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;{{ !subtitlesEnabledInVideo ? &apos;check&apos; : &apos;&apos; }}&quot; &gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon &gt;"/>Off </source>
+      </trans-unit>
+      <trans-unit id="viewerControlsCaptionsOnLabel" datatype="html">
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;{{ subtitlesEnabledInVideo ? &apos;check&apos; : &apos;&apos; }}&quot; &gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon &gt;"/>On </source>
+      </trans-unit>
+      <trans-unit id="viewerControlsCaptionsSettingsLabel" datatype="html">
+        <source> Settings </source>
+      </trans-unit>
+      <trans-unit id="viewerControlsCaptionsTitle" datatype="html">
+        <source>Captions</source>
+      </trans-unit>
+      <trans-unit id="viewerControlsDarkmodeAutoLabel" datatype="html">
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;{{ false ? &apos;check&apos; : &apos;&apos; }}&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/>Automatic </source>
+      </trans-unit>
+      <trans-unit id="viewerControlsDarkmodeLight" datatype="html">
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;{{ !darkMode ? &apos;check&apos; : &apos;&apos; }}&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/>Light </source>
+      </trans-unit>
+      <trans-unit id="viewerControlsDarkmodeTitle" datatype="html">
+        <source>Darkmode</source>
+      </trans-unit>
+      <trans-unit id="viewerControlsHelpLabel" datatype="html">
+        <source> Help </source>
+      </trans-unit>
+      <trans-unit id="viewerControlsPlaybackspeedTitle" datatype="html">
+        <source>Playbackspeed</source>
+      </trans-unit>
+      <trans-unit id="viewerControlsTextlanguageTitle" datatype="html">
+        <source>Textlanguage</source>
+      </trans-unit>
+      <trans-unit id="viewerControlsTranscriptDarkLabel" datatype="html">
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;{{ darkMode ? &apos;check&apos; : &apos;&apos; }}&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/>Dark </source>
+      </trans-unit>
+      <trans-unit id="viewerControlsTranscriptLeftLabel" datatype="html">
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;{{ transcriptPosition === tanscriptPositionENUM.LEFT ? &apos;check&apos; : &apos;&apos; }}&quot; &gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon &gt;"/>Left </source>
+      </trans-unit>
+      <trans-unit id="viewerControlsTranscriptOffLabel" datatype="html">
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;{{ transcriptPosition === tanscriptPositionENUM.OFF ? &apos;check&apos; : &apos;&apos; }}&quot; &gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon &gt;"/>Off </source>
+      </trans-unit>
+      <trans-unit id="viewerControlsTranscriptRightLabel" datatype="html">
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;{{ transcriptPosition === tanscriptPositionENUM.RIGHT ? &apos;check&apos; : &apos;&apos; }}&quot; &gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon &gt;"/>Right </source>
+      </trans-unit>
+      <trans-unit id="viewerControlsTranscriptSettingsLabel" datatype="html">
+        <source> Settings </source>
+      </trans-unit>
+      <trans-unit id="viewerControlsTranscriptTitle" datatype="html">
+        <source>Transcript</source>
+      </trans-unit>
+      <trans-unit id="viewerControlsTranscriptVideosTitle" datatype="html">
+        <source> Videos</source>
+      </trans-unit>
+      <trans-unit id="viewerLogoAriaLabel" datatype="html">
+        <source>Melvin Logo, to main webpage</source>
+      </trans-unit>
+      <trans-unit id="viewerVideoContainerMoveToMainviewAriaLabel" datatype="html">
+        <source>Move video &apos;<x id="INTERPOLATION" equiv-text="{{ video.title }}"/>&apos; to main view</source>
       </trans-unit>
     </body>
   </file>
