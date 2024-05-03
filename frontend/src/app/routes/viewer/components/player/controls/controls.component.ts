@@ -23,7 +23,6 @@ import { TranscriptPosition } from '../../../viewer.interfaces';
 import { AdjustLayoutDialogComponent } from '../../adjust-layout-dialog/adjust-layout-dialog.component';
 import { CaptionsSettingsDialogComponent } from '../../captions-settings-dialog/captions-settings-dialog.component';
 import { ViewerVideo } from '../player.component';
-
 @Component({
   selector: 'app-controls',
   templateUrl: './controls.component.html',

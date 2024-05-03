@@ -56,11 +56,12 @@
         i18n-matTooltip="@@viewerControlsMuteUnmuteTooltip"
       >
         @if (!viewerService.audio.muted) {
-        <mat-icon svgIcon="volume"></mat-icon>
+        <mat-icon svgIcon="volume-on"></mat-icon>
         } @if (viewerService.audio.muted) {
-        <mat-icon svgIcon="volume-mute"></mat-icon>
+        <mat-icon svgIcon="volume-off"></mat-icon>
         }
       </button>
+
       <mat-slider
         class="volume-slider black"
         min="0"
@@ -90,7 +91,7 @@
         matTooltip="Show language menu"
         i18n-matTooltip="@@viewerControlsLanguageMenuTooltip"
       >
-        <mat-icon svgIcon="speechbubble"></mat-icon>
+        <mat-icon svgIcon="subtitles_white"></mat-icon>
       </button>
 
       <ng-container *ngrxLet="vViewerVideos$ as videos">
@@ -299,12 +300,12 @@
                 [checked]="video.id === bigVideo?.id || video.shown"
               >
                 {{ video.title }}
-                @if (video.category === 'sign_language') {
+                <!-- @if (video.category === 'sign_language') {
                 <mat-icon
                   style="margin-left: auto; margin-right: 0"
                   svgIcon="sign_language"
                 ></mat-icon>
-                }
+                } -->
               </mat-checkbox>
             </div>
             }
