@@ -186,9 +186,9 @@
               transcription.id === transcriptions.selectedId
             "
             #button
-            (click)="onClickMenuItem($event, button)"
             (cdkMenuItemTriggered)="new_onChangeTranscription(transcription)"
           >
+            <!-- (click)="onClickMenuItem($event, button)" -->
             <mat-icon
               svgIcon="{{
                 transcription.id === transcriptions.selectedId ? 'check' : ''
