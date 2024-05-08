@@ -80,11 +80,12 @@ export class ControlsComponent {
     return transform;
   }
 
-  onPlayVideo() {
-    this.viewerService.audio?.play();
-  }
-  onPauseVideo() {
-    this.viewerService.audio?.pause();
+  onPlayPauseVideo() {
+    if (this.viewerService.audio?.paused) {
+      this.viewerService.audio.play();
+    } else {
+      this.viewerService.audio?.pause();
+    }
   }
 
   onMuteAudio() {
@@ -225,5 +226,18 @@ export class ControlsComponent {
 
   onMenuClosed() {
     this.overlayService.menuOpen$.next(false);
+  }
+
+  onChangeCurrentTime(newTime: string) {
+    this.viewerService.onJumpInAudio(+newTime * 1000);
+  }
+
+  onKeypressChangeCurrentTime(event: KeyboardEvent, newTime: string) {
+    if (event.key === 'ArrowLeft') {
+      this.viewerService.onJumpInAudio((+newTime - 5) * 1000);
+    }
+    if (event.key === 'ArrowRight') {
+      this.viewerService.onJumpInAudio((+newTime + 5) * 1000);
+    }
   }
 }

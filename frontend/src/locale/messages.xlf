@@ -710,10 +710,9 @@
         <source> Uploading data </source>
       </trans-unit>
       <trans-unit id="viewerControlsPlayPauseTooltip" datatype="html">
-        <source>Pause</source>
-      </trans-unit>
-      <trans-unit id="viewerControlsPlayPauseTooltipPlay" datatype="html">
-        <source>Play</source>
+        <source>
+          <x id="INTERPOLATION" equiv-text="{{ viewerService.audio.paused ? &apos;Play&apos; : &apos;Pause&apos; }}"/>
+        </source>
       </trans-unit>
       <trans-unit id="viewerControlsFullscreenToggleTooltipActive" datatype="html">
         <source>Close fullscreen</source>
@@ -1267,8 +1266,11 @@
       <trans-unit id="viewerLogoAriaLabel" datatype="html">
         <source>Melvin Logo, to main webpage</source>
       </trans-unit>
-      <trans-unit id="viewerVideoContainerMoveToMainviewAriaLabel" datatype="html">
-        <source>Move video &apos;<x id="INTERPOLATION" equiv-text="{{ video.title }}"/>&apos; to main view</source>
+      <trans-unit id="viewerHeloDialogTitle" datatype="html">
+        <source>Help</source>
+      </trans-unit>
+      <trans-unit id="viewerHelpDialogCloseButton" datatype="html">
+        <source>Close</source>
       </trans-unit>
     </body>
   </file>
