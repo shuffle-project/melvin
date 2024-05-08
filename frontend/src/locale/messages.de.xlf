@@ -950,7 +950,9 @@
         <source>
           <x id="INTERPOLATION" equiv-text="{{ viewerService.audio.paused ? &apos;Play&apos; : &apos;Pause&apos; }}"/>
         </source>
-        <target state="final"><x id="INTERPOLATION" equiv-text="? &apos;Abspielen&apos; : &apos;Pausieren&apos; }}"/></target>
+        <target state="final">
+          <x id="INTERPOLATION" equiv-text="? &apos;Abspielen&apos; : &apos;Pausieren&apos; }}"/>
+        </target>
       </trans-unit>
       <trans-unit id="uploadAdditionalMediaTitle" datatype="html">
         <source>Upload additional media files</source>
@@ -1695,6 +1697,14 @@
       <trans-unit id="viewerHelpDialogCloseButton" datatype="html">
         <source>Close</source>
         <target state="new">Close</target>
+      </trans-unit>
+      <trans-unit id="createProjectEstimatedTime" datatype="html">
+        <source> Estimated time: <x id="INTERPOLATION" equiv-text="{{ eta * 1000 | duration }}"/> </source>
+        <target state="new"> Erwartete Zeit: <x id="INTERPOLATION" equiv-text="{{ eta * 1000 | duration }}"/> </target>
+      </trans-unit>
+      <trans-unit id="viewerVideoContainerMoveToMainviewAriaLabel" datatype="html">
+        <source>Move video &apos;<x id="INTERPOLATION" equiv-text="{{ video.title }}"/>&apos; to main view</source>
+        <target state="new">Verschiebe das Video &apos;<x id="INTERPOLATION" equiv-text="{{ video.title }}"/>&apos; in die Hauptanzeige</target>
       </trans-unit>
     </body>
   </file>

@@ -1272,6 +1272,12 @@
       <trans-unit id="viewerHelpDialogCloseButton" datatype="html">
         <source>Close</source>
       </trans-unit>
+      <trans-unit id="createProjectEstimatedTime" datatype="html">
+        <source> Estimated time: <x id="INTERPOLATION" equiv-text="{{ eta * 1000 | duration }}"/> </source>
+      </trans-unit>
+      <trans-unit id="viewerVideoContainerMoveToMainviewAriaLabel" datatype="html">
+        <source>Move video &apos;<x id="INTERPOLATION" equiv-text="{{ video.title }}"/>&apos; to main view</source>
+      </trans-unit>
     </body>
   </file>
 </xliff>
