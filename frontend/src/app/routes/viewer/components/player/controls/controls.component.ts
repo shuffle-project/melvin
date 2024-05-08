@@ -1,3 +1,4 @@
+import { CdkMenuModule } from '@angular/cdk/menu';
 import { Component } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -24,6 +25,7 @@ import { AdjustLayoutDialogComponent } from '../../adjust-layout-dialog/adjust-l
 import { CaptionsSettingsDialogComponent } from '../../captions-settings-dialog/captions-settings-dialog.component';
 import { HelpDialogComponent } from '../../help-dialog/help-dialog.component';
 import { ViewerVideo } from '../player.component';
+
 @Component({
   selector: 'app-controls',
   templateUrl: './controls.component.html',
@@ -41,6 +43,7 @@ import { ViewerVideo } from '../player.component';
     MatCheckboxModule,
     PushPipe,
     DurationPipe,
+    CdkMenuModule,
   ],
 })
 export class ControlsComponent {
@@ -101,6 +104,11 @@ export class ControlsComponent {
     );
   }
 
+  onClickMenuItem(event: MouseEvent, button: HTMLButtonElement) {
+    console.log(event, button);
+    (event.target as any).trigger({ keepOpen: true });
+  }
+
   onChangeTranscriptPosition(
     event: Event,
     transcriptPosition: TranscriptPosition
@@ -118,6 +126,13 @@ export class ControlsComponent {
     if (switchTo !== switchFrom) {
       this.store.dispatch(viewerActions.toggleSubtitles());
     }
+  }
+
+  new_onChangeTranscription(transcription: TranscriptionEntity) {
+    // console.log(buttonref.getMenuTrigger());
+    this.store.dispatch(
+      viewerActions.changeTranscriptionId({ transcriptionId: transcription.id })
+    );
   }
 
   onChangeTranscription(event: Event, transcription: TranscriptionEntity) {

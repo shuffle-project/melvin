@@ -82,6 +82,10 @@
     </div>
     <div class="center"></div>
     <div class="right">
+      <!-- <button mat-icon-button class="md" [cdkMenuTriggerFor]="newLanguageMenu">
+        <mat-icon svgIcon="subtitles_white"></mat-icon>
+      </button> -->
+
       <button
         mat-icon-button
         class="md"
@@ -149,6 +153,62 @@
 }
 
 <!-- MENUS -->
+
+<!-- <ng-template #testMenu>
+  <div class="example-menu" cdkMenu>
+    <button class="example-menu-item" cdkMenuItem>Refresh</button>
+    <button class="example-menu-item" cdkMenuItem>Settings</button>
+    <div cdkMenuGroup>
+      <button class="example-menu-item" cdkMenuItem>Help</button>
+      <button class="example-menu-item" cdkMenuItem>Sign out</button>
+    </div>
+  </div>
+</ng-template> -->
+
+<ng-template #newLanguageMenu>
+  <div class="cdk-menu-wrapper" cdkMenu>
+    <div>
+      <div cdkMenuGroup>
+        <span>Audiolanguage</span>
+        <button
+          mat-button
+          cdkMenuItemCheckbox
+          [cdkMenuItemChecked]="true"
+          (cdkMenuItemTriggered)="(true)"
+        >
+          <mat-icon svgIcon="{{ true ? 'check' : '' }}"></mat-icon>German
+        </button>
+      </div>
+      <div cdkMenuGroup>
+        <span>Textlanguage</span>
+        <!-- foreach transcriptions -->
+        <ng-container *ngrxLet="transcriptions$ as transcriptions">
+          @for (transcription of transcriptions.list; track $index) {
+          <button
+            cdkMenuItemRadio
+            [cdkMenuItemChecked]="
+              transcription.id === transcriptions.selectedId
+            "
+            #button
+            (click)="onClickMenuItem($event, button)"
+            (cdkMenuItemTriggered)="new_onChangeTranscription(transcription)"
+          >
+            <mat-icon
+              svgIcon="{{
+                transcription.id === transcriptions.selectedId ? 'check' : ''
+              }}"
+            ></mat-icon>
+            <!-- {{ transcription.language }} ( -->
+            {{ transcription.title }}
+            <!-- ) -->
+          </button>
+          }
+        </ng-container>
+      </div>
+    </div>
+    <div></div>
+  </div>
+</ng-template>
 
 <!-- LANGUAGE MENU -->
 <mat-menu #languageMenu="matMenu">
@@ -311,7 +371,7 @@
 <mat-menu #galleryMenu="matMenu">
   <!-- //TODO Wollen wir hier das main video anzeigen?  -->
 
-  <div class="menu-wrapper">
+  <div class="cdkmenu-wrapper">
     <div class="menu-column">
       <div class="menu-section">
         <span
