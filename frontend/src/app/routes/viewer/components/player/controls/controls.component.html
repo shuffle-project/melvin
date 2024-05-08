@@ -12,10 +12,13 @@
       [displayWith]="audioProgressLabel"
     >
       <input
+        #progressInput
         aria-label="Video timeline"
         i18n-aria-label="@@viewerControlsTimelineLabel"
         matSliderThumb
-        [(ngModel)]="viewerService.audio.currentTime"
+        [value]="viewerService.audio.currentTime"
+        (dragEnd)="onChangeCurrentTime(progressInput.value)"
+        (keydown)="onKeypressChangeCurrentTime($event, progressInput.value)"
       />
     </mat-slider>
     <span class="time-info">{{
@@ -24,26 +27,19 @@
   </div>
   <div class="main-controls">
     <div class="left">
-      @if (viewerService.audio.paused) {
       <button
         mat-icon-button
         class="md"
-        matTooltip="Play"
-        i18n-matTooltip="@@viewerControlsPlayPauseTooltipPlay"
-        (click)="onPlayVideo()"
-      >
-        <mat-icon svgIcon="play"></mat-icon></button
-      >}@else {
-      <button
-        mat-icon-button
-        class="md"
-        matTooltip="Pause"
+        matTooltip="{{ viewerService.audio.paused ? 'Play' : 'Pause' }}"
         i18n-matTooltip="@@viewerControlsPlayPauseTooltip"
-        (click)="onPauseVideo()"
+        (click)="onPlayPauseVideo()"
       >
-        <mat-icon svgIcon="pause"></mat-icon>
+        @if (viewerService.audio.paused) {
+        <mat-icon svgIcon="play" />
+        }@else {
+        <mat-icon svgIcon="pause" />
+        }
       </button>
-      }
 
       <!-- sound -->
       <button

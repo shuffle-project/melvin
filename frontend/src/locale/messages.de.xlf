@@ -946,13 +946,11 @@
         <source> Uploading data </source>
         <target state="final"> Daten werden hochgeladen </target>
       </trans-unit>
-      <trans-unit id="viewerControlsPlayPauseTooltipPlay" datatype="html">
-        <source>Play</source>
-        <target state="final">Abspielen</target>
-      </trans-unit>
       <trans-unit id="viewerControlsPlayPauseTooltip" datatype="html">
-        <source>Pause</source>
-        <target state="final">Pausieren</target>
+        <source>
+          <x id="INTERPOLATION" equiv-text="{{ viewerService.audio.paused ? &apos;Play&apos; : &apos;Pause&apos; }}"/>
+        </source>
+        <target state="final"><x id="INTERPOLATION" equiv-text="? &apos;Abspielen&apos; : &apos;Pausieren&apos; }}"/></target>
       </trans-unit>
       <trans-unit id="uploadAdditionalMediaTitle" datatype="html">
         <source>Upload additional media files</source>
@@ -1678,10 +1676,6 @@
         <source>Playbackspeed</source>
         <target state="final">Wiedergabegeschwindigkeit</target>
       </trans-unit>
-      <trans-unit id="viewerVideoContainerMoveToMainviewAriaLabel" datatype="html">
-        <source>Move video &apos;<x id="INTERPOLATION" equiv-text="{{ video.title }}"/>&apos; to main view</source>
-        <target state="final">Verschhiebe das Video &apos;<x id="INTERPOLATION" equiv-text="{{ video.title }}"/>&apos; zur Hauptansicht</target>
-      </trans-unit>
       <trans-unit id="transcriptRecentFindAriaLabel" datatype="html">
         <source>Recent find</source>
         <target state="final">Vorheriger Fund</target>
@@ -1693,6 +1687,14 @@
       <trans-unit id="viewerLogoAriaLabel" datatype="html">
         <source>Melvin Logo, to main webpage</source>
         <target state="final">Melvin Logo, zur hauptwebseite</target>
+      </trans-unit>
+      <trans-unit id="viewerHeloDialogTitle" datatype="html">
+        <source>Help</source>
+        <target state="new">Help</target>
+      </trans-unit>
+      <trans-unit id="viewerHelpDialogCloseButton" datatype="html">
+        <source>Close</source>
+        <target state="new">Close</target>
       </trans-unit>
     </body>
   </file>
