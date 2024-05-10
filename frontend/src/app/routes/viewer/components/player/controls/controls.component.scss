@@ -96,7 +96,12 @@
   }
 }
 
+.volume-menu {
+  background-color: red;
+}
+
 .cdk-menu-wrapper {
+  // todo colors and shadows copied from mat menu
   background-color: white;
   border-bottom-left-radius: 4px;
   border-bottom-right-radius: 4px;
@@ -105,39 +110,47 @@
   box-shadow: rgba(0, 0, 0, 0.2) 0px 5px 5px -3px,
     rgba(0, 0, 0, 0.14) 0px 8px 10px 1px, rgba(0, 0, 0, 0.12) 0px 3px 14px 2px;
   box-sizing: border-box;
+  //
 
   display: flex;
-}
-
-.menu-wrapper {
-  display: flex;
-
   gap: 5px;
-  padding: 3px;
+  padding: 5px;
 
-  .menu-column {
+  .cdk-menu-column {
     flex: 50%;
 
-    .menu-section {
-      padding-top: 15px;
-      padding-bottom: 20px;
+    .cdk-menu-group {
+      display: flex;
+      flex-direction: column;
+      padding: 5px 0px;
 
       .section-title {
-        padding-left: calc(16px + 24px + 16px);
+        font-size: 1rem;
         font-weight: bold;
         padding-right: 10px;
-
-        // margin 16px + 24px icon + padding icon 16px
       }
+    }
 
-      .simple-button {
-        padding-left: calc(16px + 24px + 16px);
-        text-decoration: underline;
-      }
+    .cdk-menu-item {
+      justify-content: flex-start;
+      min-width: 75px;
+      // max-width: 100px;
+      padding-right: 20px;
 
-      button:focus-visible {
+      white-space: nowrap;
+      text-overflow: ellipsis;
+
+      &:focus-visible {
         outline: 1px solid var(--color-black);
       }
+    }
+
+    .cdk-menu-item:not(:has(mat-icon)) {
+      padding-left: 34px; // TODO
+    }
+
+    .single-button {
+      text-decoration: underline;
     }
   }
 }

@@ -1,4 +1,5 @@
 import { CdkMenuModule } from '@angular/cdk/menu';
+import { OverlayModule } from '@angular/cdk/overlay';
 import { Component } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -11,6 +12,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { LetDirective, PushPipe } from '@ngrx/component';
 import { Store } from '@ngrx/store';
 import { combineLatest, map } from 'rxjs';
+import { MenuItemCheckboxDirective } from '../../../../../directives/cdkMenuCheckbox/cdk-menu-item-checkbox.directive';
+import { MenuItemRadioDirective } from '../../../../../directives/cdkMenuRadio/cdk-menu-item-radio.directive';
 import { DurationPipe } from '../../../../../pipes/duration-pipe/duration.pipe';
 import { TranscriptionEntity } from '../../../../../services/api/entities/transcription.entity';
 import { toggleDarkModeFromViewer } from '../../../../../store/actions/config.actions';
@@ -25,7 +28,6 @@ import { AdjustLayoutDialogComponent } from '../../adjust-layout-dialog/adjust-l
 import { CaptionsSettingsDialogComponent } from '../../captions-settings-dialog/captions-settings-dialog.component';
 import { HelpDialogComponent } from '../../help-dialog/help-dialog.component';
 import { ViewerVideo } from '../player.component';
-
 @Component({
   selector: 'app-controls',
   templateUrl: './controls.component.html',
@@ -44,9 +46,14 @@ import { ViewerVideo } from '../player.component';
     PushPipe,
     DurationPipe,
     CdkMenuModule,
+    MenuItemRadioDirective,
+    MenuItemCheckboxDirective,
+    OverlayModule,
   ],
 })
 export class ControlsComponent {
+  volumeOverlayOpen = false;
+
   public tanscriptPositionENUM = TranscriptPosition;
 
   public volume$ = this.store.select(viewerSelector.vVolume);
@@ -110,66 +117,46 @@ export class ControlsComponent {
     (event.target as any).trigger({ keepOpen: true });
   }
 
-  onChangeTranscriptPosition(
-    event: Event,
-    transcriptPosition: TranscriptPosition
-  ) {
-    event.stopPropagation();
-
+  onChangeTranscriptPosition(transcriptPosition: TranscriptPosition) {
     this.store.dispatch(
       viewerActions.changeTranscriptPosition({ transcriptPosition })
     );
   }
 
-  onChangeCaptions(event: Event, switchTo: boolean, switchFrom: boolean) {
-    event.stopPropagation();
-
+  onChangeCaptions(switchTo: boolean, switchFrom: boolean) {
     if (switchTo !== switchFrom) {
       this.store.dispatch(viewerActions.toggleSubtitles());
     }
   }
 
-  new_onChangeTranscription(transcription: TranscriptionEntity) {
-    // console.log(buttonref.getMenuTrigger());
+  newonClickMenuItem(event: MouseEvent, button: HTMLButtonElement) {
+    console.log(event, button);
+  }
+
+  onChangeTranscription(transcription: TranscriptionEntity) {
     this.store.dispatch(
       viewerActions.changeTranscriptionId({ transcriptionId: transcription.id })
     );
   }
 
-  onChangeTranscription(event: Event, transcription: TranscriptionEntity) {
-    event.stopPropagation();
-
-    this.store.dispatch(
-      viewerActions.changeTranscriptionId({ transcriptionId: transcription.id })
-    );
-  }
-
-  onOpenCaptionsSettingsDialog(event: Event) {
-    event.stopPropagation();
-
+  onOpenCaptionsSettingsDialog() {
     this.viewerService.audio?.pause();
     // TODO do we want to play after closing the dialog??
     this.dialog.open(CaptionsSettingsDialogComponent);
   }
 
-  onOpenTranscriptSettingsDialog(event: Event) {
-    event.stopPropagation();
-
+  onOpenTranscriptSettingsDialog() {
     this.viewerService.audio?.pause();
     // TODO do we want to play after closing the dialog??
     this.dialog.open(AdjustLayoutDialogComponent);
   }
 
-  onOpenHelpDialog(event: Event) {
-    event.stopPropagation();
-
+  onOpenHelpDialog() {
     this.viewerService.audio?.pause();
     this.dialog.open(HelpDialogComponent);
   }
 
-  changePlaybackSpeed(event: Event, newSpeed: number) {
-    event.stopPropagation();
-
+  changePlaybackSpeed(newSpeed: number) {
     this.store.dispatch(viewerActions.changeSpeed({ newSpeed }));
   }
 
@@ -184,24 +171,11 @@ export class ControlsComponent {
   }
 
   onClickToggleVideoShown(
-    event: MouseEvent,
     video: ViewerVideo,
     bigVideoId: ViewerVideo | undefined,
     videos: ViewerVideo[]
   ) {
     this._toggleShowVideo(bigVideoId, video, videos);
-    event.stopPropagation();
-  }
-
-  onKeypressToggleVideoShown(
-    event: KeyboardEvent,
-    video: ViewerVideo,
-    bigVideoId: ViewerVideo | undefined,
-    videos: ViewerVideo[]
-  ) {
-    if (event.key === 'Enter' || event.key === ' ') {
-      this._toggleShowVideo(bigVideoId, video, videos);
-    }
   }
 
   private _toggleShowVideo(
@@ -223,13 +197,7 @@ export class ControlsComponent {
     this.store.dispatch(viewerActions.toggleShowVideo({ id: video.id }));
   }
 
-  onToggleDarkmode(
-    event: Event,
-    darkModeCurrent: boolean,
-    darkModeNew: boolean
-  ) {
-    event.stopPropagation();
-
+  onToggleDarkmode(darkModeCurrent: boolean, darkModeNew: boolean) {
     if (darkModeCurrent !== darkModeNew) {
       this.store.dispatch(toggleDarkModeFromViewer());
     }
