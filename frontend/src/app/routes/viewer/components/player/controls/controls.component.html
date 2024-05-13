@@ -185,7 +185,7 @@
           Textlanguage
         </span>
         <ng-container *ngrxLet="transcriptions$ as transcriptions">
-          @for (transcription of transcriptions.list; track $index) {
+          @for (transcription of transcriptions.list; track transcription.id) {
           <button
             mat-button
             appCdkMenuItemRadio
@@ -332,12 +332,8 @@
 <!-- GALLERY MENU  -->
 <ng-template #galleryMenu>
   <div cdkMenu class="cdk-menu-wrapper">
-    <div class="cdk-menu-column" *ngrxLet="vViewerVideos$ as videos">
-      <div
-        cdkMenuGroup
-        aria-labelledby="video-section-title"
-        *ngrxLet="bigVideo$ as bigVideo"
-      >
+    <div class="cdk-menu-column">
+      <div cdkMenuGroup aria-labelledby="video-section-title">
         <span
           id="video-section-title"
           class="section-title"
@@ -345,22 +341,26 @@
         >
           Videos
         </span>
-        @for (video of videos; track video) {
 
-        <button
-          mat-button
-          appCdkMenuItemCheckbox
-          [appKeepMenuOpen]="true"
-          [cdkMenuItemChecked]="video.id === bigVideo?.id || video.shown"
-          (cdkMenuItemTriggered)="
-            onClickToggleVideoShown(video, bigVideo, videos)
-          "
+        <ng-container *ngrxLet="bigVideo$ as bigVideo">
+          <ng-container *ngrxLet="vViewerVideos$ as videos">
+            @for (video of videos; track video.id) {
+            <button
+              mat-button
+              appCdkMenuItemRadio
+              [appKeepMenuOpen]="true"
+              [cdkMenuItemChecked]="video.id === bigVideo?.id || video.shown"
+              (cdkMenuItemTriggered)="
+                onClickToggleVideoShown(video, bigVideo, videos)
+              "
+            >
+              @if(video.id === bigVideo?.id || video.shown) {
+              <mat-icon svgIcon="check"></mat-icon>
+              } {{ video.title }}
+            </button>
+            }
+          </ng-container></ng-container
         >
-          @if(video.id === bigVideo?.id || video.shown) {
-          <mat-icon svgIcon="check"></mat-icon>
-          } {{ video.title }}
-        </button>
-        }
       </div>
     </div>
   </div>

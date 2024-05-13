@@ -223,7 +223,7 @@ export const viewerReducer = createReducer(
       ...state,
       viewerVideos: state.viewerVideos.map((video) => {
         if (video.id !== id) {
-          return video;
+          return { ...video };
         }
         return { ...video, shown: !video.shown };
       }),

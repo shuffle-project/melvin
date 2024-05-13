@@ -1,5 +1,6 @@
 import { CdkMenuModule } from '@angular/cdk/menu';
 import { OverlayModule } from '@angular/cdk/overlay';
+import { AsyncPipe } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -49,6 +50,7 @@ import { ViewerVideo } from '../player.component';
     MenuItemRadioDirective,
     MenuItemCheckboxDirective,
     OverlayModule,
+    AsyncPipe,
   ],
 })
 export class ControlsComponent {
@@ -175,14 +177,6 @@ export class ControlsComponent {
     bigVideoId: ViewerVideo | undefined,
     videos: ViewerVideo[]
   ) {
-    this._toggleShowVideo(bigVideoId, video, videos);
-  }
-
-  private _toggleShowVideo(
-    bigVideoId: ViewerVideo | undefined,
-    video: ViewerVideo,
-    videos: ViewerVideo[]
-  ) {
     if (bigVideoId?.id === video.id) {
       const makeNewBig = videos.find(
         (video) => video.shown && video.id !== bigVideoId.id
@@ -193,7 +187,6 @@ export class ControlsComponent {
         );
       }
     }
-
     this.store.dispatch(viewerActions.toggleShowVideo({ id: video.id }));
   }
 
