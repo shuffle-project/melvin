@@ -42,39 +42,58 @@
       </button>
 
       <!-- sound -->
-      <button
-        mat-icon-button
-        class="md"
-        matTooltip="{{
-          viewerService.audio.muted ? 'Unmute sound' : 'Mute sound'
-        }}"
-        (click)="onMuteAudio()"
-        i18n-matTooltip="@@viewerControlsMuteUnmuteTooltip"
-      >
-        @if (viewerService.audio.muted ||viewerService.audio.volume === 0) {
-        <mat-icon svgIcon="volume-off"></mat-icon>
-        } @else {
-        <mat-icon svgIcon="volume-on"></mat-icon>
-        }
-      </button>
+      <ng-container *ngrxLet="muted$ as muted">
+        <ng-container *ngrxLet="volume$ as volume">
+          <button
+            mat-icon-button
+            class="md"
+            (click)="onMuteToggle()"
+            cdkOverlayOrigin
+            #volumeTrigger="cdkOverlayOrigin"
+            (keydown)="onKeydownVolumeBtn($event, volume, muted)"
+            (mouseenter)="onMouseEnterBtn()"
+            (mouseout)="onMouseOutBtn()"
+          >
+            @if (muted || volume === 0) {
+            <mat-icon svgIcon="volume-off"></mat-icon>
+            } @else if(volume< 0.5){
+            <mat-icon svgIcon="volume-low"></mat-icon>
+            }@else {
+            <mat-icon svgIcon="volume-on"></mat-icon>
+            }
+          </button>
 
-      <mat-slider
-        class="volume-slider black"
-        min="0"
-        max="1"
-        step="0.01"
-        discrete
-        [displayWith]="sliderLabelVolume"
-        [disabled]="viewerService.audio.muted"
-      >
-        <input
-          aria-label="Volume"
-          i18n-aria-label="@@viewerControlsVolumeSlideLabel"
-          matSliderThumb
-          [value]="volume$ | ngrxPush"
-          (change)="onVolumeChange($event)"
-        />
-      </mat-slider>
+          <ng-template
+            cdkConnectedOverlay
+            [cdkConnectedOverlayOrigin]="volumeTrigger"
+            [cdkConnectedOverlayOpen]="isVolumeSliderOpen"
+            [cdkConnectedOverlayPositions]="volumeOverlayPositions"
+          >
+            <div
+              class="volume-slider-wrapper menu-shadow"
+              (mouseenter)="onMouseEnterOvly()"
+              (mouseout)="onMouseOutOvly()"
+            >
+              <mat-slider
+                class="volume-slider black"
+                min="0"
+                max="1"
+                step="0.01"
+                discrete
+                [displayWith]="sliderLabelVolume"
+              >
+                <input
+                  aria-label="Volume"
+                  i18n-aria-label="@@viewerControlsVolumeSlideLabel"
+                  matSliderThumb
+                  [value]="muted ? 0 : volume"
+                  (valueChange)="onVolumeChange($event, muted)"
+                />
+              </mat-slider>
+            </div>
+          </ng-template>
+        </ng-container>
+      </ng-container>
     </div>
     <div class="center"></div>
     <div class="right">
@@ -158,7 +177,7 @@
 </ng-template> -->
 
 <ng-template #languageMenu>
-  <div cdkMenu class="cdk-menu-wrapper">
+  <div cdkMenu class="cdk-menu-wrapper menu-shadow">
     <div class="cdk-menu-column">
       <div cdkMenuGroup aria-labelledby="audio-section-title">
         <span
@@ -331,7 +350,7 @@
 
 <!-- GALLERY MENU  -->
 <ng-template #galleryMenu>
-  <div cdkMenu class="cdk-menu-wrapper">
+  <div cdkMenu class="cdk-menu-wrapper menu-shadow">
     <div class="cdk-menu-column">
       <div cdkMenuGroup aria-labelledby="video-section-title">
         <span
@@ -368,7 +387,7 @@
 
 <!-- SETTINGS MENU -->
 <ng-template #settingsMenu>
-  <div cdkMenu class="cdk-menu-wrapper">
+  <div cdkMenu class="cdk-menu-wrapper menu-shadow">
     <div class="cdk-menu-column">
       <div
         cdkMenuGroup

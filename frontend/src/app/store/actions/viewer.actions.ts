@@ -178,6 +178,8 @@ export const toggleSubtitles = createAction(
   '[CONTROLS COMPONENT] Toggle subtitles'
 );
 
+export const toggleMute = createAction('[CONTROLS COMPONENT] Toggle mute');
+
 export const changeVolume = createAction(
   '[CONTROLS COMPONENT] Change volume',
   props<{ newVolume: number }>()

@@ -91,6 +91,7 @@ export const ICONS = [
   'volume-mute',
   'volume',
   'volume-off',
+  'volume-low',
   'volume-on',
   'viewer',
   'warning-circle',

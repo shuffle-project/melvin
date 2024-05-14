@@ -161,6 +161,13 @@ export const vVolume = createSelector(
   }
 );
 
+export const vMuted = createSelector(
+  selectViewerState,
+  (state: ViewerState) => {
+    return state.muted;
+  }
+);
+
 export const vSubtitlesEnabled = createSelector(
   selectViewerState,
   (state: ViewerState) => {

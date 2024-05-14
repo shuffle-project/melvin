@@ -41,6 +41,7 @@ export interface ViewerState {
   captionsFontsize: SizeOptions;
   captionsPosition: CaptionPositionOptions;
   currentSpeed: number;
+  muted: boolean;
   volume: number;
   subtitlesEnabled: boolean;
 
@@ -89,6 +90,10 @@ export const initalState: ViewerState = {
     StorageKey.CAPTIONS_POSITION,
     CaptionPositionOptions.OVER_VIDEO
   ) as CaptionPositionOptions,
+  muted: storage.getFromLocalStorage(
+    StorageKey.VIEWER_MEDIA_MUTED,
+    false
+  ) as boolean,
   volume: storage.getFromSessionStorage(
     StorageKey.VIEWER_MEDIA_VOLUME,
     1
@@ -191,6 +196,9 @@ export const viewerReducer = createReducer(
   }),
   on(viewerActions.changeVolume, (state, { newVolume: volume }) => {
     return { ...state, volume };
+  }),
+  on(viewerActions.toggleMute, (state) => {
+    return { ...state, muted: !state.muted };
   }),
   on(viewerActions.changeSpeed, (state, { newSpeed: speed }) => {
     return { ...state, currentSpeed: speed };

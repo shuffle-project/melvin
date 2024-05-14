@@ -1,5 +1,6 @@
+import { A11yModule } from '@angular/cdk/a11y';
 import { CdkMenuModule } from '@angular/cdk/menu';
-import { OverlayModule } from '@angular/cdk/overlay';
+import { ConnectionPositionPair, OverlayModule } from '@angular/cdk/overlay';
 import { AsyncPipe } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -50,15 +51,15 @@ import { ViewerVideo } from '../player.component';
     MenuItemRadioDirective,
     MenuItemCheckboxDirective,
     OverlayModule,
+    A11yModule,
     AsyncPipe,
   ],
 })
 export class ControlsComponent {
-  volumeOverlayOpen = false;
-
   public tanscriptPositionENUM = TranscriptPosition;
 
   public volume$ = this.store.select(viewerSelector.vVolume);
+  public muted$ = this.store.select(viewerSelector.vMuted);
   public currentSpeed$ = this.store.select(viewerSelector.vCurrentSpeed);
   public darkMode$ = this.store.select(configSelector.darkMode);
   public subtitlesEnabledInVideo$ = this.store.select(
@@ -98,20 +99,6 @@ export class ControlsComponent {
     } else {
       this.viewerService.audio?.pause();
     }
-  }
-
-  onMuteAudio() {
-    if (this.viewerService.audio) {
-      this.viewerService.audio.muted = !this.viewerService.audio.muted;
-    }
-  }
-
-  onVolumeChange(event: any) {
-    this.store.dispatch(
-      viewerActions.changeVolume({
-        newVolume: event.target.value,
-      })
-    );
   }
 
   onClickMenuItem(event: MouseEvent, button: HTMLButtonElement) {
@@ -214,6 +201,99 @@ export class ControlsComponent {
     }
     if (event.key === 'ArrowRight') {
       this.viewerService.onJumpInAudio((+newTime + 5) * 1000);
+    }
+  }
+
+  /**
+
+   * SOUND
+   */
+
+  onVolumeChange(volumeChange: number, muted: boolean) {
+    if (muted) {
+      this.store.dispatch(viewerActions.toggleMute());
+    }
+    this.store.dispatch(
+      viewerActions.changeVolume({
+        newVolume: volumeChange,
+      })
+    );
+  }
+
+  onMuteToggle() {
+    this.store.dispatch(viewerActions.toggleMute());
+  }
+
+  volumeOverlayPositions: ConnectionPositionPair[] = [
+    {
+      offsetX: 8,
+      originX: 'end',
+      originY: 'center',
+      overlayX: 'start',
+      overlayY: 'center',
+    },
+    {
+      offsetX: -8,
+      originX: 'start',
+      originY: 'center',
+      overlayX: 'end',
+      overlayY: 'center',
+    },
+  ];
+
+  mouseOverBtn = false;
+  mouseOverOvly = false;
+
+  isVolumeSliderOpen = false;
+  onCloseVolumeOverlay() {
+    setTimeout(() => {
+      if (!this.mouseOverBtn && !this.mouseOverOvly) {
+        this.isVolumeSliderOpen = false;
+      }
+    }, 250);
+  }
+
+  onOpenVolumeOverlay() {
+    this.isVolumeSliderOpen = true;
+  }
+
+  onMouseEnterBtn() {
+    this.isVolumeSliderOpen = true;
+    this.mouseOverBtn = true;
+    this.onOpenVolumeOverlay();
+  }
+  onMouseOutBtn() {
+    this.mouseOverBtn = false;
+    this.onCloseVolumeOverlay();
+  }
+  onMouseEnterOvly() {
+    this.mouseOverOvly = true;
+  }
+  onMouseOutOvly() {
+    this.mouseOverOvly = false;
+    this.onCloseVolumeOverlay();
+  }
+  onKeydownVolumeBtn(
+    event: KeyboardEvent,
+    currentVolume: number,
+    currentMuted: boolean
+  ) {
+    switch (event.key) {
+      case 'ArrowUp':
+        if (currentVolume < 1) {
+          const newVolume = currentVolume + 0.1;
+          this.onVolumeChange(newVolume > 1 ? 1 : newVolume, currentMuted);
+        }
+        break;
+      case 'ArrowDown':
+        if (currentVolume > 0) {
+          const newVolume = currentVolume - 0.1;
+          this.onVolumeChange(newVolume < 0 ? 0 : newVolume, currentMuted);
+        }
+        break;
+
+      default:
+        break;
     }
   }
 }

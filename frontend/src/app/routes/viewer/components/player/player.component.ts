@@ -78,6 +78,7 @@ export class PlayerComponent
   public audioPlayer: HTMLAudioElement | null = null;
 
   public volume$ = this.store.select(viewerSelector.vVolume);
+  public muted$ = this.store.select(viewerSelector.vMuted);
   public currentSpeed$ = this.store.select(viewerSelector.vCurrentSpeed);
   public subtitlesEnabled$ = this.store.select(
     viewerSelector.vSubtitlesEnabled
