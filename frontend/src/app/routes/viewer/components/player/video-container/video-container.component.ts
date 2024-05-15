@@ -161,7 +161,12 @@ export class VideoContainerComponent implements OnDestroy, OnChanges {
     this.viewerService.pause$
       .pipe(
         takeUntil(this.destroy$$),
-        tap(() => this.viewerVideoElement.pause())
+        tap(() => {
+          this.viewerVideoElement.pause();
+          if (this.viewerService.audio)
+            this.viewerVideoElement.currentTime =
+              this.viewerService.audio.currentTime;
+        })
       )
       .subscribe();
 

@@ -118,10 +118,6 @@ export class ControlsComponent {
     }
   }
 
-  newonClickMenuItem(event: MouseEvent, button: HTMLButtonElement) {
-    console.log(event, button);
-  }
-
   onChangeTranscription(transcription: TranscriptionEntity) {
     this.store.dispatch(
       viewerActions.changeTranscriptionId({ transcriptionId: transcription.id })
@@ -130,19 +126,35 @@ export class ControlsComponent {
 
   onOpenCaptionsSettingsDialog() {
     this.viewerService.audio?.pause();
-    // TODO do we want to play after closing the dialog??
-    this.dialog.open(CaptionsSettingsDialogComponent);
+
+    const dialogRef = this.dialog.open(CaptionsSettingsDialogComponent);
+
+    dialogRef.afterClosed().subscribe(() => {
+      this._restoreFocusById('language-menu-button');
+    });
   }
 
   onOpenTranscriptSettingsDialog() {
     this.viewerService.audio?.pause();
-    // TODO do we want to play after closing the dialog??
-    this.dialog.open(AdjustLayoutDialogComponent);
+
+    const dialogRef = this.dialog.open(AdjustLayoutDialogComponent);
+    dialogRef.afterClosed().subscribe(() => {
+      this._restoreFocusById('language-menu-button');
+    });
   }
 
   onOpenHelpDialog() {
     this.viewerService.audio?.pause();
-    this.dialog.open(HelpDialogComponent);
+
+    const dialogRef = this.dialog.open(HelpDialogComponent);
+    dialogRef.afterClosed().subscribe(() => {
+      this._restoreFocusById('settings-menu-button');
+    });
+  }
+
+  private _restoreFocusById(id: string) {
+    const btn = document.getElementById(id);
+    if (btn) btn.focus();
   }
 
   changePlaybackSpeed(newSpeed: number) {
@@ -273,6 +285,7 @@ export class ControlsComponent {
     this.mouseOverOvly = false;
     this.onCloseVolumeOverlay();
   }
+
   onKeydownVolumeBtn(
     event: KeyboardEvent,
     currentVolume: number,
