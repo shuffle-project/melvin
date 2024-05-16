@@ -195,14 +195,28 @@ export class VideoContainerComponent implements OnDestroy, OnChanges {
            * The EBU Recommendation R37 "The relative timing of the sound and vision components of a television signal"
            * states that end-to-end audio/video sync should be within +40 ms and -60 ms (audio before/after video, respectively)
            *  and that each stage should be within +5 ms and -15 ms.
+           *
+           * ATSC IS-191: -45ms to 15ms
+           * EBU R37-2007: -60ms to 40ms
+           * ITU BT.1359-1: -125ms to 45ms
+           * ITU BR.265-9: -22ms to 22ms
            */
 
           const msBefore = 40;
           const msAfter = -60;
-          if (audioToVideoMS > msBefore || audioToVideoMS < msAfter) {
-            console.log('resync video ', audioToVideoMS);
-            this.viewerVideoElement.currentTime = audioCurrentTime;
+          if (audioToVideoMS < msBefore || audioToVideoMS > msAfter) return;
+          console.log('resync video ', audioToVideoMS);
+
+          // TODO seek if too far off
+          if (audioToVideoMS > 0) {
+            // audio ist x millisekunden VOR video, video müsste vorgespult werden
+          } else {
+            // audio ist x millisekunden HINTER video, video müsste zurückgespult werden
           }
+
+          // TODO older, only resets if too far off
+          // this.viewerVideoElement.currentTime = audioCurrentTime;
+          this.viewerVideoElement.fastSeek(audioCurrentTime);
         })
       )
       .subscribe();

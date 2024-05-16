@@ -84,8 +84,6 @@ export class ViewerComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    // const token = this.route.snapshot.params['token'];
-    console.log(this.token, this.embed);
     this.store.dispatch(viewerActions.viewerLogin({ token: this.token }));
 
     this.overlayService.init();
