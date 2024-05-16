@@ -2,10 +2,15 @@ import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import {
   BehaviorSubject,
+  Observable,
   Subject,
+  animationFrameScheduler,
   combineLatest,
   debounceTime,
+  distinctUntilChanged,
+  filter,
   fromEvent,
+  interval,
   map,
   merge,
   takeUntil,
@@ -29,7 +34,7 @@ export class ViewerService {
   public audio: HTMLAudioElement | null = null;
   public audioLoaded: boolean = false;
 
-  public currentTime$ = new BehaviorSubject<number>(0);
+  public currentTime$ = new Observable<number>();
 
   public play$ = new Subject<void>();
   public pause$ = new Subject<void>();
@@ -54,7 +59,6 @@ export class ViewerService {
   ) {}
 
   resetService() {
-    this.currentTime$.next(0);
     this.currentCaption$.next(null);
     this.audio = null;
     this.audioLoaded = false;
@@ -72,14 +76,20 @@ export class ViewerService {
     this.play$.subscribe(() => this.isPlaying$.next(true));
     this.pause$.subscribe(() => this.isPlaying$.next(false));
 
-    // current time
-    fromEvent(audioElement, 'timeupdate')
-      .pipe(
-        takeUntil(this.destroy$$),
-        map((o) => (o.target as HTMLMediaElement).currentTime),
-        tap((x) => this.currentTime$.next(x))
+    // https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement#events
+    this.currentTime$ = merge(
+      fromEvent(audioElement, 'timeupdate').pipe(
+        map((o) => (o.target as HTMLMediaElement).currentTime)
+      ),
+      fromEvent(audioElement, 'seeking').pipe(
+        map((o) => (o.target as HTMLMediaElement).currentTime)
+      ),
+      //TODO: Maybe start stop interval on media.playing and media.pause
+      interval(0, animationFrameScheduler).pipe(
+        filter(() => !audioElement.paused),
+        map(() => audioElement.currentTime)
       )
-      .subscribe();
+    ).pipe(takeUntil(this.destroy$$), distinctUntilChanged());
 
     // play
     merge(fromEvent(audioElement, 'play'), fromEvent(audioElement, 'playing'))

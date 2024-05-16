@@ -14,7 +14,7 @@ import { Store } from '@ngrx/store';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { PushPipe } from '@ngrx/component';
-import { Subject, fromEvent, merge, takeUntil, tap } from 'rxjs';
+import { Subject, fromEvent, merge, takeUntil, tap, throttleTime } from 'rxjs';
 import { switchToNewBigVideo } from '../../../../../store/actions/viewer.actions';
 import { AppState } from '../../../../../store/app.state';
 import * as viewerSelector from '../../../../../store/selectors/viewer.selector';
@@ -48,16 +48,7 @@ export class VideoContainerComponent implements OnDestroy, OnChanges {
   constructor(
     private store: Store<AppState>,
     public viewerService: ViewerService
-  ) {
-    setInterval(() => {
-      if (this.viewerVideoElement && this.viewerService.audio) {
-        console.log(
-          this.viewerVideoElement.currentTime,
-          this.viewerService.audio.currentTime
-        );
-      }
-    }, 1000);
-  }
+  ) {}
 
   ngOnDestroy(): void {
     this.destroy$$.next();
@@ -183,6 +174,36 @@ export class VideoContainerComponent implements OnDestroy, OnChanges {
       .pipe(
         takeUntil(this.destroy$$),
         tap((seekTo: number) => (this.viewerVideoElement.currentTime = seekTo))
+      )
+      .subscribe();
+
+    // sync to audio
+    this.viewerService.currentTime$
+      .pipe(
+        takeUntil(this.destroy$$),
+        throttleTime(5000),
+        tap((audioCurrentTime: number) => {
+          // return if viewerVideo duration is already reached
+          if (this.viewerVideoElement.duration < audioCurrentTime) return;
+
+          const audioTime = audioCurrentTime;
+          const videoTime = this.viewerVideoElement.currentTime;
+          const audioToVideoMS = (audioTime - videoTime) * 1000;
+
+          /**
+           * https://en.wikipedia.org/wiki/Audio-to-video_synchronization#:~:text=The%20EBU%20Recommendation%20R37%20%22The,5%20ms%20and%20%2D15%20ms.
+           * The EBU Recommendation R37 "The relative timing of the sound and vision components of a television signal"
+           * states that end-to-end audio/video sync should be within +40 ms and -60 ms (audio before/after video, respectively)
+           *  and that each stage should be within +5 ms and -15 ms.
+           */
+
+          const msBefore = 40;
+          const msAfter = -60;
+          if (audioToVideoMS > msBefore || audioToVideoMS < msAfter) {
+            console.log('resync video ', audioToVideoMS);
+            this.viewerVideoElement.currentTime = audioCurrentTime;
+          }
+        })
       )
       .subscribe();
   }

@@ -57,7 +57,7 @@
       // margin-left: 1px;
       // margin-right: 1px;
 
-      background-color: var(--color-background-grey);
+      // background-color: var(--color-background-grey);
 
       cursor: col-resize;
 
@@ -73,7 +73,10 @@
       }
 
       &:hover {
-        background-color: var(--color-light-grey);
+        background-color: var(--color-background-grey);
+        .visual-resize-handle {
+          background-color: var(--color-text);
+        }
       }
     }
   }
