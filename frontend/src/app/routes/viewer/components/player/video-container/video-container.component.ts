@@ -204,19 +204,20 @@ export class VideoContainerComponent implements OnDestroy, OnChanges {
 
           const msBefore = 40;
           const msAfter = -60;
-          if (audioToVideoMS < msBefore || audioToVideoMS > msAfter) return;
-          console.log('resync video ', audioToVideoMS);
+          if (audioToVideoMS < msBefore && audioToVideoMS > msAfter) {
+            console.log('resync video ', audioToVideoMS);
 
-          // TODO seek if too far off
-          if (audioToVideoMS > 0) {
-            // audio ist x millisekunden VOR video, video müsste vorgespult werden
-          } else {
-            // audio ist x millisekunden HINTER video, video müsste zurückgespult werden
+            // // TODO seek if too far off
+            // if (audioToVideoMS > 0) {
+            //   // audio ist x millisekunden VOR video, video müsste vorgespult werden
+            // } else {
+            //   // audio ist x millisekunden HINTER video, video müsste zurückgespult werden
+            // }
+
+            // TODO older, only resets if too far off
+            // this.viewerVideoElement.currentTime = audioCurrentTime;
+            this.viewerVideoElement.fastSeek(audioCurrentTime);
           }
-
-          // TODO older, only resets if too far off
-          // this.viewerVideoElement.currentTime = audioCurrentTime;
-          this.viewerVideoElement.fastSeek(audioCurrentTime);
         })
       )
       .subscribe();
