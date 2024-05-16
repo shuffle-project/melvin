@@ -181,6 +181,13 @@ export class VideoContainerComponent implements OnDestroy, OnChanges {
   private setCurrentState(videoPlayer: HTMLVideoElement) {
     if (this.viewerService.audio) {
       videoPlayer.currentTime = this.viewerService.audio.currentTime;
+
+      // resync after a few seconds to avoid asyncron video&audio
+      setTimeout(() => {
+        if (this.viewerService.audio && videoPlayer)
+          videoPlayer.currentTime = this.viewerService.audio.currentTime;
+      }, 5000);
+
       if (!this.viewerService.audio.paused) {
         videoPlayer.play();
       }
