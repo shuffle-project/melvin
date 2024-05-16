@@ -48,7 +48,16 @@ export class VideoContainerComponent implements OnDestroy, OnChanges {
   constructor(
     private store: Store<AppState>,
     public viewerService: ViewerService
-  ) {}
+  ) {
+    setInterval(() => {
+      if (this.viewerVideoElement && this.viewerService.audio) {
+        console.log(
+          this.viewerVideoElement.currentTime,
+          this.viewerService.audio.currentTime
+        );
+      }
+    }, 1000);
+  }
 
   ngOnDestroy(): void {
     this.destroy$$.next();
@@ -179,14 +188,9 @@ export class VideoContainerComponent implements OnDestroy, OnChanges {
   }
 
   private setCurrentState(videoPlayer: HTMLVideoElement) {
+    videoPlayer.readyState;
     if (this.viewerService.audio) {
       videoPlayer.currentTime = this.viewerService.audio.currentTime;
-
-      // resync after a few seconds to avoid asyncron video&audio
-      setTimeout(() => {
-        if (this.viewerService.audio && videoPlayer)
-          videoPlayer.currentTime = this.viewerService.audio.currentTime;
-      }, 5000);
 
       if (!this.viewerService.audio.paused) {
         videoPlayer.play();
