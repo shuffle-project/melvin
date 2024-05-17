@@ -134,9 +134,10 @@ export class VideoContainerComponent implements OnDestroy, OnChanges {
         takeUntil(this.destroy$$),
         tap(() => {
           if (this.viewerVideoElement.paused && !this._isPlayingTemp) {
-            this._isPlayingTemp = true;
             console.log('playvideo');
-            this.viewerVideoElement.play();
+            this.viewerVideoElement.play().then(() => {
+              this._isPlayingTemp = true;
+            });
           }
         })
       )
