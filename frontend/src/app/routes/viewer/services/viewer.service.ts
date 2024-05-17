@@ -66,7 +66,7 @@ export class ViewerService {
     console.log('play', this.audio?.paused);
     if (this.audio) {
       // console.log(this.mediaLoading);
-
+      this.audio.pause();
       if (this.mediaLoading) {
         console.log('settimeout');
         setTimeout(() => {
