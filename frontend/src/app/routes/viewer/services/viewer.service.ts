@@ -48,11 +48,6 @@ export class ViewerService {
   public currentCaption$: BehaviorSubject<null | undefined | CaptionEntity> =
     new BehaviorSubject<CaptionEntity | undefined | null>(null);
 
-  private _loadingData: string[] = [];
-  public get loadingData() {
-    return this._loadingData.length > 0;
-  }
-
   constructor(
     private store: Store<AppState>,
     private storageService: StorageService
@@ -65,6 +60,30 @@ export class ViewerService {
     this.projectId = null;
 
     this.destroy$$.next();
+  }
+
+  play() {
+    console.log('play', this.audio?.paused);
+    if (this.audio) {
+      // console.log(this.mediaLoading);
+
+      if (this.mediaLoading) {
+        console.log('settimeout');
+        setTimeout(() => {
+          this.play();
+        }, 250);
+      } else {
+        console.log('actually play');
+        this.audio.play();
+      }
+    }
+  }
+
+  pause() {
+    console.log('pause');
+    if (this.audio) {
+      this.audio.pause();
+    }
   }
 
   initAudioObservables(audioElement: HTMLAudioElement, projectId: string) {
@@ -131,9 +150,53 @@ export class ViewerService {
         })
       )
       .subscribe();
+    this.registerLoadingEvents('audio', audioElement, this.destroy$$);
 
     this.saveCurrentTimeInStorage();
     this.audioLoaded = true;
+  }
+
+  private _loadingData: string[] = [];
+  public mediaLoading = false;
+
+  registerLoadingEvents(
+    id: string,
+    htmlMediaElement: HTMLMediaElement,
+    takeUntil$: Subject<void>
+  ) {
+    merge(
+      fromEvent(htmlMediaElement, 'canplay'),
+      fromEvent(htmlMediaElement, 'waiting'),
+      fromEvent(htmlMediaElement, 'seeking'),
+      fromEvent(htmlMediaElement, 'seeked'),
+      fromEvent(htmlMediaElement, 'stalled'),
+      fromEvent(htmlMediaElement, 'suspended')
+    )
+      .pipe(
+        takeUntil(takeUntil$),
+        tap(() => {
+          // HAVE_NOTHING	0	No information is available about the media resource.
+          // HAVE_METADATA	1	Enough of the media resource has been retrieved that the metadata attributes are initialized. Seeking will no longer raise an exception.
+          // HAVE_CURRENT_DATA	2	Data is available for the current playback position, but not enough to actually play more than one frame.
+          // HAVE_FUTURE_DATA	3	Data for the current playback position as well as for at least a little bit of time into the future is available (in other words, at least two frames of video, for example).
+          // HAVE_ENOUGH_DATA	4	Enough data is available—and the download rate is high enough—that the media can be
+
+          if (htmlMediaElement.readyState > 2) {
+            this.doneLoading(id);
+          } else {
+            this.isLoading(id);
+          }
+
+          if (this._loadingData.length > 0) {
+            this.mediaLoading = true;
+          } else {
+            this.mediaLoading = false;
+          }
+
+          // this.isLoading(id);
+        })
+      )
+      .subscribe();
   }
 
   isLoading(id: string) {
@@ -148,7 +211,9 @@ export class ViewerService {
 
   onJumpInAudio(newSeconds: number) {
     if (this.audio) {
+      this.pause();
       this.audio.currentTime = newSeconds / 1000;
+      this.play();
     }
   }
 

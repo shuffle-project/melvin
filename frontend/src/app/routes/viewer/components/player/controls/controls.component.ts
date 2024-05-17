@@ -95,9 +95,9 @@ export class ControlsComponent {
 
   onPlayPauseVideo() {
     if (this.viewerService.audio?.paused) {
-      this.viewerService.audio.play();
+      this.viewerService.play();
     } else {
-      this.viewerService.audio?.pause();
+      this.viewerService.pause();
     }
   }
 

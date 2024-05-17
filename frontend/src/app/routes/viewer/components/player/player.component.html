@@ -13,7 +13,7 @@
   <!--  -->
 
   <div class="position-relative">
-    @if (viewerAudio.readyState === 1 && viewerService.loadingData) {
+    @if (viewerAudio.readyState === 1 && viewerService.mediaLoading) {
     <div class="loading-spinner">
       <mat-spinner mode="indeterminate"></mat-spinner>
     </div>

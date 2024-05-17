@@ -130,9 +130,7 @@ export class PlayerComponent
     public viewerService: ViewerService,
     private ref: ChangeDetectorRef,
     public overlayService: OverlayService
-  ) {
-    this.viewerService.isLoading('audio');
-  }
+  ) {}
 
   ngOnInit() {
     this.chooseAudio();
