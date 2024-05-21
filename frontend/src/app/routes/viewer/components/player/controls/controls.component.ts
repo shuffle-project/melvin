@@ -76,6 +76,8 @@ export class ControlsComponent {
 
   public vViewerVideos$ = this.store.select(viewerSelector.vViewerVideos);
 
+  public isPlayingUser$ = this.store.select(viewerSelector.vIsPlayingUser);
+
   constructor(
     private store: Store<AppState>,
     public viewerService: ViewerService,

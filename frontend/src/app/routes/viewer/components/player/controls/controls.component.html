@@ -26,15 +26,15 @@
     }}</span>
   </div>
   <div class="main-controls">
-    <div class="left">
+    <div class="left" *ngrxLet="isPlayingUser$ as isPlayingUser">
       <button
         mat-icon-button
         class="md"
-        matTooltip="{{ viewerService.audio.paused ? 'Play' : 'Pause' }}"
+        matTooltip="{{ !isPlayingUser ? 'Play' : 'Pause' }}"
         i18n-matTooltip="@@viewerControlsPlayPauseTooltip"
         (click)="onPlayPauseVideo()"
       >
-        @if (viewerService.audio.paused) {
+        @if (!isPlayingUser) {
         <mat-icon svgIcon="play" />
         }@else {
         <mat-icon svgIcon="pause" />
