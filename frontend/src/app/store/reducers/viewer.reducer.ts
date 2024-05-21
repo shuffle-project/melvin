@@ -48,6 +48,10 @@ export interface ViewerState {
   // TODO new names?
   viewerVideos: ViewerVideo[];
   bigVideoId: string;
+
+  //
+  loadingMediaIds: string[];
+  isPlayingUser: boolean;
 }
 
 export const initalState: ViewerState = {
@@ -105,6 +109,9 @@ export const initalState: ViewerState = {
 
   viewerVideos: [],
   bigVideoId: '',
+
+  loadingMediaIds: [],
+  isPlayingUser: false,
 };
 
 export const viewerReducer = createReducer(
@@ -255,6 +262,21 @@ export const viewerReducer = createReducer(
           return { ...video, shown: true };
         }
       }),
+    };
+  }),
+
+  // media loading & playing
+  on(viewerActions.playPauseUser, (state) => {
+    return { ...state, isPlayingUser: !state.isPlayingUser };
+  }),
+
+  on(viewerActions.mediaLoading, (state, { id }) => {
+    return { ...state, loadingMediaIds: [...state.loadingMediaIds, id] };
+  }),
+  on(viewerActions.mediaLoaded, (state, { id }) => {
+    return {
+      ...state,
+      loadingMediaIds: state.loadingMediaIds.filter((obj) => obj !== id),
     };
   })
 );

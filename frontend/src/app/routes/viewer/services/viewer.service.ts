@@ -36,10 +36,10 @@ export class ViewerService {
 
   public currentTime$ = new Observable<number>();
 
-  public play$ = new Subject<void>();
-  public pause$ = new Subject<void>();
+  // public play$ = new Subject<void>();
+  // public pause$ = new Subject<void>();
 
-  public isPlaying$ = new BehaviorSubject<boolean>(false);
+  // public isPlaying$ = new BehaviorSubject<boolean>(false);
 
   public seeking$ = new Subject<number>();
 
@@ -47,6 +47,10 @@ export class ViewerService {
 
   public currentCaption$: BehaviorSubject<null | undefined | CaptionEntity> =
     new BehaviorSubject<CaptionEntity | undefined | null>(null);
+
+  // TODO new
+  public isPlayingUser$ = this.store.select(viewerSelector.vIsPlayingUser);
+  public isPlayingMedia$ = this.store.select(viewerSelector.vIsPlayingMedia);
 
   constructor(
     private store: Store<AppState>,
@@ -62,29 +66,33 @@ export class ViewerService {
     this.destroy$$.next();
   }
 
-  play() {
-    console.log('play', this.audio?.paused);
-    if (this.audio) {
-      // console.log(this.mediaLoading);
-      this.audio.pause();
-      if (this.mediaLoading) {
-        console.log('settimeout');
-        setTimeout(() => {
-          this.play();
-        }, 250);
-      } else {
-        console.log('actually play');
-        this.audio.play();
-      }
-    }
-  }
+  // play() {
+  //   console.log('play', this.audio?.paused);
+  //   if (this.audio) {
+  //     // TODO
+  //     /**
+  //      * media loading checken?
+  //      */
+  //     // console.log(this.mediaLoading);
+  //     this.audio.pause();
+  //     // if (this.mediaLoading) {
+  //     //   console.log('settimeout');
+  //     //   setTimeout(() => {
+  //     //     this.play();
+  //     //   }, 250);
+  //     // } else {
+  //     //   console.log('actually play');
+  //     //   this.audio.play();
+  //     // }
+  //   }
+  // }
 
-  pause() {
-    console.log('pause');
-    if (this.audio) {
-      this.audio.pause();
-    }
-  }
+  // pause() {
+  //   console.log('pause');
+  //   if (this.audio) {
+  //     this.audio.pause();
+  //   }
+  // }
 
   initAudioObservables(audioElement: HTMLAudioElement, projectId: string) {
     this.projectId = projectId;
@@ -92,8 +100,9 @@ export class ViewerService {
 
     // TODO take until destory
     this.loadCurrentTimeFromStorage();
-    this.play$.subscribe(() => this.isPlaying$.next(true));
-    this.pause$.subscribe(() => this.isPlaying$.next(false));
+    // this.isPlayingUser$.subscribe
+    // this.play$.subscribe(() => this.isPlaying$.next(true));
+    // this.pause$.subscribe(() => this.isPlaying$.next(false));
 
     // https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement#events
     this.currentTime$ = merge(
@@ -111,20 +120,20 @@ export class ViewerService {
     ).pipe(takeUntil(this.destroy$$), distinctUntilChanged());
 
     // play
-    merge(fromEvent(audioElement, 'play'), fromEvent(audioElement, 'playing'))
-      .pipe(
-        takeUntil(this.destroy$$),
-        tap(() => this.play$.next())
-      )
-      .subscribe();
+    // merge(fromEvent(audioElement, 'play'), fromEvent(audioElement, 'playing'))
+    //   .pipe(
+    //     takeUntil(this.destroy$$),
+    //     tap(() => this.play$.next())
+    //   )
+    //   .subscribe();
 
     // pause
-    merge(fromEvent(audioElement, 'pause'), fromEvent(audioElement, 'waiting'))
-      .pipe(
-        takeUntil(this.destroy$$),
-        tap(() => this.pause$.next())
-      )
-      .subscribe();
+    // merge(fromEvent(audioElement, 'pause'), fromEvent(audioElement, 'waiting'))
+    //   .pipe(
+    //     takeUntil(this.destroy$$),
+    //     tap(() => this.pause$.next())
+    //   )
+    //   .subscribe();
 
     // seeking
     merge(fromEvent(audioElement, 'seeking'), fromEvent(audioElement, 'seeked'))
@@ -156,9 +165,6 @@ export class ViewerService {
     this.audioLoaded = true;
   }
 
-  private _loadingData: string[] = [];
-  public mediaLoading = false;
-
   registerLoadingEvents(
     id: string,
     htmlMediaElement: HTMLMediaElement,
@@ -182,15 +188,9 @@ export class ViewerService {
           // HAVE_ENOUGH_DATA	4	Enough data is available—and the download rate is high enough—that the media can be
 
           if (htmlMediaElement.readyState > 2) {
-            this.doneLoading(id);
+            this.store.dispatch(viewerActions.mediaLoaded({ id }));
           } else {
-            this.isLoading(id);
-          }
-
-          if (this._loadingData.length > 0) {
-            this.mediaLoading = true;
-          } else {
-            this.mediaLoading = false;
+            this.store.dispatch(viewerActions.mediaLoading({ id }));
           }
 
           // this.isLoading(id);
@@ -199,21 +199,9 @@ export class ViewerService {
       .subscribe();
   }
 
-  isLoading(id: string) {
-    const indexOf = this._loadingData.indexOf(id);
-    if (indexOf < 0) this._loadingData.push(id);
-  }
-
-  doneLoading(id: string) {
-    const indexOf = this._loadingData.indexOf(id);
-    if (indexOf > -1) this._loadingData.splice(indexOf, 1);
-  }
-
   onJumpInAudio(newSeconds: number) {
     if (this.audio) {
-      this.pause();
       this.audio.currentTime = newSeconds / 1000;
-      this.play();
     }
   }
 

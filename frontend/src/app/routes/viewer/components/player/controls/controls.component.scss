@@ -96,10 +96,6 @@
   }
 }
 
-.volume-menu {
-  background-color: red;
-}
-
 .cdk-menu-wrapper {
   //
 
@@ -147,17 +143,21 @@
 }
 
 .volume-slider-wrapper {
+  background-color: var(--color-white) !important;
   padding-right: 15px;
 }
 
 .menu-shadow {
   // todo colors and shadows copied from mat menu
-  background-color: white;
+  background-color: var(--color-white);
   border-bottom-left-radius: 4px;
   border-bottom-right-radius: 4px;
   border-top-left-radius: 4px;
   border-top-right-radius: 4px;
-  box-shadow: rgba(0, 0, 0, 0.2) 0px 5px 5px -3px,
-    rgba(0, 0, 0, 0.14) 0px 8px 10px 1px, rgba(0, 0, 0, 0.12) 0px 3px 14px 2px;
+
+  // TODO sieht gut aus im lightmode aber nicht gut im dark mode
+  box-shadow: rgba(var(--color-black-rgb), 0.2) 0px 5px 5px -3px,
+    rgba(var(--color-black-rgb), 0.14) 0px 8px 10px 1px,
+    rgba(var(--color-black-rgb), 0.12) 0px 3px 14px 2px;
   box-sizing: border-box;
 }

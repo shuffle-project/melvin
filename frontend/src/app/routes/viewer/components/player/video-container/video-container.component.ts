@@ -13,7 +13,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { PushPipe } from '@ngrx/component';
 import { Subject, takeUntil, tap } from 'rxjs';
-import { switchToNewBigVideo } from '../../../../../store/actions/viewer.actions';
+import * as viewerActions from '../../../../../store/actions/viewer.actions';
 import { AppState } from '../../../../../store/app.state';
 import * as viewerSelector from '../../../../../store/selectors/viewer.selector';
 import { ViewerService } from '../../../services/viewer.service';
@@ -59,16 +59,19 @@ export class VideoContainerComponent implements OnDestroy, OnChanges {
   }
 
   onChangeMainVideo() {
-    this.store.dispatch(switchToNewBigVideo({ newBigVideoId: this.video.id }));
+    this.store.dispatch(
+      viewerActions.switchToNewBigVideo({ newBigVideoId: this.video.id })
+    );
   }
 
   onClickVideo() {
     if (this.size === 'big' && this.viewerService.audio) {
-      if (this.viewerService.audio.paused) {
-        this.viewerService.play();
-      } else {
-        this.viewerService.pause();
-      }
+      this.store.dispatch(viewerActions.playPauseUser());
+      // if (this.viewerService.audio.paused) {
+      //   this.viewerService.play();
+      // } else {
+      //   this.viewerService.pause();
+      // }
     }
   }
 
@@ -82,11 +85,12 @@ export class VideoContainerComponent implements OnDestroy, OnChanges {
     if (this.size === 'big' && this.viewerService.audio) {
       switch (event.key) {
         case ' ':
-          if (this.viewerService.audio.paused) {
-            this.viewerService.play();
-          } else {
-            this.viewerService.pause();
-          }
+          this.store.dispatch(viewerActions.playPauseUser());
+          // if (this.viewerService.audio.paused) {
+          //   this.viewerService.play();
+          // } else {
+          //   this.viewerService.pause();
+          // }
           break;
         // case 'ArrowRight':
         //   if (
@@ -113,7 +117,7 @@ export class VideoContainerComponent implements OnDestroy, OnChanges {
   }
 
   onVideoLoadMetadata(event: Event) {
-    this.connectToAudio(event);
+    this.connectToState(event);
 
     this.viewerService.registerLoadingEvents(
       this.video.id,
@@ -122,41 +126,53 @@ export class VideoContainerComponent implements OnDestroy, OnChanges {
     );
   }
 
-  _isPlayingTemp = false;
-
-  connectToAudio(event: Event) {
+  connectToState(event: Event) {
     // current state
     this.setCurrentState(this.viewerVideoElement);
 
-    // future state
-    this.viewerService.play$
+    this.store
+      .select(viewerSelector.vIsPlayingMedia)
       .pipe(
         takeUntil(this.destroy$$),
-        tap(() => {
-          if (this.viewerVideoElement.paused && !this._isPlayingTemp) {
-            console.log('playvideo');
-            this.viewerVideoElement.play().then(() => {
-              this._isPlayingTemp = true;
-            });
+        tap((isPlaying) => {
+          if (isPlaying) {
+            this.viewerVideoElement.play();
+          } else {
+            this.viewerVideoElement.pause();
           }
         })
       )
       .subscribe();
 
-    this.viewerService.pause$
-      .pipe(
-        takeUntil(this.destroy$$),
-        tap(() => {
-          if (!this.viewerVideoElement.paused && this._isPlayingTemp) {
-            this._isPlayingTemp = false;
-            this.viewerVideoElement.pause();
-          }
-          // if (this.viewerService.audio)
-          //   this.viewerVideoElement.currentTime =
-          //     this.viewerService.audio.currentTime;
-        })
-      )
-      .subscribe();
+    // // future state
+    // this.viewerService.play$
+    //   .pipe(
+    //     takeUntil(this.destroy$$),
+    //     tap(() => {
+    //       if (this.viewerVideoElement.paused && !this._isPlayingTemp) {
+    //         console.log('playvideo');
+    //         this.viewerVideoElement.play().then(() => {
+    //           this._isPlayingTemp = true;
+    //         });
+    //       }
+    //     })
+    //   )
+    //   .subscribe();
+
+    // this.viewerService.pause$
+    //   .pipe(
+    //     takeUntil(this.destroy$$),
+    //     tap(() => {
+    //       if (!this.viewerVideoElement.paused && this._isPlayingTemp) {
+    //         this._isPlayingTemp = false;
+    //         this.viewerVideoElement.pause();
+    //       }
+    //       // if (this.viewerService.audio)
+    //       //   this.viewerVideoElement.currentTime =
+    //       //     this.viewerService.audio.currentTime;
+    //     })
+    //   )
+    //   .subscribe();
 
     this.viewerService.seeking$
       .pipe(
@@ -210,7 +226,7 @@ export class VideoContainerComponent implements OnDestroy, OnChanges {
       videoPlayer.currentTime = this.viewerService.audio.currentTime;
 
       if (!this.viewerService.audio.paused) {
-        this.viewerService.play();
+        // this.viewerService.play(); // TODO
       }
     }
   }

@@ -94,11 +94,7 @@ export class ControlsComponent {
   }
 
   onPlayPauseVideo() {
-    if (this.viewerService.audio?.paused) {
-      this.viewerService.play();
-    } else {
-      this.viewerService.pause();
-    }
+    this.store.dispatch(viewerActions.playPauseUser());
   }
 
   onClickMenuItem(event: MouseEvent, button: HTMLButtonElement) {

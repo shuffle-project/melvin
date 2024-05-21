@@ -189,3 +189,19 @@ export const changeSpeed = createAction(
   '[CONTROLS COMPONENT] Change speed',
   props<{ newSpeed: number }>()
 );
+
+// media loading & playing
+
+export const playPauseUser = createAction(
+  '[CONTROLS COMPONENT] User toggle Play/Pause '
+);
+
+export const mediaLoading = createAction(
+  '[VIEWER SERVICE] set loading started for this id',
+  props<{ id: string }>()
+);
+
+export const mediaLoaded = createAction(
+  '[VIEWER SERVICE] set loading done for this id',
+  props<{ id: string }>()
+);
