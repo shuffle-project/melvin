@@ -104,6 +104,19 @@ export class ViewerService {
     // this.play$.subscribe(() => this.isPlaying$.next(true));
     // this.pause$.subscribe(() => this.isPlaying$.next(false));
 
+    this.isPlayingMedia$
+      .pipe(
+        takeUntil(this.destroy$$),
+        tap((isPlaying) => {
+          if (isPlaying) {
+            this.audio?.play();
+          } else {
+            this.audio?.pause();
+          }
+        })
+      )
+      .subscribe();
+
     // https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement#events
     this.currentTime$ = merge(
       fromEvent(audioElement, 'timeupdate').pipe(
