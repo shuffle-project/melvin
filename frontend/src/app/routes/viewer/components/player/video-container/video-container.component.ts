@@ -135,6 +135,13 @@ export class VideoContainerComponent implements OnDestroy, OnChanges {
       .pipe(
         takeUntil(this.destroy$$),
         tap((isPlaying) => {
+          if (this.viewerService.audio) {
+            const audioTime = this.viewerService.audio.currentTime;
+            const videoTime = this.viewerVideoElement.currentTime;
+
+            this._resyncIfNeeded(audioTime, videoTime);
+          }
+
           if (isPlaying) {
             this.viewerVideoElement.play();
           } else {
@@ -188,46 +195,49 @@ export class VideoContainerComponent implements OnDestroy, OnChanges {
         throttleTime(2000),
         tap((audioCurrentTime: number) => {
           // return if viewerVideo duration is already reached
-          if (this.viewerVideoElement.duration < audioCurrentTime) return;
 
           const audioTime = audioCurrentTime;
           const videoTime = this.viewerVideoElement.currentTime;
-          const audioOffsetMS = (audioTime - videoTime) * 1000;
 
-          /**
-           * https://en.wikipedia.org/wiki/Audio-to-video_synchronization#:~:text=The%20EBU%20Recommendation%20R37%20%22The,5%20ms%20and%20%2D15%20ms.
-           * The EBU Recommendation R37 "The relative timing of the sound and vision components of a television signal"
-           * states that end-to-end audio/video sync should be within +40 ms and -60 ms (audio before/after video, respectively)
-           *  and that each stage should be within +5 ms and -15 ms.
-           *
-           * ATSC IS-191: -45ms to 15ms
-           * EBU R37-2007: -60ms to 40ms
-           * ITU BT.1359-1: -125ms to 45ms
-           * ITU BR.265-9: -22ms to 22ms
-           */
-
-          const msBefore = 100;
-          const msAfter = -100;
-
-          if (audioOffsetMS > msBefore || audioOffsetMS < msAfter) {
-            console.log('resync video  ', audioOffsetMS);
-
-            // TODO ready state video
-            this.viewerVideoElement.currentTime = audioCurrentTime;
-          }
+          this._resyncIfNeeded(audioTime, videoTime);
         })
       )
       .subscribe();
+  }
+
+  private _resyncIfNeeded(audioTime: number, videoTime: number) {
+    if (this.viewerVideoElement.duration < audioTime) return;
+
+    const audioOffsetMS = (audioTime - videoTime) * 1000;
+
+    /**
+     * https://en.wikipedia.org/wiki/Audio-to-video_synchronization#:~:text=The%20EBU%20Recommendation%20R37%20%22The,5%20ms%20and%20%2D15%20ms.
+     * The EBU Recommendation R37 "The relative timing of the sound and vision components of a television signal"
+     * states that end-to-end audio/video sync should be within +40 ms and -60 ms (audio before/after video, respectively)
+     *  and that each stage should be within +5 ms and -15 ms.
+     *
+     * ATSC IS-191: -45ms to 15ms
+     * EBU R37-2007: -60ms to 40ms
+     * ITU BT.1359-1: -125ms to 45ms
+     * ITU BR.265-9: -22ms to 22ms
+     */
+    const msBefore = 100;
+    const msAfter = -100;
+
+    if (audioOffsetMS > msBefore || audioOffsetMS < msAfter) {
+      console.log('resync video  ', audioOffsetMS);
+
+      // TODO ready state video
+      this.viewerVideoElement.currentTime = audioTime;
+    } else {
+      console.log('DONT resync video  ', audioOffsetMS);
+    }
   }
 
   private setCurrentState(videoPlayer: HTMLVideoElement) {
     videoPlayer.readyState;
     if (this.viewerService.audio) {
       videoPlayer.currentTime = this.viewerService.audio.currentTime;
-
-      if (!this.viewerService.audio.paused) {
-        // this.viewerService.play(); // TODO
-      }
     }
   }
 }
