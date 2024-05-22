@@ -55,7 +55,7 @@
             (mouseout)="onMouseOutBtn()"
           >
             @if (muted || volume === 0) {
-            <mat-icon svgIcon="volume-off"></mat-icon>
+            <mat-icon svgIcon="volume-mute"></mat-icon>
             } @else if(volume< 0.5){
             <mat-icon svgIcon="volume-low"></mat-icon>
             }@else {
