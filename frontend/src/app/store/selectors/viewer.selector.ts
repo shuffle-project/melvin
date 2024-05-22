@@ -52,6 +52,14 @@ export const vIsPlayingMedia = createSelector(
   }
 );
 
+export const vShowLoadingSpinner = createSelector(
+  vCanPlay,
+  vIsPlayingUser,
+  (canPlay: boolean, isPlayingUser: boolean) => {
+    return !canPlay && isPlayingUser;
+  }
+);
+
 /**
  * DATA
  */

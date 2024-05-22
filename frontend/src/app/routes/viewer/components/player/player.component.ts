@@ -118,6 +118,10 @@ export class PlayerComponent
     map((list) => list.length)
   );
 
+  public showLoadingSpinner$ = this.store.select(
+    viewerSelector.vShowLoadingSpinner
+  );
+
   // helper variables for dragndrop
   private resizingVideoWidth = false;
   private initialClientX = 0;

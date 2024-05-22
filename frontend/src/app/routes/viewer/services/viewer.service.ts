@@ -193,6 +193,7 @@ export class ViewerService {
     )
       .pipe(
         takeUntil(takeUntil$),
+        debounceTime(0),
         tap(() => {
           // HAVE_NOTHING	0	No information is available about the media resource.
           // HAVE_METADATA	1	Enough of the media resource has been retrieved that the metadata attributes are initialized. Seeking will no longer raise an exception.

@@ -226,8 +226,6 @@ export class VideoContainerComponent implements OnDestroy, OnChanges {
 
     if (audioOffsetMS > msBefore || audioOffsetMS < msAfter) {
       console.log('resync video  ', audioOffsetMS);
-
-      // TODO ready state video
       this.viewerVideoElement.currentTime = audioTime;
     } else {
       console.log('DONT resync video  ', audioOffsetMS);
