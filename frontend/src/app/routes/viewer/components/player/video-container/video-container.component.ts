@@ -206,8 +206,8 @@ export class VideoContainerComponent implements OnDestroy, OnChanges {
            * ITU BR.265-9: -22ms to 22ms
            */
 
-          const msBefore = 40;
-          const msAfter = -60;
+          const msBefore = 100;
+          const msAfter = -100;
 
           if (audioOffsetMS > msBefore || audioOffsetMS < msAfter) {
             console.log('resync video  ', audioOffsetMS);
