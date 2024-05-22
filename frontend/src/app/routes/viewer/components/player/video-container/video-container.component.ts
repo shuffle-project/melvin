@@ -185,7 +185,7 @@ export class VideoContainerComponent implements OnDestroy, OnChanges {
     this.viewerService.currentTime$
       .pipe(
         takeUntil(this.destroy$$),
-        throttleTime(5000),
+        throttleTime(2000),
         tap((audioCurrentTime: number) => {
           // return if viewerVideo duration is already reached
           if (this.viewerVideoElement.duration < audioCurrentTime) return;
