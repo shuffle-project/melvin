@@ -28,6 +28,39 @@ export const vLoginError = createSelector(
 );
 
 /**
+ * media loading & playing
+ */
+export const vIsPlayingUser = createSelector(
+  selectViewerState,
+  (state: ViewerState) => {
+    return state.isPlayingUser;
+  }
+);
+
+export const vCanPlay = createSelector(
+  selectViewerState,
+  (state: ViewerState) => {
+    return state.loadingMediaIds.length === 0;
+  }
+);
+
+export const vIsPlayingMedia = createSelector(
+  vCanPlay,
+  vIsPlayingUser,
+  (canPlay: boolean, isPlayingUser: boolean) => {
+    return canPlay && isPlayingUser;
+  }
+);
+
+export const vShowLoadingSpinner = createSelector(
+  vCanPlay,
+  vIsPlayingUser,
+  (canPlay: boolean, isPlayingUser: boolean) => {
+    return !canPlay && isPlayingUser;
+  }
+);
+
+/**
  * DATA
  */
 
@@ -158,6 +191,13 @@ export const vVolume = createSelector(
   selectViewerState,
   (state: ViewerState) => {
     return state.volume;
+  }
+);
+
+export const vMuted = createSelector(
+  selectViewerState,
+  (state: ViewerState) => {
+    return state.muted;
   }
 );
 

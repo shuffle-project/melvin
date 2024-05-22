@@ -1,4 +1,5 @@
 import { Injectable, OnDestroy } from '@angular/core';
+import { Store } from '@ngrx/store';
 import {
   BehaviorSubject,
   Subject,
@@ -9,6 +10,8 @@ import {
   throttleTime,
   withLatestFrom,
 } from 'rxjs';
+import { AppState } from '../../../store/app.state';
+import { vIsPlayingUser } from '../../../store/selectors/viewer.selector';
 import { ViewerService } from './viewer.service';
 
 @Injectable({
@@ -28,7 +31,10 @@ export class OverlayService implements OnDestroy {
 
   private _hideWithDelay$ = new Subject<boolean>();
 
-  constructor(private viewerService: ViewerService) {}
+  constructor(
+    private viewerService: ViewerService,
+    private store: Store<AppState>
+  ) {}
 
   ngOnDestroy(): void {
     this.destroy();
@@ -53,7 +59,8 @@ export class OverlayService implements OnDestroy {
       .subscribe();
 
     // hide on playing / show on paused
-    this.viewerService.isPlaying$
+    this.store
+      .select(vIsPlayingUser)
       .pipe(
         takeUntil(this.destroy$$),
         withLatestFrom(this.menuOpen$),
@@ -67,7 +74,7 @@ export class OverlayService implements OnDestroy {
     this._mousemove$
       .pipe(
         takeUntil(this.destroy$$),
-        withLatestFrom(this.viewerService.isPlaying$, this.menuOpen$),
+        withLatestFrom(this.store.select(vIsPlayingUser), this.menuOpen$),
         throttleTime(1000),
         tap(([_, isPlaying, menuOpen]) => {
           this._showOrHide(isPlaying, menuOpen);
@@ -79,7 +86,7 @@ export class OverlayService implements OnDestroy {
     this._keydown$
       .pipe(
         takeUntil(this.destroy$$),
-        withLatestFrom(this.viewerService.isPlaying$, this.menuOpen$),
+        withLatestFrom(this.store.select(vIsPlayingUser), this.menuOpen$),
         tap(([_, isPlaying, isMenuOpen]) => {
           this._showOrHide(isPlaying, isMenuOpen);
         })
@@ -90,7 +97,7 @@ export class OverlayService implements OnDestroy {
     this.menuOpen$
       .pipe(
         takeUntil(this.destroy$$),
-        withLatestFrom(this.viewerService.isPlaying$),
+        withLatestFrom(this.store.select(vIsPlayingUser)),
         tap(([isMenuOpen, isPlaying]) => {
           this._showOrHide(isPlaying, isMenuOpen);
         })

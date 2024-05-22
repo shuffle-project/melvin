@@ -3,6 +3,7 @@
     #viewerAudio
     (loadedmetadata)="onAudioLoadMetadata($event)"
     [volume]="volume$ | ngrxPush"
+    [muted]="muted$ | ngrxPush"
     [playbackRate]="currentSpeed$ | ngrxPush"
   >
     @if (playingAudio) {
@@ -11,10 +12,13 @@
   </audio>
   <!--  -->
 
-  <div class="position-relative">
-    @if (viewerAudio.readyState === 1 && viewerService.loadingData) {
+  <div
+    class="position-relative"
+    *ngrxLet="showLoadingSpinner$ as showLoadingSpinner"
+  >
+    @if (showLoadingSpinner ) {
     <div class="loading-spinner">
-      <mat-spinner mode="indeterminate"></mat-spinner>
+      <mat-spinner mode="indeterminate" color="accent"></mat-spinner>
     </div>
     }
     <div

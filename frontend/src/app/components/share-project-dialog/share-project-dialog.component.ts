@@ -54,6 +54,7 @@ import {
 } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { MemberEntry, MemberEntryType } from '../../constants/member.constants';
+import { EmbedComponent } from '../../routes/viewer/components/embed/embed.component';
 import { AlertService } from '../../services/alert/alert.service';
 import { ApiService } from '../../services/api/api.service';
 import { ProjectEntity } from '../../services/api/entities/project.entity';
@@ -93,6 +94,7 @@ interface DialogData {
     MatToolbarModule,
     MatTooltipModule,
     ReactiveFormsModule,
+    EmbedComponent,
   ],
   standalone: true,
 })

@@ -13,6 +13,7 @@ export enum StorageKey {
   VIEWER_TRANSCRIPT_FONTSIZE = 'viewer-transcript-fontsize',
   VIEWER_TRANSCRIPT_POSITION = 'viewer-transcript-position',
   VIEWER_MEDIA_VOLUME = 'viewer-media-volume',
+  VIEWER_MEDIA_MUTED = 'viewer-media-muted',
   VIEWER_SUBTITLES_ENABLED = 'viewer-subtitles-enabled',
 
   // capptions settings

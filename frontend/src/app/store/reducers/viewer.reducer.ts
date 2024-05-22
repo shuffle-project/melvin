@@ -41,12 +41,17 @@ export interface ViewerState {
   captionsFontsize: SizeOptions;
   captionsPosition: CaptionPositionOptions;
   currentSpeed: number;
+  muted: boolean;
   volume: number;
   subtitlesEnabled: boolean;
 
   // TODO new names?
   viewerVideos: ViewerVideo[];
   bigVideoId: string;
+
+  //
+  loadingMediaIds: string[];
+  isPlayingUser: boolean;
 }
 
 export const initalState: ViewerState = {
@@ -89,6 +94,10 @@ export const initalState: ViewerState = {
     StorageKey.CAPTIONS_POSITION,
     CaptionPositionOptions.OVER_VIDEO
   ) as CaptionPositionOptions,
+  muted: storage.getFromLocalStorage(
+    StorageKey.VIEWER_MEDIA_MUTED,
+    false
+  ) as boolean,
   volume: storage.getFromSessionStorage(
     StorageKey.VIEWER_MEDIA_VOLUME,
     1
@@ -100,6 +109,9 @@ export const initalState: ViewerState = {
 
   viewerVideos: [],
   bigVideoId: '',
+
+  loadingMediaIds: [],
+  isPlayingUser: false,
 };
 
 export const viewerReducer = createReducer(
@@ -192,6 +204,9 @@ export const viewerReducer = createReducer(
   on(viewerActions.changeVolume, (state, { newVolume: volume }) => {
     return { ...state, volume };
   }),
+  on(viewerActions.toggleMute, (state) => {
+    return { ...state, muted: !state.muted };
+  }),
   on(viewerActions.changeSpeed, (state, { newSpeed: speed }) => {
     return { ...state, currentSpeed: speed };
   }),
@@ -223,7 +238,7 @@ export const viewerReducer = createReducer(
       ...state,
       viewerVideos: state.viewerVideos.map((video) => {
         if (video.id !== id) {
-          return video;
+          return { ...video };
         }
         return { ...video, shown: !video.shown };
       }),
@@ -247,6 +262,21 @@ export const viewerReducer = createReducer(
           return { ...video, shown: true };
         }
       }),
+    };
+  }),
+
+  // media loading & playing
+  on(viewerActions.playPauseUser, (state) => {
+    return { ...state, isPlayingUser: !state.isPlayingUser };
+  }),
+
+  on(viewerActions.mediaLoading, (state, { id }) => {
+    return { ...state, loadingMediaIds: [...state.loadingMediaIds, id] };
+  }),
+  on(viewerActions.mediaLoaded, (state, { id }) => {
+    return {
+      ...state,
+      loadingMediaIds: state.loadingMediaIds.filter((obj) => obj !== id),
     };
   })
 );

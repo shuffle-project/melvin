@@ -303,6 +303,21 @@ export class ViewerEffects {
     { dispatch: false }
   );
 
+  toggleMute$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(viewerActions.toggleMute),
+        withLatestFrom(this.store.select(viewerSelector.vMuted)),
+        tap(([action, muted]) => {
+          this.storageService.storeInSessionStorage(
+            StorageKey.VIEWER_MEDIA_MUTED,
+            muted
+          );
+        })
+      ),
+    { dispatch: false }
+  );
+
   changeVolume$ = createEffect(
     () =>
       this.actions$.pipe(

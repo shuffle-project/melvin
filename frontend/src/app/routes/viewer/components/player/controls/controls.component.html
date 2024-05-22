@@ -26,15 +26,15 @@
     }}</span>
   </div>
   <div class="main-controls">
-    <div class="left">
+    <div class="left" *ngrxLet="isPlayingUser$ as isPlayingUser">
       <button
         mat-icon-button
         class="md"
-        matTooltip="{{ viewerService.audio.paused ? 'Play' : 'Pause' }}"
+        matTooltip="{{ !isPlayingUser ? 'Play' : 'Pause' }}"
         i18n-matTooltip="@@viewerControlsPlayPauseTooltip"
         (click)="onPlayPauseVideo()"
       >
-        @if (viewerService.audio.paused) {
+        @if (!isPlayingUser) {
         <mat-icon svgIcon="play" />
         }@else {
         <mat-icon svgIcon="pause" />
@@ -42,48 +42,68 @@
       </button>
 
       <!-- sound -->
-      <button
-        mat-icon-button
-        class="md"
-        matTooltip="{{
-          viewerService.audio.muted ? 'Unmute sound' : 'Mute sound'
-        }}"
-        (click)="onMuteAudio()"
-        i18n-matTooltip="@@viewerControlsMuteUnmuteTooltip"
-      >
-        @if (viewerService.audio.muted ||viewerService.audio.volume === 0) {
-        <mat-icon svgIcon="volume-off"></mat-icon>
-        } @else {
-        <mat-icon svgIcon="volume-on"></mat-icon>
-        }
-      </button>
+      <ng-container *ngrxLet="muted$ as muted">
+        <ng-container *ngrxLet="volume$ as volume">
+          <button
+            mat-icon-button
+            class="md"
+            (click)="onMuteToggle()"
+            cdkOverlayOrigin
+            #volumeTrigger="cdkOverlayOrigin"
+            (keydown)="onKeydownVolumeBtn($event, volume, muted)"
+            (mouseenter)="onMouseEnterBtn()"
+            (mouseout)="onMouseOutBtn()"
+          >
+            @if (muted || volume === 0) {
+            <mat-icon svgIcon="volume-off"></mat-icon>
+            } @else if(volume< 0.5){
+            <mat-icon svgIcon="volume-low"></mat-icon>
+            }@else {
+            <mat-icon svgIcon="volume-on"></mat-icon>
+            }
+          </button>
 
-      <mat-slider
-        class="volume-slider black"
-        min="0"
-        max="1"
-        step="0.01"
-        discrete
-        [displayWith]="sliderLabelVolume"
-        [disabled]="viewerService.audio.muted"
-      >
-        <input
-          aria-label="Volume"
-          i18n-aria-label="@@viewerControlsVolumeSlideLabel"
-          matSliderThumb
-          [value]="volume$ | ngrxPush"
-          (change)="onVolumeChange($event)"
-        />
-      </mat-slider>
+          <ng-template
+            cdkConnectedOverlay
+            [cdkConnectedOverlayOrigin]="volumeTrigger"
+            [cdkConnectedOverlayOpen]="isVolumeSliderOpen"
+            [cdkConnectedOverlayPositions]="volumeOverlayPositions"
+          >
+            <div
+              class="volume-slider-wrapper menu-shadow"
+              (mouseenter)="onMouseEnterOvly()"
+              (mouseout)="onMouseOutOvly()"
+            >
+              <mat-slider
+                class="volume-slider black"
+                min="0"
+                max="1"
+                step="0.01"
+                discrete
+                [displayWith]="sliderLabelVolume"
+              >
+                <input
+                  aria-label="Volume"
+                  i18n-aria-label="@@viewerControlsVolumeSlideLabel"
+                  matSliderThumb
+                  [value]="muted ? 0 : volume"
+                  (valueChange)="onVolumeChange($event, muted)"
+                />
+              </mat-slider>
+            </div>
+          </ng-template>
+        </ng-container>
+      </ng-container>
     </div>
     <div class="center"></div>
     <div class="right">
       <button
+        id="language-menu-button"
         mat-icon-button
         class="md"
-        [matMenuTriggerFor]="languageMenu"
-        (menuOpened)="onMenuOpened()"
-        (menuClosed)="onMenuClosed()"
+        [cdkMenuTriggerFor]="languageMenu"
+        (cdkMenuOpened)="onMenuOpened()"
+        (cdkMenuClosed)="onMenuClosed()"
         matTooltip="Show language menu"
         i18n-matTooltip="@@viewerControlsLanguageMenuTooltip"
       >
@@ -95,9 +115,9 @@
         <button
           mat-icon-button
           class="md"
-          [matMenuTriggerFor]="galleryMenu"
-          (menuOpened)="onMenuOpened()"
-          (menuClosed)="onMenuClosed()"
+          [cdkMenuTriggerFor]="galleryMenu"
+          (cdkMenuOpened)="onMenuOpened()"
+          (cdkMenuClosed)="onMenuClosed()"
           matTooltip="Shown video selection"
           i18n-matTooltip="@@viewerControlsGalleryMenuTooltip"
         >
@@ -107,11 +127,12 @@
       </ng-container>
 
       <button
+        id="settings-menu-button"
         mat-icon-button
         class="md"
-        [matMenuTriggerFor]="settingsMenu"
-        (menuOpened)="onMenuOpened()"
-        (menuClosed)="onMenuClosed()"
+        [cdkMenuTriggerFor]="settingsMenu"
+        (cdkMenuOpened)="onMenuOpened()"
+        (cdkMenuClosed)="onMenuClosed()"
         matTooltip="Settings Menu"
         i18n-matTooltip="@@viewerControlsSettingsMenuTooltip"
       >
@@ -146,284 +167,314 @@
 
 <!-- MENUS -->
 
-<!-- LANGUAGE MENU -->
-<mat-menu #languageMenu="matMenu">
-  <div class="menu-wrapper">
-    <div class="menu-column">
-      <div class="menu-section">
+<!-- <ng-template #testMenu>
+  <div class="example-menu" cdkMenu>
+    <button class="example-menu-item" cdkMenuItem>Refresh</button>
+    <button class="example-menu-item" cdkMenuItem>Settings</button>
+    <div cdkMenuGroup>
+      <button class="example-menu-item" cdkMenuItem>Help</button>
+      <button class="example-menu-item" cdkMenuItem>Sign out</button>
+    </div>
+  </div>
+</ng-template> -->
+
+<ng-template #languageMenu>
+  <div cdkMenu class="cdk-menu-wrapper menu-shadow">
+    <div class="cdk-menu-column">
+      <div cdkMenuGroup aria-labelledby="audio-section-title">
         <span
-          id="audio-title"
+          id="audio-section-title"
           class="section-title"
           i18n="@@viewerControlsAudioTitle"
           >Audiolanguage</span
         >
-        <!-- foreach audios -->
-        <button mat-menu-item aria-describedby="audio-title">
-          <mat-icon svgIcon="{{ true ? 'check' : '' }}"></mat-icon>German
+        <button
+          mat-button
+          cdkMenuItemCheckbox
+          [cdkMenuItemChecked]="true"
+          (cdkMenuItemTriggered)="(true)"
+        >
+          <mat-icon svgIcon="check"></mat-icon>German
         </button>
       </div>
-
-      <div class="menu-section">
-        <span class="section-title" i18n="@@viewerControlsTextlanguageTitle"
-          >Textlanguage</span
+      <div cdkMenuGroup aria-labelledby="text-section-title">
+        <span
+          id="text-section-title"
+          class="section-title"
+          i18n="@@viewerControlsTextlanguageTitle"
         >
-        <!-- foreach transcriptions -->
+          Textlanguage
+        </span>
         <ng-container *ngrxLet="transcriptions$ as transcriptions">
-          @for (transcription of transcriptions.list; track $index) {
+          @for (transcription of transcriptions.list; track transcription.id) {
           <button
-            mat-menu-item
-            (click)="onChangeTranscription($event, transcription)"
+            mat-button
+            appCdkMenuItemRadio
+            [appKeepMenuOpen]="true"
+            [cdkMenuItemChecked]="
+              transcription.id === transcriptions.selectedId
+            "
+            (cdkMenuItemTriggered)="onChangeTranscription(transcription)"
           >
-            <mat-icon
-              svgIcon="{{
-                transcription.id === transcriptions.selectedId ? 'check' : ''
-              }}"
-            ></mat-icon>
-            <!-- {{ transcription.language }} ( -->
-            {{ transcription.title }}
-            <!-- ) -->
+            @if (transcription.id === transcriptions.selectedId) {
+            <mat-icon svgIcon="check"></mat-icon>
+            } {{ transcription.title }}
           </button>
           }
         </ng-container>
       </div>
     </div>
-
-    <div class="menu-column">
-      <div class="menu-section">
+    <div class="cdk-menu-column">
+      <div
+        cdkMenuGroup
+        aria-labelledby="captions-section-title"
+        *ngrxLet="subtitlesEnabledInVideo$ as subtitlesEnabledInVideo"
+      >
         <span
-          id="captions-title"
+          id="captions-section-title"
           class="section-title"
           i18n="@@viewerControlsCaptionsTitle"
-          >Captions</span
-        >
-        <ng-container
-          *ngrxLet="subtitlesEnabledInVideo$ as subtitlesEnabledInVideo"
-        >
-          <button
-            aria-describedby="captions-title"
-            mat-menu-item
-            (click)="onChangeCaptions($event, false, subtitlesEnabledInVideo)"
-            i18n="@@viewerControlsCaptionsOffLabel"
-          >
-            <mat-icon
-              svgIcon="{{ !subtitlesEnabledInVideo ? 'check' : '' }}"
-            ></mat-icon
-            >Off
-          </button>
-          <button
-            aria-describedby="captions-title"
-            mat-menu-item
-            (click)="onChangeCaptions($event, true, subtitlesEnabledInVideo)"
-            i18n="@@viewerControlsCaptionsOnLabel"
-          >
-            <mat-icon
-              svgIcon="{{ subtitlesEnabledInVideo ? 'check' : '' }}"
-            ></mat-icon
-            >On
-          </button>
-        </ng-container>
+          >Captions
+        </span>
+
         <button
-          aria-describedby="captions-title"
-          mat-menu-item
-          class="simple-button"
-          (click)="onOpenCaptionsSettingsDialog($event)"
+          mat-button
+          appCdkMenuItemRadio
+          [appKeepMenuOpen]="true"
+          [cdkMenuItemChecked]="subtitlesEnabledInVideo"
+          (cdkMenuItemTriggered)="
+            onChangeCaptions(false, subtitlesEnabledInVideo)
+          "
+          i18n="@@viewerControlsCaptionsOffLabel"
+        >
+          @if (!subtitlesEnabledInVideo) {
+          <mat-icon svgIcon="check"></mat-icon>
+          } Off
+        </button>
+        <button
+          mat-button
+          appCdkMenuItemRadio
+          [appKeepMenuOpen]="true"
+          [cdkMenuItemChecked]="!subtitlesEnabledInVideo"
+          (cdkMenuItemTriggered)="
+            onChangeCaptions(true, subtitlesEnabledInVideo)
+          "
+          i18n="@@viewerControlsCaptionsOnLabel"
+        >
+          @if (subtitlesEnabledInVideo) {
+          <mat-icon svgIcon="check"></mat-icon>
+          } On
+        </button>
+        <button
+          mat-button
+          cdkMenuItem
+          (cdkMenuItemTriggered)="onOpenCaptionsSettingsDialog()"
           i18n="@@viewerControlsCaptionsSettingsLabel"
+          class="single-button"
         >
           Settings
         </button>
       </div>
-
-      <div class="menu-section">
+      <div
+        cdkMenuGroup
+        aria-labelledby="transcript-section-title"
+        *ngrxLet="transcriptPosition$ as transcriptPosition"
+      >
         <span
-          id="transcript-title"
+          id="transcript-section-title"
           class="section-title"
           i18n="@@viewerControlsTranscriptTitle"
-          >Transcript</span
+          >Transcript
+        </span>
+
+        <button
+          mat-button
+          appCdkMenuItemRadio
+          [appKeepMenuOpen]="true"
+          [cdkMenuItemChecked]="
+            transcriptPosition === tanscriptPositionENUM.OFF
+          "
+          (cdkMenuItemTriggered)="
+            onChangeTranscriptPosition(tanscriptPositionENUM.OFF)
+          "
+          i18n="@@viewerControlsTranscriptOffLabel"
         >
-        <ng-container *ngrxLet="transcriptPosition$ as transcriptPosition">
-          <button
-            aria-describedby="transcript-title"
-            mat-menu-item
-            (click)="
-              onChangeTranscriptPosition($event, tanscriptPositionENUM.OFF)
-            "
-            i18n="@@viewerControlsTranscriptOffLabel"
-          >
-            <mat-icon
-              svgIcon="{{
-                transcriptPosition === tanscriptPositionENUM.OFF ? 'check' : ''
-              }}"
-            ></mat-icon
-            >Off
-          </button>
-          <button
-            aria-describedby="transcript-title"
-            mat-menu-item
-            (click)="
-              onChangeTranscriptPosition($event, tanscriptPositionENUM.LEFT)
-            "
-            i18n="@@viewerControlsTranscriptLeftLabel"
-          >
-            <mat-icon
-              svgIcon="{{
-                transcriptPosition === tanscriptPositionENUM.LEFT ? 'check' : ''
-              }}"
-            ></mat-icon
-            >Left
-          </button>
-          <button
-            aria-describedby="transcript-title"
-            mat-menu-item
-            (click)="
-              onChangeTranscriptPosition($event, tanscriptPositionENUM.RIGHT)
-            "
-            i18n="@@viewerControlsTranscriptRightLabel"
-          >
-            <mat-icon
-              svgIcon="{{
-                transcriptPosition === tanscriptPositionENUM.RIGHT
-                  ? 'check'
-                  : ''
-              }}"
-            ></mat-icon
-            >Right
-          </button>
-          <button
-            aria-describedby="transcript-title"
-            mat-menu-item
-            class="simple-button"
-            (click)="onOpenTranscriptSettingsDialog($event)"
-            i18n="@@viewerControlsTranscriptSettingsLabel"
-          >
-            Settings
-          </button></ng-container
+          @if(transcriptPosition === tanscriptPositionENUM.OFF) {
+          <mat-icon svgIcon="check"></mat-icon>
+          } Off
+        </button>
+
+        <button
+          mat-button
+          appCdkMenuItemRadio
+          [appKeepMenuOpen]="true"
+          [cdkMenuItemChecked]="
+            transcriptPosition === tanscriptPositionENUM.LEFT
+          "
+          (cdkMenuItemTriggered)="
+            onChangeTranscriptPosition(tanscriptPositionENUM.LEFT)
+          "
+          i18n="@@viewerControlsTranscriptLeftLabel"
         >
+          @if(transcriptPosition === tanscriptPositionENUM.LEFT){
+          <mat-icon svgIcon="check"></mat-icon>} Left
+        </button>
+        <button
+          mat-button
+          appCdkMenuItemRadio
+          [appKeepMenuOpen]="true"
+          [cdkMenuItemChecked]="
+            transcriptPosition === tanscriptPositionENUM.RIGHT
+          "
+          (cdkMenuItemTriggered)="
+            onChangeTranscriptPosition(tanscriptPositionENUM.RIGHT)
+          "
+          i18n="@@viewerControlsTranscriptRightLabel"
+        >
+          @if(transcriptPosition === tanscriptPositionENUM.RIGHT){
+          <mat-icon svgIcon="check"></mat-icon>
+          } Right
+        </button>
+
+        <button
+          mat-button
+          cdkMenuItem
+          (cdkMenuItemTriggered)="onOpenTranscriptSettingsDialog()"
+          i18n="@@viewerControlsTranscriptSettingsLabel"
+          class="single-button"
+        >
+          Settings
+        </button>
       </div>
     </div>
   </div>
-</mat-menu>
+</ng-template>
 
 <!-- GALLERY MENU  -->
-<mat-menu #galleryMenu="matMenu">
-  <!-- //TODO Wollen wir hier das main video anzeigen?  -->
-
-  <div class="menu-wrapper">
-    <div class="menu-column">
-      <div class="menu-section">
+<ng-template #galleryMenu>
+  <div cdkMenu class="cdk-menu-wrapper menu-shadow">
+    <div class="cdk-menu-column">
+      <div cdkMenuGroup aria-labelledby="video-section-title">
         <span
-          id="videos-title"
+          id="video-section-title"
           class="section-title"
           i18n="@@viewerControlsTranscriptVideosTitle"
         >
-          Videos</span
-        >
-        <ng-container *ngrxLet="vViewerVideos$ as videos">
-          <ng-container *ngrxLet="bigVideo$ as bigVideo">
-            @for (video of videos; track video) {
-            <div
-              aria-describedby="videos-title"
-              class="mat-menu-item-wrapper"
-              mat-menu-item
-              (click)="onClickToggleVideoShown($event, video, bigVideo, videos)"
-              (keydown)="
-                onKeypressToggleVideoShown($event, video, bigVideo, videos)
+          Videos
+        </span>
+
+        <ng-container *ngrxLet="bigVideo$ as bigVideo">
+          <ng-container *ngrxLet="vViewerVideos$ as videos">
+            @for (video of videos; track video.id) {
+            <button
+              mat-button
+              appCdkMenuItemRadio
+              [appKeepMenuOpen]="true"
+              [cdkMenuItemChecked]="video.id === bigVideo?.id || video.shown"
+              (cdkMenuItemTriggered)="
+                onClickToggleVideoShown(video, bigVideo, videos)
               "
             >
-              <!-- (change)="onCheckToggleVideoShown($event, video)" -->
-              <mat-checkbox
-                [checked]="video.id === bigVideo?.id || video.shown"
-              >
-                {{ video.title }}
-                <!-- @if (video.category === 'sign_language') {
-                <mat-icon
-                  style="margin-left: auto; margin-right: 0"
-                  svgIcon="sign_language"
-                ></mat-icon>
-                } -->
-              </mat-checkbox>
-            </div>
+              @if(video.id === bigVideo?.id || video.shown) {
+              <mat-icon svgIcon="check"></mat-icon>
+              } {{ video.title }}
+            </button>
             }
-          </ng-container>
-        </ng-container>
+          </ng-container></ng-container
+        >
       </div>
     </div>
   </div>
-</mat-menu>
+</ng-template>
 
 <!-- SETTINGS MENU -->
-<mat-menu #settingsMenu="matMenu">
-  <div class="menu-wrapper">
-    <div class="menu-column">
-      <div class="menu-section">
+<ng-template #settingsMenu>
+  <div cdkMenu class="cdk-menu-wrapper menu-shadow">
+    <div class="cdk-menu-column">
+      <div
+        cdkMenuGroup
+        aria-labelledby="darkmode-section-title"
+        *ngrxLet="darkMode$ as darkMode"
+      >
         <span
-          id="darkmode-title"
+          id="darkmode-section-title"
           class="section-title"
           i18n="@@viewerControlsDarkmodeTitle"
-          >Darkmode</span
-        >
-        <ng-container *ngrxLet="darkMode$ as darkMode">
-          <button
-            mat-menu-item
-            i18n="@@viewerControlsDarkmodeAutoLabel"
-            aria-describedby="darkmode-title"
-          >
-            <mat-icon svgIcon="{{ false ? 'check' : '' }}"></mat-icon>Automatic
-          </button>
-          <button
-            mat-menu-item
-            (click)="onToggleDarkmode($event, darkMode, false)"
-            i18n="@@viewerControlsDarkmodeLight"
-            aria-describedby="darkmode-title"
-          >
-            <mat-icon svgIcon="{{ !darkMode ? 'check' : '' }}"></mat-icon>Light
-          </button>
-          <button
-            mat-menu-item
-            (click)="onToggleDarkmode($event, darkMode, true)"
-            i18n="@@viewerControlsTranscriptDarkLabel"
-            aria-describedby="darkmode-title"
-          >
-            <mat-icon svgIcon="{{ darkMode ? 'check' : '' }}"></mat-icon>Dark
-          </button>
-        </ng-container>
-      </div>
-      <div class="menu-section">
+          >Darkmode
+        </span>
         <button
-          mat-menu-item
-          class="simple-button"
+          mat-button
+          appCdkMenuItemRadio
+          [appKeepMenuOpen]="true"
+          i18n="@@viewerControlsDarkmodeAutoLabel"
+        >
+          <mat-icon svgIcon="{{ false ? 'check' : '' }}"></mat-icon>Automatic
+        </button>
+        <button
+          mat-button
+          appCdkMenuItemRadio
+          [appKeepMenuOpen]="true"
+          (cdkMenuItemTriggered)="onToggleDarkmode(darkMode, false)"
+          i18n="@@viewerControlsDarkmodeLight"
+        >
+          <mat-icon svgIcon="{{ !darkMode ? 'check' : '' }}"></mat-icon>Light
+        </button>
+        <button
+          mat-button
+          appCdkMenuItemRadio
+          [appKeepMenuOpen]="true"
+          (cdkMenuItemTriggered)="onToggleDarkmode(darkMode, true)"
+          i18n="@@viewerControlsTranscriptDarkLabel"
+        >
+          <mat-icon svgIcon="{{ darkMode ? 'check' : '' }}"></mat-icon>Dark
+        </button>
+      </div>
+
+      <div cdkMenuGroup aria-labelledby="others-section-title">
+        <span
+          id="others-section-title"
+          class="section-title"
+          i18n="@@viewerControlsOthersTitle"
+          >Others
+        </span>
+        <button
+          mat-button
+          cdkMenuItem
           i18n="@@viewerControlsHelpLabel"
-          (click)="onOpenHelpDialog($event)"
+          (cdkMenuItemTriggered)="onOpenHelpDialog()"
+          class="single-button"
         >
           Help
         </button>
       </div>
     </div>
-    <div class="menu-column">
-      <div class="menu-section">
+
+    <div class="cdk-menu-column">
+      <div
+        cdkMenuGroup
+        aria-labelledby="playbackspeed-section-title"
+        *ngrxLet="currentSpeed$ as currentSpeed"
+      >
         <span
-          id="playbackspeed-title"
+          id="playbackspeed-section-title"
           class="section-title"
           i18n="@@viewerControlsPlaybackspeedTitle"
-          >Playbackspeed</span
+          >Playbackspeed
+        </span>
+        @for (speed of [0.25, 0.5, 0.75, 1, 1.25, 1.5,1.75, 2]; track speed) {
+        <button
+          mat-button
+          appCdkMenuItemRadio
+          [appKeepMenuOpen]="true"
+          (cdkMenuItemTriggered)="changePlaybackSpeed(speed)"
         >
-        <ng-container *ngrxLet="currentSpeed$ as currentSpeed">
-          @for (speed of [0.25, 0.5, 0.75, 1, 1.25, 1.5,1.75, 2]; track speed) {
-          <button
-            mat-menu-item
-            (click)="changePlaybackSpeed($event, speed)"
-            aria-describedby="playbackspeed-title"
-          >
-            <mat-icon
-              svgIcon="{{ currentSpeed === speed ? 'check' : '' }}"
-            ></mat-icon>
-            <span>
-              @if (speed===1) { Standard } @else {
-              {{ speed }}x }
-            </span>
-          </button>
-          }
-        </ng-container>
+          @if(currentSpeed === speed ){
+          <mat-icon svgIcon="check"></mat-icon>
+          } @if (speed===1) { Standard } @else {
+          {{ speed }}x }
+        </button>
+        }
       </div>
     </div>
   </div>
-</mat-menu>
+</ng-template>

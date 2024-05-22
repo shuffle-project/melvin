@@ -2,10 +2,15 @@ import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import {
   BehaviorSubject,
+  Observable,
   Subject,
+  animationFrameScheduler,
   combineLatest,
   debounceTime,
+  distinctUntilChanged,
+  filter,
   fromEvent,
+  interval,
   map,
   merge,
   takeUntil,
@@ -29,12 +34,12 @@ export class ViewerService {
   public audio: HTMLAudioElement | null = null;
   public audioLoaded: boolean = false;
 
-  public currentTime$ = new BehaviorSubject<number>(0);
+  public currentTime$ = new Observable<number>();
 
-  public play$ = new Subject<void>();
-  public pause$ = new Subject<void>();
+  // public play$ = new Subject<void>();
+  // public pause$ = new Subject<void>();
 
-  public isPlaying$ = new BehaviorSubject<boolean>(false);
+  // public isPlaying$ = new BehaviorSubject<boolean>(false);
 
   public seeking$ = new Subject<number>();
 
@@ -43,10 +48,9 @@ export class ViewerService {
   public currentCaption$: BehaviorSubject<null | undefined | CaptionEntity> =
     new BehaviorSubject<CaptionEntity | undefined | null>(null);
 
-  private _loadingData: string[] = [];
-  public get loadingData() {
-    return this._loadingData.length > 0;
-  }
+  // TODO new
+  public isPlayingUser$ = this.store.select(viewerSelector.vIsPlayingUser);
+  public isPlayingMedia$ = this.store.select(viewerSelector.vIsPlayingMedia);
 
   constructor(
     private store: Store<AppState>,
@@ -54,7 +58,6 @@ export class ViewerService {
   ) {}
 
   resetService() {
-    this.currentTime$.next(0);
     this.currentCaption$.next(null);
     this.audio = null;
     this.audioLoaded = false;
@@ -63,39 +66,87 @@ export class ViewerService {
     this.destroy$$.next();
   }
 
+  // play() {
+  //   console.log('play', this.audio?.paused);
+  //   if (this.audio) {
+  //     // TODO
+  //     /**
+  //      * media loading checken?
+  //      */
+  //     // console.log(this.mediaLoading);
+  //     this.audio.pause();
+  //     // if (this.mediaLoading) {
+  //     //   console.log('settimeout');
+  //     //   setTimeout(() => {
+  //     //     this.play();
+  //     //   }, 250);
+  //     // } else {
+  //     //   console.log('actually play');
+  //     //   this.audio.play();
+  //     // }
+  //   }
+  // }
+
+  // pause() {
+  //   console.log('pause');
+  //   if (this.audio) {
+  //     this.audio.pause();
+  //   }
+  // }
+
   initAudioObservables(audioElement: HTMLAudioElement, projectId: string) {
     this.projectId = projectId;
     this.audio = audioElement;
 
     // TODO take until destory
     this.loadCurrentTimeFromStorage();
-    this.play$.subscribe(() => this.isPlaying$.next(true));
-    this.pause$.subscribe(() => this.isPlaying$.next(false));
+    // this.isPlayingUser$.subscribe
+    // this.play$.subscribe(() => this.isPlaying$.next(true));
+    // this.pause$.subscribe(() => this.isPlaying$.next(false));
 
-    // current time
-    fromEvent(audioElement, 'timeupdate')
+    this.isPlayingMedia$
       .pipe(
         takeUntil(this.destroy$$),
-        map((o) => (o.target as HTMLMediaElement).currentTime),
-        tap((x) => this.currentTime$.next(x))
+        tap((isPlaying) => {
+          if (isPlaying) {
+            this.audio?.play();
+          } else {
+            this.audio?.pause();
+          }
+        })
       )
       .subscribe();
+
+    // https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement#events
+    this.currentTime$ = merge(
+      fromEvent(audioElement, 'timeupdate').pipe(
+        map((o) => (o.target as HTMLMediaElement).currentTime)
+      ),
+      fromEvent(audioElement, 'seeking').pipe(
+        map((o) => (o.target as HTMLMediaElement).currentTime)
+      ),
+      //TODO: Maybe start stop interval on media.playing and media.pause
+      interval(0, animationFrameScheduler).pipe(
+        filter(() => !audioElement.paused),
+        map(() => audioElement.currentTime)
+      )
+    ).pipe(takeUntil(this.destroy$$), distinctUntilChanged());
 
     // play
-    merge(fromEvent(audioElement, 'play'), fromEvent(audioElement, 'playing'))
-      .pipe(
-        takeUntil(this.destroy$$),
-        tap(() => this.play$.next())
-      )
-      .subscribe();
+    // merge(fromEvent(audioElement, 'play'), fromEvent(audioElement, 'playing'))
+    //   .pipe(
+    //     takeUntil(this.destroy$$),
+    //     tap(() => this.play$.next())
+    //   )
+    //   .subscribe();
 
     // pause
-    merge(fromEvent(audioElement, 'pause'), fromEvent(audioElement, 'waiting'))
-      .pipe(
-        takeUntil(this.destroy$$),
-        tap(() => this.pause$.next())
-      )
-      .subscribe();
+    // merge(fromEvent(audioElement, 'pause'), fromEvent(audioElement, 'waiting'))
+    //   .pipe(
+    //     takeUntil(this.destroy$$),
+    //     tap(() => this.pause$.next())
+    //   )
+    //   .subscribe();
 
     // seeking
     merge(fromEvent(audioElement, 'seeking'), fromEvent(audioElement, 'seeked'))
@@ -121,19 +172,45 @@ export class ViewerService {
         })
       )
       .subscribe();
+    this.registerLoadingEvents('audio', audioElement, this.destroy$$);
 
     this.saveCurrentTimeInStorage();
     this.audioLoaded = true;
   }
 
-  isLoading(id: string) {
-    const indexOf = this._loadingData.indexOf(id);
-    if (indexOf < 0) this._loadingData.push(id);
-  }
+  registerLoadingEvents(
+    id: string,
+    htmlMediaElement: HTMLMediaElement,
+    takeUntil$: Subject<void>
+  ) {
+    merge(
+      fromEvent(htmlMediaElement, 'canplay'),
+      fromEvent(htmlMediaElement, 'waiting'),
+      fromEvent(htmlMediaElement, 'seeking'),
+      fromEvent(htmlMediaElement, 'seeked'),
+      fromEvent(htmlMediaElement, 'stalled'),
+      fromEvent(htmlMediaElement, 'suspended')
+    )
+      .pipe(
+        takeUntil(takeUntil$),
+        debounceTime(0),
+        tap(() => {
+          // HAVE_NOTHING	0	No information is available about the media resource.
+          // HAVE_METADATA	1	Enough of the media resource has been retrieved that the metadata attributes are initialized. Seeking will no longer raise an exception.
+          // HAVE_CURRENT_DATA	2	Data is available for the current playback position, but not enough to actually play more than one frame.
+          // HAVE_FUTURE_DATA	3	Data for the current playback position as well as for at least a little bit of time into the future is available (in other words, at least two frames of video, for example).
+          // HAVE_ENOUGH_DATA	4	Enough data is available—and the download rate is high enough—that the media can be
 
-  doneLoading(id: string) {
-    const indexOf = this._loadingData.indexOf(id);
-    if (indexOf > -1) this._loadingData.splice(indexOf, 1);
+          if (htmlMediaElement.readyState > 2) {
+            this.store.dispatch(viewerActions.mediaLoaded({ id }));
+          } else {
+            this.store.dispatch(viewerActions.mediaLoading({ id }));
+          }
+
+          // this.isLoading(id);
+        })
+      )
+      .subscribe();
   }
 
   onJumpInAudio(newSeconds: number) {

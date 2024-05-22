@@ -137,7 +137,9 @@
       [value]="fileUploadProgress"
     ></mat-progress-bar>
     @if (eta) {
-    <p>ETA: {{ eta * 1000 | duration }}</p>
+    <p i18n="@@createProjectEstimatedTime">
+      Estimated time: {{ eta * 1000 | duration }}
+    </p>
     }
     <br /><br />
     @if (uploadSubscription) {

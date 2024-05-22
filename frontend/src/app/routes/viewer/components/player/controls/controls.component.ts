@@ -1,3 +1,7 @@
+import { A11yModule } from '@angular/cdk/a11y';
+import { CdkMenuModule } from '@angular/cdk/menu';
+import { ConnectionPositionPair, OverlayModule } from '@angular/cdk/overlay';
+import { AsyncPipe } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -10,6 +14,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { LetDirective, PushPipe } from '@ngrx/component';
 import { Store } from '@ngrx/store';
 import { combineLatest, map } from 'rxjs';
+import { MenuItemCheckboxDirective } from '../../../../../directives/cdkMenuCheckbox/cdk-menu-item-checkbox.directive';
+import { MenuItemRadioDirective } from '../../../../../directives/cdkMenuRadio/cdk-menu-item-radio.directive';
 import { DurationPipe } from '../../../../../pipes/duration-pipe/duration.pipe';
 import { TranscriptionEntity } from '../../../../../services/api/entities/transcription.entity';
 import { toggleDarkModeFromViewer } from '../../../../../store/actions/config.actions';
@@ -41,12 +47,19 @@ import { ViewerVideo } from '../player.component';
     MatCheckboxModule,
     PushPipe,
     DurationPipe,
+    CdkMenuModule,
+    MenuItemRadioDirective,
+    MenuItemCheckboxDirective,
+    OverlayModule,
+    A11yModule,
+    AsyncPipe,
   ],
 })
 export class ControlsComponent {
   public tanscriptPositionENUM = TranscriptPosition;
 
   public volume$ = this.store.select(viewerSelector.vVolume);
+  public muted$ = this.store.select(viewerSelector.vMuted);
   public currentSpeed$ = this.store.select(viewerSelector.vCurrentSpeed);
   public darkMode$ = this.store.select(configSelector.darkMode);
   public subtitlesEnabledInVideo$ = this.store.select(
@@ -62,6 +75,8 @@ export class ControlsComponent {
   public bigVideo$ = this.store.select(viewerSelector.vBigVideo);
 
   public vViewerVideos$ = this.store.select(viewerSelector.vViewerVideos);
+
+  public isPlayingUser$ = this.store.select(viewerSelector.vIsPlayingUser);
 
   constructor(
     private store: Store<AppState>,
@@ -81,80 +96,66 @@ export class ControlsComponent {
   }
 
   onPlayPauseVideo() {
-    if (this.viewerService.audio?.paused) {
-      this.viewerService.audio.play();
-    } else {
-      this.viewerService.audio?.pause();
-    }
+    this.store.dispatch(viewerActions.playPauseUser());
   }
 
-  onMuteAudio() {
-    if (this.viewerService.audio) {
-      this.viewerService.audio.muted = !this.viewerService.audio.muted;
-    }
+  onClickMenuItem(event: MouseEvent, button: HTMLButtonElement) {
+    console.log(event, button);
+    (event.target as any).trigger({ keepOpen: true });
   }
 
-  onVolumeChange(event: any) {
-    this.store.dispatch(
-      viewerActions.changeVolume({
-        newVolume: event.target.value,
-      })
-    );
-  }
-
-  onChangeTranscriptPosition(
-    event: Event,
-    transcriptPosition: TranscriptPosition
-  ) {
-    event.stopPropagation();
-
+  onChangeTranscriptPosition(transcriptPosition: TranscriptPosition) {
     this.store.dispatch(
       viewerActions.changeTranscriptPosition({ transcriptPosition })
     );
   }
 
-  onChangeCaptions(event: Event, switchTo: boolean, switchFrom: boolean) {
-    event.stopPropagation();
-
+  onChangeCaptions(switchTo: boolean, switchFrom: boolean) {
     if (switchTo !== switchFrom) {
       this.store.dispatch(viewerActions.toggleSubtitles());
     }
   }
 
-  onChangeTranscription(event: Event, transcription: TranscriptionEntity) {
-    event.stopPropagation();
-
+  onChangeTranscription(transcription: TranscriptionEntity) {
     this.store.dispatch(
       viewerActions.changeTranscriptionId({ transcriptionId: transcription.id })
     );
   }
 
-  onOpenCaptionsSettingsDialog(event: Event) {
-    event.stopPropagation();
-
+  onOpenCaptionsSettingsDialog() {
     this.viewerService.audio?.pause();
-    // TODO do we want to play after closing the dialog??
-    this.dialog.open(CaptionsSettingsDialogComponent);
+
+    const dialogRef = this.dialog.open(CaptionsSettingsDialogComponent);
+
+    dialogRef.afterClosed().subscribe(() => {
+      this._restoreFocusById('language-menu-button');
+    });
   }
 
-  onOpenTranscriptSettingsDialog(event: Event) {
-    event.stopPropagation();
-
+  onOpenTranscriptSettingsDialog() {
     this.viewerService.audio?.pause();
-    // TODO do we want to play after closing the dialog??
-    this.dialog.open(AdjustLayoutDialogComponent);
+
+    const dialogRef = this.dialog.open(AdjustLayoutDialogComponent);
+    dialogRef.afterClosed().subscribe(() => {
+      this._restoreFocusById('language-menu-button');
+    });
   }
 
-  onOpenHelpDialog(event: Event) {
-    event.stopPropagation();
-
+  onOpenHelpDialog() {
     this.viewerService.audio?.pause();
-    this.dialog.open(HelpDialogComponent);
+
+    const dialogRef = this.dialog.open(HelpDialogComponent);
+    dialogRef.afterClosed().subscribe(() => {
+      this._restoreFocusById('settings-menu-button');
+    });
   }
 
-  changePlaybackSpeed(event: Event, newSpeed: number) {
-    event.stopPropagation();
+  private _restoreFocusById(id: string) {
+    const btn = document.getElementById(id);
+    if (btn) btn.focus();
+  }
 
+  changePlaybackSpeed(newSpeed: number) {
     this.store.dispatch(viewerActions.changeSpeed({ newSpeed }));
   }
 
@@ -169,29 +170,8 @@ export class ControlsComponent {
   }
 
   onClickToggleVideoShown(
-    event: MouseEvent,
     video: ViewerVideo,
     bigVideoId: ViewerVideo | undefined,
-    videos: ViewerVideo[]
-  ) {
-    this._toggleShowVideo(bigVideoId, video, videos);
-    event.stopPropagation();
-  }
-
-  onKeypressToggleVideoShown(
-    event: KeyboardEvent,
-    video: ViewerVideo,
-    bigVideoId: ViewerVideo | undefined,
-    videos: ViewerVideo[]
-  ) {
-    if (event.key === 'Enter' || event.key === ' ') {
-      this._toggleShowVideo(bigVideoId, video, videos);
-    }
-  }
-
-  private _toggleShowVideo(
-    bigVideoId: ViewerVideo | undefined,
-    video: ViewerVideo,
     videos: ViewerVideo[]
   ) {
     if (bigVideoId?.id === video.id) {
@@ -204,17 +184,10 @@ export class ControlsComponent {
         );
       }
     }
-
     this.store.dispatch(viewerActions.toggleShowVideo({ id: video.id }));
   }
 
-  onToggleDarkmode(
-    event: Event,
-    darkModeCurrent: boolean,
-    darkModeNew: boolean
-  ) {
-    event.stopPropagation();
-
+  onToggleDarkmode(darkModeCurrent: boolean, darkModeNew: boolean) {
     if (darkModeCurrent !== darkModeNew) {
       this.store.dispatch(toggleDarkModeFromViewer());
     }
@@ -238,6 +211,100 @@ export class ControlsComponent {
     }
     if (event.key === 'ArrowRight') {
       this.viewerService.onJumpInAudio((+newTime + 5) * 1000);
+    }
+  }
+
+  /**
+
+   * SOUND
+   */
+
+  onVolumeChange(volumeChange: number, muted: boolean) {
+    if (muted) {
+      this.store.dispatch(viewerActions.toggleMute());
+    }
+    this.store.dispatch(
+      viewerActions.changeVolume({
+        newVolume: volumeChange,
+      })
+    );
+  }
+
+  onMuteToggle() {
+    this.store.dispatch(viewerActions.toggleMute());
+  }
+
+  volumeOverlayPositions: ConnectionPositionPair[] = [
+    {
+      offsetX: 8,
+      originX: 'end',
+      originY: 'center',
+      overlayX: 'start',
+      overlayY: 'center',
+    },
+    {
+      offsetX: -8,
+      originX: 'start',
+      originY: 'center',
+      overlayX: 'end',
+      overlayY: 'center',
+    },
+  ];
+
+  mouseOverBtn = false;
+  mouseOverOvly = false;
+
+  isVolumeSliderOpen = false;
+  onCloseVolumeOverlay() {
+    setTimeout(() => {
+      if (!this.mouseOverBtn && !this.mouseOverOvly) {
+        this.isVolumeSliderOpen = false;
+      }
+    }, 250);
+  }
+
+  onOpenVolumeOverlay() {
+    this.isVolumeSliderOpen = true;
+  }
+
+  onMouseEnterBtn() {
+    this.isVolumeSliderOpen = true;
+    this.mouseOverBtn = true;
+    this.onOpenVolumeOverlay();
+  }
+  onMouseOutBtn() {
+    this.mouseOverBtn = false;
+    this.onCloseVolumeOverlay();
+  }
+  onMouseEnterOvly() {
+    this.mouseOverOvly = true;
+  }
+  onMouseOutOvly() {
+    this.mouseOverOvly = false;
+    this.onCloseVolumeOverlay();
+  }
+
+  onKeydownVolumeBtn(
+    event: KeyboardEvent,
+    currentVolume: number,
+    currentMuted: boolean
+  ) {
+    switch (event.key) {
+      case 'ArrowUp':
+        if (currentVolume < 1) {
+          const newVolume = currentVolume + 0.1;
+          this.onVolumeChange(newVolume > 1 ? 1 : newVolume, currentMuted);
+        }
+        break;
+      case 'ArrowDown':
+        if (currentVolume > 0) {
+          const newVolume = currentVolume - 0.1;
+          this.onVolumeChange(newVolume < 0 ? 0 : newVolume, currentMuted);
+        }
+        break;
+
+      default:
+        break;
     }
   }
 }

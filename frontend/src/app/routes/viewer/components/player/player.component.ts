@@ -78,6 +78,7 @@ export class PlayerComponent
   public audioPlayer: HTMLAudioElement | null = null;
 
   public volume$ = this.store.select(viewerSelector.vVolume);
+  public muted$ = this.store.select(viewerSelector.vMuted);
   public currentSpeed$ = this.store.select(viewerSelector.vCurrentSpeed);
   public subtitlesEnabled$ = this.store.select(
     viewerSelector.vSubtitlesEnabled
@@ -117,6 +118,10 @@ export class PlayerComponent
     map((list) => list.length)
   );
 
+  public showLoadingSpinner$ = this.store.select(
+    viewerSelector.vShowLoadingSpinner
+  );
+
   // helper variables for dragndrop
   private resizingVideoWidth = false;
   private initialClientX = 0;
@@ -129,9 +134,7 @@ export class PlayerComponent
     public viewerService: ViewerService,
     private ref: ChangeDetectorRef,
     public overlayService: OverlayService
-  ) {
-    this.viewerService.isLoading('audio');
-  }
+  ) {}
 
   ngOnInit() {
     this.chooseAudio();
@@ -253,16 +256,6 @@ export class PlayerComponent
       viewerActions.switchToNewBigVideo({ newBigVideoId: viewerVideo.id })
     );
   }
-
-  // onClickToggleVideoShown(event: MouseEvent, video: ViewerVideo) {
-  //   this.store.dispatch(viewerActions.toggleShowVideo({ id: video.id }));
-  //   event.stopPropagation();
-  // }
-
-  // onKeypressToggleVideoShown(event: KeyboardEvent, video: ViewerVideo) {
-  //   if (event.key === 'Enter' || event.key === 'Space')
-  //     this.store.dispatch(viewerActions.toggleShowVideo({ id: video.id }));
-  // }
 
   onAudioLoadMetadata(event: Event) {
     this.audioPlayer = event.target as HTMLAudioElement;

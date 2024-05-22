@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { Store } from '@ngrx/store';
 // use own viewer actions
@@ -56,6 +56,10 @@ import { ViewerService } from './services/viewer.service';
 })
 export class ViewerComponent implements OnInit, OnDestroy {
   private destroy$$ = new Subject<void>();
+
+  @Input() token!: string;
+  @Input() embed!: boolean | undefined;
+
   /**
    * DATA
    */
@@ -80,10 +84,11 @@ export class ViewerComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    const token = this.route.snapshot.params['token'];
-    this.store.dispatch(viewerActions.viewerLogin({ token }));
+    this.store.dispatch(viewerActions.viewerLogin({ token: this.token }));
 
     this.overlayService.init();
+
+    if (this.embed) this.store.dispatch(viewerActions.hideTranscript());
   }
 
   ngOnDestroy() {

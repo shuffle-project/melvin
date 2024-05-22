@@ -178,6 +178,8 @@ export const toggleSubtitles = createAction(
   '[CONTROLS COMPONENT] Toggle subtitles'
 );
 
+export const toggleMute = createAction('[CONTROLS COMPONENT] Toggle mute');
+
 export const changeVolume = createAction(
   '[CONTROLS COMPONENT] Change volume',
   props<{ newVolume: number }>()
@@ -186,4 +188,20 @@ export const changeVolume = createAction(
 export const changeSpeed = createAction(
   '[CONTROLS COMPONENT] Change speed',
   props<{ newSpeed: number }>()
+);
+
+// media loading & playing
+
+export const playPauseUser = createAction(
+  '[CONTROLS COMPONENT] User toggle Play/Pause '
+);
+
+export const mediaLoading = createAction(
+  '[VIEWER SERVICE] set loading started for this id',
+  props<{ id: string }>()
+);
+
+export const mediaLoaded = createAction(
+  '[VIEWER SERVICE] set loading done for this id',
+  props<{ id: string }>()
 );
