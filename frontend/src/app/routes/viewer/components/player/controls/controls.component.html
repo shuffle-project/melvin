@@ -430,6 +430,35 @@
         </button>
       </div>
 
+      <div cdkMenuGroup aria-labelledby="interface-section-title">
+        <span
+          id="interface-section-title"
+          class="section-title"
+          i18n="@@viewerControlsInterfaceLanguageTitle"
+          >Interface language
+        </span>
+
+        <button
+          mat-button
+          appCdkMenuItemRadio
+          (cdkMenuItemTriggered)="onSwitchLanguage('de-DE')"
+          [cdkMenuItemChecked]="locale === 'de-DE'"
+          i18n="@@viewerControlsGermanLabel"
+        >
+          German (de-DE)
+        </button>
+
+        <button
+          mat-button
+          appCdkMenuItemRadio
+          (cdkMenuItemTriggered)="onSwitchLanguage('en-US')"
+          [cdkMenuItemChecked]="locale === 'en-US'"
+          i18n="@@viewerControlsEnglishLabel"
+        >
+          English (en-US)
+        </button>
+      </div>
+
       <div cdkMenuGroup aria-labelledby="others-section-title">
         <span
           id="others-section-title"
@@ -459,7 +488,7 @@
           id="playbackspeed-section-title"
           class="section-title"
           i18n="@@viewerControlsPlaybackspeedTitle"
-          >Playbackspeed
+          >Speed
         </span>
         @for (speed of [0.25, 0.5, 0.75, 1, 1.25, 1.5,1.75, 2]; track speed) {
         <button

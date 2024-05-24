@@ -78,6 +78,8 @@ export class ControlsComponent {
 
   public isPlayingUser$ = this.store.select(viewerSelector.vIsPlayingUser);
 
+  locale = $localize.locale;
+
   constructor(
     private store: Store<AppState>,
     public viewerService: ViewerService,
@@ -93,6 +95,13 @@ export class ControlsComponent {
     const pipe = new DurationPipe();
     const transform = pipe.transform(value * 1000);
     return transform;
+  }
+
+  onSwitchLanguage(newLocale: string) {
+    if (this.locale) {
+      const newHref = document.location.href.replace(this.locale, newLocale);
+      document.location.href = newHref;
+    }
   }
 
   onPlayPauseVideo() {
