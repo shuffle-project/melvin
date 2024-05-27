@@ -6,10 +6,7 @@ import * as calendar from 'dayjs/plugin/calendar';
 import * as duration from 'dayjs/plugin/duration';
 import * as relativeTime from 'dayjs/plugin/relativeTime';
 
-import {
-  provideHttpClient,
-  withInterceptorsFromDi,
-} from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { BrowserModule, bootstrapApplication } from '@angular/platform-browser';
 import { provideAnimations } from '@angular/platform-browser/animations';

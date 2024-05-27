@@ -1,9 +1,5 @@
 import { CommonModule } from '@angular/common';
-import {
-  HttpErrorResponse,
-  HttpEvent,
-  HttpEventType,
-} from '@angular/common/http';
+import { HttpErrorResponse, HttpEvent, HttpEventType } from '@angular/common/http';
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import {
