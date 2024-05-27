@@ -67,6 +67,6 @@
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
     "ng-extract-i18n-merge": "^2.11.2",
-    "typescript": "~5.2.2"
+    "typescript": "~5.4.5"
   }
 }
