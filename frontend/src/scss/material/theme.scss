@@ -107,6 +107,8 @@ $light-editor-warn: (
   ),
 );
 
+// TODO m2 is old, maybe migrate to new material 3
+// https://angular-material.dev/articles/updating-to-angular-material-18
 $light-editor-primary-palette: mat.m2-define-palette($light-editor-primary);
 $light-editor-accent-palette: mat.m2-define-palette($light-editor-accent);
 $light-editor-warn-palette: mat.m2-define-palette($light-editor-warn);
@@ -229,9 +231,21 @@ DEFINE
 $typography: mat.m2-define-typography-config(
   $font-family: 'Roboto, Arial, sans-serif',
   $button:
-    mat.m2-define-typography-level(1rem, 1rem, null, null, $letter-spacing: wider),
+    mat.m2-define-typography-level(
+      1rem,
+      1rem,
+      null,
+      null,
+      $letter-spacing: wider
+    ),
   $body-1:
-    mat.m2-define-typography-level(1rem, 1rem, null, null, $letter-spacing: wider),
+    mat.m2-define-typography-level(
+      1rem,
+      1rem,
+      null,
+      null,
+      $letter-spacing: wider
+    ),
 );
 
 $editor-theme: mat.m2-define-light-theme(
