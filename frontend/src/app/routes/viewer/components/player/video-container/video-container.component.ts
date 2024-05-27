@@ -127,9 +127,6 @@ export class VideoContainerComponent implements OnDestroy, OnChanges {
   }
 
   connectToState(event: Event) {
-    // current state
-    this.setCurrentState(this.viewerVideoElement);
-
     this.store
       .select(viewerSelector.vIsPlayingMedia)
       .pipe(
@@ -150,36 +147,6 @@ export class VideoContainerComponent implements OnDestroy, OnChanges {
         })
       )
       .subscribe();
-
-    // // future state
-    // this.viewerService.play$
-    //   .pipe(
-    //     takeUntil(this.destroy$$),
-    //     tap(() => {
-    //       if (this.viewerVideoElement.paused && !this._isPlayingTemp) {
-    //         console.log('playvideo');
-    //         this.viewerVideoElement.play().then(() => {
-    //           this._isPlayingTemp = true;
-    //         });
-    //       }
-    //     })
-    //   )
-    //   .subscribe();
-
-    // this.viewerService.pause$
-    //   .pipe(
-    //     takeUntil(this.destroy$$),
-    //     tap(() => {
-    //       if (!this.viewerVideoElement.paused && this._isPlayingTemp) {
-    //         this._isPlayingTemp = false;
-    //         this.viewerVideoElement.pause();
-    //       }
-    //       // if (this.viewerService.audio)
-    //       //   this.viewerVideoElement.currentTime =
-    //       //     this.viewerService.audio.currentTime;
-    //     })
-    //   )
-    //   .subscribe();
 
     this.viewerService.seeking$
       .pipe(
@@ -229,13 +196,6 @@ export class VideoContainerComponent implements OnDestroy, OnChanges {
       this.viewerVideoElement.currentTime = audioTime;
     } else {
       console.log('DONT resync video  ', audioOffsetMS);
-    }
-  }
-
-  private setCurrentState(videoPlayer: HTMLVideoElement) {
-    videoPlayer.readyState;
-    if (this.viewerService.audio) {
-      videoPlayer.currentTime = this.viewerService.audio.currentTime;
     }
   }
 }

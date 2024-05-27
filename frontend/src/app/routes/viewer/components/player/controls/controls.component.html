@@ -214,11 +214,15 @@
             [cdkMenuItemChecked]="
               transcription.id === transcriptions.selectedId
             "
+            title="{{ transcription.title }}"
             (cdkMenuItemTriggered)="onChangeTranscription(transcription)"
           >
             @if (transcription.id === transcriptions.selectedId) {
             <mat-icon svgIcon="check"></mat-icon>
-            } {{ transcription.title }}
+            }
+            <span class="shorten">
+              {{ transcription.title }}
+            </span>
           </button>
           }
         </ng-container>
