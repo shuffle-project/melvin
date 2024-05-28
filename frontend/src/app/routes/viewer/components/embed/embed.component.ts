@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
+import { environment } from '../../../../../environments/environment';
 import { AlertService } from '../../../../services/alert/alert.service';
 import { ViewerComponent } from '../../viewer.component';
 
@@ -17,10 +18,13 @@ export class EmbedComponent {
    * gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
    */
 
+  baseUrl = environment.frontendBaseUrl;
+
   width = 650;
   height = 400;
   url =
-    'http://localhost:4200/view/t6KP55AcAXj1BtWHGF95EGhqfuvJaryVlknHMs9PWZmoASWy50tljgCKdgXC6c2m?embed=true';
+    environment.frontendBaseUrl +
+    '/view/t6KP55AcAXj1BtWHGF95EGhqfuvJaryVlknHMs9PWZmoASWy50tljgCKdgXC6c2m?embed=true';
   title = 'embedded video';
 
   iframeString = `<iframe width="${this.width}" height="${this.height}" src="${this.url}" title="${this.title}" frameborder="0" allowfullscreen referrerpolicy="strict-origin-when-cross-origin" ></iframe>`;
