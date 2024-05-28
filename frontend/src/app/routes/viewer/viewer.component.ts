@@ -68,7 +68,7 @@ export class ViewerComponent implements OnInit, OnDestroy {
 
   public project$ = this.store.select(viewerSelector.vProject);
   public media$ = this.store.select(viewerSelector.vProjectMedia);
-  public darkMode$ = this.store.select(configSelector.darkMode);
+  public colorTheme$ = this.store.select(configSelector.colorTheme);
   public transcriptPosition$ = this.store.select(
     viewerSelector.vTranscriptPosition
   );

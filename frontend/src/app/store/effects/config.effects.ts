@@ -1,13 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
-import { catchError, map, mergeMap, of, tap, withLatestFrom } from 'rxjs';
+import { catchError, map, mergeMap, of, tap } from 'rxjs';
 import { AlertService } from '../../services/alert/alert.service';
 import { ApiService } from '../../services/api/api.service';
 import { StorageKey } from '../../services/storage/storage-key.enum';
 import { StorageService } from '../../services/storage/storage.service';
 import * as configActions from '../actions/config.actions';
-import { darkMode } from '../selectors/config.selector';
 @Injectable({
   providedIn: 'root',
 })
@@ -102,18 +101,17 @@ export class ConfigEffects {
   //   { dispatch: false }
   // );
 
-  toggleDarkMode$ = createEffect(
+  toggleColorTheme$ = createEffect(
     () =>
       this.actions$.pipe(
         ofType(
-          configActions.toggleDarkMode,
-          configActions.toggleDarkModeFromViewer
+          configActions.changeColorTheme,
+          configActions.changeColorThemeViewer
         ),
-        withLatestFrom(this.store.select(darkMode)),
-        tap(([action, darkMode]) => {
+        tap((action) => {
           this.storageService.storeInLocalStorage(
-            StorageKey.DARK_MODE,
-            darkMode
+            StorageKey.COLOR_MODE,
+            action.colorTheme
           );
         })
       ),

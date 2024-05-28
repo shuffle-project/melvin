@@ -15,9 +15,15 @@ export enum PageLanguage {
   EN_US = 'en-US',
 }
 
+export enum ColorTheme {
+  SYSTEM = 'system',
+  DARK = 'dark',
+  LIGHT = 'light',
+}
+
 export interface ConfigState {
   language: PageLanguage;
-  darkMode: boolean;
+  colorTheme: ColorTheme;
 
   //
 
@@ -30,7 +36,10 @@ export const initialState: ConfigState = {
     StorageKey.LANGUAGE_SETTING,
     PageLanguage.EN_US
   ) as PageLanguage,
-  darkMode: storage.getFromLocalStorage(StorageKey.DARK_MODE, false) as boolean,
+  colorTheme: storage.getFromLocalStorage(
+    StorageKey.COLOR_MODE,
+    ColorTheme.LIGHT
+  ) as ColorTheme,
 
   //
 
@@ -49,11 +58,11 @@ export const configReducer = createReducer(
   })),
 
   on(
-    configActions.toggleDarkMode,
-    configActions.toggleDarkModeFromViewer,
-    (state) => ({
+    configActions.changeColorTheme,
+    configActions.changeColorThemeViewer,
+    (state, action) => ({
       ...state,
-      darkMode: !state.darkMode,
+      colorTheme: action.colorTheme,
     })
   ),
 

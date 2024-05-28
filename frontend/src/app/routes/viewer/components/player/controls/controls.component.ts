@@ -18,9 +18,10 @@ import { MenuItemCheckboxDirective } from '../../../../../directives/cdkMenuChec
 import { MenuItemRadioDirective } from '../../../../../directives/cdkMenuRadio/cdk-menu-item-radio.directive';
 import { DurationPipe } from '../../../../../pipes/duration-pipe/duration.pipe';
 import { TranscriptionEntity } from '../../../../../services/api/entities/transcription.entity';
-import { toggleDarkModeFromViewer } from '../../../../../store/actions/config.actions';
+import * as configActions from '../../../../../store/actions/config.actions';
 import * as viewerActions from '../../../../../store/actions/viewer.actions';
 import { AppState } from '../../../../../store/app.state';
+import { ColorTheme } from '../../../../../store/reducers/config.reducer';
 import * as configSelector from '../../../../../store/selectors/config.selector';
 import * as viewerSelector from '../../../../../store/selectors/viewer.selector';
 import { OverlayService } from '../../../services/overlay.service';
@@ -57,11 +58,12 @@ import { ViewerVideo } from '../player.component';
 })
 export class ControlsComponent {
   public tanscriptPositionENUM = TranscriptPosition;
+  public colorThemeENUM = ColorTheme;
 
   public volume$ = this.store.select(viewerSelector.vVolume);
   public muted$ = this.store.select(viewerSelector.vMuted);
   public currentSpeed$ = this.store.select(viewerSelector.vCurrentSpeed);
-  public darkMode$ = this.store.select(configSelector.darkMode);
+  public colorTheme$ = this.store.select(configSelector.colorTheme);
   public subtitlesEnabledInVideo$ = this.store.select(
     viewerSelector.vSubtitlesEnabled
   );
@@ -196,10 +198,8 @@ export class ControlsComponent {
     this.store.dispatch(viewerActions.toggleShowVideo({ id: video.id }));
   }
 
-  onToggleDarkmode(darkModeCurrent: boolean, darkModeNew: boolean) {
-    if (darkModeCurrent !== darkModeNew) {
-      this.store.dispatch(toggleDarkModeFromViewer());
-    }
+  onChangeColorTheme(colorTheme: ColorTheme) {
+    this.store.dispatch(configActions.changeColorThemeViewer({ colorTheme }));
   }
 
   onMenuOpened() {

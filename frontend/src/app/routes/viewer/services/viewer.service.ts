@@ -231,6 +231,8 @@ export class ViewerService {
       if (number && this.audio) {
         this.audio.currentTime = number;
       }
+    } else if (this.audio) {
+      this.audio.currentTime = 0;
     }
   }
 

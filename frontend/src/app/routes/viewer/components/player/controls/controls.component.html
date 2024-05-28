@@ -398,7 +398,7 @@
       <div
         cdkMenuGroup
         aria-labelledby="darkmode-section-title"
-        *ngrxLet="darkMode$ as darkMode"
+        *ngrxLet="colorTheme$ as colorTheme"
       >
         <span
           id="darkmode-section-title"
@@ -410,27 +410,37 @@
           mat-button
           appCdkMenuItemRadio
           [appKeepMenuOpen]="true"
+          (cdkMenuItemTriggered)="onChangeColorTheme(colorThemeENUM.SYSTEM)"
           i18n="@@viewerControlsDarkmodeAutoLabel"
         >
-          <mat-icon svgIcon="{{ false ? 'check' : '' }}"></mat-icon>Automatic
+          <mat-icon
+            svgIcon="{{ colorTheme === colorThemeENUM.SYSTEM ? 'check' : '' }}"
+          ></mat-icon
+          >Automatic
         </button>
         <button
           mat-button
           appCdkMenuItemRadio
           [appKeepMenuOpen]="true"
-          (cdkMenuItemTriggered)="onToggleDarkmode(darkMode, false)"
+          (cdkMenuItemTriggered)="onChangeColorTheme(colorThemeENUM.LIGHT)"
           i18n="@@viewerControlsDarkmodeLight"
         >
-          <mat-icon svgIcon="{{ !darkMode ? 'check' : '' }}"></mat-icon>Light
+          <mat-icon
+            svgIcon="{{ colorTheme === colorThemeENUM.LIGHT ? 'check' : '' }}"
+          ></mat-icon
+          >Light
         </button>
         <button
           mat-button
           appCdkMenuItemRadio
           [appKeepMenuOpen]="true"
-          (cdkMenuItemTriggered)="onToggleDarkmode(darkMode, true)"
+          (cdkMenuItemTriggered)="onChangeColorTheme(colorThemeENUM.DARK)"
           i18n="@@viewerControlsTranscriptDarkLabel"
         >
-          <mat-icon svgIcon="{{ darkMode ? 'check' : '' }}"></mat-icon>Dark
+          <mat-icon
+            svgIcon="{{ colorTheme === colorThemeENUM.DARK ? 'check' : '' }}"
+          ></mat-icon
+          >Dark
         </button>
       </div>
 

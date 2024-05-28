@@ -11,6 +11,7 @@ import { ICONS } from './constants/icon.constants';
 import { AppService } from './services/app/app.service';
 import * as authActions from './store/actions/auth.actions';
 import { AppState } from './store/app.state';
+import { ColorTheme } from './store/reducers/config.reducer';
 import * as authSelectors from './store/selectors/auth.selector';
 import * as configSelector from './store/selectors/config.selector';
 
@@ -25,7 +26,7 @@ export class AppComponent implements OnInit, OnDestroy {
   private destroy$$ = new Subject<void>();
   public isInitialized$: Observable<boolean>;
 
-  public darkMode$ = this.store.select(configSelector.darkMode);
+  public colorTheme$ = this.store.select(configSelector.colorTheme);
 
   constructor(
     private domSanitizer: DomSanitizer,
@@ -44,16 +45,32 @@ export class AppComponent implements OnInit, OnDestroy {
     this.store.dispatch(authActions.init());
     this.appService.init();
 
-    this.darkMode$
+    this.colorTheme$
       .pipe(
         takeUntil(this.destroy$$),
-        tap((darkMode) => {
-          if (darkMode) {
-            // dark mode ON
-            document.body.classList.add('dark-theme');
-          } else {
-            // dark mode OFF
-            document.body.classList.remove('dark-theme');
+        tap((colorTheme) => {
+          switch (colorTheme) {
+            case ColorTheme.DARK:
+              document.body.classList.add('dark-theme');
+              break;
+            case ColorTheme.LIGHT:
+              document.body.classList.remove('dark-theme');
+              break;
+            case ColorTheme.SYSTEM:
+              if (window.matchMedia) {
+                // Check if the dark-mode Media-Query matches
+                if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                  // Dark
+                  document.body.classList.add('dark-theme');
+                } else {
+                  // Light
+                  document.body.classList.remove('dark-theme');
+                }
+              }
+              break;
+
+            default:
+              break;
           }
         })
       )
