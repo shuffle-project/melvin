@@ -101,7 +101,7 @@ interface DialogData {
 export class ShareProjectDialogComponent implements OnInit, OnDestroy {
   private destroy$$ = new Subject<void>();
 
-  project = inject<DialogData>(MAT_DIALOG_DATA).project;
+  public project = inject<DialogData>(MAT_DIALOG_DATA).project;
 
   public inviteToken!: string;
   public viewerToken!: string;
@@ -132,7 +132,9 @@ export class ShareProjectDialogComponent implements OnInit, OnDestroy {
     private alertService: AlertService,
     private api: ApiService,
     private store: Store<AppState>
-  ) {}
+  ) {
+    console.log(this.project, this.viewerLink);
+  }
 
   get inviteLink(): string {
     return `${environment.frontendBaseUrl}/invite/${this.inviteToken}`;

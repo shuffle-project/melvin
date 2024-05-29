@@ -50,7 +50,9 @@
             <h3>Embed</h3>
           </div>
         </mat-expansion-panel-header>
-        <app-embed [projectId]="this.project.id"></app-embed>
+        @if(project && viewerLink){
+        <app-embed [viewerLink]="viewerLink"></app-embed>
+        }
       </mat-expansion-panel>
 
       <!-- Invite member -->

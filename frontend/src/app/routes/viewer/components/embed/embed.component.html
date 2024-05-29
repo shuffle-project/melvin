@@ -1,10 +1,11 @@
+@if( url && iframeString) {
 <div class="embed-wrapper">
   <div class="video-wrapper">
     <!-- <app-viewer> </app-viewer> -->
     <iframe
       width="{{ width }}"
       height="{{ height }}"
-      src="http://{{ baseUrl }}:4200/view/{{ this.projectId }}?embed=true"
+      [src]="getUrl()"
       title="{{ title }}"
       allowfullscreen
       referrerpolicy="strict-origin-when-cross-origin"
@@ -12,13 +13,15 @@
     ></iframe>
   </div>
 
+  <br />
+
   <div class="link-wrapper">
-    <h2>Einbetten</h2>
+    <!-- <h2>Einbetten</h2> -->
     <p>
       {{ iframeString }}
     </p>
     <br />
-    <div class="button">
+    <div class="buttons">
       <button mat-raised-button color="primary" (click)="onCopyToClipboard()">
         Kopieren
       </button>
@@ -26,3 +29,4 @@
     </div>
   </div>
 </div>
+}
