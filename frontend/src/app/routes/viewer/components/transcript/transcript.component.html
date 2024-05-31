@@ -62,10 +62,14 @@
   }
   <ng-container *ngrxLet="availableSpeakers$ as availableSpeakers">
     <ng-container *ngrxLet="viewerService.currentTime$ as currentTime">
+      <!-- https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener beim directive bauen, muss der event lisener passive sein? -->
       <div
         id="captions-viewport"
         class="captions-viewport fontsize-{{ transcriptFontsize$ | ngrxPush }}"
-        (scroll)="onScrollInViewport()"
+        (mousedown)="stopAutoscroll()"
+        (mousewheel)="stopAutoscroll()"
+        (keydown)="stopAutoscroll()"
+        (scroll)="onScrollInViewport($event)"
       >
         <!-- [ngStyle]="{
           'font-size.%': transcriptFontsize$ | ngrxPush

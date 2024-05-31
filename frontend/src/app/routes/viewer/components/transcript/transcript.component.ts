@@ -234,20 +234,27 @@ export class TranscriptComponent implements OnDestroy, OnInit {
     if (!viewportEle || !captionEle || !captionParentEle) return;
     this.programmaticScroll = true;
 
-    const newScrollTop = captionParentEle.offsetTop - 150;
+    // const newScrollTop =
+    //   captionParentEle.offsetTop - captionParentEle.clientHeight / 2;
 
-    viewportEle.scrollTo({
-      behavior: 'smooth',
-      top: newScrollTop,
-    });
+    captionEle.scrollIntoView({ behavior: 'instant', block: 'center' });
+
+    // viewportEle.scrollTo({
+    //   behavior: 'smooth',
+    //   top: newScrollTop,
+    // });
 
     // TODO switch to block, but only scroll in inner div, not in out div
     // block: 'center'
 
     // TODO are there other ways to wait until the scroll is finished?
-    setTimeout(() => {
-      this.programmaticScroll = false;
-    }, 1000);
+    // setTimeout(() => {
+    //   this.programmaticScroll = false;
+    // }, 100);
+  }
+
+  onScrollEnd() {
+    console.log('onscrollend');
   }
 
   getSpeakerName(speakerId: string, availableSpeakers: SpeakerEntity[]) {
@@ -262,10 +269,15 @@ export class TranscriptComponent implements OnDestroy, OnInit {
     return caption.id;
   }
 
-  onScrollInViewport() {
+  onScrollInViewport(event: any) {
+    console.log(event);
     // dont reset autoscroll if scrolling is programatically
-    if (this.programmaticScroll) return;
+    // if (this.programmaticScroll) return;
 
+    // this.autoScroll = false;
+  }
+
+  stopAutoscroll() {
     this.autoScroll = false;
   }
 }
