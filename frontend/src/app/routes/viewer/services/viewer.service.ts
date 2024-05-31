@@ -201,7 +201,7 @@ export class ViewerService {
           // HAVE_FUTURE_DATA	3	Data for the current playback position as well as for at least a little bit of time into the future is available (in other words, at least two frames of video, for example).
           // HAVE_ENOUGH_DATA	4	Enough data is available—and the download rate is high enough—that the media can be
 
-          if (htmlMediaElement.readyState > 2) {
+          if (htmlMediaElement.readyState > 3) {
             this.store.dispatch(viewerActions.mediaLoaded({ id }));
           } else {
             this.store.dispatch(viewerActions.mediaLoading({ id }));
