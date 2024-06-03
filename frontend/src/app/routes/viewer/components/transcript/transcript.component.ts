@@ -254,10 +254,6 @@ export class TranscriptComponent implements OnDestroy, OnInit {
     // }, 100);
   }
 
-  onScrollEnd() {
-    console.log('onscrollend');
-  }
-
   getSpeakerName(speakerId: string, availableSpeakers: SpeakerEntity[]) {
     return availableSpeakers.find((speaker) => speaker.id === speakerId)?.name;
   }

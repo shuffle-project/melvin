@@ -15,7 +15,7 @@ export class UserScrollDirective {
 
   constructor(private elRef: ElementRef<HTMLElement>) {}
 
-  @HostListener('mousewheel', ['$event'])
+  @HostListener('wheel', ['$event'])
   public onMousewheel(event: MouseEvent) {
     this.appUserScroll.emit();
   }
@@ -24,10 +24,19 @@ export class UserScrollDirective {
   public onMousedown(event: MouseEvent) {
     if (event.target) {
       const targetHtmlElement = event.target as HTMLElement;
+
       if (targetHtmlElement === this.elRef.nativeElement) {
         const clickOnScrollbar =
           event.offsetX > targetHtmlElement.clientWidth ||
-          event.offsetY > targetHtmlElement.clientHeight;
+          event.offsetY > targetHtmlElement.clientHeight ||
+          event.offsetX > targetHtmlElement.offsetWidth - 16;
+
+        // console.log(event.offsetX, targetHtmlElement.clientWidth);
+        // console.log(event.offsetX > targetHtmlElement.clientWidth);
+        // console.log(targetHtmlElement.offsetWidth);
+        // console.log(targetHtmlElement.scrollWidth);
+        // console.log(targetHtmlElement.clientWidth);
+
         if (clickOnScrollbar) {
           this.appUserScroll.emit();
         }
