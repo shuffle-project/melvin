@@ -66,10 +66,7 @@
       <div
         id="captions-viewport"
         class="captions-viewport fontsize-{{ transcriptFontsize$ | ngrxPush }}"
-        (mousedown)="stopAutoscroll()"
-        (mousewheel)="stopAutoscroll()"
-        (keydown)="stopAutoscroll()"
-        (scroll)="onScrollInViewport($event)"
+        (appUserScroll)="stopAutoscroll()"
       >
         <!-- [ngStyle]="{
           'font-size.%': transcriptFontsize$ | ngrxPush

@@ -26,6 +26,7 @@ import {
   tap,
   throttleTime,
 } from 'rxjs';
+import { UserScrollDirective } from '../../../../directives/userScroll/user-scroll.directive';
 import { CaptionEntity } from '../../../../services/api/entities/caption.entity';
 import { SpeakerEntity } from '../../../../services/api/entities/transcription.entity';
 import { AppState } from '../../../../store/app.state';
@@ -49,6 +50,7 @@ import { generateTranscript } from './transcript.utils';
     NgStyle,
     MatCheckboxModule,
     PushPipe,
+    UserScrollDirective,
   ],
 })
 export class TranscriptComponent implements OnDestroy, OnInit {
@@ -80,7 +82,6 @@ export class TranscriptComponent implements OnDestroy, OnInit {
   );
 
   autoScroll = true;
-  programmaticScroll = false;
 
   constructor(
     public store: Store<AppState>,
@@ -179,6 +180,7 @@ export class TranscriptComponent implements OnDestroy, OnInit {
   }
 
   onKeydownSearch(event: KeyboardEvent) {
+    this.autoScroll = false;
     if (event.key === 'Enter') {
       if (event.shiftKey) {
         this.onGoToRecentFound();
@@ -232,12 +234,11 @@ export class TranscriptComponent implements OnDestroy, OnInit {
     const captionParentEle = captionEle?.parentElement;
 
     if (!viewportEle || !captionEle || !captionParentEle) return;
-    this.programmaticScroll = true;
 
     // const newScrollTop =
     //   captionParentEle.offsetTop - captionParentEle.clientHeight / 2;
 
-    captionEle.scrollIntoView({ behavior: 'instant', block: 'center' });
+    captionEle.scrollIntoView({ behavior: 'smooth', block: 'center' });
 
     // viewportEle.scrollTo({
     //   behavior: 'smooth',
@@ -269,15 +270,8 @@ export class TranscriptComponent implements OnDestroy, OnInit {
     return caption.id;
   }
 
-  onScrollInViewport(event: any) {
-    console.log(event);
-    // dont reset autoscroll if scrolling is programatically
-    // if (this.programmaticScroll) return;
-
-    // this.autoScroll = false;
-  }
-
   stopAutoscroll() {
+    console.log('stop autoscroll');
     this.autoScroll = false;
   }
 }
