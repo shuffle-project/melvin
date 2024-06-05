@@ -156,14 +156,14 @@ export const viewerReducer = createReducer(
     viewerActions.showTranscript,
     viewerActions.showTranscriptForFullscreen,
     (state) => {
-      return { ...state, transcriptEnabled: true };
+      return { ...state, transcriptPosition: TranscriptPosition.RIGHT };
     }
   ),
   on(
     viewerActions.hideTranscript,
     viewerActions.hideTranscriptForFullscreen,
     (state) => {
-      return { ...state, transcriptEnabled: false };
+      return { ...state, transcriptPosition: TranscriptPosition.OFF };
     }
   ),
 
