@@ -124,7 +124,7 @@ export class ControlsComponent {
 
   onChangeTranscriptPosition(transcriptPosition: TranscriptPosition) {
     this.store.dispatch(
-      viewerActions.changeTranscriptPosition({ transcriptPosition })
+      viewerActions.changeTranscriptPositionControls({ transcriptPosition })
     );
   }
 

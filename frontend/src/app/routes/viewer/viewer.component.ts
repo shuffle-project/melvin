@@ -27,6 +27,7 @@ import { TranscriptComponent } from '../viewer/components/transcript/transcript.
 import { ControlsComponent } from './components/player/controls/controls.component';
 import { OverlayService } from './services/overlay.service';
 import { ViewerService } from './services/viewer.service';
+import { TranscriptPosition } from './viewer.interfaces';
 
 @Component({
   selector: 'app-viewer',
@@ -88,7 +89,12 @@ export class ViewerComponent implements OnInit, OnDestroy {
 
     this.overlayService.init();
 
-    if (this.embed) this.store.dispatch(viewerActions.hideTranscript());
+    if (this.embed)
+      this.store.dispatch(
+        viewerActions.changeTranscriptPositionEmbed({
+          transcriptPosition: TranscriptPosition.OFF,
+        })
+      );
   }
 
   ngOnDestroy() {

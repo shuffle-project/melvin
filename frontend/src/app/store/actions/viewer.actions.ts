@@ -118,27 +118,23 @@ export const toggleTranscriptOnlyMode = createAction(
   '[VIEWER VIDEO COMPONENT] Toggle Transcript ony mode'
 );
 
-export const hideTranscript = createAction(
-  '[CONTROLS COMPONENT] Hide Transcript'
-);
-export const showTranscript = createAction(
-  '[CONTROLS COMPONENT] Show Transcript'
-);
-
-export const hideTranscriptForFullscreen = createAction(
-  '[VIEWER SERVICE] Hide Transcript'
-);
-export const showTranscriptForFullscreen = createAction(
-  '[VIEWER SERVICE] Show Transcript'
-);
-
 export const changeTranscriptFontsize = createAction(
   '[ADJUST LAYOUT COMPONENT] Change Fontsize',
   props<{ transcriptFontsize: SizeOptions }>()
 );
 
-export const changeTranscriptPosition = createAction(
+export const changeTranscriptPositionControls = createAction(
   '[CONTROLS COMPONENT] Change Transcript Position',
+  props<{ transcriptPosition: TranscriptPosition }>()
+);
+
+export const changeTranscriptPositionEmbed = createAction(
+  '[VIEWER COMPONENT] Change Transcript Position without saving it to localstorage',
+  props<{ transcriptPosition: TranscriptPosition }>()
+);
+
+export const changeTranscriptPositionForFullscreen = createAction(
+  '[VIEWER SERVICE] Change Transcript Position for fullscreen',
   props<{ transcriptPosition: TranscriptPosition }>()
 );
 

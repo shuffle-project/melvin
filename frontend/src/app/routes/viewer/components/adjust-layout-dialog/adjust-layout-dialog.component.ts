@@ -77,7 +77,7 @@ export class AdjustLayoutDialogComponent {
 
   onTranscriptPositionChanged(event: MatRadioChange) {
     this.store.dispatch(
-      viewerActions.changeTranscriptPosition({
+      viewerActions.changeTranscriptPositionControls({
         transcriptPosition: event.value,
       })
     );
