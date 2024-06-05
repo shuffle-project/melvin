@@ -924,7 +924,7 @@
       </trans-unit>
       <trans-unit id="playerTranscriptAutomaticScrollLabel" datatype="html">
         <source> Automatic scrolling </source>
-        <target state="new"> Automatisch mitscrollen </target>
+        <target state="final"> Automatisch scrollen </target>
       </trans-unit>
       <trans-unit id="shareProjectAddMemberLabel" datatype="html">
         <source>Add team member</source>
@@ -937,14 +937,6 @@
       <trans-unit id="dialogCreateProjectLoadingInfo" datatype="html">
         <source> Uploading data </source>
         <target state="final"> Daten werden hochgeladen </target>
-      </trans-unit>
-      <trans-unit id="viewerControlsPlayPauseTooltip" datatype="html">
-        <source>
-          <x id="INTERPOLATION" equiv-text="{{ !isPlayingUser ? &apos;Play&apos; : &apos;Pause&apos; }}"/>
-        </source>
-        <target state="new">
-          <x id="INTERPOLATION" equiv-text="? &apos;Abspielen&apos; : &apos;Pausieren&apos; }}"/>
-        </target>
       </trans-unit>
       <trans-unit id="uploadAdditionalMediaTitle" datatype="html">
         <source>Upload additional media files</source>
@@ -1604,19 +1596,19 @@
       </trans-unit>
       <trans-unit id="viewerControlsTextlanguageTitle" datatype="html">
         <source> Textlanguage </source>
-        <target state="new">Textsprache</target>
+        <target state="final">Textsprache</target>
       </trans-unit>
       <trans-unit id="viewerControlsCaptionsTitle" datatype="html">
         <source>Captions </source>
-        <target state="new">Untertitel</target>
+        <target state="final">Untertitel</target>
       </trans-unit>
       <trans-unit id="viewerControlsCaptionsOffLabel" datatype="html">
         <source><x id="START_BLOCK_IF" equiv-text="@if (!subtitlesEnabledInVideo) {"/><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;check&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/><x id="CLOSE_BLOCK_IF" equiv-text="}"/> Off </source>
-        <target state="new"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;{{ !subtitlesEnabledInVideo ? &apos;check&apos; : &apos;&apos; }}&quot; &gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon &gt;"/>Aus </target>
+        <target state="final"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;{{ !subtitlesEnabledInVideo ? &apos;check&apos; : &apos;&apos; }}&quot; &gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon &gt;"/>Aus </target>
       </trans-unit>
       <trans-unit id="viewerControlsCaptionsOnLabel" datatype="html">
         <source><x id="START_BLOCK_IF" equiv-text="@if (subtitlesEnabledInVideo) {"/><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;check&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/><x id="CLOSE_BLOCK_IF" equiv-text="}"/> On </source>
-        <target state="new"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;{{ subtitlesEnabledInVideo ? &apos;check&apos; : &apos;&apos; }}&quot; &gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon &gt;"/>An </target>
+        <target state="final"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;{{ subtitlesEnabledInVideo ? &apos;check&apos; : &apos;&apos; }}&quot; &gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon &gt;"/>An </target>
       </trans-unit>
       <trans-unit id="viewerControlsCaptionsSettingsLabel" datatype="html">
         <source> Settings </source>
@@ -1624,19 +1616,19 @@
       </trans-unit>
       <trans-unit id="viewerControlsTranscriptTitle" datatype="html">
         <source>Transcript </source>
-        <target state="new">Transkript</target>
+        <target state="final">Transkript</target>
       </trans-unit>
       <trans-unit id="viewerControlsTranscriptOffLabel" datatype="html">
         <source><x id="START_BLOCK_IF" equiv-text="@if(transcriptPosition === tanscriptPositionENUM.OFF) {"/><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;check&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/><x id="CLOSE_BLOCK_IF" equiv-text="}"/> Off </source>
-        <target state="new"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;{{ transcriptPosition === tanscriptPositionENUM.OFF ? &apos;check&apos; : &apos;&apos; }}&quot; &gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon &gt;"/>Aus </target>
+        <target state="final"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;{{ transcriptPosition === tanscriptPositionENUM.OFF ? &apos;check&apos; : &apos;&apos; }}&quot; &gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon &gt;"/>Aus </target>
       </trans-unit>
       <trans-unit id="viewerControlsTranscriptLeftLabel" datatype="html">
         <source><x id="START_BLOCK_IF" equiv-text="@if(transcriptPosition === tanscriptPositionENUM.LEFT){"/><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;check&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/><x id="CLOSE_BLOCK_IF" equiv-text="}"/> Left </source>
-        <target state="new"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;{{ transcriptPosition === tanscriptPositionENUM.LEFT ? &apos;check&apos; : &apos;&apos; }}&quot; &gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon &gt;"/>Links </target>
+        <target state="final"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;{{ transcriptPosition === tanscriptPositionENUM.LEFT ? &apos;check&apos; : &apos;&apos; }}&quot; &gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon &gt;"/>Links </target>
       </trans-unit>
       <trans-unit id="viewerControlsTranscriptRightLabel" datatype="html">
         <source><x id="START_BLOCK_IF" equiv-text="@if(transcriptPosition === tanscriptPositionENUM.RIGHT){"/><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;check&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/><x id="CLOSE_BLOCK_IF" equiv-text="}"/> Right </source>
-        <target state="new"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;{{ transcriptPosition === tanscriptPositionENUM.RIGHT ? &apos;check&apos; : &apos;&apos; }}&quot; &gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon &gt;"/>Rechts </target>
+        <target state="final"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;{{ transcriptPosition === tanscriptPositionENUM.RIGHT ? &apos;check&apos; : &apos;&apos; }}&quot; &gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon &gt;"/>Rechts </target>
       </trans-unit>
       <trans-unit id="viewerControlsTranscriptSettingsLabel" datatype="html">
         <source> Settings </source>
@@ -1644,22 +1636,22 @@
       </trans-unit>
       <trans-unit id="viewerControlsTranscriptVideosTitle" datatype="html">
         <source> Videos </source>
-        <target state="new"> Videos</target>
+        <target state="final"> Videos</target>
       </trans-unit>
       <trans-unit id="viewerControlsDarkmodeTitle" datatype="html">
         <source>Darkmode </source>
-        <target state="new">Dunkler Modus</target>
+        <target state="final">Dunkler Modus</target>
       </trans-unit>
       <trans-unit id="viewerControlsDarkmodeAutoLabel" datatype="html">
-        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;{{ false ? &apos;check&apos; : &apos;&apos; }}&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/>Automatic </source>
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;{{ colorTheme === colorThemeENUM.SYSTEM ? &apos;check&apos; : &apos;&apos; }}&quot; &gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon &gt;"/>Automatic </source>
         <target state="final"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;{{ false ? &apos;check&apos; : &apos;&apos; }}&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/>Automatisch </target>
       </trans-unit>
       <trans-unit id="viewerControlsDarkmodeLight" datatype="html">
-        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;{{ !darkMode ? &apos;check&apos; : &apos;&apos; }}&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/>Light </source>
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;{{ colorTheme === colorThemeENUM.LIGHT ? &apos;check&apos; : &apos;&apos; }}&quot; &gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon &gt;"/>Light </source>
         <target state="final"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;{{ !darkMode ? &apos;check&apos; : &apos;&apos; }}&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/>Hell </target>
       </trans-unit>
       <trans-unit id="viewerControlsTranscriptDarkLabel" datatype="html">
-        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;{{ darkMode ? &apos;check&apos; : &apos;&apos; }}&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/>Dark </source>
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;{{ colorTheme === colorThemeENUM.DARK ? &apos;check&apos; : &apos;&apos; }}&quot; &gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon &gt;"/>Dark </source>
         <target state="final"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;{{ darkMode ? &apos;check&apos; : &apos;&apos; }}&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/>Dunkel </target>
       </trans-unit>
       <trans-unit id="viewerControlsHelpLabel" datatype="html">
@@ -1680,27 +1672,47 @@
       </trans-unit>
       <trans-unit id="viewerLogoAriaLabel" datatype="html">
         <source>Melvin Logo, to main webpage</source>
-        <target state="final">Melvin Logo, zur hauptwebseite</target>
+        <target state="final">Melvin Logo, zur Hauptwebseite</target>
       </trans-unit>
       <trans-unit id="viewerHeloDialogTitle" datatype="html">
         <source>Help</source>
-        <target state="new">Help</target>
+        <target state="final">Hilfe</target>
       </trans-unit>
       <trans-unit id="viewerHelpDialogCloseButton" datatype="html">
         <source>Close</source>
-        <target state="new">Close</target>
+        <target state="final">Schließen</target>
       </trans-unit>
       <trans-unit id="createProjectEstimatedTime" datatype="html">
         <source> Estimated time: <x id="INTERPOLATION" equiv-text="{{ eta * 1000 | duration }}"/> </source>
-        <target state="new"> Erwartete Zeit: <x id="INTERPOLATION" equiv-text="{{ eta * 1000 | duration }}"/> </target>
+        <target state="final"> Erwartete Zeit: <x id="INTERPOLATION" equiv-text="{{ eta * 1000 | duration }}"/> </target>
       </trans-unit>
       <trans-unit id="viewerVideoContainerMoveToMainviewAriaLabel" datatype="html">
         <source>Move video &apos;<x id="INTERPOLATION" equiv-text="{{ video.title }}"/>&apos; to main view</source>
-        <target state="new">Verschiebe das Video &apos;<x id="INTERPOLATION" equiv-text="{{ video.title }}"/>&apos; in die Hauptanzeige</target>
+        <target state="final">Verschiebe das Video &apos;<x id="INTERPOLATION" equiv-text="{{ video.title }}"/>&apos; in die Hauptanzeige</target>
       </trans-unit>
       <trans-unit id="viewerControlsOthersTitle" datatype="html">
+        <source>Others </source>
+        <target state="final">Sonstiges </target>
+      </trans-unit>
+      <trans-unit id="viewerControlsInterfaceLanguageTitle" datatype="html">
         <source>Interface language </source>
-        <target state="new">Sprache Benutzeroberfläche </target>
+        <target state="final">Sprache der Benutzeroberfläche </target>
+      </trans-unit>
+      <trans-unit id="viewerControlsGermanLabel" datatype="html">
+        <source> German (de-DE) </source>
+        <target state="final"> Deutsch (de-DE) </target>
+      </trans-unit>
+      <trans-unit id="viewerControlsEnglishLabel" datatype="html">
+        <source> English (en-US) </source>
+        <target state="final"> Englisch (en-US) </target>
+      </trans-unit>
+      <trans-unit id="viewerControlsPlayTooltip" datatype="html">
+        <source>Play</source>
+        <target state="final">Abspielen</target>
+      </trans-unit>
+      <trans-unit id="viewerControlsPauseTooltip" datatype="html">
+        <source>Pause</source>
+        <target state="final">Pausieren</target>
       </trans-unit>
     </body>
   </file>

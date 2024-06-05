@@ -30,8 +30,7 @@
       <button
         mat-icon-button
         class="md"
-        matTooltip="{{ !isPlayingUser ? 'Play' : 'Pause' }}"
-        i18n-matTooltip="@@viewerControlsPlayPauseTooltip"
+        matTooltip="{{ !isPlayingUser ? playTooltip : pauseTooltip }}"
         (click)="onPlayPauseVideo()"
       >
         @if (!isPlayingUser) {
@@ -459,7 +458,8 @@
           [cdkMenuItemChecked]="locale === 'de-DE'"
           i18n="@@viewerControlsGermanLabel"
         >
-          German (de-DE)
+          <mat-icon svgIcon="{{ locale === 'de-DE' ? 'check' : '' }}"></mat-icon
+          >German (de-DE)
         </button>
 
         <button
@@ -469,7 +469,8 @@
           [cdkMenuItemChecked]="locale === 'en-US'"
           i18n="@@viewerControlsEnglishLabel"
         >
-          English (en-US)
+          <mat-icon svgIcon="{{ locale === 'en-US' ? 'check' : '' }}"></mat-icon
+          >English (en-US)
         </button>
       </div>
 

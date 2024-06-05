@@ -106,6 +106,13 @@ export class ControlsComponent {
     }
   }
 
+  get playTooltip() {
+    return $localize`:@@viewerControlsPlayTooltip:Play`;
+  }
+  get pauseTooltip() {
+    return $localize`:@@viewerControlsPauseTooltip:Pause`;
+  }
+
   onPlayPauseVideo() {
     this.store.dispatch(viewerActions.playPauseUser());
   }
