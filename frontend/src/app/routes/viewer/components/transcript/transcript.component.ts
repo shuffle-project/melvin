@@ -128,7 +128,6 @@ export class TranscriptComponent implements OnDestroy, OnInit {
             paragraph.forEach((entity, indexCaption) => {
               const matches = entity.text.match(regex);
               if (searchValue.length > 0 && matches?.length) {
-                // console.log(matches);
                 searchFoundInCaptionIdsTemp.push(
                   ...matches.map(() => entity.id)
                 );
@@ -215,8 +214,6 @@ export class TranscriptComponent implements OnDestroy, OnInit {
   }
 
   scrollToMark(index: number) {
-    console.log('scroll to ');
-    console.log(`mark-${index}`);
     const mark = document.getElementsByClassName(`mark-${index}`).item(0);
     if (mark) {
       // mark.
@@ -235,23 +232,7 @@ export class TranscriptComponent implements OnDestroy, OnInit {
 
     if (!viewportEle || !captionEle || !captionParentEle) return;
 
-    // const newScrollTop =
-    //   captionParentEle.offsetTop - captionParentEle.clientHeight / 2;
-
     captionEle.scrollIntoView({ behavior: 'smooth', block: 'center' });
-
-    // viewportEle.scrollTo({
-    //   behavior: 'smooth',
-    //   top: newScrollTop,
-    // });
-
-    // TODO switch to block, but only scroll in inner div, not in out div
-    // block: 'center'
-
-    // TODO are there other ways to wait until the scroll is finished?
-    // setTimeout(() => {
-    //   this.programmaticScroll = false;
-    // }, 100);
   }
 
   getSpeakerName(speakerId: string, availableSpeakers: SpeakerEntity[]) {
@@ -267,7 +248,6 @@ export class TranscriptComponent implements OnDestroy, OnInit {
   }
 
   stopAutoscroll() {
-    console.log('stop autoscroll');
     this.autoScroll = false;
   }
 }
