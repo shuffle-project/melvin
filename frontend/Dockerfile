@@ -6,7 +6,8 @@ RUN apk add --update --no-cache python3 build-base gcc && ln -sf /usr/bin/python
 
 WORKDIR /app
 COPY . .
-RUN npm ci && npm run build:docker
+# TODO remove force after updating angular schematics to v18
+RUN npm ci --force && npm run build:docker
 
 # Final image
 

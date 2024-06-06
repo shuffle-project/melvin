@@ -1,18 +1,25 @@
 .embed-wrapper {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   width: 100%;
+  align-items: center;
 
   .video-wrapper {
   }
 
   .link-wrapper {
     padding: 10px;
-    width: calc(100% - 650px);
+    // width: calc(100% - 650px);
     min-width: 100px;
 
     p {
+      padding: 10px;
+
       word-wrap: break-word;
+    }
+    .buttons {
+      display: flex;
+      justify-content: center;
     }
   }
 }

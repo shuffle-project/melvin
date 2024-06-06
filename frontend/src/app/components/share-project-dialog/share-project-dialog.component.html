@@ -43,15 +43,17 @@
       </mat-expansion-panel>
 
       <!-- Embed viewer -->
-      <!-- <mat-expansion-panel>
+      <mat-expansion-panel>
         <mat-expansion-panel-header
           ><div class="title">
             <mat-icon svgIcon="link"></mat-icon>
             <h3>Embed</h3>
           </div>
         </mat-expansion-panel-header>
-        <app-embed></app-embed>
-      </mat-expansion-panel> -->
+        @if(project && viewerLink){
+        <app-embed [viewerLink]="viewerLink"></app-embed>
+        }
+      </mat-expansion-panel>
 
       <!-- Invite member -->
       <mat-expansion-panel>

@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
+import { Clipboard } from '@angular/cdk/clipboard';
+import { Component, Input, OnInit } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
+import { DomSanitizer } from '@angular/platform-browser';
 import { AlertService } from '../../../../services/alert/alert.service';
 import { ViewerComponent } from '../../viewer.component';
 
@@ -10,29 +12,44 @@ import { ViewerComponent } from '../../viewer.component';
   templateUrl: './embed.component.html',
   styleUrl: './embed.component.scss',
 })
-export class EmbedComponent {
+export class EmbedComponent implements OnInit {
   /**
    * <iframe width="560" height="315" src="https://www.youtube.com/embed/T6eK-2OQtew?si=T-rM8qzI35cyNfKq"
    *  title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media;
    * gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
    */
 
+  @Input({ required: true }) public viewerLink!: string | undefined;
+
   width = 650;
   height = 400;
-  url =
-    'http://localhost:4200/view/t6KP55AcAXj1BtWHGF95EGhqfuvJaryVlknHMs9PWZmoASWy50tljgCKdgXC6c2m?embed=true';
-  title = 'embedded video';
+  title = 'Melvin player';
 
-  iframeString = `<iframe width="${this.width}" height="${this.height}" src="${this.url}" title="${this.title}" frameborder="0" allowfullscreen referrerpolicy="strict-origin-when-cross-origin" ></iframe>`;
+  url: string | undefined = undefined;
+  iframeString: string | undefined = undefined;
 
   copied = false;
 
-  constructor(private alert: AlertService) {}
+  constructor(
+    private alert: AlertService,
+    private domSanitizer: DomSanitizer,
+    private clipboard: Clipboard
+  ) {}
+
+  ngOnInit() {
+    this.url = this.viewerLink + '?embed=true';
+    this.iframeString = `<iframe width="${this.width}" height="${this.height}" src="${this.url}" title="${this.title}" frameborder="0" allowfullscreen referrerpolicy="strict-origin-when-cross-origin" ></iframe>`;
+  }
 
   onCopyToClipboard() {
-    navigator.clipboard.writeText(this.iframeString).then(() => {
+    const success = this.clipboard.copy(this.iframeString!);
+    if (success) {
       this.copied = true;
       this.alert.success('Copied to clipboard');
-    });
+    }
+  }
+
+  getUrl() {
+    return this.domSanitizer.bypassSecurityTrustResourceUrl(this.url!);
   }
 }

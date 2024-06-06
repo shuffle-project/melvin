@@ -22,6 +22,10 @@ export class PathService {
     return join(MEDIA_TEMP_DIR, v4());
   }
 
+  getRootProjectDirectory(): string {
+    return MEDIA_PROJECTS_DIR;
+  }
+
   getProjectDirectory(projectId: string): string {
     return join(MEDIA_PROJECTS_DIR, projectId);
   }

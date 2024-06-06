@@ -10,7 +10,6 @@ import { Observable, Subject, lastValueFrom, take } from 'rxjs';
 import { NotificationEntity } from 'src/app/services/api/entities/notification.entity';
 import * as authActions from 'src/app/store/actions/auth.actions';
 import { FeatureEnabledPipe } from '../../pipes/feature-enabled-pipe/feature-enabled.pipe';
-import { toggleDarkMode } from '../../store/actions/config.actions';
 import * as notificationsActions from '../../store/actions/notifications.actions';
 import * as authSelectors from '../../store/selectors/auth.selector';
 import * as configSelector from '../../store/selectors/config.selector';
@@ -21,6 +20,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { LetDirective, PushPipe } from '@ngrx/component';
+import * as configActions from '../../store/actions/config.actions';
+import { ColorTheme } from '../../store/reducers/config.reducer';
 import { LogoComponent } from '../logo/logo.component';
 
 @Component({
@@ -55,12 +56,14 @@ import { LogoComponent } from '../logo/logo.component';
 export class HeaderComponent implements OnDestroy, OnInit {
   @Input() viewer = false;
 
+  public colorThemeENUM = ColorTheme;
+
   isLoggedIn$: Observable<boolean>;
   isMenuOpen: boolean = false;
 
   private destroy$$ = new Subject<void>();
 
-  public darkMode$ = this.store.select(configSelector.darkMode);
+  public colorTheme$ = this.store.select(configSelector.colorTheme);
 
   totalUnreadNotifications$: Observable<number>;
   recentNotifications$: Observable<readonly NotificationEntity[]>;
@@ -111,7 +114,7 @@ export class HeaderComponent implements OnDestroy, OnInit {
     this.store.dispatch(authActions.logout());
   }
 
-  onToggleChangeDarkMode() {
-    this.store.dispatch(toggleDarkMode());
+  onChangeColorTheme(colorTheme: ColorTheme) {
+    this.store.dispatch(configActions.changeColorTheme({ colorTheme }));
   }
 }

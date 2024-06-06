@@ -1,8 +1,4 @@
-import {
-  HttpErrorResponse,
-  HttpEvent,
-  HttpEventType,
-} from '@angular/common/http';
+import { HttpErrorResponse, HttpEvent, HttpEventType } from '@angular/common/http';
 import { AfterViewInit, Component, OnDestroy, ViewChild } from '@angular/core';
 import {
   AbstractControl,

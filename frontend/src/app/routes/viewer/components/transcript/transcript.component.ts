@@ -26,6 +26,7 @@ import {
   tap,
   throttleTime,
 } from 'rxjs';
+import { UserScrollDirective } from '../../../../directives/userScroll/user-scroll.directive';
 import { CaptionEntity } from '../../../../services/api/entities/caption.entity';
 import { SpeakerEntity } from '../../../../services/api/entities/transcription.entity';
 import { AppState } from '../../../../store/app.state';
@@ -49,6 +50,7 @@ import { generateTranscript } from './transcript.utils';
     NgStyle,
     MatCheckboxModule,
     PushPipe,
+    UserScrollDirective,
   ],
 })
 export class TranscriptComponent implements OnDestroy, OnInit {
@@ -80,7 +82,6 @@ export class TranscriptComponent implements OnDestroy, OnInit {
   );
 
   autoScroll = true;
-  programmaticScroll = false;
 
   constructor(
     public store: Store<AppState>,
@@ -127,7 +128,6 @@ export class TranscriptComponent implements OnDestroy, OnInit {
             paragraph.forEach((entity, indexCaption) => {
               const matches = entity.text.match(regex);
               if (searchValue.length > 0 && matches?.length) {
-                // console.log(matches);
                 searchFoundInCaptionIdsTemp.push(
                   ...matches.map(() => entity.id)
                 );
@@ -179,6 +179,7 @@ export class TranscriptComponent implements OnDestroy, OnInit {
   }
 
   onKeydownSearch(event: KeyboardEvent) {
+    this.autoScroll = false;
     if (event.key === 'Enter') {
       if (event.shiftKey) {
         this.onGoToRecentFound();
@@ -213,8 +214,6 @@ export class TranscriptComponent implements OnDestroy, OnInit {
   }
 
   scrollToMark(index: number) {
-    console.log('scroll to ');
-    console.log(`mark-${index}`);
     const mark = document.getElementsByClassName(`mark-${index}`).item(0);
     if (mark) {
       // mark.
@@ -232,22 +231,8 @@ export class TranscriptComponent implements OnDestroy, OnInit {
     const captionParentEle = captionEle?.parentElement;
 
     if (!viewportEle || !captionEle || !captionParentEle) return;
-    this.programmaticScroll = true;
 
-    const newScrollTop = captionParentEle.offsetTop - 150;
-
-    viewportEle.scrollTo({
-      behavior: 'smooth',
-      top: newScrollTop,
-    });
-
-    // TODO switch to block, but only scroll in inner div, not in out div
-    // block: 'center'
-
-    // TODO are there other ways to wait until the scroll is finished?
-    setTimeout(() => {
-      this.programmaticScroll = false;
-    }, 1000);
+    captionEle.scrollIntoView({ behavior: 'smooth', block: 'center' });
   }
 
   getSpeakerName(speakerId: string, availableSpeakers: SpeakerEntity[]) {
@@ -262,10 +247,7 @@ export class TranscriptComponent implements OnDestroy, OnInit {
     return caption.id;
   }
 
-  onScrollInViewport() {
-    // dont reset autoscroll if scrolling is programatically
-    if (this.programmaticScroll) return;
-
+  stopAutoscroll() {
     this.autoScroll = false;
   }
 }

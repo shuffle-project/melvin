@@ -18,9 +18,9 @@ export const languagesConfig = createSelector(
   (state: ConfigState) => state.languages
 );
 
-export const darkMode = createSelector(
+export const colorTheme = createSelector(
   configState,
-  (state: ConfigState) => state.darkMode
+  (state: ConfigState) => state.colorTheme
 );
 
 export const language = createSelector(

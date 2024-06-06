@@ -231,6 +231,8 @@ export class ViewerService {
       if (number && this.audio) {
         this.audio.currentTime = number;
       }
+    } else if (this.audio) {
+      this.audio.currentTime = 0;
     }
   }
 
@@ -272,7 +274,6 @@ export class ViewerService {
     } else if ((document as any).webkitExitFullscreen) {
       await (document as any).webkitExitFullscreen();
     }
-    // this.store.dispatch(viewerActions.showTranscript());
   }
 
   onRequestFullscreen() {
@@ -281,12 +282,20 @@ export class ViewerService {
     } else {
       const doc = document.getElementsByTagName('body').item(0);
       if (doc) {
-        this.store.dispatch(viewerActions.hideTranscript());
+        // this.store.dispatch(
+        //   viewerActions.changeTranscriptPositionForFullscreen({
+        //     transcriptPosition: TranscriptPosition.OFF,
+        //   })
+        // );
 
         // show transcript again on closing fullscreen
         doc.onfullscreenchange = () => {
           if (!this.isFullscreenActive()) {
-            this.store.dispatch(viewerActions.showTranscript());
+            // this.store.dispatch(
+            //   viewerActions.changeTranscriptPositionForFullscreen({
+            //     transcriptPosition: TranscriptPosition.RIGHT,
+            //   })
+            // );
           }
         };
 

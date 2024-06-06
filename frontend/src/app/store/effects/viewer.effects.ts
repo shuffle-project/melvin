@@ -236,7 +236,7 @@ export class ViewerEffects {
   changeTranscriptPosition$ = createEffect(
     () =>
       this.actions$.pipe(
-        ofType(viewerActions.changeTranscriptPosition),
+        ofType(viewerActions.changeTranscriptPositionControls),
         tap((action) => {
           this.storageService.storeInLocalStorage(
             StorageKey.VIEWER_TRANSCRIPT_POSITION,

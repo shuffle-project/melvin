@@ -152,21 +152,6 @@ export const viewerReducer = createReducer(
 
   // SETTINGS
 
-  on(
-    viewerActions.showTranscript,
-    viewerActions.showTranscriptForFullscreen,
-    (state) => {
-      return { ...state, transcriptEnabled: true };
-    }
-  ),
-  on(
-    viewerActions.hideTranscript,
-    viewerActions.hideTranscriptForFullscreen,
-    (state) => {
-      return { ...state, transcriptEnabled: false };
-    }
-  ),
-
   on(viewerActions.toggleTranscriptOnlyMode, (state) => {
     return { ...state, transcriptOnlyMode: !state.transcriptOnlyMode };
   }),
@@ -178,7 +163,9 @@ export const viewerReducer = createReducer(
     }
   ),
   on(
-    viewerActions.changeTranscriptPosition,
+    viewerActions.changeTranscriptPositionControls,
+    viewerActions.changeTranscriptPositionEmbed,
+    viewerActions.changeTranscriptPositionForFullscreen,
     (state, { transcriptPosition }) => {
       return { ...state, transcriptPosition };
     }
