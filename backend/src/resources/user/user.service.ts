@@ -1,17 +1,26 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { plainToInstance } from 'class-transformer';
+import { readdir, stat } from 'fs-extra';
+import { join } from 'path';
 import { DbService } from '../..//modules/db/db.service';
 import { EmailConfig } from '../../config/config.interface';
+import { Project } from '../../modules/db/schemas/project.schema';
 import { LeanUserDocument } from '../../modules/db/schemas/user.schema';
+import { PathService } from '../../modules/path/path.service';
 import { CustomInternalServerException } from '../../utils/exceptions';
+import { isSameObjectId } from '../../utils/objectid';
 import { FindAllUsersQuery } from './dto/find-all-users.dto';
 import { UserEntity } from './entities/user.entity';
 import { UserRole } from './user.interfaces';
 
 @Injectable()
 export class UserService {
-  constructor(private db: DbService, private configService: ConfigService) {}
+  constructor(
+    private db: DbService,
+    private configService: ConfigService,
+    private pathService: PathService,
+  ) {}
 
   async onApplicationBootstrap(): Promise<void> {
     const user = await this.db.userModel.findOne({ role: UserRole.SYSTEM });
@@ -62,5 +71,56 @@ export class UserService {
       .exec();
 
     return users.map((o) => plainToInstance(UserEntity, o));
+  }
+
+  async getAdminInfo(): Promise<any> {
+    const initialUsers = await this.db.userModel
+      .find()
+      .populate('projects')
+      .lean()
+      .exec();
+
+    const usersWithProjects = initialUsers.map((o) => ({
+      id: o._id.toString(),
+      email: o.email,
+      role: o.role,
+      projects: o.projects
+        .filter((p) => isSameObjectId((p as Project).createdBy, o))
+        .map((p) => p._id.toString()),
+    }));
+
+    const usersWithProjectSizes = await Promise.all(
+      usersWithProjects.map(async (user) => {
+        const projects = await Promise.all(
+          user.projects.map(async (project) => {
+            const size = await this._getProjectSize(project);
+            return { id: project, mbOnDisc: size };
+          }),
+        );
+        return {
+          mbOnDisc: projects.reduce((a, b) => a + b.mbOnDisc, 0),
+          ...user,
+          projects,
+        };
+      }),
+    );
+
+    return {
+      users: usersWithProjectSizes,
+    };
+  }
+
+  private async _getProjectSize(project: string) {
+    const projectPath = this.pathService.getProjectDirectory(project);
+    const projectFiles = await readdir(projectPath);
+    const sizes = await Promise.all(
+      projectFiles.map(async (file) => {
+        const fileStats = await stat(join(projectPath, file));
+        if (fileStats.isSymbolicLink()) return 0;
+        return fileStats.size / 1000 / 1000;
+      }),
+    );
+    const size = sizes.reduce((a, b) => a + b, 0);
+    return size;
   }
 }
