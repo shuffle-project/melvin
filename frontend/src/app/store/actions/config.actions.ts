@@ -16,7 +16,7 @@ export const fetchFailed = createAction(
 );
 
 export const changeColorTheme = createAction(
-  '[TODO] Change Color Mode',
+  '[HEADER COMPONENT] Change Color Mode',
   props<{ colorTheme: ColorTheme }>()
 );
 

@@ -75,7 +75,6 @@ export class WhisperSpeechService implements ISepechToTextService {
 
   async run(project: Project, audio: Audio): Promise<TranscriptEntity> {
     const transcribe = await this._transcribe(project, audio);
-    // console.log(JSON.stringify(transcribe));
 
     // use cronJob/queue instead of
     const transcriptEntity: WhiTranscriptEntity = await new Promise(
@@ -84,7 +83,6 @@ export class WhisperSpeechService implements ISepechToTextService {
           const transcriptEntityTemp = await this._getTranscript(
             transcribe.transcription_id,
           );
-          // console.log(JSON.stringify(transcriptEntityTemp));
           if (
             transcriptEntityTemp.status === 'done' ||
             transcriptEntityTemp.status === 'finished' ||
@@ -101,8 +99,6 @@ export class WhisperSpeechService implements ISepechToTextService {
       throw new Error(transcriptEntity.error_message);
     }
 
-    // console.log(JSON.stringify(transcriptEntity));
-
     let currentMS = 0;
     const words: WordEntity[] = [];
 
@@ -110,7 +106,6 @@ export class WhisperSpeechService implements ISepechToTextService {
       const from = segment[2] as number;
       const to = segment[3] as number;
       const sentence = segment[4] as string;
-      // console.log(from, to, sentence);
 
       const splittedText = sentence.split(' ');
       const msSentence = to * 1000 - from * 1000;
@@ -159,8 +154,6 @@ export class WhisperSpeechService implements ISepechToTextService {
     };
     formData.append('settings', JSON.stringify(settings));
 
-    // console.log(formData.getHeaders());
-
     const response = await lastValueFrom(
       this.httpService
         .post<WhiTranscriptEntity>(
@@ -178,7 +171,6 @@ export class WhisperSpeechService implements ISepechToTextService {
         )
         .pipe(
           map((res: AxiosResponse<WhiTranscriptEntity>) => {
-            // console.log(res.data);
             return res.data;
           }),
           catchError((error: AxiosError) => {
@@ -210,7 +202,12 @@ export class WhisperSpeechService implements ISepechToTextService {
           },
         )
         .pipe(
-          map((res: AxiosResponse<WhiTranscriptEntity>) => res.data),
+          map((res: AxiosResponse<WhiTranscriptEntity>) => {
+            console.log('====');
+            console.log(res.status);
+            console.log(res);
+            return res.data;
+          }),
           catchError((error: AxiosError) => {
             if (error?.response?.status) {
               throw new HttpException(

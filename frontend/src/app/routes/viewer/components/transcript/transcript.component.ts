@@ -169,6 +169,7 @@ export class TranscriptComponent implements OnDestroy, OnInit {
   onSearchChange(event: any) {
     this.foundItemsNumber = 1;
     // this.searchFoundInCaptionId = null;
+    this.autoScroll = false;
     this.searchValue$.next(event.target.value);
   }
 
@@ -179,7 +180,6 @@ export class TranscriptComponent implements OnDestroy, OnInit {
   }
 
   onKeydownSearch(event: KeyboardEvent) {
-    this.autoScroll = false;
     if (event.key === 'Enter') {
       if (event.shiftKey) {
         this.onGoToRecentFound();

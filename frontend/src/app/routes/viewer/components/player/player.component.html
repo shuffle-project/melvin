@@ -53,6 +53,7 @@
           role="separator"
           aria-orientation="vertical"
           aria-label="Move to resize video"
+          [@fade]="overlayService.showOverlay ? 'show' : 'hide'"
         >
           <!-- TODO da reinschreiben, dass man pfeiltasten benutzen soll zum resizen find ich irgendwie komisch. -->
           <div class="inner-resizer">
@@ -87,11 +88,11 @@
       <!-- over / under -->
       <span
         *ngrxLet="viewerService.currentCaption$ as currentCaption"
-        class=""
+        class="captions"
         [ngStyle]="{
           'font-size.%': combined.fontsize,
           color: combined.color,
-          'background-color': combined.backgroundColor
+          'background-color': combined.backgroundColor,
         }"
       >
         {{ currentCaption?.text || '-' }}</span

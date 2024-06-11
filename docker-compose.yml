@@ -74,7 +74,7 @@ services:
   #     - api
 
   asr-api:
-    image: ghcr.io/shuffle-project/asr-api:main
+    image: ghcr.io/shuffle-project/asr-api:dev
     container_name: asr-api
     volumes:
       - ./models:/asr-api/models
