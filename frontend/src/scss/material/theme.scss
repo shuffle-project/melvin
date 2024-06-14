@@ -107,8 +107,6 @@ $light-editor-warn: (
   ),
 );
 
-// TODO m2 is old, maybe migrate to new material 3
-// https://angular-material.dev/articles/updating-to-angular-material-18
 $light-editor-primary-palette: mat.m2-define-palette($light-editor-primary);
 $light-editor-accent-palette: mat.m2-define-palette($light-editor-accent);
 $light-editor-warn-palette: mat.m2-define-palette($light-editor-warn);

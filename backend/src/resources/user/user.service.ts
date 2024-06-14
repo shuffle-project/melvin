@@ -49,7 +49,6 @@ export class UserService {
       .lean()
       .exec();
 
-    // TODO wird der systemuser erstellt?
     if (user === null) {
       throw new CustomInternalServerException('system_user_not_found');
     }
