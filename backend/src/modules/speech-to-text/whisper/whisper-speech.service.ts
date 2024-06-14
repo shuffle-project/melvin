@@ -99,43 +99,20 @@ export class WhisperSpeechService implements ISepechToTextService {
       throw new Error(transcriptEntity.error_message);
     }
 
-    let currentMS = 0;
+    // let currentMS = 0;
     const words: WordEntity[] = [];
 
     transcriptEntity.transcript.segments.forEach((segment) => {
-      const from = segment[2] as number;
-      const to = segment[3] as number;
-      const sentence = segment[4] as string;
-
-      const splittedText = sentence.split(' ');
-      const msSentence = to * 1000 - from * 1000;
-      const msPerWord = msSentence / splittedText.length;
-      splittedText.forEach((word) => {
-        words.push({ word, startMs: currentMS, endMs: currentMS + msPerWord });
-        currentMS += msPerWord;
+      segment.words.forEach((word) => {
+        words.push({
+          word: word.word.startsWith(' ') ? word.word.trimStart() : word.word,
+          startMs: word.start * 1000,
+          endMs: word.end * 1000,
+        });
       });
     });
 
-    const captions = transcriptEntity.transcript.segments.map((segment) => {
-      const from = segment[2] as number;
-      const to = segment[3] as number;
-      const sentence = segment[4] as string;
-      return { from, to, sentence };
-    });
-
-    // transcriptEntity.transcript.transcription.forEach((sentence) => {
-    //   const splittedText = sentence.text.split(' ');
-    //   const msSentence = sentence.offsets.to - sentence.offsets.from;
-    //   const msPerWord = msSentence / splittedText.length;
-    //   splittedText.forEach((word) => {
-    //     words.push({ word, startMs: currentMS, endMs: currentMS + msPerWord });
-    //     currentMS += msPerWord;
-    //   });
-    // });
-
-    // transcriptEntity.transcript
-
-    return { words, captions };
+    return { words };
   }
 
   async _transcribe(project: Project, audio: Audio) {
@@ -203,9 +180,6 @@ export class WhisperSpeechService implements ISepechToTextService {
         )
         .pipe(
           map((res: AxiosResponse<WhiTranscriptEntity>) => {
-            console.log('====');
-            console.log(res.status);
-            console.log(res);
             return res.data;
           }),
           catchError((error: AxiosError) => {

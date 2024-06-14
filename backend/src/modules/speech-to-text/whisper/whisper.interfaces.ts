@@ -29,6 +29,36 @@ export class WhiTranscribeDto {
   // "vad_parameters": None,
 }
 
+export class WhiWord {
+  end: number;
+  probability: number;
+  start: number;
+  word: string;
+}
+
+export class WhiInterface {
+  duration: number;
+  duration_after_vad: number;
+  language: string;
+  language_probability: number;
+  transcription_options: any;
+  vad_options: any;
+}
+
+export class WhiSegment {
+  avg_logprob: number;
+  compression_ratio: number;
+  end: number;
+  id: number;
+  no_speech_prob: number;
+  seek: number;
+  start: number;
+  temperature: number;
+  text: string;
+  tokens: any[];
+  words: WhiWord[];
+}
+
 export class WhiTranscriptEntity {
   settings: any;
   transcription_id: string;
@@ -36,17 +66,9 @@ export class WhiTranscriptEntity {
   error_message: string;
   start_time: string;
   status: 'done' | 'error' | 'finished' | 'error';
+  model: any;
   transcript: {
-    info: any;
-    segments: any[];
-    //segments[x][2] will be the start
-    //segments[x][3] will be the end
-    //segments[x][4] will be the text
-
-    // transcription: {
-    //   offsets: { from: number; to: number };
-    //   text: string;
-    //   timestamps: { from: string; to: string };
-    // }[];
+    info: WhiInterface;
+    segments: WhiSegment[];
   };
 }
