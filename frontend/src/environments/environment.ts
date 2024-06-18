@@ -6,6 +6,7 @@ export const environment: Environment = {
   production: false,
   frontendBaseUrl: 'http://localhost:4200',
   baseRestApi: 'http://localhost:3000',
+  hocuspocusUrl: 'ws://localhost:3001',
   features: {
     // General
     notifications: true,

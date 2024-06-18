@@ -34,6 +34,7 @@ import { FindAllTranscriptionsQuery } from './dto/find-all-transcriptions.dto';
 import { UpdateSpeakerDto } from './dto/update-speaker.dto';
 import { UpdateTranscriptionDto } from './dto/update-transcription.dto';
 import { TranscriptionEntity } from './entities/transcription.entity';
+import { TiptapService } from './fulltext/ydoc.service';
 
 @Injectable()
 export class TranscriptionService {
@@ -45,6 +46,7 @@ export class TranscriptionService {
     private captionService: CaptionService,
     @InjectQueue('subtitles')
     private subtitlesQueue: Queue<ProcessSubtitlesJob>,
+    private tiptapService: TiptapService,
   ) {}
 
   /**
@@ -72,6 +74,7 @@ export class TranscriptionService {
 
     const transcriptionId = new Types.ObjectId();
 
+    const newYDoc = await this.tiptapService.createYDoc();
     // TODO use transactions
     const [transcription, updatedProject] = await Promise.all([
       this.db.transcriptionModel.create({
@@ -79,6 +82,8 @@ export class TranscriptionService {
         createdBy: authUser.id,
         _id: transcriptionId,
         project: projectId,
+        // TODO add empty ydoc
+        ydoc: newYDoc,
       }), // ,{populate:'createdBy'}
       this.db.updateProjectByIdAndReturn(projectId as Types.ObjectId, {
         $push: { transcriptions: transcriptionId },
@@ -404,5 +409,20 @@ export class TranscriptionService {
     this.events.transcriptionUpdated(project, entity);
 
     return entity;
+  }
+
+  async loadYDoc(transcriptionId: string): Promise<Uint8Array> {
+    const transcription = await this.db.transcriptionModel
+      .findById(transcriptionId)
+      .lean()
+      .exec();
+    return transcription.ydoc;
+  }
+
+  async storeYDoc(transcriptionId: string, state: Uint8Array): Promise<void> {
+    await this.db.transcriptionModel.findByIdAndUpdate(transcriptionId, {
+      $set: { ydoc: state },
+    });
+    return;
   }
 }

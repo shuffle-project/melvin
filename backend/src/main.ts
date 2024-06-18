@@ -1,13 +1,13 @@
 import { ValidationError, ValidationPipe } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { NestFactory } from '@nestjs/core';
+import { WsAdapter } from '@nestjs/platform-ws';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import helmet from 'helmet';
 import { AppModule } from './app.module';
 import { CustomLogger } from './modules/logger/logger.service';
 import { HttpExceptionFilter } from './utils/exception-filter';
 import { CustomValidationException } from './utils/exceptions';
-import { SocketAdapter } from './utils/socketio.adapter';
 import { getVersion } from './utils/version';
 
 async function bootstrap() {
@@ -22,7 +22,8 @@ async function bootstrap() {
 
   // // SocketIO
   // app.useWebSocketAdapter(new RedisIoAdapter(app, configService));
-  app.useWebSocketAdapter(new SocketAdapter(app));
+  // app.useWebSocketAdapter(new SocketAdapter(app));
+  app.useWebSocketAdapter(new WsAdapter(app));
 
   // Logging
   const logger = new CustomLogger(configService);

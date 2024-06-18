@@ -73,12 +73,13 @@ export class EventsGateway implements OnGatewayConnection {
     event: Ev,
     ...args: EventParams<ServerToClientEvents, Ev>
   ): boolean {
-    const activeRooms = rooms.filter((room) =>
-      this.server.sockets.adapter.rooms.has(room),
-    );
-    if (activeRooms.length > 0) {
-      return this.server.to(activeRooms).emit(event, ...args);
-    }
+    // const activeRooms = rooms.filter((room) =>
+    //   this.server.sockets.adapter.rooms.has(room),
+    // );
+    // if (activeRooms.length > 0) {
+    //   return this.server.to(activeRooms).emit(event, ...args);
+    // }
+    return true;
   }
 
   async _join(userId: string, room: string): Promise<void> {

@@ -1,0 +1,31 @@
+<h2>Editor</h2>
+<div class="flex">
+  <button (click)="undo()">undo</button>
+  <button (click)="redo()">redo</button>
+  <button (click)="clear()">clear</button>
+  <button (click)="onToggleUsernames()">Toggle usernames</button>
+</div>
+<div #editor></div>
+
+<h3>Connected users</h3>
+<ul id="users">
+  @for (user of connectedUsers; track $index) {
+  <li [style]="getColor(user)">
+    {{ user.name }}
+  </li>
+  }
+</ul>
+
+@if (this.userInformation) {
+<h3>Username</h3>
+<input
+  id="username"
+  type="text"
+  (input)="setUser($event)"
+  value="{{ this.username }}"
+/>
+<input type="color" (input)="changeColor($event)" value="{{ this.color }}" />
+}
+
+<h3>Status</h3>
+<div>{{ CLIENT_STATUS[status] }}</div>
