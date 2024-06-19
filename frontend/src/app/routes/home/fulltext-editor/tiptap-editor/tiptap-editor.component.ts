@@ -7,6 +7,7 @@ import {
   ViewChild,
 } from '@angular/core';
 import { HocuspocusProvider } from '@hocuspocus/provider';
+import { Store } from '@ngrx/store';
 import { Editor } from '@tiptap/core';
 import Collaboration from '@tiptap/extension-collaboration';
 import CollaborationCursor from '@tiptap/extension-collaboration-cursor';
@@ -19,6 +20,8 @@ import Text from '@tiptap/extension-text';
 import TextStyle from '@tiptap/extension-text-style';
 import { generate as generateUsername } from 'canihazusername';
 import { environment } from '../../../../../environments/environment';
+import { AppState } from '../../../../store/app.state';
+import * as editorSelector from '../../../../store/selectors/editor.selector';
 import { Partial, UserExtension, Word } from './tiptap.schema';
 
 const colorArray = [
@@ -76,12 +79,14 @@ export class TiptapEditorComponent implements AfterViewInit, OnInit {
   private newWordsCount = 0;
   private lastWordCount = 0;
 
-  constructor() {}
-  ngOnInit() {
+  private activeUsers$ = this.store.select(editorSelector.selectActiveUsers);
+
+  constructor(private store: Store<AppState>) {}
+
+  async ngOnInit() {
     console.log(this.transcriptionId);
     this.username = generateUsername();
     this.color = generateColor();
-    console.log(environment.hocuspocusUrl);
     this.provider = new HocuspocusProvider({
       url: environment.hocuspocusUrl, // wss://melvin-server-dummy.onrender.com
       name: this.transcriptionId,
@@ -222,6 +227,7 @@ export class TiptapEditorComponent implements AfterViewInit, OnInit {
     this.connectedUsers = [];
     this.provider.awareness?.getStates().forEach((state) => {
       if (state['user']) {
+        console.log(state);
         this.connectedUsers.push({
           name: state['user'].name,
           color: state['user'].color,

@@ -9,8 +9,8 @@ import { TranslationModule } from '../../modules/translation/translation.module'
 import { CaptionModule } from '../caption/caption.module';
 import { EventsModule } from '../events/events.module';
 import { HocuspocusService } from './fulltext/hocuspocus.service';
+import { TiptapService } from './fulltext/tiptap.service';
 import { TranscriptionGateway } from './fulltext/transcription.gateway';
-import { TiptapService } from './fulltext/ydoc.service';
 import { TranscriptionController } from './transcription.controller';
 import { TranscriptionService } from './transcription.service';
 

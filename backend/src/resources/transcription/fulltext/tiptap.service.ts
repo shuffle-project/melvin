@@ -28,8 +28,20 @@ export class TiptapService {
 
   async createYDoc(): Promise<Y.Doc> {
     const doc = new Y.Doc();
-    this.importDocument(doc, {});
-    return doc;
+
+    return await this.importDocument(doc, {
+      type: 'doc',
+      content: [
+        {
+          type: 'paragraph',
+          content: [{ type: 'text', text: 'This is your transcript!' }],
+        },
+      ],
+    });
+  }
+
+  async getState(doc: Y.Doc): Promise<Uint8Array> {
+    return Buffer.from(Y.encodeStateVector(doc));
   }
 
   // return type is our custom json

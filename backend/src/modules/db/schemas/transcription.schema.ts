@@ -92,7 +92,7 @@ export class Transcription {
   @Type(() => Speaker)
   speakers: Speaker[];
 
-  @Exclude()
+  @Prop({ type: SchemaTypes.Buffer })
   ydoc: Uint8Array;
 }
 
