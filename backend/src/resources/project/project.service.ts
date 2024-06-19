@@ -394,10 +394,9 @@ export class ProjectService {
       .lean()
       .exec();
 
-    await this.events.projectPartiallyUpdated(
-      { ...updatePartialDto },
-      updatedProject,
-    );
+    await this.events.projectPartiallyUpdated(updatedProject, {
+      ...updatePartialDto,
+    });
 
     return updatedProject;
   }

@@ -20,17 +20,17 @@ services:
     restart: unless-stopped
     ports:
       - 6379:6379
-  kurento:
-    container_name: ${COMPOSE_PROJECT_NAME}-kurento
-    image: kurento/kurento-media-server
-    ports:
-      - 8888:8888/tcp
-      - 5000-5050:5000-5050/udp
-    restart: unless-stopped
-    volumes:
-      - ../media/kurento/:/var/lib/kurento/:rw
-    environment:
-      - -GST_DEBUG="Kurento*:5"
+  # kurento:
+  #   container_name: ${COMPOSE_PROJECT_NAME}-kurento
+  #   image: kurento/kurento-media-server
+  #   ports:
+  #     - 8888:8888/tcp
+  #     - 5000-5050:5000-5050/udp
+  #   restart: unless-stopped
+  #   volumes:
+  #     - ../media/kurento/:/var/lib/kurento/:rw
+  #   environment:
+  #     - -GST_DEBUG="Kurento*:5"
 
   # api:
   #   image: ghcr.io/shuffle-project/asr-api-api:deploy

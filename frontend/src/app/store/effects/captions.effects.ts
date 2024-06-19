@@ -45,7 +45,7 @@ export class CaptionsEffects {
         // no captions
         if (choosenTranscription) {
           return captionsActions.findAllFromEffect({
-            transcriptionId: choosenTranscription,
+            transcriptionId: choosenTranscription as string,
           });
         } else {
           // add empty caption list to prevent this scenario:

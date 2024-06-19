@@ -1,115 +1,84 @@
 import {
-  ConnectedSocket,
-  MessageBody,
   OnGatewayConnection,
-  SubscribeMessage,
+  OnGatewayDisconnect,
+  OnGatewayInit,
   WebSocketGateway,
-  WebSocketServer,
 } from '@nestjs/websockets';
 import { instanceToPlain, plainToInstance } from 'class-transformer';
-import { Subject } from 'rxjs';
-import { RemoteSocket } from 'socket.io';
-import { EventNames, EventParams } from 'socket.io/dist/typed-events';
+import { Server, WebSocket } from 'ws';
 import {
   AVAILABLE_EDITOR_USER_COLORS,
   EditorActiveUser,
-  EditorUserColor,
 } from '../../constants/editor.constants';
 import { DbService } from '../../modules/db/db.service';
 import { LeanProjectDocument } from '../../modules/db/schemas/project.schema';
-import { CustomLogger } from '../../modules/logger/logger.service';
-import { getObjectIdAsString, isSameObjectId } from '../../utils/objectid';
-import { AuthUser, DecodedToken } from '../auth/auth.interfaces';
-import { AuthService } from '../auth/auth.service';
+import { getObjectIdAsString } from '../../utils/objectid';
+import { AuthUser } from '../auth/auth.interfaces';
 import { CaptionEntity } from '../caption/entities/caption.entity';
 import { NotificationEntity } from '../notification/entities/notification.entity';
 import { UpdatePartialProjectDto } from '../project/dto/update-partial-project.dto';
 import { ProjectEntity } from '../project/entities/project.entity';
 import { TranscriptionEntity } from '../transcription/entities/transcription.entity';
-import {
-  ServerToClientEvents,
-  SocketData,
-  TypedServer,
-  TypedSocket,
-} from './events.interfaces';
+import { AuthorizedWebSocket, SocketService } from './socket.service';
 
 @WebSocketGateway()
-export class EventsGateway implements OnGatewayConnection {
-  public onClientIceCandidate$ = new Subject<{
-    userId: string;
-    projectId: string;
-    candidate: string;
-  }>();
+export class EventsGateway
+  implements OnGatewayInit, OnGatewayConnection, OnGatewayDisconnect
+{
+  constructor(private socketService: SocketService, private db: DbService) {}
 
-  constructor(
-    private authService: AuthService,
-    private logger: CustomLogger,
-    private db: DbService,
-  ) {
-    this.logger.setContext(this.constructor.name);
+  afterInit(server: Server) {
+    this.socketService.init(server);
   }
 
-  @WebSocketServer() public server: TypedServer;
-
-  // Helper
-
-  _getUserRooms(users: string[]): string[] {
-    return users.map((userId) => `user:${userId}`);
+  handleConnection(client: WebSocket) {
+    this.socketService.handleConnection(client);
   }
 
-  _getProjectRoom(projectId: string): string {
-    return `project:${projectId}`;
-  }
+  async handleDisconnect(client: WebSocket) {
+    if (this.socketService.isClientAuthorised(client)) {
+      const rooms = this.socketService.getClientRooms(client);
+      const projectIds = rooms
+        .filter((o) => o.startsWith('project:'))
+        .map((o) => o.replace('project:', ''));
+      const projects = (await this.db.projectModel
+        .find({ id: { $in: projectIds } })
+        .lean()
+        .exec()) as LeanProjectDocument[];
 
-  async _getSocketByUserId(
-    userId: string,
-  ): Promise<RemoteSocket<any, SocketData> | undefined> {
-    const sockets = await this.server.fetchSockets();
-    return sockets.find((o) => isSameObjectId(o.data.userId, userId));
-  }
+      this.socketService.handleDisconnect(client);
 
-  _broadcast<Ev extends EventNames<ServerToClientEvents>>(
-    rooms: string[],
-    event: Ev,
-    ...args: EventParams<ServerToClientEvents, Ev>
-  ): boolean {
-    // const activeRooms = rooms.filter((room) =>
-    //   this.server.sockets.adapter.rooms.has(room),
-    // );
-    // if (activeRooms.length > 0) {
-    //   return this.server.to(activeRooms).emit(event, ...args);
-    // }
-    return true;
-  }
+      // Handle disconnect first
+      for (const project of projects) {
+        const room = `project:${project._id.toString()}`;
+        this.socketService.broadcast(room, 'project:user-left', {
+          userId: (client as AuthorizedWebSocket).data.userId,
+          activeUsers: this._getActiveUsers(room, project),
+        });
+      }
 
-  async _join(userId: string, room: string): Promise<void> {
-    const socket = await this._getSocketByUserId(userId);
-    if (!socket) {
-      throw new Error('user_socket_not_found');
+      // Unlock captions
+    } else {
+      this.socketService.handleDisconnect(client);
     }
-    socket.join(room);
   }
 
-  async _leave(userId: string, room: string): Promise<void> {
-    const socket = await this._getSocketByUserId(userId);
-    if (!socket) {
-      throw new Error('user_socket_not_found');
-    }
-    socket.leave(room);
+  _getUserColor(userId: string, project: LeanProjectDocument) {
+    const index = project.users.findIndex((o) => o._id.toString() === userId);
+    return AVAILABLE_EDITOR_USER_COLORS[
+      index % AVAILABLE_EDITOR_USER_COLORS.length
+    ];
   }
 
-  async _leaveProjectRoom(projectId: string, userId: string) {
-    const room = this._getProjectRoom(projectId);
-    await this._leave(userId, room);
-
-    const activeUsers: EditorActiveUser[] = this._getActiveUsers(room);
-
-    await this._unlockAllCaptions(projectId, userId);
-
-    this._broadcast([room], 'project:user-left', {
-      userId,
-      activeUsers,
-    });
+  _getActiveUsers(
+    room: string,
+    project: LeanProjectDocument,
+  ): EditorActiveUser[] {
+    const clients = this.socketService.getRoomClients(room);
+    return clients.map((client) => ({
+      id: client.data.userId,
+      color: this._getUserColor(client.data.userId, project),
+    }));
   }
 
   async _unlockAllCaptions(projectId: string, userId: string) {
@@ -144,279 +113,201 @@ export class EventsGateway implements OnGatewayConnection {
     );
   }
 
-  _getActiveUsers(room: string) {
-    const clients = this.server.sockets.adapter.rooms.get(room);
-    if (clients === undefined) {
-      return [];
-    }
-
-    const activeUsers = [...clients].map((clientId) => {
-      return {
-        id: this.server.sockets.sockets.get(clientId).data.userId,
-        color: this.server.sockets.sockets.get(clientId).data.userColor,
-        clientId: clientId,
-      };
-    });
-
-    const countingUsedColors = AVAILABLE_EDITOR_USER_COLORS.map((color) => ({
-      color,
-      count: activeUsers.filter((user) => user.color === color).length,
-    }));
-
-    let smallestCount = countingUsedColors[0].count;
-    let availableColors: EditorUserColor[] = [];
-    countingUsedColors.forEach((usedColor, index) => {
-      if (smallestCount > countingUsedColors[index].count) {
-        availableColors = countingUsedColors
-          .filter((o) => o.count === countingUsedColors[index].count)
-          .map((o) => o.color);
-        smallestCount = countingUsedColors[index].count;
-      }
-    });
-
-    const editorActiveUsers: EditorActiveUser[] = activeUsers.map((user) => {
-      if (!user.color) {
-        if (availableColors.length === 0) {
-          availableColors.push(...AVAILABLE_EDITOR_USER_COLORS);
-        }
-
-        const newColor = availableColors.shift();
-        user.color = newColor;
-        this.server.sockets.sockets.get(user.clientId).data.userColor =
-          newColor;
-      }
-      return { id: user.id, color: user.color } as EditorActiveUser;
-    });
-
-    return editorActiveUsers;
-  }
-
-  // ClientToServerEvents
-
-  async handleConnection(
-    @ConnectedSocket() socket: TypedSocket,
-  ): Promise<void> {
-    try {
-      const { token } = socket.handshake.auth;
-      const dtoken: DecodedToken = this.authService.verifyToken(token);
-      socket.data.userId = dtoken.id;
-      socket.join(`user:${dtoken.id}`);
-      socket.data.userColor = null;
-
-      // leave room on disconnecting
-      socket.on('disconnecting', () => this.handleDisconnecting(socket));
-    } catch (err) {
-      this.logger.verbose('invalid credentials');
-      socket.emit('connection:invalid-credentials', {
-        message: 'Invalid credentials',
-      });
-      socket.disconnect(true);
-    }
-  }
-
-  async handleDisconnecting(socket: TypedSocket) {
-    const rooms = [...socket.rooms].filter((o) => o.startsWith('project:'));
-
-    // leave all rooms
-    await Promise.all([
-      rooms.map((room) => {
-        const roomId = room.split(':')[1];
-        return this._leaveProjectRoom(roomId, socket.data.userId);
-      }),
-    ]);
-  }
-
-  @SubscribeMessage('livestream:client-ice-candidate')
-  async clientIceCandidate(
-    @ConnectedSocket() socket: TypedSocket,
-    @MessageBody() data: { candidate: string; projectId: string },
-  ) {
-    this.onClientIceCandidate$.next({
-      userId: socket.data.userId,
-      projectId: data.projectId,
-      candidate: data.candidate,
-    });
-  }
-
-  // Actions
-
   async joinProjectRoom(authUser: AuthUser, project: LeanProjectDocument) {
-    const room = this._getProjectRoom(project._id.toString());
-    await this._join(authUser.id, room);
-    const activeUsers: EditorActiveUser[] = this._getActiveUsers(room);
+    const room = `project:${project._id.toString()}`;
+    this.socketService.join(room, authUser.id);
 
-    this._broadcast([room], 'project:user-joined', {
+    this.socketService.broadcast(room, 'project:user-joined', {
       userId: authUser.id,
-      activeUsers,
+      activeUsers: this._getActiveUsers(room, project),
     });
   }
 
   async leaveProjectRoom(authUser: AuthUser, project: LeanProjectDocument) {
-    await this._leaveProjectRoom(getObjectIdAsString(project), authUser.id);
+    const room = `project:${project._id.toString()}`;
+    this.socketService.leave(room, authUser.id);
+
+    this.socketService.broadcast(room, 'project:user-left', {
+      userId: authUser.id,
+      activeUsers: this._getActiveUsers(room, project),
+    });
   }
 
-  // ServerToClient Events
-
   async notificationCreated(notification: NotificationEntity) {
-    const rooms = this._getUserRooms([getObjectIdAsString(notification.user)]);
-    this._broadcast(rooms, 'notification:created', {
-      notification: instanceToPlain(notification) as NotificationEntity,
-    });
+    this.socketService.broadcast(
+      `user:${notification.user.toString()}`,
+      'notification:created',
+      {
+        notification: instanceToPlain(notification) as NotificationEntity,
+      },
+    );
   }
 
   async notificationsUpdated(
     user: string,
     notifications: NotificationEntity[],
   ) {
-    const rooms = this._getUserRooms([getObjectIdAsString(user)]);
-    this._broadcast(rooms, 'notifications:updated', {
-      notifications: notifications.map(
-        (notification) => instanceToPlain(notification) as NotificationEntity,
-      ),
-    });
+    this.socketService.broadcast(
+      `user:${user.toString()}`,
+      'notifications:updated',
+      {
+        notifications: notifications.map(
+          (notification) => instanceToPlain(notification) as NotificationEntity,
+        ),
+      },
+    );
   }
 
   async notificationsRemoved(user: string, notificationIds: string[]) {
-    const rooms = this._getUserRooms([user]);
-    this._broadcast(rooms, 'notifications:removed', {
-      notificationIds,
-    });
+    this.socketService.broadcast(
+      `user:${user.toString()}`,
+      'notifications:removed',
+      {
+        notificationIds,
+      },
+    );
   }
 
   async projectCreated(project: ProjectEntity) {
-    const users = project.users.map((o) => getObjectIdAsString(o));
-    const rooms = this._getUserRooms(users);
-    this._broadcast(rooms, 'project:created', {
+    const rooms = project.users.map((o) => `user:${o._id.toString()}`);
+    const payload = {
       project: instanceToPlain(project) as ProjectEntity,
-    });
+    };
+    for (const room of rooms) {
+      this.socketService.broadcast(room, 'project:created', payload);
+    }
   }
 
   async projectUpdated(project: ProjectEntity) {
-    const users = project.users.map((o) => getObjectIdAsString(o));
-    const rooms = this._getUserRooms(users);
-    this._broadcast(rooms, 'project:updated', {
+    const rooms = project.users.map((o) => `user:${o._id.toString()}`);
+    const payload = {
       project: instanceToPlain(project) as ProjectEntity,
-    });
+    };
+    for (const room of rooms) {
+      this.socketService.broadcast(room, 'project:updated', payload);
+    }
   }
 
   async projectPartiallyUpdated(
-    project: UpdatePartialProjectDto,
-    fullProject: ProjectEntity,
+    project: ProjectEntity,
+    updateDto: UpdatePartialProjectDto,
   ) {
-    const users = fullProject.users.map((o) => getObjectIdAsString(o));
-    const rooms = this._getUserRooms(users);
-    this._broadcast(rooms, 'project:partiallyUpdated', {
-      project: instanceToPlain({
-        ...project,
-        id: fullProject._id.toString(),
-      }) as Partial<ProjectEntity>,
-    });
+    const rooms = project.users.map((o) => `user:${o._id.toString()}`);
+    const payload = {
+      project: {
+        id: project._id.toString(),
+        ...(instanceToPlain(updateDto) as Partial<ProjectEntity>),
+      },
+    };
+    for (const room of rooms) {
+      this.socketService.broadcast(room, 'project:partiallyUpdated', payload);
+    }
   }
 
   async projectRemoved(project: LeanProjectDocument) {
-    const users = project.users.map((o) => getObjectIdAsString(o));
-    const rooms = this._getUserRooms(users);
-    this._broadcast(rooms, 'project:removed', {
-      projectId: getObjectIdAsString(project._id),
-    });
+    const rooms = project.users.map((o) => `user:${o._id.toString()}`);
+    const payload = {
+      projectId: project._id.toString(),
+    };
+    for (const room of rooms) {
+      this.socketService.broadcast(room, 'project:removed', payload);
+    }
   }
 
+  // TODO: Is this event necessary? Can we just use the project room?
   async projectMediaWaveformUpdated(project: ProjectEntity, values: number[]) {
-    const users = project.users.map((o) => getObjectIdAsString(o));
-    const rooms = this._getUserRooms(users);
-    this._broadcast(rooms, 'project:media-waveform-updated', {
-      projectId: getObjectIdAsString(project._id),
-      values,
-    });
+    const rooms = project.users.map((o) => `user:${o._id.toString()}`);
+    const payload = { projectId: project._id.toString(), values };
+    for (const room of rooms) {
+      this.socketService.broadcast(
+        room,
+        'project:media-waveform-updated',
+        payload,
+      );
+    }
   }
 
   async transcriptionCreated(
     project: ProjectEntity,
     transcription: TranscriptionEntity,
   ) {
-    const room = this._getProjectRoom(project._id.toString());
-    this._broadcast([room], 'transcription:created', {
-      transcription: instanceToPlain(transcription) as TranscriptionEntity,
-    });
+    this.socketService.broadcast(
+      `project:${project._id.toString()}`,
+      'transcription:created',
+      {
+        transcription: instanceToPlain(transcription) as TranscriptionEntity,
+      },
+    );
   }
 
   async transcriptionUpdated(
     project: ProjectEntity,
     transcription: TranscriptionEntity,
   ) {
-    const room = this._getProjectRoom(project._id.toString());
-    this._broadcast([room], 'transcription:updated', {
-      transcription: instanceToPlain(transcription) as TranscriptionEntity,
-    });
+    this.socketService.broadcast(
+      `project:${project._id.toString()}`,
+      'transcription:updated',
+      {
+        transcription: instanceToPlain(transcription) as TranscriptionEntity,
+      },
+    );
   }
 
   async transcriptionRemoved(
     project: ProjectEntity,
     transcription: TranscriptionEntity,
   ) {
-    const room = this._getProjectRoom(project._id.toString());
-    this._broadcast([room], 'transcription:removed', {
-      transcriptionId: getObjectIdAsString(transcription._id),
-    });
+    this.socketService.broadcast(
+      `project:${project._id.toString()}`,
+      'transcription:removed',
+      {
+        transcriptionId: getObjectIdAsString(transcription._id),
+      },
+    );
   }
 
   async captionCreated(project: LeanProjectDocument, caption: CaptionEntity) {
-    const room = this._getProjectRoom(project._id.toString());
-    this._broadcast([room], 'caption:created', {
-      caption: instanceToPlain(caption) as CaptionEntity,
-    });
+    this.socketService.broadcast(
+      `project:${project._id.toString()}`,
+      'caption:created',
+      {
+        caption: instanceToPlain(caption) as CaptionEntity,
+      },
+    );
   }
 
   async captionUpdatedProjId(projectId: string, caption: CaptionEntity) {
-    const room = this._getProjectRoom(projectId);
-    this._broadcast([room], 'caption:updated', {
+    this.socketService.broadcast(`project:${projectId}`, 'caption:updated', {
       caption: instanceToPlain(caption) as CaptionEntity,
     });
   }
 
   async captionUpdated(project: LeanProjectDocument, caption: CaptionEntity) {
-    const room = this._getProjectRoom(project._id.toString());
-    this._broadcast([room], 'caption:updated', {
-      caption: instanceToPlain(caption) as CaptionEntity,
-    });
+    this.socketService.broadcast(
+      `project:${project._id.toString()}`,
+      'caption:updated',
+      {
+        caption: instanceToPlain(caption) as CaptionEntity,
+      },
+    );
   }
 
   async captionRemoved(project: LeanProjectDocument, caption: CaptionEntity) {
-    const room = this._getProjectRoom(project._id.toString());
-    this._broadcast([room], 'caption:removed', {
-      captionId: getObjectIdAsString(caption._id),
-    });
+    this.socketService.broadcast(
+      `project:${project._id.toString()}`,
+      'caption:removed',
+      {
+        captionId: getObjectIdAsString(caption._id),
+      },
+    );
   }
 
   // Kurento
-  async serverIceCandidate(authUser: AuthUser, candidate: string) {
-    const rooms = this._getUserRooms([authUser.id]);
+  //   async serverIceCandidate(authUser: AuthUser, candidate: string) {
+  //     const rooms = this._getUserRooms([authUser.id]);
 
-    this._broadcast(rooms, 'livestream:server-ice-candidate', {
-      candidate,
-    });
-  }
-
-  // User-Test
-  async userTestStart(projectId: string) {
-    const room = this._getProjectRoom(projectId);
-    this._broadcast([room], 'user-test:start', {
-      projectId: getObjectIdAsString(projectId),
-    });
-  }
-
-  async userTestUpdated(projectId: string, currentTime: number) {
-    const room = this._getProjectRoom(projectId);
-    this._broadcast([room], 'user-test:updated', {
-      projectId: getObjectIdAsString(projectId),
-      currentTime,
-    });
-  }
-
-  async userTestStop(projectId: string) {
-    const room = this._getProjectRoom(projectId);
-    this._broadcast([room], 'user-test:stop', {
-      projectId: getObjectIdAsString(projectId),
-    });
-  }
+  //     this.socketService.broadcast(rooms, 'livestream:server-ice-candidate', {
+  //       candidate,
+  //     });
+  //   }
 }

@@ -13,7 +13,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSelectModule } from '@angular/material/select';
-import { ComponentStore, tapResponse } from '@ngrx/component-store';
+import { ComponentStore } from '@ngrx/component-store';
+import { tapResponse } from '@ngrx/operators';
 import { Observable, switchMap, tap } from 'rxjs';
 import { AlertComponent } from '../../../../components/alert/alert.component';
 import { ProjectStatusPipe } from '../../../../pipes/project-status-pipe/project-status.pipe';
@@ -57,8 +58,8 @@ const initialState: ProjectGeneralComponentState = {
     MatSelectModule,
     MatOptionModule,
     MatButtonModule,
-    ProjectStatusPipe
-],
+    ProjectStatusPipe,
+  ],
 })
 export class ProjectGeneralComponent extends ComponentStore<ProjectGeneralComponentState> {
   private _projectId!: string;

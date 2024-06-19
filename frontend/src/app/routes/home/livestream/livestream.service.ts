@@ -1,5 +1,5 @@
 import { ElementRef, Injectable, OnDestroy } from '@angular/core';
-import { firstValueFrom, Subject, takeUntil } from 'rxjs';
+import { Subject, firstValueFrom, takeUntil } from 'rxjs';
 import { ApiService } from '../../../services/api/api.service';
 import { WSService } from '../../../services/ws/ws.service';
 import { MediaService } from '../editor/services/media/media.service';
@@ -73,8 +73,8 @@ export class LivestreamService implements OnDestroy {
       }
     };
 
-    this.connection.onicecandidate = (event) =>
-      this.ws.clientIceCandidate(JSON.stringify(event.candidate), projectId);
+    // this.connection.onicecandidate = (event) =>
+    //   this.ws.clientIceCandidate(JSON.stringify(event.candidate), projectId);
 
     const offer = await this.connection.createOffer({
       offerToReceiveAudio: true,

@@ -20,8 +20,6 @@ async function bootstrap() {
 
   const configService = app.get(ConfigService);
 
-  // // SocketIO
-  // app.useWebSocketAdapter(new RedisIoAdapter(app, configService));
   // app.useWebSocketAdapter(new SocketAdapter(app));
   app.useWebSocketAdapter(new WsAdapter(app));
 
