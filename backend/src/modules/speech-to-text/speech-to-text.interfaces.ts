@@ -11,6 +11,7 @@ export class WordEntity {
   startMs: number;
   endMs: number;
   word: string;
+  confidence?: number;
 }
 
 // extend this class to get more values from asr services

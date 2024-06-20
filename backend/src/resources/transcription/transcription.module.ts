@@ -33,6 +33,6 @@ import { TranscriptionService } from './transcription.service';
     TranscriptionGateway,
     HocuspocusService,
   ],
-  exports: [TranscriptionService],
+  exports: [TranscriptionService, TiptapService],
 })
 export class TranscriptionModule {}

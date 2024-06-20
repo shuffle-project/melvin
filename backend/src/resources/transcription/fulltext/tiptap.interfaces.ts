@@ -1,5 +1,5 @@
-interface TipTapWord {
-  type: 'words';
+export interface TipTapWord {
+  type: 'word';
   attrs: {
     modifiedAt?: string;
     modifiedBy?: string;
@@ -8,18 +8,18 @@ interface TipTapWord {
   };
 }
 
-interface TipTapText {
+export interface TipTapText {
   type: 'text';
   text: string;
   marks: Array<TipTapWord>;
 }
 
-interface TipTapParagraph {
+export interface TipTapParagraph {
   type: 'paragraph';
   content: Array<TipTapText>;
 }
 
-interface TiptapDocument {
+export interface TiptapDocument {
   type: 'doc';
   content: Array<TipTapParagraph>;
 }

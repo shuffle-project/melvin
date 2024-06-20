@@ -108,6 +108,7 @@ export class WhisperSpeechService implements ISepechToTextService {
           word: word.word.startsWith(' ') ? word.word.trimStart() : word.word,
           startMs: word.start * 1000,
           endMs: word.end * 1000,
+          confidence: word.probability,
         });
       });
     });
