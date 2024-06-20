@@ -1,8 +1,5 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
-import {
-  EDITOR_USER_LOADING,
-  EditorUserColor,
-} from '../../constants/editor.constants';
+import { EDITOR_USER_LOADING } from '../../constants/editor.constants';
 import { EditorUser } from '../../interfaces/editor-user.interface';
 import { ProjectStatus } from '../../services/api/entities/project.entity';
 import { EditorState } from '../reducers/editor.reducer';
@@ -88,10 +85,11 @@ export const selectActiveUsers = createSelector(
       return userEntity
         ? {
             ...userEntity,
-            color:
-              authUserId === activeUser.id
-                ? EditorUserColor.PRIMARY
-                : activeUser.color,
+            color: activeUser.color,
+            // color:
+            // authUserId === activeUser.id
+            //   ? EditorUserColor.PRIMARY
+            //   : activeUser.color,
           }
         : EDITOR_USER_LOADING;
     });

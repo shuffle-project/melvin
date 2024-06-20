@@ -6,8 +6,11 @@ import {
   OnInit,
   ViewChild,
 } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { MatIconButton } from '@angular/material/button';
+import { MatCheckbox } from '@angular/material/checkbox';
+import { MatIcon } from '@angular/material/icon';
 import { HocuspocusProvider } from '@hocuspocus/provider';
-import { Store } from '@ngrx/store';
 import { Editor } from '@tiptap/core';
 import Collaboration from '@tiptap/extension-collaboration';
 import CollaborationCursor from '@tiptap/extension-collaboration-cursor';
@@ -18,29 +21,17 @@ import { Italic } from '@tiptap/extension-italic';
 import Paragraph from '@tiptap/extension-paragraph';
 import Text from '@tiptap/extension-text';
 import TextStyle from '@tiptap/extension-text-style';
-import { generate as generateUsername } from 'canihazusername';
+import {
+  BehaviorSubject,
+  Observable,
+  Subject,
+  combineLatest,
+  filter,
+  takeUntil,
+} from 'rxjs';
 import { environment } from '../../../../../environments/environment';
-import { AppState } from '../../../../store/app.state';
-import * as editorSelector from '../../../../store/selectors/editor.selector';
+import { EditorUser } from '../../../../interfaces/editor-user.interface';
 import { Partial, UserExtension, Word } from './tiptap.schema';
-
-const colorArray = [
-  // '#007BFF', // Bright Blue
-  // '#FFC107', // Vivid Yellow
-  '#6F42C1', // Strong Purple
-  '#28A745', // Bright Green
-  '#DC3545', // Vivid Red
-  '#FD7E14', // Bright Orange
-  // '#17A2B8', // Cyan
-  // '#E83E8C', // Hot Pink
-  // '#20C997', // Deep Teal
-  '#FFC400', // Dark Yellow (Amber)
-];
-
-export function generateColor() {
-  // pick a random color from the colors object
-  return colorArray[Math.floor(Math.random() * colorArray.length)];
-}
 
 enum CLIENT_STATUS {
   CONNECTING,
@@ -53,43 +44,61 @@ enum CLIENT_STATUS {
 @Component({
   selector: 'app-tiptap-editor',
   standalone: true,
-  imports: [],
+  imports: [MatIconButton, MatIcon, MatCheckbox, FormsModule],
   templateUrl: './tiptap-editor.component.html',
   styleUrl: './tiptap-editor.component.scss',
 })
 export class TiptapEditorComponent implements AfterViewInit, OnInit {
-  @Input({ required: true }) transcriptionId!: string;
+  @Input({ required: true }) transcriptionId$!: Observable<string>;
+  @Input({ required: true }) activeUsers!: EditorUser[];
 
   @ViewChild('editor', { static: true }) editorRef!: ElementRef;
+
+  private destroy$$ = new Subject<void>();
+  private viewReady$ = new BehaviorSubject(false);
+
+  private provider!: HocuspocusProvider;
+  private editor?: Editor;
+
   public CLIENT_STATUS = CLIENT_STATUS;
-  public userInformation: { name: string; color: string } = {
-    name: '',
-    color: '',
-  };
-  public isShowingUsername = true;
   public status: CLIENT_STATUS = CLIENT_STATUS.CONNECTING;
-  public connectedUsers: { name: string; color: string }[] = [];
-  public username = '';
-  public color = '';
+
+  public isShowingUsername = true;
+  // public connectedUsers: { name: string; color: string }[] = [];
   public showUsernames = true;
   private captions: HTMLDivElement | undefined;
-  private editor?: Editor;
-  private provider!: HocuspocusProvider;
-  private awareness: HocuspocusProvider['awareness'] = null;
+  // private awareness: HocuspocusProvider['awareness'] = null;
   private newWordsCount = 0;
   private lastWordCount = 0;
 
-  private activeUsers$ = this.store.select(editorSelector.selectActiveUsers);
+  constructor() {}
 
-  constructor(private store: Store<AppState>) {}
+  ngOnInit() {
+    combineLatest([this.viewReady$, this.transcriptionId$])
+      .pipe(
+        filter(([viewReady, transcriptionId]) => viewReady && !!transcriptionId)
+      )
+      .pipe(takeUntil(this.destroy$$))
+      .subscribe(([_, transcriptionId]) => {
+        if (this.provider) {
+          this.destroyConnection();
+        }
+        if (this.editor) {
+          this.destroyEditor();
+        }
+        this.initConnection(transcriptionId);
+        this.initEditor();
+      });
+  }
 
-  async ngOnInit() {
-    console.log(this.transcriptionId);
-    this.username = generateUsername();
-    this.color = generateColor();
+  ngAfterViewInit() {
+    this.viewReady$.next(true);
+  }
+
+  initConnection(transcriptionId: string) {
     this.provider = new HocuspocusProvider({
       url: environment.hocuspocusUrl, // wss://melvin-server-dummy.onrender.com
-      name: this.transcriptionId,
+      name: transcriptionId,
       onStatus: (status) => {
         if (status.status.toString() === 'connecting')
           console.log('Connecting to server...');
@@ -105,11 +114,20 @@ export class TiptapEditorComponent implements AfterViewInit, OnInit {
         this.status = CLIENT_STATUS.SYNCED;
       },
     });
-    this.awareness = this.provider.awareness!;
+    // this.onToggleUsernames();
   }
 
-  ngAfterViewInit() {
+  destroyConnection() {
+    this.provider.destroy();
+  }
+
+  initEditor() {
     this.captions = document.getElementById('captions') as HTMLDivElement;
+
+    const user = this.activeUsers[0];
+    const color = getComputedStyle(document.body).getPropertyValue(
+      `--color-editor-user-${user.color}`
+    );
 
     this.editor = new Editor({
       element: this.editorRef.nativeElement,
@@ -123,8 +141,8 @@ export class TiptapEditorComponent implements AfterViewInit, OnInit {
         Word,
         Partial,
         UserExtension.configure({
-          color: this.color,
-          name: this.username,
+          color: color,
+          name: user.name,
           editor: this.editor,
         }),
         Collaboration.configure({
@@ -199,16 +217,16 @@ export class TiptapEditorComponent implements AfterViewInit, OnInit {
     this.editor
       .chain()
       .updateUser({
-        name: this.username,
-        color: this.color,
+        name: user.name,
+        color,
       })
       .focus()
       .redo()
       .run();
 
-    this.provider.awareness?.on('change', () => {
-      this.updateConnectedUsers();
-    });
+    // this.provider.awareness?.on('change', () => {
+    //   this.updateConnectedUsers();
+    // });
 
     if (this.editor) {
       const extension = this.editor.extensionManager.extensions.find(
@@ -223,71 +241,75 @@ export class TiptapEditorComponent implements AfterViewInit, OnInit {
     }
   }
 
-  private updateConnectedUsers(): void {
-    this.connectedUsers = [];
-    this.provider.awareness?.getStates().forEach((state) => {
-      if (state['user']) {
-        console.log(state);
-        this.connectedUsers.push({
-          name: state['user'].name,
-          color: state['user'].color,
-        });
-      }
-    });
+  destroyEditor() {
+    this.editor?.destroy();
   }
 
-  setUser(event: Event | null = null) {
-    if (event) {
-      const target = event.target as HTMLInputElement;
-      this.username = target.value;
-    }
-    this.awareness?.setLocalStateField('user', {
-      name: this.username,
-      color: this.color,
-    });
-    this.updateEditorColor();
-  }
-  changeColor(colorInput: Event) {
-    const target = colorInput.target as HTMLInputElement;
-    this.color = target.value;
-    this.setUser();
-    this.updateEditorColor();
-  }
+  // private updateConnectedUsers(): void {
+  //   this.connectedUsers = [];
+  //   this.provider.awareness?.getStates().forEach((state) => {
+  //     if (state['user']) {
+  //       // console.log(state);
+  //       this.connectedUsers.push({
+  //         name: state['user'].name,
+  //         color: state['user'].color,
+  //       });
+  //     }
+  //   });
+  // }
 
-  private updateEditorColor() {
-    if (this.editor) {
-      const extension = this.editor.extensionManager.extensions.find(
-        (ext) => ext.name === 'userExtension'
-      );
+  // setUser(event: Event | null = null) {
+  //   if (event) {
+  //     const target = event.target as HTMLInputElement;
+  //     this.username = target.value;
+  //   }
+  //   this.awareness?.setLocalStateField('user', {
+  //     name: this.username,
+  //     color: this.color,
+  //   });
+  //   this.updateEditorColor();
+  // }
+  // changeColor(colorInput: Event) {
+  //   const target = colorInput.target as HTMLInputElement;
+  //   this.color = target.value;
+  //   this.setUser();
+  //   this.updateEditorColor();
+  // }
 
-      if (extension) {
-        extension.options.color = this.color;
-        extension.options.name = this.username;
-      }
-      this.editor.view.updateState(this.editor.view.state);
-    }
-  }
+  // private updateEditorColor() {
+  //   if (this.editor) {
+  //     const extension = this.editor.extensionManager.extensions.find(
+  //       (ext) => ext.name === 'userExtension'
+  //     );
 
-  getColor(user: { name: string; color: string }) {
-    return 'color: ' + user.color + ';';
-  }
+  //     if (extension) {
+  //       extension.options.color = this.color;
+  //       extension.options.name = this.username;
+  //     }
+  //     this.editor.view.updateState(this.editor.view.state);
+  //   }
+  // }
 
-  undo() {
+  // getColor(user: { name: string; color: string }) {
+  //   return 'color: ' + user.color + ';';
+  // }
+
+  onClickUndo() {
     this.editor?.commands.undo();
   }
-  redo() {
+
+  onClickRedo() {
     this.editor?.commands.redo();
   }
-  clear() {
-    this.editor?.commands.clearContent();
-    if (this.captions) this.captions.innerHTML = '';
-  }
+
+  // clear() {
+  //   this.editor?.commands.clearContent();
+  //   if (this.captions) this.captions.innerHTML = '';
+  // }
 
   onToggleUsernames() {
     this.showUsernames = !this.showUsernames;
-
-    // reload editor to show/hide usernames
-    this.editor?.destroy();
-    this.ngAfterViewInit();
+    this.destroyEditor();
+    this.initEditor();
   }
 }

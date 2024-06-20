@@ -304,14 +304,18 @@
       class="right"
       *ngrxLet="selectedTranscriptionId$ as selectedTranscriptionId"
     >
-      <!-- <app-captions></app-captions> -->
-      <!-- ADD FULLTEXT EDITOR HERE -->
-      @if(selectedTranscriptionId){
-      <app-tiptap-editor
-        [transcriptionId]="selectedTranscriptionId"
-      ></app-tiptap-editor>
-      }
-      <!-- ADD FULLTEXT EDITOR HERE -->
+      <ng-container *ngrxLet="editorUsers$ as editorUsers">
+        <!-- <app-captions></app-captions> -->
+        <!-- ADD FULLTEXT EDITOR HERE -->
+        @if(selectedTranscriptionId && editorUsers.length > 0 &&
+        editorUsers[0].id.length>0){
+        <app-tiptap-editor
+          [transcriptionId$]="selectedTranscriptionId$"
+          [activeUsers]="editorUsers"
+        ></app-tiptap-editor>
+        }
+        <!-- ADD FULLTEXT EDITOR HERE -->
+      </ng-container>
     </div>
   </div>
 </section>
