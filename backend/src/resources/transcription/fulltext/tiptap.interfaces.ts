@@ -11,15 +11,30 @@ interface TipTapWord {
 interface TipTapText {
   type: 'text';
   text: string;
-  marks: Array<TipTapWord>;
+  marks?: Array<TipTapWord>;
 }
 
 interface TipTapParagraph {
   type: 'paragraph';
+  speakerId?: string;
   content: Array<TipTapText>;
 }
 
-interface TiptapDocument {
+export interface TiptapDocument {
   type: 'doc';
   content: Array<TipTapParagraph>;
+}
+
+export interface TipTapCaption {
+  text: string;
+  start: number;
+  end: number;
+  speakerId: string;
+}
+
+export interface WordEntity {
+  text: string;
+  start: number;
+  confidence: number;
+  speakerId: string;
 }
