@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
@@ -22,7 +22,6 @@ import { CreateTranscriptionDialogComponent } from './components/create-transcri
 })
 export class ProjectTranscriptionComponent {
   public transcriptionsList$: Observable<TranscriptionEntity[]>;
-  @Input() projectId!: string;
 
   constructor(
     private store: Store<AppState>,

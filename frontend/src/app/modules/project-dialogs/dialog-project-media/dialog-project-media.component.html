@@ -1,6 +1,6 @@
 <div mat-dialog-title>
   <div class="dialog-header">
-    @if (project$ | ngrxPush; as project) {
+    @if (project) {
     <h1>
       <span i18n="@@dialogProjectMediaSubheading">Media</span>
       {{ project.title }}
@@ -20,5 +20,5 @@
 </div>
 
 <mat-dialog-content>
-  <app-upload-additional-content [projectId]="projectId" />
+  <app-upload-additional-content [projectId]="project.id" />
 </mat-dialog-content>

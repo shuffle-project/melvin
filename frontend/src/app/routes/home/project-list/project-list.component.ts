@@ -191,7 +191,7 @@ export class ProjectListComponent implements OnInit, AfterViewInit, OnDestroy {
 
   onClickOpenActivityDialog(project: ProjectEntity) {
     this.dialog.open(DialogProjectActivityComponent, {
-      data: { projectId: project.id },
+      data: { project },
       width: '100%',
       maxWidth: '800px',
       maxHeight: '90vh',
@@ -200,7 +200,7 @@ export class ProjectListComponent implements OnInit, AfterViewInit, OnDestroy {
 
   onClickOpenMediaDialog(project: ProjectEntity) {
     this.dialog.open(DialogProjectMediaComponent, {
-      data: { projectId: project.id },
+      data: { project },
       width: '100%',
       maxWidth: '800px',
       maxHeight: '90vh',
@@ -233,6 +233,9 @@ export class ProjectListComponent implements OnInit, AfterViewInit, OnDestroy {
       data: {
         project,
       },
+      width: '100%',
+      maxWidth: '800px',
+      maxHeight: '90vh',
     });
   }
 
