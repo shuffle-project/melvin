@@ -11,7 +11,6 @@ import { MatDividerModule } from '@angular/material/divider';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Subject, lastValueFrom, take, takeUntil } from 'rxjs';
-import { ProjectDetailComponent } from 'src/app/modules/project-detail/project-detail.component';
 import { ProjectEntity } from 'src/app/services/api/entities/project.entity';
 import { TranscriptionEntity } from 'src/app/services/api/entities/transcription.entity';
 import { AppState } from 'src/app/store/app.state';
@@ -26,6 +25,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { DialogProjectTranscriptionComponent } from 'src/app/modules/project-dialogs/dialog-project-transcription/dialog-project-transcription.component';
 
 @Component({
   selector: 'app-transcription',
@@ -53,7 +53,7 @@ export class TranscriptionComponent implements OnInit, OnDestroy {
 
   constructor(
     private store: Store<AppState>,
-    private dialogRefProjectDetail: MatDialogRef<ProjectDetailComponent>,
+    private dialogRefProjectDetail: MatDialogRef<DialogProjectTranscriptionComponent>,
     private dialog: MatDialog,
     private router: Router
   ) {
@@ -95,8 +95,8 @@ export class TranscriptionComponent implements OnInit, OnDestroy {
     this.dialog.open(EditTranscriptionDialogComponent, {
       data: transcription,
       width: '100%',
-      maxWidth: '700px',
-      maxHeight: '80vh',
+      maxWidth: '800px',
+      maxHeight: '90vh',
     });
   }
 

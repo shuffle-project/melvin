@@ -93,8 +93,9 @@ export class EditTranscriptionDialogComponent implements OnInit {
     this.dialogRef.close();
     this.dialog.open(DialogProjectTranscriptionComponent, {
       data: { projectId: this.project.id },
-      width: '70%',
-      height: '70vh',
+      width: '100%',
+      maxWidth: '800px',
+      maxHeight: '90vh',
     });
   }
 }
