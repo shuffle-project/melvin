@@ -1,0 +1,24 @@
+<div mat-dialog-title>
+  <div class="dialog-header">
+    @if (project$ | ngrxPush; as project) {
+    <h1>
+      <span i18n="@@dialogProjectMediaSubheading">Media</span>
+      {{ project.title }}
+    </h1>
+    } @else {
+    <div class="sktn-dialog-title"></div>
+    }
+    <button
+      mat-icon-button
+      [mat-dialog-close]="true"
+      aria-label="Close"
+      i18n-aria-label="@@dialogCloseButton"
+    >
+      <mat-icon svgIcon="close" />
+    </button>
+  </div>
+</div>
+
+<mat-dialog-content>
+  <app-upload-additional-content [projectId]="projectId" />
+</mat-dialog-content>

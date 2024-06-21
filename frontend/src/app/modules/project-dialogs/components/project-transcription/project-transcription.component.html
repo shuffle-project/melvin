@@ -1,0 +1,26 @@
+<ul class="transcription-list">
+  <li
+    (click)="onClickAddTranscription()"
+    role="button"
+    tabindex="0"
+    class="btn-add-transcription basic-form clickable"
+  >
+    <div>
+      <p i18n="@@projectTranscriptionAddButtonTop">Add</p>
+      <p i18n="@@projectTranscriptionAddButtonBottom">Transcription</p>
+      <mat-icon svgIcon="add-circle"></mat-icon>
+    </div>
+  </li>
+  <ng-container *ngrxLet="transcriptionsList$ as transcriptions">
+    @for (transcription of transcriptions; track transcription) {
+    <li class="transcription basic-form">
+      <app-transcription
+        [transcription]="transcription"
+        (deleteTranscription)="
+          onEventDeleteTranscription($event, transcriptions.length)
+        "
+      />
+    </li>
+    }
+  </ng-container>
+</ul>

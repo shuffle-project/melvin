@@ -33,6 +33,8 @@ import {
   ProjectFilter,
   ProjectSetEnum,
 } from 'src/app/interfaces/project-filter.interface';
+import { DialogProjectActivityComponent } from 'src/app/modules/project-dialogs/dialog-project-activity/dialog-project-activity.component';
+import { DialogProjectMediaComponent } from 'src/app/modules/project-dialogs/dialog-project-media/dialog-project-media.component';
 import { ProjectLanguagesSetPipe } from 'src/app/pipes/project-languages-set-pipe/project-languages-set.pipe';
 import { WrittenOutLanguagePipe } from 'src/app/pipes/written-out-language-pipe/written-out-language.pipe';
 import { AppState } from 'src/app/store/app.state';
@@ -41,11 +43,6 @@ import { DeleteConfirmationService } from '../../../components/delete-confirmati
 import { FooterComponent } from '../../../components/footer/footer.component';
 import { HeaderComponent } from '../../../components/header/header.component';
 import { ShareProjectDialogComponent } from '../../../components/share-project-dialog/share-project-dialog.component';
-import {
-  ProjectDetailComponent,
-  ProjectDetailDialogData,
-  ProjectDetailDialogTab,
-} from '../../../modules/project-detail/project-detail.component';
 import { DurationPipe } from '../../../pipes/duration-pipe/duration.pipe';
 import { FeatureEnabledPipe } from '../../../pipes/feature-enabled-pipe/feature-enabled.pipe';
 import { FormatDatePipe } from '../../../pipes/format-date-pipe/format-date.pipe';
@@ -183,21 +180,27 @@ export class ProjectListComponent implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
-  onClickProjectDetail(project: ProjectEntity, tab: ProjectDetailDialogTab) {
-    const data: ProjectDetailDialogData = {
-      projectId: project.id,
-      tab,
-    };
-    this.dialog.open(ProjectDetailComponent, {
-      data,
-      width: '70%',
-      height: '70vh',
-    });
-  }
-
   onOpenDialogCreateProject() {
     this.dialog.open(DialogCreateProjectComponent, {
       disableClose: true,
+      width: '100%',
+      maxWidth: '800px',
+      maxHeight: '90vh',
+    });
+  }
+
+  onClickOpenActivityDialog(project: ProjectEntity) {
+    this.dialog.open(DialogProjectActivityComponent, {
+      data: { projectId: project.id },
+      width: '100%',
+      maxWidth: '800px',
+      maxHeight: '90vh',
+    });
+  }
+
+  onClickOpenMediaDialog(project: ProjectEntity) {
+    this.dialog.open(DialogProjectMediaComponent, {
+      data: { projectId: project.id },
       width: '100%',
       maxWidth: '800px',
       maxHeight: '90vh',

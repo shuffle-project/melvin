@@ -14,10 +14,9 @@ import { ProjectEntity } from 'src/app/services/api/entities/project.entity';
 import { AppState } from 'src/app/store/app.state';
 import * as projectsActions from '../../store/actions/projects.actions';
 import * as editorSelectors from '../../store/selectors/editor.selector';
-import { ProjectActivityComponent } from './components/project-activity/project-activity.component';
-import { ProjectGeneralComponent } from './components/project-general/project-general.component';
-import { ProjectTranscriptionComponent } from './components/project-transcription/project-transcription.component';
-import { UploadAdditionalContentComponent } from './components/upload-additional-content/upload-additional-content.component';
+import { ProjectActivityComponent } from '../project-dialogs/components/project-activity/project-activity.component';
+import { ProjectTranscriptionComponent } from '../project-dialogs/components/project-transcription/project-transcription.component';
+import { UploadAdditionalContentComponent } from '../project-dialogs/components/upload-additional-content/upload-additional-content.component';
 
 export type ProjectDetailDialogTab = 'general' | 'transcription' | 'activity';
 
@@ -34,7 +33,6 @@ export interface ProjectDetailDialogData {
   imports: [
     MatDialogModule,
     MatTabsModule,
-    ProjectGeneralComponent,
     ProjectTranscriptionComponent,
     ProjectActivityComponent,
     UploadAdditionalContentComponent,

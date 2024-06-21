@@ -19,11 +19,6 @@ import {
 import { AppState } from 'src/app/store/app.state';
 import { AvatarGroupComponent } from '../../../components/avatar-group/avatar-group.component';
 import { ShareProjectDialogComponent } from '../../../components/share-project-dialog/share-project-dialog.component';
-import {
-  ProjectDetailComponent,
-  ProjectDetailDialogData,
-  ProjectDetailDialogTab,
-} from '../../../modules/project-detail/project-detail.component';
 import { DurationPipe } from '../../../pipes/duration-pipe/duration.pipe';
 import { FeatureEnabledPipe } from '../../../pipes/feature-enabled-pipe/feature-enabled.pipe';
 import { ApiService } from '../../../services/api/api.service';
@@ -55,6 +50,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { LetDirective, PushPipe } from '@ngrx/component';
+import { DialogProjectTranscriptionComponent } from 'src/app/modules/project-dialogs/dialog-project-transcription/dialog-project-transcription.component';
 import { HeaderComponent } from '../../../components/header/header.component';
 
 @Component({
@@ -151,11 +147,11 @@ export class EditorComponent implements OnInit, OnDestroy {
     private appService: AppService,
     public livestreamService: LivestreamService,
     public http: HttpClient
-  ) {}
+  ) {
+    this.projectId = this.route.snapshot.params['id'];
+  }
 
   async ngOnInit() {
-    this.projectId = this.route.snapshot.params['id'];
-
     this.store.dispatch(
       editorActions.findProjectFromEditor({ projectId: this.projectId })
     );
@@ -274,18 +270,12 @@ export class EditorComponent implements OnInit, OnDestroy {
     );
   }
 
-  async onClickProjectEdit(tab: ProjectDetailDialogTab) {
-    const project = (await firstValueFrom(this.project$)) as ProjectEntity;
-
-    const data: ProjectDetailDialogData = {
-      projectId: project.id,
-      tab: tab,
-    };
-
-    this.dialog.open(ProjectDetailComponent, {
-      data,
-      width: '70%',
-      height: '70vh',
+  async onClickTranscriptionEdit() {
+    this.dialog.open(DialogProjectTranscriptionComponent, {
+      data: { projectId: this.projectId },
+      width: '100%',
+      maxWidth: '800px',
+      maxHeight: '90vh',
     });
   }
 

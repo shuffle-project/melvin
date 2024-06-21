@@ -1,6 +1,7 @@
 export const ICONS = [
   'account',
   'account2',
+  'activity',
   'add-circle',
   'add',
   'alert',
@@ -45,6 +46,7 @@ export const ICONS = [
   'lock',
   'logout',
   'manage_account',
+  'media',
   'menu',
   'minus',
   'dark_mode',

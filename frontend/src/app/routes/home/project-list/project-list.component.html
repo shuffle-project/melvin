@@ -180,10 +180,7 @@
       </th>
       <td mat-cell *matCellDef="let element">
         <mat-chip-listbox>
-          <mat-chip
-            [ngClass]="element.status"
-            (click)="onClickProjectDetail(element, 'activity')"
-          >
+          <mat-chip [ngClass]="element.status">
             <mat-icon
               matChipAvatar
               class="status-icon"
@@ -309,22 +306,33 @@
         @if ('projectEdit' | featureEnabled) {
         <button
           mat-menu-item
-          (click)="onClickProjectDetail(element, 'general')"
-          i18n="@@projectListMoreMenuEditLabel"
+          (click)="onClickOpenMediaDialog(element)"
+          i18n="@@projectListMoreMenuMediaLabel"
         >
-          <mat-icon svgIcon="edit"></mat-icon>
-          Edit
+          <mat-icon svgIcon="media" />
+          Media
         </button>
-        } @if ('projectShare' | featureEnabled) {
+        }
+        <button
+          mat-menu-item
+          (click)="onClickOpenActivityDialog(element)"
+          i18n="@@projectListMoreMenuActivityLabel"
+        >
+          <mat-icon svgIcon="activity" />
+          Activity
+        </button>
+
+        @if ('projectShare' | featureEnabled) {
         <button
           mat-menu-item
           (click)="onClickShare(element)"
           i18n="@@projectListMoreMenuShareLabel"
         >
-          <mat-icon svgIcon="share"></mat-icon>
+          <mat-icon svgIcon="share" />
           Share
         </button>
         }
+
         <!-- @if ('download' | featureEnabled) {
         <button
           mat-menu-item
