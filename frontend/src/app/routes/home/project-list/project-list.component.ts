@@ -1,4 +1,5 @@
 import { LiveAnnouncer } from '@angular/cdk/a11y';
+import { CdkMenuModule } from '@angular/cdk/menu';
 import { NgClass } from '@angular/common';
 import {
   AfterViewInit,
@@ -28,7 +29,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { Router } from '@angular/router';
 import { LetDirective, PushPipe } from '@ngrx/component';
 import { Store } from '@ngrx/store';
-import { Observable, Subscription } from 'rxjs';
+import { Observable, Subscription, take } from 'rxjs';
+import { ActivityComponent } from 'src/app/components/activity/activity.component';
 import {
   ProjectFilter,
   ProjectSetEnum,
@@ -37,6 +39,8 @@ import { DialogProjectActivityComponent } from 'src/app/modules/project-dialogs/
 import { DialogProjectMediaComponent } from 'src/app/modules/project-dialogs/dialog-project-media/dialog-project-media.component';
 import { ProjectLanguagesSetPipe } from 'src/app/pipes/project-languages-set-pipe/project-languages-set.pipe';
 import { WrittenOutLanguagePipe } from 'src/app/pipes/written-out-language-pipe/written-out-language.pipe';
+import { ApiService } from 'src/app/services/api/api.service';
+import { ActivityEntity } from 'src/app/services/api/entities/activity.entity';
 import { AppState } from 'src/app/store/app.state';
 import { AvatarGroupComponent } from '../../../components/avatar-group/avatar-group.component';
 import { DeleteConfirmationService } from '../../../components/delete-confirmation-dialog/delete-confirmation.service';
@@ -89,6 +93,8 @@ import { DialogCreateProjectComponent } from './dialog-create-project/dialog-cre
     FeatureEnabledPipe,
     ProjectLanguagesSetPipe,
     WrittenOutLanguagePipe,
+    ActivityComponent,
+    CdkMenuModule,
   ],
 })
 export class ProjectListComponent implements OnInit, AfterViewInit, OnDestroy {
@@ -114,6 +120,7 @@ export class ProjectListComponent implements OnInit, AfterViewInit, OnDestroy {
   public projectFilter$: Observable<ProjectFilter>;
   public currentProjectCount!: number;
 
+  projectStatusEnum = ProjectStatus;
   public projectStatus = [
     'all',
     ProjectStatus.WAITING,
@@ -139,7 +146,8 @@ export class ProjectListComponent implements OnInit, AfterViewInit, OnDestroy {
     private store: Store<AppState>,
     private dialog: MatDialog,
     private deleteService: DeleteConfirmationService,
-    private router: Router
+    private router: Router,
+    private api: ApiService
   ) {
     this.projectFilter$ = this.store.select(
       projectsSelectors.selectProjectFilter
@@ -274,5 +282,35 @@ export class ProjectListComponent implements OnInit, AfterViewInit, OnDestroy {
         ProjectStatus.LIVE,
       ].includes(project.status) && project.transcriptions.length > 0
     );
+  }
+
+  onClickChangeStatus(newStatus: ProjectStatus, project: ProjectEntity) {
+    console.log(newStatus);
+    this.store.dispatch(
+      projectsActions.updateFromProjectList({
+        updateProject: {
+          ...project,
+          status: newStatus,
+        },
+      })
+    );
+  }
+
+  projectError: ActivityEntity | undefined;
+  onHandleStatusClick(project: ProjectEntity) {
+    if (project.status === ProjectStatus.ERROR) {
+      this.api
+        .findAllActivities(project.id)
+        .pipe(take(1))
+        .subscribe((activities) => {
+          this.projectError = activities.activities.find((activity) => {
+            if (activity.details) {
+              return activity.details.hasOwnProperty('error');
+            } else {
+              return false;
+            }
+          });
+        });
+    }
   }
 }

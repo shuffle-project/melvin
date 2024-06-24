@@ -3,6 +3,10 @@ section {
   min-height: 100%;
 }
 
+.hidden {
+  opacity: 0%;
+}
+
 .filter-options-wrapper {
   width: 100%;
   display: flex;
