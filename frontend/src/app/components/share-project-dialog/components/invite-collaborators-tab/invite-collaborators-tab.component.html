@@ -1,0 +1,84 @@
+@if (isLoading) {
+<mat-spinner strokeWidth="2" diameter="20" color="primary" />
+} @if (!isLoading) {
+<div class="mat-tab-content">
+  <form #addMemberForm class="add-member-form">
+    <mat-form-field>
+      <mat-label i18n="@@dialogProjectShareAddMemberLabel"
+        >Collaborator email</mat-label
+      >
+      <input
+        type="email"
+        matInput
+        [matAutocomplete]="auto"
+        [formControl]="userControl"
+      />
+      <mat-hint i18n="@@dialogProjectShareAddMemberHint"
+        >Addresses that are not linked to an account will be invited to the
+        project via email.
+      </mat-hint>
+      @if (userControl.touched && userControl.dirty) {
+      <mat-error>
+        @if (userControl.hasError('required')) { Email is required } @if
+        (userControl.hasError('email')) { Email is invalid }
+      </mat-error>
+      }
+      <mat-autocomplete
+        #auto="matAutocomplete"
+        (optionSelected)="onAddMemberThroughSelect($event)"
+      >
+        @for (user of users; track user) {
+        <mat-option [value]="user">
+          <span class="user-name">{{ user.name }}</span>
+          <br />
+          <span class="user-email">{{ user.email }}</span>
+        </mat-option>
+        }
+      </mat-autocomplete>
+    </mat-form-field>
+    <button mat-flat-button color="primary" (click)="inviteMember()">
+      Invite
+    </button>
+  </form>
+
+  <h2>Personen mit Zugriff</h2>
+  <ul aria-label="Personen mit Zugriff">
+    <!-- @for (item of items; track $index) {
+        <li></li>
+      } -->
+  </ul>
+  <h2>Allgemeiner Zugriff</h2>
+  <div class="flex flex-col">
+    <p i18n="@@shareProjectInviteLinkWarningText">
+      <b>Any person</b> who has this link can join the project
+      <b>registered or anonymously</b>.
+    </p>
+    <div class="flex">
+      <input matInput [value]="inviteLink" class="link" readonly />
+      <div>
+        <button
+          mat-button
+          (click)="onClickCopyLink(inviteLink)"
+          color="primary"
+          i18n="@@shareProjectCopyLinkLabel"
+        >
+          Copy link
+        </button>
+      </div>
+    </div>
+    <div style="margin-top: 40px">
+      <p i18n="@@shareProjectGenerateNewLinkForProjectMessage">
+        If you want to <b>revoke access</b> for the current link, you can
+        generate a new link:
+      </p>
+      <button
+        mat-button
+        (click)="onClickUpdateInvite()"
+        i18n="@@shareProjectChangeAccessLinkButtonLabel"
+      >
+        Change access link
+      </button>
+    </div>
+  </div>
+</div>
+}

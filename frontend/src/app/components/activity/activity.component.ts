@@ -12,7 +12,7 @@ import { ProjectStatusPipe } from '../../pipes/project-status-pipe/project-statu
 import { TimeDifferencePipe } from '../../pipes/time-difference-pipe/time-difference.pipe';
 import { AvatarComponent } from '../avatar-group/avatar/avatar.component';
 
-export type ActivityViewType = 'list' | 'popup' | 'timeline';
+export type ActivityViewType = 'list' | 'popup' | 'timeline' | 'error-chip';
 
 @Component({
   selector: 'app-activity',

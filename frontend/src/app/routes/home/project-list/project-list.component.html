@@ -336,7 +336,7 @@
 
         } @else if (element.status === projectStatusEnum.ERROR) {
         @if(projectError) {
-        <app-activity [viewType]="'popup'" [activity]="projectError" />
+        <app-activity [viewType]="'error-chip'" [activity]="projectError" />
         } } @else if (element.status === projectStatusEnum.WAITING) {
         <p>Wartet und so</p>
         } @else if (element.status === projectStatusEnum.PROCESSING) {

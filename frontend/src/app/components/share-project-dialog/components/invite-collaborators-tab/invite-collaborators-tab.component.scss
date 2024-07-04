@@ -1,0 +1,22 @@
+.mat-tab-content {
+  padding-top: 1.25rem;
+  overflow: hidden;
+
+  .add-member-form {
+    width: 100%;
+    display: flex;
+    gap: 1.25rem;
+
+    .mat-mdc-form-field {
+      width: 100%;
+    }
+
+    button {
+      height: 3.5rem;
+    }
+  }
+
+  h2 {
+    margin-top: 2.5rem;
+  }
+}

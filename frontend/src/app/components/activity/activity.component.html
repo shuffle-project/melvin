@@ -63,6 +63,8 @@
       [outlineColor]="'transparent'"
     ></app-avatar>
   </div>
+  } @case ('error-chip') {
+  <p [innerHTML]="description"></p>
   } }
 
   <ng-content></ng-content>

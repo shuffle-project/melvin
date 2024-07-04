@@ -238,6 +238,9 @@ export class EditorComponent implements OnInit, OnDestroy {
       data: {
         project,
       },
+      width: '100%',
+      maxWidth: '800px',
+      maxHeight: '90vh',
     });
   }
 
