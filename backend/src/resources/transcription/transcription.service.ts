@@ -34,6 +34,8 @@ import { FindAllTranscriptionsQuery } from './dto/find-all-transcriptions.dto';
 import { UpdateSpeakerDto } from './dto/update-speaker.dto';
 import { UpdateTranscriptionDto } from './dto/update-transcription.dto';
 import { TranscriptionEntity } from './entities/transcription.entity';
+import { HocuspocusService } from './fulltext/hocuspocus.service';
+import { TiptapDocument } from './fulltext/tiptap.interfaces';
 import { TiptapService } from './fulltext/tiptap.service';
 
 @Injectable()
@@ -47,6 +49,7 @@ export class TranscriptionService {
     @InjectQueue('subtitles')
     private subtitlesQueue: Queue<ProcessSubtitlesJob>,
     private tiptapService: TiptapService,
+    private hocuspocusService: HocuspocusService,
   ) {}
 
   /**
@@ -74,9 +77,6 @@ export class TranscriptionService {
 
     const transcriptionId = new Types.ObjectId();
 
-    const newYDoc = await this.tiptapService.createYDoc();
-    const ydocState = await this.tiptapService.getState(newYDoc);
-
     // TODO use transactions
     const [transcription, updatedProject] = await Promise.all([
       this.db.transcriptionModel.create({
@@ -84,13 +84,40 @@ export class TranscriptionService {
         createdBy: authUser.id,
         _id: transcriptionId,
         project: projectId,
-        // TODO add empty ydoc
-        ydoc: ydocState,
       }), // ,{populate:'createdBy'}
       this.db.updateProjectByIdAndReturn(projectId as Types.ObjectId, {
         $push: { transcriptions: transcriptionId },
       }),
     ]);
+
+    const json: TiptapDocument = {
+      type: 'doc',
+      content: [
+        {
+          type: 'paragraph',
+          content: [
+            {
+              type: 'text',
+              marks: [
+                {
+                  type: 'word',
+                  attrs: {
+                    timestamp: 1720002522143,
+                    modifiedBy: 'Server',
+                  },
+                },
+              ],
+              text: 'This is your transcript!',
+            },
+          ],
+        },
+      ],
+    };
+
+    await this.hocuspocusService.importDocument(
+      transcription._id.toString(),
+      json,
+    );
 
     transcription.populate('createdBy');
 
@@ -411,19 +438,5 @@ export class TranscriptionService {
     this.events.transcriptionUpdated(project, entity);
 
     return entity;
-  }
-
-  async loadYDoc(transcriptionId: string): Promise<Uint8Array> {
-    const transcription = await this.db.transcriptionModel
-      .findById(transcriptionId)
-      .exec();
-    return transcription.ydoc;
-  }
-
-  async storeYDoc(transcriptionId: string, state: Uint8Array): Promise<void> {
-    await this.db.transcriptionModel.findByIdAndUpdate(transcriptionId, {
-      $set: { ydoc: state },
-    });
-    return;
   }
 }

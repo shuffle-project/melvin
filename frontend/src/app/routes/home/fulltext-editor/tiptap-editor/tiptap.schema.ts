@@ -32,6 +32,14 @@ export const Word = Mark.create({
           };
         },
       },
+      color: {
+        default: 'black',
+        renderHTML(attributes) {
+          return {
+            color: attributes['color'],
+          };
+        },
+      },
     };
   },
 
@@ -45,6 +53,7 @@ export const Word = Mark.create({
         modifiedAt: 'data-modified-at',
         modifiedBy: 'data-modified-by',
         timestamp: 'timestamp',
+        color: 'color',
       },
     ];
   },

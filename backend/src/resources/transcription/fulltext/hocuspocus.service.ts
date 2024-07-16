@@ -13,8 +13,10 @@ import { IncomingMessage } from 'http';
 import { EditorState } from 'prosemirror-state';
 import { WebSocket } from 'ws';
 import { updateYFragment } from 'y-prosemirror';
+import * as Y from 'yjs';
+import { DbService } from '../../../modules/db/db.service';
 import { CustomLogger } from '../../../modules/logger/logger.service';
-import { TranscriptionService } from '../transcription.service';
+import { TiptapDocument } from './tiptap.interfaces';
 import { Partial, Word } from './tiptap.schema';
 
 @Injectable()
@@ -31,10 +33,7 @@ export class HocuspocusService {
     Word,
     // add more extensions here
   ]);
-  constructor(
-    private logger: CustomLogger,
-    private transcriptionService: TranscriptionService,
-  ) {
+  constructor(private logger: CustomLogger, private db: DbService) {
     this.init();
   }
 
@@ -42,10 +41,9 @@ export class HocuspocusService {
     this.server = new Hocuspocus({
       extensions: [
         new Database({
-          fetch: async ({ documentName }) =>
-            this.transcriptionService.loadYDoc(documentName),
+          fetch: async ({ documentName }) => this.loadYDoc(documentName),
           store: async ({ documentName, state }) =>
-            this.transcriptionService.storeYDoc(documentName, state),
+            this.storeYDoc(documentName, state),
         }),
       ],
     });
@@ -58,6 +56,45 @@ export class HocuspocusService {
   ) {
     this.logger.log('handle connection');
     this.server.handleConnection(websocket, request, context);
+  }
+
+  async loadYDoc(transcriptionId: string): Promise<Uint8Array> {
+    const transcription = await this.db.transcriptionModel
+      .findById(transcriptionId)
+      .exec();
+
+    return transcription.ydoc;
+  }
+
+  async storeYDoc(transcriptionId: string, state: Uint8Array): Promise<void> {
+    await this.db.transcriptionModel.findByIdAndUpdate(transcriptionId, {
+      $set: { ydoc: state },
+    });
+    return;
+  }
+
+  async importDocument(transcriptionId: string, jsonDoc: TiptapDocument) {
+    this.logger.verbose('importDocument');
+
+    const connection = await this.server.openDirectConnection(transcriptionId);
+
+    await connection.transact((doc) => {
+      const stateVector = Y.encodeStateVector(doc);
+      const updatedYdoc = TiptapTransformer.toYdoc(jsonDoc, 'default', [
+        Document,
+        Paragraph,
+        Text,
+        TextStyle,
+        Partial,
+        Color,
+        Word,
+      ]);
+
+      const update = Y.encodeStateAsUpdateV2(updatedYdoc, stateVector);
+      Y.applyUpdateV2(doc, update);
+    });
+
+    await connection.disconnect();
   }
 
   async insert(transcriptionId: string, text: string) {

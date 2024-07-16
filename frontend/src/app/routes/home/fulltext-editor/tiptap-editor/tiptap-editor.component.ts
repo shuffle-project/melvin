@@ -16,11 +16,13 @@ import Collaboration from '@tiptap/extension-collaboration';
 import CollaborationCursor from '@tiptap/extension-collaboration-cursor';
 import Color from '@tiptap/extension-color';
 import Document from '@tiptap/extension-document';
+import FloatingMenu from '@tiptap/extension-floating-menu';
 import Focus from '@tiptap/extension-focus';
 import { Italic } from '@tiptap/extension-italic';
 import Paragraph from '@tiptap/extension-paragraph';
 import Text from '@tiptap/extension-text';
 import TextStyle from '@tiptap/extension-text-style';
+
 import {
   BehaviorSubject,
   Observable,
@@ -70,6 +72,8 @@ export class TiptapEditorComponent implements AfterViewInit, OnInit {
   // private awareness: HocuspocusProvider['awareness'] = null;
   private newWordsCount = 0;
   private lastWordCount = 0;
+
+  shouldShow = false;
 
   constructor() {}
 
@@ -140,6 +144,11 @@ export class TiptapEditorComponent implements AfterViewInit, OnInit {
         Color,
         Word,
         Partial,
+        FloatingMenu.configure({
+          shouldShow: () => this.shouldShow,
+          element: document.querySelector('.menu') as HTMLElement,
+        }),
+
         UserExtension.configure({
           color: color,
           name: user.name,
@@ -243,6 +252,26 @@ export class TiptapEditorComponent implements AfterViewInit, OnInit {
 
   destroyEditor() {
     this.editor?.destroy();
+  }
+
+  toggleSpeaker(speaker: string) {
+    const { state, view } = this.editor!;
+    const { tr } = state;
+    const { selection } = state;
+    const { $from } = selection;
+    const node = $from.node();
+
+    if (node && node.type.name === 'paragraph') {
+      const pos = state.selection.$anchor.before();
+      const newAttrs = { ...node.attrs, speaker };
+      tr.setNodeMarkup(pos, undefined, newAttrs);
+    }
+
+    view.dispatch(tr);
+  }
+
+  toggleShouldShow() {
+    this.shouldShow = !this.shouldShow;
   }
 
   // private updateConnectedUsers(): void {

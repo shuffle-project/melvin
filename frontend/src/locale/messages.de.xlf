@@ -1336,7 +1336,7 @@
       </trans-unit>
       <trans-unit id="recorderStopRecordingButton" datatype="html">
         <source> Stop recording </source>
-        <target state="final"> Aufgahme stoppen </target>
+        <target state="final"> Aufnahme stoppen </target>
       </trans-unit>
       <trans-unit id="recorderStartRecordingButton" datatype="html">
         <source> Start recording </source>

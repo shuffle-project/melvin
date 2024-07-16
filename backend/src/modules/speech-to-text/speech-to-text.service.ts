@@ -8,7 +8,9 @@ import { CaptionEntity } from '../../resources/caption/entities/caption.entity';
 import { PopulateService } from '../../resources/populate/populate.service';
 import { ProjectEntity } from '../../resources/project/entities/project.entity';
 import { TranscriptionEntity } from '../../resources/transcription/entities/transcription.entity';
+import { HocuspocusService } from '../../resources/transcription/fulltext/hocuspocus.service';
 import { TiptapService } from '../../resources/transcription/fulltext/tiptap.service';
+import { TranscriptionService } from '../../resources/transcription/transcription.service';
 import { DbService } from '../db/db.service';
 import { Caption } from '../db/schemas/caption.schema';
 import { Audio, Project } from '../db/schemas/project.schema';
@@ -30,7 +32,9 @@ export class SpeechToTextService {
     private googleSpeechService: GoogleSpeechService,
     private whisperSpeechService: WhisperSpeechService,
     private configService: ConfigService,
-    private tiptapService: TiptapService,
+    private transcriptionService: TranscriptionService,
+    private hocuspocusService: HocuspocusService,
+    private tiptapservice: TiptapService,
   ) {
     this.logger.setContext(this.constructor.name);
   }
@@ -132,9 +136,18 @@ export class SpeechToTextService {
         if (res.captions) {
           captions = this._toCaptions(project, transcription, res.captions);
         } else {
-          transcription.ydoc;
-          // const importDoc = this.tiptapService.wordsToTipTap(res.words);
-          // this.tiptapService.importDocument(transcription.ydoc, importDoc);
+          const document = this.tiptapservice.wordsToTipTap(
+            res.words.map((word) => ({
+              text: word.word,
+              start: word.startMs,
+              confidence: word.confidence,
+              speakerId: null,
+            })),
+          );
+          await this.hocuspocusService.importDocument(
+            transcription._id.toString(),
+            document,
+          );
           captions = this._wordsToCaptions(project, transcription, res);
         }
         break;

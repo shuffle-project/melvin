@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { firstValueFrom, retry, Subject } from 'rxjs';
+import { firstValueFrom, retry, Subject, takeUntil } from 'rxjs';
 import { webSocket, WebSocketSubject } from 'rxjs/webSocket';
 import { environment } from '../../../environments/environment';
 import { CustomLogger } from '../../classes/logger.class';
@@ -26,6 +26,7 @@ export class WSService {
   }>();
 
   private socket!: WebSocketSubject<any>;
+  private disconnected$ = new Subject<void>();
 
   private logger = new CustomLogger('WS SERVICE');
 
@@ -47,9 +48,10 @@ export class WSService {
   async connect() {
     this.logger.verbose('connect()');
 
-    // TODO: Auto reconnect?
+    // TODO: Check if reconnect works after one disconnect from the server and one from the client
     this.socket
       .pipe(
+        takeUntil(this.disconnected$),
         retry({
           delay: 3000,
         })
@@ -63,6 +65,7 @@ export class WSService {
 
   async disconnect() {
     this.logger.verbose('disconnect()');
+    this.disconnected$.next();
     this.socket.complete();
   }
 

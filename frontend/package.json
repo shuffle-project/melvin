@@ -44,6 +44,7 @@
     "@tiptap/extension-paragraph": "^2.3.0",
     "@tiptap/extension-text": "^2.3.0",
     "@tiptap/extension-text-style": "^2.3.0",
+    "@tiptap/extension-floating-menu": "^2.3.0",
     "@tiptap/pm": "^2.2.1",
     "@tiptap/starter-kit": "^2.2.1",
     "canihazusername": "^2.4.1",

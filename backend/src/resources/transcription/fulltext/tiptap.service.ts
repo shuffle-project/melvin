@@ -2,6 +2,7 @@
 import { TiptapTransformer } from '@hocuspocus/transformer';
 import { Injectable } from '@nestjs/common';
 import { getSchema } from '@tiptap/core';
+import Bold from '@tiptap/extension-bold';
 import Color from '@tiptap/extension-color';
 import Document from '@tiptap/extension-document';
 import Paragraph from '@tiptap/extension-paragraph';
@@ -10,7 +11,14 @@ import TextStyle from '@tiptap/extension-text-style';
 import { EditorState } from 'prosemirror-state';
 import * as Y from 'yjs';
 import { CustomLogger } from '../../../modules/logger/logger.service';
-import { TipTapCaption, TiptapDocument, WordEntity } from './tiptap.interfaces';
+
+import {
+  TipTapCaption,
+  TipTapParagraph,
+  TipTapText,
+  TiptapDocument,
+  WordEntity,
+} from './tiptap.interfaces';
 import { Partial, Word } from './tiptap.schema';
 
 @Injectable()
@@ -23,23 +31,66 @@ export class TiptapService {
     Partial,
     Color,
     Word,
+    Bold,
+    Color,
     // add more extensions here
   ]);
   constructor(private logger: CustomLogger) {}
 
-  async createYDoc(): Promise<Y.Doc> {
-    const doc = new Y.Doc();
-
-    return await this.importDocument(doc, {
-      type: 'doc',
-      content: [
-        {
-          type: 'paragraph',
-          content: [{ type: 'text', text: 'This is your transcript!' }],
-        },
-      ],
+  wordsToTipTap(words: WordEntity[]): TiptapDocument {
+    const tiptapTexts: TipTapText[] = words.map((word) => {
+      return {
+        type: 'text',
+        text: word.text,
+        marks: [
+          {
+            type: 'word',
+            attrs: { timestamp: word.start, confidence: word.confidence },
+          },
+        ],
+      };
     });
+
+    const tiptapParagraph: TipTapParagraph = {
+      type: 'paragraph',
+      content: tiptapTexts,
+    };
+    const tiptapDocument: TiptapDocument = {
+      type: 'doc',
+      content: [tiptapParagraph],
+    };
+    return tiptapDocument;
   }
+
+  // async createYDoc(): Promise<Y.Doc> {
+  //   const doc = new Y.Doc();
+
+  //   const json: TiptapDocument = {
+  //     type: 'doc',
+  //     content: [
+  //       {
+  //         type: 'paragraph',
+  //         content: [
+  //           {
+  //             type: 'text',
+  //             marks: [
+  //               {
+  //                 type: 'word',
+  //                 attrs: {
+  //                   timestamp: 1720002522143,
+  //                   modifiedBy: 'Server',
+  //                 },
+  //               },
+  //             ],
+  //             text: 'This is your transcript!',
+  //           },
+  //         ],
+  //       },
+  //     ],
+  //   };
+
+  //   return await this.importDocument(doc, json);
+  // }
 
   async getState(doc: Y.Doc): Promise<Uint8Array> {
     return Buffer.from(Y.encodeStateVector(doc));
@@ -64,25 +115,27 @@ export class TiptapService {
     return result;
   }
 
-  async importDocument(doc: Y.Doc, jsonDoc: TiptapDocument): Promise<Y.Doc> {
-    this.logger.verbose('importDocument');
+  // async importDocument(doc: Y.Doc, jsonDoc: TiptapDocument): Promise<Y.Doc> {
+  //   this.logger.verbose('importDocument');
 
-    const stateVector = Y.encodeStateVector(doc);
-    const updatedYdoc = TiptapTransformer.toYdoc(jsonDoc, 'default', [
-      Document,
-      Paragraph,
-      Text,
-      TextStyle,
-      Partial,
-      Color,
-      Word,
-    ]);
+  //   doc.transact(() => {
+  //     const stateVector = Y.encodeStateVector(doc);
+  //     const updatedYdoc = TiptapTransformer.toYdoc(jsonDoc, 'default', [
+  //       Document,
+  //       Paragraph,
+  //       Text,
+  //       TextStyle,
+  //       Partial,
+  //       Color,
+  //       Word,
+  //     ]);
 
-    const update = Y.encodeStateAsUpdateV2(updatedYdoc, stateVector);
-    Y.applyUpdateV2(doc, update);
+  //     const update = Y.encodeStateAsUpdateV2(updatedYdoc, stateVector);
+  //     Y.applyUpdateV2(doc, update);
+  //   });
 
-    return doc;
-  }
+  //   return doc;
+  // }
 
   docToWordList(doc: Y.Doc): WordEntity[] {
     const data = this.docToJSON(doc);
