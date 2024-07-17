@@ -99,10 +99,7 @@ export class TranscriptionService {
               marks: [
                 {
                   type: 'word',
-                  attrs: {
-                    timestamp: 1720002522143,
-                    modifiedBy: 'Server',
-                  },
+                  attrs: {},
                 },
               ],
               text: 'This is your transcript!',

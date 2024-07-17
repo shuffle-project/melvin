@@ -133,9 +133,6 @@ export class TiptapEditorComponent implements AfterViewInit, OnInit {
     this.captions = document.getElementById('captions') as HTMLDivElement;
 
     const user = this.activeUsers[0];
-    const color = getComputedStyle(document.body).getPropertyValue(
-      `--color-editor-user-${user.color}`
-    );
 
     this.editor = new Editor({
       element: this.editorRef.nativeElement,
@@ -154,9 +151,10 @@ export class TiptapEditorComponent implements AfterViewInit, OnInit {
         }),
 
         UserExtension.configure({
-          color: color,
+          color: user.color,
           name: user.name,
           editor: this.editor,
+          userId: user.id,
         }),
         Collaboration.configure({
           document: this.provider.document,
@@ -170,8 +168,6 @@ export class TiptapEditorComponent implements AfterViewInit, OnInit {
             cursor.classList.add('collaboration-cursor__caret');
             cursor.setAttribute('style', `border-color: ${user['color']}`);
 
-            console.log('this.showUsernames');
-            console.log(this.showUsernames);
             // edit: only render username lables if showUsernames is true
             if (this.showUsernames) {
               const label = document.createElement('div');
@@ -226,10 +222,11 @@ export class TiptapEditorComponent implements AfterViewInit, OnInit {
 
     this.editor
       .chain()
-      .updateUser({
-        name: user.name,
-        color,
-      })
+      // .updateUser({
+      //   name: user.name,
+      //   color: user.color,
+      //   id: user.id,
+      // })
       .focus()
       .redo()
       .run();

@@ -6,7 +6,7 @@ export const CustomParagraph = Paragraph.extend({
   addAttributes() {
     return {
       speaker: {
-        default: 'Speaker 1',
+        default: null,
       },
     };
   },
@@ -28,7 +28,7 @@ export const Word = Mark.create({
         },
       },
       modifiedAt: {
-        default: () => new Date().toISOString(),
+        default: undefined,
         renderHTML(attributes) {
           return {
             'data-modified-at': attributes['modifiedAt'],
@@ -36,7 +36,7 @@ export const Word = Mark.create({
         },
       },
       modifiedBy: {
-        default: 'jane.doe',
+        default: undefined,
         renderHTML(attributes) {
           return {
             'data-modified-by': attributes['modifiedBy'],
@@ -44,10 +44,13 @@ export const Word = Mark.create({
         },
       },
       color: {
-        default: 'black',
+        default: undefined,
         renderHTML(attributes) {
+          if (!attributes['color']) {
+            return {};
+          }
           return {
-            color: attributes['color'],
+            style: `color: var(--color-editor-user-${attributes['color']})`,
           };
         },
       },
@@ -55,6 +58,7 @@ export const Word = Mark.create({
   },
 
   parseHTML(): any {
+    console.log('parseHTML');
     return [
       {
         tag: 'span',
@@ -63,7 +67,7 @@ export const Word = Mark.create({
         class: 'word',
         modifiedAt: 'data-modified-at',
         modifiedBy: 'data-modified-by',
-        timestamp: 'timestamp',
+        timestamp: 'data-timestamp',
         color: 'color',
       },
     ];
@@ -134,6 +138,7 @@ export const UserExtension = Extension.create({
     return {
       color: 'black',
       name: null,
+      userId: null,
       editor: null,
     };
   },
@@ -150,10 +155,15 @@ export const UserExtension = Extension.create({
 
             // Insert the new text
             tr.insertText(text, from, to);
+            console.log(text);
             tr.addMark(
               from,
               from + text.length,
-              schema.marks['textStyle'].create({ color: this.options.color })
+              schema.marks['word'].create({
+                modifiedBy: this.options.userId,
+                modifiedAt: new Date().toISOString(),
+                color: this.options.color,
+              })
             );
 
             const isWordBoundary = /\s|[.,;!?]/.test(text);
@@ -173,10 +183,9 @@ export const UserExtension = Extension.create({
                 startPos,
                 endPos,
                 schema.marks['word'].create({
-                  modifiedBy: this.options.name,
+                  modifiedBy: this.options.userId,
                   modifiedAt: new Date().toISOString(),
                   color: this.options.color,
-                  speaker: 'Speaker 1',
                 })
               );
             }

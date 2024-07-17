@@ -16,7 +16,7 @@ export const Word = Mark.create({
         },
       },
       modifiedAt: {
-        default: () => new Date().toISOString(),
+        default: undefined,
         renderHTML(attributes) {
           return {
             'data-modified-at': attributes['modifiedAt'],
@@ -24,7 +24,7 @@ export const Word = Mark.create({
         },
       },
       modifiedBy: {
-        default: 'jane.doe',
+        default: undefined,
         renderHTML(attributes) {
           return {
             'data-modified-by': attributes['modifiedBy'],
