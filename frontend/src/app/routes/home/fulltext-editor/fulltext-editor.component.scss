@@ -91,15 +91,15 @@
   flex-grow: 1;
 
   .left {
-    flex-grow: 1;
     max-width: 600px;
     min-width: 200px;
   }
 
   .right {
-    flex-grow: 1;
+    flex: 1;
+    min-width: 70%;
+    max-width: 1000px;
     padding-left: 20px;
-    min-width: 850px;
   }
 }
 

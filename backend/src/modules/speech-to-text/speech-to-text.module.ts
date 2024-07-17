@@ -5,6 +5,7 @@ import { TranscriptionModule } from '../../resources/transcription/transcription
 import { DbModule } from '../db/db.module';
 import { LoggerModule } from '../logger/logger.module';
 import { PathModule } from '../path/path.module';
+import { TiptapModule } from '../tiptap/tiptap.module';
 import { AssemblyAiService } from './assemblyai/assemblyai.service';
 import { GoogleSpeechService } from './google-speech/google-speech.service';
 import { SpeechToTextService } from './speech-to-text.service';
@@ -18,6 +19,7 @@ import { WhisperSpeechService } from './whisper/whisper-speech.service';
     PathModule,
     HttpModule.register({}),
     TranscriptionModule,
+    TiptapModule,
   ],
   controllers: [],
   providers: [

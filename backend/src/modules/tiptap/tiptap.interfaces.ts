@@ -1,4 +1,4 @@
-export interface TipTapWord {
+export interface TiptapWord {
   type: 'word';
   attrs: {
     modifiedAt?: string;
@@ -8,33 +8,26 @@ export interface TipTapWord {
   };
 }
 
-export interface TipTapText {
+export interface TiptapText {
   type: 'text';
   text: string;
-  marks?: Array<TipTapWord>;
+  marks?: Array<TiptapWord>;
 }
 
-export interface TipTapParagraph {
+export interface TiptapParagraph {
   type: 'paragraph';
   speakerId?: string;
-  content: Array<TipTapText>;
+  content: Array<TiptapText>;
 }
 
 export interface TiptapDocument {
   type: 'doc';
-  content: Array<TipTapParagraph>;
+  content: Array<TiptapParagraph>;
 }
 
-export interface TipTapCaption {
+export interface TiptapCaption {
   text: string;
   start: number;
   end: number;
-  speakerId: string;
-}
-
-export interface WordEntity {
-  text: string;
-  start: number;
-  confidence: number;
   speakerId: string;
 }

@@ -104,17 +104,21 @@ export class TiptapEditorComponent implements AfterViewInit, OnInit {
       url: environment.hocuspocusUrl, // wss://melvin-server-dummy.onrender.com
       name: transcriptionId,
       onStatus: (status) => {
+        console.log('onStatus');
         if (status.status.toString() === 'connecting')
           console.log('Connecting to server...');
         this.status = CLIENT_STATUS.CONNECTING;
       },
       onConnect: () => {
+        console.log('onConnect');
         this.status = CLIENT_STATUS.CONNECTED;
       },
       onAuthenticated: () => {
+        console.log('onAuthenticated');
         this.status = CLIENT_STATUS.AUTHENTICATED;
       },
       onSynced: () => {
+        console.log('onSynced');
         this.status = CLIENT_STATUS.SYNCED;
       },
     });

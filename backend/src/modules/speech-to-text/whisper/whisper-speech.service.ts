@@ -12,7 +12,7 @@ import { Audio, Project } from '../../db/schemas/project.schema';
 import { CustomLogger } from '../../logger/logger.service';
 import { PathService } from '../../path/path.service';
 import {
-  ISepechToTextService,
+  ISpeechToTextService,
   TranscriptEntity,
   WordEntity,
 } from '../speech-to-text.interfaces';
@@ -21,7 +21,7 @@ import { WhiTranscribeDto, WhiTranscriptEntity } from './whisper.interfaces';
 // npm rebuild bcrypt --build-from-source
 
 @Injectable()
-export class WhisperSpeechService implements ISepechToTextService {
+export class WhisperSpeechService implements ISpeechToTextService {
   private whisperConfig: WhisperConfig;
 
   private host: string;
@@ -105,10 +105,12 @@ export class WhisperSpeechService implements ISepechToTextService {
     transcriptEntity.transcript.segments.forEach((segment) => {
       segment.words.forEach((word) => {
         words.push({
-          word: word.word.startsWith(' ') ? word.word.trimStart() : word.word,
-          startMs: word.start * 1000,
-          endMs: word.end * 1000,
+          text: word.word.startsWith(' ') ? word.word.trimStart() : word.word,
+          start: word.start * 1000,
+          end: word.end * 1000,
           confidence: word.probability,
+          startParagraph: false,
+          speakerId: null,
         });
       });
     });

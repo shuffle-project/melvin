@@ -4,10 +4,10 @@ import { Language } from '../../../app.interfaces';
 import { ProjectEntity } from '../../../resources/project/entities/project.entity';
 import { CustomLogger } from '../../logger/logger.service';
 import { PathService } from '../../path/path.service';
-import { ISepechToTextService } from '../speech-to-text.interfaces';
+import { ISpeechToTextService } from '../speech-to-text.interfaces';
 // npm rebuild bcrypt --build-from-source
 @Injectable()
-export class WhisperSpeechService implements ISepechToTextService {
+export class WhisperSpeechService implements ISpeechToTextService {
   constructor(private logger: CustomLogger, private pathService: PathService) {
     this.logger.setContext(this.constructor.name);
   }

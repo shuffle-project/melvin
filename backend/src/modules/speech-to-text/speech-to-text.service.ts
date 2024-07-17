@@ -1,5 +1,4 @@
 import { Injectable } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
 import { parse } from '@plussub/srt-vtt-parser';
 import { readFile } from 'fs/promises';
 import { AsrServiceConfig } from '../../app.interfaces';
@@ -8,14 +7,12 @@ import { CaptionEntity } from '../../resources/caption/entities/caption.entity';
 import { PopulateService } from '../../resources/populate/populate.service';
 import { ProjectEntity } from '../../resources/project/entities/project.entity';
 import { TranscriptionEntity } from '../../resources/transcription/entities/transcription.entity';
-import { HocuspocusService } from '../../resources/transcription/fulltext/hocuspocus.service';
-import { TiptapService } from '../../resources/transcription/fulltext/tiptap.service';
-import { TranscriptionService } from '../../resources/transcription/transcription.service';
 import { DbService } from '../db/db.service';
 import { Caption } from '../db/schemas/caption.schema';
 import { Audio, Project } from '../db/schemas/project.schema';
 import { CustomLogger } from '../logger/logger.service';
 import { PathService } from '../path/path.service';
+import { TiptapService } from '../tiptap/tiptap.service';
 import { AssemblyAiService } from './assemblyai/assemblyai.service';
 import { GoogleSpeechService } from './google-speech/google-speech.service';
 import { TranscriptEntity } from './speech-to-text.interfaces';
@@ -31,10 +28,7 @@ export class SpeechToTextService {
     private assemblyAiService: AssemblyAiService,
     private googleSpeechService: GoogleSpeechService,
     private whisperSpeechService: WhisperSpeechService,
-    private configService: ConfigService,
-    private transcriptionService: TranscriptionService,
-    private hocuspocusService: HocuspocusService,
-    private tiptapservice: TiptapService,
+    private tiptapService: TiptapService,
   ) {
     this.logger.setContext(this.constructor.name);
   }
@@ -136,15 +130,8 @@ export class SpeechToTextService {
         if (res.captions) {
           captions = this._toCaptions(project, transcription, res.captions);
         } else {
-          const document = this.tiptapservice.wordsToTipTap(
-            res.words.map((word) => ({
-              text: word.word,
-              start: word.startMs,
-              confidence: word.confidence,
-              speakerId: null,
-            })),
-          );
-          await this.hocuspocusService.importDocument(
+          const document = this.tiptapService.wordsToTiptap(res.words);
+          await this.tiptapService.updateDocument(
             transcription._id.toString(),
             document,
           );
@@ -214,13 +201,13 @@ export class SpeechToTextService {
     let text = '';
     let lastStart = 0;
     serviceResponseEntity.words.forEach((word) => {
-      if (lastStart + 5000 > word.startMs) {
-        text = text + ' ' + word.word;
+      if (lastStart + 5000 > word.start) {
+        text = text + ' ' + word.text;
       } else {
         captions.push(
           new this.db.captionModel({
             start: lastStart,
-            end: word.startMs,
+            end: word.start,
             speakerId: transcription.speakers[0]._id.toString(),
             text,
             initialText: text,
@@ -228,8 +215,8 @@ export class SpeechToTextService {
             project: project._id,
           }),
         );
-        lastStart = word.startMs;
-        text = word.word + '';
+        lastStart = word.start;
+        text = word.text + '';
       }
     });
 
@@ -238,7 +225,7 @@ export class SpeechToTextService {
     captions.push(
       new this.db.captionModel({
         start: lastStart,
-        end: lastWord.endMs,
+        end: lastWord.end,
         speakerId: transcription.speakers[0]._id.toString(),
         text,
         initialText: text,

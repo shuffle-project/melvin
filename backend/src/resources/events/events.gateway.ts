@@ -1,3 +1,4 @@
+import { Req } from '@nestjs/common';
 import {
   OnGatewayConnection,
   OnGatewayDisconnect,
@@ -5,6 +6,7 @@ import {
   WebSocketGateway,
 } from '@nestjs/websockets';
 import { instanceToPlain, plainToInstance } from 'class-transformer';
+import { IncomingMessage } from 'http';
 import { Server, WebSocket } from 'ws';
 import {
   AVAILABLE_EDITOR_USER_COLORS,
@@ -12,6 +14,7 @@ import {
 } from '../../constants/editor.constants';
 import { DbService } from '../../modules/db/db.service';
 import { LeanProjectDocument } from '../../modules/db/schemas/project.schema';
+import { TiptapService } from '../../modules/tiptap/tiptap.service';
 import { getObjectIdAsString } from '../../utils/objectid';
 import { AuthUser } from '../auth/auth.interfaces';
 import { CaptionEntity } from '../caption/entities/caption.entity';
@@ -25,14 +28,23 @@ import { AuthorizedWebSocket, SocketService } from './socket.service';
 export class EventsGateway
   implements OnGatewayInit, OnGatewayConnection, OnGatewayDisconnect
 {
-  constructor(private socketService: SocketService, private db: DbService) {}
+  constructor(
+    private socketService: SocketService,
+    private db: DbService,
+    private tiptapService: TiptapService,
+  ) {}
 
   afterInit(server: Server) {
     this.socketService.init(server);
   }
 
-  handleConnection(client: WebSocket) {
-    this.socketService.handleConnection(client);
+  handleConnection(client: WebSocket, @Req() req: IncomingMessage) {
+    console.log('Connection', req.url);
+    if (req.url.includes('hocuspocus')) {
+      this.tiptapService.handleConnection(client, req, null);
+    } else {
+      this.socketService.handleConnection(client);
+    }
   }
 
   async handleDisconnect(client: WebSocket) {

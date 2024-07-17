@@ -11,6 +11,8 @@ import {
 } from '../../modules/db/schemas/transcription.schema';
 import { PermissionsService } from '../../modules/permissions/permissions.service';
 import { ExportSubtitlesService } from '../../modules/subtitle-format/export-subtitles.service';
+import { TiptapDocument } from '../../modules/tiptap/tiptap.interfaces';
+import { TiptapService } from '../../modules/tiptap/tiptap.service';
 import {
   ProcessSubtitlesJob,
   SubtitlesType,
@@ -34,9 +36,6 @@ import { FindAllTranscriptionsQuery } from './dto/find-all-transcriptions.dto';
 import { UpdateSpeakerDto } from './dto/update-speaker.dto';
 import { UpdateTranscriptionDto } from './dto/update-transcription.dto';
 import { TranscriptionEntity } from './entities/transcription.entity';
-import { HocuspocusService } from './fulltext/hocuspocus.service';
-import { TiptapDocument } from './fulltext/tiptap.interfaces';
-import { TiptapService } from './fulltext/tiptap.service';
 
 @Injectable()
 export class TranscriptionService {
@@ -49,7 +48,6 @@ export class TranscriptionService {
     @InjectQueue('subtitles')
     private subtitlesQueue: Queue<ProcessSubtitlesJob>,
     private tiptapService: TiptapService,
-    private hocuspocusService: HocuspocusService,
   ) {}
 
   /**
@@ -114,10 +112,7 @@ export class TranscriptionService {
       ],
     };
 
-    await this.hocuspocusService.importDocument(
-      transcription._id.toString(),
-      json,
-    );
+    await this.tiptapService.updateDocument(transcription._id.toString(), json);
 
     transcription.populate('createdBy');
 
