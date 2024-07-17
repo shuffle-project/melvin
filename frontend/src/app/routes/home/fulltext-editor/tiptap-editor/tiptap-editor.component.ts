@@ -33,7 +33,7 @@ import {
 } from 'rxjs';
 import { environment } from '../../../../../environments/environment';
 import { EditorUser } from '../../../../interfaces/editor-user.interface';
-import { Partial, UserExtension, Word } from './tiptap.schema';
+import { CustomParagraph, Partial, UserExtension, Word } from './tiptap.schema';
 
 enum CLIENT_STATUS {
   CONNECTING,
@@ -138,6 +138,7 @@ export class TiptapEditorComponent implements AfterViewInit, OnInit {
       extensions: [
         Document,
         Paragraph,
+        CustomParagraph,
         Text,
         TextStyle,
         Focus,

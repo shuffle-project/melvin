@@ -1,5 +1,16 @@
 import { Extension, Mark, mergeAttributes } from '@tiptap/core';
+import Paragraph from '@tiptap/extension-paragraph';
 import { Plugin, PluginKey } from 'prosemirror-state';
+
+export const CustomParagraph = Paragraph.extend({
+  addAttributes() {
+    return {
+      speaker: {
+        default: 'Speaker 1',
+      },
+    };
+  },
+});
 
 export const Word = Mark.create({
   name: 'word',
@@ -106,6 +117,7 @@ export const Partial = Mark.create({
         isPartial: 'is-partial',
         contenteditable: 'contenteditable',
         timestamp: 'timestamp',
+        color: 'color',
       },
     ];
   },
