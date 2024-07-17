@@ -73,6 +73,7 @@ export const Word = Mark.create({
     return ['span', mergeAttributes(HTMLAttributes), 0];
   },
 });
+
 export const Partial = Mark.create({
   name: 'partial',
   exitable: true,
@@ -168,47 +169,18 @@ export const UserExtension = Extension.create({
               }
 
               const endPos = to;
-              if (text.length == 1)
-                tr.addMark(
-                  startPos,
-                  endPos,
-                  schema.marks['word'].create({
-                    modifiedBy: this.options.name,
-                    modifiedAt: new Date().toISOString(),
-                    timestamp: new Date().getTime(),
-                  })
-                );
-            }
-
-            if (text.length > 1) {
-              let clickedNode = view.state.doc.nodeAt(
-                state.selection.$from.pos
-              );
               tr.addMark(
-                from,
-                from + text.length,
+                startPos,
+                endPos,
                 schema.marks['word'].create({
                   modifiedBy: this.options.name,
-                  modifiedAt: clickedNode?.marks.find(
-                    (mark) => mark.type.name === 'word'
-                  )?.attrs['modifiedAt'],
-                  timestamp: clickedNode?.marks.find(
-                    (mark) => mark.type.name === 'word'
-                  )?.attrs['timestamp'],
+                  modifiedAt: new Date().toISOString(),
+                  color: this.options.color,
+                  speaker: 'Speaker 1',
                 })
               );
             }
-
             dispatch(tr);
-
-            // If text length is greater than 1, handle cursor position
-            if (text.length > 1) {
-              this.options.editor.commands.setTextSelection(
-                state.selection.$from.pos + 1
-              );
-              this.options.editor.commands.focus();
-            }
-
             return true;
           },
 
@@ -220,17 +192,18 @@ export const UserExtension = Extension.create({
             if (divToInsert) divToInsert.innerHTML = '';
             if (clickedNode) {
               clickedNode.marks.forEach((mark) => {
-                if (!divToInsert) {
-                  divToInsert = document.createElement('div');
-                  divToInsert.id = 'overViewOnClick';
-                  document.body.appendChild(divToInsert);
-                }
-                if (mark.type.name === 'word') {
-                  divToInsert.innerHTML += `<div>Modified by: ${mark.attrs['modifiedBy']}</div><div>Modified at: ${mark.attrs['modifiedAt']}</div> <div>Timestamp: ${mark.attrs['timestamp']}</div>`;
-                }
-                if (mark.type.name === 'textStyle') {
-                  divToInsert.innerHTML += `<div>Color: ${mark.attrs['color']}</div>`;
-                }
+                console.log(mark.attrs);
+                // if (!divToInsert) {
+                //   divToInsert = document.createElement('div');
+                //   divToInsert.id = 'overViewOnClick';
+                //   document.body.appendChild(divToInsert);
+                // }
+                // if (mark.type.name === 'word') {
+                //   divToInsert.innerHTML += `<div>Modified by: ${mark.attrs['modifiedBy']}</div><div>Modified at: ${mark.attrs['modifiedAt']}</div> <div>Timestamp: ${mark.attrs['timestamp']}</div>`;
+                // }
+                // if (mark.type.name === 'textStyle') {
+                //   divToInsert.innerHTML += `<div>Color: ${mark.attrs['color']}</div>`;
+                // }
               });
               return true; // Consume the event
             } else return false; // Let the event bubble up

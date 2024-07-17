@@ -12,6 +12,7 @@ import { MatCheckbox } from '@angular/material/checkbox';
 import { MatIcon } from '@angular/material/icon';
 import { HocuspocusProvider } from '@hocuspocus/provider';
 import { Editor } from '@tiptap/core';
+import { Bold } from '@tiptap/extension-bold';
 import Collaboration from '@tiptap/extension-collaboration';
 import CollaborationCursor from '@tiptap/extension-collaboration-cursor';
 import Color from '@tiptap/extension-color';
@@ -19,7 +20,6 @@ import Document from '@tiptap/extension-document';
 import FloatingMenu from '@tiptap/extension-floating-menu';
 import Focus from '@tiptap/extension-focus';
 import { Italic } from '@tiptap/extension-italic';
-import Paragraph from '@tiptap/extension-paragraph';
 import Text from '@tiptap/extension-text';
 import TextStyle from '@tiptap/extension-text-style';
 
@@ -141,7 +141,6 @@ export class TiptapEditorComponent implements AfterViewInit, OnInit {
       element: this.editorRef.nativeElement,
       extensions: [
         Document,
-        Paragraph,
         CustomParagraph,
         Text,
         TextStyle,
@@ -185,11 +184,8 @@ export class TiptapEditorComponent implements AfterViewInit, OnInit {
             return cursor;
           },
         }),
-        Italic.configure({
-          HTMLAttributes: {
-            class: 'partial',
-          },
-        }),
+        Bold,
+        Italic,
       ],
       onUpdate: ({ editor }) => {
         if (!this.captions) return;
@@ -278,6 +274,52 @@ export class TiptapEditorComponent implements AfterViewInit, OnInit {
   toggleShouldShow() {
     this.shouldShow = !this.shouldShow;
   }
+
+  // checkForTimestamp(event: Event | null = null) {
+  //   if (event) {
+  //     const target = event.target as HTMLInputElement;
+  //     this.timestamp = target.value;
+  //     if (target.value === '') {
+  //       this.timestamp = 'Enter timestamp here...';
+  //       return;
+  //     }
+  //     const timestampRegex = new RegExp(`\\b${this.timestamp || ''}\\b`, 'i');
+  //     const { state, view } = this.editor!;
+  //     const { doc, tr, schema } = state;
+
+  //     // Remove previous bold from all words
+  //     doc.descendants((node, pos) => {
+  //       if (node.isText) {
+  //         const { text, marks } = node;
+  //         marks.find((mark) => {
+  //           if (mark.type.name == 'bold') {
+  //             tr.removeMark(pos, pos + text!.length, schema.marks.bold);
+  //           }
+  //         });
+  //       }
+  //     });
+  //     view.dispatch(tr);
+  //     // Add bold to all words with the timestamp
+  //     doc.descendants((node, pos) => {
+  //       if (node.isText) {
+  //         const { text, marks } = node;
+  //         marks.find((mark) => {
+  //           if (
+  //             mark.type.name == 'word' &&
+  //             timestampRegex.test(mark.attrs.timestamp)
+  //           ) {
+  //             this.editor!.chain()
+  //               .focus()
+  //               .setTextSelection({ from: pos, to: pos + text!.length })
+  //               .setBold()
+  //               .run();
+  //             this.editor!.commands.selectTextblockEnd();
+  //           }
+  //         });
+  //       }
+  //     });
+  //   }
+  // }
 
   // private updateConnectedUsers(): void {
   //   this.connectedUsers = [];
