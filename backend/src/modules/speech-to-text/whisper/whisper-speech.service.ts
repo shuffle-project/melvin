@@ -105,7 +105,7 @@ export class WhisperSpeechService implements ISpeechToTextService {
     transcriptEntity.transcript.segments.forEach((segment) => {
       segment.words.forEach((word, i) => {
         words.push({
-          text: word.word,
+          text: word.text,
           start: word.start * 1000,
           end: word.end * 1000,
           confidence: word.probability,
@@ -143,7 +143,7 @@ export class WhisperSpeechService implements ISpeechToTextService {
             headers: {
               // authorization: this.apikey,
               // 'Transfer-Encoding': 'chunked',
-              key: this.apikey,
+              Authorization: this.apikey,
               'Content-Type': 'multipart/form-data',
               ...formData.getHeaders(),
             },
@@ -176,8 +176,7 @@ export class WhisperSpeechService implements ISpeechToTextService {
           `http://${this.host}:8393/transcriptions/${transcriptId}`,
           {
             headers: {
-              // authorization: this.apikey,
-              key: this.apikey,
+              Authorization: this.apikey,
             },
           },
         )
