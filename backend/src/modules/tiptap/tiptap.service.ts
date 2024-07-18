@@ -19,7 +19,6 @@ import {
   TiptapCaption,
   TiptapDocument,
   TiptapParagraph,
-  TiptapText,
 } from './tiptap.interfaces';
 import { Partial, Word } from './tiptap.schema';
 
@@ -32,7 +31,6 @@ const EXTENSIONS = [
   Color,
   Word,
   Bold,
-  Color,
 ];
 @Injectable()
 export class TiptapService {
@@ -361,8 +359,24 @@ export class TiptapService {
   }
 
   wordsToTiptap(words: WordEntity[]): TiptapDocument {
-    const tiptapTexts: TiptapText[] = words.map((word) => {
-      return {
+    const tiptapDocument: TiptapDocument = {
+      type: 'doc',
+      content: [],
+    };
+    let tiptapParagraph: TiptapParagraph = {
+      type: 'paragraph',
+      content: [],
+    };
+
+    words.forEach((word, i) => {
+      if (word.startParagraph && i !== 0) {
+        tiptapDocument.content.push(tiptapParagraph);
+        tiptapParagraph = {
+          type: 'paragraph',
+          content: [],
+        };
+      }
+      tiptapParagraph.content.push({
         type: 'text',
         text: word.text,
         marks: [
@@ -371,17 +385,9 @@ export class TiptapService {
             attrs: { timestamp: word.start, confidence: word.confidence },
           },
         ],
-      };
+      });
     });
 
-    const tiptapParagraph: TiptapParagraph = {
-      type: 'paragraph',
-      content: tiptapTexts,
-    };
-    const tiptapDocument: TiptapDocument = {
-      type: 'doc',
-      content: [tiptapParagraph],
-    };
     return tiptapDocument;
   }
 

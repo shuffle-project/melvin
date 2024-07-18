@@ -103,13 +103,13 @@ export class WhisperSpeechService implements ISpeechToTextService {
     const words: WordEntity[] = [];
 
     transcriptEntity.transcript.segments.forEach((segment) => {
-      segment.words.forEach((word) => {
+      segment.words.forEach((word, i) => {
         words.push({
-          text: word.word.startsWith(' ') ? word.word.trimStart() : word.word,
+          text: word.word,
           start: word.start * 1000,
           end: word.end * 1000,
           confidence: word.probability,
-          startParagraph: false,
+          startParagraph: i === 0,
           speakerId: null,
         });
       });

@@ -91,21 +91,21 @@ export class TranscriptionService {
     const json: TiptapDocument = {
       type: 'doc',
       content: [
-        {
-          type: 'paragraph',
-          content: [
-            {
-              type: 'text',
-              marks: [
-                {
-                  type: 'word',
-                  attrs: {},
-                },
-              ],
-              text: 'This is your transcript!',
-            },
-          ],
-        },
+        // {
+        //   type: 'paragraph',
+        //   content: [
+        //     {
+        //       type: 'text',
+        //       marks: [
+        //         {
+        //           type: 'word',
+        //           attrs: {},
+        //         },
+        //       ],
+        //       text: 'This is your transcript!',
+        //     },
+        //   ],
+        // },
       ],
     };
 
