@@ -12,19 +12,97 @@ export const CustomParagraph = Paragraph.extend({
   },
 });
 
+// export const Highlight = Extension.create({
+//   name: 'highlight',
+//   addStorage() {
+//     return {
+//       currentTime: 0,
+//     };
+//   },
+
+//   // setCurrentTime: (currentTime: number) => {
+//   //   // @ts-ignore
+//   //   this.storage['currentTime'] = currentTime;
+//   // },
+
+//   addCommands(): any {
+//     return {
+//       setCurrentTime: (currentTime: number) => (test: any) => {
+//         this.storage.currentTime = currentTime;
+
+//         console.log(test);
+//         return test.commands.updateAttributes('word', { bold: true });
+//         // console.log(this.options, this.storage);
+//         // return this.options.types
+//         //   .map((type: any) =>
+//         //     test.commands.updateAttributes(type, { currentTime })
+//         //   )
+//         //   .every((response: any) => response);
+//       },
+//     };
+//   },
+
+//   addGlobalAttributes() {
+//     return [
+//       {
+//         // Extend the following extensions
+//         types: ['word'],
+//         // … with those attributes
+//         attributes: {
+//           currentTime: {
+//             default: 0,
+//             renderHTML: (attributes) => {
+//               console.log(this, attributes);
+//               if (
+//                 attributes['timestamp'] &&
+//                 attributes['timestamp'] < this.storage['currentTime']
+//               ) {
+//                 return { style: `font-weight: bold` };
+//               } else {
+//                 return {};
+//               }
+//             },
+//             // parseHTML: (element) => element.style.textAlign || 'left',
+//           },
+//         },
+//       },
+//     ];
+//   },
+// });
+
 export const Word = Mark.create({
   name: 'word',
   exitable: true,
   spanning: false,
+
+  // addStorage() {
+  //   return { currentTime: 0 };
+  // },
+  // setTime(time: number) {
+  //   this['storage'].currentTime = time;
+  // },
+
+  // addGlobalAttributes() {
+  //   return [{ attributes: {} }];
+  // },
 
   addAttributes() {
     return {
       timestamp: {
         default: undefined,
         renderHTML(attributes) {
-          return {
-            'data-timestamp': attributes['timestamp'],
-          };
+          const timestamp = attributes['timestamp'];
+          if (timestamp !== undefined) {
+            const timevalue = Math.floor(timestamp / 1000);
+            return {
+              'data-timestamp': attributes['timestamp'],
+              class: `time-${timevalue}`,
+            };
+          } else {
+            return {
+              'data-timestamp': attributes['timestamp'],
+            };
+          }
         },
       },
       modifiedAt: {
@@ -54,6 +132,31 @@ export const Word = Mark.create({
           };
         },
       },
+      // highlight: {
+      //   default: false,
+      //   renderHTML: (attributes) => {
+      //     return {
+      //       style: `font-weight: ${
+      //         attributes['highlight'] ? 'bold' : 'normal'
+      //       }`,
+      //     };
+      //   },
+      // },
+      // highlight: {
+      //   default: false,
+      //   renderHTML: (attributes) => {
+      //     console.log(this, attributes);
+      //     if (
+      //       attributes['timestamp'] &&
+      //       // @ts-ignore
+      //       attributes['timestamp'] < this['storage'].currentTime
+      //     ) {
+      //       return { style: 'font-weight: bold;' };
+      //     } else {
+      //       return {};
+      //     }
+      //   },
+      // },
     };
   },
 
@@ -74,6 +177,7 @@ export const Word = Mark.create({
   },
 
   renderHTML({ HTMLAttributes }) {
+    // console.log('renderHTML');
     return ['span', mergeAttributes(HTMLAttributes), 0];
   },
 });
@@ -222,3 +326,14 @@ export const UserExtension = Extension.create({
     ];
   },
 });
+
+// const CurrentTimeExtension = Extension.create({
+//   name: 'currentTimeExtension',
+
+//   addStorage() {
+//     return { currentTime: 0 };
+//   },
+//   setTime(time: number) {
+//     this['storage'].currentTime = time;
+//   },
+// });

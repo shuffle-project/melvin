@@ -383,6 +383,7 @@ export class TiptapService {
           {
             type: 'word',
             attrs: { timestamp: word.start, confidence: word.confidence },
+            // attrs: { start:word.start,end:word.end, confidence: word.confidence },
           },
         ],
       });

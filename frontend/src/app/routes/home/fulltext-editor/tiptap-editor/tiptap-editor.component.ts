@@ -33,6 +33,7 @@ import {
 } from 'rxjs';
 import { environment } from '../../../../../environments/environment';
 import { EditorUser } from '../../../../interfaces/editor-user.interface';
+import { MediaService } from '../../editor/services/media/media.service';
 import { CustomParagraph, Partial, UserExtension, Word } from './tiptap.schema';
 
 enum CLIENT_STATUS {
@@ -75,7 +76,9 @@ export class TiptapEditorComponent implements AfterViewInit, OnInit {
 
   shouldShow = false;
 
-  constructor() {}
+  public currentTime$ = this.mediaService.currentTime$;
+
+  constructor(private mediaService: MediaService) {}
 
   ngOnInit() {
     combineLatest([this.viewReady$, this.transcriptionId$])
@@ -93,6 +96,40 @@ export class TiptapEditorComponent implements AfterViewInit, OnInit {
         this.initConnection(transcriptionId);
         this.initEditor();
       });
+
+    this.currentTime$.pipe(takeUntil(this.destroy$$)).subscribe((time) => {
+      // @ts-ignore
+      // Highlight.setCurrentTime(time);
+      // Word.child?.storage.setTime(time);
+      // console.log('currentTime', time);
+      // this.checkForTimestamp();
+      // this.editor?.commands.setCurrentTime(time);
+      // this.updateTimestamp(time);
+
+      const timeValue = Math.floor(time / 1000);
+      for (let index = 0; index < document.styleSheets.length; index++) {
+        const styleSheet = document.styleSheets[index];
+
+        if (styleSheet.title === 'tiptap-timestamp') {
+          for (let index = 0; index < styleSheet.cssRules.length; index++) {
+            // const rule = element.cssRules[index];
+            styleSheet.deleteRule(index);
+          }
+
+          styleSheet.insertRule(`.time-${timeValue} { font-weight:bold; }`, 0);
+        }
+      }
+
+      //remove old classes
+      // for (const className of this.editorRef.nativeElement.classList) {
+      //   if (className.startsWith('time-')) {
+      //     console.log('remove class', className);
+      //     // this.editorRef.nativeElement.classList.remove(className);
+      //   }
+      // }
+      //add new class
+      // this.editorRef.nativeElement.classList.add(`time-${timeValue}`);
+    });
   }
 
   ngAfterViewInit() {
@@ -246,6 +283,8 @@ export class TiptapEditorComponent implements AfterViewInit, OnInit {
 
       this.editor.view.updateState(this.editor.view.state);
     }
+
+    console.log(this.editor);
   }
 
   destroyEditor() {
@@ -271,6 +310,69 @@ export class TiptapEditorComponent implements AfterViewInit, OnInit {
   toggleShouldShow() {
     this.shouldShow = !this.shouldShow;
   }
+
+  // updateTimestamp(currentTime: number) {
+  //   console.log('update timestamp');
+  //   const { state, view } = this.editor!;
+  //   const { doc, tr, schema } = state;
+
+  //   const activeElement = document.activeElement;
+  //   // Remove previous bold from all words
+  //   doc.descendants((node, pos) => {
+  //     if (node.isText) {
+  //       const { text, marks } = node;
+  //       marks.find((mark) => {
+  //         if (mark.type.name == 'bold') {
+  //           tr.removeMark(pos, pos + text!.length, schema.marks['bold']);
+  //         }
+  //       });
+  //     }
+  //   });
+  //   view.dispatch(tr);
+  //   // Add bold to all words with the timestamp
+  //   doc.descendants((node, pos) => {
+  //     if (node.isText) {
+  //       const { text, marks } = node;
+  //       marks.find((mark) => {
+  //         if (
+  //           mark.type.name == 'word' &&
+  //           mark.attrs['timestamp'] < currentTime
+  //         ) {
+  //           this.editor!.chain()
+  //             .focus()
+  //             .setTextSelection({ from: pos, to: pos + text!.length })
+  //             .setBold()
+  //             .run();
+  //           this.editor!.commands.selectTextblockEnd(); // <----
+  //         }
+  //       });
+  //     }
+  //   });
+
+  //   if (activeElement) {
+  //     // activeElement.focus();
+  //   }
+
+  //   // doc.descendants((node, pos) => {
+  //   //   console.log('doc.descendants', node, pos);
+  //   //   if (node.isText) {
+  //   //     for (const mark of node.marks) {
+  //   //       if (mark.type.name === 'word') {
+  //   //         console.log(node.attrs, currentTime);
+  //   //         const attrs = mark.attrs;
+  //   //         if (attrs['timestamp']) {
+  //   //           const highlighted = attrs['timestamp'] < currentTime;
+  //   //           if (highlighted !== attrs['highlight']) {
+  //   //             tr.setNodeAttribute(pos, 'highlight', highlighted);
+  //   //           }
+  //   //         }
+  //   //       }
+  //   //     }
+  //   //   }
+  //   // });
+
+  //   // view.dispatch(tr);
+  // }
 
   // checkForTimestamp(event: Event | null = null) {
   //   if (event) {
