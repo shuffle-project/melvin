@@ -7,12 +7,24 @@ export const Word = Mark.create({
 
   addAttributes() {
     return {
-      timestamp: {
+      // timestamp: {
+      //   default: undefined,
+      //   renderHTML(attributes) {
+      //     return {
+      //       'data-timestamp': attributes['timestamp'],
+      //     };
+      //   },
+      // },
+      start: {
         default: undefined,
         renderHTML(attributes) {
-          return {
-            'data-timestamp': attributes['timestamp'],
-          };
+          return { 'data-start': attributes['start'] };
+        },
+      },
+      end: {
+        default: undefined,
+        renderHTML(attributes) {
+          return { 'data-end': attributes['end'] };
         },
       },
       modifiedAt: {
@@ -43,7 +55,9 @@ export const Word = Mark.create({
         class: 'word',
         modifiedAt: 'data-modified-at',
         modifiedBy: 'data-modified-by',
-        timestamp: 'timestamp',
+        // timestamp: 'timestamp',
+        start: 'data-start',
+        end: 'data-end',
       },
     ];
   },

@@ -116,6 +116,12 @@ export class TiptapEditorComponent implements AfterViewInit, OnInit {
             styleSheet.deleteRule(index);
           }
 
+          // styleSheet.insertRule(
+          //   `.time-${timeValue - 1},.time-${timeValue},.time-${
+          //     timeValue + 1
+          //   } { font-weight:bold; }`,
+          //   0
+          // );
           styleSheet.insertRule(`.time-${timeValue} { font-weight:bold; }`, 0);
         }
       }

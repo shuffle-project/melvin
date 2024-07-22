@@ -89,6 +89,7 @@ export class TiptapService {
       const text_to_insert = text;
       // Create a transaction to insert text at the end
       tr = tr.insertText(text_to_insert, docNode.content.size);
+      //TODO dont use timestamp -> use start/end -> add types
       tr.addMark(
         docNode.content.size,
         docNode.content.size + text_to_insert.length + 1,
@@ -382,8 +383,12 @@ export class TiptapService {
         marks: [
           {
             type: 'word',
-            attrs: { timestamp: word.start, confidence: word.confidence },
-            // attrs: { start:word.start,end:word.end, confidence: word.confidence },
+            // attrs: { timestamp: word.start, confidence: word.confidence },
+            attrs: {
+              start: word.start,
+              end: word.end,
+              confidence: word.confidence,
+            },
           },
         ],
       });
@@ -416,8 +421,8 @@ export class TiptapService {
         const word = paragraph.content[i];
         words.push({
           text: word.text,
-          start: word.marks[0]?.attrs.timestamp,
-          end: word.marks[0]?.attrs.timestamp, // TODO
+          start: word.marks[0]?.attrs.start,
+          end: word.marks[0]?.attrs.end, // TODO
           startParagraph: i === 0,
           confidence: word.marks[0]?.attrs.confidence,
           speakerId: paragraph.speakerId || null,

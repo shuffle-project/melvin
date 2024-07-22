@@ -88,21 +88,33 @@ export const Word = Mark.create({
 
   addAttributes() {
     return {
-      timestamp: {
+      // timestamp: {
+      //   default: undefined,
+      //   renderHTML(attributes) {
+      //     const timestamp = attributes['timestamp'];
+      //     if (timestamp !== undefined) {
+      //       const timevalue = Math.floor(timestamp / 1000);
+      //       return {
+      //         'data-timestamp': attributes['timestamp'],
+      //         class: `time-${timevalue}`,
+      //       };
+      //     } else {
+      //       return {
+      //         'data-timestamp': attributes['timestamp'],
+      //       };
+      //     }
+      //   },
+      // },
+      start: {
         default: undefined,
         renderHTML(attributes) {
-          const timestamp = attributes['timestamp'];
-          if (timestamp !== undefined) {
-            const timevalue = Math.floor(timestamp / 1000);
-            return {
-              'data-timestamp': attributes['timestamp'],
-              class: `time-${timevalue}`,
-            };
-          } else {
-            return {
-              'data-timestamp': attributes['timestamp'],
-            };
-          }
+          return { 'data-start': attributes['start'] };
+        },
+      },
+      end: {
+        default: undefined,
+        renderHTML(attributes) {
+          return { 'data-end': attributes['end'] };
         },
       },
       modifiedAt: {
@@ -161,7 +173,6 @@ export const Word = Mark.create({
   },
 
   parseHTML(): any {
-    console.log('parseHTML');
     return [
       {
         tag: 'span',
@@ -170,15 +181,32 @@ export const Word = Mark.create({
         class: 'word',
         modifiedAt: 'data-modified-at',
         modifiedBy: 'data-modified-by',
-        timestamp: 'data-timestamp',
+        start: 'data-start',
+        end: 'data-end',
         color: 'color',
       },
     ];
   },
 
   renderHTML({ HTMLAttributes }) {
-    // console.log('renderHTML');
-    return ['span', mergeAttributes(HTMLAttributes), 0];
+    if (HTMLAttributes['data-start'] !== undefined) {
+      let start = Math.floor(HTMLAttributes['data-start'] / 1000);
+      const end =
+        HTMLAttributes['data-end'] !== undefined
+          ? Math.floor(HTMLAttributes['data-end'] / 1000)
+          : start;
+
+      const classes: string[] = [];
+      while (start <= end) {
+        classes.push(`time-${start}`);
+        start++;
+      }
+
+      HTMLAttributes = mergeAttributes(HTMLAttributes, {
+        class: classes.join(' '),
+      });
+    }
+    return ['span', HTMLAttributes, 0];
   },
 });
 

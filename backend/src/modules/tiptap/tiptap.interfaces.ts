@@ -3,7 +3,9 @@ export interface TiptapWord {
   attrs: {
     modifiedAt?: string;
     modifiedBy?: string;
-    timestamp?: number;
+    // timestamp?: number;
+    start?: number;
+    end?: number;
     confidence?: number;
   };
 }
