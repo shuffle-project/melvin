@@ -112,5 +112,20 @@ export const updateProjectFromLiveControls = createAction(
 );
 
 // invite
-
 // TODO move invite.component.ts lines > 74 to store
+
+// leave or remove
+export const removeUserFromProject = createAction(
+  '[PROJECT LIST COMPONENT] Leave Project',
+  props<{ userId: string; projectId: string }>()
+);
+
+export const removeUserFromProjectSuccess = createAction(
+  '[PROJECT API] Leave project success',
+  props<{ projectId: string }>()
+);
+
+export const removeUserFromProjectFail = createAction(
+  '[PROJECT API] Leave project fail',
+  props<{ error: HttpErrorResponse }>()
+);

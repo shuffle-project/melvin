@@ -139,6 +139,10 @@ export abstract class ApiService {
   ): Observable<HttpEvent<ProjectEntity>>;
 
   abstract invite(projectId: string, emails: string[]): Observable<void>;
+  abstract removeUserFromProject(
+    projectId: string,
+    userId: string
+  ): Observable<void>;
 
   abstract getProjectInviteToken(
     projectId: string

@@ -1,4 +1,10 @@
-import { HttpClient, HttpContext, HttpEvent, HttpHeaders, HttpParams } from '@angular/common/http';
+import {
+  HttpClient,
+  HttpContext,
+  HttpEvent,
+  HttpHeaders,
+  HttpParams,
+} from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
@@ -376,6 +382,10 @@ export class RealApiService implements ApiService {
 
   invite(projectId: string, emails: string[]): Observable<void> {
     return this._post<void>(`/projects/${projectId}/invite`, { emails });
+  }
+
+  removeUserFromProject(projectId: string, userId: string): Observable<void> {
+    return this._delete<void>(`/projects/${projectId}/users/${userId}`);
   }
 
   getProjectViewerToken(

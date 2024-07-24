@@ -2,6 +2,8 @@
 <mat-spinner strokeWidth="2" diameter="20" color="primary" />
 } @if (!isLoading) {
 <div class="mat-tab-content">
+  @if(data$ | ngrxPush; as data) { @if (data.authUser?.id ===
+  data.project.createdBy.id) {
   <form #addMemberForm class="add-member-form">
     <mat-form-field>
       <mat-label i18n="@@dialogProjectShareAddMemberLabel"
@@ -19,19 +21,20 @@
       </mat-hint>
       @if (userControl.touched && userControl.dirty) {
       <mat-error>
-        @if (userControl.hasError('required')) { Email is required } @if
-        (userControl.hasError('email')) { Email is invalid }
+        @if (userControl.hasError('required')) { Email is required }
+        @if(userControl.hasError('email')) { Email is invalid }
+        @if(userControl.hasError('duplication')) { User already added }
       </mat-error>
       }
       <mat-autocomplete
         #auto="matAutocomplete"
         (optionSelected)="onAddMemberThroughSelect($event)"
       >
-        @for (user of users; track user) {
-        <mat-option [value]="user">
-          <span class="user-name">{{ user.name }}</span>
+        @for (autoCompleteUser of autoCompleteUsers; track autoCompleteUser) {
+        <mat-option [value]="autoCompleteUser">
+          <span class="user-name">{{ autoCompleteUser.name }}</span>
           <br />
-          <span class="user-email">{{ user.email }}</span>
+          <span class="user-email">{{ autoCompleteUser.email }}</span>
         </mat-option>
         }
       </mat-autocomplete>
@@ -40,45 +43,115 @@
       Invite
     </button>
   </form>
+  }
+  <h2 i18n="@@dialogProjectShareHeadingAllMembers">People with access</h2>
 
-  <h2>Personen mit Zugriff</h2>
-  <ul aria-label="Personen mit Zugriff">
-    <!-- @for (item of items; track $index) {
-        <li></li>
-      } -->
-  </ul>
-  <h2>Allgemeiner Zugriff</h2>
-  <div class="flex flex-col">
-    <p i18n="@@shareProjectInviteLinkWarningText">
-      <b>Any person</b> who has this link can join the project
-      <b>registered or anonymously</b>.
-    </p>
-    <div class="flex">
-      <input matInput [value]="inviteLink" class="link" readonly />
-      <div>
+  <ul aria-label="People with access" class="access-list">
+    @for (user of data.project.users; track user) {
+    <li class="collaborator">
+      <div class="info">
+        <app-avatar [user]="user" />
+        <div class="name-email">
+          <span
+            >{{ user.name }}
+            @if (data.authUser?.id === user.id) {
+            <span i18n="@@dialogProjectShareUserWithAccessYouIndicator"
+              >(You)</span
+            >
+            }
+          </span>
+          <span> {{ user.email }}</span>
+        </div>
+      </div>
+      <div class="part-in-project">
+        @if (user.id === data.project.createdBy.id) {
+        <span i18n="@@dialogProjectShareUserWithAccessOwnerInfo"
+          >Project Owner</span
+        >
+        } @else if (data.authUser?.id === data.project.createdBy.id) {
         <button
-          mat-button
+          mat-stroked-button
+          i18n="@@dialogProjectShareUserWithAccessRemoveButton"
+          (click)="removeUserFromProject(user)"
+        >
+          Remove
+        </button>
+        }
+      </div>
+    </li>
+    }
+  </ul>
+
+  <!-- <ul aria-label="Personen mit Zugriff" class="access-list">
+    @for (projectUser of project.users; track projectUser) {
+    <li class="collaborator">
+      <div class="info">
+        <app-avatar [user]="projectUser" />
+        <div class="name-email">
+          <span
+            >{{ projectUser.name }}
+            @if( authUser$| ngrxPush; as authUser) { @if (authUser.id ===
+            projectUser.id) {
+            <span i18n="@@dialogProjectShareUserWithAccessYouIndicator"
+              >(You)</span
+            >
+            }}
+          </span>
+          <span> {{ projectUser.email }}</span>
+        </div>
+      </div>
+      <div class="part-in-project">
+        @if (projectUser.id === project.createdBy.id) {
+        <span i18n="@@dialogProjectShareUserWithAccessOwnerInfo"
+          >Project Owner</span
+        >
+        } @else {
+        <button
+          mat-stroked-button
+          i18n="@@dialogProjectShareUserWithAccessRemoveButton"
+          (click)="removeUserFromProject(projectUser)"
+        >
+          Remove
+        </button>
+        }
+      </div>
+    </li>
+
+    }
+  </ul> -->
+  <div class="general-access">
+    <h2 i18n="@@dialogProjectShareHeadingGeneralAccess">General Access</h2>
+    <div class="flex flex-col">
+      <p i18n="@@shareProjectInviteLinkWarningText">
+        Any person who has this link can join the project registered or
+        anonymously.
+      </p>
+      <div class="general-access-buttons">
+        <button
           (click)="onClickCopyLink(inviteLink)"
           color="primary"
-          i18n="@@shareProjectCopyLinkLabel"
+          i18n="@@dialogProjectShareShareLinkButton"
+          class="copy-button"
+          matRipple
         >
+          <mat-icon svgIcon="public" />
           Copy link
         </button>
+
+        @if (data.authUser?.id === data.project.createdBy.id) {
+        <button
+          (click)="onClickUpdateInvite()"
+          i18n="@@dialogProjectShareGenerateNewLinkButton"
+          class="generate-button"
+          matRipple
+        >
+          <mat-icon svgIcon="change" />
+          Generate new link, revoke old one
+        </button>
+        }
       </div>
     </div>
-    <div style="margin-top: 40px">
-      <p i18n="@@shareProjectGenerateNewLinkForProjectMessage">
-        If you want to <b>revoke access</b> for the current link, you can
-        generate a new link:
-      </p>
-      <button
-        mat-button
-        (click)="onClickUpdateInvite()"
-        i18n="@@shareProjectChangeAccessLinkButtonLabel"
-      >
-        Change access link
-      </button>
-    </div>
   </div>
+  }
 </div>
 }

@@ -21,29 +21,36 @@ import {
   MatAutocompleteSelectedEvent,
 } from '@angular/material/autocomplete';
 import { MatButtonModule } from '@angular/material/button';
+import { MatRippleModule } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { PushPipe } from '@ngrx/component';
+import { Store } from '@ngrx/store';
 import {
+  Observable,
   Subject,
+  combineLatest,
   debounceTime,
   distinctUntilChanged,
   iif,
   lastValueFrom,
   map,
+  mergeMap,
   of,
   switchMap,
   takeUntil,
 } from 'rxjs';
-import {
-  MemberEntry,
-  MemberEntryType,
-} from 'src/app/constants/member.constants';
+import { AvatarComponent } from 'src/app/components/avatar-group/avatar/avatar.component';
+import { AuthUser } from 'src/app/interfaces/auth.interfaces';
 import { AlertService } from 'src/app/services/alert/alert.service';
 import { ApiService } from 'src/app/services/api/api.service';
 import { ProjectEntity } from 'src/app/services/api/entities/project.entity';
 import { UserEntity } from 'src/app/services/api/entities/user.entity';
 import { environment } from 'src/environments/environment';
+import * as authSelectors from '../../../../store/selectors/auth.selector';
+import * as projectSelectors from '../../../../store/selectors/projects.selector';
 
 @Component({
   selector: 'app-invite-collaborators-tab',
@@ -56,6 +63,10 @@ import { environment } from 'src/environments/environment';
     MatProgressSpinnerModule,
     MatButtonModule,
     MatInputModule,
+    AvatarComponent,
+    PushPipe,
+    MatIconModule,
+    MatRippleModule,
   ],
   templateUrl: './invite-collaborators-tab.component.html',
   styleUrl: './invite-collaborators-tab.component.scss',
@@ -65,8 +76,12 @@ export class InviteCollaboratorsTabComponent implements OnInit, OnDestroy {
   public error!: string | null;
   public inviteToken!: string;
   private destroy$$ = new Subject<void>();
+  authUser$!: Observable<AuthUser | null>;
+  project$!: Observable<ProjectEntity>;
+  project!: ProjectEntity;
+  data$!: Observable<{ authUser: AuthUser | null; project: ProjectEntity }>;
 
-  @Input({ required: true }) project!: ProjectEntity;
+  @Input({ required: true }) projectId!: string;
 
   @ViewChild('addMemberForm') addMemberForm!: NgForm;
 
@@ -75,7 +90,7 @@ export class InviteCollaboratorsTabComponent implements OnInit, OnDestroy {
 
   @ViewChild('inviteResult') inviteResult!: ElementRef<HTMLElement>;
 
-  users: readonly UserEntity[] = [];
+  autoCompleteUsers: readonly UserEntity[] = [];
   userControl = new FormControl('', {
     nonNullable: true,
     validators: [Validators.required, Validators.email],
@@ -85,21 +100,41 @@ export class InviteCollaboratorsTabComponent implements OnInit, OnDestroy {
   constructor(
     private apiService: ApiService,
     private alertService: AlertService,
-    private api: ApiService,
-    private clipboard: Clipboard
-  ) {}
+    private clipboard: Clipboard,
+    private store: Store
+  ) {
+    this.authUser$ = this.store.select(authSelectors.selectUser);
+  }
 
   get inviteLink(): string {
     return `${environment.frontendBaseUrl}/invite/${this.inviteToken}`;
   }
 
   async ngOnInit(): Promise<void> {
+    this.project$ = this.store
+      .select(projectSelectors.selectAllProjects)
+      .pipe(
+        mergeMap((projects) =>
+          projects.filter((project) => project.id === this.projectId)
+        )
+      );
+
+    this.project$.pipe(takeUntil(this.destroy$$)).subscribe((project) => {
+      this.project = project;
+    });
+
+    this.data$ = combineLatest({
+      authUser: this.authUser$,
+      project: this.project$,
+    });
+
     this.isLoading = true;
     this.error = null;
+
     try {
       this.inviteToken = await lastValueFrom(
         this.apiService
-          .getProjectInviteToken(this.project.id)
+          .getProjectInviteToken(this.projectId)
           .pipe(map((o) => o.inviteToken))
       );
     } catch (err: unknown) {
@@ -119,30 +154,30 @@ export class InviteCollaboratorsTabComponent implements OnInit, OnDestroy {
         switchMap((search) =>
           iif(
             () => search.length !== 0,
-            this.api.findAllUsers(search),
-            of(search)
-            // this Observable is completely unnecessary
-            // the docs say that it shoud work without, but it doesn't
-            // https://www.learnrxjs.io/learn-rxjs/operators/conditional/iif
+            this.apiService.findAllUsers(search),
+            of([] as UserEntity[])
           )
         )
       )
       .subscribe((users) => {
-        if (users) {
-          this.users = users as UserEntity[];
-        } else {
-          this.users = [];
-        }
+        this.autoCompleteUsers = users;
       });
   }
 
   async inviteMember() {
+    this.project.users.forEach((user) => {
+      if (user.email === this.userControl.value) {
+        this.userControl.setErrors({ duplication: true });
+      }
+    });
+
     if (!this.userControl.valid) {
       this.userControl.markAsDirty();
       this.userControl.markAllAsTouched();
     } else {
+      // TODO: handle error
       const res = await lastValueFrom(
-        this.api.invite(this.project.id, [this.userControl.value])
+        this.apiService.invite(this.projectId, [this.userControl.value])
       );
 
       this.alertService.success(this.userControl.value + ' invited.');
@@ -164,24 +199,16 @@ export class InviteCollaboratorsTabComponent implements OnInit, OnDestroy {
     try {
       this.inviteToken = await lastValueFrom(
         this.apiService
-          .updateProjectInviteToken(this.project.id)
+          .updateProjectInviteToken(this.projectId)
           .pipe(map((o) => o.inviteToken))
       );
+      this.alertService.success(
+        $localize`:@@inviteCollaboratorNewLinkSuccess:New link generated`
+      );
     } catch (err: unknown) {
+      //TODO handle error
       console.error(err);
     }
-  }
-
-  onDisplayMember(memberEntry: MemberEntry) {
-    return memberEntry.type === MemberEntryType.USER
-      ? memberEntry.user?.name
-      : memberEntry.unknownEmail;
-  }
-
-  getEmail(memberEntry: MemberEntry) {
-    return memberEntry.type === MemberEntryType.USER
-      ? memberEntry.user?.email
-      : memberEntry.unknownEmail;
   }
 
   async ngOnDestroy(): Promise<void> {
@@ -191,7 +218,18 @@ export class InviteCollaboratorsTabComponent implements OnInit, OnDestroy {
   onClickCopyLink(link: string) {
     this.clipboard.copy(link);
     this.alertService.success(
-      $localize`:@@shareProjectLinkCopiedMessage:Link copied`
+      $localize`:@@inviteCollaboratorCopyLinkSuccess:Link copied`
     );
+  }
+
+  async removeUserFromProject(collaborator: UserEntity) {
+    try {
+      await lastValueFrom(
+        this.apiService.removeUserFromProject(this.projectId, collaborator.id)
+      );
+    } catch (err: unknown) {
+      // TODO handle error
+      this.error = (err as HttpErrorResponse).message;
+    }
   }
 }

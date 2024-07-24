@@ -206,6 +206,11 @@ export class FakeApiService implements ApiService {
     return of();
   }
 
+  removeUserFromProject(projectId: string, userId: string): Observable<void> {
+    this.logger.verbose('remove collaborator mocked');
+    return of();
+  }
+
   getProjectInviteToken(
     projectId: string
   ): Observable<ProjectInviteTokenEntity> {

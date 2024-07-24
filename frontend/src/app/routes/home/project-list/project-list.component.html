@@ -259,7 +259,7 @@
               ? 'var(--color-background-grey)'
               : 'var(--color-white)'
           "
-        ></app-avatar-group>
+        />
       </td>
     </ng-container>
     <!-- Player column -->
@@ -391,8 +391,8 @@
           <mat-icon svgIcon="viewer"></mat-icon>
           Viewer
         </button> -->
+        <mat-divider />
         @if (element.createdBy.id === (userId$ | ngrxPush)) {
-        <mat-divider></mat-divider>
         <button
           (click)="onDeleteProject(element)"
           mat-menu-item
@@ -400,6 +400,15 @@
         >
           <mat-icon svgIcon="delete"></mat-icon>
           Delete
+        </button>
+        } @else {
+        <button
+          (click)="onLeaveProject(element)"
+          mat-menu-item
+          i18n="@@projectListMoreMenuLeaveLabel"
+        >
+          <mat-icon svgIcon="leave"></mat-icon>
+          Leave
         </button>
         }
       </ng-template>

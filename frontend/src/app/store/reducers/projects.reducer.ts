@@ -77,6 +77,11 @@ export const projectsReducer = createReducer(
     }),
   })),
 
+  on(projectsActions.removeUserFromProjectSuccess, (state, { projectId }) => ({
+    ...state,
+    projectsList: state.projectsList.filter((item) => item.id !== projectId),
+  })),
+
   // selected Project functions --> no longer needed because the selected project id is in the url
   // on(fromProjectDetailActions.selectProject, (state, { projectId }) => ({
   //   ...state,

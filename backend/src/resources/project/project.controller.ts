@@ -250,4 +250,15 @@ export class ProjectController {
   ): Promise<ProjectMediaEntity> {
     return this.projectService.getMediaEntity(authUser, id);
   }
+
+  @UseGuards(JwtAuthGuard)
+  @Delete(':id/users/:userId')
+  @ApiResponse({ status: HttpStatus.NO_CONTENT })
+  removeCollaborator(
+    @User() authUser: AuthUser,
+    @Param('id', IsValidObjectIdPipe) id: string,
+    @Param('userId', IsValidObjectIdPipe) userId: string,
+  ): Promise<void> {
+    return this.projectService.removeUserFromProject(authUser, id, userId);
+  }
 }

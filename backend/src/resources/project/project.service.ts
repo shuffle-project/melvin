@@ -594,6 +594,52 @@ export class ProjectService {
         missingEmails,
       );
     }
+
+    const updatedProject = await this.db.findProjectByIdOrThrow(id);
+
+    // Entity
+    const entity = plainToInstance(ProjectEntity, updatedProject);
+
+    await this.events.projectUpdated(entity);
+  }
+
+  async removeUserFromProject(
+    authUser: AuthUser,
+    projectId: string,
+    userId: string,
+  ) {
+    const project = await this.db.findProjectByIdOrThrow(projectId);
+
+    // NOT allowed to remove project owner
+    if (isSameObjectId(userId, project.createdBy)) {
+      throw new CustomForbiddenException('cannot_remove_owner');
+    }
+
+    // ALLOWED to remove yourself from project as a user or as project owner
+    if (
+      isSameObjectId(userId, authUser.id) ||
+      this.permissions.isProjectOwner(project, authUser)
+    ) {
+      const updatedUserList = project.users.filter(
+        (user) => !isSameObjectId(user._id, userId),
+      );
+
+      await this.db.userModel.findByIdAndUpdate(userId, {
+        $pullAll: { projects: [project._id] },
+      });
+
+      const updatedProject = await this.db.updateProjectByIdAndReturn(
+        projectId,
+        {
+          $set: { users: updatedUserList },
+        },
+      );
+
+      const entity = plainToInstance(ProjectEntity, updatedProject);
+      await this.events.projectUpdated(entity);
+    } else {
+      throw new CustomForbiddenException('must_be_owner');
+    }
   }
 
   async getViewerToken(

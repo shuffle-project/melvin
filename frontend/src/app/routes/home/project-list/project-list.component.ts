@@ -59,7 +59,7 @@ import {
 import * as projectsActions from '../../../store/actions/projects.actions';
 import * as authSelectors from '../../../store/selectors/auth.selector';
 import * as projectsSelectors from '../../../store/selectors/projects.selector';
-import { DialogCreateProjectComponent } from './dialog-create-project/dialog-create-project.component';
+import { DialogCreateProjectComponent } from './dialog-create-project/dialog-create-project/dialog-create-project.component';
 
 @Component({
   selector: 'app-project-list',
@@ -217,6 +217,10 @@ export class ProjectListComponent implements OnInit, AfterViewInit, OnDestroy {
 
   onDeleteProject(project: ProjectEntity) {
     this.deleteService.deleteProject(project);
+  }
+
+  onLeaveProject(project: ProjectEntity) {
+    this.deleteService.leaveProject(project);
   }
 
   ngOnDestroy(): void {
