@@ -1,7 +1,9 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable, OnDestroy } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
-import { Subject, take, takeUntil } from 'rxjs';
+import { lastValueFrom, Subject, take, takeUntil } from 'rxjs';
+import { ApiService } from 'src/app/services/api/api.service';
 import { CaptionEntity } from 'src/app/services/api/entities/caption.entity';
 import { TranscriptionEntity } from 'src/app/services/api/entities/transcription.entity';
 import { ProjectEntity } from '../../services/api/entities/project.entity';
@@ -33,7 +35,11 @@ export class DeleteConfirmationService implements OnDestroy {
   userId!: string | null;
   private destroy$$ = new Subject<void>();
 
-  constructor(private dialog: MatDialog, private store: Store<AppState>) {
+  constructor(
+    private dialog: MatDialog,
+    private store: Store<AppState>,
+    private apiService: ApiService
+  ) {
     this.store
       .select(authSelectors.selectUserId)
       .pipe(takeUntil(this.destroy$$))
@@ -88,14 +94,16 @@ export class DeleteConfirmationService implements OnDestroy {
         description: project.title,
         type: 'leave',
       },
-      () => {
+      async () => {
         if (this.userId !== null) {
-          this.store.dispatch(
-            projectsActions.removeUserFromProject({
-              projectId: project.id,
-              userId: this.userId,
-            })
-          );
+          try {
+            await lastValueFrom(
+              this.apiService.removeUserFromProject(project.id, this.userId)
+            );
+          } catch (err: unknown) {
+            // TODO handle error
+            const error = (err as HttpErrorResponse).message;
+          }
         }
       }
     );

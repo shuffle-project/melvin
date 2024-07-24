@@ -94,24 +94,6 @@ export class ProjectEffects {
     )
   );
 
-  leaveProject$ = createEffect(() =>
-    this.actions$.pipe(
-      ofType(projectsActions.removeUserFromProject),
-      switchMap((action) =>
-        this.api.removeUserFromProject(action.projectId, action.userId).pipe(
-          map(() =>
-            projectsActions.removeUserFromProjectSuccess({
-              projectId: action.projectId,
-            })
-          ),
-          catchError((errorRes) =>
-            of(projectsActions.removeUserFromProjectFail({ error: errorRes }))
-          )
-        )
-      )
-    )
-  );
-
   notifyOnError$ = createEffect(
     () =>
       this.actions$.pipe(
@@ -119,8 +101,7 @@ export class ProjectEffects {
           projectsActions.findAllFail,
           projectsActions.removeFail,
           projectsActions.updateFail,
-          projectsActions.findOneFail,
-          projectsActions.removeUserFromProjectFail
+          projectsActions.findOneFail
         ),
         tap((action) =>
           this.alert.error(action.error.error?.message || action.error.message)

@@ -49,6 +49,7 @@ import { ApiService } from 'src/app/services/api/api.service';
 import { ProjectEntity } from 'src/app/services/api/entities/project.entity';
 import { UserEntity } from 'src/app/services/api/entities/user.entity';
 import { environment } from 'src/environments/environment';
+// import * as projectsActions from '../../../../store/actions/projects.actions';
 import * as authSelectors from '../../../../store/selectors/auth.selector';
 import * as projectSelectors from '../../../../store/selectors/projects.selector';
 
@@ -222,10 +223,17 @@ export class InviteCollaboratorsTabComponent implements OnInit, OnDestroy {
     );
   }
 
-  async removeUserFromProject(collaborator: UserEntity) {
+  async removeUserFromProject(user: UserEntity) {
+    // this.store.dispatch(
+    //   projectsActions.removeUserFromProject({
+    //     projectId: this.project.id,
+    //     userId: user.id,
+    //   })
+    // );
+
     try {
       await lastValueFrom(
-        this.apiService.removeUserFromProject(this.projectId, collaborator.id)
+        this.apiService.removeUserFromProject(this.projectId, user.id)
       );
     } catch (err: unknown) {
       // TODO handle error

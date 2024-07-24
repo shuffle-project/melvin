@@ -77,11 +77,6 @@ export const projectsReducer = createReducer(
     }),
   })),
 
-  on(projectsActions.removeUserFromProjectSuccess, (state, { projectId }) => ({
-    ...state,
-    projectsList: state.projectsList.filter((item) => item.id !== projectId),
-  })),
-
   // selected Project functions --> no longer needed because the selected project id is in the url
   // on(fromProjectDetailActions.selectProject, (state, { projectId }) => ({
   //   ...state,
@@ -115,10 +110,22 @@ export const projectsReducer = createReducer(
     }
   ),
 
-  on(projectsActions.updateFromWS, (state, { updatedProject }) => {
+  on(projectsActions.updateFromWS, (state, { updatedProject, authUserId }) => {
+    const userStillPartOfProject = updatedProject.users.find(
+      (user) => user.id === authUserId
+    );
+
+    let projectsList = state.projectsList;
+
+    if (!userStillPartOfProject) {
+      projectsList = projectsList.filter(
+        (item) => item.id !== updatedProject.id
+      );
+    }
+
     return {
       ...state,
-      projectsList: state.projectsList.map((item) => {
+      projectsList: projectsList.map((item) => {
         if (item.id !== updatedProject.id) {
           return item;
         }

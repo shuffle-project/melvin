@@ -92,10 +92,16 @@ export class WSService {
       );
     });
 
-    this.socket.on('project:updated', (data) => {
+    this.socket.on('project:updated', async (data) => {
+      const authUserId = await firstValueFrom(
+        this.store.select(authSelectors.selectUserId)
+      );
       this.logger.verbose('project:updated', data);
       this.store.dispatch(
-        projectActions.updateFromWS({ updatedProject: data.project })
+        projectActions.updateFromWS({
+          updatedProject: data.project,
+          authUserId: authUserId!,
+        })
       );
     });
 

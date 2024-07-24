@@ -636,7 +636,7 @@ export class ProjectService {
       );
 
       const entity = plainToInstance(ProjectEntity, updatedProject);
-      await this.events.projectUpdated(entity);
+      await this.events.projectUpdated(entity, [userId]);
     } else {
       throw new CustomForbiddenException('must_be_owner');
     }

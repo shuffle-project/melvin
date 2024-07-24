@@ -290,8 +290,14 @@ export class EventsGateway implements OnGatewayConnection {
     });
   }
 
-  async projectUpdated(project: ProjectEntity) {
-    const users = project.users.map((o) => getObjectIdAsString(o));
+  async projectUpdated(
+    project: ProjectEntity,
+    notifyRemovedUsers: string[] = [],
+  ) {
+    const users = [
+      ...project.users.map((o) => getObjectIdAsString(o)),
+      ...notifyRemovedUsers,
+    ];
     const rooms = this._getUserRooms(users);
     this._broadcast(rooms, 'project:updated', {
       project: instanceToPlain(project) as ProjectEntity,
