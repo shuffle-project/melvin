@@ -59,30 +59,6 @@
       <trans-unit id="headerMenuLogoutButton" datatype="html">
         <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="Logout"/>Logout </source>
       </trans-unit>
-      <trans-unit id="shareProjectWithPeopleHeader" datatype="html">
-        <source>Share with people</source>
-      </trans-unit>
-      <trans-unit id="shareProjectAddMemberLabel" datatype="html">
-        <source>Add team member</source>
-      </trans-unit>
-      <trans-unit id="shareProjectRetrieveLinkHeader" datatype="html">
-        <source>Retrieve link</source>
-      </trans-unit>
-      <trans-unit id="shareProjectInviteLinkWarningText" datatype="html">
-        <source><x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b&gt;"/>Any person<x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b&gt;"/> who has this link can join the project <x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b&gt;"/>registered or anonymously<x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b&gt;"/>. </source>
-      </trans-unit>
-      <trans-unit id="shareProjectCopyLinkLabel" datatype="html">
-        <source> Copy link </source>
-      </trans-unit>
-      <trans-unit id="shareProjectGenerateNewLinkForProjectMessage" datatype="html">
-        <source> If you want to <x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b&gt;"/>revoke access<x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b&gt;"/> for the current link, you can generate a new link: </source>
-      </trans-unit>
-      <trans-unit id="shareProjectChangeAccessLinkButtonLabel" datatype="html">
-        <source> Change access link </source>
-      </trans-unit>
-      <trans-unit id="shareProjectDoneButtonLabel" datatype="html">
-        <source> Done </source>
-      </trans-unit>
       <trans-unit id="shareProjectLinkCopiedMessage" datatype="html">
         <source>Link copied</source>
       </trans-unit>
@@ -132,7 +108,7 @@
         <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="Edit"/> Edit </source>
       </trans-unit>
       <trans-unit id="transcriptionOpenTranscriptionButton" datatype="html">
-        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="Open"/> Open </source>
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="n&gt; &lt;button"/> Open </source>
       </trans-unit>
       <trans-unit id="transcriptionMenuFileDownloadLabel" datatype="html">
         <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="Downl"/> Download </source>
@@ -146,13 +122,10 @@
       <trans-unit id="projectTranscriptionAddButtonBottom" datatype="html">
         <source>Transcription</source>
       </trans-unit>
-      <trans-unit id="projectDetailTabMenuGeneral" datatype="html">
-        <source>General</source>
+      <trans-unit id="dialogProjectTranscriptionSubheading" datatype="html">
+        <source>Transcriptions</source>
       </trans-unit>
-      <trans-unit id="projectDetailTabMenuTranscription" datatype="html">
-        <source>Transcription</source>
-      </trans-unit>
-      <trans-unit id="projectDetailTabMenuActivity" datatype="html">
+      <trans-unit id="dialogProjectActivitySubheading" datatype="html">
         <source>Activity</source>
       </trans-unit>
       <trans-unit id="projectStatusDraft" datatype="html">
@@ -326,9 +299,6 @@
       <trans-unit id="editorMenuFileLabel" datatype="html">
         <source> File </source>
       </trans-unit>
-      <trans-unit id="editorMenuFileEditLabel" datatype="html">
-        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="E"/> Edit </source>
-      </trans-unit>
       <trans-unit id="editorMenuFileDownloadLabel" datatype="html">
         <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="D"/> Download </source>
       </trans-unit>
@@ -377,140 +347,11 @@
       <trans-unit id="notificationListYesterdayLabel" datatype="html">
         <source>[Yesterday]</source>
       </trans-unit>
-      <trans-unit id="asrFormFieldsetLegend" datatype="html">
-        <source>Generate automatic subtitles</source>
-      </trans-unit>
-      <trans-unit id="asrFormVendorLabel" datatype="html">
-        <source>Vendor</source>
-      </trans-unit>
-      <trans-unit id="asrFormVendorError" datatype="html">
-        <source> Please select an ASR vendor </source>
-      </trans-unit>
-      <trans-unit id="asrFormLanguageLabel" datatype="html">
-        <source>Language</source>
-      </trans-unit>
-      <trans-unit id="asrFormLanguageError" datatype="html">
-        <source> Please select a language </source>
-      </trans-unit>
-      <trans-unit id="asrFormLanguageHint" datatype="html">
-        <source>The available languages are vendor dependent</source>
-      </trans-unit>
-      <trans-unit id="asrFormDisabledInfoText" datatype="html">
-        <source> Automatic subtitle generation is disabled due to already uploaded subtitle files </source>
-      </trans-unit>
-      <trans-unit id="liveFormFieldsetLegend" datatype="html">
-        <source>Livestream settings</source>
-      </trans-unit>
-      <trans-unit id="liveFormLanguageInputLabel" datatype="html">
-        <source>Language</source>
-      </trans-unit>
-      <trans-unit id="liveFormLanguageInputError" datatype="html">
-        <source>Please select a language</source>
-      </trans-unit>
-      <trans-unit id="liveFormDifferentLanguagesInfo" datatype="html">
-        <source>The specified language of the video/audio file is different from the language used for automatic subtitle generation. Are you sure you want to proceed?</source>
-      </trans-unit>
-      <trans-unit id="metadaFormGeneralFieldsetLabel" datatype="html">
-        <source>General Info</source>
-      </trans-unit>
-      <trans-unit id="metadataFormTitleInputLabel" datatype="html">
-        <source>Titel</source>
-      </trans-unit>
-      <trans-unit id="metadataFormTitleInputError" datatype="html">
-        <source>Please add a title</source>
-      </trans-unit>
-      <trans-unit id="metadataFormAddMemberLabel" datatype="html">
-        <source>Add team members</source>
-      </trans-unit>
-      <trans-unit id="metadataFormAddMemberError" datatype="html">
-        <source> User unknown or e-mail address invalid</source>
-      </trans-unit>
-      <trans-unit id="metadataFormAddMemberHint" datatype="html">
-        <source>Enter the email addresses of your team members. Addresses that are not linked to an account will be invited to the project via email. </source>
-      </trans-unit>
-      <trans-unit id="overviewFormTitleHeader" datatype="html">
-        <source>Title</source>
-      </trans-unit>
-      <trans-unit id="overviewFormMembersHeader" datatype="html">
-        <source> Teammembers </source>
-      </trans-unit>
-      <trans-unit id="overviewFormFilesHeader" datatype="html">
-        <source>Files</source>
-      </trans-unit>
-      <trans-unit id="overviewFormSubtitlesHeader" datatype="html">
-        <source>Subtitle Vendor</source>
-      </trans-unit>
-      <trans-unit id="overviewFormSubtitleLanguageHeader" datatype="html">
-        <source>Subtitle Language</source>
-      </trans-unit>
-      <trans-unit id="overviewFormURLHeader" datatype="html">
-        <source>Livestream URL</source>
-      </trans-unit>
-      <trans-unit id="overviewFormURLLanguageHeader" datatype="html">
-        <source>Language</source>
-      </trans-unit>
-      <trans-unit id="overviewFormASRVEndorHeader" datatype="html">
-        <source>Subtitle Vendor</source>
-      </trans-unit>
-      <trans-unit id="overviewFormASRLanguageHeader" datatype="html">
-        <source>Subtitle Language</source>
-      </trans-unit>
-      <trans-unit id="sourceFormVideoRequiredError" datatype="html">
-        <source> At least one video or audio file is required </source>
-      </trans-unit>
-      <trans-unit id="sourceFormTooManyVideosError" datatype="html">
-        <source> A maximum of one video or audio file may be uploaded </source>
-      </trans-unit>
-      <trans-unit id="sourceFormURLInputLabel" datatype="html">
-        <source>URL to the livestream</source>
-      </trans-unit>
-      <trans-unit id="sourceFormURLRequiredError" datatype="html">
-        <source>The URL to the livestream is required</source>
-      </trans-unit>
-      <trans-unit id="sourceFormURLBadlyFormedError" datatype="html">
-        <source>The URL is badly formed or contains invalid characters</source>
-      </trans-unit>
-      <trans-unit id="videoFormFileLanguagesFieldsetLabel" datatype="html">
-        <source> Languages of uploaded files </source>
-      </trans-unit>
-      <trans-unit id="videoFormLanguageLabel" datatype="html">
-        <source>Language</source>
-      </trans-unit>
-      <trans-unit id="videoFormLanguageRequiredError" datatype="html">
-        <source>Please select the primary language of the file content</source>
-      </trans-unit>
-      <trans-unit id="videoFormDifferentLanguagesInfo" datatype="html">
-        <source>The specified language of the video/audio file is different from the language used for automatic subtitle generation. Are you sure you want to proceed?</source>
-      </trans-unit>
       <trans-unit id="dialogCreateProjectHeadline" datatype="html">
         <source>New Project</source>
       </trans-unit>
       <trans-unit id="dialogCreateProjectCloseButton" datatype="html">
         <source>Close</source>
-      </trans-unit>
-      <trans-unit id="dialogCreateProjectMediaStep" datatype="html">
-        <source>Media source</source>
-      </trans-unit>
-      <trans-unit id="dialogCreateProjectNextStepButton" datatype="html">
-        <source> Next </source>
-      </trans-unit>
-      <trans-unit id="dialogCreateProjectVideoStep" datatype="html">
-        <source>Video settings</source>
-      </trans-unit>
-      <trans-unit id="dialogCreateProjectBackStepButton" datatype="html">
-        <source> Back </source>
-      </trans-unit>
-      <trans-unit id="dialogCreateProjectLiveStep" datatype="html">
-        <source>Live settings</source>
-      </trans-unit>
-      <trans-unit id="dialogCreateProjectOverviewStep" datatype="html">
-        <source>Overview</source>
-      </trans-unit>
-      <trans-unit id="dialogCreateProjectCreateLabel" datatype="html">
-        <source> Create Project </source>
-      </trans-unit>
-      <trans-unit id="dialogCreateProjectCreateError" datatype="html">
-        <source>Error while creating the project: <x id="INTERPOLATION" equiv-text="{{ error.error.message }}"/></source>
       </trans-unit>
       <trans-unit id="projectListProjectListHeader" datatype="html">
         <source>Project List</source>
@@ -563,11 +404,11 @@
       <trans-unit id="projectListMoreMenuAriaLabel" datatype="html">
         <source>Open/Close menu</source>
       </trans-unit>
-      <trans-unit id="projectListMoreMenuEditLabel" datatype="html">
-        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;edit&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/> Edit </source>
+      <trans-unit id="projectListMoreMenuLeaveLabel" datatype="html">
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;leave&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/> Leave </source>
       </trans-unit>
       <trans-unit id="projectListMoreMenuShareLabel" datatype="html">
-        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;share&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/> Share </source>
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;share&quot; /&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;share&quot; /&gt;"/> Share </source>
       </trans-unit>
       <trans-unit id="projectListMoreMenuDeleteLabel" datatype="html">
         <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;delete&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/> Delete </source>
@@ -701,9 +542,6 @@
       <trans-unit id="inviteJoinProjectButtonLabel" datatype="html">
         <source> Join Project </source>
       </trans-unit>
-      <trans-unit id="dialogCreateProjectLoadingInfo" datatype="html">
-        <source> Uploading data </source>
-      </trans-unit>
       <trans-unit id="viewerControlsFullscreenToggleTooltipActive" datatype="html">
         <source>Close fullscreen</source>
       </trans-unit>
@@ -742,9 +580,6 @@
       </trans-unit>
       <trans-unit id="mediaCategorySpeaker" datatype="html">
         <source>Speaker</source>
-      </trans-unit>
-      <trans-unit id="dialogCreateProjectCancelUpload" datatype="html">
-        <source> Cancel Upload </source>
       </trans-unit>
       <trans-unit id="writtenLanguageEN" datatype="html">
         <source>English</source>
@@ -944,9 +779,6 @@
       <trans-unit id="createTranscriptionDialogTabEmptyFileLabel" datatype="html">
         <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/ng-template&gt;"/> Empty file </source>
       </trans-unit>
-      <trans-unit id="metadataFormUserSelection" datatype="html">
-        <source>User selection</source>
-      </trans-unit>
       <trans-unit id="notificationAriaLabelNotYetRead" datatype="html">
         <source>Not yet read</source>
       </trans-unit>
@@ -977,7 +809,7 @@
       <trans-unit id="deleteConfirmationDialogConfirmButton" datatype="html">
         <source> Confirm </source>
       </trans-unit>
-      <trans-unit id="deleteConfirmationDialogTitle" datatype="html">
+      <trans-unit id="deleteConfirmationDialogTitleDelete" datatype="html">
         <source> Delete <x id="INTERPOLATION" equiv-text="{{ data.subject }}"/> </source>
       </trans-unit>
       <trans-unit id="deleteServiceSubjectCaption" datatype="html">
@@ -1262,9 +1094,6 @@
       <trans-unit id="viewerHelpDialogCloseButton" datatype="html">
         <source>Close</source>
       </trans-unit>
-      <trans-unit id="createProjectEstimatedTime" datatype="html">
-        <source> Estimated time: <x id="INTERPOLATION" equiv-text="{{ eta * 1000 | duration }}"/> </source>
-      </trans-unit>
       <trans-unit id="viewerVideoContainerMoveToMainviewAriaLabel" datatype="html">
         <source>Move video &apos;<x id="INTERPOLATION" equiv-text="{{ video.title }}"/>&apos; to main view</source>
       </trans-unit>
@@ -1272,10 +1101,10 @@
         <source>Others </source>
       </trans-unit>
       <trans-unit id="viewerControlsEnglishLabel" datatype="html">
-        <source> English (en-US) </source>
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;{{ locale === &apos;en-US&apos; ? &apos;check&apos; : &apos;&apos; }}&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon &gt;"/>English (en-US) </source>
       </trans-unit>
       <trans-unit id="viewerControlsGermanLabel" datatype="html">
-        <source> German (de-DE) </source>
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;{{ locale === &apos;de-DE&apos; ? &apos;check&apos; : &apos;&apos; }}&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon &gt;"/>German (de-DE) </source>
       </trans-unit>
       <trans-unit id="viewerControlsInterfaceLanguageTitle" datatype="html">
         <source>Interface language </source>
@@ -1285,6 +1114,78 @@
       </trans-unit>
       <trans-unit id="viewerControlsPlayTooltip" datatype="html">
         <source>Play</source>
+      </trans-unit>
+      <trans-unit id="deleteConfirmationDialogTitleLeave" datatype="html">
+        <source> Leave <x id="INTERPOLATION" equiv-text="{{ data.subject }}"/> </source>
+      </trans-unit>
+      <trans-unit id="dialogCloseButton" datatype="html">
+        <source>Close</source>
+      </trans-unit>
+      <trans-unit id="dialogProjectMediaSubheading" datatype="html">
+        <source>Media</source>
+      </trans-unit>
+      <trans-unit id="dialogProjectShareEditTabLabel" datatype="html">
+        <source> Invite collaborators </source>
+      </trans-unit>
+      <trans-unit id="dialogProjectSharePlayerTabLabel" datatype="html">
+        <source> Share player </source>
+      </trans-unit>
+      <trans-unit id="dialogProjectShareSubheading" datatype="html">
+        <source>Share</source>
+      </trans-unit>
+      <trans-unit id="inviteCollaboratorAddUserInputHint" datatype="html">
+        <source>Addresses that are not linked to an account will be invited to the project via email. </source>
+      </trans-unit>
+      <trans-unit id="inviteCollaboratorAddUserInputLabel" datatype="html">
+        <source>Collaborator email</source>
+      </trans-unit>
+      <trans-unit id="inviteCollaboratorAllUserList" datatype="html">
+        <source>People with access</source>
+      </trans-unit>
+      <trans-unit id="inviteCollaboratorCopyLinkSuccess" datatype="html">
+        <source>Link copied</source>
+      </trans-unit>
+      <trans-unit id="inviteCollaboratorGenerateNewLinkButton" datatype="html">
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="Genera"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="link, revoke old"/> Generate new link, revoke old one </source>
+      </trans-unit>
+      <trans-unit id="inviteCollaboratorHeadingAllUsers" datatype="html">
+        <source>People with access</source>
+      </trans-unit>
+      <trans-unit id="inviteCollaboratorHeadingGeneralAccess" datatype="html">
+        <source>General Access</source>
+      </trans-unit>
+      <trans-unit id="inviteCollaboratorInputErrorEmailInvalid" datatype="html">
+        <source>Email is invalid</source>
+      </trans-unit>
+      <trans-unit id="inviteCollaboratorInputErrorEmailRequired" datatype="html">
+        <source>Email is required</source>
+      </trans-unit>
+      <trans-unit id="inviteCollaboratorInputErrorUserDuplication" datatype="html">
+        <source>User already added</source>
+      </trans-unit>
+      <trans-unit id="inviteCollaboratorInviteLinkWarningText" datatype="html">
+        <source> Any person who has this link can join the project registered or anonymously. </source>
+      </trans-unit>
+      <trans-unit id="inviteCollaboratorNewLinkSuccess" datatype="html">
+        <source>New link generated</source>
+      </trans-unit>
+      <trans-unit id="inviteCollaboratorOwnerInfo" datatype="html">
+        <source>Project Owner</source>
+      </trans-unit>
+      <trans-unit id="inviteCollaboratorRemoveButton" datatype="html">
+        <source> Remove </source>
+      </trans-unit>
+      <trans-unit id="inviteCollaboratorShareLinkButton" datatype="html">
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/button&gt;"/> Copy link </source>
+      </trans-unit>
+      <trans-unit id="inviteCollaboratorYouIndicator" datatype="html">
+        <source>(You)</source>
+      </trans-unit>
+      <trans-unit id="projectListMoreMenuActivityLabel" datatype="html">
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;activity&quot; /&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;activity&quot; /&gt;"/> Activity </source>
+      </trans-unit>
+      <trans-unit id="projectListMoreMenuMediaLabel" datatype="html">
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;media&quot; /&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;media&quot; /&gt;"/> Media </source>
       </trans-unit>
     </body>
   </file>
