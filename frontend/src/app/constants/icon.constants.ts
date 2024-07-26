@@ -49,6 +49,7 @@ export const ICONS = [
   'minus',
   'dark_mode',
   'more',
+  'new-tab',
   'no_account',
   'party-popper',
   'pause_circle',

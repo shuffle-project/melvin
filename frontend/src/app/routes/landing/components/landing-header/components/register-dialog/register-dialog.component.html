@@ -1,0 +1,147 @@
+<div mat-dialog-title>
+  <div class="dialog-header">
+    <div>
+      <h1 i18n="@@registerDialogHeadline">Register</h1>
+    </div>
+
+    <button
+      mat-icon-button
+      [mat-dialog-close]="true"
+      aria-label="Close"
+      i18n-aria-label="@@dialogCloseButton"
+    >
+      <mat-icon svgIcon="close" />
+    </button>
+  </div>
+</div>
+<mat-dialog-content class="dialog-content">
+  <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+    <mat-form-field appearance="outline">
+      <mat-icon svgIcon="person" matPrefix></mat-icon>
+      <mat-label i18n="@@registerNameLabel">Name</mat-label>
+      <input
+        formControlName="name"
+        matInput
+        type="text"
+        name="name"
+        autocomplete="name"
+      />
+
+      @if (formGroup.get('name')?.hasError('required')) {
+      <mat-error i18n="@@registerNameErrorRequired">
+        Name is required
+      </mat-error>
+      }
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-icon svgIcon="email" matPrefix></mat-icon>
+      <mat-label i18n="@@registerEmailLabel">Email</mat-label>
+      <input
+        formControlName="email"
+        matInput
+        type="email"
+        name="email"
+        autocomplete="email"
+      />
+      @if(formGroup.get('email')?.errors &&
+      !formGroup.get('email')?.hasError('required')) {
+      <mat-error i18n="@@registerEmailErrorNotValid"
+        >Email address is not valid</mat-error
+      >
+      } @if( formGroup.get('email')?.hasError('required')) {
+      <mat-error i18n="@@registerEmailErrorRequired"
+        >Email is required</mat-error
+      >
+      }
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-icon svgIcon="lock" matPrefix></mat-icon>
+      <mat-label i18n="@@registerPasswordLabel">Password</mat-label>
+      <input
+        formControlName="password"
+        matInput
+        type="password"
+        name="password"
+        autocomplete="new-password"
+      />
+
+      @if (formGroup.get('password')?.hasError('minlength') &&
+      !formGroup.get('password')?.hasError('required') ) {
+      <mat-error i18n="@@registerPasswordErrorMinimum"
+        >Minimum 6 characters</mat-error
+      >
+      } @if(formGroup.get('password')?.hasError('required') ) {
+      <mat-error i18n="@@registerPasswordErrorRequired"
+        >Password is required</mat-error
+      >
+      }
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-icon svgIcon="lock" matPrefix></mat-icon>
+      <mat-label i18n="@@registerPasswordRepeatLabel"
+        >Password (repeat)</mat-label
+      >
+      <input
+        formControlName="passwordConfirm"
+        matInput
+        type="password"
+        name="password"
+        autocomplete="new-password"
+      />
+      @if (formGroup.get('passwordConfirm')?.hasError('minlength') &&
+      !formGroup.get('passwordConfirm')?.hasError('required') ) {
+      <mat-error i18n="@@registerPasswordRepeatErrorMinimum"
+        >Minimum 6 characters</mat-error
+      >
+      } @if(formGroup.get('passwordConfirm')?.hasError('required') ) {
+      <mat-error i18n="@@registerPasswordRepeatErrorRequired"
+        >Password (repeat) is required</mat-error
+      >
+      }
+    </mat-form-field>
+
+    <div aria-live="assertive">
+      @if ( formGroup.get('password')?.valid &&
+      formGroup.get('passwordConfirm')?.valid && formGroup.errors?.['confirm'])
+      {
+      <div class="error-message">
+        <mat-icon svgIcon="warning"></mat-icon>
+        <p i18n="@@registerPasswordsNotMatch">Passwords do not match</p>
+      </div>
+      }
+    </div>
+
+    <ng-container *ngrxLet="error$ as error" aria-live="assertive">
+      @if (error) {
+      <div class="error-message">
+        <mat-icon svgIcon="warning"></mat-icon>
+        <p>{{ error }}</p>
+      </div>
+      }
+    </ng-container>
+
+    <p class="privacy-info">
+      We only use your data in accordance with our
+      <a routerLink="/privacy" (click)="onJumpToPrivacy()">privacy policy</a>.
+    </p>
+
+    <button
+      mat-flat-button
+      type="submit"
+      [disabled]="loading$ | ngrxPush"
+      color="primary"
+      class="submit-button"
+    >
+      <div class="flex items-center" i18n="@@registerLoginButtonLabel">
+        @if (loading$ | ngrxPush) {
+        <mat-spinner strokeWidth="2" diameter="20" color="primary" />
+        } Register
+      </div>
+    </button>
+  </form>
+
+  <div class="back-to-login-wrapper">
+    <p>Already have an account?</p>
+    <button mat-stroked-button (click)="onOpenLoginDialog()">Login</button>
+  </div>
+</mat-dialog-content>

@@ -1,0 +1,101 @@
+<div mat-dialog-title>
+  <div class="dialog-header">
+    <div>
+      <h1 i18n="@@loginDialogHeadline">Login</h1>
+    </div>
+
+    <button
+      mat-icon-button
+      [mat-dialog-close]="true"
+      aria-label="Close"
+      i18n-aria-label="@@dialogCloseButton"
+    >
+      <mat-icon svgIcon="close" />
+    </button>
+  </div>
+</div>
+<mat-dialog-content class="dialog-content">
+  <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+    <mat-form-field appearance="outline">
+      <mat-icon svgIcon="email" matPrefix />
+      <mat-label i18n="@@loginEmailLabel">Email</mat-label>
+      <input
+        formControlName="email"
+        type="email"
+        name="email"
+        autocomplete="email"
+        matInput
+      />
+
+      @if(formGroup.get('email')?.errors &&
+      !formGroup.get('email')?.hasError('required')) {
+      <mat-error i18n="@@loginEmailErrorNotValid"
+        >Email address is not valid</mat-error
+      >
+      } @if( formGroup.get('email')?.hasError('required')) {
+      <mat-error i18n="@@loginEmailErrorRequired">Email is required</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-icon svgIcon="lock" matPrefix></mat-icon>
+      <mat-label i18n-placeholder="@@loginPasswordLabel">Password</mat-label>
+      <input
+        formControlName="password"
+        matInput
+        type="password"
+        name="password"
+        autocomplete="current-password"
+      />
+      @if( formGroup.get('password')?.hasError('required')){
+      <mat-error i18n="@@loginPasswordErrorRequired">
+        Password is required
+      </mat-error>
+      }
+    </mat-form-field>
+    <div class="checkbox-wrapper">
+      <mat-checkbox
+        formControlName="persistent"
+        i18n="@@loginStayLoggedInCheckboxLabel"
+        >Stay logged in</mat-checkbox
+      >
+    </div>
+
+    <button
+      mat-flat-button
+      type="submit"
+      [disabled]="loading$ | ngrxPush"
+      class="login-button"
+      color="primary"
+    >
+      <div class="flex items-center" i18n="@@loginLoginButtonLabel">
+        @if (loading$ | ngrxPush) {
+        <mat-spinner strokeWidth="2" diameter="20" color="primary" />
+        } Login
+      </div>
+    </button>
+  </form>
+  <button
+    mat-button
+    class="to-password-button"
+    (click)="onOpenResetPasswordDialog()"
+  >
+    Forgot password?
+  </button>
+
+  <div aria-live="polite">
+    @if (error$ | ngrxPush; as error) {
+    <p class="error-message">
+      <mat-icon svgIcon="warning"></mat-icon>
+      {{ error }}
+    </p>
+    }
+  </div>
+
+  <div class="to-register-wrapper">
+    <p>No account yet?</p>
+    <button mat-stroked-button color="primary" (click)="onOpenRegisterDialog()">
+      Register
+    </button>
+  </div>
+</mat-dialog-content>

@@ -1,0 +1,47 @@
+.content-width {
+  max-width: 87.5rem;
+  margin-inline: auto;
+  padding-inline: 1.25rem;
+  box-sizing: border-box;
+}
+
+main {
+  background-color: var(--color-white);
+}
+
+.title-wrapper {
+  margin-top: 6.25rem;
+
+  h1 {
+    font-size: 3.75rem;
+    line-height: 150%;
+    max-width: 56.25rem;
+
+    span {
+      font-weight: bold;
+    }
+  }
+
+  ul {
+    display: flex;
+    gap: 1rem;
+    list-style: none;
+    padding: 0;
+
+    .chip {
+      background: linear-gradient(
+        135deg,
+        rgba(var(--color-gold-rgb), 0.75),
+        rgba(var(--color-orange-rgb), 0.75)
+      );
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem 1.625rem;
+      border-radius: 2rem;
+      font-size: 1.25rem;
+      font-weight: 500;
+    }
+  }
+}
