@@ -45,6 +45,14 @@ main {
       border-radius: 2rem;
       font-size: 1.25rem;
       font-weight: 500;
+
+      &.wip {
+        background: linear-gradient(
+          135deg,
+          var(--color-border-grey),
+          var(--color-light-grey)
+        );
+      }
     }
   }
 }
@@ -98,7 +106,7 @@ main {
     display: flex;
     align-items: center;
     gap: 0.625rem;
-    font-size: 2.5rem;
+    font-size: clamp(1.875rem, 4vw + 0.25rem, 2.5rem);
     line-height: 100%;
 
     .mat-icon {

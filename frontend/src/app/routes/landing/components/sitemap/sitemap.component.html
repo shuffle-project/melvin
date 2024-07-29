@@ -1,3 +1,65 @@
-<div class="wrapper">
+<div class="landing-subpage-wrapper">
   <h1>Sitemap</h1>
+
+  <p>This sitemap lists all pages alphabetically.</p>
+
+  @if (locale?.includes('de')) {
+
+  <ul>
+    <li>
+      <a routerLink="/privacy">Datenschutzerklärung</a>
+    </li>
+    <li>
+      <a routerLink="/documentation">Dokumentation</a>
+    </li>
+    <li>
+      <a routerLink="/accessibility-statement"
+        >Erklärung zur Barrierefreiheit</a
+      >
+    </li>
+    <li>
+      <a routerLink="/sign-language">Gebärdensprache (DGS)</a>
+    </li>
+
+    <li>
+      <a routerLink="/imprint">Impressum</a>
+    </li>
+    <li>
+      <a routerLink="/plain-language">Leichte Sprache</a>
+    </li>
+    <li>
+      <a routerLink="/">Startseite</a>
+    </li>
+    <li>
+      <a routerLink="/sitemap">Sitemap</a>
+    </li>
+    <li>
+      <a routerLink="/tutorial">Tutorial</a>
+    </li>
+  </ul>
+  } @else {
+  <ul>
+    <li>
+      <a routerLink="/accessibility-statement">Accessibility statement</a>
+    </li>
+    <li>
+      <a routerLink="/documentation">Documentation</a>
+    </li>
+    <li>
+      <a routerLink="/imprint">Imprint</a>
+    </li>
+    <li>
+      <a routerLink="/privacy">Privacy</a>
+    </li>
+    <li>
+      <a routerLink="/">Startpage</a>
+    </li>
+    <li>
+      <a routerLink="/sitemap">Sitemap</a>
+    </li>
+    <li>
+      <a routerLink="/tutorial">Tutorial</a>
+    </li>
+  </ul>
+  }
 </div>
