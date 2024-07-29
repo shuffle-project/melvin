@@ -23,5 +23,17 @@
         </button>
       </ul>
     </nav>
+    <div class="mobile-view">
+      <button (click)="onOpenLoginDialog()" mat-flat-button color="primary">
+        Login
+      </button>
+      <button
+        (click)="onToggleSidebar()"
+        mat-icon-button
+        aria-label="Open Menu"
+      >
+        <mat-icon svgIcon="menu" />
+      </button>
+    </div>
   </mat-toolbar>
 </header>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
 import { LogoComponent } from 'src/app/components/logo/logo.component';
@@ -10,10 +10,6 @@ import { LogoComponent } from 'src/app/components/logo/logo.component';
   templateUrl: './landing-footer.component.html',
   styleUrl: './landing-footer.component.scss',
 })
-export class LandingFooterComponent implements OnInit {
+export class LandingFooterComponent {
   locale = $localize.locale;
-
-  ngOnInit() {
-    console.log(this.locale);
-  }
 }

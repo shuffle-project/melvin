@@ -90,6 +90,9 @@ export class RegisterDialogComponent {
           name,
         })
       );
+
+      // TODO SHOULD ONLY FIRE WHEN SUCCESS
+      this.dialogRefRegisterDialog.close();
     }
   }
 

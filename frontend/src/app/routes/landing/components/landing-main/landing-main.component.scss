@@ -10,10 +10,10 @@ main {
 }
 
 .title-wrapper {
-  margin-top: 6.25rem;
+  margin-block: 6.25rem;
 
   h1 {
-    font-size: 3.75rem;
+    font-size: clamp(2rem, 5vw + 0.25rem, 3.75rem);
     line-height: 150%;
     max-width: 56.25rem;
 
@@ -24,6 +24,7 @@ main {
 
   ul {
     display: flex;
+    flex-wrap: wrap;
     gap: 1rem;
     list-style: none;
     padding: 0;
@@ -36,12 +37,121 @@ main {
       );
 
       display: flex;
+      flex-direction: row;
       align-items: center;
       justify-content: center;
-      padding: 1rem 1.625rem;
+      padding-block: clamp(0.5rem, 1vw + 0.25rem, 1rem);
+      padding-inline: clamp(1rem, 2vw + 0.25rem, 1.625rem);
       border-radius: 2rem;
       font-size: 1.25rem;
       font-weight: 500;
+    }
+  }
+}
+
+.player-wrapper {
+  background: var(--theme-gradient);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3.75rem 1.25rem;
+
+  iFrame {
+    border-radius: 0.375rem;
+  }
+}
+
+.development-warning-wrapper {
+  margin-block: 7.5rem;
+  display: flex;
+  justify-content: center;
+
+  .development-warning {
+    padding: 2.5rem clamp(1.25rem, 5vw + 0.25rem, 3.75rem) 3.75rem;
+
+    max-width: 33.75rem;
+    box-sizing: border-box;
+    margin-inline: 1.25rem;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    border: 2px solid var(--color-primary);
+    border-radius: 0.375rem;
+    font-size: 1rem;
+    line-height: 150%;
+
+    .icon {
+      width: 5rem;
+      height: 5rem;
+      aspect-ratio: 1;
+      margin-bottom: 1.25rem;
+    }
+  }
+}
+
+.feature-presentation-wrapper {
+  margin-block: 12rem;
+
+  h2 {
+    display: flex;
+    align-items: center;
+    gap: 0.625rem;
+    font-size: 2.5rem;
+    line-height: 100%;
+
+    .mat-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0.75;
+      width: 2rem;
+      height: 2rem;
+    }
+  }
+
+  .feature-explanation-wrapper {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 3.125rem;
+
+    img {
+      border-radius: 0.375rem;
+      width: 100%;
+      height: auto;
+    }
+
+    .feature-explanation {
+      p {
+        margin-top: 1.25rem;
+        width: 25rem;
+      }
+
+      p,
+      a {
+        margin-left: 2.625rem;
+        font-size: 1rem;
+        line-height: 150%;
+      }
+    }
+  }
+}
+
+@media (max-width: 60rem) {
+  .feature-presentation-wrapper {
+    max-width: 45rem;
+    .feature-explanation-wrapper {
+      display: flex;
+      flex-direction: column;
+
+      .feature-explanation {
+        p,
+        a {
+          width: auto;
+          margin-left: 0;
+        }
+      }
     }
   }
 }

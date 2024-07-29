@@ -74,6 +74,8 @@ export class LoginDialogComponent implements OnInit {
       const { email, password, persistent } = this.formGroup.value;
 
       this.store.dispatch(authActions.login({ email, password, persistent }));
+      // TODO SHOULD ONLY FIRE WHEN SUCCESS
+      this.dialogRefLoginDialog.close();
     }
   }
 
