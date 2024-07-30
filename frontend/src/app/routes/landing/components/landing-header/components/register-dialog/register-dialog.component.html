@@ -1,7 +1,7 @@
 <div mat-dialog-title>
   <div class="dialog-header">
     <div>
-      <h1 i18n="@@registerDialogHeadline">Register</h1>
+      <h1 i18n="@@registerDialogMainHeading">Register</h1>
     </div>
 
     <button
@@ -18,7 +18,7 @@
   <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
     <mat-form-field appearance="outline">
       <mat-icon svgIcon="person" matPrefix></mat-icon>
-      <mat-label i18n="@@registerNameLabel">Name</mat-label>
+      <mat-label i18n="@@registerDialogNameLabel">Name</mat-label>
       <input
         formControlName="name"
         matInput
@@ -28,14 +28,14 @@
       />
 
       @if (formGroup.get('name')?.hasError('required')) {
-      <mat-error i18n="@@registerNameErrorRequired">
+      <mat-error i18n="@@registerDialogNameErrorRequired">
         Name is required
       </mat-error>
       }
     </mat-form-field>
     <mat-form-field appearance="outline">
       <mat-icon svgIcon="email" matPrefix></mat-icon>
-      <mat-label i18n="@@registerEmailLabel">Email</mat-label>
+      <mat-label i18n="@@registerDialogEmailLabel">Email</mat-label>
       <input
         formControlName="email"
         matInput
@@ -45,18 +45,18 @@
       />
       @if(formGroup.get('email')?.errors &&
       !formGroup.get('email')?.hasError('required')) {
-      <mat-error i18n="@@registerEmailErrorNotValid"
+      <mat-error i18n="@@registerDialogEmailErrorNotValid"
         >Email address is not valid</mat-error
       >
       } @if( formGroup.get('email')?.hasError('required')) {
-      <mat-error i18n="@@registerEmailErrorRequired"
+      <mat-error i18n="@@registerDialogEmailErrorRequired"
         >Email is required</mat-error
       >
       }
     </mat-form-field>
     <mat-form-field appearance="outline">
       <mat-icon svgIcon="lock" matPrefix></mat-icon>
-      <mat-label i18n="@@registerPasswordLabel">Password</mat-label>
+      <mat-label i18n="@@registerDialogPasswordLabel">Password</mat-label>
       <input
         formControlName="password"
         matInput
@@ -67,18 +67,18 @@
 
       @if (formGroup.get('password')?.hasError('minlength') &&
       !formGroup.get('password')?.hasError('required') ) {
-      <mat-error i18n="@@registerPasswordErrorMinimum"
+      <mat-error i18n="@@registerDialogPasswordErrorMinimum"
         >Minimum 6 characters</mat-error
       >
       } @if(formGroup.get('password')?.hasError('required') ) {
-      <mat-error i18n="@@registerPasswordErrorRequired"
+      <mat-error i18n="@@registerDialogPasswordErrorRequired"
         >Password is required</mat-error
       >
       }
     </mat-form-field>
     <mat-form-field appearance="outline">
       <mat-icon svgIcon="lock" matPrefix></mat-icon>
-      <mat-label i18n="@@registerPasswordRepeatLabel"
+      <mat-label i18n="@@registerDialogPasswordRepeatLabel"
         >Password (repeat)</mat-label
       >
       <input
@@ -90,11 +90,11 @@
       />
       @if (formGroup.get('passwordConfirm')?.hasError('minlength') &&
       !formGroup.get('passwordConfirm')?.hasError('required') ) {
-      <mat-error i18n="@@registerPasswordRepeatErrorMinimum"
+      <mat-error i18n="@@registerDialogPasswordRepeatErrorMinimum"
         >Minimum 6 characters</mat-error
       >
       } @if(formGroup.get('passwordConfirm')?.hasError('required') ) {
-      <mat-error i18n="@@registerPasswordRepeatErrorRequired"
+      <mat-error i18n="@@registerDialogPasswordRepeatErrorRequired"
         >Password (repeat) is required</mat-error
       >
       }
@@ -106,7 +106,7 @@
       {
       <div class="error-message">
         <mat-icon svgIcon="warning"></mat-icon>
-        <p i18n="@@registerPasswordsNotMatch">Passwords do not match</p>
+        <p i18n="@@registerDialogPasswordsNotMatch">Passwords do not match</p>
       </div>
       }
     </div>
@@ -120,7 +120,7 @@
       }
     </ng-container>
 
-    <p class="privacy-info">
+    <p class="privacy-info" i18n="@@registerDialogPrivacyNotice">
       We only use your data in accordance with our
       <a routerLink="/privacy" (click)="onJumpToPrivacy()">privacy policy</a>.
     </p>
@@ -132,7 +132,7 @@
       color="primary"
       class="submit-button"
     >
-      <div class="flex items-center" i18n="@@registerLoginButtonLabel">
+      <div class="flex items-center" i18n="@@registerDialogRegisterButtonLabel">
         @if (loading$ | ngrxPush) {
         <mat-spinner strokeWidth="2" diameter="20" color="primary" />
         } Register
@@ -141,7 +141,13 @@
   </form>
 
   <div class="back-to-login-wrapper">
-    <p>Already have an account?</p>
-    <button mat-stroked-button (click)="onOpenLoginDialog()">Login</button>
+    <p i18n="@@registerDialogLoginIntroText">Already have an account?</p>
+    <button
+      mat-stroked-button
+      (click)="onOpenLoginDialog()"
+      i18n="@@registerDialogLoginButton"
+    >
+      Login
+    </button>
   </div>
 </mat-dialog-content>

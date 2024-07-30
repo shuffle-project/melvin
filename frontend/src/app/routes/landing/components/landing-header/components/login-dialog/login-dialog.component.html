@@ -18,7 +18,7 @@
   <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
     <mat-form-field appearance="outline">
       <mat-icon svgIcon="email" matPrefix />
-      <mat-label i18n="@@loginEmailLabel">Email</mat-label>
+      <mat-label i18n="@@loginDialogEmailLabel">Email</mat-label>
       <input
         formControlName="email"
         type="email"
@@ -29,17 +29,21 @@
 
       @if(formGroup.get('email')?.errors &&
       !formGroup.get('email')?.hasError('required')) {
-      <mat-error i18n="@@loginEmailErrorNotValid"
+      <mat-error i18n="@@loginDialogEmailErrorNotValid"
         >Email address is not valid</mat-error
       >
       } @if( formGroup.get('email')?.hasError('required')) {
-      <mat-error i18n="@@loginEmailErrorRequired">Email is required</mat-error>
+      <mat-error i18n="@@loginDialogEmailErrorRequired"
+        >Email is required</mat-error
+      >
       }
     </mat-form-field>
 
     <mat-form-field appearance="outline">
       <mat-icon svgIcon="lock" matPrefix></mat-icon>
-      <mat-label i18n-placeholder="@@loginPasswordLabel">Password</mat-label>
+      <mat-label i18n-placeholder="@@loginDialogPasswordLabel"
+        >Password</mat-label
+      >
       <input
         formControlName="password"
         matInput
@@ -48,7 +52,7 @@
         autocomplete="current-password"
       />
       @if( formGroup.get('password')?.hasError('required')){
-      <mat-error i18n="@@loginPasswordErrorRequired">
+      <mat-error i18n="@@loginDialogPasswordErrorRequired">
         Password is required
       </mat-error>
       }
@@ -56,7 +60,7 @@
     <div class="checkbox-wrapper">
       <mat-checkbox
         formControlName="persistent"
-        i18n="@@loginStayLoggedInCheckboxLabel"
+        i18n="@@loginDialogStayLoggedInCheckboxLabel"
         >Stay logged in</mat-checkbox
       >
     </div>
@@ -68,7 +72,7 @@
       class="login-button"
       color="primary"
     >
-      <div class="flex items-center" i18n="@@loginLoginButtonLabel">
+      <div class="flex items-center" i18n="@@loginDialogLoginButtonLabel">
         @if (loading$ | ngrxPush) {
         <mat-spinner strokeWidth="2" diameter="20" color="primary" />
         } Login
@@ -79,6 +83,7 @@
     mat-button
     class="to-password-button"
     (click)="onOpenResetPasswordDialog()"
+    i18n="@@loginDialogForgotPasswordButton"
   >
     Forgot password?
   </button>
@@ -93,8 +98,13 @@
   </div>
 
   <div class="to-register-wrapper">
-    <p>No account yet?</p>
-    <button mat-stroked-button color="primary" (click)="onOpenRegisterDialog()">
+    <p i18n="@@loginDialogRegisterIntroText">No account yet?</p>
+    <button
+      mat-stroked-button
+      color="primary"
+      (click)="onOpenRegisterDialog()"
+      i18n="@@loginDialogRegisterButton"
+    >
       Register
     </button>
   </div>

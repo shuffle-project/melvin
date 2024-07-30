@@ -1699,12 +1699,12 @@
         <target state="final">Sprache der Benutzeroberfläche </target>
       </trans-unit>
       <trans-unit id="viewerControlsGermanLabel" datatype="html">
-        <source> German (de-DE) </source>
-        <target state="final"> Deutsch (de-DE) </target>
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;{{ locale === &apos;de-DE&apos; ? &apos;check&apos; : &apos;&apos; }}&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon &gt;"/>German (de-DE) </source>
+        <target state="new"> Deutsch (de-DE) </target>
       </trans-unit>
       <trans-unit id="viewerControlsEnglishLabel" datatype="html">
-        <source> English (en-US) </source>
-        <target state="final"> Englisch (en-US) </target>
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;{{ locale === &apos;en-US&apos; ? &apos;check&apos; : &apos;&apos; }}&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon &gt;"/>English (en-US) </source>
+        <target state="new"> Englisch (en-US) </target>
       </trans-unit>
       <trans-unit id="viewerControlsPlayTooltip" datatype="html">
         <source>Play</source>
@@ -1713,6 +1713,290 @@
       <trans-unit id="viewerControlsPauseTooltip" datatype="html">
         <source>Pause</source>
         <target state="final">Pausieren</target>
+      </trans-unit>
+      <trans-unit id="logoAltText" datatype="html">
+        <source>Melvin Logo, to start page</source>
+        <target state="final">Melvin Logo, zur Startseite</target>
+      </trans-unit>
+      <trans-unit id="accessibilityStatementMainHeading" datatype="html">
+        <source>Accessibility Statement</source>
+        <target state="final">Erklärung zur Barrierefreiheit</target>
+      </trans-unit>
+      <trans-unit id="landingSubpageWIPInfo" datatype="html">
+        <source> Sorry, this page is still under development. Please come back at a later time. </source>
+        <target state="final"> Diese Seite befindet sich leider noch in der Entwicklung. Bitte schauen Sie zu einem späteren Zeitpunkt wieder vorbei. </target>
+      </trans-unit>
+      <trans-unit id="documentationMainHeading" datatype="html">
+        <source>Documentation</source>
+        <target state="final">Dokumentation</target>
+      </trans-unit>
+      <trans-unit id="imprintMainHeading" datatype="html">
+        <source>Imprint</source>
+        <target state="final">Impressum</target>
+      </trans-unit>
+      <trans-unit id="landingFooterPrivacyLinkLabel" datatype="html">
+        <source> Privacy </source>
+        <target state="final"> Datenschutzerklärung </target>
+      </trans-unit>
+      <trans-unit id="landingFooterImprintLinkLabel" datatype="html">
+        <source> Imprint </source>
+        <target state="final"> Impressum </target>
+      </trans-unit>
+      <trans-unit id="landingFooterAccessibilityStatementLinkLabel" datatype="html">
+        <source> Accessibility statement </source>
+        <target state="final"> Erklärung zur Barrierefreiheit </target>
+      </trans-unit>
+      <trans-unit id="landingFooterNewTabAriaLabel" datatype="html">
+        <source>Opens in new tab</source>
+        <target state="final">Öffnet im neuen Tab</target>
+      </trans-unit>
+      <trans-unit id="landingFooterSHUFFLELinkLabel" datatype="html">
+        <source> SHUFFLE-Project <x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;new-tab&quot; aria-hidden=&quot;false&quot; i18n-aria-label=&quot;@@landingFooterNewTabAriaLabel&quot; aria-label=&quot;Opens in new tab&quot; class=&quot;icon&quot; /&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;new-tab&quot; aria-hidden=&quot;false&quot; i18n-aria-label=&quot;@@landingFooterNewTabAriaLabel&quot; aria-label=&quot;Opens in new tab&quot; class=&quot;icon&quot; /&gt;"/></source>
+        <target state="final"> SHUFFLE-Projekt <x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;new-tab&quot; aria-hidden=&quot;false&quot; i18n-aria-label=&quot;@@landingFooterNewTabAriaLabel&quot; aria-label=&quot;Opens in new tab&quot; class=&quot;icon&quot; /&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;new-tab&quot; aria-hidden=&quot;false&quot; i18n-aria-label=&quot;@@landingFooterNewTabAriaLabel&quot; aria-label=&quot;Opens in new tab&quot; class=&quot;icon&quot; /&gt;"/></target>
+      </trans-unit>
+      <trans-unit id="loginDialogHeadline" datatype="html">
+        <source>Login</source>
+        <target state="final">Anmelden</target>
+      </trans-unit>
+      <trans-unit id="dialogCloseButton" datatype="html">
+        <source>Close</source>
+        <target state="final">Schließen</target>
+      </trans-unit>
+      <trans-unit id="loginDialogEmailLabel" datatype="html">
+        <source>Email</source>
+        <target state="final">E-Mail</target>
+      </trans-unit>
+      <trans-unit id="loginDialogEmailErrorNotValid" datatype="html">
+        <source>Email address is not valid</source>
+        <target state="final">E-Mail Adresse ist nicht valide</target>
+      </trans-unit>
+      <trans-unit id="loginDialogEmailErrorRequired" datatype="html">
+        <source>Email is required</source>
+        <target state="final">E-Mail benötigt</target>
+      </trans-unit>
+      <trans-unit id="loginDialogPasswordErrorRequired" datatype="html">
+        <source> Password is required </source>
+        <target state="final"> Passwort benötigt </target>
+      </trans-unit>
+      <trans-unit id="loginDialogStayLoggedInCheckboxLabel" datatype="html">
+        <source>Stay logged in</source>
+        <target state="final">Angemeldet bleiben</target>
+      </trans-unit>
+      <trans-unit id="loginDialogLoginButtonLabel" datatype="html">
+        <source><x id="START_BLOCK_IF" equiv-text="@if (loading$ | ngrxPush) {"/><x id="START_TAG_MAT_SPINNER" ctype="x-mat_spinner" equiv-text="&lt;mat-spinner strokeWidth=&quot;2&quot; diameter=&quot;20&quot; color=&quot;primary&quot; /&gt;"/><x id="CLOSE_TAG_MAT_SPINNER" ctype="x-mat_spinner" equiv-text="&lt;mat-spinner strokeWidth=&quot;2&quot; diameter=&quot;20&quot; color=&quot;primary&quot; /&gt;"/><x id="CLOSE_BLOCK_IF" equiv-text="}"/> Login </source>
+        <target state="final"><x id="START_BLOCK_IF" equiv-text="@if (loading$ | ngrxPush) {"/><x id="START_TAG_MAT_SPINNER" ctype="x-mat_spinner" equiv-text="&lt;mat-spinner strokeWidth=&quot;2&quot; diameter=&quot;20&quot; color=&quot;primary&quot; /&gt;"/><x id="CLOSE_TAG_MAT_SPINNER" ctype="x-mat_spinner" equiv-text="&lt;mat-spinner strokeWidth=&quot;2&quot; diameter=&quot;20&quot; color=&quot;primary&quot; /&gt;"/><x id="CLOSE_BLOCK_IF" equiv-text="}"/> Anmelden </target>
+      </trans-unit>
+      <trans-unit id="loginDialogForgotPasswordButton" datatype="html">
+        <source> Forgot password? </source>
+        <target state="final"> Passwort vergessen? </target>
+      </trans-unit>
+      <trans-unit id="loginDialogRegisterIntroText" datatype="html">
+        <source>No account yet?</source>
+        <target state="final">Sie haben noch kein Account?</target>
+      </trans-unit>
+      <trans-unit id="loginDialogRegisterButton" datatype="html">
+        <source> Register </source>
+        <target state="final"> Registrieren </target>
+      </trans-unit>
+      <trans-unit id="registerDialogMainHeading" datatype="html">
+        <source>Register</source>
+        <target state="final">Registrieren</target>
+      </trans-unit>
+      <trans-unit id="registerDialogNameLabel" datatype="html">
+        <source>Name</source>
+        <target state="final">Name</target>
+      </trans-unit>
+      <trans-unit id="registerDialogNameErrorRequired" datatype="html">
+        <source> Name is required </source>
+        <target state="final"> Name benötigt </target>
+      </trans-unit>
+      <trans-unit id="registerDialogEmailLabel" datatype="html">
+        <source>Email</source>
+        <target state="final">E-Mail</target>
+      </trans-unit>
+      <trans-unit id="registerDialogEmailErrorNotValid" datatype="html">
+        <source>Email address is not valid</source>
+        <target state="final">E-Mail Adresse nicht valide</target>
+      </trans-unit>
+      <trans-unit id="registerDialogEmailErrorRequired" datatype="html">
+        <source>Email is required</source>
+        <target state="final">E-Mail benötigt</target>
+      </trans-unit>
+      <trans-unit id="registerDialogPasswordLabel" datatype="html">
+        <source>Password</source>
+        <target state="final">Passwort</target>
+      </trans-unit>
+      <trans-unit id="registerDialogPasswordErrorMinimum" datatype="html">
+        <source>Minimum 6 characters</source>
+        <target state="final">Mindestens 6 Zeichen</target>
+      </trans-unit>
+      <trans-unit id="registerDialogPasswordErrorRequired" datatype="html">
+        <source>Password is required</source>
+        <target state="final">Passwort benötigt</target>
+      </trans-unit>
+      <trans-unit id="registerDialogPasswordRepeatLabel" datatype="html">
+        <source>Password (repeat)</source>
+        <target state="final">Passwort (Wiederholung)</target>
+      </trans-unit>
+      <trans-unit id="registerDialogPasswordRepeatErrorMinimum" datatype="html">
+        <source>Minimum 6 characters</source>
+        <target state="final">Mindestens 6 Zeichen</target>
+      </trans-unit>
+      <trans-unit id="registerDialogPasswordRepeatErrorRequired" datatype="html">
+        <source>Password (repeat) is required</source>
+        <target state="final">Passwort (Wiederholung) benötigt</target>
+      </trans-unit>
+      <trans-unit id="registerDialogPasswordsNotMatch" datatype="html">
+        <source>Passwords do not match</source>
+        <target state="final">Passwörter stimmen nicht überein</target>
+      </trans-unit>
+      <trans-unit id="registerDialogPrivacyNotice" datatype="html">
+        <source> We only use your data in accordance with our <x id="START_LINK" ctype="x-a" equiv-text="&lt;a routerLink=&quot;/privacy&quot; (click)=&quot;onJumpToPrivacy()&quot;&gt;"/>privacy policy<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/>. </source>
+        <target state="final"> Wir verwenden Ihre Daten nur in Übereinstimmung mit unserer <x id="START_LINK" ctype="x-a" equiv-text="&lt;a routerLink=&quot;/privacy&quot; (click)=&quot;onJumpToPrivacy()&quot;&gt;"/>Datenschutzerklärung<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/>. </target>
+      </trans-unit>
+      <trans-unit id="registerDialogRegisterButtonLabel" datatype="html">
+        <source><x id="START_BLOCK_IF" equiv-text="@if (loading$ | ngrxPush) {"/><x id="START_TAG_MAT_SPINNER" ctype="x-mat_spinner" equiv-text="&lt;mat-spinner strokeWidth=&quot;2&quot; diameter=&quot;20&quot; color=&quot;primary&quot; /&gt;"/><x id="CLOSE_TAG_MAT_SPINNER" ctype="x-mat_spinner" equiv-text="&lt;mat-spinner strokeWidth=&quot;2&quot; diameter=&quot;20&quot; color=&quot;primary&quot; /&gt;"/><x id="CLOSE_BLOCK_IF" equiv-text="}"/> Register </source>
+        <target state="final"><x id="START_BLOCK_IF" equiv-text="@if (loading$ | ngrxPush) {"/><x id="START_TAG_MAT_SPINNER" ctype="x-mat_spinner" equiv-text="&lt;mat-spinner strokeWidth=&quot;2&quot; diameter=&quot;20&quot; color=&quot;primary&quot; /&gt;"/><x id="CLOSE_TAG_MAT_SPINNER" ctype="x-mat_spinner" equiv-text="&lt;mat-spinner strokeWidth=&quot;2&quot; diameter=&quot;20&quot; color=&quot;primary&quot; /&gt;"/><x id="CLOSE_BLOCK_IF" equiv-text="}"/> Registrieren </target>
+      </trans-unit>
+      <trans-unit id="registerDialogLoginIntroText" datatype="html">
+        <source>Already have an account?</source>
+        <target state="final">Haben Sie bereits ein Account?</target>
+      </trans-unit>
+      <trans-unit id="registerDialogLoginButton" datatype="html">
+        <source> Login </source>
+        <target state="final"> Anmelden </target>
+      </trans-unit>
+      <trans-unit id="resetPasswordDialogHeading" datatype="html">
+        <source>Reset password</source>
+        <target state="final">Passwort zurücksetzen</target>
+      </trans-unit>
+      <trans-unit id="resetPasswordWIPInfo" datatype="html">
+        <source>This feature is still under development.</source>
+        <target state="final">Diese Funktion befindet sich noch in der Entwicklung.</target>
+      </trans-unit>
+      <trans-unit id="landingHeaderTutorialLinkLabel" datatype="html">
+        <source> Tutorial </source>
+        <target state="final"> Tutorial </target>
+      </trans-unit>
+      <trans-unit id="landingHeaderDocumentationLinkLabel" datatype="html">
+        <source> Documentation </source>
+        <target state="final"> Dokumentation </target>
+      </trans-unit>
+      <trans-unit id="landingHeaderLoginButton" datatype="html">
+        <source> Login </source>
+        <target state="final"> Anmelden </target>
+      </trans-unit>
+      <trans-unit id="landingMainHeadingAccessibleVideos" datatype="html">
+        <source>Accessible videos - </source>
+        <target state="final">Barrierefreie Videos </target>
+      </trans-unit>
+      <trans-unit id="landingMainHeadingFeatures" datatype="html">
+        <source>recording, subtitling and sharing </source>
+        <target state="final">aufnehmen, untertiteln und teilen </target>
+      </trans-unit>
+      <trans-unit id="landingMainHeadingWithMelvin" datatype="html">
+        <source>with Melvin</source>
+        <target state="final"> - mit Melvin</target>
+      </trans-unit>
+      <trans-unit id="landingMainOpenSourceChip" datatype="html">
+        <source>Open-Source</source>
+        <target state="final">Open-Source</target>
+      </trans-unit>
+      <trans-unit id="landingMainFreeOfChargeChip" datatype="html">
+        <source>Free of charge</source>
+        <target state="final">Kostenlos</target>
+      </trans-unit>
+      <trans-unit id="landingMainWIPChip" datatype="html">
+        <source>Work in progress</source>
+        <target state="final">In Entwicklung</target>
+      </trans-unit>
+      <trans-unit id="landingMainRecordingHeading" datatype="html">
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;video&quot; /&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;video&quot; /&gt;"/> Recording </source>
+        <target state="final"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;video&quot; /&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;video&quot; /&gt;"/> Aufnehmen </target>
+      </trans-unit>
+      <trans-unit id="landingMainRecordingExplanationTop" datatype="html">
+        <source> Start your recording directly in the browser, without any additional software. Plus, you have complete control over which audio and video sources you want to use. </source>
+        <target state="final"> Starten Sie ihre Aufnahme direkt im Browser, ganz ohne zusätzliche Software. Sie haben dabei die komplette Kontrolle, welche Audio- und Videoquellen Sie verwenden möchten.</target>
+      </trans-unit>
+      <trans-unit id="landingMainRecordingExplanationBottom" datatype="html">
+        <source> You already have a recording? Simply upload it and use it too. </source>
+        <target state="final"> Sie haben schon eine Aufnahme? Dann können Sie diese hochladen und ebenfalls verwenden. </target>
+      </trans-unit>
+      <trans-unit id="landingMainSubtitlingHeading" datatype="html">
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;edit&quot; /&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;edit&quot; /&gt;"/> Subtitling </source>
+        <target state="final"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;edit&quot; /&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;edit&quot; /&gt;"/> Untertiteln </target>
+      </trans-unit>
+      <trans-unit id="landingMainSubtitlingExplanation" datatype="html">
+        <source> After recording, your videos are automatically transcribed and subtitles are created. Using the editor, you can then make the final corrections manually, either alone or together with others. </source>
+        <target state="final">Nach der Aufnahme werden Ihre Videos automatisch transkribiert und Untertitel erstellt. Im Editor können Sie dann die letzten Verbesserungen manuell durchführen. Das geht alleine oder gleichzeitig mit anderen.  </target>
+      </trans-unit>
+      <trans-unit id="landingMainSharingHeading" datatype="html">
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;play-outline&quot; /&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;play-outline&quot; /&gt;"/> Sharing </source>
+        <target state="final"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;play-outline&quot; /&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;play-outline&quot; /&gt;"/> Teilen </target>
+      </trans-unit>
+      <trans-unit id="landingMainSharingExplanationTop" datatype="html">
+        <source> Your recording can now be shared with our accessible player. You can simply share the link or embed the player in your website. </source>
+        <target state="final">Ihre Aufnahme kann nun mit unserem barrierefreien Player geteilt werden. Hierfür können Sie einfach den Link teilen oder den Player in Ihre Webseite einbetten. </target>
+      </trans-unit>
+      <trans-unit id="landingMainSharingExplanationBottom" datatype="html">
+        <source> Of course, you can also download your files and upload them elsewhere. </source>
+        <target state="final"> Natürlich können Sie Ihre Dateien auch herunterladen und an anderer Stelle hochladen. </target>
+      </trans-unit>
+      <trans-unit id="landingMainWIPExplanationTop" datatype="html">
+        <source> Melvin is currently still under development. However, you can already test the application now. </source>
+        <target state="final">Melvin befindet sich aktuell noch in der Entwicklung. Dennoch können Sie bereits jetzt die Anwendung austesten. </target>
+      </trans-unit>
+      <trans-unit id="landingMainWIPExplanationBottom" datatype="html">
+        <source> In addition to improvements in accessibility and user experience, we are currently working on a <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>livestream mode<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/>. Stay tuned and feel free to check back regularly. </source>
+        <target state="final"> Neben Verbesserungen der Barrierefreiheit und User Experience, arbeiten wir aktuell an einem <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>Livestream-Modus<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/>. Bleiben Sie gespannt und schauen Sie gerne immer wieder Mal vorbei. </target>
+      </trans-unit>
+      <trans-unit id="privacyMainHeading" datatype="html">
+        <source>Privacy</source>
+        <target state="final">Datenschutzerklärung</target>
+      </trans-unit>
+      <trans-unit id="sitemapListExplanation" datatype="html">
+        <source> This sitemap lists all pages alphabetically. </source>
+        <target state="final"> Diese Sitemap listet alle Seiten alphabetisch auf. </target>
+      </trans-unit>
+      <trans-unit id="landingSidenavMenuHeader" datatype="html">
+        <source>Menu</source>
+        <target state="final">Menü</target>
+      </trans-unit>
+      <trans-unit id="landingSidenavStartpageLink" datatype="html">
+        <source> Startpage </source>
+        <target state="final"> Startseite </target>
+      </trans-unit>
+      <trans-unit id="landingSidenavTutorialLink" datatype="html">
+        <source> Tutorial </source>
+        <target state="final"> Tutorial </target>
+      </trans-unit>
+      <trans-unit id="landingSidenavDocumentationLink" datatype="html">
+        <source> Documentation </source>
+        <target state="final"> Dokumentation </target>
+      </trans-unit>
+      <trans-unit id="landingSidenavCloseButton" datatype="html">
+        <source> Close </source>
+        <target state="final"> Schließen </target>
+      </trans-unit>
+      <trans-unit id="startPageTitle" datatype="html">
+        <source>Melvin</source>
+        <target state="final">Melvin</target>
+      </trans-unit>
+      <trans-unit id="imprintPageTitle" datatype="html">
+        <source>Privacy - Melvin</source>
+        <target state="final">Datenschutzerklärung - Melvin</target>
+      </trans-unit>
+      <trans-unit id="accessibilityStatementPageTitle" datatype="html">
+        <source>Accessibility Statement - Melvin</source>
+        <target state="final">Erklärung zur Barrierefreiheit - Melvin</target>
+      </trans-unit>
+      <trans-unit id="tutorialPageTitle" datatype="html">
+        <source>Tutorial - Melvin</source>
+        <target state="final">Tutorial - Melvin</target>
+      </trans-unit>
+      <trans-unit id="documentationPageTitle" datatype="html">
+        <source>Documentation - Melvin</source>
+        <target state="final">Dokumentation - Melvin</target>
       </trans-unit>
     </body>
   </file>

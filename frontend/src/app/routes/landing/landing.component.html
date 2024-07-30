@@ -6,22 +6,44 @@
     class="mat-drawer"
     fixedInViewport
   >
-    <h1>Menu</h1>
+    <h1 i18n="@@landingSidenavMenuHeader">Menu</h1>
     <nav>
       <ul>
         <li>
-          <a routerLink="/" (click)="drawer.toggle()"> Startpage </a>
+          <a
+            routerLink="/"
+            (click)="drawer.toggle()"
+            i18n="@@landingSidenavStartpageLink"
+          >
+            Startpage
+          </a>
         </li>
         <li>
-          <a routerLink="/tutorial" (click)="drawer.toggle()"> Tutorial </a>
+          <a
+            routerLink="/tutorial"
+            (click)="drawer.toggle()"
+            i18n="@@landingSidenavTutorialLink"
+          >
+            Tutorial
+          </a>
         </li>
         <li>
-          <a routerLink="/documentation" (click)="drawer.toggle()">
+          <a
+            routerLink="/documentation"
+            (click)="drawer.toggle()"
+            i18n="@@landingSidenavDocumentationLink"
+          >
             Documentation
           </a>
         </li>
         <li>
-          <button mat-stroked-button (click)="drawer.toggle()">Close</button>
+          <button
+            mat-stroked-button
+            (click)="drawer.toggle()"
+            i18n="@@landingSidenavCloseButton"
+          >
+            Close
+          </button>
         </li>
       </ul>
     </nav>
