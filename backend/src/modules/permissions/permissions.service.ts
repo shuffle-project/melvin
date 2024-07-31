@@ -12,7 +12,8 @@ import { LeanTranscriptionDocument } from '../db/schemas/transcription.schema';
 export class PermissionsService {
   isProjectReadable(project: LeanProjectDocument, authUser: AuthUser): boolean {
     return (
-      this.isProjectMember(project, authUser) ||
+      this.isProjectMember(project, authUser)
+      ||
       this.isProjectViewer(project, authUser)
     );
   }
@@ -21,8 +22,7 @@ export class PermissionsService {
     if (authUser.role !== UserRole.VIEWER) {
       return false;
     }
-
-    return isSameObjectId(authUser.id, project);
+    return isSameObjectId(authUser.id, project._id ? project._id : project);
   }
 
   isProjectOwner(project: LeanProjectDocument, authUser: AuthUser): boolean {

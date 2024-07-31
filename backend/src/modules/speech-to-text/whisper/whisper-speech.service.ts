@@ -77,6 +77,21 @@ export class WhisperSpeechService implements ISpeechToTextService {
     const transcribe = await this._transcribe(project, audio);
 
     // use cronJob/queue instead of
+    return await this._fetchResult(transcribe);
+  }
+
+  async runAlign(
+    project: Project,
+    text: string,
+    language: string,
+    audio: Audio,
+  ) {
+    const align = await this._align(project, text, language, audio);
+
+    return await this._fetchResult(align);
+  }
+
+  private async _fetchResult(transcribe: WhiTranscriptEntity) {
     const transcriptEntity: WhiTranscriptEntity = await new Promise(
       (resolve) => {
         const interval = setInterval(async () => {
@@ -177,6 +192,60 @@ export class WhisperSpeechService implements ISpeechToTextService {
           {
             headers: {
               Authorization: this.apikey,
+            },
+          },
+        )
+        .pipe(
+          map((res: AxiosResponse<WhiTranscriptEntity>) => {
+            return res.data;
+          }),
+          catchError((error: AxiosError) => {
+            if (error?.response?.status) {
+              throw new HttpException(
+                error.response.data,
+                error.response.status,
+              );
+            } else {
+              throw new HttpException('unknown error', 500);
+            }
+          }),
+        ),
+    );
+
+    return response;
+  }
+
+  async _align(project: Project, text: string, language: string, audio: Audio) {
+    const audioPath = this.pathService.getMediaFile(
+      project._id.toString(),
+      audio,
+    );
+
+    const file = await readFile(audioPath);
+
+    const formData = new FormData();
+    formData.append('file', file, audio._id.toString() + '.' + audio.extension);
+    formData.append('task', 'align');
+    formData.append('text', text);
+    formData.append('language', language);
+    // const settings: WhiTranscribeDto = {
+    //   language: project.language,
+    //   condition_on_previous_text: false,
+    // };
+    // formData.append('settings', JSON.stringify(settings));
+
+    const response = await lastValueFrom(
+      this.httpService
+        .post<WhiTranscriptEntity>(
+          `http://${this.host}:8393/transcriptions`,
+          formData,
+          {
+            headers: {
+              // authorization: this.apikey,
+              // 'Transfer-Encoding': 'chunked',
+              Authorization: this.apikey,
+              'Content-Type': 'multipart/form-data',
+              ...formData.getHeaders(),
             },
           },
         )

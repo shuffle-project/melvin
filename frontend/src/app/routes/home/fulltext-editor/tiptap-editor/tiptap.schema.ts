@@ -1,4 +1,4 @@
-import { Extension, Mark, mergeAttributes, NodePos } from '@tiptap/core';
+import { Extension, Mark, mergeAttributes } from '@tiptap/core';
 import Paragraph from '@tiptap/extension-paragraph';
 import { Plugin, PluginKey } from 'prosemirror-state';
 
@@ -10,47 +10,47 @@ export const CustomParagraph = Paragraph.extend({
       },
     };
   },
-  addNodeView() {
-    return ({
-      editor,
-      node,
-      getPos,
-      HTMLAttributes,
-      decorations,
-      extension,
-    }) => {
-      const container = document.createElement('div');
+  // addNodeView() {
+  //   return ({
+  //     editor,
+  //     node,
+  //     getPos,
+  //     HTMLAttributes,
+  //     decorations,
+  //     extension,
+  //   }) => {
+  //     const container = document.createElement('div');
 
-      // @ts-ignore
-      const pos = getPos();
+  //     // @ts-ignore
+  //     const pos = getPos();
 
-      const resolvedPos = editor.state.doc.resolve(pos);
-      const nodePos = new NodePos(resolvedPos, editor);
+  //     const resolvedPos = editor.state.doc.resolve(pos);
+  //     const nodePos = new NodePos(resolvedPos, editor);
 
-      const prevNode = resolvedPos.nodeBefore;
+  //     const prevNode = resolvedPos.nodeBefore;
 
-      const currentSpeaker = node.attrs['speaker'];
-      const prevSpeaker = prevNode?.attrs['speaker'];
+  //     const currentSpeaker = node.attrs['speaker'];
+  //     const prevSpeaker = prevNode?.attrs['speaker'];
 
-      console.log({ currentSpeaker, prevSpeaker });
-      if (!prevNode || currentSpeaker !== prevSpeaker) {
-        const span = document.createElement('span');
-        span.addEventListener('click', (event) => {
-          nodePos.setAttribute({ speaker: 'Speaker X' });
-        });
-        container.append(span);
-        span.innerText = currentSpeaker ?? 'Unknown';
-      }
+  //     console.log({ currentSpeaker, prevSpeaker });
+  //     if (!prevNode || currentSpeaker !== prevSpeaker) {
+  //       const span = document.createElement('span');
+  //       span.addEventListener('click', (event) => {
+  //         nodePos.setAttribute({ speaker: 'Speaker X' });
+  //       });
+  //       container.append(span);
+  //       span.innerText = currentSpeaker ?? 'Unknown';
+  //     }
 
-      const content = document.createElement('div');
-      container.append(content);
+  //     const content = document.createElement('div');
+  //     container.append(content);
 
-      return {
-        dom: container,
-        contentDOM: content,
-      };
-    };
-  },
+  //     return {
+  //       dom: container,
+  //       contentDOM: content,
+  //     };
+  //   };
+  // },
 });
 
 // export const Highlight = Extension.create({

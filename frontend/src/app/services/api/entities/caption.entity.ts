@@ -27,3 +27,11 @@ export enum CaptionStatusEnum {
   FLAGGED = 'flagged',
   FINISHED = 'finished',
 }
+
+export interface TiptapCaption {
+  id: string;
+  text: string;
+  start: number;
+  end: number;
+  speakerId: string;
+}

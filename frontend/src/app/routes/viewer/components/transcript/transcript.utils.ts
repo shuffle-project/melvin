@@ -1,11 +1,11 @@
-import { CaptionEntity } from '../../../../services/api/entities/caption.entity';
+import { TiptapCaption } from '../../../../services/api/entities/caption.entity';
 
-export function generateTranscript(captions: CaptionEntity[]) {
+export function generateTranscript(captions: TiptapCaption[]) {
   if (captions.length === 0) return [];
 
-  const finalTranscriptParagraphs: CaptionEntity[][] = [];
+  const finalTranscriptParagraphs: TiptapCaption[][] = [];
 
-  let tempTranscriptParagraph: CaptionEntity[] = [captions[0]];
+  let tempTranscriptParagraph: TiptapCaption[] = [captions[0]];
   let tempCurrentTextLength = captions[0].text.length;
 
   let captionIndex = 1; // start at second item, first item is already in temp

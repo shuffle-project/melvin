@@ -11,7 +11,10 @@ import {
 } from '../../modules/db/schemas/transcription.schema';
 import { PermissionsService } from '../../modules/permissions/permissions.service';
 import { ExportSubtitlesService } from '../../modules/subtitle-format/export-subtitles.service';
-import { TiptapDocument } from '../../modules/tiptap/tiptap.interfaces';
+import {
+  TiptapCaption,
+  TiptapDocument,
+} from '../../modules/tiptap/tiptap.interfaces';
 import { TiptapService } from '../../modules/tiptap/tiptap.service';
 import {
   ProcessSubtitlesJob,
@@ -430,5 +433,30 @@ export class TranscriptionService {
     this.events.transcriptionUpdated(project, entity);
 
     return entity;
+  }
+
+  /**
+   * new YDOC logic
+   */
+
+  async getCaptions(authUser: AuthUser, id: string): Promise<TiptapCaption[]> {
+    const transcription = await this.db.transcriptionModel
+      .findById(id)
+      .orFail(new CustomBadRequestException('unknown_transaction_id'))
+      .populate('project')
+      .populate('createdBy')
+      .exec();
+
+    const project = transcription.project as LeanProjectDocument;
+    // if (!this.permissions.isProjectMember(project, authUser)) {
+    if (!this.permissions.isProjectReadable(project, authUser)) {
+      throw new CustomForbiddenException('access_to_transcription_denied');
+    }
+
+    // const ydoc = this.tiptapService.toYDoc(transcription.ydoc);
+
+    const tiptapCaptions = this.tiptapService.getCaptionsById(id);
+    // console.log(tiptapCaptions);
+    return tiptapCaptions;
   }
 }

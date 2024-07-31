@@ -34,7 +34,11 @@ import {
   ViewerLoginEntity,
 } from './entities/auth.entity';
 import { CaptionListEntity } from './entities/caption-list.entity';
-import { CaptionEntity, CaptionHistoryEntity } from './entities/caption.entity';
+import {
+  CaptionEntity,
+  CaptionHistoryEntity,
+  TiptapCaption,
+} from './entities/caption.entity';
 import { ConfigEntity } from './entities/config.entity';
 import { ConnectLivestreamEntity } from './entities/connect-livestream.entity';
 import { NotificationListEntity } from './entities/notification-list.entity';
@@ -212,6 +216,11 @@ export abstract class ApiService {
     transcriptionId: string,
     type: 'srt' | 'vtt'
   ): Observable<Blob>;
+
+  abstract transcriptionGetCaptions(
+    transcriptionId: string,
+    useViewerToken?: boolean
+  ): Observable<TiptapCaption[]>;
 
   // captions
 

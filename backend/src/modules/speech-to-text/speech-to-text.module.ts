@@ -28,6 +28,6 @@ import { WhisperSpeechService } from './whisper/whisper-speech.service';
     GoogleSpeechService,
     WhisperSpeechService,
   ],
-  exports: [SpeechToTextService],
+  exports: [SpeechToTextService, WhisperSpeechService],
 })
 export class SpeechToTextModule {}

@@ -71,6 +71,13 @@ export class TiptapService {
     connection.disconnect();
   }
 
+  toYDoc(uint8array: Uint8Array): Y.Doc {
+    const ydoc = new Y.Doc();
+    const update = Y.encodeStateAsUpdateV2(ydoc, uint8array);
+    Y.applyUpdateV2(ydoc, update);
+    return ydoc;
+  }
+
   async insert(transcriptionId: string, text: string) {
     this.logger.verbose('insert');
     const connection = await this.hocuspocusService.openDirectConnection(
@@ -432,6 +439,16 @@ export class TiptapService {
     return words;
   }
 
+  async getCaptionsById(transcriptionId: string): Promise<TiptapCaption[]> {
+    const connection = await this.hocuspocusService.openDirectConnection(
+      transcriptionId,
+    );
+
+    const captions = this.getCaptions(connection.document);
+    connection.disconnect();
+    return captions;
+  }
+
   getCaptions(doc: Y.Doc): TiptapCaption[] {
     const MIN_CHARACTERS = 40;
     const MAX_CHARACTERS = 80;
@@ -443,7 +460,7 @@ export class TiptapService {
       caption: TiptapCaption,
       word: WordEntity,
     ): boolean => {
-      if (caption.start === 0) {
+      if (word.start === 0) {
         return false;
       }
 
@@ -539,7 +556,9 @@ export class TiptapService {
 
     const captions: TiptapCaption[] = [];
 
+    let id = 1;
     let currentCaption: TiptapCaption = {
+      id: id.toString(),
       start: 0,
       text: '',
       end: 0,
@@ -553,7 +572,9 @@ export class TiptapService {
         captions.push(currentCaption);
 
         // Start new caption
+        id++;
         currentCaption = {
+          id: id.toString(),
           start: word.start,
           text: word.text,
           end: 0,
