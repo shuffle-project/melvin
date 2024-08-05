@@ -5,6 +5,7 @@ import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { Language } from '../../../app.interfaces';
 import { GoogleSpeechConfig } from '../../../config/config.interface';
+import { ProjectEntity } from '../../../resources/project/entities/project.entity';
 import { DbService } from '../../db/db.service';
 import { Audio, Project } from '../../db/schemas/project.schema';
 import { CustomLogger } from '../../logger/logger.service';
@@ -44,6 +45,13 @@ export class GoogleSpeechService implements ISpeechToTextService {
     this.client_email = this.googleSpeechConfig?.client_email;
     this.bucketName = this.googleSpeechConfig?.bucketName;
     // this.keyfile = this.googleSpeechConfig.keyfileContent;
+  }
+  runAlign(
+    project: ProjectEntity,
+    text: string,
+    audio: Audio,
+  ): Promise<any> {
+    throw new Error('Method not implemented.');
   }
 
   async fetchLanguages(): Promise<Language[] | null> {

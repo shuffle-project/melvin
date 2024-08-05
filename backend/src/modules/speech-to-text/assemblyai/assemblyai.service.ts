@@ -6,6 +6,7 @@ import { readFile } from 'fs-extra';
 import { catchError, lastValueFrom, map } from 'rxjs';
 import { Language } from '../../../app.interfaces';
 import { AssmeblyAiConfig } from '../../../config/config.interface';
+import { ProjectEntity } from '../../../resources/project/entities/project.entity';
 import { DbService } from '../../db/db.service';
 import { Audio, Project } from '../../db/schemas/project.schema';
 import { CustomLogger } from '../../logger/logger.service';
@@ -40,6 +41,13 @@ export class AssemblyAiService implements ISpeechToTextService {
 
     this.url = this.assemblyAiConfig?.url;
     this.apikey = this.assemblyAiConfig?.apikey;
+  }
+  runAlign(
+    project: ProjectEntity,
+    text: string,
+    audio: Audio,
+  ): Promise<any> {
+    throw new Error('Method not implemented.');
   }
 
   async fetchLanguages(): Promise<Language[] | null> {

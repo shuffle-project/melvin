@@ -26,7 +26,9 @@ import { ProjectService } from '../resources/project/project.service';
 import { TranscriptionEntity } from '../resources/transcription/entities/transcription.entity';
 import { TranscriptionService } from '../resources/transcription/transcription.service';
 import {
+  AlignPayload,
   AsrPayload,
+  AsrVendors,
   CopyPayload,
   FilePayload,
   ProcessProjectJob,
@@ -56,7 +58,7 @@ export class SubtitlesProcessor {
     this.logger.setContext(this.constructor.name);
   }
 
-  @Process()
+  @Process({ concurrency: 3 })
   async processSubtitles(job: Job<ProcessSubtitlesJob>) {
     const systemUser = await this.authService.findSystemAuthUser();
     const { project, transcription, payload } = job.data;
@@ -94,6 +96,14 @@ export class SubtitlesProcessor {
           `Subtitle creation: Job ${job.id}, Creation Type: Copy from Transcription ${payload.sourceTranscriptionId}`,
         );
         await this._generateCaptionsFromCopy(project, transcription, payload);
+        break;
+
+      case SubtitlesType.ALIGN:
+        this.logger.verbose(
+          `Subtitle creation: Job ${job.id}, Creation Type: Align Transcription ${payload.sourceTranscriptionId}`,
+        );
+        // TODO align
+        this._alignCaptions(project, transcription, payload);
         break;
     }
 
@@ -305,6 +315,20 @@ export class SubtitlesProcessor {
       sysUser,
       createDtos,
       project._id.toString(),
+    );
+  }
+
+  async _alignCaptions(
+    project: Project,
+    target: TranscriptionEntity,
+    payload: AlignPayload,
+  ) {
+    await this.speechToTextService.align(
+      project,
+      target,
+      payload.audio,
+      AsrVendors.WHISPER,
+      payload.text,
     );
   }
 }

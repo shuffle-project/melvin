@@ -1,9 +1,15 @@
+import { InjectQueue } from '@nestjs/bull';
 import { Injectable } from '@nestjs/common';
+import { Queue } from 'bull';
+import {
+  AlignPayload,
+  ProcessSubtitlesJob,
+  SubtitlesType,
+} from '../../processors/processor.interfaces';
 import { PopulateService } from '../../resources/populate/populate.service';
 import { generateSecureToken } from '../../utils/crypto';
 import { DbService } from '../db/db.service';
 import { CustomLogger } from '../logger/logger.service';
-import { WordEntity } from '../speech-to-text/speech-to-text.interfaces';
 import { WhisperSpeechService } from '../speech-to-text/whisper/whisper-speech.service';
 import { TiptapService } from '../tiptap/tiptap.service';
 
@@ -15,6 +21,8 @@ export class MigrationService {
     private populateService: PopulateService,
     private tiptapService: TiptapService,
     private whisper: WhisperSpeechService,
+    @InjectQueue('subtitles')
+    private subtitlesQueue: Queue<ProcessSubtitlesJob>,
   ) {
     this.logger.setContext('Migration');
   }
@@ -23,7 +31,7 @@ export class MigrationService {
     this.logger.info('Initialize migration check');
     let settings = await this.db.settingsModel.findOne({});
 
-    this.logger.info('settings', settings);
+    this.logger.info('settings.dbSchemaVersion', settings.dbSchemaVersion);
 
     if (settings === null) {
       this.logger.info('First application start');
@@ -37,9 +45,8 @@ export class MigrationService {
       this.logger.info('Fix dbSchemaVersion');
       settings.dbSchemaVersion = 1;
       await settings.save();
+      this.logger.info('Fix dbSchemaVersion successful');
     }
-
-    this.logger.info('settings', settings);
 
     if (settings.dbSchemaVersion < 2) {
       this.logger.info('Migrate to version 2');
@@ -51,16 +58,17 @@ export class MigrationService {
       }
       settings.dbSchemaVersion = 2;
       await settings.save();
-      this.logger.info('Migration successful');
+      this.logger.info('Migration to version 2 successful');
     }
 
-    if (settings.dbSchemaVersion < 4) {
-      this.logger.info(
-        'Migrate to version 3 -> Move from CaptionEntity to Tiptap',
-      );
+    // TODO: switch to version 3 in if statement
+    if (settings.dbSchemaVersion < 3) {
+      this.logger.info('Migrate to version 3');
       await this._migrateToV3Tiptap();
+
       settings.dbSchemaVersion = 3;
       await settings.save();
+      this.logger.info('Migration to version 3 successful');
     }
   }
 
@@ -70,60 +78,90 @@ export class MigrationService {
       const captions = await this.db.captionModel.find({
         transcription: transcription._id,
       });
-      const words: WordEntity[] = [];
+      console.log(
+        'transcription',
+        captions.length,
+        transcription.ydoc === undefined,
+      );
+      // const words: WordEntity[] = [];
 
-      captions.forEach((caption) => {
-        const textSplitted = caption.text.split(' ');
-        const wordsInCaption: WordEntity[] = textSplitted.map(
-          (split, index) => {
-            return {
-              text: index === 0 ? split : ' ' + split,
-              start: caption.start,
-              end: caption.end,
-              speakerId: caption.speakerId.toString(),
-              startParagraph: index === 0,
-            };
-          },
-        );
-        words.push(...wordsInCaption.filter((word) => word.text.length > 0));
-      });
 
-      if (words.length > 0 && transcription._id === transcriptions[0]._id) {
-        try {
-          const text = captions.map((caption) => caption.text).join(' ');
-          console.log(text);
-          const project = await this.db.projectModel
-            .findById(transcription.project)
-            .exec();
 
-          console.log('run align');
-          const alinedWords = await this.whisper.runAlign(
-            project,
-            text,
-            'en',
-            project.audios[0],
-          );
+      // TODO: remove transcription id check
+      if (captions.length > 0 && (transcription.ydoc === undefined)) {
+        const project = await this.db.projectModel
+          .findById(transcription.project)
+          .exec();
 
-          const tiptapDocument = this.tiptapService.wordsToTiptap(
-            alinedWords.words,
-          );
+        const text = captions
+          .map((caption) => {
+            return caption.text;
+          })
+          .join('');
 
-          transcription.ydoc = undefined;
-          await transcription.save();
-          console.log('ydoc set to null');
+        /**
+         *
+         */
 
-          // update document with tiptapdocument
-          await this.tiptapService.updateDocument(
+
+        // TODO: map speaker?
+
+        this.logger.info(
+          'Add align job to queue for transcription ' +
             transcription._id.toString(),
-            tiptapDocument,
-          );
-          console.log('ydoc updated');
-        } catch (e) {
-          console.log(e);
-        }
-      }
+        );
+        const payload: AlignPayload = {
+          type: SubtitlesType.ALIGN,
+          audio: project.audios[0],
+          language: 'en',
+          sourceTranscriptionId: transcription._id.toString(),
+          text,
+        };
+        this.subtitlesQueue.add({
+          project: project,
+          transcription: transcription,
+          payload,
+        });
 
-      // TODO run ts whisper to sync word timestamps
+        /**
+         *
+         */
+
+        // TODO: run async?
+        // TODO: project.language !== transcription.language== => aliugn wont work
+        // try {
+        //   const text = captions
+        //     .map((caption) => {
+        //       return caption.text;
+        //     })
+        //     .join('');
+
+        //   this.logger.info('run align');
+        //   const alinedWords = await this.whisper.runAlign(
+        //     project,
+        //     text,
+        //     'en',
+        //     project.audios[0],
+        //   );
+
+        //   const tiptapDocument = this.tiptapService.wordsToTiptap(
+        //     alinedWords.words,
+        //   );
+
+        //   transcription.ydoc = null;
+        //   await transcription.save();
+
+        //   
+
+        //   // update document with tiptapdocument
+        //   await this.tiptapService.updateDocument(
+        //     transcription._id.toString(),
+        //     tiptapDocument,
+        //   );
+        // } catch (e) {
+        //   this.logger.error('Error during align', e);
+        // }
+      }
     }
   }
 }

@@ -165,6 +165,72 @@ export class SpeechToTextService {
     );
   }
 
+  async align(
+    project: Project,
+    transcription: TranscriptionEntity,
+    audio: Audio,
+    vendor: AsrVendors,
+    textToAlign?: string,
+  ) {
+    this.logger.verbose(
+      `Start - Generate aligning captions for Project ${project._id}/${transcription._id} with asr vendor ${vendor}`,
+    );
+
+    if (!textToAlign) {
+      // TODO switch to align content of ydoc
+    }
+
+    // let captions: Caption[] = [];
+    let res: TranscriptEntity | string;
+    switch (vendor) {
+      case AsrVendors.WHISPER:
+        res = await this.whisperSpeechService.runAlign(
+          project,
+          textToAlign,
+          audio,
+        );
+
+        if (res.captions) {
+        } else {
+          const document = this.tiptapService.wordsToTiptap(res.words);
+          await this.tiptapService.updateDocument(
+            transcription._id.toString(),
+            document,
+          );
+          // captions = this._wordsToCaptions(project, transcription, res);
+        }
+
+        // res = await this.whisperSpeechService.run(project, audio);
+        // if (res.captions) {
+        //   captions = this._toCaptions(project, transcription, res.captions);
+        // } else {
+        //   const document = this.tiptapService.wordsToTiptap(res.words);
+        //   await this.tiptapService.updateDocument(
+        //     transcription._id.toString(),
+        //     document,
+        //   );
+        //   captions = this._wordsToCaptions(project, transcription, res);
+        // }
+        break;
+
+      // other vendors not implemented
+      default:
+        // empty transcription
+
+        break;
+    }
+
+    // else if (vendor === AsrVendors.WHISPER) {
+    //   const whisperVtt = project._id.toString() + '.vtt';
+    //   const vttFilePath = this.pathService.getWavFile(whisperVtt);
+    // }
+
+    // await this.db.captionModel.insertMany(captions);
+    this.logger.verbose(
+      `Finished - Aligning captions for Project ${project._id}/${transcription._id}`,
+    );
+  }
+
   private async _vttFilePathToCaptions(
     res: string,
     transcription: TranscriptionEntity,

@@ -21,6 +21,7 @@ export enum SubtitlesType {
   FROM_ASR = 'from_automatic_speech_recognition',
   FROM_TRANSLATION = 'from_translation',
   FROM_COPY = 'from_copy',
+  ALIGN = 'align',
 }
 
 export interface FilePayload {
@@ -44,10 +45,24 @@ export interface CopyPayload {
   sourceTranscriptionId: string;
 }
 
+export interface AlignPayload {
+  type: SubtitlesType.ALIGN;
+  sourceTranscriptionId: string;
+  audio: Audio;
+  language: string;
+  text?: string;
+}
+
 export interface ProcessSubtitlesJob {
   project: Project;
   transcription: TranscriptionEntity;
-  payload: FilePayload | AsrPayload | TranslationPayload | CopyPayload | null;
+  payload:
+    | FilePayload
+    | AsrPayload
+    | TranslationPayload
+    | CopyPayload
+    | AlignPayload
+    | null;
 }
 
 // Project Processor

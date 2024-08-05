@@ -80,15 +80,17 @@ export class WhisperSpeechService implements ISpeechToTextService {
     return await this._fetchResult(transcribe);
   }
 
-  async runAlign(
-    project: Project,
-    text: string,
-    language: string,
-    audio: Audio,
-  ) {
+  async runAlign(project: Project, text: string, audio: Audio) {
+    const language = this._getLanguage(project.language);
     const align = await this._align(project, text, language, audio);
 
     return await this._fetchResult(align);
+  }
+
+  private _getLanguage(languageString: string) {
+    return languageString.includes('-')
+      ? languageString.split('-')[0]
+      : languageString;
   }
 
   private async _fetchResult(transcribe: WhiTranscriptEntity) {
@@ -151,19 +153,15 @@ export class WhisperSpeechService implements ISpeechToTextService {
 
     const response = await lastValueFrom(
       this.httpService
-        .post<WhiTranscriptEntity>(
-          `http://${this.host}:8393/transcriptions`,
-          formData,
-          {
-            headers: {
-              // authorization: this.apikey,
-              // 'Transfer-Encoding': 'chunked',
-              Authorization: this.apikey,
-              'Content-Type': 'multipart/form-data',
-              ...formData.getHeaders(),
-            },
+        .post<WhiTranscriptEntity>(`${this.host}/transcriptions`, formData, {
+          headers: {
+            // authorization: this.apikey,
+            // 'Transfer-Encoding': 'chunked',
+            Authorization: this.apikey,
+            'Content-Type': 'multipart/form-data',
+            ...formData.getHeaders(),
           },
-        )
+        })
         .pipe(
           map((res: AxiosResponse<WhiTranscriptEntity>) => {
             return res.data;
@@ -188,7 +186,7 @@ export class WhisperSpeechService implements ISpeechToTextService {
     const response = await lastValueFrom(
       this.httpService
         .get<WhiTranscriptEntity>(
-          `http://${this.host}:8393/transcriptions/${transcriptId}`,
+          `${this.host}/transcriptions/${transcriptId}`,
           {
             headers: {
               Authorization: this.apikey,
@@ -236,19 +234,15 @@ export class WhisperSpeechService implements ISpeechToTextService {
 
     const response = await lastValueFrom(
       this.httpService
-        .post<WhiTranscriptEntity>(
-          `http://${this.host}:8393/transcriptions`,
-          formData,
-          {
-            headers: {
-              // authorization: this.apikey,
-              // 'Transfer-Encoding': 'chunked',
-              Authorization: this.apikey,
-              'Content-Type': 'multipart/form-data',
-              ...formData.getHeaders(),
-            },
+        .post<WhiTranscriptEntity>(`${this.host}/transcriptions`, formData, {
+          headers: {
+            // authorization: this.apikey,
+            // 'Transfer-Encoding': 'chunked',
+            Authorization: this.apikey,
+            'Content-Type': 'multipart/form-data',
+            ...formData.getHeaders(),
           },
-        )
+        })
         .pipe(
           map((res: AxiosResponse<WhiTranscriptEntity>) => {
             return res.data;

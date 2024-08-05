@@ -5,6 +5,11 @@ import { Audio } from '../db/schemas/project.schema';
 export interface ISpeechToTextService {
   fetchLanguages(): Promise<Language[] | null>;
   run(project: ProjectEntity, audio: Audio): Promise<TranscriptEntity | string>;
+  runAlign(
+    project: ProjectEntity,
+    text: string,
+    audio: Audio,
+  ): Promise<any>;
 }
 
 export class WordEntity {

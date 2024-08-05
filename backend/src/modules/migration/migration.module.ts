@@ -1,3 +1,4 @@
+import { BullModule } from '@nestjs/bull';
 import { Module } from '@nestjs/common';
 import { PopulateModule } from '../../resources/populate/populate.module';
 import { DbModule } from '../db/db.module';
@@ -13,8 +14,9 @@ import { MigrationService } from './migration.service';
     LoggerModule,
     TiptapModule,
     SpeechToTextModule,
+    BullModule.registerQueue({ name: 'subtitles' }),
   ],
   providers: [MigrationService],
   exports: [MigrationService],
 })
-export class MigrationModule {}
+export class MigrationModule { }
