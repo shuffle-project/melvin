@@ -1499,6 +1499,66 @@
       <trans-unit id="tutorialPageTitle" datatype="html">
         <source>Tutorial - Melvin</source>
       </trans-unit>
+      <trans-unit id="imprintBielefeld" datatype="html">
+        <source> University Bielefeld </source>
+      </trans-unit>
+      <trans-unit id="imprintCopyrightHeading" datatype="html">
+        <source>3. Copyright and trademark law</source>
+      </trans-unit>
+      <trans-unit id="imprintCopyrightLowerText" datatype="html">
+        <source> All brand names and trademarks mentioned on the website and potentially protected by third parties are subject without restriction to the regulations of the applicable trademark law and the ownership rights of the respective registered owners. The mere mention of a trademark does not imply that it is not protected by third-party rights! The copyright for published objects created by the author or author himself remains solely with the author/authors of the pages or texts and contents. Reproduction or use of such graphics, audio documents, video sequences and texts in other electronic or printed publications is not permitted without the express consent of the author(s). </source>
+      </trans-unit>
+      <trans-unit id="imprintCopyrightUpperText" datatype="html">
+        <source> The author makes every effort to respect the copyright of the graphics, sound documents, video sequences and texts used in all publications, to use graphics, sound documents, video sequences and texts created by themselves or to use license-free graphics, sound documents, video sequences and texts. </source>
+      </trans-unit>
+      <trans-unit id="imprintDisclaimerHeading" datatype="html">
+        <source>Disclaimer</source>
+      </trans-unit>
+      <trans-unit id="imprintFreiburg" datatype="html">
+        <source> Freiburg University of Education </source>
+      </trans-unit>
+      <trans-unit id="imprintHeidelberg" datatype="html">
+        <source> Heidelberg University of Education </source>
+      </trans-unit>
+      <trans-unit id="imprintLegalValidityHeading" datatype="html">
+        <source> 4. Legal validity of this disclaimer </source>
+      </trans-unit>
+      <trans-unit id="imprintLegalValidityText" datatype="html">
+        <source> This disclaimer is to be regarded as part of the internet publication which you were referred from. If sections or individual terms of this statement are not legal or correct, the content or validity of the other parts remain uninfluenced by this fact. </source>
+      </trans-unit>
+      <trans-unit id="imprintPartnerHeading" datatype="html">
+        <source>Project partners:</source>
+      </trans-unit>
+      <trans-unit id="imprintPartnerLowerText" datatype="html">
+        <source> Hochschule der Medien Stuttgart is a body under public law. It is legally represented by the Rector Prof. Dr. Alexander W. Roos. </source>
+      </trans-unit>
+      <trans-unit id="imprintPartnerUpperText" datatype="html">
+        <source> Melvin is part of the SHUFFLE project funded by the Stiftung Innovation in der Hochschullehre. Three other universities are involved in the project under the direction of the Hochschule der Medien: </source>
+      </trans-unit>
+      <trans-unit id="imprintReferencesHeading" datatype="html">
+        <source>2. References and links</source>
+      </trans-unit>
+      <trans-unit id="imprintReferencesText" datatype="html">
+        <source> In the case of direct or indirect references to external websites (&quot;links&quot;) that lie outside the author&apos;s area of responsibility, a liability obligation would only come into force in the event that the author is aware of the content and it would be technically possible and reasonable for him to prevent use in the event of illegal content. The author hereby expressly declares that no illegal content was recognizable on the linked pages at the time the links were created. The author has no influence whatsoever on the current and future design, content or authorship of the linked pages. The author therefore expressly distances himself from all contents of all linked pages that were changed after the link was created. This statement applies to all links and references set within the author&apos;s own website as well as to third-party entries in guest books, discussion forums and mailing lists set up by the author. Liability for illegal, incorrect or incomplete content and in particular for damages resulting from the use or non-use of such information lies solely with the provider of the page to which reference is made, and not with the person who merely refers to the respective publication via links. </source>
+      </trans-unit>
+      <trans-unit id="imprintResponsibleAuthorityHeading" datatype="html">
+        <source> Responsible regulatory authority: </source>
+      </trans-unit>
+      <trans-unit id="imprintResponsiblePersonHeading" datatype="html">
+        <source>Responsible for the website:</source>
+      </trans-unit>
+      <trans-unit id="imprintSourceText" datatype="html">
+        <source> Source: <x id="START_LINK" ctype="x-a" equiv-text="&lt;a href=&quot;https://www.juraforum.de/&quot;&gt;"/>www.Juraforum.de<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/> - Legal portal with lawyer search as at: August 2017 </source>
+      </trans-unit>
+      <trans-unit id="imprintVATNumber" datatype="html">
+        <source><x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>VAT ID number:<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/> DE 224 427 890 </source>
+      </trans-unit>
+      <trans-unit id="imprintWebsiteContentHeading" datatype="html">
+        <source>1. Content of the website</source>
+      </trans-unit>
+      <trans-unit id="imprintWebsiteContentText" datatype="html">
+        <source> The author (provider of this website) assumes no liability for the topicality, correctness, completeness or quality of the information provided. Liability claims against the author relating to material or immaterial damage caused by the use or non-use of the information provided or by the use of incorrect or incomplete information are fundamentally excluded, unless there is evidence of wilful intent or gross negligence on the part of the author. All content is subject to change and non-binding. The author expressly reserve the right to change, supplement or delete parts of the pages or the entire website without prior notice or to cease publication temporarily or permanently. </source>
+      </trans-unit>
     </body>
   </file>
 </xliff>
