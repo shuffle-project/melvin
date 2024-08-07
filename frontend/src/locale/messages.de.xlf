@@ -346,7 +346,7 @@
         <source>French</source>
         <target state="final">Französisch</target>
       </trans-unit>
-      <trans-unit id="shareProjectLinkCopiedMessage" datatype="html">
+      <trans-unit id="sharePlayerLinkCopiedMessage" datatype="html">
         <source>Link copied</source>
         <target state="final">Link kopiert</target>
       </trans-unit>
@@ -831,8 +831,8 @@
         <target state="final">Alle</target>
       </trans-unit>
       <trans-unit id="projectListTableHeaderPlayerLabel" datatype="html">
-        <source> Player </source>
-        <target state="final"> Player </target>
+        <source> Videoplayer </source>
+        <target state="new"> Player </target>
       </trans-unit>
       <trans-unit id="createTranscriptionDialogCloseButton" datatype="html">
         <source>Close</source>
@@ -1488,7 +1488,7 @@
       </trans-unit>
       <trans-unit id="deleteConfirmationDialogTitleLeave" datatype="html">
         <source> Leave <x id="INTERPOLATION" equiv-text="{{ data.subject }}"/> </source>
-        <target state="final">Verlassen  <x id="INTERPOLATION" equiv-text="{{ data.subject }}"/> </target>
+        <target state="final">Verlassen <x id="INTERPOLATION" equiv-text="{{ data.subject }}"/> </target>
       </trans-unit>
       <trans-unit id="inviteCollaboratorAddUserInputLabel" datatype="html">
         <source>Collaborator email</source>
@@ -1563,8 +1563,8 @@
         <target state="final">Schließen</target>
       </trans-unit>
       <trans-unit id="dialogProjectSharePlayerTabLabel" datatype="html">
-        <source> Share player </source>
-        <target state="final"> Player teilen </target>
+        <source> Share videoplayer </source>
+        <target state="new"> Player teilen </target>
       </trans-unit>
       <trans-unit id="dialogProjectShareEditTabLabel" datatype="html">
         <source> Invite collaborators </source>
@@ -1581,6 +1581,30 @@
       <trans-unit id="projectListMoreMenuActivityLabel" datatype="html">
         <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;activity&quot; /&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;activity&quot; /&gt;"/> Activity </source>
         <target state="final"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;activity&quot; /&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;activity&quot; /&gt;"/> Verlauf </target>
+      </trans-unit>
+      <trans-unit id="sharePlayerShareLinkButton" datatype="html">
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/button&gt;"/> Copy link </source>
+        <target state="final"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/button&gt;"/> Link kopieren </target>
+      </trans-unit>
+      <trans-unit id="sharePlayerGenerateNewLinkButton" datatype="html">
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="G"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="ink, revoke old o"/> Generate new link, revoke old one </source>
+        <target state="final"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="G"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="ink, revoke old o"/> Neuen Link erstellen, alten widerrufen </target>
+      </trans-unit>
+      <trans-unit id="sharePlayerCodeAriaLabel" datatype="html">
+        <source>Embed videoplayer code</source>
+        <target state="final">Videoplayer Einbettungscode</target>
+      </trans-unit>
+      <trans-unit id="sharePlayerCodeCopyButton" datatype="html">
+        <source> Copy </source>
+        <target state="final"> Kopieren </target>
+      </trans-unit>
+      <trans-unit id="sharePlayerCopiedToClipboardMessage" datatype="html">
+        <source>Copied to clipboard</source>
+        <target state="final">In die Zwischenablage gespeichert</target>
+      </trans-unit>
+      <trans-unit id="sharePlayerNewLinkMessage" datatype="html">
+        <source>New link generated</source>
+        <target state="final">Neuer Link erstellt</target>
       </trans-unit>
     </body>
   </file>

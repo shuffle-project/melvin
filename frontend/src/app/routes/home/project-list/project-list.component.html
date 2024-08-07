@@ -78,7 +78,7 @@
         </mat-button-toggle-group>
       </div>
     </div>
-    <div>
+    <div class="new-project-button-wrapper">
       @if ('projectCreate' | featureEnabled) {
       <button
         [matMenuTriggerFor]="newProjectMenu"
@@ -269,7 +269,7 @@
         *matHeaderCellDef
         i18n="@@projectListTableHeaderPlayerLabel"
       >
-        Player
+        Videoplayer
       </th>
 
       <td mat-cell *matCellDef="let element">

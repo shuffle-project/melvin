@@ -59,7 +59,7 @@
       <trans-unit id="headerMenuLogoutButton" datatype="html">
         <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="Logout"/>Logout </source>
       </trans-unit>
-      <trans-unit id="shareProjectLinkCopiedMessage" datatype="html">
+      <trans-unit id="sharePlayerLinkCopiedMessage" datatype="html">
         <source>Link copied</source>
       </trans-unit>
       <trans-unit id="uploadFilesFormRemoveFileTooltip" datatype="html">
@@ -621,7 +621,7 @@
         <source>Passwords do not match</source>
       </trans-unit>
       <trans-unit id="projectListTableHeaderPlayerLabel" datatype="html">
-        <source> Player </source>
+        <source> Videoplayer </source>
       </trans-unit>
       <trans-unit id="projectStatusAll" datatype="html">
         <source>All</source>
@@ -1128,7 +1128,7 @@
         <source> Invite collaborators </source>
       </trans-unit>
       <trans-unit id="dialogProjectSharePlayerTabLabel" datatype="html">
-        <source> Share player </source>
+        <source> Share videoplayer </source>
       </trans-unit>
       <trans-unit id="dialogProjectShareSubheading" datatype="html">
         <source>Share</source>
@@ -1186,6 +1186,24 @@
       </trans-unit>
       <trans-unit id="projectListMoreMenuMediaLabel" datatype="html">
         <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;media&quot; /&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;media&quot; /&gt;"/> Media </source>
+      </trans-unit>
+      <trans-unit id="sharePlayerCodeAriaLabel" datatype="html">
+        <source>Embed videoplayer code</source>
+      </trans-unit>
+      <trans-unit id="sharePlayerCodeCopyButton" datatype="html">
+        <source> Copy </source>
+      </trans-unit>
+      <trans-unit id="sharePlayerCopiedToClipboardMessage" datatype="html">
+        <source>Copied to clipboard</source>
+      </trans-unit>
+      <trans-unit id="sharePlayerGenerateNewLinkButton" datatype="html">
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="G"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="ink, revoke old o"/> Generate new link, revoke old one </source>
+      </trans-unit>
+      <trans-unit id="sharePlayerNewLinkMessage" datatype="html">
+        <source>New link generated</source>
+      </trans-unit>
+      <trans-unit id="sharePlayerShareLinkButton" datatype="html">
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/button&gt;"/> Copy link </source>
       </trans-unit>
     </body>
   </file>

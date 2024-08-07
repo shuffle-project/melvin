@@ -31,9 +31,10 @@ section {
     margin-top: 4px;
   }
 
-  .new-project-button {
-    margin-top: 10px;
-    margin-left: 3px;
+  .new-project-button-wrapper {
+    display: flex;
+    align-items: center;
+    max-height: 3.5rem;
   }
 }
 

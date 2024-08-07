@@ -1,49 +1,65 @@
 <div class="mat-tab-content">
-  <mat-accordion>
-    <!-- Viewer with link -->
-    <mat-expansion-panel expanded="true" hideToggle="true">
-      <mat-expansion-panel-header>
-        <mat-icon svgIcon="link" />
-        <mat-panel-title>Viewer Link</mat-panel-title>
-      </mat-expansion-panel-header>
-      <div class="flex flex-col">
-        <p>
-          <b>Any person</b> who has this link can open the project as a viewer
-          (anonymously)
-        </p>
-        <div class="flex">
-          <input matInput [value]="viewerLink" class="link" readonly />
-          <div>
-            <button
-              mat-button
-              (click)="onClickCopyLink(viewerLink)"
-              color="primary"
-            >
-              Copy link
-            </button>
-          </div>
-        </div>
-        <div style="margin-top: 40px">
-          <p>
-            If you want to <b>revoke access</b> for the current link, you can
-            generate a new link:
-          </p>
-          <button mat-button (click)="onClickUpdateViewer()">
-            Change access link
-          </button>
-        </div>
-      </div>
-    </mat-expansion-panel>
+  <h2>Videoplayer Link</h2>
+  <div class="flex flex-col">
+    <p>Any person who has this link can open the videoplayer.</p>
 
-    <!-- Embed viewer -->
-    <mat-expansion-panel hideToggle="true">
-      <mat-expansion-panel-header>
-        <mat-icon svgIcon="link" />
-        <mat-panel-title>Embed</mat-panel-title>
-      </mat-expansion-panel-header>
-      @if(project && viewerLink){
-      <app-embed [viewerLink]="viewerLink" />
+    <div class="general-access-buttons">
+      <button
+        (click)="onClickCopyLink()"
+        i18n="@@sharePlayerShareLinkButton"
+        class="copy-button"
+        matRipple
+      >
+        <mat-icon svgIcon="public" />
+        Copy link
+      </button>
+
+      @if ((authUser$ | ngrxPush )?.id === project.createdBy.id) {
+      <button
+        (click)="onClickUpdateViewer()"
+        i18n="@@sharePlayerGenerateNewLinkButton"
+        class="generate-button"
+        matRipple
+      >
+        <mat-icon svgIcon="change" />
+        Generate new link, revoke old one
+      </button>
       }
-    </mat-expansion-panel>
-  </mat-accordion>
+    </div>
+
+    <div class="embed-wrapper">
+      <h2>Embed Videoplayer</h2>
+      @if(project && viewerLink()){
+      <div
+        class="code-wrapper"
+        i18n-aria-label="@@sharePlayerCodeAriaLabel"
+        aria-label="Embed videoplayer code"
+      >
+        <button
+          (click)="onCopyToClipboard()"
+          mat-flat-button
+          color="primary"
+          i18n="@@sharePlayerCodeCopyButton"
+        >
+          Copy
+        </button>
+        <pre>
+  <code>
+  &lt;iFrame 
+    width={{ width }} 
+    height={{ height }} 
+    src={{ viewerLink() }} 
+    title={{ title}}
+    frameborder="0" 
+    allowfullscreen
+    referrerpolicy="strict-origin-when-cross-origin" 
+  &gt; 
+  &lt;/iFrame&gt;
+  </code>
+</pre>
+      </div>
+      <!-- <app-embed [viewerLink]="viewerLink" /> -->
+      }
+    </div>
+  </div>
 </div>
