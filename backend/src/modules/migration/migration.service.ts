@@ -12,6 +12,7 @@ import { DbService } from '../db/db.service';
 import { CustomLogger } from '../logger/logger.service';
 import { WhisperSpeechService } from '../speech-to-text/whisper/whisper-speech.service';
 import { TiptapService } from '../tiptap/tiptap.service';
+import { Transaction } from 'prosemirror-state';
 
 @Injectable()
 export class MigrationService {
@@ -62,7 +63,7 @@ export class MigrationService {
     }
 
     // TODO: switch to version 3 in if statement
-    if (settings.dbSchemaVersion < 3) {
+    if (settings.dbSchemaVersion < 4) {
       this.logger.info('Migrate to version 3');
       await this._migrateToV3Tiptap();
 
@@ -78,17 +79,13 @@ export class MigrationService {
       const captions = await this.db.captionModel.find({
         transcription: transcription._id,
       });
-      console.log(
-        'transcription',
-        captions.length,
-        transcription.ydoc === undefined,
-      );
       // const words: WordEntity[] = [];
 
-
-
       // TODO: remove transcription id check
-      if (captions.length > 0 && (transcription.ydoc === undefined)) {
+      if (
+        (captions.length > 0 && transcription.ydoc === undefined) ||
+        transcription._id === transcriptions[0]._id
+      ) {
         const project = await this.db.projectModel
           .findById(transcription.project)
           .exec();
@@ -97,14 +94,11 @@ export class MigrationService {
           .map((caption) => {
             return caption.text;
           })
-          .join('');
+          .join(' ');
 
         /**
          *
          */
-
-
-        // TODO: map speaker?
 
         this.logger.info(
           'Add align job to queue for transcription ' +
@@ -113,54 +107,15 @@ export class MigrationService {
         const payload: AlignPayload = {
           type: SubtitlesType.ALIGN,
           audio: project.audios[0],
-          language: 'en',
-          sourceTranscriptionId: transcription._id.toString(),
+          transcriptionId: transcription._id.toString(),
           text,
+          syncSpeaker: captions,
         };
         this.subtitlesQueue.add({
           project: project,
           transcription: transcription,
           payload,
         });
-
-        /**
-         *
-         */
-
-        // TODO: run async?
-        // TODO: project.language !== transcription.language== => aliugn wont work
-        // try {
-        //   const text = captions
-        //     .map((caption) => {
-        //       return caption.text;
-        //     })
-        //     .join('');
-
-        //   this.logger.info('run align');
-        //   const alinedWords = await this.whisper.runAlign(
-        //     project,
-        //     text,
-        //     'en',
-        //     project.audios[0],
-        //   );
-
-        //   const tiptapDocument = this.tiptapService.wordsToTiptap(
-        //     alinedWords.words,
-        //   );
-
-        //   transcription.ydoc = null;
-        //   await transcription.save();
-
-        //   
-
-        //   // update document with tiptapdocument
-        //   await this.tiptapService.updateDocument(
-        //     transcription._id.toString(),
-        //     tiptapDocument,
-        //   );
-        // } catch (e) {
-        //   this.logger.error('Error during align', e);
-        // }
       }
     }
   }

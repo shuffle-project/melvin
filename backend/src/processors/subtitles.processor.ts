@@ -100,10 +100,10 @@ export class SubtitlesProcessor {
 
       case SubtitlesType.ALIGN:
         this.logger.verbose(
-          `Subtitle creation: Job ${job.id}, Creation Type: Align Transcription ${payload.sourceTranscriptionId}`,
+          `Subtitle creation: Job ${job.id}, Creation Type: Align Transcription ${payload.transcriptionId}`,
         );
-        // TODO align
-        this._alignCaptions(project, transcription, payload);
+
+        await this._alignCaptions(project, transcription, payload);
         break;
     }
 
@@ -329,6 +329,7 @@ export class SubtitlesProcessor {
       payload.audio,
       AsrVendors.WHISPER,
       payload.text,
+      payload.syncSpeaker,
     );
   }
 }

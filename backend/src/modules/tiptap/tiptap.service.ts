@@ -386,7 +386,10 @@ export class TiptapService {
       }
       tiptapParagraph.content.push({
         type: 'text',
-        text: word.text,
+        text:
+          tiptapParagraph.content.length === 0
+            ? word.text.trimStart()
+            : word.text,
         marks: [
           {
             type: 'word',

@@ -1,3 +1,4 @@
+import { CaptionEntity } from 'src/resources/caption/entities/caption.entity';
 import { Audio, Project, Video } from '../modules/db/schemas/project.schema';
 import { AuthUser } from '../resources/auth/auth.interfaces';
 import { TranscriptionEntity } from '../resources/transcription/entities/transcription.entity';
@@ -47,10 +48,11 @@ export interface CopyPayload {
 
 export interface AlignPayload {
   type: SubtitlesType.ALIGN;
-  sourceTranscriptionId: string;
+  transcriptionId: string;
   audio: Audio;
-  language: string;
+  // language: string; // take language of project
   text?: string;
+  syncSpeaker?: CaptionEntity[];
 }
 
 export interface ProcessSubtitlesJob {

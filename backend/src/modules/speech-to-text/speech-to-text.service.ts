@@ -17,6 +17,8 @@ import { AssemblyAiService } from './assemblyai/assemblyai.service';
 import { GoogleSpeechService } from './google-speech/google-speech.service';
 import { TranscriptEntity } from './speech-to-text.interfaces';
 import { WhisperSpeechService } from './whisper/whisper-speech.service';
+import { text } from 'stream/consumers';
+import { TiptapDocument } from '../tiptap/tiptap.interfaces';
 
 @Injectable()
 export class SpeechToTextService {
@@ -170,15 +172,15 @@ export class SpeechToTextService {
     transcription: TranscriptionEntity,
     audio: Audio,
     vendor: AsrVendors,
-    textToAlign?: string,
+    textToAlign: string,
+    syncSpeaker?: CaptionEntity[],
   ) {
     this.logger.verbose(
       `Start - Generate aligning captions for Project ${project._id}/${transcription._id} with asr vendor ${vendor}`,
     );
 
-    if (!textToAlign) {
-      // TODO switch to align content of ydoc
-    }
+    // remove all \n and \r
+    textToAlign = textToAlign.replace(/(\r\n|\n|\r|\t)/gm, ' ');
 
     // let captions: Caption[] = [];
     let res: TranscriptEntity | string;
@@ -192,7 +194,13 @@ export class SpeechToTextService {
 
         if (res.captions) {
         } else {
-          const document = this.tiptapService.wordsToTiptap(res.words);
+          let document = this.tiptapService.wordsToTiptap(res.words);
+
+          if (syncSpeaker) {
+            document = this._syncSpeaker(document, syncSpeaker);
+          }
+
+          document.content.forEach((node) => {});
           await this.tiptapService.updateDocument(
             transcription._id.toString(),
             document,
@@ -319,5 +327,49 @@ export class SpeechToTextService {
         project: project._id,
       });
     });
+  }
+
+  _syncSpeaker(document: TiptapDocument, captionEntities: CaptionEntity[]) {
+    const speakerIds = [
+      ...new Set(captionEntities.map((caption) => caption.speakerId)),
+    ];
+
+    let wordsBefore = 0;
+
+    const mapped = [];
+    document.content.forEach((paragraph, i) =>
+      paragraph.content.forEach((node) => {
+        mapped.push({ transcId: i, text: node.text });
+      }),
+    );
+
+    // first speaker
+    let currentSpeaker = captionEntities[0].speakerId;
+    document.content[0].speakerId = currentSpeaker;
+
+    // continue with following speaker
+    captionEntities.forEach((caption, index) => {
+      console.log('===========');
+      const splitted = caption.text
+        .replace(/(\r\n|\n|\r|\t)/gm, ' ')
+        .split(' ');
+
+      console.log(splitted.length, splitted);
+      console.log('===');
+      console.log(mapped.slice(wordsBefore, wordsBefore + splitted.length));
+
+      // wordsBefore, wordsBefore + splitted.length
+
+      wordsBefore += splitted.length;
+      // console.log('==== caption' + index);
+      // if (caption.speakerId !== currentSpeaker) {
+      //   console.log('speaker change');
+      //   currentSpeaker = caption.speakerId;
+      // } else {
+      //   // console.log('no speaker change, do nothing');
+      // }
+    });
+
+    return document;
   }
 }
