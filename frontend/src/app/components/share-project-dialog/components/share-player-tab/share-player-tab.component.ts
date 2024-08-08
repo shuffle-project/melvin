@@ -1,7 +1,6 @@
 import { Clipboard } from '@angular/cdk/clipboard';
 import { Component, computed, Input, signal } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
-import { MatRippleModule } from '@angular/material/core';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatIcon } from '@angular/material/icon';
 import { PushPipe } from '@ngrx/component';
@@ -24,7 +23,6 @@ import * as authSelectors from '../../../../store/selectors/auth.selector';
     EmbedComponent,
     MatButtonModule,
     PushPipe,
-    MatRippleModule,
   ],
   templateUrl: './share-player-tab.component.html',
   styleUrl: './share-player-tab.component.scss',

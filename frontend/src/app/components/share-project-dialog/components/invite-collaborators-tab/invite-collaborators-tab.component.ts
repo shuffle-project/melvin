@@ -21,7 +21,6 @@ import {
   MatAutocompleteSelectedEvent,
 } from '@angular/material/autocomplete';
 import { MatButtonModule } from '@angular/material/button';
-import { MatRippleModule } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
@@ -67,7 +66,6 @@ import * as projectSelectors from '../../../../store/selectors/projects.selector
     AvatarComponent,
     PushPipe,
     MatIconModule,
-    MatRippleModule,
   ],
   templateUrl: './invite-collaborators-tab.component.html',
   styleUrl: './invite-collaborators-tab.component.scss',

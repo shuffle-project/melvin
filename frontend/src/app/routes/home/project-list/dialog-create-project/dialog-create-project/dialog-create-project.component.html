@@ -11,15 +11,21 @@
       i18n-aria-label="@@dialogCreateProjectCloseButton"
       [disabled]="loading"
     >
-      <mat-icon svgIcon="close"></mat-icon>
+      <mat-icon svgIcon="close" />
     </button>
   </div>
 </div>
 
 <mat-dialog-content>
+  <p class="intro-text">
+    Please fill in the details of your files below. Check the "Use Audio" box to
+    select the file from which you would like to use the audio track. Multiple
+    selection is possible, but can lead to audio overlaps.
+  </p>
+
   <form>
     <label class="dropzone">
-      <span class="dropzone-label">Auswahl</span>
+      <span class="dropzone-label">Select file</span>
       <input
         (change)="onAddFiles($event)"
         type="file"
