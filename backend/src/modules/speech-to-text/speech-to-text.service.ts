@@ -40,10 +40,10 @@ export class SpeechToTextService {
     googleSpeech: AsrServiceConfig | null;
     whisper: AsrServiceConfig | null;
   } = {
-    assemblyAi: null,
-    googleSpeech: null,
-    whisper: null,
-  };
+      assemblyAi: null,
+      googleSpeech: null,
+      whisper: null,
+    };
 
   async initServices() {
     const [
@@ -197,17 +197,19 @@ export class SpeechToTextService {
           let document = this.tiptapService.wordsToTiptap(res.words);
 
           if (syncSpeaker) {
-            document = this._syncSpeaker(document, syncSpeaker);
+            try {
+              document = this._syncSpeaker(document, syncSpeaker);
+            } catch (e) {
+              this.logger.error(e);
+              return;
+            }
           }
 
-          document.content.forEach((node) => {});
           await this.tiptapService.updateDocument(
             transcription._id.toString(),
             document,
           );
-          // captions = this._wordsToCaptions(project, transcription, res);
         }
-
         // res = await this.whisperSpeechService.run(project, audio);
         // if (res.captions) {
         //   captions = this._toCaptions(project, transcription, res.captions);
@@ -223,8 +225,8 @@ export class SpeechToTextService {
 
       // other vendors not implemented
       default:
+        this.logger.info('empty transcription');
         // empty transcription
-
         break;
     }
 
@@ -333,43 +335,64 @@ export class SpeechToTextService {
     const speakerIds = [
       ...new Set(captionEntities.map((caption) => caption.speakerId)),
     ];
+    if(speakerIds.length === 1){
+      document.content.at(0).speakerId = speakerIds[0];
+      return document;
+    }
 
-    let wordsBefore = 0;
+    const normalize = (text: string) => {
+      return text.toLowerCase().replace(/[^a-zA-Z0-9]+/g, '').trim();
+    }
 
-    const mapped = [];
+    const documentWords: { pargraphId: number, text: string }[] = [];
     document.content.forEach((paragraph, i) =>
-      paragraph.content.forEach((node) => {
-        mapped.push({ transcId: i, text: node.text });
+      paragraph.content.forEach((node, nodeIndex) => {
+        const previousWord = documentWords.at(-1);
+        const text = normalize(node.text);
+        if (text.length !== 0) {
+          if (node.text.startsWith(' ') || nodeIndex === 0) {
+            documentWords.push({ pargraphId: i, text });
+          } else {
+            previousWord.text += text;
+          }
+        }
       }),
     );
 
-    // first speaker
-    let currentSpeaker = captionEntities[0].speakerId;
-    document.content[0].speakerId = currentSpeaker;
-
-    // continue with following speaker
-    captionEntities.forEach((caption, index) => {
-      console.log('===========');
+    const captionWords: { speaker: string, text: string }[] = [];
+    captionEntities.forEach((caption) => {
       const splitted = caption.text
         .replace(/(\r\n|\n|\r|\t)/gm, ' ')
         .split(' ');
-
-      console.log(splitted.length, splitted);
-      console.log('===');
-      console.log(mapped.slice(wordsBefore, wordsBefore + splitted.length));
-
-      // wordsBefore, wordsBefore + splitted.length
-
-      wordsBefore += splitted.length;
-      // console.log('==== caption' + index);
-      // if (caption.speakerId !== currentSpeaker) {
-      //   console.log('speaker change');
-      //   currentSpeaker = caption.speakerId;
-      // } else {
-      //   // console.log('no speaker change, do nothing');
-      // }
+      splitted.forEach((word) => {
+        const text = normalize(word)
+        if (text.length !== 0) {
+          captionWords.push({ speaker: caption.speakerId, text })
+        }
+      });
     });
 
+    if (documentWords.length !== captionWords.length) {
+      throw new Error("Document and caption length mismatch");
+    }
+
+    for (let i = 0; i < Math.max(captionWords.length, documentWords.length); i++) {
+      const documentWord = documentWords.at(i);
+      const captionWord = captionWords.at(i);
+      console.log(documentWord?.text, documentWord?.pargraphId, captionWord?.text, captionWord?.speaker);
+    }
+
+    let previousSpeaker = undefined;
+    captionWords.forEach((captionWord, index) => {
+      if (captionWord.speaker !== previousSpeaker) {
+        const paragraph = document.content[documentWords[index].pargraphId];
+        if (paragraph.speakerId && paragraph.speakerId !== captionWord.speaker) {
+          throw new Error("Speaker already set");
+        }
+        paragraph.speakerId = captionWord.speaker;
+        previousSpeaker = captionWord.speaker;
+      }
+    });
     return document;
   }
 }

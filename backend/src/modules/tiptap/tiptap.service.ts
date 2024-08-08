@@ -403,7 +403,7 @@ export class TiptapService {
         ],
       });
     });
-
+    tiptapDocument.content.push(tiptapParagraph);
     return tiptapDocument;
   }
 
