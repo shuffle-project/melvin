@@ -183,7 +183,7 @@ export class SpeechToTextService {
     textToAlign = textToAlign.replace(/(\r\n|\n|\r|\t)/gm, ' ');
 
     // let captions: Caption[] = [];
-    let res: TranscriptEntity | string;
+    let res: TranscriptEntity;
     switch (vendor) {
       case AsrVendors.WHISPER:
         res = await this.whisperSpeechService.runAlign(
@@ -192,35 +192,22 @@ export class SpeechToTextService {
           audio,
         );
 
-        if (res.captions) {
-        } else {
-          let document = this.tiptapService.wordsToTiptap(res.words);
+        let document = this.tiptapService.wordsToTiptap(res.words);
 
-          if (syncSpeaker) {
-            try {
-              document = this._syncSpeaker(document, syncSpeaker);
-            } catch (e) {
-              this.logger.error(e);
-              return;
-            }
+        if (syncSpeaker) {
+          try {
+            document = this._syncSpeaker(document, syncSpeaker);
+          } catch (e) {
+            this.logger.error(e);
+            return;
           }
-
-          await this.tiptapService.updateDocument(
-            transcription._id.toString(),
-            document,
-          );
         }
-        // res = await this.whisperSpeechService.run(project, audio);
-        // if (res.captions) {
-        //   captions = this._toCaptions(project, transcription, res.captions);
-        // } else {
-        //   const document = this.tiptapService.wordsToTiptap(res.words);
-        //   await this.tiptapService.updateDocument(
-        //     transcription._id.toString(),
-        //     document,
-        //   );
-        //   captions = this._wordsToCaptions(project, transcription, res);
-        // }
+
+        await this.tiptapService.updateDocument(
+          transcription._id.toString(),
+          document,
+        );
+
         break;
 
       // other vendors not implemented
@@ -230,12 +217,6 @@ export class SpeechToTextService {
         break;
     }
 
-    // else if (vendor === AsrVendors.WHISPER) {
-    //   const whisperVtt = project._id.toString() + '.vtt';
-    //   const vttFilePath = this.pathService.getWavFile(whisperVtt);
-    // }
-
-    // await this.db.captionModel.insertMany(captions);
     this.logger.verbose(
       `Finished - Aligning captions for Project ${project._id}/${transcription._id}`,
     );
@@ -335,7 +316,7 @@ export class SpeechToTextService {
     const speakerIds = [
       ...new Set(captionEntities.map((caption) => caption.speakerId)),
     ];
-    if(speakerIds.length === 1){
+    if (speakerIds.length === 1) {
       document.content.at(0).speakerId = speakerIds[0];
       return document;
     }
@@ -376,11 +357,11 @@ export class SpeechToTextService {
       throw new Error("Document and caption length mismatch");
     }
 
-    for (let i = 0; i < Math.max(captionWords.length, documentWords.length); i++) {
-      const documentWord = documentWords.at(i);
-      const captionWord = captionWords.at(i);
-      console.log(documentWord?.text, documentWord?.pargraphId, captionWord?.text, captionWord?.speaker);
-    }
+    // for (let i = 0; i < Math.max(captionWords.length, documentWords.length); i++) {
+    //   const documentWord = documentWords.at(i);
+    //   const captionWord = captionWords.at(i);
+    //   console.log(documentWord?.text, documentWord?.pargraphId, captionWord?.text, captionWord?.speaker);
+    // }
 
     let previousSpeaker = undefined;
     captionWords.forEach((captionWord, index) => {

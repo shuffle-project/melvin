@@ -63,7 +63,7 @@ export class MigrationService {
     }
 
     // TODO: switch to version 3 in if statement
-    if (settings.dbSchemaVersion < 4) {
+    if (settings.dbSchemaVersion < 3) {
       this.logger.info('Migrate to version 3');
       await this._migrateToV3Tiptap();
 
@@ -102,7 +102,7 @@ export class MigrationService {
 
         this.logger.info(
           'Add align job to queue for transcription ' +
-            transcription._id.toString(),
+          transcription._id.toString(),
         );
         const payload: AlignPayload = {
           type: SubtitlesType.ALIGN,
