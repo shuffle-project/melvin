@@ -18,9 +18,9 @@
 
 <mat-dialog-content>
   <p class="intro-text">
-    Please fill in the details of your files below. Check the "Use Audio" box to
-    select the file from which you would like to use the audio track. Multiple
-    selection is possible, but can lead to audio overlaps.
+    Check the "Use Audio" box to select the file from which you would like to
+    use the audio track. Several files can be selected this way, which however
+    can result in overlaps.
   </p>
 
   <form [formGroup]="formGroup">
@@ -55,11 +55,17 @@
         <ng-container matColumnDef="category">
           <th mat-header-cell *matHeaderCellDef>Category</th>
           <td mat-cell *matCellDef="let element" [formGroup]="element">
+            @if (element.controls?.fileType.value === 'video') {
             <mat-form-field class="select-mat-form-field">
               <mat-select formControlName="category">
-                <mat-option value="1">1</mat-option>
+                @for (category of mediaCategoryArray; track category) {
+                <mat-option value="category">{{
+                  category | mediaCategory
+                }}</mat-option>
+                }
               </mat-select>
             </mat-form-field>
+            }
           </td>
         </ng-container>
 
@@ -83,9 +89,11 @@
         <ng-container matColumnDef="use-audio">
           <th mat-header-cell *matHeaderCellDef>Use Audio</th>
           <td mat-cell *matCellDef="let element" [formGroup]="element">
+            @if (element.controls?.fileType.value === 'video') {
             <div class="align-center">
               <mat-checkbox formControlName="useAudio" class="checkbox" />
             </div>
+            }
           </td>
         </ng-container>
 

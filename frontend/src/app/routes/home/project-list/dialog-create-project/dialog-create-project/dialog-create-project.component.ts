@@ -1,4 +1,4 @@
-import { Component, OnDestroy, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, ViewChild } from '@angular/core';
 import {
   AbstractControl,
   FormArray,
@@ -24,13 +24,16 @@ import {
 import { PushPipe } from '@ngrx/component';
 import { Store } from '@ngrx/store';
 import { Subject, takeUntil } from 'rxjs';
+import { MediaCategoryPipe } from 'src/app/pipes/media-category-pipe/media-category.pipe';
 import { ApiService } from 'src/app/services/api/api.service';
 import { Language } from 'src/app/services/api/entities/config.entity';
+import { MediaCategory } from 'src/app/services/api/entities/project.entity';
 import { AppState } from 'src/app/store/app.state';
 import * as configSelector from '../../../../../store/selectors/config.selector';
 
 interface FileGroup {
   file: FormControl<File>;
+  fileType: FormControl<'text' | 'video'>;
   name: FormControl<string>;
   category: FormControl<string>;
   language: FormControl<string>;
@@ -50,11 +53,12 @@ interface FileGroup {
     MatSelectModule,
     MatCheckboxModule,
     PushPipe,
+    MediaCategoryPipe,
   ],
   templateUrl: './dialog-create-project.component.html',
   styleUrl: './dialog-create-project.component.scss',
 })
-export class DialogCreateProjectComponent implements OnDestroy {
+export class DialogCreateProjectComponent implements OnDestroy, AfterViewInit {
   @ViewChild(MatTable) table!: MatTable<any>;
   dataSource!: MatTableDataSource<any>;
   displayedColumns: string[] = [
@@ -64,6 +68,19 @@ export class DialogCreateProjectComponent implements OnDestroy {
     'use-audio',
     'delete',
   ];
+
+  acceptedFileFormats: string[] = [
+    'audio',
+    'video',
+    'audio/*',
+    'video/*',
+    '.srt',
+    '.vtt',
+  ];
+
+  mediaCategoryArray = Object.entries(MediaCategory).map(
+    ([label, value]) => value
+  );
 
   private destroy$$ = new Subject<void>();
   languages$ = this.store.select(configSelector.languagesConfig);
@@ -79,6 +96,24 @@ export class DialogCreateProjectComponent implements OnDestroy {
     this.languages$.pipe(takeUntil(this.destroy$$)).subscribe((languages) => {
       this.languages = languages;
     });
+  }
+
+  ngAfterViewInit(): void {
+    this.formGroup.controls.files.valueChanges
+      .pipe(takeUntil(this.destroy$$))
+      .subscribe((files) => {
+        files.forEach((f) => {
+          if (
+            (f.file?.type.includes('audio') ||
+              f.file?.type.includes('video')) &&
+            this.formGroup.controls.title.value === '' &&
+            f.useAudio
+          ) {
+            const cleanName = f.name!.replace(/\.[^/.]+$/, '');
+            this.formGroup.controls.title.setValue(cleanName);
+          }
+        });
+      });
   }
 
   public formGroup = this.fb.group({
@@ -105,9 +140,37 @@ export class DialogCreateProjectComponent implements OnDestroy {
 
   onAddFiles(event: any) {
     const files: File[] = event.target.files;
-    [...files].forEach((file) => {
+
+    // TODO snackbar with allowed file formats if wrong format submitted?
+    const onlyValidFiles = [...files].filter((file: File) => {
+      return this.acceptedFileFormats.find((acceptedFormat) => {
+        if (acceptedFormat.includes('.')) {
+          return file.name.endsWith(acceptedFormat);
+        } else {
+          return file.type.includes(acceptedFormat);
+        }
+      });
+    });
+
+    const sortedValidFiles = onlyValidFiles.sort((a, b) => {
+      if (
+        (a.type.includes('audio') || a.type.includes('video')) &&
+        (!b.type.includes('audio') || !b.type.includes('video'))
+      ) {
+        return -1;
+      } else {
+        return 1;
+      }
+    });
+
+    sortedValidFiles.forEach((file) => {
       const fileGroup = this.fb.group<FileGroup>({
         file: this.fb.control(file),
+        fileType: this.fb.control(
+          file.type.includes('audio') || file.type.includes('video')
+            ? 'video'
+            : 'text'
+        ),
         name: this.fb.control(file.name),
         category: this.fb.control(''),
         language: this.fb.control(''),
@@ -116,11 +179,21 @@ export class DialogCreateProjectComponent implements OnDestroy {
 
       this.formGroup.controls.files.push(fileGroup);
     });
+
+    if (this.formGroup.controls.files.length >= 2) {
+      const unsortedFormGroup = this.formGroup.controls.files.value;
+      const sortedFormGroup = unsortedFormGroup.sort((a, b) => {
+        return a.fileType === 'video' ? -1 : 1;
+      });
+
+      this.formGroup.controls.files.reset({
+        ...sortedFormGroup,
+      });
+    }
+
     this.dataSource = new MatTableDataSource(
       (this.formGroup.controls.files as FormArray).controls
     );
-
-    // this.table.renderRows();
   }
 
   onClearTitleField(event: Event) {
