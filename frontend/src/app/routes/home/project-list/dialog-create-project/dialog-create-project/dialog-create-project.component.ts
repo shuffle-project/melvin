@@ -31,6 +31,11 @@ import { MediaCategory } from 'src/app/services/api/entities/project.entity';
 import { AppState } from 'src/app/store/app.state';
 import * as configSelector from '../../../../../store/selectors/config.selector';
 
+interface DropZoneFormGroup {
+  title: FormControl<string>;
+  files: FormArray<FormGroup<FileGroup>>;
+}
+
 interface FileGroup {
   file: FormControl<File>;
   fileType: FormControl<'text' | 'video'>;
@@ -116,29 +121,43 @@ export class DialogCreateProjectComponent implements OnDestroy, AfterViewInit {
       });
   }
 
-  public formGroup = this.fb.group({
-    title: this.fb.control('', {
-      validators: [Validators.required],
-    }),
+  public formGroup = this.fb.group(
+    {
+      title: this.fb.control('', {
+        validators: [Validators.required],
+      }),
 
-    files: this.fb.array<FormGroup<FileGroup>>([], {
-      // validators: [this.fileLanguageValidator()],
-    }),
-  });
+      files: this.fb.array<FormGroup<FileGroup>>([], {
+        // validators: [],
+      }),
+    },
+    { validators: [this.fileContentValidator()] }
+  );
 
   fileContentValidator(): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
-      const videoFiles = control.value.filter(
-        (file: File) =>
-          file.type.includes('audio') || file.type.includes('video')
-      );
+      // const c = control as FormArray<FormGroup<FileGroup>>;
+      // const a = c.value.files as FormArray<FormGroup<FileGroup>>;
+      // console.log(a);
+      // console.log(...c.value.files);
 
-      if (videoFiles.length < 1) return { videoRequired: true };
+      // return null;
+
+      const c = control as FormGroup<DropZoneFormGroup>;
+      const f = c.controls.files as FormArray<FormGroup<FileGroup>>;
+
+      const atLeastOneVideoOrAudio = f.value.some((fileGroup) => {
+        return fileGroup.fileType?.includes('video');
+      });
+
+      if (!atLeastOneVideoOrAudio && control.dirty)
+        return { videoRequired: true };
       return null;
     };
   }
 
   onAddFiles(event: any) {
+    this.formGroup.markAsDirty();
     const files: File[] = event.target.files;
 
     // TODO snackbar with allowed file formats if wrong format submitted?
@@ -152,18 +171,7 @@ export class DialogCreateProjectComponent implements OnDestroy, AfterViewInit {
       });
     });
 
-    const sortedValidFiles = onlyValidFiles.sort((a, b) => {
-      if (
-        (a.type.includes('audio') || a.type.includes('video')) &&
-        (!b.type.includes('audio') || !b.type.includes('video'))
-      ) {
-        return -1;
-      } else {
-        return 1;
-      }
-    });
-
-    sortedValidFiles.forEach((file) => {
+    onlyValidFiles.forEach((file) => {
       const fileGroup = this.fb.group<FileGroup>({
         file: this.fb.control(file),
         fileType: this.fb.control(
@@ -202,6 +210,7 @@ export class DialogCreateProjectComponent implements OnDestroy, AfterViewInit {
   }
 
   onRemoveFile(index: number) {
+    this.formGroup.markAsDirty();
     this.formGroup.controls.files.removeAt(index);
 
     this.dataSource = new MatTableDataSource(

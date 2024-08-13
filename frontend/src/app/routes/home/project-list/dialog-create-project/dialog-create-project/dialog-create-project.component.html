@@ -27,6 +27,10 @@
     <label
       class="dropzone"
       [class.with-files]="formGroup.controls.files.value.length !== 0"
+      [class.with-error]="
+        formGroup.hasError('videoRequired') ||
+        formGroup.hasError('useAudioRequired')
+      "
     >
       @if (formGroup.controls.files.value.length === 0) {
       <p class="dropzone-text">
@@ -127,7 +131,16 @@
         required
       />
     </label>
-    <div class="error-wrapper"></div>
+    <div class="error-wrapper">
+      <p aria-live="polite" class="mat-error">
+        @if(formGroup.hasError('videoRequired')) {<span>
+          At least one video or audio file is required
+        </span>
+        } @if(formGroup.hasError('useAudioRequired')) {
+        <span> At least one "use audio" source selected </span>
+        }
+      </p>
+    </div>
 
     <mat-form-field class="title-form-field">
       <mat-label>Title</mat-label>
