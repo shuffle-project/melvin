@@ -136,13 +136,6 @@ export class DialogCreateProjectComponent implements OnDestroy, AfterViewInit {
 
   fileContentValidator(): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
-      // const c = control as FormArray<FormGroup<FileGroup>>;
-      // const a = c.value.files as FormArray<FormGroup<FileGroup>>;
-      // console.log(a);
-      // console.log(...c.value.files);
-
-      // return null;
-
       const c = control as FormGroup<DropZoneFormGroup>;
       const f = c.controls.files as FormArray<FormGroup<FileGroup>>;
 
@@ -150,8 +143,22 @@ export class DialogCreateProjectComponent implements OnDestroy, AfterViewInit {
         return fileGroup.fileType?.includes('video');
       });
 
+      const atLeastOneUseAudioChecked = f.value.some((fileGroup) => {
+        return fileGroup.useAudio;
+      });
+
+      const atLeastOneUseAudioDirty = f.controls.some((fileGroup) => {
+        return fileGroup.controls.useAudio.dirty;
+      });
+
       if (!atLeastOneVideoOrAudio && control.dirty)
         return { videoRequired: true };
+      if (
+        atLeastOneVideoOrAudio &&
+        !atLeastOneUseAudioChecked &&
+        atLeastOneUseAudioDirty
+      )
+        return { useAudioRequired: true };
       return null;
     };
   }
