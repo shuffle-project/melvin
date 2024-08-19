@@ -1,3 +1,8 @@
+import {
+  HttpErrorResponse,
+  HttpEvent,
+  HttpEventType,
+} from '@angular/common/http';
 import { AfterViewInit, Component, OnDestroy, ViewChild } from '@angular/core';
 import {
   AbstractControl,
@@ -12,7 +17,7 @@ import {
 } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { MatDialogModule } from '@angular/material/dialog';
+import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
@@ -23,15 +28,19 @@ import {
 } from '@angular/material/table';
 import { PushPipe } from '@ngrx/component';
 import { Store } from '@ngrx/store';
-import { Subject, takeUntil } from 'rxjs';
+import { Subject, Subscription, takeUntil } from 'rxjs';
 import { MediaCategoryPipe } from 'src/app/pipes/media-category-pipe/media-category.pipe';
 import { ApiService } from 'src/app/services/api/api.service';
 import { Language } from 'src/app/services/api/entities/config.entity';
-import { MediaCategory } from 'src/app/services/api/entities/project.entity';
+import {
+  MediaCategory,
+  ProjectEntity,
+} from 'src/app/services/api/entities/project.entity';
+import { CreateProjectService } from 'src/app/services/create-project/create-project.service';
 import { AppState } from 'src/app/store/app.state';
 import * as configSelector from '../../../../../store/selectors/config.selector';
 
-interface DropZoneFormGroup {
+export interface CreateProjectFormGroup {
   title: FormControl<string>;
   files: FormArray<FormGroup<FileGroup>>;
 }
@@ -83,6 +92,16 @@ export class DialogCreateProjectComponent implements OnDestroy, AfterViewInit {
     '.vtt',
   ];
 
+  // calculate eta
+  timeStarted!: number;
+  eta: undefined | number = undefined;
+
+  error: HttpErrorResponse | null = null;
+
+  fileUploadProgress = 0; // value from 0 to 100
+  uploadSubscription!: Subscription;
+  private totalFileSize = 0;
+
   mediaCategoryArray = Object.entries(MediaCategory).map(
     ([label, value]) => value
   );
@@ -96,7 +115,9 @@ export class DialogCreateProjectComponent implements OnDestroy, AfterViewInit {
   constructor(
     private fb: NonNullableFormBuilder,
     private api: ApiService,
-    private store: Store<AppState>
+    private store: Store<AppState>,
+    private createProjectService: CreateProjectService,
+    private dialogRef: MatDialogRef<DialogCreateProjectComponent>
   ) {
     this.languages$.pipe(takeUntil(this.destroy$$)).subscribe((languages) => {
       this.languages = languages;
@@ -121,22 +142,20 @@ export class DialogCreateProjectComponent implements OnDestroy, AfterViewInit {
       });
   }
 
-  public formGroup = this.fb.group(
+  public formGroup: FormGroup<CreateProjectFormGroup> = this.fb.group(
     {
       title: this.fb.control('', {
         validators: [Validators.required],
       }),
 
-      files: this.fb.array<FormGroup<FileGroup>>([], {
-        // validators: [],
-      }),
+      files: this.fb.array<FormGroup<FileGroup>>([], {}),
     },
     { validators: [this.fileContentValidator()] }
   );
 
   fileContentValidator(): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
-      const c = control as FormGroup<DropZoneFormGroup>;
+      const c = control as FormGroup<CreateProjectFormGroup>;
       const f = c.controls.files as FormArray<FormGroup<FileGroup>>;
 
       const atLeastOneVideoOrAudio = f.value.some((fileGroup) => {
@@ -147,16 +166,16 @@ export class DialogCreateProjectComponent implements OnDestroy, AfterViewInit {
         return fileGroup.useAudio;
       });
 
-      const atLeastOneUseAudioDirty = f.controls.some((fileGroup) => {
-        return fileGroup.controls.useAudio.dirty;
+      const atLeastOneUseAudioTouched = f.controls.some((fileGroup) => {
+        return fileGroup.controls.useAudio.touched;
       });
 
-      if (!atLeastOneVideoOrAudio && control.dirty)
+      if (!atLeastOneVideoOrAudio && control.touched)
         return { videoRequired: true };
       if (
         atLeastOneVideoOrAudio &&
         !atLeastOneUseAudioChecked &&
-        atLeastOneUseAudioDirty
+        atLeastOneUseAudioTouched
       )
         return { useAudioRequired: true };
       return null;
@@ -164,7 +183,7 @@ export class DialogCreateProjectComponent implements OnDestroy, AfterViewInit {
   }
 
   onAddFiles(event: any) {
-    this.formGroup.markAsDirty();
+    this.formGroup.markAsTouched();
     const files: File[] = event.target.files;
 
     // TODO snackbar with allowed file formats if wrong format submitted?
@@ -217,7 +236,7 @@ export class DialogCreateProjectComponent implements OnDestroy, AfterViewInit {
   }
 
   onRemoveFile(index: number) {
-    this.formGroup.markAsDirty();
+    this.formGroup.markAsTouched();
     this.formGroup.controls.files.removeAt(index);
 
     this.dataSource = new MatTableDataSource(
@@ -229,6 +248,52 @@ export class DialogCreateProjectComponent implements OnDestroy, AfterViewInit {
     if (event.target.type !== 'checkbox') {
       event.preventDefault();
     }
+  }
+
+  onSubmitForm() {
+    if (this.formGroup.invalid) {
+      this.formGroup.markAllAsTouched();
+      this.formGroup.updateValueAndValidity();
+      return;
+    }
+
+    this.loading = true;
+    const formData = this.createProjectService.create(this.formGroup);
+
+    this.timeStarted = Date.now();
+    // this.uploadSubscription = this.api.createProject(formData).subscribe({
+    //   next: (event: HttpEvent<ProjectEntity>) => this._handleHttpEvent(event),
+    //   error: (error: HttpErrorResponse) => this._handleErrorHttpEvent(error),
+    // });
+  }
+
+  private _handleHttpEvent(event: HttpEvent<ProjectEntity>) {
+    switch (event.type) {
+      case HttpEventType.UploadProgress:
+        this.fileUploadProgress = (event.loaded / this.totalFileSize) * 100;
+
+        const timeElapsedInSeconds = (Date.now() - this.timeStarted) / 1000;
+        const uploadSpeedInSeconds = event.loaded / timeElapsedInSeconds;
+
+        this.eta = (this.totalFileSize - event.loaded) / uploadSpeedInSeconds;
+
+        break;
+      case HttpEventType.Response:
+        // TODO maybe call store method?? -> user will get the ws eveent anyways
+        this.loading = false;
+        this.dialogRef.close();
+        break;
+      default:
+        break;
+    }
+  }
+
+  private _handleErrorHttpEvent(error: HttpErrorResponse) {
+    this.loading = false;
+    this.formGroup.enable();
+
+    this.error = error;
+    console.log('error in project creation', error);
   }
 
   ngOnDestroy() {

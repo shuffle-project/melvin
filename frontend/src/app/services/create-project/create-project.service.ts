@@ -4,12 +4,12 @@ import {
   MemberEntry,
   MemberEntryType,
 } from 'src/app/constants/member.constants';
+import { CreateProjectFormGroup } from 'src/app/routes/home/project-list/dialog-create-project/dialog-create-project/dialog-create-project.component';
 import {
   ASRGroup,
   LiveGroup,
-  ProjectGroup,
   VideoGroup,
-} from 'src/app/routes/home/project-list/dialog-create-project/dialog-create-project.interfaces';
+} from 'src/app/routes/home/project-list/old-dialog-create-project/dialog-create-project.interfaces';
 import { AsrVendors } from '../api/dto/create-transcription.dto';
 
 interface Data {
@@ -28,30 +28,25 @@ interface Data {
   providedIn: 'root',
 })
 export class CreateProjectService {
-  create(formGroup: FormGroup<ProjectGroup>): FormData {
+  create(formGroup: FormGroup<CreateProjectFormGroup>): FormData {
     const formData = new FormData();
-    const data: Data = { title: '', language: '', sourceMode: 'video' };
-
-    const { metadataGroup, videoGroup, liveGroup } = formGroup.controls;
-    const { title, sourceMode, members = [] } = metadataGroup.getRawValue();
-
-    data.title = title;
-    data.sourceMode = sourceMode;
-
-    const emails = this._getMemberEmails(members);
-    if (emails.length > 0) {
-      data.emails = emails;
-    }
-    sourceMode === 'video'
-      ? this._createVideoProject(videoGroup, data, formData)
-      : this._createLiveProject(liveGroup, data, formData);
-
-    Object.entries(data).forEach((o) => {
-      const key = o[0];
-      const value = o[1];
-      formData.append(key, value);
-    });
-
+    // const data: Data = { title: '', language: '', sourceMode: 'video' };
+    // const { metadataGroup, videoGroup, liveGroup } = formGroup.controls;
+    // const { title, sourceMode, members = [] } = metadataGroup.getRawValue();
+    // data.title = title;
+    // data.sourceMode = sourceMode;
+    // const emails = this._getMemberEmails(members);
+    // if (emails.length > 0) {
+    //   data.emails = emails;
+    // }
+    // sourceMode === 'video'
+    //   ? this._createVideoProject(videoGroup, data, formData)
+    //   : this._createLiveProject(liveGroup, data, formData);
+    // Object.entries(data).forEach((o) => {
+    //   const key = o[0];
+    //   const value = o[1];
+    //   formData.append(key, value);
+    // });
     return formData;
   }
 
