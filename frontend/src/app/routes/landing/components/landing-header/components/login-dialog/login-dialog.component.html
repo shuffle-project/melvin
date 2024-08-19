@@ -89,7 +89,7 @@
   </button>
 
   <div aria-live="polite">
-    @if (error$ | ngrxPush; as error) {
+    @if (error) {
     <p class="error-message">
       <mat-icon svgIcon="warning"></mat-icon>
       {{ error }}

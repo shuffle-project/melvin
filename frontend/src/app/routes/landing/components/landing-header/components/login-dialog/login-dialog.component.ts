@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import {
   FormGroup,
   NonNullableFormBuilder,
@@ -17,7 +17,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { PushPipe } from '@ngrx/component';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
+import { Observable, Subject, takeUntil } from 'rxjs';
 import { StorageKey } from 'src/app/services/storage/storage-key.enum';
 import { StorageService } from 'src/app/services/storage/storage.service';
 import { AppState } from 'src/app/store/app.state';
@@ -42,10 +42,12 @@ import { ResetPasswordDialogComponent } from '../reset-password-dialog/reset-pas
   templateUrl: './login-dialog.component.html',
   styleUrl: './login-dialog.component.scss',
 })
-export class LoginDialogComponent implements OnInit {
+export class LoginDialogComponent implements OnInit, OnDestroy {
   public formGroup!: FormGroup;
   public error$!: Observable<string | null>;
   public loading$!: Observable<boolean>;
+  private destroy$$ = new Subject<void>();
+  error = '';
 
   constructor(
     private fb: NonNullableFormBuilder,
@@ -59,6 +61,17 @@ export class LoginDialogComponent implements OnInit {
     this.loading$ = this.store.select(authSelectors.selectLoginLoading);
     this.error$ = this.store.select(authSelectors.selectLoginError);
 
+    this.error$.pipe(takeUntil(this.destroy$$)).subscribe((error) => {
+      this.error = error || '';
+    });
+
+    this.store
+      .select(authSelectors.selectIsLoggedIn)
+      .pipe(takeUntil(this.destroy$$))
+      .subscribe((loggedIn) => {
+        if (loggedIn) this.dialogRefLoginDialog.close();
+      });
+
     this.formGroup = this.fb.group({
       email: this.fb.control(
         this.storageService.getFromLocalStorage(StorageKey.LOGIN_EMAIL, ''),
@@ -70,12 +83,12 @@ export class LoginDialogComponent implements OnInit {
   }
 
   onSubmit(): void {
+    this.store.dispatch(authActions.clearLoginError());
+
     if (this.formGroup.valid) {
       const { email, password, persistent } = this.formGroup.value;
 
       this.store.dispatch(authActions.login({ email, password, persistent }));
-      // TODO SHOULD ONLY FIRE WHEN SUCCESS
-      this.dialogRefLoginDialog.close();
     }
   }
 
@@ -95,5 +108,13 @@ export class LoginDialogComponent implements OnInit {
       maxWidth: '700px',
       maxHeight: '90vh',
     });
+  }
+
+  ngOnDestroy() {
+    if (this.error) {
+      this.store.dispatch(authActions.clearLoginError());
+    }
+
+    this.destroy$$.next();
   }
 }

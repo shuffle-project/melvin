@@ -111,14 +111,14 @@
       }
     </div>
 
-    <ng-container *ngrxLet="error$ as error" aria-live="assertive">
+    <div aria-live="polite">
       @if (error) {
-      <div class="error-message">
+      <p class="error-message">
         <mat-icon svgIcon="warning"></mat-icon>
-        <p>{{ error }}</p>
-      </div>
+        {{ error }}
+      </p>
       }
-    </ng-container>
+    </div>
 
     <p class="privacy-info" i18n="@@registerDialogPrivacyNotice">
       We only use your data in accordance with our

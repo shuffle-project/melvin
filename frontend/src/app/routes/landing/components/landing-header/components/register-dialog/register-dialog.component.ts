@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import {
   AbstractControl,
   FormGroup,
@@ -19,6 +19,7 @@ import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { RouterLink } from '@angular/router';
 import { LetDirective, PushPipe } from '@ngrx/component';
 import { Store } from '@ngrx/store';
+import { Subject, takeUntil } from 'rxjs';
 import { AppState } from 'src/app/store/app.state';
 import * as authActions from '../../../../../../store/actions/auth.actions';
 import * as authSelectors from '../../../../../../store/selectors/auth.selector';
@@ -41,8 +42,9 @@ import { LoginDialogComponent } from '../login-dialog/login-dialog.component';
   templateUrl: './register-dialog.component.html',
   styleUrl: './register-dialog.component.scss',
 })
-export class RegisterDialogComponent {
+export class RegisterDialogComponent implements OnInit, OnDestroy {
   public formGroup!: FormGroup;
+  private destroy$$ = new Subject<void>();
 
   constructor(
     private fb: NonNullableFormBuilder,
@@ -53,7 +55,8 @@ export class RegisterDialogComponent {
 
   public error$ = this.store.select(authSelectors.selectRegisterError);
   public loading$ = this.store.select(authSelectors.selectRegisterLoading);
-  public success$ = this.store.select(authSelectors.selectRegisterSuccess);
+
+  error = '';
 
   ngOnInit() {
     this.formGroup = this.fb.group(
@@ -66,9 +69,16 @@ export class RegisterDialogComponent {
       { validators: [this.confirmPasswordValidator] }
     );
 
-    this.loading$.subscribe((ev) => console.log(ev));
-    this.error$.subscribe((ev) => console.log(ev));
-    this.success$.subscribe((ev) => console.log(ev));
+    this.store
+      .select(authSelectors.selectIsLoggedIn)
+      .pipe(takeUntil(this.destroy$$))
+      .subscribe((loggedIn) => {
+        if (loggedIn) this.dialogRefRegisterDialog.close();
+      });
+
+    this.error$.pipe(takeUntil(this.destroy$$)).subscribe((error) => {
+      this.error = error || '';
+    });
   }
 
   private confirmPasswordValidator(
@@ -80,6 +90,8 @@ export class RegisterDialogComponent {
   }
 
   onSubmit(): void {
+    this.store.dispatch(authActions.clearLoginError());
+
     if (this.formGroup.valid) {
       const { email, name, password } = this.formGroup.value;
 
@@ -90,9 +102,6 @@ export class RegisterDialogComponent {
           name,
         })
       );
-
-      // TODO SHOULD ONLY FIRE WHEN SUCCESS
-      this.dialogRefRegisterDialog.close();
     }
   }
 
@@ -107,5 +116,13 @@ export class RegisterDialogComponent {
       maxWidth: '700px',
       maxHeight: '90vh',
     });
+  }
+
+  ngOnDestroy() {
+    if (this.error) {
+      this.store.dispatch(authActions.clearLoginError());
+    }
+
+    this.destroy$$.next();
   }
 }

@@ -87,6 +87,10 @@ export const authReducer = createReducer(
     loginLoading: false,
     loginError: action.error.message,
   })),
+  on(authActions.clearLoginError, (state) => ({
+    ...state,
+    loginError: null,
+  })),
 
   //change password
 

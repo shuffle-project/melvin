@@ -50,6 +50,8 @@ header {
 @media (max-width: 33.75rem) {
   header {
     .toolbar {
+      padding-right: 0.5rem;
+
       nav {
         display: none;
       }
