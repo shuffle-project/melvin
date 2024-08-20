@@ -1,0 +1,74 @@
+<footer>
+  <div class="footer-content">
+    <!-- TODO Pass app-logo new alt text for the image -->
+    <app-logo class="clickable" [routerLink]="['/']" />
+    <ul>
+      <li>
+        <a routerLink="/privacy" i18n="@@landingFooterPrivacyLinkLabel">
+          Privacy
+        </a>
+      </li>
+      <li>
+        <a routerLink="/imprint" i18n="@@landingFooterImprintLinkLabel">
+          Imprint
+        </a>
+      </li>
+
+      @if (locale?.includes('de')) {
+      <li>
+        <a routerLink="/plain-language"> Leichte Sprache </a>
+      </li>
+      <li>
+        <a routerLink="/sign-language"> Gebärdensprache (DGS) </a>
+      </li>
+      }
+
+      <li>
+        <a routerLink="/sitemap"> Sitemap </a>
+      </li>
+      <li>
+        <a
+          routerLink="/accessibility-statement"
+          i18n="@@landingFooterAccessibilityStatementLinkLabel"
+        >
+          Accessibility statement
+        </a>
+      </li>
+      <li>
+        <a
+          href="https://github.com/shuffle-project/melvin"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          GitHub
+
+          <mat-icon
+            svgIcon="new-tab"
+            aria-hidden="false"
+            i18n-aria-label="@@landingFooterNewTabAriaLabel"
+            aria-label="Opens in new tab"
+            class="icon"
+          />
+        </a>
+      </li>
+      <li>
+        <a
+          href="https://shuffle-projekt.de/"
+          i18n="@@landingFooterSHUFFLELinkLabel"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          SHUFFLE-Project
+
+          <mat-icon
+            svgIcon="new-tab"
+            aria-hidden="false"
+            i18n-aria-label="@@landingFooterNewTabAriaLabel"
+            aria-label="Opens in new tab"
+            class="icon"
+          />
+        </a>
+      </li>
+    </ul>
+  </div>
+</footer>

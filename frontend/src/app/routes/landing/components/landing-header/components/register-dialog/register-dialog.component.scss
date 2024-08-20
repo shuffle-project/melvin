@@ -1,0 +1,52 @@
+.dialog-content {
+  form {
+    padding-top: 0.25rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.25rem;
+    max-width: 15.5rem;
+    margin-inline: auto;
+
+    .privacy-info {
+      font-size: 0.875rem;
+    }
+
+    .submit-button {
+      width: 100%;
+    }
+  }
+}
+
+.error-message {
+  display: flex;
+  align-items: center;
+
+  gap: 0.625rem;
+  background-color: rgba(var(--color-red-rgb), 0.2);
+  padding: 0.625rem 0.75rem;
+  width: 100%;
+  box-sizing: border-box;
+
+  p {
+    margin: 0;
+  }
+}
+
+.back-to-login-wrapper {
+  margin-inline: auto;
+  width: 100%;
+  max-width: 15.5rem;
+  margin-block: 2.5rem;
+
+  p {
+    text-align: center;
+    font-size: 0.875rem;
+    margin-bottom: 0.25rem;
+  }
+
+  button {
+    width: 100%;
+    max-width: 15.5rem;
+  }
+}

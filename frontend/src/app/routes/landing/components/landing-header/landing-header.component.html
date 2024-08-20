@@ -1,0 +1,49 @@
+<header>
+  <mat-toolbar class="toolbar">
+    <app-logo class="clickable" [routerLink]="['/']" />
+    <nav>
+      <ul>
+        <div class="links">
+          <li>
+            <a routerLink="/tutorial" i18n="@@landingHeaderTutorialLinkLabel">
+              Tutorial
+            </a>
+          </li>
+          <li>
+            <a
+              routerLink="/documentation"
+              i18n="@@landingHeaderDocumentationLinkLabel"
+            >
+              Documentation
+            </a>
+          </li>
+        </div>
+        <button
+          (click)="onOpenLoginDialog()"
+          mat-flat-button
+          color="primary"
+          i18n="@@landingHeaderLoginButton"
+        >
+          Login
+        </button>
+      </ul>
+    </nav>
+    <div class="mobile-view">
+      <button
+        (click)="onOpenLoginDialog()"
+        mat-flat-button
+        color="primary"
+        i18n="@@landingHeaderLoginButton"
+      >
+        Login
+      </button>
+      <button
+        (click)="onToggleSidebar()"
+        mat-icon-button
+        aria-label="Open Menu"
+      >
+        <mat-icon svgIcon="menu" />
+      </button>
+    </div>
+  </mat-toolbar>
+</header>
