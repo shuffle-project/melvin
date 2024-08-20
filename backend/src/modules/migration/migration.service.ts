@@ -62,7 +62,8 @@ export class MigrationService {
       this.logger.info('Migration to version 2 successful');
     }
 
-    if (settings.dbSchemaVersion < 3) {
+    // TODO: remove! force running migration
+    if (settings.dbSchemaVersion < 4) {
       this.logger.info('Migrate to version 3');
       await this._migrateToV3Tiptap();
 
@@ -115,7 +116,7 @@ export class MigrationService {
             payload,
           });
         } else {
-          console.log('project does not contain audio', project);
+          console.log('project does not exist', transcription.project, project);
         }
       }
     }
