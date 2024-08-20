@@ -12,7 +12,7 @@ import { Audio, Project } from '../../db/schemas/project.schema';
 import { CustomLogger } from '../../logger/logger.service';
 import { PathService } from '../../path/path.service';
 import {
-  ISepechToTextService,
+  ISpeechToTextService,
   TranscriptEntity,
   WordEntity,
 } from '../speech-to-text.interfaces';
@@ -21,7 +21,7 @@ import { WhiTranscribeDto, WhiTranscriptEntity } from './whisper.interfaces';
 // npm rebuild bcrypt --build-from-source
 
 @Injectable()
-export class WhisperSpeechService implements ISepechToTextService {
+export class WhisperSpeechService implements ISpeechToTextService {
   private whisperConfig: WhisperConfig;
 
   private host: string;
@@ -77,6 +77,23 @@ export class WhisperSpeechService implements ISepechToTextService {
     const transcribe = await this._transcribe(project, audio);
 
     // use cronJob/queue instead of
+    return await this._fetchResult(transcribe);
+  }
+
+  async runAlign(project: Project, text: string, audio: Audio) {
+    const language = this._getLanguage(project.language);
+    const align = await this._align(project, text, language, audio);
+
+    return await this._fetchResult(align);
+  }
+
+  private _getLanguage(languageString: string) {
+    return languageString.includes('-')
+      ? languageString.split('-')[0]
+      : languageString;
+  }
+
+  private async _fetchResult(transcribe: WhiTranscriptEntity) {
     const transcriptEntity: WhiTranscriptEntity = await new Promise(
       (resolve) => {
         const interval = setInterval(async () => {
@@ -102,12 +119,21 @@ export class WhisperSpeechService implements ISepechToTextService {
     // let currentMS = 0;
     const words: WordEntity[] = [];
 
+    let lastSegmentEnd = 0;
     transcriptEntity.transcript.segments.forEach((segment) => {
-      segment.words.forEach((word) => {
+      const secondsToLastSegment = segment.start - lastSegmentEnd;
+
+      lastSegmentEnd = segment.end;
+
+      segment.words.forEach((word, i) => {
+        const startParagraph = i === 0 && secondsToLastSegment > 3;
         words.push({
-          word: word.word.startsWith(' ') ? word.word.trimStart() : word.word,
-          startMs: word.start * 1000,
-          endMs: word.end * 1000,
+          text: word.text,
+          start: word.start * 1000,
+          end: word.end * 1000,
+          confidence: word.probability,
+          startParagraph,
+          speakerId: null,
         });
       });
     });
@@ -133,19 +159,15 @@ export class WhisperSpeechService implements ISepechToTextService {
 
     const response = await lastValueFrom(
       this.httpService
-        .post<WhiTranscriptEntity>(
-          `http://${this.host}:8393/transcriptions`,
-          formData,
-          {
-            headers: {
-              // authorization: this.apikey,
-              // 'Transfer-Encoding': 'chunked',
-              key: this.apikey,
-              'Content-Type': 'multipart/form-data',
-              ...formData.getHeaders(),
-            },
+        .post<WhiTranscriptEntity>(`${this.host}/transcriptions`, formData, {
+          headers: {
+            // authorization: this.apikey,
+            // 'Transfer-Encoding': 'chunked',
+            Authorization: this.apikey,
+            'Content-Type': 'multipart/form-data',
+            ...formData.getHeaders(),
           },
-        )
+        })
         .pipe(
           map((res: AxiosResponse<WhiTranscriptEntity>) => {
             return res.data;
@@ -170,14 +192,63 @@ export class WhisperSpeechService implements ISepechToTextService {
     const response = await lastValueFrom(
       this.httpService
         .get<WhiTranscriptEntity>(
-          `http://${this.host}:8393/transcriptions/${transcriptId}`,
+          `${this.host}/transcriptions/${transcriptId}`,
           {
             headers: {
-              // authorization: this.apikey,
-              key: this.apikey,
+              Authorization: this.apikey,
             },
           },
         )
+        .pipe(
+          map((res: AxiosResponse<WhiTranscriptEntity>) => {
+            return res.data;
+          }),
+          catchError((error: AxiosError) => {
+            if (error?.response?.status) {
+              throw new HttpException(
+                error.response.data,
+                error.response.status,
+              );
+            } else {
+              throw new HttpException('unknown error', 500);
+            }
+          }),
+        ),
+    );
+
+    return response;
+  }
+
+  async _align(project: Project, text: string, language: string, audio: Audio) {
+    const audioPath = this.pathService.getMediaFile(
+      project._id.toString(),
+      audio,
+    );
+
+    const file = await readFile(audioPath);
+
+    const formData = new FormData();
+    formData.append('file', file, audio._id.toString() + '.' + audio.extension);
+    formData.append('task', 'align');
+    formData.append('text', text);
+    formData.append('language', language);
+    // const settings: WhiTranscribeDto = {
+    //   language: project.language,
+    //   condition_on_previous_text: false,
+    // };
+    // formData.append('settings', JSON.stringify(settings));
+
+    const response = await lastValueFrom(
+      this.httpService
+        .post<WhiTranscriptEntity>(`${this.host}/transcriptions`, formData, {
+          headers: {
+            // authorization: this.apikey,
+            // 'Transfer-Encoding': 'chunked',
+            Authorization: this.apikey,
+            'Content-Type': 'multipart/form-data',
+            ...formData.getHeaders(),
+          },
+        })
         .pipe(
           map((res: AxiosResponse<WhiTranscriptEntity>) => {
             return res.data;

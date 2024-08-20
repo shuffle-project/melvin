@@ -16,7 +16,7 @@ import {
   takeUntil,
   tap,
 } from 'rxjs';
-import { CaptionEntity } from '../../../services/api/entities/caption.entity';
+import { TiptapCaption } from '../../../services/api/entities/caption.entity';
 import { StorageKey } from '../../../services/storage/storage-key.enum';
 import { StorageService } from '../../../services/storage/storage.service';
 import * as viewerActions from '../../../store/actions/viewer.actions';
@@ -45,8 +45,8 @@ export class ViewerService {
 
   private captions$ = this.store.select(viewerSelector.vCaptions);
 
-  public currentCaption$: BehaviorSubject<null | undefined | CaptionEntity> =
-    new BehaviorSubject<CaptionEntity | undefined | null>(null);
+  public currentCaption$: BehaviorSubject<null | undefined | TiptapCaption> =
+    new BehaviorSubject<TiptapCaption | undefined | null>(null);
 
   // TODO new
   public isPlayingUser$ = this.store.select(viewerSelector.vIsPlayingUser);

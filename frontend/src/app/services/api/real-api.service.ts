@@ -1,4 +1,10 @@
-import { HttpClient, HttpContext, HttpEvent, HttpHeaders, HttpParams } from '@angular/common/http';
+import {
+  HttpClient,
+  HttpContext,
+  HttpEvent,
+  HttpHeaders,
+  HttpParams,
+} from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
@@ -514,6 +520,12 @@ export class RealApiService implements ApiService {
         'Content-Type': 'application/octet-stream',
       },
       responseType: 'blob' as any,
+    });
+  }
+
+  transcriptionGetCaptions(transcriptionId: string, useViewerToken?: boolean) {
+    return this._get<any>(`/transcriptions/${transcriptionId}/getCaptions`, {
+      useViewerToken,
     });
   }
 

@@ -1,0 +1,1084 @@
+interface TiptapDocument {
+    type: "doc";
+    content: Array<{
+        type: "paragraph";
+        content: Array<{
+            type: "text";
+            text: string;
+            marks: Array<{
+                type: "words";
+                attrs: {
+                    modifiedAt?: string;
+                    modifiedBy?: string;
+                    timestamp?: number;
+                    confidence?: number;
+                }
+            }>
+        }>
+    }>
+}
+
+{
+  "type": "doc",
+  "content": [
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "marks": [
+            {
+              "type": "textStyle",
+              "attrs": {
+                "color": "#5900ff"
+              }
+            },
+            {
+              "type": "word",
+              "attrs": {
+                "modifiedAt": "2024-6-5 15:7CET",
+                "modifiedBy": "brave_beckett"
+              }
+            }
+          ],
+          "text": "Test 123 Abfahrt, kleiner Test 123, Kevin, Albert"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "marks": [
+            {
+              "type": "word",
+              "attrs": {
+                "timestamp": 1717591324719,
+                "modifiedAt": "2024-6-5 14:42CET",
+                "modifiedBy": "Server Stream Insert"
+              }
+            }
+          ],
+          "text": "Lore"
+        },
+        {
+          "type": "text",
+          "text": "m "
+        },
+        {
+          "type": "text",
+          "marks": [
+            {
+              "type": "word",
+              "attrs": {
+                "timestamp": 1717591325019,
+                "modifiedAt": "2024-6-5 14:42CET",
+                "modifiedBy": "Server Stream Insert"
+              }
+            }
+          ],
+          "text": "ipsum "
+        },
+        {
+          "type": "text",
+          "marks": [
+            {
+              "type": "word",
+              "attrs": {
+                "timestamp": 1717591325328,
+                "modifiedAt": "2024-6-5 14:42CET",
+                "modifiedBy": "Server Stream Insert"
+              }
+            }
+          ],
+          "text": "dolor "
+        },
+        {
+          "type": "text",
+          "marks": [
+            {
+              "type": "word",
+              "attrs": {
+                "timestamp": 1717591325639,
+                "modifiedAt": "2024-6-5 14:42CET",
+                "modifiedBy": "Server Stream Insert"
+              }
+            }
+          ],
+          "text": "sit "
+        },
+        {
+          "type": "text",
+          "marks": [
+            {
+              "type": "word",
+              "attrs": {
+                "timestamp": 1717591325949,
+                "modifiedAt": "2024-6-5 14:42CET",
+                "modifiedBy": "Server Stream Insert"
+              }
+            }
+          ],
+          "text": "amet, "
+        },
+        {
+          "type": "text",
+          "marks": [
+            {
+              "type": "word",
+              "attrs": {
+                "timestamp": 1717591326260,
+                "modifiedAt": "2024-6-5 14:42CET",
+                "modifiedBy": "Server Stream Insert"
+              }
+            }
+          ],
+          "text": "consectetur "
+        },
+        {
+          "type": "text",
+          "marks": [
+            {
+              "type": "word",
+              "attrs": {
+                "timestamp": 1717591326572,
+                "modifiedAt": "2024-6-5 14:42CET",
+                "modifiedBy": "Server Stream Insert"
+              }
+            }
+          ],
+          "text": "adipiscing "
+        },
+        {
+          "type": "text",
+          "marks": [
+            {
+              "type": "word",
+              "attrs": {
+                "timestamp": 1717591326885,
+                "modifiedAt": "2024-6-5 14:42CET",
+                "modifiedBy": "Server Stream Insert"
+              }
+            }
+          ],
+          "text": "elit. "
+        },
+        {
+          "type": "text",
+          "marks": [
+            {
+              "type": "word",
+              "attrs": {
+                "timestamp": 1717591327195,
+                "modifiedAt": "2024-6-5 14:42CET",
+                "modifiedBy": "Server Stream Insert"
+              }
+            }
+          ],
+          "text": "Sed "
+        },
+        {
+          "type": "text",
+          "marks": [
+            {
+              "type": "word",
+              "attrs": {
+                "timestamp": 1717591327507,
+                "modifiedAt": "2024-6-5 14:42CET",
+                "modifiedBy": "Server Stream Insert"
+              }
+            }
+          ],
+          "text": "do "
+        },
+        {
+          "type": "text",
+          "marks": [
+            {
+              "type": "word",
+              "attrs": {
+                "timestamp": 1717591327818,
+                "modifiedAt": "2024-6-5 14:42CET",
+                "modifiedBy": "Server Stream Insert"
+              }
+            }
+          ],
+          "text": "eiusmod "
+        },
+        {
+          "type": "text",
+          "marks": [
+            {
+              "type": "word",
+              "attrs": {
+                "timestamp": 1717591328127,
+                "modifiedAt": "2024-6-5 14:42CET",
+                "modifiedBy": "Server Stream Insert"
+              }
+            }
+          ],
+          "text": "tempor "
+        },
+        {
+          "type": "text",
+          "marks": [
+            {
+              "type": "word",
+              "attrs": {
+                "timestamp": 1717591328436,
+                "modifiedAt": "2024-6-5 14:42CET",
+                "modifiedBy": "Server Stream Insert"
+              }
+            }
+          ],
+          "text": "incididunt "
+        },
+        {
+          "type": "text",
+          "marks": [
+            {
+              "type": "word",
+              "attrs": {
+                "timestamp": 1717591328746,
+                "modifiedAt": "2024-6-5 14:42CET",
+                "modifiedBy": "Server Stream Insert"
+              }
+            }
+          ],
+          "text": "ut "
+        },
+        {
+          "type": "text",
+          "marks": [
+            {
+              "type": "word",
+              "attrs": {
+                "timestamp": 1717591329058,
+                "modifiedAt": "2024-6-5 14:42CET",
+                "modifiedBy": "Server Stream Insert"
+              }
+            }
+          ],
+          "text": "labore "
+        },
+        {
+          "type": "text",
+          "marks": [
+            {
+              "type": "word",
+              "attrs": {
+                "timestamp": 1717591329369,
+                "modifiedAt": "2024-6-5 14:42CET",
+                "modifiedBy": "Server Stream Insert"
+              }
+            }
+          ],
+          "text": "et "
+        },
+        {
+          "type": "text",
+          "marks": [
+            {
+              "type": "word",
+              "attrs": {
+                "timestamp": 1717591329678,
+                "modifiedAt": "2024-6-5 14:42CET",
+                "modifiedBy": "Server Stream Insert"
+              }
+            }
+          ],
+          "text": "dolore "
+        },
+        {
+          "type": "text",
+          "marks": [
+            {
+              "type": "word",
+              "attrs": {
+                "timestamp": 1717591329990,
+                "modifiedAt": "2024-6-5 14:42CET",
+                "modifiedBy": "Server Stream Insert"
+              }
+            }
+          ],
+          "text": "magna "
+        },
+        {
+          "type": "text",
+          "marks": [
+            {
+              "type": "word",
+              "attrs": {
+                "timestamp": 1717591330298,
+                "modifiedAt": "2024-6-5 14:42CET",
+                "modifiedBy": "Server Stream Insert"
+              }
+            }
+          ],
+          "text": "aliqua. "
+        },
+        {
+          "type": "text",
+          "marks": [
+            {
+              "type": "word",
+              "attrs": {
+                "timestamp": 1717591330607,
+                "modifiedAt": "2024-6-5 14:42CET",
+                "modifiedBy": "Server Stream Insert"
+              }
+            }
+          ],
+          "text": "Ut "
+        },
+        {
+          "type": "text",
+          "marks": [
+            {
+              "type": "word",
+              "attrs": {
+                "timestamp": 1717591330916,
+                "modifiedAt": "2024-6-5 14:42CET",
+                "modifiedBy": "Server Stream Insert"
+              }
+            }
+          ],
+          "text": "enim "
+        },
+        {
+          "type": "text",
+          "marks": [
+            {
+              "type": "word",
+              "attrs": {
+                "timestamp": 1717591331225,
+                "modifiedAt": "2024-6-5 14:42CET",
+                "modifiedBy": "Server Stream Insert"
+              }
+            }
+          ],
+          "text": "ad "
+        },
+        {
+          "type": "text",
+          "marks": [
+            {
+              "type": "word",
+              "attrs": {
+                "timestamp": 1717591331535,
+                "modifiedAt": "2024-6-5 14:42CET",
+                "modifiedBy": "Server Stream Insert"
+              }
+            }
+          ],
+          "text": "minim "
+        },
+        {
+          "type": "text",
+          "marks": [
+            {
+              "type": "word",
+              "attrs": {
+                "timestamp": 1717591331846,
+                "modifiedAt": "2024-6-5 14:42CET",
+                "modifiedBy": "Server Stream Insert"
+              }
+            }
+          ],
+          "text": "veniam, "
+        },
+        {
+          "type": "text",
+          "marks": [
+            {
+              "type": "word",
+              "attrs": {
+                "timestamp": 1717591332153,
+                "modifiedAt": "2024-6-5 14:42CET",
+                "modifiedBy": "Server Stream Insert"
+              }
+            }
+          ],
+          "text": "quis "
+        },
+        {
+          "type": "text",
+          "marks": [
+            {
+              "type": "word",
+              "attrs": {
+                "timestamp": 1717591332468,
+                "modifiedAt": "2024-6-5 14:42CET",
+                "modifiedBy": "Server Stream Insert"
+              }
+            }
+          ],
+          "text": "nostrud "
+        },
+        {
+          "type": "text",
+          "marks": [
+            {
+              "type": "word",
+              "attrs": {
+                "timestamp": 1717591332778,
+                "modifiedAt": "2024-6-5 14:42CET",
+                "modifiedBy": "Server Stream Insert"
+              }
+            }
+          ],
+          "text": "exercitation "
+        },
+        {
+          "type": "text",
+          "marks": [
+            {
+              "type": "word",
+              "attrs": {
+                "timestamp": 1717591333090,
+                "modifiedAt": "2024-6-5 14:42CET",
+                "modifiedBy": "Server Stream Insert"
+              }
+            }
+          ],
+          "text": "ullamco "
+        },
+        {
+          "type": "text",
+          "marks": [
+            {
+              "type": "word",
+              "attrs": {
+                "timestamp": 1717591333402,
+                "modifiedAt": "2024-6-5 14:42CET",
+                "modifiedBy": "Server Stream Insert"
+              }
+            }
+          ],
+          "text": "laboris "
+        },
+        {
+          "type": "text",
+          "marks": [
+            {
+              "type": "word",
+              "attrs": {
+                "timestamp": 1717591333709,
+                "modifiedAt": "2024-6-5 14:42CET",
+                "modifiedBy": "Server Stream Insert"
+              }
+            }
+          ],
+          "text": "nisi "
+        },
+        {
+          "type": "text",
+          "marks": [
+            {
+              "type": "word",
+              "attrs": {
+                "timestamp": 1717591334019,
+                "modifiedAt": "2024-6-5 14:42CET",
+                "modifiedBy": "Server Stream Insert"
+              }
+            }
+          ],
+          "text": "ut "
+        },
+        {
+          "type": "text",
+          "marks": [
+            {
+              "type": "word",
+              "attrs": {
+                "timestamp": 1717591334335,
+                "modifiedAt": "2024-6-5 14:42CET",
+                "modifiedBy": "Server Stream Insert"
+              }
+            }
+          ],
+          "text": "aliquip "
+        },
+        {
+          "type": "text",
+          "marks": [
+            {
+              "type": "word",
+              "attrs": {
+                "timestamp": 1717591334645,
+                "modifiedAt": "2024-6-5 14:42CET",
+                "modifiedBy": "Server Stream Insert"
+              }
+            }
+          ],
+          "text": "ex "
+        },
+        {
+          "type": "text",
+          "marks": [
+            {
+              "type": "word",
+              "attrs": {
+                "timestamp": 1717591334955,
+                "modifiedAt": "2024-6-5 14:42CET",
+                "modifiedBy": "Server Stream Insert"
+              }
+            }
+          ],
+          "text": "ea "
+        },
+        {
+          "type": "text",
+          "marks": [
+            {
+              "type": "word",
+              "attrs": {
+                "timestamp": 1717591335266,
+                "modifiedAt": "2024-6-5 14:42CET",
+                "modifiedBy": "Server Stream Insert"
+              }
+            }
+          ],
+          "text": "commodo "
+        },
+        {
+          "type": "text",
+          "marks": [
+            {
+              "type": "word",
+              "attrs": {
+                "timestamp": 1717591335577,
+                "modifiedAt": "2024-6-5 14:42CET",
+                "modifiedBy": "Server Stream Insert"
+              }
+            }
+          ],
+          "text": "consequat. "
+        },
+        {
+          "type": "text",
+          "marks": [
+            {
+              "type": "word",
+              "attrs": {
+                "timestamp": 1717591335888,
+                "modifiedAt": "2024-6-5 14:42CET",
+                "modifiedBy": "Server Stream Insert"
+              }
+            }
+          ],
+          "text": "Duis "
+        },
+        {
+          "type": "text",
+          "marks": [
+            {
+              "type": "word",
+              "attrs": {
+                "timestamp": 1717591336199,
+                "modifiedAt": "2024-6-5 14:42CET",
+                "modifiedBy": "Server Stream Insert"
+              }
+            }
+          ],
+          "text": "aute "
+        },
+        {
+          "type": "text",
+          "marks": [
+            {
+              "type": "word",
+              "attrs": {
+                "timestamp": 1717591336509,
+                "modifiedAt": "2024-6-5 14:42CET",
+                "modifiedBy": "Server Stream Insert"
+              }
+            }
+          ],
+          "text": "irure "
+        },
+        {
+          "type": "text",
+          "marks": [
+            {
+              "type": "word",
+              "attrs": {
+                "timestamp": 1717591336820,
+                "modifiedAt": "2024-6-5 14:42CET",
+                "modifiedBy": "Server Stream Insert"
+              }
+            }
+          ],
+          "text": "dolor "
+        },
+        {
+          "type": "text",
+          "marks": [
+            {
+              "type": "word",
+              "attrs": {
+                "timestamp": 1717591337131,
+                "modifiedAt": "2024-6-5 14:42CET",
+                "modifiedBy": "Server Stream Insert"
+              }
+            }
+          ],
+          "text": "in "
+        },
+        {
+          "type": "text",
+          "marks": [
+            {
+              "type": "word",
+              "attrs": {
+                "timestamp": 1717591337444,
+                "modifiedAt": "2024-6-5 14:42CET",
+                "modifiedBy": "Server Stream Insert"
+              }
+            }
+          ],
+          "text": "reprehenderit "
+        },
+        {
+          "type": "text",
+          "marks": [
+            {
+              "type": "word",
+              "attrs": {
+                "timestamp": 1717591337752,
+                "modifiedAt": "2024-6-5 14:42CET",
+                "modifiedBy": "Server Stream Insert"
+              }
+            }
+          ],
+          "text": "in "
+        },
+        {
+          "type": "text",
+          "marks": [
+            {
+              "type": "word",
+              "attrs": {
+                "timestamp": 1717591338061,
+                "modifiedAt": "2024-6-5 14:42CET",
+                "modifiedBy": "Server Stream Insert"
+              }
+            }
+          ],
+          "text": "voluptate "
+        },
+        {
+          "type": "text",
+          "marks": [
+            {
+              "type": "word",
+              "attrs": {
+                "timestamp": 1717591338376,
+                "modifiedAt": "2024-6-5 14:42CET",
+                "modifiedBy": "Server Stream Insert"
+              }
+            }
+          ],
+          "text": "velit "
+        },
+        {
+          "type": "text",
+          "marks": [
+            {
+              "type": "word",
+              "attrs": {
+                "timestamp": 1717591338685,
+                "modifiedAt": "2024-6-5 14:42CET",
+                "modifiedBy": "Server Stream Insert"
+              }
+            }
+          ],
+          "text": "esse "
+        },
+        {
+          "type": "text",
+          "marks": [
+            {
+              "type": "word",
+              "attrs": {
+                "timestamp": 1717591338994,
+                "modifiedAt": "2024-6-5 14:42CET",
+                "modifiedBy": "Server Stream Insert"
+              }
+            }
+          ],
+          "text": "cillum "
+        },
+        {
+          "type": "text",
+          "marks": [
+            {
+              "type": "word",
+              "attrs": {
+                "timestamp": 1717591339305,
+                "modifiedAt": "2024-6-5 14:42CET",
+                "modifiedBy": "Server Stream Insert"
+              }
+            }
+          ],
+          "text": "dolore "
+        },
+        {
+          "type": "text",
+          "marks": [
+            {
+              "type": "word",
+              "attrs": {
+                "timestamp": 1717591339617,
+                "modifiedAt": "2024-6-5 14:42CET",
+                "modifiedBy": "Server Stream Insert"
+              }
+            }
+          ],
+          "text": "eu "
+        },
+        {
+          "type": "text",
+          "marks": [
+            {
+              "type": "word",
+              "attrs": {
+                "timestamp": 1717591339924,
+                "modifiedAt": "2024-6-5 14:42CET",
+                "modifiedBy": "Server Stream Insert"
+              }
+            }
+          ],
+          "text": "fugiat "
+        },
+        {
+          "type": "text",
+          "marks": [
+            {
+              "type": "word",
+              "attrs": {
+                "timestamp": 1717591340235,
+                "modifiedAt": "2024-6-5 14:42CET",
+                "modifiedBy": "Server Stream Insert"
+              }
+            }
+          ],
+          "text": "nulla "
+        },
+        {
+          "type": "text",
+          "marks": [
+            {
+              "type": "word",
+              "attrs": {
+                "timestamp": 1717591340545,
+                "modifiedAt": "2024-6-5 14:42CET",
+                "modifiedBy": "Server Stream Insert"
+              }
+            }
+          ],
+          "text": "pariatur. "
+        },
+        {
+          "type": "text",
+          "marks": [
+            {
+              "type": "word",
+              "attrs": {
+                "timestamp": 1717591340858,
+                "modifiedAt": "2024-6-5 14:42CET",
+                "modifiedBy": "Server Stream Insert"
+              }
+            }
+          ],
+          "text": "Excepteur "
+        },
+        {
+          "type": "text",
+          "marks": [
+            {
+              "type": "word",
+              "attrs": {
+                "timestamp": 1717591341166,
+                "modifiedAt": "2024-6-5 14:42CET",
+                "modifiedBy": "Server Stream Insert"
+              }
+            }
+          ],
+          "text": "sint "
+        },
+        {
+          "type": "text",
+          "marks": [
+            {
+              "type": "word",
+              "attrs": {
+                "timestamp": 1717591341477,
+                "modifiedAt": "2024-6-5 14:42CET",
+                "modifiedBy": "Server Stream Insert"
+              }
+            }
+          ],
+          "text": "occaecat "
+        },
+        {
+          "type": "text",
+          "marks": [
+            {
+              "type": "word",
+              "attrs": {
+                "timestamp": 1717591341790,
+                "modifiedAt": "2024-6-5 14:42CET",
+                "modifiedBy": "Server Stream Insert"
+              }
+            }
+          ],
+          "text": "cupidatat "
+        },
+        {
+          "type": "text",
+          "marks": [
+            {
+              "type": "word",
+              "attrs": {
+                "timestamp": 1717591342098,
+                "modifiedAt": "2024-6-5 14:42CET",
+                "modifiedBy": "Server Stream Insert"
+              }
+            }
+          ],
+          "text": "non "
+        },
+        {
+          "type": "text",
+          "marks": [
+            {
+              "type": "word",
+              "attrs": {
+                "timestamp": 1717591342410,
+                "modifiedAt": "2024-6-5 14:42CET",
+                "modifiedBy": "Server Stream Insert"
+              }
+            }
+          ],
+          "text": "proident, "
+        },
+        {
+          "type": "text",
+          "marks": [
+            {
+              "type": "word",
+              "attrs": {
+                "timestamp": 1717591342725,
+                "modifiedAt": "2024-6-5 14:42CET",
+                "modifiedBy": "Server Stream Insert"
+              }
+            }
+          ],
+          "text": "sunt "
+        },
+        {
+          "type": "text",
+          "marks": [
+            {
+              "type": "word",
+              "attrs": {
+                "timestamp": 1717591343034,
+                "modifiedAt": "2024-6-5 14:42CET",
+                "modifiedBy": "Server Stream Insert"
+              }
+            }
+          ],
+          "text": "in "
+        },
+        {
+          "type": "text",
+          "marks": [
+            {
+              "type": "word",
+              "attrs": {
+                "timestamp": 1717591343342,
+                "modifiedAt": "2024-6-5 14:42CET",
+                "modifiedBy": "Server Stream Insert"
+              }
+            }
+          ],
+          "text": "culpa "
+        },
+        {
+          "type": "text",
+          "marks": [
+            {
+              "type": "word",
+              "attrs": {
+                "timestamp": 1717591343653,
+                "modifiedAt": "2024-6-5 14:42CET",
+                "modifiedBy": "Server Stream Insert"
+              }
+            }
+          ],
+          "text": "qui "
+        },
+        {
+          "type": "text",
+          "marks": [
+            {
+              "type": "word",
+              "attrs": {
+                "timestamp": 1717591343962,
+                "modifiedAt": "2024-6-5 14:42CET",
+                "modifiedBy": "Server Stream Insert"
+              }
+            }
+          ],
+          "text": "officia "
+        },
+        {
+          "type": "text",
+          "marks": [
+            {
+              "type": "word",
+              "attrs": {
+                "timestamp": 1717591344274,
+                "modifiedAt": "2024-6-5 14:42CET",
+                "modifiedBy": "Server Stream Insert"
+              }
+            }
+          ],
+          "text": "deserunt "
+        },
+        {
+          "type": "text",
+          "marks": [
+            {
+              "type": "word",
+              "attrs": {
+                "timestamp": 1717591344581,
+                "modifiedAt": "2024-6-5 14:42CET",
+                "modifiedBy": "Server Stream Insert"
+              }
+            }
+          ],
+          "text": "mollit "
+        },
+        {
+          "type": "text",
+          "marks": [
+            {
+              "type": "word",
+              "attrs": {
+                "timestamp": 1717591344892,
+                "modifiedAt": "2024-6-5 14:42CET",
+                "modifiedBy": "Server Stream Insert"
+              }
+            }
+          ],
+          "text": "anim "
+        },
+        {
+          "type": "text",
+          "marks": [
+            {
+              "type": "word",
+              "attrs": {
+                "timestamp": 1717591345204,
+                "modifiedAt": "2024-6-5 14:42CET",
+                "modifiedBy": "Server Stream Insert"
+              }
+            }
+          ],
+          "text": "id "
+        },
+        {
+          "type": "text",
+          "marks": [
+            {
+              "type": "word",
+              "attrs": {
+                "timestamp": 1717591345514,
+                "modifiedAt": "2024-6-5 14:42CET",
+                "modifiedBy": "Server Stream Insert"
+              }
+            }
+          ],
+          "text": "est "
+        },
+        {
+          "type": "text",
+          "marks": [
+            {
+              "type": "word",
+              "attrs": {
+                "timestamp": 1717591345825,
+                "modifiedAt": "2024-6-5 14:42CET",
+                "modifiedBy": "Server Stream Insert"
+              }
+            }
+          ],
+          "text": "laborum."
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "marks": [
+            {
+              "type": "textStyle",
+              "attrs": {
+                "color": "#FD7E14"
+              }
+            },
+            {
+              "type": "word",
+              "attrs": {
+                "modifiedAt": "2024-6-5 14:42CET",
+                "modifiedBy": "brave_beckett"
+              }
+            }
+          ],
+          "text": "asdjölasjkd jaösl djlöasjd ölasj dölajs döljas döjl"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "marks": [
+            {
+              "type": "textStyle",
+              "attrs": {
+                "color": "#5900ff"
+              }
+            },
+            {
+              "type": "word",
+              "attrs": {
+                "modifiedAt": "2024-6-5 14:52CET",
+                "modifiedBy": "brave_beckett"
+              }
+            }
+          ],
+          "text": "ghfgh   gfh gh gf hh f"
+        },
+        {
+          "type": "text",
+          "marks": [
+            {
+              "type": "textStyle",
+              "attrs": {
+                "color": "#5900ff"
+              }
+            }
+          ],
+          "text": " "
+        }
+      ]
+    }
+  ]
+}

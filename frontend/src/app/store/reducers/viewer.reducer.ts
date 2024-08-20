@@ -6,7 +6,7 @@ import {
 } from '../../routes/viewer/components/captions-settings-dialog/captions-settings-dialog.component';
 import { ViewerVideo } from '../../routes/viewer/components/player/player.component';
 import { TranscriptPosition } from '../../routes/viewer/viewer.interfaces';
-import { CaptionListEntity } from '../../services/api/entities/caption-list.entity';
+import { TiptapCaption } from '../../services/api/entities/caption.entity';
 import {
   MediaCategory,
   ProjectEntity,
@@ -30,7 +30,8 @@ export interface ViewerState {
   projectMedia: ProjectMediaEntity | null;
   transcriptions: TranscriptionEntity[];
   transcriptionId: string | null;
-  captions: CaptionListEntity | null;
+  // captions: CaptionListEntity | null;
+  tiptapCaptions: TiptapCaption[] | null;
 
   //SETTINGS
   transcriptFontsize: SizeOptions;
@@ -65,7 +66,8 @@ export const initalState: ViewerState = {
   projectMedia: null,
   transcriptions: [],
   transcriptionId: null,
-  captions: null,
+  // captions: null,
+  tiptapCaptions: null,
 
   // viewer settings
   currentSpeed: 1,
@@ -147,7 +149,7 @@ export const viewerReducer = createReducer(
     return { ...state, transcriptionId: action.transcriptionId };
   }),
   on(viewerActions.findCaptionsSuccess, (state, action) => {
-    return { ...state, captions: action.captionListEntity };
+    return { ...state, tiptapCaptions: action.tiptapCaptions };
   }),
 
   // SETTINGS

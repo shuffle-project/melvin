@@ -83,7 +83,7 @@ export class TranscriptionComponent implements OnInit, OnDestroy {
   }
 
   onOpenTranscription(transcriptionId: string) {
-    this.router.navigate(['/home/editor', this.project.id]);
+    this.router.navigate(['/home/editor', this.project.id, 'edit']);
     this.store.dispatch(
       transcriptionsActions.selectFromEditor({ transcriptionId })
     );

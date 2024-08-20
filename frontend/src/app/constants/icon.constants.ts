@@ -106,6 +106,8 @@ export const ICONS = [
   'copy-file',
   'translate',
   'info',
+  'undo',
+  'redo',
 ] as const;
 
 export type IconName = (typeof ICONS)[number];

@@ -91,6 +91,9 @@ export class Transcription {
   @Prop()
   @Type(() => Speaker)
   speakers: Speaker[];
+
+  @Prop({ type: SchemaTypes.Buffer })
+  ydoc: Uint8Array;
 }
 
 export const TranscriptionSchema = SchemaFactory.createForClass(Transcription);

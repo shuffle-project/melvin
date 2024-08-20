@@ -1,5 +1,4 @@
 import { Injectable } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
 import { parse } from '@plussub/srt-vtt-parser';
 import { readFile } from 'fs/promises';
 import { AsrServiceConfig } from '../../app.interfaces';
@@ -13,10 +12,13 @@ import { Caption } from '../db/schemas/caption.schema';
 import { Audio, Project } from '../db/schemas/project.schema';
 import { CustomLogger } from '../logger/logger.service';
 import { PathService } from '../path/path.service';
+import { TiptapService } from '../tiptap/tiptap.service';
 import { AssemblyAiService } from './assemblyai/assemblyai.service';
 import { GoogleSpeechService } from './google-speech/google-speech.service';
 import { TranscriptEntity } from './speech-to-text.interfaces';
 import { WhisperSpeechService } from './whisper/whisper-speech.service';
+import { text } from 'stream/consumers';
+import { TiptapDocument } from '../tiptap/tiptap.interfaces';
 
 @Injectable()
 export class SpeechToTextService {
@@ -28,7 +30,7 @@ export class SpeechToTextService {
     private assemblyAiService: AssemblyAiService,
     private googleSpeechService: GoogleSpeechService,
     private whisperSpeechService: WhisperSpeechService,
-    private configService: ConfigService,
+    private tiptapService: TiptapService,
   ) {
     this.logger.setContext(this.constructor.name);
   }
@@ -130,6 +132,11 @@ export class SpeechToTextService {
         if (res.captions) {
           captions = this._toCaptions(project, transcription, res.captions);
         } else {
+          const document = this.tiptapService.wordsToTiptap(res.words);
+          await this.tiptapService.updateDocument(
+            transcription._id.toString(),
+            document,
+          );
           captions = this._wordsToCaptions(project, transcription, res);
         }
         break;
@@ -157,6 +164,61 @@ export class SpeechToTextService {
     await this.db.captionModel.insertMany(captions);
     this.logger.verbose(
       `Finished - Generate captions for Project ${project._id}`,
+    );
+  }
+
+  async align(
+    project: Project,
+    transcription: TranscriptionEntity,
+    audio: Audio,
+    vendor: AsrVendors,
+    textToAlign: string,
+    syncSpeaker?: CaptionEntity[],
+  ) {
+    this.logger.verbose(
+      `Start - Generate aligning captions for Project ${project._id}/${transcription._id} with asr vendor ${vendor}`,
+    );
+
+    // remove all \n and \r
+    textToAlign = textToAlign.replace(/(\r\n|\n|\r|\t)/gm, ' ');
+
+    // let captions: Caption[] = [];
+    let res: TranscriptEntity;
+    switch (vendor) {
+      case AsrVendors.WHISPER:
+        res = await this.whisperSpeechService.runAlign(
+          project,
+          textToAlign,
+          audio,
+        );
+
+        let document = this.tiptapService.wordsToTiptap(res.words);
+
+        if (syncSpeaker) {
+          try {
+            document = this._syncSpeaker(document, syncSpeaker);
+          } catch (e) {
+            this.logger.error(e);
+            return;
+          }
+        }
+
+        await this.tiptapService.updateDocument(
+          transcription._id.toString(),
+          document,
+        );
+
+        break;
+
+      // other vendors not implemented
+      default:
+        this.logger.info('empty transcription');
+        // empty transcription
+        break;
+    }
+
+    this.logger.verbose(
+      `Finished - Aligning captions for Project ${project._id}/${transcription._id}`,
     );
   }
 
@@ -196,13 +258,13 @@ export class SpeechToTextService {
     let text = '';
     let lastStart = 0;
     serviceResponseEntity.words.forEach((word) => {
-      if (lastStart + 5000 > word.startMs) {
-        text = text + ' ' + word.word;
+      if (lastStart + 5000 > word.start) {
+        text = text + ' ' + word.text;
       } else {
         captions.push(
           new this.db.captionModel({
             start: lastStart,
-            end: word.startMs,
+            end: word.start,
             speakerId: transcription.speakers[0]._id.toString(),
             text,
             initialText: text,
@@ -210,8 +272,8 @@ export class SpeechToTextService {
             project: project._id,
           }),
         );
-        lastStart = word.startMs;
-        text = word.word + '';
+        lastStart = word.start;
+        text = word.text + '';
       }
     });
 
@@ -220,7 +282,7 @@ export class SpeechToTextService {
     captions.push(
       new this.db.captionModel({
         start: lastStart,
-        end: lastWord.endMs,
+        end: lastWord.end,
         speakerId: transcription.speakers[0]._id.toString(),
         text,
         initialText: text,
@@ -248,5 +310,87 @@ export class SpeechToTextService {
         project: project._id,
       });
     });
+  }
+
+  _syncSpeaker(document: TiptapDocument, captionEntities: CaptionEntity[]) {
+    const speakerIds = [
+      ...new Set(captionEntities.map((caption) => caption.speakerId)),
+    ];
+    if (speakerIds.length === 1) {
+      document.content.at(0).speakerId = speakerIds[0];
+      return document;
+    }
+
+    const normalize = (text: string) => {
+      return text
+        .toLowerCase()
+        .replace(/[^a-zA-Z0-9]+/g, '')
+        .trim();
+    };
+
+    const documentWords: { pargraphId: number; text: string }[] = [];
+    document.content.forEach((paragraph, i) =>
+      paragraph.content.forEach((node, nodeIndex) => {
+        const previousWord = documentWords.at(-1);
+        const text = normalize(node.text);
+        if (text.length !== 0) {
+          if (node.text.startsWith(' ') || nodeIndex === 0) {
+            documentWords.push({ pargraphId: i, text });
+          } else {
+            previousWord.text += text;
+          }
+        }
+      }),
+    );
+
+    const captionWords: { speaker: string; text: string }[] = [];
+    captionEntities.forEach((caption) => {
+      const splitted = caption.text
+        .replace(/(\r\n|\n|\r|\t)/gm, ' ')
+        .split(' ');
+      splitted.forEach((word) => {
+        const text = normalize(word);
+        if (text.length !== 0) {
+          captionWords.push({ speaker: caption.speakerId, text });
+        }
+      });
+    });
+
+    // for (
+    //   let i = 0;
+    //   i < Math.max(captionWords.length, documentWords.length);
+    //   i++
+    // ) {
+    //   const documentWord = documentWords.at(i);
+    //   const captionWord = captionWords.at(i);
+    //   console.log(
+    //     documentWord?.text,
+    //     documentWord?.pargraphId,
+    //     captionWord?.text,
+    //     captionWord?.speaker,
+    //   );
+    // }
+
+    if (documentWords.length !== captionWords.length) {
+      throw new Error('Document and caption length mismatch');
+    }
+
+    let previousSpeaker = undefined;
+    captionWords.forEach((captionWord, index) => {
+      if (captionWord.speaker !== previousSpeaker) {
+        const paragraph = document.content[documentWords[index].pargraphId];
+        if (
+          paragraph.speakerId &&
+          paragraph.speakerId !== captionWord.speaker
+        ) {
+          // TODO: dont set speaker if its already set? but also dont throw error?
+          // throw new Error('Speaker already set');
+        } else {
+          paragraph.speakerId = captionWord.speaker;
+          previousSpeaker = captionWord.speaker;
+        }
+      }
+    });
+    return document;
   }
 }

@@ -8,7 +8,7 @@ import {
 } from '../../routes/viewer/components/captions-settings-dialog/captions-settings-dialog.component';
 import { TranscriptPosition } from '../../routes/viewer/viewer.interfaces';
 import { ViewerLoginEntity } from '../../services/api/entities/auth.entity';
-import { CaptionListEntity } from '../../services/api/entities/caption-list.entity';
+import { TiptapCaption } from '../../services/api/entities/caption.entity';
 import {
   ProjectEntity,
   ProjectMediaEntity,
@@ -102,7 +102,7 @@ export const findCaptions = createAction(
 
 export const findCaptionsSuccess = createAction(
   '[VIEWER EFFECTS API] Fetch Captions of Transcription success',
-  props<{ captionListEntity: CaptionListEntity }>()
+  props<{ tiptapCaptions: TiptapCaption[] }>()
 );
 
 export const findCaptionsFail = createAction(

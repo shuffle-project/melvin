@@ -15,6 +15,7 @@ import {
   UseInterceptors,
 } from '@nestjs/common';
 import { ApiResponse } from '@nestjs/swagger';
+import { TiptapCaption } from '../../modules/tiptap/tiptap.interfaces';
 import { IsValidObjectIdPipe } from '../../pipes/is-valid-objectid.pipe';
 import { User } from '../auth/auth.decorator';
 import { AuthUser } from '../auth/auth.interfaces';
@@ -68,6 +69,16 @@ export class TranscriptionController {
     @Param('id', IsValidObjectIdPipe) id: string,
   ): Promise<TranscriptionEntity> {
     return this.transcriptionService.findOne(authUser, id);
+  }
+
+  @Get(':id/getCaptions')
+  @UseGuards(JwtAuthGuard)
+  @ApiResponse({ status: HttpStatus.OK, type: TranscriptionEntity })
+  getCaptions(
+    @User() authUser: AuthUser,
+    @Param('id', IsValidObjectIdPipe) id: string,
+  ): Promise<TiptapCaption[]> {
+    return this.transcriptionService.getCaptions(authUser, id);
   }
 
   @UseGuards(JwtAuthGuard)

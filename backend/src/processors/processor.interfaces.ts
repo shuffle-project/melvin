@@ -1,3 +1,4 @@
+import { CaptionEntity } from 'src/resources/caption/entities/caption.entity';
 import { Audio, Project, Video } from '../modules/db/schemas/project.schema';
 import { AuthUser } from '../resources/auth/auth.interfaces';
 import { TranscriptionEntity } from '../resources/transcription/entities/transcription.entity';
@@ -21,6 +22,7 @@ export enum SubtitlesType {
   FROM_ASR = 'from_automatic_speech_recognition',
   FROM_TRANSLATION = 'from_translation',
   FROM_COPY = 'from_copy',
+  ALIGN = 'align',
 }
 
 export interface FilePayload {
@@ -44,10 +46,25 @@ export interface CopyPayload {
   sourceTranscriptionId: string;
 }
 
+export interface AlignPayload {
+  type: SubtitlesType.ALIGN;
+  transcriptionId: string;
+  audio: Audio;
+  // language: string; // take language of project
+  text?: string;
+  syncSpeaker?: CaptionEntity[];
+}
+
 export interface ProcessSubtitlesJob {
   project: Project;
   transcription: TranscriptionEntity;
-  payload: FilePayload | AsrPayload | TranslationPayload | CopyPayload | null;
+  payload:
+    | FilePayload
+    | AsrPayload
+    | TranslationPayload
+    | CopyPayload
+    | AlignPayload
+    | null;
 }
 
 // Project Processor

@@ -11,7 +11,7 @@
   }
   <div
     class="text-container clickable"
-    [routerLink]="['/home/editor/' + activity.project.id]"
+    [routerLink]="['/home/editor/' + activity.project.id + '/edit']"
   >
     <span class="project-title">{{ activity.project.title }}</span>
     <div class="description" [innerHTML]="description"></div>
@@ -33,7 +33,7 @@
 
   <div
     class="text-container clickable"
-    [routerLink]="['/home/editor/' + activity.project.id]"
+    [routerLink]="['/home/editor/' + activity.project.id + '/edit']"
   >
     <span class="project-title">{{ activity.project.title }}</span>
     <div class="description" [innerHTML]="description"></div>

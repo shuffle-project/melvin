@@ -27,7 +27,7 @@ import {
   throttleTime,
 } from 'rxjs';
 import { UserScrollDirective } from '../../../../directives/userScroll/user-scroll.directive';
-import { CaptionEntity } from '../../../../services/api/entities/caption.entity';
+import { TiptapCaption } from '../../../../services/api/entities/caption.entity';
 import { SpeakerEntity } from '../../../../services/api/entities/transcription.entity';
 import { AppState } from '../../../../store/app.state';
 import * as viewerSelector from '../../../../store/selectors/viewer.selector';
@@ -69,11 +69,11 @@ export class TranscriptComponent implements OnDestroy, OnInit {
 
   foundItemsNumber = 1;
 
-  transcriptNew: CaptionEntity[][] = [];
+  transcriptNew: TiptapCaption[][] = [];
   searchFoundInCaptionIds: string[] = [];
   // searchFoundInCaptionId: string | null = null;
 
-  transcript$: Observable<CaptionEntity[][]> = this.captions$.pipe(
+  transcript$: Observable<TiptapCaption[][]> = this.captions$.pipe(
     map((captions) => {
       const transcript = generateTranscript(captions);
       this.transcriptNew = JSON.parse(JSON.stringify(transcript));
@@ -113,11 +113,6 @@ export class TranscriptComponent implements OnDestroy, OnInit {
         takeUntil(this.destroy$$),
         debounceTime(250),
         tap(([transcript, searchValue]) => {
-          // TODO
-          // transcriptParagraphs als interface mit id's
-          // jeder paragraph als component mit onPush
-          // transcript nicht als obs
-
           let regex = new RegExp('(' + searchValue + ')', 'gi'); // g = global, i = case insensitive
 
           const searchFoundInCaptionIdsTemp: string[] = [];
@@ -239,7 +234,7 @@ export class TranscriptComponent implements OnDestroy, OnInit {
     return availableSpeakers.find((speaker) => speaker.id === speakerId)?.name;
   }
 
-  onJumpInVideo(caption: CaptionEntity) {
+  onJumpInVideo(caption: TiptapCaption) {
     this.viewerService.onJumpInAudio(caption.start + 1);
   }
 
