@@ -1699,12 +1699,12 @@
         <target state="final">Sprache der Benutzeroberfläche </target>
       </trans-unit>
       <trans-unit id="viewerControlsGermanLabel" datatype="html">
-        <source> German (de-DE) </source>
-        <target state="final"> Deutsch (de-DE) </target>
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;{{ locale === &apos;de-DE&apos; ? &apos;check&apos; : &apos;&apos; }}&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon &gt;"/>German (de-DE) </source>
+        <target state="new"> Deutsch (de-DE) </target>
       </trans-unit>
       <trans-unit id="viewerControlsEnglishLabel" datatype="html">
-        <source> English (en-US) </source>
-        <target state="final"> Englisch (en-US) </target>
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;{{ locale === &apos;en-US&apos; ? &apos;check&apos; : &apos;&apos; }}&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon &gt;"/>English (en-US) </source>
+        <target state="new"> Englisch (en-US) </target>
       </trans-unit>
       <trans-unit id="viewerControlsPlayTooltip" datatype="html">
         <source>Play</source>
@@ -1713,6 +1713,370 @@
       <trans-unit id="viewerControlsPauseTooltip" datatype="html">
         <source>Pause</source>
         <target state="final">Pausieren</target>
+      </trans-unit>
+      <trans-unit id="logoAltText" datatype="html">
+        <source>Melvin Logo, to start page</source>
+        <target state="final">Melvin Logo, zur Startseite</target>
+      </trans-unit>
+      <trans-unit id="accessibilityStatementMainHeading" datatype="html">
+        <source>Accessibility Statement</source>
+        <target state="final">Erklärung zur Barrierefreiheit</target>
+      </trans-unit>
+      <trans-unit id="landingSubpageWIPInfo" datatype="html">
+        <source> Sorry, this page is still under development. Please come back at a later time. </source>
+        <target state="final"> Diese Seite befindet sich leider noch in der Entwicklung. Bitte schauen Sie zu einem späteren Zeitpunkt wieder vorbei. </target>
+      </trans-unit>
+      <trans-unit id="documentationMainHeading" datatype="html">
+        <source>Documentation</source>
+        <target state="final">Dokumentation</target>
+      </trans-unit>
+      <trans-unit id="imprintMainHeading" datatype="html">
+        <source>Imprint</source>
+        <target state="final">Impressum</target>
+      </trans-unit>
+      <trans-unit id="landingFooterPrivacyLinkLabel" datatype="html">
+        <source> Privacy </source>
+        <target state="final"> Datenschutzerklärung </target>
+      </trans-unit>
+      <trans-unit id="landingFooterImprintLinkLabel" datatype="html">
+        <source> Imprint </source>
+        <target state="final"> Impressum </target>
+      </trans-unit>
+      <trans-unit id="landingFooterAccessibilityStatementLinkLabel" datatype="html">
+        <source> Accessibility statement </source>
+        <target state="final"> Erklärung zur Barrierefreiheit </target>
+      </trans-unit>
+      <trans-unit id="landingFooterNewTabAriaLabel" datatype="html">
+        <source>Opens in new tab</source>
+        <target state="final">Öffnet im neuen Tab</target>
+      </trans-unit>
+      <trans-unit id="landingFooterSHUFFLELinkLabel" datatype="html">
+        <source> SHUFFLE-Project <x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;new-tab&quot; aria-hidden=&quot;false&quot; i18n-aria-label=&quot;@@landingFooterNewTabAriaLabel&quot; aria-label=&quot;Opens in new tab&quot; class=&quot;icon&quot; /&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;new-tab&quot; aria-hidden=&quot;false&quot; i18n-aria-label=&quot;@@landingFooterNewTabAriaLabel&quot; aria-label=&quot;Opens in new tab&quot; class=&quot;icon&quot; /&gt;"/></source>
+        <target state="final"> SHUFFLE-Projekt <x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;new-tab&quot; aria-hidden=&quot;false&quot; i18n-aria-label=&quot;@@landingFooterNewTabAriaLabel&quot; aria-label=&quot;Opens in new tab&quot; class=&quot;icon&quot; /&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;new-tab&quot; aria-hidden=&quot;false&quot; i18n-aria-label=&quot;@@landingFooterNewTabAriaLabel&quot; aria-label=&quot;Opens in new tab&quot; class=&quot;icon&quot; /&gt;"/></target>
+      </trans-unit>
+      <trans-unit id="loginDialogHeadline" datatype="html">
+        <source>Login</source>
+        <target state="final">Anmelden</target>
+      </trans-unit>
+      <trans-unit id="dialogCloseButton" datatype="html">
+        <source>Close</source>
+        <target state="final">Schließen</target>
+      </trans-unit>
+      <trans-unit id="loginDialogEmailLabel" datatype="html">
+        <source>Email</source>
+        <target state="final">E-Mail</target>
+      </trans-unit>
+      <trans-unit id="loginDialogEmailErrorNotValid" datatype="html">
+        <source>Email address is not valid</source>
+        <target state="final">E-Mail Adresse ist nicht valide</target>
+      </trans-unit>
+      <trans-unit id="loginDialogEmailErrorRequired" datatype="html">
+        <source>Email is required</source>
+        <target state="final">E-Mail benötigt</target>
+      </trans-unit>
+      <trans-unit id="loginDialogPasswordErrorRequired" datatype="html">
+        <source> Password is required </source>
+        <target state="final"> Passwort benötigt </target>
+      </trans-unit>
+      <trans-unit id="loginDialogStayLoggedInCheckboxLabel" datatype="html">
+        <source>Stay logged in</source>
+        <target state="final">Angemeldet bleiben</target>
+      </trans-unit>
+      <trans-unit id="loginDialogLoginButtonLabel" datatype="html">
+        <source><x id="START_BLOCK_IF" equiv-text="@if (loading$ | ngrxPush) {"/><x id="START_TAG_MAT_SPINNER" ctype="x-mat_spinner" equiv-text="&lt;mat-spinner strokeWidth=&quot;2&quot; diameter=&quot;20&quot; color=&quot;primary&quot; /&gt;"/><x id="CLOSE_TAG_MAT_SPINNER" ctype="x-mat_spinner" equiv-text="&lt;mat-spinner strokeWidth=&quot;2&quot; diameter=&quot;20&quot; color=&quot;primary&quot; /&gt;"/><x id="CLOSE_BLOCK_IF" equiv-text="}"/> Login </source>
+        <target state="final"><x id="START_BLOCK_IF" equiv-text="@if (loading$ | ngrxPush) {"/><x id="START_TAG_MAT_SPINNER" ctype="x-mat_spinner" equiv-text="&lt;mat-spinner strokeWidth=&quot;2&quot; diameter=&quot;20&quot; color=&quot;primary&quot; /&gt;"/><x id="CLOSE_TAG_MAT_SPINNER" ctype="x-mat_spinner" equiv-text="&lt;mat-spinner strokeWidth=&quot;2&quot; diameter=&quot;20&quot; color=&quot;primary&quot; /&gt;"/><x id="CLOSE_BLOCK_IF" equiv-text="}"/> Anmelden </target>
+      </trans-unit>
+      <trans-unit id="loginDialogForgotPasswordButton" datatype="html">
+        <source> Forgot password? </source>
+        <target state="final"> Passwort vergessen? </target>
+      </trans-unit>
+      <trans-unit id="loginDialogRegisterIntroText" datatype="html">
+        <source>No account yet?</source>
+        <target state="final">Sie haben noch kein Account?</target>
+      </trans-unit>
+      <trans-unit id="loginDialogRegisterButton" datatype="html">
+        <source> Register </source>
+        <target state="final"> Registrieren </target>
+      </trans-unit>
+      <trans-unit id="registerDialogMainHeading" datatype="html">
+        <source>Register</source>
+        <target state="final">Registrieren</target>
+      </trans-unit>
+      <trans-unit id="registerDialogNameLabel" datatype="html">
+        <source>Name</source>
+        <target state="final">Name</target>
+      </trans-unit>
+      <trans-unit id="registerDialogNameErrorRequired" datatype="html">
+        <source> Name is required </source>
+        <target state="final"> Name benötigt </target>
+      </trans-unit>
+      <trans-unit id="registerDialogEmailLabel" datatype="html">
+        <source>Email</source>
+        <target state="final">E-Mail</target>
+      </trans-unit>
+      <trans-unit id="registerDialogEmailErrorNotValid" datatype="html">
+        <source>Email address is not valid</source>
+        <target state="final">E-Mail Adresse nicht valide</target>
+      </trans-unit>
+      <trans-unit id="registerDialogEmailErrorRequired" datatype="html">
+        <source>Email is required</source>
+        <target state="final">E-Mail benötigt</target>
+      </trans-unit>
+      <trans-unit id="registerDialogPasswordLabel" datatype="html">
+        <source>Password</source>
+        <target state="final">Passwort</target>
+      </trans-unit>
+      <trans-unit id="registerDialogPasswordErrorMinimum" datatype="html">
+        <source>Minimum 6 characters</source>
+        <target state="final">Mindestens 6 Zeichen</target>
+      </trans-unit>
+      <trans-unit id="registerDialogPasswordErrorRequired" datatype="html">
+        <source>Password is required</source>
+        <target state="final">Passwort benötigt</target>
+      </trans-unit>
+      <trans-unit id="registerDialogPasswordRepeatLabel" datatype="html">
+        <source>Password (repeat)</source>
+        <target state="final">Passwort (Wiederholung)</target>
+      </trans-unit>
+      <trans-unit id="registerDialogPasswordRepeatErrorMinimum" datatype="html">
+        <source>Minimum 6 characters</source>
+        <target state="final">Mindestens 6 Zeichen</target>
+      </trans-unit>
+      <trans-unit id="registerDialogPasswordRepeatErrorRequired" datatype="html">
+        <source>Password (repeat) is required</source>
+        <target state="final">Passwort (Wiederholung) benötigt</target>
+      </trans-unit>
+      <trans-unit id="registerDialogPasswordsNotMatch" datatype="html">
+        <source>Passwords do not match</source>
+        <target state="final">Passwörter stimmen nicht überein</target>
+      </trans-unit>
+      <trans-unit id="registerDialogPrivacyNotice" datatype="html">
+        <source> We only use your data in accordance with our <x id="START_LINK" ctype="x-a" equiv-text="&lt;a routerLink=&quot;/privacy&quot; (click)=&quot;onJumpToPrivacy()&quot;&gt;"/>privacy policy<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/>. </source>
+        <target state="final"> Wir verwenden Ihre Daten nur in Übereinstimmung mit unserer <x id="START_LINK" ctype="x-a" equiv-text="&lt;a routerLink=&quot;/privacy&quot; (click)=&quot;onJumpToPrivacy()&quot;&gt;"/>Datenschutzerklärung<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/>. </target>
+      </trans-unit>
+      <trans-unit id="registerDialogRegisterButtonLabel" datatype="html">
+        <source><x id="START_BLOCK_IF" equiv-text="@if (loading$ | ngrxPush) {"/><x id="START_TAG_MAT_SPINNER" ctype="x-mat_spinner" equiv-text="&lt;mat-spinner strokeWidth=&quot;2&quot; diameter=&quot;20&quot; color=&quot;primary&quot; /&gt;"/><x id="CLOSE_TAG_MAT_SPINNER" ctype="x-mat_spinner" equiv-text="&lt;mat-spinner strokeWidth=&quot;2&quot; diameter=&quot;20&quot; color=&quot;primary&quot; /&gt;"/><x id="CLOSE_BLOCK_IF" equiv-text="}"/> Register </source>
+        <target state="final"><x id="START_BLOCK_IF" equiv-text="@if (loading$ | ngrxPush) {"/><x id="START_TAG_MAT_SPINNER" ctype="x-mat_spinner" equiv-text="&lt;mat-spinner strokeWidth=&quot;2&quot; diameter=&quot;20&quot; color=&quot;primary&quot; /&gt;"/><x id="CLOSE_TAG_MAT_SPINNER" ctype="x-mat_spinner" equiv-text="&lt;mat-spinner strokeWidth=&quot;2&quot; diameter=&quot;20&quot; color=&quot;primary&quot; /&gt;"/><x id="CLOSE_BLOCK_IF" equiv-text="}"/> Registrieren </target>
+      </trans-unit>
+      <trans-unit id="registerDialogLoginIntroText" datatype="html">
+        <source>Already have an account?</source>
+        <target state="final">Haben Sie bereits ein Account?</target>
+      </trans-unit>
+      <trans-unit id="registerDialogLoginButton" datatype="html">
+        <source> Login </source>
+        <target state="final"> Anmelden </target>
+      </trans-unit>
+      <trans-unit id="resetPasswordDialogHeading" datatype="html">
+        <source>Reset password</source>
+        <target state="final">Passwort zurücksetzen</target>
+      </trans-unit>
+      <trans-unit id="resetPasswordWIPInfo" datatype="html">
+        <source>This feature is still under development.</source>
+        <target state="final">Diese Funktion befindet sich noch in der Entwicklung.</target>
+      </trans-unit>
+      <trans-unit id="landingHeaderTutorialLinkLabel" datatype="html">
+        <source> Tutorial </source>
+        <target state="final"> Tutorial </target>
+      </trans-unit>
+      <trans-unit id="landingHeaderDocumentationLinkLabel" datatype="html">
+        <source> Documentation </source>
+        <target state="final"> Dokumentation </target>
+      </trans-unit>
+      <trans-unit id="landingHeaderLoginButton" datatype="html">
+        <source> Login </source>
+        <target state="final"> Anmelden </target>
+      </trans-unit>
+      <trans-unit id="landingMainHeadingAccessibleVideos" datatype="html">
+        <source>Accessible videos - </source>
+        <target state="final">Barrierefreie Videos </target>
+      </trans-unit>
+      <trans-unit id="landingMainHeadingFeatures" datatype="html">
+        <source>recording, subtitling and sharing </source>
+        <target state="final">aufnehmen, untertiteln und teilen </target>
+      </trans-unit>
+      <trans-unit id="landingMainHeadingWithMelvin" datatype="html">
+        <source>with Melvin</source>
+        <target state="final"> - mit Melvin</target>
+      </trans-unit>
+      <trans-unit id="landingMainOpenSourceChip" datatype="html">
+        <source>Open-Source</source>
+        <target state="final">Open-Source</target>
+      </trans-unit>
+      <trans-unit id="landingMainFreeOfChargeChip" datatype="html">
+        <source>Free of charge</source>
+        <target state="final">Kostenlos</target>
+      </trans-unit>
+      <trans-unit id="landingMainWIPChip" datatype="html">
+        <source>Work in progress</source>
+        <target state="final">In Entwicklung</target>
+      </trans-unit>
+      <trans-unit id="landingMainRecordingHeading" datatype="html">
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;video&quot; /&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;video&quot; /&gt;"/> Recording </source>
+        <target state="final"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;video&quot; /&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;video&quot; /&gt;"/> Aufnehmen </target>
+      </trans-unit>
+      <trans-unit id="landingMainRecordingExplanationTop" datatype="html">
+        <source> Start your recording directly in the browser, without any additional software. Plus, you have complete control over which audio and video sources you want to use. </source>
+        <target state="final"> Starten Sie ihre Aufnahme direkt im Browser, ganz ohne zusätzliche Software. Sie haben dabei die komplette Kontrolle, welche Audio- und Videoquellen Sie verwenden möchten.</target>
+      </trans-unit>
+      <trans-unit id="landingMainRecordingExplanationBottom" datatype="html">
+        <source> You already have a recording? Simply upload it and use it too. </source>
+        <target state="final"> Sie haben schon eine Aufnahme? Dann können Sie diese hochladen und ebenfalls verwenden. </target>
+      </trans-unit>
+      <trans-unit id="landingMainSubtitlingHeading" datatype="html">
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;edit&quot; /&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;edit&quot; /&gt;"/> Subtitling </source>
+        <target state="final"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;edit&quot; /&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;edit&quot; /&gt;"/> Untertiteln </target>
+      </trans-unit>
+      <trans-unit id="landingMainSubtitlingExplanation" datatype="html">
+        <source> After recording, your videos are automatically transcribed and subtitles are created. Using the editor, you can then make the final corrections manually, either alone or together with others. </source>
+        <target state="final">Nach der Aufnahme werden Ihre Videos automatisch transkribiert und Untertitel erstellt. Im Editor können Sie dann die letzten Verbesserungen manuell durchführen. Das geht alleine oder gleichzeitig mit anderen. </target>
+      </trans-unit>
+      <trans-unit id="landingMainSharingHeading" datatype="html">
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;play-outline&quot; /&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;play-outline&quot; /&gt;"/> Sharing </source>
+        <target state="final"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;play-outline&quot; /&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;play-outline&quot; /&gt;"/> Teilen </target>
+      </trans-unit>
+      <trans-unit id="landingMainSharingExplanationTop" datatype="html">
+        <source> Your recording can now be shared with our accessible player. You can simply share the link or embed the player in your website. </source>
+        <target state="final">Ihre Aufnahme kann nun mit unserem barrierefreien Player geteilt werden. Hierfür können Sie einfach den Link teilen oder den Player in Ihre Webseite einbetten. </target>
+      </trans-unit>
+      <trans-unit id="landingMainSharingExplanationBottom" datatype="html">
+        <source> Of course, you can also download your files and upload them elsewhere. </source>
+        <target state="final"> Natürlich können Sie Ihre Dateien auch herunterladen und an anderer Stelle hochladen. </target>
+      </trans-unit>
+      <trans-unit id="landingMainWIPExplanationTop" datatype="html">
+        <source> Melvin is currently still under development. However, you can already test the application now. </source>
+        <target state="final">Melvin befindet sich aktuell noch in der Entwicklung. Dennoch können Sie bereits jetzt die Anwendung austesten. </target>
+      </trans-unit>
+      <trans-unit id="landingMainWIPExplanationBottom" datatype="html">
+        <source> In addition to improvements in accessibility and user experience, we are currently working on a <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>livestream mode<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/>. Stay tuned and feel free to check back regularly. </source>
+        <target state="final"> Neben Verbesserungen der Barrierefreiheit und User Experience, arbeiten wir aktuell an einem <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>Livestream-Modus<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/>. Bleiben Sie gespannt und schauen Sie gerne immer wieder Mal vorbei. </target>
+      </trans-unit>
+      <trans-unit id="privacyMainHeading" datatype="html">
+        <source>Privacy</source>
+        <target state="final">Datenschutzerklärung</target>
+      </trans-unit>
+      <trans-unit id="sitemapListExplanation" datatype="html">
+        <source> This sitemap lists all pages alphabetically. </source>
+        <target state="final"> Diese Sitemap listet alle Seiten alphabetisch auf. </target>
+      </trans-unit>
+      <trans-unit id="landingSidenavMenuHeader" datatype="html">
+        <source>Menu</source>
+        <target state="final">Menü</target>
+      </trans-unit>
+      <trans-unit id="landingSidenavStartpageLink" datatype="html">
+        <source> Startpage </source>
+        <target state="final"> Startseite </target>
+      </trans-unit>
+      <trans-unit id="landingSidenavTutorialLink" datatype="html">
+        <source> Tutorial </source>
+        <target state="final"> Tutorial </target>
+      </trans-unit>
+      <trans-unit id="landingSidenavDocumentationLink" datatype="html">
+        <source> Documentation </source>
+        <target state="final"> Dokumentation </target>
+      </trans-unit>
+      <trans-unit id="landingSidenavCloseButton" datatype="html">
+        <source> Close </source>
+        <target state="final"> Schließen </target>
+      </trans-unit>
+      <trans-unit id="startPageTitle" datatype="html">
+        <source>Melvin</source>
+        <target state="final">Melvin</target>
+      </trans-unit>
+      <trans-unit id="imprintPageTitle" datatype="html">
+        <source>Privacy - Melvin</source>
+        <target state="final">Datenschutzerklärung - Melvin</target>
+      </trans-unit>
+      <trans-unit id="accessibilityStatementPageTitle" datatype="html">
+        <source>Accessibility Statement - Melvin</source>
+        <target state="final">Erklärung zur Barrierefreiheit - Melvin</target>
+      </trans-unit>
+      <trans-unit id="tutorialPageTitle" datatype="html">
+        <source>Tutorial - Melvin</source>
+        <target state="final">Tutorial - Melvin</target>
+      </trans-unit>
+      <trans-unit id="documentationPageTitle" datatype="html">
+        <source>Documentation - Melvin</source>
+        <target state="final">Dokumentation - Melvin</target>
+      </trans-unit>
+      <trans-unit id="imprintPartnerHeading" datatype="html">
+        <source>Project partners:</source>
+        <target state="final">Projektbeteiligte:</target>
+      </trans-unit>
+      <trans-unit id="imprintPartnerUpperText" datatype="html">
+        <source> Melvin is part of the SHUFFLE project funded by the Stiftung Innovation in der Hochschullehre. Three other universities are involved in the project under the direction of the Hochschule der Medien: </source>
+        <target state="final"> Melvin ist Teil des SHUFFLE-Projekts, das von der Stiftung Innovation in der Hochschullehre gefördert wird. Drei weitere Hochschulen sind unter der Leitung der Hochschule der Medien an dem Projekt beteiligt: </target>
+      </trans-unit>
+      <trans-unit id="imprintFreiburg" datatype="html">
+        <source> Freiburg University of Education </source>
+        <target state="final"> Pädagogische Hochschule Freiburg </target>
+      </trans-unit>
+      <trans-unit id="imprintHeidelberg" datatype="html">
+        <source> Heidelberg University of Education </source>
+        <target state="final"> Pädagogische Hochschule Heidelberg </target>
+      </trans-unit>
+      <trans-unit id="imprintBielefeld" datatype="html">
+        <source> University Bielefeld </source>
+        <target state="final"> Universität Bielefeld</target>
+      </trans-unit>
+      <trans-unit id="imprintPartnerLowerText" datatype="html">
+        <source> Hochschule der Medien Stuttgart is a body under public law. It is legally represented by the Rector Prof. Dr. Alexander W. Roos. </source>
+        <target state="final"> Die Hochschule der Medien Stuttgart ist eine Körperschaft des öffentlichen Rechts. Sie wird durch den Rektor Prof. Dr. Alexander W. Roos gesetzlich vertreten. </target>
+      </trans-unit>
+      <trans-unit id="imprintVATNumber" datatype="html">
+        <source><x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>VAT ID number:<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/> DE 224 427 890 </source>
+        <target state="final"><x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>USt.-ID-Nr. <x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/> DE 224 427 890 </target>
+      </trans-unit>
+      <trans-unit id="imprintResponsiblePersonHeading" datatype="html">
+        <source>Responsible for the website:</source>
+        <target state="final">Für die Website verantwortlich:</target>
+      </trans-unit>
+      <trans-unit id="imprintResponsibleAuthorityHeading" datatype="html">
+        <source> Responsible regulatory authority: </source>
+        <target state="final"> Zuständige Aufsichtsbehörde: </target>
+      </trans-unit>
+      <trans-unit id="imprintDisclaimerHeading" datatype="html">
+        <source>Disclaimer</source>
+        <target state="final">Haftungsausschluss</target>
+      </trans-unit>
+      <trans-unit id="imprintWebsiteContentHeading" datatype="html">
+        <source>1. Content of the website</source>
+        <target state="final">1. Inhalt des Onlineangebotes</target>
+      </trans-unit>
+      <trans-unit id="imprintWebsiteContentText" datatype="html">
+        <source> The author (provider of this website) assumes no liability for the topicality, correctness, completeness or quality of the information provided. Liability claims against the author relating to material or immaterial damage caused by the use or non-use of the information provided or by the use of incorrect or incomplete information are fundamentally excluded, unless there is evidence of wilful intent or gross negligence on the part of the author. All content is subject to change and non-binding. The author expressly reserve the right to change, supplement or delete parts of the pages or the entire website without prior notice or to cease publication temporarily or permanently. </source>
+        <target state="final"> Der Autor (Anbieter dieser Website) bzw. die einzelnen Verfasser übernimmt keinerlei Gewähr für die Aktualität, Korrektheit, Vollständigkeit oder Qualität der bereitgestellten Informationen. Haftungsansprüche gegen den Autor oder Verfasser, welche sich auf Schäden materieller oder ideeller Art beziehen, die durch die Nutzung oder Nichtnutzung der dargebotenen Informationen bzw. durch die Nutzung fehlerhafter und unvollständiger Informationen verursacht wurden, sind grundsätzlich ausgeschlossen, sofern seitens des Autors oder der Verfasser kein nachweislich vorsätzliches oder grob fahrlässiges Verschulden vorliegt. Alle Angebote sind freibleibend und unverbindlich. Der Autor und die Verfasser behalten es sich ausdrücklich vor, Teile der Seiten oder das gesamte Angebot ohne gesonderte Ankündigung zu verändern, zu ergänzen, zu löschen oder die Veröffentlichung zeitweise oder endgültig einzustellen. </target>
+      </trans-unit>
+      <trans-unit id="imprintReferencesHeading" datatype="html">
+        <source>2. References and links</source>
+        <target state="final">2. Verweise und Links</target>
+      </trans-unit>
+      <trans-unit id="imprintReferencesText" datatype="html">
+        <source> In the case of direct or indirect references to external websites (&quot;links&quot;) that lie outside the author&apos;s area of responsibility, a liability obligation would only come into force in the event that the author is aware of the content and it would be technically possible and reasonable for him to prevent use in the event of illegal content. The author hereby expressly declares that no illegal content was recognizable on the linked pages at the time the links were created. The author has no influence whatsoever on the current and future design, content or authorship of the linked pages. The author therefore expressly distances himself from all contents of all linked pages that were changed after the link was created. This statement applies to all links and references set within the author&apos;s own website as well as to third-party entries in guest books, discussion forums and mailing lists set up by the author. Liability for illegal, incorrect or incomplete content and in particular for damages resulting from the use or non-use of such information lies solely with the provider of the page to which reference is made, and not with the person who merely refers to the respective publication via links. </source>
+        <target state="final"> Bei direkten oder indirekten Verweisen auf fremde Internetseiten (“Links”), die außerhalb des Verantwortungsbereiches des Autors liegen, würde eine Haftungsverpflichtung ausschließlich in dem Fall in Kraft treten, in dem der Autor von den Inhalten Kenntnis hat und es ihm technisch möglich und zumutbar wäre, die Nutzung im Falle rechtswidriger Inhalte zu verhindern. Der Autor erklärt hiermit ausdrücklich, dass zum Zeitpunkt der Linksetzung keine illegalen Inhalte auf den zu verlinkenden Seiten erkennbar waren. Auf die aktuelle und zukünftige Gestaltung, die Inhalte oder die Urheberschaft der gelinkten/verknüpften Seiten hat der Autor keinerlei Einfluss. Deshalb distanziert er sich hiermit ausdrücklich von allen Inhalten aller verlinkten/verknüpften Seiten, die nach der Linksetzung verändert wurden. Diese Feststellung gilt für alle innerhalb des eigenen Internetangebotes gesetzten Links und Verweise sowie für Fremdeinträge in vom Autor eingerichteten Gästebüchern, Diskussionsforen und Mailinglisten. Für illegale, fehlerhafte oder unvollständige Inhalte und insbesondere für Schäden, die aus der Nutzung oder Nichtnutzung solcherart dargebotener Informationen entstehen, haftet allein der Anbieter der Seite, auf welche verwiesen wurde, nicht derjenige, der über Links auf die jeweilige Veröffentlichung lediglich verweist. </target>
+      </trans-unit>
+      <trans-unit id="imprintCopyrightHeading" datatype="html">
+        <source>3. Copyright and trademark law</source>
+        <target state="final">3. Urheber- und Kennzeichenrecht</target>
+      </trans-unit>
+      <trans-unit id="imprintCopyrightUpperText" datatype="html">
+        <source> The author makes every effort to respect the copyright of the graphics, sound documents, video sequences and texts used in all publications, to use graphics, sound documents, video sequences and texts created by themselves or to use license-free graphics, sound documents, video sequences and texts. </source>
+        <target state="final"> Der Autor bzw. die Verfasser sind bestrebt, in allen Publikationen die Urheberrechte der verwendeten Grafiken, Tondokumente, Videosequenzen und Texte zu beachten, von ihm selbst erstellte Grafiken, Tondokumente, Videosequenzen und Texte zu nutzen oder auf lizenzfreie Grafiken, Tondokumente, Videosequenzen und Texte zurückzugreifen. </target>
+      </trans-unit>
+      <trans-unit id="imprintCopyrightLowerText" datatype="html">
+        <source> All brand names and trademarks mentioned on the website and potentially protected by third parties are subject without restriction to the regulations of the applicable trademark law and the ownership rights of the respective registered owners. The mere mention of a trademark does not imply that it is not protected by third-party rights! The copyright for published objects created by the author or author himself remains solely with the author/authors of the pages or texts and contents. Reproduction or use of such graphics, audio documents, video sequences and texts in other electronic or printed publications is not permitted without the express consent of the author(s). </source>
+        <target state="final"> Alle innerhalb des Internetangebotes genannten und ggf. durch Dritte geschützten Marken- und Warenzeichen unterliegen uneingeschränkt den Bestimmungen des jeweils gültigen Kennzeichenrechts und den Besitzrechten der jeweiligen eingetragenen Eigentümer. Allein aufgrund der bloßen Nennung ist nicht der Schluss zu ziehen, dass Markenzeichen nicht durch Rechte Dritter geschützt sind! Das Copyright für veröffentlichte, vom Autor oder Verfasser selbst erstellte Objekte bleibt allein beim Autor/den Verfassern der Seiten bzw. Texte und Inhalte. Eine Vervielfältigung oder Verwendung solcher Grafiken, Tondokumente, Videosequenzen und Texte in anderen elektronischen oder gedruckten Publikationen ist ohne ausdrückliche Zustimmung des Autors/der Verfasser nicht gestattet. </target>
+      </trans-unit>
+      <trans-unit id="imprintLegalValidityHeading" datatype="html">
+        <source> 4. Legal validity of this disclaimer </source>
+        <target state="final">4. Rechtswirksamkeit dieses Haftungsausschlusses </target>
+      </trans-unit>
+      <trans-unit id="imprintLegalValidityText" datatype="html">
+        <source> This disclaimer is to be regarded as part of the internet publication which you were referred from. If sections or individual terms of this statement are not legal or correct, the content or validity of the other parts remain uninfluenced by this fact. </source>
+        <target state="final"> Dieser Haftungsausschluss ist als Teil des Internetangebotes zu betrachten, von dem aus auf diese Seite verwiesen wurde. Sofern Teile oder einzelne Formulierungen dieses Textes der geltenden Rechtslage nicht, nicht mehr oder nicht vollständig entsprechen sollten, bleiben die übrigen Teile des Dokumentes in ihrem Inhalt und ihrer Gültigkeit davon unberührt. </target>
+      </trans-unit>
+      <trans-unit id="imprintSourceText" datatype="html">
+        <source> Source: <x id="START_LINK" ctype="x-a" equiv-text="&lt;a href=&quot;https://www.juraforum.de/&quot;&gt;"/>www.Juraforum.de<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/> - Legal portal with lawyer search as at: August 2017 </source>
+        <target state="final"> Quelle: <x id="START_LINK" ctype="x-a" equiv-text="&lt;a href=&quot;https://www.juraforum.de/&quot;&gt;"/>www.Juraforum.de<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/> - Rechtportal mit Anwaltssuche Stand: August 2017 </target>
       </trans-unit>
     </body>
   </file>

@@ -1,0 +1,58 @@
+<mat-sidenav-container autosize>
+  <mat-sidenav
+    #drawer
+    mode="over"
+    position="end"
+    class="mat-drawer"
+    fixedInViewport
+  >
+    <h1 i18n="@@landingSidenavMenuHeader">Menu</h1>
+    <nav>
+      <ul>
+        <li>
+          <a
+            routerLink="/"
+            (click)="drawer.toggle()"
+            i18n="@@landingSidenavStartpageLink"
+          >
+            Startpage
+          </a>
+        </li>
+        <li>
+          <a
+            routerLink="/tutorial"
+            (click)="drawer.toggle()"
+            i18n="@@landingSidenavTutorialLink"
+          >
+            Tutorial
+          </a>
+        </li>
+        <li>
+          <a
+            routerLink="/documentation"
+            (click)="drawer.toggle()"
+            i18n="@@landingSidenavDocumentationLink"
+          >
+            Documentation
+          </a>
+        </li>
+        <li>
+          <button
+            mat-stroked-button
+            (click)="drawer.toggle()"
+            i18n="@@landingSidenavCloseButton"
+          >
+            Close
+          </button>
+        </li>
+      </ul>
+    </nav>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <app-landing-header (toggleSidebar)="drawer.toggle()" />
+    <main>
+      <router-outlet />
+    </main>
+    <app-landing-footer />
+  </mat-sidenav-content>
+</mat-sidenav-container>
