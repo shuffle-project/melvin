@@ -101,18 +101,22 @@ export class MigrationService {
           'Add align job to queue for transcription ' +
             transcription._id.toString(),
         );
-        const payload: AlignPayload = {
-          type: SubtitlesType.ALIGN,
-          audio: project.audios[0],
-          transcriptionId: transcription._id.toString(),
-          text,
-          syncSpeaker: captions,
-        };
-        this.subtitlesQueue.add({
-          project: project,
-          transcription: transcription,
-          payload,
-        });
+        if (project.audios.length > 0) {
+          const payload: AlignPayload = {
+            type: SubtitlesType.ALIGN,
+            audio: project.audios[0],
+            transcriptionId: transcription._id.toString(),
+            text,
+            syncSpeaker: captions,
+          };
+          this.subtitlesQueue.add({
+            project: project,
+            transcription: transcription,
+            payload,
+          });
+        } else {
+          console.log('project does not contain audio', project);
+        }
       }
     }
   }
