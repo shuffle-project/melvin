@@ -119,14 +119,20 @@ export class WhisperSpeechService implements ISpeechToTextService {
     // let currentMS = 0;
     const words: WordEntity[] = [];
 
+    let lastSegmentEnd = 0;
     transcriptEntity.transcript.segments.forEach((segment) => {
+      const secondsToLastSegment = segment.start - lastSegmentEnd;
+
+      lastSegmentEnd = segment.end;
+
       segment.words.forEach((word, i) => {
+        const startParagraph = i === 0 && secondsToLastSegment > 3;
         words.push({
           text: word.text,
           start: word.start * 1000,
           end: word.end * 1000,
           confidence: word.probability,
-          startParagraph: i === 0,
+          startParagraph,
           speakerId: null,
         });
       });

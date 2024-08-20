@@ -40,10 +40,10 @@ export class SpeechToTextService {
     googleSpeech: AsrServiceConfig | null;
     whisper: AsrServiceConfig | null;
   } = {
-      assemblyAi: null,
-      googleSpeech: null,
-      whisper: null,
-    };
+    assemblyAi: null,
+    googleSpeech: null,
+    whisper: null,
+  };
 
   async initServices() {
     const [
@@ -322,10 +322,13 @@ export class SpeechToTextService {
     }
 
     const normalize = (text: string) => {
-      return text.toLowerCase().replace(/[^a-zA-Z0-9]+/g, '').trim();
-    }
+      return text
+        .toLowerCase()
+        .replace(/[^a-zA-Z0-9]+/g, '')
+        .trim();
+    };
 
-    const documentWords: { pargraphId: number, text: string }[] = [];
+    const documentWords: { pargraphId: number; text: string }[] = [];
     document.content.forEach((paragraph, i) =>
       paragraph.content.forEach((node, nodeIndex) => {
         const previousWord = documentWords.at(-1);
@@ -340,38 +343,52 @@ export class SpeechToTextService {
       }),
     );
 
-    const captionWords: { speaker: string, text: string }[] = [];
+    const captionWords: { speaker: string; text: string }[] = [];
     captionEntities.forEach((caption) => {
       const splitted = caption.text
         .replace(/(\r\n|\n|\r|\t)/gm, ' ')
         .split(' ');
       splitted.forEach((word) => {
-        const text = normalize(word)
+        const text = normalize(word);
         if (text.length !== 0) {
-          captionWords.push({ speaker: caption.speakerId, text })
+          captionWords.push({ speaker: caption.speakerId, text });
         }
       });
     });
 
-    if (documentWords.length !== captionWords.length) {
-      throw new Error("Document and caption length mismatch");
-    }
-
-    // for (let i = 0; i < Math.max(captionWords.length, documentWords.length); i++) {
+    // for (
+    //   let i = 0;
+    //   i < Math.max(captionWords.length, documentWords.length);
+    //   i++
+    // ) {
     //   const documentWord = documentWords.at(i);
     //   const captionWord = captionWords.at(i);
-    //   console.log(documentWord?.text, documentWord?.pargraphId, captionWord?.text, captionWord?.speaker);
+    //   console.log(
+    //     documentWord?.text,
+    //     documentWord?.pargraphId,
+    //     captionWord?.text,
+    //     captionWord?.speaker,
+    //   );
     // }
+
+    if (documentWords.length !== captionWords.length) {
+      throw new Error('Document and caption length mismatch');
+    }
 
     let previousSpeaker = undefined;
     captionWords.forEach((captionWord, index) => {
       if (captionWord.speaker !== previousSpeaker) {
         const paragraph = document.content[documentWords[index].pargraphId];
-        if (paragraph.speakerId && paragraph.speakerId !== captionWord.speaker) {
-          throw new Error("Speaker already set");
+        if (
+          paragraph.speakerId &&
+          paragraph.speakerId !== captionWord.speaker
+        ) {
+          // TODO: dont set speaker if its already set? but also dont throw error?
+          // throw new Error('Speaker already set');
+        } else {
+          paragraph.speakerId = captionWord.speaker;
+          previousSpeaker = captionWord.speaker;
         }
-        paragraph.speakerId = captionWord.speaker;
-        previousSpeaker = captionWord.speaker;
       }
     });
     return document;

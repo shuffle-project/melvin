@@ -34,4 +34,5 @@ export interface TiptapCaption {
   start: number;
   end: number;
   speakerId: string;
+  startParagraph: boolean;
 }

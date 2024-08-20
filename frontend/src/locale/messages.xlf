@@ -1272,10 +1272,10 @@
         <source>Others </source>
       </trans-unit>
       <trans-unit id="viewerControlsEnglishLabel" datatype="html">
-        <source> English (en-US) </source>
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;{{ locale === &apos;en-US&apos; ? &apos;check&apos; : &apos;&apos; }}&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon &gt;"/>English (en-US) </source>
       </trans-unit>
       <trans-unit id="viewerControlsGermanLabel" datatype="html">
-        <source> German (de-DE) </source>
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;{{ locale === &apos;de-DE&apos; ? &apos;check&apos; : &apos;&apos; }}&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon &gt;"/>German (de-DE) </source>
       </trans-unit>
       <trans-unit id="viewerControlsInterfaceLanguageTitle" datatype="html">
         <source>Interface language </source>

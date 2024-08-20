@@ -113,11 +113,6 @@ export class TranscriptComponent implements OnDestroy, OnInit {
         takeUntil(this.destroy$$),
         debounceTime(250),
         tap(([transcript, searchValue]) => {
-          // TODO
-          // transcriptParagraphs als interface mit id's
-          // jeder paragraph als component mit onPush
-          // transcript nicht als obs
-
           let regex = new RegExp('(' + searchValue + ')', 'gi'); // g = global, i = case insensitive
 
           const searchFoundInCaptionIdsTemp: string[] = [];

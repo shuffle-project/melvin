@@ -566,6 +566,7 @@ export class TiptapService {
       text: '',
       end: 0,
       speakerId: null,
+      startParagraph: true,
     };
 
     for (const word of wordList) {
@@ -582,6 +583,7 @@ export class TiptapService {
           text: word.text,
           end: 0,
           speakerId: word.speakerId,
+          startParagraph: word.startParagraph,
         };
       } else {
         currentCaption.text += word.text; // TODO: Check if spaces are already in wordlist
