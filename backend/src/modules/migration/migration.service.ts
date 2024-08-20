@@ -101,7 +101,7 @@ export class MigrationService {
           'Add align job to queue for transcription ' +
             transcription._id.toString(),
         );
-        if (project.audios.length > 0) {
+        if (project) {
           const payload: AlignPayload = {
             type: SubtitlesType.ALIGN,
             audio: project.audios[0],
