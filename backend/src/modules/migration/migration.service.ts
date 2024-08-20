@@ -62,8 +62,7 @@ export class MigrationService {
       this.logger.info('Migration to version 2 successful');
     }
 
-    // TODO: remove! force running migration
-    if (settings.dbSchemaVersion < 4) {
+    if (settings.dbSchemaVersion < 3) {
       this.logger.info('Migrate to version 3');
       await this._migrateToV3Tiptap();
 
