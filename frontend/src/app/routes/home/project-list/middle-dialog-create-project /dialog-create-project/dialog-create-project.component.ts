@@ -12,8 +12,8 @@ import {
   NonNullableFormBuilder,
   ReactiveFormsModule,
   ValidationErrors,
+  ValidatorFn,
   Validators,
-  ValueChangeEvent,
 } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -28,7 +28,7 @@ import {
 } from '@angular/material/table';
 import { PushPipe } from '@ngrx/component';
 import { Store } from '@ngrx/store';
-import { filter, Subject, Subscription, takeUntil } from 'rxjs';
+import { Subject, Subscription, takeUntil } from 'rxjs';
 import { MediaCategoryPipe } from 'src/app/pipes/media-category-pipe/media-category.pipe';
 import { ApiService } from 'src/app/services/api/api.service';
 import { Language } from 'src/app/services/api/entities/config.entity';
@@ -125,38 +125,6 @@ export class DialogCreateProjectComponent implements OnDestroy, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    this.formGroup.events
-      .pipe(
-        filter((e) => e instanceof ValueChangeEvent),
-        takeUntil(this.destroy$$)
-      )
-      .subscribe((e: any) => {
-        const source = e.source as FormGroup;
-
-        if (this.languages.map((l) => l.code).includes(source.value)) {
-          const sourceParent = source.parent as FormGroup<FileGroup>;
-
-          if (
-            !sourceParent.controls.language.disabled &&
-            sourceParent.controls.fileType.value === 'video'
-          ) {
-            this.formGroup.controls.files.controls.forEach((fileGroup) => {
-              if (
-                fileGroup.value.name !== sourceParent.value.name &&
-                fileGroup.value.fileType === 'video'
-              ) {
-                fileGroup.controls.language.disable();
-                fileGroup.controls.language.setValue(source.value);
-              }
-            });
-
-            this.dataSource = new MatTableDataSource(
-              (this.formGroup.controls.files as FormArray).controls
-            );
-          }
-        }
-      });
-
     this.formGroup.controls.files.valueChanges
       .pipe(takeUntil(this.destroy$$))
       .subscribe((files) => {
@@ -185,7 +153,7 @@ export class DialogCreateProjectComponent implements OnDestroy, AfterViewInit {
     { validators: [this.fileContentValidator()] }
   );
 
-  fileContentValidator() {
+  fileContentValidator(): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
       const c = control as FormGroup<CreateProjectFormGroup>;
       const f = c.controls.files as FormArray<FormGroup<FileGroup>>;
@@ -193,19 +161,6 @@ export class DialogCreateProjectComponent implements OnDestroy, AfterViewInit {
       const atLeastOneVideoOrAudio = f.value.some((fileGroup) => {
         return fileGroup.fileType?.includes('video');
       });
-
-      if (!atLeastOneVideoOrAudio && control.touched)
-        return { videoRequired: true };
-
-      if (f.length >= 2) {
-        const fileNameSet = new Set();
-
-        f.value.forEach((fileGroup) => {
-          fileNameSet.add(fileGroup.file!.name);
-        });
-
-        if (fileNameSet.size !== f.length) return { duplicateFiles: true };
-      }
 
       const atLeastOneUseAudioChecked = f.value.some((fileGroup) => {
         return fileGroup.useAudio;
@@ -215,6 +170,8 @@ export class DialogCreateProjectComponent implements OnDestroy, AfterViewInit {
         return fileGroup.controls.useAudio.touched;
       });
 
+      if (!atLeastOneVideoOrAudio && control.touched)
+        return { videoRequired: true };
       if (
         atLeastOneVideoOrAudio &&
         !atLeastOneUseAudioChecked &&
@@ -240,16 +197,6 @@ export class DialogCreateProjectComponent implements OnDestroy, AfterViewInit {
       });
     });
 
-    const alreadySelectedLanguage =
-      this.formGroup.controls.files.value.find((f) => {
-        if (f.language === undefined) return false;
-        return f.language !== '';
-      }) || '';
-
-    const languageControl = alreadySelectedLanguage
-      ? { value: alreadySelectedLanguage.language!, disabled: true }
-      : '';
-
     onlyValidFiles.forEach((file) => {
       const fileGroup = this.fb.group<FileGroup>({
         file: this.fb.control(file),
@@ -260,33 +207,23 @@ export class DialogCreateProjectComponent implements OnDestroy, AfterViewInit {
         ),
         name: this.fb.control(file.name),
         category: this.fb.control(''),
-        language: this.fb.control(
-          file.type.includes('audio') || file.type.includes('video')
-            ? languageControl
-            : ''
-        ),
+        language: this.fb.control(''),
         useAudio: this.fb.control(false),
       });
 
-      // this.formGroup.controls.files.push(fileGroup);
-
-      if (file.type.includes('audio') || file.type.includes('video')) {
-        this.formGroup.controls.files.insert(0, fileGroup);
-      } else {
-        this.formGroup.controls.files.push(fileGroup);
-      }
+      this.formGroup.controls.files.push(fileGroup);
     });
 
-    // if (this.formGroup.controls.files.length >= 2) {
-    //   const unsortedFormGroup = this.formGroup.controls.files.value;
-    //   const sortedFormGroup = unsortedFormGroup.sort((a, b) => {
-    //     return a.fileType === 'video' ? -1 : 1;
-    //   });
+    if (this.formGroup.controls.files.length >= 2) {
+      const unsortedFormGroup = this.formGroup.controls.files.value;
+      const sortedFormGroup = unsortedFormGroup.sort((a, b) => {
+        return a.fileType === 'video' ? -1 : 1;
+      });
 
-    //   this.formGroup.controls.files.reset({
-    //     ...sortedFormGroup,
-    //   });
-    // }
+      this.formGroup.controls.files.reset({
+        ...sortedFormGroup,
+      });
+    }
 
     this.dataSource = new MatTableDataSource(
       (this.formGroup.controls.files as FormArray).controls
@@ -314,17 +251,13 @@ export class DialogCreateProjectComponent implements OnDestroy, AfterViewInit {
   }
 
   onSubmitForm() {
-    console.log('onSubmitForm');
     if (this.formGroup.invalid) {
-      console.log('invalid');
-      console.log(this.formGroup.errors);
       this.formGroup.markAllAsTouched();
       this.formGroup.updateValueAndValidity();
       return;
     }
 
     this.loading = true;
-    console.log(this.formGroup.value);
     const formData = this.createProjectService.create(this.formGroup);
 
     this.timeStarted = Date.now();
