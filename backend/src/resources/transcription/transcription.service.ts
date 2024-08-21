@@ -518,6 +518,21 @@ export class TranscriptionService {
       payload,
     });
 
+    // events
+    newtranscription.populate('createdBy');
+
+    // Entity
+    const entity = plainToInstance(
+      TranscriptionEntity,
+      newtranscription.toObject(),
+    ) as unknown as TranscriptionEntity;
+
+    const projectEntity = plainToInstance(ProjectEntity, updatedProject);
+
+    // Send events
+    this.events.projectUpdated(projectEntity);
+    this.events.transcriptionCreated(projectEntity, entity);
+
     return;
   }
 }
