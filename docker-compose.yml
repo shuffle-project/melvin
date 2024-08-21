@@ -1,118 +1,30 @@
-version: "1"
-
-volumes:
-  audio_files:
-  transcripts:
-  status:
-
 services:
-  # backend:
-  #   image: ghcr.io/shuffle-project/melvin-backend:main
-  #   container_name: melvin-backend
-  #   volumes:
-  #     - ..:/workspace:cached
-  #   depends_on:
-  #     - mongodb
-  #     - redis
-  #   links:
-  #     - mongodb
-  #     - redis
-  #   ports:
-  #     - 3000:3000
-
-  # frontend:
-  #   image: ghcr.io/shuffle-project/melvin-frontend:main
-  #   container_name: melvin-frontend
-  #   ports:
-  #     - 4200:4200
-
-  # mongodb:
-  #   image: mongo:5
-  #   container_name: ${COMPOSE_PROJECT_NAME}-mongo
-  #   restart: unless-stopped
-  #   volumes:
-  #     - ./data/mongodb:/data/db
-  #   ports:
-  #     - 27017:27017
-  # redis:
-  #   image: redis
-  #   container_name: ${COMPOSE_PROJECT_NAME}-redis
-  #   restart: unless-stopped
-  #   ports:
-  #     - 6379:6379
-  # kurento:
-  #   container_name: ${COMPOSE_PROJECT_NAME}-kurento
-  #   image: kurento/kurento-media-server
-  #   ports:
-  #     - 8888:8888/tcp
-  #     - 5000-5050:5000-5050/udp
-  #   restart: unless-stopped
-  #   volumes:
-  #     - ../media/kurento/:/var/lib/kurento/:rw
-  #   environment:
-  #     - -GST_DEBUG="Kurento*:5"
-
-  # api:
-  #   image: ghcr.io/shuffle-project/asr-api-api:deploy
-  #   container_name: ${COMPOSE_PROJECT_NAME}-asr-api-api
-  #   volumes:
-  #     - audio_files:/data/audio_files
-  #     - transcripts:/data/transcripts
-  #     - status:/data/status
-  #   ports:
-  #     - "8393:8393"
-  #     - "8394:8394"
-
-  # whispercpp_runner:
-  #   image: ghcr.io/shuffle-project/asr-api-whispercpp_runner:deploy
-  #   container_name: ${COMPOSE_PROJECT_NAME}-asr-api-whispercpp_runner
-  #   volumes:
-  #     - audio_files:/data/audio_files
-  #     - transcripts:/data/transcripts
-  #     - status:/data/status
-  #   depends_on:
-  #     - api
-
-  asr-api:
-    image: ghcr.io/shuffle-project/asr-api:dev
-    container_name: asr-api
+  mongodb:
+    image: mongo:5
+    container_name: ${COMPOSE_PROJECT_NAME}-mongo
+    restart: unless-stopped
     volumes:
-      - ./models:/asr-api/models
-      - ./data:/asr-api/data
-      - ./config.yml:/asr-api/config.yml
+      - ./data/mongodb:/data/db
+    ports:
+      - 27017:27017
+
+  redis:
+    image: redis
+    container_name: ${COMPOSE_PROJECT_NAME}-redis
+    restart: unless-stopped
+    ports:
+      - 6379:6379
+
+  asr:
+    image: ghcr.io/shuffle-project/melvin-asr:dev
+    container_name: ${COMPOSE_PROJECT_NAME}-asr
+    volumes:
+      - ./data/whisper-models:/asr/models
+      - ./data/asr:/asr/data
+      - ./asr.config.yml:/asr/config.yml
     ports:
       - "8393:8393"
       - "8394:8394"
-    # image: ghcr.io/shuffle-project/asr-api:main
-    # container_name: asr-api
-    # volumes:
-    #   - ./data/models:/asr-api/data/models
-    #   - ./data/audio_files:/asr-api/data/audio_files
-    #   - ./data/status:/asr-api/data/status
-    # environment:
-    #   - ENVIRONMENT=production
-    #   - PORT=8393
-    #   - WEBSOCKET_PORT=8394
-    #   - HOST=0.0.0.0
-    #   - API_KEY=shuffle2024
-    #   - DEBUG=True
-    #   - AVAILABLE_MODELS=["tiny"]
-    #   - MODEL_PATH=/data/models/
-    #   - DEFAULT_REST_MODEL=tiny
-    #   - STREAM_MODEL=tiny
-    #   - AUDIO_FILE_PATH=/data/audio_files/
-    #   - STATUS_PATH=/data/status/
-    #   - AUDIO_FILE_FORMAT=.wav
-    # ports:
-    #   - "8393:8393"
-    #   - "8394:8394"
-
-  # whisper:
-  #   container_name: ${COMPOSE_PROJECT_NAME}-whisper
-  #   build:
-  #     dockerfile: ../Dockerfile.whisper
-  #   ports:
-  #     - 5000:5000
 
   # libretranslate:
   #   image: libretranslate/libretranslate

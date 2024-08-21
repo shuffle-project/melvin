@@ -35,6 +35,5 @@ export interface Environment {
   production: boolean;
   frontendBaseUrl: string;
   baseRestApi: string;
-  hocuspocusUrl: string;
   features: EnabledFeatures;
 }

@@ -1,8 +1,0 @@
-
-# vsc extension to execute these calls & docs: 
-
-# https://marketplace.visualstudio.com/items?itemName=humao.rest-client
-
-
-POST http://localhost:3000/populate
-//clear database and generate dummydata

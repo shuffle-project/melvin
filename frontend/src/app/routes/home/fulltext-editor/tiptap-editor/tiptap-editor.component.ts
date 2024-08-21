@@ -31,8 +31,8 @@ import {
   filter,
   takeUntil,
 } from 'rxjs';
-import { environment } from '../../../../../environments/environment';
 import { EditorUser } from '../../../../interfaces/editor-user.interface';
+import { WSService } from '../../../../services/ws/ws.service';
 import { MediaService } from '../../editor/services/media/media.service';
 import { CustomParagraph, Partial, UserExtension, Word } from './tiptap.schema';
 
@@ -78,7 +78,10 @@ export class TiptapEditorComponent implements AfterViewInit, OnInit {
 
   public currentTime$ = this.mediaService.currentTime$;
 
-  constructor(private mediaService: MediaService) {}
+  constructor(
+    private mediaService: MediaService,
+    private wsService: WSService
+  ) {}
 
   ngOnInit() {
     combineLatest([this.viewReady$, this.transcriptionId$])
@@ -143,8 +146,9 @@ export class TiptapEditorComponent implements AfterViewInit, OnInit {
   }
 
   initConnection(transcriptionId: string) {
+    const url = `${this.wsService.getWebSocketURL()}?hocuspocus`;
     this.provider = new HocuspocusProvider({
-      url: environment.hocuspocusUrl, // wss://melvin-server-dummy.onrender.com
+      url,
       name: transcriptionId,
       onStatus: (status) => {
         console.log('onStatus');

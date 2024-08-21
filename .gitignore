@@ -1,2 +1,4 @@
 data
 models
+*.DS_Store
+asr.config.yml

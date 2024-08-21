@@ -1,27 +1,4 @@
-# Editor Backend API
-
-## Start
-
-### Docker devcontainer
-
-Open repository in devcontainer
-
-```bash
-# start nestjs backend
-npm run start:dev
-```
-
-### Local
-
-Requirements: Look into [this file](.devcontainer/Dockerfile) what you might need or want to install
-
-```bash
-# start databases
-sh start-db.sh
-
-# start nestjs backend
-npm run start:dev
-```
+# Melvin Backend
 
 ## Testing
 
@@ -43,7 +20,3 @@ Test utilities, helper functions and Test-Data are placed under [test/utils](tes
   - One valid request
   - One invalid request due to invalid data (e.g. body, params or query)
   - One invalid request due to invalid authentication (if endpoint is protected)
-
-### run translate
-
-docker run -ti --rm -p 5000:5000 libretranslate/libretranslate

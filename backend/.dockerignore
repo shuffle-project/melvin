@@ -1,10 +1,8 @@
 .devcontainer
 .git
 coverage
-gist
-docker
+dist
 media
 node_modules
-rest-examples
 test
 .gitlab-ci.yml
