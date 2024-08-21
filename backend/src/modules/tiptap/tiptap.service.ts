@@ -442,6 +442,15 @@ export class TiptapService {
     return words;
   }
 
+  async getPlainText(transcriptionId: string) {
+    const connection = await this.hocuspocusService.openDirectConnection(
+      transcriptionId,
+    );
+    const words = this.docToWordList(connection.document);
+    connection.disconnect();
+    return words.map((word) => word.text.trim()).join(' ');
+  }
+
   async getCaptionsById(transcriptionId: string): Promise<TiptapCaption[]> {
     const connection = await this.hocuspocusService.openDirectConnection(
       transcriptionId,

@@ -150,4 +150,16 @@ export class TranscriptionController {
       updateSpeakerDto,
     );
   }
+
+  // Align transcription
+
+  @Patch(':id/align')
+  @UseGuards(JwtAuthGuard)
+  @ApiResponse({ status: HttpStatus.OK, type: TranscriptionEntity })
+  alignTranscription(
+    @User() authUser: AuthUser,
+    @Param('id', IsValidObjectIdPipe) id: string,
+  ) {
+    return this.transcriptionService.alignTranscription(authUser, id);
+  }
 }
