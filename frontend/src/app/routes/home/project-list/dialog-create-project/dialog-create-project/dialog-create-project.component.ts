@@ -102,6 +102,7 @@ export class DialogCreateProjectComponent implements OnDestroy, AfterViewInit {
   uploadSubscription!: Subscription;
   private totalFileSize = 0;
 
+  MediaCategory = MediaCategory;
   mediaCategoryArray = Object.entries(MediaCategory).map(
     ([label, value]) => value
   );
@@ -132,10 +133,22 @@ export class DialogCreateProjectComponent implements OnDestroy, AfterViewInit {
       )
       .subscribe((e: any) => {
         const source = e.source as FormGroup;
+        const sourceParent = source.parent as FormGroup<FileGroup>;
+
+        // Case: Selecting sign-language category (-> make sure hidden use audio control is false)
+
+        if (source.value === MediaCategory.SIGN_LANGUAGE) {
+          this.formGroup.controls.files.controls.forEach((fileGroup) => {
+            if (fileGroup.value.name === sourceParent.value.name) {
+              fileGroup.controls.useAudio.setValue(false);
+            }
+          });
+        }
+
+        // - - - - -
+        // Case: Audio/Video file language change
 
         if (this.languages.map((l) => l.code).includes(source.value)) {
-          const sourceParent = source.parent as FormGroup<FileGroup>;
-
           if (
             !sourceParent.controls.language.disabled &&
             sourceParent.controls.fileType.value === 'video'
@@ -182,8 +195,45 @@ export class DialogCreateProjectComponent implements OnDestroy, AfterViewInit {
 
       files: this.fb.array<FormGroup<FileGroup>>([], {}),
     },
-    { validators: [this.fileContentValidator()] }
+    { validators: [this.fileContentValidator(), this.mainCategoryValidator()] }
   );
+
+  mainCategoryValidator() {
+    return (control: AbstractControl): ValidationErrors | null => {
+      const c = control as FormGroup<CreateProjectFormGroup>;
+      const f = c.controls.files as FormArray<FormGroup<FileGroup>>;
+
+      const atLeastOneVideoFile = f.value.some((fileGroup) => {
+        return fileGroup.fileType === 'video';
+      });
+
+      const atLeastOneMainCategory = f.value.some((fileGroup) => {
+        return fileGroup.category === MediaCategory.MAIN;
+      });
+
+      const atLeastOneCategoryTouched = f.controls.some((fileGroup) => {
+        return fileGroup.controls.category.touched;
+      });
+
+      if (
+        !atLeastOneMainCategory &&
+        control.touched &&
+        atLeastOneVideoFile &&
+        atLeastOneCategoryTouched
+      )
+        return { mainCategoryRequired: true };
+
+      const maxOneMainCategory =
+        f.value.filter((fileGroup) => {
+          return fileGroup.category === MediaCategory.MAIN;
+        }).length <= 1;
+
+      if (!maxOneMainCategory && control.touched)
+        return { maxOneMainCategory: true };
+
+      return null;
+    };
+  }
 
   fileContentValidator() {
     return (control: AbstractControl): ValidationErrors | null => {
@@ -251,31 +301,57 @@ export class DialogCreateProjectComponent implements OnDestroy, AfterViewInit {
       : '';
 
     onlyValidFiles.forEach((file) => {
-      const fileGroup = this.fb.group<FileGroup>({
-        file: this.fb.control(file),
-        fileType: this.fb.control(
-          file.type.includes('audio') || file.type.includes('video')
-            ? 'video'
-            : 'text'
-        ),
-        name: this.fb.control(file.name),
-        category: this.fb.control(''),
-        language: this.fb.control(
-          file.type.includes('audio') || file.type.includes('video')
-            ? languageControl
-            : ''
-        ),
-        useAudio: this.fb.control(false),
-      });
-
-      // this.formGroup.controls.files.push(fileGroup);
-
       if (file.type.includes('audio') || file.type.includes('video')) {
+        const fileGroup = this.fb.group<FileGroup>({
+          file: this.fb.control(file),
+          fileType: this.fb.control('video'),
+          name: this.fb.control(file.name),
+          category: this.fb.control('', [Validators.required]),
+          language: this.fb.control(languageControl, [Validators.required]),
+          useAudio: this.fb.control(false),
+        });
+
         this.formGroup.controls.files.insert(0, fileGroup);
       } else {
+        const fileGroup = this.fb.group<FileGroup>({
+          file: this.fb.control(file),
+          fileType: this.fb.control('text'),
+          name: this.fb.control(file.name),
+          category: this.fb.control(''),
+          language: this.fb.control('', [Validators.required]),
+          useAudio: this.fb.control(false),
+        });
+
         this.formGroup.controls.files.push(fileGroup);
       }
     });
+
+    // onlyValidFiles.forEach((file) => {
+    //   const fileGroup = this.fb.group<FileGroup>({
+    //     file: this.fb.control(file),
+    //     fileType: this.fb.control(
+    //       file.type.includes('audio') || file.type.includes('video')
+    //         ? 'video'
+    //         : 'text'
+    //     ),
+    //     name: this.fb.control(file.name),
+    //     category: this.fb.control(''),
+    //     language: this.fb.control(
+    //       file.type.includes('audio') || file.type.includes('video')
+    //         ? languageControl
+    //         : ''
+    //     ),
+    //     useAudio: this.fb.control(false),
+    //   });
+
+    // this.formGroup.controls.files.push(fileGroup);
+
+    // if (file.type.includes('audio') || file.type.includes('video')) {
+    //   this.formGroup.controls.files.insert(0, fileGroup);
+    // } else {
+    //   this.formGroup.controls.files.push(fileGroup);
+    // }
+    // });
 
     // if (this.formGroup.controls.files.length >= 2) {
     //   const unsortedFormGroup = this.formGroup.controls.files.value;
@@ -314,18 +390,20 @@ export class DialogCreateProjectComponent implements OnDestroy, AfterViewInit {
   }
 
   onSubmitForm() {
-    console.log('onSubmitForm');
     if (this.formGroup.invalid) {
-      console.log('invalid');
-      console.log(this.formGroup.errors);
       this.formGroup.markAllAsTouched();
       this.formGroup.updateValueAndValidity();
       return;
     }
 
+    this.totalFileSize = this.formGroup.controls.files.value
+      .map((f) => f.file?.size!)
+      .reduce((total, current) => total + current);
+
     this.loading = true;
-    console.log(this.formGroup.value);
-    const formData = this.createProjectService.create(this.formGroup);
+    const formData = this.createProjectService.createVideoProject(
+      this.formGroup
+    );
 
     this.timeStarted = Date.now();
     // this.uploadSubscription = this.api.createProject(formData).subscribe({
