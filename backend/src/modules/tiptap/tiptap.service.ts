@@ -366,7 +366,7 @@ export class TiptapService {
     await connection.disconnect();
   }
 
-  wordsToTiptap(words: WordEntity[]): TiptapDocument {
+  wordsToTiptap(words: WordEntity[], defaultSpeaker: string): TiptapDocument {
     const tiptapDocument: TiptapDocument = {
       type: 'doc',
       content: [],
@@ -374,6 +374,7 @@ export class TiptapService {
     let tiptapParagraph: TiptapParagraph = {
       type: 'paragraph',
       content: [],
+      speakerId: defaultSpeaker,
     };
 
     words.forEach((word, i) => {
@@ -404,6 +405,7 @@ export class TiptapService {
       });
     });
     tiptapDocument.content.push(tiptapParagraph);
+    console.log(tiptapDocument);
     return tiptapDocument;
   }
 

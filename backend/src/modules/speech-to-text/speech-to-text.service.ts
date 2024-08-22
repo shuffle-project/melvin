@@ -132,7 +132,10 @@ export class SpeechToTextService {
         if (res.captions) {
           captions = this._toCaptions(project, transcription, res.captions);
         } else {
-          const document = this.tiptapService.wordsToTiptap(res.words);
+          const document = this.tiptapService.wordsToTiptap(
+            res.words,
+            transcription.speakers[0]._id.toString(),
+          );
           await this.tiptapService.updateDocument(
             transcription._id.toString(),
             document,
@@ -192,7 +195,10 @@ export class SpeechToTextService {
           audio,
         );
 
-        let document = this.tiptapService.wordsToTiptap(res.words);
+        let document = this.tiptapService.wordsToTiptap(
+          res.words,
+          transcription.speakers[0]._id.toString(),
+        );
 
         if (syncSpeaker) {
           try {

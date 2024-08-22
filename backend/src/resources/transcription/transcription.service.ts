@@ -492,6 +492,7 @@ export class TranscriptionService {
         createdBy: authUser.id,
         _id: transcriptionId,
         project: projectId,
+        speakers: [{ _id: new Types.ObjectId(), name: 'default Speaker' }],
       }), // ,{populate:'createdBy'}
       this.db.updateProjectByIdAndReturn(projectId, {
         $push: { transcriptions: transcriptionId },
