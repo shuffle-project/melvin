@@ -7,12 +7,15 @@ import { AuthUser } from '../../resources/auth/auth.interfaces';
 import { CaptionService } from '../../resources/caption/caption.service';
 import { CreateCaptionDto } from '../../resources/caption/dto/create-caption.dto';
 import { PathService } from '../path/path.service';
+import { TiptapService } from '../tiptap/tiptap.service';
+import { WordEntity } from '../speech-to-text/speech-to-text.interfaces';
 
 @Injectable()
 export class ImportSubtitlesService {
   constructor(
     private pathService: PathService,
     private captionService: CaptionService,
+    private tiptapService: TiptapService,
   ) {}
 
   async fromFile(
@@ -35,6 +38,26 @@ export class ImportSubtitlesService {
         );
       } else {
         const { entries } = parse(content);
+
+        const splitted = entries.map((element: Entry) => {
+          return element.text
+            .split(' ')
+            .filter((word) => word !== '')
+            .map((word, i) => {
+              const wordEntity: WordEntity = {
+                text: word + ' ',
+                start: element.from,
+                end: element.to,
+                startParagraph: i === 0,
+                speakerId,
+              };
+              return wordEntity;
+            });
+        });
+        const words = splitted.flat();
+
+        const document = this.tiptapService.wordsToTiptap(words, speakerId);
+        await this.tiptapService.updateDocument(transcriptionId, document);
 
         await Promise.all(
           entries.map((element: Entry) =>

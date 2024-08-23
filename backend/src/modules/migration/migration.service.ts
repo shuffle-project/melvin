@@ -12,7 +12,6 @@ import { DbService } from '../db/db.service';
 import { CustomLogger } from '../logger/logger.service';
 import { WhisperSpeechService } from '../speech-to-text/whisper/whisper-speech.service';
 import { TiptapService } from '../tiptap/tiptap.service';
-import { Transaction } from 'prosemirror-state';
 
 @Injectable()
 export class MigrationService {
