@@ -4,7 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { Store } from '@ngrx/store';
 import {
   Subject,
@@ -42,7 +42,10 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { LetDirective, PushPipe } from '@ngrx/component';
+import { DeleteConfirmationService } from 'src/app/components/delete-confirmation-dialog/delete-confirmation.service';
+import { DialogProjectTranscriptionComponent } from 'src/app/modules/project-dialogs/dialog-project-transcription/dialog-project-transcription.component';
 import { HeaderComponent } from '../../../components/header/header.component';
+import * as projectsSelectors from '../../../store/selectors/projects.selector';
 import { CaptionsComponent } from '../editor/components/captions/captions.component';
 import { EditorSettingsComponent } from '../editor/components/editor-settings/editor-settings.component';
 import { JoinLivestreamModalComponent } from '../editor/components/join-livestream-modal/join-livestream-modal.component';
@@ -148,7 +151,9 @@ export class FulltextEditorComponent implements OnInit, OnDestroy {
     private mediaService: MediaService,
     private appService: AppService,
     public livestreamService: LivestreamService,
-    public http: HttpClient
+    public http: HttpClient,
+    private deleteService: DeleteConfirmationService,
+    private router: Router
   ) {}
 
   async ngOnInit() {
@@ -178,6 +183,20 @@ export class FulltextEditorComponent implements OnInit, OnDestroy {
         }, 1);
       }
     });
+
+    // if project gets deleted, navigate to project list
+    this.store
+      .select(projectsSelectors.selectAllProjects)
+      .pipe(takeUntil(this.destroy$$))
+      .subscribe(async (projects) => {
+        const currentProject = await firstValueFrom(this.project$);
+
+        if (currentProject) {
+          if (projects.find((p) => p.id === currentProject?.id) === undefined) {
+            this.router.navigate(['/home/projects']);
+          }
+        }
+      });
   }
 
   async ngOnDestroy() {
@@ -272,20 +291,19 @@ export class FulltextEditorComponent implements OnInit, OnDestroy {
     );
   }
 
-  // async onClickProjectEdit(tab: ProjectDetailDialogTab) {
-  //   const project = (await firstValueFrom(this.project$)) as ProjectEntity;
+  async onClickTranscriptionEdit() {
+    this.dialog.open(DialogProjectTranscriptionComponent, {
+      data: { projectId: this.projectId },
+      width: '100%',
+      maxWidth: '800px',
+      maxHeight: '90vh',
+    });
+  }
 
-  //   const data: ProjectDetailDialogData = {
-  //     projectId: project.id,
-  //     tab: tab,
-  //   };
-
-  //   this.dialog.open(ProjectDetailComponent, {
-  //     data,
-  //     width: '70%',
-  //     height: '70vh',
-  //   });
-  // }
+  async onDeleteProject() {
+    const project = await firstValueFrom(this.project$);
+    this.deleteService.deleteProject(project!);
+  }
 
   onOpenJoinLivestreamModal(livestreamStarted: boolean) {
     this.dialog.open(JoinLivestreamModalComponent, {
