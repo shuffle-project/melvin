@@ -14,7 +14,7 @@ import {
 import { AlertService } from '../../services/alert/alert.service';
 import { ApiService } from '../../services/api/api.service';
 import { ViewerLoginEntity } from '../../services/api/entities/auth.entity';
-import { CaptionListEntity } from '../../services/api/entities/caption-list.entity';
+import { TiptapCaption } from '../../services/api/entities/caption.entity';
 import { TranscriptionEntity } from '../../services/api/entities/transcription.entity';
 import { StorageKey } from '../../services/storage/storage-key.enum';
 import { StorageService } from '../../services/storage/storage.service';
@@ -151,20 +151,39 @@ export class ViewerEffects {
     { dispatch: false }
   );
 
+  // this.api
+  // .transcriptionGetCaptions(transcriptions[0].id, true)
+  // .subscribe((res) => {
+  //   console.log(res);
+  // });
   // fetchCaptions
-  fetchCaptions$ = createEffect(() =>
+  fetchTiptapCaptions$ = createEffect(() =>
     this.actions$.pipe(
       ofType(viewerActions.findCaptions, viewerActions.changeTranscriptionId),
       switchMap((action) =>
-        this.api.findAllCaptions(action.transcriptionId, true).pipe(
-          map((captionListEntity: CaptionListEntity) =>
-            viewerActions.findCaptionsSuccess({ captionListEntity })
-          ),
+        this.api.transcriptionGetCaptions(action.transcriptionId, true).pipe(
+          map((tiptapCaptions: TiptapCaption[]) => {
+            return viewerActions.findCaptionsSuccess({ tiptapCaptions });
+          }),
           catchError((error) => of(viewerActions.findCaptionsFail({ error })))
         )
       )
     )
   );
+
+  // fetchCaptions$ = createEffect(() =>
+  //   this.actions$.pipe(
+  //     ofType(viewerActions.findCaptions, viewerActions.changeTranscriptionId),
+  //     switchMap((action) =>
+  //       this.api.findAllCaptions(action.transcriptionId, true).pipe(
+  //         map((captionListEntity: CaptionListEntity) =>
+  //           viewerActions.findCaptionsSuccess({ captionListEntity })
+  //         ),
+  //         catchError((error) => of(viewerActions.findCaptionsFail({ error })))
+  //       )
+  //     )
+  //   )
+  // );
 
   /**
    * ERRORS

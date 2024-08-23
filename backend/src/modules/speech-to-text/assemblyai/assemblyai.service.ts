@@ -6,12 +6,13 @@ import { readFile } from 'fs-extra';
 import { catchError, lastValueFrom, map } from 'rxjs';
 import { Language } from '../../../app.interfaces';
 import { AssmeblyAiConfig } from '../../../config/config.interface';
+import { ProjectEntity } from '../../../resources/project/entities/project.entity';
 import { DbService } from '../../db/db.service';
 import { Audio, Project } from '../../db/schemas/project.schema';
 import { CustomLogger } from '../../logger/logger.service';
 import { PathService } from '../../path/path.service';
 import {
-  ISepechToTextService,
+  ISpeechToTextService,
   TranscriptEntity,
   WordEntity,
 } from '../speech-to-text.interfaces';
@@ -21,7 +22,7 @@ import {
   AaUploadEntity,
 } from './assemblyai.interfaces';
 @Injectable()
-export class AssemblyAiService implements ISepechToTextService {
+export class AssemblyAiService implements ISpeechToTextService {
   private assemblyAiConfig: AssmeblyAiConfig;
 
   private url: string;
@@ -40,6 +41,13 @@ export class AssemblyAiService implements ISepechToTextService {
 
     this.url = this.assemblyAiConfig?.url;
     this.apikey = this.assemblyAiConfig?.apikey;
+  }
+  runAlign(
+    project: ProjectEntity,
+    text: string,
+    audio: Audio,
+  ): Promise<any> {
+    throw new Error('Method not implemented.');
   }
 
   async fetchLanguages(): Promise<Language[] | null> {
@@ -112,9 +120,11 @@ export class AssemblyAiService implements ISepechToTextService {
     }
 
     const words: WordEntity[] = transcriptEntity.words.map((w) => ({
-      startMs: w.start,
-      endMs: w.end,
-      word: w.text,
+      text: w.text,
+      start: w.start,
+      end: w.end,
+      startParagraph: false,
+      speakerId: null,
     }));
 
     return {

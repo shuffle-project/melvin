@@ -1,9 +1,9 @@
 export class WhiTranscribeDto {
   language?: string;
   condition_on_previous_text?: boolean;
+  task?: string;
 
   // "language": None,
-  // "task": "transcribe",
   // "beam_size": 5,
   // "best_of": 5,
   // "patience": 1.0,
@@ -33,7 +33,7 @@ export class WhiWord {
   end: number;
   probability: number;
   start: number;
-  word: string;
+  text: string;
 }
 
 export class WhiInterface {
@@ -42,20 +42,20 @@ export class WhiInterface {
   language: string;
   language_probability: number;
   transcription_options: any;
-  vad_options: any;
+  vad_options?: any;
 }
 
 export class WhiSegment {
-  avg_logprob: number;
-  compression_ratio: number;
+  avg_logprob?: number;
+  compression_ratio?: number;
   end: number;
-  id: number;
-  no_speech_prob: number;
+  id?: number;
+  no_speech_prob?: number;
   seek: number;
   start: number;
-  temperature: number;
+  temperature?: number;
   text: string;
-  tokens: any[];
+  tokens?: any[];
   words: WhiWord[];
 }
 
@@ -68,7 +68,7 @@ export class WhiTranscriptEntity {
   status: 'done' | 'error' | 'finished' | 'error';
   model: any;
   transcript: {
-    info: WhiInterface;
+    info?: WhiInterface;
     segments: WhiSegment[];
   };
 }

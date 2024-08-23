@@ -111,7 +111,7 @@ export const vAvailableSpeakers = createSelector(
 export const vCaptions = createSelector(
   selectViewerState,
   (state: ViewerState) => {
-    return state.captions?.captions || [];
+    return state.tiptapCaptions || [];
   }
 );
 

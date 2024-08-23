@@ -4,12 +4,12 @@ import { EditorComponent } from './editor.component';
 
 export const EditorRoutes: Routes = [
   {
-    path: ':id',
+    path: ':id/legacy',
     component: EditorComponent,
   },
 
   {
-    path: ':id/fulltext',
+    path: ':id/edit',
     component: FulltextEditorComponent,
   },
 ];

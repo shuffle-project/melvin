@@ -61,7 +61,7 @@ export class UploadRecordingComponent implements OnInit {
     public data: { title: string; recordings: Recording[] },
     public api: ApiService,
     public store: Store<AppState>
-  ) {}
+  ) { }
 
   async ngOnInit() {
     this.selectInitalInputs();
@@ -124,10 +124,6 @@ export class UploadRecordingComponent implements OnInit {
 
     this.data.recordings.forEach((rec, i) => {
       if (i === 0) return;
-      // TODO upload rec as extra video
-      console.log(newProject.id);
-      console.log('todo upload video to created project');
-
       this.uploadAdditionalFile(rec, newProject);
     });
   }

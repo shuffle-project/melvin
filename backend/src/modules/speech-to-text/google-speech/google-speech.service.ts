@@ -5,19 +5,20 @@ import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { Language } from '../../../app.interfaces';
 import { GoogleSpeechConfig } from '../../../config/config.interface';
+import { ProjectEntity } from '../../../resources/project/entities/project.entity';
 import { DbService } from '../../db/db.service';
 import { Audio, Project } from '../../db/schemas/project.schema';
 import { CustomLogger } from '../../logger/logger.service';
 import { PathService } from '../../path/path.service';
 import {
-  ISepechToTextService,
+  ISpeechToTextService,
   TranscriptEntity,
   WordEntity,
 } from '../speech-to-text.interfaces';
 import { GOOGLE_LANGUAGES } from './languages.constants';
 
 @Injectable()
-export class GoogleSpeechService implements ISepechToTextService {
+export class GoogleSpeechService implements ISpeechToTextService {
   private googleSpeechConfig: GoogleSpeechConfig;
   private project_id: string;
   private client_email: string;
@@ -44,6 +45,13 @@ export class GoogleSpeechService implements ISepechToTextService {
     this.client_email = this.googleSpeechConfig?.client_email;
     this.bucketName = this.googleSpeechConfig?.bucketName;
     // this.keyfile = this.googleSpeechConfig.keyfileContent;
+  }
+  runAlign(
+    project: ProjectEntity,
+    text: string,
+    audio: Audio,
+  ): Promise<any> {
+    throw new Error('Method not implemented.');
   }
 
   async fetchLanguages(): Promise<Language[] | null> {
@@ -99,9 +107,11 @@ export class GoogleSpeechService implements ISepechToTextService {
       results.forEach((result) =>
         allWords.push(
           ...result.words.map((w) => ({
-            startMs: +w.startTime.seconds * 1000,
-            endMs: +w.endTime.seconds * 1000,
-            word: w.word,
+            text: w.word,
+            start: +w.startTime.seconds * 1000,
+            end: +w.endTime.seconds * 1000,
+            startParagraph: false,
+            speakerId: null,
           })),
         ),
       );

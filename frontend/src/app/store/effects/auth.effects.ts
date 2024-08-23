@@ -141,7 +141,7 @@ export class AuthEffects {
           if (inviteToken) {
             this.router.navigate(['/invite/' + inviteToken]);
           } else {
-            this.router.navigate(res.token ? ['/home'] : ['/auth']);
+            this.router.navigate(res.token ? ['/home'] : ['/']);
           }
         })
       ),
@@ -181,7 +181,7 @@ export class AuthEffects {
           this.storage.removeFromSessionAndLocalStorage(
             StorageKey.ACCESS_TOKEN
           );
-          this.router.navigate(['/auth']);
+          this.router.navigate(['/']);
         })
       ),
     { dispatch: false }
@@ -274,7 +274,9 @@ export class AuthEffects {
         ofType(authActions.guestLoginSuccess),
         tap((guestLoginEntity: GuestLoginEntity) => {
           console.log(guestLoginEntity);
-          this.router.navigate(['/home/editor/' + guestLoginEntity.projectId]);
+          this.router.navigate([
+            '/home/editor/' + guestLoginEntity.projectId + '/edit',
+          ]);
         })
       ),
     { dispatch: false }

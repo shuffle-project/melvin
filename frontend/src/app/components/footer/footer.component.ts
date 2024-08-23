@@ -10,18 +10,12 @@ import { LogoComponent } from '../logo/logo.component';
 import { RouterLink } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
 
-
 @Component({
-    selector: 'app-footer',
-    templateUrl: './footer.component.html',
-    styleUrls: ['./footer.component.scss'],
-    standalone: true,
-    imports: [
-    MatButtonModule,
-    RouterLink,
-    LogoComponent,
-    PushPipe
-],
+  selector: 'app-footer',
+  templateUrl: './footer.component.html',
+  styleUrls: ['./footer.component.scss'],
+  standalone: true,
+  imports: [MatButtonModule, RouterLink, LogoComponent, PushPipe],
 })
 export class FooterComponent implements OnInit {
   public year = dayjs().format('YYYY');

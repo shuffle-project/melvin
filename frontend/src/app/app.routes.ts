@@ -5,6 +5,12 @@ import { LoggedOutGuard } from './guards/logged-out.guard';
 
 export const AppRoutes: Routes = [
   {
+    path: '',
+    canActivate: [LoggedOutGuard],
+    loadChildren: () =>
+      import('./routes/landing/landing.routes').then((m) => m.LandingRoutes),
+  },
+  {
     path: 'auth',
     canActivate: [LoggedOutGuard],
     loadChildren: () =>
@@ -30,7 +36,7 @@ export const AppRoutes: Routes = [
   },
   {
     path: '**',
-    redirectTo: 'auth',
+    redirectTo: '',
   },
 ];
 

@@ -3,7 +3,10 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { catchError, map, mergeMap, of, tap, withLatestFrom } from 'rxjs';
 import { DurationPipe } from '../../pipes/duration-pipe/duration.pipe';
-import { generateTranscript } from '../../routes/viewer/components/transcript/transcript.utils';
+import {
+  generateTranscript,
+  old_generateTranscript,
+} from '../../routes/viewer/components/transcript/transcript.utils';
 import { AlertService } from '../../services/alert/alert.service';
 import { ApiService } from '../../services/api/api.service';
 import { TranscriptionEntity } from '../../services/api/entities/transcription.entity';
@@ -179,7 +182,7 @@ export class TranscriptionsEffects {
         withLatestFrom(this.store.select(captionsSelector.selectCaptions)),
         tap(([action, captions]) => {
           // TODO maybe refactor
-          const transcript = generateTranscript(captions);
+          const transcript = old_generateTranscript(captions);
 
           let text = '';
 

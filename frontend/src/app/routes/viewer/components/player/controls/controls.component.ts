@@ -113,6 +113,12 @@ export class ControlsComponent {
     return $localize`:@@viewerControlsPauseTooltip:Pause`;
   }
 
+  getVolumeTooltip(muted: boolean, volume: number) {
+    return `Volume ${Math.floor(volume * 100)}%, ${
+      muted ? 'muted' : 'unmuted'
+    }`;
+  }
+
   onPlayPauseVideo() {
     this.store.dispatch(viewerActions.playPauseUser());
   }

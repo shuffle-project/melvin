@@ -534,6 +534,12 @@ export class RealApiService implements ApiService {
     });
   }
 
+  transcriptionGetCaptions(transcriptionId: string, useViewerToken?: boolean) {
+    return this._get<any>(`/transcriptions/${transcriptionId}/getCaptions`, {
+      useViewerToken,
+    });
+  }
+
   // captions
 
   createCaption(captionDto: CreateCaptionDto): Observable<CaptionEntity> {

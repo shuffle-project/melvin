@@ -37,6 +37,8 @@ export const loginError = createAction(
   props<{ error: Error }>()
 );
 
+export const clearLoginError = createAction('[LOGIN DIALOG] Clear login error');
+
 // change password
 export const changePassword = createAction(
   '[PROFILE COMPONENT] Change password',

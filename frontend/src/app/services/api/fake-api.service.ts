@@ -331,6 +331,10 @@ export class FakeApiService implements ApiService {
     return of();
   }
 
+  transcriptionGetCaptions(transcriptionId: string): Observable<any> {
+    return of();
+  }
+
   // captions
 
   createCaption(captionDto: CreateCaptionDto): Observable<CaptionEntity> {

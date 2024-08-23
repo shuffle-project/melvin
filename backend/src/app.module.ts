@@ -25,7 +25,6 @@ import { NotificationModule } from './resources/notification/notification.module
 import { PopulateModule } from './resources/populate/populate.module';
 import { ProjectModule } from './resources/project/project.module';
 import { TranscriptionModule } from './resources/transcription/transcription.module';
-import { UserTestModule } from './resources/user-test/user-test.module';
 import { UserModule } from './resources/user/user.module';
 
 @Module({
@@ -73,7 +72,6 @@ import { UserModule } from './resources/user/user.module';
     PathModule,
     ActivityModule,
     // TODO LivestreamModule,
-    UserTestModule,
     // generate captions
     SpeechToTextModule,
     SubtitleFormatModule,

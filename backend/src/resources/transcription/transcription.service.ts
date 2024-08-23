@@ -12,6 +12,11 @@ import {
 import { PermissionsService } from '../../modules/permissions/permissions.service';
 import { ExportSubtitlesService } from '../../modules/subtitle-format/export-subtitles.service';
 import {
+  TiptapCaption,
+  TiptapDocument,
+} from '../../modules/tiptap/tiptap.interfaces';
+import { TiptapService } from '../../modules/tiptap/tiptap.service';
+import {
   ProcessSubtitlesJob,
   SubtitlesType,
 } from '../../processors/processor.interfaces';
@@ -45,6 +50,7 @@ export class TranscriptionService {
     private captionService: CaptionService,
     @InjectQueue('subtitles')
     private subtitlesQueue: Queue<ProcessSubtitlesJob>,
+    private tiptapService: TiptapService,
   ) {}
 
   /**
@@ -84,6 +90,29 @@ export class TranscriptionService {
         $push: { transcriptions: transcriptionId },
       }),
     ]);
+
+    const json: TiptapDocument = {
+      type: 'doc',
+      content: [
+        // {
+        //   type: 'paragraph',
+        //   content: [
+        //     {
+        //       type: 'text',
+        //       marks: [
+        //         {
+        //           type: 'word',
+        //           attrs: {},
+        //         },
+        //       ],
+        //       text: 'This is your transcript!',
+        //     },
+        //   ],
+        // },
+      ],
+    };
+
+    await this.tiptapService.updateDocument(transcription._id.toString(), json);
 
     transcription.populate('createdBy');
 
@@ -404,5 +433,30 @@ export class TranscriptionService {
     this.events.transcriptionUpdated(project, entity);
 
     return entity;
+  }
+
+  /**
+   * new YDOC logic
+   */
+
+  async getCaptions(authUser: AuthUser, id: string): Promise<TiptapCaption[]> {
+    const transcription = await this.db.transcriptionModel
+      .findById(id)
+      .orFail(new CustomBadRequestException('unknown_transaction_id'))
+      .populate('project')
+      .populate('createdBy')
+      .exec();
+
+    const project = transcription.project as LeanProjectDocument;
+    // if (!this.permissions.isProjectMember(project, authUser)) {
+    if (!this.permissions.isProjectReadable(project, authUser)) {
+      throw new CustomForbiddenException('access_to_transcription_denied');
+    }
+
+    // const ydoc = this.tiptapService.toYDoc(transcription.ydoc);
+
+    const tiptapCaptions = this.tiptapService.getCaptionsById(id);
+    // console.log(tiptapCaptions);
+    return tiptapCaptions;
   }
 }

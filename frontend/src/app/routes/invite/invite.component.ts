@@ -1,5 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
 import { MatDialog } from '@angular/material/dialog';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatIconModule } from '@angular/material/icon';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Subject, firstValueFrom } from 'rxjs';
@@ -8,26 +13,21 @@ import { AppState } from '../../store/app.state';
 import * as authSelectors from '../../store/selectors/auth.selector';
 import * as authActions from './../../store/actions/auth.actions';
 import { GuestLoginDialogComponent } from './components/guest-login/guest-login-dialog.component';
-import { MatDividerModule } from '@angular/material/divider';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
-import { MatCardModule } from '@angular/material/card';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 import { LetDirective } from '@ngrx/component';
 @Component({
-    selector: 'app-invite',
-    templateUrl: './invite.component.html',
-    styleUrls: ['./invite.component.scss'],
-    standalone: true,
-    imports: [
+  selector: 'app-invite',
+  templateUrl: './invite.component.html',
+  styleUrls: ['./invite.component.scss'],
+  standalone: true,
+  imports: [
     LetDirective,
     MatProgressSpinnerModule,
     MatCardModule,
     MatIconModule,
     MatButtonModule,
-    MatDividerModule
-],
+    MatDividerModule,
+  ],
 })
 export class InviteComponent implements OnInit, OnDestroy {
   private destroy$$ = new Subject<void>();
@@ -96,7 +96,7 @@ export class InviteComponent implements OnInit, OnDestroy {
   }
 
   onClickAuth() {
-    this.router.navigate(['/auth']);
+    this.router.navigate(['/']);
   }
 
   onClickJoinAsGuest() {

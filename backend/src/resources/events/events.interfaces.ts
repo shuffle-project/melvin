@@ -1,19 +1,22 @@
-import { Server, Socket } from 'socket.io';
-import { EditorUserColor } from 'src/constants/editor.constants';
+import { EditorUserColor } from '../../constants/editor.constants';
 import { CaptionEntity } from '../caption/entities/caption.entity';
 import { NotificationEntity } from '../notification/entities/notification.entity';
 import { ProjectEntity } from '../project/entities/project.entity';
 import { TranscriptionEntity } from '../transcription/entities/transcription.entity';
 
 export interface ClientToServerEvents {
-  'livestream:client-ice-candidate': (payload: { candidate: string }) => void;
+  'connection:auth': (payload: { token: string }) => void;
+  //'livestream:client-ice-candidate': (payload: { candidate: string }) => void;
 }
 
 export interface ServerToClientEvents {
   // Connection
-  'connection:invalid-credentials': (payload: {
-    message: 'Invalid credentials';
-  }) => void;
+  'connection:connected': () => void;
+  'connection:authorized': () => void;
+  'connection:invalid-credentials': () => void;
+  'connection:already-authorised': () => void;
+  'connection:unauthorized': () => void;
+  'unknown-event': () => void;
 
   // Notifications
   'notification:created': (payload: {
@@ -28,11 +31,11 @@ export interface ServerToClientEvents {
   // Project
   'project:user-joined': (payload: {
     userId: string;
-    activeUsers: { id: string; color: string }[];
+    activeUsers: { id: string; color: EditorUserColor }[];
   }) => void;
   'project:user-left': (payload: {
     userId: string;
-    activeUsers: { id: string; color: string }[];
+    activeUsers: { id: string; color: EditorUserColor }[];
   }) => void;
   'project:created': (payload: { project: ProjectEntity }) => void;
   'project:updated': (payload: { project: ProjectEntity }) => void;
@@ -60,34 +63,19 @@ export interface ServerToClientEvents {
   'caption:removed': (payload: { captionId: string }) => void;
 
   // Livestream
-  'livestream:server-ice-candidate': (payload: { candidate: string }) => void;
-
-  // User-Test
-  'user-test:start': (payload: { projectId: string }) => void;
-  'user-test:updated': (payload: {
-    projectId: string;
-    currentTime: number;
-  }) => void;
-  'user-test:stop': (payload: { projectId: string }) => void;
+  // 'livestream:server-ice-candidate': (payload: { candidate: string }) => void;
 }
 
 export interface ServerSideEvents {}
 
-export interface SocketData {
-  userId: string;
-  userColor: EditorUserColor;
+export interface EventsMap {
+  [event: string]: any;
 }
 
-export type TypedSocket = Socket<
-  ClientToServerEvents,
-  ServerToClientEvents,
-  ServerSideEvents,
-  SocketData
->;
+export declare type EventNames<Map extends EventsMap> = keyof Map &
+  (string | symbol);
 
-export type TypedServer = Server<
-  ClientToServerEvents,
-  ServerToClientEvents,
-  ServerSideEvents,
-  SocketData
->;
+export declare type EventParams<
+  Map extends EventsMap,
+  Ev extends EventNames<Map>,
+> = Parameters<Map[Ev]>[0];

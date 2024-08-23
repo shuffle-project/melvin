@@ -1,0 +1,41 @@
+main {
+  margin-top: 8rem;
+}
+
+.mat-drawer {
+  padding-top: 1.25rem;
+  min-width: 50%;
+
+  h1 {
+    margin-left: 1.25rem;
+    margin-bottom: 1.25rem;
+  }
+
+  nav {
+    margin-left: 1.25rem;
+
+    ul {
+      list-style: none;
+      padding: 0;
+
+      li {
+        margin-bottom: 1rem;
+
+        a {
+          text-decoration: none;
+          color: var(--color-black);
+          font-size: 1.125rem;
+
+          &:hover,
+          &:focus {
+            text-decoration: underline;
+          }
+        }
+
+        button {
+          margin-top: 1.25rem;
+        }
+      }
+    }
+  }
+}

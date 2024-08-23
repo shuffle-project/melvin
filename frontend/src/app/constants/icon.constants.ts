@@ -52,6 +52,7 @@ export const ICONS = [
   'minus',
   'dark_mode',
   'more',
+  'new-tab',
   'no_account',
   'open-transcript',
   'party-popper',
@@ -63,6 +64,7 @@ export const ICONS = [
   'picture_in_picture',
   'play_circle',
   'play',
+  'play-outline',
   'plus',
   'public',
   'record',
@@ -101,6 +103,7 @@ export const ICONS = [
   'viewer',
   'warning-circle',
   'warning',
+  'wrench',
   'zoom_in',
   'zoom_out',
   'gallery',
@@ -108,6 +111,8 @@ export const ICONS = [
   'copy-file',
   'translate',
   'info',
+  'undo',
+  'redo',
 ] as const;
 
 export type IconName = (typeof ICONS)[number];
