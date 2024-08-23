@@ -329,15 +329,13 @@ export class TranscriptionService {
     let streamableFile: StreamableFile;
     switch (downloadSubtitlesquery.type) {
       case SubtitleExportType.VTT:
-        streamableFile = this.exportSubtitlesService.toVttFile(
+        streamableFile = await this.exportSubtitlesService.toVttFile(
           transcription,
-          captions.captions,
         );
         break;
       case SubtitleExportType.SRT:
-        streamableFile = this.exportSubtitlesService.toSrtFile(
+        streamableFile = await this.exportSubtitlesService.toSrtFile(
           transcription,
-          captions.captions,
         );
         break;
     }
