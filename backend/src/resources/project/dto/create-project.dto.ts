@@ -1,60 +1,44 @@
 import { ApiProperty, PickType } from '@nestjs/swagger';
-import { Transform, Type } from 'class-transformer';
-import {
-  IsArray,
-  IsEmail,
-  IsEnum,
-  IsOptional,
-  IsString,
-  IsUrl,
-} from 'class-validator';
-import { EXAMPLE_USER } from '../../../constants/example.constants';
+import { Transform } from 'class-transformer';
+import { IsArray, IsEnum, IsOptional } from 'class-validator';
 import { Project } from '../../../modules/db/schemas/project.schema';
 import { AsrVendors } from '../../../processors/processor.interfaces';
+
+class VideoOption {
+  @ApiProperty({ type: String, required: true })
+  category: string;
+
+  @ApiProperty({ type: Boolean, required: true })
+  useAudio: boolean;
+}
+
+class SubtitleOption {
+  @ApiProperty({ type: String, required: true })
+  language: string;
+}
 
 export class CreateProjectDto extends PickType(Project, [
   'title',
   'language',
 ] as const) {
-  @ApiProperty({
-    type: [String],
-    required: false,
-    example: [EXAMPLE_USER.email],
-  })
-  @Transform(({ value }) => value.split(','))
-  @IsArray()
-  @IsEmail({}, { each: true })
-  @IsOptional()
-  @Type(() => Array)
-  emails?: string[];
-
-  @ApiProperty({ enum: AsrVendors, required: false })
-  @IsOptional()
+  @ApiProperty({ enum: AsrVendors, required: true })
   @IsEnum(AsrVendors)
-  asrVendor?: AsrVendors;
+  asrVendor: AsrVendors;
 
-  @ApiProperty({ type: String, required: false, example: 'en-Us' })
-  @IsOptional()
-  @IsString()
-  asrLanguage?: string;
+  @Transform(({ value }) => JSON.parse(value))
+  @ApiProperty({
+    type: [VideoOption],
+    required: true,
+  })
+  @IsArray()
+  videoOptions: { category: string; useAudio: boolean }[];
 
-  @ApiProperty({ type: String, required: false })
-  @IsOptional()
-  @IsString()
-  videoLanguage?: string;
-
-  @ApiProperty({ type: URL, required: false })
-  @IsOptional()
-  @IsUrl()
-  url?: string;
-
-  @ApiProperty({ type: String, required: true })
-  @IsString()
-  sourceMode: 'video' | 'live';
-
-  @Transform(({ value }) => value.split(','))
-  @ApiProperty({ type: [String], required: false, example: ['en', 'de'] })
+  @Transform(({ value }) => JSON.parse(value))
+  @ApiProperty({
+    type: [SubtitleOption],
+    required: false,
+  })
   @IsArray()
   @IsOptional()
-  subtitleLanguages?: string[];
+  subtitleOptions?: { language: string }[];
 }

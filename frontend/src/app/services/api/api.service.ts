@@ -104,6 +104,10 @@ export abstract class ApiService {
   abstract findAllUsers(search: string): Observable<UserEntity[]>;
 
   // projects
+  abstract createLegacyProject(
+    project: FormData
+  ): Observable<HttpEvent<ProjectEntity>>;
+
   abstract createProject(
     project: FormData
   ): Observable<HttpEvent<ProjectEntity>>;

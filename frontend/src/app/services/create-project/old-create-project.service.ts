@@ -29,8 +29,6 @@ interface Data {
 })
 export class CreateProjectService {
   create(formGroup: FormGroup<CreateProjectFormGroup>): FormData {
-    console.log(' vvv ');
-    console.log(formGroup);
     const formData = new FormData();
 
     // const data: Data = { title: '', language: '', sourceMode: 'video' };

@@ -302,6 +302,12 @@ export class DialogCreateProjectComponent implements OnDestroy, AfterViewInit {
 
     onlyValidFiles.forEach((file) => {
       if (file.type.includes('audio') || file.type.includes('video')) {
+        const findLastVideo = this.formGroup.controls.files.value
+          .map((f) => f.fileType)
+          .lastIndexOf('video');
+
+        const insertIndex = findLastVideo === -1 ? 0 : findLastVideo + 1;
+
         const fileGroup = this.fb.group<FileGroup>({
           file: this.fb.control(file),
           fileType: this.fb.control('video'),
@@ -311,7 +317,7 @@ export class DialogCreateProjectComponent implements OnDestroy, AfterViewInit {
           useAudio: this.fb.control(false),
         });
 
-        this.formGroup.controls.files.insert(0, fileGroup);
+        this.formGroup.controls.files.insert(insertIndex, fileGroup);
       } else {
         const fileGroup = this.fb.group<FileGroup>({
           file: this.fb.control(file),
@@ -325,44 +331,6 @@ export class DialogCreateProjectComponent implements OnDestroy, AfterViewInit {
         this.formGroup.controls.files.push(fileGroup);
       }
     });
-
-    // onlyValidFiles.forEach((file) => {
-    //   const fileGroup = this.fb.group<FileGroup>({
-    //     file: this.fb.control(file),
-    //     fileType: this.fb.control(
-    //       file.type.includes('audio') || file.type.includes('video')
-    //         ? 'video'
-    //         : 'text'
-    //     ),
-    //     name: this.fb.control(file.name),
-    //     category: this.fb.control(''),
-    //     language: this.fb.control(
-    //       file.type.includes('audio') || file.type.includes('video')
-    //         ? languageControl
-    //         : ''
-    //     ),
-    //     useAudio: this.fb.control(false),
-    //   });
-
-    // this.formGroup.controls.files.push(fileGroup);
-
-    // if (file.type.includes('audio') || file.type.includes('video')) {
-    //   this.formGroup.controls.files.insert(0, fileGroup);
-    // } else {
-    //   this.formGroup.controls.files.push(fileGroup);
-    // }
-    // });
-
-    // if (this.formGroup.controls.files.length >= 2) {
-    //   const unsortedFormGroup = this.formGroup.controls.files.value;
-    //   const sortedFormGroup = unsortedFormGroup.sort((a, b) => {
-    //     return a.fileType === 'video' ? -1 : 1;
-    //   });
-
-    //   this.formGroup.controls.files.reset({
-    //     ...sortedFormGroup,
-    //   });
-    // }
 
     this.dataSource = new MatTableDataSource(
       (this.formGroup.controls.files as FormArray).controls
@@ -406,10 +374,10 @@ export class DialogCreateProjectComponent implements OnDestroy, AfterViewInit {
     );
 
     this.timeStarted = Date.now();
-    // this.uploadSubscription = this.api.createProject(formData).subscribe({
-    //   next: (event: HttpEvent<ProjectEntity>) => this._handleHttpEvent(event),
-    //   error: (error: HttpErrorResponse) => this._handleErrorHttpEvent(error),
-    // });
+    this.uploadSubscription = this.api.createProject(formData).subscribe({
+      next: (event: HttpEvent<ProjectEntity>) => this._handleHttpEvent(event),
+      error: (error: HttpErrorResponse) => this._handleErrorHttpEvent(error),
+    });
   }
 
   private _handleHttpEvent(event: HttpEvent<ProjectEntity>) {

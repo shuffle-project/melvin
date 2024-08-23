@@ -22,7 +22,7 @@ import { ActivityService } from '../activity/activity.service';
 import { AuthUser } from '../auth/auth.interfaces';
 import { AuthService } from '../auth/auth.service';
 import { EventsGateway } from '../events/events.gateway';
-import { CreateProjectDto } from './dto/create-project.dto';
+import { CreateProjectDto } from './dto/create-legacy-project.dto';
 import { FindAllProjectsQuery } from './dto/find-all-projects.dto';
 import { InviteDto } from './dto/invite.dto';
 import { UpdateProjectDto } from './dto/update-project.dto';

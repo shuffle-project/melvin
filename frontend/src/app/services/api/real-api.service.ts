@@ -294,6 +294,13 @@ export class RealApiService implements ApiService {
   //   });
   // }
 
+  createLegacyProject(project: FormData): Observable<HttpEvent<ProjectEntity>> {
+    return this._post<HttpEvent<ProjectEntity>>(`/projects/legacy`, project, {
+      reportProgress: true,
+      observe: 'events' as any,
+    });
+  }
+
   createProject(project: FormData): Observable<HttpEvent<ProjectEntity>> {
     return this._post<HttpEvent<ProjectEntity>>(`/projects`, project, {
       reportProgress: true,
