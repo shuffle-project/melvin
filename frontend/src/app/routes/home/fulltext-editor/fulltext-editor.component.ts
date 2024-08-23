@@ -19,11 +19,7 @@ import {
 import { AppState } from 'src/app/store/app.state';
 import { AvatarGroupComponent } from '../../../components/avatar-group/avatar-group.component';
 import { ShareProjectDialogComponent } from '../../../components/share-project-dialog/share-project-dialog.component';
-import {
-  ProjectDetailComponent,
-  ProjectDetailDialogData,
-  ProjectDetailDialogTab,
-} from '../../../modules/project-detail/project-detail.component';
+
 import { DurationPipe } from '../../../pipes/duration-pipe/duration.pipe';
 import { FeatureEnabledPipe } from '../../../pipes/feature-enabled-pipe/feature-enabled.pipe';
 import { ApiService } from '../../../services/api/api.service';
@@ -276,20 +272,20 @@ export class FulltextEditorComponent implements OnInit, OnDestroy {
     );
   }
 
-  async onClickProjectEdit(tab: ProjectDetailDialogTab) {
-    const project = (await firstValueFrom(this.project$)) as ProjectEntity;
+  // async onClickProjectEdit(tab: ProjectDetailDialogTab) {
+  //   const project = (await firstValueFrom(this.project$)) as ProjectEntity;
 
-    const data: ProjectDetailDialogData = {
-      projectId: project.id,
-      tab: tab,
-    };
+  //   const data: ProjectDetailDialogData = {
+  //     projectId: project.id,
+  //     tab: tab,
+  //   };
 
-    this.dialog.open(ProjectDetailComponent, {
-      data,
-      width: '70%',
-      height: '70vh',
-    });
-  }
+  //   this.dialog.open(ProjectDetailComponent, {
+  //     data,
+  //     width: '70%',
+  //     height: '70vh',
+  //   });
+  // }
 
   onOpenJoinLivestreamModal(livestreamStarted: boolean) {
     this.dialog.open(JoinLivestreamModalComponent, {

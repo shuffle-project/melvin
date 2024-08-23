@@ -242,9 +242,7 @@ export class ProjectService {
       );
     }
 
-    console.log('outside');
     if (createProjectDto.asrVendor) {
-      console.log('inside');
       const createdTranscription = await this.transcriptionService.create(
         authUser,
         {
@@ -253,9 +251,7 @@ export class ProjectService {
           title: `${project.title} - ${project.language}`,
         },
       );
-      console.log('createdTranscription ');
-      console.log(createdTranscription);
-      console.log('asrVendor: ' + createProjectDto.asrVendor);
+
       // generate subtitles
       subsequentJobs.push({
         project: project,
