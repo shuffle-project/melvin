@@ -28,6 +28,8 @@ export class MigrationService {
   }
 
   async onApplicationBootstrap(): Promise<void> {
+    // TODO migration -> title migrieren
+
     this.logger.info('Initialize migration check');
     let settings = await this.db.settingsModel.findOne({});
 
