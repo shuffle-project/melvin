@@ -6,7 +6,6 @@ export const environment: Environment = {
   production: true,
   frontendBaseUrl: 'FRONTEND_BASE_URL',
   baseRestApi: 'BACKEND_BASE_URL',
-  hocuspocusUrl: 'HOCUSPOCUS_URL',
   features: {
     // General
     notifications: true,

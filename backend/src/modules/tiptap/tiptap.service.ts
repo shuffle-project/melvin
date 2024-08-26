@@ -366,7 +366,7 @@ export class TiptapService {
     await connection.disconnect();
   }
 
-  wordsToTiptap(words: WordEntity[]): TiptapDocument {
+  wordsToTiptap(words: WordEntity[], defaultSpeaker: string): TiptapDocument {
     const tiptapDocument: TiptapDocument = {
       type: 'doc',
       content: [],
@@ -374,6 +374,7 @@ export class TiptapService {
     let tiptapParagraph: TiptapParagraph = {
       type: 'paragraph',
       content: [],
+      speakerId: defaultSpeaker,
     };
 
     words.forEach((word, i) => {
@@ -404,6 +405,7 @@ export class TiptapService {
       });
     });
     tiptapDocument.content.push(tiptapParagraph);
+    console.log(tiptapDocument);
     return tiptapDocument;
   }
 
@@ -440,6 +442,15 @@ export class TiptapService {
       }
     }
     return words;
+  }
+
+  async getPlainText(transcriptionId: string) {
+    const connection = await this.hocuspocusService.openDirectConnection(
+      transcriptionId,
+    );
+    const words = this.docToWordList(connection.document);
+    connection.disconnect();
+    return words.map((word) => word.text.trim()).join(' ');
   }
 
   async getCaptionsById(transcriptionId: string): Promise<TiptapCaption[]> {

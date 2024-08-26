@@ -171,6 +171,8 @@ export abstract class ApiService {
 
   // transcriptions
 
+  abstract alignTranscription(transcriptionId: string): Observable<void>;
+
   //createTranscription() {}
   abstract createTranscription(
     transcription: CreateTranscriptionDto

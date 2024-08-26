@@ -10,7 +10,7 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatDividerModule } from '@angular/material/divider';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { Subject, lastValueFrom, take, takeUntil } from 'rxjs';
+import { Subject, firstValueFrom, lastValueFrom, take, takeUntil } from 'rxjs';
 import { ProjectDetailComponent } from 'src/app/modules/project-detail/project-detail.component';
 import { ProjectEntity } from 'src/app/services/api/entities/project.entity';
 import { TranscriptionEntity } from 'src/app/services/api/entities/transcription.entity';
@@ -26,6 +26,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { ApiService } from 'src/app/services/api/api.service';
 
 @Component({
   selector: 'app-transcription',
@@ -55,7 +56,8 @@ export class TranscriptionComponent implements OnInit, OnDestroy {
     private store: Store<AppState>,
     private dialogRefProjectDetail: MatDialogRef<ProjectDetailComponent>,
     private dialog: MatDialog,
-    private router: Router
+    private router: Router,
+    private api: ApiService
   ) {
     this.store
       .select(editorSelectors.selectProject)
@@ -98,6 +100,10 @@ export class TranscriptionComponent implements OnInit, OnDestroy {
       maxWidth: '700px',
       maxHeight: '80vh',
     });
+  }
+
+  async onClickAlignTranscription() {
+    await firstValueFrom(this.api.alignTranscription(this.transcription.id));
   }
 
   async onDownloadSubtitles(format: 'srt' | 'vtt', transcriptionId: string) {

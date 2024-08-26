@@ -15,7 +15,7 @@ import { PathService } from '../path/path.service';
 import { TiptapService } from '../tiptap/tiptap.service';
 import { AssemblyAiService } from './assemblyai/assemblyai.service';
 import { GoogleSpeechService } from './google-speech/google-speech.service';
-import { TranscriptEntity } from './speech-to-text.interfaces';
+import { TranscriptEntity, WordEntity } from './speech-to-text.interfaces';
 import { WhisperSpeechService } from './whisper/whisper-speech.service';
 import { text } from 'stream/consumers';
 import { TiptapDocument } from '../tiptap/tiptap.interfaces';
@@ -121,10 +121,12 @@ export class SpeechToTextService {
     switch (vendor) {
       case AsrVendors.ASSEMBLYAI:
         res = await this.assemblyAiService.run(project, audio);
+        await this._saveToTiptap(res.words, transcription);
         captions = this._wordsToCaptions(project, transcription, res);
         break;
       case AsrVendors.GOOGLE:
         res = await this.googleSpeechService.run(project, audio);
+        await this._saveToTiptap(res.words, transcription);
         captions = this._wordsToCaptions(project, transcription, res);
         break;
       case AsrVendors.WHISPER:
@@ -132,11 +134,7 @@ export class SpeechToTextService {
         if (res.captions) {
           captions = this._toCaptions(project, transcription, res.captions);
         } else {
-          const document = this.tiptapService.wordsToTiptap(res.words);
-          await this.tiptapService.updateDocument(
-            transcription._id.toString(),
-            document,
-          );
+          await this._saveToTiptap(res.words, transcription);
           captions = this._wordsToCaptions(project, transcription, res);
         }
         break;
@@ -167,6 +165,20 @@ export class SpeechToTextService {
     );
   }
 
+  private async _saveToTiptap(
+    words: WordEntity[],
+    transcription: TranscriptionEntity,
+  ) {
+    const document = this.tiptapService.wordsToTiptap(
+      words,
+      transcription.speakers[0]._id.toString(),
+    );
+    await this.tiptapService.updateDocument(
+      transcription._id.toString(),
+      document,
+    );
+  }
+
   async align(
     project: Project,
     transcription: TranscriptionEntity,
@@ -192,7 +204,10 @@ export class SpeechToTextService {
           audio,
         );
 
-        let document = this.tiptapService.wordsToTiptap(res.words);
+        let document = this.tiptapService.wordsToTiptap(
+          res.words,
+          transcription.speakers[0]._id.toString(),
+        );
 
         if (syncSpeaker) {
           try {
