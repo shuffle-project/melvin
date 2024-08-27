@@ -17,6 +17,7 @@ import {
 } from '../../modules/tiptap/tiptap.interfaces';
 import { TiptapService } from '../../modules/tiptap/tiptap.service';
 import {
+  AlignPayload,
   ProcessSubtitlesJob,
   SubtitlesType,
 } from '../../processors/processor.interfaces';
@@ -39,6 +40,7 @@ import { FindAllTranscriptionsQuery } from './dto/find-all-transcriptions.dto';
 import { UpdateSpeakerDto } from './dto/update-speaker.dto';
 import { UpdateTranscriptionDto } from './dto/update-transcription.dto';
 import { TranscriptionEntity } from './entities/transcription.entity';
+import { text } from 'express';
 
 @Injectable()
 export class TranscriptionService {
@@ -327,15 +329,13 @@ export class TranscriptionService {
     let streamableFile: StreamableFile;
     switch (downloadSubtitlesquery.type) {
       case SubtitleExportType.VTT:
-        streamableFile = this.exportSubtitlesService.toVttFile(
+        streamableFile = await this.exportSubtitlesService.toVttFile(
           transcription,
-          captions.captions,
         );
         break;
       case SubtitleExportType.SRT:
-        streamableFile = this.exportSubtitlesService.toSrtFile(
+        streamableFile = await this.exportSubtitlesService.toSrtFile(
           transcription,
-          captions.captions,
         );
         break;
     }
@@ -458,5 +458,80 @@ export class TranscriptionService {
     const tiptapCaptions = this.tiptapService.getCaptionsById(id);
     // console.log(tiptapCaptions);
     return tiptapCaptions;
+  }
+
+  // TODO mehr provisorisch bis wir wissen wir das umsetzen wollen
+  async alignTranscription(authUser: AuthUser, id: string): Promise<void> {
+    const transcription = await this.db.transcriptionModel
+      .findById(id)
+      .orFail(new CustomBadRequestException('unknown_transaction_id'))
+      .populate('project')
+      .populate('createdBy')
+      .exec();
+
+    const project = transcription.project as LeanProjectDocument;
+    if (!this.permissions.isProjectMember(project, authUser)) {
+      throw new CustomForbiddenException('access_to_transcription_denied');
+    }
+
+    const projectId = project._id.toString();
+    const transcriptionId = new Types.ObjectId();
+
+    // create new transcription
+
+    const dto: CreateTranscriptionDto = {
+      title: 'aligned: ' + transcription.title,
+      language: transcription.language,
+      project: projectId as any,
+    };
+    const [newtranscription, updatedProject] = await Promise.all([
+      this.db.transcriptionModel.create({
+        ...dto,
+        createdBy: authUser.id,
+        _id: transcriptionId,
+        project: projectId,
+        speakers: [{ _id: new Types.ObjectId(), name: 'default Speaker' }],
+      }), // ,{populate:'createdBy'}
+      this.db.updateProjectByIdAndReturn(projectId, {
+        $push: { transcriptions: transcriptionId },
+      }),
+    ]);
+
+    // align text from old transcription to new trasncriptiopn
+
+    const text = await this.tiptapService.getPlainText(
+      transcription._id.toString(),
+    );
+
+    // run task
+    const payload: AlignPayload = {
+      type: SubtitlesType.ALIGN,
+      audio: project.audios[0],
+      transcriptionId: transcription._id.toString(),
+      text,
+      //   syncSpeaker: captions,
+    };
+    this.subtitlesQueue.add({
+      project: project,
+      transcription: newtranscription,
+      payload,
+    });
+
+    // events
+    newtranscription.populate('createdBy');
+
+    // Entity
+    const entity = plainToInstance(
+      TranscriptionEntity,
+      newtranscription.toObject(),
+    ) as unknown as TranscriptionEntity;
+
+    const projectEntity = plainToInstance(ProjectEntity, updatedProject);
+
+    // Send events
+    this.events.projectUpdated(projectEntity);
+    this.events.transcriptionCreated(projectEntity, entity);
+
+    return;
   }
 }

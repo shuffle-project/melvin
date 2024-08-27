@@ -67,6 +67,10 @@ export class FakeApiService implements ApiService {
 
   constructor() {}
 
+  alignTranscription(transcriptionId: string): Observable<void> {
+    throw new Error('Method not implemented.');
+  }
+
   createTranscriptionFromFile(
     transcription: CreateTranscriptionDto,
     file: File

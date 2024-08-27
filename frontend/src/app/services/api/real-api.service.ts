@@ -440,6 +440,10 @@ export class RealApiService implements ApiService {
 
   // transcriptions
 
+  alignTranscription(transcriptionId: string): Observable<void> {
+    return this._patch<void>(`/transcriptions/${transcriptionId}/align`, {});
+  }
+
   createTranscription(
     transcription: CreateTranscriptionDto
   ): Observable<TranscriptionEntity> {

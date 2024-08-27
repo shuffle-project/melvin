@@ -28,6 +28,8 @@ export class MigrationService {
   }
 
   async onApplicationBootstrap(): Promise<void> {
+    // TODO migration -> title migrieren
+
     this.logger.info('Initialize migration check');
     let settings = await this.db.settingsModel.findOne({});
 
@@ -100,18 +102,22 @@ export class MigrationService {
           'Add align job to queue for transcription ' +
             transcription._id.toString(),
         );
-        const payload: AlignPayload = {
-          type: SubtitlesType.ALIGN,
-          audio: project.audios[0],
-          transcriptionId: transcription._id.toString(),
-          text,
-          syncSpeaker: captions,
-        };
-        this.subtitlesQueue.add({
-          project: project,
-          transcription: transcription,
-          payload,
-        });
+        if (project) {
+          const payload: AlignPayload = {
+            type: SubtitlesType.ALIGN,
+            audio: project.audios[0],
+            transcriptionId: transcription._id.toString(),
+            text,
+            syncSpeaker: captions,
+          };
+          this.subtitlesQueue.add({
+            project: project,
+            transcription: transcription,
+            payload,
+          });
+        } else {
+          console.log('project does not exist', transcription.project, project);
+        }
       }
     }
   }

@@ -34,14 +34,16 @@ export class WSService {
     this.createSocket();
   }
 
-  private createSocket() {
+  public getWebSocketURL(): string {
     const [scheme, basename] = environment.baseRestApi.split('://');
     const protocol = scheme === 'https' ? 'wss' : 'ws';
     const [hostname, ...elements] = basename.split('/');
-    const url = `${protocol}://${hostname}`;
+    return `${protocol}://${hostname}`;
+  }
 
+  private createSocket() {
     this.socket = webSocket({
-      url,
+      url: this.getWebSocketURL(),
     });
   }
 

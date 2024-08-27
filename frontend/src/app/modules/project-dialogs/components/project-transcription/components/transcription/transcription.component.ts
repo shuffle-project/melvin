@@ -10,7 +10,8 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatDividerModule } from '@angular/material/divider';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { Subject, lastValueFrom, take, takeUntil } from 'rxjs';
+
+import { Subject, firstValueFrom, lastValueFrom, take, takeUntil } from 'rxjs';
 import { ProjectEntity } from 'src/app/services/api/entities/project.entity';
 import { TranscriptionEntity } from 'src/app/services/api/entities/transcription.entity';
 import { AppState } from 'src/app/store/app.state';
@@ -26,6 +27,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { DialogProjectTranscriptionComponent } from 'src/app/modules/project-dialogs/dialog-project-transcription/dialog-project-transcription.component';
+import { ApiService } from 'src/app/services/api/api.service';
 
 @Component({
   selector: 'app-transcription',
@@ -55,7 +57,8 @@ export class TranscriptionComponent implements OnInit, OnDestroy {
     private store: Store<AppState>,
     private dialogRefProjectDetail: MatDialogRef<DialogProjectTranscriptionComponent>,
     private dialog: MatDialog,
-    private router: Router
+    private router: Router,
+    private api: ApiService
   ) {
     this.store
       .select(editorSelectors.selectProject)
@@ -98,6 +101,10 @@ export class TranscriptionComponent implements OnInit, OnDestroy {
       maxWidth: '800px',
       maxHeight: '90vh',
     });
+  }
+
+  async onClickAlignTranscription() {
+    await firstValueFrom(this.api.alignTranscription(this.transcription.id));
   }
 
   async onDownloadSubtitles(format: 'srt' | 'vtt', transcriptionId: string) {
