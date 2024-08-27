@@ -234,7 +234,6 @@ export class ProjectService {
             {
               project: new Types.ObjectId(project._id),
               language: language,
-              title: `${project.title} - ${language}`,
             },
             file,
           );
@@ -248,7 +247,6 @@ export class ProjectService {
         {
           project: new Types.ObjectId(project._id),
           language: project.language,
-          title: `${project.title} - ${project.language}`,
         },
       );
 

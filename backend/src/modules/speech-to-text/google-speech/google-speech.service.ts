@@ -3,7 +3,7 @@ import { SpeechClient } from '@google-cloud/speech';
 import { Bucket, Storage } from '@google-cloud/storage';
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { Language } from '../../../app.interfaces';
+import { LanguageShort } from '../../../app.interfaces';
 import { GoogleSpeechConfig } from '../../../config/config.interface';
 import { ProjectEntity } from '../../../resources/project/entities/project.entity';
 import { DbService } from '../../db/db.service';
@@ -46,15 +46,11 @@ export class GoogleSpeechService implements ISpeechToTextService {
     this.bucketName = this.googleSpeechConfig?.bucketName;
     // this.keyfile = this.googleSpeechConfig.keyfileContent;
   }
-  runAlign(
-    project: ProjectEntity,
-    text: string,
-    audio: Audio,
-  ): Promise<any> {
+  runAlign(project: ProjectEntity, text: string, audio: Audio): Promise<any> {
     throw new Error('Method not implemented.');
   }
 
-  async fetchLanguages(): Promise<Language[] | null> {
+  async fetchLanguages(): Promise<LanguageShort[] | null> {
     if (!this.googleSpeechConfig) {
       return null;
     }

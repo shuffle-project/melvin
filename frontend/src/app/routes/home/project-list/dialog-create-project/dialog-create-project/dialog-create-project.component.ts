@@ -31,14 +31,13 @@ import { Store } from '@ngrx/store';
 import { filter, Subject, Subscription, takeUntil } from 'rxjs';
 import { MediaCategoryPipe } from 'src/app/pipes/media-category-pipe/media-category.pipe';
 import { ApiService } from 'src/app/services/api/api.service';
-import { Language } from 'src/app/services/api/entities/config.entity';
+import { LanguageShort } from 'src/app/services/api/entities/config.entity';
 import {
   MediaCategory,
   ProjectEntity,
 } from 'src/app/services/api/entities/project.entity';
 import { CreateProjectService } from 'src/app/services/create-project/create-project.service';
 import { AppState } from 'src/app/store/app.state';
-import * as configSelector from '../../../../../store/selectors/config.selector';
 
 export interface CreateProjectFormGroup {
   title: FormControl<string>;
@@ -108,8 +107,10 @@ export class DialogCreateProjectComponent implements OnDestroy, AfterViewInit {
   );
 
   private destroy$$ = new Subject<void>();
-  languages$ = this.store.select(configSelector.languagesConfig);
-  languages!: Language[];
+  //TODO whisper rausfiltern
+  // languages$ = this.store.select(configSelector.asrServiceConfig);
+
+  languages!: LanguageShort[];
 
   loading = false;
 
@@ -120,9 +121,9 @@ export class DialogCreateProjectComponent implements OnDestroy, AfterViewInit {
     private createProjectService: CreateProjectService,
     private dialogRef: MatDialogRef<DialogCreateProjectComponent>
   ) {
-    this.languages$.pipe(takeUntil(this.destroy$$)).subscribe((languages) => {
-      this.languages = languages;
-    });
+    // this.languages$.pipe(takeUntil(this.destroy$$)).subscribe((languages) => {
+    //   this.languages = languages;
+    // });
   }
 
   ngAfterViewInit(): void {

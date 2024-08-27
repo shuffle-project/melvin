@@ -16,17 +16,19 @@ import {
 import { MatInputModule } from '@angular/material/input';
 import { Store } from '@ngrx/store';
 import { firstValueFrom } from 'rxjs';
-import { LANGUAGES } from 'src/app/constants/languages.constant';
 import { ProjectEntity } from 'src/app/services/api/entities/project.entity';
 import { TranscriptionEntity } from 'src/app/services/api/entities/transcription.entity';
 import { AppState } from 'src/app/store/app.state';
 import * as transcriptionsActions from '../../../../../../store/actions/transcriptions.actions';
+import * as configSelector from '../../../../../../store/selectors/config.selector';
 import * as editorSelectors from '../../../../../../store/selectors/editor.selector';
 
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSelectModule } from '@angular/material/select';
+import { PushPipe } from '@ngrx/component';
 import { DialogProjectTranscriptionComponent } from 'src/app/modules/project-dialogs/dialog-project-transcription/dialog-project-transcription.component';
+import { WrittenOutLanguagePipe } from 'src/app/pipes/written-out-language-pipe/written-out-language.pipe';
 
 @Component({
   selector: 'app-edit-transcription-dialog',
@@ -42,17 +44,18 @@ import { DialogProjectTranscriptionComponent } from 'src/app/modules/project-dia
     MatInputModule,
     MatButtonModule,
     MatIconModule,
+    PushPipe,
+    WrittenOutLanguagePipe,
   ],
 })
 export class EditTranscriptionDialogComponent implements OnInit {
-  languages = LANGUAGES;
+  languages$ = this.store.select(configSelector.languagesConfig);
   transcriptionId: string;
   project!: ProjectEntity;
 
   transcriptionEditGroup = new FormGroup({
     title: new FormControl<string>('', {
       nonNullable: true,
-      validators: [Validators.required],
     }),
     language: new FormControl<string>('', {
       nonNullable: true,

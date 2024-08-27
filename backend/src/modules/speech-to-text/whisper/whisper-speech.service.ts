@@ -5,7 +5,7 @@ import { AxiosError, AxiosResponse } from 'axios';
 import FormData from 'form-data';
 import { readFile } from 'fs-extra';
 import { catchError, lastValueFrom, map } from 'rxjs';
-import { Language } from '../../../app.interfaces';
+import { LanguageShort } from '../../../app.interfaces';
 import { WhisperConfig } from '../../../config/config.interface';
 import { DbService } from '../../db/db.service';
 import { Audio, Project } from '../../db/schemas/project.schema';
@@ -42,7 +42,7 @@ export class WhisperSpeechService implements ISpeechToTextService {
     this.apikey = this.whisperConfig.apikey;
   }
 
-  async fetchLanguages(): Promise<Language[]> {
+  async fetchLanguages(): Promise<LanguageShort[]> {
     if (!this.whisperConfig) {
       return null;
     }
@@ -53,6 +53,7 @@ export class WhisperSpeechService implements ISpeechToTextService {
         { code: 'de', name: 'German' },
         { code: 'fr', name: 'French' },
         { code: 'es', name: 'Spanish' },
+        { code: 'it', name: 'Italian' },
 
         // von whisper -h
         //
@@ -72,6 +73,108 @@ export class WhisperSpeechService implements ISpeechToTextService {
       ]);
     });
   }
+
+  languages = [
+    'af',
+    'am',
+    'ar',
+    'as',
+    'az',
+    'ba',
+    'be',
+    'bg',
+    'bn',
+    'bo',
+    'br',
+    'bs',
+    'ca',
+    'cs',
+    'cy',
+    'da',
+    'de',
+    'el',
+    'en',
+    'es',
+    'et',
+    'eu',
+    'fa',
+    'fi',
+    'fo',
+    'fr',
+    'gl',
+    'gu',
+    'ha',
+    'haw',
+    'he',
+    'hi',
+    'hr',
+    'ht',
+    'hu',
+    'hy',
+    'id',
+    'is',
+    'it',
+    'ja',
+    'jw',
+    'ka',
+    'kk',
+    'km',
+    'kn',
+    'ko',
+    'la',
+    'lb',
+    'ln',
+    'lo',
+    'lt',
+    'lv',
+    'mg',
+    'mi',
+    'mk',
+    'ml',
+    'mn',
+    'mr',
+    'ms',
+    'mt',
+    'my',
+    'ne',
+    'nl',
+    'nn',
+    'no',
+    'oc',
+    'pa',
+    'pl',
+    'ps',
+    'pt',
+    'ro',
+    'ru',
+    'sa',
+    'sd',
+    'si',
+    'sk',
+    'sl',
+    'sn',
+    'so',
+    'sq',
+    'sr',
+    'su',
+    'sv',
+    'sw',
+    'ta',
+    'te',
+    'tg',
+    'th',
+    'tk',
+    'tl',
+    'tr',
+    'tt',
+    'uk',
+    'ur',
+    'uz',
+    'vi',
+    'yi',
+    'yo',
+    'zh',
+  ];
 
   async run(project: Project, audio: Audio): Promise<TranscriptEntity> {
     const transcribe = await this._transcribe(project, audio);

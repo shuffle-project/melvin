@@ -33,7 +33,7 @@ import {
   AsrVendors,
   CreateTranscriptionDto,
 } from 'src/app/services/api/dto/create-transcription.dto';
-import { Language } from 'src/app/services/api/entities/config.entity';
+import { LanguageShort } from 'src/app/services/api/entities/config.entity';
 import { TranscriptionEntity } from 'src/app/services/api/entities/transcription.entity';
 import { AppState } from 'src/app/store/app.state';
 import * as configSelectors from '../../../../../../../../../store/selectors/config.selector';
@@ -59,7 +59,7 @@ import { CreateTranscriptionDialogComponent } from '../../../create-transcriptio
 })
 export class FromMediaTranscriptionComponent {
   public asrServices$ = this.store.select(configSelectors.asrServiceConfig);
-  public asrLanguages$: Observable<Language[] | undefined>;
+  public asrLanguages$: Observable<LanguageShort[] | undefined>;
 
   @Output() loadingEvent = new EventEmitter<boolean>();
 

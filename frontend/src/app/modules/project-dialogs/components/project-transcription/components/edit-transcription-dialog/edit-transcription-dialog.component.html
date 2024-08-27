@@ -12,23 +12,18 @@
   </div>
 </div>
 <mat-dialog-content>
-  <form [formGroup]="transcriptionEditGroup" (ngSubmit)="onEditTranscription()">
+  <form [formGroup]="transcriptionEditGroup">
     <div class="main-wrapper">
-      <mat-form-field class="title">
-        <mat-label i18n="@@editTranscriptionModalTitleLabel">Title</mat-label>
-        <input matInput formControlName="title" />
-        <mat-error i18n="@@editTranscriptionModalTitleError"
-          >Add a title to the transcription</mat-error
-        >
-      </mat-form-field>
       <mat-form-field>
         <mat-label i18n="@@editTranscriptionModalLanguageLabel"
           >Language</mat-label
         >
         <mat-select formControlName="language">
-          @for (language of languages; track language) {
+          @for (language of languages$ | ngrxPush; track language) {
           <mat-option [value]="language.code"
-            >{{ language.name }} ({{ language.code }})</mat-option
+            >{{ language.code | writtenOutLanguage }} ({{
+              language.code
+            }})</mat-option
           >
           }
         </mat-select>
@@ -36,17 +31,21 @@
           >Select a language</mat-error
         >
       </mat-form-field>
-    </div>
-    <div class="submit-btn-wrapper">
-      <button
-        mat-raised-button
-        color="primary"
-        type="submit"
-        [disabled]="!transcriptionEditGroup.valid"
-        i18n="@@editTranscriptionModalSaveButton"
-      >
-        Save
-      </button>
+      <mat-form-field class="title">
+        <mat-label i18n="@@editTranscriptionModalTitleLabel">Title</mat-label>
+        <input matInput formControlName="title" />
+      </mat-form-field>
     </div>
   </form>
 </mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button
+    mat-raised-button
+    color="primary"
+    [disabled]="!transcriptionEditGroup.valid"
+    i18n="@@editTranscriptionModalSaveButton"
+    (click)="onEditTranscription()"
+  >
+    Save
+  </button>
+</mat-dialog-actions>

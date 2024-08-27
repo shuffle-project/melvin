@@ -5,26 +5,38 @@ import { Pipe, PipeTransform } from '@angular/core';
   standalone: true,
 })
 export class WrittenOutLanguagePipe implements PipeTransform {
-  transform(languageCode: string) {
+  transform(languageCode: string, title: string = '') {
+    let localizeLanguage = '';
     switch (languageCode) {
       case 'de-DE':
       case 'de':
-        return $localize`:@@writtenLanguageDE-DE:German`;
+        localizeLanguage = $localize`:@@writtenLanguageDE-DE:German`;
+        break;
       case 'en':
-        return $localize`:@@writtenLanguageEN:English`;
+        localizeLanguage = $localize`:@@writtenLanguageEN:English`;
+        break;
       case 'en-GB':
-        return $localize`:@@writtenLanguageEN-GB:English (GB)`;
+        localizeLanguage = $localize`:@@writtenLanguageEN-GB:English (GB)`;
+        break;
       case 'en-US':
-        return $localize`:@@writtenLanguageEN-US:English (US)`;
+        localizeLanguage = $localize`:@@writtenLanguageEN-US:English (US)`;
+        break;
       case 'es-ES':
       case 'es':
-        return $localize`:@@writtenLanguageES-ES:Spanish`;
+        localizeLanguage = $localize`:@@writtenLanguageES-ES:Spanish`;
+        break;
       case 'fr-FR':
       case 'fr':
-        return $localize`:@@writtenLanguageFR-FR:French`;
+        localizeLanguage = $localize`:@@writtenLanguageFR-FR:French`;
+        break;
       default:
-        return languageCode;
-      // return $localize`:@@writtenLanguageUnknown:Unknown`;
+        localizeLanguage = languageCode;
+    }
+
+    if (title) {
+      return `${localizeLanguage} [${title}]`;
+    } else {
+      return `${localizeLanguage}`;
     }
   }
 }

@@ -44,6 +44,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { LetDirective, PushPipe } from '@ngrx/component';
 import { DeleteConfirmationService } from 'src/app/components/delete-confirmation-dialog/delete-confirmation.service';
 import { DialogProjectTranscriptionComponent } from 'src/app/modules/project-dialogs/dialog-project-transcription/dialog-project-transcription.component';
+import { WrittenOutLanguagePipe } from 'src/app/pipes/written-out-language-pipe/written-out-language.pipe';
 import { HeaderComponent } from '../../../components/header/header.component';
 import * as projectsSelectors from '../../../store/selectors/projects.selector';
 import { CaptionsComponent } from '../editor/components/captions/captions.component';
@@ -85,6 +86,7 @@ import { TiptapEditorComponent } from './tiptap-editor/tiptap-editor.component';
     DurationPipe,
     FeatureEnabledPipe,
     TiptapEditorComponent,
+    WrittenOutLanguagePipe,
   ],
 })
 export class FulltextEditorComponent implements OnInit, OnDestroy {

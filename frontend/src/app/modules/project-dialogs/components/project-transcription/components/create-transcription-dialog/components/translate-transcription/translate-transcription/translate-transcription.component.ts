@@ -21,7 +21,7 @@ import {
   TranslateVendors,
 } from 'src/app/services/api/dto/create-transcription.dto';
 import {
-  Language,
+  LanguageShort,
   TranslationServiceConfig,
 } from 'src/app/services/api/entities/config.entity';
 import { TranscriptionEntity } from 'src/app/services/api/entities/transcription.entity';
@@ -88,7 +88,7 @@ export class TranslateTranscriptionComponent {
   public translationServices$ = this.store.select(
     configSelectors.translationServiceConfig
   );
-  public translationLanguages$: Observable<Language[] | undefined>;
+  public translationLanguages$: Observable<LanguageShort[] | undefined>;
 
   transcriptionGroup = new FormGroup({
     title: new FormControl<string>('', {
