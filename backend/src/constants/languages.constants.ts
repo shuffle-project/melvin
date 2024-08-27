@@ -1,26 +1,29 @@
 import { Language } from 'src/app.interfaces';
 
 export const LANGUAGES: Language[] = [
-  {
-    code: 'ab',
-    englishName: 'Abkhazian',
-    germanName: 'Abchasisch',
-  },
-  {
-    code: 'aa',
-    englishName: 'Afar',
-    germanName: 'Afar',
-  },
+  // no whisper support
+  // {
+  //   code: 'ab',
+  //   englishName: 'Abkhazian',
+  //   germanName: 'Abchasisch',
+  // },
+  // no whisper support
+  // {
+  //   code: 'aa',
+  //   englishName: 'Afar',
+  //   germanName: 'Afar',
+  // },
   {
     code: 'af',
     englishName: 'Afrikaans',
     germanName: 'Afrikaans',
   },
-  {
-    code: 'ak',
-    englishName: 'Akan',
-    germanName: 'Akan',
-  },
+  // no whisper support
+  // {
+  //   code: 'ak',
+  //   englishName: 'Akan',
+  //   germanName: 'Akan',
+  // },
   {
     code: 'sq',
     englishName: 'Albanian',
@@ -36,11 +39,12 @@ export const LANGUAGES: Language[] = [
     englishName: 'Arabic',
     germanName: 'Arabisch',
   },
-  {
-    code: 'an',
-    englishName: 'Aragonese',
-    germanName: 'Aragonesisch',
-  },
+  // no whisper support
+  // {
+  //   code: 'an',
+  //   englishName: 'Aragonese',
+  //   germanName: 'Aragonesisch',
+  // },
   {
     code: 'hy',
     englishName: 'Armenian',
@@ -51,31 +55,35 @@ export const LANGUAGES: Language[] = [
     englishName: 'Assamese',
     germanName: 'Assamesisch',
   },
-  {
-    code: 'av',
-    englishName: 'Avaric',
-    germanName: 'Avarisch',
-  },
-  {
-    code: 'ae',
-    englishName: 'Avestan',
-    germanName: 'Avestisch',
-  },
-  {
-    code: 'ay',
-    englishName: 'Aymara',
-    germanName: 'Aymara',
-  },
+  // no whisper support
+  // {
+  //   code: 'av',
+  //   englishName: 'Avaric',
+  //   germanName: 'Avarisch',
+  // },
+  // no whisper support
+  // {
+  //   code: 'ae',
+  //   englishName: 'Avestan',
+  //   germanName: 'Avestisch',
+  // },
+  // no whisper support
+  // {
+  //   code: 'ay',
+  //   englishName: 'Aymara',
+  //   germanName: 'Aymara',
+  // },
   {
     code: 'az',
     englishName: 'Azerbaijani',
     germanName: 'Aserbaidschanisch',
   },
-  {
-    code: 'bm',
-    englishName: 'Bambara',
-    germanName: 'Bambara',
-  },
+  // no whisper support
+  // {
+  //   code: 'bm',
+  //   englishName: 'Bambara',
+  //   germanName: 'Bambara',
+  // },
   {
     code: 'ba',
     englishName: 'Bashkir',
@@ -96,11 +104,12 @@ export const LANGUAGES: Language[] = [
     englishName: 'Bengali',
     germanName: 'Bengalisch',
   },
-  {
-    code: 'bi',
-    englishName: 'Bislama',
-    germanName: 'Bislama',
-  },
+  // no whisper support
+  // {
+  //   code: 'bi',
+  //   englishName: 'Bislama',
+  //   germanName: 'Bislama',
+  // },
   {
     code: 'bs',
     englishName: 'Bosnian',
@@ -126,51 +135,59 @@ export const LANGUAGES: Language[] = [
     englishName: 'Catalan, Valencian',
     germanName: 'Katalanisch, Valencianisch',
   },
-  {
-    code: 'ch',
-    englishName: 'Chamorro',
-    germanName: 'Chamorro',
-  },
-  {
-    code: 'ce',
-    englishName: 'Chechen',
-    germanName: 'Tschetschenisch',
-  },
-  {
-    code: 'ny',
-    englishName: 'Chichewa, Chewa, Nyanja',
-    germanName: 'Chichewa',
-  },
+  // no whisper support
+  // {
+  //   code: 'ch',
+  //   englishName: 'Chamorro',
+  //   germanName: 'Chamorro',
+  // },
+  // no whisper support
+  // {
+  //   code: 'ce',
+  //   englishName: 'Chechen',
+  //   germanName: 'Tschetschenisch',
+  // },
+  // no whisper support
+  // {
+  //   code: 'ny',
+  //   englishName: 'Chichewa, Chewa, Nyanja',
+  //   germanName: 'Chichewa',
+  // },
   {
     code: 'zh',
     englishName: 'Chinese',
     germanName: 'Chinesisch',
   },
-  {
-    code: 'cu',
-    englishName: 'Church Slavonic, Old Slavonic, Old Church Slavonic',
-    germanName: 'Kirchenslawisch, Altkirchenslawisch',
-  },
-  {
-    code: 'cv',
-    englishName: 'Chuvash',
-    germanName: 'Tschuwaschisch',
-  },
-  {
-    code: 'kw',
-    englishName: 'Cornish',
-    germanName: 'Kornisch',
-  },
-  {
-    code: 'co',
-    englishName: 'Corsican',
-    germanName: 'Korsisch',
-  },
-  {
-    code: 'cr',
-    englishName: 'Cree',
-    germanName: 'Cree',
-  },
+  // no whisper support
+  // {
+  //   code: 'cu',
+  //   englishName: 'Church Slavonic, Old Slavonic, Old Church Slavonic',
+  //   germanName: 'Kirchenslawisch, Altkirchenslawisch',
+  // },
+  // no whisper support
+  // {
+  //   code: 'cv',
+  //   englishName: 'Chuvash',
+  //   germanName: 'Tschuwaschisch',
+  // },
+  // no whisper support
+  // {
+  //   code: 'kw',
+  //   englishName: 'Cornish',
+  //   germanName: 'Kornisch',
+  // },
+  // no whisper support
+  // {
+  //   code: 'co',
+  //   englishName: 'Corsican',
+  //   germanName: 'Korsisch',
+  // },
+  // no whisper support
+  // {
+  //   code: 'cr',
+  //   englishName: 'Cree',
+  //   germanName: 'Cree',
+  // },
   {
     code: 'hr',
     englishName: 'Croatian',
@@ -186,21 +203,23 @@ export const LANGUAGES: Language[] = [
     englishName: 'Danish',
     germanName: 'Dänisch',
   },
-  {
-    code: 'dv',
-    englishName: 'Divehi, Dhivehi, Maldivian',
-    germanName: 'Dhivehi',
-  },
+  // no whisper support
+  // {
+  //   code: 'dv',
+  //   englishName: 'Divehi, Dhivehi, Maldivian',
+  //   germanName: 'Dhivehi',
+  // },
   {
     code: 'nl',
     englishName: 'Dutch, Flemish',
     germanName: 'Niederländisch, Belgisches Niederländisch',
   },
-  {
-    code: 'dz',
-    englishName: 'Dzongkha',
-    germanName: 'Dzongkha',
-  },
+  // no whisper support
+  // {
+  //   code: 'dz',
+  //   englishName: 'Dzongkha',
+  //   germanName: 'Dzongkha',
+  // },
   {
     code: 'en-GB',
     englishName: 'English (British)',
@@ -211,11 +230,12 @@ export const LANGUAGES: Language[] = [
     englishName: 'English (American)',
     germanName: 'Englisch (Amerikanisch)',
   },
-  {
-    code: 'eo',
-    englishName: 'Esperanto',
-    germanName: 'Esperanto',
-  },
+  // no whisper support
+  // {
+  //   code: 'eo',
+  //   englishName: 'Esperanto',
+  //   germanName: 'Esperanto',
+  // },
   {
     code: 'et',
     englishName: 'Estonian',
@@ -231,11 +251,12 @@ export const LANGUAGES: Language[] = [
     englishName: 'Faroese',
     germanName: 'Färöisch',
   },
-  {
-    code: 'fj',
-    englishName: 'Fijian',
-    germanName: 'Fidschi',
-  },
+  // no whisper support
+  // {
+  //   code: 'fj',
+  //   englishName: 'Fijian',
+  //   germanName: 'Fidschi',
+  // },
   {
     code: 'fi',
     englishName: 'Finnish',
@@ -246,31 +267,35 @@ export const LANGUAGES: Language[] = [
     englishName: 'French',
     germanName: 'Französisch',
   },
-  {
-    code: 'fy',
-    englishName: 'Western Frisian',
-    germanName: 'Westfriesisch',
-  },
-  {
-    code: 'ff',
-    englishName: 'Fulah',
-    germanName: 'Fulfulde',
-  },
-  {
-    code: 'gd',
-    englishName: 'Gaelic, Scottish Gaelic',
-    germanName: 'Schottisch-gälisch',
-  },
+  // no whisper support
+  // {
+  //   code: 'fy',
+  //   englishName: 'Western Frisian',
+  //   germanName: 'Westfriesisch',
+  // },
+  // no whisper support
+  // {
+  //   code: 'ff',
+  //   englishName: 'Fulah',
+  //   germanName: 'Fulfulde',
+  // },
+  // no whisper support
+  // {
+  //   code: 'gd',
+  //   englishName: 'Gaelic, Scottish Gaelic',
+  //   germanName: 'Schottisch-gälisch',
+  // },
   {
     code: 'gl',
     englishName: 'Galician',
     germanName: 'Galicisch, Galegisch',
   },
-  {
-    code: 'lg',
-    englishName: 'Ganda',
-    germanName: 'Luganda',
-  },
+  // no whisper support
+  // {
+  //   code: 'lg',
+  //   englishName: 'Ganda',
+  //   germanName: 'Luganda',
+  // },
   {
     code: 'ka',
     englishName: 'Georgian',
@@ -286,16 +311,18 @@ export const LANGUAGES: Language[] = [
     englishName: 'Greek',
     germanName: 'Griechisch',
   },
-  {
-    code: 'kl',
-    englishName: 'Kalaallisut, Greenlandic',
-    germanName: 'Grönländisch, Kalaallisut',
-  },
-  {
-    code: 'gn',
-    englishName: 'Guarani',
-    germanName: 'Guaraní',
-  },
+  // no whisper support
+  // {
+  //   code: 'kl',
+  //   englishName: 'Kalaallisut, Greenlandic',
+  //   germanName: 'Grönländisch, Kalaallisut',
+  // },
+  // no whisper support
+  // {
+  //   code: 'gn',
+  //   englishName: 'Guarani',
+  //   germanName: 'Guaraní',
+  // },
   {
     code: 'gu',
     englishName: 'Gujarati',
@@ -316,21 +343,23 @@ export const LANGUAGES: Language[] = [
     englishName: 'Hebrew',
     germanName: 'Hebräisch',
   },
-  {
-    code: 'hz',
-    englishName: 'Herero',
-    germanName: 'Otjiherero',
-  },
+  // no whisper support
+  // {
+  //   code: 'hz',
+  //   englishName: 'Herero',
+  //   germanName: 'Otjiherero',
+  // },
   {
     code: 'hi',
     englishName: 'Hindi',
     germanName: 'Hindi',
   },
-  {
-    code: 'ho',
-    englishName: 'Hiri Motu',
-    germanName: 'Hiri Motu',
-  },
+  // no whisper support
+  // {
+  //   code: 'ho',
+  //   englishName: 'Hiri Motu',
+  //   germanName: 'Hiri Motu',
+  // },
   {
     code: 'hu',
     englishName: 'Hungarian',
@@ -341,46 +370,53 @@ export const LANGUAGES: Language[] = [
     englishName: 'Icelandic',
     germanName: 'Isländisch',
   },
-  {
-    code: 'io',
-    englishName: 'Ido',
-    germanName: 'Ido',
-  },
-  {
-    code: 'ig',
-    englishName: 'Igbo',
-    germanName: 'Igbo',
-  },
+  // no whisper support
+  // {
+  //   code: 'io',
+  //   englishName: 'Ido',
+  //   germanName: 'Ido',
+  // },
+  // no whisper support
+  // {
+  //   code: 'ig',
+  //   englishName: 'Igbo',
+  //   germanName: 'Igbo',
+  // },
   {
     code: 'id',
     englishName: 'Indonesian',
     germanName: 'Indonesisch',
   },
-  {
-    code: 'ia',
-    englishName: 'Interlingua',
-    germanName: 'Interlingua',
-  },
-  {
-    code: 'ie',
-    englishName: 'Interlingue',
-    germanName: 'Interlingue',
-  },
-  {
-    code: 'iu',
-    englishName: 'Inuktitut',
-    germanName: 'Inuktitut',
-  },
-  {
-    code: 'ik',
-    englishName: 'Inupiaq',
-    germanName: 'Inupiaq',
-  },
-  {
-    code: 'ga',
-    englishName: 'Irish',
-    germanName: 'Irisch',
-  },
+  // no whisper support
+  // {
+  //   code: 'ia',
+  //   englishName: 'Interlingua',
+  //   germanName: 'Interlingua',
+  // },
+  // no whisper support
+  // {
+  //   code: 'ie',
+  //   englishName: 'Interlingue',
+  //   germanName: 'Interlingue',
+  // },
+  // no whisper support
+  // {
+  //   code: 'iu',
+  //   englishName: 'Inuktitut',
+  //   germanName: 'Inuktitut',
+  // },
+  // no whisper support
+  // {
+  //   code: 'ik',
+  //   englishName: 'Inupiaq',
+  //   germanName: 'Inupiaq',
+  // },
+  // no whisper support
+  // {
+  //   code: 'ga',
+  //   englishName: 'Irish',
+  //   germanName: 'Irisch',
+  // },
   {
     code: 'it',
     englishName: 'Italian',
@@ -391,8 +427,14 @@ export const LANGUAGES: Language[] = [
     englishName: 'Japanese',
     germanName: 'Japanisch',
   },
+  // jv is the new short code for javanese, whisper only supports old one
+  // {
+  //   code: 'jv',
+  //   englishName: 'Javanese',
+  //   germanName: 'Javanisch',
+  // },
   {
-    code: 'jv',
+    code: 'jw',
     englishName: 'Javanese',
     germanName: 'Javanisch',
   },
@@ -401,16 +443,18 @@ export const LANGUAGES: Language[] = [
     englishName: 'Kannada',
     germanName: 'Kannada',
   },
-  {
-    code: 'kr',
-    englishName: 'Kanuri',
-    germanName: 'Kanuri',
-  },
-  {
-    code: 'ks',
-    englishName: 'Kashmiri',
-    germanName: 'Kashmiri',
-  },
+  // no whisper support
+  // {
+  //   code: 'kr',
+  //   englishName: 'Kanuri',
+  //   germanName: 'Kanuri',
+  // },
+  // no whisper support
+  // {
+  //   code: 'ks',
+  //   englishName: 'Kashmiri',
+  //   germanName: 'Kashmiri',
+  // },
   {
     code: 'kk',
     englishName: 'Kazakh',
@@ -421,66 +465,75 @@ export const LANGUAGES: Language[] = [
     englishName: 'Central Khmer',
     germanName: 'Khmer',
   },
-  {
-    code: 'ki',
-    englishName: 'Kikuyu, Gikuyu',
-    germanName: 'Kikuyu',
-  },
-  {
-    code: 'rw',
-    englishName: 'Kinyarwanda',
-    germanName: 'Kinyarwanda, Ruandisch',
-  },
-  {
-    code: 'ky',
-    englishName: 'Kirghiz, Kyrgyz',
-    germanName: 'Kirgisisch',
-  },
-  {
-    code: 'kv',
-    englishName: 'Komi',
-    germanName: 'Komi',
-  },
-  {
-    code: 'kg',
-    englishName: 'Kongo',
-    germanName: 'Kikongo',
-  },
+  // no whisper support
+  // {
+  //   code: 'ki',
+  //   englishName: 'Kikuyu, Gikuyu',
+  //   germanName: 'Kikuyu',
+  // },
+  // no whisper support
+  // {
+  //   code: 'rw',
+  //   englishName: 'Kinyarwanda',
+  //   germanName: 'Kinyarwanda, Ruandisch',
+  // },
+  // no whisper support
+  // {
+  //   code: 'ky',
+  //   englishName: 'Kirghiz, Kyrgyz',
+  //   germanName: 'Kirgisisch',
+  // },
+  // no whisper support
+  // {
+  //   code: 'kv',
+  //   englishName: 'Komi',
+  //   germanName: 'Komi',
+  // },
+  // no whisper support
+  // {
+  //   code: 'kg',
+  //   englishName: 'Kongo',
+  //   germanName: 'Kikongo',
+  // },
   {
     code: 'ko',
     englishName: 'Korean',
     germanName: 'Koreanisch',
   },
-  {
-    code: 'kj',
-    englishName: 'Kuanyama, Kwanyama',
-    germanName: 'oshiKwanyama',
-  },
-  {
-    code: 'ku',
-    englishName: 'Kurdish',
-    germanName: 'Kurdisch',
-  },
+  // no whisper support
+  // {
+  //   code: 'kj',
+  //   englishName: 'Kuanyama, Kwanyama',
+  //   germanName: 'oshiKwanyama',
+  // },
+  // no whisper support
+  // {
+  //   code: 'ku',
+  //   englishName: 'Kurdish',
+  //   germanName: 'Kurdisch',
+  // },
   {
     code: 'lo',
     englishName: 'Lao',
     germanName: 'Laotisch',
   },
-  {
-    code: 'la',
-    englishName: 'Latin',
-    germanName: 'Latein',
-  },
+  // ancient language
+  // {
+  //   code: 'la',
+  //   englishName: 'Latin',
+  //   germanName: 'Latein',
+  // },
   {
     code: 'lv',
     englishName: 'Latvian',
     germanName: 'Lettisch',
   },
-  {
-    code: 'li',
-    englishName: 'Limburgan, Limburger, Limburgish',
-    germanName: 'Limburgisch, Südniederfränkisch',
-  },
+  // no whisper support
+  // {
+  //   code: 'li',
+  //   englishName: 'Limburgan, Limburger, Limburgish',
+  //   germanName: 'Limburgisch, Südniederfränkisch',
+  // },
   {
     code: 'ln',
     englishName: 'Lingala',
@@ -491,11 +544,12 @@ export const LANGUAGES: Language[] = [
     englishName: 'Lithuanian',
     germanName: 'Litauisch',
   },
-  {
-    code: 'lu',
-    englishName: 'Luba-Katanga',
-    germanName: 'Kiluba',
-  },
+  // no whisper support
+  // {
+  //   code: 'lu',
+  //   englishName: 'Luba-Katanga',
+  //   germanName: 'Kiluba',
+  // },
   {
     code: 'lb',
     englishName: 'Luxembourgish, Letzeburgesch',
@@ -526,11 +580,12 @@ export const LANGUAGES: Language[] = [
     englishName: 'Maltese',
     germanName: 'Maltesisch',
   },
-  {
-    code: 'gv',
-    englishName: 'Manx',
-    germanName: 'Manx',
-  },
+  // no whisper support
+  // {
+  //   code: 'gv',
+  //   englishName: 'Manx',
+  //   germanName: 'Manx',
+  // },
   {
     code: 'mi',
     englishName: 'Maori',
@@ -541,41 +596,47 @@ export const LANGUAGES: Language[] = [
     englishName: 'Marathi',
     germanName: 'Marathi',
   },
-  {
-    code: 'mh',
-    englishName: 'Marshallese',
-    germanName: 'Marshallesisch',
-  },
+  // no whisper support
+  // {
+  //   code: 'mh',
+  //   englishName: 'Marshallese',
+  //   germanName: 'Marshallesisch',
+  // },
   {
     code: 'mn',
     englishName: 'Mongolian',
     germanName: 'Mongolisch',
   },
-  {
-    code: 'na',
-    englishName: 'Nauru',
-    germanName: 'Nauruisch',
-  },
-  {
-    code: 'nv',
-    englishName: 'Navajo, Navaho',
-    germanName: 'Navajo',
-  },
-  {
-    code: 'nd',
-    englishName: 'North Ndebele',
-    germanName: 'Nord-Ndebele',
-  },
-  {
-    code: 'nr',
-    englishName: 'South Ndebele',
-    germanName: 'Süd-Ndebele',
-  },
-  {
-    code: 'ng',
-    englishName: 'Ndonga',
-    germanName: 'Ndonga',
-  },
+  // no whisper support
+  // {
+  //   code: 'na',
+  //   englishName: 'Nauru',
+  //   germanName: 'Nauruisch',
+  // },
+  // no whisper support
+  // {
+  //   code: 'nv',
+  //   englishName: 'Navajo, Navaho',
+  //   germanName: 'Navajo',
+  // },
+  // no whisper support
+  // {
+  //   code: 'nd',
+  //   englishName: 'North Ndebele',
+  //   germanName: 'Nord-Ndebele',
+  // },
+  // no whisper support
+  // {
+  //   code: 'nr',
+  //   englishName: 'South Ndebele',
+  //   germanName: 'Süd-Ndebele',
+  // },
+  // no whisper support
+  // {
+  //   code: 'ng',
+  //   englishName: 'Ndonga',
+  //   germanName: 'Ndonga',
+  // },
   {
     code: 'ne',
     englishName: 'Nepali',
@@ -586,11 +647,12 @@ export const LANGUAGES: Language[] = [
     englishName: 'Norwegian',
     germanName: 'Norwegisch',
   },
-  {
-    code: 'nb',
-    englishName: 'Norwegian Bokmål',
-    germanName: 'Bokmål',
-  },
+  // no whisper support
+  // {
+  //   code: 'nb',
+  //   englishName: 'Norwegian Bokmål',
+  //   germanName: 'Bokmål',
+  // },
   {
     code: 'nn',
     englishName: 'Norwegian Nynorsk',
@@ -601,31 +663,36 @@ export const LANGUAGES: Language[] = [
     englishName: 'Occitan',
     germanName: 'Okzitanisch',
   },
-  {
-    code: 'oj',
-    englishName: 'Ojibwa',
-    germanName: 'Ojibwe',
-  },
-  {
-    code: 'or',
-    englishName: 'Oriya',
-    germanName: 'Oriya',
-  },
-  {
-    code: 'om',
-    englishName: 'Oromo',
-    germanName: 'Oromo',
-  },
-  {
-    code: 'os',
-    englishName: 'Ossetian, Ossetic',
-    germanName: 'Ossetisch',
-  },
-  {
-    code: 'pi',
-    englishName: 'Pali',
-    germanName: 'Pali',
-  },
+  // no whisper support
+  // {
+  //   code: 'oj',
+  //   englishName: 'Ojibwa',
+  //   germanName: 'Ojibwe',
+  // },
+  // no whisper support
+  // {
+  //   code: 'or',
+  //   englishName: 'Oriya',
+  //   germanName: 'Oriya',
+  // },
+  // no whisper support
+  // {
+  //   code: 'om',
+  //   englishName: 'Oromo',
+  //   germanName: 'Oromo',
+  // },
+  // no whisper support
+  // {
+  //   code: 'os',
+  //   englishName: 'Ossetian, Ossetic',
+  //   germanName: 'Ossetisch',
+  // },
+  // no whisper support
+  // {
+  //   code: 'pi',
+  //   englishName: 'Pali',
+  //   germanName: 'Pali',
+  // },
   {
     code: 'ps',
     englishName: 'Pashto, Pushto',
@@ -651,56 +718,64 @@ export const LANGUAGES: Language[] = [
     englishName: 'Punjabi, Panjabi',
     germanName: 'Panjabi, Pandschabi',
   },
-  {
-    code: 'qu',
-    englishName: 'Quechua',
-    germanName: 'Quechua',
-  },
+  // no whisper support
+  // {
+  //   code: 'qu',
+  //   englishName: 'Quechua',
+  //   germanName: 'Quechua',
+  // },
   {
     code: 'ro',
     englishName: 'Romanian, Moldavian, Moldovan',
     germanName: 'Rumänisch',
   },
-  {
-    code: 'rm',
-    englishName: 'Romansh',
-    germanName: 'Bündnerromanisch, Romanisch',
-  },
-  {
-    code: 'rn',
-    englishName: 'Rundi',
-    germanName: 'Kirundi',
-  },
+  // no whisper support
+  // {
+  //   code: 'rm',
+  //   englishName: 'Romansh',
+  //   germanName: 'Bündnerromanisch, Romanisch',
+  // },
+  // no whisper support
+  // {
+  //   code: 'rn',
+  //   englishName: 'Rundi',
+  //   germanName: 'Kirundi',
+  // },
   {
     code: 'ru',
     englishName: 'Russian',
     germanName: 'Russisch',
   },
-  {
-    code: 'se',
-    englishName: 'Northern Sami',
-    germanName: 'Nordsamisch',
-  },
-  {
-    code: 'sm',
-    englishName: 'Samoan',
-    germanName: 'Samoanisch',
-  },
-  {
-    code: 'sg',
-    englishName: 'Sango',
-    germanName: 'Sango',
-  },
-  {
-    code: 'sa',
-    englishName: 'Sanskrit',
-    germanName: 'Sanskrit',
-  },
-  {
-    code: 'sc',
-    englishName: 'Sardinian',
-    germanName: 'Sardisch',
-  },
+  // no whisper support
+  // {
+  //   code: 'se',
+  //   englishName: 'Northern Sami',
+  //   germanName: 'Nordsamisch',
+  // },
+  // no whisper support
+  // {
+  //   code: 'sm',
+  //   englishName: 'Samoan',
+  //   germanName: 'Samoanisch',
+  // },
+  // no whisper support
+  // {
+  //   code: 'sg',
+  //   englishName: 'Sango',
+  //   germanName: 'Sango',
+  // },
+  // ancient language
+  // {
+  //   code: 'sa',
+  //   englishName: 'Sanskrit',
+  //   germanName: 'Sanskrit',
+  // },
+  // no whisper support
+  // {
+  //   code: 'sc',
+  //   englishName: 'Sardinian',
+  //   germanName: 'Sardisch',
+  // },
   {
     code: 'sr',
     englishName: 'Serbian',
@@ -736,11 +811,12 @@ export const LANGUAGES: Language[] = [
     englishName: 'Somali',
     germanName: 'Somali',
   },
-  {
-    code: 'st',
-    englishName: 'Southern Sotho',
-    germanName: 'Sesotho, Süd-Sotho',
-  },
+  // no whisper support
+  // {
+  //   code: 'st',
+  //   englishName: 'Southern Sotho',
+  //   germanName: 'Sesotho, Süd-Sotho',
+  // },
   {
     code: 'es',
     englishName: 'Spanish, Castilian',
@@ -756,11 +832,12 @@ export const LANGUAGES: Language[] = [
     englishName: 'Swahili',
     germanName: 'Swahili',
   },
-  {
-    code: 'ss',
-    englishName: 'Swati',
-    germanName: 'Siswati',
-  },
+  // no whisper support
+  // {
+  //   code: 'ss',
+  //   englishName: 'Swati',
+  //   germanName: 'Siswati',
+  // },
   {
     code: 'sv',
     englishName: 'Swedish',
@@ -771,16 +848,18 @@ export const LANGUAGES: Language[] = [
     englishName: 'Tagalog',
     germanName: 'Tagalog',
   },
-  {
-    code: 'ty',
-    englishName: 'Tahitian',
-    germanName: 'Tahitianisch, Tahitisch',
-  },
-  {
-    code: 'tg',
-    englishName: 'Tajik',
-    germanName: 'Tadschikisch',
-  },
+  // no whisper support
+  // {
+  //   code: 'ty',
+  //   englishName: 'Tahitian',
+  //   germanName: 'Tahitianisch, Tahitisch',
+  // },
+  // no whisper support
+  // {
+  //   code: 'tg',
+  //   englishName: 'Tajik',
+  //   germanName: 'Tadschikisch',
+  // },
   {
     code: 'ta',
     englishName: 'Tamil',
@@ -806,26 +885,30 @@ export const LANGUAGES: Language[] = [
     englishName: 'Tibetan',
     germanName: 'Tibetisch',
   },
-  {
-    code: 'ti',
-    englishName: 'Tigrinya',
-    germanName: 'Tigrinya',
-  },
-  {
-    code: 'to',
-    englishName: 'Tonga (Tonga Islands)',
-    germanName: 'Tongaisch',
-  },
-  {
-    code: 'ts',
-    englishName: 'Tsonga',
-    germanName: 'Xitsonga',
-  },
-  {
-    code: 'tn',
-    englishName: 'Tswana',
-    germanName: 'Setswana',
-  },
+  // no whisper support
+  // {
+  //   code: 'ti',
+  //   englishName: 'Tigrinya',
+  //   germanName: 'Tigrinya',
+  // },
+  // no whisper support
+  // {
+  //   code: 'to',
+  //   englishName: 'Tonga (Tonga Islands)',
+  //   germanName: 'Tongaisch',
+  // },
+  // no whisper support
+  // {
+  //   code: 'ts',
+  //   englishName: 'Tsonga',
+  //   germanName: 'Xitsonga',
+  // },
+  // no whisper support
+  // {
+  //   code: 'tn',
+  //   englishName: 'Tswana',
+  //   germanName: 'Setswana',
+  // },
   {
     code: 'tr',
     englishName: 'Turkish',
@@ -836,16 +919,18 @@ export const LANGUAGES: Language[] = [
     englishName: 'Turkmen',
     germanName: 'Turkmenisch',
   },
-  {
-    code: 'tw',
-    englishName: 'Twi',
-    germanName: 'Twi',
-  },
-  {
-    code: 'ug',
-    englishName: 'Uighur, Uyghur',
-    germanName: 'Uigurisch',
-  },
+  // no whisper support
+  // {
+  //   code: 'tw',
+  //   englishName: 'Twi',
+  //   germanName: 'Twi',
+  // },
+  // no whisper support
+  // {
+  //   code: 'ug',
+  //   englishName: 'Uighur, Uyghur',
+  //   germanName: 'Uigurisch',
+  // },
   {
     code: 'uk',
     englishName: 'Ukrainian',
@@ -861,46 +946,52 @@ export const LANGUAGES: Language[] = [
     englishName: 'Uzbek',
     germanName: 'Usbekisch',
   },
-  {
-    code: 've',
-    englishName: 'Venda',
-    germanName: 'Tshivenda',
-  },
+  // no whisper support
+  // {
+  //   code: 've',
+  //   englishName: 'Venda',
+  //   germanName: 'Tshivenda',
+  // },
   {
     code: 'vi',
     englishName: 'Vietnamese',
     germanName: 'Vietnamesisch',
   },
-  {
-    code: 'vo',
-    englishName: 'Volapük',
-    germanName: 'Volapük',
-  },
-  {
-    code: 'wa',
-    englishName: 'Walloon',
-    germanName: 'Wallonisch',
-  },
+  // no whisper support
+  // {
+  //   code: 'vo',
+  //   englishName: 'Volapük',
+  //   germanName: 'Volapük',
+  // },
+  // no whisper support
+  // {
+  //   code: 'wa',
+  //   englishName: 'Walloon',
+  //   germanName: 'Wallonisch',
+  // },
   {
     code: 'cy',
     englishName: 'Welsh',
     germanName: 'Walisisch',
   },
-  {
-    code: 'wo',
-    englishName: 'Wolof',
-    germanName: 'Wolof',
-  },
-  {
-    code: 'xh',
-    englishName: 'Xhosa',
-    germanName: 'isiXhosa',
-  },
-  {
-    code: 'ii',
-    englishName: 'Sichuan Yi, Nuosu',
-    germanName: 'Yi',
-  },
+  // no whisper support
+  // {
+  //   code: 'wo',
+  //   englishName: 'Wolof',
+  //   germanName: 'Wolof',
+  // },
+  // no whisper support
+  // {
+  //   code: 'xh',
+  //   englishName: 'Xhosa',
+  //   germanName: 'isiXhosa',
+  // },
+  // no whisper support
+  // {
+  //   code: 'ii',
+  //   englishName: 'Sichuan Yi, Nuosu',
+  //   germanName: 'Yi',
+  // },
   {
     code: 'yi',
     englishName: 'Yiddish',
@@ -911,16 +1002,18 @@ export const LANGUAGES: Language[] = [
     englishName: 'Yoruba',
     germanName: 'Yoruba',
   },
-  {
-    code: 'za',
-    englishName: 'Zhuang, Chuang',
-    germanName: 'Zhuang',
-  },
-  {
-    code: 'zu',
-    englishName: 'Zulu',
-    germanName: 'isiZulu',
-  },
+  // no whisper support
+  // {
+  //   code: 'za',
+  //   englishName: 'Zhuang, Chuang',
+  //   germanName: 'Zhuang',
+  // },
+  // no whisper support
+  // {
+  //   code: 'zu',
+  //   englishName: 'Zulu',
+  //   germanName: 'isiZulu',
+  // },
 ];
 
 export const ASR_TEST_LANGUGAGE: Language[] = [

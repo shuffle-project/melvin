@@ -126,8 +126,6 @@ export class DialogCreateProjectComponent implements OnDestroy, AfterViewInit {
       .select(configSelectors.getSupportedASRLanguages)
       .pipe(takeUntil(this.destroy$$))
       .subscribe((languages) => {
-        // this.languages = languages;
-
         this.languages = languages.map((language) => {
           return {
             code: language.code,

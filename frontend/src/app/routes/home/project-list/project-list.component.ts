@@ -288,7 +288,6 @@ export class ProjectListComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   onClickChangeStatus(newStatus: ProjectStatus, project: ProjectEntity) {
-    console.log(newStatus);
     this.store.dispatch(
       projectsActions.updateFromProjectList({
         updateProject: {
