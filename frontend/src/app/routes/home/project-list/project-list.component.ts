@@ -60,7 +60,6 @@ import * as projectsActions from '../../../store/actions/projects.actions';
 import * as authSelectors from '../../../store/selectors/auth.selector';
 import * as projectsSelectors from '../../../store/selectors/projects.selector';
 import { DialogCreateProjectComponent } from './dialog-create-project/dialog-create-project/dialog-create-project.component';
-
 @Component({
   selector: 'app-project-list',
   templateUrl: './project-list.component.html',
