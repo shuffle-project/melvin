@@ -15,7 +15,7 @@ import {
 } from '@angular/material/dialog';
 import { MatInputModule } from '@angular/material/input';
 import { Store } from '@ngrx/store';
-import { firstValueFrom } from 'rxjs';
+import { firstValueFrom, Subject } from 'rxjs';
 import { ProjectEntity } from 'src/app/services/api/entities/project.entity';
 import { TranscriptionEntity } from 'src/app/services/api/entities/transcription.entity';
 import { AppState } from 'src/app/store/app.state';
@@ -27,6 +27,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatSelectModule } from '@angular/material/select';
 import { PushPipe } from '@ngrx/component';
 import { DialogProjectTranscriptionComponent } from 'src/app/modules/project-dialogs/dialog-project-transcription/dialog-project-transcription.component';
+import { WrittenOutLanguagePipe } from 'src/app/pipes/written-out-language-pipe/written-out-language.pipe';
 import { LanguageService } from 'src/app/services/language/language.service';
 
 @Component({
@@ -44,11 +45,14 @@ import { LanguageService } from 'src/app/services/language/language.service';
     MatButtonModule,
     MatIconModule,
     PushPipe,
+    WrittenOutLanguagePipe,
   ],
 })
 export class EditTranscriptionDialogComponent implements OnInit {
   languages = this.languageService.getLocalizedLanguages();
+  languageName = '';
 
+  destroy$$ = new Subject<void>();
   transcriptionId: string;
   project!: ProjectEntity;
 
@@ -74,12 +78,19 @@ export class EditTranscriptionDialogComponent implements OnInit {
       transcription.language
     );
     this.transcriptionId = transcription.id;
+    this.languageName = this.languageService.getLocalizedLanguage(
+      transcription.language
+    );
   }
 
   async ngOnInit() {
     this.project = (await firstValueFrom(
       this.store.select(editorSelectors.selectProject)
     )) as ProjectEntity;
+  }
+
+  onSelectValueChange(languageCode: string) {
+    this.languageName = this.languageService.getLocalizedLanguage(languageCode);
   }
 
   onEditTranscription() {

@@ -1,37 +1,113 @@
-import { Component } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
 import { TranscriptionEntity } from 'src/app/services/api/entities/transcription.entity';
 import { AppState } from 'src/app/store/app.state';
 import * as transcriptionsSelectors from '../../../../store/selectors/transcriptions.selector';
-import { TranscriptionComponent } from './components/transcription/transcription.component';
 
+import { LiveAnnouncer } from '@angular/cdk/a11y';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource, MatTableModule } from '@angular/material/table';
+import { Router } from '@angular/router';
 import { LetDirective, PushPipe } from '@ngrx/component';
+import { firstValueFrom, lastValueFrom, Subject, take, takeUntil } from 'rxjs';
+import { FormatDatePipe } from 'src/app/pipes/format-date-pipe/format-date.pipe';
+import { WrittenOutLanguagePipe } from 'src/app/pipes/written-out-language-pipe/written-out-language.pipe';
+import { ApiService } from 'src/app/services/api/api.service';
+import { ProjectEntity } from 'src/app/services/api/entities/project.entity';
 import { DeleteConfirmationService } from '../../../../components/delete-confirmation-dialog/delete-confirmation.service';
+import * as transcriptionsActions from '../../../../store/actions/transcriptions.actions';
+import * as authSelectors from '../../../../store/selectors/auth.selector';
+import * as editorSelectors from '../../../../store/selectors/editor.selector';
 import { DialogProjectTranscriptionComponent } from '../../dialog-project-transcription/dialog-project-transcription.component';
 import { CreateTranscriptionDialogComponent } from './components/create-transcription-dialog/create-transcription-dialog.component';
-
+import { EditTranscriptionDialogComponent } from './components/edit-transcription-dialog/edit-transcription-dialog.component';
 @Component({
   selector: 'app-project-transcription',
   templateUrl: './project-transcription.component.html',
   styleUrls: ['./project-transcription.component.scss'],
   standalone: true,
-  imports: [MatIconModule, LetDirective, TranscriptionComponent, PushPipe],
+  imports: [
+    MatIconModule,
+    LetDirective,
+    PushPipe,
+    MatButtonModule,
+    MatTableModule,
+    WrittenOutLanguagePipe,
+    FormatDatePipe,
+    MatMenuModule,
+    MatDividerModule,
+  ],
 })
-export class ProjectTranscriptionComponent {
-  public transcriptionsList$: Observable<TranscriptionEntity[]>;
+export class ProjectTranscriptionComponent
+  implements AfterViewInit, OnDestroy, OnInit
+{
+  dataSource = new MatTableDataSource();
+  destroy$$ = new Subject<void>();
+
+  public project!: ProjectEntity;
+
+  public userId!: string | null;
+
+  @ViewChild(MatSort) sort!: MatSort;
+
+  displayedColumns: string[] = [
+    'language',
+    'title',
+    'lastEdited',
+    'createdBy',
+    'more',
+  ];
 
   constructor(
     private store: Store<AppState>,
     private dialogRefProjectTranscription: MatDialogRef<DialogProjectTranscriptionComponent>,
     private dialog: MatDialog,
-    private deleteService: DeleteConfirmationService
+    private deleteService: DeleteConfirmationService,
+    private liveAnnouncer: LiveAnnouncer,
+    private router: Router,
+    private api: ApiService
   ) {
-    this.transcriptionsList$ = this.store.select(
-      transcriptionsSelectors.selectTranscriptionList
+    this.store
+      .select(transcriptionsSelectors.selectTranscriptionList)
+      .pipe(takeUntil(this.destroy$$))
+      .subscribe((transcriptions) => {
+        this.dataSource.data = transcriptions;
+      });
+  }
+
+  async ngOnInit() {
+    this.userId = await lastValueFrom(
+      this.store.select(authSelectors.selectUserId).pipe(take(1))
     );
+
+    this.store
+      .select(editorSelectors.selectProject)
+      .pipe(takeUntil(this.destroy$$))
+      .subscribe((project) => {
+        if (project === null) {
+          return;
+        }
+        this.project = project;
+      });
+  }
+
+  ngAfterViewInit() {
+    this.dataSource.sort = this.sort;
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$$.next();
   }
 
   onClickAddTranscription() {
@@ -43,15 +119,43 @@ export class ProjectTranscriptionComponent {
     });
   }
 
-  onEventDeleteTranscription(
-    transcription: TranscriptionEntity,
-    transcriptionsLength: number
-  ) {
-    if (transcriptionsLength < 2) {
-      // TODO dont remove if there is just one transcription
-      return;
-    }
-
+  onClickDeleteTranscription(transcription: TranscriptionEntity) {
     this.deleteService.deleteTranscription(transcription);
+  }
+
+  onOpenTranscription(transcriptionId: string) {
+    this.router.navigate(['/home/editor', this.project.id, 'edit']);
+    this.store.dispatch(
+      transcriptionsActions.selectFromEditor({ transcriptionId })
+    );
+    this.dialogRefProjectTranscription.close();
+  }
+
+  onClickEditTranscription(transcription: TranscriptionEntity) {
+    this.dialogRefProjectTranscription.close();
+    this.dialog.open(EditTranscriptionDialogComponent, {
+      data: transcription,
+      width: '100%',
+      maxWidth: '800px',
+      maxHeight: '90vh',
+    });
+  }
+
+  async onClickAlignTranscription(transcription: TranscriptionEntity) {
+    await firstValueFrom(this.api.alignTranscription(transcription.id));
+  }
+
+  async onDownloadSubtitles(format: 'srt' | 'vtt', transcriptionId: string) {
+    this.store.dispatch(
+      transcriptionsActions.downloadSubtitles({ transcriptionId, format })
+    );
+  }
+
+  announceSortChange(sortState: any) {
+    if (sortState.direction) {
+      this.liveAnnouncer.announce(`Sorted ${sortState.direction}ending`);
+    } else {
+      this.liveAnnouncer.announce('Sorting cleared');
+    }
   }
 }

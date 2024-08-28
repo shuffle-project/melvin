@@ -19,11 +19,11 @@ import { MatInputModule } from '@angular/material/input';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSelectModule } from '@angular/material/select';
 import { UploadFilesComponent } from 'src/app/components/upload-files/upload-files.component';
-import { LANGUAGES } from 'src/app/constants/languages.constant';
 import { WrittenOutLanguagePipe } from 'src/app/pipes/written-out-language-pipe/written-out-language.pipe';
 import { ApiService } from 'src/app/services/api/api.service';
 import { CreateTranscriptionDto } from 'src/app/services/api/dto/create-transcription.dto';
 import { TranscriptionEntity } from 'src/app/services/api/entities/transcription.entity';
+import { LanguageService } from 'src/app/services/language/language.service';
 import { CreateTranscriptionDialogComponent } from '../../../create-transcription-dialog.component';
 
 @Component({
@@ -50,17 +50,17 @@ export class UploadTranscriptionComponent {
   loading = false;
   uploadProgress: number = 0;
 
-  languages = LANGUAGES;
+  constructor(private languageService: LanguageService) {}
+
+  languages = this.languageService.getLocalizedLanguages();
   acceptedFileFormats = ['.vtt', '.srt'];
 
-  writtenOutLanguagePipe = inject(WrittenOutLanguagePipe);
   dialogRef = inject(MatDialogRef<CreateTranscriptionDialogComponent>);
   api = inject(ApiService);
 
   transcriptionGroup = new FormGroup({
     title: new FormControl<string>('', {
       nonNullable: true,
-      validators: [Validators.required],
     }),
     language: new FormControl<string>('', {
       nonNullable: true,
@@ -70,15 +70,6 @@ export class UploadTranscriptionComponent {
       validators: [Validators.required, Validators.maxLength(1)],
     }),
   });
-
-  onSelectLanguage(selectedLanguageCode: string) {
-    if (this.transcriptionGroup.controls['title'].value !== '') return;
-
-    const selectedLanguageName =
-      this.writtenOutLanguagePipe.transform(selectedLanguageCode);
-
-    this.transcriptionGroup.controls['title'].setValue(selectedLanguageName);
-  }
 
   onClearTitle() {
     this.transcriptionGroup.controls['title'].setValue('');

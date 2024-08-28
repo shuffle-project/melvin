@@ -3,6 +3,7 @@ import { Injectable, OnDestroy } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
 import { lastValueFrom, Subject, take, takeUntil } from 'rxjs';
+import { WrittenOutLanguagePipe } from 'src/app/pipes/written-out-language-pipe/written-out-language.pipe';
 import { ApiService } from 'src/app/services/api/api.service';
 import { CaptionEntity } from 'src/app/services/api/entities/caption.entity';
 import { TranscriptionEntity } from 'src/app/services/api/entities/transcription.entity';
@@ -38,7 +39,8 @@ export class DeleteConfirmationService implements OnDestroy {
   constructor(
     private dialog: MatDialog,
     private store: Store<AppState>,
-    private apiService: ApiService
+    private apiService: ApiService,
+    private writtenOutLanguagePipe: WrittenOutLanguagePipe
   ) {
     this.store
       .select(authSelectors.selectUserId)
@@ -114,7 +116,10 @@ export class DeleteConfirmationService implements OnDestroy {
       {
         level: DeleteConfirmLevel.LOW,
         subject: $localize`:@@deleteServiceSubjectTranscription:Transcription`,
-        description: transcription.title,
+        description: this.writtenOutLanguagePipe.transform(
+          transcription.language,
+          transcription.title
+        ),
       },
       () => {
         this.store.dispatch(

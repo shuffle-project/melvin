@@ -1,23 +1,22 @@
-<h2>Create a new empty transcription file</h2>
+<h2 i18n="@@emptyTranscriptionTabHeading">
+  Create a new empty transcription file
+</h2>
 
 <form [formGroup]="transcriptionGroup">
   <mat-form-field>
-    <mat-label>Language</mat-label>
-    <mat-select
-      (selectionChange)="onSelectLanguage($event.value)"
-      formControlName="language"
-    >
+    <mat-label i18n="@@emptyTranscriptionTabLanguageLabel">Language</mat-label>
+    <mat-select formControlName="language">
       @for (language of languages; track language) {
-      <mat-option [value]="language.code"
-        >{{ language.code | writtenOutLanguage }}
-      </mat-option>
+      <mat-option [value]="language.code">{{ language.name }} </mat-option>
       }
     </mat-select>
-    <mat-error>Select a language</mat-error>
+    <mat-error i18n="@@emptyTranscriptionTabLanguageError"
+      >Select a language</mat-error
+    >
   </mat-form-field>
 
   <mat-form-field>
-    <mat-label>Title</mat-label>
+    <mat-label i18n="@@emptyTranscriptionTabTitleLabel">Title</mat-label>
     <input matInput formControlName="title" />
 
     @if(transcriptionGroup.controls['title'].value !== '') {
@@ -25,6 +24,8 @@
       <mat-icon svgIcon="close-small" />
     </button>
     }
-    <mat-error>Title is required</mat-error>
+    <mat-hint i18n="@@emptyTranscriptionTabTitleHint">
+      Optional title addition
+    </mat-hint>
   </mat-form-field>
 </form>

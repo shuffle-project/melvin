@@ -14,6 +14,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { Store } from '@ngrx/store';
 import { LANGUAGES } from 'src/app/constants/languages.constant';
+import { WrittenOutLanguagePipe } from 'src/app/pipes/written-out-language-pipe/written-out-language.pipe';
 import { CreateTranscriptionDto } from 'src/app/services/api/dto/create-transcription.dto';
 import { TranscriptionEntity } from 'src/app/services/api/entities/transcription.entity';
 import { AppState } from 'src/app/store/app.state';
@@ -31,6 +32,7 @@ import { CreateTranscriptionDialogComponent } from '../../../create-transcriptio
     MatInputModule,
     MatIconModule,
     MatButtonModule,
+    WrittenOutLanguagePipe,
   ],
   templateUrl: './copy-transcription.component.html',
   styleUrl: './copy-transcription.component.scss',
@@ -46,7 +48,6 @@ export class CopyTranscriptionComponent {
   transcriptionGroup = new FormGroup({
     title: new FormControl<string>('', {
       nonNullable: true,
-      validators: [Validators.required],
     }),
     transcription: new FormControl<string>('', {
       nonNullable: true,
@@ -61,8 +62,9 @@ export class CopyTranscriptionComponent {
       const selectedTranscription = this.transcriptionList.find(
         (ts) => ts.id === selectedTranscriptionId
       );
-      // TODO consider language
-      titleControl.setValue(`${selectedTranscription?.title} (copy)`);
+
+      let localizedCopy = $localize`:@@copyTranscriptionTabCopy:copy`;
+      titleControl.setValue(`${selectedTranscription?.title} ${localizedCopy}`);
     }
   }
 

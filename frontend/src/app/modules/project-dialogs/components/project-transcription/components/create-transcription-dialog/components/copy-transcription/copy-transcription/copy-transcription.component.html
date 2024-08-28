@@ -11,8 +11,8 @@
     >
       @for (transcription of transcriptionList; track transcription) {
       <mat-option [value]="transcription.id"
-        >{{ transcription.language }} | {{ transcription.title }}</mat-option
-      >
+        >{{ transcription.language | writtenOutLanguage : transcription.title }}
+      </mat-option>
       }
     </mat-select>
     <mat-error i18n="@@copyTranscriptionTabTranscriptionErrorRequired"
@@ -28,9 +28,8 @@
       <mat-icon svgIcon="close-small" />
     </button>
     }
-
-    <mat-error i18n="@@copyTranscriptionTabTitleErrorRequired"
-      >Title is required</mat-error
-    >
+    <mat-hint i18n="@@copyTranscriptionTabTitleHint">
+      Optional title addition
+    </mat-hint>
   </mat-form-field>
 </form>

@@ -18,7 +18,10 @@
         <mat-label i18n="@@editTranscriptionModalLanguageLabel"
           >Language</mat-label
         >
-        <mat-select formControlName="language">
+        <mat-select
+          formControlName="language"
+          (selectionChange)="onSelectValueChange($event.value)"
+        >
           @for (language of languages | ngrxPush; track language) {
           <mat-option [value]="language.code">{{ language.name }} </mat-option>
           }
@@ -30,9 +33,21 @@
       <mat-form-field class="title">
         <mat-label i18n="@@editTranscriptionModalTitleLabel">Title</mat-label>
         <input matInput formControlName="title" />
+        <mat-hint i18n="@@editTranscriptionModalTitleHint">
+          Optional title addition
+        </mat-hint>
       </mat-form-field>
     </div>
   </form>
+  <div class="preview">
+    <p>
+      <span i18n="@@editTranscriptionModalPreviewText"> Preview: </span>
+      {{ languageName }}
+      @if(transcriptionEditGroup.value.title ) { [{{
+        transcriptionEditGroup.value.title
+      }}] }
+    </p>
+  </div>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
   <button

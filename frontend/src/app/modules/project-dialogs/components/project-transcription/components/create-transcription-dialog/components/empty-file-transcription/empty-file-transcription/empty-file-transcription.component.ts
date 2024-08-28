@@ -13,9 +13,9 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { Store } from '@ngrx/store';
-import { LANGUAGES } from 'src/app/constants/languages.constant';
 import { WrittenOutLanguagePipe } from 'src/app/pipes/written-out-language-pipe/written-out-language.pipe';
 import { CreateTranscriptionDto } from 'src/app/services/api/dto/create-transcription.dto';
+import { LanguageService } from 'src/app/services/language/language.service';
 import { AppState } from 'src/app/store/app.state';
 import * as transcriptionsActions from '../../../../../../../../../store/actions/transcriptions.actions';
 import { CreateTranscriptionDialogComponent } from '../../../create-transcription-dialog.component';
@@ -37,31 +37,21 @@ import { CreateTranscriptionDialogComponent } from '../../../create-transcriptio
   styleUrl: './empty-file-transcription.component.scss',
 })
 export class EmptyFileTranscriptionComponent {
-  writtenOutLanguagePipe = inject(WrittenOutLanguagePipe);
   store = inject(Store<AppState>);
   dialogRef = inject(MatDialogRef<CreateTranscriptionDialogComponent>);
+  languageService = inject(LanguageService);
 
-  languages = LANGUAGES;
+  languages = this.languageService.getLocalizedLanguages();
 
   transcriptionGroup = new FormGroup({
     title: new FormControl<string>('', {
       nonNullable: true,
-      validators: [Validators.required],
     }),
     language: new FormControl<string>('', {
       nonNullable: true,
       validators: [Validators.required],
     }),
   });
-
-  onSelectLanguage(selectedLanguageCode: string) {
-    if (this.transcriptionGroup.controls['title'].value !== '') return;
-
-    const selectedLanguageName =
-      this.writtenOutLanguagePipe.transform(selectedLanguageCode);
-
-    this.transcriptionGroup.controls['title'].setValue(selectedLanguageName);
-  }
 
   onClearTitle() {
     this.transcriptionGroup.controls['title'].setValue('');

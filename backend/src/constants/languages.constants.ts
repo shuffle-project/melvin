@@ -222,13 +222,13 @@ export const LANGUAGES: Language[] = [
   // },
   {
     code: 'en-GB',
-    englishName: 'English (British)',
-    germanName: 'Englisch (Britisch)',
+    englishName: 'English (GB)',
+    germanName: 'Englisch (GB)',
   },
   {
     code: 'en-US',
-    englishName: 'English (American)',
-    germanName: 'Englisch (Amerikanisch)',
+    englishName: 'English (US)',
+    germanName: 'Englisch (US)',
   },
   // no whisper support
   // {

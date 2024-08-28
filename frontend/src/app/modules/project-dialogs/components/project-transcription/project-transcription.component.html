@@ -1,26 +1,153 @@
-<ul class="transcription-list">
-  <li
-    (click)="onClickAddTranscription()"
-    role="button"
-    tabindex="0"
-    class="btn-add-transcription basic-form clickable"
-  >
-    <div>
-      <p i18n="@@projectTranscriptionAddButtonTop">Add</p>
-      <p i18n="@@projectTranscriptionAddButtonBottom">Transcription</p>
-      <mat-icon svgIcon="add-circle"></mat-icon>
-    </div>
-  </li>
-  <ng-container *ngrxLet="transcriptionsList$ as transcriptions">
-    @for (transcription of transcriptions; track transcription) {
-    <li class="transcription basic-form">
-      <app-transcription
-        [transcription]="transcription"
-        (deleteTranscription)="
-          onEventDeleteTranscription($event, transcriptions.length)
-        "
-      />
-    </li>
-    }
+<div class="new-transcription-button-wrapper">
+  <button mat-raised-button color="primary" (click)="onClickAddTranscription()">
+    New transcription
+  </button>
+</div>
+
+<table
+  mat-table
+  [dataSource]="dataSource"
+  matSort
+  (matSortChange)="announceSortChange($event)"
+>
+  <ng-container matColumnDef="language">
+    <th
+      mat-header-cell
+      *matHeaderCellDef
+      mat-sort-header
+      sortActionDescription="Sort by language"
+    >
+      Language
+    </th>
+    <td mat-cell *matCellDef="let element">
+      {{ element.language | writtenOutLanguage }}
+    </td>
   </ng-container>
-</ul>
+
+  <ng-container matColumnDef="title">
+    <th
+      mat-header-cell
+      *matHeaderCellDef
+      mat-sort-header
+      sortActionDescription="Sort by title"
+    >
+      Title
+    </th>
+    <td mat-cell *matCellDef="let element">{{ element.title }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="lastEdited">
+    <th
+      mat-header-cell
+      *matHeaderCellDef
+      mat-sort-header
+      sortActionDescription="Sort by last edit"
+    >
+      Last edit
+    </th>
+    <td mat-cell *matCellDef="let element">
+      {{ element.updatedAt | formatDate }}
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="createdBy">
+    <th
+      mat-header-cell
+      *matHeaderCellDef
+      mat-sort-header
+      sortActionDescription="Sort by owner"
+    >
+      Created by
+    </th>
+    <td mat-cell *matCellDef="let element">{{ element.createdBy.name }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="more">
+    <th
+      mat-header-cell
+      *matHeaderCellDef
+      mat-sort-header
+      sortActionDescription="Sort by more"
+    >
+      More
+    </th>
+    <td mat-cell *matCellDef="let element">
+      <button
+        mat-icon-button
+        aria-label="more"
+        [matMenuTriggerFor]="transcriptionMenu"
+        [matMenuTriggerData]="{ transcription: element }"
+      >
+        <mat-icon svgIcon="more" />
+      </button>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+</table>
+
+<mat-menu #transcriptionMenu="matMenu" class="dense">
+  <ng-template matMenuContent let-transcription="transcription">
+    <button
+      i18n="@@transcriptionEditTranscriptionButton"
+      (click)="onClickEditTranscription(transcription)"
+      mat-menu-item
+    >
+      <mat-icon svgIcon="edit" />
+      Edit
+    </button>
+    <button
+      (click)="onOpenTranscription(transcription.id)"
+      i18n="@@transcriptionOpenTranscriptionButton"
+      mat-menu-item
+    >
+      <mat-icon svgIcon="open-transcript" />
+      Open
+    </button>
+    <button
+      mat-menu-item
+      [matMenuTriggerFor]="downloadMenu"
+      [matMenuTriggerData]="{transcription}"
+      i18n="@@transcriptionMenuFileDownloadLabel"
+    >
+      <mat-icon svgIcon="download"></mat-icon>
+      Download
+    </button>
+    @if (transcription.createdBy === userId || project.createdBy.id === userId)
+    {
+    <div>
+      <mat-divider />
+      <button
+        (click)="onClickDeleteTranscription(transcription)"
+        i18n="@@transcriptionDeleteTranscriptionButton"
+        mat-menu-item
+      >
+        <mat-icon svgIcon="delete"></mat-icon>
+        Delete
+      </button>
+
+      <button (click)="onClickAlignTranscription(transcription)" mat-menu-item>
+        <mat-icon svgIcon="refresh"></mat-icon>
+        Align
+      </button>
+    </div>
+    }
+  </ng-template>
+</mat-menu>
+<mat-menu #downloadMenu="matMenu" class="dense">
+  <ng-template matMenuContent let-transcription="transcription">
+    <button
+      mat-menu-item
+      (click)="onDownloadSubtitles('srt', transcription.id)"
+    >
+      SubRip (.srt)
+    </button>
+    <button
+      mat-menu-item
+      (click)="onDownloadSubtitles('vtt', transcription.id)"
+    >
+      WebVTT (.vtt)
+    </button>
+  </ng-template>
+</mat-menu>

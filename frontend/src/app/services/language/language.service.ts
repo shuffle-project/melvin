@@ -22,7 +22,6 @@ export class LanguageService implements OnDestroy {
       .pipe(takeUntil(this.destroy$$))
       .subscribe((languages) => {
         this.allLanguages = languages;
-
         languages.forEach((l) => {
           this.englishMap.set(l.code, l.englishName);
           this.germanMap.set(l.code, l.germanName);

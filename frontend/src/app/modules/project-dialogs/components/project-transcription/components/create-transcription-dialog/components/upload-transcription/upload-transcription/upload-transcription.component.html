@@ -13,16 +13,9 @@
       <mat-label i18n="@@uploadTranscriptionTabLanguageLabel"
         >Language</mat-label
       >
-      <mat-select
-        (selectionChange)="onSelectLanguage($event.value)"
-        formControlName="language"
-      >
+      <mat-select formControlName="language">
         @for (language of languages; track language) {
-        <mat-option [value]="language.code"
-          >{{ language.code | writtenOutLanguage }} ({{
-            language.code
-          }})</mat-option
-        >
+        <mat-option [value]="language.code">{{ language.name }} </mat-option>
         }
       </mat-select>
       <mat-error i18n="@@uploadTranscriptionTabLanguageErrorRequired"
@@ -38,9 +31,9 @@
         <mat-icon svgIcon="close-small" />
       </button>
       }
-      <mat-error i18n="@@uploadTranscriptionTabTitleErrorRequired"
-        >Title is required</mat-error
-      >
+      <mat-hint i18n="@@uploadTranscriptionTabTitleHint">
+        Optional title addition
+      </mat-hint>
     </mat-form-field>
   </div>
 
