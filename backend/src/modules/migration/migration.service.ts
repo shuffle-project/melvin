@@ -86,11 +86,10 @@ export class MigrationService {
           project.language = 'en-US';
           project.save();
         }
-
-        settings.dbSchemaVersion = 4;
-        await settings.save();
-        this.logger.info('Migration to version 4 successful');
       }
+      settings.dbSchemaVersion = 4;
+      await settings.save();
+      this.logger.info('Migration to version 4 successful');
     }
   }
 
