@@ -19,12 +19,8 @@
           >Language</mat-label
         >
         <mat-select formControlName="language">
-          @for (language of languages$ | ngrxPush; track language) {
-          <mat-option [value]="language.code"
-            >{{ language.code | writtenOutLanguage }} ({{
-              language.code
-            }})</mat-option
-          >
+          @for (language of languages | ngrxPush; track language) {
+          <mat-option [value]="language.code">{{ language.name }} </mat-option>
           }
         </mat-select>
         <mat-error i18n="@@editTranscriptionModalLanguageError"

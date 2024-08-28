@@ -33,8 +33,6 @@ export class MigrationService {
     this.logger.info('Initialize migration check');
     let settings = await this.db.settingsModel.findOne({});
 
-    this.logger.info('settings.dbSchemaVersion', settings.dbSchemaVersion);
-
     if (settings === null) {
       this.logger.info('First application start');
       settings = await this.db.settingsModel.create({ dbSchemaVersion: 1 });
