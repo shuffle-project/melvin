@@ -328,7 +328,6 @@ export const UserExtension = Extension.create({
 
             // Insert the new text
             tr.insertText(text, from, to);
-            console.log(text);
             tr.addMark(
               from,
               from + text.length,

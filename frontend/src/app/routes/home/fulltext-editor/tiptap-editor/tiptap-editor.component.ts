@@ -1,10 +1,9 @@
 import {
   AfterViewInit,
   Component,
-  ElementRef,
+  Injector,
   Input,
   OnInit,
-  ViewChild,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatIconButton } from '@angular/material/button';
@@ -12,17 +11,12 @@ import { MatCheckbox } from '@angular/material/checkbox';
 import { MatIcon } from '@angular/material/icon';
 import { HocuspocusProvider } from '@hocuspocus/provider';
 import { Editor } from '@tiptap/core';
-import { Bold } from '@tiptap/extension-bold';
 import Collaboration from '@tiptap/extension-collaboration';
 import CollaborationCursor from '@tiptap/extension-collaboration-cursor';
-import Color from '@tiptap/extension-color';
 import Document from '@tiptap/extension-document';
-import FloatingMenu from '@tiptap/extension-floating-menu';
-import Focus from '@tiptap/extension-focus';
-import { Italic } from '@tiptap/extension-italic';
 import Text from '@tiptap/extension-text';
-import TextStyle from '@tiptap/extension-text-style';
 
+import { NgxTiptapModule } from 'ngx-tiptap';
 import {
   BehaviorSubject,
   Observable,
@@ -34,7 +28,9 @@ import {
 import { EditorUser } from '../../../../interfaces/editor-user.interface';
 import { WSService } from '../../../../services/ws/ws.service';
 import { MediaService } from '../../editor/services/media/media.service';
-import { CustomParagraph, Partial, UserExtension, Word } from './tiptap.schema';
+import { CustomParagraph } from './schema/paragraph.schema';
+import { UserExtension } from './schema/user.extension';
+import { CustomWord } from './schema/word.schema';
 
 enum CLIENT_STATUS {
   CONNECTING,
@@ -47,7 +43,7 @@ enum CLIENT_STATUS {
 @Component({
   selector: 'app-tiptap-editor',
   standalone: true,
-  imports: [MatIconButton, MatIcon, MatCheckbox, FormsModule],
+  imports: [MatIconButton, MatIcon, MatCheckbox, FormsModule, NgxTiptapModule],
   templateUrl: './tiptap-editor.component.html',
   styleUrl: './tiptap-editor.component.scss',
 })
@@ -55,13 +51,11 @@ export class TiptapEditorComponent implements AfterViewInit, OnInit {
   @Input({ required: true }) transcriptionId$!: Observable<string>;
   @Input({ required: true }) activeUsers!: EditorUser[];
 
-  @ViewChild('editor', { static: true }) editorRef!: ElementRef;
-
   private destroy$$ = new Subject<void>();
   private viewReady$ = new BehaviorSubject(false);
 
   private provider!: HocuspocusProvider;
-  private editor?: Editor;
+  public editor?: Editor;
 
   public CLIENT_STATUS = CLIENT_STATUS;
   public status: CLIENT_STATUS = CLIENT_STATUS.CONNECTING;
@@ -80,7 +74,8 @@ export class TiptapEditorComponent implements AfterViewInit, OnInit {
 
   constructor(
     private mediaService: MediaService,
-    private wsService: WSService
+    private wsService: WSService,
+    private injector: Injector
   ) {}
 
   ngOnInit() {
@@ -101,43 +96,8 @@ export class TiptapEditorComponent implements AfterViewInit, OnInit {
       });
 
     this.currentTime$.pipe(takeUntil(this.destroy$$)).subscribe((time) => {
-      // @ts-ignore
-      // Highlight.setCurrentTime(time);
-      // Word.child?.storage.setTime(time);
-      // console.log('currentTime', time);
-      // this.checkForTimestamp();
-      // this.editor?.commands.setCurrentTime(time);
-      // this.updateTimestamp(time);
-
-      const timeValue = Math.floor(time / 1000);
-      for (let index = 0; index < document.styleSheets.length; index++) {
-        const styleSheet = document.styleSheets[index];
-
-        if (styleSheet.title === 'tiptap-timestamp') {
-          for (let index = 0; index < styleSheet.cssRules.length; index++) {
-            // const rule = element.cssRules[index];
-            styleSheet.deleteRule(index);
-          }
-
-          // styleSheet.insertRule(
-          //   `.time-${timeValue - 1},.time-${timeValue},.time-${
-          //     timeValue + 1
-          //   } { font-weight:bold; }`,
-          //   0
-          // );
-          styleSheet.insertRule(`.time-${timeValue} { font-weight:bold; }`, 0);
-        }
-      }
-
-      //remove old classes
-      // for (const className of this.editorRef.nativeElement.classList) {
-      //   if (className.startsWith('time-')) {
-      //     console.log('remove class', className);
-      //     // this.editorRef.nativeElement.classList.remove(className);
-      //   }
-      // }
-      //add new class
-      // this.editorRef.nativeElement.classList.add(`time-${timeValue}`);
+      const seconds = Math.floor(time / 1000);
+      this.updateCurrentTimeCSSClass(seconds);
     });
   }
 
@@ -182,27 +142,30 @@ export class TiptapEditorComponent implements AfterViewInit, OnInit {
     const user = this.activeUsers[0];
 
     this.editor = new Editor({
-      element: this.editorRef.nativeElement,
       extensions: [
         Document,
-        CustomParagraph,
         Text,
-        TextStyle,
-        Focus,
-        Color,
-        Word,
-        Partial,
-        FloatingMenu.configure({
-          shouldShow: () => this.shouldShow,
-          element: document.querySelector('.menu') as HTMLElement,
-        }),
-
-        UserExtension.configure({
-          color: user.color,
-          name: user.name,
-          editor: this.editor,
+        CustomParagraph(this.injector),
+        CustomWord(this.injector),
+        UserExtension(this.injector).configure({
           userId: user.id,
         }),
+        // TextStyle,
+        // Focus,
+        // Color,
+        // Word,
+        // Partial,
+        // FloatingMenu.configure({
+        //   shouldShow: () => this.shouldShow,
+        //   element: document.querySelector('.menu') as HTMLElement,
+        // }),
+
+        // UserExtension.configure({
+        //   color: user.color,
+        //   name: user.name,
+        //   editor: this.editor,
+        //   userId: user.id,
+        // }),
         Collaboration.configure({
           document: this.provider.document,
         }),
@@ -227,8 +190,8 @@ export class TiptapEditorComponent implements AfterViewInit, OnInit {
             return cursor;
           },
         }),
-        Bold,
-        Italic,
+        // Bold,
+        // Italic,
       ],
       onUpdate: ({ editor }) => {
         if (!this.captions) return;
@@ -301,6 +264,22 @@ export class TiptapEditorComponent implements AfterViewInit, OnInit {
     this.editor?.destroy();
   }
 
+  private updateCurrentTimeCSSClass(time: number) {
+    for (let index = 0; index < document.styleSheets.length; index++) {
+      const styleSheet = document.styleSheets[index];
+
+      if (styleSheet.title === 'tiptap-timestamp') {
+        for (let index = 0; index < styleSheet.cssRules.length; index++) {
+          styleSheet.deleteRule(index);
+        }
+        styleSheet.insertRule(
+          `.time-${time} { color: var(--color-white); background:var(--color-black); }`,
+          0
+        );
+      }
+    }
+  }
+
   toggleSpeaker(speaker: string) {
     const { state, view } = this.editor!;
     const { tr } = state;
@@ -321,164 +300,6 @@ export class TiptapEditorComponent implements AfterViewInit, OnInit {
     this.shouldShow = !this.shouldShow;
   }
 
-  // updateTimestamp(currentTime: number) {
-  //   console.log('update timestamp');
-  //   const { state, view } = this.editor!;
-  //   const { doc, tr, schema } = state;
-
-  //   const activeElement = document.activeElement;
-  //   // Remove previous bold from all words
-  //   doc.descendants((node, pos) => {
-  //     if (node.isText) {
-  //       const { text, marks } = node;
-  //       marks.find((mark) => {
-  //         if (mark.type.name == 'bold') {
-  //           tr.removeMark(pos, pos + text!.length, schema.marks['bold']);
-  //         }
-  //       });
-  //     }
-  //   });
-  //   view.dispatch(tr);
-  //   // Add bold to all words with the timestamp
-  //   doc.descendants((node, pos) => {
-  //     if (node.isText) {
-  //       const { text, marks } = node;
-  //       marks.find((mark) => {
-  //         if (
-  //           mark.type.name == 'word' &&
-  //           mark.attrs['timestamp'] < currentTime
-  //         ) {
-  //           this.editor!.chain()
-  //             .focus()
-  //             .setTextSelection({ from: pos, to: pos + text!.length })
-  //             .setBold()
-  //             .run();
-  //           this.editor!.commands.selectTextblockEnd(); // <----
-  //         }
-  //       });
-  //     }
-  //   });
-
-  //   if (activeElement) {
-  //     // activeElement.focus();
-  //   }
-
-  //   // doc.descendants((node, pos) => {
-  //   //   console.log('doc.descendants', node, pos);
-  //   //   if (node.isText) {
-  //   //     for (const mark of node.marks) {
-  //   //       if (mark.type.name === 'word') {
-  //   //         console.log(node.attrs, currentTime);
-  //   //         const attrs = mark.attrs;
-  //   //         if (attrs['timestamp']) {
-  //   //           const highlighted = attrs['timestamp'] < currentTime;
-  //   //           if (highlighted !== attrs['highlight']) {
-  //   //             tr.setNodeAttribute(pos, 'highlight', highlighted);
-  //   //           }
-  //   //         }
-  //   //       }
-  //   //     }
-  //   //   }
-  //   // });
-
-  //   // view.dispatch(tr);
-  // }
-
-  // checkForTimestamp(event: Event | null = null) {
-  //   if (event) {
-  //     const target = event.target as HTMLInputElement;
-  //     this.timestamp = target.value;
-  //     if (target.value === '') {
-  //       this.timestamp = 'Enter timestamp here...';
-  //       return;
-  //     }
-  //     const timestampRegex = new RegExp(`\\b${this.timestamp || ''}\\b`, 'i');
-  //     const { state, view } = this.editor!;
-  //     const { doc, tr, schema } = state;
-
-  //     // Remove previous bold from all words
-  //     doc.descendants((node, pos) => {
-  //       if (node.isText) {
-  //         const { text, marks } = node;
-  //         marks.find((mark) => {
-  //           if (mark.type.name == 'bold') {
-  //             tr.removeMark(pos, pos + text!.length, schema.marks.bold);
-  //           }
-  //         });
-  //       }
-  //     });
-  //     view.dispatch(tr);
-  //     // Add bold to all words with the timestamp
-  //     doc.descendants((node, pos) => {
-  //       if (node.isText) {
-  //         const { text, marks } = node;
-  //         marks.find((mark) => {
-  //           if (
-  //             mark.type.name == 'word' &&
-  //             timestampRegex.test(mark.attrs.timestamp)
-  //           ) {
-  //             this.editor!.chain()
-  //               .focus()
-  //               .setTextSelection({ from: pos, to: pos + text!.length })
-  //               .setBold()
-  //               .run();
-  //             this.editor!.commands.selectTextblockEnd();
-  //           }
-  //         });
-  //       }
-  //     });
-  //   }
-  // }
-
-  // private updateConnectedUsers(): void {
-  //   this.connectedUsers = [];
-  //   this.provider.awareness?.getStates().forEach((state) => {
-  //     if (state['user']) {
-  //       // console.log(state);
-  //       this.connectedUsers.push({
-  //         name: state['user'].name,
-  //         color: state['user'].color,
-  //       });
-  //     }
-  //   });
-  // }
-
-  // setUser(event: Event | null = null) {
-  //   if (event) {
-  //     const target = event.target as HTMLInputElement;
-  //     this.username = target.value;
-  //   }
-  //   this.awareness?.setLocalStateField('user', {
-  //     name: this.username,
-  //     color: this.color,
-  //   });
-  //   this.updateEditorColor();
-  // }
-  // changeColor(colorInput: Event) {
-  //   const target = colorInput.target as HTMLInputElement;
-  //   this.color = target.value;
-  //   this.setUser();
-  //   this.updateEditorColor();
-  // }
-
-  // private updateEditorColor() {
-  //   if (this.editor) {
-  //     const extension = this.editor.extensionManager.extensions.find(
-  //       (ext) => ext.name === 'userExtension'
-  //     );
-
-  //     if (extension) {
-  //       extension.options.color = this.color;
-  //       extension.options.name = this.username;
-  //     }
-  //     this.editor.view.updateState(this.editor.view.state);
-  //   }
-  // }
-
-  // getColor(user: { name: string; color: string }) {
-  //   return 'color: ' + user.color + ';';
-  // }
-
   onClickUndo() {
     this.editor?.commands.undo();
   }
@@ -486,11 +307,6 @@ export class TiptapEditorComponent implements AfterViewInit, OnInit {
   onClickRedo() {
     this.editor?.commands.redo();
   }
-
-  // clear() {
-  //   this.editor?.commands.clearContent();
-  //   if (this.captions) this.captions.innerHTML = '';
-  // }
 
   onToggleUsernames() {
     this.showUsernames = !this.showUsernames;
