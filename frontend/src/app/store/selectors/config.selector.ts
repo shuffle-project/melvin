@@ -29,6 +29,11 @@ export const language = createSelector(
   (state: ConfigState) => state.language
 );
 
+export const isInitialized = createSelector(
+  configState,
+  (state: ConfigState) => state.isInitialized
+);
+
 export const getSupportedASRLanguages = createSelector(
   configState,
   (state: ConfigState) => {

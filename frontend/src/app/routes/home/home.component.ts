@@ -3,7 +3,6 @@ import { RouterOutlet } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { CustomLogger } from '../../classes/logger.class';
 import { WSService } from '../../services/ws/ws.service';
-import * as configActions from '../../store/actions/config.actions';
 
 @Component({
   selector: 'app-home',
@@ -19,7 +18,6 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   async ngOnInit() {
     await this.ws.connect();
-    this.store.dispatch(configActions.fetch());
   }
 
   async ngOnDestroy() {

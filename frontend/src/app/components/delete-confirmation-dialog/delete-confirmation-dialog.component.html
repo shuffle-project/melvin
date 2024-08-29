@@ -6,18 +6,26 @@
 <h1 mat-dialog-title i18n="@@deleteConfirmationDialogTitleLeave">
   Leave {{ data.subject }}
 </h1>
+} @case ('deleteTranscription') {
+<h1 mat-dialog-title i18n="@@deleteConfirmationDialogTitleDeleteTranscription">
+  Delete {{ data.subject }}
+</h1>
 } }
 
 <div mat-dialog-content>
   @if (data.description) {
   <p class="text">{{ data.description }}</p>
   } @switch (data.type) { @case ('delete') {
-  <p i18n="@@deleteConfirmationDialogAreYouSure">
+  <p i18n="@@deleteConfirmationDialogAreYouSureDelete">
     Are you sure you want to delete this {{ data.subject }}?
   </p>
   } @case ('leave') {
-  <p i18n="@@deleteConfirmationDialogAreYouSure">
+  <p i18n="@@deleteConfirmationDialogAreYouSureLeave">
     Are you sure you want to leave this {{ data.subject }}?
+  </p>
+  }@case ('deleteTranscription') {
+  <p i18n="@@deleteConfirmationDialogAreYouSureDeleteTranscription">
+    Are you sure you want to delete this {{ data.subject }}?
   </p>
   } }
 </div>

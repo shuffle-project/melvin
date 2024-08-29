@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { IsConfigLoadedGuard } from './guards/is-config-loaded.guard';
 import { IsInitializedGuard } from './guards/is-initialized.guard';
 import { LoggedInGuard } from './guards/logged-in.guard';
 import { LoggedOutGuard } from './guards/logged-out.guard';
@@ -18,7 +19,7 @@ export const AppRoutes: Routes = [
   },
   {
     path: 'home',
-    canActivate: [LoggedInGuard],
+    canActivate: [LoggedInGuard, IsConfigLoadedGuard],
     loadChildren: () =>
       import('./routes/home/home.routes').then((m) => m.HomeRoutes),
   },
@@ -30,7 +31,7 @@ export const AppRoutes: Routes = [
   },
   {
     path: 'view',
-    // canActivate: [IsInitializedGuard],
+    canActivate: [IsConfigLoadedGuard],
     loadChildren: () =>
       import('./routes/viewer/viewer.routes').then((m) => m.ViewerRoutes),
   },

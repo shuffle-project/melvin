@@ -201,6 +201,7 @@ export class WSService {
             'transcription:created'
           >;
           this.logger.verbose('transcription:created', payload);
+
           this.store.dispatch(
             transcriptionActions.createFromWS({
               transcription: payload.transcription,

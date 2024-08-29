@@ -422,7 +422,7 @@ export class CaptionTextComponent
     }
   }
 
-  deleteCurrentCaptionAndMoveText() {
+  async deleteCurrentCaptionAndMoveText() {
     if (this.captionBefore) {
       // if there ist a caption before, move the text to this and delete the caption
       this.store.dispatch(
@@ -441,7 +441,7 @@ export class CaptionTextComponent
       this.markedForDeletion = true;
     } else {
       // delete caption
-      this.deleteService.deleteCaption(this.caption);
+      const isConfirmed = await this.deleteService.deleteCaption(this.caption);
       this.markedForDeletion = true;
       // this.deleteService.confirm(
     }

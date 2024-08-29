@@ -46,7 +46,6 @@ import { DeleteConfirmationService } from 'src/app/components/delete-confirmatio
 import { DialogProjectTranscriptionComponent } from 'src/app/modules/project-dialogs/dialog-project-transcription/dialog-project-transcription.component';
 import { WrittenOutLanguagePipe } from 'src/app/pipes/written-out-language-pipe/written-out-language.pipe';
 import { HeaderComponent } from '../../../components/header/header.component';
-import * as projectsSelectors from '../../../store/selectors/projects.selector';
 import { CaptionsComponent } from '../editor/components/captions/captions.component';
 import { EditorSettingsComponent } from '../editor/components/editor-settings/editor-settings.component';
 import { JoinLivestreamModalComponent } from '../editor/components/join-livestream-modal/join-livestream-modal.component';
@@ -185,20 +184,6 @@ export class FulltextEditorComponent implements OnInit, OnDestroy {
         }, 1);
       }
     });
-
-    // if project gets deleted, navigate to project list
-    this.store
-      .select(projectsSelectors.selectAllProjects)
-      .pipe(takeUntil(this.destroy$$))
-      .subscribe(async (projects) => {
-        const currentProject = await firstValueFrom(this.project$);
-
-        if (currentProject) {
-          if (projects.find((p) => p.id === currentProject?.id) === undefined) {
-            this.router.navigate(['/home/projects']);
-          }
-        }
-      });
   }
 
   async ngOnDestroy() {
@@ -304,7 +289,11 @@ export class FulltextEditorComponent implements OnInit, OnDestroy {
 
   async onDeleteProject() {
     const project = await firstValueFrom(this.project$);
-    this.deleteService.deleteProject(project!);
+    const isConfirmed = await this.deleteService.deleteProject(project!);
+
+    if (isConfirmed) {
+      this.router.navigate(['/home/projects']);
+    }
   }
 
   onOpenJoinLivestreamModal(livestreamStarted: boolean) {

@@ -2,7 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable, OnDestroy } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
-import { lastValueFrom, Subject, take, takeUntil } from 'rxjs';
+import { lastValueFrom, map, Subject, takeUntil } from 'rxjs';
 import { WrittenOutLanguagePipe } from 'src/app/pipes/written-out-language-pipe/written-out-language.pipe';
 import { ApiService } from 'src/app/services/api/api.service';
 import { CaptionEntity } from 'src/app/services/api/entities/caption.entity';
@@ -22,7 +22,7 @@ export interface DeleteConfirmData {
   level: DeleteConfirmLevel;
   subject: string;
   description?: string;
-  type?: 'delete' | 'leave';
+  type?: 'delete' | 'leave' | 'deleteTranscription';
 }
 
 export interface DeleteConfirmResult {
@@ -50,99 +50,101 @@ export class DeleteConfirmationService implements OnDestroy {
       });
   }
 
-  confirm(data: DeleteConfirmData, callOnConfirm: () => any) {
-    this.dialog
-      .open<
-        DeleteConfirmationDialogComponent,
-        DeleteConfirmData,
-        DeleteConfirmResult
-      >(DeleteConfirmationDialogComponent, {
-        data,
-      })
-      .afterClosed()
-      .pipe(take(1))
-      .subscribe((result) => {
-        if (result?.delete) {
-          callOnConfirm();
-        }
-      });
-  }
-
   ngOnDestroy() {
     this.destroy$$.next();
   }
 
-  deleteProject(project: ProjectEntity) {
-    this.confirm(
-      {
-        level: DeleteConfirmLevel.LOW,
-        subject: $localize`:@@deleteServiceSubjectProject:Project`,
-        description: project.title,
-        type: 'delete',
-      },
-      () => {
-        this.store.dispatch(
-          projectsActions.remove({ removeProjectId: project.id })
-        );
-      }
+  async confirm(data: DeleteConfirmData): Promise<boolean> {
+    const dialogRef = this.dialog.open<
+      DeleteConfirmationDialogComponent,
+      DeleteConfirmData,
+      DeleteConfirmResult
+    >(DeleteConfirmationDialogComponent, {
+      data,
+    });
+
+    return lastValueFrom(
+      dialogRef.afterClosed().pipe(map((result) => result?.delete ?? false))
     );
   }
 
-  leaveProject(project: ProjectEntity) {
-    this.confirm(
-      {
-        level: DeleteConfirmLevel.LOW,
-        subject: $localize`:@@deleteServiceSubjectProject:Project`,
-        description: project.title,
-        type: 'leave',
-      },
-      async () => {
-        if (this.userId !== null) {
-          try {
-            await lastValueFrom(
-              this.apiService.removeUserFromProject(project.id, this.userId)
-            );
-          } catch (err: unknown) {
-            // TODO handle error
-            const error = (err as HttpErrorResponse).message;
-          }
-        }
-      }
-    );
+  async deleteTranscription(
+    transcription: TranscriptionEntity
+  ): Promise<boolean> {
+    const isConfirmed = await this.confirm({
+      level: DeleteConfirmLevel.LOW,
+      subject: $localize`:@@deleteServiceSubjectTranscription:transcription`,
+      type: 'deleteTranscription',
+      description: this.writtenOutLanguagePipe.transform(
+        transcription.language,
+        transcription.title
+      ),
+    });
+
+    if (isConfirmed) {
+      this.store.dispatch(
+        transcriptionsActions.removeFromEditor({
+          transcriptionId: transcription.id,
+        })
+      );
+    }
+
+    return isConfirmed;
   }
 
-  deleteTranscription(transcription: TranscriptionEntity) {
-    this.confirm(
-      {
-        level: DeleteConfirmLevel.LOW,
-        subject: $localize`:@@deleteServiceSubjectTranscription:Transcription`,
-        description: this.writtenOutLanguagePipe.transform(
-          transcription.language,
-          transcription.title
-        ),
-      },
-      () => {
-        this.store.dispatch(
-          transcriptionsActions.removeFromEditor({
-            transcriptionId: transcription.id,
-          })
-        );
-      }
-    );
+  async deleteProject(project: ProjectEntity): Promise<boolean> {
+    const isConfirmed = await this.confirm({
+      level: DeleteConfirmLevel.LOW,
+      subject: $localize`:@@deleteServiceSubjectProject:project`,
+      description: project.title,
+      type: 'delete',
+    });
+
+    if (isConfirmed) {
+      this.store.dispatch(
+        projectsActions.remove({ removeProjectId: project.id })
+      );
+    }
+
+    return isConfirmed;
   }
 
-  deleteCaption(caption: CaptionEntity) {
-    this.confirm(
-      {
-        level: DeleteConfirmLevel.LOW,
-        subject: $localize`:@@deleteServiceSubjectCaption:Caption`,
-        description: caption.text,
-      },
-      () => {
-        this.store.dispatch(
-          captionsActions.remove({ removeCaptionId: caption.id })
+  async leaveProject(project: ProjectEntity): Promise<boolean> {
+    const isConfirmed = await this.confirm({
+      level: DeleteConfirmLevel.LOW,
+      subject: $localize`:@@deleteServiceSubjectProject:project`,
+      description: project.title,
+      type: 'leave',
+    });
+
+    if (isConfirmed && this.userId !== null) {
+      try {
+        await lastValueFrom(
+          this.apiService.removeUserFromProject(project.id, this.userId)
         );
+      } catch (err: unknown) {
+        // TODO handle error
+        const error = (err as HttpErrorResponse).message;
+        console.log(error);
       }
-    );
+    }
+
+    return isConfirmed;
+  }
+
+  async deleteCaption(caption: CaptionEntity): Promise<boolean> {
+    const isConfirmed = await this.confirm({
+      level: DeleteConfirmLevel.LOW,
+      subject: $localize`:@@deleteServiceSubjectCaption:Caption`,
+      description: caption.text,
+    });
+
+    if (isConfirmed) {
+      this.store.dispatch(
+        captionsActions.remove({ removeCaptionId: caption.id })
+      );
+    }
+
+    return isConfirmed;
   }
 }

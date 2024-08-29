@@ -214,12 +214,12 @@ export class ProjectListComponent implements OnInit, AfterViewInit, OnDestroy {
     });
   }
 
-  onDeleteProject(project: ProjectEntity) {
-    this.deleteService.deleteProject(project);
+  async onDeleteProject(project: ProjectEntity) {
+    const isConfirmed = await this.deleteService.deleteProject(project);
   }
 
-  onLeaveProject(project: ProjectEntity) {
-    this.deleteService.leaveProject(project);
+  async onLeaveProject(project: ProjectEntity) {
+    const isConfirmed = await this.deleteService.leaveProject(project);
   }
 
   ngOnDestroy(): void {

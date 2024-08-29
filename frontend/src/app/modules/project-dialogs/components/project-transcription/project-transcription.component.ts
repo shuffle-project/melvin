@@ -7,7 +7,6 @@ import {
 } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
-import { TranscriptionEntity } from 'src/app/services/api/entities/transcription.entity';
 import { AppState } from 'src/app/store/app.state';
 import * as transcriptionsSelectors from '../../../../store/selectors/transcriptions.selector';
 
@@ -23,8 +22,10 @@ import { LetDirective, PushPipe } from '@ngrx/component';
 import { firstValueFrom, lastValueFrom, Subject, take, takeUntil } from 'rxjs';
 import { FormatDatePipe } from 'src/app/pipes/format-date-pipe/format-date.pipe';
 import { WrittenOutLanguagePipe } from 'src/app/pipes/written-out-language-pipe/written-out-language.pipe';
+import { AlertService } from 'src/app/services/alert/alert.service';
 import { ApiService } from 'src/app/services/api/api.service';
 import { ProjectEntity } from 'src/app/services/api/entities/project.entity';
+import { TranscriptionEntity } from 'src/app/services/api/entities/transcription.entity';
 import { DeleteConfirmationService } from '../../../../components/delete-confirmation-dialog/delete-confirmation.service';
 import * as transcriptionsActions from '../../../../store/actions/transcriptions.actions';
 import * as authSelectors from '../../../../store/selectors/auth.selector';
@@ -56,6 +57,8 @@ export class ProjectTranscriptionComponent
   destroy$$ = new Subject<void>();
 
   public project!: ProjectEntity;
+  private selectedTranscriptionId!: string | null;
+  private transcriptions!: TranscriptionEntity[];
 
   public userId!: string | null;
 
@@ -76,13 +79,22 @@ export class ProjectTranscriptionComponent
     private deleteService: DeleteConfirmationService,
     private liveAnnouncer: LiveAnnouncer,
     private router: Router,
-    private api: ApiService
+    private api: ApiService,
+    private alertService: AlertService
   ) {
     this.store
       .select(transcriptionsSelectors.selectTranscriptionList)
       .pipe(takeUntil(this.destroy$$))
       .subscribe((transcriptions) => {
         this.dataSource.data = transcriptions;
+        this.transcriptions = transcriptions;
+      });
+
+    this.store
+      .select(transcriptionsSelectors.selectTranscriptionId)
+      .pipe(takeUntil(this.destroy$$))
+      .subscribe((transcriptionId) => {
+        this.selectedTranscriptionId = transcriptionId;
       });
   }
 
@@ -119,12 +131,31 @@ export class ProjectTranscriptionComponent
     });
   }
 
-  onClickDeleteTranscription(transcription: TranscriptionEntity) {
-    this.deleteService.deleteTranscription(transcription);
+  async onClickDeleteTranscription(transcription: TranscriptionEntity) {
+    if (this.project.transcriptions.length === 1) {
+      const errorMessage = $localize`:@@transcriptionDeleteErrorAlert:At least one transcription is required.`;
+      this.alertService.error(errorMessage);
+
+      return;
+    }
+
+    const isConfirmed = await this.deleteService.deleteTranscription(
+      transcription
+    );
+
+    if (isConfirmed && this.selectedTranscriptionId === transcription.id) {
+      const toOpenTranscription = this.transcriptions.find(
+        (t) => t.id !== transcription.id
+      );
+      this.store.dispatch(
+        transcriptionsActions.selectFromEditor({
+          transcriptionId: toOpenTranscription!.id,
+        })
+      );
+    }
   }
 
   onOpenTranscription(transcriptionId: string) {
-    this.router.navigate(['/home/editor', this.project.id, 'edit']);
     this.store.dispatch(
       transcriptionsActions.selectFromEditor({ transcriptionId })
     );

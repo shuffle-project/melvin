@@ -172,7 +172,7 @@
   @if ('editorActions' | featureEnabled) {
   <div class="sticky">
     @if (showWaveform) {
-    <div class="flex">
+    <div class="flex waveform-wrapper">
       @if ('showWaveform' | featureEnabled) {
       <app-waveform [zoomActivated]="showZoomedWave"></app-waveform>
       } @if (isLiveMode$ | ngrxPush) {
