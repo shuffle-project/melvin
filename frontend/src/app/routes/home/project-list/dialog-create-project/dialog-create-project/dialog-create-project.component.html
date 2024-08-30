@@ -17,6 +17,7 @@
 </div>
 
 <mat-dialog-content>
+  @if (!loading) {
   <p class="intro-text">
     Check the "Use Audio" box to select the file from which you would like to
     use the audio track.
@@ -168,10 +169,22 @@
       <mat-error>Title is required</mat-error>
     </mat-form-field>
   </form>
+  } @else {
+  <div class="upload">
+    <p>Upload-Progress:</p>
+    <mat-progress-bar mode="determinate" value="fileUploadProgress" />
+  </div>
+
+  }
 </mat-dialog-content>
 
 <mat-dialog-actions align="end">
-  <button mat-flat-button color="primary" (click)="onSubmitForm()">
+  <button
+    mat-flat-button
+    color="primary"
+    (click)="onSubmitForm()"
+    [disabled]="loading"
+  >
     Create Project
   </button>
 </mat-dialog-actions>

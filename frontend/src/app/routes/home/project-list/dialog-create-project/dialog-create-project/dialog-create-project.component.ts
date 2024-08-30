@@ -20,6 +20,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSelectModule } from '@angular/material/select';
 import {
   MatTable,
@@ -66,6 +67,7 @@ interface FileGroup {
     MatCheckboxModule,
     PushPipe,
     MediaCategoryPipe,
+    MatProgressBarModule,
   ],
   templateUrl: './dialog-create-project.component.html',
   styleUrl: './dialog-create-project.component.scss',

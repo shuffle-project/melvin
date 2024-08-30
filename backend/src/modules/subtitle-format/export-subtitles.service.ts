@@ -26,10 +26,10 @@ export class ExportSubtitlesService {
     tiptapCaptions.forEach((caption, index) => {
       const formattedStart = this.formatTimestamp(caption.start, '.');
       const formattedEnd = this.formatTimestamp(caption.end, '.');
-      const speakerName = transcription.speakers.find(
-        (speaker) =>
-          caption.speakerId && isSameObjectId(speaker._id, caption.speakerId),
-      ).name;
+      // const speakerName = transcription.speakers.find(
+      //   (speaker) =>
+      //     caption.speakerId && isSameObjectId(speaker._id, caption.speakerId),
+      // ).name;
 
       lines.push('');
       lines.push(index + 1); // optional

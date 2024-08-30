@@ -138,6 +138,9 @@
 </mat-menu>
 <mat-menu #downloadMenu="matMenu" class="dense">
   <ng-template matMenuContent let-transcription="transcription">
+    <button mat-menu-item (click)="onDownloadTranscript(transcription.id)">
+      Transcript (.txt)
+    </button>
     <button
       mat-menu-item
       (click)="onDownloadSubtitles('srt', transcription.id)"

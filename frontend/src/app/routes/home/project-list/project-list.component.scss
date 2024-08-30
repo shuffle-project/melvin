@@ -132,3 +132,15 @@ section {
     color: rgba(var(--color-black-rgb), 0.6);
   }
 }
+
+.status-wrapper {
+  padding-inline: 0.625rem;
+  display: flex;
+  min-height: 2rem;
+  align-items: center;
+
+  p {
+    margin: 0;
+    padding: 0;
+  }
+}

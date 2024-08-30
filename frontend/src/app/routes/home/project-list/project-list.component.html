@@ -181,7 +181,13 @@
       <td mat-cell *matCellDef="let element">
         <mat-chip-listbox>
           <mat-chip
-            [matMenuTriggerFor]="projectStatusMenu"
+            [matMenuTriggerFor]="
+              element.status === projectStatusEnum.DRAFT ||
+              element.status === projectStatusEnum.FINISHED ||
+              element.status === projectStatusEnum.ERROR
+                ? projectStatusMenu
+                : null
+            "
             [matMenuTriggerData]="{ element }"
             [ngClass]="element.status"
             (click)="onHandleStatusClick(element)"
@@ -336,12 +342,10 @@
 
         } @else if (element.status === projectStatusEnum.ERROR) {
         @if(projectError) {
-        <app-activity [viewType]="'error-chip'" [activity]="projectError" />
-        } } @else if (element.status === projectStatusEnum.WAITING) {
-        <p>Wartet und so</p>
-        } @else if (element.status === projectStatusEnum.PROCESSING) {
-        <p>Verarbeitung läuft und so</p>
-        }
+        <div class="status-wrapper">
+          <app-activity [viewType]="'error-chip'" [activity]="projectError" />
+        </div>
+        } }
       </ng-template>
     </mat-menu>
 

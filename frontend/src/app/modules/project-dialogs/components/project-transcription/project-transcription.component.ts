@@ -17,7 +17,6 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
-import { Router } from '@angular/router';
 import { LetDirective, PushPipe } from '@ngrx/component';
 import { firstValueFrom, lastValueFrom, Subject, take, takeUntil } from 'rxjs';
 import { FormatDatePipe } from 'src/app/pipes/format-date-pipe/format-date.pipe';
@@ -78,7 +77,6 @@ export class ProjectTranscriptionComponent
     private dialog: MatDialog,
     private deleteService: DeleteConfirmationService,
     private liveAnnouncer: LiveAnnouncer,
-    private router: Router,
     private api: ApiService,
     private alertService: AlertService
   ) {
@@ -179,6 +177,12 @@ export class ProjectTranscriptionComponent
   async onDownloadSubtitles(format: 'srt' | 'vtt', transcriptionId: string) {
     this.store.dispatch(
       transcriptionsActions.downloadSubtitles({ transcriptionId, format })
+    );
+  }
+
+  onDownloadTranscript(transcriptionId: string) {
+    this.store.dispatch(
+      transcriptionsActions.downloadTranscript({ transcriptionId })
     );
   }
 

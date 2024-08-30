@@ -123,3 +123,10 @@ form {
 .hidden {
   display: none !important;
 }
+
+.upload {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 6rem;
+}
