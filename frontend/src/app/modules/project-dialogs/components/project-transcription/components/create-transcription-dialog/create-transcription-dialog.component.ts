@@ -38,13 +38,14 @@ export class CreateTranscriptionDialogComponent implements OnInit, OnDestroy {
 
   public loading = false;
 
-  tabs = ['upload', 'copy', 'translate', 'from media', 'empty file'];
+  // tabs = ['upload', 'copy', 'translate', 'from media', 'empty file'];
+  tabs = ['upload', 'copy', 'empty file'];
   selectedTab = 'upload';
 
   @ViewChild('uploadForm') uploadForm!: UploadTranscriptionComponent;
   @ViewChild('copyForm') copyForm!: CopyTranscriptionComponent;
-  @ViewChild('asrForm') asrForm!: CopyTranscriptionComponent;
-  @ViewChild('translateForm') translateForm!: CopyTranscriptionComponent;
+  // @ViewChild('asrForm') asrForm!: CopyTranscriptionComponent;
+  // @ViewChild('translateForm') translateForm!: CopyTranscriptionComponent;
   @ViewChild('emptyFileForm') emptyFileForm!: EmptyFileTranscriptionComponent;
 
   uploadProgress: number = 0;
@@ -88,12 +89,12 @@ export class CreateTranscriptionDialogComponent implements OnInit, OnDestroy {
       case 'copy':
         this.copyForm.submit(this.project.id);
         break;
-      case 'translate':
-        this.translateForm.submit(this.project.id);
-        break;
-      case 'from media':
-        this.asrForm.submit(this.project.id);
-        break;
+      // case 'translate':
+      // this.translateForm.submit(this.project.id);
+      // break;
+      // case 'from media':
+      // this.asrForm.submit(this.project.id);
+      // break;
       case 'empty file':
         this.emptyFileForm.submit(this.project.id);
         break;

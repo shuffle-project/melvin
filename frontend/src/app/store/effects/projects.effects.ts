@@ -1,11 +1,23 @@
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { catchError, map, mergeMap, of, switchMap, tap } from 'rxjs';
+import { Store } from '@ngrx/store';
+import {
+  catchError,
+  map,
+  mergeMap,
+  of,
+  switchMap,
+  tap,
+  withLatestFrom,
+} from 'rxjs';
 import { AlertService } from '../../services/alert/alert.service';
 import { ApiService } from '../../services/api/api.service';
 import { ProjectListEntity } from '../../services/api/entities/project-list.entity';
+import * as editorActions from '../actions/editor.actions';
 import * as projectsActions from '../actions/projects.actions';
-
+import { AppState } from '../app.state';
+import * as editorSelectors from '../selectors/editor.selector';
 @Injectable({
   providedIn: 'root',
 })
@@ -13,7 +25,9 @@ export class ProjectEffects {
   constructor(
     private actions$: Actions,
     private api: ApiService,
-    private alert: AlertService
+    private alert: AlertService,
+    private store: Store<AppState>,
+    private router: Router
   ) {}
 
   fetchProjects$ = createEffect(() =>
@@ -92,6 +106,24 @@ export class ProjectEffects {
           )
       )
     )
+  );
+
+  kickUserFromActiveProject$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(projectsActions.removeFromWS),
+        withLatestFrom(this.store.select(editorSelectors.selectProject)),
+        tap(([action, selectedProject]) => {
+          if (action.removedProjectId === selectedProject?.id) {
+            this.router.navigate(['/home/projects']);
+            this.store.dispatch(editorActions.resetEditorState());
+            this.alert.error(
+              $localize`:@@projectEffectKickUserFromProject:The opened project was deleted.`
+            );
+          }
+        })
+      ),
+    { dispatch: false }
   );
 
   notifyOnError$ = createEffect(

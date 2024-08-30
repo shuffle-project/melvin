@@ -13,6 +13,10 @@
 
   .project-title {
     font-size: 1.125rem;
+
+    &:hover {
+      outline: 2px solid var(--color-primary);
+    }
   }
 }
 
@@ -46,7 +50,6 @@
   z-index: 1;
   overflow: hidden;
   background: var(--color-white);
-  min-height: 7.1875rem;
 }
 
 .actions {

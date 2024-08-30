@@ -42,7 +42,8 @@
       />
     </mat-tab>
 
-    <mat-tab [disabled]="loading">
+    <!-- TODO Group discussion about these features -->
+    <!-- <mat-tab [disabled]="loading">
       <ng-template
         mat-tab-label
         i18n="@@createTranscriptionDialogTabTranslateLabel"
@@ -54,9 +55,9 @@
         [transcriptionList]="transcriptionList"
         #translateForm
       />
-    </mat-tab>
+    </mat-tab> -->
 
-    <mat-tab [disabled]="loading">
+    <!-- <mat-tab [disabled]="loading">
       <ng-template
         mat-tab-label
         i18n="@@createTranscriptionDialogTabFromMediaLabel"
@@ -65,7 +66,7 @@
         From Media
       </ng-template>
       <app-from-media-transcription #asrForm />
-    </mat-tab>
+    </mat-tab> -->
 
     <mat-tab [disabled]="loading">
       <ng-template

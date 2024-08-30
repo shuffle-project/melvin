@@ -22,6 +22,7 @@ export class HasRoleGuard  {
       take(1),
       map((user) => {
         if (user && route.data['roles'].includes(user.role)) {
+          
           return true;
         }
         return this.router.createUrlTree(['home']);
