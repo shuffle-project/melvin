@@ -323,13 +323,17 @@ export class SubtitlesProcessor {
     target: TranscriptionEntity,
     payload: AlignPayload,
   ) {
-    await this.speechToTextService.align(
-      project,
-      target,
-      payload.audio,
-      AsrVendors.WHISPER,
-      payload.text,
-      payload.syncSpeaker,
-    );
+    if (target.language !== project.language) {
+      // TODO disable that in an earlier stepy
+    } else {
+      await this.speechToTextService.align(
+        project,
+        target,
+        payload.audio,
+        AsrVendors.WHISPER,
+        payload.text,
+        payload.syncSpeaker,
+      );
+    }
   }
 }

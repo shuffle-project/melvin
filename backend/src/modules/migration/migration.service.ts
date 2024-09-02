@@ -12,7 +12,6 @@ import { DbService } from '../db/db.service';
 import { CustomLogger } from '../logger/logger.service';
 import { WhisperSpeechService } from '../speech-to-text/whisper/whisper-speech.service';
 import { TiptapService } from '../tiptap/tiptap.service';
-import { Transaction } from 'prosemirror-state';
 
 @Injectable()
 export class MigrationService {
@@ -29,6 +28,8 @@ export class MigrationService {
   }
 
   async onApplicationBootstrap(): Promise<void> {
+    // TODO migration -> title migrieren
+
     this.logger.info('Initialize migration check');
     let settings = await this.db.settingsModel.findOne({});
 

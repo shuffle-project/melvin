@@ -329,15 +329,13 @@ export class TranscriptionService {
     let streamableFile: StreamableFile;
     switch (downloadSubtitlesquery.type) {
       case SubtitleExportType.VTT:
-        streamableFile = this.exportSubtitlesService.toVttFile(
+        streamableFile = await this.exportSubtitlesService.toVttFile(
           transcription,
-          captions.captions,
         );
         break;
       case SubtitleExportType.SRT:
-        streamableFile = this.exportSubtitlesService.toSrtFile(
+        streamableFile = await this.exportSubtitlesService.toSrtFile(
           transcription,
-          captions.captions,
         );
         break;
     }
@@ -492,6 +490,7 @@ export class TranscriptionService {
         createdBy: authUser.id,
         _id: transcriptionId,
         project: projectId,
+        speakers: [{ _id: new Types.ObjectId(), name: 'default Speaker' }],
       }), // ,{populate:'createdBy'}
       this.db.updateProjectByIdAndReturn(projectId, {
         $push: { transcriptions: transcriptionId },
