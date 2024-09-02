@@ -25,7 +25,7 @@ export class AvatarComponent implements OnChanges {
 
   ngOnChanges() {
     if (this.editorView) {
-      this.backgroundColor = `var(--color-editor-user-${this.user.color})`;
+      this.backgroundColor = `rgb(var(--color-editor-user-${this.user.color}-rgb))`;
     } else if (this.user.name === 'System') {
       this.backgroundColor = 'rgba(var(--color-accent-rgb), 0.2)';
       this.showLogo = true;

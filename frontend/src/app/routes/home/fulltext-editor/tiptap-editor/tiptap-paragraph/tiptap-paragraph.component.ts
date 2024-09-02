@@ -1,51 +1,98 @@
 import {
+  AfterViewInit,
   Component,
   ElementRef,
   OnChanges,
+  OnDestroy,
   OnInit,
   SimpleChanges,
 } from '@angular/core';
-import { PushPipe } from '@ngrx/component';
+import { LetDirective, PushPipe } from '@ngrx/component';
 import { AngularNodeViewComponent, NgxTiptapModule } from 'ngx-tiptap';
-import { combineLatest, map, Subject } from 'rxjs';
+import {
+  combineLatest,
+  debounceTime,
+  firstValueFrom,
+  lastValueFrom,
+  map,
+  merge,
+  Subject,
+  takeUntil,
+} from 'rxjs';
 import { TiptapEditorService } from '../tiptap-editor.service';
+import { CaptionSpeakerComponent } from '../../../editor/components/captions/caption/caption-speaker/caption-speaker.component';
+import { MatMenuModule } from '@angular/material/menu';
+import { CommonModule } from '@angular/common';
+import { SpeakerEntity } from 'src/app/services/api/entities/transcription.entity';
+import { AppState } from 'src/app/store/app.state';
+import { Store } from '@ngrx/store';
+import * as transcriptionsSelector from 'src/app/store/selectors/transcriptions.selector';
+import { MatIcon, MatIconModule } from '@angular/material/icon';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatButtonModule } from '@angular/material/button';
+import { EditSpeakerModalComponent } from './edit-speaker-modal/edit-speaker-modal.component';
 
 @Component({
   selector: 'app-tiptap-paragraph',
   standalone: true,
-  imports: [NgxTiptapModule, PushPipe],
+  imports: [
+    NgxTiptapModule,
+    PushPipe,
+    MatMenuModule,
+    CommonModule,
+    LetDirective,
+    PushPipe,
+    MatIconModule,
+    MatDividerModule,
+    MatButtonModule,
+    EditSpeakerModalComponent,
+  ],
   templateUrl: './tiptap-paragraph.component.html',
   styleUrl: './tiptap-paragraph.component.scss',
 })
 export class TiptapParagraphComponent
   extends AngularNodeViewComponent
-  implements OnInit, OnChanges
+  implements OnInit, OnChanges, OnDestroy
 {
-  private speakerId = new Subject<string>();
+  destroy$$ = new Subject<void>();
 
   public showSpeaker = false;
-  public speakerName$ = combineLatest([
-    this.speakerId,
-    this.tiptapEditorService.speakers$,
-  ]).pipe(
-    map(([id, speakers]) => {
-      const speakerName =
-        speakers.find((speaker) => speaker.id === id)?.name || 'Unknown';
-      console.log(speakerName);
-      return speakerName;
-    })
-  );
+
+  public speaker!: string;
 
   constructor(
     private elementRef: ElementRef,
-    private tiptapEditorService: TiptapEditorService
+    public tiptapEditorService: TiptapEditorService,
+    private store: Store<AppState>
   ) {
     super();
   }
 
-  ngOnInit() {}
+  ngOnInit(): void {
+    merge(
+      this.tiptapEditorService.speakerChanged$,
+      this.tiptapEditorService.speakers$
+    )
+      .pipe(takeUntil(this.destroy$$), debounceTime(0))
+      .subscribe(() => this.updateSpeakerName());
+  }
 
-  ngOnChanges(changes: SimpleChanges): void {
+  ngOnChanges(changes: SimpleChanges) {
+    const node = changes['node'];
+    if (
+      !node?.firstChange &&
+      node?.previousValue.attrs.speaker !== node?.currentValue.attrs.speaker
+    ) {
+      this.tiptapEditorService.speakerChanged$.next();
+    }
+    this.updateSpeakerName();
+  }
+
+  ngOnDestroy() {
+    this.destroy$$.next();
+  }
+
+  private updateSpeakerName() {
     const pos = this.getPos();
     const resolvedPos = this.editor.state.doc.resolve(pos);
     const prevNode = resolvedPos.nodeBefore;
@@ -64,13 +111,26 @@ export class TiptapParagraphComponent
 
     const hasFocus =
       this.elementRef.nativeElement.classList.contains('has-focus');
-    // console.log(hasFocus, speakerId, prevSpeakerId);
 
-    this.showSpeaker = hasFocus || speakerId !== prevSpeakerId;
-    this.speakerId.next(speakerId);
+    this.showSpeaker = true;
 
-    console.log(this.showSpeaker, speakerId);
+    const speakers = this.tiptapEditorService.speakers$.getValue();
+    this.speaker =
+      speakers.find((speaker) => speaker.id === speakerId)?.name || 'Unknown';
   }
 
-  public onClickSpeaker() {}
+  onChangeSpeaker(speaker: SpeakerEntity) {
+    const { state, view } = this.editor!;
+    const { tr } = state;
+
+    const pos = this.getPos();
+    const paragraph = state.doc.nodeAt(pos);
+
+    if (paragraph?.type.name === 'paragraph') {
+      const newAttrs = { ...paragraph.attrs, speaker: speaker.id };
+      tr.setNodeMarkup(pos, undefined, newAttrs);
+
+      view.dispatch(tr);
+    }
+  }
 }

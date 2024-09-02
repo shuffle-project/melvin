@@ -232,6 +232,7 @@ export const UserExtension = (injector: Injector) =>
     },
 
     addProseMirrorPlugins() {
+      console.log(this);
       return [
         new Plugin({
           key: new PluginKey('autoColor'),
@@ -263,6 +264,7 @@ export const UserExtension = (injector: Injector) =>
               let to = tr.selection.ranges[0].$to.pos;
 
               if (event.code === 'Enter' && !event.composed) {
+                // TODO verwerfen der speakerID, neuer paragraph sollte null sein
                 if (hasLeadingSpace(tr, from) || hasTrailingSpace(tr, to)) {
                   return false;
                 }

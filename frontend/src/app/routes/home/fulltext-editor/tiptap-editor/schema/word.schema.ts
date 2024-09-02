@@ -85,7 +85,7 @@ export const CustomWord = (injector: Injector) =>
       if (modifiedBy) {
         const tiptapEditorService = injector.get(TiptapEditorService);
         const color = tiptapEditorService.getUserColor(modifiedBy);
-        attrs.style = `color: var(--color-editor-user-${color})`;
+        attrs.style = `color: rgb(var(--color-editor-user-${color}-rgb))`;
       }
 
       // Render timestamp classes for highlighting currently spoken words

@@ -31,6 +31,8 @@ import { MediaService } from '../../editor/services/media/media.service';
 import { CustomParagraph } from './schema/paragraph.schema';
 import { UserExtension } from './schema/user.extension';
 import { CustomWord } from './schema/word.schema';
+import { TiptapEditorService } from './tiptap-editor.service';
+import { defaultSelectionBuilder } from 'y-prosemirror';
 
 enum CLIENT_STATUS {
   CONNECTING,
@@ -129,7 +131,6 @@ export class TiptapEditorComponent implements AfterViewInit, OnInit {
         this.status = CLIENT_STATUS.SYNCED;
       },
     });
-    // this.onToggleUsernames();
   }
 
   destroyConnection() {
@@ -140,6 +141,7 @@ export class TiptapEditorComponent implements AfterViewInit, OnInit {
     this.captions = document.getElementById('captions') as HTMLDivElement;
 
     const user = this.activeUsers[0];
+    console.log('user', user, this.activeUsers);
 
     this.editor = new Editor({
       extensions: [
@@ -150,48 +152,40 @@ export class TiptapEditorComponent implements AfterViewInit, OnInit {
         UserExtension(this.injector).configure({
           userId: user.id,
         }),
-        // TextStyle,
-        // Focus,
-        // Color,
-        // Word,
-        // Partial,
-        // FloatingMenu.configure({
-        //   shouldShow: () => this.shouldShow,
-        //   element: document.querySelector('.menu') as HTMLElement,
-        // }),
-
-        // UserExtension.configure({
-        //   color: user.color,
-        //   name: user.name,
-        //   editor: this.editor,
-        //   userId: user.id,
-        // }),
         Collaboration.configure({
           document: this.provider.document,
         }),
         CollaborationCursor.configure({
           provider: this.provider,
+          user: {
+            userId: user.id,
+            name: user.name,
+            colorName: user.color,
+          },
           render: (user) => {
-            // render function taken from collaboration-cursor extension
-            // https://github.com/ueberdosis/tiptap/blob/main/packages/extension-collaboration-cursor/src/collaboration-cursor.ts
             const cursor = document.createElement('span');
             cursor.classList.add('collaboration-cursor__caret');
-            cursor.setAttribute('style', `border-color: ${user['color']}`);
+            const color = `rgb(var(--color-editor-user-${user['colorName']}-rgb))`;
+            cursor.setAttribute('style', `border-color: ${color}`);
 
-            // edit: only render username lables if showUsernames is true
             if (this.showUsernames) {
               const label = document.createElement('div');
               label.classList.add('collaboration-cursor__label');
-              label.setAttribute('style', `background-color: ${user['color']}`);
+              label.setAttribute('style', `background-color: ${color}`);
               label.insertBefore(document.createTextNode(user['name']), null);
               cursor.insertBefore(label, null);
             }
 
             return cursor;
           },
+          selectionRender: (user) => {
+            const color = `rgba(var(--color-editor-user-${user['colorName']}-rgb), 0.7)`;
+            return {
+              style: `background-color: ${color}`,
+              class: 'ProseMirror-yjs-selection',
+            };
+          },
         }),
-        // Bold,
-        // Italic,
       ],
       onUpdate: ({ editor }) => {
         if (!this.captions) return;
@@ -224,8 +218,6 @@ export class TiptapEditorComponent implements AfterViewInit, OnInit {
             .join(' ');
           this.captions.innerHTML = captionsHtml;
         }
-
-        console.log(editor.getJSON());
       },
       // autofocus: 'start', // todo: discuss
     });
@@ -256,8 +248,6 @@ export class TiptapEditorComponent implements AfterViewInit, OnInit {
 
       this.editor.view.updateState(this.editor.view.state);
     }
-
-    console.log(this.editor);
   }
 
   destroyEditor() {

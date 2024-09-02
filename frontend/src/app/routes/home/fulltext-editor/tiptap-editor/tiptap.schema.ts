@@ -181,7 +181,7 @@ export const Word = Mark.create({
             return {};
           }
           return {
-            style: `color: var(--color-editor-user-${attributes['color']})`,
+            style: `color: rgb(var(--color-editor-user-${attributes['color']}-rgb))`,
           };
         },
       },

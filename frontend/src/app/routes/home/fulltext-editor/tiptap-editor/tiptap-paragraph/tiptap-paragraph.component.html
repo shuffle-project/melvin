@@ -1,15 +1,20 @@
 <div class="left">
-  @if(showSpeaker) {
   <div
     class="speaker"
-    (click)="onClickSpeaker()"
     tabindex="-1"
     [contentEditable]="false"
+    [matMenuTriggerFor]="speakerMenu"
   >
-    <!-- <span>{{ speakerName$ | ngrxPush }}</span> -->
-    <span>Test</span>
+
+    <span>{{ speaker }}</span>
+
+    <!-- <span>Test</span> -->
   </div>
-  }
 </div>
 
 <p tiptapNodeViewContent [spellcheck]="false"></p>
+
+
+<mat-menu #speakerMenu="matMenu">
+  <app-edit-speaker-modal (changeSpeakerEvent)="onChangeSpeaker($event)"></app-edit-speaker-modal>
+</mat-menu>
