@@ -1,5 +1,10 @@
 <div class="new-transcription-button-wrapper">
-  <button mat-raised-button color="primary" (click)="onClickAddTranscription()">
+  <button
+    mat-raised-button
+    color="primary"
+    (click)="onClickAddTranscription()"
+    i18n="@@projectTranscriptionNewButtonLabel"
+  >
     New transcription
   </button>
 </div>
@@ -16,6 +21,7 @@
       *matHeaderCellDef
       mat-sort-header
       sortActionDescription="Sort by language"
+      i18n="@@projectTranscriptionTableLanguageHeader"
     >
       Language
     </th>
@@ -30,6 +36,7 @@
       *matHeaderCellDef
       mat-sort-header
       sortActionDescription="Sort by title"
+      i18n="@@projectTranscriptionTableTitleHeader"
     >
       Title
     </th>
@@ -42,6 +49,7 @@
       *matHeaderCellDef
       mat-sort-header
       sortActionDescription="Sort by last edit"
+      i18n="@@projectTranscriptionTableLastEditHeader"
     >
       Last edit
     </th>
@@ -56,6 +64,7 @@
       *matHeaderCellDef
       mat-sort-header
       sortActionDescription="Sort by owner"
+      i18n="@@projectTranscriptionTableCreatedByHeader"
     >
       Created by
     </th>
@@ -68,6 +77,7 @@
       *matHeaderCellDef
       mat-sort-header
       sortActionDescription="Sort by more"
+      i18n="@@projectTranscriptionTableMoreHeader"
     >
       More
     </th>
@@ -90,7 +100,7 @@
 <mat-menu #transcriptionMenu="matMenu" class="dense">
   <ng-template matMenuContent let-transcription="transcription">
     <button
-      i18n="@@transcriptionEditTranscriptionButton"
+      i18n="@@projectTranscriptionEditButtonLabel"
       (click)="onClickEditTranscription(transcription)"
       mat-menu-item
     >
@@ -99,7 +109,7 @@
     </button>
     <button
       (click)="onOpenTranscription(transcription.id)"
-      i18n="@@transcriptionOpenTranscriptionButton"
+      i18n="@@projectTranscriptionOpenButtonLabel"
       mat-menu-item
     >
       <mat-icon svgIcon="open-transcript" />
@@ -109,7 +119,7 @@
       mat-menu-item
       [matMenuTriggerFor]="downloadMenu"
       [matMenuTriggerData]="{transcription}"
-      i18n="@@transcriptionMenuFileDownloadLabel"
+      i18n="@@projectTranscriptionDownloadButtonLabel"
     >
       <mat-icon svgIcon="download"></mat-icon>
       Download
@@ -121,14 +131,18 @@
       <mat-divider />
       <button
         (click)="onClickDeleteTranscription(transcription)"
-        i18n="@@transcriptionDeleteTranscriptionButton"
+        i18n="@@projectTranscriptionDeleteButtonLabel"
         mat-menu-item
       >
         <mat-icon svgIcon="delete"></mat-icon>
         Delete
       </button>
 
-      <button (click)="onClickAlignTranscription(transcription)" mat-menu-item>
+      <button
+        (click)="onClickAlignTranscription(transcription)"
+        mat-menu-item
+        i18n="@@projectTranscriptionAlignButtonLabel"
+      >
         <mat-icon svgIcon="refresh"></mat-icon>
         Align
       </button>
@@ -138,18 +152,24 @@
 </mat-menu>
 <mat-menu #downloadMenu="matMenu" class="dense">
   <ng-template matMenuContent let-transcription="transcription">
-    <button mat-menu-item (click)="onDownloadTranscript(transcription.id)">
+    <button
+      mat-menu-item
+      (click)="onDownloadTranscript(transcription.id)"
+      i18n="@@projectTranscriptionDownloadTranscriptButtonLabel"
+    >
       Transcript (.txt)
     </button>
     <button
       mat-menu-item
       (click)="onDownloadSubtitles('srt', transcription.id)"
+      i18n="@@projectTranscriptionDownloadSRTButtonLabel"
     >
       SubRip (.srt)
     </button>
     <button
       mat-menu-item
       (click)="onDownloadSubtitles('vtt', transcription.id)"
+      i18n="@@projectTranscriptionDownloadVTTButtonLabel"
     >
       WebVTT (.vtt)
     </button>

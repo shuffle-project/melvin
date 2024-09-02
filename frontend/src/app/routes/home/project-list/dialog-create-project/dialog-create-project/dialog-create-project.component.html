@@ -18,7 +18,7 @@
 
 <mat-dialog-content>
   @if (!loading) {
-  <p class="intro-text">
+  <p class="intro-text" i18n="@@dialogCreateProjectIntroText">
     Check the "Use Audio" box to select the file from which you would like to
     use the audio track.
   </p>
@@ -26,7 +26,7 @@
 
   <form [formGroup]="formGroup">
     <label class="dropzone">
-      <p class="dropzone-text">
+      <p class="dropzone-text" i18n="@@dialogCreateProjectDropzoneText">
         Drop audio, video or subtitle (.vtt/.srt) files * here or
         <span class="dropzone-label">Select files</span>
       </p>
@@ -55,7 +55,13 @@
       (click)="onPreventBubble($event)"
     >
       <ng-container matColumnDef="name">
-        <th mat-header-cell *matHeaderCellDef>Filename</th>
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+          i18n="@@dialogCreateProjectTableHeaderFilename"
+        >
+          Filename
+        </th>
         <td mat-cell *matCellDef="let element">
           <div class="file-name">
             {{ element.get('name').value }}
@@ -64,29 +70,51 @@
       </ng-container>
 
       <ng-container matColumnDef="category">
-        <th mat-header-cell *matHeaderCellDef>Category</th>
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+          i18n="@@dialogCreateProjectTableHeaderCategory"
+        >
+          Category
+        </th>
         <td mat-cell *matCellDef="let element" [formGroup]="element">
           <mat-form-field
             class="select-mat-form-field"
             [class.hidden]="element.controls?.fileType.value !== 'video'"
           >
-            <mat-select formControlName="category" placeholder="Select">
+            <mat-select
+              formControlName="category"
+              i18n-placeholder="@@dialogCreateProjectSelectPlaceholder"
+              placeholder="Select"
+            >
               @for (category of mediaCategoryArray; track category) {
               <mat-option [value]="category">{{
                 category | mediaCategory
               }}</mat-option>
               }
             </mat-select>
-            <mat-error> Category is required </mat-error>
+            <mat-error i18n="@@dialogCreateProjectCategoryErrorRequired">
+              Category is required
+            </mat-error>
           </mat-form-field>
         </td>
       </ng-container>
 
       <ng-container matColumnDef="language">
-        <th mat-header-cell *matHeaderCellDef>Language</th>
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+          i18n="@@dialogCreateProjectTableHeaderLanguage"
+        >
+          Language
+        </th>
         <td mat-cell *matCellDef="let element" [formGroup]="element">
           <mat-form-field class="select-mat-form-field">
-            <mat-select formControlName="language" placeholder="Select">
+            <mat-select
+              formControlName="language"
+              i18n-placeholder="@@dialogCreateProjectSelectPlaceholder"
+              placeholder="Select"
+            >
               @for (lang of languages; track lang) {
 
               <mat-option [value]="lang.code">
@@ -95,13 +123,21 @@
 
               }
             </mat-select>
-            <mat-error> Language is required </mat-error>
+            <mat-error i18n="@@dialogCreateProjectLanguageErrorRequired">
+              Language is required
+            </mat-error>
           </mat-form-field>
         </td>
       </ng-container>
 
       <ng-container matColumnDef="use-audio">
-        <th mat-header-cell *matHeaderCellDef>Use Audio</th>
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+          i18n="@@dialogCreateProjectTableHeaderUseAudio"
+        >
+          Use Audio
+        </th>
         <td mat-cell *matCellDef="let element" [formGroup]="element">
           <div
             class="align-center"
@@ -116,7 +152,13 @@
       </ng-container>
 
       <ng-container matColumnDef="delete">
-        <th mat-header-cell *matHeaderCellDef>Delete</th>
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+          i18n="@@dialogCreateProjectTableHeaderDelete"
+        >
+          Delete
+        </th>
         <td mat-cell *matCellDef="let i = index">
           <div class="align-center">
             <button
@@ -137,25 +179,33 @@
 
     <div class="error-wrapper">
       <p aria-live="polite" class="mat-error">
-        @if(formGroup.hasError('videoRequired')) {<span>
+        @if(formGroup.hasError('videoRequired')) {<span
+          i18n="@@dialogCreateProjectOneVideoError"
+        >
           At least one video or audio file is required.
         </span>
         } @if(formGroup.hasError('useAudioRequired')) {
-        <span> At least one "use audio" source required. </span>
+        <span i18n="@@dialogCreateProjectOneUseAudioError">
+          At least one "use audio" source required.
+        </span>
         } @if(formGroup.hasError('duplicateFiles')) {
-        <span> Uploading the same file several times is not allowed. </span>
+        <span i18n="@@dialogCreateProjectSameFileError">
+          Uploading the same file several times is not allowed.
+        </span>
         } @if(formGroup.hasError('mainCategoryRequired')) {
-        <span>
+        <span i18n="@@dialogCreateProjectOneMainCategoryError">
           At least one audio/video file with the "main" category required.
         </span>
         } @if(formGroup.hasError('maxOneMainCategory')) {
-        <span> Max one audio/video file with the "main" category. </span>
+        <span i18n="@@dialogCreateProjectMaxOneMainCategoryError">
+          Max one audio/video file with the "main" category.
+        </span>
         }
       </p>
     </div>
 
     <mat-form-field class="title-form-field">
-      <mat-label>Title</mat-label>
+      <mat-label i18n="@@dialogCreateProjectTitleLabel">Title</mat-label>
       <input matInput formControlName="title" />
       <button
         mat-icon-button
@@ -166,12 +216,14 @@
       >
         <mat-icon svgIcon="clear"> </mat-icon>
       </button>
-      <mat-error>Title is required</mat-error>
+      <mat-error i18n="@@dialogCreateProjectTitleRequiredError"
+        >Title is required</mat-error
+      >
     </mat-form-field>
   </form>
   } @else {
   <div class="upload">
-    <p>Upload-Progress:</p>
+    <p i18n="@@dialogCreateProjectUploadProgressLabel">Upload-Progress:</p>
     <mat-progress-bar mode="determinate" value="fileUploadProgress" />
   </div>
 
@@ -184,6 +236,7 @@
     color="primary"
     (click)="onSubmitForm()"
     [disabled]="loading"
+    i18n="@@dialogCreateProjectCreateButton"
   >
     Create Project
   </button>
