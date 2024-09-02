@@ -257,13 +257,13 @@
         </span>
 
         <button mat-button appCdkMenuItemRadio (cdkMenuItemTriggered)="onSwitchLanguage('de-DE')"
-          [cdkMenuItemChecked]="locale === 'de-DE'" i18n="@@viewerControlsGermanLabel">
-          <mat-icon svgIcon="{{ locale === 'de-DE' ? 'check' : '' }}"></mat-icon>German
+          [cdkMenuItemChecked]="locale === 'de-DE'" >
+          <mat-icon svgIcon="{{ locale === 'de-DE' ? 'check' : '' }}"></mat-icon><span i18n="@@viewerControlsGermanLabel">German</span>
         </button>
 
         <button mat-button appCdkMenuItemRadio (cdkMenuItemTriggered)="onSwitchLanguage('en-US')"
-          [cdkMenuItemChecked]="locale === 'en-US'" i18n="@@viewerControlsEnglishLabel">
-          <mat-icon svgIcon="{{ locale === 'en-US' ? 'check' : '' }}"></mat-icon>English
+          [cdkMenuItemChecked]="locale === 'en-US'" >
+          <mat-icon svgIcon="{{ locale === 'en-US' ? 'check' : '' }}"></mat-icon><span i18n="@@viewerControlsEnglishLabel">English</span>
         </button>
       </div>
 
