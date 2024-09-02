@@ -12,12 +12,6 @@ export const AppRoutes: Routes = [
       import('./routes/landing/landing.routes').then((m) => m.LandingRoutes),
   },
   {
-    path: 'auth',
-    canActivate: [LoggedOutGuard],
-    loadChildren: () =>
-      import('./routes/auth/auth.routes').then((m) => m.AuthRoutes),
-  },
-  {
     path: 'home',
     canActivate: [LoggedInGuard, IsConfigLoadedGuard],
     loadChildren: () =>

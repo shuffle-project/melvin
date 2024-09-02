@@ -171,8 +171,6 @@ export class TranscriptionService {
 
     const projectEntity = plainToInstance(ProjectEntity, updatedProject);
 
-    console.log('vvv');
-    console.log(entity);
     // Send events
     this.events.projectUpdated(projectEntity);
     this.events.transcriptionCreated(projectEntity, entity);
