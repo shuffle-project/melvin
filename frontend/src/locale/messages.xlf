@@ -843,10 +843,10 @@
         <source>Audiolanguage</source>
       </trans-unit>
       <trans-unit id="viewerControlsCaptionsOffLabel" datatype="html">
-        <source><x id="START_BLOCK_IF" equiv-text="@if (!subtitlesEnabledInVideo) {"/><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;check&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/><x id="CLOSE_BLOCK_IF" equiv-text="}"/> Off </source>
+        <source>Off</source>
       </trans-unit>
       <trans-unit id="viewerControlsCaptionsOnLabel" datatype="html">
-        <source><x id="START_BLOCK_IF" equiv-text="@if (subtitlesEnabledInVideo) {"/><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;check&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/><x id="CLOSE_BLOCK_IF" equiv-text="}"/> On </source>
+        <source>On</source>
       </trans-unit>
       <trans-unit id="viewerControlsCaptionsSettingsLabel" datatype="html">
         <source> Settings </source>
@@ -876,13 +876,13 @@
         <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;{{ colorTheme === colorThemeENUM.DARK ? &apos;check&apos; : &apos;&apos; }}&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/>Dark </source>
       </trans-unit>
       <trans-unit id="viewerControlsTranscriptLeftLabel" datatype="html">
-        <source><x id="START_BLOCK_IF" equiv-text="@if(transcriptPosition === tanscriptPositionENUM.LEFT){"/><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;check&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/><x id="CLOSE_BLOCK_IF" equiv-text="}"/> Left </source>
+        <source>Left</source>
       </trans-unit>
       <trans-unit id="viewerControlsTranscriptOffLabel" datatype="html">
-        <source><x id="START_BLOCK_IF" equiv-text="@if(transcriptPosition === tanscriptPositionENUM.OFF) {"/><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;check&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/><x id="CLOSE_BLOCK_IF" equiv-text="}"/> Off </source>
+        <source>Off</source>
       </trans-unit>
       <trans-unit id="viewerControlsTranscriptRightLabel" datatype="html">
-        <source><x id="START_BLOCK_IF" equiv-text="@if(transcriptPosition === tanscriptPositionENUM.RIGHT){"/><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;check&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/><x id="CLOSE_BLOCK_IF" equiv-text="}"/> Right </source>
+        <source>Right</source>
       </trans-unit>
       <trans-unit id="viewerControlsTranscriptSettingsLabel" datatype="html">
         <source> Settings </source>

@@ -1122,14 +1122,6 @@
         <source>Captions </source>
         <target state="final">Untertitel</target>
       </trans-unit>
-      <trans-unit id="viewerControlsCaptionsOffLabel" datatype="html">
-        <source><x id="START_BLOCK_IF" equiv-text="@if (!subtitlesEnabledInVideo) {"/><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;check&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/><x id="CLOSE_BLOCK_IF" equiv-text="}"/> Off </source>
-        <target state="final"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;{{ !subtitlesEnabledInVideo ? &apos;check&apos; : &apos;&apos; }}&quot; &gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon &gt;"/>Aus </target>
-      </trans-unit>
-      <trans-unit id="viewerControlsCaptionsOnLabel" datatype="html">
-        <source><x id="START_BLOCK_IF" equiv-text="@if (subtitlesEnabledInVideo) {"/><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;check&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/><x id="CLOSE_BLOCK_IF" equiv-text="}"/> On </source>
-        <target state="final"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;{{ subtitlesEnabledInVideo ? &apos;check&apos; : &apos;&apos; }}&quot; &gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon &gt;"/>An </target>
-      </trans-unit>
       <trans-unit id="viewerControlsCaptionsSettingsLabel" datatype="html">
         <source> Settings </source>
         <target state="final"> Einstellungen </target>
@@ -1137,18 +1129,6 @@
       <trans-unit id="viewerControlsTranscriptTitle" datatype="html">
         <source>Transcript </source>
         <target state="final">Transkript</target>
-      </trans-unit>
-      <trans-unit id="viewerControlsTranscriptOffLabel" datatype="html">
-        <source><x id="START_BLOCK_IF" equiv-text="@if(transcriptPosition === tanscriptPositionENUM.OFF) {"/><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;check&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/><x id="CLOSE_BLOCK_IF" equiv-text="}"/> Off </source>
-        <target state="final"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;{{ transcriptPosition === tanscriptPositionENUM.OFF ? &apos;check&apos; : &apos;&apos; }}&quot; &gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon &gt;"/>Aus </target>
-      </trans-unit>
-      <trans-unit id="viewerControlsTranscriptLeftLabel" datatype="html">
-        <source><x id="START_BLOCK_IF" equiv-text="@if(transcriptPosition === tanscriptPositionENUM.LEFT){"/><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;check&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/><x id="CLOSE_BLOCK_IF" equiv-text="}"/> Left </source>
-        <target state="final"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;{{ transcriptPosition === tanscriptPositionENUM.LEFT ? &apos;check&apos; : &apos;&apos; }}&quot; &gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon &gt;"/>Links </target>
-      </trans-unit>
-      <trans-unit id="viewerControlsTranscriptRightLabel" datatype="html">
-        <source><x id="START_BLOCK_IF" equiv-text="@if(transcriptPosition === tanscriptPositionENUM.RIGHT){"/><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;check&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/><x id="CLOSE_BLOCK_IF" equiv-text="}"/> Right </source>
-        <target state="final"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;{{ transcriptPosition === tanscriptPositionENUM.RIGHT ? &apos;check&apos; : &apos;&apos; }}&quot; &gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon &gt;"/>Rechts </target>
       </trans-unit>
       <trans-unit id="viewerControlsTranscriptSettingsLabel" datatype="html">
         <source> Settings </source>
@@ -1869,6 +1849,26 @@
       <trans-unit id="transcriptionEffectKickUserFromTranscript" datatype="html">
         <source>The opened transcript was deleted and another one selected.</source>
         <target state="final">Das geöffnete Transkript wurde gelöscht und ein anderes ausgewählt.</target>
+      </trans-unit>
+      <trans-unit id="viewerControlsTranscriptOffLabel" datatype="html">
+        <source>Off</source>
+        <target state="new">Aus</target>
+      </trans-unit>
+      <trans-unit id="viewerControlsTranscriptLeftLabel" datatype="html">
+        <source>Left</source>
+        <target state="new">Links</target>
+      </trans-unit>
+      <trans-unit id="viewerControlsTranscriptRightLabel" datatype="html">
+        <source>Right</source>
+        <target state="new">Rechts</target>
+      </trans-unit>
+      <trans-unit id="viewerControlsCaptionsOffLabel" datatype="html">
+        <source>Off</source>
+        <target state="new">Aus</target>
+      </trans-unit>
+      <trans-unit id="viewerControlsCaptionsOnLabel" datatype="html">
+        <source>On</source>
+        <target state="new">An</target>
       </trans-unit>
     </body>
   </file>

@@ -144,18 +144,18 @@
         <button mat-button appCdkMenuItemRadio [appKeepMenuOpen]="true" [cdkMenuItemChecked]="subtitlesEnabledInVideo"
           (cdkMenuItemTriggered)="
             onChangeCaptions(false, subtitlesEnabledInVideo)
-          " i18n="@@viewerControlsCaptionsOffLabel">
+          " >
           @if (!subtitlesEnabledInVideo) {
           <mat-icon svgIcon="check"></mat-icon>
-          } Off
+          } <span i18n="@@viewerControlsCaptionsOffLabel">Off</span>
         </button>
         <button mat-button appCdkMenuItemRadio [appKeepMenuOpen]="true" [cdkMenuItemChecked]="!subtitlesEnabledInVideo"
           (cdkMenuItemTriggered)="
             onChangeCaptions(true, subtitlesEnabledInVideo)
-          " i18n="@@viewerControlsCaptionsOnLabel">
+          " >
           @if (subtitlesEnabledInVideo) {
           <mat-icon svgIcon="check"></mat-icon>
-          } On
+          } <span i18n="@@viewerControlsCaptionsOnLabel">On</span> 
         </button>
         <button mat-button cdkMenuItem (cdkMenuItemTriggered)="onOpenCaptionsSettingsDialog()"
           i18n="@@viewerControlsCaptionsSettingsLabel" class="single-button">
@@ -170,28 +170,28 @@
             transcriptPosition === tanscriptPositionENUM.OFF
           " (cdkMenuItemTriggered)="
             onChangeTranscriptPosition(tanscriptPositionENUM.OFF)
-          " i18n="@@viewerControlsTranscriptOffLabel">
+          " >
           @if(transcriptPosition === tanscriptPositionENUM.OFF) {
           <mat-icon svgIcon="check"></mat-icon>
-          } Off
+          } <span i18n="@@viewerControlsTranscriptOffLabel">Off</span>
         </button>
 
         <button mat-button appCdkMenuItemRadio [appKeepMenuOpen]="true" [cdkMenuItemChecked]="
             transcriptPosition === tanscriptPositionENUM.LEFT
           " (cdkMenuItemTriggered)="
             onChangeTranscriptPosition(tanscriptPositionENUM.LEFT)
-          " i18n="@@viewerControlsTranscriptLeftLabel">
+          " >
           @if(transcriptPosition === tanscriptPositionENUM.LEFT){
-          <mat-icon svgIcon="check"></mat-icon>} Left
+          <mat-icon svgIcon="check"></mat-icon>} <span i18n="@@viewerControlsTranscriptLeftLabel">Left</span> 
         </button>
         <button mat-button appCdkMenuItemRadio [appKeepMenuOpen]="true" [cdkMenuItemChecked]="
             transcriptPosition === tanscriptPositionENUM.RIGHT
           " (cdkMenuItemTriggered)="
             onChangeTranscriptPosition(tanscriptPositionENUM.RIGHT)
-          " i18n="@@viewerControlsTranscriptRightLabel">
+          " >
           @if(transcriptPosition === tanscriptPositionENUM.RIGHT){
           <mat-icon svgIcon="check"></mat-icon>
-          } Right
+          } <span i18n="@@viewerControlsTranscriptRightLabel">Right</span>
         </button>
 
         <button mat-button cdkMenuItem (cdkMenuItemTriggered)="onOpenTranscriptSettingsDialog()"
