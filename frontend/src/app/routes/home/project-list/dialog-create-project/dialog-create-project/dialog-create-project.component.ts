@@ -128,14 +128,18 @@ export class DialogCreateProjectComponent implements OnDestroy, AfterViewInit {
       .select(configSelectors.getSupportedASRLanguages)
       .pipe(takeUntil(this.destroy$$))
       .subscribe((languages) => {
-        this.languages = languages.map((language) => {
-          return {
-            code: language.code,
-            name: this.locale?.startsWith('en')
-              ? language.englishName
-              : language.germanName,
-          };
-        });
+        this.languages = languages
+          .map((language) => {
+            return {
+              code: language.code,
+              name: this.locale?.startsWith('en')
+                ? language.englishName
+                : language.germanName,
+            };
+          })
+          .sort((a, b) => {
+            return a.name.localeCompare(b.name);
+          });
       });
   }
 
@@ -357,6 +361,18 @@ export class DialogCreateProjectComponent implements OnDestroy, AfterViewInit {
   }
 
   onRemoveFile(index: number) {
+    if (
+      !this.formGroup.controls.files.controls[index].controls.language.disabled
+    ) {
+      let reabledLanguage = false;
+      this.formGroup.controls.files.controls.forEach((fileGroup, i) => {
+        if (!reabledLanguage && fileGroup.controls.language.disabled) {
+          fileGroup.controls.language.enable();
+          reabledLanguage = true;
+        }
+      });
+    }
+
     this.formGroup.markAsTouched();
     this.formGroup.controls.files.removeAt(index);
 
