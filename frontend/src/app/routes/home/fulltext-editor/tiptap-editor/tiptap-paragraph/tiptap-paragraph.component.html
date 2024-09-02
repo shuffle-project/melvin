@@ -1,0 +1,20 @@
+<div class="left">
+  <div
+    class="speaker"
+    tabindex="-1"
+    [contentEditable]="false"
+    [matMenuTriggerFor]="speakerMenu"
+  >
+
+    <span>{{ speaker }}</span>
+
+    <!-- <span>Test</span> -->
+  </div>
+</div>
+
+<p tiptapNodeViewContent [spellcheck]="false"></p>
+
+
+<mat-menu #speakerMenu="matMenu">
+  <app-edit-speaker-modal (changeSpeakerEvent)="onChangeSpeaker($event)"></app-edit-speaker-modal>
+</mat-menu>

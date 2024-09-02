@@ -181,7 +181,7 @@ export const Word = Mark.create({
             return {};
           }
           return {
-            style: `color: var(--color-editor-user-${attributes['color']})`,
+            style: `color: rgb(var(--color-editor-user-${attributes['color']}-rgb))`,
           };
         },
       },
@@ -328,7 +328,6 @@ export const UserExtension = Extension.create({
 
             // Insert the new text
             tr.insertText(text, from, to);
-            console.log(text);
             tr.addMark(
               from,
               from + text.length,

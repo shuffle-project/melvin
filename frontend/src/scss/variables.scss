@@ -62,15 +62,25 @@
     --color-highlight-yellow: #fafad2;
 
     // Editor user colors
-    --color-editor-user-unknown: var(--color-grey);
-    --color-editor-user-primary: var(--color-primary);
-    --color-editor-user-orange: #f76825;
-    --color-editor-user-turquoise: #0ba3a3;
-    --color-editor-user-red: #f7254c;
-    --color-editor-user-purple: #9d43ba;
-    --color-editor-user-green: #0ba339;
-    --color-editor-user-pink: #ca3483;
-    --color-editor-user-blue: #2592f7;
+    // --color-editor-user-unknown: var(--color-grey);
+    // --color-editor-user-primary: var(--color-primary);
+    // --color-editor-user-orange: #f76825;
+    // --color-editor-user-turquoise: #0ba3a3;
+    // --color-editor-user-red: #f7254c;
+    // --color-editor-user-purple: #9d43ba;
+    // --color-editor-user-green: #0ba339;
+    // --color-editor-user-pink: #ca3483;
+    // --color-editor-user-blue: #2592f7;
+
+    --color-editor-user-unknown-rgb: var(--color-grey-rgb);
+    --color-editor-user-primary-rgb: var(--color-primary-rgb);
+    --color-editor-user-orange-rgb: 247, 104, 37;
+    --color-editor-user-turquoise-rgb: 11, 163, 163;
+    --color-editor-user-red-rgb: 247, 37, 76;
+    --color-editor-user-purple-rgb: 157, 67, 186;
+    --color-editor-user-green-rgb: 11, 163, 57;
+    --color-editor-user-pink-rgb: 202, 52, 131;
+    --color-editor-user-blue-rgb: 37, 146, 247;
 
     // primary palette
     --color-primary-50: #e4eff3;

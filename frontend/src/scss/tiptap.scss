@@ -1,24 +1,22 @@
 .tiptap {
-  border: 1px solid var(--color-border-grey);
-  background-color: var(--color-white);
   color: var(--color-text);
   outline: none;
+  font-size: 1rem;
+  line-height: 1.5rem;
 
-  padding: 10px;
+  // .flex > * {
+  //   margin-right: 10px;
+  //   margin-bottom: 10px;
+  // }
 
-  .flex > * {
-    margin-right: 10px;
-    margin-bottom: 10px;
-  }
-
-  .has-focus {
-    border-radius: 3px;
-    box-shadow: 0 0 0 3px var(--color-primary);
-  }
+  // .has-focus {
+  //   border-radius: 3px;
+  //   box-shadow: 0 0 0 3px var(--color-primary);
+  // }
 
   p {
     margin: 0;
-    padding: 10px 5px;
+    padding: 0;
   }
 
   /* Give a remote user a caret */

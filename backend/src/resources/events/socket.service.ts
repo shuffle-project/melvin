@@ -23,6 +23,7 @@ export class SocketService {
 
   private clients: Set<AuthorizedWebSocket> = new Set();
 
+  // TODO: user kann mehrere sockets haben ?
   private users: Map<string, AuthorizedWebSocket> = new Map();
   private rooms: Map<string, AuthorizedWebSocket[]> = new Map();
 
@@ -133,21 +134,24 @@ export class SocketService {
     const socket = this.users.get(userId);
 
     if (!socket) {
-      throw new Error('user_socket_not_found');
-    }
-
-    const room = this.rooms.get(roomName);
-
-    if (!room) {
-      throw new Error('room_not_found');
-    }
-
-    const updatedRoom = room.filter((o) => o !== socket);
-
-    if (updatedRoom.length === 0) {
-      this.rooms.delete(roomName);
+      // TODO
+      this.logger.warn("user's socket not found", { roomName, userId });
+      // Ist das werfen eines fehlers hier benötiogt? also wenn der user socket schon weg ist, ist ja ok?
+      // throw new Error('user_socket_not_found');
     } else {
-      this.rooms.set(roomName, updatedRoom);
+      const room = this.rooms.get(roomName);
+
+      if (!room) {
+        throw new Error('room_not_found');
+      }
+
+      const updatedRoom = room.filter((o) => o !== socket);
+
+      if (updatedRoom.length === 0) {
+        this.rooms.delete(roomName);
+      } else {
+        this.rooms.set(roomName, updatedRoom);
+      }
     }
   }
 

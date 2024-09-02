@@ -93,7 +93,6 @@
   padding: 20px 0px 0px 20px;
 
   flex-direction: row;
-  height: 100%;
   flex-grow: 1;
 
   .left {
@@ -102,10 +101,13 @@
   }
 
   .right {
-    flex: 1;
+    flex: 1 1 auto;
     min-width: 70%;
-    max-width: 1000px;
-    padding-left: 20px;
+    box-sizing: border-box;
+    width: auto;
+    padding-left: 1rem;
+    display: flex;
+    flex-direction: column;
   }
 }
 

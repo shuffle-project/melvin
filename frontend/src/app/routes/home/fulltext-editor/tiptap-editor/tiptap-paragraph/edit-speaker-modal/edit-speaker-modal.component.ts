@@ -23,7 +23,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatMenuModule } from '@angular/material/menu';
 import { PushPipe } from '@ngrx/component';
 import { Store } from '@ngrx/store';
-import { Observable, Subscription } from 'rxjs';
+import { firstValueFrom, lastValueFrom, Observable, Subscription } from 'rxjs';
 import { CaptionEntity } from '../../../../../../services/api/entities/caption.entity';
 import { SpeakerEntity } from '../../../../../../services/api/entities/transcription.entity';
 import * as captionsActions from '../../../../../../store/actions/captions.actions';
@@ -47,8 +47,10 @@ import * as transcriptionsSelectors from '../../../../../../store/selectors/tran
   ],
 })
 export class EditSpeakerModalComponent implements OnInit, OnDestroy {
-  @Input() caption!: CaptionEntity;
   @Output() closeMatMenuEvent = new EventEmitter();
+
+  @Output() changeSpeakerEvent = new EventEmitter<SpeakerEntity>();
+
   availableSpeaker$!: Observable<SpeakerEntity[]>;
   addSpeakerMode = false;
   newSpeakerForm = new FormControl<string>('', {
@@ -82,23 +84,27 @@ export class EditSpeakerModalComponent implements OnInit, OnDestroy {
     this.speakerSub.unsubscribe();
   }
 
-  changeSpeaker(caption: CaptionEntity, speaker: SpeakerEntity) {
-    this.store.dispatch(
-      captionsActions.update({
-        id: caption.id,
-        updateDto: { speakerId: speaker.id, lockedBy: null },
-      })
-    );
+  changeSpeaker(speaker: SpeakerEntity) {
+    this.changeSpeakerEvent.emit(speaker);
+    // this.store.dispatch(
+    //   captionsActions.update({
+    //     id: captionId,
+    //     updateDto: { speakerId: speaker.id, lockedBy: null },
+    //   })
+    // );
   }
 
-  onAddSpeaker(caption: CaptionEntity, newSpeaker: string) {
+  async onAddSpeaker(newSpeaker: string) {
     if (this.newSpeakerForm.invalid) {
       this.newSpeakerForm.markAllAsTouched();
     } else {
+      const transcriptionId = await firstValueFrom(
+        this.store.select(transcriptionsSelectors.selectTranscriptionId)
+      );
       const createSpeakersDto = { names: [newSpeaker] };
       this.store.dispatch(
         transcriptionsActions.createSpeakers({
-          transcriptionId: caption.transcription,
+          transcriptionId: transcriptionId,
           createSpeakersDto,
         })
       );
@@ -121,11 +127,11 @@ export class EditSpeakerModalComponent implements OnInit, OnDestroy {
 
   onNewSpeakerInvalid() {
     if (this.newSpeakerForm.hasError('required')) {
-      return `You must enter a name`;
+      return $localize`:@@editSpeakerModalNameRequiredError:You must enter a name`;
     }
 
     return this.newSpeakerForm.hasError('nameExists')
-      ? 'Name already exists'
+      ? $localize`:@@editSpeakerModalNameAlreadyExists:Name already exists`
       : '';
   }
 }

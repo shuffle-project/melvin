@@ -38,7 +38,7 @@
   <div
     class="content"
     [style.border-color]="
-    lockedBy ? 'var(--color-editor-user-' + lockedBy.color + ')' : undefined
+    lockedBy ? 'rgb(var(--color-editor-user-' + lockedBy.color + '-rgb))' : undefined
     "
     [class.invalid]="!formControl.valid"
     >
@@ -95,7 +95,7 @@
       <div
         class="inner"
         [style.background-color]="
-        'var(--color-editor-user-' + lockedBy.color + ')'
+        'rgb(var(--color-editor-user-' + lockedBy.color + '-rgb))'
         "
         i18n-matTooltip="@@captionSomeoneEditsThisCaptionTooltip"
         [matTooltip]="lockedBy.name + ' edits this caption.'"
