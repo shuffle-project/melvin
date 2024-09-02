@@ -9,10 +9,16 @@ export interface ConfigEntity {
 export interface TranslationServiceConfig {
   fullName: string;
   translateVendor: TranslateVendors;
-  languages: Language[];
+  languages: LanguageShort[];
 }
 
 export interface Language {
+  code: string;
+  englishName: string;
+  germanName: string;
+}
+
+export interface LanguageShort {
   code: string;
   name: string;
 }
@@ -20,5 +26,5 @@ export interface Language {
 export interface AsrServiceConfig {
   fullName: string;
   asrVendor: AsrVendors;
-  languages: Language[];
+  languages: LanguageShort[];
 }

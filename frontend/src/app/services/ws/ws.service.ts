@@ -145,13 +145,20 @@ export class WSService {
           break;
         }
         case 'project:updated': {
+          const authUserId = await firstValueFrom(
+            this.store.select(authSelectors.selectUserId)
+          );
+
           const payload = args as EventParams<
             ServerToClientEvents,
             'project:updated'
           >;
           this.logger.verbose('project:updated', payload);
           this.store.dispatch(
-            projectActions.updateFromWS({ updatedProject: payload.project })
+            projectActions.updateFromWS({
+              updatedProject: payload.project,
+              authUserId: authUserId!,
+            })
           );
           break;
         }
@@ -194,6 +201,7 @@ export class WSService {
             'transcription:created'
           >;
           this.logger.verbose('transcription:created', payload);
+
           this.store.dispatch(
             transcriptionActions.createFromWS({
               transcription: payload.transcription,

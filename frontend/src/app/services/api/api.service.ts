@@ -108,6 +108,10 @@ export abstract class ApiService {
   abstract findAllUsers(search: string): Observable<UserEntity[]>;
 
   // projects
+  abstract createLegacyProject(
+    project: FormData
+  ): Observable<HttpEvent<ProjectEntity>>;
+
   abstract createProject(
     project: FormData
   ): Observable<HttpEvent<ProjectEntity>>;
@@ -143,6 +147,10 @@ export abstract class ApiService {
   ): Observable<HttpEvent<ProjectEntity>>;
 
   abstract invite(projectId: string, emails: string[]): Observable<void>;
+  abstract removeUserFromProject(
+    projectId: string,
+    userId: string
+  ): Observable<void>;
 
   abstract getProjectInviteToken(
     projectId: string

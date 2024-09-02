@@ -1,0 +1,62 @@
+<div mat-dialog-title>
+  <div class="dialog-header">
+    <h1 i18n="@@editTranscriptionModalTitle">Edit transcription</h1>
+    <button
+      mat-icon-button
+      [mat-dialog-close]="true"
+      aria-label="Close"
+      i18n-aria-label="@@dialogProjectDetailCloseButton"
+    >
+      <mat-icon svgIcon="close" />
+    </button>
+  </div>
+</div>
+<mat-dialog-content>
+  <form [formGroup]="transcriptionEditGroup">
+    <div class="main-wrapper">
+      <mat-form-field>
+        <mat-label i18n="@@editTranscriptionModalLanguageLabel"
+          >Language</mat-label
+        >
+        <mat-select
+          formControlName="language"
+          (selectionChange)="onSelectValueChange($event.value)"
+        >
+          @for (language of languages | ngrxPush; track language) {
+          <mat-option [value]="language.code">{{ language.name }} </mat-option>
+          }
+        </mat-select>
+        <mat-error i18n="@@editTranscriptionModalLanguageError"
+          >Select a language</mat-error
+        >
+      </mat-form-field>
+      <mat-form-field class="title">
+        <mat-label i18n="@@editTranscriptionModalTitleLabel">Title</mat-label>
+        <input matInput formControlName="title" />
+        <mat-hint i18n="@@editTranscriptionModalTitleHint">
+          Optional title addition
+        </mat-hint>
+      </mat-form-field>
+    </div>
+  </form>
+  <div class="preview">
+    <p>
+      <span i18n="@@editTranscriptionModalPreviewText"> Preview: </span>
+      {{ languageName }}
+      @if(transcriptionEditGroup.value.title ) { [{{
+        transcriptionEditGroup.value.title
+      }}] }
+    </p>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button
+    mat-raised-button
+    color="primary"
+    [disabled]="!transcriptionEditGroup.valid"
+    i18n="@@editTranscriptionModalSaveButton"
+    (click)="onEditTranscription()"
+  >
+    Save
+  </button>
+</mat-dialog-actions>

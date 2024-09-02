@@ -1,10 +1,19 @@
-.mat-mdc-snack-bar-container.info .mat-mdc-snack-bar-action:not(:disabled) {
-  color: var(--color-primary) !important;
+// .mat-mdc-snack-bar-action:not(:disabled)
+.mat-mdc-snack-bar-container.info {
+  * {
+    color: var(--color-white);
+  }
 }
 
-.mat-mdc-snack-bar-container.success .mat-mdc-snack-bar-action:not(:disabled) {
-  color: var(--color-green) !important;
+// .mat-mdc-snack-bar-action:not(:disabled)
+.mat-mdc-snack-bar-container.success {
+  * {
+    color: var(--color-success-dark-bg);
+  }
 }
-.mat-mdc-snack-bar-container.error .mat-mdc-snack-bar-action:not(:disabled) {
-  color: var(--color-warn) !important;
+// .mat-mdc-snack-bar-action:not(:disabled)
+.mat-mdc-snack-bar-container.error {
+  * {
+    color: var(--color-warn-dark-bg);
+  }
 }

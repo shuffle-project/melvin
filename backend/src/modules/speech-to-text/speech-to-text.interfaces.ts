@@ -1,15 +1,11 @@
-import { Language } from '../../app.interfaces';
+import { LanguageShort } from '../../app.interfaces';
 import { ProjectEntity } from '../../resources/project/entities/project.entity';
 import { Audio } from '../db/schemas/project.schema';
 
 export interface ISpeechToTextService {
-  fetchLanguages(): Promise<Language[] | null>;
+  fetchLanguages(): Promise<LanguageShort[] | null>;
   run(project: ProjectEntity, audio: Audio): Promise<TranscriptEntity | string>;
-  runAlign(
-    project: ProjectEntity,
-    text: string,
-    audio: Audio,
-  ): Promise<any>;
+  runAlign(project: ProjectEntity, text: string, audio: Audio): Promise<any>;
 }
 
 export class WordEntity {

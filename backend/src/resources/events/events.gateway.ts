@@ -190,8 +190,15 @@ export class EventsGateway
     }
   }
 
-  async projectUpdated(project: ProjectEntity) {
-    const rooms = project.users.map((o) => `user:${o._id.toString()}`);
+  async projectUpdated(
+    project: ProjectEntity,
+    notifyRemovedUsers: string[] = [],
+  ) {
+    const users = [
+      ...project.users.map((o) => getObjectIdAsString(o)),
+      ...notifyRemovedUsers,
+    ];
+    const rooms = users.map((o) => `user:${o.toString()}`);
     const payload = {
       project: instanceToPlain(project) as ProjectEntity,
     };

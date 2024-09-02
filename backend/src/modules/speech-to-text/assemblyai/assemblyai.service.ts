@@ -4,7 +4,7 @@ import { ConfigService } from '@nestjs/config';
 import { AxiosError, AxiosResponse } from 'axios';
 import { readFile } from 'fs-extra';
 import { catchError, lastValueFrom, map } from 'rxjs';
-import { Language } from '../../../app.interfaces';
+import { LanguageShort } from '../../../app.interfaces';
 import { AssmeblyAiConfig } from '../../../config/config.interface';
 import { ProjectEntity } from '../../../resources/project/entities/project.entity';
 import { DbService } from '../../db/db.service';
@@ -42,15 +42,11 @@ export class AssemblyAiService implements ISpeechToTextService {
     this.url = this.assemblyAiConfig?.url;
     this.apikey = this.assemblyAiConfig?.apikey;
   }
-  runAlign(
-    project: ProjectEntity,
-    text: string,
-    audio: Audio,
-  ): Promise<any> {
+  runAlign(project: ProjectEntity, text: string, audio: Audio): Promise<any> {
     throw new Error('Method not implemented.');
   }
 
-  async fetchLanguages(): Promise<Language[] | null> {
+  async fetchLanguages(): Promise<LanguageShort[] | null> {
     if (!this.assemblyAiConfig) {
       return null;
     }

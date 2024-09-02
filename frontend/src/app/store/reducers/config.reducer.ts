@@ -24,7 +24,7 @@ export enum ColorTheme {
 export interface ConfigState {
   language: PageLanguage;
   colorTheme: ColorTheme;
-
+  isInitialized: boolean;
   //
 
   translationServices: TranslationServiceConfig[];
@@ -40,6 +40,7 @@ export const initialState: ConfigState = {
     StorageKey.COLOR_MODE,
     ColorTheme.LIGHT
   ) as ColorTheme,
+  isInitialized: false,
 
   //
 
@@ -55,6 +56,7 @@ export const configReducer = createReducer(
     translationServices: action.configEntity.translationServices,
     asrServices: action.configEntity.asrServices,
     languages: action.configEntity.languages,
+    isInitialized: true,
   })),
 
   on(

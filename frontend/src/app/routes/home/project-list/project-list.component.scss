@@ -3,6 +3,10 @@ section {
   min-height: 100%;
 }
 
+.hidden {
+  opacity: 0%;
+}
+
 .filter-options-wrapper {
   width: 100%;
   display: flex;
@@ -27,9 +31,10 @@ section {
     margin-top: 4px;
   }
 
-  .new-project-button {
-    margin-top: 10px;
-    margin-left: 3px;
+  .new-project-button-wrapper {
+    display: flex;
+    align-items: center;
+    max-height: 3.5rem;
   }
 }
 
@@ -125,5 +130,17 @@ section {
   background: var(--color-background-grey);
   td {
     color: rgba(var(--color-black-rgb), 0.6);
+  }
+}
+
+.status-wrapper {
+  padding-inline: 0.625rem;
+  display: flex;
+  min-height: 2rem;
+  align-items: center;
+
+  p {
+    margin: 0;
+    padding: 0;
   }
 }

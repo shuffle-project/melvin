@@ -23,7 +23,7 @@ export const LandingRoutes: Routes = [
       {
         path: 'privacy',
         component: PrivacyComponent,
-        title: $localize`:@@imprintPageTitle:Privacy - Melvin`,
+        title: $localize`:@@privacyPageTitle:Privacy - Melvin`,
       },
       {
         path: 'imprint',

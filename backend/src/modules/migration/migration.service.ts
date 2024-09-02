@@ -33,8 +33,6 @@ export class MigrationService {
     this.logger.info('Initialize migration check');
     let settings = await this.db.settingsModel.findOne({});
 
-    this.logger.info('settings.dbSchemaVersion', settings.dbSchemaVersion);
-
     if (settings === null) {
       this.logger.info('First application start');
       settings = await this.db.settingsModel.create({ dbSchemaVersion: 1 });
@@ -70,6 +68,28 @@ export class MigrationService {
       settings.dbSchemaVersion = 3;
       await settings.save();
       this.logger.info('Migration to version 3 successful');
+    }
+
+    if (settings.dbSchemaVersion < 4) {
+      this.logger.info('Migrate to version 4 - language tags');
+      const projects = await this.db.projectModel.find({});
+      for (const project of projects) {
+        if (
+          project.language === 'de-DE' ||
+          project.language === 'es-ES' ||
+          project.language === 'fr-FR'
+        ) {
+          project.language = project.language.split('-')[0];
+          project.save();
+        }
+        if (project.language === 'en') {
+          project.language = 'en-US';
+          project.save();
+        }
+      }
+      settings.dbSchemaVersion = 4;
+      await settings.save();
+      this.logger.info('Migration to version 4 successful');
     }
   }
 

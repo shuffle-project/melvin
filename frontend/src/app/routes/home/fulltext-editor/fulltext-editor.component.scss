@@ -5,12 +5,18 @@
 }
 
 .title-wrapper {
-  margin-top: 4px;
+  margin-top: 0.25rem;
+  padding-left: 0.4375rem;
   display: flex;
   align-items: center;
+  min-height: 2rem;
 
   .project-title {
-    font-size: 18px;
+    font-size: 1.125rem;
+
+    &:hover {
+      outline: 2px solid var(--color-primary);
+    }
   }
 }
 
@@ -19,7 +25,7 @@
   margin-bottom: 2px;
 
   button {
-    margin: 0 6px;
+    font-weight: 500;
     padding: 4px 8px;
     line-height: 16px;
     min-width: unset !important;
@@ -119,4 +125,8 @@ button.live {
       color: var(--color-red);
     }
   }
+}
+
+.waveform-wrapper {
+  min-height: 4rem;
 }

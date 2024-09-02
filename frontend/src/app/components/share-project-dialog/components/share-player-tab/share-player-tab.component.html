@@ -1,0 +1,65 @@
+<div class="mat-tab-content">
+  <h2>Videoplayer Link</h2>
+  <div class="flex flex-col">
+    <p>Any person who has this link can open the videoplayer.</p>
+
+    <div class="general-access-buttons">
+      <button
+        (click)="onClickCopyLink()"
+        i18n="@@sharePlayerShareLinkButton"
+        class="copy-button"
+        mat-flat-button
+      >
+        <mat-icon svgIcon="public" />
+        Copy link
+      </button>
+
+      @if ((authUser$ | ngrxPush )?.id === project.createdBy.id) {
+      <button
+        (click)="onClickUpdateViewer()"
+        i18n="@@sharePlayerGenerateNewLinkButton"
+        class="generate-button"
+        mat-stroked-button
+      >
+        <mat-icon svgIcon="change" />
+        Generate new link, revoke old one
+      </button>
+      }
+    </div>
+
+    <div class="embed-wrapper">
+      <h2>Embed Videoplayer</h2>
+      @if(project && viewerLink()){
+      <div
+        class="code-wrapper"
+        i18n-aria-label="@@sharePlayerCodeAriaLabel"
+        aria-label="Embed videoplayer code"
+      >
+        <button
+          (click)="onCopyToClipboard()"
+          mat-flat-button
+          color="primary"
+          i18n="@@sharePlayerCodeCopyButton"
+        >
+          Copy
+        </button>
+        <pre>
+  <code>
+  &lt;iFrame 
+    width={{ width }} 
+    height={{ height }} 
+    src={{ viewerLink() }} 
+    title={{ title}}
+    frameborder="0" 
+    allowfullscreen
+    referrerpolicy="strict-origin-when-cross-origin" 
+  &gt; 
+  &lt;/iFrame&gt;
+  </code>
+</pre>
+      </div>
+      <!-- <app-embed [viewerLink]="viewerLink" /> -->
+      }
+    </div>
+  </div>
+</div>

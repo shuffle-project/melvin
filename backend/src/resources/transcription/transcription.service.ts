@@ -40,7 +40,6 @@ import { FindAllTranscriptionsQuery } from './dto/find-all-transcriptions.dto';
 import { UpdateSpeakerDto } from './dto/update-speaker.dto';
 import { UpdateTranscriptionDto } from './dto/update-transcription.dto';
 import { TranscriptionEntity } from './entities/transcription.entity';
-import { text } from 'express';
 
 @Injectable()
 export class TranscriptionService {
@@ -116,7 +115,7 @@ export class TranscriptionService {
 
     await this.tiptapService.updateDocument(transcription._id.toString(), json);
 
-    transcription.populate('createdBy');
+    await transcription.populate('createdBy');
 
     // Entity
     const entity = plainToInstance(
@@ -480,7 +479,9 @@ export class TranscriptionService {
     // create new transcription
 
     const dto: CreateTranscriptionDto = {
-      title: 'aligned: ' + transcription.title,
+      title: transcription.title
+        ? transcription.title + ' - aligned'
+        : 'aligned',
       language: transcription.language,
       project: projectId as any,
     };
@@ -518,7 +519,7 @@ export class TranscriptionService {
     });
 
     // events
-    newtranscription.populate('createdBy');
+    await newtranscription.populate('createdBy');
 
     // Entity
     const entity = plainToInstance(

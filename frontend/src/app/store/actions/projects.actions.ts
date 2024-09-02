@@ -86,7 +86,7 @@ export const updateFail = createAction(
 
 export const updateFromWS = createAction(
   '[PROJECT WS] Project updated',
-  props<{ updatedProject: ProjectEntity }>()
+  props<{ updatedProject: ProjectEntity; authUserId: string }>()
 );
 
 export const updateFromWSPartial = createAction(
@@ -112,5 +112,4 @@ export const updateProjectFromLiveControls = createAction(
 );
 
 // invite
-
 // TODO move invite.component.ts lines > 74 to store

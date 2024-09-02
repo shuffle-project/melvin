@@ -294,6 +294,13 @@ export class RealApiService implements ApiService {
   //   });
   // }
 
+  createLegacyProject(project: FormData): Observable<HttpEvent<ProjectEntity>> {
+    return this._post<HttpEvent<ProjectEntity>>(`/projects/legacy`, project, {
+      reportProgress: true,
+      observe: 'events' as any,
+    });
+  }
+
   createProject(project: FormData): Observable<HttpEvent<ProjectEntity>> {
     return this._post<HttpEvent<ProjectEntity>>(`/projects`, project, {
       reportProgress: true,
@@ -382,6 +389,10 @@ export class RealApiService implements ApiService {
 
   invite(projectId: string, emails: string[]): Observable<void> {
     return this._post<void>(`/projects/${projectId}/invite`, { emails });
+  }
+
+  removeUserFromProject(projectId: string, userId: string): Observable<void> {
+    return this._delete<void>(`/projects/${projectId}/users/${userId}`);
   }
 
   getProjectViewerToken(

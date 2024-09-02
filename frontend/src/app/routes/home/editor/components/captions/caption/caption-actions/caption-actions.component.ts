@@ -65,7 +65,7 @@ export class CaptionActionsComponent implements OnInit {
     });
   }
 
-  onClickDelete() {
-    this.deleteService.deleteCaption(this.caption);
+  async onClickDelete() {
+    const isisConfirmed = await this.deleteService.deleteCaption(this.caption);
   }
 }

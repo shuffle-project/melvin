@@ -15,16 +15,16 @@ services:
     ports:
       - 6379:6379
 
-  asr:
-    image: ghcr.io/shuffle-project/melvin-asr:dev
-    container_name: ${COMPOSE_PROJECT_NAME}-asr
-    volumes:
-      - ./data/whisper-models:/asr/models
-      - ./data/asr:/asr/data
-      - ./asr.config.yml:/asr/config.yml
-    ports:
-      - "8393:8393"
-      - "8394:8394"
+  # asr:
+  #   image: ghcr.io/shuffle-project/melvin-asr:dev
+  #   container_name: ${COMPOSE_PROJECT_NAME}-asr
+  #   volumes:
+  #     - ./data/whisper-models:/asr/models
+  #     - ./data/asr:/asr/data
+  #     - ./asr.config.yml:/asr/config.yml
+  #   ports:
+  #     - "8393:8393"
+  #     - "8394:8394"
 
   # libretranslate:
   #   image: libretranslate/libretranslate

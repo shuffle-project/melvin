@@ -156,6 +156,11 @@ export class FakeApiService implements ApiService {
   }
 
   // projects
+  createLegacyProject(project: FormData): Observable<any> {
+    this.logger.verbose('createProject mocked');
+    return of({ ...PROJECT_ENTITY_MOCK[0] });
+  }
+
   createProject(project: FormData): Observable<any> {
     this.logger.verbose('createProject mocked');
     return of({ ...PROJECT_ENTITY_MOCK[0] });
@@ -207,6 +212,11 @@ export class FakeApiService implements ApiService {
 
   invite(projectId: string, emails: string[]): Observable<void> {
     this.logger.verbose('invite mocked');
+    return of();
+  }
+
+  removeUserFromProject(projectId: string, userId: string): Observable<void> {
+    this.logger.verbose('remove collaborator mocked');
     return of();
   }
 
