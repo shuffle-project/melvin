@@ -1808,7 +1808,7 @@
       </trans-unit>
       <trans-unit id="dialogCreateProjectSelectPlaceholder" datatype="html">
         <source>Select</source>
-        <target state="final">Auswählen</target>
+        <target state="final">Auswahl</target>
       </trans-unit>
       <trans-unit id="dialogCreateProjectCategoryErrorRequired" datatype="html">
         <source> Category is required </source>
