@@ -32,26 +32,9 @@
         >Media Category</mat-label
       >
       <mat-select [(ngModel)]="videoSource.mediaCategory">
-        <mat-option
-          value="{{ MediaCategory.SIGN_LANGUAGE }}"
-          i18n="@@recorderAddVideoSourceMediaCategorySignLanguage"
-          >Sign Language</mat-option
-        >
-        <mat-option
-          value="{{ MediaCategory.SLIDES }}"
-          i18n="@@recorderAddVideoSourceMediaCategorySlides"
-          >Slides</mat-option
-        >
-        <mat-option
-          value="{{ MediaCategory.SPEAKER }}"
-          i18n="@@recorderAddVideoSourceMediaCategorySpeaker"
-          >Speaker</mat-option
-        >
-        <mat-option
-          value="{{ MediaCategory.OTHER }}"
-          i18n="@@recorderAddVideoSourceMediaCategoryOther"
-          >Other</mat-option
-        >
+        @for (category of mediaCategoryArray; track category) {
+        <mat-option value="category">{{ category | mediaCategory }}</mat-option>
+        }
       </mat-select>
     </mat-form-field>
   </div>

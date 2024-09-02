@@ -1,7 +1,7 @@
-import { Language } from '../../../app.interfaces';
+import { LanguageShort } from '../../../app.interfaces';
 
 // source https://cloud.google.com/speech-to-text/docs/languages
-export const GOOGLE_LANGUAGES: Language[] = [
+export const GOOGLE_LANGUAGES: LanguageShort[] = [
   {
     name: 'Afrikaans (South Africa)',
     code: 'af-ZA',

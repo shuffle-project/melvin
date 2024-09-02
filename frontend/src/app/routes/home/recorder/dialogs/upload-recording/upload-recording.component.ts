@@ -1,5 +1,9 @@
 import { CommonModule } from '@angular/common';
-import { HttpErrorResponse, HttpEvent, HttpEventType } from '@angular/common/http';
+import {
+  HttpErrorResponse,
+  HttpEvent,
+  HttpEventType,
+} from '@angular/common/http';
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import {
@@ -18,7 +22,7 @@ import { AsrVendors } from '../../../../../services/api/dto/create-transcription
 import { UploadVideoDto } from '../../../../../services/api/dto/upload-video.dto';
 import {
   AsrServiceConfig,
-  Language,
+  LanguageShort,
 } from '../../../../../services/api/entities/config.entity';
 import { ProjectEntity } from '../../../../../services/api/entities/project.entity';
 import { AppState } from '../../../../../store/app.state';
@@ -57,7 +61,7 @@ export class UploadRecordingComponent implements OnInit {
     public data: { title: string; recordings: Recording[] },
     public api: ApiService,
     public store: Store<AppState>
-  ) { }
+  ) {}
 
   async ngOnInit() {
     this.selectInitalInputs();
@@ -81,7 +85,7 @@ export class UploadRecordingComponent implements OnInit {
   }
 
   onChangeAsrService(change: MatSelectChange) {
-    const languages: Language[] = change.value.languages;
+    const languages: LanguageShort[] = change.value.languages;
 
     // choose same language again if it is possible for the new asrservice
     const prev = languages.find((l) => l.code === this.language);
@@ -182,7 +186,7 @@ export class UploadRecordingComponent implements OnInit {
   async createProject(rec: Recording, title: string, language: string) {
     const formData: FormData = this.buildFormData(rec, title, language);
 
-    this.api.createProject(formData).subscribe({
+    this.api.createLegacyProject(formData).subscribe({
       next: (event: HttpEvent<ProjectEntity>) =>
         this._onNextHttpEvent(event, rec),
       error: (error: HttpErrorResponse) => this._onErrorHttpEvent(rec, error),

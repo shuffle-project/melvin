@@ -4,7 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { Store } from '@ngrx/store';
 import {
   Subject,
@@ -19,11 +19,7 @@ import {
 import { AppState } from 'src/app/store/app.state';
 import { AvatarGroupComponent } from '../../../components/avatar-group/avatar-group.component';
 import { ShareProjectDialogComponent } from '../../../components/share-project-dialog/share-project-dialog.component';
-import {
-  ProjectDetailComponent,
-  ProjectDetailDialogData,
-  ProjectDetailDialogTab,
-} from '../../../modules/project-detail/project-detail.component';
+
 import { DurationPipe } from '../../../pipes/duration-pipe/duration.pipe';
 import { FeatureEnabledPipe } from '../../../pipes/feature-enabled-pipe/feature-enabled.pipe';
 import { ApiService } from '../../../services/api/api.service';
@@ -46,6 +42,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { LetDirective, PushPipe } from '@ngrx/component';
+import { DeleteConfirmationService } from 'src/app/components/delete-confirmation-dialog/delete-confirmation.service';
+import { DialogProjectTranscriptionComponent } from 'src/app/modules/project-dialogs/dialog-project-transcription/dialog-project-transcription.component';
+import { WrittenOutLanguagePipe } from 'src/app/pipes/written-out-language-pipe/written-out-language.pipe';
 import { HeaderComponent } from '../../../components/header/header.component';
 import { CaptionsComponent } from '../editor/components/captions/captions.component';
 import { EditorSettingsComponent } from '../editor/components/editor-settings/editor-settings.component';
@@ -86,6 +85,7 @@ import { TiptapEditorComponent } from './tiptap-editor/tiptap-editor.component';
     DurationPipe,
     FeatureEnabledPipe,
     TiptapEditorComponent,
+    WrittenOutLanguagePipe,
   ],
 })
 export class FulltextEditorComponent implements OnInit, OnDestroy {
@@ -152,7 +152,9 @@ export class FulltextEditorComponent implements OnInit, OnDestroy {
     private mediaService: MediaService,
     private appService: AppService,
     public livestreamService: LivestreamService,
-    public http: HttpClient
+    public http: HttpClient,
+    private deleteService: DeleteConfirmationService,
+    private router: Router
   ) {}
 
   async ngOnInit() {
@@ -276,19 +278,22 @@ export class FulltextEditorComponent implements OnInit, OnDestroy {
     );
   }
 
-  async onClickProjectEdit(tab: ProjectDetailDialogTab) {
-    const project = (await firstValueFrom(this.project$)) as ProjectEntity;
-
-    const data: ProjectDetailDialogData = {
-      projectId: project.id,
-      tab: tab,
-    };
-
-    this.dialog.open(ProjectDetailComponent, {
-      data,
-      width: '70%',
-      height: '70vh',
+  async onClickTranscriptionEdit() {
+    this.dialog.open(DialogProjectTranscriptionComponent, {
+      data: { projectId: this.projectId },
+      width: '100%',
+      maxWidth: '800px',
+      maxHeight: '90vh',
     });
+  }
+
+  async onDeleteProject() {
+    const project = await firstValueFrom(this.project$);
+    const isConfirmed = await this.deleteService.deleteProject(project!);
+
+    if (isConfirmed) {
+      this.router.navigate(['/home/projects']);
+    }
   }
 
   onOpenJoinLivestreamModal(livestreamStarted: boolean) {

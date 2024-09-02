@@ -35,7 +35,7 @@
         <target state="final">Projekt Status</target>
       </trans-unit>
       <trans-unit id="projectListCreateProjectButtonLabel" datatype="html">
-        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;plus&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/> New project </source>
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="New"/> New project </source>
         <target state="final"> <x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;plus&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/> Neues Projekt</target>
       </trans-unit>
       <trans-unit id="projectListTableHeaderTitleLabel" datatype="html">
@@ -70,16 +70,16 @@
         <source> More </source>
         <target state="final"> Mehr </target>
       </trans-unit>
-      <trans-unit id="projectListMoreMenuEditLabel" datatype="html">
-        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;edit&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/> Edit </source>
+      <trans-unit id="projectListMoreMenuLeaveLabel" datatype="html">
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="L"/> Leave </source>
         <target state="final"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;edit&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/> Bearbeiten </target>
       </trans-unit>
       <trans-unit id="projectListMoreMenuShareLabel" datatype="html">
-        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;share&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/> Share </source>
-        <target state="final"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;share&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/> Freigeben </target>
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/button&gt;"/> Share </source>
+        <target state="final"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;share&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/> Teilen </target>
       </trans-unit>
       <trans-unit id="projectListMoreMenuDeleteLabel" datatype="html">
-        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;delete&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/> Delete </source>
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="D"/> Delete </source>
         <target state="final"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;delete&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/> Löschen </target>
       </trans-unit>
       <trans-unit id="projectListFilterAllProjects" datatype="html">
@@ -94,25 +94,9 @@
         <source> Shared Projects </source>
         <target state="final">Geteilte Projekte</target>
       </trans-unit>
-      <trans-unit id="metadataFormTitleInputLabel" datatype="html">
-        <source>Titel</source>
-        <target state="final">Titel</target>
-      </trans-unit>
       <trans-unit id="dialogCreateProjectHeadline" datatype="html">
         <source>New Project</source>
         <target state="final">Neues Project</target>
-      </trans-unit>
-      <trans-unit id="metadataFormTitleInputError" datatype="html">
-        <source>Please add a title</source>
-        <target state="final">Füge dem Projekt bitte einen Titel hinzu</target>
-      </trans-unit>
-      <trans-unit id="asrFormLanguageLabel" datatype="html">
-        <source>Language</source>
-        <target state="final">Sprache</target>
-      </trans-unit>
-      <trans-unit id="liveFormLanguageInputError" datatype="html">
-        <source>Please select a language</source>
-        <target state="final">Wähle eine Sprache aus</target>
       </trans-unit>
       <trans-unit id="uploadFilesFormDropzoneText" datatype="html">
         <source> Drag your audio, video and subtitle file * here </source>
@@ -126,29 +110,9 @@
         <source>Choose file </source>
         <target state="final">Datei auswählen </target>
       </trans-unit>
-      <trans-unit id="sourceFormVideoRequiredError" datatype="html">
-        <source> At least one video or audio file is required </source>
-        <target state="final"> Es wird mindestens eine Videodatei benötigt. </target>
-      </trans-unit>
-      <trans-unit id="metadataFormAddMemberLabel" datatype="html">
-        <source>Add team members</source>
-        <target state="final">Teammitglied hinzufügen</target>
-      </trans-unit>
-      <trans-unit id="metadataFormAddMemberError" datatype="html">
-        <source> User unknown or e-mail address invalid</source>
-        <target state="final"> Nutzer unbekannt oder E-Mail-Adresse invalide.</target>
-      </trans-unit>
-      <trans-unit id="metadataFormAddMemberHint" datatype="html">
-        <source>Enter the email addresses of your team members. Addresses that are not linked to an account will be invited to the project via email. </source>
-        <target state="final">Gib hierfür die E-Mail-Adressen der Teammitglieder an. Adressen, die keinem Account zugeordnet werden können, werden via E-Mail zu dem Projekt eingeladen.</target>
-      </trans-unit>
       <trans-unit id="dialogCreateProjectCloseButton" datatype="html">
         <source>Close</source>
         <target state="final"> Schließen </target>
-      </trans-unit>
-      <trans-unit id="dialogCreateProjectCreateLabel" datatype="html">
-        <source> Create Project </source>
-        <target state="final"> Projekt erstellen </target>
       </trans-unit>
       <trans-unit id="uploadFilesFormRemoveFileTooltip" datatype="html">
         <source>Remove file</source>
@@ -177,10 +141,6 @@
       <trans-unit id="editorMenuFileLabel" datatype="html">
         <source> File </source>
         <target state="final"> Datei </target>
-      </trans-unit>
-      <trans-unit id="editorMenuFileEditLabel" datatype="html">
-        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="E"/> Edit </source>
-        <target state="final"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="E"/> Bearbeiten </target>
       </trans-unit>
       <trans-unit id="editorMenuFileDownloadLabel" datatype="html">
         <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="D"/> Download </source>
@@ -262,66 +222,6 @@
         <source>Playback speed</source>
         <target state="final">Wiedergabegeschwindigkeit</target>
       </trans-unit>
-      <trans-unit id="authLoginHeader" datatype="html">
-        <source>Login</source>
-        <target state="final">Anmelden</target>
-      </trans-unit>
-      <trans-unit id="authLoginForgotPasswordLabel" datatype="html">
-        <source> Forgot your password? </source>
-        <target state="final"> Passwort vergessen? </target>
-      </trans-unit>
-      <trans-unit id="authRegisterHeader" datatype="html">
-        <source>Register</source>
-        <target state="final">Registrieren</target>
-      </trans-unit>
-      <trans-unit id="authResetPasswordHeader" datatype="html">
-        <source>Reset password</source>
-        <target state="final">Passwort zurücksetzen</target>
-      </trans-unit>
-      <trans-unit id="authToLoginFromRegisterLabel" datatype="html">
-        <source>Login</source>
-        <target state="final">Anmelden</target>
-      </trans-unit>
-      <trans-unit id="authToRegisterFromLoginLabel" datatype="html">
-        <source>Register</source>
-        <target state="final">Registrieren</target>
-      </trans-unit>
-      <trans-unit id="authToLoginFromPasswordResetLabel" datatype="html">
-        <source>Login</source>
-        <target state="final">Anmelden</target>
-      </trans-unit>
-      <trans-unit id="loginEmailLabel" datatype="html">
-        <source>Email</source>
-        <target state="final">Email</target>
-      </trans-unit>
-      <trans-unit id="loginStayLoggedInCheckboxLabel" datatype="html">
-        <source>Stay logged in</source>
-        <target state="final">Angemeldet bleiben</target>
-      </trans-unit>
-      <trans-unit id="loginLoginButtonLabel" datatype="html">
-        <source><x id="START_BLOCK_IF"/><x id="START_TAG_MAT_SPINNER" ctype="x-mat_spinner" equiv-text="&lt;mat-spinner strokeWidth=&quot;2&quot; diameter=&quot;20&quot; color=&quot;primary&quot; style=&quot;margin-right: 10px&quot; &gt;"/><x id="CLOSE_TAG_MAT_SPINNER" ctype="x-mat_spinner" equiv-text="} L"/><x id="CLOSE_BLOCK_IF" equiv-text="}"/> Login </source>
-        <target state="final"><x id="START_TAG_MAT_SPINNER" ctype="x-mat_spinner" equiv-text="$ | async&quot; strokeWidth=&quot;2&quot; diameter=&quot;20&quot; color=&quot;primary&quot; style=&quot;margin-right: 10px&quot; &gt;"/><x id="CLOSE_TAG_MAT_SPINNER" ctype="x-mat_spinner" equiv-text="Log"/> Anmelden </target>
-      </trans-unit>
-      <trans-unit id="registerNameLabel" datatype="html">
-        <source>Name</source>
-        <target state="final">Name</target>
-      </trans-unit>
-      <trans-unit id="registerEmailLabel" datatype="html">
-        <source>Email</source>
-        <target state="final">Email</target>
-      </trans-unit>
-      <trans-unit id="registerPasswordLabel" datatype="html">
-        <source>Password</source>
-        <target state="final">Passwort</target>
-      </trans-unit>
-      <trans-unit id="registerPasswordRepeatLabel" datatype="html">
-        <source>Password (repeat)</source>
-        <target state="final">Passwort (Wiederholung)</target>
-      </trans-unit>
-      <trans-unit id="registerLoginButtonLabel" datatype="html">
-        <source><x id="START_BLOCK_IF"/><x id="START_TAG_MAT_SPINNER" ctype="x-mat_spinner" equiv-text="&lt;mat-spinner strokeWidth=&quot;2&quot; diameter=&quot;20&quot; color=&quot;primary&quot; style=&quot;margin-right: 10px&quot; &gt;"/><x id="CLOSE_TAG_MAT_SPINNER" ctype="x-mat_spinner" equiv-text="} R"/><x id="CLOSE_BLOCK_IF" equiv-text="}"/> Register </source>
-        <target state="final"><x id="START_TAG_MAT_SPINNER" ctype="x-mat_spinner" equiv-text="async&quot; strokeWidth=&quot;2&quot; diameter=&quot;20&quot; color=&quot;primary&quot; style=&quot;margin-right: 10px&quot; &gt;"/><x id="CLOSE_TAG_MAT_SPINNER" ctype="x-mat_spinner" equiv-text="Log"/> Registrieren </target>
-      </trans-unit>
       <trans-unit id="videoMuteUnmuteSoundTooltip" datatype="html">
         <source>Mute or unmute Sound</source>
         <target state="final">Ton ein- oder ausschalten</target>
@@ -366,55 +266,7 @@
         <source> Join as Guest </source>
         <target state="final"> Als Gast beitreten </target>
       </trans-unit>
-      <trans-unit id="writtenLanguageDE-DE" datatype="html">
-        <source>German</source>
-        <target state="final">Deutsch</target>
-      </trans-unit>
-      <trans-unit id="writtenLanguageEN-GB" datatype="html">
-        <source>English (GB)</source>
-        <target state="final">Englisch (GB)</target>
-      </trans-unit>
-      <trans-unit id="writtenLanguageEN-US" datatype="html">
-        <source>English (US)</source>
-        <target state="final">Englisch (US)</target>
-      </trans-unit>
-      <trans-unit id="writtenLanguageES-ES" datatype="html">
-        <source>Spanish</source>
-        <target state="final">Spanisch</target>
-      </trans-unit>
-      <trans-unit id="writtenLanguageFR-FR" datatype="html">
-        <source>French</source>
-        <target state="final">Französisch</target>
-      </trans-unit>
-      <trans-unit id="shareProjectWithPeopleHeader" datatype="html">
-        <source>Share with people</source>
-        <target state="final">Für Personen freigeben</target>
-      </trans-unit>
-      <trans-unit id="shareProjectRetrieveLinkHeader" datatype="html">
-        <source>Retrieve link</source>
-        <target state="final">Link abrufen</target>
-      </trans-unit>
-      <trans-unit id="shareProjectInviteLinkWarningText" datatype="html">
-        <source><x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b&gt;"/>Any person<x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b&gt;"/> who has this link can join the project <x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b&gt;"/>registered or anonymously<x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b&gt;"/>. </source>
-        <target state="final"><x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b&gt;"/>Jede Person<x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b&gt;"/>, die über diesen Link verfügt, kann dem Projekt <x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b&gt;"/>registriert oder anonym<x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b&gt;"/> beitreten. </target>
-      </trans-unit>
-      <trans-unit id="shareProjectCopyLinkLabel" datatype="html">
-        <source> Copy link </source>
-        <target state="final"> Link kopieren </target>
-      </trans-unit>
-      <trans-unit id="shareProjectGenerateNewLinkForProjectMessage" datatype="html">
-        <source> If you want to <x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b&gt;"/>revoke access<x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b&gt;"/> for the current link, you can generate a new link: </source>
-        <target state="final"> Wenn Sie für den aktuellen Link den <x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b&gt;"/>Zugriff sperren<x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b&gt;"/> möchten, können Sie einen neuen Link generieren: </target>
-      </trans-unit>
-      <trans-unit id="shareProjectChangeAccessLinkButtonLabel" datatype="html">
-        <source> Change access link </source>
-        <target state="final"> Zugangslink ändern </target>
-      </trans-unit>
-      <trans-unit id="shareProjectDoneButtonLabel" datatype="html">
-        <source> Done </source>
-        <target state="final"> Fertig </target>
-      </trans-unit>
-      <trans-unit id="shareProjectLinkCopiedMessage" datatype="html">
+      <trans-unit id="sharePlayerLinkCopiedMessage" datatype="html">
         <source>Link copied</source>
         <target state="final">Link kopiert</target>
       </trans-unit>
@@ -470,10 +322,6 @@
         <source>Toggle Comment</source>
         <target state="final">Kommentar umschalten</target>
       </trans-unit>
-      <trans-unit id="projectDetailTabMenuGeneral" datatype="html">
-        <source>General</source>
-        <target state="final">Allgemein</target>
-      </trans-unit>
       <trans-unit id="createTranscriptionDialogTitle" datatype="html">
         <source>Add transcription</source>
         <target state="final"> Transkription hinzufügen </target>
@@ -494,47 +342,27 @@
         <source>Title</source>
         <target state="final">Titel</target>
       </trans-unit>
-      <trans-unit id="editTranscriptionModalTitleError" datatype="html">
-        <source>Add a title to the transcription</source>
-        <target state="final">Füge der Transkription einen Titel hinzu</target>
-      </trans-unit>
       <trans-unit id="editTranscriptionModalSaveButton" datatype="html">
         <source> Save </source>
         <target state="final"> Speichern </target>
       </trans-unit>
-      <trans-unit id="transcriptionCreatedByTooltip" datatype="html">
-        <source>Created by</source>
+      <trans-unit id="projectTranscriptionTableCreatedByHeader" datatype="html">
+        <source> Created by </source>
         <target state="final">Erstellt von</target>
       </trans-unit>
-      <trans-unit id="transcriptionCreatedAtTooltip" datatype="html">
-        <source>Created at</source>
-        <target state="final">Erstellt am</target>
+      <trans-unit id="projectTranscriptionAlignButtonLabel" datatype="html">
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="Ali"/> Align </source>
+        <target state="final"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt; Edit"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="Edit"/> Align </target>
       </trans-unit>
-      <trans-unit id="transcriptionLastUpdatedAtTooltip" datatype="html">
-        <source>Last updated at</source>
-        <target state="final">Zuletzt bearbeitet am</target>
-      </trans-unit>
-      <trans-unit id="transcriptionEditTranscriptionButton" datatype="html">
-        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="Edit"/> Edit </source>
-        <target state="final"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt; Edit"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="Edit"/> Bearbeiten </target>
-      </trans-unit>
-      <trans-unit id="transcriptionDeleteTranscriptionButton" datatype="html">
+      <trans-unit id="projectTranscriptionDeleteButtonLabel" datatype="html">
         <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="Del"/> Delete </source>
         <target state="final"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt; Delete"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="Del"/> Löschen </target>
       </trans-unit>
-      <trans-unit id="projectTranscriptionAddButtonTop" datatype="html">
-        <source>Add</source>
+      <trans-unit id="dialogProjectTranscriptionSubheading" datatype="html">
+        <source>Transcriptions</source>
         <target state="final">Transkription</target>
       </trans-unit>
-      <trans-unit id="projectTranscriptionAddButtonBottom" datatype="html">
-        <source>Transcription</source>
-        <target state="final">hinzufügen</target>
-      </trans-unit>
-      <trans-unit id="projectDetailTabMenuTranscription" datatype="html">
-        <source>Transcription</source>
-        <target state="final">Transkription</target>
-      </trans-unit>
-      <trans-unit id="projectDetailTabMenuActivity" datatype="html">
+      <trans-unit id="dialogProjectActivitySubheading" datatype="html">
         <source>Activity</source>
         <target state="final">Aktivität</target>
       </trans-unit>
@@ -546,8 +374,8 @@
         <source>Current caption does not provide enough time to provide half the time for a new caption</source>
         <target state="final">Die aktuelle Caption bietet nicht genug Zeit, um die Hälfte davon für eine neue Caption bereitzustellen</target>
       </trans-unit>
-      <trans-unit id="transcriptionOpenTranscriptionButton" datatype="html">
-        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="Open"/> Open </source>
+      <trans-unit id="projectTranscriptionOpenButtonLabel" datatype="html">
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="n&gt; &lt;button"/> Open </source>
         <target state="final"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt; Open"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="Ope"/> Öffnen </target>
       </trans-unit>
       <trans-unit id="projectListMoreMenuAriaLabel" datatype="html">
@@ -558,7 +386,7 @@
         <source>Video playback speed</source>
         <target state="final">Wiedergabegeschwindigkeit</target>
       </trans-unit>
-      <trans-unit id="transcriptionMenuFileDownloadLabel" datatype="html">
+      <trans-unit id="projectTranscriptionDownloadButtonLabel" datatype="html">
         <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="Downl"/> Download </source>
         <target state="final"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt; Dow"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="Downl"/> Download </target>
       </trans-unit>
@@ -657,138 +485,6 @@
       <trans-unit id="captionRevertShowCaptionHistoryTooltip" datatype="html">
         <source>Show caption history</source>
         <target state="final">Historie anzeigen</target>
-      </trans-unit>
-      <trans-unit id="asrFormFieldsetLegend" datatype="html">
-        <source>Generate automatic subtitles</source>
-        <target state="final">Automatische Untertitel generieren</target>
-      </trans-unit>
-      <trans-unit id="asrFormVendorLabel" datatype="html">
-        <source>Vendor</source>
-        <target state="final">Anbieter</target>
-      </trans-unit>
-      <trans-unit id="asrFormVendorError" datatype="html">
-        <source> Please select an ASR vendor </source>
-        <target state="final"> Wähle einen der Anbieter aus </target>
-      </trans-unit>
-      <trans-unit id="asrFormLanguageHint" datatype="html">
-        <source>The available languages are vendor dependent</source>
-        <target state="final">Die verfügbaren Sprachen sind Anbieterabhängig</target>
-      </trans-unit>
-      <trans-unit id="asrFormDisabledInfoText" datatype="html">
-        <source> Automatic subtitle generation is disabled due to already uploaded subtitle files </source>
-        <target state="final"> Das generieren von automatischen Untertiteln ist deaktiviert, da bereits Untertitel-Dateien hochgeladen wurden </target>
-      </trans-unit>
-      <trans-unit id="liveFormFieldsetLegend" datatype="html">
-        <source>Livestream settings</source>
-        <target state="final">Livestream Einstellungen</target>
-      </trans-unit>
-      <trans-unit id="liveFormLanguageInputLabel" datatype="html">
-        <source>Language</source>
-        <target state="final">Sprache</target>
-      </trans-unit>
-      <trans-unit id="liveFormDifferentLanguagesInfo" datatype="html">
-        <source>The specified language of the video/audio file is different from the language used for automatic subtitle generation. Are you sure you want to proceed?</source>
-        <target state="final">Die Sprache der Video- /Audiodatei und für die automatischen Untertitel unterscheiden sich. Trotzdem weiter fortfahren?</target>
-      </trans-unit>
-      <trans-unit id="metadaFormGeneralFieldsetLabel" datatype="html">
-        <source>General Info</source>
-        <target state="final">Generelle Informationen</target>
-      </trans-unit>
-      <trans-unit id="overviewFormTitleHeader" datatype="html">
-        <source>Title</source>
-        <target state="final">Titel</target>
-      </trans-unit>
-      <trans-unit id="overviewFormMembersHeader" datatype="html">
-        <source> Teammembers </source>
-        <target state="final"> Mitglieder </target>
-      </trans-unit>
-      <trans-unit id="overviewFormFilesHeader" datatype="html">
-        <source>Files</source>
-        <target state="final">Dateien</target>
-      </trans-unit>
-      <trans-unit id="overviewFormSubtitlesHeader" datatype="html">
-        <source>Subtitle Vendor</source>
-        <target state="final">Untertitelanbieter</target>
-      </trans-unit>
-      <trans-unit id="overviewFormSubtitleLanguageHeader" datatype="html">
-        <source>Subtitle Language</source>
-        <target state="final">Untertitelsprache</target>
-      </trans-unit>
-      <trans-unit id="overviewFormURLHeader" datatype="html">
-        <source>Livestream URL</source>
-        <target state="final">Livestream URL</target>
-      </trans-unit>
-      <trans-unit id="overviewFormURLLanguageHeader" datatype="html">
-        <source>Language</source>
-        <target state="final">Sprache</target>
-      </trans-unit>
-      <trans-unit id="overviewFormASRVEndorHeader" datatype="html">
-        <source>Subtitle Vendor</source>
-        <target state="final">Untertitelanbieter</target>
-      </trans-unit>
-      <trans-unit id="overviewFormASRLanguageHeader" datatype="html">
-        <source>Subtitle Language</source>
-        <target state="final">Untertitelsprache</target>
-      </trans-unit>
-      <trans-unit id="sourceFormTooManyVideosError" datatype="html">
-        <source> A maximum of one video or audio file may be uploaded </source>
-        <target state="final"> Es kann maximal eine Video- oder Audiodatei hochgeladen werden </target>
-      </trans-unit>
-      <trans-unit id="sourceFormURLInputLabel" datatype="html">
-        <source>URL to the livestream</source>
-        <target state="final">URL zum Livestream</target>
-      </trans-unit>
-      <trans-unit id="sourceFormURLRequiredError" datatype="html">
-        <source>The URL to the livestream is required</source>
-        <target state="final">Bitte geben Sie die URL zum Livestream an</target>
-      </trans-unit>
-      <trans-unit id="sourceFormURLBadlyFormedError" datatype="html">
-        <source>The URL is badly formed or contains invalid characters</source>
-        <target state="final">Die URL beinhaltet nicht erlaubte Zeichen oder das Schema ist invalide</target>
-      </trans-unit>
-      <trans-unit id="videoFormFileLanguagesFieldsetLabel" datatype="html">
-        <source> Languages of uploaded files </source>
-        <target state="final"> Sprache der hochgeladenen Dateien </target>
-      </trans-unit>
-      <trans-unit id="videoFormLanguageLabel" datatype="html">
-        <source>Language</source>
-        <target state="final">Sprache</target>
-      </trans-unit>
-      <trans-unit id="videoFormLanguageRequiredError" datatype="html">
-        <source>Please select the primary language of the file content</source>
-        <target state="final">Bitte geben Sie die primäre Sprache des Dateinhaltes an</target>
-      </trans-unit>
-      <trans-unit id="videoFormDifferentLanguagesInfo" datatype="html">
-        <source>The specified language of the video/audio file is different from the language used for automatic subtitle generation. Are you sure you want to proceed?</source>
-        <target state="final">Die Sprache der Video- /Audiodatei und für die automatischen Untertitel unterscheiden sich. Trotzdem weiter fortfahren?</target>
-      </trans-unit>
-      <trans-unit id="dialogCreateProjectMediaStep" datatype="html">
-        <source>Media source</source>
-        <target state="final">Medienquelle</target>
-      </trans-unit>
-      <trans-unit id="dialogCreateProjectNextStepButton" datatype="html">
-        <source> Next </source>
-        <target state="final"> Weiter </target>
-      </trans-unit>
-      <trans-unit id="dialogCreateProjectVideoStep" datatype="html">
-        <source>Video settings</source>
-        <target state="final">Video Einstellungen</target>
-      </trans-unit>
-      <trans-unit id="dialogCreateProjectBackStepButton" datatype="html">
-        <source> Back </source>
-        <target state="final"> Zurück </target>
-      </trans-unit>
-      <trans-unit id="dialogCreateProjectLiveStep" datatype="html">
-        <source>Live settings</source>
-        <target state="final">Live Einstellungen</target>
-      </trans-unit>
-      <trans-unit id="dialogCreateProjectOverviewStep" datatype="html">
-        <source>Overview</source>
-        <target state="final">Übersicht</target>
-      </trans-unit>
-      <trans-unit id="asrFormLanguageError" datatype="html">
-        <source> Please select a language </source>
-        <target state="final"> Wählen Sie bitte eine Sprache aus </target>
       </trans-unit>
       <trans-unit id="captionLoopThisCaptionTooltip" datatype="html">
         <source>Loop this caption.</source>
@@ -906,10 +602,6 @@
         <source>Activate darkmode</source>
         <target state="final">Dunkelmodus aktivieren</target>
       </trans-unit>
-      <trans-unit id="dialogCreateProjectCreateError" datatype="html">
-        <source>Error while creating the project: <x id="INTERPOLATION" equiv-text="{{ error.error.message }}"/></source>
-        <target state="final">Fehler bei der Projekterstellung: <x id="INTERPOLATION" equiv-text="{{ error.error.message }}"/></target>
-      </trans-unit>
       <trans-unit id="viewerVideoContainerToMainview" datatype="html">
         <source> Switch </source>
         <target state="final"> Wechseln </target>
@@ -926,17 +618,9 @@
         <source> Automatic scrolling </source>
         <target state="final"> Automatisch scrollen </target>
       </trans-unit>
-      <trans-unit id="shareProjectAddMemberLabel" datatype="html">
-        <source>Add team member</source>
-        <target state="final">Teammitglied hinzufügen</target>
-      </trans-unit>
       <trans-unit id="inviteJoinProjectButtonLabel" datatype="html">
         <source> Join Project </source>
         <target state="final"> Projekt beitreten </target>
-      </trans-unit>
-      <trans-unit id="dialogCreateProjectLoadingInfo" datatype="html">
-        <source> Uploading data </source>
-        <target state="final"> Daten werden hochgeladen </target>
       </trans-unit>
       <trans-unit id="uploadAdditionalMediaTitle" datatype="html">
         <source>Upload additional media files</source>
@@ -990,68 +674,16 @@
         <source>Speaker</source>
         <target state="final">sprechende Person</target>
       </trans-unit>
-      <trans-unit id="dialogCreateProjectCancelUpload" datatype="html">
-        <source> Cancel Upload </source>
-        <target state="final"> Upload abbrechen </target>
-      </trans-unit>
-      <trans-unit id="writtenLanguageEN" datatype="html">
-        <source>English</source>
-        <target state="final">Englisch</target>
-      </trans-unit>
-      <trans-unit id="loginEmailErrorNotValid" datatype="html">
-        <source>Email address is not valid</source>
-        <target state="final">Email ist nicht valide</target>
-      </trans-unit>
-      <trans-unit id="loginEmailErrorRequired" datatype="html">
-        <source>Email is required</source>
-        <target state="final">Email benötigt</target>
-      </trans-unit>
       <trans-unit id="projectListOpenViewerAriaLabel" datatype="html">
         <source>Open Viewer in new Tab</source>
         <target state="final">Viewer in neuem Tab öffnen</target>
-      </trans-unit>
-      <trans-unit id="loginPasswordErrorRequired" datatype="html">
-        <source> Password is required </source>
-        <target state="final"> Passwort benötigt </target>
-      </trans-unit>
-      <trans-unit id="registerNameErrorRequired" datatype="html">
-        <source> Name is required </source>
-        <target state="final"> Name benötigt </target>
-      </trans-unit>
-      <trans-unit id="registerEmailErrorNotValid" datatype="html">
-        <source>Email address is not valid</source>
-        <target state="final">Email ist nicht valide</target>
-      </trans-unit>
-      <trans-unit id="registerEmailErrorRequired" datatype="html">
-        <source>Email is required</source>
-        <target state="final">Email benötigt</target>
-      </trans-unit>
-      <trans-unit id="registerPasswordErrorMinimum" datatype="html">
-        <source>Minimum 6 characters</source>
-        <target state="final">Mindestens 6 Zeichen</target>
-      </trans-unit>
-      <trans-unit id="registerPasswordErrorRequired" datatype="html">
-        <source>Password is required</source>
-        <target state="final">Passwort benötigt</target>
-      </trans-unit>
-      <trans-unit id="registerPasswordRepeatErrorMinimum" datatype="html">
-        <source>Minimum 6 characters</source>
-        <target state="final">Mindestens 6 Zeichen</target>
-      </trans-unit>
-      <trans-unit id="registerPasswordRepeatErrorRequired" datatype="html">
-        <source>Password (repeat) is required</source>
-        <target state="final">Passwort (Wiederholung) benötigt</target>
-      </trans-unit>
-      <trans-unit id="registerPasswordsNotMatch" datatype="html">
-        <source>Passwords do not match</source>
-        <target state="final">Passwörter stimmen nicht überein</target>
       </trans-unit>
       <trans-unit id="projectStatusAll" datatype="html">
         <source>All</source>
         <target state="final">Alle</target>
       </trans-unit>
       <trans-unit id="projectListTableHeaderPlayerLabel" datatype="html">
-        <source> Player </source>
+        <source> Videoplayer </source>
         <target state="final"> Player </target>
       </trans-unit>
       <trans-unit id="createTranscriptionDialogCloseButton" datatype="html">
@@ -1106,105 +738,25 @@
         <source>Title</source>
         <target state="final">Titel</target>
       </trans-unit>
-      <trans-unit id="copyTranscriptionTabTitleErrorRequired" datatype="html">
+      <trans-unit id="dialogCreateProjectTitleRequiredError" datatype="html">
         <source>Title is required</source>
         <target state="final">Titel wird benötigt</target>
       </trans-unit>
-      <trans-unit id="fromMediaTranscriptionTabHeading" datatype="html">
-        <source> Generate a new transcription from media </source>
-        <target state="final"> Neues Transkript durch eine Medien-Datei erstellen </target>
-      </trans-unit>
-      <trans-unit id="fromMediaTranscriptionTabVendorLabel" datatype="html">
-        <source>Vendor</source>
-        <target state="final">Anbieter</target>
-      </trans-unit>
-      <trans-unit id="fromMediaTranscriptionTabVendorHint" datatype="html">
-        <source> Languages are vendor dependent </source>
-        <target state="final"> Sprachen sind Anbieterabhängig </target>
-      </trans-unit>
-      <trans-unit id="fromMediaTranscriptionTabVendorErrorRequired" datatype="html">
-        <source>Select a vendor </source>
-        <target state="final">Anbieter wird benötigt </target>
-      </trans-unit>
-      <trans-unit id="fromMediaTranscriptionTabLanguageLabel" datatype="html">
+      <trans-unit id="emptyTranscriptionTabLanguageLabel" datatype="html">
         <source>Language</source>
         <target state="final">Sprache</target>
       </trans-unit>
-      <trans-unit id="fromMediaTranscriptionTabLanguageHint" datatype="html">
-        <source>Select a vendor first</source>
-        <target state="final">Ein Anbieter muss zuerst augewählt werden</target>
-      </trans-unit>
-      <trans-unit id="fromMediaTranscriptionTabLanguageErrorRequired" datatype="html">
-        <source>Select a language </source>
+      <trans-unit id="emptyTranscriptionTabLanguageError" datatype="html">
+        <source>Select a language</source>
         <target state="final">Sprache wird benötigt </target>
       </trans-unit>
-      <trans-unit id="fromMediaTranscriptionTabTitleLabel" datatype="html">
+      <trans-unit id="emptyTranscriptionTabTitleLabel" datatype="html">
         <source>Title</source>
         <target state="final">Titel</target>
       </trans-unit>
-      <trans-unit id="fromMediaTranscriptionTabTitleErrorRequired" datatype="html">
-        <source>Title is required</source>
-        <target state="final">Titel wird benötigt</target>
-      </trans-unit>
-      <trans-unit id="fromMediaTranscriptionTabFileErrorMaximum" datatype="html">
-        <source> Maximum 1 file </source>
-        <target state="final"> Maximal eine Datei </target>
-      </trans-unit>
-      <trans-unit id="fromMediaTranscriptionTabFileErrorRequired" datatype="html">
-        <source> An audio or video file is required </source>
-        <target state="final"> Eine Audio oder Video-Datei wird benötigt </target>
-      </trans-unit>
-      <trans-unit id="fromMediaTranscriptionTabNoASRVendor" datatype="html">
-        <source> There is currently no ASR vendor connected to Melvin. Please contact the person who manages this Melvin instance. </source>
-        <target state="final">Es gibt derzeit keinen ASR-Anbieter, der mit Melvin verbunden ist. Bitte kontaktieren Sie die Person, die diese Melvin-Instanz verwaltet.</target>
-      </trans-unit>
-      <trans-unit id="fromMediaTranscriptionUploadsInfo" datatype="html">
-        <source>Uploads</source>
-        <target state="final">Lädt hoch</target>
-      </trans-unit>
-      <trans-unit id="translateTranscriptionTabHeading" datatype="html">
-        <source> Translate an existing transcription </source>
-        <target state="final">Bestehendes Transkript übersetzen</target>
-      </trans-unit>
-      <trans-unit id="translateTranscriptionTabTranscriptionErrorRequired" datatype="html">
-        <source>Select a transcription</source>
-        <target state="final">Sprache wird benötigt</target>
-      </trans-unit>
-      <trans-unit id="translateTranscriptionTabVendorLabel" datatype="html">
-        <source>Vendor</source>
-        <target state="final">Anbieter</target>
-      </trans-unit>
-      <trans-unit id="translateTranscriptionTabVendorHint" datatype="html">
-        <source>Languages are vendor dependent </source>
-        <target state="final">Sprachen sind Anbieterabhängig </target>
-      </trans-unit>
-      <trans-unit id="translateTranscriptionTabVendorErrorRequired" datatype="html">
-        <source>Select a vendor</source>
-        <target state="final">Anbieter wird benötigt</target>
-      </trans-unit>
-      <trans-unit id="translateTranscriptionTabLanguageLabel" datatype="html">
-        <source>Language</source>
-        <target state="final">Sprache</target>
-      </trans-unit>
-      <trans-unit id="translateTranscriptionTabLanguageHint" datatype="html">
-        <source>Select a vendor first</source>
-        <target state="final">Ein Anbieter muss zuerst augewählt werden</target>
-      </trans-unit>
-      <trans-unit id="translateTranscriptionTabLanguageErrorRequired" datatype="html">
-        <source>Select a language </source>
-        <target state="final">Sprachauswahl wird benötigt</target>
-      </trans-unit>
-      <trans-unit id="translateTranscriptionTabTitleLabel" datatype="html">
+      <trans-unit id="dialogCreateProjectTitleLabel" datatype="html">
         <source>Title</source>
         <target state="final">Titel</target>
-      </trans-unit>
-      <trans-unit id="translateTranscriptionTabTitleErrorRequired" datatype="html">
-        <source>Title is required</source>
-        <target state="final">Titel wird benötigt</target>
-      </trans-unit>
-      <trans-unit id="translateTranscriptionTabNoTranslationVendor" datatype="html">
-        <source> There is currently no translation vendor connected to Melvin. Please contact the person who manages this Melvin instance. </source>
-        <target state="final">Derzeit gibt es keinen Übersetzungsanbieter, der mit Melvin verbunden ist. Bitte kontaktieren Sie die Person, die diese Melvin-Instanz verwaltet. </target>
       </trans-unit>
       <trans-unit id="uploadTranscriptionTabHeading" datatype="html">
         <source>Upload a new transcription</source>
@@ -1226,10 +778,6 @@
         <source>Title</source>
         <target state="final">Titel</target>
       </trans-unit>
-      <trans-unit id="uploadTranscriptionTabTitleErrorRequired" datatype="html">
-        <source>Title is required</source>
-        <target state="final">Titel wird benötigt</target>
-      </trans-unit>
       <trans-unit id="uploadTranscriptionTabFileErrorMaximum" datatype="html">
         <source> Maximum 1 file </source>
         <target state="final"> Maximal eine Datei </target>
@@ -1242,14 +790,6 @@
         <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="n&quot; /&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="g-template&gt;"/> Copy </source>
         <target state="final"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="n&quot; /&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="g-template&gt;"/> Kopieren </target>
       </trans-unit>
-      <trans-unit id="createTranscriptionDialogTabTranslateLabel" datatype="html">
-        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/ng-template&gt;"/> Translate </source>
-        <target state="final"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/ng-template&gt;"/> Übersetzen </target>
-      </trans-unit>
-      <trans-unit id="createTranscriptionDialogTabFromMediaLabel" datatype="html">
-        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/ng-template&gt;"/> From Media </source>
-        <target state="final"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/ng-template&gt;"/> From Media </target>
-      </trans-unit>
       <trans-unit id="createTranscriptionDialogSubmitButtonLabel" datatype="html">
         <source> Create transcription </source>
         <target state="final"> Transkription erstellen </target>
@@ -1261,10 +801,6 @@
       <trans-unit id="createTranscriptionDialogTabEmptyFileLabel" datatype="html">
         <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/ng-template&gt;"/> Empty file </source>
         <target state="final"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/ng-template&gt;"/> Leere Datei </target>
-      </trans-unit>
-      <trans-unit id="metadataFormUserSelection" datatype="html">
-        <source>User selection</source>
-        <target state="final">Mitglieder auswahl</target>
       </trans-unit>
       <trans-unit id="viewerAdjustLayoutDialogCloseButton" datatype="html">
         <source>Close</source>
@@ -1290,13 +826,13 @@
         <source>results</source>
         <target state="final">Ergebnisse</target>
       </trans-unit>
-      <trans-unit id="deleteConfirmationDialogTitle" datatype="html">
+      <trans-unit id="deleteConfirmationDialogTitleDelete" datatype="html">
         <source> Delete <x id="INTERPOLATION" equiv-text="{{ data.subject }}"/> </source>
         <target state="final"><x id="INTERPOLATION" equiv-text="{{ data.subject }}"/> Löschen</target>
       </trans-unit>
-      <trans-unit id="deleteConfirmationDialogAreYouSure" datatype="html">
+      <trans-unit id="deleteConfirmationDialogAreYouSureDelete" datatype="html">
         <source> Are you sure you want to delete this <x id="INTERPOLATION" equiv-text="{{ data.subject }}"/>? </source>
-        <target state="final"> Sind Sie sicher, dass Sie dies löschen möchten? <x id="INTERPOLATION" equiv-text="{{ data.subject }}"/>? </target>
+        <target state="final"> Sind Sie sicher, dass Sie das <x id="INTERPOLATION" equiv-text="{{ data.subject }}"/>löschen möchten?  </target>
       </trans-unit>
       <trans-unit id="deleteConfirmationDialogAbortButton" datatype="html">
         <source> Abort </source>
@@ -1307,16 +843,16 @@
         <target state="final"> Bestätigen </target>
       </trans-unit>
       <trans-unit id="deleteServiceSubjectProject" datatype="html">
-        <source>Project</source>
+        <source>project</source>
         <target state="final">Projekt</target>
       </trans-unit>
       <trans-unit id="deleteServiceSubjectTranscription" datatype="html">
-        <source>Transcription</source>
+        <source>transcription</source>
         <target state="final">Transkription</target>
       </trans-unit>
       <trans-unit id="deleteServiceSubjectCaption" datatype="html">
         <source>Caption</source>
-        <target state="new">Caption</target>
+        <target state="final">Caption</target>
       </trans-unit>
       <trans-unit id="recorderTitle" datatype="html">
         <source> Recorder </source>
@@ -1546,22 +1082,6 @@
         <source>Media Category</source>
         <target state="final">Medienkategorie</target>
       </trans-unit>
-      <trans-unit id="recorderAddVideoSourceMediaCategorySignLanguage" datatype="html">
-        <source>Sign Language</source>
-        <target state="final">Gebärdensprache</target>
-      </trans-unit>
-      <trans-unit id="recorderAddVideoSourceMediaCategorySlides" datatype="html">
-        <source>Slides</source>
-        <target state="final">Folien</target>
-      </trans-unit>
-      <trans-unit id="recorderAddVideoSourceMediaCategorySpeaker" datatype="html">
-        <source>Speaker</source>
-        <target state="final">Sprechende Person</target>
-      </trans-unit>
-      <trans-unit id="recorderAddVideoSourceMediaCategoryOther" datatype="html">
-        <source>Other</source>
-        <target state="final">Andere</target>
-      </trans-unit>
       <trans-unit id="recorderAddVideoSourceCancelButton" datatype="html">
         <source> Cancel </source>
         <target state="final"> Abbrechen </target>
@@ -1682,10 +1202,6 @@
         <source>Close</source>
         <target state="final">Schließen</target>
       </trans-unit>
-      <trans-unit id="createProjectEstimatedTime" datatype="html">
-        <source> Estimated time: <x id="INTERPOLATION" equiv-text="{{ eta * 1000 | duration }}"/> </source>
-        <target state="final"> Erwartete Zeit: <x id="INTERPOLATION" equiv-text="{{ eta * 1000 | duration }}"/> </target>
-      </trans-unit>
       <trans-unit id="viewerVideoContainerMoveToMainviewAriaLabel" datatype="html">
         <source>Move video &apos;<x id="INTERPOLATION" equiv-text="{{ video.title }}"/>&apos; to main view</source>
         <target state="final">Verschiebe das Video &apos;<x id="INTERPOLATION" equiv-text="{{ video.title }}"/>&apos; in die Hauptanzeige</target>
@@ -1713,6 +1229,78 @@
       <trans-unit id="viewerControlsPauseTooltip" datatype="html">
         <source>Pause</source>
         <target state="final">Pausieren</target>
+      </trans-unit>
+      <trans-unit id="deleteConfirmationDialogTitleLeave" datatype="html">
+        <source> Leave <x id="INTERPOLATION" equiv-text="{{ data.subject }}"/> </source>
+        <target state="final">Verlassen <x id="INTERPOLATION" equiv-text="{{ data.subject }}"/> </target>
+      </trans-unit>
+      <trans-unit id="inviteCollaboratorAddUserInputLabel" datatype="html">
+        <source>Collaborator email</source>
+        <target state="final">E-Mail der Person</target>
+      </trans-unit>
+      <trans-unit id="inviteCollaboratorAddUserInputHint" datatype="html">
+        <source>Addresses that are not linked to an account will be invited to the project via email. </source>
+        <target state="final">Adressen, die nicht mit einem Konto verknüpft sind, werden per E-Mail zu dem Projekt eingeladen.</target>
+      </trans-unit>
+      <trans-unit id="inviteCollaboratorInputErrorEmailRequired" datatype="html">
+        <source>Email is required</source>
+        <target state="final">E-Mail benötigt</target>
+      </trans-unit>
+      <trans-unit id="inviteCollaboratorInputErrorEmailInvalid" datatype="html">
+        <source>Email is invalid</source>
+        <target state="final">E-Mail nicht valide</target>
+      </trans-unit>
+      <trans-unit id="inviteCollaboratorInputErrorUserDuplication" datatype="html">
+        <source>User already added</source>
+        <target state="final">Person bereits hinzugefügt</target>
+      </trans-unit>
+      <trans-unit id="inviteCollaboratorHeadingAllUsers" datatype="html">
+        <source>People with access</source>
+        <target state="final">Personen mit Zugriff</target>
+      </trans-unit>
+      <trans-unit id="inviteCollaboratorAllUserList" datatype="html">
+        <source>People with access</source>
+        <target state="final">Personen mit Zugriff</target>
+      </trans-unit>
+      <trans-unit id="inviteCollaboratorYouIndicator" datatype="html">
+        <source>(You)</source>
+        <target state="final">(Du)</target>
+      </trans-unit>
+      <trans-unit id="inviteCollaboratorOwnerInfo" datatype="html">
+        <source>Project Owner</source>
+        <target state="final">Projekteigentümer*in</target>
+      </trans-unit>
+      <trans-unit id="inviteCollaboratorRemoveButton" datatype="html">
+        <source> Remove </source>
+        <target state="final"> Entfernen </target>
+      </trans-unit>
+      <trans-unit id="inviteCollaboratorHeadingGeneralAccess" datatype="html">
+        <source>General Access</source>
+        <target state="final">Allgemeiner Zugriff</target>
+      </trans-unit>
+      <trans-unit id="inviteCollaboratorInviteLinkWarningText" datatype="html">
+        <source> Any person who has this link can join the project registered or anonymously. </source>
+        <target state="final"> Jede Person, die diesen Link hat, kann an dem Projekt registriert oder anonym teilnehmen. </target>
+      </trans-unit>
+      <trans-unit id="inviteCollaboratorShareLinkButton" datatype="html">
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/button&gt;"/> Copy link </source>
+        <target state="final"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/button&gt;"/> Link kopieren </target>
+      </trans-unit>
+      <trans-unit id="inviteCollaboratorGenerateNewLinkButton" datatype="html">
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="Genera"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="link, revoke old"/> Generate new link, revoke old one </source>
+        <target state="final"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="Genera"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="link, revoke old"/> Neuen Link erstellen, alten widerrufen </target>
+      </trans-unit>
+      <trans-unit id="inviteCollaboratorNewLinkSuccess" datatype="html">
+        <source>New link generated</source>
+        <target state="final">Neuer Link erstellt</target>
+      </trans-unit>
+      <trans-unit id="inviteCollaboratorCopyLinkSuccess" datatype="html">
+        <source>Link copied</source>
+        <target state="final">Link kopiert</target>
+      </trans-unit>
+      <trans-unit id="dialogProjectShareSubheading" datatype="html">
+        <source>Share</source>
+        <target state="final">Teilen</target>
       </trans-unit>
       <trans-unit id="logoAltText" datatype="html">
         <source>Melvin Logo, to start page</source>
@@ -1761,6 +1349,50 @@
       <trans-unit id="dialogCloseButton" datatype="html">
         <source>Close</source>
         <target state="final">Schließen</target>
+      </trans-unit>
+      <trans-unit id="dialogProjectSharePlayerTabLabel" datatype="html">
+        <source> Share videoplayer </source>
+        <target state="final"> Player teilen </target>
+      </trans-unit>
+      <trans-unit id="dialogProjectShareEditTabLabel" datatype="html">
+        <source> Invite collaborators </source>
+        <target state="final"> Personen einladen </target>
+      </trans-unit>
+      <trans-unit id="dialogProjectMediaSubheading" datatype="html">
+        <source>Media</source>
+        <target state="final">Medien</target>
+      </trans-unit>
+      <trans-unit id="projectListMoreMenuMediaLabel" datatype="html">
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/button&gt;"/> Media </source>
+        <target state="final"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;media&quot; /&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;media&quot; /&gt;"/> Medien </target>
+      </trans-unit>
+      <trans-unit id="projectListMoreMenuActivityLabel" datatype="html">
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/button&gt;"/> Activity </source>
+        <target state="final"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;activity&quot; /&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;activity&quot; /&gt;"/> Verlauf </target>
+      </trans-unit>
+      <trans-unit id="sharePlayerShareLinkButton" datatype="html">
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/button&gt;"/> Copy link </source>
+        <target state="final"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/button&gt;"/> Link kopieren </target>
+      </trans-unit>
+      <trans-unit id="sharePlayerGenerateNewLinkButton" datatype="html">
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="G"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="ink, revoke old o"/> Generate new link, revoke old one </source>
+        <target state="final"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="G"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="ink, revoke old o"/> Neuen Link erstellen, alten widerrufen </target>
+      </trans-unit>
+      <trans-unit id="sharePlayerCodeAriaLabel" datatype="html">
+        <source>Embed videoplayer code</source>
+        <target state="final">Videoplayer Einbettungscode</target>
+      </trans-unit>
+      <trans-unit id="sharePlayerCodeCopyButton" datatype="html">
+        <source> Copy </source>
+        <target state="final"> Kopieren </target>
+      </trans-unit>
+      <trans-unit id="sharePlayerCopiedToClipboardMessage" datatype="html">
+        <source>Copied to clipboard</source>
+        <target state="final">In die Zwischenablage gespeichert</target>
+      </trans-unit>
+      <trans-unit id="sharePlayerNewLinkMessage" datatype="html">
+        <source>New link generated</source>
+        <target state="final">Neuer Link erstellt</target>
       </trans-unit>
       <trans-unit id="loginDialogEmailLabel" datatype="html">
         <source>Email</source>
@@ -1983,7 +1615,7 @@
         <target state="final">Melvin</target>
       </trans-unit>
       <trans-unit id="imprintPageTitle" datatype="html">
-        <source>Privacy - Melvin</source>
+        <source>Imprint - Melvin</source>
         <target state="final">Datenschutzerklärung - Melvin</target>
       </trans-unit>
       <trans-unit id="accessibilityStatementPageTitle" datatype="html">
@@ -2077,6 +1709,166 @@
       <trans-unit id="imprintSourceText" datatype="html">
         <source> Source: <x id="START_LINK" ctype="x-a" equiv-text="&lt;a href=&quot;https://www.juraforum.de/&quot;&gt;"/>www.Juraforum.de<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/> - Legal portal with lawyer search as at: August 2017 </source>
         <target state="final"> Quelle: <x id="START_LINK" ctype="x-a" equiv-text="&lt;a href=&quot;https://www.juraforum.de/&quot;&gt;"/>www.Juraforum.de<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/> - Rechtportal mit Anwaltssuche Stand: August 2017 </target>
+      </trans-unit>
+      <trans-unit id="deleteConfirmationDialogTitleDeleteTranscription" datatype="html">
+        <source> Delete <x id="INTERPOLATION" equiv-text="{{ data.subject }}"/> </source>
+        <target state="final"><x id="INTERPOLATION" equiv-text="{{ data.subject }}"/> löschen </target>
+      </trans-unit>
+      <trans-unit id="deleteConfirmationDialogAreYouSureLeave" datatype="html">
+        <source> Are you sure you want to leave this <x id="INTERPOLATION" equiv-text="{{ data.subject }}"/>? </source>
+        <target state="final"> Sind Sie sicher, dass Sie das <x id="INTERPOLATION" equiv-text="{{ data.subject }}"/> verlassen möchten? </target>
+      </trans-unit>
+      <trans-unit id="deleteConfirmationDialogAreYouSureDeleteTranscription" datatype="html">
+        <source> Are you sure you want to delete this <x id="INTERPOLATION" equiv-text="{{ data.subject }}"/>? </source>
+        <target state="final"> Sind Sie sicher, dass Sie das <x id="INTERPOLATION" equiv-text="{{ data.subject }}"/> löschen möchten? </target>
+      </trans-unit>
+      <trans-unit id="copyTranscriptionTabTitleHint" datatype="html">
+        <source> Optional title addition </source>
+        <target state="final"> Optionaler Titelzusatz </target>
+      </trans-unit>
+      <trans-unit id="copyTranscriptionTabCopy" datatype="html">
+        <source>copy</source>
+        <target state="final">kopieren</target>
+      </trans-unit>
+      <trans-unit id="emptyTranscriptionTabHeading" datatype="html">
+        <source> Create a new empty transcription file </source>
+        <target state="final"> Neues leeres Transkript erstellen </target>
+      </trans-unit>
+      <trans-unit id="emptyTranscriptionTabTitleHint" datatype="html">
+        <source> Optional title addition </source>
+        <target state="final"> Optionaler Titelzusatz </target>
+      </trans-unit>
+      <trans-unit id="uploadTranscriptionTabTitleHint" datatype="html">
+        <source> Optional title addition </source>
+        <target state="final"> Optionaler Titelzusatz </target>
+      </trans-unit>
+      <trans-unit id="editTranscriptionModalTitleHint" datatype="html">
+        <source> Optional title addition </source>
+        <target state="final"> Optionaler Titelzusatz </target>
+      </trans-unit>
+      <trans-unit id="editTranscriptionModalPreviewText" datatype="html">
+        <source> Preview: </source>
+        <target state="final"> Vorschau: </target>
+      </trans-unit>
+      <trans-unit id="projectTranscriptionNewButtonLabel" datatype="html">
+        <source> New transcription </source>
+        <target state="final"> Neues Transkript </target>
+      </trans-unit>
+      <trans-unit id="projectTranscriptionTableLanguageHeader" datatype="html">
+        <source> Language </source>
+        <target state="final"> Sprache </target>
+      </trans-unit>
+      <trans-unit id="projectTranscriptionTableTitleHeader" datatype="html">
+        <source> Title </source>
+        <target state="final"> Titel </target>
+      </trans-unit>
+      <trans-unit id="projectTranscriptionTableLastEditHeader" datatype="html">
+        <source> Last edit </source>
+        <target state="final"> Letzte Änderung </target>
+      </trans-unit>
+      <trans-unit id="projectTranscriptionTableMoreHeader" datatype="html">
+        <source> More </source>
+        <target state="final"> Mehr </target>
+      </trans-unit>
+      <trans-unit id="projectTranscriptionEditButtonLabel" datatype="html">
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="Edit"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="n&gt; &lt;button"/> Edit </source>
+        <target state="final"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="Edit"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="n&gt; &lt;button"/> Bearbeiten </target>
+      </trans-unit>
+      <trans-unit id="projectTranscriptionDownloadTranscriptButtonLabel" datatype="html">
+        <source> Transcript (.txt) </source>
+        <target state="final"> Transkript (.txt) </target>
+      </trans-unit>
+      <trans-unit id="projectTranscriptionDownloadSRTButtonLabel" datatype="html">
+        <source> SubRip (.srt) </source>
+        <target state="final"> SubRip (.srt) </target>
+      </trans-unit>
+      <trans-unit id="projectTranscriptionDownloadVTTButtonLabel" datatype="html">
+        <source> WebVTT (.vtt) </source>
+        <target state="final"> WebVTT (.vtt) </target>
+      </trans-unit>
+      <trans-unit id="transcriptionDeleteErrorAlert" datatype="html">
+        <source>At least one transcription is required.</source>
+        <target state="final">Mindestens ein Transkript wird benötigt.</target>
+      </trans-unit>
+      <trans-unit id="dialogCreateProjectIntroText" datatype="html">
+        <source> Check the &quot;Use Audio&quot; box to select the file from which you would like to use the audio track. </source>
+        <target state="final"> Kreuzen Sie das Kästchen &quot;Ton nutzen&quot; an, um die Datei auszuwählen, von der Sie die Audiospur verwenden möchten. </target>
+      </trans-unit>
+      <trans-unit id="dialogCreateProjectDropzoneText" datatype="html">
+        <source> Drop audio, video or subtitle (.vtt/.srt) files * here or <x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span class=&quot;dropzone-label&quot;&gt;"/>Select files<x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span&gt;"/></source>
+        <target state="final"> Legen Sie Audio-, Video- oder Untertiteldateien (.vtt/.srt) * hier ab oder <x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span class=&quot;dropzone-label&quot;&gt;"/>Dateien auswählen<x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span&gt;"/></target>
+      </trans-unit>
+      <trans-unit id="dialogCreateProjectTableHeaderFilename" datatype="html">
+        <source> Filename </source>
+        <target state="final"> Dateiname </target>
+      </trans-unit>
+      <trans-unit id="dialogCreateProjectTableHeaderCategory" datatype="html">
+        <source> Category </source>
+        <target state="final"> Kategorie </target>
+      </trans-unit>
+      <trans-unit id="dialogCreateProjectSelectPlaceholder" datatype="html">
+        <source>Select</source>
+        <target state="final">Auswahl</target>
+      </trans-unit>
+      <trans-unit id="dialogCreateProjectCategoryErrorRequired" datatype="html">
+        <source> Category is required </source>
+        <target state="final"> Kategorie benötigt </target>
+      </trans-unit>
+      <trans-unit id="dialogCreateProjectTableHeaderLanguage" datatype="html">
+        <source> Language </source>
+        <target state="final"> Sprache </target>
+      </trans-unit>
+      <trans-unit id="dialogCreateProjectLanguageErrorRequired" datatype="html">
+        <source> Language is required </source>
+        <target state="final"> Sprache benötigt </target>
+      </trans-unit>
+      <trans-unit id="dialogCreateProjectTableHeaderUseAudio" datatype="html">
+        <source> Use Audio </source>
+        <target state="final"> Ton nutzen </target>
+      </trans-unit>
+      <trans-unit id="dialogCreateProjectTableHeaderDelete" datatype="html">
+        <source> Delete </source>
+        <target state="final"> Löschen </target>
+      </trans-unit>
+      <trans-unit id="dialogCreateProjectOneVideoError" datatype="html">
+        <source> At least one video or audio file is required. </source>
+        <target state="final">Mindestens eine Video- oder Audiodatei wird benötigt. </target>
+      </trans-unit>
+      <trans-unit id="dialogCreateProjectOneUseAudioError" datatype="html">
+        <source> At least one &quot;use audio&quot; source required. </source>
+        <target state="final"> Mindestens eine &quot;Ton nutzen&quot; Quelle benötigt. </target>
+      </trans-unit>
+      <trans-unit id="dialogCreateProjectSameFileError" datatype="html">
+        <source> Uploading the same file several times is not allowed. </source>
+        <target state="final"> Die gleiche Datei mehrmals hochzuladen ist nicht erlaubt. </target>
+      </trans-unit>
+      <trans-unit id="dialogCreateProjectOneMainCategoryError" datatype="html">
+        <source> At least one audio/video file with the &quot;main&quot; category required. </source>
+        <target state="final"> Mindestens eine Audio-/Videodatei mit der &quot;Haupt&quot; Kategorie benötigt. </target>
+      </trans-unit>
+      <trans-unit id="dialogCreateProjectMaxOneMainCategoryError" datatype="html">
+        <source> Max one audio/video file with the &quot;main&quot; category. </source>
+        <target state="final"> Maximal eine Audio-/Videodatei mit der &quot;Haupt&quot; Kategorie. </target>
+      </trans-unit>
+      <trans-unit id="dialogCreateProjectUploadProgressLabel" datatype="html">
+        <source>Upload-Progress:</source>
+        <target state="final">Fortschritt beim Hochladen:</target>
+      </trans-unit>
+      <trans-unit id="dialogCreateProjectCreateButton" datatype="html">
+        <source> Create Project </source>
+        <target state="final"> Projekt erstellen </target>
+      </trans-unit>
+      <trans-unit id="privacyPageTitle" datatype="html">
+        <source>Privacy - Melvin</source>
+        <target state="final">Datenschutzerklärung - Melvin</target>
+      </trans-unit>
+      <trans-unit id="projectEffectKickUserFromProject" datatype="html">
+        <source>The opened project was deleted.</source>
+        <target state="final">Das geöffnete Projekt wurde gelöscht.</target>
+      </trans-unit>
+      <trans-unit id="transcriptionEffectKickUserFromTranscript" datatype="html">
+        <source>The opened transcript was deleted and another one selected.</source>
+        <target state="final">Das geöffnete Transkript wurde gelöscht und ein anderes ausgewählt.</target>
       </trans-unit>
     </body>
   </file>

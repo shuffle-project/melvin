@@ -1,0 +1,72 @@
+.mat-tab-content {
+  padding-top: 1.25rem;
+  overflow: hidden;
+}
+
+.code-wrapper {
+  background-color: var(--color-black);
+  border-radius: 0.375rem;
+  position: relative;
+
+  button {
+    position: absolute;
+    right: 0.375rem;
+    top: 0.375rem;
+    z-index: 10;
+  }
+}
+
+pre {
+  :before {
+    content: '';
+    border-radius: 0.375rem;
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: linear-gradient(
+      90deg,
+      transparent 80%,
+      var(--color-black) 100%
+    );
+  }
+}
+
+code {
+  line-height: 120%;
+  color: var(--color-grey);
+}
+
+.general-access-buttons {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+
+  margin-top: 1.25rem;
+
+  .copy-button,
+  .generate-button {
+    background-color: transparent;
+    border: 1px solid var(--color-black);
+    padding: 0.875rem 1.625rem 0.875rem 1.25rem;
+    font-size: 1rem;
+    border-radius: 2rem;
+    cursor: pointer;
+
+    .mat-icon {
+      width: 1.5rem;
+      height: 1.5rem;
+    }
+
+    min-height: 3.25rem;
+  }
+
+  .copy-button {
+    background-color: var(--color-primary);
+    color: var(--color-white);
+    border: 1px solid var(--color-primary);
+  }
+}
+
+.embed-wrapper {
+  margin-top: 2.5rem;
+}

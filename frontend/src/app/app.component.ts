@@ -6,10 +6,11 @@ import { RouterOutlet } from '@angular/router';
 import { PushPipe } from '@ngrx/component';
 import { Store } from '@ngrx/store';
 import dayjs from 'dayjs';
-import { Observable, Subject, takeUntil, tap } from 'rxjs';
+import { combineLatest, map, Observable, Subject, takeUntil, tap } from 'rxjs';
 import { ICONS } from './constants/icon.constants';
 import { AppService } from './services/app/app.service';
 import * as authActions from './store/actions/auth.actions';
+import * as configActions from './store/actions/config.actions';
 import { AppState } from './store/app.state';
 import { ColorTheme } from './store/reducers/config.reducer';
 import * as authSelectors from './store/selectors/auth.selector';
@@ -36,10 +37,20 @@ export class AppComponent implements OnInit, OnDestroy {
   ) {
     this.registerIcons();
 
-    this.isInitialized$ = this.store.select(authSelectors.selectInitialized);
+    this.isInitialized$ = combineLatest([
+      this.store.select(authSelectors.selectInitialized),
+      this.store.select(configSelector.isInitialized),
+    ]).pipe(
+      map(
+        ([authInitialized, configInitialized]) =>
+          authInitialized && configInitialized
+      )
+    );
   }
 
   ngOnInit(): void {
+    this.store.dispatch(configActions.fetch());
+
     dayjs.locale($localize.locale);
 
     this.store.dispatch(authActions.init());

@@ -42,6 +42,7 @@ import { AuthService } from '../auth/auth.service';
 import { EventsGateway } from '../events/events.gateway';
 import { TranscriptionService } from '../transcription/transcription.service';
 import { UserRole } from '../user/user.interfaces';
+import { CreateLegacyProjectDto } from './dto/create-legacy-project.dto';
 import { CreateProjectDto } from './dto/create-project.dto';
 import { FindAllProjectsQuery } from './dto/find-all-projects.dto';
 import { InviteDto } from './dto/invite.dto';
@@ -134,6 +135,178 @@ export class ProjectService {
   async create(
     authUser: AuthUser,
     createProjectDto: CreateProjectDto,
+    videoFiles: Array<Express.Multer.File> | null = null,
+    subtitleFiles: Array<Express.Multer.File> | null = null,
+  ) {
+    const status = ProjectStatus.WAITING;
+
+    const mainVideo: Video = {
+      _id: new Types.ObjectId(),
+      category: MediaCategory.MAIN,
+      extension: 'mp4',
+      originalFileName: '',
+      status: MediaStatus.WAITING,
+      title: 'Main Video',
+    };
+
+    const mainAudio: Audio = {
+      _id: new Types.ObjectId(),
+      category: MediaCategory.MAIN,
+      extension: 'mp3',
+      originalFileName: '',
+      status: MediaStatus.WAITING,
+      title: 'Main Audio',
+    };
+
+    //create project
+    const project = await this.db.projectModel.create({
+      title: createProjectDto.title,
+      language: createProjectDto.language,
+      createdBy: authUser.id,
+      users: [authUser.id],
+      status,
+      inviteToken: generateSecureToken(),
+      viewerToken: generateSecureToken(),
+      videos: [mainVideo],
+      audios: [mainAudio],
+    });
+
+    await ensureDir(
+      this.pathService.getProjectDirectory(project._id.toString()),
+    );
+
+    // add project to owner
+    await this.db.userModel
+      .updateOne({ _id: authUser.id }, { $push: { projects: project._id } })
+      .lean()
+      .exec();
+
+    // Create activity
+    await this.activityService.create(
+      project.toObject(),
+      getObjectIdAsString(project.createdBy),
+      'project-created',
+      {},
+    );
+
+    // Entity
+    const populatedProject = await this.db.findProjectByIdOrThrow(project._id);
+
+    // handle video and subtitle files / add queue jobs / generate subtitles
+    await this._handleFilesAndTranscriptions(
+      authUser,
+      populatedProject,
+      videoFiles,
+      subtitleFiles,
+      createProjectDto,
+      mainVideo,
+      mainAudio,
+    );
+
+    const entity = plainToInstance(ProjectEntity, {
+      ...populatedProject,
+    }) as unknown as ProjectEntity;
+
+    // Send events
+
+    this.events.projectCreated(entity);
+    return entity;
+  }
+
+  async _handleFilesAndTranscriptions(
+    authUser: AuthUser,
+    project: Project,
+    videoFiles: Express.Multer.File[],
+    subtitleFiles: Express.Multer.File[],
+    createProjectDto: CreateProjectDto,
+    mainVideo: Video,
+    mainAudio: Audio,
+  ) {
+    const subsequentJobs: ProcessSubtitlesJob[] = [];
+    if (subtitleFiles) {
+      // use files to generate subtitles
+      await Promise.all(
+        subtitleFiles.map((file, i) => {
+          const language = createProjectDto.subtitleOptions[i].language;
+
+          this.transcriptionService.create(
+            authUser,
+            {
+              project: new Types.ObjectId(project._id),
+              language: language,
+            },
+            file,
+          );
+        }),
+      );
+    }
+
+    if (createProjectDto.asrVendor) {
+      const createdTranscription = await this.transcriptionService.create(
+        authUser,
+        {
+          project: new Types.ObjectId(project._id),
+          language: project.language,
+        },
+      );
+
+      // generate subtitles
+      subsequentJobs.push({
+        project: project,
+        transcription: createdTranscription,
+        payload: {
+          type: SubtitlesType.FROM_ASR,
+          vendor: createProjectDto.asrVendor,
+          audio: mainAudio,
+        },
+      });
+    }
+
+    const mainVideoIndex = createProjectDto.videoOptions.findIndex(
+      (v) => v.category === MediaCategory.MAIN,
+    );
+
+    const mainMediaFile = videoFiles[mainVideoIndex];
+    await this.projectQueue.add({
+      project: project,
+      authUser,
+      file: mainMediaFile,
+      subsequentJobs,
+      mainVideo: mainVideo,
+      mainAudio: mainAudio,
+    });
+
+    if (createProjectDto.videoOptions.length > 1) {
+      videoFiles.forEach((file, i) => {
+        if (i !== mainVideoIndex) {
+          const mediaCategoryKey = Object.entries(MediaCategory).find(
+            ([key, value]) => {
+              if (value === createProjectDto.videoOptions[i].category)
+                return key;
+            },
+          );
+
+          const title =
+            mediaCategoryKey[1].charAt(0).toUpperCase() +
+            mediaCategoryKey[1].slice(1);
+
+          this.uploadVideo(
+            authUser,
+            project._id.toString(),
+            {
+              title: title,
+              category: MediaCategory[mediaCategoryKey[0]],
+            },
+            file,
+          );
+        }
+      });
+    }
+  }
+
+  async createLegacy(
+    authUser: AuthUser,
+    createProjectDto: CreateLegacyProjectDto,
     videoFiles: Array<Express.Multer.File> | null = null,
     subtitleFiles: Array<Express.Multer.File> | null = null,
   ): Promise<ProjectEntity> {
@@ -234,7 +407,7 @@ export class ProjectService {
     // ]);
 
     // handle video and subtitle files / add queue jobs / generate subtitles
-    await this._handleFilesAndTranscriptions(
+    await this._legacyHandleFilesAndTranscriptions(
       authUser,
       populatedProject,
       videoFiles,
@@ -254,12 +427,12 @@ export class ProjectService {
     return entity;
   }
 
-  async _handleFilesAndTranscriptions(
+  async _legacyHandleFilesAndTranscriptions(
     authUser: AuthUser,
     project: Project,
     videoFiles: Express.Multer.File[],
     subtitleFiles: Express.Multer.File[],
-    createProjectDto: CreateProjectDto,
+    createProjectDto: CreateLegacyProjectDto,
     mainVideo: Video,
     mainAudio: Audio,
   ) {
@@ -592,6 +765,52 @@ export class ProjectService {
         project.createdBy as LeanUserDocument,
         missingEmails,
       );
+    }
+
+    const updatedProject = await this.db.findProjectByIdOrThrow(id);
+
+    // Entity
+    const entity = plainToInstance(ProjectEntity, updatedProject);
+
+    await this.events.projectUpdated(entity);
+  }
+
+  async removeUserFromProject(
+    authUser: AuthUser,
+    projectId: string,
+    userId: string,
+  ) {
+    const project = await this.db.findProjectByIdOrThrow(projectId);
+
+    // NOT allowed to remove project owner
+    if (isSameObjectId(userId, project.createdBy)) {
+      throw new CustomForbiddenException('cannot_remove_owner');
+    }
+
+    // ALLOWED to remove yourself from project as a user or as project owner
+    if (
+      isSameObjectId(userId, authUser.id) ||
+      this.permissions.isProjectOwner(project, authUser)
+    ) {
+      const updatedUserList = project.users.filter(
+        (user) => !isSameObjectId(user._id, userId),
+      );
+
+      await this.db.userModel.findByIdAndUpdate(userId, {
+        $pullAll: { projects: [project._id] },
+      });
+
+      const updatedProject = await this.db.updateProjectByIdAndReturn(
+        projectId,
+        {
+          $set: { users: updatedUserList },
+        },
+      );
+
+      const entity = plainToInstance(ProjectEntity, updatedProject);
+      await this.events.projectUpdated(entity, [userId]);
+    } else {
+      throw new CustomForbiddenException('must_be_owner');
     }
   }
 

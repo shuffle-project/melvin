@@ -11,6 +11,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSelectModule } from '@angular/material/select';
 import { Subject } from 'rxjs';
+import { MediaCategoryPipe } from 'src/app/pipes/media-category-pipe/media-category.pipe';
 import { v4 } from 'uuid';
 import { MediaCategory } from '../../../../../services/api/entities/project.entity';
 import { VideoSource } from '../../recorder.interfaces';
@@ -30,12 +31,17 @@ import { RecorderService } from '../../recorder.service';
     MatSelectModule,
     FormsModule,
     MatInputModule,
+    MediaCategoryPipe,
   ],
 })
 export class AddVideoSourceComponent implements OnInit, OnDestroy {
   private destroy$$ = new Subject<void>();
 
   MediaCategory = MediaCategory;
+  mediaCategoryArray = Object.entries(MediaCategory).map(
+    ([label, value]) => value
+  );
+
   loading = true;
   loadingError: any | null = null;
   deviceError: any | null = null;

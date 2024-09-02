@@ -17,7 +17,7 @@ import { AuthModule } from '../auth/auth.module';
 import { AuthService } from '../auth/auth.service';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { UserRole } from '../user/user.interfaces';
-import { CreateProjectDto } from './dto/create-project.dto';
+import { CreateProjectDto } from './dto/create-legacy-project.dto';
 import { FindAllProjectsQuery } from './dto/find-all-projects.dto';
 import { InviteDto } from './dto/invite.dto';
 import { ProjectModule } from './project.module';

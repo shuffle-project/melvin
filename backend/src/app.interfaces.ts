@@ -16,6 +16,17 @@ export class Language {
   code: string;
 
   @ApiProperty({ example: 'English' })
+  englishName: string;
+
+  @ApiProperty({ example: 'Englisch' })
+  germanName: string;
+}
+
+export class LanguageShort {
+  @ApiProperty({ example: 'en' })
+  code: string;
+
+  @ApiProperty({ example: 'English' })
   name: string;
 }
 
@@ -30,8 +41,8 @@ export class TranslationServiceConfig {
   })
   translateVendor: TranslateVendors;
 
-  @ApiProperty({ type: [Language] })
-  languages: Language[];
+  @ApiProperty({ type: [LanguageShort] })
+  languages: LanguageShort[];
 }
 
 export class AsrServiceConfig {
@@ -42,8 +53,8 @@ export class AsrServiceConfig {
   @ApiProperty({ enum: AsrVendors, example: AsrVendors.ASSEMBLYAI })
   asrVendor: AsrVendors;
 
-  @ApiProperty({ type: [Language] })
-  languages: Language[];
+  @ApiProperty({ type: [LanguageShort] })
+  languages: LanguageShort[];
 }
 
 export class ConfigEntity {

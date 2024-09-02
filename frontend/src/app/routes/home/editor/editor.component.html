@@ -34,16 +34,7 @@
       </button>
       }
       <mat-menu #menu="matMenu" class="dense">
-        @if ('projectEdit' | featureEnabled) {
-        <button
-          mat-menu-item
-          (click)="onClickProjectEdit('general')"
-          i18n="@@editorMenuFileEditLabel"
-        >
-          <mat-icon svgIcon="edit"></mat-icon>
-          Edit
-        </button>
-        } @if ('download' | featureEnabled) {
+        @if ('download' | featureEnabled) {
         <button
           mat-menu-item
           [matMenuTriggerFor]="downloadMenu"
@@ -122,7 +113,7 @@
         @if ('editTranscriptions' | featureEnabled) {
         <div class="transcription-button-wrapper">
           <button
-            (click)="onClickProjectEdit('transcription')"
+            (click)="onClickTranscriptionEdit()"
             mat-menu-item
             i18n="@@editorMenuTranscriptionEditLabel"
           >

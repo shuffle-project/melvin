@@ -1,0 +1,93 @@
+<div mat-dialog-title>
+  <div class="dialog-header">
+    <h1 i18n="@@createTranscriptionDialogTitle">Add transcription</h1>
+    <button
+      mat-icon-button
+      mat-dialog-close
+      aria-label="Close"
+      i18n-aria-label="@@createTranscriptionDialogCloseButton"
+    >
+      <mat-icon svgIcon="close" />
+    </button>
+  </div>
+</div>
+<mat-dialog-content>
+  <mat-tab-group
+    dynamicHeight
+    (selectedTabChange)="onSelectedTabChange($event.index)"
+  >
+    <mat-tab [disabled]="loading">
+      <ng-template
+        mat-tab-label
+        i18n="@@createTranscriptionDialogTabUploadLabel"
+      >
+        <mat-icon svgIcon="upload" class="tab-icon" />
+        Upload
+      </ng-template>
+      <app-upload-transcription
+        #uploadForm
+        (loadingEvent)="onLoadingEvent($event)"
+      />
+    </mat-tab>
+
+    <mat-tab [disabled]="loading">
+      <ng-template mat-tab-label i18n="@@createTranscriptionDialogTabCopyLabel">
+        <mat-icon svgIcon="copy-file" class="tab-icon" />
+        Copy
+      </ng-template>
+      <app-copy-transcription
+        [transcriptionList]="transcriptionList"
+        class="mat-tab-content"
+        #copyForm
+      />
+    </mat-tab>
+
+    <!-- TODO Group discussion about these features -->
+    <!-- <mat-tab [disabled]="loading">
+      <ng-template
+        mat-tab-label
+        i18n="@@createTranscriptionDialogTabTranslateLabel"
+      >
+        <mat-icon svgIcon="translate" class="tab-icon" />
+        Translate
+      </ng-template>
+      <app-translate-transcription
+        [transcriptionList]="transcriptionList"
+        #translateForm
+      />
+    </mat-tab> -->
+
+    <!-- <mat-tab [disabled]="loading">
+      <ng-template
+        mat-tab-label
+        i18n="@@createTranscriptionDialogTabFromMediaLabel"
+      >
+        <mat-icon svgIcon="video" class="tab-icon" />
+        From Media
+      </ng-template>
+      <app-from-media-transcription #asrForm />
+    </mat-tab> -->
+
+    <mat-tab [disabled]="loading">
+      <ng-template
+        mat-tab-label
+        i18n="@@createTranscriptionDialogTabEmptyFileLabel"
+      >
+        <mat-icon svgIcon="add" class="tab-icon" />
+        Empty file
+      </ng-template>
+      <app-empty-file-transcription #emptyFileForm />
+    </mat-tab>
+  </mat-tab-group>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button
+    mat-raised-button
+    color="primary"
+    i18n="@@createTranscriptionDialogSubmitButtonLabel"
+    (click)="onSubmitCurrentTabForm()"
+    [disabled]="loading"
+  >
+    Create transcription
+  </button>
+</mat-dialog-actions>

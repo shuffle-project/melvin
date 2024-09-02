@@ -1,7 +1,7 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { ApiProperty } from '@nestjs/swagger';
 import { Exclude, Expose, Transform, Type } from 'class-transformer';
-import { IsDate, IsMongoId, IsString } from 'class-validator';
+import { IsDate, IsMongoId, IsOptional, IsString } from 'class-validator';
 import { HydratedDocument, PopulatedDoc, SchemaTypes, Types } from 'mongoose';
 import {
   EXAMPLE_PROJECT,
@@ -80,7 +80,8 @@ export class Transcription {
   @ApiProperty({ example: EXAMPLE_TRANSCRIPTION.title })
   @Prop()
   @IsString()
-  title: string;
+  @IsOptional()
+  title?: string;
 
   @ApiProperty({ example: EXAMPLE_TRANSCRIPTION.language })
   @Prop()

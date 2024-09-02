@@ -51,8 +51,8 @@ describe('ProjectController', () => {
 
     // Test
     const result = await controller.create(authUser, createProjectDto);
-    expect(service.create).toBeCalledTimes(1);
-    expect(service.create).toBeCalledWith(
+    expect(service.createLegacy).toBeCalledTimes(1);
+    expect(service.createLegacy).toBeCalledWith(
       authUser,
       createProjectDto,
       null,

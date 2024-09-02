@@ -1,0 +1,82 @@
+.mat-tab-content {
+  padding-top: 1.25rem;
+  overflow: hidden;
+
+  .add-member-form {
+    width: 100%;
+    display: flex;
+    gap: 1.25rem;
+    margin-bottom: 2.5rem;
+
+    .mat-mdc-form-field {
+      width: 100%;
+    }
+
+    button {
+      height: 3.5rem;
+    }
+  }
+
+  .access-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+    .collaborator {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.25rem;
+
+      .info {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+
+        .name-email {
+          display: flex;
+          flex-direction: column;
+          gap: 0.25rem;
+
+          span:first-child {
+            font-weight: 500;
+          }
+        }
+      }
+    }
+  }
+
+  .general-access {
+    margin-top: 2.5rem;
+    .general-access-buttons {
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+
+      margin-top: 1.25rem;
+
+      .copy-button,
+      .generate-button {
+        background-color: transparent;
+        border: 1px solid var(--color-black);
+        padding: 0.875rem 1.625rem 0.875rem 1.25rem;
+        font-size: 1rem;
+        border-radius: 2rem;
+        cursor: pointer;
+
+        .mat-icon {
+          width: 1.5rem;
+          height: 1.5rem;
+        }
+
+        min-height: 3.25rem;
+      }
+
+      .copy-button {
+        background-color: var(--color-primary);
+        color: var(--color-white);
+        border: 1px solid var(--color-primary);
+      }
+    }
+  }
+}

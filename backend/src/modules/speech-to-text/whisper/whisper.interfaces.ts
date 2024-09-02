@@ -1,3 +1,16 @@
+export class WhiInformation {
+  debug: boolean;
+  rest_runner: any;
+  websocket_stream: any;
+  rest_port: number;
+  websocket_port: number;
+  host: string;
+  keep_data_for_hours: number;
+  cleanup_schedule_in_minutes: number;
+  transcription_default: any;
+  supported_language_codes: string[];
+}
+
 export class WhiTranscribeDto {
   language?: string;
   condition_on_previous_text?: boolean;

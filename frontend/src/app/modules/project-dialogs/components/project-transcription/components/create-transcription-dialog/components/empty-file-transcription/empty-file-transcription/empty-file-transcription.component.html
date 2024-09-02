@@ -1,0 +1,31 @@
+<h2 i18n="@@emptyTranscriptionTabHeading">
+  Create a new empty transcription file
+</h2>
+
+<form [formGroup]="transcriptionGroup">
+  <mat-form-field>
+    <mat-label i18n="@@emptyTranscriptionTabLanguageLabel">Language</mat-label>
+    <mat-select formControlName="language">
+      @for (language of languages; track language) {
+      <mat-option [value]="language.code">{{ language.name }} </mat-option>
+      }
+    </mat-select>
+    <mat-error i18n="@@emptyTranscriptionTabLanguageError"
+      >Select a language</mat-error
+    >
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label i18n="@@emptyTranscriptionTabTitleLabel">Title</mat-label>
+    <input matInput formControlName="title" />
+
+    @if(transcriptionGroup.controls['title'].value !== '') {
+    <button type="button" mat-icon-button matSuffix (click)="onClearTitle()">
+      <mat-icon svgIcon="close-small" />
+    </button>
+    }
+    <mat-hint i18n="@@emptyTranscriptionTabTitleHint">
+      Optional title addition
+    </mat-hint>
+  </mat-form-field>
+</form>

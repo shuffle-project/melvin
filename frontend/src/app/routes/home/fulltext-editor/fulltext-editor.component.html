@@ -34,16 +34,7 @@
       </button>
       }
       <mat-menu #menu="matMenu" class="dense">
-        @if ('projectEdit' | featureEnabled) {
-        <button
-          mat-menu-item
-          (click)="onClickProjectEdit('general')"
-          i18n="@@editorMenuFileEditLabel"
-        >
-          <mat-icon svgIcon="edit"></mat-icon>
-          Edit
-        </button>
-        } @if ('download' | featureEnabled) {
+        @if ('download' | featureEnabled) {
         <button
           mat-menu-item
           [matMenuTriggerFor]="downloadMenu"
@@ -54,8 +45,12 @@
         </button>
         } @if (isOwner$ | ngrxPush) {
         <mat-divider></mat-divider>
-        <button mat-menu-item i18n="@@editorMenuFileDeleteLabel">
-          <mat-icon svgIcon="delete"></mat-icon>
+        <button
+          (click)="onDeleteProject()"
+          mat-menu-item
+          i18n="@@editorMenuFileDeleteLabel"
+        >
+          <mat-icon svgIcon="delete" />
           Delete
         </button>
         }
@@ -109,7 +104,12 @@
                 "
                 svgIcon="done"
               ></mat-icon>
-              <span>{{ transcription.title }}</span>
+              <span>
+                {{
+                  transcription.language
+                    | writtenOutLanguage : transcription.title
+                }}
+              </span>
               <span class="transcription-lang-code">
                 ({{ transcription.language }})</span
               >
@@ -122,9 +122,9 @@
         @if ('editTranscriptions' | featureEnabled) {
         <div class="transcription-button-wrapper">
           <button
-            (click)="onClickProjectEdit('transcription')"
             mat-menu-item
             i18n="@@editorMenuTranscriptionEditLabel"
+            (click)="onClickTranscriptionEdit()"
           >
             <mat-icon svgIcon="edit"></mat-icon>
             Edit Transcriptions
@@ -172,7 +172,7 @@
   @if ('editorActions' | featureEnabled) {
   <div class="sticky">
     @if (showWaveform) {
-    <div class="flex">
+    <div class="flex waveform-wrapper">
       @if ('showWaveform' | featureEnabled) {
       <app-waveform [zoomActivated]="showZoomedWave"></app-waveform>
       } @if (isLiveMode$ | ngrxPush) {

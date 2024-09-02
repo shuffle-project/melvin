@@ -1,4 +1,5 @@
 import { LiveAnnouncer } from '@angular/cdk/a11y';
+import { CdkMenuModule } from '@angular/cdk/menu';
 import { NgClass } from '@angular/common';
 import {
   AfterViewInit,
@@ -28,24 +29,24 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { Router } from '@angular/router';
 import { LetDirective, PushPipe } from '@ngrx/component';
 import { Store } from '@ngrx/store';
-import { Observable, Subscription } from 'rxjs';
+import { Observable, Subscription, take } from 'rxjs';
+import { ActivityComponent } from 'src/app/components/activity/activity.component';
 import {
   ProjectFilter,
   ProjectSetEnum,
 } from 'src/app/interfaces/project-filter.interface';
+import { DialogProjectActivityComponent } from 'src/app/modules/project-dialogs/dialog-project-activity/dialog-project-activity.component';
+import { DialogProjectMediaComponent } from 'src/app/modules/project-dialogs/dialog-project-media/dialog-project-media.component';
 import { ProjectLanguagesSetPipe } from 'src/app/pipes/project-languages-set-pipe/project-languages-set.pipe';
 import { WrittenOutLanguagePipe } from 'src/app/pipes/written-out-language-pipe/written-out-language.pipe';
+import { ApiService } from 'src/app/services/api/api.service';
+import { ActivityEntity } from 'src/app/services/api/entities/activity.entity';
 import { AppState } from 'src/app/store/app.state';
 import { AvatarGroupComponent } from '../../../components/avatar-group/avatar-group.component';
 import { DeleteConfirmationService } from '../../../components/delete-confirmation-dialog/delete-confirmation.service';
 import { FooterComponent } from '../../../components/footer/footer.component';
 import { HeaderComponent } from '../../../components/header/header.component';
 import { ShareProjectDialogComponent } from '../../../components/share-project-dialog/share-project-dialog.component';
-import {
-  ProjectDetailComponent,
-  ProjectDetailDialogData,
-  ProjectDetailDialogTab,
-} from '../../../modules/project-detail/project-detail.component';
 import { DurationPipe } from '../../../pipes/duration-pipe/duration.pipe';
 import { FeatureEnabledPipe } from '../../../pipes/feature-enabled-pipe/feature-enabled.pipe';
 import { FormatDatePipe } from '../../../pipes/format-date-pipe/format-date.pipe';
@@ -58,8 +59,7 @@ import {
 import * as projectsActions from '../../../store/actions/projects.actions';
 import * as authSelectors from '../../../store/selectors/auth.selector';
 import * as projectsSelectors from '../../../store/selectors/projects.selector';
-import { DialogCreateProjectComponent } from './dialog-create-project/dialog-create-project.component';
-
+import { DialogCreateProjectComponent } from './dialog-create-project/dialog-create-project/dialog-create-project.component';
 @Component({
   selector: 'app-project-list',
   templateUrl: './project-list.component.html',
@@ -92,6 +92,8 @@ import { DialogCreateProjectComponent } from './dialog-create-project/dialog-cre
     FeatureEnabledPipe,
     ProjectLanguagesSetPipe,
     WrittenOutLanguagePipe,
+    ActivityComponent,
+    CdkMenuModule,
   ],
 })
 export class ProjectListComponent implements OnInit, AfterViewInit, OnDestroy {
@@ -117,6 +119,7 @@ export class ProjectListComponent implements OnInit, AfterViewInit, OnDestroy {
   public projectFilter$: Observable<ProjectFilter>;
   public currentProjectCount!: number;
 
+  projectStatusEnum = ProjectStatus;
   public projectStatus = [
     'all',
     ProjectStatus.WAITING,
@@ -142,7 +145,8 @@ export class ProjectListComponent implements OnInit, AfterViewInit, OnDestroy {
     private store: Store<AppState>,
     private dialog: MatDialog,
     private deleteService: DeleteConfirmationService,
-    private router: Router
+    private router: Router,
+    private api: ApiService
   ) {
     this.projectFilter$ = this.store.select(
       projectsSelectors.selectProjectFilter
@@ -183,18 +187,6 @@ export class ProjectListComponent implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
-  onClickProjectDetail(project: ProjectEntity, tab: ProjectDetailDialogTab) {
-    const data: ProjectDetailDialogData = {
-      projectId: project.id,
-      tab,
-    };
-    this.dialog.open(ProjectDetailComponent, {
-      data,
-      width: '70%',
-      height: '70vh',
-    });
-  }
-
   onOpenDialogCreateProject() {
     this.dialog.open(DialogCreateProjectComponent, {
       disableClose: true,
@@ -204,8 +196,30 @@ export class ProjectListComponent implements OnInit, AfterViewInit, OnDestroy {
     });
   }
 
-  onDeleteProject(project: ProjectEntity) {
-    this.deleteService.deleteProject(project);
+  onClickOpenActivityDialog(project: ProjectEntity) {
+    this.dialog.open(DialogProjectActivityComponent, {
+      data: { project },
+      width: '100%',
+      maxWidth: '800px',
+      maxHeight: '90vh',
+    });
+  }
+
+  onClickOpenMediaDialog(project: ProjectEntity) {
+    this.dialog.open(DialogProjectMediaComponent, {
+      data: { project },
+      width: '100%',
+      maxWidth: '800px',
+      maxHeight: '90vh',
+    });
+  }
+
+  async onDeleteProject(project: ProjectEntity) {
+    const isConfirmed = await this.deleteService.deleteProject(project);
+  }
+
+  async onLeaveProject(project: ProjectEntity) {
+    const isConfirmed = await this.deleteService.leaveProject(project);
   }
 
   ngOnDestroy(): void {
@@ -230,6 +244,9 @@ export class ProjectListComponent implements OnInit, AfterViewInit, OnDestroy {
       data: {
         project,
       },
+      width: '100%',
+      maxWidth: '800px',
+      maxHeight: '90vh',
     });
   }
 
@@ -268,5 +285,34 @@ export class ProjectListComponent implements OnInit, AfterViewInit, OnDestroy {
         ProjectStatus.LIVE,
       ].includes(project.status) && project.transcriptions.length > 0
     );
+  }
+
+  onClickChangeStatus(newStatus: ProjectStatus, project: ProjectEntity) {
+    this.store.dispatch(
+      projectsActions.updateFromProjectList({
+        updateProject: {
+          ...project,
+          status: newStatus,
+        },
+      })
+    );
+  }
+
+  projectError: ActivityEntity | undefined;
+  onHandleStatusClick(project: ProjectEntity) {
+    if (project.status === ProjectStatus.ERROR) {
+      this.api
+        .findAllActivities(project.id)
+        .pipe(take(1))
+        .subscribe((activities) => {
+          this.projectError = activities.activities.find((activity) => {
+            if (activity.details) {
+              return activity.details.hasOwnProperty('error');
+            } else {
+              return false;
+            }
+          });
+        });
+    }
   }
 }
