@@ -1424,6 +1424,30 @@
       <trans-unit id="profileSelectLabel" datatype="html">
         <source>Interface language</source>
       </trans-unit>
+      <trans-unit id="dialogChangePasswordConfirmPasswordLabel" datatype="html">
+        <source>Confirm New Password</source>
+      </trans-unit>
+      <trans-unit id="dialogChangePasswordConfirmPasswordRequiredError" datatype="html">
+        <source>Confirm new password required</source>
+      </trans-unit>
+      <trans-unit id="dialogChangePasswordCurrentPasswordLabel" datatype="html">
+        <source>Current Password</source>
+      </trans-unit>
+      <trans-unit id="dialogChangePasswordCurrentPasswordRequiredError" datatype="html">
+        <source> Current password required </source>
+      </trans-unit>
+      <trans-unit id="dialogChangePasswordDoNotMatchError" datatype="html">
+        <source>Passwords do not match</source>
+      </trans-unit>
+      <trans-unit id="dialogChangePasswordNewPasswordLabel" datatype="html">
+        <source>New Password</source>
+      </trans-unit>
+      <trans-unit id="dialogChangePasswordNewPasswordRequiredError" datatype="html">
+        <source> New password required </source>
+      </trans-unit>
+      <trans-unit id="dialogChangePasswordSubmitButtonLabel" datatype="html">
+        <source> Change Password </source>
+      </trans-unit>
     </body>
   </file>
 </xliff>
