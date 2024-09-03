@@ -109,6 +109,10 @@ export const authReducer = createReducer(
     changePasswordLoading: false,
     changePasswordError: action.error.message,
   })),
+  on(authActions.clearChangePasswordError, (state) => ({
+    ...state,
+    changePasswordError: null,
+  })),
 
   // guest login
   on(authActions.guestLoginSuccess, (state, action) => ({
@@ -135,6 +139,10 @@ export const authReducer = createReducer(
     ...state,
     registerLoading: false,
     registerError: action.error.message,
+  })),
+  on(authActions.clearRegisterError, (state) => ({
+    ...state,
+    registerError: null,
   })),
 
   // Invite

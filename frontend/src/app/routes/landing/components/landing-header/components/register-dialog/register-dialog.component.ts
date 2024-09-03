@@ -90,7 +90,7 @@ export class RegisterDialogComponent implements OnInit, OnDestroy {
   }
 
   onSubmit(): void {
-    this.store.dispatch(authActions.clearLoginError());
+    this.store.dispatch(authActions.clearRegisterError());
 
     if (this.formGroup.valid) {
       const { email, name, password } = this.formGroup.value;
@@ -120,7 +120,7 @@ export class RegisterDialogComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     if (this.error) {
-      this.store.dispatch(authActions.clearLoginError());
+      this.store.dispatch(authActions.clearRegisterError());
     }
 
     this.destroy$$.next();

@@ -1,81 +1,30 @@
-<app-header>Profile</app-header>
+<app-header>
+  <h1 i18n="@@profileHeader">Profile</h1>
+</app-header>
 
-<section *ngrxLet="user$ as user">
-  <h1>Hello {{ user?.email }}!</h1>
+<div *ngrxLet="user$ as user" class="wrapper">
+  <div class="user">
+    <h2 class="name">{{ user?.name }}</h2>
+    <p class="email">{{ user?.email }}</p>
+  </div>
 
-  <mat-form-field>
-    <mat-label>Sprache</mat-label>
+  <button
+    (click)="onOpenChangePasswordDialog()"
+    mat-stroked-button
+    i18n="@@profilePasswordButtonLabel"
+  >
+    Change Passwort
+  </button>
+
+  <mat-form-field class="language-select">
+    <mat-label i18n="@@profileSelectLabel">Interface language</mat-label>
     <mat-select [value]="locale" (selectionChange)="onLanguageSwitched($event)">
-      <mat-option value="de-DE"> Deutsch (de-DE)</mat-option>
-      <mat-option value="en-US"> Englisch (en-US) </mat-option>
+      <mat-option value="en-US" i18n="@@profileSelectEnglishOption">
+        English
+      </mat-option>
+      <mat-option value="de-DE" i18n="@@profileSelectGermanOption">
+        German
+      </mat-option>
     </mat-select>
   </mat-form-field>
-
-  <!-- change password -->
-
-  <div
-    class="changePasswordForm"
-    *ngrxLet="changePasswordLoading$ as changePasswordLoading"
-  >
-    <h2>Change Password</h2>
-    <form
-      [formGroup]="changePasswordForm"
-      (ngSubmit)="onSubmitChangePassword(user!.email!)"
-    >
-      <mat-form-field appearance="fill">
-        <mat-label>Current Password</mat-label>
-        <input matInput type="password" formControlName="currentPassword" />
-      </mat-form-field>
-
-      <mat-form-field appearance="fill">
-        <mat-label>New Password</mat-label>
-        <input matInput type="password" formControlName="newPassword" />
-      </mat-form-field>
-
-      <mat-form-field appearance="fill">
-        <mat-label>Confirm New Password</mat-label>
-        <input matInput type="password" formControlName="confirmPassword" />
-      </mat-form-field>
-
-      @if (changePasswordForm.errors?.['notSame']) {
-      <div class="error-message" aria-live="polite">
-        <mat-icon svgIcon="warning"></mat-icon>
-        <p>The passwords do not match!</p>
-      </div>
-      }
-
-      <ng-container *ngrxLet="changePasswordError$ as changePasswordError">
-        @if (changePasswordError) {
-        <div class="error-message" aria-live="polite">
-          <mat-icon svgIcon="warning"></mat-icon>
-          <p>Error: {{ changePasswordError }}</p>
-        </div>
-        } @else if (changePasswordSubmitted && !changePasswordLoading) {
-        <div class="success-message" aria-live="polite">
-          <mat-icon svgIcon="check"></mat-icon>
-          <p>Password changed!</p>
-        </div>
-        }
-      </ng-container>
-
-      <button
-        mat-raised-button
-        color="primary"
-        type="submit"
-        [disabled]="!changePasswordForm.valid || changePasswordLoading"
-      >
-        <div class="flex items-center">
-          @if (changePasswordLoading) {
-          <mat-spinner
-            strokeWidth="2"
-            diameter="20"
-            color="accent"
-            style="margin-right: 10px"
-          ></mat-spinner>
-          }
-          <div>Change Password</div>
-        </div>
-      </button>
-    </form>
-  </div>
-</section>
+</div>

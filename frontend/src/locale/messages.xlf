@@ -1403,6 +1403,27 @@
       <trans-unit id="uploadTranscriptionTabTitleHint" datatype="html">
         <source> Optional title addition </source>
       </trans-unit>
+      <trans-unit id="dialogChangePasswordCloseButton" datatype="html">
+        <source>Close</source>
+      </trans-unit>
+      <trans-unit id="dialogChangePasswordHeader" datatype="html">
+        <source>Change Password</source>
+      </trans-unit>
+      <trans-unit id="profileHeader" datatype="html">
+        <source>Profile</source>
+      </trans-unit>
+      <trans-unit id="profilePasswordButtonLabel" datatype="html">
+        <source> Change Passwort </source>
+      </trans-unit>
+      <trans-unit id="profileSelectEnglishOption" datatype="html">
+        <source> English </source>
+      </trans-unit>
+      <trans-unit id="profileSelectGermanOption" datatype="html">
+        <source> German </source>
+      </trans-unit>
+      <trans-unit id="profileSelectLabel" datatype="html">
+        <source>Interface language</source>
+      </trans-unit>
     </body>
   </file>
 </xliff>

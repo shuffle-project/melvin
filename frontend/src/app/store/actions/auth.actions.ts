@@ -54,7 +54,9 @@ export const changePasswordError = createAction(
   '[AUTH EFFECTS] Change password failed',
   props<{ error: Error }>()
 );
-
+export const clearChangePasswordError = createAction(
+  '[CHANGE PASSWORD DIALOG] Clear change password error'
+);
 // Logout
 
 export const logout = createAction('[HEADER COMPONENT] Logout');
@@ -71,6 +73,10 @@ export const registerSuccess = createAction('[AUTH EFFECTS] Register success');
 export const registerError = createAction(
   '[AUTH EFFECTS] Register error',
   props<{ error: Error }>()
+);
+
+export const clearRegisterError = createAction(
+  '[REGISTER DIALOG] Clear register error'
 );
 
 // Invite

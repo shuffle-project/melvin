@@ -1870,6 +1870,34 @@
         <source>On</source>
         <target state="final">An</target>
       </trans-unit>
+      <trans-unit id="dialogChangePasswordHeader" datatype="html">
+        <source>Change Password</source>
+        <target state="final">Passwort ändern</target>
+      </trans-unit>
+      <trans-unit id="dialogChangePasswordCloseButton" datatype="html">
+        <source>Close</source>
+        <target state="final">Schließen</target>
+      </trans-unit>
+      <trans-unit id="profileHeader" datatype="html">
+        <source>Profile</source>
+        <target state="final">Profil</target>
+      </trans-unit>
+      <trans-unit id="profilePasswordButtonLabel" datatype="html">
+        <source> Change Passwort </source>
+        <target state="final"> Passwort ändern </target>
+      </trans-unit>
+      <trans-unit id="profileSelectLabel" datatype="html">
+        <source>Interface language</source>
+        <target state="final">Sprache der Benutzeroberfläche</target>
+      </trans-unit>
+      <trans-unit id="profileSelectEnglishOption" datatype="html">
+        <source> English </source>
+        <target state="final"> Englisch </target>
+      </trans-unit>
+      <trans-unit id="profileSelectGermanOption" datatype="html">
+        <source> German </source>
+        <target state="final"> Deutsch </target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
