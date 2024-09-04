@@ -138,7 +138,17 @@ export class TiptapEditorComponent implements AfterViewInit, OnInit {
     });
   }
 
+  destroyEditor() {
+    console.log('destroyEditor');
+    if (this.editor) {
+      this.editor.destroy();
+    }
+    this.editor = undefined;
+    this.captions = undefined;
+  }
+
   destroyConnection() {
+    this.provider.disconnect();
     this.provider.destroy();
   }
 
@@ -253,15 +263,6 @@ export class TiptapEditorComponent implements AfterViewInit, OnInit {
 
       this.editor.view.updateState(this.editor.view.state);
     }
-  }
-
-  destroyEditor() {
-    console.log('destroyEditor');
-    if (this.editor) {
-      this.editor?.destroy();
-    }
-    this.editor = undefined;
-    this.captions = undefined;
   }
 
   private updateCurrentTimeCSSClass(time: number) {

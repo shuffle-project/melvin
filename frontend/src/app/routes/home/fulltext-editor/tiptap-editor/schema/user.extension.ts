@@ -232,14 +232,11 @@ export const UserExtension = (injector: Injector) =>
     },
 
     addProseMirrorPlugins() {
-      console.log(this);
       return [
         new Plugin({
           key: new PluginKey('autoColor'),
           props: {
             handleKeyPress: (view, event) => {
-              console.log(this.options.userId);
-
               const { tr } = view.state;
               const from = tr.selection.ranges[0].$from.pos;
               const to = tr.selection.ranges[0].$to.pos;
@@ -263,24 +260,38 @@ export const UserExtension = (injector: Injector) =>
               let from = tr.selection.ranges[0].$from.pos;
               let to = tr.selection.ranges[0].$to.pos;
 
-              if (event.code === 'Enter' && !event.composed) {
-                // TODO verwerfen der speakerID, neuer paragraph sollte null sein
-                if (hasLeadingSpace(tr, from) || hasTrailingSpace(tr, to)) {
+              if (event.code === 'Enter') {
+                if (!event.composed) {
+                  if (hasLeadingSpace(tr, from) || hasTrailingSpace(tr, to)) {
+                    return false;
+                  }
+                  if (!hasLeadingSpace(tr, from)) {
+                    setPreviousWordAsModified(
+                      this.options.userId,
+                      schema,
+                      tr,
+                      from
+                    );
+                  }
+                  if (!hasTrailingSpace(tr, to)) {
+                    setNextWordAsModified(this.options.userId, schema, tr, to);
+                  }
+                  view.dispatch(tr);
                   return false;
+                } else {
+                  // TODO verwerfen der speakerID, neuer paragraph sollte null sein
+                  // funktioniert, ist das ok so? was genau macht das compsed?
+
+                  tr.doc.nodesBetween(from, to, (node, pos) => {
+                    if (node.type.name === 'paragraph') {
+                      tr.setNodeAttribute(pos, 'speaker', null);
+                    }
+                  });
+
+                  view.dispatch(tr);
+                  return false;
+                  // reuturn ?
                 }
-                if (!hasLeadingSpace(tr, from)) {
-                  setPreviousWordAsModified(
-                    this.options.userId,
-                    schema,
-                    tr,
-                    from
-                  );
-                }
-                if (!hasTrailingSpace(tr, to)) {
-                  setNextWordAsModified(this.options.userId, schema, tr, to);
-                }
-                view.dispatch(tr);
-                return false;
               }
 
               if (event.code === 'Delete') {
