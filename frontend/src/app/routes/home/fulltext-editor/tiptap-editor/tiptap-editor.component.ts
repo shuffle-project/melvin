@@ -3,6 +3,7 @@ import {
   Component,
   Injector,
   Input,
+  OnDestroy,
   OnInit,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -49,7 +50,7 @@ enum CLIENT_STATUS {
   templateUrl: './tiptap-editor.component.html',
   styleUrl: './tiptap-editor.component.scss',
 })
-export class TiptapEditorComponent implements AfterViewInit, OnInit {
+export class TiptapEditorComponent implements AfterViewInit, OnInit, OnDestroy {
   @Input({ required: true }) transcriptionId$!: Observable<string>;
   @Input({ required: true }) activeUsers!: EditorUser[];
 
@@ -108,6 +109,11 @@ export class TiptapEditorComponent implements AfterViewInit, OnInit {
 
   ngAfterViewInit() {
     this.viewReady$.next(true);
+  }
+  ngOnDestroy(): void {
+    this.destroyConnection();
+    this.destroyEditor();
+    this.destroy$$.next();
   }
 
   initConnection(transcriptionId: string) {
