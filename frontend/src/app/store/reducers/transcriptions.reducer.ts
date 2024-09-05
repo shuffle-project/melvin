@@ -1,6 +1,7 @@
 import { createReducer, on } from '@ngrx/store';
 import { TranscriptionEntity } from '../../services/api/entities/transcription.entity';
 import * as transcriptionsActions from '../actions/transcriptions.actions';
+import { A } from '@angular/cdk/keycodes';
 
 export interface TranscriptionsState {
   transcriptionsList: TranscriptionEntity[];
@@ -27,12 +28,29 @@ export const transcriptionsReducer = createReducer(
       };
     }
   ),
+  on(transcriptionsActions.changeTranscriptionId, (state, action) => {
+    return { ...state, selectedTranscriptionId: action.transcriptionId };
+  }),
   on(transcriptionsActions.findAllSuccess, (state, action) => {
+    let newTranscriptionId;
+
+    if (action.selectedTranscriptionId) {
+      newTranscriptionId = action.selectedTranscriptionId;
+    } else if (
+      state.selectedTranscriptionId &&
+      action.transcriptions.some((t) => t.id === state.selectedTranscriptionId)
+    ) {
+      newTranscriptionId = state.selectedTranscriptionId;
+    } else if (action.transcriptions.length > 0) {
+      newTranscriptionId = action.transcriptions[0].id;
+    } else {
+      newTranscriptionId = '';
+    }
+
     return {
       ...state,
       transcriptionsList: action.transcriptions,
-      selectedTranscriptionId:
-        action.transcriptions.length > 0 ? action.transcriptions[0].id : '',
+      selectedTranscriptionId: newTranscriptionId,
       loading: false,
     };
   }),

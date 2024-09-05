@@ -6,7 +6,10 @@ import * as calendar from 'dayjs/plugin/calendar';
 import * as duration from 'dayjs/plugin/duration';
 import * as relativeTime from 'dayjs/plugin/relativeTime';
 
-import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import {
+  provideHttpClient,
+  withInterceptorsFromDi,
+} from '@angular/common/http';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { BrowserModule, bootstrapApplication } from '@angular/platform-browser';
 import { provideAnimations } from '@angular/platform-browser/animations';
@@ -63,7 +66,7 @@ bootstrapApplication(AppComponent, {
     provideRouterStore(),
     provideStoreDevtools({
       maxAge: 25,
-      logOnly: environment.production,
+      // logOnly: environment.production,
       connectInZone: true,
     }),
     provideAnimations(),

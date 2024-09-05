@@ -13,6 +13,11 @@ import * as transcriptionsActions from '../actions/transcriptions.actions';
 import { AppState } from '../app.state';
 import * as captionsSelector from '../selectors/captions.selector';
 import * as transcriptionsSelector from '../selectors/transcriptions.selector';
+import {
+  selectQueryParam,
+  selectQueryParams,
+} from '../selectors/router.selectors';
+
 @Injectable({
   providedIn: 'root',
 })
@@ -43,10 +48,22 @@ export class TranscriptionsEffects {
         transcriptionsActions.findAllFromEditor,
         transcriptionsActions.findAllFromEffect
       ),
-
-      mergeMap((action) =>
+      withLatestFrom(this.store.select(selectQueryParams)),
+      mergeMap(([action, queryParams]) =>
         this.api.findAllTranscriptions(action.projectId).pipe(
           map((transcriptions: TranscriptionEntity[]) => {
+            if (
+              queryParams['transcriptionId'] &&
+              transcriptions.some(
+                (t) => t.id === queryParams['transcriptionId']
+              )
+            ) {
+              return transcriptionsActions.findAllSuccess({
+                transcriptions,
+                selectedTranscriptionId: queryParams['transcriptionId'],
+              });
+            }
+
             return transcriptionsActions.findAllSuccess({ transcriptions });
           }),
           catchError((error) => {

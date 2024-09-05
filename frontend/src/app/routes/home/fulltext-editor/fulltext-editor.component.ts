@@ -143,6 +143,7 @@ export class FulltextEditorComponent implements OnInit, OnDestroy {
 
   public showZoomedWave = false;
   public projectId!: string;
+  public transcriptionId!: string;
 
   constructor(
     private store: Store<AppState>,
@@ -159,6 +160,16 @@ export class FulltextEditorComponent implements OnInit, OnDestroy {
 
   async ngOnInit() {
     this.projectId = this.route.snapshot.params['id'];
+    this.transcriptionId = this.route.snapshot.queryParams['transcriptionId'];
+
+    if (this.transcriptionId)
+      this.store.dispatch(
+        transcriptionsActions.changeTranscriptionId({
+          transcriptionId: this.transcriptionId,
+        })
+      );
+
+    console.log(this.transcriptionId);
 
     this.store.dispatch(
       editorActions.findProjectFromEditor({ projectId: this.projectId })
@@ -196,6 +207,7 @@ export class FulltextEditorComponent implements OnInit, OnDestroy {
   }
 
   onSelectTranscription(transcriptionId: string) {
+    this.router.navigate([], { queryParams: { transcriptionId } });
     this.store.dispatch(
       transcriptionsActions.selectFromEditor({ transcriptionId })
     );

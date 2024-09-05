@@ -87,15 +87,17 @@ export class TiptapEditorComponent implements AfterViewInit, OnInit {
       )
       .pipe(takeUntil(this.destroy$$))
       .subscribe(([_, transcriptionId]) => {
-        console.log('reload editor with', transcriptionId);
         if (this.provider) {
           this.destroyConnection();
         }
         if (this.editor) {
           this.destroyEditor();
         }
-        this.initConnection(transcriptionId);
-        this.initEditor();
+        setTimeout(() => {
+          // TODO remove timeout???
+          this.initConnection(transcriptionId);
+          this.initEditor();
+        }, 0);
       });
 
     this.currentTime$.pipe(takeUntil(this.destroy$$)).subscribe((time) => {
@@ -105,14 +107,10 @@ export class TiptapEditorComponent implements AfterViewInit, OnInit {
   }
 
   ngAfterViewInit() {
-    setTimeout(() => {
-      // TODO: timeout fixes the error appearing on load - what to do with this
-      this.viewReady$.next(true);
-    }, 0);
+    this.viewReady$.next(true);
   }
 
   initConnection(transcriptionId: string) {
-    console.log('initConnection', transcriptionId);
     const url = `${this.wsService.getWebSocketURL()}?hocuspocus`;
     this.provider = new HocuspocusProvider({
       url,
@@ -139,7 +137,6 @@ export class TiptapEditorComponent implements AfterViewInit, OnInit {
   }
 
   destroyEditor() {
-    console.log('destroyEditor');
     if (this.editor) {
       this.editor.destroy();
     }
@@ -153,7 +150,6 @@ export class TiptapEditorComponent implements AfterViewInit, OnInit {
   }
 
   initEditor() {
-    console.log('initEditor');
     this.captions = document.getElementById('captions') as HTMLDivElement;
 
     const user = this.activeUsers[0];
@@ -283,7 +279,7 @@ export class TiptapEditorComponent implements AfterViewInit, OnInit {
     }
   }
 
-  toggleSpeaker(speaker: string) {
+  changeSpeaker(speaker: string) {
     const { state, view } = this.editor!;
     const { tr } = state;
     const { selection } = state;
@@ -313,8 +309,11 @@ export class TiptapEditorComponent implements AfterViewInit, OnInit {
 
   onToggleUsernames() {
     this.showUsernames = !this.showUsernames;
-    console.log('onToggleUsernames to', this.showUsernames);
+
     this.destroyEditor();
-    this.initEditor();
+    setTimeout(() => {
+      // TODO: remove timeout???
+      this.initEditor();
+    }, 0);
   }
 }

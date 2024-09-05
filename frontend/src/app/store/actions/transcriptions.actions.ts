@@ -15,9 +15,17 @@ export const findAllFromEffect = createAction(
   props<{ projectId: string }>()
 );
 
+export const changeTranscriptionId = createAction(
+  '[EDITOR COMPONENT] set transcription id',
+  props<{ transcriptionId: string }>()
+);
+
 export const findAllSuccess = createAction(
   '[TRANSCRIPTION API] Fetch all Transcriptions of Project success',
-  props<{ transcriptions: TranscriptionEntity[] }>()
+  props<{
+    transcriptions: TranscriptionEntity[];
+    selectedTranscriptionId?: string;
+  }>()
 );
 
 export const findAllFail = createAction(

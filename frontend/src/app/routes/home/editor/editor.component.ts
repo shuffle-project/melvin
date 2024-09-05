@@ -137,6 +137,7 @@ export class EditorComponent implements OnInit, OnDestroy {
 
   public showZoomedWave = false;
   public projectId!: string;
+  public transcriptionId!: string;
 
   constructor(
     private store: Store<AppState>,
