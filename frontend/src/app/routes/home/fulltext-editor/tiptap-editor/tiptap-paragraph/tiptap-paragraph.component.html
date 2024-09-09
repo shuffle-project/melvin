@@ -5,16 +5,16 @@
     [contentEditable]="false"
     [matMenuTriggerFor]="speakerMenu"
   >
-
     <span>{{ speaker }}</span>
 
     <!-- <span>Test</span> -->
   </div>
 </div>
 
-<p tiptapNodeViewContent [spellcheck]="false"></p>
-
+<p tiptapNodeViewContent [spellcheck]="spellchecking"></p>
 
 <mat-menu #speakerMenu="matMenu">
-  <app-edit-speaker-modal (changeSpeakerEvent)="onChangeSpeaker($event)"></app-edit-speaker-modal>
+  <app-edit-speaker-modal
+    (changeSpeakerEvent)="onChangeSpeaker($event)"
+  ></app-edit-speaker-modal>
 </mat-menu>

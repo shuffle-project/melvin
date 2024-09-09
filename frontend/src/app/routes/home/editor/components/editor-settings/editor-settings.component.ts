@@ -1,31 +1,44 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { NonNullableFormBuilder } from '@angular/forms';
-import { MatSlideToggleChange, MatSlideToggleModule } from '@angular/material/slide-toggle';
+import {
+  MatSlideToggleChange,
+  MatSlideToggleModule,
+} from '@angular/material/slide-toggle';
 import { Store } from '@ngrx/store';
 import { Subject } from 'rxjs';
 import { AppState } from '../../../../../store/app.state';
 import * as editorSelectors from '../../../../../store/selectors/editor.selector';
 import * as editorActions from './../../../../../store/actions/editor.actions';
 import { FeatureEnabledPipe } from '../../../../../pipes/feature-enabled-pipe/feature-enabled.pipe';
-import { PushPipe } from '@ngrx/component';
-
+import { LetDirective, PushPipe } from '@ngrx/component';
+import { MatSelectChange, MatSelectModule } from '@angular/material/select';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 
 @Component({
-    selector: 'app-editor-settings',
-    templateUrl: './editor-settings.component.html',
-    styleUrls: ['./editor-settings.component.scss'],
-    standalone: true,
-    imports: [
+  selector: 'app-editor-settings',
+  templateUrl: './editor-settings.component.html',
+  styleUrls: ['./editor-settings.component.scss'],
+  standalone: true,
+  imports: [
     MatSlideToggleModule,
     PushPipe,
-    FeatureEnabledPipe
-],
+    FeatureEnabledPipe,
+    MatSelectModule,
+    MatFormFieldModule,
+    MatInputModule,
+    LetDirective,
+  ],
 })
 export class EditorSettingsComponent implements OnInit, OnDestroy {
   private destroy$$ = new Subject<void>();
 
   public isCaptionTextValidationEnabled$ = this.store.select(
     editorSelectors.selectCaptionTextValidationEnabled
+  );
+
+  public selectSpellchecking$ = this.store.select(
+    editorSelectors.selectSpellchecking
   );
 
   constructor(
@@ -42,6 +55,12 @@ export class EditorSettingsComponent implements OnInit, OnDestroy {
   onChangeIsCaptionTextValidationEnabled(change: MatSlideToggleChange) {
     this.store.dispatch(
       editorActions.setCaptionTextValidationEnabled({ enabled: change.checked })
+    );
+  }
+
+  onChangeSpellchecking(change: MatSelectChange) {
+    this.store.dispatch(
+      editorActions.changeSpellchecking({ spellchecking: change.value })
     );
   }
 }

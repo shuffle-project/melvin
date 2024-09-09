@@ -56,6 +56,9 @@ import { WaveformComponent } from '../editor/components/waveform/waveform.compon
 import { DialogHelpEditorComponent } from '../editor/dialog-help-editor/dialog-help-editor.component';
 import { MediaService } from '../editor/services/media/media.service';
 import { TiptapEditorComponent } from './tiptap-editor/tiptap-editor.component';
+import { MatSelectModule } from '@angular/material/select';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 
 @Component({
   selector: 'app-editor',

@@ -34,6 +34,9 @@ import { UserExtension } from './schema/user.extension';
 import { CustomWord } from './schema/word.schema';
 import { TiptapEditorService } from './tiptap-editor.service';
 import { defaultSelectionBuilder } from 'y-prosemirror';
+import { Store } from '@ngrx/store';
+import { AppState } from 'src/app/store/app.state';
+import * as editorSelector from 'src/app/store/selectors/editor.selector';
 
 enum CLIENT_STATUS {
   CONNECTING,
@@ -78,7 +81,8 @@ export class TiptapEditorComponent implements AfterViewInit, OnInit, OnDestroy {
   constructor(
     private mediaService: MediaService,
     private wsService: WSService,
-    private injector: Injector
+    private injector: Injector,
+    private store: Store<AppState>
   ) {}
 
   ngOnInit() {
@@ -105,6 +109,17 @@ export class TiptapEditorComponent implements AfterViewInit, OnInit, OnDestroy {
       const seconds = Math.floor(time / 1000);
       this.updateCurrentTimeCSSClass(seconds);
     });
+
+    // rerender after change?
+    this.store
+      .select(editorSelector.selectSpellchecking)
+      .pipe(takeUntil(this.destroy$$))
+      .subscribe((spellchecking) => {
+        this.destroyEditor();
+        setTimeout(() => {
+          this.initEditor();
+        }, 0);
+      });
   }
 
   ngAfterViewInit() {
@@ -276,9 +291,7 @@ export class TiptapEditorComponent implements AfterViewInit, OnInit, OnDestroy {
           styleSheet.deleteRule(index);
         }
         styleSheet.insertRule(
-          `.time-${
-            time * 1000
-          } { color: var(--color-white); background:var(--color-black); }`,
+          `.time-${time} { color: var(--color-white); background:var(--color-black); }`,
           0
         );
       }

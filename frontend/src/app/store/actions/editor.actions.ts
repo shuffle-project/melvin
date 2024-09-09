@@ -128,3 +128,8 @@ export const setCaptionTextValidationEnabled = createAction(
 export const resetEditorState = createAction(
   '[EDITOR COMPONENT] Clear editor data'
 );
+
+export const changeSpellchecking = createAction(
+  '[EDITOR COMPONENT] Change spellchecking to enabled or disabled',
+  props<{ spellchecking: 'enabled' | 'disabled' }>()
+);

@@ -93,8 +93,8 @@ export const CustomWord = (injector: Injector) =>
       const end = HTMLAttributes['data-end'];
 
       if (start != undefined) {
-        const timeStart = Math.floor(start);
-        const timeEnd = Math.floor(end ?? start);
+        const timeStart = Math.floor(start / 1000);
+        const timeEnd = Math.floor(end / 1000 ?? start);
         const classes = new Array(timeEnd - timeStart + 1)
           .fill(0)
           .map((_, i) => `time-${timeStart + i}`);

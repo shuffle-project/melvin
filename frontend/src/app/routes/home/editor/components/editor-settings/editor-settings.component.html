@@ -1,11 +1,24 @@
 @if ('settings' | featureEnabled) {
-  <div class="container">
-    <h3>Settings</h3>
-    <mat-slide-toggle
-      [checked]="isCaptionTextValidationEnabled$ | ngrxPush"
-      (change)="onChangeIsCaptionTextValidationEnabled($event)"
-      labelPosition="before"
-      >Text validation
-    </mat-slide-toggle>
-  </div>
+<div class="container">
+  <h3>Settings</h3>
+
+  <mat-form-field *ngrxLet="selectSpellchecking$ as spellchecking">
+    <mat-label>Spellcheck</mat-label>
+    <mat-select
+      value="{{ spellchecking }}"
+      (selectionChange)="onChangeSpellchecking($event)"
+    >
+      <mat-option value="enabled">Enabled</mat-option>
+      <!-- <mat-option value="partial">partial</mat-option> -->
+      <mat-option value="disabled">Disabled</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <!-- <mat-slide-toggle
+    [checked]="isCaptionTextValidationEnabled$ | ngrxPush"
+    (change)="onChangeIsCaptionTextValidationEnabled($event)"
+    labelPosition="before"
+    >Text validation
+  </mat-slide-toggle> -->
+</div>
 }

@@ -270,8 +270,7 @@
   <div class="content">
     <div class="left">
       <app-video-player></app-video-player>
-      <!-- TODO removed to make the ui cleaner -->
-      <!-- <app-editor-settings></app-editor-settings> -->
+      <app-editor-settings></app-editor-settings>
       <app-user-test-controls></app-user-test-controls>
       @if ('live' | featureEnabled) {
       <div *ngrxLet="project$ as project">

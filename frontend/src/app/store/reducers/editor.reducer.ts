@@ -30,6 +30,8 @@ export interface EditorState {
   subtitlesEnabledInVideo: boolean;
   waveform: number[];
   isCaptionTextValidationEnabled: boolean;
+
+  spellchecking: 'enabled' | 'disabled';
 }
 
 export const initalState: EditorState = {
@@ -50,6 +52,7 @@ export const initalState: EditorState = {
     StorageKey.CAPTION_TEXT_VALIDATION_ENABLED,
     false
   ) as boolean,
+  spellchecking: 'disabled', // TODO: move to localstorage?
 };
 
 export const editorReducer = createReducer(
@@ -198,6 +201,12 @@ export const editorReducer = createReducer(
     return {
       ...state,
       isCaptionTextValidationEnabled: enabled,
+    };
+  }),
+  on(editorActions.changeSpellchecking, (state, { spellchecking }) => {
+    return {
+      ...state,
+      spellchecking,
     };
   }),
 

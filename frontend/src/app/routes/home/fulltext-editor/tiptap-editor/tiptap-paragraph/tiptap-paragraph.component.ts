@@ -31,6 +31,7 @@ import { MatIcon, MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatButtonModule } from '@angular/material/button';
 import { EditSpeakerModalComponent } from './edit-speaker-modal/edit-speaker-modal.component';
+import * as editorSelector from 'src/app/store/selectors/editor.selector';
 
 @Component({
   selector: 'app-tiptap-paragraph',
@@ -60,6 +61,8 @@ export class TiptapParagraphComponent
 
   public speaker!: string;
 
+  public spellchecking = false;
+
   constructor(
     private elementRef: ElementRef,
     public tiptapEditorService: TiptapEditorService,
@@ -75,6 +78,13 @@ export class TiptapParagraphComponent
     )
       .pipe(takeUntil(this.destroy$$), debounceTime(0))
       .subscribe(() => this.updateSpeakerName());
+
+    this.store
+      .select(editorSelector.selectSpellchecking)
+      .pipe(takeUntil(this.destroy$$))
+      .subscribe((selectSpellchecking) => {
+        this.spellchecking = selectSpellchecking === 'enabled' ? true : false;
+      });
   }
 
   ngOnChanges(changes: SimpleChanges) {

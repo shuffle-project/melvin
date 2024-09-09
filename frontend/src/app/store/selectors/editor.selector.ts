@@ -109,3 +109,8 @@ export const selectCaptionTextValidationEnabled = createSelector(
   selectEditorState,
   (state: EditorState) => state.isCaptionTextValidationEnabled
 );
+
+export const selectSpellchecking = createSelector(
+  selectEditorState,
+  (state: EditorState) => state.spellchecking
+);
