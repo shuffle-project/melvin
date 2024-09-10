@@ -5,6 +5,7 @@ import { IsEnum } from 'class-validator';
 export enum SubtitleExportType {
   SRT = 'srt',
   VTT = 'vtt',
+  TXT = 'txt',
 }
 
 export class DownloadSubtitlesQuery {

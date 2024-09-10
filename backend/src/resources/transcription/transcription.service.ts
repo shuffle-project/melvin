@@ -337,6 +337,11 @@ export class TranscriptionService {
           transcription,
         );
         break;
+      case SubtitleExportType.TXT:
+        streamableFile = await this.exportSubtitlesService.toTxtFile(
+          transcription,
+        );
+        break;
     }
 
     return streamableFile;

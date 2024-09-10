@@ -32,6 +32,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatButtonModule } from '@angular/material/button';
 import { EditSpeakerModalComponent } from './edit-speaker-modal/edit-speaker-modal.component';
 import * as editorSelector from 'src/app/store/selectors/editor.selector';
+import { MediaService } from '../../../editor/services/media/media.service';
 
 @Component({
   selector: 'app-tiptap-paragraph',
@@ -66,7 +67,8 @@ export class TiptapParagraphComponent
   constructor(
     private elementRef: ElementRef,
     public tiptapEditorService: TiptapEditorService,
-    private store: Store<AppState>
+    private store: Store<AppState>,
+    private mediaService: MediaService
   ) {
     super();
   }
@@ -142,5 +144,23 @@ export class TiptapParagraphComponent
 
       view.dispatch(tr);
     }
+  }
+
+  onClickParagraph(event: MouseEvent) {
+    // console.log(event);
+    // console.log(this);
+    // const pos = this.getPos();
+    // const nodeAt = this.editor.state.doc.nodeAt(pos);
+    // if (nodeAt?.content) {
+    //   for (let i = 0; i < nodeAt.content.childCount; i++) {
+    //     const child = nodeAt?.content.child(i);
+    //     console.log(child);
+    //     if (child.marks?.length > 0) {
+    //       const start = child.marks[0].attrs['start'];
+    //       this.mediaService.seekToTime(start, false);
+    //       i = nodeAt.content.childCount;
+    //     }
+    //   }
+    // }
   }
 }

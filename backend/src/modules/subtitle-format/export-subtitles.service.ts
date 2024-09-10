@@ -13,6 +13,38 @@ export class ExportSubtitlesService {
     private tiptapService: TiptapService,
   ) {}
 
+  async toTxtFile(transcription: Transcription): Promise<StreamableFile> {
+    const tiptapDocument = await this.tiptapService.getTiptapDocument(
+      transcription._id.toString(),
+    );
+    const speaker = transcription.speakers;
+    console.log(speaker);
+
+    const lastSpeaker = null;
+    const lines = [];
+    // lines.push('Kind: captions');
+    // lines.push(`Language: ${transcription.language}`);
+
+    tiptapDocument.content.forEach((node) => {
+      // TODO speaker are null, export to json is nor working properly
+      console.log(node.speakerId);
+      let text = '';
+      node.content.forEach((childNode) => {
+        text += childNode.text;
+      });
+
+      lines.push(`${text}`);
+      lines.push('');
+    });
+
+    // tiptapCaptions.forEach((caption, index) => {});
+
+    lines.push('');
+
+    const stream = Readable.from(lines.join('\n'));
+    return new StreamableFile(stream);
+  }
+
   async toVttFile(transcription: Transcription): Promise<StreamableFile> {
     const tiptapCaptions = await this.tiptapService.getCaptionsById(
       transcription._id.toString(),

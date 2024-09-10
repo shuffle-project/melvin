@@ -24,7 +24,10 @@ import { WrittenOutLanguagePipe } from 'src/app/pipes/written-out-language-pipe/
 import { AlertService } from 'src/app/services/alert/alert.service';
 import { ApiService } from 'src/app/services/api/api.service';
 import { ProjectEntity } from 'src/app/services/api/entities/project.entity';
-import { TranscriptionEntity } from 'src/app/services/api/entities/transcription.entity';
+import {
+  SubtitleFormat,
+  TranscriptionEntity,
+} from 'src/app/services/api/entities/transcription.entity';
 import { DeleteConfirmationService } from '../../../../components/delete-confirmation-dialog/delete-confirmation.service';
 import * as transcriptionsActions from '../../../../store/actions/transcriptions.actions';
 import * as authSelectors from '../../../../store/selectors/auth.selector';
@@ -174,7 +177,17 @@ export class ProjectTranscriptionComponent
     await firstValueFrom(this.api.alignTranscription(transcription.id));
   }
 
-  async onDownloadSubtitles(format: 'srt' | 'vtt', transcriptionId: string) {
+  async onDownloadTxt(transcriptionId: string) {
+    this.onDownloadSubtitles(SubtitleFormat.TXT, transcriptionId);
+  }
+  async onDownloadVtt(transcriptionId: string) {
+    this.onDownloadSubtitles(SubtitleFormat.VTT, transcriptionId);
+  }
+  async onDownloadSrt(transcriptionId: string) {
+    this.onDownloadSubtitles(SubtitleFormat.SRT, transcriptionId);
+  }
+
+  async onDownloadSubtitles(format: SubtitleFormat, transcriptionId: string) {
     this.store.dispatch(
       transcriptionsActions.downloadSubtitles({ transcriptionId, format })
     );

@@ -56,7 +56,10 @@ import { StartLivestreamEntity } from './entities/start-livestream.entity';
 import { StartRecordingEntity } from './entities/start-recording.entity';
 import { StopLivestreamEntity } from './entities/stop-livestream.entity';
 import { StopRecordingEntity } from './entities/stop-recording.entity';
-import { TranscriptionEntity } from './entities/transcription.entity';
+import {
+  SubtitleFormat,
+  TranscriptionEntity,
+} from './entities/transcription.entity';
 import { AUTH_TOKEN_GUEST_MOCK, AUTH_TOKEN_USER_MOCK } from './mocks/auth.mock';
 
 @Injectable({
@@ -330,7 +333,7 @@ export class FakeApiService implements ApiService {
 
   downloadSubtitles(
     transcriptionId: string,
-    type: 'srt' | 'vtt'
+    type: SubtitleFormat
   ): Observable<any> {
     return of();
   }

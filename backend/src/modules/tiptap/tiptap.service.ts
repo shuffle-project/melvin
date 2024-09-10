@@ -409,6 +409,19 @@ export class TiptapService {
     return tiptapDocument;
   }
 
+  public async getTiptapDocument(
+    transcriptionId: string,
+  ): Promise<TiptapDocument> {
+    const connection = await this.hocuspocusService.openDirectConnection(
+      transcriptionId,
+    );
+
+    const document = this.docToJSON(connection.document);
+    connection.disconnect();
+
+    return document;
+  }
+
   private docToJSON(doc: Y.Doc): TiptapDocument {
     const pmDocJSON = TiptapTransformer.fromYdoc(doc, 'default');
 

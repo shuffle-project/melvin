@@ -59,6 +59,7 @@ import { TiptapEditorComponent } from './tiptap-editor/tiptap-editor.component';
 import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { SubtitleFormat } from 'src/app/services/api/entities/transcription.entity';
 
 @Component({
   selector: 'app-editor',
@@ -279,10 +280,23 @@ export class FulltextEditorComponent implements OnInit, OnDestroy {
     });
   }
 
-  async onDownloadSubtitles(format: 'srt' | 'vtt') {
+  async onDownloadTxt() {
+    this.onDownloadSubtitles(SubtitleFormat.TXT);
+  }
+  async onDownloadVtt() {
+    this.onDownloadSubtitles(SubtitleFormat.VTT);
+  }
+  async onDownloadSrt() {
+    this.onDownloadSubtitles(SubtitleFormat.SRT);
+  }
+
+  async onDownloadSubtitles(format: SubtitleFormat) {
     const transcriptionId = await firstValueFrom(this.selectedTranscriptionId$);
     this.store.dispatch(
-      transcriptionsActions.downloadSubtitles({ transcriptionId, format })
+      transcriptionsActions.downloadSubtitles({
+        transcriptionId,
+        format,
+      })
     );
   }
 

@@ -161,14 +161,14 @@
     </button>
     <button
       mat-menu-item
-      (click)="onDownloadSubtitles('srt', transcription.id)"
+      (click)="onDownloadTranscript(transcription.id)"
       i18n="@@projectTranscriptionDownloadSRTButtonLabel"
     >
       SubRip (.srt)
     </button>
     <button
       mat-menu-item
-      (click)="onDownloadSubtitles('vtt', transcription.id)"
+      (click)="onDownloadVtt(transcription.id)"
       i18n="@@projectTranscriptionDownloadVTTButtonLabel"
     >
       WebVTT (.vtt)

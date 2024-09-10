@@ -65,16 +65,16 @@
           } }
         </ng-container>
 
-        <button mat-menu-item (click)="onDownloadTranscript()">
+        <!-- TODO remove everything regarding the old transcript download -->
+        <!-- <button mat-menu-item (click)="onDownloadTranscript()">
+          Transcript (.txt)
+        </button> -->
+
+        <button mat-menu-item (click)="onDownloadTxt()">
           Transcript (.txt)
         </button>
-
-        <button mat-menu-item (click)="onDownloadSubtitles('srt')">
-          SubRip (.srt)
-        </button>
-        <button mat-menu-item (click)="onDownloadSubtitles('vtt')">
-          WebVTT (.vtt)
-        </button>
+        <button mat-menu-item (click)="onDownloadSrt()">SubRip (.srt)</button>
+        <button mat-menu-item (click)="onDownloadVtt()">WebVTT (.vtt)</button>
         <!-- <mat-divider></mat-divider> -->
         <!-- <button mat-menu-item i18n="@@editorMenuFileDownloadConfigureLabel">
             Configure ...

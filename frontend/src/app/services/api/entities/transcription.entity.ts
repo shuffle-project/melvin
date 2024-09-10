@@ -23,3 +23,9 @@ export interface ShortTranscriptionEntity {
   id: string;
   language: string;
 }
+
+export enum SubtitleFormat {
+  VTT = 'vtt',
+  SRT = 'srt',
+  TXT = 'txt',
+}

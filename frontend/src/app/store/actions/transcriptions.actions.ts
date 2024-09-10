@@ -3,7 +3,10 @@ import { createAction, props } from '@ngrx/store';
 import { CreateTranscriptionDto } from 'src/app/services/api/dto/create-transcription.dto';
 import { UpdateTranscriptionDto } from 'src/app/services/api/dto/update-transcription.dto';
 import { CreateSpeakersDto } from '../../services/api/dto/create-speakers.dto';
-import { TranscriptionEntity } from '../../services/api/entities/transcription.entity';
+import {
+  SubtitleFormat,
+  TranscriptionEntity,
+} from '../../services/api/entities/transcription.entity';
 
 export const findAllFromEditor = createAction(
   '[EDITOR COMPONENT] Fetch all Transcriptions of Project',
@@ -125,7 +128,7 @@ export const selectFromViewer = createAction(
 
 export const downloadSubtitles = createAction(
   '[EDITOR COMPONENT] Start download subtitles in a format',
-  props<{ transcriptionId: string; format: 'srt' | 'vtt' }>()
+  props<{ transcriptionId: string; format: SubtitleFormat }>()
 );
 
 export const downloadTranscript = createAction(

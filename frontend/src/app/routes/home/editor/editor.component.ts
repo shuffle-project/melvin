@@ -52,6 +52,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { LetDirective, PushPipe } from '@ngrx/component';
 import { DialogProjectTranscriptionComponent } from 'src/app/modules/project-dialogs/dialog-project-transcription/dialog-project-transcription.component';
 import { HeaderComponent } from '../../../components/header/header.component';
+import { SubtitleFormat } from 'src/app/services/api/entities/transcription.entity';
 
 @Component({
   selector: 'app-editor',
@@ -260,10 +261,20 @@ export class EditorComponent implements OnInit, OnDestroy {
     });
   }
 
-  async onDownloadSubtitles(format: 'srt' | 'vtt') {
+  async onDownloadSubtitles(format: 'srt' | 'vtt' | 'txt') {
+    const format2 =
+      format === 'txt'
+        ? SubtitleFormat.TXT
+        : format === 'srt'
+        ? SubtitleFormat.SRT
+        : SubtitleFormat.VTT;
+
     const transcriptionId = await firstValueFrom(this.selectedTranscriptionId$);
     this.store.dispatch(
-      transcriptionsActions.downloadSubtitles({ transcriptionId, format })
+      transcriptionsActions.downloadSubtitles({
+        transcriptionId,
+        format: format2,
+      })
     );
   }
 

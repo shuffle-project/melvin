@@ -61,7 +61,10 @@ import { StartLivestreamEntity } from './entities/start-livestream.entity';
 import { StartRecordingEntity } from './entities/start-recording.entity';
 import { StopLivestreamEntity } from './entities/stop-livestream.entity';
 import { StopRecordingEntity } from './entities/stop-recording.entity';
-import { TranscriptionEntity } from './entities/transcription.entity';
+import {
+  SubtitleFormat,
+  TranscriptionEntity,
+} from './entities/transcription.entity';
 import { WaveformData } from './entities/waveform-data.entity';
 
 export interface RequestOptions {
@@ -527,7 +530,7 @@ export class RealApiService implements ApiService {
 
   downloadSubtitles(
     transcriptionId: string,
-    type: 'srt' | 'vtt'
+    type: SubtitleFormat
   ): Observable<Blob> {
     return this._get(`/transcriptions/${transcriptionId}/downloadSubtitles`, {
       params: { type },
