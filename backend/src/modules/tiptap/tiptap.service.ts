@@ -594,7 +594,7 @@ export class TiptapService {
       start: 0,
       text: '',
       end: 0,
-      speakerId: wordList[0].speakerId ?? null,
+      speakerId: null,
       startParagraph: true,
     };
 
@@ -602,7 +602,7 @@ export class TiptapService {
       if (isNewCaptionStarting(currentCaption, word)) {
         // End caption
         currentCaption.end = word.start;
-        captions.push(currentCaption);
+        if (currentCaption.text.length > 0) captions.push(currentCaption);
 
         // Start new caption
         id++;
