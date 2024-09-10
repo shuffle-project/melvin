@@ -64,7 +64,14 @@ export class CopyTranscriptionComponent {
       );
 
       let localizedCopy = $localize`:@@copyTranscriptionTabCopy:copy`;
-      titleControl.setValue(`${selectedTranscription?.title} ${localizedCopy}`);
+
+      if (selectedTranscription && selectedTranscription.title) {
+        titleControl.setValue(
+          `${selectedTranscription.title} ${localizedCopy}`
+        );
+      } else {
+        titleControl.setValue(`${localizedCopy}`);
+      }
     }
   }
 

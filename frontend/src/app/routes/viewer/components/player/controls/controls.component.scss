@@ -97,7 +97,7 @@
 }
 
 .shorten {
-  display: inline-block;
+  display: block;
   max-width: 180px;
   white-space: nowrap;
   overflow: hidden;
@@ -128,6 +128,7 @@
 
     .cdk-menu-item {
       justify-content: flex-start;
+
       min-width: 75px;
       // max-width: 100px;
       padding-right: 20px;

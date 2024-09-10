@@ -3,21 +3,36 @@
   <div class="video-progress-slider-wrapper">
     <span class="time-info">{{
       viewerService.audio.currentTime * 1000 | duration : 'mm:ss'
-      }}</span>
-    <mat-slider class="video-progress-slider black" min="0" [max]="viewerService.audio.duration" discrete
-      [displayWith]="audioProgressLabel">
-      <input #progressInput aria-label="Video timeline" i18n-aria-label="@@viewerControlsTimelineLabel" matSliderThumb
-        [value]="viewerService.audio.currentTime" (dragEnd)="onChangeCurrentTime(progressInput.value)"
-        (keydown)="onKeypressChangeCurrentTime($event, progressInput.value)" />
+    }}</span>
+    <mat-slider
+      class="video-progress-slider black"
+      min="0"
+      [max]="viewerService.audio.duration"
+      discrete
+      [displayWith]="audioProgressLabel"
+    >
+      <input
+        #progressInput
+        aria-label="Video timeline"
+        i18n-aria-label="@@viewerControlsTimelineLabel"
+        matSliderThumb
+        [value]="viewerService.audio.currentTime"
+        (dragEnd)="onChangeCurrentTime(progressInput.value)"
+        (keydown)="onKeypressChangeCurrentTime($event, progressInput.value)"
+      />
     </mat-slider>
     <span class="time-info">{{
       viewerService.audio.duration * 1000 | duration : 'mm:ss'
-      }}</span>
+    }}</span>
   </div>
   <div class="main-controls">
     <div class="left" *ngrxLet="isPlayingUser$ as isPlayingUser">
-      <button mat-icon-button class="md" matTooltip="{{ !isPlayingUser ? playTooltip : pauseTooltip }}"
-        (click)="onPlayPauseVideo()">
+      <button
+        mat-icon-button
+        class="md"
+        matTooltip="{{ !isPlayingUser ? playTooltip : pauseTooltip }}"
+        (click)="onPlayPauseVideo()"
+      >
         @if (!isPlayingUser) {
         <mat-icon svgIcon="play" />
         }@else {
@@ -28,25 +43,51 @@
       <!-- sound -->
       <ng-container *ngrxLet="muted$ as muted">
         <ng-container *ngrxLet="volume$ as volume">
-          <button mat-icon-button class="md" (click)="onMuteToggle()" cdkOverlayOrigin #volumeTrigger="cdkOverlayOrigin"
-            (keydown)="onKeydownVolumeBtn($event, volume, muted)" (mouseenter)="onMouseEnterBtn()"
-            (mouseout)="onMouseOutBtn()" matTooltip="{{getVolumeTooltip(muted,volume)}}">
+          <button
+            mat-icon-button
+            class="md"
+            (click)="onMuteToggle()"
+            cdkOverlayOrigin
+            #volumeTrigger="cdkOverlayOrigin"
+            (keydown)="onKeydownVolumeBtn($event, volume, muted)"
+            (mouseenter)="onMouseEnterBtn()"
+            (mouseout)="onMouseOutBtn()"
+            matTooltip="{{ getVolumeTooltip(muted, volume) }}"
+          >
             @if (muted || volume === 0) {
             <mat-icon svgIcon="volume-mute"></mat-icon>
             } @else if(volume< 0.5){ <mat-icon svgIcon="volume-low"></mat-icon>
-              }@else {
-              <mat-icon svgIcon="volume-on"></mat-icon>
-              }
+            }@else {
+            <mat-icon svgIcon="volume-on"></mat-icon>
+            }
           </button>
 
-          <ng-template cdkConnectedOverlay [cdkConnectedOverlayOrigin]="volumeTrigger"
-            [cdkConnectedOverlayOpen]="isVolumeSliderOpen" [cdkConnectedOverlayPositions]="volumeOverlayPositions">
-            <div class="volume-slider-wrapper menu-shadow" (mouseenter)="onMouseEnterOvly()"
-              (mouseout)="onMouseOutOvly()">
-              <mat-slider class="volume-slider black" min="0" max="1" step="0.01" discrete
-                [displayWith]="sliderLabelVolume">
-                <input aria-label="Volume" i18n-aria-label="@@viewerControlsVolumeSlideLabel" matSliderThumb
-                  [value]="muted ? 0 : volume" (valueChange)="onVolumeChange($event, muted)" />
+          <ng-template
+            cdkConnectedOverlay
+            [cdkConnectedOverlayOrigin]="volumeTrigger"
+            [cdkConnectedOverlayOpen]="isVolumeSliderOpen"
+            [cdkConnectedOverlayPositions]="volumeOverlayPositions"
+          >
+            <div
+              class="volume-slider-wrapper menu-shadow"
+              (mouseenter)="onMouseEnterOvly()"
+              (mouseout)="onMouseOutOvly()"
+            >
+              <mat-slider
+                class="volume-slider black"
+                min="0"
+                max="1"
+                step="0.01"
+                discrete
+                [displayWith]="sliderLabelVolume"
+              >
+                <input
+                  aria-label="Volume"
+                  i18n-aria-label="@@viewerControlsVolumeSlideLabel"
+                  matSliderThumb
+                  [value]="muted ? 0 : volume"
+                  (valueChange)="onVolumeChange($event, muted)"
+                />
               </mat-slider>
             </div>
           </ng-template>
@@ -55,36 +96,66 @@
     </div>
     <div class="center"></div>
     <div class="right">
-      <button id="language-menu-button" mat-icon-button class="md" [cdkMenuTriggerFor]="languageMenu"
-        (cdkMenuOpened)="onMenuOpened()" (cdkMenuClosed)="onMenuClosed()" matTooltip="Show language menu"
-        i18n-matTooltip="@@viewerControlsLanguageMenuTooltip">
+      <button
+        id="language-menu-button"
+        mat-icon-button
+        class="md"
+        [cdkMenuTriggerFor]="languageMenu"
+        (cdkMenuOpened)="onMenuOpened()"
+        (cdkMenuClosed)="onMenuClosed()"
+        matTooltip="Show language menu"
+        i18n-matTooltip="@@viewerControlsLanguageMenuTooltip"
+      >
         <mat-icon svgIcon="subtitles_white"></mat-icon>
       </button>
 
       <ng-container *ngrxLet="vViewerVideos$ as videos">
         @if (videos.length>1) {
-        <button mat-icon-button class="md" [cdkMenuTriggerFor]="galleryMenu" (cdkMenuOpened)="onMenuOpened()"
-          (cdkMenuClosed)="onMenuClosed()" matTooltip="Shown video selection"
-          i18n-matTooltip="@@viewerControlsGalleryMenuTooltip">
+        <button
+          mat-icon-button
+          class="md"
+          [cdkMenuTriggerFor]="galleryMenu"
+          (cdkMenuOpened)="onMenuOpened()"
+          (cdkMenuClosed)="onMenuClosed()"
+          matTooltip="Shown video selection"
+          i18n-matTooltip="@@viewerControlsGalleryMenuTooltip"
+        >
           <mat-icon svgIcon="gallery"></mat-icon>
         </button>
         }
       </ng-container>
 
-      <button id="settings-menu-button" mat-icon-button class="md" [cdkMenuTriggerFor]="settingsMenu"
-        (cdkMenuOpened)="onMenuOpened()" (cdkMenuClosed)="onMenuClosed()" matTooltip="Settings Menu"
-        i18n-matTooltip="@@viewerControlsSettingsMenuTooltip">
+      <button
+        id="settings-menu-button"
+        mat-icon-button
+        class="md"
+        [cdkMenuTriggerFor]="settingsMenu"
+        (cdkMenuOpened)="onMenuOpened()"
+        (cdkMenuClosed)="onMenuClosed()"
+        matTooltip="Settings Menu"
+        i18n-matTooltip="@@viewerControlsSettingsMenuTooltip"
+      >
         <mat-icon svgIcon="setting"></mat-icon>
       </button>
 
       @if (viewerService.isFullscreenActive()) {
-      <button mat-icon-button class="md fullscreen-button" (click)="viewerService.onRequestFullscreen()"
-        matTooltip="Close fullscreen" i18n-matTooltip="@@viewerControlsFullscreenToggleTooltipActive">
+      <button
+        mat-icon-button
+        class="md fullscreen-button"
+        (click)="viewerService.onRequestFullscreen()"
+        matTooltip="Close fullscreen"
+        i18n-matTooltip="@@viewerControlsFullscreenToggleTooltipActive"
+      >
         <mat-icon svgIcon="fullscreen_close"></mat-icon>
       </button>
       }@else {
-      <button mat-icon-button class="md fullscreen-button" (click)="viewerService.onRequestFullscreen()"
-        matTooltip="Open fullscreen" i18n-matTooltip="@@viewerControlsFullscreenToggleTooltipInactive">
+      <button
+        mat-icon-button
+        class="md fullscreen-button"
+        (click)="viewerService.onRequestFullscreen()"
+        matTooltip="Open fullscreen"
+        i18n-matTooltip="@@viewerControlsFullscreenToggleTooltipInactive"
+      >
         <mat-icon svgIcon="fullscreen"></mat-icon>
       </button>
       }
@@ -110,25 +181,49 @@
   <div cdkMenu class="cdk-menu-wrapper menu-shadow">
     <div class="cdk-menu-column">
       <div cdkMenuGroup aria-labelledby="audio-section-title">
-        <span id="audio-section-title" class="section-title" i18n="@@viewerControlsAudioTitle">Audiolanguage</span>
-        <button mat-button cdkMenuItemCheckbox [cdkMenuItemChecked]="true" (cdkMenuItemTriggered)="(true)">
+        <span
+          id="audio-section-title"
+          class="section-title"
+          i18n="@@viewerControlsAudioTitle"
+          >Audiolanguage</span
+        >
+        <button
+          mat-button
+          cdkMenuItemCheckbox
+          [cdkMenuItemChecked]="true"
+          (cdkMenuItemTriggered)="(true)"
+        >
           <mat-icon svgIcon="check"></mat-icon>German
         </button>
       </div>
       <div cdkMenuGroup aria-labelledby="text-section-title">
-        <span id="text-section-title" class="section-title" i18n="@@viewerControlsTextlanguageTitle">
+        <span
+          id="text-section-title"
+          class="section-title"
+          i18n="@@viewerControlsTextlanguageTitle"
+        >
           Textlanguage
         </span>
         <ng-container *ngrxLet="transcriptions$ as transcriptions">
           @for (transcription of transcriptions.list; track transcription.id) {
-          <button mat-button appCdkMenuItemRadio [appKeepMenuOpen]="true" [cdkMenuItemChecked]="
+          <button
+            mat-button
+            appCdkMenuItemRadio
+            [appKeepMenuOpen]="true"
+            [cdkMenuItemChecked]="
               transcription.id === transcriptions.selectedId
-            " title="{{ transcription.title }}" (cdkMenuItemTriggered)="onChangeTranscription(transcription)">
+            "
+            title="{{ transcription.title }}"
+            (cdkMenuItemTriggered)="onChangeTranscription(transcription)"
+          >
             @if (transcription.id === transcriptions.selectedId) {
-            <mat-icon svgIcon="check"></mat-icon>
+            <mat-icon svgIcon="check" />
             }
             <span class="shorten">
-              {{ transcription.title }}
+              {{
+                transcription.language
+                  | writtenOutLanguage : transcription.title
+              }}
             </span>
           </button>
           }
@@ -136,66 +231,120 @@
       </div>
     </div>
     <div class="cdk-menu-column">
-      <div cdkMenuGroup aria-labelledby="captions-section-title"
-        *ngrxLet="subtitlesEnabledInVideo$ as subtitlesEnabledInVideo">
-        <span id="captions-section-title" class="section-title" i18n="@@viewerControlsCaptionsTitle">Captions
+      <div
+        cdkMenuGroup
+        aria-labelledby="captions-section-title"
+        *ngrxLet="subtitlesEnabledInVideo$ as subtitlesEnabledInVideo"
+      >
+        <span
+          id="captions-section-title"
+          class="section-title"
+          i18n="@@viewerControlsCaptionsTitle"
+          >Captions
         </span>
 
-        <button mat-button appCdkMenuItemRadio [appKeepMenuOpen]="true" [cdkMenuItemChecked]="subtitlesEnabledInVideo"
+        <button
+          mat-button
+          appCdkMenuItemRadio
+          [appKeepMenuOpen]="true"
+          [cdkMenuItemChecked]="subtitlesEnabledInVideo"
           (cdkMenuItemTriggered)="
             onChangeCaptions(false, subtitlesEnabledInVideo)
-          " >
+          "
+        >
           @if (!subtitlesEnabledInVideo) {
           <mat-icon svgIcon="check"></mat-icon>
           } <span i18n="@@viewerControlsCaptionsOffLabel">Off</span>
         </button>
-        <button mat-button appCdkMenuItemRadio [appKeepMenuOpen]="true" [cdkMenuItemChecked]="!subtitlesEnabledInVideo"
+        <button
+          mat-button
+          appCdkMenuItemRadio
+          [appKeepMenuOpen]="true"
+          [cdkMenuItemChecked]="!subtitlesEnabledInVideo"
           (cdkMenuItemTriggered)="
             onChangeCaptions(true, subtitlesEnabledInVideo)
-          " >
+          "
+        >
           @if (subtitlesEnabledInVideo) {
           <mat-icon svgIcon="check"></mat-icon>
-          } <span i18n="@@viewerControlsCaptionsOnLabel">On</span> 
+          } <span i18n="@@viewerControlsCaptionsOnLabel">On</span>
         </button>
-        <button mat-button cdkMenuItem (cdkMenuItemTriggered)="onOpenCaptionsSettingsDialog()"
-          i18n="@@viewerControlsCaptionsSettingsLabel" class="single-button">
+        <button
+          mat-button
+          cdkMenuItem
+          (cdkMenuItemTriggered)="onOpenCaptionsSettingsDialog()"
+          i18n="@@viewerControlsCaptionsSettingsLabel"
+          class="single-button"
+        >
           Settings
         </button>
       </div>
-      <div cdkMenuGroup aria-labelledby="transcript-section-title" *ngrxLet="transcriptPosition$ as transcriptPosition">
-        <span id="transcript-section-title" class="section-title" i18n="@@viewerControlsTranscriptTitle">Transcript
+      <div
+        cdkMenuGroup
+        aria-labelledby="transcript-section-title"
+        *ngrxLet="transcriptPosition$ as transcriptPosition"
+      >
+        <span
+          id="transcript-section-title"
+          class="section-title"
+          i18n="@@viewerControlsTranscriptTitle"
+          >Transcript
         </span>
 
-        <button mat-button appCdkMenuItemRadio [appKeepMenuOpen]="true" [cdkMenuItemChecked]="
+        <button
+          mat-button
+          appCdkMenuItemRadio
+          [appKeepMenuOpen]="true"
+          [cdkMenuItemChecked]="
             transcriptPosition === tanscriptPositionENUM.OFF
-          " (cdkMenuItemTriggered)="
+          "
+          (cdkMenuItemTriggered)="
             onChangeTranscriptPosition(tanscriptPositionENUM.OFF)
-          " >
+          "
+        >
           @if(transcriptPosition === tanscriptPositionENUM.OFF) {
           <mat-icon svgIcon="check"></mat-icon>
           } <span i18n="@@viewerControlsTranscriptOffLabel">Off</span>
         </button>
 
-        <button mat-button appCdkMenuItemRadio [appKeepMenuOpen]="true" [cdkMenuItemChecked]="
+        <button
+          mat-button
+          appCdkMenuItemRadio
+          [appKeepMenuOpen]="true"
+          [cdkMenuItemChecked]="
             transcriptPosition === tanscriptPositionENUM.LEFT
-          " (cdkMenuItemTriggered)="
+          "
+          (cdkMenuItemTriggered)="
             onChangeTranscriptPosition(tanscriptPositionENUM.LEFT)
-          " >
+          "
+        >
           @if(transcriptPosition === tanscriptPositionENUM.LEFT){
-          <mat-icon svgIcon="check"></mat-icon>} <span i18n="@@viewerControlsTranscriptLeftLabel">Left</span> 
+          <mat-icon svgIcon="check"></mat-icon>}
+          <span i18n="@@viewerControlsTranscriptLeftLabel">Left</span>
         </button>
-        <button mat-button appCdkMenuItemRadio [appKeepMenuOpen]="true" [cdkMenuItemChecked]="
+        <button
+          mat-button
+          appCdkMenuItemRadio
+          [appKeepMenuOpen]="true"
+          [cdkMenuItemChecked]="
             transcriptPosition === tanscriptPositionENUM.RIGHT
-          " (cdkMenuItemTriggered)="
+          "
+          (cdkMenuItemTriggered)="
             onChangeTranscriptPosition(tanscriptPositionENUM.RIGHT)
-          " >
+          "
+        >
           @if(transcriptPosition === tanscriptPositionENUM.RIGHT){
           <mat-icon svgIcon="check"></mat-icon>
           } <span i18n="@@viewerControlsTranscriptRightLabel">Right</span>
         </button>
 
-        <button mat-button cdkMenuItem (cdkMenuItemTriggered)="onOpenTranscriptSettingsDialog()"
-          i18n="@@viewerControlsTranscriptSettingsLabel" class="single-button">
+        <button
+          mat-button
+          cdkMenuItem
+          (cdkMenuItemTriggered)="onOpenTranscriptSettingsDialog()"
+          i18n="@@viewerControlsTranscriptSettingsLabel"
+          class="single-button"
+        >
           Settings
         </button>
       </div>
@@ -208,23 +357,33 @@
   <div cdkMenu class="cdk-menu-wrapper menu-shadow">
     <div class="cdk-menu-column">
       <div cdkMenuGroup aria-labelledby="video-section-title">
-        <span id="video-section-title" class="section-title" i18n="@@viewerControlsTranscriptVideosTitle">
+        <span
+          id="video-section-title"
+          class="section-title"
+          i18n="@@viewerControlsTranscriptVideosTitle"
+        >
           Videos
         </span>
 
         <ng-container *ngrxLet="bigVideo$ as bigVideo">
           <ng-container *ngrxLet="vViewerVideos$ as videos">
             @for (video of videos; track video.id) {
-            <button mat-button appCdkMenuItemRadio [appKeepMenuOpen]="true"
-              [cdkMenuItemChecked]="video.id === bigVideo?.id || video.shown" (cdkMenuItemTriggered)="
+            <button
+              mat-button
+              appCdkMenuItemRadio
+              [appKeepMenuOpen]="true"
+              [cdkMenuItemChecked]="video.id === bigVideo?.id || video.shown"
+              (cdkMenuItemTriggered)="
                 onClickToggleVideoShown(video, bigVideo, videos)
-              ">
+              "
+            >
               @if(video.id === bigVideo?.id || video.shown) {
               <mat-icon svgIcon="check"></mat-icon>
               } {{ video.title }}
             </button>
             }
-          </ng-container></ng-container>
+          </ng-container></ng-container
+        >
       </div>
     </div>
   </div>
@@ -234,56 +393,122 @@
 <ng-template #settingsMenu>
   <div cdkMenu class="cdk-menu-wrapper menu-shadow">
     <div class="cdk-menu-column">
-      <div cdkMenuGroup aria-labelledby="darkmode-section-title" *ngrxLet="colorTheme$ as colorTheme">
-        <span id="darkmode-section-title" class="section-title" i18n="@@viewerControlsDarkmodeTitle">Darkmode
+      <div
+        cdkMenuGroup
+        aria-labelledby="darkmode-section-title"
+        *ngrxLet="colorTheme$ as colorTheme"
+      >
+        <span
+          id="darkmode-section-title"
+          class="section-title"
+          i18n="@@viewerControlsDarkmodeTitle"
+          >Darkmode
         </span>
-        <button mat-button appCdkMenuItemRadio [appKeepMenuOpen]="true"
-          (cdkMenuItemTriggered)="onChangeColorTheme(colorThemeENUM.SYSTEM)" i18n="@@viewerControlsDarkmodeAutoLabel">
-          <mat-icon svgIcon="{{ colorTheme === colorThemeENUM.SYSTEM ? 'check' : '' }}"></mat-icon>Automatic
+        <button
+          mat-button
+          appCdkMenuItemRadio
+          [appKeepMenuOpen]="true"
+          (cdkMenuItemTriggered)="onChangeColorTheme(colorThemeENUM.SYSTEM)"
+          i18n="@@viewerControlsDarkmodeAutoLabel"
+        >
+          <mat-icon
+            svgIcon="{{ colorTheme === colorThemeENUM.SYSTEM ? 'check' : '' }}"
+          ></mat-icon
+          >Automatic
         </button>
-        <button mat-button appCdkMenuItemRadio [appKeepMenuOpen]="true"
-          (cdkMenuItemTriggered)="onChangeColorTheme(colorThemeENUM.LIGHT)" i18n="@@viewerControlsDarkmodeLight">
-          <mat-icon svgIcon="{{ colorTheme === colorThemeENUM.LIGHT ? 'check' : '' }}"></mat-icon>Light
+        <button
+          mat-button
+          appCdkMenuItemRadio
+          [appKeepMenuOpen]="true"
+          (cdkMenuItemTriggered)="onChangeColorTheme(colorThemeENUM.LIGHT)"
+          i18n="@@viewerControlsDarkmodeLight"
+        >
+          <mat-icon
+            svgIcon="{{ colorTheme === colorThemeENUM.LIGHT ? 'check' : '' }}"
+          ></mat-icon
+          >Light
         </button>
-        <button mat-button appCdkMenuItemRadio [appKeepMenuOpen]="true"
-          (cdkMenuItemTriggered)="onChangeColorTheme(colorThemeENUM.DARK)" i18n="@@viewerControlsTranscriptDarkLabel">
-          <mat-icon svgIcon="{{ colorTheme === colorThemeENUM.DARK ? 'check' : '' }}"></mat-icon>Dark
+        <button
+          mat-button
+          appCdkMenuItemRadio
+          [appKeepMenuOpen]="true"
+          (cdkMenuItemTriggered)="onChangeColorTheme(colorThemeENUM.DARK)"
+          i18n="@@viewerControlsTranscriptDarkLabel"
+        >
+          <mat-icon
+            svgIcon="{{ colorTheme === colorThemeENUM.DARK ? 'check' : '' }}"
+          ></mat-icon
+          >Dark
         </button>
       </div>
 
       <div cdkMenuGroup aria-labelledby="interface-section-title">
-        <span id="interface-section-title" class="section-title" i18n="@@viewerControlsInterfaceLanguageTitle">Interface
-          language
+        <span
+          id="interface-section-title"
+          class="section-title"
+          i18n="@@viewerControlsInterfaceLanguageTitle"
+          >Interface language
         </span>
 
-        <button mat-button appCdkMenuItemRadio (cdkMenuItemTriggered)="onSwitchLanguage('de-DE')"
-          [cdkMenuItemChecked]="locale === 'de-DE'" >
-          <mat-icon svgIcon="{{ locale === 'de-DE' ? 'check' : '' }}"></mat-icon><span i18n="@@viewerControlsGermanLabel">German</span>
+        <button
+          mat-button
+          appCdkMenuItemRadio
+          (cdkMenuItemTriggered)="onSwitchLanguage('de-DE')"
+          [cdkMenuItemChecked]="locale === 'de-DE'"
+        >
+          <mat-icon svgIcon="{{ locale === 'de-DE' ? 'check' : '' }}"></mat-icon
+          ><span i18n="@@viewerControlsGermanLabel">German</span>
         </button>
 
-        <button mat-button appCdkMenuItemRadio (cdkMenuItemTriggered)="onSwitchLanguage('en-US')"
-          [cdkMenuItemChecked]="locale === 'en-US'" >
-          <mat-icon svgIcon="{{ locale === 'en-US' ? 'check' : '' }}"></mat-icon><span i18n="@@viewerControlsEnglishLabel">English</span>
+        <button
+          mat-button
+          appCdkMenuItemRadio
+          (cdkMenuItemTriggered)="onSwitchLanguage('en-US')"
+          [cdkMenuItemChecked]="locale === 'en-US'"
+        >
+          <mat-icon svgIcon="{{ locale === 'en-US' ? 'check' : '' }}"></mat-icon
+          ><span i18n="@@viewerControlsEnglishLabel">English</span>
         </button>
       </div>
 
       <div cdkMenuGroup aria-labelledby="others-section-title">
-        <span id="others-section-title" class="section-title" i18n="@@viewerControlsOthersTitle">Others
+        <span
+          id="others-section-title"
+          class="section-title"
+          i18n="@@viewerControlsOthersTitle"
+          >Others
         </span>
-        <button mat-button cdkMenuItem i18n="@@viewerControlsHelpLabel" (cdkMenuItemTriggered)="onOpenHelpDialog()"
-          class="single-button">
+        <button
+          mat-button
+          cdkMenuItem
+          i18n="@@viewerControlsHelpLabel"
+          (cdkMenuItemTriggered)="onOpenHelpDialog()"
+          class="single-button"
+        >
           Help
         </button>
       </div>
     </div>
 
     <div class="cdk-menu-column">
-      <div cdkMenuGroup aria-labelledby="playbackspeed-section-title" *ngrxLet="currentSpeed$ as currentSpeed">
-        <span id="playbackspeed-section-title" class="section-title" i18n="@@viewerControlsPlaybackspeedTitle">Speed
+      <div
+        cdkMenuGroup
+        aria-labelledby="playbackspeed-section-title"
+        *ngrxLet="currentSpeed$ as currentSpeed"
+      >
+        <span
+          id="playbackspeed-section-title"
+          class="section-title"
+          i18n="@@viewerControlsPlaybackspeedTitle"
+          >Speed
         </span>
         @for (speed of [0.25, 0.5, 0.75, 1, 1.25, 1.5,1.75, 2]; track speed) {
-        <button mat-button appCdkMenuItemRadio [appKeepMenuOpen]="true"
-          (cdkMenuItemTriggered)="changePlaybackSpeed(speed)">
+        <button
+          mat-button
+          appCdkMenuItemRadio
+          [appKeepMenuOpen]="true"
+          (cdkMenuItemTriggered)="changePlaybackSpeed(speed)"
+        >
           @if(currentSpeed === speed ){
           <mat-icon svgIcon="check"></mat-icon>
           } @if (speed===1) { Standard } @else {
