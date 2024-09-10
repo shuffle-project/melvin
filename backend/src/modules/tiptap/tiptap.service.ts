@@ -594,7 +594,7 @@ export class TiptapService {
       start: 0,
       text: '',
       end: 0,
-      speakerId: null,
+      speakerId: wordList[0].speakerId ?? null,
       startParagraph: true,
     };
 
