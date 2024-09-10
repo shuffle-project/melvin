@@ -459,7 +459,7 @@ export class TranscriptionService {
 
     // const ydoc = this.tiptapService.toYDoc(transcription.ydoc);
 
-    const tiptapCaptions = this.tiptapService.getCaptionsById(id);
+    const tiptapCaptions = await this.tiptapService.getCaptionsById(id);
     // console.log(tiptapCaptions);
     return tiptapCaptions;
   }

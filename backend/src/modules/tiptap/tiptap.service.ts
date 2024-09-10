@@ -20,11 +20,12 @@ import {
   TiptapDocument,
   TiptapParagraph,
 } from './tiptap.interfaces';
-import { Partial, Word } from './tiptap.schema';
+import { CustomParagraph, Partial, Word } from './tiptap.schema';
 
 const EXTENSIONS = [
   Document,
   Paragraph,
+  CustomParagraph,
   Text,
   TextStyle,
   Partial,
@@ -405,7 +406,6 @@ export class TiptapService {
       });
     });
     tiptapDocument.content.push(tiptapParagraph);
-    console.log(tiptapDocument);
     return tiptapDocument;
   }
 
@@ -434,6 +434,11 @@ export class TiptapService {
 
     // Filter out empty paragraphs
     result.content = result.content.filter((p) => p.content?.length > 0);
+    // TODO refactor speakerid
+    result.content = result.content.map((p) => {
+      p.speakerId = p['attrs']?.speaker ?? null;
+      return p;
+    });
 
     return result;
   }
@@ -450,7 +455,7 @@ export class TiptapService {
           end: word.marks[0]?.attrs.end, // TODO
           startParagraph: i === 0,
           confidence: word.marks[0]?.attrs.confidence,
-          speakerId: paragraph.speakerId || null,
+          speakerId: paragraph.speakerId ?? null,
         });
       }
     }

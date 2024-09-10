@@ -60,46 +60,52 @@
     }
   </div>
   }
-  <ng-container *ngrxLet="availableSpeakers$ as availableSpeakers">
-    <ng-container *ngrxLet="viewerService.currentTime$ as currentTime">
-      <!-- https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener beim directive bauen, muss der event lisener passive sein? -->
-      <div
-        id="captions-viewport"
-        class="captions-viewport fontsize-{{ transcriptFontsize$ | ngrxPush }}"
-        (appUserScroll)="stopAutoscroll()"
-      >
-        <!-- [ngStyle]="{
+  <ng-container *ngrxLet="project$ as project">
+    <ng-container *ngrxLet="availableSpeakers$ as availableSpeakers">
+      <ng-container *ngrxLet="viewerService.currentTime$ as currentTime">
+        <!-- https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener beim directive bauen, muss der event lisener passive sein? -->
+        <div
+          id="captions-viewport"
+          class="captions-viewport fontsize-{{
+            transcriptFontsize$ | ngrxPush
+          }}"
+          (appUserScroll)="stopAutoscroll()"
+          lang="{{ project?.language }}"
+        >
+          <!-- [ngStyle]="{
           'font-size.%': transcriptFontsize$ | ngrxPush
         }" -->
-        @for ( transcriptParagraphs of transcriptNew; track
-        transcriptParagraphs; let indexParagraph = $index; let firstParagraph =
-        $first) {
-        <div class="transcript-paragraph">
-          @for ( item of transcriptParagraphs; track trackById(indexCaption,
-          item); let indexCaption = $index; let firstCaption = $first) { @if (
-          (firstCaption && firstParagraph) || (!firstParagraph && firstCaption
-          && transcriptNew[indexParagraph - 1][0].speakerId !== item.speakerId)
-          ) {
-          <div class="caption-speaker">
-            {{ getSpeakerName(item.speakerId, availableSpeakers) }}
+          @for ( transcriptParagraphs of transcriptNew; track
+          transcriptParagraphs; let indexParagraph = $index; let firstParagraph
+          = $first) {
+          <div class="transcript-paragraph">
+            @for ( item of transcriptParagraphs; track trackById(indexCaption,
+            item); let indexCaption = $index; let firstCaption = $first) { @if (
+            (firstCaption && firstParagraph) || (!firstParagraph && firstCaption
+            && transcriptNew[indexParagraph - 1][0].speakerId !==
+            item.speakerId) ) {
+            <div class="caption-speaker">
+              {{ getSpeakerName(item.speakerId, availableSpeakers) }}
+            </div>
+            }
+            <span
+              id="caption-{{ item.id }}"
+              class="caption-text {{
+                currentTime >= item.start / 1000 &&
+                currentTime < item.end / 1000
+                  ? 'current-caption'
+                  : ''
+              }}
+                "
+              (click)="onJumpInVideo(item)"
+              [innerHTML]="item.text"
+            >
+              <!-- [title]="item.start + ' ' + item.end" --> </span
+            >&nbsp; }
           </div>
           }
-          <span
-            id="caption-{{ item.id }}"
-            class="caption-text {{
-              currentTime >= item.start / 1000 && currentTime < item.end / 1000
-                ? 'current-caption'
-                : ''
-            }}
-                "
-            (click)="onJumpInVideo(item)"
-            [innerHTML]="item.text"
-          >
-            <!-- [title]="item.start + ' ' + item.end" --> </span
-          >&nbsp; }
         </div>
-        }
-      </div>
+      </ng-container>
     </ng-container>
   </ng-container>
   <div class="transcript-footer">

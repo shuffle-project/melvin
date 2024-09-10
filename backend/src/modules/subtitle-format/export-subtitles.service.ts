@@ -17,18 +17,26 @@ export class ExportSubtitlesService {
     const tiptapDocument = await this.tiptapService.getTiptapDocument(
       transcription._id.toString(),
     );
-    const speaker = transcription.speakers;
-    console.log(speaker);
+    const speakers = transcription.speakers;
 
-    const lastSpeaker = null;
     const lines = [];
     // lines.push('Kind: captions');
     // lines.push(`Language: ${transcription.language}`);
 
+    let lastSpeaker = '';
     tiptapDocument.content.forEach((node) => {
-      // TODO speaker are null, export to json is nor working properly
-      console.log(node.speakerId);
       let text = '';
+
+      if (node.speakerId !== lastSpeaker && node.speakerId) {
+        const foundSpeaker = speakers.find((speaker) =>
+          isSameObjectId(speaker._id, node.speakerId),
+        );
+        if (foundSpeaker) {
+          text += `${foundSpeaker.name}: `;
+          lastSpeaker = node.speakerId;
+        }
+      }
+
       node.content.forEach((childNode) => {
         text += childNode.text;
       });

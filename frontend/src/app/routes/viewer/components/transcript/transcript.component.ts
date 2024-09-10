@@ -59,6 +59,8 @@ export class TranscriptComponent implements OnDestroy, OnInit {
   // @ViewChild(CdkVirtualScrollViewport) viewPort!: CdkVirtualScrollViewport;
   @ViewChildren('.match') matches!: QueryList<HTMLElement>;
 
+  project$ = this.store.select(viewerSelector.vProject);
+
   captions$ = this.store.select(viewerSelector.vCaptions);
 
   availableSpeakers$ = this.store.select(viewerSelector.vAvailableSpeakers);
@@ -77,6 +79,7 @@ export class TranscriptComponent implements OnDestroy, OnInit {
     map((captions) => {
       const transcript = generateTranscript(captions);
       this.transcriptNew = JSON.parse(JSON.stringify(transcript));
+      console.log(this.transcript$);
       return transcript;
     })
   );

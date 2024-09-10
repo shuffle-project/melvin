@@ -1,4 +1,5 @@
 import { Mark, mergeAttributes } from '@tiptap/core';
+import Paragraph from '@tiptap/extension-paragraph';
 
 export const Word = Mark.create({
   name: 'word',
@@ -115,5 +116,29 @@ export const Partial = Mark.create({
   },
   renderHTML({ HTMLAttributes }) {
     return ['em', mergeAttributes(HTMLAttributes), 0];
+  },
+});
+
+export const CustomParagraph = Paragraph.extend({
+  addAttributes() {
+    return {
+      speaker: {
+        default: null,
+        parseHTML: (element) => {
+          return element.getAttribute('data-speaker');
+        },
+        renderHTML: (attributes) => {
+          return {
+            'data-speaker': attributes['speaker'],
+          };
+        },
+      },
+    };
+  },
+  parseHTML() {
+    return [{ tag: 'p' }];
+  },
+  renderHTML({ HTMLAttributes }) {
+    return ['p', mergeAttributes(HTMLAttributes), 0];
   },
 });
