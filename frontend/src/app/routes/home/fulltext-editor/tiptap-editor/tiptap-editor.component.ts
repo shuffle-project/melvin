@@ -111,6 +111,11 @@ export class TiptapEditorComponent implements AfterViewInit, OnInit, OnDestroy {
     });
 
     // rerender after change?
+  }
+
+  ngAfterViewInit() {
+    this.viewReady$.next(true);
+
     this.store
       .select(editorSelector.selectSpellchecking)
       .pipe(takeUntil(this.destroy$$))
@@ -120,10 +125,6 @@ export class TiptapEditorComponent implements AfterViewInit, OnInit, OnDestroy {
           this.initEditor();
         }, 0);
       });
-  }
-
-  ngAfterViewInit() {
-    this.viewReady$.next(true);
   }
   ngOnDestroy(): void {
     this.destroyConnection();
