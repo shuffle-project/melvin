@@ -1,9 +1,10 @@
 .dropzone {
+  margin-top: 1.25rem;
   width: 100%;
   box-sizing: border-box;
   text-align: center;
-  background: var(--color-background-grey);
-  border: 2px solid rgba(var(--color-background-grey), 1);
+  background: var(--light-background-grey);
+  border: 2px dashed var(--color-primary);
   border-radius: 5px;
   position: relative;
   min-height: 130px;

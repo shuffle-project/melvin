@@ -1,7 +1,6 @@
 .container {
   width: 36px;
   height: 36px;
-  background-color: var(--color-white);
   border-radius: 50%;
   position: relative;
 }
@@ -10,7 +9,6 @@
   position: absolute;
   inset: 2px;
   border-radius: 50%;
-  background-color: var(--color-white);
   overflow: hidden;
 }
 
@@ -23,11 +21,10 @@
   background-color: var(--color-white);
 }
 
-.letters {
+.letter {
   display: block;
   font-weight: bold;
   font-size: 16px;
-  color: var(--color-black);
 
   &.editor-view {
     font-size: 20px;

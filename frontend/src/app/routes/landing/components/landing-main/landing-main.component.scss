@@ -30,12 +30,6 @@ main {
     padding: 0;
 
     .chip {
-      background: linear-gradient(
-        135deg,
-        rgba(var(--color-gold-rgb), 0.75),
-        rgba(var(--color-orange-rgb), 0.75)
-      );
-
       display: flex;
       flex-direction: row;
       align-items: center;
