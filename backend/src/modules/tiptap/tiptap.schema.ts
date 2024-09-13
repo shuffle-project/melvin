@@ -44,6 +44,14 @@ export const Word = Mark.create({
           };
         },
       },
+      confidence: {
+        default: undefined,
+        renderHTML(attributes) {
+          return {
+            'data-confidence': attributes['confidence'],
+          };
+        },
+      },
     };
   },
 
@@ -56,6 +64,7 @@ export const Word = Mark.create({
         class: 'word',
         modifiedAt: 'data-modified-at',
         modifiedBy: 'data-modified-by',
+        confidence: 'data-confidence',
         // timestamp: 'timestamp',
         start: 'data-start',
         end: 'data-end',

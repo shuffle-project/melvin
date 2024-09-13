@@ -279,47 +279,12 @@ export const UserExtension = (injector: Injector) =>
                   view.dispatch(tr);
                   return false;
                 } else {
-                  // TODO verwerfen der speakerID, neuer paragraph sollte null sein
-                  // funktioniert, ist das ok so? was genau macht das compsed?
-
-                  console.log('remove speaker');
-                  // tr.doc.nodesBetween(from, to, (node, pos) => {
-                  //   if (node.type.name === 'paragraph') {
-                  //     tr.setNodeAttribute(pos, 'speaker', null);
-                  //   }
-                  // });
-
-                  let paragraphAt;
-                  tr.doc.nodesBetween(from, to, (node, pos) => {
-                    if (node.type.name === 'paragraph') {
-                      paragraphAt = node;
-                    }
-                  });
-
                   tr.split(from);
                   tr.setNodeAttribute(from + 1, 'speaker', null);
-
-                  // splitted.doc.nodesBetween(from + 1, to + 1, (node, pos) => {
-                  //   if (node.type.name === 'paragraph') {
-                  //     console.log(node);
-                  //     console.log(pos);
-                  //     tr.setNodeAttribute(pos, 'speaker', null);
-                  //   }
-                  // });
-
-                  // view.dispatch(tr);
-
-                  // tr.doc.nodesBetween(from + 1, to + 1, (node, pos) => {
-                  //   console.log(node);
-                  //   // if (node.type.name === 'paragraph') {
-                  //   //   tr.setNodeAttribute(pos, 'speaker', null);
-                  //   // }
-                  // });
 
                   view.dispatch(tr);
 
                   return true;
-                  // reuturn ?
                 }
               }
 
