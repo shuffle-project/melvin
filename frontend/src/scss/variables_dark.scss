@@ -1,11 +1,11 @@
 :root {
   body.dark-theme {
     color-scheme: dark;
-    --color-white: #0d1116; // done
-    --color-white-rgb: 0, 0, 0;
-    --color-black: #eef5fb; // done
-    --color-black-rgb: 255, 255, 255;
-    --color-text: #eef5fb; // done
+    --color-white: #0d1116;
+    --color-white-rgb: 13, 17, 22;
+    --color-black: #eef5fb;
+    --color-black-rgb: 238, 245, 251;
+    --color-text: #eef5fb;
 
     --color-primary: #28a4d1;
     --color-primary-rgb: 34, 124, 157;
@@ -16,19 +16,19 @@
     --color-warn-dark-bg: #bf4a3e;
     --color-success-dark-bg: #45826a;
 
-    --color-gradient-green: #41c4ad; //
+    --color-gradient-green: #41c4ad;
 
     --color-light: var(--color-black);
     --color-dark: var(--color-white);
 
-    --color-background-grey: #02040a; // done
-    --color-border-grey: #3d444d; //done
+    --color-background-grey: #02040a;
+    --color-border-grey: #3d444d;
 
-    --color-light-grey: #151a1f; //done
-    --color-light-grey-rgb: 21, 26, 31; // done
+    --color-light-grey: #151a1f;
+    --color-light-grey-rgb: 21, 26, 31;
 
-    --color-grey: #2e353d; // done
-    --color-grey-rgb: 46, 53, 61; //done
+    --color-grey: #2e353d;
+    --color-grey-rgb: 46, 53, 61;
 
     // darkmode specific colors
     --color-dm-chip-waiting-1: #b5b5ba;
