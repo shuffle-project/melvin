@@ -114,3 +114,8 @@ export const selectSpellchecking = createSelector(
   selectEditorState,
   (state: EditorState) => state.spellchecking
 );
+
+export const selectShowUsernames = createSelector(
+  selectEditorState,
+  (state: EditorState) => state.showUsernames
+);

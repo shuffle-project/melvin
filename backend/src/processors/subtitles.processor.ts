@@ -323,8 +323,18 @@ export class SubtitlesProcessor {
     target: TranscriptionEntity,
     payload: AlignPayload,
   ) {
-    if (target.language !== project.language) {
+    const targetLang = target.language.includes('-')
+      ? target.language.split('-')[0]
+      : target.language;
+    const projectLang = project.language.includes('-')
+      ? project.language.split('-')[0]
+      : project.language;
+
+    if (targetLang !== projectLang) {
       // TODO disable that in an earlier stepy
+      this.logger.error(
+        'Language of transcription and project do not match, cannot align',
+      );
     } else {
       await this.speechToTextService.align(
         project,

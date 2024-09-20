@@ -14,6 +14,10 @@ import { LetDirective, PushPipe } from '@ngrx/component';
 import { MatSelectChange, MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import {
+  MatCheckboxChange,
+  MatCheckboxModule,
+} from '@angular/material/checkbox';
 
 @Component({
   selector: 'app-editor-settings',
@@ -28,6 +32,7 @@ import { MatInputModule } from '@angular/material/input';
     MatFormFieldModule,
     MatInputModule,
     LetDirective,
+    MatCheckboxModule,
   ],
 })
 export class EditorSettingsComponent implements OnInit, OnDestroy {
@@ -37,6 +42,9 @@ export class EditorSettingsComponent implements OnInit, OnDestroy {
     editorSelectors.selectCaptionTextValidationEnabled
   );
 
+  public showUsernames$ = this.store.select(
+    editorSelectors.selectShowUsernames
+  );
   public selectSpellchecking$ = this.store.select(
     editorSelectors.selectSpellchecking
   );
@@ -50,6 +58,10 @@ export class EditorSettingsComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.destroy$$.next();
+  }
+
+  onToggleUsernames() {
+    this.store.dispatch(editorActions.toggleShowUsernames());
   }
 
   onChangeIsCaptionTextValidationEnabled(change: MatSlideToggleChange) {
