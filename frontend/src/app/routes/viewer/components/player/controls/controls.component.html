@@ -55,21 +55,21 @@
             matTooltip="{{ getVolumeTooltip(muted, volume) }}"
           >
             @if (muted || volume === 0) {
-            <mat-icon svgIcon="volume-mute"></mat-icon>
-            } @else if(volume< 0.5){ <mat-icon svgIcon="volume-low"></mat-icon>
+            <mat-icon svgIcon="volume-mute" />
+            } @else if(volume< 0.5){ <mat-icon svgIcon="volume-low" />
             }@else {
-            <mat-icon svgIcon="volume-on"></mat-icon>
+            <mat-icon svgIcon="volume-on" />
             }
           </button>
 
           <ng-template
             cdkConnectedOverlay
             [cdkConnectedOverlayOrigin]="volumeTrigger"
-            [cdkConnectedOverlayOpen]="isVolumeSliderOpen"
             [cdkConnectedOverlayPositions]="volumeOverlayPositions"
+            [cdkConnectedOverlayOpen]="isVolumeSliderOpen"
           >
             <div
-              class="volume-slider-wrapper menu-shadow"
+              class="volume-slider-wrapper menu-shadow viewer-control-menu-dm"
               (mouseenter)="onMouseEnterOvly()"
               (mouseout)="onMouseOutOvly()"
             >
@@ -178,7 +178,7 @@
 </ng-template> -->
 
 <ng-template #languageMenu>
-  <div cdkMenu class="cdk-menu-wrapper menu-shadow">
+  <div cdkMenu class="cdk-menu-wrapper menu-shadow viewer-control-menu-dm">
     <div class="cdk-menu-column">
       <div cdkMenuGroup aria-labelledby="audio-section-title">
         <span
@@ -193,7 +193,10 @@
           [cdkMenuItemChecked]="true"
           (cdkMenuItemTriggered)="(true)"
         >
-          <mat-icon svgIcon="check"></mat-icon>German
+          <mat-icon svgIcon="check" />
+          @if (project$ |ngrxPush; as project) {
+          {{ project.language | writtenOutLanguage }}
+          }
         </button>
       </div>
       <div cdkMenuGroup aria-labelledby="text-section-title">
@@ -354,7 +357,7 @@
 
 <!-- GALLERY MENU  -->
 <ng-template #galleryMenu>
-  <div cdkMenu class="cdk-menu-wrapper menu-shadow">
+  <div cdkMenu class="cdk-menu-wrapper menu-shadow viewer-control-menu-dm">
     <div class="cdk-menu-column">
       <div cdkMenuGroup aria-labelledby="video-section-title">
         <span
@@ -391,7 +394,7 @@
 
 <!-- SETTINGS MENU -->
 <ng-template #settingsMenu>
-  <div cdkMenu class="cdk-menu-wrapper menu-shadow">
+  <div cdkMenu class="cdk-menu-wrapper menu-shadow viewer-control-menu-dm">
     <div class="cdk-menu-column">
       <div
         cdkMenuGroup

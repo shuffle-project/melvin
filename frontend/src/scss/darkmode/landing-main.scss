@@ -1,0 +1,19 @@
+.landing-main-chip-dm {
+  background: linear-gradient(
+    135deg,
+    rgba(var(--color-gold-rgb), 0.75),
+    rgba(var(--color-orange-rgb), 0.75)
+  );
+}
+
+body.dark-theme {
+  .landing-main-chip-dm {
+    color: var(--color-white);
+
+    background: linear-gradient(
+      135deg,
+      rgba(var(--color-gold-rgb), 0.95),
+      rgba(var(--color-orange-rgb), 0.95)
+    );
+  }
+}

@@ -626,10 +626,6 @@
         <source>Upload additional media files</source>
         <target state="final"> Zusätzliche Medien hochladen </target>
       </trans-unit>
-      <trans-unit id="uploadAdditionalMediaVideoTitleLabel" datatype="html">
-        <source>Video title</source>
-        <target state="final">Videotitel</target>
-      </trans-unit>
       <trans-unit id="uploadAdditionalMediaVideoCategoryLabel" datatype="html">
         <source>Choose a category</source>
         <target state="final">Kategorie auswählen</target>
@@ -693,10 +689,6 @@
       <trans-unit id="dialogProjectDetailCloseButton" datatype="html">
         <source>Close</source>
         <target state="final">Schließen</target>
-      </trans-unit>
-      <trans-unit id="uploadAdditionalMediaVideoTitleErrorRequired" datatype="html">
-        <source> Title is required </source>
-        <target state="final"> Titel wird benötigt </target>
       </trans-unit>
       <trans-unit id="uploadAdditionalMediaVideoCategoryErrorRequired" datatype="html">
         <source> Category is required </source>
@@ -864,7 +856,7 @@
       </trans-unit>
       <trans-unit id="recorderNotRecordingHints" datatype="html">
         <source> You can add or delete sources. <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br /&gt;"/> To start the recording you need at least 1 visual and 1 auditive source. </source>
-        <target state="final"> Du kannst Quellen hinzufügen oder entfernen. <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br /&gt;"/> Zum starten wird mindestens eine visuelle und eine auditive Quelle benötigt. </target>
+        <target state="final"> Sie können Quellen hinzufügen oder entfernen. <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br /&gt;"/> Zum starten wird mindestens eine visuelle und eine auditive Quelle benötigt. </target>
       </trans-unit>
       <trans-unit id="recorderRecordingHints" datatype="html">
         <source> Recording ongoing. Press Stop recording if you want to save or dismiss your recording. </source>
@@ -1143,15 +1135,15 @@
         <target state="final">Dunkler Modus</target>
       </trans-unit>
       <trans-unit id="viewerControlsDarkmodeAutoLabel" datatype="html">
-        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;{{ colorTheme === colorThemeENUM.SYSTEM ? &apos;check&apos; : &apos;&apos; }}&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/>Automatic </source>
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;{{ colorTheme === colorThemeENUM.SYSTEM ? &apos;check&apos; : &apos;&apos; }}&quot; &gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon &gt;"/>Automatic </source>
         <target state="final"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;{{ false ? &apos;check&apos; : &apos;&apos; }}&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/>Automatisch </target>
       </trans-unit>
       <trans-unit id="viewerControlsDarkmodeLight" datatype="html">
-        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;{{ colorTheme === colorThemeENUM.LIGHT ? &apos;check&apos; : &apos;&apos; }}&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/>Light </source>
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;{{ colorTheme === colorThemeENUM.LIGHT ? &apos;check&apos; : &apos;&apos; }}&quot; &gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon &gt;"/>Light </source>
         <target state="final"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;{{ !darkMode ? &apos;check&apos; : &apos;&apos; }}&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/>Hell </target>
       </trans-unit>
       <trans-unit id="viewerControlsTranscriptDarkLabel" datatype="html">
-        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;{{ colorTheme === colorThemeENUM.DARK ? &apos;check&apos; : &apos;&apos; }}&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/>Dark </source>
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;{{ colorTheme === colorThemeENUM.DARK ? &apos;check&apos; : &apos;&apos; }}&quot; &gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon &gt;"/>Dark </source>
         <target state="final"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;{{ darkMode ? &apos;check&apos; : &apos;&apos; }}&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/>Dunkel </target>
       </trans-unit>
       <trans-unit id="viewerControlsHelpLabel" datatype="html">
@@ -1244,7 +1236,7 @@
       </trans-unit>
       <trans-unit id="inviteCollaboratorYouIndicator" datatype="html">
         <source>(You)</source>
-        <target state="final">(Du)</target>
+        <target state="final">(Sie)</target>
       </trans-unit>
       <trans-unit id="inviteCollaboratorOwnerInfo" datatype="html">
         <source>Project Owner</source>
@@ -1511,11 +1503,11 @@
         <target state="final"> - mit Melvin</target>
       </trans-unit>
       <trans-unit id="landingMainOpenSourceChip" datatype="html">
-        <source>Open-Source</source>
+        <source> Open-Source </source>
         <target state="final">Open-Source</target>
       </trans-unit>
       <trans-unit id="landingMainFreeOfChargeChip" datatype="html">
-        <source>Free of charge</source>
+        <source> Free of charge </source>
         <target state="final">Kostenlos</target>
       </trans-unit>
       <trans-unit id="landingMainWIPChip" datatype="html">
@@ -1703,8 +1695,8 @@
         <target state="final"> Sind Sie sicher, dass Sie dieses <x id="INTERPOLATION" equiv-text="{{ data.subject }}"/> löschen möchten? </target>
       </trans-unit>
       <trans-unit id="copyTranscriptionTabTitleHint" datatype="html">
-        <source> Optional title addition </source>
-        <target state="final"> Optionaler Titelzusatz </target>
+        <source> Optional (e.g. with audio description) </source>
+        <target state="final"> Optional (z. B. mit Audiobeschreibung) </target>
       </trans-unit>
       <trans-unit id="copyTranscriptionTabCopy" datatype="html">
         <source>copy</source>
@@ -1715,16 +1707,16 @@
         <target state="final"> Neues leeres Transkript erstellen </target>
       </trans-unit>
       <trans-unit id="emptyTranscriptionTabTitleHint" datatype="html">
-        <source> Optional title addition </source>
-        <target state="final"> Optionaler Titelzusatz </target>
+        <source> Optional (e.g. with audio description) </source>
+        <target state="final"> Optional (z. B. mit Audiobeschreibung) </target>
       </trans-unit>
       <trans-unit id="uploadTranscriptionTabTitleHint" datatype="html">
-        <source> Optional title addition </source>
-        <target state="final"> Optionaler Titelzusatz </target>
+        <source> Optional (e.g. with audio description) </source>
+        <target state="final"> Optional (z. B. mit Audiobeschreibung) </target>
       </trans-unit>
       <trans-unit id="editTranscriptionModalTitleHint" datatype="html">
-        <source> Optional title addition </source>
-        <target state="final"> Optionaler Titelzusatz </target>
+        <source> Optional (e.g. with audio description) </source>
+        <target state="final"> Optional (z. B. mit Audiobeschreibung) </target>
       </trans-unit>
       <trans-unit id="editTranscriptionModalPreviewText" datatype="html">
         <source> Preview: </source>
@@ -1842,7 +1834,7 @@
         <source>Privacy - Melvin</source>
         <target state="final">Datenschutzerklärung - Melvin</target>
       </trans-unit>
-      <trans-unit id="projectEffectKickUserFromProject" datatype="html">
+      <trans-unit id="projectEffectKickUserFromDeletedProject" datatype="html">
         <source>The opened project was deleted.</source>
         <target state="final">Das geöffnete Projekt wurde gelöscht.</target>
       </trans-unit>
@@ -1929,6 +1921,10 @@
       <trans-unit id="dialogChangePasswordSubmitButtonLabel" datatype="html">
         <source> Change Password </source>
         <target state="final"> Passwort ändern </target>
+      </trans-unit>
+      <trans-unit id="projectEffectKickUserFromActiveProject" datatype="html">
+        <source>You have been removed from the opened project.</source>
+        <target state="final">Sie wurden von dem geöffneten Projekt entfernt.</target>
       </trans-unit>
     </body>
   </file>

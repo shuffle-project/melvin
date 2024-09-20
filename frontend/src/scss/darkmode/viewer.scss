@@ -1,0 +1,16 @@
+.viewer-control-menu-dm {
+  box-shadow: rgba(var(--color-black-rgb), 0.2) 0px 5px 5px -3px,
+    rgba(var(--color-black-rgb), 0.14) 0px 8px 10px 1px,
+    rgba(var(--color-black-rgb), 0.12) 0px 3px 14px 2px;
+}
+
+body.dark-theme {
+  .viewer-control-menu-dm {
+    background-color: var(--color-light-grey);
+    border: 1px solid var(--color-border-grey);
+
+    box-shadow: rgba(var(--color-white-rgb), 0.2) 0px 5px 5px -3px,
+      rgba(var(--color-white-rgb), 0.14) 0px 8px 10px 1px,
+      rgba(var(--color-white-rgb), 0.12) 0px 3px 14px 2px;
+  }
+}

@@ -4,7 +4,7 @@
 // register button is now white on white
 .mdc-button--unelevated *,
 .mdc-button--raised * {
-  color: white !important;
+  color: var(--color-white);
   // --mdc-filled-button-label-text-size: var(--);
 }
 

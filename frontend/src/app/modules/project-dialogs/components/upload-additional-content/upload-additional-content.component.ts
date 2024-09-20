@@ -23,14 +23,17 @@ import {
 import { AppState } from '../../../../store/app.state';
 import * as projectsSelector from '../../../../store/selectors/projects.selector';
 
+import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatOptionModule } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
+import { MatMenuModule } from '@angular/material/menu';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSelectModule } from '@angular/material/select';
+import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { LetDirective, PushPipe } from '@ngrx/component';
 import * as uuid from 'uuid';
 import { FormatDatePipe } from '../../../../pipes/format-date-pipe/format-date.pipe';
@@ -66,9 +69,14 @@ interface FileUpload {
     MediaCategoryPipe,
     FormatDatePipe,
     CommonModule,
+    MatTableModule,
+    MatMenuModule,
   ],
 })
 export class UploadAdditionalContentComponent implements OnInit {
+  dataSource = new MatTableDataSource();
+  displayedColumns: string[] = ['category', 'filename', 'createdAt', 'more'];
+
   public selectableMediaCategories = [
     MediaCategory.OTHER,
     MediaCategory.SIGN_LANGUAGE,
@@ -104,7 +112,8 @@ export class UploadAdditionalContentComponent implements OnInit {
     private fb: NonNullableFormBuilder,
     private store: Store<AppState>,
     private api: ApiService,
-    private httpClient: HttpClient
+    private httpClient: HttpClient,
+    private liveAnnouncer: LiveAnnouncer
   ) {}
 
   ngOnInit(): void {
@@ -229,17 +238,11 @@ export class UploadAdditionalContentComponent implements OnInit {
     // window.URL.revokeObjectURL(objectURL);
   }
 
-  getIcon(category: MediaCategory) {
-    switch (category) {
-      case MediaCategory.SPEAKER:
-        return 'speaker2';
-
-      case MediaCategory.SIGN_LANGUAGE:
-        return 'sign_language';
-
-      // TODO more icons for categories
-      default:
-        return 'viewer';
+  announceSortChange(sortState: any) {
+    if (sortState.direction) {
+      this.liveAnnouncer.announce(`Sorted ${sortState.direction}ending`);
+    } else {
+      this.liveAnnouncer.announce('Sorting cleared');
     }
   }
 }

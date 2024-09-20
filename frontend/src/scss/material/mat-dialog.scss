@@ -2,3 +2,12 @@
   height: 1.25rem !important;
   display: block !important;
 }
+
+body.dark-theme {
+  .mat-mdc-dialog-container {
+    .mat-mdc-dialog-surface {
+      background-color: var(--color-light-grey);
+      border: 1px solid var(--color-border-grey);
+    }
+  }
+}

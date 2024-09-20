@@ -2,16 +2,14 @@
   <div class="background-inner">
     <div class="inner" [style.background]="backgroundColor">
       @if (!showLogo) {
-        <span
-          class="letters"
-          [class.editor-view]="editorView"
-          >{{ letter }}</span
-          >
-        }
-        @if (showLogo) {
-          <app-logo [size]="16"></app-logo>
-        }
-      </div>
+      <span
+        class="avatar-letter-dm-color letter"
+        [class.editor-view]="editorView"
+        >{{ letter }}</span
+      >
+      } @if (showLogo) {
+      <app-logo [size]="16"></app-logo>
+      }
     </div>
   </div>
-  
+</div>

@@ -1,0 +1,9 @@
+.avatar-letter-dm-color {
+  color: var(--color-black);
+}
+
+body.dark-theme {
+  .avatar-letter-dm-color {
+    color: var(--color-white);
+  }
+}

@@ -19,6 +19,10 @@
 @import 'scss/material/mat-slider.scss';
 @import 'scss/material/mat-progress-bar.scss';
 @import 'scss/material/expansion-panel.scss';
+@import 'scss/material/mat-button-toggle.scss';
+@import 'scss/material/mat-table.scss';
+@import 'scss/material/mat-select.scss';
+@import 'scss/material/mat-checkbox.scss';
 
 /* Custom classes */
 @import 'scss/global.scss';
@@ -27,3 +31,9 @@
 @import 'scss/caption.scss';
 
 @import 'scss/tiptap.scss';
+
+/* Darkmode specific cases */
+@import 'scss/darkmode/avatar.scss';
+@import 'scss/darkmode/profile.scss';
+@import 'scss/darkmode/viewer.scss';
+@import 'scss/darkmode/landing-main.scss';

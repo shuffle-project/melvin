@@ -108,7 +108,7 @@ export class ProjectEffects {
     )
   );
 
-  kickUserFromActiveProject$ = createEffect(
+  kickUserFromDeletedProject$ = createEffect(
     () =>
       this.actions$.pipe(
         ofType(projectsActions.removeFromWS),
@@ -118,7 +118,32 @@ export class ProjectEffects {
             this.router.navigate(['/home/projects']);
             this.store.dispatch(editorActions.resetEditorState());
             this.alert.error(
-              $localize`:@@projectEffectKickUserFromProject:The opened project was deleted.`
+              $localize`:@@projectEffectKickUserFromDeletedProject:The opened project was deleted.`
+            );
+          }
+        })
+      ),
+    { dispatch: false }
+  );
+
+  kickUserFromActiveProject$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(projectsActions.updateFromWS),
+        withLatestFrom(this.store.select(editorSelectors.selectProject)),
+        tap(([action, selectedProject]) => {
+          const userInProject = action.updatedProject.users.find(
+            (user) => user.id === action.authUserId
+          );
+
+          if (
+            action.updatedProject.id === selectedProject?.id &&
+            !userInProject
+          ) {
+            this.router.navigate(['/home/projects']);
+            this.store.dispatch(editorActions.resetEditorState());
+            this.alert.error(
+              $localize`:@@projectEffectKickUserFromActiveProject:You have been removed from the opened project.`
             );
           }
         })
