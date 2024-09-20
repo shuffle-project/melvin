@@ -110,7 +110,7 @@
             *matHeaderCellDef
             mat-sort-header
             sortActionDescription="Sort by category"
-            i18n="@@projectTranscriptionTableLanguageHeader"
+            i18n="@@uploadAdditionalMediaTableLanguageHeader"
           >
             Category
           </th>
@@ -119,15 +119,15 @@
           </td>
         </ng-container>
 
-        <ng-container matColumnDef="filename">
+        <ng-container matColumnDef="title">
           <th
             mat-header-cell
             *matHeaderCellDef
             mat-sort-header
-            sortActionDescription="Sort by filename"
-            i18n="@@projectTranscriptionTableTitleHeader"
+            sortActionDescription="Sort by title"
+            i18n="@@uploadAdditionalMediaTableTitleHeader"
           >
-            filename
+            Title
           </th>
           <td mat-cell *matCellDef="let element">{{ element.title }}</td>
         </ng-container>
@@ -138,7 +138,7 @@
             *matHeaderCellDef
             mat-sort-header
             sortActionDescription="Sort by date of creation"
-            i18n="@@projectTranscriptionTableLastEditHeader"
+            i18n="@@uploadAdditionalMediaTableLastEditHeader"
           >
             Created at
           </th>
@@ -153,7 +153,7 @@
             *matHeaderCellDef
             mat-sort-header
             sortActionDescription="Sort by more"
-            i18n="@@projectTranscriptionTableMoreHeader"
+            i18n="@@uploadAdditionalMediaTableMoreHeader"
           >
             More
           </th>
@@ -162,7 +162,7 @@
               mat-icon-button
               aria-label="more"
               [matMenuTriggerFor]="mediaMoreMenu"
-              [matMenuTriggerData]="{ transcription: element }"
+              [matMenuTriggerData]="{ media: element }"
             >
               <mat-icon svgIcon="more" />
             </button>
@@ -178,29 +178,29 @@
 </div>
 
 <mat-menu #mediaMoreMenu="matMenu" class="dense">
-  <ng-template matMenuContent let-transcription="transcription">
-    <!-- <button
-      (click)="onDownloadMedia()"
+  <ng-template matMenuContent let-media="media">
+    @if (project$ | ngrxPush; as project) {
+    <button
+      (click)="onDownloadMedia(project, media)"
       mat-menu-item
-      i18n="@@projectTranscriptionDownloadButtonLabel"
+      i18n="@@uploadAdditionalMediaDownloadButtonLabel"
     >
       <mat-icon svgIcon="download" />
       Download
     </button>
-
-    @if (transcription.createdBy.id === userId || project.createdBy.id ===
-    userId) {
+    } @if ((isOwner$ | ngrxPush) && media.category !== 'main' && project$ |
+    ngrxPush; as project) {
     <div>
       <mat-divider />
       <button
-        (click)="onClickDeleteMedia(transcription)"
-        i18n="@@projectTranscriptionDeleteButtonLabel"
+        (click)="onDeleteAdditionalMedia(project, media)"
+        i18n="@@uploadAdditionalMediaDeleteButtonLabel"
         mat-menu-item
       >
-        <mat-icon svgIcon="delete"></mat-icon>
+        <mat-icon svgIcon="delete" />
         Delete
       </button>
     </div>
-    } -->
+    }
   </ng-template>
 </mat-menu>

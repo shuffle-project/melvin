@@ -1445,6 +1445,27 @@
       <trans-unit id="projectEffectKickUserFromActiveProject" datatype="html">
         <source>You have been removed from the opened project.</source>
       </trans-unit>
+      <trans-unit id="profileDeleteAccountButtonLabel" datatype="html">
+        <source> Delete Account </source>
+      </trans-unit>
+      <trans-unit id="uploadAdditionalMediaDeleteButtonLabel" datatype="html">
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="Delete"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="/button&gt; &lt;/di"/> Delete </source>
+      </trans-unit>
+      <trans-unit id="uploadAdditionalMediaDownloadButtonLabel" datatype="html">
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="Download"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="utton&gt; } @if"/> Download </source>
+      </trans-unit>
+      <trans-unit id="uploadAdditionalMediaTableLanguageHeader" datatype="html">
+        <source> Category </source>
+      </trans-unit>
+      <trans-unit id="uploadAdditionalMediaTableLastEditHeader" datatype="html">
+        <source> Created at </source>
+      </trans-unit>
+      <trans-unit id="uploadAdditionalMediaTableMoreHeader" datatype="html">
+        <source> More </source>
+      </trans-unit>
+      <trans-unit id="uploadAdditionalMediaTableTitleHeader" datatype="html">
+        <source> Title </source>
+      </trans-unit>
     </body>
   </file>
 </xliff>

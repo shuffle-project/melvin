@@ -1926,6 +1926,34 @@
         <source>You have been removed from the opened project.</source>
         <target state="final">Sie wurden von dem geöffneten Projekt entfernt.</target>
       </trans-unit>
+      <trans-unit id="uploadAdditionalMediaTableLanguageHeader" datatype="html">
+        <source> Category </source>
+        <target state="final"> Kategorie </target>
+      </trans-unit>
+      <trans-unit id="uploadAdditionalMediaTableTitleHeader" datatype="html">
+        <source> Title </source>
+        <target state="final"> Titel </target>
+      </trans-unit>
+      <trans-unit id="uploadAdditionalMediaTableLastEditHeader" datatype="html">
+        <source> Created at </source>
+        <target state="final"> Erstellt am </target>
+      </trans-unit>
+      <trans-unit id="uploadAdditionalMediaTableMoreHeader" datatype="html">
+        <source> More </source>
+        <target state="final"> Mehr </target>
+      </trans-unit>
+      <trans-unit id="uploadAdditionalMediaDownloadButtonLabel" datatype="html">
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="Download"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="utton&gt; } @if"/> Download </source>
+        <target state="final"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="Download"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="utton&gt; } @if"/> Herunterladen </target>
+      </trans-unit>
+      <trans-unit id="uploadAdditionalMediaDeleteButtonLabel" datatype="html">
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="Delete"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="/button&gt; &lt;/di"/> Delete </source>
+        <target state="final"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="Delete"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="/button&gt; &lt;/di"/> Löschen </target>
+      </trans-unit>
+      <trans-unit id="profileDeleteAccountButtonLabel" datatype="html">
+        <source> Delete Account </source>
+        <target state="final"> Account löschen </target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

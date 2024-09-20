@@ -13,7 +13,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { Subscription, combineLatest, map } from 'rxjs';
+import { Subject, Subscription, combineLatest, map, takeUntil } from 'rxjs';
 import { ApiService } from '../../../../services/api/api.service';
 import {
   MediaCategory,
@@ -27,6 +27,7 @@ import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatOptionModule } from '@angular/material/core';
+import { MatDividerModule } from '@angular/material/divider';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
@@ -71,11 +72,12 @@ interface FileUpload {
     CommonModule,
     MatTableModule,
     MatMenuModule,
+    MatDividerModule,
   ],
 })
 export class UploadAdditionalContentComponent implements OnInit {
   dataSource = new MatTableDataSource();
-  displayedColumns: string[] = ['category', 'filename', 'createdAt', 'more'];
+  displayedColumns: string[] = ['category', 'title', 'createdAt', 'more'];
 
   public selectableMediaCategories = [
     MediaCategory.OTHER,
@@ -84,6 +86,8 @@ export class UploadAdditionalContentComponent implements OnInit {
     MediaCategory.SPEAKER,
   ];
   @Input() projectId!: string;
+
+  destroy$$ = new Subject<void>();
 
   private projects$ = this.store.select(projectsSelector.selectAllProjects);
 
@@ -100,7 +104,6 @@ export class UploadAdditionalContentComponent implements OnInit {
   ]).pipe(map(([userId, project]) => userId === project?.createdBy.id));
 
   public formGroup!: FormGroup<{
-    title: FormControl<string>;
     file: FormControl<File | null>;
     category: FormControl<MediaCategory | null>;
   }>;
@@ -114,7 +117,14 @@ export class UploadAdditionalContentComponent implements OnInit {
     private api: ApiService,
     private httpClient: HttpClient,
     private liveAnnouncer: LiveAnnouncer
-  ) {}
+  ) {
+    this.media$.pipe(takeUntil(this.destroy$$)).subscribe((media) => {
+      if (media) {
+        const mediaArray = [...media.videos];
+        this.dataSource.data = mediaArray;
+      }
+    });
+  }
 
   ngOnInit(): void {
     this.store.dispatch(
@@ -122,12 +132,15 @@ export class UploadAdditionalContentComponent implements OnInit {
     );
 
     this.formGroup = this.fb.group({
-      title: this.fb.control<string>('', [Validators.required]),
       file: this.fb.control<File | null>(null, [Validators.required]),
       category: this.fb.control<MediaCategory | null>(null, [
         Validators.required,
       ]),
     });
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$$.next();
   }
 
   onFileChange(event: any) {
@@ -136,19 +149,20 @@ export class UploadAdditionalContentComponent implements OnInit {
 
   async onClickSubmit() {
     if (!this.formGroup.valid) {
-      console.log('invalid');
       this.formGroup.markAllAsTouched();
     } else {
       const id = uuid.v4();
       this.fileUploads.push({
         id,
-        name: this.formGroup.value.title!,
+        // TODO title?
+        name: '',
         totalSize: this.selectedFile.size,
         sub: this.api
           .uploadVideo(
             this.projectId,
             {
-              title: this.formGroup.value.title!,
+              // TODO title?
+              title: '',
               category: this.formGroup.value.category!,
             },
             this.selectedFile
@@ -213,9 +227,6 @@ export class UploadAdditionalContentComponent implements OnInit {
     project: ProjectEntity,
     mediaEntity: MediaEntity
   ) {
-    // TODO move to effect and delete obj in reducer
-    // await firstValueFrom(this.api.deleteMedia(project.id, additional.id));
-
     this.store.dispatch(
       editorActions.deleteProjectMedia({
         projectId: project.id,
