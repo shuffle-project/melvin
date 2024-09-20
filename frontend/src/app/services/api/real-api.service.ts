@@ -272,6 +272,10 @@ export class RealApiService implements ApiService {
     return this._get<UserEntity[]>('/users', { params: { search } });
   }
 
+  deleteAccount(): Observable<void> {
+    return this._delete<void>('/users');
+  }
+
   // projects
   // createProject(
   //   createProjectDto: CreateProjectDto,

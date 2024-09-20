@@ -16,6 +16,14 @@
     Change Passwort
   </button>
 
+  <button
+    (click)="onDeleteAccount()"
+    mat-stroked-button
+    i18n="@@profileDeleteAccountButtonLabel"
+  >
+    Delete Account
+  </button>
+
   <mat-form-field class="language-select">
     <mat-label i18n="@@profileSelectLabel">Interface language</mat-label>
     <mat-select [value]="locale" (selectionChange)="onLanguageSwitched($event)">

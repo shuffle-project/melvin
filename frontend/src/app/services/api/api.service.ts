@@ -110,6 +110,8 @@ export abstract class ApiService {
   // users
   abstract findAllUsers(search: string): Observable<UserEntity[]>;
 
+  abstract deleteAccount(): Observable<void>;
+
   // projects
   abstract createLegacyProject(
     project: FormData

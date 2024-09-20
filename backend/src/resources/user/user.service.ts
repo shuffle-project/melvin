@@ -13,6 +13,8 @@ import { isSameObjectId } from '../../utils/objectid';
 import { FindAllUsersQuery } from './dto/find-all-users.dto';
 import { UserEntity } from './entities/user.entity';
 import { UserRole } from './user.interfaces';
+import { AuthUser } from '../auth/auth.interfaces';
+import { auth } from 'google-auth-library';
 
 @Injectable()
 export class UserService {
@@ -70,6 +72,28 @@ export class UserService {
       .exec();
 
     return users.map((o) => plainToInstance(UserEntity, o));
+  }
+
+  async remove(authUser: AuthUser): Promise<void> {
+    const user = await this.db.userModel.findById(authUser.id).exec();
+
+    // remove all ownded projects of user
+    await this.db.projectModel
+      .deleteMany({ createdBy: authUser.id })
+      .lean()
+      .exec();
+
+    // leave all projects of user
+    await this.db.projectModel.updateMany(
+      { users: { $in: [authUser.id] } },
+      { $pull: { users: authUser.id } },
+    );
+
+    // remove user
+    await this.db.userModel
+      .findOneAndDelete({ _id: authUser.id })
+      .lean()
+      .exec();
   }
 
   async getAdminInfo(): Promise<any> {

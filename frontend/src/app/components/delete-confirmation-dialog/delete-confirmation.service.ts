@@ -147,4 +147,20 @@ export class DeleteConfirmationService implements OnDestroy {
 
     return isConfirmed;
   }
+
+  async deleteAccount(): Promise<boolean> {
+    const isConfirmed = await this.confirm({
+      level: DeleteConfirmLevel.LOW, // TODO make it high with a security question or password confirmation
+      type: 'delete',
+      subject: 'Account',
+      description:
+        'If you confirm you will delete your Account with all created Projects and data. It can NOT be reverted!',
+    });
+
+    // if (isConfirmed) {
+    //   console.log('delete');
+    // }
+
+    return isConfirmed;
+  }
 }

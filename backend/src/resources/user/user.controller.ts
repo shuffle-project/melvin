@@ -1,6 +1,7 @@
 import {
   ClassSerializerInterceptor,
   Controller,
+  Delete,
   Get,
   HttpStatus,
   Query,
@@ -13,6 +14,8 @@ import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { FindAllUsersQuery } from './dto/find-all-users.dto';
 import { UserEntity } from './entities/user.entity';
 import { UserService } from './user.service';
+import { AuthUser } from '../auth/auth.interfaces';
+import { User } from '../auth/auth.decorator';
 
 @UseInterceptors(ClassSerializerInterceptor)
 @Controller('users')
@@ -30,5 +33,12 @@ export class UserController {
   @Get('admininfo')
   getAdminInfo(): Promise<any> {
     return this.userService.getAdminInfo();
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Delete()
+  @ApiResponse({ status: HttpStatus.NO_CONTENT })
+  delete(@User() authUser: AuthUser): Promise<void> {
+    return this.userService.remove(authUser);
   }
 }
