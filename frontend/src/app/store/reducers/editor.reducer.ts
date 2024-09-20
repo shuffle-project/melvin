@@ -32,6 +32,7 @@ export interface EditorState {
   isCaptionTextValidationEnabled: boolean;
 
   spellchecking: 'enabled' | 'disabled';
+  showUsernames: boolean;
 }
 
 export const initalState: EditorState = {
@@ -52,7 +53,9 @@ export const initalState: EditorState = {
     StorageKey.CAPTION_TEXT_VALIDATION_ENABLED,
     false
   ) as boolean,
+
   spellchecking: 'disabled', // TODO: move to localstorage?
+  showUsernames: true,
 };
 
 export const editorReducer = createReducer(
@@ -207,6 +210,12 @@ export const editorReducer = createReducer(
     return {
       ...state,
       spellchecking,
+    };
+  }),
+  on(editorActions.toggleShowUsernames, (state) => {
+    return {
+      ...state,
+      showUsernames: !state.showUsernames,
     };
   }),
 

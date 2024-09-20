@@ -55,6 +55,7 @@ enum CLIENT_STATUS {
 })
 export class TiptapEditorComponent implements AfterViewInit, OnInit, OnDestroy {
   @Input({ required: true }) transcriptionId$!: Observable<string>;
+  transcriptionId = '';
   @Input({ required: true }) activeUsers!: EditorUser[];
 
   private destroy$$ = new Subject<void>();
@@ -66,7 +67,6 @@ export class TiptapEditorComponent implements AfterViewInit, OnInit, OnDestroy {
   public CLIENT_STATUS = CLIENT_STATUS;
   public status: CLIENT_STATUS = CLIENT_STATUS.CONNECTING;
 
-  public isShowingUsername = true;
   // public connectedUsers: { name: string; color: string }[] = [];
   public showUsernames = true;
   private captions: HTMLDivElement | undefined;
@@ -92,6 +92,7 @@ export class TiptapEditorComponent implements AfterViewInit, OnInit, OnDestroy {
       )
       .pipe(takeUntil(this.destroy$$))
       .subscribe(([_, transcriptionId]) => {
+        this.transcriptionId = transcriptionId;
         if (this.provider) {
           this.destroyConnection();
         }
@@ -119,8 +120,21 @@ export class TiptapEditorComponent implements AfterViewInit, OnInit, OnDestroy {
     this.store
       .select(editorSelector.selectSpellchecking)
       .pipe(takeUntil(this.destroy$$))
-      .subscribe((spellchecking) => {
+      .subscribe((_) => {
         this.destroyEditor();
+        setTimeout(() => {
+          this.initEditor();
+        }, 0);
+      });
+
+    this.store
+      .select(editorSelector.selectShowUsernames)
+      .pipe(takeUntil(this.destroy$$))
+      .subscribe((showUsernames) => {
+        this.destroyEditor();
+        // console.log(this.provider.awareness);
+        // this.provider.setAwarenessField('user', null);
+        this.showUsernames = showUsernames;
         setTimeout(() => {
           this.initEditor();
         }, 0);
@@ -141,11 +155,20 @@ export class TiptapEditorComponent implements AfterViewInit, OnInit, OnDestroy {
         console.log('onStatus');
         if (status.status.toString() === 'connecting')
           console.log('Connecting to server...');
+        this.editor?.setEditable(false);
         this.status = CLIENT_STATUS.CONNECTING;
       },
       onConnect: () => {
         console.log('onConnect');
         this.status = CLIENT_STATUS.CONNECTED;
+      },
+      onAwarenessChange: (awareness) => {
+        console.log(awareness.states);
+      },
+      onDisconnect: () => {
+        console.log('onDisconnect');
+        this.editor?.setEditable(false);
+        this.status = CLIENT_STATUS.DISCONNECTED;
       },
       onAuthenticated: () => {
         console.log('onAuthenticated');
@@ -153,6 +176,7 @@ export class TiptapEditorComponent implements AfterViewInit, OnInit, OnDestroy {
       },
       onSynced: () => {
         console.log('onSynced');
+        this.editor?.setEditable(true);
         this.status = CLIENT_STATUS.SYNCED;
       },
     });
@@ -162,8 +186,8 @@ export class TiptapEditorComponent implements AfterViewInit, OnInit, OnDestroy {
     if (this.editor) {
       this.editor.destroy();
     }
-    this.editor = undefined;
-    this.captions = undefined;
+    // this.editor = undefined;
+    // this.captions = undefined;
   }
 
   destroyConnection() {
@@ -325,15 +349,5 @@ export class TiptapEditorComponent implements AfterViewInit, OnInit, OnDestroy {
 
   onClickRedo() {
     this.editor?.commands.redo();
-  }
-
-  onToggleUsernames() {
-    this.showUsernames = !this.showUsernames;
-
-    this.destroyEditor();
-    setTimeout(() => {
-      // TODO: remove timeout???
-      this.initEditor();
-    }, 0);
   }
 }

@@ -130,6 +130,10 @@ export const resetEditorState = createAction(
 );
 
 export const changeSpellchecking = createAction(
-  '[EDITOR COMPONENT] Change spellchecking to enabled or disabled',
+  '[EDITOR SETTINGS COMPONENT] Change spellchecking to enabled or disabled',
   props<{ spellchecking: 'enabled' | 'disabled' }>()
+);
+
+export const toggleShowUsernames = createAction(
+  '[EDITOR SETTINGS COMPONENT] toggle show usernames'
 );

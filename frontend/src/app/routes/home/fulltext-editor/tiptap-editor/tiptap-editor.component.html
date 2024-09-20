@@ -5,17 +5,12 @@
   <button mat-icon-button (click)="onClickRedo()">
     <mat-icon svgIcon="redo"></mat-icon>
   </button>
-  <mat-checkbox
-    [(ngModel)]="showUsernames"
-    (ngModelChange)="onToggleUsernames()"
-    color="primary"
-    >Show Usernames</mat-checkbox
-  >
+
   <div style="margin-left: auto">{{ CLIENT_STATUS[status] }}</div>
 </div>
 
 @if (editor && CLIENT_STATUS[status] === 'SYNCED') {
-<div class="editor-container" >
+<div class="editor-container">
   <tiptap-editor [editor]="editor" class="editor"></tiptap-editor>
 </div>
 }
