@@ -96,49 +96,111 @@
       @if ( project && media) {
       <div class="uploaded-media-wrapper">
         <h2 i18n="@@uploadAdditionalMediaListHeader">Uploaded media</h2>
-        <div class="media-list">
-          @for (video of media.videos; track video) {
-          <div class="media-item">
-            <div class="row">
-              <mat-icon svgIcon="video"></mat-icon>
-              <h3>
-                {{ video.title }}
-              </h3>
-            </div>
-
-            <div class="row">
-              <mat-icon svgIcon="{{ getIcon(video.category) }}"></mat-icon>
-              {{ video.category | mediaCategory }}
-            </div>
-
-            <div class="row">
-              <mat-icon
-                matTooltip="Created at"
-                svgIcon="calendar-add"
-              ></mat-icon>
-              {{ video.createdAt | formatDate }}
-            </div>
-
-            <div class="row download">
-              <button mat-icon-button (click)="onDownloadMedia(project, video)">
-                <mat-icon svgIcon="download"></mat-icon>
-              </button>
-            </div>
-
-            @if (video.category !== 'main') {
-            <button
-              class="delete-btn"
-              mat-icon-button
-              (click)="onDeleteAdditionalMedia(project, video)"
-            >
-              <mat-icon svgIcon="delete"></mat-icon>
-            </button>
-            }
-          </div>
-          }
-        </div>
       </div>
+
+      <table
+        mat-table
+        [dataSource]="dataSource"
+        matSort
+        (matSortChange)="announceSortChange($event)"
+      >
+        <ng-container matColumnDef="category">
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header
+            sortActionDescription="Sort by category"
+            i18n="@@projectTranscriptionTableLanguageHeader"
+          >
+            Category
+          </th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.category }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="filename">
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header
+            sortActionDescription="Sort by filename"
+            i18n="@@projectTranscriptionTableTitleHeader"
+          >
+            filename
+          </th>
+          <td mat-cell *matCellDef="let element">{{ element.title }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="createdAt">
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header
+            sortActionDescription="Sort by date of creation"
+            i18n="@@projectTranscriptionTableLastEditHeader"
+          >
+            Created at
+          </th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.createdAt | formatDate }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="more">
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header
+            sortActionDescription="Sort by more"
+            i18n="@@projectTranscriptionTableMoreHeader"
+          >
+            More
+          </th>
+          <td mat-cell *matCellDef="let element">
+            <button
+              mat-icon-button
+              aria-label="more"
+              [matMenuTriggerFor]="mediaMoreMenu"
+              [matMenuTriggerData]="{ transcription: element }"
+            >
+              <mat-icon svgIcon="more" />
+            </button>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
       }
     </ng-container>
   </ng-container>
 </div>
+
+<mat-menu #mediaMoreMenu="matMenu" class="dense">
+  <ng-template matMenuContent let-transcription="transcription">
+    <!-- <button
+      (click)="onDownloadMedia()"
+      mat-menu-item
+      i18n="@@projectTranscriptionDownloadButtonLabel"
+    >
+      <mat-icon svgIcon="download" />
+      Download
+    </button>
+
+    @if (transcription.createdBy.id === userId || project.createdBy.id ===
+    userId) {
+    <div>
+      <mat-divider />
+      <button
+        (click)="onClickDeleteMedia(transcription)"
+        i18n="@@projectTranscriptionDeleteButtonLabel"
+        mat-menu-item
+      >
+        <mat-icon svgIcon="delete"></mat-icon>
+        Delete
+      </button>
+    </div>
+    } -->
+  </ng-template>
+</mat-menu>
