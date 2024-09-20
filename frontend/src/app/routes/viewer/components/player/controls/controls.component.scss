@@ -105,11 +105,9 @@
 }
 
 .cdk-menu-wrapper {
-  //
-
   display: flex;
-  gap: 5px;
-  padding: 5px;
+  gap: 1.25rem;
+  padding: 1.25rem;
 
   .cdk-menu-column {
     flex: 50%;
@@ -123,6 +121,7 @@
         font-size: 1rem;
         font-weight: bold;
         padding-right: 10px;
+        white-space: nowrap;
       }
     }
 

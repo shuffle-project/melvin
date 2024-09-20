@@ -12,11 +12,8 @@ import * as projectsActions from '../actions/projects.actions';
 import * as transcriptionsActions from '../actions/transcriptions.actions';
 import { AppState } from '../app.state';
 import * as captionsSelector from '../selectors/captions.selector';
+import { selectQueryParams } from '../selectors/router.selectors';
 import * as transcriptionsSelector from '../selectors/transcriptions.selector';
-import {
-  selectQueryParam,
-  selectQueryParams,
-} from '../selectors/router.selectors';
 
 @Injectable({
   providedIn: 'root',
@@ -190,7 +187,7 @@ export class TranscriptionsEffects {
     { dispatch: false }
   );
 
-  kickUserFromActiveTranscript$ = createEffect(
+  kickUserFromDeletedTranscript$ = createEffect(
     () =>
       this.actions$.pipe(
         ofType(transcriptionsActions.removeFromWS),
@@ -198,7 +195,6 @@ export class TranscriptionsEffects {
           this.store.select(transcriptionsSelector.selectTranscriptionsState)
         ),
         tap(([action, transcriptionState]) => {
-          console.log(transcriptionState);
           if (
             action.removedTranscriptionId ===
             transcriptionState.selectedTranscriptionId

@@ -488,9 +488,6 @@
       <trans-unit id="uploadAdditionalMediaVideoCategoryLabel" datatype="html">
         <source>Choose a category</source>
       </trans-unit>
-      <trans-unit id="uploadAdditionalMediaVideoTitleLabel" datatype="html">
-        <source>Video title</source>
-      </trans-unit>
       <trans-unit id="mediaCategoryMain" datatype="html">
         <source>Main</source>
       </trans-unit>
@@ -526,9 +523,6 @@
       </trans-unit>
       <trans-unit id="uploadAdditionalMediaVideoFileErrorRequired" datatype="html">
         <source> A video file is required </source>
-      </trans-unit>
-      <trans-unit id="uploadAdditionalMediaVideoTitleErrorRequired" datatype="html">
-        <source> Title is required </source>
       </trans-unit>
       <trans-unit id="createTranscriptionDialogTabUploadLabel" datatype="html">
         <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="/ng-template&gt;"/> Upload </source>
@@ -855,10 +849,10 @@
         <source>Captions </source>
       </trans-unit>
       <trans-unit id="viewerControlsDarkmodeAutoLabel" datatype="html">
-        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;{{ colorTheme === colorThemeENUM.SYSTEM ? &apos;check&apos; : &apos;&apos; }}&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/>Automatic </source>
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;{{ colorTheme === colorThemeENUM.SYSTEM ? &apos;check&apos; : &apos;&apos; }}&quot; &gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon &gt;"/>Automatic </source>
       </trans-unit>
       <trans-unit id="viewerControlsDarkmodeLight" datatype="html">
-        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;{{ colorTheme === colorThemeENUM.LIGHT ? &apos;check&apos; : &apos;&apos; }}&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/>Light </source>
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;{{ colorTheme === colorThemeENUM.LIGHT ? &apos;check&apos; : &apos;&apos; }}&quot; &gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon &gt;"/>Light </source>
       </trans-unit>
       <trans-unit id="viewerControlsDarkmodeTitle" datatype="html">
         <source>Darkmode </source>
@@ -873,7 +867,7 @@
         <source> Textlanguage </source>
       </trans-unit>
       <trans-unit id="viewerControlsTranscriptDarkLabel" datatype="html">
-        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;{{ colorTheme === colorThemeENUM.DARK ? &apos;check&apos; : &apos;&apos; }}&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/>Dark </source>
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;{{ colorTheme === colorThemeENUM.DARK ? &apos;check&apos; : &apos;&apos; }}&quot; &gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon &gt;"/>Dark </source>
       </trans-unit>
       <trans-unit id="viewerControlsTranscriptLeftLabel" datatype="html">
         <source>Left</source>
@@ -1056,7 +1050,7 @@
         <source> Tutorial </source>
       </trans-unit>
       <trans-unit id="landingMainFreeOfChargeChip" datatype="html">
-        <source>Free of charge</source>
+        <source> Free of charge </source>
       </trans-unit>
       <trans-unit id="landingMainHeadingAccessibleVideos" datatype="html">
         <source>Accessible videos - </source>
@@ -1068,7 +1062,7 @@
         <source>with Melvin</source>
       </trans-unit>
       <trans-unit id="landingMainOpenSourceChip" datatype="html">
-        <source>Open-Source</source>
+        <source> Open-Source </source>
       </trans-unit>
       <trans-unit id="landingMainRecordingExplanationBottom" datatype="html">
         <source> You already have a recording? Simply upload it and use it too. </source>
@@ -1287,7 +1281,7 @@
         <source>copy</source>
       </trans-unit>
       <trans-unit id="copyTranscriptionTabTitleHint" datatype="html">
-        <source> Optional title addition </source>
+        <source> Optional (e.g. with audio description) </source>
       </trans-unit>
       <trans-unit id="deleteConfirmationDialogAreYouSureDeleteTranscription" datatype="html">
         <source> Are you sure you want to delete this <x id="INTERPOLATION" equiv-text="{{ data.subject }}"/>? </source>
@@ -1353,18 +1347,18 @@
         <source> Preview: </source>
       </trans-unit>
       <trans-unit id="editTranscriptionModalTitleHint" datatype="html">
-        <source> Optional title addition </source>
+        <source> Optional (e.g. with audio description) </source>
       </trans-unit>
       <trans-unit id="emptyTranscriptionTabHeading" datatype="html">
         <source> Create a new empty transcription file </source>
       </trans-unit>
       <trans-unit id="emptyTranscriptionTabTitleHint" datatype="html">
-        <source> Optional title addition </source>
+        <source> Optional (e.g. with audio description) </source>
       </trans-unit>
       <trans-unit id="privacyPageTitle" datatype="html">
         <source>Privacy - Melvin</source>
       </trans-unit>
-      <trans-unit id="projectEffectKickUserFromProject" datatype="html">
+      <trans-unit id="projectEffectKickUserFromDeletedProject" datatype="html">
         <source>The opened project was deleted.</source>
       </trans-unit>
       <trans-unit id="projectTranscriptionDownloadSRTButtonLabel" datatype="html">
@@ -1401,7 +1395,7 @@
         <source>The opened transcript was deleted and another one selected.</source>
       </trans-unit>
       <trans-unit id="uploadTranscriptionTabTitleHint" datatype="html">
-        <source> Optional title addition </source>
+        <source> Optional (e.g. with audio description) </source>
       </trans-unit>
       <trans-unit id="dialogChangePasswordCloseButton" datatype="html">
         <source>Close</source>
@@ -1447,6 +1441,9 @@
       </trans-unit>
       <trans-unit id="dialogChangePasswordSubmitButtonLabel" datatype="html">
         <source> Change Password </source>
+      </trans-unit>
+      <trans-unit id="projectEffectKickUserFromActiveProject" datatype="html">
+        <source>You have been removed from the opened project.</source>
       </trans-unit>
     </body>
   </file>

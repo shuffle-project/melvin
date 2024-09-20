@@ -55,18 +55,18 @@
             matTooltip="{{ getVolumeTooltip(muted, volume) }}"
           >
             @if (muted || volume === 0) {
-            <mat-icon svgIcon="volume-mute"></mat-icon>
-            } @else if(volume< 0.5){ <mat-icon svgIcon="volume-low"></mat-icon>
+            <mat-icon svgIcon="volume-mute" />
+            } @else if(volume< 0.5){ <mat-icon svgIcon="volume-low" />
             }@else {
-            <mat-icon svgIcon="volume-on"></mat-icon>
+            <mat-icon svgIcon="volume-on" />
             }
           </button>
 
           <ng-template
             cdkConnectedOverlay
             [cdkConnectedOverlayOrigin]="volumeTrigger"
-            [cdkConnectedOverlayOpen]="isVolumeSliderOpen"
             [cdkConnectedOverlayPositions]="volumeOverlayPositions"
+            [cdkConnectedOverlayOpen]="isVolumeSliderOpen"
           >
             <div
               class="volume-slider-wrapper menu-shadow viewer-control-menu-dm"
@@ -193,7 +193,10 @@
           [cdkMenuItemChecked]="true"
           (cdkMenuItemTriggered)="(true)"
         >
-          <mat-icon svgIcon="check"></mat-icon>German
+          <mat-icon svgIcon="check" />
+          @if (project$ |ngrxPush; as project) {
+          {{ project.language | writtenOutLanguage }}
+          }
         </button>
       </div>
       <div cdkMenuGroup aria-labelledby="text-section-title">

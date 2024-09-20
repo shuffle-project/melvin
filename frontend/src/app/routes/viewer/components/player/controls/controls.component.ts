@@ -82,6 +82,8 @@ export class ControlsComponent {
 
   public isPlayingUser$ = this.store.select(viewerSelector.vIsPlayingUser);
 
+  public project$ = this.store.select(viewerSelector.vProject);
+
   locale = $localize.locale;
 
   constructor(
