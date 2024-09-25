@@ -46,10 +46,7 @@
       @if (recorderService.recording) { @if(recorderService.recordingPaused){
       <mat-icon class="" svgIcon="pause"></mat-icon>
       }@else {
-      <mat-icon
-        class="svg-red recording-indicator"
-        svgIcon="recording"
-      ></mat-icon>
+      <mat-icon class="recording-indicator" svgIcon="recording_red"></mat-icon>
       }
 
       {{ getCurrentDuration() | duration }}}

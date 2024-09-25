@@ -162,8 +162,6 @@ export class RecorderService {
       ...mainVideoTracks, // main video
     ]);
 
-    // this
-
     const allStreams = [{ source: mainVisualSource, stream: mainStream }];
     allVisualSources.forEach((source, i) => {
       if (i !== 0) allStreams.push({ source, stream: source.mediaStream! });
@@ -200,10 +198,12 @@ export class RecorderService {
   }
 
   onDataAvailableMediaRecorder(e: BlobEvent, recording: Recording) {
+    console.log('onDataAvailableMediaRecorder');
     if (e.data.size > 0) recording.chunks.push(e.data);
   }
 
   onStopMediaRecorder(e: Event, recording: Recording) {
+    console.log('onStopMediaRecorder');
     recording.complete = true;
 
     // all recordings finished?
@@ -211,7 +211,7 @@ export class RecorderService {
       // this.finishRecording();
       this.recording = false;
     }
-    recording.mediaRecorder.ondataavailable = null;
+    // recording.mediaRecorder.ondataavailable = null;
   }
 
   getMergedAudioTracks(...streams: MediaStream[]): MediaStreamTrack[] {

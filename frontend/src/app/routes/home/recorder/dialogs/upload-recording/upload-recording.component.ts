@@ -145,9 +145,13 @@ export class UploadRecordingComponent implements OnInit {
       formData.append(key, value);
     });
 
-    const file = new File(recording.chunks, 'video.webm', {
-      type: 'video/webm',
-    });
+    const file = new File(
+      recording.chunks.splice(0, recording.chunks.length),
+      'video.webm',
+      {
+        type: 'video/webm',
+      }
+    );
 
     formData.append('video', file, 'video.webm');
     return formData;
@@ -170,7 +174,7 @@ export class UploadRecordingComponent implements OnInit {
   onDownloadVideoLocally(rec: Recording, i = -1) {
     const prefix = i < 0 ? '' : i + 1 + '_';
     const filename = prefix + rec.title.replace(/\s/g, '_') + '.webm';
-    const file = new File(rec.chunks, filename, {
+    const file = new File(rec.chunks.splice(0, rec.chunks.length), filename, {
       type: 'video/webm',
     });
     const objectURL = window.URL.createObjectURL(file);

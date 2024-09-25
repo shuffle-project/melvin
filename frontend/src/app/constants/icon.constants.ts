@@ -69,6 +69,7 @@ export const ICONS = [
   'public',
   'record',
   'recording',
+  'recording_red',
   'refresh',
   'refresh2',
   'repeat',
