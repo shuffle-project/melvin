@@ -27,6 +27,12 @@ header {
         padding: 0;
         list-style: none;
 
+        .right-side-wrapper {
+          display: flex;
+          align-items: center;
+          gap: 0.625rem;
+        }
+
         .links {
           display: flex;
           gap: 3.75rem;

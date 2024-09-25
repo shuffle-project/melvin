@@ -17,7 +17,6 @@ import * as notificationsSelectors from '../../store/selectors/notifications.sel
 import { NotificationComponent } from '../notification/notification.component';
 
 import { MatIconModule } from '@angular/material/icon';
-import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { LetDirective, PushPipe } from '@ngrx/component';
 import * as configActions from '../../store/actions/config.actions';
@@ -43,7 +42,6 @@ import { LogoComponent } from '../logo/logo.component';
     LogoComponent,
     RouterLink,
     MatIconModule,
-    MatSlideToggleModule,
     MatButtonModule,
     MatMenuModule,
     MatBadgeModule,

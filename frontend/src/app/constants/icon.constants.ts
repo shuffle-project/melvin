@@ -88,6 +88,7 @@ export const ICONS = [
   'subtitles_off',
   'subtitles',
   'subtitles_white',
+  'system_mode',
   'light_mode',
   'transcription-file',
   'translate-transcription',

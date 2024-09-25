@@ -18,17 +18,51 @@
             </a>
           </li>
         </div>
-        <button
-          (click)="onOpenLoginDialog()"
-          mat-flat-button
-          color="primary"
-          i18n="@@landingHeaderLoginButton"
-        >
-          Login
-        </button>
+        <div class="right-side-wrapper">
+          <button
+            mat-icon-button
+            aria-label="Open darkmode menu"
+            i18n-aria-label="@@landingHeaderToggleDarkmodeToggleMenuButton"
+            [mat-menu-trigger-for]="darkmodeMenu"
+            *ngrxLet="colorTheme$ as colorTheme"
+          >
+            @if(colorTheme === colorThemeENUM.DARK) {
+            <mat-icon svgIcon="dark_mode" />
+            } @else if (colorTheme === colorThemeENUM.LIGHT) {
+            <mat-icon svgIcon="light_mode" />
+            } @else {
+            <mat-icon svgIcon="system_mode" />
+            }
+          </button>
+
+          <button
+            (click)="onOpenLoginDialog()"
+            mat-flat-button
+            color="primary"
+            i18n="@@landingHeaderLoginButton"
+          >
+            Login
+          </button>
+        </div>
       </ul>
     </nav>
     <div class="mobile-view">
+      <button
+        mat-icon-button
+        aria-label="Open darkmode menu"
+        i18n-aria-label="@@landingHeaderToggleDarkmodeToggleMenuButton"
+        [mat-menu-trigger-for]="darkmodeMenu"
+        *ngrxLet="colorTheme$ as colorTheme"
+      >
+        @if(colorTheme === colorThemeENUM.DARK) {
+        <mat-icon svgIcon="dark_mode" />
+        } @else if (colorTheme === colorThemeENUM.LIGHT) {
+        <mat-icon svgIcon="light_mode" />
+        } @else {
+        <mat-icon svgIcon="system_mode" />
+        }
+      </button>
+
       <button
         (click)="onOpenLoginDialog()"
         mat-flat-button
@@ -47,3 +81,27 @@
     </div>
   </mat-toolbar>
 </header>
+
+<mat-menu #darkmodeMenu="matMenu">
+  <button
+    mat-menu-item
+    (click)="onChangeColorTheme(colorThemeENUM.LIGHT)"
+    i18n="@@landingHeaderToggleDarkmodeLight"
+  >
+    <mat-icon svgIcon="light_mode"></mat-icon>Light
+  </button>
+  <button
+    mat-menu-item
+    (click)="onChangeColorTheme(colorThemeENUM.SYSTEM)"
+    i18n="@@landingHeaderToggleDarkmodeSystem"
+  >
+    <mat-icon svgIcon="system_mode"></mat-icon>Auto
+  </button>
+  <button
+    mat-menu-item
+    (click)="onChangeColorTheme(colorThemeENUM.DARK)"
+    i18n="@@landingHeaderToggleDarkmodeDark"
+  >
+    <mat-icon svgIcon="dark_mode"></mat-icon>Dark
+  </button>
+</mat-menu>

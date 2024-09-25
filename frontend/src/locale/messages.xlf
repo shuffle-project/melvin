@@ -35,9 +35,6 @@
       <trans-unit id="footerContactLinktLabel" datatype="html">
         <source><x id="START_LINK" ctype="x-a" equiv-text="&gt;"/>Contact<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/></source>
       </trans-unit>
-      <trans-unit id="headerToggleActivateDarkmode" datatype="html">
-        <source>Activate darkmode</source>
-      </trans-unit>
       <trans-unit id="headerNotificationMenuTitle" datatype="html">
         <source> Notifications </source>
       </trans-unit>
@@ -1465,6 +1462,30 @@
       </trans-unit>
       <trans-unit id="uploadAdditionalMediaTableTitleHeader" datatype="html">
         <source> Title </source>
+      </trans-unit>
+      <trans-unit id="headerToggleDarkmodeDark" datatype="html">
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="Dark"/>Dark </source>
+      </trans-unit>
+      <trans-unit id="headerToggleDarkmodeLight" datatype="html">
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="Light"/>Light </source>
+      </trans-unit>
+      <trans-unit id="headerToggleDarkmodeSystem" datatype="html">
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="Auto"/>Auto </source>
+      </trans-unit>
+      <trans-unit id="headerToggleDarkmodeToggleMenuButton" datatype="html">
+        <source>Open darkmode menu</source>
+      </trans-unit>
+      <trans-unit id="landingHeaderToggleDarkmodeDark" datatype="html">
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;dark_mode&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/>Dark </source>
+      </trans-unit>
+      <trans-unit id="landingHeaderToggleDarkmodeLight" datatype="html">
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;light_mode&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/>Light </source>
+      </trans-unit>
+      <trans-unit id="landingHeaderToggleDarkmodeSystem" datatype="html">
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;system_mode&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/>Auto </source>
+      </trans-unit>
+      <trans-unit id="landingHeaderToggleDarkmodeToggleMenuButton" datatype="html">
+        <source>Open darkmode menu</source>
       </trans-unit>
     </body>
   </file>

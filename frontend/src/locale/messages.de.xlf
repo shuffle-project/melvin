@@ -598,10 +598,6 @@
         <source>Shown video selection</source>
         <target state="final">Gezeigte Videoauswahl</target>
       </trans-unit>
-      <trans-unit id="headerToggleActivateDarkmode" datatype="html">
-        <source>Activate darkmode</source>
-        <target state="final">Dunkelmodus aktivieren</target>
-      </trans-unit>
       <trans-unit id="viewerVideoContainerToMainview" datatype="html">
         <source> Switch </source>
         <target state="final"> Wechseln </target>
@@ -1953,6 +1949,38 @@
       <trans-unit id="profileDeleteAccountButtonLabel" datatype="html">
         <source> Delete Account </source>
         <target state="final"> Account löschen </target>
+      </trans-unit>
+      <trans-unit id="headerToggleDarkmodeToggleMenuButton" datatype="html">
+        <source>Open darkmode menu</source>
+        <target state="final">Dunkelmodus-Menü öffnen</target>
+      </trans-unit>
+      <trans-unit id="headerToggleDarkmodeLight" datatype="html">
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="Light"/>Light </source>
+        <target state="final"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="Light"/>Hell </target>
+      </trans-unit>
+      <trans-unit id="headerToggleDarkmodeSystem" datatype="html">
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="Auto"/>Auto </source>
+        <target state="final"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="Auto"/>Automatisch </target>
+      </trans-unit>
+      <trans-unit id="headerToggleDarkmodeDark" datatype="html">
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="Dark"/>Dark </source>
+        <target state="final"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="Dark"/>Dunkel </target>
+      </trans-unit>
+      <trans-unit id="landingHeaderToggleDarkmodeToggleMenuButton" datatype="html">
+        <source>Open darkmode menu</source>
+        <target state="final">Dunkelmodus-Menü öffnen</target>
+      </trans-unit>
+      <trans-unit id="landingHeaderToggleDarkmodeLight" datatype="html">
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;light_mode&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/>Light </source>
+        <target state="final"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;light_mode&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/>Hell </target>
+      </trans-unit>
+      <trans-unit id="landingHeaderToggleDarkmodeSystem" datatype="html">
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;system_mode&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/>Auto </source>
+        <target state="final"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;system_mode&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/>Automatisch </target>
+      </trans-unit>
+      <trans-unit id="landingHeaderToggleDarkmodeDark" datatype="html">
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;dark_mode&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/>Dark </source>
+        <target state="final"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;dark_mode&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/>Dunkel </target>
       </trans-unit>
     </body>
   </file>

@@ -18,7 +18,7 @@
             <mat-icon svgIcon="bell" />
           </button> -->
           }
-          <div class="dark-mode-wrapper" *ngrxLet="colorTheme$ as colorTheme">
+          <!-- <div class="dark-mode-wrapper" *ngrxLet="colorTheme$ as colorTheme">
             <mat-icon svgIcon="light_mode"></mat-icon>
             <mat-slide-toggle
               aria-label="Activate darkmode"
@@ -33,7 +33,22 @@
               "
             ></mat-slide-toggle>
             <mat-icon svgIcon="dark_mode"></mat-icon>
-          </div>
+          </div> -->
+          <button
+            mat-icon-button
+            aria-label="Open darkmode menu"
+            i18n-aria-label="@@headerToggleDarkmodeToggleMenuButton"
+            [mat-menu-trigger-for]="darkmodeMenu"
+            *ngrxLet="colorTheme$ as colorTheme"
+          >
+            @if(colorTheme === colorThemeENUM.DARK) {
+            <mat-icon svgIcon="dark_mode" />
+            } @else if (colorTheme === colorThemeENUM.LIGHT) {
+            <mat-icon svgIcon="light_mode" />
+            } @else {
+            <mat-icon svgIcon="system_mode" />
+            }
+          </button>
           @if (isLoggedIn$ | ngrxPush) {
           <button
             mat-icon-button
@@ -50,6 +65,30 @@
           }
         </div>
       </mat-toolbar>
+
+      <mat-menu #darkmodeMenu="matMenu">
+        <button
+          mat-menu-item
+          (click)="onChangeColorTheme(colorThemeENUM.LIGHT)"
+          i18n="@@headerToggleDarkmodeLight"
+        >
+          <mat-icon svgIcon="light_mode"></mat-icon>Light
+        </button>
+        <button
+          mat-menu-item
+          (click)="onChangeColorTheme(colorThemeENUM.SYSTEM)"
+          i18n="@@headerToggleDarkmodeSystem"
+        >
+          <mat-icon svgIcon="system_mode"></mat-icon>Auto
+        </button>
+        <button
+          mat-menu-item
+          (click)="onChangeColorTheme(colorThemeENUM.DARK)"
+          i18n="@@headerToggleDarkmodeDark"
+        >
+          <mat-icon svgIcon="dark_mode"></mat-icon>Dark
+        </button>
+      </mat-menu>
 
       <mat-menu #notificationMenu="matMenu" class="mat-menu">
         <ng-template matMenuContent>
