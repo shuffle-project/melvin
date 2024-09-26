@@ -25,7 +25,7 @@
       viewerService.audio.duration * 1000 | duration : 'mm:ss'
     }}</span>
   </div>
-  <div class="main-controls">
+  <div class="main-controls" (mouseleave)="onMouseOutBtn()">
     <div class="left" *ngrxLet="isPlayingUser$ as isPlayingUser">
       <button
         mat-icon-button
@@ -41,58 +41,47 @@
       </button>
 
       <!-- sound -->
-      <ng-container *ngrxLet="muted$ as muted">
-        <ng-container *ngrxLet="volume$ as volume">
-          <button
-            mat-icon-button
-            class="md"
-            (click)="onMuteToggle()"
-            cdkOverlayOrigin
-            #volumeTrigger="cdkOverlayOrigin"
-            (keydown)="onKeydownVolumeBtn($event, volume, muted)"
-            (mouseenter)="onMouseEnterBtn()"
-            (mouseout)="onMouseOutBtn()"
-            matTooltip="{{ getVolumeTooltip(muted, volume) }}"
-          >
-            @if (muted || volume === 0) {
-            <mat-icon svgIcon="volume-mute" />
-            } @else if(volume< 0.5){ <mat-icon svgIcon="volume-low" />
-            }@else {
-            <mat-icon svgIcon="volume-on" />
-            }
-          </button>
+      <div
+        *ngrxLet="sound$ as sound"
+        class="sound-wrapper"
+        (mouseenter)="onMouseEnterBtn()"
+      >
+        <button
+          mat-icon-button
+          class="md"
+          (click)="onMuteToggle()"
+          (keydown)="onKeydownVolumeBtn($event, sound.volume, sound.muted)"
+          matTooltip="{{ getVolumeTooltip(sound.muted, sound.volume) }}"
+        >
+          @if (sound.muted || sound.volume === 0) {
+          <mat-icon svgIcon="volume-mute" />
+          } @else if(sound.volume < 0.5) {
+          <mat-icon svgIcon="volume-low" />
+          }@else {
+          <mat-icon svgIcon="volume-on" />
+          }
+        </button>
 
-          <ng-template
-            cdkConnectedOverlay
-            [cdkConnectedOverlayOrigin]="volumeTrigger"
-            [cdkConnectedOverlayPositions]="volumeOverlayPositions"
-            [cdkConnectedOverlayOpen]="isVolumeSliderOpen"
-          >
-            <div
-              class="volume-slider-wrapper menu-shadow viewer-control-menu-dm"
-              (mouseenter)="onMouseEnterOvly()"
-              (mouseout)="onMouseOutOvly()"
-            >
-              <mat-slider
-                class="volume-slider black"
-                min="0"
-                max="1"
-                step="0.01"
-                discrete
-                [displayWith]="sliderLabelVolume"
-              >
-                <input
-                  aria-label="Volume"
-                  i18n-aria-label="@@viewerControlsVolumeSlideLabel"
-                  matSliderThumb
-                  [value]="muted ? 0 : volume"
-                  (valueChange)="onVolumeChange($event, muted)"
-                />
-              </mat-slider>
-            </div>
-          </ng-template>
-        </ng-container>
-      </ng-container>
+        <mat-slider
+          class="volume-slider black"
+          min="0"
+          max="1"
+          step="0.1"
+          discrete
+          [displayWith]="sliderLabelVolume"
+          [class.visible]="mouseOverSound || focusOnVolumeSlider"
+        >
+          <input
+            aria-label="Volume"
+            i18n-aria-label="@@viewerControlsVolumeSlideLabel"
+            matSliderThumb
+            [value]="sound.muted ? 0 : sound.volume"
+            (valueChange)="onVolumeChange($event, sound.muted)"
+            (focus)="onFocusVolumeSlider()"
+            (blur)="onBlurVolumeSlider()"
+          />
+        </mat-slider>
+      </div>
     </div>
     <div class="center"></div>
     <div class="right">

@@ -64,6 +64,8 @@ export class ControlsComponent {
 
   public volume$ = this.store.select(viewerSelector.vVolume);
   public muted$ = this.store.select(viewerSelector.vMuted);
+  public sound$ = combineLatest({ volume: this.volume$, muted: this.muted$ });
+
   public currentSpeed$ = this.store.select(viewerSelector.vCurrentSpeed);
   public colorTheme$ = this.store.select(configSelector.colorTheme);
   public subtitlesEnabledInVideo$ = this.store.select(
@@ -277,37 +279,23 @@ export class ControlsComponent {
     },
   ];
 
-  mouseOverBtn = false;
-  mouseOverOvly = false;
-
-  isVolumeSliderOpen = false;
-  onCloseVolumeOverlay() {
-    setTimeout(() => {
-      if (!this.mouseOverBtn && !this.mouseOverOvly) {
-        this.isVolumeSliderOpen = false;
-      }
-    }, 250);
-  }
-
-  onOpenVolumeOverlay() {
-    this.isVolumeSliderOpen = true;
-  }
+  mouseOverSound = false;
+  focusOnVolumeSlider = false;
 
   onMouseEnterBtn() {
-    this.isVolumeSliderOpen = true;
-    this.mouseOverBtn = true;
-    this.onOpenVolumeOverlay();
+    this.mouseOverSound = true;
   }
   onMouseOutBtn() {
-    this.mouseOverBtn = false;
-    this.onCloseVolumeOverlay();
+    this.mouseOverSound = false;
+    this.focusOnVolumeSlider = false;
   }
-  onMouseEnterOvly() {
-    this.mouseOverOvly = true;
+
+  onFocusVolumeSlider() {
+    this.focusOnVolumeSlider = true;
   }
-  onMouseOutOvly() {
-    this.mouseOverOvly = false;
-    this.onCloseVolumeOverlay();
+
+  onBlurVolumeSlider() {
+    this.focusOnVolumeSlider = false;
   }
 
   onKeydownVolumeBtn(

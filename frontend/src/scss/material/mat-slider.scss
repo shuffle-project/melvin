@@ -1,3 +1,11 @@
+.mat-mdc-slider {
+  &.volume-slider {
+    min-width: fit-content;
+
+    width: clamp(2rem, 10vw + 0.125rem, 7rem);
+  }
+}
+
 mat-slider.black {
   --mdc-slider-handle-color: var(--color-black);
   --mdc-slider-focus-handle-color: var(--color-black);
@@ -13,6 +21,10 @@ mat-slider.black {
   --mat-mdc-slider-ripple-color: #808080;
   --mat-mdc-slider-hover-ripple-color: #80808080;
   --mat-mdc-slider-focus-ripple-color: #80808080;
+
+  .mdc-slider__track--inactive {
+    opacity: 40%;
+  }
 
   // --mdc-slider-inactive-track-height: 12px;
   // --mdc-slider-handle-height: 25px;

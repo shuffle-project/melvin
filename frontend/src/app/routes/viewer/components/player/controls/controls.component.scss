@@ -57,12 +57,6 @@
       gap: 0.625rem;
     }
 
-    .volume-slider {
-      width: 100%;
-      max-width: 6.25rem;
-      margin: 0 1.5rem;
-    }
-
     // .playback-speed-wrapper {
     //   display: flex;
     //   justify-content: center;
@@ -156,6 +150,23 @@
   padding-right: 15px;
 }
 
+.sound-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+
+  .volume-slider {
+    opacity: 0%;
+    transition: opacity 0.3s ease-in-out;
+    pointer-events: none;
+
+    &.visible {
+      opacity: 100%;
+      pointer-events: initial;
+    }
+  }
+}
+
 .menu-shadow {
   // todo colors and shadows copied from mat menu
   background-color: var(--color-white);
@@ -165,4 +176,16 @@
   border-top-right-radius: 4px;
 
   box-sizing: border-box;
+}
+
+@media (max-width: 42.5rem) {
+  .controls {
+    .main-controls {
+      margin: 0 0.625rem;
+
+      .sound-wrapper {
+        gap: 0.125rem;
+      }
+    }
+  }
 }
