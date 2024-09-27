@@ -371,7 +371,7 @@
             >
               @if(video.id === bigVideo?.id || video.shown) {
               <mat-icon svgIcon="check"></mat-icon>
-              } {{ video.title }}
+              } {{ video.category | mediaCategory }}
             </button>
             }
           </ng-container></ng-container

@@ -14,6 +14,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { LetDirective, PushPipe } from '@ngrx/component';
 import { Store } from '@ngrx/store';
 import { combineLatest, map } from 'rxjs';
+import { MediaCategoryPipe } from 'src/app/pipes/media-category-pipe/media-category.pipe';
 import { WrittenOutLanguagePipe } from 'src/app/pipes/written-out-language-pipe/written-out-language.pipe';
 import { MenuItemCheckboxDirective } from '../../../../../directives/cdkMenuCheckbox/cdk-menu-item-checkbox.directive';
 import { MenuItemRadioDirective } from '../../../../../directives/cdkMenuRadio/cdk-menu-item-radio.directive';
@@ -56,6 +57,7 @@ import { ViewerVideo } from '../player.component';
     A11yModule,
     AsyncPipe,
     WrittenOutLanguagePipe,
+    MediaCategoryPipe,
   ],
 })
 export class ControlsComponent {
