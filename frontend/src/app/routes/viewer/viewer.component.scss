@@ -156,3 +156,60 @@
 //     padding: 0 6px;
 //   }
 // }
+
+@media (max-width: 45rem) {
+  .content {
+    .default-main-content {
+      justify-content: initial;
+
+      display: grid;
+      grid-template-rows: 50% 50%;
+
+      .player {
+        width: 100%;
+        height: 100%;
+
+        position: relative;
+
+        &.transcript-visible {
+          width: 100%;
+        }
+
+        &.transcript-hidden {
+          width: 100%;
+        }
+      }
+
+      .transcript {
+        width: 100%;
+        min-height: 50%;
+
+        &.left {
+          border-right: none;
+        }
+        &.right {
+          border-left: none;
+        }
+      }
+
+      .title-wrapper {
+        display: flex;
+        align-items: center;
+
+        h1 {
+          font-size: 1.125rem;
+          line-height: 120%;
+        }
+
+        h1,
+        app-logo {
+          margin: 0.125rem 1rem !important;
+        }
+      }
+    }
+
+    .default-main-content:has(.player.transcript-hidden) {
+      grid-template-rows: 1fr;
+    }
+  }
+}
