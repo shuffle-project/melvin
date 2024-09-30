@@ -154,6 +154,10 @@ export const viewerReducer = createReducer(
 
   // SETTINGS
 
+  on(viewerActions.updateSettings, (state, action) => {
+    return { ...state, ...action };
+  }),
+
   on(viewerActions.toggleTranscriptOnlyMode, (state) => {
     return { ...state, transcriptOnlyMode: !state.transcriptOnlyMode };
   }),

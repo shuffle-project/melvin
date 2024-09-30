@@ -203,6 +203,16 @@
     color="primary"
     mat-flat-button
     [disabled]="!uploadingDone"
+    (click)="onClose(true)"
+    i18n="@@uploadRecordingToProjectlistButton"
+  >
+    To Projectlist
+  </button>
+
+  <button
+    color="primary"
+    mat-flat-button
+    [disabled]="!uploadingDone"
     (click)="onClose()"
     i18n="@@uploadRecordingRecordAnotherVideoButton"
   >

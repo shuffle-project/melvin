@@ -15,6 +15,9 @@ import { AppState } from './store/app.state';
 import { ColorTheme } from './store/reducers/config.reducer';
 import * as authSelectors from './store/selectors/auth.selector';
 import * as configSelector from './store/selectors/config.selector';
+import { StorageKey } from './services/storage/storage-key.enum';
+import * as viewerActions from './store/actions/viewer.actions';
+import { TranscriptFontsize } from './routes/viewer/viewer.interfaces';
 
 @Component({
   selector: 'app-root',
@@ -86,6 +89,10 @@ export class AppComponent implements OnInit, OnDestroy {
         })
       )
       .subscribe();
+
+    window.addEventListener('storage', (event) => {
+      this.handleStorageEvent(event);
+    });
   }
 
   ngOnDestroy() {
@@ -101,5 +108,49 @@ export class AppComponent implements OnInit, OnDestroy {
         )
       )
     );
+  }
+
+  private handleStorageEvent(event: StorageEvent) {
+    if (event.newValue) {
+      switch (event.key) {
+        case StorageKey.COLOR_MODE:
+          const colorTheme = JSON.parse(event.newValue);
+          this.store.dispatch(
+            configActions.changeColorThemeFromLocalStorage({ colorTheme })
+          );
+          break;
+        case StorageKey.VIEWER_TRANSCRIPT_FONTSIZE:
+          const transcriptFontsize = JSON.parse(event.newValue);
+          this.store.dispatch(
+            viewerActions.updateSettings({ transcriptFontsize })
+          );
+          break;
+        case StorageKey.CAPTIONS_COLOR:
+          const captionsColor = JSON.parse(event.newValue);
+          this.store.dispatch(viewerActions.updateSettings({ captionsColor }));
+          break;
+        case StorageKey.CAPTIONS_BACKGROUND_COLOR:
+          const captionsBackgroundColor = JSON.parse(event.newValue);
+          this.store.dispatch(
+            viewerActions.updateSettings({ captionsBackgroundColor })
+          );
+          break;
+        case StorageKey.CAPTIONS_FONTSIZE:
+          const captionsFontsize = JSON.parse(event.newValue);
+          this.store.dispatch(
+            viewerActions.updateSettings({ captionsFontsize })
+          );
+          break;
+        case StorageKey.CAPTIONS_POSITION:
+          const captionsPosition = JSON.parse(event.newValue);
+          this.store.dispatch(
+            viewerActions.updateSettings({ captionsPosition })
+          );
+          break;
+
+        default:
+          break;
+      }
+    }
   }
 }

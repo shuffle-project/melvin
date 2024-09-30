@@ -289,7 +289,6 @@ export class ProjectService {
           const title =
             mediaCategoryKey[1].charAt(0).toUpperCase() +
             mediaCategoryKey[1].slice(1);
-
           this.uploadVideo(
             authUser,
             project._id.toString(),

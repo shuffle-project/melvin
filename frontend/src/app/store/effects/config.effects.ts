@@ -106,7 +106,8 @@ export class ConfigEffects {
       this.actions$.pipe(
         ofType(
           configActions.changeColorTheme,
-          configActions.changeColorThemeViewer
+          configActions.changeColorThemeViewer,
+          configActions.changeColorThemeFromLocalStorage
         ),
         tap((action) => {
           this.storageService.storeInLocalStorage(

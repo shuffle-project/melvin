@@ -201,3 +201,14 @@ export const mediaLoaded = createAction(
   '[VIEWER SERVICE] set loading done for this id',
   props<{ id: string }>()
 );
+
+export const updateSettings = createAction(
+  '[APP COMPONENT] update settings of viewer partially from localStorage event',
+  props<{
+    transcriptFontsize?: SizeOptions;
+    captionsBackgroundColor?: ColorOptions;
+    captionsColor?: ColorOptions;
+    captionsFontsize?: SizeOptions;
+    captionsPosition?: CaptionPositionOptions;
+  }>()
+);

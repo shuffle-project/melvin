@@ -285,6 +285,7 @@
           aria-label="Open Viewer in new Tab"
           i18n-aria-label="@@projectListOpenViewerAriaLabel"
           target="_blank"
+          [class.disabled]="!isClickable(element)"
         >
           <mat-icon svgIcon="viewer"></mat-icon
         ></a>

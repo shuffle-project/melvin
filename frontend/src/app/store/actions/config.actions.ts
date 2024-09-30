@@ -20,6 +20,11 @@ export const changeColorTheme = createAction(
   props<{ colorTheme: ColorTheme }>()
 );
 
+export const changeColorThemeFromLocalStorage = createAction(
+  '[APP COMPONENT] Change Color Mode',
+  props<{ colorTheme: ColorTheme }>()
+);
+
 export const changeColorThemeViewer = createAction(
   '[VIEWER CONTROLS] Change Color Mode',
   props<{ colorTheme: ColorTheme }>()

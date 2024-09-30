@@ -49,6 +49,10 @@ section {
   padding: 5px 10px;
 }
 
+a.disabled {
+  pointer-events: none;
+}
+
 .disabled {
   background: var(--color-background-grey);
   td {
@@ -67,3 +71,4 @@ section {
     padding: 0;
   }
 }
+

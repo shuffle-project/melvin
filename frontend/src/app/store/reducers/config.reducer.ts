@@ -62,6 +62,7 @@ export const configReducer = createReducer(
   on(
     configActions.changeColorTheme,
     configActions.changeColorThemeViewer,
+    configActions.changeColorThemeFromLocalStorage,
     (state, action) => ({
       ...state,
       colorTheme: action.colorTheme,

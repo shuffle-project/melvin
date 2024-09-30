@@ -28,6 +28,7 @@ import { ProjectEntity } from '../../../../../services/api/entities/project.enti
 import { AppState } from '../../../../../store/app.state';
 import { asrServiceConfig } from '../../../../../store/selectors/config.selector';
 import { Recording } from '../../recorder.interfaces';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-upload-recording',
@@ -60,7 +61,8 @@ export class UploadRecordingComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA)
     public data: { title: string; recordings: Recording[] },
     public api: ApiService,
-    public store: Store<AppState>
+    public store: Store<AppState>,
+    private router: Router
   ) {}
 
   async ngOnInit() {
@@ -79,9 +81,11 @@ export class UploadRecordingComponent implements OnInit {
       (recording) => recording.complete
     );
   }
-
-  onClose() {
+  onClose(toProjectlist = false) {
     this.dialogRef.close();
+    if (toProjectlist) {
+      this.router.navigate(['home']);
+    }
   }
 
   onChangeAsrService(change: MatSelectChange) {
