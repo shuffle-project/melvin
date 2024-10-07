@@ -236,15 +236,21 @@ export class UploadAdditionalContentComponent implements OnInit {
   }
 
   onDownloadMedia(project: ProjectEntity, mediaEntity: MediaEntity) {
-    console.log(project, mediaEntity);
-    fetch;
+    // console.log(project, mediaEntity);
 
-    const downloadElement = document.createElement('a');
-    downloadElement.href = mediaEntity.url;
-    downloadElement.download = mediaEntity.title;
-    downloadElement.target = '_blank';
-    downloadElement.click();
-    downloadElement.remove();
+    this.httpClient
+      .get(mediaEntity.url, { responseType: 'blob' })
+      .subscribe((response) => {
+        const urlCreator = window.URL || window.webkitURL;
+        const imageUrl = urlCreator.createObjectURL(response);
+        const tag = document.createElement('a');
+        tag.href = imageUrl;
+        tag.target = '_blank';
+        tag.download = mediaEntity.title + '.' + mediaEntity.extension;
+        document.body.appendChild(tag);
+        tag.click();
+        document.body.removeChild(tag);
+      });
 
     // window.URL.revokeObjectURL(objectURL);
   }

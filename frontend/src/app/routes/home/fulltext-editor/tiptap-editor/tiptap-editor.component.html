@@ -1,8 +1,8 @@
 <div class="controls">
-  <button mat-icon-button (click)="onClickUndo()">
+  <button mat-icon-button (click)="onClickUndo()" [disabled]="!canUndo()">
     <mat-icon svgIcon="undo"></mat-icon>
   </button>
-  <button mat-icon-button (click)="onClickRedo()">
+  <button mat-icon-button (click)="onClickRedo()" [disabled]="!canRedo()">
     <mat-icon svgIcon="redo"></mat-icon>
   </button>
 

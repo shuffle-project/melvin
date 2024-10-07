@@ -32,8 +32,6 @@ import { MediaService } from '../../editor/services/media/media.service';
 import { CustomParagraph } from './schema/paragraph.schema';
 import { UserExtension } from './schema/user.extension';
 import { CustomWord } from './schema/word.schema';
-import { TiptapEditorService } from './tiptap-editor.service';
-import { defaultSelectionBuilder } from 'y-prosemirror';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/store/app.state';
 import * as editorSelector from 'src/app/store/selectors/editor.selector';
@@ -163,6 +161,11 @@ export class TiptapEditorComponent implements AfterViewInit, OnInit, OnDestroy {
         this.status = CLIENT_STATUS.CONNECTED;
       },
       onAwarenessChange: (awareness) => {
+        console.log('onAwarenessChange');
+        console.log(awareness.states);
+      },
+      onAwarenessUpdate: (awareness) => {
+        console.log('onAwarenessUpdate');
         console.log(awareness.states);
       },
       onDisconnect: () => {
@@ -209,6 +212,15 @@ export class TiptapEditorComponent implements AfterViewInit, OnInit, OnDestroy {
         UserExtension(this.injector).configure({
           userId: user.id,
         }),
+        /**
+         * https://github.com/ueberdosis/tiptap/issues/4482
+         * https://github.com/ueberdosis/tiptap/issues/4782
+         * https://github.com/ueberdosis/tiptap/pull/4856
+         * https://github.com/yjs/y-prosemirror/issues/85
+         * https://github.com/yjs/y-prosemirror/pull/145
+         *
+         *
+         */
         Collaboration.configure({
           document: this.provider.document,
         }),
@@ -321,6 +333,14 @@ export class TiptapEditorComponent implements AfterViewInit, OnInit, OnDestroy {
         );
       }
     }
+  }
+
+  canUndo() {
+    return this.editor?.can().undo();
+  }
+
+  canRedo() {
+    return this.editor?.can().redo();
   }
 
   changeSpeaker(speaker: string) {

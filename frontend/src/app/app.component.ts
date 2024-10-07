@@ -148,6 +148,20 @@ export class AppComponent implements OnInit, OnDestroy {
           );
           break;
 
+        case StorageKey.VIEWER_TRANSCRIPT_POSITION:
+          const transcriptPosition = JSON.parse(event.newValue);
+          this.store.dispatch(
+            viewerActions.updateSettings({ transcriptPosition })
+          );
+          break;
+
+        case StorageKey.VIEWER_SUBTITLES_ENABLED:
+          const subtitlesEnabled = JSON.parse(event.newValue);
+          this.store.dispatch(
+            viewerActions.updateSettings({ subtitlesEnabled })
+          );
+          break;
+
         default:
           break;
       }

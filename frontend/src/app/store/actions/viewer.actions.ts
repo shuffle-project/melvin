@@ -210,5 +210,7 @@ export const updateSettings = createAction(
     captionsColor?: ColorOptions;
     captionsFontsize?: SizeOptions;
     captionsPosition?: CaptionPositionOptions;
+    transcriptPosition?: TranscriptPosition;
+    subtitlesEnabled?: boolean;
   }>()
 );
