@@ -1,6 +1,7 @@
 import { Injector } from '@angular/core';
 import { Mark, mergeAttributes } from '@tiptap/core';
 import { TiptapEditorService } from '../tiptap-editor.service';
+import { randomUUID } from 'crypto';
 
 export const CustomWord = (injector: Injector) =>
   Mark.create({
@@ -11,6 +12,9 @@ export const CustomWord = (injector: Injector) =>
 
     addAttributes() {
       return {
+        // id:{
+        //   default:
+        // }
         start: {
           default: undefined,
           parseHTML: (element) => {
@@ -66,6 +70,18 @@ export const CustomWord = (injector: Injector) =>
             };
           },
         },
+        timestampInterpolated: {
+          default: undefined,
+          parseHTML: (element) => {
+            return element.getAttribute('data-timestamp-interpolated');
+          },
+          renderHTML: (attributes) => {
+            return {
+              'data-timestamp-interpolated':
+                attributes['timestamp-interpolated'],
+            };
+          },
+        },
       };
     },
 
@@ -92,7 +108,8 @@ export const CustomWord = (injector: Injector) =>
       const start = HTMLAttributes['data-start'];
       const end = HTMLAttributes['data-end'];
 
-      if (start != undefined) {
+      if (start != undefined && end != undefined) {
+        // // fixme robuster machen, wenn undefined mach irgendwas was sinn ergbit
         const timeStart = Math.floor(start / 1000);
         const timeEnd = Math.floor(end / 1000 ?? start);
         const classes = new Array(timeEnd - timeStart + 1)
@@ -100,6 +117,23 @@ export const CustomWord = (injector: Injector) =>
           .map((_, i) => `time-${timeStart + i}`);
         attrs.class = classes.join(' ');
       }
+      // TODO
+      // // debug border
+      if (!attrs.style) {
+        attrs.style =
+          'border-left: 1px solid black; border-right: 1px solid black;';
+        attrs.style =
+          'border-left: 1px solid black; border-right: 1px solid black;';
+      } else {
+        attrs.style +=
+          '; border-left: 1px solid black; border-right: 1px solid black;';
+        attrs.style +=
+          '; border-left: 1px solid black; border-right: 1px solid black;';
+      }
+
+      // attrs.style = attrs.style
+      //   ? attrs + 'border-left: 1px solid black;'
+      //   : 'border-left: 1px solid black;';
 
       return ['span', mergeAttributes(HTMLAttributes, attrs), 0];
     },

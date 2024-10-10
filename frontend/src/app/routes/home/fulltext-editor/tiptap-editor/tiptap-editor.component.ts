@@ -161,12 +161,12 @@ export class TiptapEditorComponent implements AfterViewInit, OnInit, OnDestroy {
         this.status = CLIENT_STATUS.CONNECTED;
       },
       onAwarenessChange: (awareness) => {
-        console.log('onAwarenessChange');
-        console.log(awareness.states);
+        // console.log('onAwarenessChange');
+        // console.log(awareness.states);
       },
       onAwarenessUpdate: (awareness) => {
-        console.log('onAwarenessUpdate');
-        console.log(awareness.states);
+        // console.log('onAwarenessUpdate');
+        // console.log(awareness.states);
       },
       onDisconnect: () => {
         console.log('onDisconnect');

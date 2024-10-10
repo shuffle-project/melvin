@@ -52,6 +52,14 @@ export const Word = Mark.create({
           };
         },
       },
+      timestampInterpolated: {
+        default: undefined,
+        renderHTML: (attributes) => {
+          return {
+            'data-timestamp-interpolated': attributes['timestamp-interpolated'],
+          };
+        },
+      },
     };
   },
 
@@ -68,6 +76,7 @@ export const Word = Mark.create({
         // timestamp: 'timestamp',
         start: 'data-start',
         end: 'data-end',
+        timestampInterpolated: 'data-timestamp-interpolated',
       },
     ];
   },

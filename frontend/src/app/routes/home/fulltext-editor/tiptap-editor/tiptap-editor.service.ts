@@ -5,6 +5,7 @@ import * as transcriptionsSelectors from '../../../../store/selectors/transcript
 import { SpeakerEntity } from 'src/app/services/api/entities/transcription.entity';
 import * as editorSelector from 'src/app/store/selectors/editor.selector';
 import { EditorUser } from 'src/app/interfaces/editor-user.interface';
+import { MediaService } from '../../editor/services/media/media.service';
 
 @Injectable({
   providedIn: 'root',
@@ -15,7 +16,7 @@ export class TiptapEditorService {
   public speakers$ = new BehaviorSubject<SpeakerEntity[]>([]);
   public activeUsers$ = new BehaviorSubject<EditorUser[]>([]);
 
-  constructor(private store: Store) {
+  constructor(private store: Store, private mediaService: MediaService) {
     this.store
       .select(transcriptionsSelectors.selectAvailableSpeakers)
       .subscribe((speakers) => this.speakers$.next(speakers));
@@ -28,5 +29,13 @@ export class TiptapEditorService {
   getUserColor(userId: string) {
     const activeUsers = this.activeUsers$.getValue();
     return activeUsers.find((user) => user.id === userId)?.color || 'gray';
+  }
+
+  clickWord(event: MouseEvent) {
+    if (event.metaKey) {
+      const target = event?.target as HTMLElement;
+      const start = target?.attributes.getNamedItem('data-start')?.value;
+      if (start) this.mediaService.seekToTime(+start, false);
+    }
   }
 }

@@ -1,7 +1,10 @@
-import { Injector } from '@angular/core';
+import { inject, Injector } from '@angular/core';
 import { Editor, Extension } from '@tiptap/core';
 import { NodeType, Schema } from '@tiptap/pm/model';
 import { Plugin, PluginKey, Transaction } from '@tiptap/pm/state';
+import { TiptapEditorService } from '../tiptap-editor.service';
+import { create } from 'domain';
+import { Step } from '@tiptap/pm/transform';
 
 const addModifiedMarksAt = (
   userId: string,
@@ -26,6 +29,9 @@ const addModifiedMarksAt = (
     }
   });
 };
+
+// getpreviousword range?
+// getnextword
 
 const setPreviousWordAsModified = (
   userId: string,
@@ -97,6 +103,8 @@ const handleInsert = (
   to: number,
   text: string
 ): boolean => {
+  console.log('======= handleInsert', from, to, text);
+
   const { tr, schema } = editor.state;
   const { dispatch } = editor.view;
 
@@ -104,6 +112,7 @@ const handleInsert = (
 
   // Deleted a paragraph
   if (text.length === 0 && deletedText.length === 0) {
+    console.log('Deleted a paragraph');
     return false;
   }
 
@@ -111,6 +120,7 @@ const handleInsert = (
   if (text.length > 0 && text.trim() === '') {
     // Replace selection of spaces with a single space
     if (from !== to && tr.doc.textBetween(from, to).trim() === '') {
+      console.log('Replace selection of spaces with a single space');
       return false;
     }
 
@@ -119,6 +129,7 @@ const handleInsert = (
       from === to &&
       (hasLeadingSpace(tr, from) || hasTrailingSpace(tr, to))
     ) {
+      console.log('Add a space between two words, cursor has no selection');
       return false;
     }
 
@@ -128,9 +139,49 @@ const handleInsert = (
     if (!hasTrailingSpace(tr, to)) {
       setNextWordAsModified(userId, schema, tr, to);
     }
+
+    const wordsBetween = getWordsBetween(tr, from, to);
+
+    if (wordsBetween.length === 1) {
+      const word = wordsBetween[0];
+      const nodeAt = tr.doc.nodeAt(from);
+      const mark = nodeAt!.marks[0];
+      const offset = from - word.pos;
+
+      const part1 = schema.text(word.text.slice(0, offset), [
+        // review id ?
+        schema.mark('word', {
+          ...mark.attrs,
+          end: mark.attrs['end'] - 1,
+        }),
+      ]);
+
+      const part2 = schema.text(
+        ' ' + word.text.slice(0 + offset, word.text.length),
+        [
+          schema.mark('word', {
+            ...mark.attrs,
+            start: mark.attrs['start'] + 1,
+          }),
+        ]
+      );
+
+      tr.delete(word.pos, word.pos + word.text.length);
+      tr.insert(word.pos, [part1, part2]);
+
+      // review
+      // tr.insert(from, schema.text(' '));
+
+      // tr.doc.nodesBetween(from - 10, to + 10, (node, pos) => {
+      //   console.log(node);
+      // });
+    }
+
     dispatch(tr);
 
-    return false;
+    editor.commands.focus(from + 1);
+
+    return true;
   }
 
   // New word
@@ -141,6 +192,8 @@ const handleInsert = (
       to === tr.doc.content.size - 1)
   ) {
     if (text.length > 0) {
+      console.log('new word');
+      console.log(from, to, text);
       let attrs: any;
       if (tr.doc.textBetween(from, to).trim() !== '') {
         // Keep timestamps of first word of selection
@@ -157,16 +210,55 @@ const handleInsert = (
 
       tr.delete(from, to);
 
-      tr.insert(
-        from,
-        schema.text(text, [
-          schema.marks['word'].create({
-            ...(attrs ?? {}),
-            modifiedAt: new Date().toISOString(),
-            modifiedBy: userId,
-          }),
-        ])
-      );
+      const nodeAtBefore = tr.doc.nodeAt(from - 1);
+      const nodeAtAfter = tr.doc.nodeAt(to + 1);
+
+      const startBefore = nodeAtBefore?.marks[0]?.attrs['start'];
+      const endBefore = nodeAtBefore?.marks[0]?.attrs['end'];
+      const startAfter = nodeAtAfter?.marks[0]?.attrs['start'];
+      const endAfter = nodeAtAfter?.marks[0]?.attrs['end'];
+
+      console.log(nodeAtBefore, nodeAtAfter);
+      console.log(startBefore, endBefore);
+      console.log(startAfter, endAfter);
+
+      const start = startBefore ?? startAfter ?? undefined;
+      const end = startAfter ?? endBefore ?? undefined;
+
+      // review
+      // let start;
+      // let end;
+      // console.log(attrs);
+
+      // const interpolation: any = {};
+
+      // if (nodeAtBefore?.type.name === 'text') {
+      //   const start = nodeAtBefore.marks[0]?.attrs['start'];
+      //   const end = nodeAtBefore.marks[0]?.attrs['end'];
+
+      //   if (start) interpolation.start = start;
+      //   if (end) interpolation.end = end;
+      // }
+
+      // if (nodeAtAfter?.type.name === 'text') {
+      //   const start = nodeAtAfter.marks[0]?.attrs['start'];
+      //   const end = nodeAtAfter.marks[0]?.attrs['end'];
+      //   if (end) interpolation.start = end;
+      //   if (!interpolation.end && end) interpolation.end = end;
+      // }
+
+      // console.log(nodeAtBefore, nodeAtAfter);
+
+      const createdMark = schema.marks['word'].create({
+        start: start,
+        end: end,
+        // review das sollte start und end überschreiben wenn es in attrs gesetzt ist, richtig?
+        ...(attrs ?? {}),
+        modifiedAt: new Date().toISOString(),
+        modifiedBy: userId,
+      });
+
+      tr.insert(from, schema.text(text, [createdMark]));
     } else {
       tr.delete(from, to);
     }
@@ -279,6 +371,7 @@ export const UserExtension = (injector: Injector) =>
                   view.dispatch(tr);
                   return false;
                 } else {
+                  // TODO set modifyBy of word if in the middle of a word
                   tr.split(from);
                   tr.setNodeAttribute(from + 1, 'speaker', null);
 
@@ -325,6 +418,9 @@ export const UserExtension = (injector: Injector) =>
                 to,
                 text
               );
+            },
+            handleClickOn(view, pos, node, nodePos, event, direct) {
+              injector.get(TiptapEditorService).clickWord(event);
             },
             handleDrop: (view, event, slice, moved) => {
               return true;
