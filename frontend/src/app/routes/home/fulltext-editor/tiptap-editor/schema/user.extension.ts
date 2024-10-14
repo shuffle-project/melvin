@@ -242,28 +242,6 @@ const handleInsert = (
       const end = startAfter ?? endBefore ?? undefined;
 
       // review
-      // let start;
-      // let end;
-      // console.log(attrs);
-
-      // const interpolation: any = {};
-
-      // if (nodeAtBefore?.type.name === 'text') {
-      //   const start = nodeAtBefore.marks[0]?.attrs['start'];
-      //   const end = nodeAtBefore.marks[0]?.attrs['end'];
-
-      //   if (start) interpolation.start = start;
-      //   if (end) interpolation.end = end;
-      // }
-
-      // if (nodeAtAfter?.type.name === 'text') {
-      //   const start = nodeAtAfter.marks[0]?.attrs['start'];
-      //   const end = nodeAtAfter.marks[0]?.attrs['end'];
-      //   if (end) interpolation.start = end;
-      //   if (!interpolation.end && end) interpolation.end = end;
-      // }
-
-      // console.log(nodeAtBefore, nodeAtAfter);
 
       const createdMark = schema.marks['word'].create({
         start: start,
