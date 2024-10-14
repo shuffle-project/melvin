@@ -96,6 +96,85 @@ const getWordsBetween = (tr: Transaction, from: number, to: number) => {
   return words;
 };
 
+const handleSpace = (
+  userId: string,
+  editor: Editor,
+  from: number,
+  to: number
+) => {
+  const { tr, schema } = editor.state;
+  const { dispatch } = editor.view;
+
+  // Replace selection of spaces with a single space
+  if (from !== to && tr.doc.textBetween(from, to).trim() === '') {
+    console.log('Replace selection of spaces with a single space');
+    return false;
+  }
+
+  // Add a space between two words, cursor has no selection
+  if (from === to && (hasLeadingSpace(tr, from) || hasTrailingSpace(tr, to))) {
+    console.log('Add a space between two words, cursor has no selection');
+    return false;
+  }
+
+  if (!hasLeadingSpace(tr, from)) {
+    setPreviousWordAsModified(userId, schema, tr, from);
+  }
+  if (!hasTrailingSpace(tr, to)) {
+    setNextWordAsModified(userId, schema, tr, to);
+  }
+
+  const wordsBetween = getWordsBetween(tr, from, to);
+
+  if (wordsBetween.length === 1) {
+    // selection range or cursor is only one word -> split it and add a space
+    const word = wordsBetween[0];
+    const nodeAt = tr.doc.nodeAt(from);
+    const mark = nodeAt!.marks[0];
+    const offset = from - word.pos;
+
+    const part1 = schema.text(word.text.slice(0, offset), [
+      // review id ?
+      schema.mark('word', {
+        ...mark.attrs,
+        end: mark.attrs['end'] - 1,
+      }),
+    ]);
+
+    // slice word, add to-from if the selection is a range
+    const part2 = schema.text(
+      ' ' + word.text.slice(0 + offset + to - from, word.text.length),
+      [
+        schema.mark('word', {
+          ...mark.attrs,
+          start: mark.attrs['start'] + 1,
+        }),
+      ]
+    );
+
+    tr.delete(word.pos, word.pos + word.text.length);
+    tr.insert(word.pos, [part1, part2]);
+  } else {
+    // its a range / multple words, first delete everything in the selection and add a space
+    // no splitting needed since you always selected multiple/spitted words
+    tr.deleteRange(from, to);
+
+    const nodeAt = tr.doc.nodeAt(from);
+    if (nodeAt) {
+      // review only way to add the space at the start of the following word
+      tr.insertText(' ' + nodeAt.text, from, from + nodeAt.nodeSize);
+    } else {
+      tr.insertText(' ', from);
+    }
+  }
+
+  dispatch(tr);
+
+  editor.commands.focus(from + 1);
+
+  return true;
+};
+
 const handleInsert = (
   userId: string,
   editor: Editor,
@@ -118,70 +197,7 @@ const handleInsert = (
 
   // Handle Space
   if (text.length > 0 && text.trim() === '') {
-    // Replace selection of spaces with a single space
-    if (from !== to && tr.doc.textBetween(from, to).trim() === '') {
-      console.log('Replace selection of spaces with a single space');
-      return false;
-    }
-
-    // Add a space between two words, cursor has no selection
-    if (
-      from === to &&
-      (hasLeadingSpace(tr, from) || hasTrailingSpace(tr, to))
-    ) {
-      console.log('Add a space between two words, cursor has no selection');
-      return false;
-    }
-
-    if (!hasLeadingSpace(tr, from)) {
-      setPreviousWordAsModified(userId, schema, tr, from);
-    }
-    if (!hasTrailingSpace(tr, to)) {
-      setNextWordAsModified(userId, schema, tr, to);
-    }
-
-    const wordsBetween = getWordsBetween(tr, from, to);
-
-    if (wordsBetween.length === 1) {
-      const word = wordsBetween[0];
-      const nodeAt = tr.doc.nodeAt(from);
-      const mark = nodeAt!.marks[0];
-      const offset = from - word.pos;
-
-      const part1 = schema.text(word.text.slice(0, offset), [
-        // review id ?
-        schema.mark('word', {
-          ...mark.attrs,
-          end: mark.attrs['end'] - 1,
-        }),
-      ]);
-
-      const part2 = schema.text(
-        ' ' + word.text.slice(0 + offset, word.text.length),
-        [
-          schema.mark('word', {
-            ...mark.attrs,
-            start: mark.attrs['start'] + 1,
-          }),
-        ]
-      );
-
-      tr.delete(word.pos, word.pos + word.text.length);
-      tr.insert(word.pos, [part1, part2]);
-
-      // review
-      // tr.insert(from, schema.text(' '));
-
-      // tr.doc.nodesBetween(from - 10, to + 10, (node, pos) => {
-      //   console.log(node);
-      // });
-    }
-
-    dispatch(tr);
-
-    editor.commands.focus(from + 1);
-
-    return true;
+    return handleSpace(userId, editor, from, to);
   }
 
   // New word
