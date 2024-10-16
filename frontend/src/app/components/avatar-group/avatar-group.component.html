@@ -3,30 +3,26 @@
   [matMenuTriggerFor]="usersMenu"
   [matMenuTriggerData]="{ users: users }"
   [style.width.px]="width"
-  >
-  @for (user of avatars; track user) {
-    <app-avatar
-      [outlineColor]="outlineColor"
-      [editorView]="editorView"
-      [user]="user"
-    ></app-avatar>
-  }
-  @if (users.length > 3) {
-    <div
-      class="more-badge"
-      [style.border-color]="outlineColor"
-      >
-      +{{ moreCount }}
-    </div>
+>
+  @for (user of avatars; track user.name) {
+  <app-avatar
+    [outlineColor]="outlineColor"
+    [editorView]="editorView"
+    [user]="user"
+  ></app-avatar>
+  } @if (users.length > 3) {
+  <div class="more-badge" [style.border-color]="outlineColor">
+    +{{ moreCount }}
+  </div>
   }
 </div>
 <mat-menu #usersMenu="matMenu">
   <ng-template matMenuContent let-users="users">
-    @for (user of users; track user) {
-      <div class="list-user">
-        <app-avatar [user]="user" [editorView]="editorView"></app-avatar>
-        <span class="name">{{ user.name }}</span>
-      </div>
+    @for (user of users; track user.name) {
+    <div class="list-user">
+      <app-avatar [user]="user" [editorView]="editorView"></app-avatar>
+      <span class="name">{{ user.name }}</span>
+    </div>
     }
   </ng-template>
 </mat-menu>

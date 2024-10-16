@@ -97,11 +97,8 @@ export class TiptapEditorComponent implements AfterViewInit, OnInit, OnDestroy {
         if (this.editor) {
           this.destroyEditor();
         }
-        setTimeout(() => {
-          // TODO remove timeout???
-          this.initConnection(transcriptionId);
-          this.initEditor();
-        }, 0);
+        this.initConnection(transcriptionId);
+        this.initEditor();
       });
 
     this.currentTime$.pipe(takeUntil(this.destroy$$)).subscribe((time) => {
@@ -120,9 +117,7 @@ export class TiptapEditorComponent implements AfterViewInit, OnInit, OnDestroy {
       .pipe(takeUntil(this.destroy$$))
       .subscribe((_) => {
         this.destroyEditor();
-        setTimeout(() => {
-          this.initEditor();
-        }, 0);
+        this.initEditor();
       });
 
     this.store
@@ -133,9 +128,7 @@ export class TiptapEditorComponent implements AfterViewInit, OnInit, OnDestroy {
         // console.log(this.provider.awareness);
         // this.provider.setAwarenessField('user', null);
         this.showUsernames = showUsernames;
-        setTimeout(() => {
-          this.initEditor();
-        }, 0);
+        this.initEditor();
       });
   }
   ngOnDestroy(): void {
@@ -145,6 +138,13 @@ export class TiptapEditorComponent implements AfterViewInit, OnInit, OnDestroy {
   }
 
   initConnection(transcriptionId: string) {
+    // review
+    setTimeout(() => {
+      this._initConnection(transcriptionId);
+    }, 0);
+  }
+
+  _initConnection(transcriptionId: string) {
     const url = `${this.wsService.getWebSocketURL()}?hocuspocus`;
     this.provider = new HocuspocusProvider({
       url,
@@ -161,12 +161,12 @@ export class TiptapEditorComponent implements AfterViewInit, OnInit, OnDestroy {
         this.status = CLIENT_STATUS.CONNECTED;
       },
       onAwarenessChange: (awareness) => {
-        // console.log('onAwarenessChange');
-        // console.log(awareness.states);
+        console.log('onAwarenessChange');
+        console.log(awareness.states);
       },
       onAwarenessUpdate: (awareness) => {
-        // console.log('onAwarenessUpdate');
-        // console.log(awareness.states);
+        console.log('onAwarenessUpdate');
+        console.log(awareness.states);
       },
       onDisconnect: () => {
         console.log('onDisconnect');
@@ -188,9 +188,9 @@ export class TiptapEditorComponent implements AfterViewInit, OnInit, OnDestroy {
   destroyEditor() {
     if (this.editor) {
       this.editor.destroy();
+      this.editor = undefined;
+      this.captions = undefined;
     }
-    // this.editor = undefined;
-    // this.captions = undefined;
   }
 
   destroyConnection() {
@@ -199,6 +199,13 @@ export class TiptapEditorComponent implements AfterViewInit, OnInit, OnDestroy {
   }
 
   initEditor() {
+    // review
+    setTimeout(() => {
+      this._initEditor();
+    }, 0);
+  }
+
+  _initEditor() {
     this.captions = document.getElementById('captions') as HTMLDivElement;
 
     const user = this.activeUsers[0];

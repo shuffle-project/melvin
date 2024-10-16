@@ -246,7 +246,6 @@ const handleInsert = (
       const createdMark = schema.marks['word'].create({
         start: start,
         end: end,
-        // review das sollte start und end überschreiben wenn es in attrs gesetzt ist, richtig?
         ...(attrs ?? {}),
         modifiedAt: new Date().toISOString(),
         modifiedBy: userId,
@@ -342,6 +341,7 @@ export const UserExtension = (injector: Injector) =>
               }
 
               const { tr, schema } = view.state;
+              const userId = this.options.userId;
 
               let from = tr.selection.ranges[0].$from.pos;
               let to = tr.selection.ranges[0].$to.pos;
@@ -352,22 +352,18 @@ export const UserExtension = (injector: Injector) =>
                     return false;
                   }
                   if (!hasLeadingSpace(tr, from)) {
-                    setPreviousWordAsModified(
-                      this.options.userId,
-                      schema,
-                      tr,
-                      from
-                    );
+                    setPreviousWordAsModified(userId, schema, tr, from);
                   }
                   if (!hasTrailingSpace(tr, to)) {
-                    setNextWordAsModified(this.options.userId, schema, tr, to);
+                    setNextWordAsModified(userId, schema, tr, to);
                   }
                   view.dispatch(tr);
                   return false;
                 } else {
-                  // TODO set modifyBy of word if in the middle of a word
                   tr.split(from);
                   tr.setNodeAttribute(from + 1, 'speaker', null);
+                  setPreviousWordAsModified(userId, schema, tr, from);
+                  setNextWordAsModified(userId, schema, tr, to);
 
                   view.dispatch(tr);
 
@@ -377,7 +373,7 @@ export const UserExtension = (injector: Injector) =>
 
               if (event.code === 'Delete') {
                 return handleInsert(
-                  this.options.userId,
+                  userId,
                   this.editor,
                   from,
                   from === to ? to + 1 : to,
@@ -387,7 +383,7 @@ export const UserExtension = (injector: Injector) =>
 
               if (event.code === 'Backspace') {
                 return handleInsert(
-                  this.options.userId,
+                  userId,
                   this.editor,
                   from === to ? from - 1 : from,
                   to,
