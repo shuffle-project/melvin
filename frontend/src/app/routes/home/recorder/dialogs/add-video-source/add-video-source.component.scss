@@ -1,6 +1,10 @@
 .mat-dialog-content {
-  padding-top: 5px;
-  width: 600px;
+  width: 100%;
+  max-width: 37.5rem;
+
+  .sources-field {
+    margin-top: 0.625rem;
+  }
 
   .controls {
     display: flex;

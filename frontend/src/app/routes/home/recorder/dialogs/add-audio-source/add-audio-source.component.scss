@@ -1,10 +1,9 @@
 .mat-dialog-content {
-  padding-top: 5px;
-  width: 600px;
+  width: 100%;
+  max-width: 37.5rem;
 
-  .controls {
-    display: flex;
-    gap: 5px;
+  .sources-field {
+    margin-top: 0.625rem;
   }
 
   .audio-wrapper {
@@ -13,12 +12,14 @@
     gap: 5px;
 
     .meter-wrapper {
-      width: 90%;
+      width: 100%;
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 0.625rem;
+
       span {
         text-align: center;
+        white-space: nowrap;
       }
 
       .meter {

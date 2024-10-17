@@ -4,7 +4,7 @@
 <mat-dialog-content class="mat-dialog-content">
   @if (!uploading) {
   <div class="inputs">
-    <mat-form-field *ngrxLet="asrServiceConfig$ as asrServiceConfig">
+    <!-- <mat-form-field *ngrxLet="asrServiceConfig$ as asrServiceConfig">
       <mat-label i18n="@@uploadRecordingAsrServiceLabel">ASR Service</mat-label>
       <mat-select
         required
@@ -17,32 +17,41 @@
         </mat-option>
         }
       </mat-select>
-    </mat-form-field>
-    <mat-form-field>
-      <mat-label i18n="@@uploadRecordingLanguageLabel">Language</mat-label>
-      <mat-select required [(value)]="language" [disabled]="!asrSelection">
-        @if (asrSelection) { @for (lang of asrSelection.languages; track lang )
-        {
-        <mat-option [value]="lang.code">
-          {{ lang.name }}
-        </mat-option>
-        } }
-      </mat-select>
-    </mat-form-field>
+    </mat-form-field> -->
+    <h2 i18n="@@uploadRecordingASRHeader">Automatic trancription</h2>
+    <form [formGroup]="formGroup">
+      <mat-form-field class="language-form-field">
+        <mat-label i18n="@@uploadRecordingLanguageLabel">Language</mat-label>
+        <mat-select formControlName="language" required>
+          @if (whisperLanguages$ | ngrxPush; as whisperLanguages) { @for (lang
+          of whisperLanguages; track lang ) {
+          <mat-option [value]="lang.code">
+            {{ lang.code | writtenOutLanguage }}
+          </mat-option>
+          } }
+        </mat-select>
+        <mat-error i18n="@@uploadRecordingLanguageError">
+          Language is required
+        </mat-error>
+        <mat-hint i18n="@@uploadRecordingLanguageHint"
+          >Please select the main language of the recording
+        </mat-hint>
+      </mat-form-field>
+    </form>
   </div>
 
   <div>
     <div class="infotext">
-      <mat-icon svgIcon="info"></mat-icon>
+      <mat-icon svgIcon="info" />
       @if (readyToUpload) {
-      <span i18n="@@uploadRecordingReadyToUploadHint">
+      <p i18n="@@uploadRecordingReadyToUploadHint">
         All files are ready. You can now upload the project or download the
         files locally.
-      </span>
+      </p>
       }@else{
-      <span i18n="@@uploadRecordingFilesProcessingHint">
+      <p i18n="@@uploadRecordingFilesProcessingHint">
         The files are being processed, please wait until all files are ready.
-      </span>
+      </p>
       }
     </div>
   </div>
@@ -156,8 +165,8 @@
       <mat-icon svgIcon="info"></mat-icon>
       <span i18n="@@uploadRecordingAllSuccessfulHint">
         The project has been successfully created, you can now close this
-        dialogue close this dialogue! You will find the project in the project
-        list, but it may still be possibly still being processed.
+        dialog! You will find the project in the project list, but it may still
+        be being processed.
       </span>
     </div>
     } }
@@ -201,7 +210,7 @@
 
   <button
     color="primary"
-    mat-flat-button
+    mat-stroked-button
     [disabled]="!uploadingDone"
     (click)="onClose(true)"
     i18n="@@uploadRecordingToProjectlistButton"

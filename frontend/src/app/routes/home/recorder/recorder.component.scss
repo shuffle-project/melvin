@@ -10,10 +10,6 @@
   }
 }
 
-.project-title {
-  margin-left: 13px;
-}
-
 .recording-indicator {
   animation: 3s ease-in-out infinite live-record;
 }
@@ -28,15 +24,20 @@
 
   .head-wrapper {
     display: flex;
-    margin-top: 10px;
+    align-items: center;
+
+    margin-inline: 1.125rem;
+
+    .recording-title-field {
+      margin-top: 1.375rem;
+    }
 
     .infotext {
       flex: 1;
       display: flex;
-      // flex-direction: column;
       justify-content: center;
       align-items: center;
-      gap: 10px;
+      gap: 0.625rem;
       span {
         max-width: 400px;
         text-align: left;
@@ -81,14 +82,17 @@
         flex-direction: row;
         flex-wrap: wrap;
         width: 100%;
+        gap: 1rem;
       }
     }
   }
 }
 
 .add-btn {
-  margin-top: 10px;
-  width: 90%;
+  margin-top: 1rem;
+  width: 100%;
+  min-height: 2.5rem;
+  max-width: 16rem;
   align-self: center;
 }
 

@@ -47,7 +47,8 @@ import { RecorderService } from './recorder.service';
 export class RecorderComponent implements OnInit, OnDestroy {
   public languages$ = this.store.select(configSelector.languagesConfig);
 
-  recordingTitle: string = 'Aufnahme vom ' + new Date().toLocaleDateString();
+  locale = $localize.locale;
+  recordingTitle: string = '';
 
   loading = true;
 
@@ -55,7 +56,13 @@ export class RecorderComponent implements OnInit, OnDestroy {
     public dialog: MatDialog,
     public recorderService: RecorderService,
     private store: Store<AppState>
-  ) {}
+  ) {
+    if (this.locale?.startsWith('en')) {
+      this.recordingTitle = 'Recording from ' + new Date().toLocaleDateString();
+    } else {
+      this.recordingTitle = 'Aufnahme vom ' + new Date().toLocaleDateString();
+    }
+  }
 
   async ngOnInit() {
     this.loading = false;

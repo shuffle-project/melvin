@@ -1,6 +1,6 @@
 .mat-dialog-content {
-  padding-top: 5px;
-  width: 600px;
+  width: 100%;
+  max-width: 50rem;
 
   .actions-list {
     list-style-type: none;
@@ -75,16 +75,31 @@
 
   .inputs {
     display: flex;
-    margin: 10px;
+    margin-bottom: 1.25rem;
     justify-content: stretch;
     flex-direction: column;
+
+    form {
+      width: 100%;
+
+      .language-form-field {
+        width: 100%;
+      }
+    }
   }
 
   .infotext {
+    margin-top: 2.5rem;
     display: flex;
     justify-content: start;
     align-items: center;
-    gap: 5px;
+    gap: 0.375rem;
+
+    p {
+      margin: 0;
+      line-height: 130%;
+      font-size: 0.875rem;
+    }
   }
 }
 

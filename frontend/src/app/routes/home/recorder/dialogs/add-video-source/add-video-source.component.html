@@ -9,7 +9,7 @@
     {{ loadingError }}
   </p>
   } @if (!loading && !loadingError) {
-  <mat-form-field style="width: 100%">
+  <mat-form-field class="sources-field" style="width: 100%">
     <mat-label i18n="@@recorderAddVideoSourceSelectionLabel">Sources</mat-label>
     <mat-select
       (selectionChange)="onSelectionChange()"
@@ -59,10 +59,10 @@
   </div>
   } }
 </mat-dialog-content>
-<mat-dialog-actions>
+<mat-dialog-actions align="end">
   <button
     color="primary"
-    mat-flat-button
+    mat-stroked-button
     (click)="onCloseDialog()"
     i18n="@@recorderAddVideoSourceCancelButton"
   >

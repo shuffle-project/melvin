@@ -5,6 +5,12 @@ import {
   HttpEventType,
 } from '@angular/common/http';
 import { Component, Inject, OnInit } from '@angular/core';
+import {
+  FormGroup,
+  NonNullableFormBuilder,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import {
   MAT_DIALOG_DATA,
@@ -14,9 +20,11 @@ import {
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSelectChange, MatSelectModule } from '@angular/material/select';
-import { LetDirective } from '@ngrx/component';
+import { Router } from '@angular/router';
+import { LetDirective, PushPipe } from '@ngrx/component';
 import { Store } from '@ngrx/store';
 import { take } from 'rxjs';
+import { WrittenOutLanguagePipe } from 'src/app/pipes/written-out-language-pipe/written-out-language.pipe';
 import { ApiService } from '../../../../../services/api/api.service';
 import { AsrVendors } from '../../../../../services/api/dto/create-transcription.dto';
 import { UploadVideoDto } from '../../../../../services/api/dto/upload-video.dto';
@@ -26,10 +34,9 @@ import {
 } from '../../../../../services/api/entities/config.entity';
 import { ProjectEntity } from '../../../../../services/api/entities/project.entity';
 import { AppState } from '../../../../../store/app.state';
+import * as configSelectors from '../../../../../store/selectors/config.selector';
 import { asrServiceConfig } from '../../../../../store/selectors/config.selector';
 import { Recording } from '../../recorder.interfaces';
-import { Router } from '@angular/router';
-
 @Component({
   selector: 'app-upload-recording',
   standalone: true,
@@ -42,6 +49,9 @@ import { Router } from '@angular/router';
     MatIconModule,
     MatSelectModule,
     LetDirective,
+    WrittenOutLanguagePipe,
+    ReactiveFormsModule,
+    PushPipe,
   ],
   templateUrl: './upload-recording.component.html',
   styleUrl: './upload-recording.component.scss',
@@ -54,7 +64,14 @@ export class UploadRecordingComponent implements OnInit {
 
   asrServiceConfig$ = this.store.select(asrServiceConfig);
   asrSelection!: AsrServiceConfig;
-  language!: string;
+
+  whisperLanguages$ = this.store.select(
+    configSelectors.getSupportedASRLanguages
+  );
+
+  public formGroup: FormGroup = this.fb.group({
+    language: this.fb.control('', Validators.required),
+  });
 
   constructor(
     public dialogRef: MatDialogRef<UploadRecordingComponent>,
@@ -62,11 +79,13 @@ export class UploadRecordingComponent implements OnInit {
     public data: { title: string; recordings: Recording[] },
     public api: ApiService,
     public store: Store<AppState>,
-    private router: Router
+    private router: Router,
+    private fb: NonNullableFormBuilder
   ) {}
 
   async ngOnInit() {
-    this.selectInitalInputs();
+    // currently only whisper available, no need for selection field
+    // this.selectInitalInputs();
 
     const timer = setInterval(() => {
       this.checkReady();
@@ -92,12 +111,14 @@ export class UploadRecordingComponent implements OnInit {
     const languages: LanguageShort[] = change.value.languages;
 
     // choose same language again if it is possible for the new asrservice
-    const prev = languages.find((l) => l.code === this.language);
+    const prev = languages.find(
+      (l) => l.code === this.formGroup.value.language
+    );
     if (prev) {
-      this.language = prev.code;
+      this.formGroup.value.language = prev.code;
     } else if (languages.length > 0) {
       // choose first language (should always be possible)
-      this.language = languages[0].code;
+      this.formGroup.value.language = languages[0].code;
     }
   }
 
@@ -109,21 +130,26 @@ export class UploadRecordingComponent implements OnInit {
       );
       if (whisperConfig) {
         this.asrSelection = whisperConfig;
-        this.language = whisperConfig.languages[0].code;
+        // this.language = whisperConfig.languages[0].code;
       } else if (configs.length > 0) {
         this.asrSelection = configs[0];
-        this.language = configs[0].languages[0].code;
+        // this.language = configs[0].languages[0].code;
       }
     });
   }
 
   async onUploadRecording() {
+    if (!this.formGroup.value.language) {
+      this.formGroup.controls['language'].markAsTouched();
+      return;
+    }
+
     this.uploading = true;
 
     const newProject: ProjectEntity = await this.createProject(
       this.data.recordings[0],
       this.data.title,
-      this.language
+      this.formGroup.value.language
     );
 
     this.data.recordings.forEach((rec, i) => {

@@ -11,17 +11,15 @@
   </div>
   } @if (!loading) {
   <div class="head-wrapper">
-    <mat-form-field style="min-width: 300px">
+    <mat-form-field class="recording-title-field" style="min-width: 300px">
       <mat-label i18n="@@recorderRecordingTitleLabel"
         >Recording title</mat-label
       >
-      <input
-        matInput
-        placeholder="Aufnahmetitel"
-        [(ngModel)]="recordingTitle"
-        required
-      />
+      <input matInput [(ngModel)]="recordingTitle" required />
       <!-- value="Aufnahme vom {{ today | date }}" -->
+      <mat-error i18n="@@recorderRecordingTitleError"
+        >Recording title is required
+      </mat-error>
     </mat-form-field>
 
     <div class="infotext">
@@ -110,7 +108,6 @@
       }
     </div>
   </div>
-  <hr />
 
   <div class="all-media-wrapper">
     <div class="media-category-wrapper">
