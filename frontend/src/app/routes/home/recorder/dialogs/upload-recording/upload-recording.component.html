@@ -77,7 +77,7 @@
           <div class="content">
             <div class="title">
               <span class="header" i18n="@@uploadRecordingFileHeader">
-                @if(i ===0){ Metadata and main video } @else { Aditional Video }
+                @if(i ===0){ Main Video and Audio } @else { Additional Video }
               </span>
               <span class="subheader">
                 {{ recording.title }}
@@ -85,12 +85,18 @@
             </div>
             @if (recording.upload.result) {
             <!-- recording successfully uploaded -->
-            <div i18n="@@uploadRecordingSuccessfullyUploaded">
+            <div
+              class="upload-state"
+              i18n="@@uploadRecordingSuccessfullyUploaded"
+            >
               Successfully uploaded!
             </div>
             } @else if (recording.upload.error) {
             <!-- recording upload failed -->
-            <div i18n="@@uploadRecordingFailedWithError">
+            <div
+              class="upload-state error"
+              i18n="@@uploadRecordingFailedWithError"
+            >
               Failed with error: {{ recording.upload.error.error.message }}
             </div>
             } @else {
@@ -109,7 +115,9 @@
             </button>
           </div>
         </li>
-        }
+        @if (data.recordings.length - 1 !== i) {
+        <hr aria-hidden="true" />
+        } }
       </ul>
     </div>
 
@@ -125,9 +133,9 @@
     <div>
       <div class="infotext">
         <mat-icon svgIcon="info"></mat-icon>
-        <span i18n="@@uploadRecordingWaitingForUploadHint">
+        <p i18n="@@uploadRecordingWaitingForUploadHint">
           Please wait until all files have been uploaded.
-        </span>
+        </p>
       </div>
     </div>
 
@@ -136,10 +144,10 @@
     @if (uploadingError) { @if (data.recordings[0].upload.error) {
     <div class="infotext">
       <mat-icon svgIcon="info"></mat-icon>
-      <span i18n="@@uploadRecordingDownloadLocallyHint">
+      <p i18n="@@uploadRecordingDownloadLocallyHint">
         Download the videos manually and try to create the projects with the
         files manually.
-      </span>
+      </p>
     </div>
     <!-- TODO -->
     <!-- <button mat-flat-button color="accent">Try again!</button> -->
@@ -147,12 +155,12 @@
     }@else {
     <div class="infotext">
       <mat-icon svgIcon="info"></mat-icon>
-      <span i18n="@@uploadRecordingAdditionalVideoFailedHint">
+      <p i18n="@@uploadRecordingAdditionalVideoFailedHint">
         The project and the main file could be uploaded and created! However, a
         problem has occurred with an additional video. Check in the project
         details which video could not be uploaded and upload it manually if
         necessary.
-      </span>
+      </p>
     </div>
     <!-- TODO -->
     <!-- <button mat-flat-button color="accent">Try again!</button> -->
@@ -163,11 +171,11 @@
 
     <div class="infotext">
       <mat-icon svgIcon="info"></mat-icon>
-      <span i18n="@@uploadRecordingAllSuccessfulHint">
+      <p i18n="@@uploadRecordingAllSuccessfulHint">
         The project has been successfully created, you can now close this
         dialog! You will find the project in the project list, but it may still
         be being processed.
-      </span>
+      </p>
     </div>
     } }
   </div>
@@ -176,10 +184,10 @@
 
 <mat-dialog-actions>
   <button
-    mat-flat-button
+    mat-stroked-button
     [disabled]="!readyToUpload"
     (click)="onDownloadVideosLocally()"
-    color="accent"
+    color="primary"
     i18n="@@uploadRecordingDownloadFilesButton"
   >
     Download recordings locally

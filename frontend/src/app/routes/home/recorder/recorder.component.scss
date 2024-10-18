@@ -47,11 +47,16 @@
     .buttons {
       margin-left: auto;
       display: flex;
-      gap: 3px;
+      gap: 0.375rem;
       height: fit-content;
       align-items: center;
+
+      button:disabled {
+        background-color: var(--color-grey);
+      }
+
       .action-btn {
-        min-width: 150px;
+        min-width: 9.375rem;
       }
     }
   }
@@ -94,13 +99,4 @@
   min-height: 2.5rem;
   max-width: 16rem;
   align-self: center;
-}
-
-.recording {
-  height: 25px;
-  width: 25px;
-  margin: 5px;
-
-  border-radius: 50%;
-  background-color: red;
 }
