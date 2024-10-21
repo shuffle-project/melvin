@@ -13,7 +13,8 @@ import * as userTestActions from '../actions/user-test.actions';
 const storage = new StorageService();
 
 export interface EditorActiveUser {
-  id: string;
+  userId: string;
+  clientId: string;
   color: EditorUserColor;
 }
 
@@ -31,7 +32,7 @@ export interface EditorState {
   waveform: number[];
   isCaptionTextValidationEnabled: boolean;
 
-  spellchecking: 'enabled' | 'disabled';
+  spellchecking: boolean;
   showUsernames: boolean;
 }
 
@@ -54,8 +55,14 @@ export const initalState: EditorState = {
     false
   ) as boolean,
 
-  spellchecking: 'disabled', // TODO: move to localstorage?
-  showUsernames: true,
+  spellchecking: storage.getFromLocalStorage(
+    StorageKey.EDITOR_SPELLCHECKING,
+    true
+  ) as boolean,
+  showUsernames: storage.getFromLocalStorage(
+    StorageKey.EDITOR_SHOW_USERNAMES,
+    true
+  ) as boolean,
 };
 
 export const editorReducer = createReducer(

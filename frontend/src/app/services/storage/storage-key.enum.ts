@@ -8,6 +8,9 @@ export enum StorageKey {
   COLOR_MODE = 'color-mode',
   LANGUAGE_SETTING = 'language-setting',
 
+  EDITOR_SPELLCHECKING = 'editor-spellchecking',
+  EDITOR_SHOW_USERNAMES = 'editor-show-usernames',
+
   // viewer settings
   VIEWER_VIEW_SELECTION_ENABLED = 'viewer-view-selection-enabled',
   VIEWER_TRANSCRIPT_FONTSIZE = 'viewer-transcript-fontsize',

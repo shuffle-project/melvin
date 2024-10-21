@@ -4,7 +4,7 @@
   [matMenuTriggerData]="{ users: users }"
   [style.width.px]="width"
 >
-  @for (user of avatars; track user.name) {
+  @for (user of avatars; track trackByFn) {
   <app-avatar
     [outlineColor]="outlineColor"
     [editorView]="editorView"
@@ -18,7 +18,7 @@
 </div>
 <mat-menu #usersMenu="matMenu">
   <ng-template matMenuContent let-users="users">
-    @for (user of users; track user.name) {
+    @for (user of users; track trackByFn) {
     <div class="list-user">
       <app-avatar [user]="user" [editorView]="editorView"></app-avatar>
       <span class="name">{{ user.name }}</span>

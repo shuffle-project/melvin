@@ -24,6 +24,7 @@ import {
   Subject,
   combineLatest,
   filter,
+  firstValueFrom,
   takeUntil,
 } from 'rxjs';
 import { EditorUser } from '../../../../interfaces/editor-user.interface';
@@ -35,6 +36,8 @@ import { CustomWord } from './schema/word.schema';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/store/app.state';
 import * as editorSelector from 'src/app/store/selectors/editor.selector';
+import { selectQueryParams } from 'src/app/store/selectors/router.selectors';
+import { query } from '@angular/animations';
 
 enum CLIENT_STATUS {
   CONNECTING,
@@ -160,14 +163,14 @@ export class TiptapEditorComponent implements AfterViewInit, OnInit, OnDestroy {
         console.log('onConnect');
         this.status = CLIENT_STATUS.CONNECTED;
       },
-      onAwarenessChange: (awareness) => {
-        console.log('onAwarenessChange');
-        console.log(awareness.states);
-      },
-      onAwarenessUpdate: (awareness) => {
-        console.log('onAwarenessUpdate');
-        console.log(awareness.states);
-      },
+      // onAwarenessChange: (awareness) => {
+      //   console.log('onAwarenessChange');
+      //   console.log(awareness.states);
+      // },
+      // onAwarenessUpdate: (awareness) => {
+      //   console.log('onAwarenessUpdate');
+      //   console.log(awareness.states);
+      // },
       onDisconnect: () => {
         console.log('onDisconnect');
         this.editor?.setEditable(false);
@@ -205,17 +208,23 @@ export class TiptapEditorComponent implements AfterViewInit, OnInit, OnDestroy {
     }, 0);
   }
 
-  _initEditor() {
+  async _initEditor() {
     this.captions = document.getElementById('captions') as HTMLDivElement;
 
     const user = this.activeUsers[0];
+
+    const queryParams = await firstValueFrom(
+      this.store.select(selectQueryParams)
+    );
 
     this.editor = new Editor({
       extensions: [
         Document,
         Text,
         CustomParagraph(this.injector),
-        CustomWord(this.injector),
+        CustomWord(this.injector).configure({
+          showWordBorders: queryParams['debug'],
+        }),
         UserExtension(this.injector).configure({
           userId: user.id,
         }),
@@ -231,37 +240,39 @@ export class TiptapEditorComponent implements AfterViewInit, OnInit, OnDestroy {
         Collaboration.configure({
           document: this.provider.document,
         }),
-        CollaborationCursor.configure({
-          provider: this.provider,
-          user: {
-            userId: user.id,
-            name: user.name,
-            colorName: user.color,
-          },
-          render: (user) => {
-            const cursor = document.createElement('span');
-            cursor.classList.add('collaboration-cursor__caret');
-            const color = `rgb(var(--color-editor-user-${user['colorName']}-rgb))`;
-            cursor.setAttribute('style', `border-color: ${color}`);
+        // review auskommentiert wegen dem flackern
+        // CollaborationCursor.configure({
+        //   provider: this.provider,
+        //   user: {
+        //     userId: user.id,
+        //     name: user.name,
+        //     colorName: user.color,
+        //   },
+        //   render: (user) => {
+        //     const cursor = document.createElement('span');
+        //     cursor.classList.add('collaboration-cursor__caret');
+        //     const color = `rgb(var(--color-editor-user-${user['colorName']}-rgb))`;
+        //     cursor.setAttribute('style', `border-color: ${color}`);
 
-            if (this.showUsernames) {
-              const label = document.createElement('div');
-              label.classList.add('collaboration-cursor__label');
-              label.setAttribute('style', `background-color: ${color}`);
-              label.insertBefore(document.createTextNode(user['name']), null);
-              cursor.insertBefore(label, null);
-            }
+        //     if (this.showUsernames) {
+        //       const label = document.createElement('div');
+        //       label.classList.add('collaboration-cursor__label');
+        //       label.setAttribute('style', `background-color: ${color}`);
+        //       label.insertBefore(document.createTextNode(user['name']), null);
+        //       cursor.insertBefore(label, null);
+        //     }
 
-            return cursor;
-          },
-          selectionRender: (user) => {
-            const color = `rgba(var(--color-editor-user-${user['colorName']}-rgb), 0.7)`;
-            return {
-              style: `background-color: ${color}`,
-              class: 'ProseMirror-yjs-selection',
-            };
-          },
-        }),
+        //     return cursor;
+        //   },
+        //   selectionRender: (user) => {
+        //     const color = `rgba(var(--color-editor-user-${user['colorName']}-rgb), 0.7)`;
+        //     return {
+        //       style: `background-color: ${color}`,
+        //       class: 'ProseMirror-yjs-selection',
+        //     };
+        //   },
+        // }),
+        // review
       ],
       onUpdate: ({ editor }) => {
         if (!this.captions) return;

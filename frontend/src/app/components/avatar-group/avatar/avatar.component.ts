@@ -3,6 +3,7 @@ import { LogoComponent } from '../../logo/logo.component';
 
 export interface AvatarUser {
   name: string;
+  clientId?: string;
   color?: string;
   [key: string]: any;
 }

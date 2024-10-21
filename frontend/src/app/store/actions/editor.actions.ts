@@ -32,7 +32,9 @@ export const changeSpeedFromEditor = createAction(
 
 export const updateActiveUsers = createAction(
   '[FROM WS] Overwrite active users from WS event',
-  props<{ activeUsers: { id: string; color: EditorUserColor }[] }>()
+  props<{
+    activeUsers: { userId: string; clientId: string; color: EditorUserColor }[];
+  }>()
 );
 
 export const changeVolumeFromVideoComponent = createAction(
@@ -130,8 +132,8 @@ export const resetEditorState = createAction(
 );
 
 export const changeSpellchecking = createAction(
-  '[EDITOR SETTINGS COMPONENT] Change spellchecking to enabled or disabled',
-  props<{ spellchecking: 'enabled' | 'disabled' }>()
+  '[EDITOR SETTINGS COMPONENT] Change spellchecking ',
+  props<{ spellchecking: boolean }>()
 );
 
 export const toggleShowUsernames = createAction(

@@ -85,7 +85,7 @@ export class TiptapParagraphComponent
       .select(editorSelector.selectSpellchecking)
       .pipe(takeUntil(this.destroy$$))
       .subscribe((selectSpellchecking) => {
-        this.spellchecking = selectSpellchecking === 'enabled' ? true : false;
+        this.spellchecking = selectSpellchecking;
       });
   }
 

@@ -16,6 +16,7 @@ export interface DecodedToken extends JwtPayload {
 
 export interface AuthUser {
   id: string;
+  jwtId: string;
   role: UserRole;
 }
 

@@ -351,6 +351,7 @@ export class AuthService {
 
     return {
       id: user._id.toString(),
+      jwtId: v4(),
       role: user.role,
     };
   }

@@ -4,14 +4,11 @@ import { AvatarUser, AvatarComponent } from './avatar/avatar.component';
 import { MatMenuModule } from '@angular/material/menu';
 
 @Component({
-    selector: 'app-avatar-group',
-    templateUrl: './avatar-group.component.html',
-    styleUrls: ['./avatar-group.component.scss'],
-    standalone: true,
-    imports: [
-    MatMenuModule,
-    AvatarComponent
-],
+  selector: 'app-avatar-group',
+  templateUrl: './avatar-group.component.html',
+  styleUrls: ['./avatar-group.component.scss'],
+  standalone: true,
+  imports: [MatMenuModule, AvatarComponent],
 })
 export class AvatarGroupComponent {
   @Input() users!: AvatarUser[];
@@ -27,6 +24,10 @@ export class AvatarGroupComponent {
       default:
         return 106;
     }
+  }
+
+  get trackByFn(): (index: number, user: AvatarUser) => string {
+    return (index: number, user: AvatarUser) => user.clientId || user.name;
   }
 
   get avatars(): AvatarUser[] {

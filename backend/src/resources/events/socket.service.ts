@@ -9,11 +9,13 @@ import {
   EventParams,
   ServerToClientEvents,
 } from './events.interfaces';
+import { v4 } from 'uuid';
 
 export interface AuthorizedWebSocket extends WebSocket {
   data?: {
     isAuthorised: boolean;
     userId: string;
+    clientId: string;
   };
 }
 
@@ -23,8 +25,12 @@ export class SocketService {
 
   private clients: Set<AuthorizedWebSocket> = new Set();
 
-  // TODO: user kann mehrere sockets haben ?
-  private users: Map<string, AuthorizedWebSocket> = new Map();
+  private users: Array<{
+    userId: string;
+    jwtid: string;
+    socket: AuthorizedWebSocket;
+  }> = [];
+  // private users: Map<string, AuthorizedWebSocket> = new Map();
   private rooms: Map<string, AuthorizedWebSocket[]> = new Map();
 
   constructor(private logger: CustomLogger, private authService: AuthService) {
@@ -33,6 +39,15 @@ export class SocketService {
 
   init(server: Server) {
     this.server = server;
+
+    setInterval(() => {
+      this.clients.forEach((client) => {
+        if (client.readyState === WebSocket.CLOSED) {
+          this.logger.warn('cleanup disconnected socket', client.data);
+          this.handleDisconnect(client);
+        }
+      });
+    }, 60000);
   }
 
   handleConnection(client: WebSocket) {
@@ -45,8 +60,12 @@ export class SocketService {
     this.clients.delete(client);
     if (this.isClientAuthorised(client)) {
       const rooms = this.getClientRooms(client);
-      rooms.map((room) => this.leave(room, client.data.userId));
-      this.users.delete(client.data.userId);
+      rooms.map((room) => this.leave(room, client));
+      this.users.splice(
+        this.users.findIndex((o) => o.socket === client),
+        1,
+      );
+      // this.users.delete(client.data.userId);
     }
   }
 
@@ -87,10 +106,16 @@ export class SocketService {
           (client as AuthorizedWebSocket).data = {
             isAuthorised: true,
             userId,
+            clientId: v4(),
           };
-          this.users.set(userId, client as AuthorizedWebSocket);
+          this.users.push({
+            userId,
+            jwtid: dtoken.jti,
+            socket: client as AuthorizedWebSocket,
+          });
+          // this.users.set(userId, client as AuthorizedWebSocket);
           this.send(client, 'connection:authorized');
-          this.join(`user:${userId}`, userId);
+          this.join(`user:${userId}`, client as AuthorizedWebSocket);
           return;
         } catch (err) {
           this.logger.warn(err.message, err);
@@ -116,11 +141,12 @@ export class SocketService {
     }
   }
 
-  join(roomName: string, userId: string) {
-    const socket = this.users.get(userId);
+  join(roomName: string, socket: AuthorizedWebSocket) {
+    // const socket = this.users.find((o) => o.jwtid === jwtid)?.socket;
+    // const socket = this.users.get(userId);
 
     if (!socket) {
-      throw new Error('user_socket_not_found');
+      throw new Error('user_socket_missing');
     }
 
     if (!this.rooms.has(roomName)) {
@@ -130,28 +156,31 @@ export class SocketService {
     room.push(socket);
   }
 
-  leave(roomName: string, userId: string) {
-    const socket = this.users.get(userId);
+  getSocket(userId: string, jwtId: string) {
+    return this.users.find((o) => o.userId === userId && o.jwtid === jwtId)
+      ?.socket;
+  }
+
+  leave(roomName: string, socket: AuthorizedWebSocket) {
+    // const socket = this.getSocket(userId, jwtid);
+    // const socket = this.users.get(userId);
 
     if (!socket) {
-      // TODO
-      this.logger.warn("user's socket not found", { roomName, userId });
-      // Ist das werfen eines fehlers hier benötiogt? also wenn der user socket schon weg ist, ist ja ok?
-      // throw new Error('user_socket_not_found');
+      throw new Error('user_socket_missing');
+    }
+
+    const room = this.rooms.get(roomName);
+
+    if (!room) {
+      throw new Error('room_not_found');
+    }
+
+    const updatedRoom = room.filter((o) => o !== socket);
+
+    if (updatedRoom.length === 0) {
+      this.rooms.delete(roomName);
     } else {
-      const room = this.rooms.get(roomName);
-
-      if (!room) {
-        throw new Error('room_not_found');
-      }
-
-      const updatedRoom = room.filter((o) => o !== socket);
-
-      if (updatedRoom.length === 0) {
-        this.rooms.delete(roomName);
-      } else {
-        this.rooms.set(roomName, updatedRoom);
-      }
+      this.rooms.set(roomName, updatedRoom);
     }
   }
 

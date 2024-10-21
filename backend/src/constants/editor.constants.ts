@@ -11,7 +11,8 @@ export enum EditorUserColor {
 }
 
 export interface EditorActiveUser {
-  id: string;
+  userId: string;
+  clientId: string;
   color: EditorUserColor;
 }
 

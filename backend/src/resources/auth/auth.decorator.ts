@@ -12,6 +12,7 @@ export const User = createParamDecorator(
     return {
       role: req.user.role,
       id: req.user.id,
+      jwtId: req.user.jti,
     };
   },
 );

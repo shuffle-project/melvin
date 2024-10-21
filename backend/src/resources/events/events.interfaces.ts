@@ -31,11 +31,13 @@ export interface ServerToClientEvents {
   // Project
   'project:user-joined': (payload: {
     userId: string;
-    activeUsers: { id: string; color: EditorUserColor }[];
+    clientId: string;
+    activeUsers: { userId: string; clientId: string; color: EditorUserColor }[];
   }) => void;
   'project:user-left': (payload: {
     userId: string;
-    activeUsers: { id: string; color: EditorUserColor }[];
+    clientId: string;
+    activeUsers: { userId: string; clientId: string; color: EditorUserColor }[];
   }) => void;
   'project:created': (payload: { project: ProjectEntity }) => void;
   'project:updated': (payload: { project: ProjectEntity }) => void;

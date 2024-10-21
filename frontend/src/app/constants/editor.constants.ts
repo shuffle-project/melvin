@@ -19,6 +19,7 @@ export const AVAILABLE_EDITOR_USER_COLORS = Object.values(
 
 export const EDITOR_USER_LOADING: EditorUser = {
   id: '',
+  clientId: '',
   name: 'Lädt...',
   email: '',
   role: '',
@@ -28,6 +29,7 @@ export const EDITOR_USER_LOADING: EditorUser = {
 export const EDITOR_USER_UNKNOWN: EditorUser = {
   name: 'Unbekannt',
   role: UserRole.USER,
+  clientId: '',
   id: '',
   email: '',
   color: EditorUserColor.UNKNOWN,

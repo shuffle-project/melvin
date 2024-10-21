@@ -3,12 +3,18 @@ import { Mark, mergeAttributes } from '@tiptap/core';
 import { TiptapEditorService } from '../tiptap-editor.service';
 import { randomUUID } from 'crypto';
 
-export const CustomWord = (injector: Injector) =>
-  Mark.create({
+export const CustomWord = (injector: Injector) => {
+  return Mark.create({
     name: 'word',
     exitable: true,
     spanning: false,
     whitespace: 'normal',
+
+    addOptions() {
+      return {
+        showWordBorders: false,
+      };
+    },
 
     addAttributes() {
       return {
@@ -109,7 +115,7 @@ export const CustomWord = (injector: Injector) =>
       const end = HTMLAttributes['data-end'];
 
       if (start != undefined && end != undefined) {
-        // // fixme robuster machen, wenn undefined mach irgendwas was sinn ergbit
+        // fixme robuster machen, wenn undefined mach irgendwas was sinn ergbit
         const timeStart = Math.floor(start / 1000);
         const timeEnd = Math.floor(end / 1000 ?? start);
         const classes = new Array(timeEnd - timeStart + 1)
@@ -117,18 +123,20 @@ export const CustomWord = (injector: Injector) =>
           .map((_, i) => `time-${timeStart + i}`);
         attrs.class = classes.join(' ');
       }
-      // TODO
-      // // debug border
-      if (!attrs.style) {
-        attrs.style =
-          'border-left: 1px solid black; border-right: 1px solid black;';
-        attrs.style =
-          'border-left: 1px solid black; border-right: 1px solid black;';
-      } else {
-        attrs.style +=
-          '; border-left: 1px solid black; border-right: 1px solid black;';
-        attrs.style +=
-          '; border-left: 1px solid black; border-right: 1px solid black;';
+
+      if (this.options.showWordBorders) {
+        // debug border
+        if (!attrs.style) {
+          attrs.style =
+            'border-left: 1px solid black; border-right: 1px solid black;';
+          attrs.style =
+            'border-left: 1px solid black; border-right: 1px solid black;';
+        } else {
+          attrs.style +=
+            '; border-left: 1px solid black; border-right: 1px solid black;';
+          attrs.style +=
+            '; border-left: 1px solid black; border-right: 1px solid black;';
+        }
       }
 
       // attrs.style = attrs.style
@@ -138,3 +146,4 @@ export const CustomWord = (injector: Injector) =>
       return ['span', mergeAttributes(HTMLAttributes, attrs), 0];
     },
   });
+};

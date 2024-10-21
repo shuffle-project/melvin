@@ -65,6 +65,7 @@ export class EventsGateway
         const room = `project:${project._id.toString()}`;
         this.socketService.broadcast(room, 'project:user-left', {
           userId: (client as AuthorizedWebSocket).data.userId,
+          clientId: (client as AuthorizedWebSocket).data.clientId,
           activeUsers: this._getActiveUsers(room, project),
         });
       }
@@ -88,7 +89,8 @@ export class EventsGateway
   ): EditorActiveUser[] {
     const clients = this.socketService.getRoomClients(room);
     return clients.map((client) => ({
-      id: client.data.userId,
+      userId: client.data.userId,
+      clientId: client.data.clientId,
       color: this._getUserColor(client.data.userId, project),
     }));
   }
@@ -127,20 +129,24 @@ export class EventsGateway
 
   async joinProjectRoom(authUser: AuthUser, project: LeanProjectDocument) {
     const room = `project:${project._id.toString()}`;
-    this.socketService.join(room, authUser.id);
+    const socket = this.socketService.getSocket(authUser.id, authUser.jwtId);
+    this.socketService.join(room, socket);
 
     this.socketService.broadcast(room, 'project:user-joined', {
       userId: authUser.id,
+      clientId: socket.data.clientId,
       activeUsers: this._getActiveUsers(room, project),
     });
   }
 
   async leaveProjectRoom(authUser: AuthUser, project: LeanProjectDocument) {
     const room = `project:${project._id.toString()}`;
-    this.socketService.leave(room, authUser.id);
+    const socket = this.socketService.getSocket(authUser.id, authUser.jwtId);
+    this.socketService.leave(room, socket);
 
     this.socketService.broadcast(room, 'project:user-left', {
       userId: authUser.id,
+      clientId: socket.data.clientId,
       activeUsers: this._getActiveUsers(room, project),
     });
   }

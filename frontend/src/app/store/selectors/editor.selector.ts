@@ -78,13 +78,14 @@ export const selectActiveUsers = createSelector(
 
     const editorUsers: EditorUser[] = activeUsers.map((activeUser) => {
       const userEntity = state.project?.users.find(
-        (user) => user.id === activeUser.id
+        (user) => user.id === activeUser.userId
       );
 
       // if project is not yet loaded, show a "Load..."- placeholder instead
       return userEntity
         ? {
             ...userEntity,
+            clientId: activeUser.clientId,
             color: activeUser.color,
             // color:
             // authUserId === activeUser.id

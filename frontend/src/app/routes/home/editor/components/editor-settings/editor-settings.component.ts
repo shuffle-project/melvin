@@ -70,9 +70,9 @@ export class EditorSettingsComponent implements OnInit, OnDestroy {
     );
   }
 
-  onChangeSpellchecking(change: MatSelectChange) {
+  onChangeSpellchecking(change: MatCheckboxChange) {
     this.store.dispatch(
-      editorActions.changeSpellchecking({ spellchecking: change.value })
+      editorActions.changeSpellchecking({ spellchecking: change.checked })
     );
   }
 }
