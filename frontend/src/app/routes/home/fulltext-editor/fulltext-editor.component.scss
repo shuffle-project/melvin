@@ -90,7 +90,9 @@
 
 .content {
   display: flex;
-  padding: 20px 0px 0px 20px;
+  // padding: 20px 0px 0px 20px;
+  padding: 1rem;
+  margin-top: 0.875rem;
 
   flex-direction: row;
   flex-grow: 1;

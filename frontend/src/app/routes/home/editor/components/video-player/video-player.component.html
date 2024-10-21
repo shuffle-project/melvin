@@ -48,14 +48,7 @@ aria-label="Start or stop video"
     ></mat-icon>
   </button>
   <ng-container class="volume-container">
-    <mat-slider
-      class="volume black"
-      min="0"
-      max="1"
-      step="0.05"
-      #ngSlider
-      showTickMarks="true"
-    >
+    <mat-slider class="volume black" min="0" max="1" step="0.05" #ngSlider>
       <!--  (valueChange)="onChangeVolume($event)" is buggy -->
       <!-- (dragEnd)="onDragEnd($event)" same-->
       <input

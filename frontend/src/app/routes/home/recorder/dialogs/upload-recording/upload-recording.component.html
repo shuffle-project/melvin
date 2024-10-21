@@ -182,7 +182,7 @@
   }
 </mat-dialog-content>
 
-<mat-dialog-actions>
+<mat-dialog-actions align="end">
   <button
     mat-stroked-button
     [disabled]="!readyToUpload"
@@ -197,9 +197,10 @@
 
   <button
     color="warn"
-    mat-flat-button
+    mat-stroked-button
     (click)="onClose()"
     i18n="@@uploadRecordingDiscardButton"
+    class="discard-button"
   >
     Discard and close
   </button>
@@ -218,7 +219,7 @@
 
   <button
     color="primary"
-    mat-stroked-button
+    mat-flat-button
     [disabled]="!uploadingDone"
     (click)="onClose(true)"
     i18n="@@uploadRecordingToProjectlistButton"
