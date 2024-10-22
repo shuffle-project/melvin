@@ -44,7 +44,9 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { LetDirective, PushPipe } from '@ngrx/component';
 import { DeleteConfirmationService } from 'src/app/components/delete-confirmation-dialog/delete-confirmation.service';
 import { DialogProjectTranscriptionComponent } from 'src/app/modules/project-dialogs/dialog-project-transcription/dialog-project-transcription.component';
+import { MediaCategoryPipe } from 'src/app/pipes/media-category-pipe/media-category.pipe';
 import { WrittenOutLanguagePipe } from 'src/app/pipes/written-out-language-pipe/written-out-language.pipe';
+import { SubtitleFormat } from 'src/app/services/api/entities/transcription.entity';
 import { HeaderComponent } from '../../../components/header/header.component';
 import { CaptionsComponent } from '../editor/components/captions/captions.component';
 import { EditorSettingsComponent } from '../editor/components/editor-settings/editor-settings.component';
@@ -56,10 +58,6 @@ import { WaveformComponent } from '../editor/components/waveform/waveform.compon
 import { DialogHelpEditorComponent } from '../editor/dialog-help-editor/dialog-help-editor.component';
 import { MediaService } from '../editor/services/media/media.service';
 import { TiptapEditorComponent } from './tiptap-editor/tiptap-editor.component';
-import { MatSelectModule } from '@angular/material/select';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { SubtitleFormat } from 'src/app/services/api/entities/transcription.entity';
 
 @Component({
   selector: 'app-editor',
@@ -90,6 +88,7 @@ import { SubtitleFormat } from 'src/app/services/api/entities/transcription.enti
     FeatureEnabledPipe,
     TiptapEditorComponent,
     WrittenOutLanguagePipe,
+    MediaCategoryPipe,
   ],
 })
 export class FulltextEditorComponent implements OnInit, OnDestroy {

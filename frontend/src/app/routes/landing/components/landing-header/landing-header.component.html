@@ -40,8 +40,12 @@
           </button>
 
           @if(isLoggedIn$ | ngrxPush) {
-          <a routerLink="/home/projects" mat-flat-button color="primary"
-            >Zu den Projekten</a
+          <a
+            i18n="@@landingHeaderToTheProjectsButton"
+            routerLink="/home/projects"
+            mat-flat-button
+            color="primary"
+            >To the projects</a
           >
 
           } @else {

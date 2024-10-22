@@ -44,7 +44,6 @@ import { ActivityEntity } from 'src/app/services/api/entities/activity.entity';
 import { AppState } from 'src/app/store/app.state';
 import { AvatarGroupComponent } from '../../../components/avatar-group/avatar-group.component';
 import { DeleteConfirmationService } from '../../../components/delete-confirmation-dialog/delete-confirmation.service';
-import { FooterComponent } from '../../../components/footer/footer.component';
 import { HeaderComponent } from '../../../components/header/header.component';
 import { ShareProjectDialogComponent } from '../../../components/share-project-dialog/share-project-dialog.component';
 import { DurationPipe } from '../../../pipes/duration-pipe/duration.pipe';
@@ -84,7 +83,6 @@ import { DialogCreateProjectComponent } from './dialog-create-project/dialog-cre
     AvatarGroupComponent,
     MatMenuModule,
     MatDividerModule,
-    FooterComponent,
     PushPipe,
     FormatDatePipe,
     DurationPipe,

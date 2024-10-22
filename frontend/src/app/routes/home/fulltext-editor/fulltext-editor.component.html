@@ -60,7 +60,8 @@
           @if (projectMedia) { @for (video of projectMedia.videos; track $index)
           {
           <button mat-menu-item (click)="onDownloadVideo(video)">
-            {{ video.title }} (.{{ video.extension }})
+            {{ video.category | mediaCategory }}
+            @if (video.title) { [{{ video.title }}] } (.{{ video.extension }})
           </button>
           } }
         </ng-container>

@@ -29,12 +29,6 @@
       <trans-unit id="activityProjectUserLeftDescription" datatype="html">
         <source><x id="PH" equiv-text="details.user.name"/> left the project.</source>
       </trans-unit>
-      <trans-unit id="footerImprintLinkLabel" datatype="html">
-        <source><x id="START_LINK" ctype="x-a" equiv-text="&apos;]&quot;&gt;"/>Imprint<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/></source>
-      </trans-unit>
-      <trans-unit id="footerContactLinktLabel" datatype="html">
-        <source><x id="START_LINK" ctype="x-a" equiv-text="&gt;"/>Contact<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/></source>
-      </trans-unit>
       <trans-unit id="headerNotificationMenuTitle" datatype="html">
         <source> Notifications </source>
       </trans-unit>
@@ -690,10 +684,7 @@
         <source> The project and the main file could be uploaded and created! However, a problem has occurred with an additional video. Check in the project details which video could not be uploaded and upload it manually if necessary. </source>
       </trans-unit>
       <trans-unit id="uploadRecordingAllSuccessfulHint" datatype="html">
-        <source> The project has been successfully created, you can now close this dialogue close this dialogue! You will find the project in the project list, but it may still be possibly still being processed. </source>
-      </trans-unit>
-      <trans-unit id="uploadRecordingAsrServiceLabel" datatype="html">
-        <source>ASR Service</source>
+        <source> The project has been successfully created, you can now close this dialog! You will find the project in the project list, but it may still be being processed. </source>
       </trans-unit>
       <trans-unit id="uploadRecordingDiscardButton" datatype="html">
         <source> Discard and close </source>
@@ -708,7 +699,7 @@
         <source> Failed with error: <x id="INTERPOLATION" equiv-text="{{ recording.upload.error.error.message }}"/> </source>
       </trans-unit>
       <trans-unit id="uploadRecordingFileHeader" datatype="html">
-        <source><x id="START_BLOCK_IF" equiv-text="Metadata and main v"/> Metadata and main video <x id="CLOSE_BLOCK_IF" equiv-text="}"/><x id="START_BLOCK_ELSE" equiv-text="@else {"/> Aditional Video <x id="CLOSE_BLOCK_ELSE" equiv-text="}"/></source>
+        <source><x id="START_BLOCK_IF" equiv-text="Main Video and Audi"/> Main Video and Audio <x id="CLOSE_BLOCK_IF" equiv-text="}"/><x id="START_BLOCK_ELSE" equiv-text="@else {"/> Additional Video <x id="CLOSE_BLOCK_ELSE" equiv-text="}"/></source>
       </trans-unit>
       <trans-unit id="uploadRecordingFilesProcessingHint" datatype="html">
         <source> The files are being processed, please wait until all files are ready. </source>
@@ -1486,6 +1477,30 @@
       </trans-unit>
       <trans-unit id="landingHeaderToggleDarkmodeToggleMenuButton" datatype="html">
         <source>Open darkmode menu</source>
+      </trans-unit>
+      <trans-unit id="playerTranscriptAutomaticScrollLabelMobile" datatype="html">
+        <source> Auto scroll </source>
+      </trans-unit>
+      <trans-unit id="recorderRecordingTitleError" datatype="html">
+        <source>Recording title is required </source>
+      </trans-unit>
+      <trans-unit id="uploadRecordingASRHeader" datatype="html">
+        <source>Automatic trancription</source>
+      </trans-unit>
+      <trans-unit id="uploadRecordingLanguageError" datatype="html">
+        <source> Language is required </source>
+      </trans-unit>
+      <trans-unit id="uploadRecordingLanguageHint" datatype="html">
+        <source>Please select the main language of the recording </source>
+      </trans-unit>
+      <trans-unit id="uploadRecordingToProjectlistButton" datatype="html">
+        <source> To Projectlist </source>
+      </trans-unit>
+      <trans-unit id="helpDialogExplanation" datatype="html">
+        <source> This application is currently under development. Unexpected errors may therefore occur. You can find more information on the <x id="START_LINK" ctype="x-a" equiv-text="&lt;a href=&quot;https://shuffle-projekt.de/&quot;&gt;"/>SHUFFLE research project website<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/>. If you have any feedback or questions, you will also find a contact option there. </source>
+      </trans-unit>
+      <trans-unit id="landingHeaderToTheProjectsButton" datatype="html">
+        <source>To the projects</source>
       </trans-unit>
     </body>
   </file>
