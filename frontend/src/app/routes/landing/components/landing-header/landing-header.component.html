@@ -1,14 +1,17 @@
 <header>
   <mat-toolbar class="toolbar">
     <app-logo class="clickable" [routerLink]="['/']" />
+
     <nav>
       <ul>
         <div class="links">
+          @if ('tutorial' | featureEnabled) {
           <li>
             <a routerLink="/tutorial" i18n="@@landingHeaderTutorialLinkLabel">
               Tutorial
             </a>
           </li>
+          } @if (('documentation' | featureEnabled)) {
           <li>
             <a
               routerLink="/documentation"
@@ -17,6 +20,7 @@
               Documentation
             </a>
           </li>
+          }
         </div>
         <div class="right-side-wrapper">
           <button
@@ -35,6 +39,12 @@
             }
           </button>
 
+          @if(isLoggedIn$ | ngrxPush) {
+          <a routerLink="/home/projects" mat-flat-button color="primary"
+            >Zu den Projekten</a
+          >
+
+          } @else {
           <button
             (click)="onOpenLoginDialog()"
             mat-flat-button
@@ -43,6 +53,8 @@
           >
             Login
           </button>
+
+          }
         </div>
       </ul>
     </nav>

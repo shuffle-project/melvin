@@ -11,9 +11,12 @@
     <li>
       <a routerLink="/privacy">Datenschutzerklärung</a>
     </li>
+
+    @if ('documentation' | featureEnabled) {
     <li>
       <a routerLink="/documentation">Dokumentation</a>
     </li>
+    }
     <li>
       <a routerLink="/accessibility-statement"
         >Erklärung zur Barrierefreiheit</a
@@ -35,18 +38,22 @@
     <li>
       <a routerLink="/sitemap">Sitemap</a>
     </li>
+    @if ('tutorial' | featureEnabled) {
     <li>
       <a routerLink="/tutorial">Tutorial</a>
     </li>
+    }
   </ul>
   } @else {
   <ul>
     <li>
       <a routerLink="/accessibility-statement">Accessibility statement</a>
     </li>
+    @if ('documentation' | featureEnabled) {
     <li>
       <a routerLink="/documentation">Documentation</a>
     </li>
+    }
     <li>
       <a routerLink="/imprint">Imprint</a>
     </li>
@@ -59,9 +66,11 @@
     <li>
       <a routerLink="/sitemap">Sitemap</a>
     </li>
+    @if ('tutorial' | featureEnabled) {
     <li>
       <a routerLink="/tutorial">Tutorial</a>
     </li>
+    }
   </ul>
   }
 </div>

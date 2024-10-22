@@ -59,6 +59,7 @@ import {
 import * as projectsActions from '../../../store/actions/projects.actions';
 import * as authSelectors from '../../../store/selectors/auth.selector';
 import * as projectsSelectors from '../../../store/selectors/projects.selector';
+import { LandingFooterComponent } from '../../landing/components/landing-footer/landing-footer.component';
 import { DialogCreateProjectComponent } from './dialog-create-project/dialog-create-project/dialog-create-project.component';
 @Component({
   selector: 'app-project-list',
@@ -94,6 +95,7 @@ import { DialogCreateProjectComponent } from './dialog-create-project/dialog-cre
     WrittenOutLanguagePipe,
     ActivityComponent,
     CdkMenuModule,
+    LandingFooterComponent,
   ],
 })
 export class ProjectListComponent implements OnInit, AfterViewInit, OnDestroy {

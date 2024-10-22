@@ -16,6 +16,7 @@ import * as configSelector from '../../store/selectors/config.selector';
 import * as notificationsSelectors from '../../store/selectors/notifications.selector';
 import { NotificationComponent } from '../notification/notification.component';
 
+import { MatDivider } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { LetDirective, PushPipe } from '@ngrx/component';
@@ -49,6 +50,7 @@ import { LogoComponent } from '../logo/logo.component';
     MatTooltipModule,
     PushPipe,
     FeatureEnabledPipe,
+    MatDivider,
   ],
 })
 export class HeaderComponent implements OnDestroy, OnInit {

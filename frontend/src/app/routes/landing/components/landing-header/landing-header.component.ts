@@ -5,11 +5,13 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { RouterLink } from '@angular/router';
-import { LetDirective } from '@ngrx/component';
+import { LetDirective, PushPipe } from '@ngrx/component';
 import { Store } from '@ngrx/store';
 import { LogoComponent } from 'src/app/components/logo/logo.component';
+import { FeatureEnabledPipe } from 'src/app/pipes/feature-enabled-pipe/feature-enabled.pipe';
 import { ColorTheme } from 'src/app/store/reducers/config.reducer';
 import * as configActions from '../../../../store/actions/config.actions';
+import * as authSelector from '../../../../store/selectors/auth.selector';
 import * as configSelector from '../../../../store/selectors/config.selector';
 import { LoginDialogComponent } from './components/login-dialog/login-dialog.component';
 @Component({
@@ -23,6 +25,8 @@ import { LoginDialogComponent } from './components/login-dialog/login-dialog.com
     MatIconModule,
     MatMenuModule,
     LetDirective,
+    FeatureEnabledPipe,
+    PushPipe,
   ],
   templateUrl: './landing-header.component.html',
   styleUrl: './landing-header.component.scss',
@@ -32,6 +36,7 @@ export class LandingHeaderComponent {
 
   public colorThemeENUM = ColorTheme;
   public colorTheme$ = this.store.select(configSelector.colorTheme);
+  public isLoggedIn$ = this.store.select(authSelector.selectIsLoggedIn);
 
   constructor(private dialog: MatDialog, private store: Store) {
     this.colorTheme$.subscribe((colorTheme) => {
