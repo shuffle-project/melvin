@@ -160,10 +160,20 @@
         <mat-divider />
         } @if ('documentation' | featureEnabled) {
 
-        <a routerLink="/documentation" mat-menu-item>Documentation</a>
+        <a
+          i18n="@@headerMenuDocumentationButton"
+          routerLink="/documentation"
+          mat-menu-item
+          >Documentation</a
+        >
         } @if (('tutorial' | featureEnabled)) {
 
-        <a routerLink="/tutorial" mat-menu-item>Tutorial</a>
+        <a
+          i18n="@@headerMenuTutorialButton"
+          routerLink="/tutorial"
+          mat-menu-item
+          >Tutorial</a
+        >
         }
       </mat-menu>
     </div>

@@ -22,7 +22,7 @@ export interface DeleteConfirmData {
   level: DeleteConfirmLevel;
   subject: string;
   description?: string;
-  type?: 'delete' | 'leave' | 'deleteTranscription';
+  type?: 'delete' | 'leave' | 'deleteTranscription' | 'deleteAccount';
 }
 
 export interface DeleteConfirmResult {
@@ -151,10 +151,9 @@ export class DeleteConfirmationService implements OnDestroy {
   async deleteAccount(): Promise<boolean> {
     const isConfirmed = await this.confirm({
       level: DeleteConfirmLevel.LOW, // TODO make it high with a security question or password confirmation
-      type: 'delete',
+      type: 'deleteAccount',
       subject: 'Account',
-      description:
-        'If you confirm you will delete your Account with all created Projects and data. It can NOT be reverted!',
+      description: $localize`:@@deleteServiceDeleteAccountDescription:If you confirm this, your account with all created projects and data will be deleted. This can NOT be undone!`,
     });
 
     // if (isConfirmed) {
