@@ -136,7 +136,8 @@ export class TranscriptComponent implements OnDestroy, OnInit {
                 this.transcriptNew[indexParagraph][indexCaption].text =
                   entity.text.replace(
                     regex,
-                    (text) => `<mark class="mark-${markIndex++}">${text}</mark>`
+                    (text) =>
+                      `<mark tabindex="0" class="mark-${markIndex++}">${text}</mark>`
                   );
               } else {
                 this.transcriptNew[indexParagraph][indexCaption].text =

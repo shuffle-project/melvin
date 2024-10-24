@@ -94,10 +94,6 @@ h2,
   }
 
   .caption-text {
-    span.mark {
-      background-color: var(--color-yellow);
-    }
-
     &:hover {
       text-decoration: underline;
       background-color: var(--color-highlight-yellow);

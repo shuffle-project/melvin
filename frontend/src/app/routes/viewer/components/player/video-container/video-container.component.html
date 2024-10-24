@@ -33,11 +33,13 @@
       color="basic"
       (click)="onChangeMainVideo()"
       tabindex="0"
-      i18n="@@viewerVideoContainerToMainview"
-      attr.aria-label="Move video '{{ video.title }}' to main view"
-      i18n-attr.aria-label="@@viewerVideoContainerMoveToMainviewAriaLabel"
     >
-      Switch
+      <span i18n="@@viewerVideoContainerToMainviewAriaHidden" aria-hidden="true"
+        >Switch</span
+      >
+      <span i18n="@@viewerVideoContainerToMainviewScreenreader" class="sr-only"
+        >Switch video '{{ video.category | mediaCategory }}' to main view</span
+      >
     </button>
   </div>
   }

@@ -1,0 +1,13 @@
+.caption-text {
+  mark {
+    background-color: var(--color-yellow);
+  }
+}
+
+body.dark-theme {
+  .caption-text {
+    mark {
+      color: var(--color-white);
+    }
+  }
+}

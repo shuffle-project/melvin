@@ -25,7 +25,13 @@ import { ViewerVideo } from '../player.component';
   templateUrl: './video-container.component.html',
   styleUrls: ['./video-container.component.scss'],
   standalone: true,
-  imports: [MatIconModule, MatButtonModule, PushPipe, MediaCategoryPipe],
+  imports: [
+    MatIconModule,
+    MatButtonModule,
+    PushPipe,
+    MediaCategoryPipe,
+    MediaCategoryPipe,
+  ],
 })
 export class VideoContainerComponent implements OnDestroy, OnChanges {
   private destroy$$ = new Subject<void>();
