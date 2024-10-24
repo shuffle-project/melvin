@@ -107,13 +107,11 @@ const handleSpace = (
 
   // Replace selection of spaces with a single space
   if (from !== to && tr.doc.textBetween(from, to).trim() === '') {
-    console.log('Replace selection of spaces with a single space');
     return false;
   }
 
   // Add a space between two words, cursor has no selection
   if (from === to && (hasLeadingSpace(tr, from) || hasTrailingSpace(tr, to))) {
-    console.log('Add a space between two words, cursor has no selection');
     return false;
   }
 
@@ -134,10 +132,8 @@ const handleSpace = (
     const offset = from - word.pos;
 
     const part1 = schema.text(word.text.slice(0, offset), [
-      // review id ?
       schema.mark('word', {
         ...mark.attrs,
-        end: mark.attrs['end'] - 1,
       }),
     ]);
 
@@ -147,7 +143,6 @@ const handleSpace = (
       [
         schema.mark('word', {
           ...mark.attrs,
-          start: mark.attrs['start'] + 1,
         }),
       ]
     );
@@ -182,8 +177,6 @@ const handleInsert = (
   to: number,
   text: string
 ): boolean => {
-  console.log('======= handleInsert', from, to, text);
-
   const { tr, schema } = editor.state;
   const { dispatch } = editor.view;
 
@@ -191,7 +184,6 @@ const handleInsert = (
 
   // Deleted a paragraph
   if (text.length === 0 && deletedText.length === 0) {
-    console.log('Deleted a paragraph');
     return false;
   }
 
@@ -208,8 +200,6 @@ const handleInsert = (
       to === tr.doc.content.size - 1)
   ) {
     if (text.length > 0) {
-      console.log('new word');
-      console.log(from, to, text);
       let attrs: any;
       if (tr.doc.textBetween(from, to).trim() !== '') {
         // Keep timestamps of first word of selection
@@ -233,10 +223,6 @@ const handleInsert = (
       const endBefore = nodeAtBefore?.marks[0]?.attrs['end'];
       const startAfter = nodeAtAfter?.marks[0]?.attrs['start'];
       const endAfter = nodeAtAfter?.marks[0]?.attrs['end'];
-
-      console.log(nodeAtBefore, nodeAtAfter);
-      console.log(startBefore, endBefore);
-      console.log(startAfter, endAfter);
 
       const start = startBefore ?? startAfter ?? undefined;
       const end = startAfter ?? endBefore ?? undefined;

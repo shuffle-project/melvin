@@ -11,11 +11,7 @@
   </div>
 </div>
 
-<p
-  tiptapNodeViewContent
-  [spellcheck]="spellchecking"
-  (click)="onClickParagraph($event)"
-></p>
+<p tiptapNodeViewContent (click)="onClickParagraph($event)"></p>
 
 <mat-menu #speakerMenu="matMenu">
   <app-edit-speaker-modal

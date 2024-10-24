@@ -10,21 +10,22 @@ import { FormsModule } from '@angular/forms';
 import { MatIconButton } from '@angular/material/button';
 import { MatCheckbox } from '@angular/material/checkbox';
 import { MatIcon } from '@angular/material/icon';
-import { HocuspocusProvider } from '@hocuspocus/provider';
+import { HocuspocusProvider, MessageType } from '@hocuspocus/provider';
 import { Editor } from '@tiptap/core';
 import Collaboration from '@tiptap/extension-collaboration';
 import CollaborationCursor from '@tiptap/extension-collaboration-cursor';
 import Document from '@tiptap/extension-document';
 import Text from '@tiptap/extension-text';
-
 import { NgxTiptapModule } from 'ngx-tiptap';
 import {
   BehaviorSubject,
   Observable,
   Subject,
   combineLatest,
+  debounceTime,
   filter,
   firstValueFrom,
+  skip,
   takeUntil,
 } from 'rxjs';
 import { EditorUser } from '../../../../interfaces/editor-user.interface';
@@ -37,7 +38,7 @@ import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/store/app.state';
 import * as editorSelector from 'src/app/store/selectors/editor.selector';
 import { selectQueryParams } from 'src/app/store/selectors/router.selectors';
-import { query } from '@angular/animations';
+import { LetDirective } from '@ngrx/component';
 
 enum CLIENT_STATUS {
   CONNECTING,
@@ -50,7 +51,14 @@ enum CLIENT_STATUS {
 @Component({
   selector: 'app-tiptap-editor',
   standalone: true,
-  imports: [MatIconButton, MatIcon, MatCheckbox, FormsModule, NgxTiptapModule],
+  imports: [
+    MatIconButton,
+    MatIcon,
+    MatCheckbox,
+    FormsModule,
+    NgxTiptapModule,
+    LetDirective,
+  ],
   templateUrl: './tiptap-editor.component.html',
   styleUrl: './tiptap-editor.component.scss',
 })
@@ -79,6 +87,8 @@ export class TiptapEditorComponent implements AfterViewInit, OnInit, OnDestroy {
 
   public currentTime$ = this.mediaService.currentTime$;
 
+  public spellchecking$ = this.store.select(editorSelector.selectSpellchecking);
+
   constructor(
     private mediaService: MediaService,
     private wsService: WSService,
@@ -91,15 +101,17 @@ export class TiptapEditorComponent implements AfterViewInit, OnInit, OnDestroy {
       .pipe(
         filter(([viewReady, transcriptionId]) => viewReady && !!transcriptionId)
       )
-      .pipe(takeUntil(this.destroy$$))
+      .pipe(takeUntil(this.destroy$$), debounceTime(0))
       .subscribe(([_, transcriptionId]) => {
         this.transcriptionId = transcriptionId;
-        if (this.provider) {
-          this.destroyConnection();
-        }
         if (this.editor) {
           this.destroyEditor();
         }
+        if (this.provider) {
+          this.destroyConnection();
+        }
+        console.log('combine latest');
+
         this.initConnection(transcriptionId);
         this.initEditor();
       });
@@ -112,28 +124,23 @@ export class TiptapEditorComponent implements AfterViewInit, OnInit, OnDestroy {
     // rerender after change?
   }
 
+  // TODO spellchecking
+
   ngAfterViewInit() {
     this.viewReady$.next(true);
 
     this.store
-      .select(editorSelector.selectSpellchecking)
-      .pipe(takeUntil(this.destroy$$))
-      .subscribe((_) => {
-        this.destroyEditor();
-        this.initEditor();
-      });
-
-    this.store
       .select(editorSelector.selectShowUsernames)
-      .pipe(takeUntil(this.destroy$$))
+      .pipe(takeUntil(this.destroy$$), skip(1))
       .subscribe((showUsernames) => {
-        this.destroyEditor();
-        // console.log(this.provider.awareness);
-        // this.provider.setAwarenessField('user', null);
         this.showUsernames = showUsernames;
-        this.initEditor();
+
+        if (!this.editor) return;
+
+        this.viewReady$.next(true);
       });
   }
+
   ngOnDestroy(): void {
     this.destroyConnection();
     this.destroyEditor();
@@ -141,13 +148,6 @@ export class TiptapEditorComponent implements AfterViewInit, OnInit, OnDestroy {
   }
 
   initConnection(transcriptionId: string) {
-    // review
-    setTimeout(() => {
-      this._initConnection(transcriptionId);
-    }, 0);
-  }
-
-  _initConnection(transcriptionId: string) {
     const url = `${this.wsService.getWebSocketURL()}?hocuspocus`;
     this.provider = new HocuspocusProvider({
       url,
@@ -163,14 +163,14 @@ export class TiptapEditorComponent implements AfterViewInit, OnInit, OnDestroy {
         console.log('onConnect');
         this.status = CLIENT_STATUS.CONNECTED;
       },
-      // onAwarenessChange: (awareness) => {
-      //   console.log('onAwarenessChange');
-      //   console.log(awareness.states);
-      // },
-      // onAwarenessUpdate: (awareness) => {
-      //   console.log('onAwarenessUpdate');
-      //   console.log(awareness.states);
-      // },
+      onAwarenessChange: (awareness) => {
+        // console.log('onAwarenessChange');
+        // console.log(awareness.states);
+      },
+      onAwarenessUpdate: (awareness) => {
+        // console.log('onAwarenessUpdate');
+        // console.log(awareness.states);
+      },
       onDisconnect: () => {
         console.log('onDisconnect');
         this.editor?.setEditable(false);
@@ -201,14 +201,7 @@ export class TiptapEditorComponent implements AfterViewInit, OnInit, OnDestroy {
     this.provider.destroy();
   }
 
-  initEditor() {
-    // review
-    setTimeout(() => {
-      this._initEditor();
-    }, 0);
-  }
-
-  async _initEditor() {
+  async initEditor() {
     this.captions = document.getElementById('captions') as HTMLDivElement;
 
     const user = this.activeUsers[0];
@@ -228,51 +221,41 @@ export class TiptapEditorComponent implements AfterViewInit, OnInit, OnDestroy {
         UserExtension(this.injector).configure({
           userId: user.id,
         }),
-        /**
-         * https://github.com/ueberdosis/tiptap/issues/4482
-         * https://github.com/ueberdosis/tiptap/issues/4782
-         * https://github.com/ueberdosis/tiptap/pull/4856
-         * https://github.com/yjs/y-prosemirror/issues/85
-         * https://github.com/yjs/y-prosemirror/pull/145
-         *
-         *
-         */
         Collaboration.configure({
           document: this.provider.document,
         }),
-        // review auskommentiert wegen dem flackern
-        // CollaborationCursor.configure({
-        //   provider: this.provider,
-        //   user: {
-        //     userId: user.id,
-        //     name: user.name,
-        //     colorName: user.color,
-        //   },
-        //   render: (user) => {
-        //     const cursor = document.createElement('span');
-        //     cursor.classList.add('collaboration-cursor__caret');
-        //     const color = `rgb(var(--color-editor-user-${user['colorName']}-rgb))`;
-        //     cursor.setAttribute('style', `border-color: ${color}`);
+        CollaborationCursor.configure({
+          provider: this.provider,
+          user: {
+            userId: user.id,
+            name: user.name,
+            colorName: user.color,
+            showUsernames: this.showUsernames,
+          },
+          render: (user) => {
+            const cursor = document.createElement('span');
+            cursor.classList.add('collaboration-cursor__caret');
+            const color = `rgb(var(--color-editor-user-${user['colorName']}-rgb))`;
+            cursor.setAttribute('style', `border-color: ${color}`);
 
-        //     if (this.showUsernames) {
-        //       const label = document.createElement('div');
-        //       label.classList.add('collaboration-cursor__label');
-        //       label.setAttribute('style', `background-color: ${color}`);
-        //       label.insertBefore(document.createTextNode(user['name']), null);
-        //       cursor.insertBefore(label, null);
-        //     }
+            if (this.showUsernames) {
+              const label = document.createElement('div');
+              label.classList.add('collaboration-cursor__label');
+              label.setAttribute('style', `background-color: ${color}`);
+              label.insertBefore(document.createTextNode(user['name']), null);
+              cursor.insertBefore(label, null);
+            }
 
-        //     return cursor;
-        //   },
-        //   selectionRender: (user) => {
-        //     const color = `rgba(var(--color-editor-user-${user['colorName']}-rgb), 0.7)`;
-        //     return {
-        //       style: `background-color: ${color}`,
-        //       class: 'ProseMirror-yjs-selection',
-        //     };
-        //   },
-        // }),
-        // review
+            return cursor;
+          },
+          selectionRender: (user) => {
+            const color = `rgba(var(--color-editor-user-${user['colorName']}-rgb), 0.7)`;
+            return {
+              style: `background-color: ${color}`,
+              class: 'ProseMirror-yjs-selection',
+            };
+          },
+        }),
       ],
       onUpdate: ({ editor }) => {
         if (!this.captions) return;
@@ -306,35 +289,7 @@ export class TiptapEditorComponent implements AfterViewInit, OnInit, OnDestroy {
           this.captions.innerHTML = captionsHtml;
         }
       },
-      // autofocus: 'start', // todo: discuss
     });
-
-    this.editor
-      .chain()
-      // .updateUser({
-      //   name: user.name,
-      //   color: user.color,
-      //   id: user.id,
-      // })
-      .focus()
-      .redo()
-      .run();
-
-    // this.provider.awareness?.on('change', () => {
-    //   this.updateConnectedUsers();
-    // });
-
-    if (this.editor) {
-      const extension = this.editor.extensionManager.extensions.find(
-        (ext) => ext.name === 'userExtension'
-      );
-
-      if (extension) {
-        extension.options.editor = this.editor;
-      }
-
-      this.editor.view.updateState(this.editor.view.state);
-    }
   }
 
   private updateCurrentTimeCSSClass(time: number) {
@@ -372,9 +327,8 @@ export class TiptapEditorComponent implements AfterViewInit, OnInit, OnDestroy {
       const pos = state.selection.$anchor.before();
       const newAttrs = { ...node.attrs, speaker };
       tr.setNodeMarkup(pos, undefined, newAttrs);
+      view.dispatch(tr);
     }
-
-    view.dispatch(tr);
   }
 
   toggleShouldShow() {

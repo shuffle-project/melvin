@@ -18,9 +18,6 @@ export const CustomWord = (injector: Injector) => {
 
     addAttributes() {
       return {
-        // id:{
-        //   default:
-        // }
         start: {
           default: undefined,
           parseHTML: (element) => {
@@ -76,6 +73,7 @@ export const CustomWord = (injector: Injector) => {
             };
           },
         },
+        // TODO rename to isTimestampInterpolated
         timestampInterpolated: {
           default: undefined,
           parseHTML: (element) => {

@@ -10,7 +10,9 @@
 </div>
 
 @if (editor && CLIENT_STATUS[status] === 'SYNCED') {
-<div class="editor-container">
-  <tiptap-editor [editor]="editor" class="editor"></tiptap-editor>
-</div>
+<ng-container *ngrxLet="spellchecking$ as spellchecking">
+  <div class="editor-container" [spellcheck]="spellchecking">
+    <tiptap-editor [editor]="editor" class="editor"></tiptap-editor>
+  </div>
+</ng-container>
 }
