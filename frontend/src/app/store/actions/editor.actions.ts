@@ -6,6 +6,7 @@ import {
   ProjectMediaEntity,
 } from '../../services/api/entities/project.entity';
 import { WaveformData } from '../../services/api/entities/waveform-data.entity';
+import { EditorUser } from '../reducers/editor.reducer';
 
 export const playFromCaption = createAction(
   '[CAPTION COMPONENT] Start playing'
@@ -33,7 +34,7 @@ export const changeSpeedFromEditor = createAction(
 export const updateActiveUsers = createAction(
   '[FROM WS] Overwrite active users from WS event',
   props<{
-    activeUsers: { userId: string; clientId: string; color: EditorUserColor }[];
+    users: EditorUser[];
   }>()
 );
 

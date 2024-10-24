@@ -13,6 +13,7 @@ export enum EditorUserColor {
 export interface EditorActiveUser {
   userId: string;
   clientId: string;
+  active: boolean;
   color: EditorUserColor;
 }
 

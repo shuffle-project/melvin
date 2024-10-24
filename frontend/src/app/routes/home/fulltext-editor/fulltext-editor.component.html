@@ -143,13 +143,13 @@
     </div>
   </div>
   <div class="flex-1"></div>
-  <ng-container *ngrxLet="editorUsers$ as editorUsers">
-    @if (editorUsers.length > 0) {
+  <ng-container *ngrxLet="activeUsers$ as activeUsers">
+    @if (activeUsers.length > 0) {
     <app-avatar-group
-      [users]="editorUsers"
+      [users]="activeUsers"
       [editorView]="true"
     ></app-avatar-group>
-    } @if (editorUsers.length === 0) {
+    } @if (activeUsers.length === 0) {
     <div class="sktn-avatar-wrapper">
       <div class="sktn-avatar"></div>
     </div>
@@ -306,17 +306,20 @@
     >
       <ng-container *ngrxLet="project$ as project">
         <ng-container *ngrxLet="editorUsers$ as editorUsers">
-          <!-- <app-captions></app-captions> -->
-          <!-- ADD FULLTEXT EDITOR HERE -->
-          @if(selectedTranscriptionId && editorUsers.length > 0 &&
-          editorUsers[0].id.length>0){
-          <app-tiptap-editor
-            lang="{{ project?.language }}"
-            [transcriptionId$]="selectedTranscriptionId$"
-            [activeUsers]="editorUsers"
-          ></app-tiptap-editor>
-          }
-          <!-- ADD FULLTEXT EDITOR HERE -->
+          <ng-container *ngrxLet="activeUsers$ as activeUsers">
+            <!-- <app-captions></app-captions> -->
+            <!-- ADD FULLTEXT EDITOR HERE -->
+            @if(selectedTranscriptionId && activeUsers.length > 0 &&
+            activeUsers[0].id.length>0){
+            <app-tiptap-editor
+              lang="{{ project?.language }}"
+              [transcriptionId$]="selectedTranscriptionId$"
+              [activeUsers]="activeUsers"
+              [editorUsers]="editorUsers"
+            ></app-tiptap-editor>
+            }
+            <!-- ADD FULLTEXT EDITOR HERE -->
+          </ng-container>
         </ng-container>
       </ng-container>
     </div>

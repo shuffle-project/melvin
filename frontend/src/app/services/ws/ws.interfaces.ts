@@ -3,6 +3,7 @@ import { CaptionEntity } from '../api/entities/caption.entity';
 import { NotificationEntity } from '../api/entities/notification.entity';
 import { ProjectEntity } from '../api/entities/project.entity';
 import { TranscriptionEntity } from '../api/entities/transcription.entity';
+import { EditorUser } from 'src/app/store/reducers/editor.reducer';
 
 export interface ClientToServerEvents {
   'connection:auth': (payload: { token: string }) => void;
@@ -29,16 +30,17 @@ export interface ServerToClientEvents {
   // 'notification:many-removed': (payload: { notificationIds: string[] }) => void;
 
   // Project
-  'project:user-joined': (payload: {
-    userId: string;
-    clientId: string;
-    activeUsers: { userId: string; clientId: string; color: EditorUserColor }[];
-  }) => void;
-  'project:user-left': (payload: {
-    userId: string;
-    clientId: string;
-    activeUsers: { userId: string; clientId: string; color: EditorUserColor }[];
-  }) => void;
+  'project:user-changed': (payload: { users: EditorUser[] }) => void;
+  // 'project:user-joined': (payload: {
+  //   userId: string;
+  //   clientId: string;
+  //   activeUsers: { userId: string; clientId: string; color: EditorUserColor }[];
+  // }) => void;
+  // 'project:user-left': (payload: {
+  //   userId: string;
+  //   clientId: string;
+  //   activeUsers: { userId: string; clientId: string; color: EditorUserColor }[];
+  // }) => void;
   'project:created': (payload: { project: ProjectEntity }) => void;
   'project:updated': (payload: { project: ProjectEntity }) => void;
   'project:partiallyUpdated': (payload: {

@@ -12,9 +12,10 @@ import * as userTestActions from '../actions/user-test.actions';
 
 const storage = new StorageService();
 
-export interface EditorActiveUser {
+export interface EditorUser {
   userId: string;
   clientId: string;
+  active: boolean;
   color: EditorUserColor;
 }
 
@@ -26,7 +27,7 @@ export interface EditorState {
   isPlaying: boolean;
   isLiveInSync: boolean;
   currentSpeed: number;
-  activeUsers: EditorActiveUser[];
+  editorUsers: EditorUser[];
   volume: number;
   subtitlesEnabledInVideo: boolean;
   waveform: number[];
@@ -43,7 +44,7 @@ export const initalState: EditorState = {
   isPlaying: false,
   isLiveInSync: false,
   currentSpeed: 1,
-  activeUsers: [],
+  editorUsers: [],
   volume: storage.getFromSessionStorage(StorageKey.MEDIA_VOLUME, 1) as number,
   subtitlesEnabledInVideo: storage.getFromLocalStorage(
     StorageKey.MEDIA_SUBTITLES_ENABLED,
@@ -127,7 +128,7 @@ export const editorReducer = createReducer(
   on(editorActions.updateActiveUsers, (state, action) => {
     return {
       ...state,
-      activeUsers: [...action.activeUsers],
+      editorUsers: [...action.users],
     };
   }),
   on(editorActions.findProjectFromEditor, (state) => {

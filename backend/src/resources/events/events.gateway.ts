@@ -63,11 +63,16 @@ export class EventsGateway
       // Handle disconnect first
       for (const project of projects) {
         const room = `project:${project._id.toString()}`;
-        this.socketService.broadcast(room, 'project:user-left', {
-          userId: (client as AuthorizedWebSocket).data.userId,
-          clientId: (client as AuthorizedWebSocket).data.clientId,
-          activeUsers: this._getActiveUsers(room, project),
+        this.socketService.broadcast(room, 'project:user-changed', {
+          // userId: (client as AuthorizedWebSocket).data.userId,
+          // clientId: (client as AuthorizedWebSocket).data.clientId,
+          users: this._getActiveUsers(room, project),
         });
+        // this.socketService.broadcast(room, 'project:user-left', {
+        //   userId: (client as AuthorizedWebSocket).data.userId,
+        //   clientId: (client as AuthorizedWebSocket).data.clientId,
+        //   activeUsers: this._getActiveUsers(room, project),
+        // });
       }
 
       // Unlock captions
@@ -88,11 +93,28 @@ export class EventsGateway
     project: LeanProjectDocument,
   ): EditorActiveUser[] {
     const clients = this.socketService.getRoomClients(room);
-    return clients.map((client) => ({
+    const activeUsers = clients.map((client) => ({
       userId: client.data.userId,
       clientId: client.data.clientId,
+      active: true,
       color: this._getUserColor(client.data.userId, project),
     }));
+    const otherUsers: EditorActiveUser[] = project.users
+      .filter(
+        (user) =>
+          !activeUsers.some(
+            (activeUser) => activeUser.userId === user._id.toString(),
+          ),
+      )
+      .map((o) => ({
+        userId: o._id.toString(),
+        clientId: null,
+        active: false,
+        color: this._getUserColor(o._id.toString(), project),
+      }));
+    const combined = [...activeUsers, ...otherUsers];
+    console.log(combined);
+    return combined;
   }
 
   async _unlockAllCaptions(projectId: string, userId: string) {
@@ -132,11 +154,15 @@ export class EventsGateway
     const socket = this.socketService.getSocket(authUser.id, authUser.jwtId);
     this.socketService.join(room, socket);
 
-    this.socketService.broadcast(room, 'project:user-joined', {
-      userId: authUser.id,
-      clientId: socket.data.clientId,
-      activeUsers: this._getActiveUsers(room, project),
+    this.socketService.broadcast(room, 'project:user-changed', {
+      users: this._getActiveUsers(room, project),
     });
+
+    // this.socketService.broadcast(room, 'project:user-joined', {
+    //   userId: authUser.id,
+    //   clientId: socket.data.clientId,
+    //   activeUsers: this._getActiveUsers(room, project),
+    // });
   }
 
   async leaveProjectRoom(authUser: AuthUser, project: LeanProjectDocument) {
@@ -144,11 +170,15 @@ export class EventsGateway
     const socket = this.socketService.getSocket(authUser.id, authUser.jwtId);
     this.socketService.leave(room, socket);
 
-    this.socketService.broadcast(room, 'project:user-left', {
-      userId: authUser.id,
-      clientId: socket.data.clientId,
-      activeUsers: this._getActiveUsers(room, project),
+    this.socketService.broadcast(room, 'project:user-changed', {
+      users: this._getActiveUsers(room, project),
     });
+
+    // this.socketService.broadcast(room, 'project:user-left', {
+    //   userId: authUser.id,
+    //   clientId: socket.data.clientId,
+    //   activeUsers: this._getActiveUsers(room, project),
+    // });
   }
 
   async notificationCreated(notification: NotificationEntity) {

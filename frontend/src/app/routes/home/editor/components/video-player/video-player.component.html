@@ -1,10 +1,11 @@
 <app-video-player-media-element #mediaElement>
   <!-- Captions -->
-  @if (subtitlesEnabled$ | ngrxPush) {
+  <!-- review evtl irgendwann wieder aktivieren?  -->
+  <!-- @if (subtitlesEnabled$ | ngrxPush) {
   <div class="video-caption" *ngrxLet="currentCaption$ as currentCaption">
     <span>{{ currentCaption?.text }}</span>
   </div>
-  }
+  } -->
 </app-video-player-media-element>
 <!-- Actions -->
 <div class="controls" *ngrxLet="currentSpeed$ as currentSpeed">
@@ -61,7 +62,7 @@ aria-label="Start or stop video"
   <!-- Spacer -->
   <div class="flex-1"></div>
   <!-- Subtitles -->
-  <button
+  <!-- <button
     mat-icon-button
     (click)="onClickToggleSubtitles()"
     i18n-matTooltip="@@videoShowHideSubtitlesTooltip"
@@ -74,7 +75,7 @@ aria-label="Start or stop video"
       svgIcon="subtitles"
       [style.opacity]="(subtitlesEnabled$ | ngrxPush) ? 1 : 0.5"
     ></mat-icon>
-  </button>
+  </button> -->
   <!-- Settings -->
   <button
     mat-icon-button

@@ -107,32 +107,45 @@ export class WSService {
           this.logger.error('connection:unauthorized');
           break;
         }
-        case 'project:user-joined': {
+        case 'project:user-changed': {
           const payload = args as EventParams<
             ServerToClientEvents,
-            'project:user-joined'
+            'project:user-changed'
           >;
-          this.logger.verbose('project:user-joined', payload);
+          this.logger.verbose('project:user-changed', payload);
           this.store.dispatch(
             editorActions.updateActiveUsers({
-              activeUsers: payload.activeUsers,
+              users: payload.users,
             })
           );
           break;
         }
-        case 'project:user-left': {
-          const payload = args as EventParams<
-            ServerToClientEvents,
-            'project:user-left'
-          >;
-          this.logger.verbose('project:user-left', payload);
-          this.store.dispatch(
-            editorActions.updateActiveUsers({
-              activeUsers: payload.activeUsers,
-            })
-          );
-          break;
-        }
+        // case 'project:user-joined': {
+        //   const payload = args as EventParams<
+        //     ServerToClientEvents,
+        //     'project:user-joined'
+        //   >;
+        //   this.logger.verbose('project:user-joined', payload);
+        //   this.store.dispatch(
+        //     editorActions.updateActiveUsers({
+        //       activeUsers: payload.activeUsers,
+        //     })
+        //   );
+        //   break;
+        // }
+        // case 'project:user-left': {
+        //   const payload = args as EventParams<
+        //     ServerToClientEvents,
+        //     'project:user-left'
+        //   >;
+        //   this.logger.verbose('project:user-left', payload);
+        //   this.store.dispatch(
+        //     editorActions.updateActiveUsers({
+        //       activeUsers: payload.activeUsers,
+        //     })
+        //   );
+        //   break;
+        // }
         case 'project:created': {
           const payload = args as EventParams<
             ServerToClientEvents,

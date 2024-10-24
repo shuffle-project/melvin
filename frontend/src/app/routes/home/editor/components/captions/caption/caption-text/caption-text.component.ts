@@ -27,7 +27,7 @@ import { Store } from '@ngrx/store';
 import { Observable, Subject, map, takeUntil, tap, throttleTime } from 'rxjs';
 import { DeleteConfirmationService } from '../../../../../../../components/delete-confirmation-dialog/delete-confirmation.service';
 import { EDITOR_USER_UNKNOWN } from '../../../../../../../constants/editor.constants';
-import { EditorUser } from '../../../../../../../interfaces/editor-user.interface';
+import { EditorUserEntity } from '../../../../../../../interfaces/editor-user.interface';
 import { FeatureEnabledPipe } from '../../../../../../../pipes/feature-enabled-pipe/feature-enabled.pipe';
 import { CaptionEntity } from '../../../../../../../services/api/entities/caption.entity';
 import * as captionsActions from '../../../../../../../store/actions/captions.actions';
@@ -64,7 +64,7 @@ export class CaptionTextComponent
   private destroy$$ = new Subject<void>();
   private blur$ = new Subject<void>();
   private userId!: string | null;
-  private editorUsers!: EditorUser[];
+  private editorUsers!: EditorUserEntity[];
   private observer = new IntersectionObserver(
     this._onIntersectionObserverChange.bind(this)
   );

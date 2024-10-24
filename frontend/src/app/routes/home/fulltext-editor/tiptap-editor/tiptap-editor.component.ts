@@ -28,7 +28,7 @@ import {
   skip,
   takeUntil,
 } from 'rxjs';
-import { EditorUser } from '../../../../interfaces/editor-user.interface';
+import { EditorUserEntity } from '../../../../interfaces/editor-user.interface';
 import { WSService } from '../../../../services/ws/ws.service';
 import { MediaService } from '../../editor/services/media/media.service';
 import { CustomParagraph } from './schema/paragraph.schema';
@@ -39,6 +39,7 @@ import { AppState } from 'src/app/store/app.state';
 import * as editorSelector from 'src/app/store/selectors/editor.selector';
 import { selectQueryParams } from 'src/app/store/selectors/router.selectors';
 import { LetDirective } from '@ngrx/component';
+import { EditorUser } from 'src/app/store/reducers/editor.reducer';
 
 enum CLIENT_STATUS {
   CONNECTING,
@@ -65,7 +66,8 @@ enum CLIENT_STATUS {
 export class TiptapEditorComponent implements AfterViewInit, OnInit, OnDestroy {
   @Input({ required: true }) transcriptionId$!: Observable<string>;
   transcriptionId = '';
-  @Input({ required: true }) activeUsers!: EditorUser[];
+  @Input({ required: true }) activeUsers!: EditorUserEntity[];
+  @Input({ required: true }) editorUsers!: EditorUser[];
 
   private destroy$$ = new Subject<void>();
   private viewReady$ = new BehaviorSubject(false);
@@ -300,8 +302,9 @@ export class TiptapEditorComponent implements AfterViewInit, OnInit, OnDestroy {
         for (let index = 0; index < styleSheet.cssRules.length; index++) {
           styleSheet.deleteRule(index);
         }
+        // review
         styleSheet.insertRule(
-          `.time-${time} { color: var(--color-white); background:var(--color-black); }`,
+          `.time-${time} { color: var(--color-white) !important; background:var(--color-black); }`,
           0
         );
       }

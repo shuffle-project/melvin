@@ -96,7 +96,8 @@ export class FulltextEditorComponent implements OnInit, OnDestroy {
 
   showWaveform = true;
 
-  public editorUsers$ = this.store.select(editorSelectors.selectActiveUsers);
+  public editorUsers$ = this.store.select(editorSelectors.selectEditorUsers);
+  public activeUsers$ = this.store.select(editorSelectors.selectActiveUsers);
 
   private modalOpened = false;
   public project$ = this.store.select(editorSelectors.selectProject).pipe(

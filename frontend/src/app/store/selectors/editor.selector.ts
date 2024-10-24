@@ -1,6 +1,6 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { EDITOR_USER_LOADING } from '../../constants/editor.constants';
-import { EditorUser } from '../../interfaces/editor-user.interface';
+import { EditorUserEntity } from '../../interfaces/editor-user.interface';
 import { ProjectStatus } from '../../services/api/entities/project.entity';
 import { EditorState } from '../reducers/editor.reducer';
 import * as authSelectors from '../selectors/auth.selector';
@@ -65,35 +65,47 @@ export const selectMedia = createSelector(
   }
 );
 
+// selectEditorUsers
+export const selectEditorUsers = createSelector(
+  selectEditorState,
+  (state: EditorState) => state.editorUsers || []
+);
+
 export const selectActiveUsers = createSelector(
+  // selectACtiveEditorUsers
   selectEditorState,
   authSelectors.selectUserId,
-  (state: EditorState, authUserId: string | null): EditorUser[] => {
-    const activeUsers = state.activeUsers;
+  (state: EditorState, authUserId: string | null): EditorUserEntity[] => {
+    const activeUsers = state.editorUsers;
 
     // if project is not yet loaded, show a "Load..."- placeholder instead
     if (!state.project?.users) {
       return [EDITOR_USER_LOADING];
     }
 
-    const editorUsers: EditorUser[] = activeUsers.map((activeUser) => {
-      const userEntity = state.project?.users.find(
-        (user) => user.id === activeUser.userId
-      );
+    const editorUsers: EditorUserEntity[] = activeUsers
+      .filter((user) => user.active)
+      .map((activeUser) => {
+        const userEntity = state.project?.users.find(
+          (user) => user.id === activeUser.userId
+        );
 
-      // if project is not yet loaded, show a "Load..."- placeholder instead
-      return userEntity
-        ? {
-            ...userEntity,
-            clientId: activeUser.clientId,
-            color: activeUser.color,
-            // color:
-            // authUserId === activeUser.id
-            //   ? EditorUserColor.PRIMARY
-            //   : activeUser.color,
-          }
-        : EDITOR_USER_LOADING;
-    });
+        // TODO move "loading user" to backend
+        // refactor interfaces EditorUser / activeEditorUser etc.
+
+        // if project is not yet loaded, show a "Load..."- placeholder instead
+        return userEntity
+          ? {
+              ...userEntity,
+              clientId: activeUser.clientId,
+              color: activeUser.color,
+              // color:
+              // authUserId === activeUser.id
+              //   ? EditorUserColor.PRIMARY
+              //   : activeUser.color,
+            }
+          : EDITOR_USER_LOADING;
+      });
 
     return editorUsers.sort((a, b) =>
       a.id === authUserId ? -1 : b.id === authUserId ? 1 : 0

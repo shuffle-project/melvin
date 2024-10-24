@@ -9,6 +9,13 @@ export interface ClientToServerEvents {
   //'livestream:client-ice-candidate': (payload: { candidate: string }) => void;
 }
 
+interface EditorUser {
+  userId: string;
+  clientId: string;
+  active: boolean;
+  color: EditorUserColor;
+}
+
 export interface ServerToClientEvents {
   // Connection
   'connection:connected': () => void;
@@ -29,16 +36,22 @@ export interface ServerToClientEvents {
   // 'notification:many-removed': (payload: { notificationIds: string[] }) => void;
 
   // Project
-  'project:user-joined': (payload: {
-    userId: string;
-    clientId: string;
-    activeUsers: { userId: string; clientId: string; color: EditorUserColor }[];
-  }) => void;
-  'project:user-left': (payload: {
-    userId: string;
-    clientId: string;
-    activeUsers: { userId: string; clientId: string; color: EditorUserColor }[];
-  }) => void;
+  'project:user-changed': (payload: { users: EditorUser[] }) => void;
+  // 'project:user-joined': (payload: {
+  //   userId: string; // remove
+  //   clientId: string; // remov
+  //   activeUsers: EditorUser[];
+  // }) => void;
+  // 'project:user-left': (payload: {
+  //   userId: string;
+  //   clientId: string;
+  //   activeUsers: {
+  //     userId: string;
+  //     clientId: string;
+  //     active: boolean;
+  //     color: EditorUserColor;
+  //   }[];
+  // }) => void;
   'project:created': (payload: { project: ProjectEntity }) => void;
   'project:updated': (payload: { project: ProjectEntity }) => void;
   'project:partiallyUpdated': (payload: {
