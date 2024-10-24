@@ -564,7 +564,7 @@
       </trans-unit>
       <trans-unit id="viewerCaptionsSettingsDialogPositionOptionOver" datatype="html">
         <source> Above the video. </source>
-        <target state="final"> Über dem Video. </target>
+        <target state="final"> Vor dem Video </target>
       </trans-unit>
       <trans-unit id="viewerCaptionsSettingsDialogPositionOptionUnder" datatype="html">
         <source> Below the video. </source>
