@@ -18,7 +18,11 @@
         }
       </mat-select>
     </mat-form-field> -->
-    <h2 i18n="@@uploadRecordingASRHeader">Automatic trancription</h2>
+
+    <!-- <h2 i18n="@@uploadRecordingASRHeader">Automatic trancription</h2> -->
+    <p i18n="@@uploadRecordingLanguageFormIntroduction">
+      Please select the main language of the recording.
+    </p>
     <form [formGroup]="formGroup">
       <mat-form-field class="language-form-field">
         <mat-label i18n="@@uploadRecordingLanguageLabel">Language</mat-label>
@@ -33,9 +37,9 @@
         <mat-error i18n="@@uploadRecordingLanguageError">
           Language is required
         </mat-error>
-        <mat-hint i18n="@@uploadRecordingLanguageHint"
+        <!-- <mat-hint i18n="@@uploadRecordingLanguageHint"
           >Please select the main language of the recording
-        </mat-hint>
+        </mat-hint> -->
       </mat-form-field>
     </form>
   </div>

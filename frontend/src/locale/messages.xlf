@@ -176,9 +176,6 @@
       <trans-unit id="videoMuteUnmuteSoundTooltip" datatype="html">
         <source>Mute or unmute Sound</source>
       </trans-unit>
-      <trans-unit id="videoShowHideSubtitlesTooltip" datatype="html">
-        <source>Show or hide subtitles in video</source>
-      </trans-unit>
       <trans-unit id="videoSettingsTooltip" datatype="html">
         <source>Video settings</source>
       </trans-unit>
@@ -393,10 +390,7 @@
         <source> Captions position </source>
       </trans-unit>
       <trans-unit id="viewerCaptionsSettingsDialogPositionOptionOver" datatype="html">
-        <source> Above the video. </source>
-      </trans-unit>
-      <trans-unit id="viewerCaptionsSettingsDialogPositionOptionUnder" datatype="html">
-        <source> Below the video. </source>
+        <source> In front of the video </source>
       </trans-unit>
       <trans-unit id="viewerCaptionsSettingsDialogExampletext" datatype="html">
         <source> Example text: This is what the subtitles will look like. </source>
@@ -409,9 +403,6 @@
       </trans-unit>
       <trans-unit id="viewerControlsGalleryMenuTooltip" datatype="html">
         <source>Shown video selection</source>
-      </trans-unit>
-      <trans-unit id="viewerVideoContainerToMainview" datatype="html">
-        <source> Switch </source>
       </trans-unit>
       <trans-unit id="playerTranscriptHeader" datatype="html">
         <source>Transcript</source>
@@ -883,9 +874,6 @@
       </trans-unit>
       <trans-unit id="viewerHelpDialogCloseButton" datatype="html">
         <source>Close</source>
-      </trans-unit>
-      <trans-unit id="viewerVideoContainerMoveToMainviewAriaLabel" datatype="html">
-        <source>Move video &apos;<x id="INTERPOLATION" equiv-text="{{ video.title }}"/>&apos; to main view</source>
       </trans-unit>
       <trans-unit id="viewerControlsOthersTitle" datatype="html">
         <source>Others </source>
@@ -1484,14 +1472,11 @@
       <trans-unit id="recorderRecordingTitleError" datatype="html">
         <source>Recording title is required </source>
       </trans-unit>
-      <trans-unit id="uploadRecordingASRHeader" datatype="html">
-        <source>Automatic trancription</source>
-      </trans-unit>
       <trans-unit id="uploadRecordingLanguageError" datatype="html">
         <source> Language is required </source>
       </trans-unit>
-      <trans-unit id="uploadRecordingLanguageHint" datatype="html">
-        <source>Please select the main language of the recording </source>
+      <trans-unit id="uploadRecordingLanguageFormIntroduction" datatype="html">
+        <source> Please select the main language of the recording. </source>
       </trans-unit>
       <trans-unit id="uploadRecordingToProjectlistButton" datatype="html">
         <source> To Projectlist </source>
@@ -1509,13 +1494,19 @@
         <source> Delete <x id="INTERPOLATION" equiv-text="{{ data.subject }}"/> </source>
       </trans-unit>
       <trans-unit id="deleteServiceDeleteAccountDescription" datatype="html">
-        <source>If you confirm you will delete your Account with all created Projects and data. It can NOT be reverted!</source>
+        <source>If you confirm this, your account with all created projects and data will be deleted. This can NOT be undone!</source>
       </trans-unit>
       <trans-unit id="headerMenuDocumentationButton" datatype="html">
         <source>Documentation</source>
       </trans-unit>
       <trans-unit id="headerMenuTutorialButton" datatype="html">
         <source>Tutorial</source>
+      </trans-unit>
+      <trans-unit id="viewerVideoContainerToMainviewAriaHidden" datatype="html">
+        <source>Switch</source>
+      </trans-unit>
+      <trans-unit id="viewerVideoContainerToMainviewScreenreader" datatype="html">
+        <source>Switch video &apos;<x id="INTERPOLATION" equiv-text="{{ video.category | mediaCategory }}"/>&apos; to main view</source>
       </trans-unit>
     </body>
   </file>
