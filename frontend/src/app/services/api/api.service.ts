@@ -90,6 +90,8 @@ export abstract class ApiService {
     dto: ChangePasswordDto
   ): Observable<ChangePasswordEntity>;
 
+  abstract checkPassword(password: string, token: string): Observable<boolean>;
+
   abstract refreshToken(token: string): Observable<{ token: string }>;
 
   // abstract mediaAccessToken(projectId: string): Observable<{ token: string }>;

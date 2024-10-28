@@ -1,4 +1,11 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, inject } from '@angular/core';
+import {
+  FormGroup,
+  NonNullableFormBuilder,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import {
   MAT_DIALOG_DATA,
@@ -7,8 +14,15 @@ import {
   MatDialogRef,
   MatDialogTitle,
 } from '@angular/material/dialog';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { lastValueFrom } from 'rxjs';
+import { ApiService } from 'src/app/services/api/api.service';
+import { StorageKey } from 'src/app/services/storage/storage-key.enum';
+import { StorageService } from 'src/app/services/storage/storage.service';
 import {
   DeleteConfirmData,
+  DeleteConfirmLevel,
   DeleteConfirmResult,
 } from './delete-confirmation.service';
 
@@ -20,24 +34,74 @@ import {
     MatDialogContent,
     MatDialogActions,
     MatButtonModule,
+    MatInputModule,
+    MatIconModule,
+    ReactiveFormsModule,
   ],
   templateUrl: './delete-confirmation-dialog.component.html',
   styleUrl: './delete-confirmation-dialog.component.scss',
 })
 export class DeleteConfirmationDialogComponent {
   data = inject<DeleteConfirmData>(MAT_DIALOG_DATA);
+  DeleteConfirmLevel = DeleteConfirmLevel;
+  error = '';
+
+  public passwordFormGroup: FormGroup = this.fb.group({
+    password: this.fb.control('', Validators.required),
+  });
 
   constructor(
     private dialogRef: MatDialogRef<
       DeleteConfirmationDialogComponent,
       DeleteConfirmResult
-    >
+    >,
+    private fb: NonNullableFormBuilder,
+    private api: ApiService,
+    private storage: StorageService
   ) {}
 
-  onConfirm() {
-    this.dialogRef.close({
-      delete: true,
-    });
+  async onConfirm() {
+    this.error = '';
+
+    if (
+      this.data.level === DeleteConfirmLevel.HIGH_PASSWORD &&
+      this.passwordFormGroup.invalid
+    ) {
+      this.passwordFormGroup.markAllAsTouched();
+      return;
+    } else if (
+      this.data.level === DeleteConfirmLevel.HIGH_PASSWORD &&
+      this.passwordFormGroup.valid
+    ) {
+      try {
+        const token = this.storage.getFromSessionOrLocalStorage<string | null>(
+          StorageKey.ACCESS_TOKEN,
+          null
+        );
+
+        if (token) {
+          const passwordCorrect = await lastValueFrom(
+            this.api.checkPassword(this.passwordFormGroup.value.password, token)
+          );
+
+          if (passwordCorrect) {
+            this.dialogRef.close({
+              delete: true,
+            });
+          } else {
+            this.error = $localize`:@@deleteConfirmationDialogPasswordIsIncorrect:Password is incorrect`;
+            return;
+          }
+        }
+      } catch (error) {
+        this.error = (error as HttpErrorResponse).message;
+        return;
+      }
+    } else {
+      this.dialogRef.close({
+        delete: true,
+      });
+    }
   }
 
   onAbort() {

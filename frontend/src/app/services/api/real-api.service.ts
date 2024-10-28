@@ -222,6 +222,10 @@ export class RealApiService implements ApiService {
     });
   }
 
+  checkPassword(password: string, token: string): Observable<boolean> {
+    return this._post<boolean>(`/auth/check-password`, { password, token });
+  }
+
   refreshToken(token: string): Observable<{ token: string }> {
     return this._post<{ token: string }>(`/auth/refresh-token`, { token });
   }

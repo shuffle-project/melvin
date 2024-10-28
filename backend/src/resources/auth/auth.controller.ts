@@ -1,5 +1,6 @@
 import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { AuthService } from './auth.service';
+import { CheckPasswordDto } from './dto/auth-check-password.dto';
 import {
   AuthGuestLoginDto,
   AuthGuestLoginResponseDto,
@@ -34,6 +35,11 @@ export class AuthController {
     @Body() dto: ChangePasswordDto,
   ): Promise<ChangePasswordEntity> {
     return this.authService.changePassword(dto);
+  }
+
+  @Post('/check-password')
+  async checkPassword(@Body() dto: CheckPasswordDto): Promise<Boolean> {
+    return this.authService.checkPassword(dto);
   }
 
   @Post('/refresh-token')

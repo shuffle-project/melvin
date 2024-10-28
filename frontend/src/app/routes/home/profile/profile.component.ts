@@ -7,19 +7,19 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSelectChange, MatSelectModule } from '@angular/material/select';
+import { Router } from '@angular/router';
 import { LetDirective } from '@ngrx/component';
 import { Store } from '@ngrx/store';
 import { lastValueFrom, Observable } from 'rxjs';
 import { AvatarComponent } from 'src/app/components/avatar-group/avatar/avatar.component';
+import { DeleteConfirmationService } from 'src/app/components/delete-confirmation-dialog/delete-confirmation.service';
+import { ApiService } from 'src/app/services/api/api.service';
+import { logout } from 'src/app/store/actions/auth.actions';
 import { environment } from '../../../../environments/environment';
 import { HeaderComponent } from '../../../components/header/header.component';
 import { AuthUser } from '../../../interfaces/auth.interfaces';
 import * as authSelectors from '../../../store/selectors/auth.selector';
 import { DialogChangePasswordComponent } from './components/dialog-change-password/dialog-change-password.component';
-import { DeleteConfirmationService } from 'src/app/components/delete-confirmation-dialog/delete-confirmation.service';
-import { ApiService } from 'src/app/services/api/api.service';
-import { Router } from '@angular/router';
-import { logout } from 'src/app/store/actions/auth.actions';
 
 interface PasswordChangeForm {
   currentPassword: string;
@@ -78,8 +78,8 @@ export class ProfileComponent implements OnInit {
 
   async onDeleteAccount() {
     const deleteAccount = await this.confirmService.deleteAccount();
+
     if (deleteAccount) {
-      // TODO  confirm with security question or password confirmation? Move to store?
       try {
         await lastValueFrom(this.api.deleteAccount());
         this.store.dispatch(logout());

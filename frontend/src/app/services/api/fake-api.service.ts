@@ -111,6 +111,11 @@ export class FakeApiService implements ApiService {
     return of();
   }
 
+  checkPassword(password: string, token: string): Observable<boolean> {
+    this.logger.verbose('checkPassword mocked');
+    return of(true);
+  }
+
   refreshToken(token: string): Observable<{ token: string }> {
     this.logger.verbose('refreshToken mocked');
     return of({ token });
