@@ -24,7 +24,6 @@ import { CustomParagraph, Partial, Word } from './tiptap.schema';
 
 const EXTENSIONS = [
   Document,
-  Paragraph,
   CustomParagraph,
   Text,
   TextStyle,
