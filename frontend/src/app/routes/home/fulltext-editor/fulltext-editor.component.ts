@@ -267,11 +267,12 @@ export class FulltextEditorComponent implements OnInit, OnDestroy {
 
   onDownloadVideo(video: VideoEntity) {
     // TODO refactor, nur provisorisch
+    // use filesaver package
     this.http.get(video.url, { responseType: 'blob' }).subscribe((response) => {
       const urlCreator = window.URL || window.webkitURL;
-      const imageUrl = urlCreator.createObjectURL(response);
+      const fileUrl = urlCreator.createObjectURL(response);
       const tag = document.createElement('a');
-      tag.href = imageUrl;
+      tag.href = fileUrl;
       tag.target = '_blank';
       tag.download = video.title + '.' + video.extension;
       document.body.appendChild(tag);

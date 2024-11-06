@@ -52,7 +52,7 @@ export const Word = Mark.create({
           };
         },
       },
-      timestampInterpolated: {
+      isTimestampInterpolated: {
         default: undefined,
         renderHTML: (attributes) => {
           return {

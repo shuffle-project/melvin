@@ -73,8 +73,7 @@ export const CustomWord = (injector: Injector) => {
             };
           },
         },
-        // TODO rename to isTimestampInterpolated
-        timestampInterpolated: {
+        isTimestampInterpolated: {
           default: undefined,
           parseHTML: (element) => {
             return element.getAttribute('data-timestamp-interpolated');

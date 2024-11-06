@@ -170,6 +170,29 @@ const handleSpace = (
   return true;
 };
 
+const getTextNodeBefore = (tr: Transaction, from: number) => {
+  if (from === 0) return null;
+
+  const nodeBefore = tr.doc.nodeAt(from - 1);
+  if (nodeBefore === null || nodeBefore?.type.name === 'paragraph') {
+    return getTextNodeBefore(tr, from - 1);
+  } else {
+    return nodeBefore;
+  }
+};
+
+const getTextNodeAfter = (tr: Transaction, to: number) => {
+  console.log(to, tr.doc.content.size);
+  if (to === tr.doc.content.size) return null;
+
+  const nodeBefore = tr.doc.nodeAt(to + 1);
+  if (nodeBefore === null || nodeBefore?.type.name === 'paragraph') {
+    return getTextNodeBefore(tr, to + 1);
+  } else {
+    return nodeBefore;
+  }
+};
+
 const handleInsert = (
   userId: string,
   editor: Editor,
@@ -216,18 +239,20 @@ const handleInsert = (
 
       tr.delete(from, to);
 
-      const nodeAtBefore = tr.doc.nodeAt(from - 1);
-      const nodeAtAfter = tr.doc.nodeAt(to + 1);
+      const nodeAtBefore = getTextNodeBefore(tr, from);
+      const nodeAtAfter = getTextNodeAfter(tr, to + 1);
+
+      // get wordBefore bis ein wort gefunden wurde oder 0
+      // get wordAfter bis ein wort gefunden wurde oder doc.content.size
 
       const startBefore = nodeAtBefore?.marks[0]?.attrs['start'];
       const endBefore = nodeAtBefore?.marks[0]?.attrs['end'];
       const startAfter = nodeAtAfter?.marks[0]?.attrs['start'];
       const endAfter = nodeAtAfter?.marks[0]?.attrs['end'];
 
-      const start = startBefore ?? startAfter ?? undefined;
-      const end = startAfter ?? endBefore ?? undefined;
-
-      // review
+      console.log(nodeAtBefore, nodeAtAfter);
+      const start = startBefore ?? startAfter ?? 0;
+      const end = startAfter ?? endBefore ?? 0;
 
       const createdMark = schema.marks['word'].create({
         start: start,
@@ -235,6 +260,7 @@ const handleInsert = (
         ...(attrs ?? {}),
         modifiedAt: new Date().toISOString(),
         modifiedBy: userId,
+        isTimestampInterpolated: true,
       });
 
       tr.insert(from, schema.text(text, [createdMark]));
