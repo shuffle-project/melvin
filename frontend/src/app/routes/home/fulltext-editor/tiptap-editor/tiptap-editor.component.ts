@@ -40,6 +40,7 @@ import * as editorSelector from 'src/app/store/selectors/editor.selector';
 import { selectQueryParams } from 'src/app/store/selectors/router.selectors';
 import { LetDirective } from '@ngrx/component';
 import { EditorUser } from 'src/app/store/reducers/editor.reducer';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 enum CLIENT_STATUS {
   CONNECTING,
@@ -59,6 +60,7 @@ enum CLIENT_STATUS {
     FormsModule,
     NgxTiptapModule,
     LetDirective,
+    MatProgressSpinnerModule,
   ],
   templateUrl: './tiptap-editor.component.html',
   styleUrl: './tiptap-editor.component.scss',

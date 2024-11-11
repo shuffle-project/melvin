@@ -1,12 +1,24 @@
 <div class="controls">
-  <button mat-icon-button (click)="onClickUndo()" [disabled]="!canUndo()">
+  <button
+    mat-icon-button
+    (click)="onClickUndo()"
+    [disabled]="!canUndo() || CLIENT_STATUS[status] != 'SYNCED'"
+  >
     <mat-icon svgIcon="undo"></mat-icon>
   </button>
-  <button mat-icon-button (click)="onClickRedo()" [disabled]="!canRedo()">
+  <button
+    mat-icon-button
+    (click)="onClickRedo()"
+    [disabled]="!canRedo() || CLIENT_STATUS[status] != 'SYNCED'"
+  >
     <mat-icon svgIcon="redo"></mat-icon>
   </button>
 
-  <div style="margin-left: auto">{{ CLIENT_STATUS[status] }}</div>
+  <div class="statusbar">
+    @if (CLIENT_STATUS[status] !== 'SYNCED') {
+    <mat-spinner color="accent"></mat-spinner>
+    }
+  </div>
 </div>
 
 @if (editor && CLIENT_STATUS[status] === 'SYNCED') {

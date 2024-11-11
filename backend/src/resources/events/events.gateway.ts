@@ -66,7 +66,7 @@ export class EventsGateway
         this.socketService.broadcast(room, 'project:user-changed', {
           // userId: (client as AuthorizedWebSocket).data.userId,
           // clientId: (client as AuthorizedWebSocket).data.clientId,
-          users: this._getActiveUsers(room, project),
+          users: this._getUsers(room, project),
         });
         // this.socketService.broadcast(room, 'project:user-left', {
         //   userId: (client as AuthorizedWebSocket).data.userId,
@@ -88,17 +88,18 @@ export class EventsGateway
     ];
   }
 
-  _getActiveUsers(
-    room: string,
-    project: LeanProjectDocument,
-  ): EditorActiveUser[] {
+  _getUsers(room: string, project: LeanProjectDocument): EditorActiveUser[] {
     const clients = this.socketService.getRoomClients(room);
-    const activeUsers = clients.map((client) => ({
-      userId: client.data.userId,
-      clientId: client.data.clientId,
-      active: true,
-      color: this._getUserColor(client.data.userId, project),
-    }));
+
+    const activeUsers: EditorActiveUser[] = clients
+      ? clients.map((client) => ({
+          userId: client.data.userId,
+          clientId: client.data.clientId,
+          active: true,
+          color: this._getUserColor(client.data.userId, project),
+        }))
+      : [];
+
     const otherUsers: EditorActiveUser[] = project.users
       .filter(
         (user) =>
@@ -113,7 +114,6 @@ export class EventsGateway
         color: this._getUserColor(o._id.toString(), project),
       }));
     const combined = [...activeUsers, ...otherUsers];
-    console.log(combined);
     return combined;
   }
 
@@ -155,7 +155,7 @@ export class EventsGateway
     this.socketService.join(room, socket);
 
     this.socketService.broadcast(room, 'project:user-changed', {
-      users: this._getActiveUsers(room, project),
+      users: this._getUsers(room, project),
     });
 
     // this.socketService.broadcast(room, 'project:user-joined', {
@@ -171,7 +171,7 @@ export class EventsGateway
     this.socketService.leave(room, socket);
 
     this.socketService.broadcast(room, 'project:user-changed', {
-      users: this._getActiveUsers(room, project),
+      users: this._getUsers(room, project),
     });
 
     // this.socketService.broadcast(room, 'project:user-left', {
