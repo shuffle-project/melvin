@@ -321,7 +321,7 @@ export class TiptapEditorComponent implements AfterViewInit, OnInit, OnDestroy {
     return this.editor?.can().redo();
   }
 
-  changeSpeaker(speaker: string) {
+  changeSpeakerId(speakerId: string) {
     const { state, view } = this.editor!;
     const { tr } = state;
     const { selection } = state;
@@ -330,7 +330,7 @@ export class TiptapEditorComponent implements AfterViewInit, OnInit, OnDestroy {
 
     if (node && node.type.name === 'paragraph') {
       const pos = state.selection.$anchor.before();
-      const newAttrs = { ...node.attrs, speaker };
+      const newAttrs = { ...node.attrs, speakerId };
       tr.setNodeMarkup(pos, undefined, newAttrs);
       view.dispatch(tr);
     }

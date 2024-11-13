@@ -374,7 +374,9 @@ export class TiptapService {
     let tiptapParagraph: TiptapParagraph = {
       type: 'paragraph',
       content: [],
-      speakerId: defaultSpeaker,
+      attrs: {
+        speakerId: defaultSpeaker,
+      },
     };
 
     words.forEach((word, i) => {
@@ -383,6 +385,7 @@ export class TiptapService {
         tiptapParagraph = {
           type: 'paragraph',
           content: [],
+          attrs: {},
         };
       }
       tiptapParagraph.content.push({
@@ -433,12 +436,8 @@ export class TiptapService {
 
     // Filter out empty paragraphs
     result.content = result.content.filter((p) => p.content?.length > 0);
-    // TODO refactor speakerid
-    result.content = result.content.map((p) => {
-      p.speakerId = p['attrs']?.speaker ?? null;
-      return p;
-    });
 
+    console.log(result.content);
     return result;
   }
 
@@ -454,7 +453,7 @@ export class TiptapService {
           end: word.marks[0]?.attrs.end, // TODO
           startParagraph: i === 0,
           confidence: word.marks[0]?.attrs.confidence,
-          speakerId: paragraph.speakerId ?? null,
+          speakerId: paragraph.attrs.speakerId ?? null,
         });
       }
     }

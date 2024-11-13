@@ -140,14 +140,14 @@ export const Partial = Mark.create({
 export const CustomParagraph = Paragraph.extend({
   addAttributes() {
     return {
-      speaker: {
+      speakerId: {
         default: null,
         parseHTML: (element) => {
-          return element.getAttribute('data-speaker');
+          return element.getAttribute('data-speaker-id');
         },
         renderHTML: (attributes) => {
           return {
-            'data-speaker': attributes['speaker'],
+            'data-speaker-id': attributes['speakerId'],
           };
         },
       },

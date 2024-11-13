@@ -274,9 +274,7 @@ export class AuthEffects {
         ofType(authActions.guestLoginSuccess),
         tap((guestLoginEntity: GuestLoginEntity) => {
           console.log(guestLoginEntity);
-          this.router.navigate([
-            '/home/editor/' + guestLoginEntity.projectId + '/edit',
-          ]);
+          this.router.navigate(['/home/editor/' + guestLoginEntity.projectId]);
         })
       ),
     { dispatch: false }

@@ -60,7 +60,7 @@ export class TiptapParagraphComponent
 
   public showSpeaker = false;
 
-  public speaker!: string;
+  public speakerName!: string;
 
   public spellchecking = false;
 
@@ -91,9 +91,10 @@ export class TiptapParagraphComponent
 
   ngOnChanges(changes: SimpleChanges) {
     const node = changes['node'];
+    console.log(node);
     if (
       !node?.firstChange &&
-      node?.previousValue.attrs.speaker !== node?.currentValue.attrs.speaker
+      node?.previousValue.attrs.speakerId !== node?.currentValue.attrs.speakerId
     ) {
       this.tiptapEditorService.speakerChanged$.next();
     }
@@ -112,22 +113,19 @@ export class TiptapParagraphComponent
     const previousSpeakerIds: string[] = [];
     this.editor.state.doc.nodesBetween(0, pos, (node, pos) => {
       if (node.type.name === 'paragraph') {
-        previousSpeakerIds.push(node.attrs['speaker']);
+        previousSpeakerIds.push(node.attrs['speakerId']);
       }
     });
 
     const prevSpeakerId =
       previousSpeakerIds.reverse().find((speakerId) => speakerId) || null;
 
-    const speakerId = this.node.attrs['speaker'] || prevSpeakerId;
-
-    const hasFocus =
-      this.elementRef.nativeElement.classList.contains('has-focus');
+    const speakerId = this.node.attrs['speakerId'] || prevSpeakerId;
 
     this.showSpeaker = true;
 
     const speakers = this.tiptapEditorService.speakers$.getValue();
-    this.speaker =
+    this.speakerName =
       speakers.find((speaker) => speaker.id === speakerId)?.name || 'Unknown';
   }
 
@@ -139,7 +137,7 @@ export class TiptapParagraphComponent
     const paragraph = state.doc.nodeAt(pos);
 
     if (paragraph?.type.name === 'paragraph') {
-      const newAttrs = { ...paragraph.attrs, speaker: speaker.id };
+      const newAttrs = { ...paragraph.attrs, speakerId: speaker.id };
       tr.setNodeMarkup(pos, undefined, newAttrs);
 
       view.dispatch(tr);

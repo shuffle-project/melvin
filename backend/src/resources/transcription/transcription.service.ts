@@ -465,6 +465,7 @@ export class TranscriptionService {
   }
 
   // TODO mehr provisorisch bis wir wissen wir das umsetzen wollen
+  // speaker mapping fehlt, aktuell wird einfach nur eine neue transcription erstellt mit dem text, ohne jeweilige speaker
   async alignTranscription(authUser: AuthUser, id: string): Promise<void> {
     const transcription = await this.db.transcriptionModel
       .findById(id)
@@ -496,7 +497,12 @@ export class TranscriptionService {
         createdBy: authUser.id,
         _id: transcriptionId,
         project: projectId,
-        speakers: [{ _id: new Types.ObjectId(), name: 'default Speaker' }],
+        speakers: [
+          ...transcription.speakers.map((speaker) => ({
+            ...speaker,
+            _id: new Types.ObjectId(),
+          })),
+        ],
       }), // ,{populate:'createdBy'}
       this.db.updateProjectByIdAndReturn(projectId, {
         $push: { transcriptions: transcriptionId },
@@ -515,7 +521,6 @@ export class TranscriptionService {
       audio: project.audios[0],
       transcriptionId: transcription._id.toString(),
       text,
-      //   syncSpeaker: captions,
     };
     this.subtitlesQueue.add({
       project: project,

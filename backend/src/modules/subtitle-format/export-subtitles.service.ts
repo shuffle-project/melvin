@@ -27,13 +27,13 @@ export class ExportSubtitlesService {
     tiptapDocument.content.forEach((node) => {
       let text = '';
 
-      if (node.speakerId !== lastSpeaker && node.speakerId) {
+      if (node.attrs.speakerId !== lastSpeaker && node.attrs.speakerId) {
         const foundSpeaker = speakers.find((speaker) =>
-          isSameObjectId(speaker._id, node.speakerId),
+          isSameObjectId(speaker._id, node.attrs.speakerId),
         );
         if (foundSpeaker) {
           text += `${foundSpeaker.name}: `;
-          lastSpeaker = node.speakerId;
+          lastSpeaker = node.attrs.speakerId;
         }
       }
 

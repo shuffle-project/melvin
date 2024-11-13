@@ -327,12 +327,16 @@ export class SpeechToTextService {
     });
   }
 
-  _syncSpeaker(document: TiptapDocument, captionEntities: CaptionEntity[]) {
-    const speakerIds = [
+  _syncSpeaker(
+    document: TiptapDocument,
+    captionEntities: CaptionEntity[],
+  ): TiptapDocument {
+    const speakerIdsInCaptions = [
       ...new Set(captionEntities.map((caption) => caption.speakerId)),
     ];
-    if (speakerIds.length === 1) {
-      document.content.at(0).speakerId = speakerIds[0];
+
+    if (speakerIdsInCaptions.length === 1) {
+      document.content.at(0).attrs.speakerId = speakerIdsInCaptions[0];
       return document;
     }
 
@@ -395,13 +399,13 @@ export class SpeechToTextService {
       if (captionWord.speaker !== previousSpeaker) {
         const paragraph = document.content[documentWords[index].pargraphId];
         if (
-          paragraph.speakerId &&
-          paragraph.speakerId !== captionWord.speaker
+          paragraph.attrs.speakerId &&
+          paragraph.attrs.speakerId !== captionWord.speaker
         ) {
           // TODO: dont set speaker if its already set? but also dont throw error?
           // throw new Error('Speaker already set');
         } else {
-          paragraph.speakerId = captionWord.speaker;
+          paragraph.attrs.speakerId = captionWord.speaker;
           previousSpeaker = captionWord.speaker;
         }
       }

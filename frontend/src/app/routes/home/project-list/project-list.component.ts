@@ -183,7 +183,7 @@ export class ProjectListComponent implements OnInit, AfterViewInit, OnDestroy {
 
   onClickTitle(project: ProjectEntity) {
     if (this.isClickable(project)) {
-      this.router.navigate(['/home/editor', project.id, 'edit']);
+      this.router.navigate(['/home/editor', project.id]);
     }
   }
 
