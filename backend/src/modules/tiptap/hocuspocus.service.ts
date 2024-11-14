@@ -6,6 +6,9 @@ import { IncomingMessage } from 'http';
 import { WebSocket } from 'ws';
 import { DbService } from '../db/db.service';
 import { CustomLogger } from '../logger/logger.service';
+import * as Y from 'yjs';
+import { TiptapTransformer } from '@hocuspocus/transformer';
+
 @Injectable()
 export class HocuspocusService {
   private server = new Hocuspocus({
@@ -19,6 +22,12 @@ export class HocuspocusService {
           return transcription.ydoc;
         },
         store: async ({ documentName, state }) => {
+          // TODO transform state to JSON to backup data
+          // const ydoc = new Y.Doc();
+          // Y.applyUpdateV2(ydoc, state);
+          // const json = Y.encodeStateAsUpdateV2(ydoc);
+          // console.log(json);
+
           await this.db.transcriptionModel.findByIdAndUpdate(documentName, {
             $set: { ydoc: state },
           });
@@ -36,7 +45,7 @@ export class HocuspocusService {
     request: IncomingMessage,
     context: any,
   ) {
-    this.logger.log('handle connection');
+    this.logger.verbose('handle connection');
     this.server.handleConnection(websocket, request, context);
   }
 

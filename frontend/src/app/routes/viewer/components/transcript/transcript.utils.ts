@@ -5,7 +5,7 @@ import {
 
 export function generateTranscript(captions: TiptapCaption[]) {
   if (captions.length === 0) return [];
-  console.log(captions);
+  // console.log(captions);
 
   const finalTranscriptParagraphs: TiptapCaption[][] = [];
 
@@ -55,7 +55,7 @@ export function generateTranscript(captions: TiptapCaption[]) {
 // TODO: remove at some point - migration to new transcript format
 export function old_generateTranscript(captions: CaptionEntity[]) {
   if (captions.length === 0) return [];
-  console.log(captions);
+  // console.log(captions);
 
   const finalTranscriptParagraphs: CaptionEntity[][] = [];
 

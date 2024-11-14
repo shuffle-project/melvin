@@ -128,8 +128,6 @@ export class TiptapEditorComponent implements AfterViewInit, OnInit, OnDestroy {
     // rerender after change?
   }
 
-  // TODO spellchecking
-
   ngAfterViewInit() {
     this.viewReady$.next(true);
 
@@ -304,7 +302,6 @@ export class TiptapEditorComponent implements AfterViewInit, OnInit, OnDestroy {
         for (let index = 0; index < styleSheet.cssRules.length; index++) {
           styleSheet.deleteRule(index);
         }
-        // review
         styleSheet.insertRule(
           `.time-${time} { color: var(--color-white) !important; background:var(--color-black); }`,
           0

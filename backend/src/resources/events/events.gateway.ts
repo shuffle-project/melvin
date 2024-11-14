@@ -39,7 +39,7 @@ export class EventsGateway
   }
 
   handleConnection(client: WebSocket, @Req() req: IncomingMessage) {
-    console.log('Connection', req.url);
+    // console.log('Connection', req.url);
     if (req.url.includes('hocuspocus')) {
       this.tiptapService.handleConnection(client, req, null);
     } else {

@@ -8,14 +8,6 @@ export const Word = Mark.create({
 
   addAttributes() {
     return {
-      // timestamp: {
-      //   default: undefined,
-      //   renderHTML(attributes) {
-      //     return {
-      //       'data-timestamp': attributes['timestamp'],
-      //     };
-      //   },
-      // },
       start: {
         default: undefined,
         renderHTML(attributes) {
@@ -73,7 +65,6 @@ export const Word = Mark.create({
         modifiedAt: 'data-modified-at',
         modifiedBy: 'data-modified-by',
         confidence: 'data-confidence',
-        // timestamp: 'timestamp',
         start: 'data-start',
         end: 'data-end',
         timestampInterpolated: 'data-timestamp-interpolated',

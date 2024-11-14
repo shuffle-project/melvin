@@ -20,7 +20,7 @@ import {
   Observable,
   Subject,
   combineLatest,
-  debounceTime,
+  firstValueFrom,
   map,
   takeUntil,
   tap,
@@ -75,15 +75,6 @@ export class TranscriptComponent implements OnDestroy, OnInit {
   searchFoundInCaptionIds: string[] = [];
   // searchFoundInCaptionId: string | null = null;
 
-  transcript$: Observable<TiptapCaption[][]> = this.captions$.pipe(
-    map((captions) => {
-      const transcript = generateTranscript(captions);
-      this.transcriptNew = JSON.parse(JSON.stringify(transcript));
-      console.log(this.transcript$);
-      return transcript;
-    })
-  );
-
   autoScroll = true;
 
   constructor(
@@ -111,10 +102,18 @@ export class TranscriptComponent implements OnDestroy, OnInit {
       )
       .subscribe();
 
-    combineLatest([this.transcript$, this.searchValue$])
+    const transcript$: Observable<TiptapCaption[][]> = this.captions$.pipe(
+      map((captions) => {
+        const transcript = generateTranscript(captions);
+        this.transcriptNew = JSON.parse(JSON.stringify(transcript));
+        return transcript;
+      })
+    );
+
+    combineLatest([transcript$, this.searchValue$])
       .pipe(
         takeUntil(this.destroy$$),
-        debounceTime(250),
+        throttleTime(250),
         tap(([transcript, searchValue]) => {
           let regex = new RegExp('(' + searchValue + ')', 'gi'); // g = global, i = case insensitive
 

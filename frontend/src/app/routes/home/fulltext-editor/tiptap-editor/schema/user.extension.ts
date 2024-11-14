@@ -156,7 +156,6 @@ const handleSpace = (
 
     const nodeAt = tr.doc.nodeAt(from);
     if (nodeAt) {
-      // review only way to add the space at the start of the following word
       tr.insertText(' ' + nodeAt.text, from, from + nodeAt.nodeSize);
     } else {
       tr.insertText(' ', from);

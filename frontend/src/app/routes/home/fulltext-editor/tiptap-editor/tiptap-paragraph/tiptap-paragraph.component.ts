@@ -91,7 +91,6 @@ export class TiptapParagraphComponent
 
   ngOnChanges(changes: SimpleChanges) {
     const node = changes['node'];
-    console.log(node);
     if (
       !node?.firstChange &&
       node?.previousValue.attrs.speakerId !== node?.currentValue.attrs.speakerId

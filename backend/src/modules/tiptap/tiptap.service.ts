@@ -58,6 +58,7 @@ export class TiptapService {
 
     await connection.transact((doc) => {
       const stateVector = Y.encodeStateVector(doc);
+
       const updatedYdoc = TiptapTransformer.toYdoc(
         jsonDoc,
         'default',
