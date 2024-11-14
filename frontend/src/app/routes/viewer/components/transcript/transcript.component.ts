@@ -33,6 +33,7 @@ import { AppState } from '../../../../store/app.state';
 import * as viewerSelector from '../../../../store/selectors/viewer.selector';
 import { ViewerService } from '../../services/viewer.service';
 import { generateTranscript } from './transcript.utils';
+import { selectQueryParams } from 'src/app/store/selectors/router.selectors';
 
 @Component({
   selector: 'app-transcript',
@@ -55,6 +56,8 @@ import { generateTranscript } from './transcript.utils';
 })
 export class TranscriptComponent implements OnDestroy, OnInit {
   private destroy$$ = new Subject<void>();
+
+  debugMode = false;
 
   // @ViewChild(CdkVirtualScrollViewport) viewPort!: CdkVirtualScrollViewport;
   @ViewChildren('.match') matches!: QueryList<HTMLElement>;
@@ -84,6 +87,10 @@ export class TranscriptComponent implements OnDestroy, OnInit {
   ) {}
 
   ngOnInit(): void {
+    firstValueFrom(this.store.select(selectQueryParams)).then((queryParams) => {
+      this.debugMode = queryParams['debug'];
+    });
+
     combineLatest([this.viewerService.currentCaption$, this.captions$])
       .pipe(
         takeUntil(this.destroy$$),

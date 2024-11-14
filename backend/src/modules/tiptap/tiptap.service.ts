@@ -438,7 +438,6 @@ export class TiptapService {
     // Filter out empty paragraphs
     result.content = result.content.filter((p) => p.content?.length > 0);
 
-    console.log(result.content);
     return result;
   }
 
@@ -451,7 +450,7 @@ export class TiptapService {
         words.push({
           text: word.text,
           start: word.marks[0]?.attrs.start,
-          end: word.marks[0]?.attrs.end, // TODO
+          end: word.marks[0]?.attrs.end,
           startParagraph: i === 0,
           confidence: word.marks[0]?.attrs.confidence,
           speakerId: paragraph.attrs.speakerId ?? null,
