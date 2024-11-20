@@ -1986,10 +1986,6 @@
         <source> Delete <x id="INTERPOLATION" equiv-text="{{ data.subject }}"/> </source>
         <target state="final"> Lösche <x id="INTERPOLATION" equiv-text="{{ data.subject }}"/> </target>
       </trans-unit>
-      <trans-unit id="deleteConfirmationDialogAreYouSureDeleteAccount" datatype="html">
-        <source> Are you sure you want to delete this <x id="INTERPOLATION" equiv-text="{{ data.subject }}"/>? </source>
-        <target state="final"> Sind Sie sicher, dass Sie diesen <x id="INTERPOLATION" equiv-text="{{ data.subject }}"/> löschen möchten? </target>
-      </trans-unit>
       <trans-unit id="deleteServiceDeleteAccountDescription" datatype="html">
         <source>If you confirm this, your account with all created projects and data will be deleted. This can NOT be undone!</source>
         <target state="final">Wenn Sie dies bestätigen, wird Ihr Konto mit allen erstellten Projekten und Daten gelöscht. Dies kann NICHT rückgängig gemacht werden!</target>
@@ -2009,6 +2005,22 @@
       <trans-unit id="viewerVideoContainerToMainviewScreenreader" datatype="html">
         <source>Switch video &apos;<x id="INTERPOLATION" equiv-text="{{ video.category | mediaCategory }}"/>&apos; to main view</source>
         <target state="final">Wechsel das Video &apos;<x id="INTERPOLATION" equiv-text="{{ video.category | mediaCategory }}"/>&apos; zur Hauptansicht</target>
+      </trans-unit>
+      <trans-unit id="deleteConfirmationDialogPasswordExplanation" datatype="html">
+        <source> To delete your account you need to enter your password </source>
+        <target state="final"> Um Ihr Konto zu löschen, müssen Sie Ihr Passwort eingeben </target>
+      </trans-unit>
+      <trans-unit id="deleteConfirmationDialogPasswordLabel" datatype="html">
+        <source> Password </source>
+        <target state="final"> Passwort </target>
+      </trans-unit>
+      <trans-unit id="deleteConfirmationDialogPasswordError" datatype="html">
+        <source> Password is required </source>
+        <target state="final"> Passwort benötigt </target>
+      </trans-unit>
+      <trans-unit id="deleteConfirmationDialogPasswordIsIncorrect" datatype="html">
+        <source>Password is incorrect</source>
+        <target state="final">Password ist nicht korrekt</target>
       </trans-unit>
     </body>
   </file>

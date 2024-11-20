@@ -158,7 +158,7 @@ export class FakeApiService implements ApiService {
     return of(USERS_MOCK);
   }
 
-  deleteAccount(): Observable<void> {
+  deleteAccount(password: string): Observable<void> {
     this.logger.verbose('deleteAccount mocked');
     return of();
   }

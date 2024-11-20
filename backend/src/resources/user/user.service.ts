@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
+import * as bcrypt from 'bcrypt';
 import { plainToInstance } from 'class-transformer';
 import { readdir, stat } from 'fs-extra';
 import { join } from 'path';
@@ -8,13 +9,15 @@ import { EmailConfig } from '../../config/config.interface';
 import { Project } from '../../modules/db/schemas/project.schema';
 import { LeanUserDocument } from '../../modules/db/schemas/user.schema';
 import { PathService } from '../../modules/path/path.service';
-import { CustomInternalServerException } from '../../utils/exceptions';
+import {
+  CustomForbiddenException,
+  CustomInternalServerException,
+} from '../../utils/exceptions';
 import { isSameObjectId } from '../../utils/objectid';
+import { AuthUser } from '../auth/auth.interfaces';
 import { FindAllUsersQuery } from './dto/find-all-users.dto';
 import { UserEntity } from './entities/user.entity';
 import { UserRole } from './user.interfaces';
-import { AuthUser } from '../auth/auth.interfaces';
-import { auth } from 'google-auth-library';
 
 @Injectable()
 export class UserService {
@@ -74,8 +77,16 @@ export class UserService {
     return users.map((o) => plainToInstance(UserEntity, o));
   }
 
-  async remove(authUser: AuthUser): Promise<void> {
+  async remove(authUser: AuthUser, dto: { password: string }): Promise<void> {
     const user = await this.db.userModel.findById(authUser.id).exec();
+
+    const passwordMatch = await bcrypt.compare(
+      dto.password,
+      user.hashedPassword,
+    );
+    if (!passwordMatch) {
+      throw new CustomForbiddenException('password_is_incorrect');
+    }
 
     // remove all ownded projects of user
     await this.db.projectModel

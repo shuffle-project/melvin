@@ -272,8 +272,8 @@ export class RealApiService implements ApiService {
     return this._get<UserEntity[]>('/users', { params: { search } });
   }
 
-  deleteAccount(): Observable<void> {
-    return this._delete<void>('/users');
+  deleteAccount(password: string): Observable<void> {
+    return this._post<void>('/users', { password });
   }
 
   // projects

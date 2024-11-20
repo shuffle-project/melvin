@@ -1,21 +1,22 @@
 import {
+  Body,
   ClassSerializerInterceptor,
   Controller,
-  Delete,
   Get,
   HttpStatus,
+  Post,
   Query,
   UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
 import { ApiResponse } from '@nestjs/swagger';
+import { User } from '../auth/auth.decorator';
+import { AuthUser } from '../auth/auth.interfaces';
 import { BasicAuthGuard } from '../auth/guards/basic-auth.guard';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { FindAllUsersQuery } from './dto/find-all-users.dto';
 import { UserEntity } from './entities/user.entity';
 import { UserService } from './user.service';
-import { AuthUser } from '../auth/auth.interfaces';
-import { User } from '../auth/auth.decorator';
 
 @UseInterceptors(ClassSerializerInterceptor)
 @Controller('users')
@@ -36,9 +37,12 @@ export class UserController {
   }
 
   @UseGuards(JwtAuthGuard)
-  @Delete()
+  @Post()
   @ApiResponse({ status: HttpStatus.NO_CONTENT })
-  delete(@User() authUser: AuthUser): Promise<void> {
-    return this.userService.remove(authUser);
+  delete(
+    @Body() dto: { password: string },
+    @User() authUser: AuthUser,
+  ): Promise<void> {
+    return this.userService.remove(authUser, dto);
   }
 }
