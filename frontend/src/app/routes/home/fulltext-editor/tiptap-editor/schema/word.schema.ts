@@ -73,8 +73,7 @@ export const CustomWord = (injector: Injector) => {
             };
           },
         },
-        // TODO rename to isTimestampInterpolated
-        timestampInterpolated: {
+        isTimestampInterpolated: {
           default: undefined,
           parseHTML: (element) => {
             return element.getAttribute('data-timestamp-interpolated');
@@ -113,7 +112,6 @@ export const CustomWord = (injector: Injector) => {
       const end = HTMLAttributes['data-end'];
 
       if (start != undefined && end != undefined) {
-        // fixme robuster machen, wenn undefined mach irgendwas was sinn ergbit
         const timeStart = Math.floor(start / 1000);
         const timeEnd = Math.floor(end / 1000 ?? start);
         const classes = new Array(timeEnd - timeStart + 1)
@@ -123,7 +121,7 @@ export const CustomWord = (injector: Injector) => {
       }
 
       if (this.options.showWordBorders) {
-        // debug border
+        // debug border, only shows if the debug option is true
         if (!attrs.style) {
           attrs.style =
             'border-left: 1px solid black; border-right: 1px solid black;';

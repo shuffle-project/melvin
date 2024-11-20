@@ -8,14 +8,6 @@ export const Word = Mark.create({
 
   addAttributes() {
     return {
-      // timestamp: {
-      //   default: undefined,
-      //   renderHTML(attributes) {
-      //     return {
-      //       'data-timestamp': attributes['timestamp'],
-      //     };
-      //   },
-      // },
       start: {
         default: undefined,
         renderHTML(attributes) {
@@ -52,7 +44,7 @@ export const Word = Mark.create({
           };
         },
       },
-      timestampInterpolated: {
+      isTimestampInterpolated: {
         default: undefined,
         renderHTML: (attributes) => {
           return {
@@ -73,7 +65,6 @@ export const Word = Mark.create({
         modifiedAt: 'data-modified-at',
         modifiedBy: 'data-modified-by',
         confidence: 'data-confidence',
-        // timestamp: 'timestamp',
         start: 'data-start',
         end: 'data-end',
         timestampInterpolated: 'data-timestamp-interpolated',
@@ -140,14 +131,14 @@ export const Partial = Mark.create({
 export const CustomParagraph = Paragraph.extend({
   addAttributes() {
     return {
-      speaker: {
+      speakerId: {
         default: null,
         parseHTML: (element) => {
-          return element.getAttribute('data-speaker');
+          return element.getAttribute('data-speaker-id');
         },
         renderHTML: (attributes) => {
           return {
-            'data-speaker': attributes['speaker'],
+            'data-speaker-id': attributes['speakerId'],
           };
         },
       },

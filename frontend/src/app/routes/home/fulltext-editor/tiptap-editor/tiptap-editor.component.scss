@@ -18,6 +18,13 @@
 
   border-top-left-radius: 0.3125rem;
   border-top-right-radius: 0.3125rem;
+
+  .statusbar {
+    margin-left: auto;
+    mat-spinner {
+      max-height: 2rem;
+    }
+  }
 }
 
 .editor-container {

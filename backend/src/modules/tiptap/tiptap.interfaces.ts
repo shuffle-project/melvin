@@ -18,8 +18,11 @@ export interface TiptapText {
 
 export interface TiptapParagraph {
   type: 'paragraph';
-  speakerId?: string;
+  // speakerId?: string;
   content: Array<TiptapText>;
+  attrs: {
+    speakerId?: string;
+  };
 }
 
 export interface TiptapDocument {

@@ -34,7 +34,8 @@ export class ViewerService {
   public audio: HTMLAudioElement | null = null;
   public audioLoaded: boolean = false;
 
-  public currentTime$ = new Observable<number>();
+  public currentTime$ = new BehaviorSubject<number>(0);
+  public currentTimeObs$ = new Observable<number>();
 
   // public play$ = new Subject<void>();
   // public pause$ = new Subject<void>();
@@ -100,9 +101,6 @@ export class ViewerService {
 
     // TODO take until destory
     this.loadCurrentTimeFromStorage();
-    // this.isPlayingUser$.subscribe
-    // this.play$.subscribe(() => this.isPlaying$.next(true));
-    // this.pause$.subscribe(() => this.isPlaying$.next(false));
 
     this.isPlayingMedia$
       .pipe(
@@ -118,7 +116,7 @@ export class ViewerService {
       .subscribe();
 
     // https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement#events
-    this.currentTime$ = merge(
+    merge(
       fromEvent(audioElement, 'timeupdate').pipe(
         map((o) => (o.target as HTMLMediaElement).currentTime)
       ),
@@ -130,23 +128,11 @@ export class ViewerService {
         filter(() => !audioElement.paused),
         map(() => audioElement.currentTime)
       )
-    ).pipe(takeUntil(this.destroy$$), distinctUntilChanged());
-
-    // play
-    // merge(fromEvent(audioElement, 'play'), fromEvent(audioElement, 'playing'))
-    //   .pipe(
-    //     takeUntil(this.destroy$$),
-    //     tap(() => this.play$.next())
-    //   )
-    //   .subscribe();
-
-    // pause
-    // merge(fromEvent(audioElement, 'pause'), fromEvent(audioElement, 'waiting'))
-    //   .pipe(
-    //     takeUntil(this.destroy$$),
-    //     tap(() => this.pause$.next())
-    //   )
-    //   .subscribe();
+    )
+      .pipe(takeUntil(this.destroy$$), distinctUntilChanged())
+      .subscribe((value) => {
+        this.currentTime$.next(value);
+      });
 
     // seeking
     merge(fromEvent(audioElement, 'seeking'), fromEvent(audioElement, 'seeked'))

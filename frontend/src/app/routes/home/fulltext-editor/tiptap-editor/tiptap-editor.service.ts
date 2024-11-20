@@ -34,7 +34,7 @@ export class TiptapEditorService {
 
   getUserColor(userId: string) {
     const editorUsers = this.editorUsers$.getValue();
-    console.log(editorUsers);
+    // console.log(editorUsers);
     return (
       editorUsers.find((user) => user.userId === userId)?.color || 'primary'
     );

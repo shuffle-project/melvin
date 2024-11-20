@@ -13,7 +13,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { LetDirective } from '@ngrx/component';
-import { Subject } from 'rxjs';
+import { firstValueFrom, Subject } from 'rxjs';
 import { HeaderComponent } from '../../components/header/header.component';
 import { LogoComponent } from '../../components/logo/logo.component';
 import * as viewerActions from '../../store/actions/viewer.actions';
@@ -28,6 +28,7 @@ import { ControlsComponent } from './components/player/controls/controls.compone
 import { OverlayService } from './services/overlay.service';
 import { ViewerService } from './services/viewer.service';
 import { TranscriptPosition } from './viewer.interfaces';
+import { selectQueryParams } from 'src/app/store/selectors/router.selectors';
 
 @Component({
   selector: 'app-viewer',

@@ -24,7 +24,6 @@ import { CustomParagraph, Partial, Word } from './tiptap.schema';
 
 const EXTENSIONS = [
   Document,
-  Paragraph,
   CustomParagraph,
   Text,
   TextStyle,
@@ -59,6 +58,7 @@ export class TiptapService {
 
     await connection.transact((doc) => {
       const stateVector = Y.encodeStateVector(doc);
+
       const updatedYdoc = TiptapTransformer.toYdoc(
         jsonDoc,
         'default',
@@ -375,7 +375,9 @@ export class TiptapService {
     let tiptapParagraph: TiptapParagraph = {
       type: 'paragraph',
       content: [],
-      speakerId: defaultSpeaker,
+      attrs: {
+        speakerId: defaultSpeaker,
+      },
     };
 
     words.forEach((word, i) => {
@@ -384,6 +386,7 @@ export class TiptapService {
         tiptapParagraph = {
           type: 'paragraph',
           content: [],
+          attrs: {},
         };
       }
       tiptapParagraph.content.push({
@@ -434,11 +437,6 @@ export class TiptapService {
 
     // Filter out empty paragraphs
     result.content = result.content.filter((p) => p.content?.length > 0);
-    // TODO refactor speakerid
-    result.content = result.content.map((p) => {
-      p.speakerId = p['attrs']?.speaker ?? null;
-      return p;
-    });
 
     return result;
   }
@@ -452,10 +450,10 @@ export class TiptapService {
         words.push({
           text: word.text,
           start: word.marks[0]?.attrs.start,
-          end: word.marks[0]?.attrs.end, // TODO
+          end: word.marks[0]?.attrs.end,
           startParagraph: i === 0,
           confidence: word.marks[0]?.attrs.confidence,
-          speakerId: paragraph.speakerId ?? null,
+          speakerId: paragraph.attrs.speakerId ?? null,
         });
       }
     }

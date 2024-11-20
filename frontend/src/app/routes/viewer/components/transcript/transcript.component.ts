@@ -20,7 +20,7 @@ import {
   Observable,
   Subject,
   combineLatest,
-  debounceTime,
+  firstValueFrom,
   map,
   takeUntil,
   tap,
@@ -33,6 +33,7 @@ import { AppState } from '../../../../store/app.state';
 import * as viewerSelector from '../../../../store/selectors/viewer.selector';
 import { ViewerService } from '../../services/viewer.service';
 import { generateTranscript } from './transcript.utils';
+import { selectQueryParams } from 'src/app/store/selectors/router.selectors';
 
 @Component({
   selector: 'app-transcript',
@@ -56,6 +57,8 @@ import { generateTranscript } from './transcript.utils';
 export class TranscriptComponent implements OnDestroy, OnInit {
   private destroy$$ = new Subject<void>();
 
+  debugMode = false;
+
   // @ViewChild(CdkVirtualScrollViewport) viewPort!: CdkVirtualScrollViewport;
   @ViewChildren('.match') matches!: QueryList<HTMLElement>;
 
@@ -75,15 +78,6 @@ export class TranscriptComponent implements OnDestroy, OnInit {
   searchFoundInCaptionIds: string[] = [];
   // searchFoundInCaptionId: string | null = null;
 
-  transcript$: Observable<TiptapCaption[][]> = this.captions$.pipe(
-    map((captions) => {
-      const transcript = generateTranscript(captions);
-      this.transcriptNew = JSON.parse(JSON.stringify(transcript));
-      console.log(this.transcript$);
-      return transcript;
-    })
-  );
-
   autoScroll = true;
 
   constructor(
@@ -93,6 +87,10 @@ export class TranscriptComponent implements OnDestroy, OnInit {
   ) {}
 
   ngOnInit(): void {
+    firstValueFrom(this.store.select(selectQueryParams)).then((queryParams) => {
+      this.debugMode = queryParams['debug'];
+    });
+
     combineLatest([this.viewerService.currentCaption$, this.captions$])
       .pipe(
         takeUntil(this.destroy$$),
@@ -111,10 +109,18 @@ export class TranscriptComponent implements OnDestroy, OnInit {
       )
       .subscribe();
 
-    combineLatest([this.transcript$, this.searchValue$])
+    const transcript$: Observable<TiptapCaption[][]> = this.captions$.pipe(
+      map((captions) => {
+        const transcript = generateTranscript(captions);
+        this.transcriptNew = JSON.parse(JSON.stringify(transcript));
+        return transcript;
+      })
+    );
+
+    combineLatest([transcript$, this.searchValue$])
       .pipe(
         takeUntil(this.destroy$$),
-        debounceTime(250),
+        throttleTime(250),
         tap(([transcript, searchValue]) => {
           let regex = new RegExp('(' + searchValue + ')', 'gi'); // g = global, i = case insensitive
 

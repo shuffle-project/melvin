@@ -40,6 +40,7 @@ import * as editorSelector from 'src/app/store/selectors/editor.selector';
 import { selectQueryParams } from 'src/app/store/selectors/router.selectors';
 import { LetDirective } from '@ngrx/component';
 import { EditorUser } from 'src/app/store/reducers/editor.reducer';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 enum CLIENT_STATUS {
   CONNECTING,
@@ -59,6 +60,7 @@ enum CLIENT_STATUS {
     FormsModule,
     NgxTiptapModule,
     LetDirective,
+    MatProgressSpinnerModule,
   ],
   templateUrl: './tiptap-editor.component.html',
   styleUrl: './tiptap-editor.component.scss',
@@ -125,8 +127,6 @@ export class TiptapEditorComponent implements AfterViewInit, OnInit, OnDestroy {
 
     // rerender after change?
   }
-
-  // TODO spellchecking
 
   ngAfterViewInit() {
     this.viewReady$.next(true);
@@ -302,7 +302,6 @@ export class TiptapEditorComponent implements AfterViewInit, OnInit, OnDestroy {
         for (let index = 0; index < styleSheet.cssRules.length; index++) {
           styleSheet.deleteRule(index);
         }
-        // review
         styleSheet.insertRule(
           `.time-${time} { color: var(--color-white) !important; background:var(--color-black); }`,
           0
@@ -319,7 +318,7 @@ export class TiptapEditorComponent implements AfterViewInit, OnInit, OnDestroy {
     return this.editor?.can().redo();
   }
 
-  changeSpeaker(speaker: string) {
+  changeSpeakerId(speakerId: string) {
     const { state, view } = this.editor!;
     const { tr } = state;
     const { selection } = state;
@@ -328,7 +327,7 @@ export class TiptapEditorComponent implements AfterViewInit, OnInit, OnDestroy {
 
     if (node && node.type.name === 'paragraph') {
       const pos = state.selection.$anchor.before();
-      const newAttrs = { ...node.attrs, speaker };
+      const newAttrs = { ...node.attrs, speakerId };
       tr.setNodeMarkup(pos, undefined, newAttrs);
       view.dispatch(tr);
     }

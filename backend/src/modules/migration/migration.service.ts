@@ -12,6 +12,7 @@ import { DbService } from '../db/db.service';
 import { CustomLogger } from '../logger/logger.service';
 import { WhisperSpeechService } from '../speech-to-text/whisper/whisper-speech.service';
 import { TiptapService } from '../tiptap/tiptap.service';
+import { ProjectStatus } from '../db/schemas/project.schema';
 
 @Injectable()
 export class MigrationService {
@@ -123,6 +124,9 @@ export class MigrationService {
             transcription._id.toString(),
         );
         if (project) {
+          project.status = ProjectStatus.WAITING;
+          await project.save();
+
           const payload: AlignPayload = {
             type: SubtitlesType.ALIGN,
             audio: project.audios[0],
