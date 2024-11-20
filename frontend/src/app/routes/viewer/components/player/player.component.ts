@@ -45,29 +45,28 @@ export interface ViewerVideo extends VideoEntity {
 }
 
 @Component({
-  selector: 'app-player',
-  templateUrl: './player.component.html',
-  styleUrls: ['./player.component.scss'],
-  providers: [
-    { provide: OverlayContainer, useClass: FullscreenOverlayContainer },
-  ],
-  standalone: true,
-  imports: [
-    MatProgressSpinnerModule,
-    LetDirective,
-    VideoContainerComponent,
-    NgStyle,
-    ControlsComponent,
-    PushPipe,
-  ],
-  animations: [
-    trigger('fade', [
-      state('show', style({ opacity: 1 })),
-      state('hide', style({ opacity: 0 })),
-      transition('hide => show', [style({ opacity: 1 })]),
-      transition('show => hide', [animate(0, style({ opacity: 0 }))]),
-    ]),
-  ],
+    selector: 'app-player',
+    templateUrl: './player.component.html',
+    styleUrls: ['./player.component.scss'],
+    providers: [
+        { provide: OverlayContainer, useClass: FullscreenOverlayContainer },
+    ],
+    imports: [
+        MatProgressSpinnerModule,
+        LetDirective,
+        VideoContainerComponent,
+        NgStyle,
+        ControlsComponent,
+        PushPipe,
+    ],
+    animations: [
+        trigger('fade', [
+            state('show', style({ opacity: 1 })),
+            state('hide', style({ opacity: 0 })),
+            transition('hide => show', [style({ opacity: 1 })]),
+            transition('show => hide', [animate(0, style({ opacity: 0 }))]),
+        ]),
+    ]
 })
 export class PlayerComponent
   implements OnDestroy, AfterViewInit, OnInit, OnChanges

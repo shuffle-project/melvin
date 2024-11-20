@@ -51,19 +51,18 @@ enum CLIENT_STATUS {
 }
 
 @Component({
-  selector: 'app-tiptap-editor',
-  standalone: true,
-  imports: [
-    MatIconButton,
-    MatIcon,
-    MatCheckbox,
-    FormsModule,
-    NgxTiptapModule,
-    LetDirective,
-    MatProgressSpinnerModule,
-  ],
-  templateUrl: './tiptap-editor.component.html',
-  styleUrl: './tiptap-editor.component.scss',
+    selector: 'app-tiptap-editor',
+    imports: [
+        MatIconButton,
+        MatIcon,
+        MatCheckbox,
+        FormsModule,
+        NgxTiptapModule,
+        LetDirective,
+        MatProgressSpinnerModule,
+    ],
+    templateUrl: './tiptap-editor.component.html',
+    styleUrl: './tiptap-editor.component.scss'
 })
 export class TiptapEditorComponent implements AfterViewInit, OnInit, OnDestroy {
   @Input({ required: true }) transcriptionId$!: Observable<string>;

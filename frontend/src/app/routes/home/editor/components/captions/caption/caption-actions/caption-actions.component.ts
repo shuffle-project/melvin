@@ -16,16 +16,15 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { DeleteConfirmationService } from '../../../../../../../components/delete-confirmation-dialog/delete-confirmation.service';
 
 @Component({
-  selector: 'app-caption-actions',
-  templateUrl: './caption-actions.component.html',
-  styleUrls: ['./caption-actions.component.scss'],
-  standalone: true,
-  imports: [
-    MatButtonModule,
-    MatTooltipModule,
-    MatIconModule,
-    FeatureEnabledPipe,
-  ],
+    selector: 'app-caption-actions',
+    templateUrl: './caption-actions.component.html',
+    styleUrls: ['./caption-actions.component.scss'],
+    imports: [
+        MatButtonModule,
+        MatTooltipModule,
+        MatIconModule,
+        FeatureEnabledPipe,
+    ]
 })
 export class CaptionActionsComponent implements OnInit {
   @Input() caption!: CaptionEntity;

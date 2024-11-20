@@ -6,11 +6,10 @@ import { AlertService } from '../../../../services/alert/alert.service';
 import { ViewerComponent } from '../../viewer.component';
 
 @Component({
-  selector: 'app-embed',
-  standalone: true,
-  imports: [ViewerComponent, MatButtonModule],
-  templateUrl: './embed.component.html',
-  styleUrl: './embed.component.scss',
+    selector: 'app-embed',
+    imports: [ViewerComponent, MatButtonModule],
+    templateUrl: './embed.component.html',
+    styleUrl: './embed.component.scss'
 })
 export class EmbedComponent implements OnInit {
   /**

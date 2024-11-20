@@ -38,20 +38,19 @@ import * as editorSelectors from '../../../../../../../store/selectors/editor.se
 import { MediaService } from '../../../../services/media/media.service';
 
 @Component({
-  selector: 'app-caption-text',
-  templateUrl: './caption-text.component.html',
-  styleUrls: ['./caption-text.component.scss'],
-  standalone: true,
-  imports: [
-    MatButtonModule,
-    MatTooltipModule,
-    MatIconModule,
-    ReactiveFormsModule,
-    MatProgressSpinnerModule,
-    LetDirective,
-    MatProgressBarModule,
-    FeatureEnabledPipe,
-  ],
+    selector: 'app-caption-text',
+    templateUrl: './caption-text.component.html',
+    styleUrls: ['./caption-text.component.scss'],
+    imports: [
+        MatButtonModule,
+        MatTooltipModule,
+        MatIconModule,
+        ReactiveFormsModule,
+        MatProgressSpinnerModule,
+        LetDirective,
+        MatProgressBarModule,
+        FeatureEnabledPipe,
+    ]
 })
 export class CaptionTextComponent
   implements OnInit, AfterViewInit, OnChanges, OnDestroy

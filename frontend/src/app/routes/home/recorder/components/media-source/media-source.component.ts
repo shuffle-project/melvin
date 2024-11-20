@@ -18,22 +18,21 @@ import { RecorderService } from '../../recorder.service';
 import { AudioMeterComponent } from '../audio-meter/audio-meter.component';
 
 @Component({
-  selector: 'app-media-source',
-  templateUrl: './media-source.component.html',
-  styleUrls: ['./media-source.component.scss'],
-  standalone: true,
-  imports: [
-    MatChipsModule,
-    AudioMeterComponent,
-    MatIconModule,
-    MatMenuModule,
-    MatDialogModule,
-    MatButtonModule,
-    MatProgressSpinnerModule,
-    MatSelectModule,
-    FormsModule,
-    MatInputModule,
-  ],
+    selector: 'app-media-source',
+    templateUrl: './media-source.component.html',
+    styleUrls: ['./media-source.component.scss'],
+    imports: [
+        MatChipsModule,
+        AudioMeterComponent,
+        MatIconModule,
+        MatMenuModule,
+        MatDialogModule,
+        MatButtonModule,
+        MatProgressSpinnerModule,
+        MatSelectModule,
+        FormsModule,
+        MatInputModule,
+    ]
 })
 export class MediaSourceComponent implements OnInit {
   MediaCategory = MediaCategory;

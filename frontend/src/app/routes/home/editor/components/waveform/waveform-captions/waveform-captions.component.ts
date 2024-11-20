@@ -35,11 +35,10 @@ export interface ViewCaption {
 }
 
 @Component({
-  selector: 'app-waveform-captions',
-  templateUrl: './waveform-captions.component.html',
-  styleUrls: ['./waveform-captions.component.scss'],
-  standalone: true,
-  imports: [LetDirective, ResizeDirective],
+    selector: 'app-waveform-captions',
+    templateUrl: './waveform-captions.component.html',
+    styleUrls: ['./waveform-captions.component.scss'],
+    imports: [LetDirective, ResizeDirective]
 })
 export class WaveformCaptionsComponent implements OnInit, OnChanges, OnDestroy {
   @Input() hidden: boolean = false;

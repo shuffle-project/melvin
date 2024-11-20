@@ -22,27 +22,26 @@ import { AddVideoSourceComponent } from './dialogs/add-video-source/add-video-so
 import { RecorderService } from './recorder.service';
 
 @Component({
-  selector: 'app-recorder',
-  templateUrl: './recorder.component.html',
-  styleUrls: ['./recorder.component.scss'],
-  standalone: true,
-  imports: [
-    MediaSourceComponent,
-    DatePipe,
-    HeaderComponent,
-    MatProgressSpinnerModule,
-    MatDialogModule,
-    MatButtonModule,
-    MatFormFieldModule,
-    MatIconModule,
-    MatInputModule,
-    FormsModule,
-    ReactiveFormsModule,
-    MatSelectModule,
-    LetDirective,
-    DurationPipe,
-    MatSlideToggleModule,
-  ],
+    selector: 'app-recorder',
+    templateUrl: './recorder.component.html',
+    styleUrls: ['./recorder.component.scss'],
+    imports: [
+        MediaSourceComponent,
+        DatePipe,
+        HeaderComponent,
+        MatProgressSpinnerModule,
+        MatDialogModule,
+        MatButtonModule,
+        MatFormFieldModule,
+        MatIconModule,
+        MatInputModule,
+        FormsModule,
+        ReactiveFormsModule,
+        MatSelectModule,
+        LetDirective,
+        DurationPipe,
+        MatSlideToggleModule,
+    ]
 })
 export class RecorderComponent implements OnInit, OnDestroy {
   public languages$ = this.store.select(configSelector.languagesConfig);

@@ -36,23 +36,22 @@ import { generateTranscript } from './transcript.utils';
 import { selectQueryParams } from 'src/app/store/selectors/router.selectors';
 
 @Component({
-  selector: 'app-transcript',
-  templateUrl: './transcript.component.html',
-  styleUrls: ['./transcript.component.scss'],
-  standalone: true,
-  imports: [
-    MatFormFieldModule,
-    MatInputModule,
-    ReactiveFormsModule,
-    FormsModule,
-    MatIconModule,
-    MatButtonModule,
-    LetDirective,
-    NgStyle,
-    MatCheckboxModule,
-    PushPipe,
-    UserScrollDirective,
-  ],
+    selector: 'app-transcript',
+    templateUrl: './transcript.component.html',
+    styleUrls: ['./transcript.component.scss'],
+    imports: [
+        MatFormFieldModule,
+        MatInputModule,
+        ReactiveFormsModule,
+        FormsModule,
+        MatIconModule,
+        MatButtonModule,
+        LetDirective,
+        NgStyle,
+        MatCheckboxModule,
+        PushPipe,
+        UserScrollDirective,
+    ]
 })
 export class TranscriptComponent implements OnDestroy, OnInit {
   private destroy$$ = new Subject<void>();

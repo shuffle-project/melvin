@@ -24,18 +24,17 @@ import { LetDirective, PushPipe } from '@ngrx/component';
     selector: 'app-video-player',
     templateUrl: './video-player.component.html',
     styleUrls: ['./video-player.component.scss'],
-    standalone: true,
     imports: [
-    VideoPlayerMediaElementComponent,
-    LetDirective,
-    MatButtonModule,
-    MatTooltipModule,
-    MatIconModule,
-    MatSliderModule,
-    MatMenuModule,
-    PushPipe,
-    FeatureEnabledPipe
-],
+        VideoPlayerMediaElementComponent,
+        LetDirective,
+        MatButtonModule,
+        MatTooltipModule,
+        MatIconModule,
+        MatSliderModule,
+        MatMenuModule,
+        PushPipe,
+        FeatureEnabledPipe
+    ]
 })
 export class VideoPlayerComponent implements OnInit {
   @ViewChild('mediaElement')

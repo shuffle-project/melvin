@@ -31,30 +31,29 @@ import { TranscriptPosition } from './viewer.interfaces';
 import { selectQueryParams } from 'src/app/store/selectors/router.selectors';
 
 @Component({
-  selector: 'app-viewer',
-  templateUrl: './viewer.component.html',
-  styleUrls: ['./viewer.component.scss'],
-  standalone: true,
-  imports: [
-    HeaderComponent,
-    LetDirective,
-    MatButtonModule,
-    TranscriptComponent,
-    PlayerComponent,
-    MatProgressSpinnerModule,
-    InfoboxComponent,
-    LogoComponent,
-    RouterLink,
-    ControlsComponent,
-  ],
-  animations: [
-    trigger('fade', [
-      state('show', style({ opacity: 1 })),
-      state('hide', style({ opacity: 0 })),
-      transition('hide => show', [style({ opacity: 1 })]),
-      transition('show => hide', [animate(0, style({ opacity: 0 }))]),
-    ]),
-  ],
+    selector: 'app-viewer',
+    templateUrl: './viewer.component.html',
+    styleUrls: ['./viewer.component.scss'],
+    imports: [
+        HeaderComponent,
+        LetDirective,
+        MatButtonModule,
+        TranscriptComponent,
+        PlayerComponent,
+        MatProgressSpinnerModule,
+        InfoboxComponent,
+        LogoComponent,
+        RouterLink,
+        ControlsComponent,
+    ],
+    animations: [
+        trigger('fade', [
+            state('show', style({ opacity: 1 })),
+            state('hide', style({ opacity: 0 })),
+            transition('hide => show', [style({ opacity: 1 })]),
+            transition('show => hide', [animate(0, style({ opacity: 0 }))]),
+        ]),
+    ]
 })
 export class ViewerComponent implements OnInit, OnDestroy {
   private destroy$$ = new Subject<void>();

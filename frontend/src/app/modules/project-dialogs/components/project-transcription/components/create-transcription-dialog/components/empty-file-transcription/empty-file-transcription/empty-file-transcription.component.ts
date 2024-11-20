@@ -21,20 +21,19 @@ import * as transcriptionsActions from '../../../../../../../../../store/actions
 import { CreateTranscriptionDialogComponent } from '../../../create-transcription-dialog.component';
 
 @Component({
-  selector: 'app-empty-file-transcription',
-  standalone: true,
-  imports: [
-    CommonModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatSelectModule,
-    MatButtonModule,
-    MatIconModule,
-    WrittenOutLanguagePipe,
-    ReactiveFormsModule,
-  ],
-  templateUrl: './empty-file-transcription.component.html',
-  styleUrl: './empty-file-transcription.component.scss',
+    selector: 'app-empty-file-transcription',
+    imports: [
+        CommonModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatSelectModule,
+        MatButtonModule,
+        MatIconModule,
+        WrittenOutLanguagePipe,
+        ReactiveFormsModule,
+    ],
+    templateUrl: './empty-file-transcription.component.html',
+    styleUrl: './empty-file-transcription.component.scss'
 })
 export class EmptyFileTranscriptionComponent {
   store = inject(Store<AppState>);

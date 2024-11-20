@@ -22,15 +22,14 @@ interface CaptionTimeFormGroup {
     selector: 'app-caption-time',
     templateUrl: './caption-time.component.html',
     styleUrls: ['./caption-time.component.scss'],
-    standalone: true,
     imports: [
-    MatButtonModule,
-    MatTooltipModule,
-    MatIconModule,
-    ReactiveFormsModule,
-    NgClass,
-    FeatureEnabledPipe
-],
+        MatButtonModule,
+        MatTooltipModule,
+        MatIconModule,
+        ReactiveFormsModule,
+        NgClass,
+        FeatureEnabledPipe
+    ]
 })
 export class CaptionTimeComponent implements OnChanges {
   @Input() caption!: CaptionEntity;

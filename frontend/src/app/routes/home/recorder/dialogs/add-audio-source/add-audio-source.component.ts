@@ -17,20 +17,19 @@ import { AudioSource } from '../../recorder.interfaces';
 import { RecorderService } from '../../recorder.service';
 
 @Component({
-  selector: 'app-add-audio-source',
-  templateUrl: './add-audio-source.component.html',
-  styleUrls: ['./add-audio-source.component.scss'],
-  standalone: true,
-  imports: [
-    AudioMeterComponent,
-    MatIconModule,
-    MatDialogModule,
-    MatButtonModule,
-    MatSelectModule,
-    FormsModule,
-    MatInputModule,
-    MatProgressSpinnerModule,
-  ],
+    selector: 'app-add-audio-source',
+    templateUrl: './add-audio-source.component.html',
+    styleUrls: ['./add-audio-source.component.scss'],
+    imports: [
+        AudioMeterComponent,
+        MatIconModule,
+        MatDialogModule,
+        MatButtonModule,
+        MatSelectModule,
+        FormsModule,
+        MatInputModule,
+        MatProgressSpinnerModule,
+    ]
 })
 export class AddAudioSourceComponent implements OnInit, OnDestroy {
   private destroy$$ = new Subject<void>();

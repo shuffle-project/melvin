@@ -7,17 +7,16 @@ import { CaptionTextComponent } from './caption-text/caption-text.component';
 import { CaptionTimeComponent } from './caption-time/caption-time.component';
 
 @Component({
-  selector: 'app-caption',
-  templateUrl: './caption.component.html',
-  styleUrls: ['./caption.component.scss'],
-  standalone: true,
-  imports: [
-    CaptionSpeakerComponent,
-    CaptionActionsComponent,
-    CaptionTextComponent,
-    CaptionTimeComponent,
-    FeatureEnabledPipe,
-  ],
+    selector: 'app-caption',
+    templateUrl: './caption.component.html',
+    styleUrls: ['./caption.component.scss'],
+    imports: [
+        CaptionSpeakerComponent,
+        CaptionActionsComponent,
+        CaptionTextComponent,
+        CaptionTimeComponent,
+        FeatureEnabledPipe,
+    ]
 })
 export class CaptionComponent {
   @Input() caption!: CaptionEntity;

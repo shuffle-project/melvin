@@ -28,22 +28,21 @@ interface PasswordChangeForm {
 }
 
 @Component({
-  selector: 'app-profile',
-  templateUrl: './profile.component.html',
-  styleUrls: ['./profile.component.scss'],
-  standalone: true,
-  imports: [
-    HeaderComponent,
-    LetDirective,
-    MatSelectModule,
-    ReactiveFormsModule,
-    MatInputModule,
-    MatIconModule,
-    MatButtonModule,
-    MatProgressSpinnerModule,
-    AvatarComponent,
-    MatDividerModule,
-  ],
+    selector: 'app-profile',
+    templateUrl: './profile.component.html',
+    styleUrls: ['./profile.component.scss'],
+    imports: [
+        HeaderComponent,
+        LetDirective,
+        MatSelectModule,
+        ReactiveFormsModule,
+        MatInputModule,
+        MatIconModule,
+        MatButtonModule,
+        MatProgressSpinnerModule,
+        AvatarComponent,
+        MatDividerModule,
+    ]
 })
 export class ProfileComponent implements OnInit {
   user$!: Observable<AuthUser | null>;

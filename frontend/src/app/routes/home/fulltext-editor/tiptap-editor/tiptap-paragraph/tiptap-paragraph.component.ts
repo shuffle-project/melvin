@@ -35,22 +35,21 @@ import * as editorSelector from 'src/app/store/selectors/editor.selector';
 import { MediaService } from '../../../editor/services/media/media.service';
 
 @Component({
-  selector: 'app-tiptap-paragraph',
-  standalone: true,
-  imports: [
-    NgxTiptapModule,
-    PushPipe,
-    MatMenuModule,
-    CommonModule,
-    LetDirective,
-    PushPipe,
-    MatIconModule,
-    MatDividerModule,
-    MatButtonModule,
-    EditSpeakerModalComponent,
-  ],
-  templateUrl: './tiptap-paragraph.component.html',
-  styleUrl: './tiptap-paragraph.component.scss',
+    selector: 'app-tiptap-paragraph',
+    imports: [
+        NgxTiptapModule,
+        PushPipe,
+        MatMenuModule,
+        CommonModule,
+        LetDirective,
+        PushPipe,
+        MatIconModule,
+        MatDividerModule,
+        MatButtonModule,
+        EditSpeakerModalComponent,
+    ],
+    templateUrl: './tiptap-paragraph.component.html',
+    styleUrl: './tiptap-paragraph.component.scss'
 })
 export class TiptapParagraphComponent
   extends AngularNodeViewComponent

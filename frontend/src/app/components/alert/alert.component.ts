@@ -7,8 +7,7 @@ type AlertLevel = 'error' | 'success' | 'info' | 'default';
     selector: 'app-alert',
     templateUrl: './alert.component.html',
     styleUrls: ['./alert.component.scss'],
-    standalone: true,
-    imports: [NgClass],
+    imports: [NgClass]
 })
 export class AlertComponent {
   @Input() level: AlertLevel = 'default';

@@ -19,8 +19,7 @@ import { WaveformCanvasSettings, WaveformService } from '../waveform.service';
     selector: 'app-waveform-canvas',
     templateUrl: './waveform-canvas.component.html',
     styleUrls: ['./waveform-canvas.component.scss'],
-    standalone: true,
-    imports: [],
+    imports: []
 })
 export class WaveformCanvasComponent
   implements OnInit, OnChanges, AfterViewInit, OnDestroy

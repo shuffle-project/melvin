@@ -27,18 +27,17 @@ import { LetDirective } from '@ngrx/component';
 import * as captionsActions from '../../../../../store/actions/captions.actions';
 
 @Component({
-  selector: 'app-captions',
-  templateUrl: './captions.component.html',
-  styleUrls: ['./captions.component.scss'],
-  standalone: true,
-  imports: [
-    LetDirective,
-    CdkVirtualScrollViewport,
-    CdkFixedSizeVirtualScroll,
-    CdkVirtualForOf,
-    CaptionComponent,
-    MatButtonModule,
-  ],
+    selector: 'app-captions',
+    templateUrl: './captions.component.html',
+    styleUrls: ['./captions.component.scss'],
+    imports: [
+        LetDirective,
+        CdkVirtualScrollViewport,
+        CdkFixedSizeVirtualScroll,
+        CdkVirtualForOf,
+        CaptionComponent,
+        MatButtonModule,
+    ]
 })
 export class CaptionsComponent implements OnDestroy {
   @ViewChild('cdkVirtualScrollViewport')

@@ -4,11 +4,10 @@ import { AvatarUser, AvatarComponent } from './avatar/avatar.component';
 import { MatMenuModule } from '@angular/material/menu';
 
 @Component({
-  selector: 'app-avatar-group',
-  templateUrl: './avatar-group.component.html',
-  styleUrls: ['./avatar-group.component.scss'],
-  standalone: true,
-  imports: [MatMenuModule, AvatarComponent],
+    selector: 'app-avatar-group',
+    templateUrl: './avatar-group.component.html',
+    styleUrls: ['./avatar-group.component.scss'],
+    imports: [MatMenuModule, AvatarComponent]
 })
 export class AvatarGroupComponent {
   @Input() users!: AvatarUser[];

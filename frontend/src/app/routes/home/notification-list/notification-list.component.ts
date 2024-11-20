@@ -16,18 +16,17 @@ import * as notificationsSelectors from '../../../store/selectors/notifications.
 import { HeaderComponent } from '../../../components/header/header.component';
 
 @Component({
-  selector: 'app-notification-list',
-  templateUrl: './notification-list.component.html',
-  styleUrls: ['./notification-list.component.scss'],
-  standalone: true,
-  imports: [
-    HeaderComponent,
-    MatButtonModule,
-    MatCheckboxModule,
-    MatTooltipModule,
-    MatDividerModule,
-    NotificationComponent,
-  ],
+    selector: 'app-notification-list',
+    templateUrl: './notification-list.component.html',
+    styleUrls: ['./notification-list.component.scss'],
+    imports: [
+        HeaderComponent,
+        MatButtonModule,
+        MatCheckboxModule,
+        MatTooltipModule,
+        MatDividerModule,
+        NotificationComponent,
+    ]
 })
 export class NotificationListComponent implements OnDestroy, OnInit {
   private destroy$$ = new Subject<void>();

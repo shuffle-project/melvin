@@ -18,21 +18,20 @@ import { VideoSource } from '../../recorder.interfaces';
 import { RecorderService } from '../../recorder.service';
 
 @Component({
-  selector: 'app-add-video-source',
-  templateUrl: './add-video-source.component.html',
-  styleUrls: ['./add-video-source.component.scss'],
-  standalone: true,
-  imports: [
-    MatIconModule,
-    MatDialogModule,
-    MatButtonModule,
-    MatIconModule,
-    MatProgressSpinnerModule,
-    MatSelectModule,
-    FormsModule,
-    MatInputModule,
-    MediaCategoryPipe,
-  ],
+    selector: 'app-add-video-source',
+    templateUrl: './add-video-source.component.html',
+    styleUrls: ['./add-video-source.component.scss'],
+    imports: [
+        MatIconModule,
+        MatDialogModule,
+        MatButtonModule,
+        MatIconModule,
+        MatProgressSpinnerModule,
+        MatSelectModule,
+        FormsModule,
+        MatInputModule,
+        MediaCategoryPipe,
+    ]
 })
 export class AddVideoSourceComponent implements OnInit, OnDestroy {
   private destroy$$ = new Subject<void>();

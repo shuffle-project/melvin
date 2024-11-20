@@ -53,22 +53,21 @@ import * as authSelectors from '../../../../store/selectors/auth.selector';
 import * as projectSelectors from '../../../../store/selectors/projects.selector';
 
 @Component({
-  selector: 'app-invite-collaborators-tab',
-  standalone: true,
-  imports: [
-    MatFormFieldModule,
-    MatAutocompleteModule,
-    FormsModule,
-    ReactiveFormsModule,
-    MatProgressSpinnerModule,
-    MatButtonModule,
-    MatInputModule,
-    AvatarComponent,
-    PushPipe,
-    MatIconModule,
-  ],
-  templateUrl: './invite-collaborators-tab.component.html',
-  styleUrl: './invite-collaborators-tab.component.scss',
+    selector: 'app-invite-collaborators-tab',
+    imports: [
+        MatFormFieldModule,
+        MatAutocompleteModule,
+        FormsModule,
+        ReactiveFormsModule,
+        MatProgressSpinnerModule,
+        MatButtonModule,
+        MatInputModule,
+        AvatarComponent,
+        PushPipe,
+        MatIconModule,
+    ],
+    templateUrl: './invite-collaborators-tab.component.html',
+    styleUrl: './invite-collaborators-tab.component.scss'
 })
 export class InviteCollaboratorsTabComponent implements OnInit, OnDestroy {
   public isLoading!: boolean;

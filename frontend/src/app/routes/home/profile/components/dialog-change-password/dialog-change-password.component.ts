@@ -21,18 +21,17 @@ import * as authActions from '../../../../../store/actions/auth.actions';
 import * as authSelectors from '../../../../../store/selectors/auth.selector';
 
 @Component({
-  selector: 'app-dialog-change-password',
-  standalone: true,
-  imports: [
-    MatDialogModule,
-    MatButtonModule,
-    MatIconModule,
-    MatInputModule,
-    ReactiveFormsModule,
-    PushPipe,
-  ],
-  templateUrl: './dialog-change-password.component.html',
-  styleUrl: './dialog-change-password.component.scss',
+    selector: 'app-dialog-change-password',
+    imports: [
+        MatDialogModule,
+        MatButtonModule,
+        MatIconModule,
+        MatInputModule,
+        ReactiveFormsModule,
+        PushPipe,
+    ],
+    templateUrl: './dialog-change-password.component.html',
+    styleUrl: './dialog-change-password.component.scss'
 })
 export class DialogChangePasswordComponent implements OnDestroy {
   userEmail = '';

@@ -22,20 +22,19 @@ import * as transcriptionsActions from '../../../../../../../../../store/actions
 import { CreateTranscriptionDialogComponent } from '../../../create-transcription-dialog.component';
 
 @Component({
-  selector: 'app-copy-transcription',
-  standalone: true,
-  imports: [
-    CommonModule,
-    MatFormFieldModule,
-    MatSelectModule,
-    ReactiveFormsModule,
-    MatInputModule,
-    MatIconModule,
-    MatButtonModule,
-    WrittenOutLanguagePipe,
-  ],
-  templateUrl: './copy-transcription.component.html',
-  styleUrl: './copy-transcription.component.scss',
+    selector: 'app-copy-transcription',
+    imports: [
+        CommonModule,
+        MatFormFieldModule,
+        MatSelectModule,
+        ReactiveFormsModule,
+        MatInputModule,
+        MatIconModule,
+        MatButtonModule,
+        WrittenOutLanguagePipe,
+    ],
+    templateUrl: './copy-transcription.component.html',
+    styleUrl: './copy-transcription.component.scss'
 })
 export class CopyTranscriptionComponent {
   @Input() transcriptionList: TranscriptionEntity[] = [];

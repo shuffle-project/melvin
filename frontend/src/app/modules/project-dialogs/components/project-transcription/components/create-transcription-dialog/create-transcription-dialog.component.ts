@@ -17,21 +17,20 @@ import { FromMediaTranscriptionComponent } from './components/from-media-transcr
 import { TranslateTranscriptionComponent } from './components/translate-transcription/translate-transcription/translate-transcription.component';
 import { UploadTranscriptionComponent } from './components/upload-transcription/upload-transcription/upload-transcription.component';
 @Component({
-  selector: 'app-create-transcription-dialog',
-  templateUrl: './create-transcription-dialog.component.html',
-  styleUrls: ['./create-transcription-dialog.component.scss'],
-  standalone: true,
-  imports: [
-    MatIconModule,
-    MatButtonModule,
-    MatDialogModule,
-    MatTabsModule,
-    CopyTranscriptionComponent,
-    TranslateTranscriptionComponent,
-    UploadTranscriptionComponent,
-    FromMediaTranscriptionComponent,
-    EmptyFileTranscriptionComponent,
-  ],
+    selector: 'app-create-transcription-dialog',
+    templateUrl: './create-transcription-dialog.component.html',
+    styleUrls: ['./create-transcription-dialog.component.scss'],
+    imports: [
+        MatIconModule,
+        MatButtonModule,
+        MatDialogModule,
+        MatTabsModule,
+        CopyTranscriptionComponent,
+        TranslateTranscriptionComponent,
+        UploadTranscriptionComponent,
+        FromMediaTranscriptionComponent,
+        EmptyFileTranscriptionComponent,
+    ]
 })
 export class CreateTranscriptionDialogComponent implements OnInit, OnDestroy {
   private destroy$$ = new Subject<void>();

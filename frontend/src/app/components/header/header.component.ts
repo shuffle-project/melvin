@@ -25,33 +25,32 @@ import { ColorTheme } from '../../store/reducers/config.reducer';
 import { LogoComponent } from '../logo/logo.component';
 
 @Component({
-  selector: 'app-header',
-  templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss'],
-  animations: [
-    trigger('fadeIn', [
-      transition(':enter', [
-        style({ opacity: 0 }),
-        animate('100ms', style({ opacity: 1 })),
-      ]),
-    ]),
-  ],
-  standalone: true,
-  imports: [
-    LetDirective,
-    MatToolbarModule,
-    LogoComponent,
-    RouterLink,
-    MatIconModule,
-    MatButtonModule,
-    MatMenuModule,
-    MatBadgeModule,
-    NotificationComponent,
-    MatTooltipModule,
-    PushPipe,
-    FeatureEnabledPipe,
-    MatDivider,
-  ],
+    selector: 'app-header',
+    templateUrl: './header.component.html',
+    styleUrls: ['./header.component.scss'],
+    animations: [
+        trigger('fadeIn', [
+            transition(':enter', [
+                style({ opacity: 0 }),
+                animate('100ms', style({ opacity: 1 })),
+            ]),
+        ]),
+    ],
+    imports: [
+        LetDirective,
+        MatToolbarModule,
+        LogoComponent,
+        RouterLink,
+        MatIconModule,
+        MatButtonModule,
+        MatMenuModule,
+        MatBadgeModule,
+        NotificationComponent,
+        MatTooltipModule,
+        PushPipe,
+        FeatureEnabledPipe,
+        MatDivider,
+    ]
 })
 export class HeaderComponent implements OnDestroy, OnInit {
   @Input() viewer = false;

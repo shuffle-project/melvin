@@ -11,10 +11,9 @@ interface Shortcut {
     selector: 'app-dialog-help-editor',
     styleUrls: ['./dialog-help-editor.component.scss'],
     templateUrl: './dialog-help-editor.component.html',
-    standalone: true,
     imports: [
-    MatTableModule
-],
+        MatTableModule
+    ]
 })
 export class DialogHelpEditorComponent {
   // Operating system detection to switch between mac keys and windows

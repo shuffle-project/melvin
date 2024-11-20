@@ -15,17 +15,16 @@ import { environment } from 'src/environments/environment';
 import * as authSelectors from '../../../../store/selectors/auth.selector';
 
 @Component({
-  selector: 'app-share-player-tab',
-  standalone: true,
-  imports: [
-    MatExpansionModule,
-    MatIcon,
-    EmbedComponent,
-    MatButtonModule,
-    PushPipe,
-  ],
-  templateUrl: './share-player-tab.component.html',
-  styleUrl: './share-player-tab.component.scss',
+    selector: 'app-share-player-tab',
+    imports: [
+        MatExpansionModule,
+        MatIcon,
+        EmbedComponent,
+        MatButtonModule,
+        PushPipe,
+    ],
+    templateUrl: './share-player-tab.component.html',
+    styleUrl: './share-player-tab.component.scss'
 })
 export class SharePlayerTabComponent {
   @Input({ required: true }) project!: ProjectEntity;

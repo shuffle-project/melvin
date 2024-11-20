@@ -19,10 +19,9 @@ interface HistoryItem {
     selector: 'app-caption-history-modal',
     templateUrl: './caption-history-modal.component.html',
     styleUrls: ['./caption-history-modal.component.scss'],
-    standalone: true,
     imports: [
-    MatDialogTitle
-],
+        MatDialogTitle
+    ]
 })
 export class CaptionHistoryModalComponent implements OnInit {
   public displayedColumns = ['text', /*'createdBy',*/ 'createdAt'];

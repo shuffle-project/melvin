@@ -31,20 +31,19 @@ import * as transcriptionsActions from '../../../../../../store/actions/transcri
 import * as transcriptionsSelectors from '../../../../../../store/selectors/transcriptions.selector';
 
 @Component({
-  selector: 'app-edit-speaker-modal',
-  templateUrl: './edit-speaker-modal.component.html',
-  styleUrls: ['./edit-speaker-modal.component.scss'],
-  standalone: true,
-  imports: [
-    MatMenuModule,
-    MatIconModule,
-    MatDividerModule,
-    MatButtonModule,
-    MatFormFieldModule,
-    MatInputModule,
-    ReactiveFormsModule,
-    PushPipe,
-  ],
+    selector: 'app-edit-speaker-modal',
+    templateUrl: './edit-speaker-modal.component.html',
+    styleUrls: ['./edit-speaker-modal.component.scss'],
+    imports: [
+        MatMenuModule,
+        MatIconModule,
+        MatDividerModule,
+        MatButtonModule,
+        MatFormFieldModule,
+        MatInputModule,
+        ReactiveFormsModule,
+        PushPipe,
+    ]
 })
 export class EditSpeakerModalComponent implements OnInit, OnDestroy {
   @Output() closeMatMenuEvent = new EventEmitter();

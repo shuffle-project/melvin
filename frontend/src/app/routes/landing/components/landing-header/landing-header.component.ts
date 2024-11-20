@@ -15,21 +15,20 @@ import * as authSelector from '../../../../store/selectors/auth.selector';
 import * as configSelector from '../../../../store/selectors/config.selector';
 import { LoginDialogComponent } from './components/login-dialog/login-dialog.component';
 @Component({
-  selector: 'app-landing-header',
-  standalone: true,
-  imports: [
-    MatToolbarModule,
-    LogoComponent,
-    RouterLink,
-    MatButtonModule,
-    MatIconModule,
-    MatMenuModule,
-    LetDirective,
-    FeatureEnabledPipe,
-    PushPipe,
-  ],
-  templateUrl: './landing-header.component.html',
-  styleUrl: './landing-header.component.scss',
+    selector: 'app-landing-header',
+    imports: [
+        MatToolbarModule,
+        LogoComponent,
+        RouterLink,
+        MatButtonModule,
+        MatIconModule,
+        MatMenuModule,
+        LetDirective,
+        FeatureEnabledPipe,
+        PushPipe,
+    ],
+    templateUrl: './landing-header.component.html',
+    styleUrl: './landing-header.component.scss'
 })
 export class LandingHeaderComponent {
   @Output() toggleSidebar = new EventEmitter();

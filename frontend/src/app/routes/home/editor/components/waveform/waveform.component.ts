@@ -8,8 +8,7 @@ import { WaveformCanvasComponent } from './waveform-canvas/waveform-canvas.compo
     selector: 'app-waveform',
     templateUrl: './waveform.component.html',
     styleUrls: ['./waveform.component.scss'],
-    standalone: true,
-    imports: [WaveformCanvasComponent, WaveformCaptionsComponent],
+    imports: [WaveformCanvasComponent, WaveformCaptionsComponent]
 })
 export class WaveformComponent implements OnInit, OnDestroy {
   @Input() zoomActivated: boolean = false;

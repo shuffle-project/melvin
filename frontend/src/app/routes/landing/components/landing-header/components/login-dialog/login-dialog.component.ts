@@ -27,20 +27,19 @@ import { RegisterDialogComponent } from '../register-dialog/register-dialog.comp
 import { ResetPasswordDialogComponent } from '../reset-password-dialog/reset-password-dialog.component';
 
 @Component({
-  selector: 'app-login-dialog',
-  standalone: true,
-  imports: [
-    MatDialogModule,
-    MatButtonModule,
-    MatIconModule,
-    MatInputModule,
-    ReactiveFormsModule,
-    PushPipe,
-    MatProgressSpinnerModule,
-    MatCheckboxModule,
-  ],
-  templateUrl: './login-dialog.component.html',
-  styleUrl: './login-dialog.component.scss',
+    selector: 'app-login-dialog',
+    imports: [
+        MatDialogModule,
+        MatButtonModule,
+        MatIconModule,
+        MatInputModule,
+        ReactiveFormsModule,
+        PushPipe,
+        MatProgressSpinnerModule,
+        MatCheckboxModule,
+    ],
+    templateUrl: './login-dialog.component.html',
+    styleUrl: './login-dialog.component.scss'
 })
 export class LoginDialogComponent implements OnInit, OnDestroy {
   public formGroup!: FormGroup;

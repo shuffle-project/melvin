@@ -6,11 +6,10 @@ import { ProjectStatusPipe } from '../../../../pipes/project-status-pipe/project
 import { ProjectEntity } from '../../../../services/api/entities/project.entity';
 
 @Component({
-  selector: 'app-infobox',
-  templateUrl: './infobox.component.html',
-  styleUrls: ['./infobox.component.scss'],
-  standalone: true,
-  imports: [MatExpansionModule, DatePipe, LanguageCodePipe, ProjectStatusPipe],
+    selector: 'app-infobox',
+    templateUrl: './infobox.component.html',
+    styleUrls: ['./infobox.component.scss'],
+    imports: [MatExpansionModule, DatePipe, LanguageCodePipe, ProjectStatusPipe]
 })
 export class InfoboxComponent {
   @Input({ required: true }) project!: ProjectEntity;

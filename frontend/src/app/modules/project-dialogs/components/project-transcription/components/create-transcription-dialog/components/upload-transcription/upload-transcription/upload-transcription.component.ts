@@ -27,22 +27,21 @@ import { LanguageService } from 'src/app/services/language/language.service';
 import { CreateTranscriptionDialogComponent } from '../../../create-transcription-dialog.component';
 
 @Component({
-  selector: 'app-upload-transcription',
-  standalone: true,
-  imports: [
-    CommonModule,
-    MatFormFieldModule,
-    MatSelectModule,
-    ReactiveFormsModule,
-    UploadFilesComponent,
-    MatInputModule,
-    MatIconModule,
-    MatButtonModule,
-    WrittenOutLanguagePipe,
-    MatProgressBarModule,
-  ],
-  templateUrl: './upload-transcription.component.html',
-  styleUrl: './upload-transcription.component.scss',
+    selector: 'app-upload-transcription',
+    imports: [
+        CommonModule,
+        MatFormFieldModule,
+        MatSelectModule,
+        ReactiveFormsModule,
+        UploadFilesComponent,
+        MatInputModule,
+        MatIconModule,
+        MatButtonModule,
+        WrittenOutLanguagePipe,
+        MatProgressBarModule,
+    ],
+    templateUrl: './upload-transcription.component.html',
+    styleUrl: './upload-transcription.component.scss'
 })
 export class UploadTranscriptionComponent {
   @Output() loadingEvent = new EventEmitter<boolean>();

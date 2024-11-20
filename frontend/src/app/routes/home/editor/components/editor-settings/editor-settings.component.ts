@@ -20,20 +20,19 @@ import {
 } from '@angular/material/checkbox';
 
 @Component({
-  selector: 'app-editor-settings',
-  templateUrl: './editor-settings.component.html',
-  styleUrls: ['./editor-settings.component.scss'],
-  standalone: true,
-  imports: [
-    MatSlideToggleModule,
-    PushPipe,
-    FeatureEnabledPipe,
-    MatSelectModule,
-    MatFormFieldModule,
-    MatInputModule,
-    LetDirective,
-    MatCheckboxModule,
-  ],
+    selector: 'app-editor-settings',
+    templateUrl: './editor-settings.component.html',
+    styleUrls: ['./editor-settings.component.scss'],
+    imports: [
+        MatSlideToggleModule,
+        PushPipe,
+        FeatureEnabledPipe,
+        MatSelectModule,
+        MatFormFieldModule,
+        MatInputModule,
+        LetDirective,
+        MatCheckboxModule,
+    ]
 })
 export class EditorSettingsComponent implements OnInit, OnDestroy {
   private destroy$$ = new Subject<void>();

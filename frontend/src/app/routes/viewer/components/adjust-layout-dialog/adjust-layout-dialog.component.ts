@@ -25,23 +25,22 @@ import { TranscriptPosition } from '../../../viewer/viewer.interfaces';
 import { SizeOptions } from '../captions-settings-dialog/captions-settings-dialog.component';
 
 @Component({
-  selector: 'app-adjust-layout-dialog',
-  templateUrl: './adjust-layout-dialog.component.html',
-  styleUrls: ['./adjust-layout-dialog.component.scss'],
-  standalone: true,
-  imports: [
-    MatDialogTitle,
-    MatDialogContent,
-    MatButtonModule,
-    MatDialogClose,
-    MatIconModule,
-    MatSlideToggleModule,
-    MatFormFieldModule,
-    MatSelectModule,
-    MatOptionModule,
-    MatRadioModule,
-    PushPipe,
-  ],
+    selector: 'app-adjust-layout-dialog',
+    templateUrl: './adjust-layout-dialog.component.html',
+    styleUrls: ['./adjust-layout-dialog.component.scss'],
+    imports: [
+        MatDialogTitle,
+        MatDialogContent,
+        MatButtonModule,
+        MatDialogClose,
+        MatIconModule,
+        MatSlideToggleModule,
+        MatFormFieldModule,
+        MatSelectModule,
+        MatOptionModule,
+        MatRadioModule,
+        PushPipe,
+    ]
 })
 export class AdjustLayoutDialogComponent {
   public SizeOptions = SizeOptions;
