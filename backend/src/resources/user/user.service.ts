@@ -10,11 +10,10 @@ import { LeanUserDocument } from '../../modules/db/schemas/user.schema';
 import { PathService } from '../../modules/path/path.service';
 import { CustomInternalServerException } from '../../utils/exceptions';
 import { isSameObjectId } from '../../utils/objectid';
+import { AuthUser } from '../auth/auth.interfaces';
 import { FindAllUsersQuery } from './dto/find-all-users.dto';
 import { UserEntity } from './entities/user.entity';
 import { UserRole } from './user.interfaces';
-import { AuthUser } from '../auth/auth.interfaces';
-import { auth } from 'google-auth-library';
 
 @Injectable()
 export class UserService {
