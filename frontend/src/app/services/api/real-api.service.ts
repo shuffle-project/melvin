@@ -222,10 +222,6 @@ export class RealApiService implements ApiService {
     });
   }
 
-  checkPassword(password: string, token: string): Observable<boolean> {
-    return this._post<boolean>(`/auth/check-password`, { password, token });
-  }
-
   refreshToken(token: string): Observable<{ token: string }> {
     return this._post<{ token: string }>(`/auth/refresh-token`, { token });
   }
@@ -276,8 +272,8 @@ export class RealApiService implements ApiService {
     return this._get<UserEntity[]>('/users', { params: { search } });
   }
 
-  deleteAccount(): Observable<void> {
-    return this._delete<void>('/users');
+  deleteAccount(password: string): Observable<void> {
+    return this._post<void>('/users', { password });
   }
 
   // projects

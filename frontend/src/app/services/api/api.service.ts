@@ -90,8 +90,6 @@ export abstract class ApiService {
     dto: ChangePasswordDto
   ): Observable<ChangePasswordEntity>;
 
-  abstract checkPassword(password: string, token: string): Observable<boolean>;
-
   abstract refreshToken(token: string): Observable<{ token: string }>;
 
   // abstract mediaAccessToken(projectId: string): Observable<{ token: string }>;
@@ -112,7 +110,7 @@ export abstract class ApiService {
   // users
   abstract findAllUsers(search: string): Observable<UserEntity[]>;
 
-  abstract deleteAccount(): Observable<void>;
+  abstract deleteAccount(password: string): Observable<void>;
 
   // projects
   abstract createLegacyProject(

@@ -22,7 +22,6 @@ import {
   JwtPayload,
   MediaAccessJwtPayload,
 } from './auth.interfaces';
-import { CheckPasswordDto } from './dto/auth-check-password.dto';
 import {
   AuthGuestLoginDto,
   AuthGuestLoginResponseDto,
@@ -103,25 +102,6 @@ export class AuthService {
     const token = this.createAccessToken(updatedUser);
 
     return { token };
-  }
-
-  async checkPassword(dto: CheckPasswordDto): Promise<Boolean> {
-    // Decode token and get user id
-    const decodedToken = this.jwtService.decode(dto.token) as DecodedToken;
-
-    // Find user by id
-    const user = await this.db.userModel
-      .findById(decodedToken.id)
-      .lean()
-      .exec();
-
-    // Unknown user
-    if (!user) {
-      throw new CustomBadRequestException('unknown_user');
-    }
-
-    const isMatch = await bcrypt.compare(dto.password, user.hashedPassword);
-    return isMatch;
   }
 
   async login(dto: AuthLoginDto): Promise<AuthLoginResponseDto> {

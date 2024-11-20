@@ -18,7 +18,6 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { lastValueFrom } from 'rxjs';
 import { ApiService } from 'src/app/services/api/api.service';
-import { StorageKey } from 'src/app/services/storage/storage-key.enum';
 import { StorageService } from 'src/app/services/storage/storage.service';
 import {
   DeleteConfirmData,
@@ -74,28 +73,20 @@ export class DeleteConfirmationDialogComponent {
       this.passwordFormGroup.valid
     ) {
       try {
-        const token = this.storage.getFromSessionOrLocalStorage<string | null>(
-          StorageKey.ACCESS_TOKEN,
-          null
-        );
+        const password: string = this.passwordFormGroup.value.password;
+        await lastValueFrom(this.api.deleteAccount(password));
 
-        if (token) {
-          const passwordCorrect = await lastValueFrom(
-            this.api.checkPassword(this.passwordFormGroup.value.password, token)
-          );
-
-          if (passwordCorrect) {
-            this.dialogRef.close({
-              delete: true,
-            });
-          } else {
-            this.error = $localize`:@@deleteConfirmationDialogPasswordIsIncorrect:Password is incorrect`;
-            return;
-          }
-        }
+        this.dialogRef.close({
+          delete: true,
+        });
       } catch (error) {
-        this.error = (error as HttpErrorResponse).message;
-        return;
+        if (
+          (error as HttpErrorResponse).error.code === 'password_is_incorrect'
+        ) {
+          this.error = $localize`:@@deleteConfirmationDialogPasswordIsIncorrect:Password is incorrect`;
+        } else {
+          this.error = (error as HttpErrorResponse).message;
+        }
       }
     } else {
       this.dialogRef.close({

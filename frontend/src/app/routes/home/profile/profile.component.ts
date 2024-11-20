@@ -10,7 +10,7 @@ import { MatSelectChange, MatSelectModule } from '@angular/material/select';
 import { Router } from '@angular/router';
 import { LetDirective } from '@ngrx/component';
 import { Store } from '@ngrx/store';
-import { lastValueFrom, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { AvatarComponent } from 'src/app/components/avatar-group/avatar/avatar.component';
 import { DeleteConfirmationService } from 'src/app/components/delete-confirmation-dialog/delete-confirmation.service';
 import { ApiService } from 'src/app/services/api/api.service';
@@ -80,10 +80,10 @@ export class ProfileComponent implements OnInit {
     const deleteAccount = await this.confirmService.deleteAccount();
 
     if (deleteAccount) {
-      try {
-        await lastValueFrom(this.api.deleteAccount());
-        this.store.dispatch(logout());
-      } catch (error) {}
+      // try {
+      // await lastValueFrom(this.api.deleteAccount());
+      this.store.dispatch(logout());
+      // } catch (error) {}
     }
   }
 }
