@@ -1,5 +1,6 @@
 .mdc-dialog__title::before {
-  display: none !important;
+  height: 1.25rem !important;
+  display: block !important;
 }
 
 body.dark-theme {

@@ -4,7 +4,7 @@ body {
 }
 
 * {
-  color: var(--color-text);
+  // color: var(--color-text);
   // background: var(--color-background);
 }
 
@@ -47,15 +47,20 @@ a {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 0.625rem;
+  margin-bottom: 0.25rem;
+  margin-top: 0.875rem;
 
   h1 {
     margin: 0;
     display: flex;
+    font-size: clamp(1.5rem, 3vw + 0.25rem, 2rem);
     flex-direction: column;
 
     span {
       font-size: 1rem;
+      font-weight: 400;
+      margin-bottom: 0.25rem;
+      line-height: 100%;
     }
   }
 }

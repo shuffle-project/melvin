@@ -1,0 +1,33 @@
+.mat-mdc-menu-panel.dense {
+  min-width: 250px;
+  min-height: unset;
+
+  .mat-mdc-menu-item {
+    height: 36px;
+    line-height: 36px;
+
+    mat-icon {
+      height: 18px;
+      line-height: 18px;
+      width: 18px;
+      margin-right: 5px;
+    }
+
+    .mat-menu-submenu-icon {
+      right: 14px;
+    }
+  }
+}
+
+.mat-mdc-menu-panel {
+  mat-divider {
+    margin: 8px 2px;
+  }
+}
+
+body.dark-theme {
+  .mat-mdc-menu-panel {
+    background-color: var(--color-light-grey);
+    border: 1px solid var(--color-border-grey);
+  }
+}
