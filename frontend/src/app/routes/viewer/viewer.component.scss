@@ -88,6 +88,7 @@
         z-index: 10;
         width: 100%;
         background: var(--color-white);
+        color: var(--color-text);
         top: 0;
 
         display: flex;
@@ -117,6 +118,7 @@
       // max-width: 600px;
 
       max-height: 100%;
+      color: var(--color-text);
 
       &.left {
         border-right: 1px solid var(--color-border-grey);

@@ -13,3 +13,12 @@ html {
     )
   );
 }
+
+:root {
+  @include mat.slider-overrides(
+    (
+      value-indicator-width: 3.25rem,
+      value-indicator-height: 3.25rem,
+    )
+  );
+}

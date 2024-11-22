@@ -58,13 +58,13 @@
   align-items: center;
   width: 100%;
   background: var(--color-white);
-  padding: 0 10px;
-  box-shadow: 0px 3px 3px 0 rgba(0, 0, 0, 0.1);
+  padding: 0 0.625rem;
 
   .time-container {
     height: 30px;
     display: flex;
     align-items: center;
+    color: var(--color-text);
 
     .time-disabled {
       opacity: 0.6;
