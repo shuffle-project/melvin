@@ -1,5 +1,5 @@
 import { Database } from '@hocuspocus/extension-database';
-import { Hocuspocus } from '@hocuspocus/server';
+import { Document, Hocuspocus } from '@hocuspocus/server';
 import { DirectConnection } from '@hocuspocus/server/dist/packages/server/src/DirectConnection';
 import { Injectable } from '@nestjs/common';
 import { IncomingMessage } from 'http';
@@ -21,12 +21,30 @@ export class HocuspocusService {
 
           return transcription.ydoc;
         },
-        store: async ({ documentName, state }) => {
+        store: async ({ documentName, state, document }) => {
           // TODO transform state to JSON to backup data
-          // const ydoc = new Y.Doc();
-          // Y.applyUpdateV2(ydoc, state);
-          // const json = Y.encodeStateAsUpdateV2(ydoc);
-          // console.log(json);
+          // console.log(documentName, state);
+
+          // const ydoc = new Document('default');
+          // // const ydoc = new Y.Doc();
+
+          // ydoc.on('updateV2', (update, origin) => {
+          //   console.log('update', update, origin);
+          // });
+
+          // const stateAsUint8Array = new Uint8Array(state.buffer);
+
+          // const stateVector = Y.encodeStateAsUpdateV2(ydoc, stateAsUint8Array);
+
+          // Y.applyUpdateV2(ydoc, stateVector);
+          // // const ydoc2 = TiptapTransformer.toYdoc(state);
+
+          // const fromYdoc = TiptapTransformer.fromYdoc(ydoc, 'default');
+
+          // console.log(fromYdoc);
+
+          // const jsonData = ydoc.getMap('content').toJSON();
+          // console.log(jsonData);
 
           await this.db.transcriptionModel.findByIdAndUpdate(documentName, {
             $set: { ydoc: state },
