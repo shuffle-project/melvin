@@ -76,6 +76,7 @@ export class InviteCollaboratorsTabComponent implements OnInit, OnDestroy {
   authUser$!: Observable<AuthUser | null>;
   project$!: Observable<ProjectEntity>;
   project!: ProjectEntity;
+
   data$!: Observable<{ authUser: AuthUser | null; project: ProjectEntity }>;
 
   @Input({ required: true }) projectId!: string;
@@ -101,13 +102,7 @@ export class InviteCollaboratorsTabComponent implements OnInit, OnDestroy {
     private store: Store
   ) {
     this.authUser$ = this.store.select(authSelectors.selectUser);
-  }
 
-  get inviteLink(): string {
-    return `${environment.frontendBaseUrl}/invite/${this.inviteToken}`;
-  }
-
-  async ngOnInit(): Promise<void> {
     this.project$ = this.store
       .select(projectSelectors.selectAllProjects)
       .pipe(
@@ -116,7 +111,9 @@ export class InviteCollaboratorsTabComponent implements OnInit, OnDestroy {
         )
       );
 
+    console.log('blub');
     this.project$.pipe(takeUntil(this.destroy$$)).subscribe((project) => {
+      console.log(project);
       this.project = project;
     });
 
@@ -124,7 +121,13 @@ export class InviteCollaboratorsTabComponent implements OnInit, OnDestroy {
       authUser: this.authUser$,
       project: this.project$,
     });
+  }
 
+  get inviteLink(): string {
+    return `${environment.frontendBaseUrl}/invite/${this.inviteToken}`;
+  }
+
+  async ngOnInit(): Promise<void> {
     this.error = null;
 
     try {
@@ -217,13 +220,6 @@ export class InviteCollaboratorsTabComponent implements OnInit, OnDestroy {
   }
 
   async removeUserFromProject(user: UserEntity) {
-    // this.store.dispatch(
-    //   projectsActions.removeUserFromProject({
-    //     projectId: this.project.id,
-    //     userId: user.id,
-    //   })
-    // );
-
     try {
       await lastValueFrom(
         this.apiService.removeUserFromProject(this.projectId, user.id)

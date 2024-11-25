@@ -6,6 +6,34 @@
   }
 }
 
+.mdc-slider__value-indicator-container::after {
+  width: 0.625rem;
+  height: 0.625rem;
+  background-color: red;
+  content: '';
+  position: absolute;
+  top: 1.375rem;
+  left: 0;
+  right: 0;
+  margin-inline: auto;
+}
+
+// .mdc-slider__value-indicator::after {
+//   width: 3rem !important;
+//   height: 1rem !important;
+
+//   border-radius: 0rem !important;
+//   background-color: red;
+// }
+
+// div.mdc-slider__value-indicator {
+//   border-radius: none !important;
+// }
+
+// .mdc-slider__value-indicator-text {
+//   transform: none;
+// }
+
 mat-slider.black {
   --mdc-slider-handle-color: var(--color-black);
   --mdc-slider-focus-handle-color: var(--color-black);

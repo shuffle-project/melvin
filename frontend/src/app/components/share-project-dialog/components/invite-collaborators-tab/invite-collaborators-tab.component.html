@@ -1,3 +1,10 @@
+@if (data$ | ngrxPush; as data) {
+<p>{{ data.project.createdBy.id }}</p>
+} @if (data$ | ngrxPush; as data) {
+<p>{{ data.authUser?.id }}</p>
+
+}
+
 <div class="mat-tab-content">
   @if(data$ | ngrxPush; as data) { @if (data.authUser?.id ===
   data.project.createdBy.id) {
