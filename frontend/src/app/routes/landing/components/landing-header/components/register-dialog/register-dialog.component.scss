@@ -1,4 +1,12 @@
 .dialog-content {
+  .register-info {
+    line-height: 150%;
+
+    a {
+      font-weight: 500;
+    }
+  }
+
   form {
     padding-top: 0.25rem;
     display: flex;

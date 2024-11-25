@@ -1127,15 +1127,6 @@
       <trans-unit id="privacyMainHeading" datatype="html">
         <source>Privacy</source>
       </trans-unit>
-      <trans-unit id="registerDialogEmailErrorNotValid" datatype="html">
-        <source>Email address is not valid</source>
-      </trans-unit>
-      <trans-unit id="registerDialogEmailErrorRequired" datatype="html">
-        <source>Email is required</source>
-      </trans-unit>
-      <trans-unit id="registerDialogEmailLabel" datatype="html">
-        <source>Email</source>
-      </trans-unit>
       <trans-unit id="registerDialogLoginButton" datatype="html">
         <source> Login </source>
       </trans-unit>
@@ -1144,39 +1135,6 @@
       </trans-unit>
       <trans-unit id="registerDialogMainHeading" datatype="html">
         <source>Register</source>
-      </trans-unit>
-      <trans-unit id="registerDialogNameErrorRequired" datatype="html">
-        <source> Name is required </source>
-      </trans-unit>
-      <trans-unit id="registerDialogNameLabel" datatype="html">
-        <source>Name</source>
-      </trans-unit>
-      <trans-unit id="registerDialogPasswordErrorMinimum" datatype="html">
-        <source>Minimum 6 characters</source>
-      </trans-unit>
-      <trans-unit id="registerDialogPasswordErrorRequired" datatype="html">
-        <source>Password is required</source>
-      </trans-unit>
-      <trans-unit id="registerDialogPasswordLabel" datatype="html">
-        <source>Password</source>
-      </trans-unit>
-      <trans-unit id="registerDialogPasswordRepeatErrorMinimum" datatype="html">
-        <source>Minimum 6 characters</source>
-      </trans-unit>
-      <trans-unit id="registerDialogPasswordRepeatErrorRequired" datatype="html">
-        <source>Password (repeat) is required</source>
-      </trans-unit>
-      <trans-unit id="registerDialogPasswordRepeatLabel" datatype="html">
-        <source>Password (repeat)</source>
-      </trans-unit>
-      <trans-unit id="registerDialogPasswordsNotMatch" datatype="html">
-        <source>Passwords do not match</source>
-      </trans-unit>
-      <trans-unit id="registerDialogPrivacyNotice" datatype="html">
-        <source> We only use your data in accordance with our <x id="START_LINK" ctype="x-a" equiv-text="&lt;a routerLink=&quot;/privacy&quot; (click)=&quot;onJumpToPrivacy()&quot;&gt;"/>privacy policy<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/>. </source>
-      </trans-unit>
-      <trans-unit id="registerDialogRegisterButtonLabel" datatype="html">
-        <source><x id="START_BLOCK_IF" equiv-text="@if (loading$ | ngrxPush) {"/><x id="START_TAG_MAT_SPINNER" ctype="x-mat_spinner" equiv-text="&lt;mat-spinner strokeWidth=&quot;2&quot; diameter=&quot;20&quot; color=&quot;primary&quot; /&gt;"/><x id="CLOSE_TAG_MAT_SPINNER" ctype="x-mat_spinner" equiv-text="&lt;mat-spinner strokeWidth=&quot;2&quot; diameter=&quot;20&quot; color=&quot;primary&quot; /&gt;"/><x id="CLOSE_BLOCK_IF" equiv-text="}"/> Register </source>
       </trans-unit>
       <trans-unit id="resetPasswordDialogHeading" datatype="html">
         <source>Reset password</source>
@@ -1516,6 +1474,9 @@
       </trans-unit>
       <trans-unit id="deleteConfirmationDialogPasswordLabel" datatype="html">
         <source> Password </source>
+      </trans-unit>
+      <trans-unit id="registerDialogEmailContactInfo" datatype="html">
+        <source> Melvin is currently still in a closed test phase. Would you like to test Melvin? Please contact us at <x id="START_LINK" ctype="x-a" equiv-text="&lt;a href=&quot;mailto:melvin@shuffle-projekt.de&quot;&gt;"/>melvin@shuffle-projekt.de<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/></source>
       </trans-unit>
     </body>
   </file>
