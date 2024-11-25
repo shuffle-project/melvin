@@ -1,6 +1,3 @@
-@if (isLoading) {
-<mat-spinner strokeWidth="2" diameter="20" color="primary" />
-} @if (!isLoading) {
 <div class="mat-tab-content">
   @if(data$ | ngrxPush; as data) { @if (data.authUser?.id ===
   data.project.createdBy.id) {
@@ -123,4 +120,3 @@
   </div>
   }
 </div>
-}

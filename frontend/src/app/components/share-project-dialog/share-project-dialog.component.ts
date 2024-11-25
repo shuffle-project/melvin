@@ -12,17 +12,17 @@ interface DialogData {
 }
 
 @Component({
-    selector: 'app-share-project-dialog',
-    templateUrl: './share-project-dialog.component.html',
-    styleUrls: ['./share-project-dialog.component.scss'],
-    imports: [
-        MatDialogModule,
-        MatTabsModule,
-        MatIconModule,
-        InviteCollaboratorsTabComponent,
-        SharePlayerTabComponent,
-        MatButtonModule,
-    ]
+  selector: 'app-share-project-dialog',
+  templateUrl: './share-project-dialog.component.html',
+  styleUrls: ['./share-project-dialog.component.scss'],
+  imports: [
+    MatDialogModule,
+    MatTabsModule,
+    MatIconModule,
+    InviteCollaboratorsTabComponent,
+    SharePlayerTabComponent,
+    MatButtonModule,
+  ],
 })
 export class ShareProjectDialogComponent {
   public project = inject<DialogData>(MAT_DIALOG_DATA).project;

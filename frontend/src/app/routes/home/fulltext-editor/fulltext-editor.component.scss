@@ -13,6 +13,7 @@
 
   .project-title {
     font-size: 1.125rem;
+    font-weight: bold;
 
     &:hover {
       outline: 2px solid var(--color-primary);
@@ -22,14 +23,6 @@
 
 .actions-menu {
   display: flex;
-  margin-bottom: 2px;
-
-  button {
-    font-weight: 500;
-    padding: 4px 8px;
-    line-height: 16px;
-    min-width: unset !important;
-  }
 }
 
 .transcription-lang-code {

@@ -38,6 +38,8 @@
       justify-content: center;
       align-items: center;
       gap: 0.625rem;
+      color: var(--color-text);
+
       span {
         max-width: 400px;
         text-align: left;
@@ -66,6 +68,7 @@
     display: flex;
     justify-content: space-evenly;
     overflow: hidden;
+    color: var(--color-text);
 
     .media-category-wrapper {
       border: 1px solid var(--color-border-grey);
