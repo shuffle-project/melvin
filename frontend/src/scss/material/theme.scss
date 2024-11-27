@@ -17,12 +17,12 @@ html {
 :root {
   @include mat.slider-overrides(
     (
-      value-indicator-width: 3.25rem,
+      value-indicator-width: fit-content,
       value-indicator-height: 1rem,
       value-indicator-text-transform: none,
       value-indicator-container-transform: translateX(-50%),
       value-indicator-border-radius: 0.25rem,
-      value-indicator-padding: 0.25rem,
+      value-indicator-padding: 0.25rem 0.375rem,
     )
   );
 }
