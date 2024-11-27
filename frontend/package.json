@@ -35,7 +35,6 @@
     "@ngrx/router-store": "^18.0.2",
     "@ngrx/store": "^18.0.2",
     "@tiptap/core": "^2.8.0",
-    "@tiptap/extension-bubble-menu": "^2.10.0",
     "@tiptap/extension-collaboration": "^2.8.0",
     "@tiptap/extension-collaboration-cursor": "^2.8.0",
     "@tiptap/extension-color": "^2.8.0",
@@ -58,8 +57,6 @@
     "tslib": "^2.6.2",
     "uuid": "^9.0.1",
     "y-prosemirror": "^1.2.12",
-    "y-protocols": "^1.0.6",
-    "yjs": "^13.6.20",
     "zone.js": "~0.15.0"
   },
   "devDependencies": {

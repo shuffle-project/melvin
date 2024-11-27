@@ -1,15 +1,23 @@
 @use '@angular/material' as mat;
-@use './custom_theme.scss' as custom_theme;
+@use './palettes.scss' as palettes;
 
 html {
   color-scheme: light dark;
   @include mat.theme(
     (
       color: (
-        primary: custom_theme.$primary-palette,
+        primary: palettes.$primary-palette,
       ),
       typography: Roboto,
       density: 0,
+    )
+  );
+}
+
+.viewer-control-menu-dm {
+  @include mat.theme(
+    (
+      color: palettes.$tertiary-palette,
     )
   );
 }
