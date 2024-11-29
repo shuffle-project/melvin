@@ -108,7 +108,13 @@ export class FfmpegService {
     //   );
     // }
 
-    //     ffmpeg -loglevel error -i "${filePath}" -crf 23 -c:v libx264 -c:a aac -y \
+    // check resolution/aspect ratio etc/ check max resolution -> calculate what resolutions to create
+    // save resolutions in project
+    // create resolutions
+
+    // ffmpeg -loglevel error -i bagger_1_main.mp4 -crf 23 -c:v libx264 -c:a aac -y -filter_complex "[0:v]split=5[v1080][v720][v480][v360][v240]; [v1080]scale=1920:1080[v1080out]; [v720]scale=1280:720[v720out]; [v480]scale=854:480[v480out]; [v360]scale=640:360[v360out]; [v240]scale=426:240[v240out]" -map "[v1080out]" -map 0:a -c:a aac "bagger_1080p.mp4" -map "[v720out]" -map 0:a -c:a aac "bagger_720p.mp4" -map "[v480out]" -map 0:a -c:a aac "bagger_480p.mp4" -map "[v360out]" -map 0:a -c:a aac "bagger_360p.mp4" -map "[v240out]" -map 0:a -c:a aac "bagger_240p.mp4"
+
+    // ffmpeg -loglevel error -i "${filePath}" -crf 23 -c:v libx264 -c:a aac -y \
     // -filter_complex "[0:v]split=5[v1080][v720][v480][v360][v240]; \
     // [v1080]scale=1920:1080[v1080out]; \
     // [v720]scale=1280:720[v720out]; \
@@ -120,6 +126,11 @@ export class FfmpegService {
     // -map "[v480out]" -map 0:a -c:a aac "${videoFilepath}_480p.mp4" \
     // -map "[v360out]" -map 0:a -c:a aac "${videoFilepath}_360p.mp4" \
     // -map "[v240out]" -map 0:a -c:a aac "${videoFilepath}_240p.mp4"
+
+    /**
+     * liste von media files mit verfügbaren auflösungen
+     *
+     */
 
     // TODO limit size of file
     const commands = [

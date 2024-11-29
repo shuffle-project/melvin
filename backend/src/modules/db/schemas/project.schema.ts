@@ -19,6 +19,7 @@ import {
 import { Export } from './export.schema';
 import { Transcription } from './transcription.schema';
 import { User } from './user.schema';
+import { ResolutionEnum } from 'src/resources/project/entities/project.entity';
 
 export type ProjectDocument = HydratedDocument<Project>;
 
@@ -121,6 +122,23 @@ export class Audio {
 }
 const AudioSchema = SchemaFactory.createForClass(Audio);
 
+// export class Resolution {
+//   @ApiProperty({ enum: ResolutionEnum, example: ResolutionEnum['1080p'] })
+//   @Prop()
+//   @IsEnum(ResolutionEnum)
+//   resolution: ResolutionEnum;
+
+//   @ApiProperty()
+//   @Prop()
+//   @IsInt()
+//   height: number;
+
+//   @ApiProperty()
+//   @Prop()
+//   @IsInt()
+//   width: number;
+// }
+
 @Schema({
   timestamps: true,
 })
@@ -163,6 +181,10 @@ export class Video {
   @Prop()
   @IsEnum(MediaCategory)
   category: MediaCategory;
+
+  // @ApiProperty({ type: [Resolution] })
+  // @Prop()
+  // resolutions: Resolution[];
 
   @ApiProperty({ enum: MediaStatus, example: MediaStatus.FINISHED })
   @Prop()

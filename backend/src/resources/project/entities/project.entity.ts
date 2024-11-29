@@ -56,15 +56,51 @@ export class ProjectTranscriptionEntity extends PickType(Transcription, [
 //   videos: VideoLinkEntity[];
 // }
 
+export enum ResolutionEnum {
+  '1080p',
+  '720p',
+  '480p',
+  '360p',
+  '240p',
+  '144p',
+}
+
+export class Resolution {
+  @ApiProperty({ type: String })
+  @Type(() => String)
+  url: string;
+
+  @ApiProperty({ enum: ResolutionEnum, example: ResolutionEnum['1080p'] })
+  @Type(() => String)
+  resolution: ResolutionEnum;
+
+  @ApiProperty({ type: Number })
+  @Type(() => Number)
+  height: number;
+
+  @ApiProperty({ type: Number })
+  @Type(() => Number)
+  width: number;
+}
+
 export class VideoEntity extends Video {
   @ApiProperty({ type: String })
   @Type(() => String)
   url: string;
 
+  // @ApiProperty({ type: [Resolution] })
+  // @Type(() => Resolution)
+  // resolutions: Resolution[];
+
   @ApiProperty({ type: String })
   @Type(() => String)
   mimetype: string;
+
+  // resultion: []Resultion
 }
+
+// TODO
+// file id_resolution.ext
 
 export class AudioEntity extends Audio {
   @ApiProperty({ type: String })
