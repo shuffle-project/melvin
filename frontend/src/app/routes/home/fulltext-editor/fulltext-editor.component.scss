@@ -6,14 +6,12 @@
 
 .title-wrapper {
   margin-top: 0.25rem;
-  padding-left: 0.4375rem;
   display: flex;
   align-items: center;
-  min-height: 2rem;
 
   .project-title {
-    font-size: 1.125rem;
-    font-weight: bold;
+    padding-inline: 0.375rem;
+    font-size: 1.25rem;
 
     &:hover {
       outline: 2px solid var(--color-primary);
@@ -38,7 +36,7 @@
 
 .sticky {
   position: sticky;
-  top: 74px;
+  top: 4rem;
   border-bottom: 1px solid var(--color-border-grey);
   z-index: 1;
   overflow: hidden;
@@ -51,19 +49,20 @@
   align-items: center;
   width: 100%;
   background: var(--color-white);
-  padding: 0 0.625rem;
+  padding: 0 1rem;
 
   .time-container {
-    height: 30px;
+    height: 1.875rem;
+
     display: flex;
     align-items: center;
     color: var(--color-text);
 
     .time-disabled {
-      opacity: 0.6;
+      opacity: 0.7;
     }
     .time-total {
-      opacity: 0.6;
+      opacity: 0.7;
     }
 
     .time-spacer {
@@ -83,9 +82,7 @@
 
 .content {
   display: flex;
-  // padding: 20px 0px 0px 20px;
   padding: 1rem;
-  margin-top: 0.875rem;
 
   flex-direction: row;
   flex-grow: 1;

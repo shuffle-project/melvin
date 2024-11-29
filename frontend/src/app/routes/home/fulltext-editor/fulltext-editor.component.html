@@ -12,7 +12,7 @@
       <button
         mat-icon-button
         [routerLink]="['/home/projects']"
-        class="sm"
+        class="sm editor-back-button"
         style="margin-left: 20px"
         i18n-matTooltip="@@editorBackToProjectsList"
         i18n-matTooltip="@@editorBackToProjectsList"
@@ -29,6 +29,7 @@
         mat-button
         [matMenuTriggerFor]="menu"
         i18n="@@editorMenuFileLabel"
+        class="editor-action-button"
       >
         File
       </button>
@@ -82,6 +83,7 @@
         mat-button
         [matMenuTriggerFor]="transcription"
         i18n="@@editorMenuTranscriptionLabel"
+        class="editor-action-button"
       >
         Transcription
       </button>
@@ -218,7 +220,6 @@
         <button
           mat-icon-button
           (click)="onTogglePlayPause()"
-          class="lg"
           color="primary"
           i18n-matTooltip="@@editorPlayOrPauseButtonLabel"
           matTooltip="Play or pause"
