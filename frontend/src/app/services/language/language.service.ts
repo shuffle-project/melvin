@@ -30,11 +30,17 @@ export class LanguageService implements OnDestroy {
   }
 
   getLocalizedLanguages() {
-    return this.allLanguages.map((l) => {
+    const languages = this.allLanguages.map((l) => {
       return this.locale?.startsWith('en')
         ? { code: l.code, name: l.englishName }
         : { code: l.code, name: l.germanName };
     });
+
+    if (this.locale?.startsWith('en')) {
+      return languages;
+    } else {
+      return languages.sort((a, b) => a.name.localeCompare(b.name));
+    }
   }
 
   getLocalizedLanguage(code: string) {
