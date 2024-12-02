@@ -27,19 +27,19 @@ import { RegisterDialogComponent } from '../register-dialog/register-dialog.comp
 import { ResetPasswordDialogComponent } from '../reset-password-dialog/reset-password-dialog.component';
 
 @Component({
-    selector: 'app-login-dialog',
-    imports: [
-        MatDialogModule,
-        MatButtonModule,
-        MatIconModule,
-        MatInputModule,
-        ReactiveFormsModule,
-        PushPipe,
-        MatProgressSpinnerModule,
-        MatCheckboxModule,
-    ],
-    templateUrl: './login-dialog.component.html',
-    styleUrl: './login-dialog.component.scss'
+  selector: 'app-login-dialog',
+  imports: [
+    MatDialogModule,
+    MatButtonModule,
+    MatIconModule,
+    MatInputModule,
+    ReactiveFormsModule,
+    PushPipe,
+    MatProgressSpinnerModule,
+    MatCheckboxModule,
+  ],
+  templateUrl: './login-dialog.component.html',
+  styleUrl: './login-dialog.component.scss',
 })
 export class LoginDialogComponent implements OnInit, OnDestroy {
   public formGroup!: FormGroup;
@@ -95,7 +95,7 @@ export class LoginDialogComponent implements OnInit, OnDestroy {
     this.dialogRefLoginDialog.close();
     this.dialog.open(RegisterDialogComponent, {
       width: '100%',
-      maxWidth: '700px',
+      maxWidth: '50rem',
       maxHeight: '90vh',
     });
   }
@@ -104,7 +104,7 @@ export class LoginDialogComponent implements OnInit, OnDestroy {
     this.dialogRefLoginDialog.close();
     this.dialog.open(ResetPasswordDialogComponent, {
       width: '100%',
-      maxWidth: '700px',
+      maxWidth: '50rem',
       maxHeight: '90vh',
     });
   }

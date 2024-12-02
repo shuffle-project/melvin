@@ -31,21 +31,21 @@ import { WrittenOutLanguagePipe } from 'src/app/pipes/written-out-language-pipe/
 import { LanguageService } from 'src/app/services/language/language.service';
 
 @Component({
-    selector: 'app-edit-transcription-dialog',
-    templateUrl: './edit-transcription-dialog.component.html',
-    styleUrls: ['./edit-transcription-dialog.component.scss'],
-    imports: [
-        MatDialogModule,
-        ReactiveFormsModule,
-        MatFormFieldModule,
-        MatSelectModule,
-        MatOptionModule,
-        MatInputModule,
-        MatButtonModule,
-        MatIconModule,
-        PushPipe,
-        WrittenOutLanguagePipe,
-    ]
+  selector: 'app-edit-transcription-dialog',
+  templateUrl: './edit-transcription-dialog.component.html',
+  styleUrls: ['./edit-transcription-dialog.component.scss'],
+  imports: [
+    MatDialogModule,
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    MatOptionModule,
+    MatInputModule,
+    MatButtonModule,
+    MatIconModule,
+    PushPipe,
+    WrittenOutLanguagePipe,
+  ],
 })
 export class EditTranscriptionDialogComponent implements OnInit {
   languages = this.languageService.getLocalizedLanguages();
@@ -107,7 +107,7 @@ export class EditTranscriptionDialogComponent implements OnInit {
     this.dialog.open(DialogProjectTranscriptionComponent, {
       data: { projectId: this.project.id },
       width: '100%',
-      maxWidth: '800px',
+      maxWidth: '50rem',
       maxHeight: '90vh',
     });
   }

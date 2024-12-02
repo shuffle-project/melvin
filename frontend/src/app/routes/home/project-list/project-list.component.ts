@@ -61,39 +61,39 @@ import * as projectsSelectors from '../../../store/selectors/projects.selector';
 import { LandingFooterComponent } from '../../landing/components/landing-footer/landing-footer.component';
 import { DialogCreateProjectComponent } from './dialog-create-project/dialog-create-project/dialog-create-project.component';
 @Component({
-    selector: 'app-project-list',
-    templateUrl: './project-list.component.html',
-    styleUrls: ['./project-list.component.scss'],
-    imports: [
-        HeaderComponent,
-        LetDirective,
-        MatFormFieldModule,
-        MatInputModule,
-        MatButtonModule,
-        MatTooltipModule,
-        MatIconModule,
-        MatButtonToggleModule,
-        MatSelectModule,
-        MatOptionModule,
-        MatTableModule,
-        MatSortModule,
-        MatChipsModule,
-        NgClass,
-        AvatarGroupComponent,
-        MatMenuModule,
-        MatDividerModule,
-        PushPipe,
-        FormatDatePipe,
-        DurationPipe,
-        LanguageCodePipe,
-        ProjectStatusPipe,
-        FeatureEnabledPipe,
-        ProjectLanguagesSetPipe,
-        WrittenOutLanguagePipe,
-        ActivityComponent,
-        CdkMenuModule,
-        LandingFooterComponent,
-    ]
+  selector: 'app-project-list',
+  templateUrl: './project-list.component.html',
+  styleUrls: ['./project-list.component.scss'],
+  imports: [
+    HeaderComponent,
+    LetDirective,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    MatTooltipModule,
+    MatIconModule,
+    MatButtonToggleModule,
+    MatSelectModule,
+    MatOptionModule,
+    MatTableModule,
+    MatSortModule,
+    MatChipsModule,
+    NgClass,
+    AvatarGroupComponent,
+    MatMenuModule,
+    MatDividerModule,
+    PushPipe,
+    FormatDatePipe,
+    DurationPipe,
+    LanguageCodePipe,
+    ProjectStatusPipe,
+    FeatureEnabledPipe,
+    ProjectLanguagesSetPipe,
+    WrittenOutLanguagePipe,
+    ActivityComponent,
+    CdkMenuModule,
+    LandingFooterComponent,
+  ],
 })
 export class ProjectListComponent implements OnInit, AfterViewInit, OnDestroy {
   ProjectSetEnum = ProjectSetEnum;
@@ -190,7 +190,7 @@ export class ProjectListComponent implements OnInit, AfterViewInit, OnDestroy {
     this.dialog.open(DialogCreateProjectComponent, {
       disableClose: true,
       width: '100%',
-      maxWidth: '800px',
+      maxWidth: '50rem',
       maxHeight: '90vh',
     });
   }
@@ -199,7 +199,7 @@ export class ProjectListComponent implements OnInit, AfterViewInit, OnDestroy {
     this.dialog.open(DialogProjectActivityComponent, {
       data: { project },
       width: '100%',
-      maxWidth: '800px',
+      maxWidth: '50rem',
       maxHeight: '90vh',
     });
   }
@@ -208,7 +208,7 @@ export class ProjectListComponent implements OnInit, AfterViewInit, OnDestroy {
     this.dialog.open(DialogProjectMediaComponent, {
       data: { project },
       width: '100%',
-      maxWidth: '800px',
+      maxWidth: '50rem',
       maxHeight: '90vh',
     });
   }
@@ -244,7 +244,7 @@ export class ProjectListComponent implements OnInit, AfterViewInit, OnDestroy {
         project,
       },
       width: '100%',
-      maxWidth: '800px',
+      maxWidth: '50rem',
       maxHeight: '90vh',
     });
   }

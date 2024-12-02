@@ -36,20 +36,20 @@ import { DialogProjectTranscriptionComponent } from '../../dialog-project-transc
 import { CreateTranscriptionDialogComponent } from './components/create-transcription-dialog/create-transcription-dialog.component';
 import { EditTranscriptionDialogComponent } from './components/edit-transcription-dialog/edit-transcription-dialog.component';
 @Component({
-    selector: 'app-project-transcription',
-    templateUrl: './project-transcription.component.html',
-    styleUrls: ['./project-transcription.component.scss'],
-    imports: [
-        MatIconModule,
-        LetDirective,
-        PushPipe,
-        MatButtonModule,
-        MatTableModule,
-        WrittenOutLanguagePipe,
-        FormatDatePipe,
-        MatMenuModule,
-        MatDividerModule,
-    ]
+  selector: 'app-project-transcription',
+  templateUrl: './project-transcription.component.html',
+  styleUrls: ['./project-transcription.component.scss'],
+  imports: [
+    MatIconModule,
+    LetDirective,
+    PushPipe,
+    MatButtonModule,
+    MatTableModule,
+    WrittenOutLanguagePipe,
+    FormatDatePipe,
+    MatMenuModule,
+    MatDividerModule,
+  ],
 })
 export class ProjectTranscriptionComponent
   implements AfterViewInit, OnDestroy, OnInit
@@ -126,7 +126,7 @@ export class ProjectTranscriptionComponent
     this.dialogRefProjectTranscription.close();
     this.dialog.open(CreateTranscriptionDialogComponent, {
       width: '100%',
-      maxWidth: '800px',
+      maxWidth: '50rem',
       maxHeight: '90vh',
     });
   }
@@ -167,7 +167,7 @@ export class ProjectTranscriptionComponent
     this.dialog.open(EditTranscriptionDialogComponent, {
       data: transcription,
       width: '100%',
-      maxWidth: '800px',
+      maxWidth: '50rem',
       maxHeight: '90vh',
     });
   }

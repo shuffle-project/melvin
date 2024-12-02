@@ -1,6 +1,5 @@
 header {
-  height: 60px;
-  // position: fixed;
+  height: 3.75rem;
   width: 100%;
 
   position: sticky;
@@ -13,7 +12,7 @@ header {
   }
 
   mat-toolbar {
-    min-height: 60px;
+    min-height: 3.75rem;
     height: auto;
     background: var(--color-white);
     border-bottom: 1px solid var(--color-border-grey);
@@ -45,8 +44,8 @@ header {
 }
 
 .notification-menu {
-  width: 530px;
-  padding: 5px 0px 10px 0px;
+  width: 33.125rem;
+  padding: 0.3125rem 0 0.625rem 0;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -58,23 +57,23 @@ header {
     align-items: center;
 
     .header-title {
-      font-size: 16px;
-      margin-left: 15px;
+      font-size: 1rem;
+      margin-left: 1rem;
     }
 
     button {
-      font-size: 12px;
+      font-size: 0.75rem;
       color: rgba(var(--color-black-rgb), 0.6);
     }
   }
 
   .zero-notifications {
-    margin: 15px 0;
+    margin: 1rem 0;
   }
 
   .notification-wrapper {
-    width: 480px;
-    margin: 10px 0;
+    width: 30rem;
+    margin: 0.625rem 0;
   }
   .notifications {
     display: flex;
@@ -89,8 +88,8 @@ header {
   }
 
   .all-notifications-link {
-    margin-top: 5px;
-    font-size: 12px;
+    margin-top: 0.3125rem;
+    font-size: 0.75rem;
     color: rgba(var(--color-black-rgb), 0.6);
   }
 }
@@ -104,6 +103,6 @@ header {
   height: 100%;
 
   mat-icon {
-    padding: 0 6px;
+    padding: 0 0.375rem;
   }
 }

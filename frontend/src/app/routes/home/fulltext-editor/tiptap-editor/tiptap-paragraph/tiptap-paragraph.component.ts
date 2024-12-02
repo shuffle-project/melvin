@@ -1,5 +1,5 @@
+import { CommonModule } from '@angular/common';
 import {
-  AfterViewInit,
   Component,
   ElementRef,
   OnChanges,
@@ -7,49 +7,33 @@ import {
   OnInit,
   SimpleChanges,
 } from '@angular/core';
-import { LetDirective, PushPipe } from '@ngrx/component';
-import { AngularNodeViewComponent, NgxTiptapModule } from 'ngx-tiptap';
-import {
-  combineLatest,
-  debounceTime,
-  firstValueFrom,
-  lastValueFrom,
-  map,
-  merge,
-  Subject,
-  takeUntil,
-} from 'rxjs';
-import { TiptapEditorService } from '../tiptap-editor.service';
-import { CaptionSpeakerComponent } from '../../../editor/components/captions/caption/caption-speaker/caption-speaker.component';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
-import { CommonModule } from '@angular/common';
+import { Store } from '@ngrx/store';
+import { AngularNodeViewComponent, NgxTiptapModule } from 'ngx-tiptap';
+import { debounceTime, merge, Subject, takeUntil } from 'rxjs';
 import { SpeakerEntity } from 'src/app/services/api/entities/transcription.entity';
 import { AppState } from 'src/app/store/app.state';
-import { Store } from '@ngrx/store';
-import * as transcriptionsSelector from 'src/app/store/selectors/transcriptions.selector';
-import { MatIcon, MatIconModule } from '@angular/material/icon';
-import { MatDividerModule } from '@angular/material/divider';
-import { MatButtonModule } from '@angular/material/button';
-import { EditSpeakerModalComponent } from './edit-speaker-modal/edit-speaker-modal.component';
 import * as editorSelector from 'src/app/store/selectors/editor.selector';
 import { MediaService } from '../../../editor/services/media/media.service';
+import { TiptapEditorService } from '../tiptap-editor.service';
+import { EditSpeakerModalComponent } from './edit-speaker-modal/edit-speaker-modal.component';
 
 @Component({
-    selector: 'app-tiptap-paragraph',
-    imports: [
-        NgxTiptapModule,
-        PushPipe,
-        MatMenuModule,
-        CommonModule,
-        LetDirective,
-        PushPipe,
-        MatIconModule,
-        MatDividerModule,
-        MatButtonModule,
-        EditSpeakerModalComponent,
-    ],
-    templateUrl: './tiptap-paragraph.component.html',
-    styleUrl: './tiptap-paragraph.component.scss'
+  selector: 'app-tiptap-paragraph',
+  imports: [
+    NgxTiptapModule,
+    MatMenuModule,
+    CommonModule,
+    MatIconModule,
+    MatDividerModule,
+    MatButtonModule,
+    EditSpeakerModalComponent,
+  ],
+  templateUrl: './tiptap-paragraph.component.html',
+  styleUrl: './tiptap-paragraph.component.scss',
 })
 export class TiptapParagraphComponent
   extends AngularNodeViewComponent

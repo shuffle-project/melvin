@@ -2,7 +2,7 @@
   class="container"
   [matMenuTriggerFor]="usersMenu"
   [matMenuTriggerData]="{ users: users }"
-  [style.width.px]="width"
+  [style.width.rem]="width"
 >
   @for (user of avatars; track trackByFn) {
   <app-avatar

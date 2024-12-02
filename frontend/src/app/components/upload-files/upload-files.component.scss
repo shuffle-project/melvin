@@ -5,9 +5,9 @@
   text-align: center;
   background: var(--light-background-grey);
   border: 2px dashed var(--color-primary);
-  border-radius: 5px;
+  border-radius: 0.3125rem;
   position: relative;
-  min-height: 130px;
+  min-height: 8.125rem;
   padding: 1.25rem 1.25rem 2.5rem;
 
   &.invalid-input {
@@ -16,8 +16,8 @@
 
   .label-empty {
     background-color: var(--color-primary);
-    padding: 10px 25px;
-    border-radius: 4px;
+    padding: 0.625rem 1.5rem;
+    border-radius: 0.25rem;
     font-weight: 500;
     color: var(--color-white);
   }
@@ -42,7 +42,7 @@
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    padding: 0 45px 0 30px;
+    padding: 0 2.875rem 0 1.875rem;
 
     .file {
       display: flex;
@@ -53,10 +53,10 @@
       padding-block: 0.125rem;
       margin-bottom: 0.375rem;
 
-      min-height: 40px;
+      min-height: 2.5rem;
       background-color: var(--color-white);
       border: 1px solid var(--color-border-grey);
-      border-radius: 10px;
+      border-radius: 0.625rem;
 
       min-width: 15rem;
       width: 100%;

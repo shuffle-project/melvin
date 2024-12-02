@@ -6,8 +6,8 @@
   display: flex;
   width: 100%;
   align-items: center;
-  padding: 5px 0;
-  margin: 5px 0;
+  padding: 0.3125rem 0;
+  margin: 0.3125rem 0;
   position: relative;
 
   --bg-color: var(--color-background-grey);
@@ -28,7 +28,7 @@
 
   &.list {
     background: var(--bg-color);
-    padding-right: 20px;
+    padding-right: 1.25rem;
     mat-icon {
       color: var(--icon-color);
     }
@@ -36,8 +36,8 @@
 
   &.timeline {
     background: var(--bg-color);
-    margin: 5px 0;
-    border-radius: 5px;
+    margin: 0.3125rem 0;
+    border-radius: 0.3125rem;
     border: 1px solid var(--border-color);
     mat-icon {
       color: var(--icon-color);
@@ -57,14 +57,14 @@
 }
 
 mat-icon {
-  margin: 10px;
-  margin-left: 20px;
+  margin: 0.625rem;
+  margin-left: 1.25rem;
 }
 
 .text-container {
   display: flex;
   flex-direction: column;
-  margin-left: 10px;
+  margin-left: 0.625rem;
   flex: 1;
 
   .project-title {
@@ -72,7 +72,7 @@ mat-icon {
   }
 
   .description {
-    padding: 4px 0px;
+    padding: 0.25rem 0;
     font-weight: 500;
   }
 
@@ -85,7 +85,7 @@ mat-icon {
 }
 
 app-avatar {
-  margin-right: 10px;
+  margin-right: 0.625rem;
 }
 
 .time-ago {
@@ -93,7 +93,7 @@ app-avatar {
 }
 
 .user-name {
-  margin: 0 10px;
+  margin: 0 0.625rem;
 }
 
 .error-status {

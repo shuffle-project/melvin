@@ -1,29 +1,12 @@
 .add-speaker-wrapper {
-  margin-top: 15px;
-  padding: 0 15px 0 15px;
-
-  .speaker-mode-button {
-    width: 100%;
-    margin-bottom: 10px;
-    min-width: 200px;
-
-    .mat-icon {
-      margin-bottom: 2px;
-      transform: scale(0.75);
-    }
-  }
+  margin-inline: 1rem;
 }
 
 .add-speaker-mode-wrapper {
   display: flex;
   flex-direction: column;
-  margin-bottom: 10px;
 
   .speaker-form-field {
-    margin-bottom: 2px;
+    margin-bottom: 0.25rem;
   }
-}
-
-.speaker-mat-divider {
-  margin: 10px 15px 0 15px;
 }

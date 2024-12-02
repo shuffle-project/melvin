@@ -48,7 +48,6 @@ import { MediaCategoryPipe } from 'src/app/pipes/media-category-pipe/media-categ
 import { WrittenOutLanguagePipe } from 'src/app/pipes/written-out-language-pipe/written-out-language.pipe';
 import { SubtitleFormat } from 'src/app/services/api/entities/transcription.entity';
 import { HeaderComponent } from '../../../components/header/header.component';
-import { CaptionsComponent } from '../editor/components/captions/captions.component';
 import { EditorSettingsComponent } from '../editor/components/editor-settings/editor-settings.component';
 import { JoinLivestreamModalComponent } from '../editor/components/join-livestream-modal/join-livestream-modal.component';
 import { LiveControlsComponent } from '../editor/components/live-controls/live-controls.component';
@@ -81,7 +80,6 @@ import { TiptapEditorComponent } from './tiptap-editor/tiptap-editor.component';
     VideoPlayerComponent,
     EditorSettingsComponent,
     UserTestControlsComponent,
-    CaptionsComponent,
     PushPipe,
     DurationPipe,
     FeatureEnabledPipe,
@@ -262,7 +260,7 @@ export class FulltextEditorComponent implements OnInit, OnDestroy {
         project,
       },
       width: '100%',
-      maxWidth: '800px',
+      maxWidth: '50rem',
       maxHeight: '90vh',
     });
   }
@@ -314,7 +312,7 @@ export class FulltextEditorComponent implements OnInit, OnDestroy {
     this.dialog.open(DialogProjectTranscriptionComponent, {
       data: { projectId: this.projectId },
       width: '100%',
-      maxWidth: '800px',
+      maxWidth: '50rem',
       maxHeight: '90vh',
     });
   }

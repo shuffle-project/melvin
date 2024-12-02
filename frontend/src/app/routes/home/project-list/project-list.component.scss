@@ -1,5 +1,5 @@
 section {
-  padding: 20px;
+  padding: 1.25rem;
   min-height: 100%;
 }
 
@@ -15,20 +15,20 @@ section {
 
   .search-field-wrapper {
     display: flex;
-    margin-right: 30px;
+    margin-right: 1.875rem;
 
     .search-field {
-      width: 250px;
+      width: 15.625rem;
     }
   }
 
   .project-set-wrapper,
   .project-status-wrapper {
-    margin-right: 30px;
+    margin-right: 1.875rem;
   }
 
   .mat-button-toggle-group {
-    margin-top: 4px;
+    margin-top: 0.25rem;
   }
 
   .new-project-button-wrapper {
@@ -46,7 +46,7 @@ section {
 }
 
 .language-matMenu {
-  padding: 5px 10px;
+  padding: 0.3125rem 0.625rem;
 }
 
 a.disabled {

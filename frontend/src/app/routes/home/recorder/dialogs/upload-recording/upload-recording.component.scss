@@ -33,8 +33,7 @@
         align-items: center;
       }
       .content {
-        // height: 50px;
-        min-height: 20px;
+        min-height: 1.25rem;
         display: flex;
         flex-direction: column;
         justify-content: space-around;
@@ -71,8 +70,7 @@
       }
 
       .progressbar-wrapper {
-        // width: 50%;
-        min-height: 14px;
+        min-height: 0.875rem;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -83,7 +81,7 @@
 
   .progress-wrapper {
     display: flex;
-    margin: 20px;
+    margin: 1.25rem;
     flex-direction: column;
     align-items: center;
   }

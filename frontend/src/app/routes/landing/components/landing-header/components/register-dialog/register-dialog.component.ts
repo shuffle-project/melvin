@@ -26,20 +26,20 @@ import * as authSelectors from '../../../../../../store/selectors/auth.selector'
 import { LoginDialogComponent } from '../login-dialog/login-dialog.component';
 
 @Component({
-    selector: 'app-register-dialog',
-    imports: [
-        MatDialogModule,
-        MatIconModule,
-        MatButtonModule,
-        ReactiveFormsModule,
-        PushPipe,
-        MatInputModule,
-        MatProgressSpinner,
-        RouterLink,
-        LetDirective,
-    ],
-    templateUrl: './register-dialog.component.html',
-    styleUrl: './register-dialog.component.scss'
+  selector: 'app-register-dialog',
+  imports: [
+    MatDialogModule,
+    MatIconModule,
+    MatButtonModule,
+    ReactiveFormsModule,
+    PushPipe,
+    MatInputModule,
+    MatProgressSpinner,
+    RouterLink,
+    LetDirective,
+  ],
+  templateUrl: './register-dialog.component.html',
+  styleUrl: './register-dialog.component.scss',
 })
 export class RegisterDialogComponent implements OnInit, OnDestroy {
   public formGroup!: FormGroup;
@@ -112,7 +112,7 @@ export class RegisterDialogComponent implements OnInit, OnDestroy {
     this.dialogRefRegisterDialog.close();
     this.dialog.open(LoginDialogComponent, {
       width: '100%',
-      maxWidth: '700px',
+      maxWidth: '50rem',
       maxHeight: '90vh',
     });
   }

@@ -10,7 +10,10 @@ import { FormsModule } from '@angular/forms';
 import { MatIconButton } from '@angular/material/button';
 import { MatCheckbox } from '@angular/material/checkbox';
 import { MatIcon } from '@angular/material/icon';
-import { HocuspocusProvider, MessageType } from '@hocuspocus/provider';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { HocuspocusProvider } from '@hocuspocus/provider';
+import { LetDirective } from '@ngrx/component';
+import { Store } from '@ngrx/store';
 import { Editor } from '@tiptap/core';
 import Collaboration from '@tiptap/extension-collaboration';
 import CollaborationCursor from '@tiptap/extension-collaboration-cursor';
@@ -28,19 +31,16 @@ import {
   skip,
   takeUntil,
 } from 'rxjs';
+import { AppState } from 'src/app/store/app.state';
+import { EditorUser } from 'src/app/store/reducers/editor.reducer';
+import * as editorSelector from 'src/app/store/selectors/editor.selector';
+import { selectQueryParams } from 'src/app/store/selectors/router.selectors';
 import { EditorUserEntity } from '../../../../interfaces/editor-user.interface';
 import { WSService } from '../../../../services/ws/ws.service';
 import { MediaService } from '../../editor/services/media/media.service';
 import { CustomParagraph } from './schema/paragraph.schema';
 import { UserExtension } from './schema/user.extension';
 import { CustomWord } from './schema/word.schema';
-import { Store } from '@ngrx/store';
-import { AppState } from 'src/app/store/app.state';
-import * as editorSelector from 'src/app/store/selectors/editor.selector';
-import { selectQueryParams } from 'src/app/store/selectors/router.selectors';
-import { LetDirective } from '@ngrx/component';
-import { EditorUser } from 'src/app/store/reducers/editor.reducer';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 enum CLIENT_STATUS {
   CONNECTING,
@@ -51,18 +51,18 @@ enum CLIENT_STATUS {
 }
 
 @Component({
-    selector: 'app-tiptap-editor',
-    imports: [
-        MatIconButton,
-        MatIcon,
-        MatCheckbox,
-        FormsModule,
-        NgxTiptapModule,
-        LetDirective,
-        MatProgressSpinnerModule,
-    ],
-    templateUrl: './tiptap-editor.component.html',
-    styleUrl: './tiptap-editor.component.scss'
+  selector: 'app-tiptap-editor',
+  imports: [
+    MatIconButton,
+    MatIcon,
+    MatCheckbox,
+    FormsModule,
+    NgxTiptapModule,
+    LetDirective,
+    MatProgressSpinnerModule,
+  ],
+  templateUrl: './tiptap-editor.component.html',
+  styleUrl: './tiptap-editor.component.scss',
 })
 export class TiptapEditorComponent implements AfterViewInit, OnInit, OnDestroy {
   @Input({ required: true }) transcriptionId$!: Observable<string>;
@@ -284,7 +284,7 @@ export class TiptapEditorComponent implements AfterViewInit, OnInit, OnDestroy {
           // Create HTML content for captions
           const captionsHtml = last7Words
             .map((word) => {
-              return `<span style="color: white; background-color: rgba(0, 0, 0, 0.75); display: inline-block; padding: 2px 5px; margin: 2px;">${word}</span>`;
+              return `<span style="color: white; background-color: rgba(0, 0, 0, 0.75); display: inline-block; padding: 0.125rem 0.3125rem; margin: 0.125rem;">${word}</span>`;
             })
             .join(' ');
           this.captions.innerHTML = captionsHtml;

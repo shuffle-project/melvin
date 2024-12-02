@@ -1,22 +1,19 @@
 <div>
   @for (speaker of availableSpeaker$ | ngrxPush; track speaker) {
-  <button
-    mat-menu-item
-    (click)="changeSpeaker(speaker)"
-    >
+  <button mat-menu-item (click)="changeSpeaker(speaker)">
     <!-- class="stayfocused-{{ caption.id }}" -->
     <mat-icon svgIcon="speaker1"></mat-icon>
     <span>{{ speaker.name }}</span>
   </button>
   }
-  <mat-divider class="speaker-mat-divider"></mat-divider>
+  <mat-divider></mat-divider>
   <div (click)="$event.stopPropagation()" class="add-speaker-wrapper">
     @if (!addSpeakerMode) {
     <button
       mat-stroked-button
       (click)="onAddSpeakerMode()"
       i18n="@@captionsAddNewSpeakerButtonLabel"
-      >
+    >
       <!-- class="speaker-mode-button stayfocused-{{ caption.id }}" -->
       <mat-icon svgIcon="add"></mat-icon>
       Add speaker
@@ -32,8 +29,8 @@
           [errorStateMatcher]="errorStateMatcher"
           matInput="text"
           [formControl]="newSpeakerForm"
-          />
-          <!-- class="stayfocused-{{ caption.id }}" -->
+        />
+        <!-- class="stayfocused-{{ caption.id }}" -->
         @if (!newSpeakerForm.valid) {
         <mat-error>{{ onNewSpeakerInvalid() }}</mat-error>
         }
@@ -43,7 +40,7 @@
         color="primary"
         (click)="onAddSpeaker(newSpeaker.value)"
         i18n="@@captionsAddSpeakerButtonLabel"
-        >
+      >
         <!-- class="stayfocused-{{ caption.id }}" -->
         Add
       </button>

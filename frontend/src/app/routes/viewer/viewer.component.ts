@@ -13,7 +13,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { LetDirective } from '@ngrx/component';
-import { firstValueFrom, Subject } from 'rxjs';
+import { Subject } from 'rxjs';
 import { HeaderComponent } from '../../components/header/header.component';
 import { LogoComponent } from '../../components/logo/logo.component';
 import * as viewerActions from '../../store/actions/viewer.actions';
@@ -28,32 +28,31 @@ import { ControlsComponent } from './components/player/controls/controls.compone
 import { OverlayService } from './services/overlay.service';
 import { ViewerService } from './services/viewer.service';
 import { TranscriptPosition } from './viewer.interfaces';
-import { selectQueryParams } from 'src/app/store/selectors/router.selectors';
 
 @Component({
-    selector: 'app-viewer',
-    templateUrl: './viewer.component.html',
-    styleUrls: ['./viewer.component.scss'],
-    imports: [
-        HeaderComponent,
-        LetDirective,
-        MatButtonModule,
-        TranscriptComponent,
-        PlayerComponent,
-        MatProgressSpinnerModule,
-        InfoboxComponent,
-        LogoComponent,
-        RouterLink,
-        ControlsComponent,
-    ],
-    animations: [
-        trigger('fade', [
-            state('show', style({ opacity: 1 })),
-            state('hide', style({ opacity: 0 })),
-            transition('hide => show', [style({ opacity: 1 })]),
-            transition('show => hide', [animate(0, style({ opacity: 0 }))]),
-        ]),
-    ]
+  selector: 'app-viewer',
+  templateUrl: './viewer.component.html',
+  styleUrls: ['./viewer.component.scss'],
+  imports: [
+    HeaderComponent,
+    LetDirective,
+    MatButtonModule,
+    TranscriptComponent,
+    PlayerComponent,
+    MatProgressSpinnerModule,
+    InfoboxComponent,
+    LogoComponent,
+    RouterLink,
+    ControlsComponent,
+  ],
+  animations: [
+    trigger('fade', [
+      state('show', style({ opacity: 1 })),
+      state('hide', style({ opacity: 0 })),
+      transition('hide => show', [style({ opacity: 1 })]),
+      transition('show => hide', [animate(0, style({ opacity: 0 }))]),
+    ]),
+  ],
 })
 export class ViewerComponent implements OnInit, OnDestroy {
   private destroy$$ = new Subject<void>();
@@ -105,7 +104,12 @@ export class ViewerComponent implements OnInit, OnDestroy {
   onOpenAdjustLayoutDialog() {
     this.viewerService.audio?.pause();
     // TODO do we want to play after closing the dialog??
-    this.dialog.open(AdjustLayoutDialogComponent);
+
+    this.dialog.open(AdjustLayoutDialogComponent, {
+      width: '100%',
+      maxWidth: '50rem',
+      maxHeight: '90vh',
+    });
   }
 
   isFullscreenActive() {

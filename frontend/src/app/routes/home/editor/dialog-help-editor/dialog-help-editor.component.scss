@@ -1,6 +1,6 @@
 .help-dialog-wrapper {
-  padding: 24px;
-  width: 500px;
+  padding: 1.5rem;
+  width: 31.25rem;
 }
 
 .key-wrapper {
@@ -9,16 +9,16 @@
 }
 
 .plus-symbol {
-  margin: 0px 5px;
-  font-size: 20px;
+  margin: 0 0.3125rem;
+  font-size: 1.25rem;
 }
 
 .key {
   background-color: var(--color-dark-grey);
-  padding: 5px;
-  height: 30px;
-  min-width: 30px;
-  border-radius: 5px;
+  padding: 0.3125rem;
+  height: 1.875rem;
+  min-width: 1.875rem;
+  border-radius: 0.3125rem;
   display: flex;
   justify-content: center;
   align-items: center;

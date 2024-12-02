@@ -1,13 +1,13 @@
 import { Component, Input } from '@angular/core';
-import { AvatarUser, AvatarComponent } from './avatar/avatar.component';
+import { AvatarComponent, AvatarUser } from './avatar/avatar.component';
 
 import { MatMenuModule } from '@angular/material/menu';
 
 @Component({
-    selector: 'app-avatar-group',
-    templateUrl: './avatar-group.component.html',
-    styleUrls: ['./avatar-group.component.scss'],
-    imports: [MatMenuModule, AvatarComponent]
+  selector: 'app-avatar-group',
+  templateUrl: './avatar-group.component.html',
+  styleUrls: ['./avatar-group.component.scss'],
+  imports: [MatMenuModule, AvatarComponent],
 })
 export class AvatarGroupComponent {
   @Input() users!: AvatarUser[];
@@ -17,11 +17,11 @@ export class AvatarGroupComponent {
   get width(): number {
     switch (this.users.length) {
       case 1:
-        return 40;
+        return 2.5;
       case 2:
-        return 60;
+        return 3.75;
       default:
-        return 106;
+        return 6.625;
     }
   }
 

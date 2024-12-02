@@ -22,7 +22,9 @@ export const HomeRoutes: Routes = [
         canActivate: [HasRoleGuard],
         data: { roles: [UserRole.USER, UserRole.GUEST] },
         loadChildren: () =>
-          import('./editor/editor.routes').then((m) => m.EditorRoutes),
+          import('./fulltext-editor/fulltext-editor.routes').then(
+            (m) => m.EditorRoutes
+          ),
       },
       // {
       //   path: 'viewer',

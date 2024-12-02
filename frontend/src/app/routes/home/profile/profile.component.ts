@@ -28,21 +28,21 @@ interface PasswordChangeForm {
 }
 
 @Component({
-    selector: 'app-profile',
-    templateUrl: './profile.component.html',
-    styleUrls: ['./profile.component.scss'],
-    imports: [
-        HeaderComponent,
-        LetDirective,
-        MatSelectModule,
-        ReactiveFormsModule,
-        MatInputModule,
-        MatIconModule,
-        MatButtonModule,
-        MatProgressSpinnerModule,
-        AvatarComponent,
-        MatDividerModule,
-    ]
+  selector: 'app-profile',
+  templateUrl: './profile.component.html',
+  styleUrls: ['./profile.component.scss'],
+  imports: [
+    HeaderComponent,
+    LetDirective,
+    MatSelectModule,
+    ReactiveFormsModule,
+    MatInputModule,
+    MatIconModule,
+    MatButtonModule,
+    MatProgressSpinnerModule,
+    AvatarComponent,
+    MatDividerModule,
+  ],
 })
 export class ProfileComponent implements OnInit {
   user$!: Observable<AuthUser | null>;
@@ -70,7 +70,7 @@ export class ProfileComponent implements OnInit {
     this.dialog.open(DialogChangePasswordComponent, {
       disableClose: true,
       width: '100%',
-      maxWidth: '700px',
+      maxWidth: '50rem',
       maxHeight: '90vh',
     });
   }
