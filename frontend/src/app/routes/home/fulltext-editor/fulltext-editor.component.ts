@@ -170,8 +170,6 @@ export class FulltextEditorComponent implements OnInit, OnDestroy {
         })
       );
 
-    console.log(this.transcriptionId);
-
     this.store.dispatch(
       editorActions.findProjectFromEditor({ projectId: this.projectId })
     );

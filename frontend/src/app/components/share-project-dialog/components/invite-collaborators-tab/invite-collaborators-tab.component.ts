@@ -30,7 +30,6 @@ import { Store } from '@ngrx/store';
 import {
   Observable,
   Subject,
-  combineLatest,
   debounceTime,
   distinctUntilChanged,
   iif,
@@ -49,7 +48,9 @@ import { ProjectEntity } from 'src/app/services/api/entities/project.entity';
 import { UserEntity } from 'src/app/services/api/entities/user.entity';
 import { environment } from 'src/environments/environment';
 // import * as projectsActions from '../../../../store/actions/projects.actions';
+import { Router } from '@angular/router';
 import * as authSelectors from '../../../../store/selectors/auth.selector';
+import * as editorSelectors from '../../../../store/selectors/editor.selector';
 import * as projectSelectors from '../../../../store/selectors/projects.selector';
 
 @Component({
@@ -99,28 +100,34 @@ export class InviteCollaboratorsTabComponent implements OnInit, OnDestroy {
     private apiService: ApiService,
     private alertService: AlertService,
     private clipboard: Clipboard,
-    private store: Store
+    private store: Store,
+    private router: Router
   ) {
     this.authUser$ = this.store.select(authSelectors.selectUser);
 
-    this.project$ = this.store
-      .select(projectSelectors.selectAllProjects)
-      .pipe(
-        mergeMap((projects) =>
-          projects.filter((project) => project.id === this.projectId)
+    if (this.router.url.includes('/editor/')) {
+      this.store
+        .select(editorSelectors.selectProject)
+        .pipe(takeUntil(this.destroy$$))
+        .subscribe((project) => {
+          if (project === null) {
+            return;
+          }
+          this.project = project;
+        });
+    } else {
+      this.store
+        .select(projectSelectors.selectAllProjects)
+        .pipe(
+          takeUntil(this.destroy$$),
+          mergeMap((projects) =>
+            projects.filter((project) => project.id === this.projectId)
+          )
         )
-      );
-
-    console.log('blub');
-    this.project$.pipe(takeUntil(this.destroy$$)).subscribe((project) => {
-      console.log(project);
-      this.project = project;
-    });
-
-    this.data$ = combineLatest({
-      authUser: this.authUser$,
-      project: this.project$,
-    });
+        .subscribe((project) => {
+          this.project = project;
+        });
+    }
   }
 
   get inviteLink(): string {
