@@ -84,19 +84,16 @@ export class Resolution {
 }
 
 export class VideoEntity extends Video {
-  @ApiProperty({ type: String })
-  @Type(() => String)
-  url: string;
-
   // @ApiProperty({ type: [Resolution] })
   // @Type(() => Resolution)
-  // resolutions: Resolution[];
+  resolutions: Resolution[];
 
   @ApiProperty({ type: String })
   @Type(() => String)
   mimetype: string;
-
-  // resultion: []Resultion
+  // @ApiProperty({ type: String })
+  // @Type(() => String)
+  // url: string;
 }
 
 // TODO

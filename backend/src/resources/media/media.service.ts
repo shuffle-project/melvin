@@ -30,7 +30,7 @@ export class MediaService {
     response: Response,
   ) {
     const project = await this.db.projectModel.findOne({
-      viewerToken: viewerToken,
+      viewerToken,
     });
 
     if (!project) {
