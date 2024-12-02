@@ -90,7 +90,7 @@ export class AuthController {
   @Post('reset-password')
   resetPassword(
     @Body() dto: { email: string; newPassword: string },
-  ): Promise<any> {
+  ): Promise<void> {
     return this.authService.resetPassword(dto.email, dto.newPassword);
   }
 }

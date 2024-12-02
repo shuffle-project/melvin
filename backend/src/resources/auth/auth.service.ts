@@ -356,7 +356,7 @@ export class AuthService {
     };
   }
 
-  async resetPassword(email: string, newPassword: string) {
+  async resetPassword(email: string, newPassword: string): Promise<void> {
     const user = await this.db.userModel.findOne({ email }).exec();
 
     if (user === null) {
@@ -364,6 +364,9 @@ export class AuthService {
     }
 
     const hashedPassword = await bcrypt.hash(newPassword, 10);
-    this.db.userModel.findByIdAndUpdate(user._id, { hashedPassword }).exec();
+    await this.db.userModel
+      .findByIdAndUpdate(user._id, { hashedPassword })
+      .exec();
+    return;
   }
 }
