@@ -181,7 +181,6 @@ const getTextNodeBefore = (tr: Transaction, from: number) => {
 };
 
 const getTextNodeAfter = (tr: Transaction, to: number) => {
-  console.log(to, tr.doc.content.size);
   if (to === tr.doc.content.size) return null;
 
   const nodeBefore = tr.doc.nodeAt(to + 1);
@@ -249,7 +248,7 @@ const handleInsert = (
       const startAfter = nodeAtAfter?.marks[0]?.attrs['start'];
       const endAfter = nodeAtAfter?.marks[0]?.attrs['end'];
 
-      console.log(nodeAtBefore, nodeAtAfter);
+      // console.log(nodeAtBefore, nodeAtAfter);
       const start = startBefore ?? startAfter ?? 0;
       const end = startAfter ?? endBefore ?? 0;
 

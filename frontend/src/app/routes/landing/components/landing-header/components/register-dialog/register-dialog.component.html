@@ -15,7 +15,13 @@
   </div>
 </div>
 <mat-dialog-content class="dialog-content">
-  <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+  <p i18n="@@registerDialogEmailContactInfo" class="register-info">
+    Melvin is currently still in a closed test phase. Would you like to test
+    Melvin? Please contact us at
+    <a href="mailto:melvin@shuffle-projekt.de">melvin&#64;shuffle-projekt.de</a>
+  </p>
+
+  <!-- <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
     <mat-form-field appearance="outline">
       <mat-icon svgIcon="person" matPrefix></mat-icon>
       <mat-label i18n="@@registerDialogNameLabel">Name</mat-label>
@@ -138,7 +144,7 @@
         } Register
       </div>
     </button>
-  </form>
+  </form> -->
 
   <div class="back-to-login-wrapper">
     <p i18n="@@registerDialogLoginIntroText">Already have an account?</p>
