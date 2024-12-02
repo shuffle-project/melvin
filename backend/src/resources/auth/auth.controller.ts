@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import {
   AuthGuestLoginDto,
@@ -19,6 +19,7 @@ import { ChangePasswordDto } from './dto/change-password.dto';
 import { AuthInviteEntity } from './entities/auth-invite.entity';
 import { AuthViewerLoginResponseEntity } from './entities/auth-viewer.entity';
 import { ChangePasswordEntity } from './entities/change-password.entity';
+import { BasicAuthGuard } from './guards/basic-auth.guard';
 
 @Controller('auth')
 export class AuthController {
@@ -83,5 +84,13 @@ export class AuthController {
     @Body() dto: AuthViewerLoginDto,
   ): Promise<AuthViewerLoginResponseEntity> {
     return this.authService.viewerLogin(dto);
+  }
+
+  @UseGuards(BasicAuthGuard)
+  @Post('reset-password')
+  resetPassword(
+    @Body() dto: { email: string; newPassword: string },
+  ): Promise<void> {
+    return this.authService.resetPassword(dto.email, dto.newPassword);
   }
 }
