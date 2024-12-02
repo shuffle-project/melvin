@@ -147,7 +147,6 @@ export class ProjectService {
       originalFileName: '',
       status: MediaStatus.WAITING,
       title: 'Main Video',
-      // resolutions: [], // TODO wird dann gefüllt in der videoverarbeitung?
     };
 
     const mainAudio: Audio = {
@@ -338,7 +337,6 @@ export class ProjectService {
       originalFileName: '',
       status: MediaStatus.WAITING,
       title: 'Main Video',
-      // resolutions: [], // TODO wird dann gefüllt in der videoverarbeitung?
     };
 
     const mainAudio: Audio = {
@@ -994,7 +992,6 @@ export class ProjectService {
       originalFileName: file.filename,
       status: MediaStatus.WAITING,
       extension: 'mp4',
-      // resolutions: [], // TODO ? wird dann gefüllt bei der videoverarbeitung?
     };
 
     const updatedProject = await this.db.updateProjectByIdAndReturn(projectId, {
@@ -1107,20 +1104,20 @@ export class ProjectService {
       throw new CustomForbiddenException('access_to_project_denied');
     }
 
-    // const mediaAuthToken = this.authService.createMediaAccessToken(projectId);
+    const mediaAuthToken = this.authService.createMediaAccessToken(projectId);
 
     const audios: AudioEntity[] = project.audios.map((audio) => ({
       ...audio,
       mimetype: this._getMimetype(audio.extension),
       url: this._buildUrl(
         project._id.toString(),
-        project.viewerToken,
+        mediaAuthToken,
         audio._id.toString(),
         audio.extension,
       ),
       waveform: this._buildUrl(
         project._id.toString(),
-        project.viewerToken,
+        mediaAuthToken,
         audio._id.toString(),
         'json',
       ),
@@ -1128,18 +1125,9 @@ export class ProjectService {
     const videos: VideoEntity[] = project.videos.map((video) => ({
       ...video,
       mimetype: this._getMimetype(video.extension),
-      // resolutions: video.resolutions.map((res) => ({
-      //   ...res,
-      //   url: this._buildUrl(
-      //     project._id.toString(),
-      //     project.viewerToken,
-      //     video._id.toString(),
-      //     video.extension,
-      //   ),
-      // })),
       url: this._buildUrl(
         project._id.toString(),
-        project.viewerToken,
+        mediaAuthToken,
         video._id.toString(),
         video.extension,
       ),
@@ -1150,13 +1138,11 @@ export class ProjectService {
 
   private _buildUrl(
     projectId: string,
-    viewerToken: string,
+    mediaAuthToken: string,
     mediaId: string,
     mediaExtension: string,
   ): string {
-    return `${this.serverBaseUrl}/media/${viewerToken}/${mediaId}.${mediaExtension}`;
-    // return `${this.serverBaseUrl}/projects/${projectId}/media/${viewerToken}/${mediaId}.${mediaExtension}`;
-    // return `${this.serverBaseUrl}/projects/${projectId}/media/${mediaId}.${mediaExtension}?Authorization=${mediaAuthToken}`;
+    return `${this.serverBaseUrl}/projects/${projectId}/media/${mediaId}.${mediaExtension}?Authorization=${mediaAuthToken}`;
   }
 
   private _getMimetype(extension: string) {
