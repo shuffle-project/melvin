@@ -355,4 +355,15 @@ export class AuthService {
       role: user.role,
     };
   }
+
+  async resetPassword(email: string, newPassword: string) {
+    const user = await this.db.userModel.findOne({ email }).exec();
+
+    if (user === null) {
+      throw new CustomInternalServerException('user_not_found');
+    }
+
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
+    this.db.userModel.findByIdAndUpdate(user._id, { hashedPassword }).exec();
+  }
 }
