@@ -7,7 +7,6 @@ import { PushPipe } from '@ngrx/component';
 import { Store } from '@ngrx/store';
 import { lastValueFrom, map, Observable } from 'rxjs';
 import { AuthUser } from 'src/app/interfaces/auth.interfaces';
-import { EmbedComponent } from 'src/app/routes/viewer/components/embed/embed.component';
 import { AlertService } from 'src/app/services/alert/alert.service';
 import { ApiService } from 'src/app/services/api/api.service';
 import { ProjectEntity } from 'src/app/services/api/entities/project.entity';
@@ -15,16 +14,10 @@ import { environment } from 'src/environments/environment';
 import * as authSelectors from '../../../../store/selectors/auth.selector';
 
 @Component({
-    selector: 'app-share-player-tab',
-    imports: [
-        MatExpansionModule,
-        MatIcon,
-        EmbedComponent,
-        MatButtonModule,
-        PushPipe,
-    ],
-    templateUrl: './share-player-tab.component.html',
-    styleUrl: './share-player-tab.component.scss'
+  selector: 'app-share-player-tab',
+  imports: [MatExpansionModule, MatIcon, MatButtonModule, PushPipe],
+  templateUrl: './share-player-tab.component.html',
+  styleUrl: './share-player-tab.component.scss',
 })
 export class SharePlayerTabComponent {
   @Input({ required: true }) project!: ProjectEntity;

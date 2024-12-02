@@ -35,7 +35,6 @@ import {
   iif,
   lastValueFrom,
   map,
-  mergeMap,
   of,
   switchMap,
   takeUntil,
@@ -74,11 +73,9 @@ export class InviteCollaboratorsTabComponent implements OnInit, OnDestroy {
   public error!: string | null;
   public inviteToken!: string;
   private destroy$$ = new Subject<void>();
-  authUser$!: Observable<AuthUser | null>;
-  project$!: Observable<ProjectEntity>;
-  project!: ProjectEntity;
 
-  data$!: Observable<{ authUser: AuthUser | null; project: ProjectEntity }>;
+  authUser$!: Observable<AuthUser | null>;
+  project!: ProjectEntity;
 
   @Input({ required: true }) projectId!: string;
 
@@ -104,6 +101,14 @@ export class InviteCollaboratorsTabComponent implements OnInit, OnDestroy {
     private router: Router
   ) {
     this.authUser$ = this.store.select(authSelectors.selectUser);
+  }
+
+  get inviteLink(): string {
+    return `${environment.frontendBaseUrl}/invite/${this.inviteToken}`;
+  }
+
+  async ngOnInit(): Promise<void> {
+    this.error = null;
 
     if (this.router.url.includes('/editor/')) {
       this.store
@@ -118,24 +123,12 @@ export class InviteCollaboratorsTabComponent implements OnInit, OnDestroy {
     } else {
       this.store
         .select(projectSelectors.selectAllProjects)
-        .pipe(
-          takeUntil(this.destroy$$),
-          mergeMap((projects) =>
-            projects.filter((project) => project.id === this.projectId)
-          )
-        )
-        .subscribe((project) => {
+        .pipe(takeUntil(this.destroy$$))
+        .subscribe((projects) => {
+          const project = projects.find((p) => p.id === this.projectId)!;
           this.project = project;
         });
     }
-  }
-
-  get inviteLink(): string {
-    return `${environment.frontendBaseUrl}/invite/${this.inviteToken}`;
-  }
-
-  async ngOnInit(): Promise<void> {
-    this.error = null;
 
     try {
       this.inviteToken = await lastValueFrom(
