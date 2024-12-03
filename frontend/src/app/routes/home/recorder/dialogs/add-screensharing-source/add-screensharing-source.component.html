@@ -75,7 +75,6 @@
 </mat-dialog-content>
 <mat-dialog-actions align="end">
   <button
-    color="primary"
     mat-stroked-button
     (click)="onCloseDialog()"
     i18n="@@recorderAddScreensharingCancelBtn"
@@ -84,7 +83,6 @@
   </button>
   @if (!loadingError) {
   <button
-    color="primary"
     mat-flat-button
     (click)="onSubmitDialog()"
     i18n="@@recorderAddScreensharingAddBtn"
@@ -93,7 +91,6 @@
   </button>
   } @if (loadingError) {
   <button
-    color="primary"
     mat-flat-button
     (click)="fetchStream()"
     i18n="@@recorderAddScreensharingRetryBtn"

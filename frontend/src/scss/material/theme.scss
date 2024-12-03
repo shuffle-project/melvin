@@ -80,18 +80,21 @@ mat-slider {
       label-container-color: var(--color-black),
     )
   );
-
-  // @include mat.theme(
-  //   (
-  //     color: palettes.$tertiary-palette,
-  //   )
-  // );
 }
 
-.viewer-control-menu-dm {
+.viewer-control-menu-dm,
+.auto-scroll {
   @include mat.theme(
     (
       color: palettes.$tertiary-palette,
+    )
+  );
+}
+
+mat-divider {
+  @include mat.divider-overrides(
+    (
+      color: var(--color-border-grey),
     )
   );
 }

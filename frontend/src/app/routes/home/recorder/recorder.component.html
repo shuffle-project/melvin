@@ -54,7 +54,6 @@
 
       <button
         class="action-btn"
-        color="primary"
         mat-flat-button
         (click)="onClickStopRecord()"
         [disabled]="!recorderService.recording"
@@ -65,7 +64,6 @@
       }@else {
       <button
         class="action-btn"
-        color="primary"
         mat-flat-button
         (click)="onClickStartRecord()"
         [disabled]="recordingDisabled() || recorderService.recording"
@@ -79,7 +77,6 @@
 
       <button
         class="action-btn"
-        color="primary"
         mat-flat-button
         [disabled]="
           !recorderService.recording ||
@@ -93,7 +90,6 @@
       }@else {
       <button
         class="action-btn"
-        color="primary"
         mat-flat-button
         [disabled]="
           !recorderService.recording ||
@@ -126,7 +122,6 @@
       <!--  -->
       @if (!recorderService.recording) {
       <button
-        color="primary"
         class="add-btn"
         mat-stroked-button
         (click)="onAddAudioSource()"
@@ -152,7 +147,6 @@
       <!--  -->
       @if (!recorderService.recording ) {
       <button
-        color="primary"
         class="add-btn"
         mat-stroked-button
         (click)="onAddVideoSource()"
@@ -179,7 +173,6 @@
       @if (!recorderService.recording) {
       <button
         class="add-btn"
-        color="primary"
         mat-stroked-button
         (click)="onAddScreenSharingSource()"
         i18n="@@recorderAddScreensharingButton"

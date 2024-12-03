@@ -17,16 +17,12 @@
     <mat-checkbox
       checked="spellchecking"
       (change)="onChangeSpellchecking($event)"
-      color="primary"
       >Spellchecking</mat-checkbox
     >
   </ng-container>
 
   <ng-container *ngrxLet="showUsernames$ as showUsernames">
-    <mat-checkbox
-      checked="showUsernames"
-      (change)="onToggleUsernames()"
-      color="primary"
+    <mat-checkbox checked="showUsernames" (change)="onToggleUsernames()"
       >Show Usernames</mat-checkbox
     >
   </ng-container>

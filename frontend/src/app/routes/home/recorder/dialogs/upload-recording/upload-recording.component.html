@@ -154,7 +154,7 @@
       </p>
     </div>
     <!-- TODO -->
-    <!-- <button mat-flat-button color="accent">Try again!</button> -->
+    <!-- <button mat-flat-button >Try again!</button> -->
 
     }@else {
     <div class="infotext">
@@ -167,7 +167,7 @@
       </p>
     </div>
     <!-- TODO -->
-    <!-- <button mat-flat-button color="accent">Try again!</button> -->
+    <!-- <button mat-flat-button >Try again!</button> -->
 
     }
     <!--  -->
@@ -191,7 +191,6 @@
     mat-stroked-button
     [disabled]="!readyToUpload"
     (click)="onDownloadVideosLocally()"
-    color="primary"
     i18n="@@uploadRecordingDownloadFilesButton"
   >
     Download recordings locally
@@ -210,7 +209,6 @@
   </button>
 
   <button
-    color="primary"
     mat-flat-button
     [disabled]="!readyToUpload"
     (click)="onUploadRecording()"
@@ -222,7 +220,6 @@
   }@else {
 
   <button
-    color="primary"
     mat-flat-button
     [disabled]="!uploadingDone"
     (click)="onClose(true)"
@@ -232,7 +229,6 @@
   </button>
 
   <button
-    color="primary"
     mat-flat-button
     [disabled]="!uploadingDone"
     (click)="onClose()"

@@ -155,7 +155,6 @@
   @if ('projectShare' | featureEnabled) {
   <button
     mat-flat-button
-    color="primary"
     style="margin: 0 0.75rem"
     class="compact"
     (click)="onClickShare()"
@@ -220,7 +219,6 @@
         <button
           mat-icon-button
           (click)="onTogglePlayPause()"
-          color="primary"
           i18n-matTooltip="@@editorPlayOrPauseButtonLabel"
           matTooltip="Play or pause"
           i18n-aria-label="@@editorPlayOrPauseButtonLabel"
@@ -250,7 +248,7 @@
         <!-- <mat-slide-toggle
           [(ngModel)]="showZoomedWave"
           labelPosition="before"
-          color="primary"
+       
           i18n-matTooltip="@@editorToogleZoomTooltip"
           matTooltip="Toggle zoom"
           i18n-aria-label="@@editorToogleZoomTooltip"

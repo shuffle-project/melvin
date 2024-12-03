@@ -135,12 +135,12 @@
       mat-flat-button
       type="submit"
       [disabled]="loading$ | ngrxPush"
-      color="primary"
+     
       class="submit-button"
     >
       <div class="flex items-center" i18n="@@registerDialogRegisterButtonLabel">
         @if (loading$ | ngrxPush) {
-        <mat-spinner strokeWidth="2" diameter="20" color="primary" />
+        <mat-spinner strokeWidth="2" diameter="20"  />
         } Register
       </div>
     </button>

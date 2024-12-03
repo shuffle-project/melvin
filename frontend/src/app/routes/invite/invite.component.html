@@ -1,108 +1,101 @@
 <ng-container *ngrxLet="isLoading$ as isLoading">
   <!-- Loading -->
   @if (isLoading) {
-    <mat-spinner strokeWidth="2" class="white"></mat-spinner>
+  <mat-spinner strokeWidth="2" class="white"></mat-spinner>
   }
   <div *ngrxLet="error$ as error">{{ error }}</div>
   <!-- Not loading -->
   @if (!isLoading) {
-    <mat-card appearance="outlined">
-      <ng-container *ngrxLet="invite$ as invite">
-        <!-- Invalid invite -->
-        @if (!invite) {
-          <mat-card-header>
-            <mat-card-subtitle i18n="@@inviteCardSubtitleInvalidInvite"
-              >Project invitation</mat-card-subtitle
+  <mat-card appearance="outlined">
+    <ng-container *ngrxLet="invite$ as invite">
+      <!-- Invalid invite -->
+      @if (!invite) {
+      <mat-card-header>
+        <mat-card-subtitle i18n="@@inviteCardSubtitleInvalidInvite"
+          >Project invitation</mat-card-subtitle
+        >
+      </mat-card-header>
+      <mat-card-content>
+        <div class="error-container">
+          <mat-icon svgIcon="error" class="lg"></mat-icon>
+          <span i18n="@@inviteLinkInvalidError"
+            >The invitation link is no longer valid.</span
+          >
+        </div>
+      </mat-card-content>
+      <mat-card-actions>
+        <div class="flex justify-center">
+          <button
+            mat-flat-button
+            (click)="onClickAbort()"
+            i18n="@@inviteInvalidBackButtonLabel"
+          >
+            Back
+          </button>
+        </div>
+      </mat-card-actions>
+      }
+      <!-- Valid invite -->
+      @if (invite) {
+      <ng-container *ngrxLet="user$ as user">
+        <mat-card-header>
+          <mat-card-subtitle i18n="@@inviteCardSubtitleValidInvite"
+            >Project invitation</mat-card-subtitle
+          >
+          <mat-card-title>{{ invite.projectTitle }}</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <p i18n="@@inviteFromMessage">
+            You were invited by
+            <span class="bold">{{ invite.userName }}</span> participate in a
+            project.
+          </p>
+        </mat-card-content>
+        <mat-divider inset></mat-divider>
+        <!-- Authenticated User -->
+        @if (user) {
+        <mat-card-actions>
+          <div class="flex justify-between">
+            <button
+              mat-button
+              (click)="onClickAbort()"
+              i18n="@@inviteCancelButtonLabel"
+            >
+              Cancel
+            </button>
+            <button mat-flat-button (click)="onClickJoin()">
+              <span i18n="@@inviteJoinProjectButtonLabel"> Join Project </span>
+              <span *ngrxLet="currentUser$ as currentUser"
+                >({{ currentUser?.name }})</span
               >
-            </mat-card-header>
-            <mat-card-content>
-              <div class="error-container">
-                <mat-icon svgIcon="error" class="lg"></mat-icon>
-                <span i18n="@@inviteLinkInvalidError"
-                  >The invitation link is no longer valid.</span
-                  >
-                </div>
-              </mat-card-content>
-              <mat-card-actions>
-                <div class="flex justify-center">
-                  <button
-                    mat-flat-button
-                    color="primary"
-                    (click)="onClickAbort()"
-                    i18n="@@inviteInvalidBackButtonLabel"
-                    >
-                    Back
-                  </button>
-                </div>
-              </mat-card-actions>
-            }
-            <!-- Valid invite -->
-            @if (invite) {
-              <ng-container *ngrxLet="user$ as user">
-                <mat-card-header>
-                  <mat-card-subtitle i18n="@@inviteCardSubtitleValidInvite"
-                    >Project invitation</mat-card-subtitle
-                    >
-                    <mat-card-title>{{ invite.projectTitle }}</mat-card-title>
-                  </mat-card-header>
-                  <mat-card-content>
-                    <p i18n="@@inviteFromMessage">
-                      You were invited by
-                      <span class="bold">{{ invite.userName }}</span> participate in a
-                      project.
-                    </p>
-                  </mat-card-content>
-                  <mat-divider inset></mat-divider>
-                  <!-- Authenticated User -->
-                  @if (user) {
-                    <mat-card-actions>
-                      <div class="flex justify-between">
-                        <button
-                          mat-button
-                          color="primary"
-                          (click)="onClickAbort()"
-                          i18n="@@inviteCancelButtonLabel"
-                          >
-                          Cancel
-                        </button>
-                        <button mat-flat-button color="primary" (click)="onClickJoin()">
-                          <span i18n="@@inviteJoinProjectButtonLabel">
-                            Join Project
-                          </span>
-                          <span *ngrxLet="currentUser$ as currentUser"
-                            >({{ currentUser?.name }})</span
-                            >
-                          </button>
-                        </div>
-                      </mat-card-actions>
-                    }
-                    <!-- Unauthenticated -->
-                    @if (!user) {
-                      <mat-card-actions>
-                        <div class="flex justify-between">
-                          <button
-                            mat-button
-                            color="primary"
-                            (click)="onClickAuth()"
-                            i18n="@@inviteLoginOrRegisterButtonLabel"
-                            >
-                            Login / Register
-                          </button>
-                          <button
-                            mat-flat-button
-                            color="primary"
-                            (click)="onClickJoinAsGuest()"
-                            i18n="@@inviteJoinAsGuestButtonLabel"
-                            >
-                            Join as Guest
-                          </button>
-                        </div>
-                      </mat-card-actions>
-                    }
-                  </ng-container>
-                }
-              </ng-container>
-            </mat-card>
-          }
-        </ng-container>
-        
+            </button>
+          </div>
+        </mat-card-actions>
+        }
+        <!-- Unauthenticated -->
+        @if (!user) {
+        <mat-card-actions>
+          <div class="flex justify-between">
+            <button
+              mat-button
+              (click)="onClickAuth()"
+              i18n="@@inviteLoginOrRegisterButtonLabel"
+            >
+              Login / Register
+            </button>
+            <button
+              mat-flat-button
+              (click)="onClickJoinAsGuest()"
+              i18n="@@inviteJoinAsGuestButtonLabel"
+            >
+              Join as Guest
+            </button>
+          </div>
+        </mat-card-actions>
+        }
+      </ng-container>
+      }
+    </ng-container>
+  </mat-card>
+  }
+</ng-container>
