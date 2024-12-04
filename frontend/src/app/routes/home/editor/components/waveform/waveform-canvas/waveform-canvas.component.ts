@@ -97,7 +97,9 @@ export class WaveformCanvasComponent
     this.canvas.nativeElement.style.width = `${settings.styleWidth}px`;
     this.canvas.nativeElement.style.height = `${settings.styleHeight}px`;
 
-    this.ctx.scale(settings.scale, settings.scale);
+    if (this.ctx) {
+      this.ctx.scale(settings.scale, settings.scale);
+    }
   }
 
   drawCanvas(): void {

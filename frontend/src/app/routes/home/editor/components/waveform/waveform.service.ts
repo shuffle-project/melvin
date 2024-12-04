@@ -1,6 +1,7 @@
-import { ElementRef, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import {
+  BehaviorSubject,
   Subject,
   combineLatest,
   filter,
@@ -72,7 +73,13 @@ export interface WaveformValue {
   providedIn: 'root',
 })
 export class WaveformService {
-  public canvasSettingsChanged$ = new Subject<WaveformCanvasSettings>();
+  public canvasSettingsChanged$ = new BehaviorSubject<WaveformCanvasSettings>({
+    width: 0,
+    height: 0,
+    styleWidth: 0,
+    styleHeight: 0,
+    scale: 0,
+  });
   public waveformChanged$ = new Subject<void>();
 
   private destroy$$ = new Subject<void>();
@@ -98,7 +105,6 @@ export class WaveformService {
   private devicePixelRatio = window.devicePixelRatio || 1;
   private barDisplayWidth = this.config.barWidth + this.config.barSpace;
 
-  private hostElement!: ElementRef;
   private canvasSettings!: WaveformCanvasSettings;
 
   private waveformDataSampledFull!: number[];
@@ -112,12 +118,7 @@ export class WaveformService {
     private store: Store<AppState>
   ) {}
 
-  async init(hostElement: ElementRef): Promise<void> {
-    this.destroy$$ = new Subject<void>();
-
-    // Store HostElement to get waveform width after resize updates
-    this.hostElement = hostElement;
-
+  async init(): Promise<void> {
     // Subscribe to waveform data and resize events
     combineLatest([
       this.store.select(editorSelectors.selectWaveform),
@@ -155,7 +156,7 @@ export class WaveformService {
 
   _updateWaveformDataAndSettings(values: number[], duration: number): void {
     // Update canvas dimensions
-    const { clientWidth } = this.hostElement.nativeElement;
+    const { clientWidth } = document.documentElement;
     this.canvasSettings = {
       width: clientWidth * this.devicePixelRatio,
       height: this.config.height * this.devicePixelRatio,
