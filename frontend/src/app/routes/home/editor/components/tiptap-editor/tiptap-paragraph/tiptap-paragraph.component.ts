@@ -17,7 +17,7 @@ import { debounceTime, merge, Subject, takeUntil } from 'rxjs';
 import { SpeakerEntity } from 'src/app/services/api/entities/transcription.entity';
 import { AppState } from 'src/app/store/app.state';
 import * as editorSelector from 'src/app/store/selectors/editor.selector';
-import { MediaService } from '../../../editor/services/media/media.service';
+import { MediaService } from '../../../service/media/media.service';
 import { TiptapEditorService } from '../tiptap-editor.service';
 import { EditSpeakerModalComponent } from './edit-speaker-modal/edit-speaker-modal.component';
 

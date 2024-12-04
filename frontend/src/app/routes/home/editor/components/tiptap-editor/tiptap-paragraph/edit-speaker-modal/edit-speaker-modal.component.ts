@@ -1,7 +1,6 @@
 import {
   Component,
   EventEmitter,
-  Input,
   OnDestroy,
   OnInit,
   Output,
@@ -23,27 +22,25 @@ import { MatInputModule } from '@angular/material/input';
 import { MatMenuModule } from '@angular/material/menu';
 import { PushPipe } from '@ngrx/component';
 import { Store } from '@ngrx/store';
-import { firstValueFrom, lastValueFrom, Observable, Subscription } from 'rxjs';
-import { CaptionEntity } from '../../../../../../services/api/entities/caption.entity';
-import { SpeakerEntity } from '../../../../../../services/api/entities/transcription.entity';
-import * as captionsActions from '../../../../../../store/actions/captions.actions';
-import * as transcriptionsActions from '../../../../../../store/actions/transcriptions.actions';
-import * as transcriptionsSelectors from '../../../../../../store/selectors/transcriptions.selector';
+import { firstValueFrom, Observable, Subscription } from 'rxjs';
+import { SpeakerEntity } from '../../../../../../../services/api/entities/transcription.entity';
+import * as transcriptionsActions from '../../../../../../../store/actions/transcriptions.actions';
+import * as transcriptionsSelectors from '../../../../../../../store/selectors/transcriptions.selector';
 
 @Component({
-    selector: 'app-edit-speaker-modal',
-    templateUrl: './edit-speaker-modal.component.html',
-    styleUrls: ['./edit-speaker-modal.component.scss'],
-    imports: [
-        MatMenuModule,
-        MatIconModule,
-        MatDividerModule,
-        MatButtonModule,
-        MatFormFieldModule,
-        MatInputModule,
-        ReactiveFormsModule,
-        PushPipe,
-    ]
+  selector: 'app-edit-speaker-modal',
+  templateUrl: './edit-speaker-modal.component.html',
+  styleUrls: ['./edit-speaker-modal.component.scss'],
+  imports: [
+    MatMenuModule,
+    MatIconModule,
+    MatDividerModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatInputModule,
+    ReactiveFormsModule,
+    PushPipe,
+  ],
 })
 export class EditSpeakerModalComponent implements OnInit, OnDestroy {
   @Output() closeMatMenuEvent = new EventEmitter();

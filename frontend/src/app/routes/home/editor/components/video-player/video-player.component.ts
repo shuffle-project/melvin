@@ -6,35 +6,35 @@ import {
   OnInit,
   ViewChild,
 } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { AppState } from '../../../../../store/app.state';
-import * as editorSelectors from '../../../../../store/selectors/editor.selector';
-import { MediaService } from '../../services/media/media.service';
-import * as editorActions from './../../../../../store/actions/editor.actions';
-import { VideoPlayerMediaElementComponent } from './video-player-media-element/video-player-media-element.component';
-import { FeatureEnabledPipe } from '../../../../../pipes/feature-enabled-pipe/feature-enabled.pipe';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSliderModule } from '@angular/material/slider';
-import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { MatButtonModule } from '@angular/material/button';
 import { LetDirective, PushPipe } from '@ngrx/component';
+import { Store } from '@ngrx/store';
+import { FeatureEnabledPipe } from '../../../../../pipes/feature-enabled-pipe/feature-enabled.pipe';
+import * as editorActions from '../../../../../store/actions/editor.actions';
+import { AppState } from '../../../../../store/app.state';
+import * as editorSelectors from '../../../../../store/selectors/editor.selector';
+import { MediaService } from '../../service/media/media.service';
+import { VideoPlayerMediaElementComponent } from './video-player-media-element/video-player-media-element.component';
 
 @Component({
-    selector: 'app-video-player',
-    templateUrl: './video-player.component.html',
-    styleUrls: ['./video-player.component.scss'],
-    imports: [
-        VideoPlayerMediaElementComponent,
-        LetDirective,
-        MatButtonModule,
-        MatTooltipModule,
-        MatIconModule,
-        MatSliderModule,
-        MatMenuModule,
-        PushPipe,
-        FeatureEnabledPipe
-    ]
+  selector: 'app-video-player',
+  templateUrl: './video-player.component.html',
+  styleUrls: ['./video-player.component.scss'],
+  imports: [
+    VideoPlayerMediaElementComponent,
+    LetDirective,
+    MatButtonModule,
+    MatTooltipModule,
+    MatIconModule,
+    MatSliderModule,
+    MatMenuModule,
+    PushPipe,
+    FeatureEnabledPipe,
+  ],
 })
 export class VideoPlayerComponent implements OnInit {
   @ViewChild('mediaElement')

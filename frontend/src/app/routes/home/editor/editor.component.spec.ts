@@ -1,18 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { FulltextEditorComponent } from './fulltext-editor.component';
+import { EditorComponent } from './editor.component';
 
 describe('FulltextEditorComponent', () => {
-  let component: FulltextEditorComponent;
-  let fixture: ComponentFixture<FulltextEditorComponent>;
+  let component: EditorComponent;
+  let fixture: ComponentFixture<EditorComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [FulltextEditorComponent]
-    })
-    .compileComponents();
-    
-    fixture = TestBed.createComponent(FulltextEditorComponent);
+      imports: [EditorComponent],
+    }).compileComponents();
+
+    fixture = TestBed.createComponent(EditorComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

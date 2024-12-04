@@ -13,7 +13,7 @@ import {
 import { ColorService } from '../../../../../services/color/color.service';
 import { AppState } from '../../../../../store/app.state';
 import * as editorSelectors from '../../../../../store/selectors/editor.selector';
-import { MediaService } from '../../services/media/media.service';
+import { MediaService } from '../../service/media/media.service';
 
 export interface WaveformConfig {
   barWidth: number;

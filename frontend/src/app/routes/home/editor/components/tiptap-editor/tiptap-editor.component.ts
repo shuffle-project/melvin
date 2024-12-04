@@ -31,13 +31,13 @@ import {
   skip,
   takeUntil,
 } from 'rxjs';
+import { EditorUserEntity } from 'src/app/interfaces/editor-user.interface';
+import { WSService } from 'src/app/services/ws/ws.service';
 import { AppState } from 'src/app/store/app.state';
 import { EditorUser } from 'src/app/store/reducers/editor.reducer';
 import * as editorSelector from 'src/app/store/selectors/editor.selector';
 import { selectQueryParams } from 'src/app/store/selectors/router.selectors';
-import { EditorUserEntity } from '../../../../interfaces/editor-user.interface';
-import { WSService } from '../../../../services/ws/ws.service';
-import { MediaService } from '../../editor/services/media/media.service';
+import { MediaService } from '../../service/media/media.service';
 import { CustomParagraph } from './schema/paragraph.schema';
 import { UserExtension } from './schema/user.extension';
 import { CustomWord } from './schema/word.schema';

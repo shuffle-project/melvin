@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { BehaviorSubject, firstValueFrom, Subject, tap } from 'rxjs';
-import * as transcriptionsSelectors from '../../../../store/selectors/transcriptions.selector';
-import { SpeakerEntity } from 'src/app/services/api/entities/transcription.entity';
-import * as editorSelector from 'src/app/store/selectors/editor.selector';
+import { BehaviorSubject, Subject } from 'rxjs';
 import { EditorUserEntity } from 'src/app/interfaces/editor-user.interface';
-import { MediaService } from '../../editor/services/media/media.service';
+import { SpeakerEntity } from 'src/app/services/api/entities/transcription.entity';
 import { EditorUser } from 'src/app/store/reducers/editor.reducer';
+import * as editorSelector from 'src/app/store/selectors/editor.selector';
+import * as transcriptionsSelectors from '../../../../../store/selectors/transcriptions.selector';
+import { MediaService } from '../../service/media/media.service';
 
 @Injectable({
   providedIn: 'root',

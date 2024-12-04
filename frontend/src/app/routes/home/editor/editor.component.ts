@@ -48,20 +48,20 @@ import { MediaCategoryPipe } from 'src/app/pipes/media-category-pipe/media-categ
 import { WrittenOutLanguagePipe } from 'src/app/pipes/written-out-language-pipe/written-out-language.pipe';
 import { SubtitleFormat } from 'src/app/services/api/entities/transcription.entity';
 import { HeaderComponent } from '../../../components/header/header.component';
-import { EditorSettingsComponent } from '../editor/components/editor-settings/editor-settings.component';
-import { JoinLivestreamModalComponent } from '../editor/components/join-livestream-modal/join-livestream-modal.component';
-import { LiveControlsComponent } from '../editor/components/live-controls/live-controls.component';
-import { UserTestControlsComponent } from '../editor/components/user-test-controls/user-test-controls.component';
-import { VideoPlayerComponent } from '../editor/components/video-player/video-player.component';
-import { WaveformComponent } from '../editor/components/waveform/waveform.component';
-import { DialogHelpEditorComponent } from '../editor/dialog-help-editor/dialog-help-editor.component';
-import { MediaService } from '../editor/services/media/media.service';
-import { TiptapEditorComponent } from './tiptap-editor/tiptap-editor.component';
+import { DialogHelpEditorComponent } from './components/dialog-help-editor/dialog-help-editor.component';
+import { EditorSettingsComponent } from './components/editor-settings/editor-settings.component';
+import { JoinLivestreamModalComponent } from './components/join-livestream-modal/join-livestream-modal.component';
+import { LiveControlsComponent } from './components/live-controls/live-controls.component';
+import { TiptapEditorComponent } from './components/tiptap-editor/tiptap-editor.component';
+import { UserTestControlsComponent } from './components/user-test-controls/user-test-controls.component';
+import { VideoPlayerComponent } from './components/video-player/video-player.component';
+import { WaveformComponent } from './components/waveform/waveform.component';
+import { MediaService } from './service/media/media.service';
 
 @Component({
   selector: 'app-editor',
-  templateUrl: './fulltext-editor.component.html',
-  styleUrls: ['./fulltext-editor.component.scss'],
+  templateUrl: './editor.component.html',
+  styleUrls: ['./editor.component.scss'],
   imports: [
     HeaderComponent,
     LetDirective,
@@ -88,7 +88,7 @@ import { TiptapEditorComponent } from './tiptap-editor/tiptap-editor.component';
     MediaCategoryPipe,
   ],
 })
-export class FulltextEditorComponent implements OnInit, OnDestroy {
+export class EditorComponent implements OnInit, OnDestroy {
   private destroy$$ = new Subject<void>();
 
   showWaveform = true;

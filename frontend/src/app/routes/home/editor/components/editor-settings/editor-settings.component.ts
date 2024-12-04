@@ -1,38 +1,38 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { NonNullableFormBuilder } from '@angular/forms';
 import {
-  MatSlideToggleChange,
-  MatSlideToggleModule,
-} from '@angular/material/slide-toggle';
-import { Store } from '@ngrx/store';
-import { Subject } from 'rxjs';
-import { AppState } from '../../../../../store/app.state';
-import * as editorSelectors from '../../../../../store/selectors/editor.selector';
-import * as editorActions from './../../../../../store/actions/editor.actions';
-import { FeatureEnabledPipe } from '../../../../../pipes/feature-enabled-pipe/feature-enabled.pipe';
-import { LetDirective, PushPipe } from '@ngrx/component';
-import { MatSelectChange, MatSelectModule } from '@angular/material/select';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import {
   MatCheckboxChange,
   MatCheckboxModule,
 } from '@angular/material/checkbox';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import {
+  MatSlideToggleChange,
+  MatSlideToggleModule,
+} from '@angular/material/slide-toggle';
+import { LetDirective, PushPipe } from '@ngrx/component';
+import { Store } from '@ngrx/store';
+import { Subject } from 'rxjs';
+import { FeatureEnabledPipe } from '../../../../../pipes/feature-enabled-pipe/feature-enabled.pipe';
+import * as editorActions from '../../../../../store/actions/editor.actions';
+import { AppState } from '../../../../../store/app.state';
+import * as editorSelectors from '../../../../../store/selectors/editor.selector';
 
 @Component({
-    selector: 'app-editor-settings',
-    templateUrl: './editor-settings.component.html',
-    styleUrls: ['./editor-settings.component.scss'],
-    imports: [
-        MatSlideToggleModule,
-        PushPipe,
-        FeatureEnabledPipe,
-        MatSelectModule,
-        MatFormFieldModule,
-        MatInputModule,
-        LetDirective,
-        MatCheckboxModule,
-    ]
+  selector: 'app-editor-settings',
+  templateUrl: './editor-settings.component.html',
+  styleUrls: ['./editor-settings.component.scss'],
+  imports: [
+    MatSlideToggleModule,
+    PushPipe,
+    FeatureEnabledPipe,
+    MatSelectModule,
+    MatFormFieldModule,
+    MatInputModule,
+    LetDirective,
+    MatCheckboxModule,
+  ],
 })
 export class EditorSettingsComponent implements OnInit, OnDestroy {
   private destroy$$ = new Subject<void>();
