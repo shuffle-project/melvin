@@ -1,4 +1,3 @@
-import { DatePipe } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -9,7 +8,6 @@ import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { LetDirective } from '@ngrx/component';
 import { Store } from '@ngrx/store';
 import { HeaderComponent } from '../../../components/header/header.component';
 import { DurationPipe } from '../../../pipes/duration-pipe/duration.pipe';
@@ -22,26 +20,24 @@ import { AddVideoSourceComponent } from './dialogs/add-video-source/add-video-so
 import { RecorderService } from './recorder.service';
 
 @Component({
-    selector: 'app-recorder',
-    templateUrl: './recorder.component.html',
-    styleUrls: ['./recorder.component.scss'],
-    imports: [
-        MediaSourceComponent,
-        DatePipe,
-        HeaderComponent,
-        MatProgressSpinnerModule,
-        MatDialogModule,
-        MatButtonModule,
-        MatFormFieldModule,
-        MatIconModule,
-        MatInputModule,
-        FormsModule,
-        ReactiveFormsModule,
-        MatSelectModule,
-        LetDirective,
-        DurationPipe,
-        MatSlideToggleModule,
-    ]
+  selector: 'app-recorder',
+  templateUrl: './recorder.component.html',
+  styleUrls: ['./recorder.component.scss'],
+  imports: [
+    MediaSourceComponent,
+    HeaderComponent,
+    MatProgressSpinnerModule,
+    MatDialogModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatIconModule,
+    MatInputModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatSelectModule,
+    DurationPipe,
+    MatSlideToggleModule,
+  ],
 })
 export class RecorderComponent implements OnInit, OnDestroy {
   public languages$ = this.store.select(configSelector.languagesConfig);

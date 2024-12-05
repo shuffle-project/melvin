@@ -124,6 +124,9 @@ export class RecorderService {
     // TODO
     this.dialog.open(UploadRecordingComponent, {
       data: { title, recordings: this.recordings },
+      width: '100%',
+      maxWidth: '50rem',
+      maxHeight: '90vh',
       disableClose: true,
     });
   }

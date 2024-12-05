@@ -21,7 +21,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSelectChange, MatSelectModule } from '@angular/material/select';
 import { Router } from '@angular/router';
-import { LetDirective, PushPipe } from '@ngrx/component';
+import { PushPipe } from '@ngrx/component';
 import { Store } from '@ngrx/store';
 import { take } from 'rxjs';
 import { WrittenOutLanguagePipe } from 'src/app/pipes/written-out-language-pipe/written-out-language.pipe';
@@ -38,22 +38,21 @@ import * as configSelectors from '../../../../../store/selectors/config.selector
 import { asrServiceConfig } from '../../../../../store/selectors/config.selector';
 import { Recording } from '../../recorder.interfaces';
 @Component({
-    selector: 'app-upload-recording',
-    imports: [
-        CommonModule,
-        MatDialogModule,
-        MatButtonModule,
-        MatProgressBarModule,
-        MatButtonModule,
-        MatIconModule,
-        MatSelectModule,
-        LetDirective,
-        WrittenOutLanguagePipe,
-        ReactiveFormsModule,
-        PushPipe,
-    ],
-    templateUrl: './upload-recording.component.html',
-    styleUrl: './upload-recording.component.scss'
+  selector: 'app-upload-recording',
+  imports: [
+    CommonModule,
+    MatDialogModule,
+    MatButtonModule,
+    MatProgressBarModule,
+    MatButtonModule,
+    MatIconModule,
+    MatSelectModule,
+    WrittenOutLanguagePipe,
+    ReactiveFormsModule,
+    PushPipe,
+  ],
+  templateUrl: './upload-recording.component.html',
+  styleUrl: './upload-recording.component.scss',
 })
 export class UploadRecordingComponent implements OnInit {
   readyToUpload = false;

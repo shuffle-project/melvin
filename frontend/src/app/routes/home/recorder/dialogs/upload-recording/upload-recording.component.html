@@ -1,6 +1,12 @@
-<h2 mat-dialog-title i18n="@@uploadRecordingTitle">
-  Upload and Project creation: {{ data.title }}
-</h2>
+<div mat-dialog-title>
+  <div class="dialog-header">
+    <h1>
+      <span i18n="@@uploadRecordingTitle"> Upload and Project creation</span>
+      {{ data.title }}
+    </h1>
+  </div>
+</div>
+
 <mat-dialog-content class="mat-dialog-content">
   @if (!uploading) {
   <div class="inputs">
@@ -126,14 +132,6 @@
     </div>
 
     @if (!this.uploadingDone) {
-    <!-- <div class="progress-wrapper">
-      <h3>Dateien werden hochgeladen.</h3>
-      <mat-progress-bar
-        mode="determinate"
-        [value]="displayCompleteUploadProgress()"
-      ></mat-progress-bar>
-    </div> -->
-
     <div>
       <div class="infotext">
         <mat-icon svgIcon="info"></mat-icon>
@@ -199,11 +197,10 @@
   @if (!uploading) {
 
   <button
-    color="warn"
     mat-stroked-button
     (click)="onClose()"
     i18n="@@uploadRecordingDiscardButton"
-    class="discard-button"
+    class="discard-button mat-warn"
   >
     Discard and close
   </button>

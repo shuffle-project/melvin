@@ -14,6 +14,14 @@ html {
   );
 }
 
+.mat-warn {
+  @include mat.theme(
+    (
+      color: palettes.$warn-palette,
+    )
+  );
+}
+
 button.editor-back-button {
   @include mat.icon-button-overrides(
     (

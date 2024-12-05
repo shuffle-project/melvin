@@ -4,17 +4,11 @@
   <ng-container *ngrxLet="project$ as project">
     <div class="flex">
       @if (!isLive) {
-      <button mat-flat-button color="warn" (click)="onClickStart()">
-        Start
-      </button>
+      <button mat-flat-button (click)="onClickStart()">Start</button>
       } @if (!isLive) {
-      <button mat-stroked-button coolor="warn" (click)="onClickReset()">
-        Reset
-      </button>
+      <button mat-stroked-button (click)="onClickReset()">Reset</button>
       } @if (isLive) {
-      <button mat-stroked-button color="warn" (click)="onClickStop()">
-        Stop
-      </button>
+      <button mat-stroked-button (click)="onClickStop()">Stop</button>
       }
       <button mat-stroked-button (click)="onClickDownload()">
         Download Results

@@ -4,7 +4,9 @@
 
 .mat-dialog-content {
   width: 100%;
-  max-width: 41rem;
+  max-width: 36rem;
+  margin-inline: auto;
+  margin-block: 1.25rem;
 
   .actions-list {
     list-style-type: none;
