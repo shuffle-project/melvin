@@ -47,7 +47,9 @@
       <mat-icon class="recording-indicator" svgIcon="recording_red"></mat-icon>
       }
 
-      {{ getCurrentDuration() | duration }}}
+      <p>{{ getCurrentDuration() | duration }}</p>
+
+      }
 
       <!-- start & stop -->
       @if(recorderService.recording){

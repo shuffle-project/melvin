@@ -53,6 +53,10 @@
       height: fit-content;
       align-items: center;
 
+      p {
+        color: var(--color-text);
+      }
+
       button:disabled {
         background-color: var(--color-grey);
       }
