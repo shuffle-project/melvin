@@ -206,6 +206,7 @@
         @if ('quickForwardRewind' | featureEnabled) {
         <button
           mat-icon-button
+          class="big-icon-mat-button"
           (click)="onSkipBackward()"
           [disabled]="!isReady"
           i18n-matTooltip="@@editorRewind5SecondsButtonLabel"
@@ -218,6 +219,7 @@
         } @if ('playPause' | featureEnabled) {
         <button
           mat-icon-button
+          class="big-icon-mat-button"
           (click)="onTogglePlayPause()"
           i18n-matTooltip="@@editorPlayOrPauseButtonLabel"
           matTooltip="Play or pause"
@@ -233,6 +235,7 @@
         <button
           mat-icon-button
           (click)="onSkipForward()"
+          class="big-icon-mat-button"
           [disabled]="!isReady"
           i18n-matTooltip="@@editorSkip5SecondsButtonLabel"
           matTooltip="Skip 5 seconds"

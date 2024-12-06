@@ -45,6 +45,19 @@ button.editor-action-button {
   );
 }
 
+button.big-icon-mat-button {
+  mat-icon {
+    width: 2rem;
+    height: 2rem;
+  }
+
+  @include mat.icon-button-overrides(
+    (
+      icon-size: 2rem,
+    )
+  );
+}
+
 mat-slider {
   .mdc-slider__track--inactive {
     opacity: 40%;
