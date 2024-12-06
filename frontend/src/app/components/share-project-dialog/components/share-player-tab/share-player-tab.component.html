@@ -1,7 +1,9 @@
 <div class="mat-tab-content">
-  <h2>Videoplayer Link</h2>
+  <h2 i18n="@@sharePlayerLinkHeader">Videoplayer Link</h2>
   <div class="flex flex-col">
-    <p>Any person who has this link can open the videoplayer.</p>
+    <p i18n="@@sharePlayerLinkGeneralInfo">
+      Any person who has this link can open the videoplayer.
+    </p>
 
     <div class="general-access-buttons">
       <button
@@ -28,7 +30,7 @@
     </div>
 
     <div class="embed-wrapper">
-      <h2>Embed Videoplayer</h2>
+      <h2 i18n="@@sharePlayerEmbedHeader">Embed Videoplayer</h2>
       @if(project && viewerLink()){
       <div
         class="code-wrapper"

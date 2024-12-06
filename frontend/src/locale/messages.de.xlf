@@ -1300,7 +1300,7 @@
       </trans-unit>
       <trans-unit id="loginDialogLoginButtonLabel" datatype="html">
         <source><x id="START_BLOCK_IF" equiv-text="@if (loading$ | ngrxPush) {"/><x id="START_TAG_MAT_SPINNER" ctype="x-mat_spinner" equiv-text="&lt;mat-spinner strokeWidth=&quot;2&quot; diameter=&quot;20&quot; /&gt;"/><x id="CLOSE_TAG_MAT_SPINNER" ctype="x-mat_spinner" equiv-text="&lt;mat-spinner strokeWidth=&quot;2&quot; diameter=&quot;20&quot; /&gt;"/><x id="CLOSE_BLOCK_IF" equiv-text="}"/> Login </source>
-        <target state="new"><x id="START_BLOCK_IF" equiv-text="@if (loading$ | ngrxPush) {"/><x id="START_TAG_MAT_SPINNER" ctype="x-mat_spinner" equiv-text="&lt;mat-spinner strokeWidth=&quot;2&quot; diameter=&quot;20&quot; color=&quot;primary&quot; /&gt;"/><x id="CLOSE_TAG_MAT_SPINNER" ctype="x-mat_spinner" equiv-text="&lt;mat-spinner strokeWidth=&quot;2&quot; diameter=&quot;20&quot; color=&quot;primary&quot; /&gt;"/><x id="CLOSE_BLOCK_IF" equiv-text="}"/> Anmelden </target>
+        <target state="final"><x id="START_BLOCK_IF" equiv-text="@if (loading$ | ngrxPush) {"/><x id="START_TAG_MAT_SPINNER" ctype="x-mat_spinner" equiv-text="&lt;mat-spinner strokeWidth=&quot;2&quot; diameter=&quot;20&quot; color=&quot;primary&quot; /&gt;"/><x id="CLOSE_TAG_MAT_SPINNER" ctype="x-mat_spinner" equiv-text="&lt;mat-spinner strokeWidth=&quot;2&quot; diameter=&quot;20&quot; color=&quot;primary&quot; /&gt;"/><x id="CLOSE_BLOCK_IF" equiv-text="}"/> Anmelden </target>
       </trans-unit>
       <trans-unit id="loginDialogForgotPasswordButton" datatype="html">
         <source> Forgot password? </source>
@@ -1997,6 +1997,30 @@
       <trans-unit id="projectListCreateProjectMenuRecorder" datatype="html">
         <source>Recorder</source>
         <target state="final">Recorder</target>
+      </trans-unit>
+      <trans-unit id="loginDialogPasswordLabel" datatype="html">
+        <source> Password </source>
+        <target state="final"> Passwort </target>
+      </trans-unit>
+      <trans-unit id="sharePlayerLinkHeader" datatype="html">
+        <source>Videoplayer Link</source>
+        <target state="final">Video-Player Link</target>
+      </trans-unit>
+      <trans-unit id="sharePlayerLinkGeneralInfo" datatype="html">
+        <source> Any person who has this link can open the videoplayer. </source>
+        <target state="final"> Jede Person, die diesen Link hat, kann den Video-Player öffnen. </target>
+      </trans-unit>
+      <trans-unit id="sharePlayerEmbedHeader" datatype="html">
+        <source>Embed Videoplayer</source>
+        <target state="final">Video-Player einbetten</target>
+      </trans-unit>
+      <trans-unit id="editorSettingsSpellcheckingCheckbox" datatype="html">
+        <source>Spellchecking </source>
+        <target state="final">Rechtschreibprüfung </target>
+      </trans-unit>
+      <trans-unit id="editorSettingsUsernamesCheckbox" datatype="html">
+        <source>Show Usernames</source>
+        <target state="final">Profilnamen anzeigen</target>
       </trans-unit>
     </body>
   </file>

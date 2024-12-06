@@ -1499,6 +1499,24 @@
       <trans-unit id="translateTranscriptionTabVendorLabel" datatype="html">
         <source>Vendor</source>
       </trans-unit>
+      <trans-unit id="loginDialogPasswordLabel" datatype="html">
+        <source> Password </source>
+      </trans-unit>
+      <trans-unit id="sharePlayerEmbedHeader" datatype="html">
+        <source>Embed Videoplayer</source>
+      </trans-unit>
+      <trans-unit id="sharePlayerLinkGeneralInfo" datatype="html">
+        <source> Any person who has this link can open the videoplayer. </source>
+      </trans-unit>
+      <trans-unit id="sharePlayerLinkHeader" datatype="html">
+        <source>Videoplayer Link</source>
+      </trans-unit>
+      <trans-unit id="editorSettingsSpellcheckingCheckbox" datatype="html">
+        <source>Spellchecking </source>
+      </trans-unit>
+      <trans-unit id="editorSettingsUsernamesCheckbox" datatype="html">
+        <source>Show Usernames</source>
+      </trans-unit>
     </body>
   </file>
 </xliff>
