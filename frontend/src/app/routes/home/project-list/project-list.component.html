@@ -93,14 +93,15 @@
       <mat-menu #newProjectMenu xPosition="before">
         <menu mat-menu-item (click)="onOpenDialogCreateProject()">
           <mat-icon svgIcon="upload"></mat-icon>
-          Upload file</menu
-        >
+          <span i18n="@@projectListCreateProjectMenuUpload">Upload file</span>
+        </menu>
         <!-- <menu mat-menu-item (click)="onOpenDialogCreateProject()"
           ><mat-icon svgIcon="recording"></mat-icon>Live</menu
         > -->
         <menu mat-menu-item (click)="onOpenRecorder()">
-          <mat-icon svgIcon="record"></mat-icon> Recorder</menu
-        >
+          <mat-icon svgIcon="record"></mat-icon>
+          <span i18n="@@projectListCreateProjectMenuRecorder">Recorder</span>
+        </menu>
       </mat-menu>
 
       }
