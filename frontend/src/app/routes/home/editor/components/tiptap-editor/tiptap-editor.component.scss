@@ -7,6 +7,12 @@
   max-width: 62.5rem;
 }
 
+.mat-icon {
+  &.hidden {
+    visibility: hidden;
+  }
+}
+
 .controls {
   display: flex;
   align-items: center;

@@ -19,6 +19,61 @@
     <mat-spinner></mat-spinner>
     }
   </div>
+
+  @if ('transcriptionsMenu' | featureEnabled) {
+  <button
+    mat-button
+    [matMenuTriggerFor]="transcription"
+    class="editor-action-button"
+  >
+    @if (selectedTranscription$ | ngrxPush; as selectedTranscription) {
+    <span>
+      {{
+        selectedTranscription.language
+          | writtenOutLanguage : selectedTranscription.title
+      }}</span
+    >
+    } @else {
+    <span i18n="@@tiptap-editorMenuTranscriptionLabel">Transcription</span>
+    }
+  </button>
+  }
+  <mat-menu #transcription="matMenu" class="dense">
+    <div *ngrxLet="transcriptionsList$ as transcriptionList">
+      @for (transcription of transcriptionList; track transcription) {
+      <div>
+        <button (click)="onSelectTranscription(transcription.id)" mat-menu-item>
+          <mat-icon
+            [class.hidden]="transcription.id !== transcriptionId"
+            svgIcon="done"
+          ></mat-icon>
+          <span>
+            {{
+              transcription.language | writtenOutLanguage : transcription.title
+            }}
+          </span>
+          <span class="transcription-lang-code">
+            ({{ transcription.language }})</span
+          >
+        </button>
+      </div>
+      } @if (transcriptionList.length > 0) {
+      <mat-divider class="transcription-mat-divider" />
+      }
+    </div>
+    @if ('editTranscriptions' | featureEnabled) {
+    <div class="transcription-button-wrapper">
+      <button
+        mat-menu-item
+        i18n="@@editorMenuTranscriptionEditLabel"
+        (click)="onClickTranscriptionEdit()"
+      >
+        <mat-icon svgIcon="edit"></mat-icon>
+        Edit Transcriptions
+      </button>
+    </div>
+    }
+  </mat-menu>
 </div>
 
 @if (editor && CLIENT_STATUS[status] === 'SYNCED') {

@@ -7,12 +7,15 @@ import {
   OnInit,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { MatIconButton } from '@angular/material/button';
-import { MatCheckbox } from '@angular/material/checkbox';
+import { MatButtonModule, MatIconButton } from '@angular/material/button';
+import { MatDialog } from '@angular/material/dialog';
+import { MatDividerModule } from '@angular/material/divider';
 import { MatIcon } from '@angular/material/icon';
+import { MatMenuModule } from '@angular/material/menu';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { Router } from '@angular/router';
 import { HocuspocusProvider } from '@hocuspocus/provider';
-import { LetDirective } from '@ngrx/component';
+import { LetDirective, PushPipe } from '@ngrx/component';
 import { Store } from '@ngrx/store';
 import { Editor } from '@tiptap/core';
 import Collaboration from '@tiptap/extension-collaboration';
@@ -28,15 +31,21 @@ import {
   debounceTime,
   filter,
   firstValueFrom,
+  map,
   skip,
   takeUntil,
 } from 'rxjs';
 import { EditorUserEntity } from 'src/app/interfaces/editor-user.interface';
+import { DialogProjectTranscriptionComponent } from 'src/app/modules/project-dialogs/dialog-project-transcription/dialog-project-transcription.component';
+import { FeatureEnabledPipe } from 'src/app/pipes/feature-enabled-pipe/feature-enabled.pipe';
+import { WrittenOutLanguagePipe } from 'src/app/pipes/written-out-language-pipe/written-out-language.pipe';
 import { WSService } from 'src/app/services/ws/ws.service';
 import { AppState } from 'src/app/store/app.state';
 import { EditorUser } from 'src/app/store/reducers/editor.reducer';
 import * as editorSelector from 'src/app/store/selectors/editor.selector';
 import { selectQueryParams } from 'src/app/store/selectors/router.selectors';
+import * as transcriptionsActions from '../../../../../store/actions/transcriptions.actions';
+import * as transcriptionsSelectors from '../../../../../store/selectors/transcriptions.selector';
 import { MediaService } from '../../service/media/media.service';
 import { CustomParagraph } from './schema/paragraph.schema';
 import { UserExtension } from './schema/user.extension';
@@ -54,12 +63,17 @@ enum CLIENT_STATUS {
   selector: 'app-tiptap-editor',
   imports: [
     MatIconButton,
+    MatButtonModule,
     MatIcon,
-    MatCheckbox,
+    MatMenuModule,
+    MatDividerModule,
     FormsModule,
     NgxTiptapModule,
     LetDirective,
     MatProgressSpinnerModule,
+    FeatureEnabledPipe,
+    PushPipe,
+    WrittenOutLanguagePipe,
   ],
   templateUrl: './tiptap-editor.component.html',
   styleUrl: './tiptap-editor.component.scss',
@@ -69,6 +83,7 @@ export class TiptapEditorComponent implements AfterViewInit, OnInit, OnDestroy {
   transcriptionId = '';
   @Input({ required: true }) activeUsers!: EditorUserEntity[];
   @Input({ required: true }) editorUsers!: EditorUser[];
+  @Input({ required: true }) projectId!: string;
 
   private destroy$$ = new Subject<void>();
   private viewReady$ = new BehaviorSubject(false);
@@ -92,11 +107,33 @@ export class TiptapEditorComponent implements AfterViewInit, OnInit, OnDestroy {
 
   public spellchecking$ = this.store.select(editorSelector.selectSpellchecking);
 
+  public transcriptionsList$ = this.store.select(
+    transcriptionsSelectors.selectTranscriptionList
+  );
+
+  public selectedTranscriptionId$ = this.store.select(
+    transcriptionsSelectors.selectTranscriptionId
+  );
+
+  public selectedTranscription$ = combineLatest([
+    this.selectedTranscriptionId$,
+    this.transcriptionsList$,
+  ]).pipe(
+    map(
+      ([transcriptionId, transcriptionsList]) =>
+        transcriptionsList.find(
+          (transcription) => transcription.id === transcriptionId
+        )!
+    )
+  );
+
   constructor(
     private mediaService: MediaService,
     private wsService: WSService,
     private injector: Injector,
-    private store: Store<AppState>
+    private store: Store<AppState>,
+    private dialog: MatDialog,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -107,6 +144,7 @@ export class TiptapEditorComponent implements AfterViewInit, OnInit, OnDestroy {
       .pipe(takeUntil(this.destroy$$), debounceTime(0))
       .subscribe(([_, transcriptionId]) => {
         this.transcriptionId = transcriptionId;
+
         if (this.editor) {
           this.destroyEditor();
         }
@@ -342,5 +380,21 @@ export class TiptapEditorComponent implements AfterViewInit, OnInit, OnDestroy {
 
   onClickRedo() {
     this.editor?.commands.redo();
+  }
+
+  async onClickTranscriptionEdit() {
+    this.dialog.open(DialogProjectTranscriptionComponent, {
+      data: { projectId: this.projectId },
+      width: '100%',
+      maxWidth: '50rem',
+      maxHeight: '90vh',
+    });
+  }
+
+  onSelectTranscription(transcriptionId: string) {
+    this.router.navigate([], { queryParams: { transcriptionId } });
+    this.store.dispatch(
+      transcriptionsActions.selectFromEditor({ transcriptionId })
+    );
   }
 }
