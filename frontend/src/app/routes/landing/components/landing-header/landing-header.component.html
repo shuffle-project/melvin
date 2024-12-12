@@ -5,7 +5,13 @@
     <nav>
       <ul>
         <div class="links">
-          @if ('tutorial' | featureEnabled) {
+          @if ('guide' | featureEnabled) {
+          <li>
+            <a routerLink="/guide" i18n="@@landingHeaderGuideLinkLabel">
+              Guide
+            </a>
+          </li>
+          } @if ('tutorial' | featureEnabled) {
           <li>
             <a routerLink="/tutorial" i18n="@@landingHeaderTutorialLinkLabel">
               Tutorial

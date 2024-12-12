@@ -32,6 +32,12 @@
     <li>
       <a routerLink="/plain-language">Leichte Sprache</a>
     </li>
+
+    @if ('guide' | featureEnabled) {
+    <li>
+      <a routerLink="/guide"> Leitfaden </a>
+    </li>
+    }
     <li>
       <a routerLink="/">Startseite</a>
     </li>
@@ -52,6 +58,10 @@
     @if ('documentation' | featureEnabled) {
     <li>
       <a routerLink="/documentation">Documentation</a>
+    </li>
+    } @if ('guide' | featureEnabled) {
+    <li>
+      <a routerLink="/guide"> Guide </a>
     </li>
     }
     <li>

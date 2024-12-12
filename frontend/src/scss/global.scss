@@ -90,6 +90,15 @@ a {
     font-weight: 500;
   }
 
+  h1.with-subheading {
+    margin-bottom: 0.625rem;
+  }
+
+  .subheading {
+    font-size: 1.25rem;
+    margin: 0;
+  }
+
   h2 {
     font-size: clamp(1.5rem, 3vw + 0.25rem, 2rem);
     margin-top: 3.75rem;

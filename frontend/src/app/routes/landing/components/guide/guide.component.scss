@@ -1,0 +1,90 @@
+.decorative-image-wrapper {
+  width: 100%;
+  height: 15.625rem;
+  margin-top: 3.75rem;
+  background-color: var(--color-border-grey);
+
+  border-radius: 0.625rem;
+}
+
+.table-of-contents {
+  a {
+    line-height: 170%;
+  }
+}
+
+h3 {
+  margin-top: 6rem;
+}
+
+hr {
+  margin-block: 1.25rem;
+  color: var(--color-primary);
+}
+
+dl {
+  margin-top: 2.5rem;
+}
+
+.term-definition-wrapper {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 1.25rem;
+
+  dt {
+    width: clamp(10rem, 30vw + 0.25rem, 15rem);
+    font-size: 1.125rem;
+    font-weight: 500;
+  }
+
+  dd {
+    margin: 0;
+    line-height: 150%;
+
+    .example-wrapper {
+      margin-top: 1.25rem;
+      font-style: italic;
+    }
+  }
+}
+
+.repetition-wrapper {
+  margin-top: 2.5rem;
+
+  p.repetition-label {
+    margin: 0 0 0.25rem;
+    color: var(--color-dark-grey);
+  }
+
+  div {
+    background-color: var(--color-primary);
+    color: var(--color-white);
+
+    border-radius: 0.625rem;
+    padding: 2.5rem 3.125rem;
+
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 1.25rem;
+
+    p {
+      max-width: 10rem;
+      display: grid;
+      grid-template-rows: 1fr auto;
+      gap: 0.5rem;
+      margin: 0;
+
+      .upper-text {
+        font-size: 1.625rem;
+        font-weight: 500;
+        line-height: 120%;
+      }
+
+      .lower-text {
+        font-size: 1.125rem;
+        font-weight: 300;
+      }
+    }
+  }
+}
