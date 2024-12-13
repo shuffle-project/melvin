@@ -24,8 +24,9 @@
   <button
     mat-button
     [matMenuTriggerFor]="transcription"
-    class="editor-action-button"
+    class="editor-action-button transcription-dropdown-button"
   >
+    <mat-icon svgIcon="arrow_dropdown"></mat-icon>
     @if (selectedTranscription$ | ngrxPush; as selectedTranscription) {
     <span>
       {{
