@@ -4,10 +4,16 @@ import ffmpegPath from 'ffmpeg-static';
 import ffprobePath from 'ffprobe-static';
 import { join } from 'path';
 import { Export } from '../db/schemas/export.schema';
-import { Audio, Project, Video } from '../db/schemas/project.schema';
+import {
+  Audio,
+  Project,
+  Resolution,
+  Video,
+} from '../db/schemas/project.schema';
 import { CustomLogger } from '../logger/logger.service';
 import { PathService } from '../path/path.service';
 import { WaveformData } from './ffmpeg.interfaces';
+import { cp } from 'fs';
 
 /**
  * Analyzing sample rate 8000 seems to be a good default: https://trac.ffmpeg.org/wiki/Waveform
@@ -97,7 +103,16 @@ export class FfmpegService {
     // const projDir = this.pathService.getProjectDirectory(projectId);
     // await ensureDir(join(projDir, 'videos'));
 
+    const resolution = await this.getVideoResolution(filePath);
+
+    const calculatedResolutions = this._calculateResolutions(
+      resolution.width,
+      resolution.height,
+    );
+    console.log(calculatedResolutions);
+
     const videoFilepath = this.pathService.getMediaFile(projectId, video);
+
     // if (videoId === null) {
     //   videoFilepath = this.pathService.getVideoFile(projectId);
     // } else {
@@ -108,18 +123,72 @@ export class FfmpegService {
     //   );
     // }
 
-    //     ffmpeg -loglevel error -i "${filePath}" -crf 23 -c:v libx264 -c:a aac -y \
+    // check resolution/aspect ratio etc/ check max resolution -> calculate what resolutions to create
+    // save resolutions in project
+    // create resolutions
+
+    // ffmpeg -loglevel error -i bagger_1_main.mp4 -crf 23 -c:v libx264 -c:a aac -y -filter_complex "[0:v]split=5[v1080][v720][v480][v360][v240]; [v1080]scale=1920:1080[v1080out]; [v720]scale=1280:720[v720out]; [v480]scale=854:480[v480out]; [v360]scale=640:360[v360out]; [v240]scale=426:240[v240out]" -map "[v1080out]" -map 0:a -c:a aac "bagger_1080p.mp4" -map "[v720out]" -map 0:a -c:a aac "bagger_720p.mp4" -map "[v480out]" -map 0:a -c:a aac "bagger_480p.mp4" -map "[v360out]" -map 0:a -c:a aac "bagger_360p.mp4" -map "[v240out]" -map 0:a -c:a aac "bagger_240p.mp4"
+
+    // breite:höhe
+    // ffmpeg -loglevel error -i "${filePath}" -crf 23 -c:v libx264 -c:a aac -y \
     // -filter_complex "[0:v]split=5[v1080][v720][v480][v360][v240]; \
     // [v1080]scale=1920:1080[v1080out]; \
     // [v720]scale=1280:720[v720out]; \
     // [v480]scale=854:480[v480out]; \
     // [v360]scale=640:360[v360out]; \
     // [v240]scale=426:240[v240out]" \
+
     // -map "[v1080out]" -map 0:a -c:a aac "${videoFilepath}_1080p.mp4" \
     // -map "[v720out]" -map 0:a -c:a aac "${videoFilepath}_720p.mp4" \
     // -map "[v480out]" -map 0:a -c:a aac "${videoFilepath}_480p.mp4" \
     // -map "[v360out]" -map 0:a -c:a aac "${videoFilepath}_360p.mp4" \
     // -map "[v240out]" -map 0:a -c:a aac "${videoFilepath}_240p.mp4"
+
+    // const split = `"[0:v]split=${
+    //   calculatedResolutions.length
+    // }${calculatedResolutions
+    //   .concat()
+    //   .map((res) => `[v${res.height}]`)
+    //   .join('')};"`;
+
+    // const commands2 = [
+    //   '-loglevel',
+    //   'error',
+    //   '-i',
+    //   `${filePath}`,
+    //   '-crf',
+    //   '23',
+    //   '-c:v',
+    //   'libx264',
+    //   '-c:a',
+    //   'aac',
+    //   '-y',
+    //   '-filter_complex',
+    //   `[0:v]split=${calculatedResolutions.length}`,
+    //   split,
+    //   ...calculatedResolutions.map(
+    //     (res) =>
+    //       `[v${res.height}]scale=${res.height}:${res.height}[v${res.height}out];`,
+    //   ),
+    // ];
+    // calculatedResolutions.forEach((res) => {
+    //   commands2.push(
+    //     ...[
+    //       '-map',
+    //       `"[v${res.height}out]"`,
+    //       '-map',
+    //       '0:a',
+    //       '-c:a',
+    //       'aac',
+    //       `"${videoFilepath.replace('.mp4', '_' + res.resolution + '.mp4')}"`,
+    //     ],
+    //   );
+    // });
+    // console.log(commands2);
+    /**
+     * liste von media files mit verfügbaren auflösungen
+     *
+     */
 
     // TODO limit size of file
     const commands = [
@@ -136,7 +205,7 @@ export class FfmpegService {
       // video codec
       '-c:v',
       'libx264',
-      //audio codec
+      //audio codeci
       '-c:a',
       'aac',
       // overwrite file
@@ -206,6 +275,36 @@ export class FfmpegService {
       exportFilepath,
     ];
     await this.execAsStream(commands);
+  }
+
+  public async getVideoResolution(
+    filepath: string,
+  ): Promise<{ width: number; height: number }> {
+    const commands = [
+      this.ffprobe, // `ffprobe`,
+      '-loglevel',
+      'fatal',
+      // error = Show all errors, including ones which can be recovered from.
+      // fatal = Only show fatal errors which could lead the process to crash, such as an assertion failure.
+      '-i',
+      `${filepath}`,
+      '-select_streams',
+      'v:0',
+      '-show_entries',
+      'stream=width,height',
+      '-of',
+      'csv=p=0',
+      '-print_format',
+      'json',
+    ];
+
+    const result: string = await this.execShellCommand(commands);
+    const width: number = Math.floor(JSON.parse(result).streams[0]?.width);
+    const height: number = Math.floor(JSON.parse(result).streams[0]?.height);
+    return {
+      width: isNaN(width) ? 0 : width,
+      height: isNaN(height) ? 0 : height,
+    };
   }
 
   public async getVideoDuration(projectId: string, video: Video) {
@@ -347,5 +446,29 @@ export class FfmpegService {
       maximum = Math.max(maximum, value);
     }
     return { maximum, reducedData };
+  }
+
+  _calculateResolutions(width: number, height: number): Resolution[] {
+    if (width === 0 || height === 0) {
+      return [{ resolution: '240p', width: 427, height: 240 }];
+    }
+
+    const resolutions: Resolution[] = [];
+
+    [240, 360, 480, 720, 1080].forEach((targetHeight) => {
+      if (height >= targetHeight) {
+        resolutions.push({
+          resolution: targetHeight + 'p',
+          ...this._scaleResolution(targetHeight, width, height),
+        });
+      }
+    });
+    return resolutions;
+  }
+
+  _scaleResolution(scaleTo: number, width: number, height: number) {
+    const aspectRatio = width / height;
+    const scaledWidth = Math.round(scaleTo * aspectRatio);
+    return { width: scaledWidth, height: scaleTo };
   }
 }

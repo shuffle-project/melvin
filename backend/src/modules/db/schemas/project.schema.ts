@@ -121,6 +121,24 @@ export class Audio {
 }
 const AudioSchema = SchemaFactory.createForClass(Audio);
 
+export class Resolution {
+  @ApiProperty({ example: '1080p' })
+  @Prop()
+  @IsString()
+  resolution: string;
+
+  @ApiProperty()
+  @Prop()
+  @IsInt()
+  height: number;
+
+  @ApiProperty()
+  @Prop()
+  @IsInt()
+  width: number;
+}
+const ResolutionSchema = SchemaFactory.createForClass(Resolution);
+
 @Schema({
   timestamps: true,
 })
@@ -163,6 +181,10 @@ export class Video {
   @Prop()
   @IsEnum(MediaCategory)
   category: MediaCategory;
+
+  @ApiProperty({ type: [ResolutionSchema] })
+  @Prop()
+  resolutions: Resolution[];
 
   @ApiProperty({ enum: MediaStatus, example: MediaStatus.FINISHED })
   @Prop()

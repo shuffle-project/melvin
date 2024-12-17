@@ -147,6 +147,7 @@ export class ProjectService {
       originalFileName: '',
       status: MediaStatus.WAITING,
       title: 'Main Video',
+      resolutions: [], // TODO wird dann gefüllt in der videoverarbeitung?
     };
 
     const mainAudio: Audio = {
@@ -337,6 +338,7 @@ export class ProjectService {
       originalFileName: '',
       status: MediaStatus.WAITING,
       title: 'Main Video',
+      resolutions: [], // TODO wird dann gefüllt in der videoverarbeitung?
     };
 
     const mainAudio: Audio = {
@@ -992,6 +994,7 @@ export class ProjectService {
       originalFileName: file.filename,
       status: MediaStatus.WAITING,
       extension: 'mp4',
+      resolutions: [], // TODO ? wird dann gefüllt bei der videoverarbeitung?
     };
 
     const updatedProject = await this.db.updateProjectByIdAndReturn(projectId, {
@@ -1125,12 +1128,21 @@ export class ProjectService {
     const videos: VideoEntity[] = project.videos.map((video) => ({
       ...video,
       mimetype: this._getMimetype(video.extension),
-      url: this._buildUrl(
-        project._id.toString(),
-        mediaAuthToken,
-        video._id.toString(),
-        video.extension,
-      ),
+      resolutions: video.resolutions.map((res) => ({
+        ...res,
+        url: this._buildUrl(
+          project._id.toString(),
+          project.viewerToken,
+          video._id.toString(),
+          video.extension,
+        ),
+      })),
+      // url: this._buildUrl(
+      //   project._id.toString(),
+      //   project.viewerToken,
+      //   video._id.toString(),
+      //   video.extension,
+      // ),
     }));
 
     return plainToInstance(ProjectMediaEntity, { audios, videos });
