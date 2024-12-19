@@ -42,6 +42,8 @@ export class MediaService {
 
     const [mediaId, ext] = filename.split('.');
 
+    // const [mediaId, resolution] = mediaIdResolution.split('_');
+
     // https://blog.logrocket.com/full-stack-app-tutorial-nestjs-react/
     // https://betterprogramming.pub/video-stream-with-node-js-and-html5-320b3191a6b6
     // https://www.geeksforgeeks.org/how-to-stream-large-mp4-files/
@@ -51,7 +53,7 @@ export class MediaService {
       project._id.toString(),
       filename,
     );
-
+    console.log(mediaFilepath);
     try {
       const fileStats = await stat(mediaFilepath);
 

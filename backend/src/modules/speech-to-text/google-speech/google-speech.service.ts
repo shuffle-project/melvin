@@ -127,7 +127,7 @@ export class GoogleSpeechService implements ISpeechToTextService {
   async _uploadFileToBucket(project: Project, audio: Audio) {
     // const localAudioPath = this.pathService.getWavFile(project._id.toString());
     // const wav = project.audios.find((audio) => audio.extension === 'wav');
-    const localAudioPath = this.pathService.getMediaFile(
+    const localAudioPath = this.pathService.getAudioFile(
       project._id.toString(),
       audio,
     );

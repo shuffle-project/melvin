@@ -1076,7 +1076,7 @@ export class ProjectService {
       throw new CustomForbiddenException('can_not_delete_main_video');
     }
 
-    const path = this.pathService.getMediaFile(projectId, mediaObj);
+    const path = this.pathService.getBaseMediaFile(projectId, mediaObj); // todo videos
     remove(path);
 
     await this.db.projectModel
@@ -1113,14 +1113,12 @@ export class ProjectService {
       ...audio,
       mimetype: this._getMimetype(audio.extension),
       url: this._buildUrl(
-        project._id.toString(),
-        mediaAuthToken,
+        project.viewerToken,
         audio._id.toString(),
         audio.extension,
       ),
       waveform: this._buildUrl(
-        project._id.toString(),
-        mediaAuthToken,
+        project.viewerToken,
         audio._id.toString(),
         'json',
       ),
@@ -1131,10 +1129,10 @@ export class ProjectService {
       resolutions: video.resolutions.map((res) => ({
         ...res,
         url: this._buildUrl(
-          project._id.toString(),
           project.viewerToken,
           video._id.toString(),
           video.extension,
+          res.resolution,
         ),
       })),
       // url: this._buildUrl(
@@ -1149,12 +1147,14 @@ export class ProjectService {
   }
 
   private _buildUrl(
-    projectId: string,
-    mediaAuthToken: string,
+    viewerToken: string,
     mediaId: string,
     mediaExtension: string,
+    resolution?: string,
   ): string {
-    return `${this.serverBaseUrl}/projects/${projectId}/media/${mediaId}.${mediaExtension}?Authorization=${mediaAuthToken}`;
+    return resolution
+      ? `${this.serverBaseUrl}/media/${viewerToken}/${mediaId}_${resolution}.${mediaExtension}`
+      : `${this.serverBaseUrl}/media/${viewerToken}/${mediaId}.${mediaExtension}`;
   }
 
   private _getMimetype(extension: string) {

@@ -7,8 +7,9 @@ import { CustomValidationException } from '../utils/exceptions';
 export class IsValidFilenamePipe implements PipeTransform<string> {
   public transform(value: any, metadata: ArgumentMetadata): string {
     const [base, ext] = value.split('.');
+    const [mediaId, resolution] = base.split('_');
 
-    const isValid = Types.ObjectId.isValid(base);
+    const isValid = Types.ObjectId.isValid(mediaId);
 
     if (!isValid) {
       const error = new ValidationError();

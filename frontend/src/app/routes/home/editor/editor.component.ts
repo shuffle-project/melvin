@@ -248,17 +248,19 @@ export class EditorComponent implements OnInit, OnDestroy {
 
   onDownloadVideo(video: VideoEntity) {
     // TODO refactor, nur provisorisch
-    this.http.get(video.url, { responseType: 'blob' }).subscribe((response) => {
-      const urlCreator = window.URL || window.webkitURL;
-      const imageUrl = urlCreator.createObjectURL(response);
-      const tag = document.createElement('a');
-      tag.href = imageUrl;
-      tag.target = '_blank';
-      tag.download = video.title + '.' + video.extension;
-      document.body.appendChild(tag);
-      tag.click();
-      document.body.removeChild(tag);
-    });
+    this.http
+      .get(video.resolutions[0].url, { responseType: 'blob' })
+      .subscribe((response) => {
+        const urlCreator = window.URL || window.webkitURL;
+        const imageUrl = urlCreator.createObjectURL(response);
+        const tag = document.createElement('a');
+        tag.href = imageUrl;
+        tag.target = '_blank';
+        tag.download = video.title + '.' + video.extension;
+        document.body.appendChild(tag);
+        tag.click();
+        document.body.removeChild(tag);
+      });
   }
 
   async onDownloadSubtitles(format: 'srt' | 'vtt' | 'txt') {

@@ -14,6 +14,8 @@ import { CustomLogger } from '../logger/logger.service';
 import { PathService } from '../path/path.service';
 import { WaveformData } from './ffmpeg.interfaces';
 import { cp } from 'fs';
+import { DbService } from '../db/db.service';
+import { isSameObjectId } from 'src/utils/objectid';
 
 /**
  * Analyzing sample rate 8000 seems to be a good default: https://trac.ffmpeg.org/wiki/Waveform
@@ -31,7 +33,11 @@ export class FfmpegService {
   private ffmpeg = ffmpegPath;
   private ffprobe = ffprobePath.path;
 
-  constructor(private logger: CustomLogger, private pathService: PathService) {
+  constructor(
+    private logger: CustomLogger,
+    private pathService: PathService,
+    private db: DbService,
+  ) {
     this.logger.setContext(this.constructor.name);
   }
 
@@ -42,7 +48,7 @@ export class FfmpegService {
     const projectId = project._id.toString();
     // const videoFilepath = this.pathService.getVideoFile(projectId);
     // const audioFilepath = this.pathService.getMp3File(projectId);
-    const audioFilepath = this.pathService.getMediaFile(projectId, audio);
+    const audioFilepath = this.pathService.getAudioFile(projectId, audio);
     const args = [
       // logging
       '-loglevel',
@@ -111,7 +117,10 @@ export class FfmpegService {
     );
     console.log(calculatedResolutions);
 
-    const videoFilepath = this.pathService.getMediaFile(projectId, video);
+    const baseVideoFilepath = this.pathService.getBaseMediaFile(
+      projectId,
+      video,
+    );
 
     // if (videoId === null) {
     //   videoFilepath = this.pathService.getVideoFile(projectId);
@@ -125,7 +134,7 @@ export class FfmpegService {
 
     // check resolution/aspect ratio etc/ check max resolution -> calculate what resolutions to create
     // save resolutions in project
-    // create resolutions
+    // create resolutionsx^
 
     // ffmpeg -loglevel error -i bagger_1_main.mp4 -crf 23 -c:v libx264 -c:a aac -y -filter_complex "[0:v]split=5[v1080][v720][v480][v360][v240]; [v1080]scale=1920:1080[v1080out]; [v720]scale=1280:720[v720out]; [v480]scale=854:480[v480out]; [v360]scale=640:360[v360out]; [v240]scale=426:240[v240out]" -map "[v1080out]" -map 0:a -c:a aac "bagger_1080p.mp4" -map "[v720out]" -map 0:a -c:a aac "bagger_720p.mp4" -map "[v480out]" -map 0:a -c:a aac "bagger_480p.mp4" -map "[v360out]" -map 0:a -c:a aac "bagger_360p.mp4" -map "[v240out]" -map 0:a -c:a aac "bagger_240p.mp4"
 
@@ -190,7 +199,6 @@ export class FfmpegService {
      *
      */
 
-    // TODO limit size of file
     const commands = [
       // this.ffmpeg,
       '-loglevel',
@@ -199,19 +207,69 @@ export class FfmpegService {
       // fatal = Only show fatal errors which could lead the process to crash, such as an assertion failure.
       '-i',
       `${filePath}`,
-      // crf on 51 -> max qual loss, on 0 -> zero qual loss, 23 is default
-      '-crf',
-      '23',
-      // video codec
-      '-c:v',
-      'libx264',
-      //audio codeci
-      '-c:a',
-      'aac',
-      // overwrite file
-      '-y',
-      `${videoFilepath}`, // output file
     ];
+
+    calculatedResolutions.forEach((res) => {
+      commands.push(
+        ...[
+          // crf on 51 -> max qual loss, on 0 -> zero qual loss, 23 is default
+          '-crf',
+          '23',
+          // video codec
+          '-c:v',
+          'libx264',
+          //audio codeci
+          '-c:a',
+          'aac',
+          // overwrite file
+          '-y',
+          '-vf',
+          `scale=${res.width}:${res.height}`,
+          `${baseVideoFilepath.replace('.mp4', '_' + res.resolution + '.mp4')}`, // output file
+        ],
+      );
+    });
+    console.log(commands);
+
+    // TODO add resoltuions here? or where?
+
+    const project = await this.db.projectModel.findById(projectId);
+    console.log(project.videos, video);
+    project.videos.find((v) => isSameObjectId(v._id, video._id)).resolutions =
+      calculatedResolutions;
+    await project.save();
+
+    const project2 = await this.db.projectModel.findById(projectId);
+    console.log(project2.videos);
+
+    // await this.db.projectModel
+    //   .findByIdAndUpdate(projectId, {
+    //     resolutions: calculatedResolutions,
+    //   })
+    //   .lean()
+    //   .exec();
+
+    // const commands = [
+    //   // this.ffmpeg,
+    //   '-loglevel',
+    //   'error',
+    //   // error = Show all errors, including ones which can be recovered from.
+    //   // fatal = Only show fatal errors which could lead the process to crash, such as an assertion failure.
+    //   '-i',
+    //   `${filePath}`,
+    //   // crf on 51 -> max qual loss, on 0 -> zero qual loss, 23 is default
+    //   '-crf',
+    //   '23',
+    //   // video codec
+    //   '-c:v',
+    //   'libx264',
+    //   //audio codeci
+    //   '-c:a',
+    //   'aac',
+    //   // overwrite file
+    //   '-y',
+    //   `${videoFilepath}`, // output file
+    // ];
 
     if (filePath.endsWith('mp3')) {
       const imgPath = join(
@@ -226,9 +284,9 @@ export class FfmpegService {
   }
 
   async createWavFile(projectId: string, video: Video, audio: Audio) {
-    const videoFilepath = this.pathService.getMediaFile(projectId, video);
+    const videoFilepath = this.pathService.getVideoFile(projectId, video);
     // const audioFilepath = this.pathService.getWavFile(projectId);
-    const audioFilepath = this.pathService.getMediaFile(projectId, audio);
+    const audioFilepath = this.pathService.getAudioFile(projectId, audio);
 
     const commands = [
       '-i',
@@ -241,10 +299,10 @@ export class FfmpegService {
   }
 
   async createMp3File(projectId: string, video: Video, audio: Audio) {
-    const videoFilepath = this.pathService.getMediaFile(projectId, video);
+    const videoFilepath = this.pathService.getVideoFile(projectId, video);
     // const audioFilepath = this.pathService.getMp3File(projectId);
 
-    const audioFilepath = this.pathService.getMediaFile(projectId, audio);
+    const audioFilepath = this.pathService.getAudioFile(projectId, audio);
 
     const commands = [
       '-i',
@@ -262,8 +320,11 @@ export class FfmpegService {
     subtitleFile: string,
     exportObj: Export,
   ) {
-    const videoFilepath = this.pathService.getMediaFile(projectId, video);
-    const exportFilepath = this.pathService.getMediaFile(projectId, exportObj);
+    const videoFilepath = this.pathService.getVideoFile(projectId, video);
+    const exportFilepath = this.pathService.getBaseMediaFile(
+      projectId,
+      exportObj,
+    );
 
     const commands = [
       '-i',
@@ -308,7 +369,8 @@ export class FfmpegService {
   }
 
   public async getVideoDuration(projectId: string, video: Video) {
-    const videoFilepath = this.pathService.getMediaFile(projectId, video);
+    console.log(video);
+    const videoFilepath = this.pathService.getVideoFile(projectId, video);
     const commands = [
       this.ffprobe, // `ffprobe`,
       '-loglevel',
@@ -469,6 +531,14 @@ export class FfmpegService {
   _scaleResolution(scaleTo: number, width: number, height: number) {
     const aspectRatio = width / height;
     const scaledWidth = Math.round(scaleTo * aspectRatio);
-    return { width: scaledWidth, height: scaleTo };
+
+    return {
+      width: this._isEven(scaledWidth) ? scaledWidth : scaledWidth + 1,
+      height: scaleTo,
+    };
+  }
+
+  _isEven(n: number): boolean {
+    return n % 2 == 0;
   }
 }

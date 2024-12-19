@@ -28,13 +28,23 @@ export interface MediaEntity {
   originalFileName: string;
   category: MediaCategory;
   extension: string;
-  url: string;
+  // url: string;
   mimetype: string;
 }
 
-export interface VideoEntity extends MediaEntity {}
+export interface Resolution {
+  url: string;
+  resolution: string;
+  height: number;
+  width: number;
+}
+
+export interface VideoEntity extends MediaEntity {
+  resolutions: Resolution[];
+}
 
 export interface AudioEntity extends MediaEntity {
+  url: string;
   waveform: string;
 }
 

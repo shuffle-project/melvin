@@ -8,7 +8,10 @@
     preload="auto"
   >
     @if (playingVideo && project?.status !== 'live') {
-    <source [src]="playingVideo.url" [type]="playingVideo.mimetype" />
+    <source
+      [src]="playingVideo.resolutions[0].url"
+      [type]="playingVideo.mimetype"
+    />
     }
   </video>
 </ng-container>

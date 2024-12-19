@@ -25,6 +25,7 @@ import { AuthService } from '../resources/auth/auth.service';
 import { ProjectService } from '../resources/project/project.service';
 import { ProcessProjectJob, ProcessSubtitlesJob } from './processor.interfaces';
 import { jobWithProjectIdExists } from './processor.utils';
+import { isSameObjectId } from 'src/utils/objectid';
 @Processor('project')
 export class ProjectProcessor {
   constructor(
@@ -43,7 +44,7 @@ export class ProjectProcessor {
 
   @Process()
   async processProject(job: Job<ProcessProjectJob>) {
-    const { project, file, mainVideo, mainAudio } = job.data;
+    let { project, file, mainVideo, mainAudio } = job.data;
     const projectId = project._id.toString();
     const systemUser = await this.authService.findSystemAuthUser();
 
@@ -65,6 +66,12 @@ export class ProjectProcessor {
     if (mainVideo.category !== MediaCategory.MAIN) {
       return null;
     }
+
+    // update mainvideo with newly created resolutions
+    const updatedProj = await this.db.projectModel.findById(projectId);
+    mainVideo = updatedProj.videos.find((v) =>
+      isSameObjectId(v._id, mainVideo._id),
+    );
 
     //get duration via ffprobe
     const duration = await this.ffmpegService.getVideoDuration(

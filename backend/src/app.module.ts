@@ -26,6 +26,7 @@ import { PopulateModule } from './resources/populate/populate.module';
 import { ProjectModule } from './resources/project/project.module';
 import { TranscriptionModule } from './resources/transcription/transcription.module';
 import { UserModule } from './resources/user/user.module';
+import { MediaModule } from './modules/media/media.module';
 
 @Module({
   imports: [
@@ -71,6 +72,7 @@ import { UserModule } from './resources/user/user.module';
     FfmpegModule,
     PathModule,
     ActivityModule,
+    MediaModule,
     // TODO LivestreamModule,
     // generate captions
     SpeechToTextModule,

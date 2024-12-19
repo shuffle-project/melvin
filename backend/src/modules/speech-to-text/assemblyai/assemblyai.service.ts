@@ -132,7 +132,7 @@ export class AssemblyAiService implements ISpeechToTextService {
     // const videoPath = this.pathService.getVideoFile(projectId);
 
     const mp4 = project.audios.find((audio) => audio.extension === 'mp4');
-    const videoPath = this.pathService.getMediaFile(
+    const videoPath = this.pathService.getBaseMediaFile(
       project._id.toString(),
       mp4,
     );

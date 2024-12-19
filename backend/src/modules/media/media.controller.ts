@@ -21,7 +21,7 @@ import { Request, Response } from 'express';
 export class MediaController {
   constructor(private readonly mediaService: MediaService) {}
 
-  @Get(':viewerToken/:filename')
+  @Get('/:viewerToken/:filename')
   @ApiResponse({ status: HttpStatus.PARTIAL_CONTENT })
   async getMediaChunk(
     @Param('viewerToken') viewerToken: string,

@@ -19,6 +19,7 @@ import {
   MediaCategory,
   MediaEntity,
   ProjectEntity,
+  VideoEntity,
 } from '../../../../services/api/entities/project.entity';
 import { AppState } from '../../../../store/app.state';
 import * as projectsSelector from '../../../../store/selectors/projects.selector';
@@ -235,18 +236,22 @@ export class UploadAdditionalContentComponent implements OnInit {
     );
   }
 
-  onDownloadMedia(project: ProjectEntity, mediaEntity: MediaEntity) {
+  onDownloadMedia(project: ProjectEntity, videoEntity: VideoEntity) {
     // console.log(project, mediaEntity);
 
+    const resolution = videoEntity.resolutions.sort((a, b) => {
+      return a.width - b.width;
+    })[0];
+
     this.httpClient
-      .get(mediaEntity.url, { responseType: 'blob' })
+      .get(resolution.url, { responseType: 'blob' })
       .subscribe((response) => {
         const urlCreator = window.URL || window.webkitURL;
         const imageUrl = urlCreator.createObjectURL(response);
         const tag = document.createElement('a');
         tag.href = imageUrl;
         tag.target = '_blank';
-        tag.download = mediaEntity.title + '.' + mediaEntity.extension;
+        tag.download = videoEntity.title + '.' + videoEntity.extension;
         document.body.appendChild(tag);
         tag.click();
         document.body.removeChild(tag);
