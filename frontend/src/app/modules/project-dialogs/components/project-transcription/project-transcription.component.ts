@@ -39,7 +39,6 @@ import { EditTranscriptionDialogComponent } from './components/edit-transcriptio
   selector: 'app-project-transcription',
   templateUrl: './project-transcription.component.html',
   styleUrls: ['./project-transcription.component.scss'],
-  standalone: true,
   imports: [
     MatIconModule,
     LetDirective,
@@ -127,7 +126,7 @@ export class ProjectTranscriptionComponent
     this.dialogRefProjectTranscription.close();
     this.dialog.open(CreateTranscriptionDialogComponent, {
       width: '100%',
-      maxWidth: '800px',
+      maxWidth: '50rem',
       maxHeight: '90vh',
     });
   }
@@ -168,7 +167,7 @@ export class ProjectTranscriptionComponent
     this.dialog.open(EditTranscriptionDialogComponent, {
       data: transcription,
       width: '100%',
-      maxWidth: '800px',
+      maxWidth: '50rem',
       maxHeight: '90vh',
     });
   }

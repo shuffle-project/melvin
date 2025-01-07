@@ -64,7 +64,6 @@ import { DialogCreateProjectComponent } from './dialog-create-project/dialog-cre
   selector: 'app-project-list',
   templateUrl: './project-list.component.html',
   styleUrls: ['./project-list.component.scss'],
-  standalone: true,
   imports: [
     HeaderComponent,
     LetDirective,
@@ -191,7 +190,7 @@ export class ProjectListComponent implements OnInit, AfterViewInit, OnDestroy {
     this.dialog.open(DialogCreateProjectComponent, {
       disableClose: true,
       width: '100%',
-      maxWidth: '800px',
+      maxWidth: '50rem',
       maxHeight: '90vh',
     });
   }
@@ -200,7 +199,7 @@ export class ProjectListComponent implements OnInit, AfterViewInit, OnDestroy {
     this.dialog.open(DialogProjectActivityComponent, {
       data: { project },
       width: '100%',
-      maxWidth: '800px',
+      maxWidth: '50rem',
       maxHeight: '90vh',
     });
   }
@@ -209,7 +208,7 @@ export class ProjectListComponent implements OnInit, AfterViewInit, OnDestroy {
     this.dialog.open(DialogProjectMediaComponent, {
       data: { project },
       width: '100%',
-      maxWidth: '800px',
+      maxWidth: '50rem',
       maxHeight: '90vh',
     });
   }
@@ -245,7 +244,7 @@ export class ProjectListComponent implements OnInit, AfterViewInit, OnDestroy {
         project,
       },
       width: '100%',
-      maxWidth: '800px',
+      maxWidth: '50rem',
       maxHeight: '90vh',
     });
   }

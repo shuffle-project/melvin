@@ -6,12 +6,12 @@
 </app-header>
 <section class="content">
   @if (loading) {
-  <div class="flex justify-center" style="margin-top: 20px">
+  <div class="flex justify-center" style="margin-top: 1.25rem">
     <mat-spinner></mat-spinner>
   </div>
   } @if (!loading) {
   <div class="head-wrapper">
-    <mat-form-field class="recording-title-field" style="min-width: 300px">
+    <mat-form-field class="recording-title-field" style="min-width: 18.75rem">
       <mat-label i18n="@@recorderRecordingTitleLabel"
         >Recording title</mat-label
       >
@@ -47,14 +47,15 @@
       <mat-icon class="recording-indicator" svgIcon="recording_red"></mat-icon>
       }
 
-      {{ getCurrentDuration() | duration }}}
+      <p>{{ getCurrentDuration() | duration }}</p>
+
+      }
 
       <!-- start & stop -->
       @if(recorderService.recording){
 
       <button
         class="action-btn"
-        color="primary"
         mat-flat-button
         (click)="onClickStopRecord()"
         [disabled]="!recorderService.recording"
@@ -65,7 +66,6 @@
       }@else {
       <button
         class="action-btn"
-        color="primary"
         mat-flat-button
         (click)="onClickStartRecord()"
         [disabled]="recordingDisabled() || recorderService.recording"
@@ -79,7 +79,6 @@
 
       <button
         class="action-btn"
-        color="primary"
         mat-flat-button
         [disabled]="
           !recorderService.recording ||
@@ -93,7 +92,6 @@
       }@else {
       <button
         class="action-btn"
-        color="primary"
         mat-flat-button
         [disabled]="
           !recorderService.recording ||
@@ -126,9 +124,8 @@
       <!--  -->
       @if (!recorderService.recording) {
       <button
-        color="primary"
         class="add-btn"
-        mat-flat-button
+        mat-stroked-button
         (click)="onAddAudioSource()"
         i18n="@@recorderAddAudioSourceButton"
       >
@@ -152,9 +149,8 @@
       <!--  -->
       @if (!recorderService.recording ) {
       <button
-        color="primary"
         class="add-btn"
-        mat-flat-button
+        mat-stroked-button
         (click)="onAddVideoSource()"
         i18n="@@recorderAddVideoSourceButton"
       >
@@ -179,8 +175,7 @@
       @if (!recorderService.recording) {
       <button
         class="add-btn"
-        color="primary"
-        mat-flat-button
+        mat-stroked-button
         (click)="onAddScreenSharingSource()"
         i18n="@@recorderAddScreensharingButton"
       >

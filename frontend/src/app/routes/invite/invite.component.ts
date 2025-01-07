@@ -16,18 +16,17 @@ import { GuestLoginDialogComponent } from './components/guest-login/guest-login-
 
 import { LetDirective } from '@ngrx/component';
 @Component({
-  selector: 'app-invite',
-  templateUrl: './invite.component.html',
-  styleUrls: ['./invite.component.scss'],
-  standalone: true,
-  imports: [
-    LetDirective,
-    MatProgressSpinnerModule,
-    MatCardModule,
-    MatIconModule,
-    MatButtonModule,
-    MatDividerModule,
-  ],
+    selector: 'app-invite',
+    templateUrl: './invite.component.html',
+    styleUrls: ['./invite.component.scss'],
+    imports: [
+        LetDirective,
+        MatProgressSpinnerModule,
+        MatCardModule,
+        MatIconModule,
+        MatButtonModule,
+        MatDividerModule,
+    ]
 })
 export class InviteComponent implements OnInit, OnDestroy {
   private destroy$$ = new Subject<void>();

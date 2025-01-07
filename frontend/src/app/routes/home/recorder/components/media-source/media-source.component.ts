@@ -8,6 +8,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSelectModule } from '@angular/material/select';
+import { MediaCategoryPipe } from 'src/app/pipes/media-category-pipe/media-category.pipe';
 import { MediaCategory } from '../../../../../services/api/entities/project.entity';
 import {
   AudioSource,
@@ -21,7 +22,6 @@ import { AudioMeterComponent } from '../audio-meter/audio-meter.component';
   selector: 'app-media-source',
   templateUrl: './media-source.component.html',
   styleUrls: ['./media-source.component.scss'],
-  standalone: true,
   imports: [
     MatChipsModule,
     AudioMeterComponent,
@@ -33,6 +33,7 @@ import { AudioMeterComponent } from '../audio-meter/audio-meter.component';
     MatSelectModule,
     FormsModule,
     MatInputModule,
+    MediaCategoryPipe,
   ],
 })
 export class MediaSourceComponent implements OnInit {

@@ -1,4 +1,3 @@
-import { DatePipe } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -9,7 +8,6 @@ import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { LetDirective } from '@ngrx/component';
 import { Store } from '@ngrx/store';
 import { HeaderComponent } from '../../../components/header/header.component';
 import { DurationPipe } from '../../../pipes/duration-pipe/duration.pipe';
@@ -25,10 +23,8 @@ import { RecorderService } from './recorder.service';
   selector: 'app-recorder',
   templateUrl: './recorder.component.html',
   styleUrls: ['./recorder.component.scss'],
-  standalone: true,
   imports: [
     MediaSourceComponent,
-    DatePipe,
     HeaderComponent,
     MatProgressSpinnerModule,
     MatDialogModule,
@@ -39,7 +35,6 @@ import { RecorderService } from './recorder.service';
     FormsModule,
     ReactiveFormsModule,
     MatSelectModule,
-    LetDirective,
     DurationPipe,
     MatSlideToggleModule,
   ],

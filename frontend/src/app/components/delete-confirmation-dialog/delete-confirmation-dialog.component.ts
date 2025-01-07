@@ -26,19 +26,18 @@ import {
 } from './delete-confirmation.service';
 
 @Component({
-  selector: 'app-delete-confirmation-dialog',
-  standalone: true,
-  imports: [
-    MatDialogTitle,
-    MatDialogContent,
-    MatDialogActions,
-    MatButtonModule,
-    MatInputModule,
-    MatIconModule,
-    ReactiveFormsModule,
-  ],
-  templateUrl: './delete-confirmation-dialog.component.html',
-  styleUrl: './delete-confirmation-dialog.component.scss',
+    selector: 'app-delete-confirmation-dialog',
+    imports: [
+        MatDialogTitle,
+        MatDialogContent,
+        MatDialogActions,
+        MatButtonModule,
+        MatInputModule,
+        MatIconModule,
+        ReactiveFormsModule,
+    ],
+    templateUrl: './delete-confirmation-dialog.component.html',
+    styleUrl: './delete-confirmation-dialog.component.scss'
 })
 export class DeleteConfirmationDialogComponent {
   data = inject<DeleteConfirmData>(MAT_DIALOG_DATA);

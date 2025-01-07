@@ -54,23 +54,22 @@ interface FileGroup {
 }
 
 @Component({
-  selector: 'app-dialog-create-project',
-  standalone: true,
-  imports: [
-    MatDialogModule,
-    MatIconModule,
-    MatButtonModule,
-    ReactiveFormsModule,
-    MatInputModule,
-    MatTableModule,
-    MatSelectModule,
-    MatCheckboxModule,
-    PushPipe,
-    MediaCategoryPipe,
-    MatProgressBarModule,
-  ],
-  templateUrl: './dialog-create-project.component.html',
-  styleUrl: './dialog-create-project.component.scss',
+    selector: 'app-dialog-create-project',
+    imports: [
+        MatDialogModule,
+        MatIconModule,
+        MatButtonModule,
+        ReactiveFormsModule,
+        MatInputModule,
+        MatTableModule,
+        MatSelectModule,
+        MatCheckboxModule,
+        PushPipe,
+        MediaCategoryPipe,
+        MatProgressBarModule,
+    ],
+    templateUrl: './dialog-create-project.component.html',
+    styleUrl: './dialog-create-project.component.scss'
 })
 export class DialogCreateProjectComponent implements OnDestroy, AfterViewInit {
   @ViewChild(MatTable) table!: MatTable<any>;

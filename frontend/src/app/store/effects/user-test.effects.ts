@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { filter, tap, withLatestFrom } from 'rxjs';
-import { MediaService } from '../../routes/home/editor/services/media/media.service';
+import { MediaService } from '../../routes/home/editor/service/media/media.service';
 import { AppService } from '../../services/app/app.service';
 import { AppState } from '../app.state';
 import * as editorSelectors from '../selectors/editor.selector';

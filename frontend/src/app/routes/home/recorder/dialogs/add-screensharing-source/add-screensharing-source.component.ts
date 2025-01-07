@@ -17,20 +17,19 @@ import { ScreensharingSource } from '../../recorder.interfaces';
 import { RecorderService } from '../../recorder.service';
 
 @Component({
-  selector: 'app-add-screensharing-source',
-  templateUrl: './add-screensharing-source.component.html',
-  styleUrls: ['./add-screensharing-source.component.scss'],
-  standalone: true,
-  imports: [
-    AudioMeterComponent,
-    MatIconModule,
-    MatDialogModule,
-    MatButtonModule,
-    MatProgressSpinnerModule,
-    MatSelectModule,
-    FormsModule,
-    MatInputModule,
-  ],
+    selector: 'app-add-screensharing-source',
+    templateUrl: './add-screensharing-source.component.html',
+    styleUrls: ['./add-screensharing-source.component.scss'],
+    imports: [
+        AudioMeterComponent,
+        MatIconModule,
+        MatDialogModule,
+        MatButtonModule,
+        MatProgressSpinnerModule,
+        MatSelectModule,
+        FormsModule,
+        MatInputModule,
+    ]
 })
 export class AddScreensharingSourceComponent implements OnInit, OnDestroy {
   MediaCategory = MediaCategory;

@@ -8,7 +8,7 @@
 
   .controls {
     display: flex;
-    gap: 5px;
+    gap: 0.3125rem;
 
     .title-form-field {
       width: 60%;
@@ -22,5 +22,5 @@
 video {
   width: 100%;
   object-fit: cover;
-  border-radius: 10px;
+  border-radius: 0.625rem;
 }

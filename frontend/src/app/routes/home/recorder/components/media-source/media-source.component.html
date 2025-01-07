@@ -11,10 +11,13 @@
           }}"
           [matMenuTriggerFor]="mediaCategoryMenu"
           [disabled]="recorderService.recording"
-          >{{
-            videoSource?.mediaCategory || screensharingSource?.mediaCategory
-          }}</mat-chip
         >
+          @if ( videoSource?.mediaCategory) {
+          {{ videoSource!.mediaCategory | mediaCategory }}
+          } @if ( screensharingSource?.mediaCategory) {
+          {{ screensharingSource!.mediaCategory | mediaCategory }}
+          }
+        </mat-chip>
         }
         {{ videoSource?.label || audioSource?.label }}
       </div>

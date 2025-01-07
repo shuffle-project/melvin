@@ -1,30 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { MatDialogModule } from '@angular/material/dialog';
-import { RouterTestingModule } from '@angular/router/testing';
-import { LetModule, PushModule } from '@ngrx/component';
-import { provideMockStore } from '@ngrx/store/testing';
-import { DurationPipeModule } from '../../../pipes/duration-pipe/duration-pipe.module';
+
 import { EditorComponent } from './editor.component';
 
-describe('EditorComponent', () => {
+describe('FulltextEditorComponent', () => {
   let component: EditorComponent;
   let fixture: ComponentFixture<EditorComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-    imports: [
-        RouterTestingModule,
-        MatDialogModule,
-        DurationPipeModule,
-        LetModule,
-        PushModule,
-        EditorComponent,
-    ],
-    providers: [provideMockStore()],
-}).compileComponents();
-  });
+      imports: [EditorComponent],
+    }).compileComponents();
 
-  beforeEach(() => {
     fixture = TestBed.createComponent(EditorComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

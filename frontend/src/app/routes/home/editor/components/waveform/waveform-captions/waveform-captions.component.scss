@@ -5,7 +5,7 @@
 .captions {
   width: 100%;
   background: var(--color-white);
-  height: 30px;
+  height: 1.875rem;
   display: absolute;
 
   .waveform-caption {
@@ -15,15 +15,15 @@
     overflow: hidden;
     text-overflow: ellipsis;
     margin: 0 1px;
-    padding: 4px;
-    height: 30px;
-    line-height: 22px;
+    padding: 0.25rem;
+    height: 1.875rem;
+    line-height: 1.375rem;
     vertical-align: middle;
 
     &.selected,
     &.locked {
-      line-height: 20px;
-      padding-left: 3px;
+      line-height: 1.25rem;
+      padding-left: 0.125rem;
     }
   }
 }

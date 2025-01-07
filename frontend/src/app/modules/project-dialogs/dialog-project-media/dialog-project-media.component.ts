@@ -10,18 +10,17 @@ import { ProjectTranscriptionComponent } from '../components/project-transcripti
 import { UploadAdditionalContentComponent } from '../components/upload-additional-content/upload-additional-content.component';
 
 @Component({
-  selector: 'app-dialog-project-media',
-  standalone: true,
-  imports: [
-    MatDialogModule,
-    PushPipe,
-    MatIconModule,
-    MatButtonModule,
-    ProjectTranscriptionComponent,
-    UploadAdditionalContentComponent,
-  ],
-  templateUrl: './dialog-project-media.component.html',
-  styleUrl: './dialog-project-media.component.scss',
+    selector: 'app-dialog-project-media',
+    imports: [
+        MatDialogModule,
+        PushPipe,
+        MatIconModule,
+        MatButtonModule,
+        ProjectTranscriptionComponent,
+        UploadAdditionalContentComponent,
+    ],
+    templateUrl: './dialog-project-media.component.html',
+    styleUrl: './dialog-project-media.component.scss'
 })
 export class DialogProjectMediaComponent {
   project = inject<{ project: ProjectEntity }>(MAT_DIALOG_DATA).project;

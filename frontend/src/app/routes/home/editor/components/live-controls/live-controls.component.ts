@@ -14,11 +14,10 @@ import * as editorSelectors from '../../../../../store/selectors/editor.selector
 import { LivestreamService } from '../../../livestream/livestream.service';
 
 @Component({
-  selector: 'app-live-controls',
-  templateUrl: './live-controls.component.html',
-  styleUrls: ['./live-controls.component.scss'],
-  standalone: true,
-  imports: [MatButtonModule, MatMenuModule, MatIconModule],
+    selector: 'app-live-controls',
+    templateUrl: './live-controls.component.html',
+    styleUrls: ['./live-controls.component.scss'],
+    imports: [MatButtonModule, MatMenuModule, MatIconModule]
 })
 export class LiveControlsComponent implements OnInit, OnDestroy {
   private destroy$$ = new Subject<void>();

@@ -5,11 +5,10 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
 @Component({
-  selector: 'app-upload-files',
-  templateUrl: './upload-files.component.html',
-  styleUrls: ['./upload-files.component.scss'],
-  standalone: true,
-  imports: [MatIconModule, MatButtonModule, MatTooltipModule],
+    selector: 'app-upload-files',
+    templateUrl: './upload-files.component.html',
+    styleUrls: ['./upload-files.component.scss'],
+    imports: [MatIconModule, MatButtonModule, MatTooltipModule]
 })
 export class UploadFilesComponent implements ControlValueAccessor {
   @Input() acceptedFileFormats!: string[];

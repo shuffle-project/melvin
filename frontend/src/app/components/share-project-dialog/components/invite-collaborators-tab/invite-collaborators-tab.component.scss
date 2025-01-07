@@ -36,10 +36,11 @@
         .name-email {
           display: flex;
           flex-direction: column;
+          line-height: 100%;
           gap: 0.25rem;
 
           span:first-child {
-            font-weight: 500;
+            font-weight: 600;
           }
         }
       }
@@ -53,7 +54,7 @@
       align-items: center;
       gap: 1.25rem;
 
-      margin-top: 1.25rem;
+      margin-top: 1rem;
 
       .copy-button,
       .generate-button {

@@ -7,6 +7,7 @@ export const ICONS = [
   'alert',
   'arrow-down-simple',
   'arrow-down',
+  'arrow_dropdown',
   'arrow-up',
   'bell',
   'calendar-add',

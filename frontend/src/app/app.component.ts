@@ -9,21 +9,19 @@ import dayjs from 'dayjs';
 import { combineLatest, map, Observable, Subject, takeUntil, tap } from 'rxjs';
 import { ICONS } from './constants/icon.constants';
 import { AppService } from './services/app/app.service';
+import { StorageKey } from './services/storage/storage-key.enum';
 import * as authActions from './store/actions/auth.actions';
 import * as configActions from './store/actions/config.actions';
+import * as viewerActions from './store/actions/viewer.actions';
 import { AppState } from './store/app.state';
 import { ColorTheme } from './store/reducers/config.reducer';
 import * as authSelectors from './store/selectors/auth.selector';
 import * as configSelector from './store/selectors/config.selector';
-import { StorageKey } from './services/storage/storage-key.enum';
-import * as viewerActions from './store/actions/viewer.actions';
-import { TranscriptFontsize } from './routes/viewer/viewer.interfaces';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
-  standalone: true,
   imports: [RouterOutlet, MatProgressSpinnerModule, PushPipe],
 })
 export class AppComponent implements OnInit, OnDestroy {

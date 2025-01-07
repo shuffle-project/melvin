@@ -30,13 +30,11 @@ import { Store } from '@ngrx/store';
 import {
   Observable,
   Subject,
-  combineLatest,
   debounceTime,
   distinctUntilChanged,
   iif,
   lastValueFrom,
   map,
-  mergeMap,
   of,
   switchMap,
   takeUntil,
@@ -49,12 +47,13 @@ import { ProjectEntity } from 'src/app/services/api/entities/project.entity';
 import { UserEntity } from 'src/app/services/api/entities/user.entity';
 import { environment } from 'src/environments/environment';
 // import * as projectsActions from '../../../../store/actions/projects.actions';
+import { Router } from '@angular/router';
 import * as authSelectors from '../../../../store/selectors/auth.selector';
+import * as editorSelectors from '../../../../store/selectors/editor.selector';
 import * as projectSelectors from '../../../../store/selectors/projects.selector';
 
 @Component({
   selector: 'app-invite-collaborators-tab',
-  standalone: true,
   imports: [
     MatFormFieldModule,
     MatAutocompleteModule,
@@ -71,14 +70,12 @@ import * as projectSelectors from '../../../../store/selectors/projects.selector
   styleUrl: './invite-collaborators-tab.component.scss',
 })
 export class InviteCollaboratorsTabComponent implements OnInit, OnDestroy {
-  public isLoading!: boolean;
   public error!: string | null;
   public inviteToken!: string;
   private destroy$$ = new Subject<void>();
+
   authUser$!: Observable<AuthUser | null>;
-  project$!: Observable<ProjectEntity>;
   project!: ProjectEntity;
-  data$!: Observable<{ authUser: AuthUser | null; project: ProjectEntity }>;
 
   @Input({ required: true }) projectId!: string;
 
@@ -100,7 +97,8 @@ export class InviteCollaboratorsTabComponent implements OnInit, OnDestroy {
     private apiService: ApiService,
     private alertService: AlertService,
     private clipboard: Clipboard,
-    private store: Store
+    private store: Store,
+    private router: Router
   ) {
     this.authUser$ = this.store.select(authSelectors.selectUser);
   }
@@ -110,25 +108,27 @@ export class InviteCollaboratorsTabComponent implements OnInit, OnDestroy {
   }
 
   async ngOnInit(): Promise<void> {
-    this.project$ = this.store
-      .select(projectSelectors.selectAllProjects)
-      .pipe(
-        mergeMap((projects) =>
-          projects.filter((project) => project.id === this.projectId)
-        )
-      );
-
-    this.project$.pipe(takeUntil(this.destroy$$)).subscribe((project) => {
-      this.project = project;
-    });
-
-    this.data$ = combineLatest({
-      authUser: this.authUser$,
-      project: this.project$,
-    });
-
-    this.isLoading = true;
     this.error = null;
+
+    if (this.router.url.includes('/editor/')) {
+      this.store
+        .select(editorSelectors.selectProject)
+        .pipe(takeUntil(this.destroy$$))
+        .subscribe((project) => {
+          if (project === null) {
+            return;
+          }
+          this.project = project;
+        });
+    } else {
+      this.store
+        .select(projectSelectors.selectAllProjects)
+        .pipe(takeUntil(this.destroy$$))
+        .subscribe((projects) => {
+          const project = projects.find((p) => p.id === this.projectId)!;
+          this.project = project;
+        });
+    }
 
     try {
       this.inviteToken = await lastValueFrom(
@@ -138,8 +138,6 @@ export class InviteCollaboratorsTabComponent implements OnInit, OnDestroy {
       );
     } catch (err: unknown) {
       this.error = (err as HttpErrorResponse).message;
-    } finally {
-      this.isLoading = false;
     }
 
     this.userControl.valueChanges
@@ -222,13 +220,6 @@ export class InviteCollaboratorsTabComponent implements OnInit, OnDestroy {
   }
 
   async removeUserFromProject(user: UserEntity) {
-    // this.store.dispatch(
-    //   projectsActions.removeUserFromProject({
-    //     projectId: this.project.id,
-    //     userId: user.id,
-    //   })
-    // );
-
     try {
       await lastValueFrom(
         this.apiService.removeUserFromProject(this.projectId, user.id)

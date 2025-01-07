@@ -31,7 +31,6 @@ interface PasswordChangeForm {
   selector: 'app-profile',
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.scss'],
-  standalone: true,
   imports: [
     HeaderComponent,
     LetDirective,
@@ -71,7 +70,7 @@ export class ProfileComponent implements OnInit {
     this.dialog.open(DialogChangePasswordComponent, {
       disableClose: true,
       width: '100%',
-      maxWidth: '700px',
+      maxWidth: '50rem',
       maxHeight: '90vh',
     });
   }

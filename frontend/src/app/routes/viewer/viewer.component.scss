@@ -13,7 +13,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 14px;
+  padding: 0.875rem;
 }
 
 .login-error {
@@ -27,7 +27,7 @@
 
   .error-message {
     margin-bottom: 1rem;
-    max-width: 350px;
+    max-width: 21.875rem;
   }
 
   .error-buttons {
@@ -35,7 +35,6 @@
     gap: 1rem;
     justify-content: center;
     margin-top: 1rem;
-    // max-width: 300px;
   }
 }
 
@@ -45,15 +44,8 @@
 
 .content {
   box-sizing: border-box;
-  // display: flex;
-  // flex-direction: column;
-  // justify-content: stretch;
   width: 100%;
-  // padding: 5px;
-  // height: ;
-  // background-color: var(--color-background-grey);
-  height: 100%; // header is 60px
-  // max-height: calc(100vh - 60px);
+  height: 100%;
 
   &.fullscreen-active {
     height: 100%;
@@ -88,15 +80,16 @@
         z-index: 10;
         width: 100%;
         background: var(--color-white);
+        color: var(--color-text);
         top: 0;
 
         display: flex;
-        gap: 5px;
+        gap: 0.3125rem;
         justify-content: space-between;
 
         h1,
         app-logo {
-          margin: 15px;
+          margin: 1rem;
         }
       }
 
@@ -113,10 +106,10 @@
       position: relative;
 
       width: 30%;
-      min-width: 300px;
-      // max-width: 600px;
+      min-width: 18.75rem;
 
       max-height: 100%;
+      color: var(--color-text);
 
       &.left {
         border-right: 1px solid var(--color-border-grey);
@@ -131,31 +124,15 @@
 }
 
 ::ng-deep .box {
-  // margin: 5px;
-  padding: 7px;
+  padding: 0.5rem;
 
   background-color: var(--color-white);
   box-shadow: none;
-  // border: 1px solid var(--color-border-grey);
-  // border-radius: 5px;
 
   &:has(video) {
     padding: 0px;
   }
 }
-
-// .dark-mode-wrapper {
-//   display: flex;
-//   justify-content: center;
-//   align-items: center;
-//   border: 1px solid var(--color-border-grey);
-//   border-radius: 5px;
-//   height: 100%;
-
-//   mat-icon {
-//     padding: 0 6px;
-//   }
-// }
 
 @media (max-width: 45rem) {
   .content {

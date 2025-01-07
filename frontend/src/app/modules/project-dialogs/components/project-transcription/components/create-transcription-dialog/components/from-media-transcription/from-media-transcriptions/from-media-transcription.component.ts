@@ -38,22 +38,21 @@ import * as configSelectors from '../../../../../../../../../store/selectors/con
 import { CreateTranscriptionDialogComponent } from '../../../create-transcription-dialog.component';
 
 @Component({
-  selector: 'app-from-media-transcription',
-  standalone: true,
-  imports: [
-    CommonModule,
-    ReactiveFormsModule,
-    MatInputModule,
-    MatSelectModule,
-    WrittenOutLanguagePipe,
-    PushPipe,
-    MatIconModule,
-    MatButtonModule,
-    UploadFilesComponent,
-    MatProgressBarModule,
-  ],
-  templateUrl: './from-media-transcription.component.html',
-  styleUrl: './from-media-transcription.component.scss',
+    selector: 'app-from-media-transcription',
+    imports: [
+        CommonModule,
+        ReactiveFormsModule,
+        MatInputModule,
+        MatSelectModule,
+        WrittenOutLanguagePipe,
+        PushPipe,
+        MatIconModule,
+        MatButtonModule,
+        UploadFilesComponent,
+        MatProgressBarModule,
+    ],
+    templateUrl: './from-media-transcription.component.html',
+    styleUrl: './from-media-transcription.component.scss'
 })
 export class FromMediaTranscriptionComponent {
   private asrLanguages$ = this.store.select(

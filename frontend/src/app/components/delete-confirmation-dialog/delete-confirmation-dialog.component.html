@@ -1,20 +1,24 @@
-@switch (data.type) { @case ('delete') {
-<h1 mat-dialog-title i18n="@@deleteConfirmationDialogTitleDelete">
-  Delete {{ data.subject }}
-</h1>
-} @case ('leave') {
-<h1 mat-dialog-title i18n="@@deleteConfirmationDialogTitleLeave">
-  Leave {{ data.subject }}
-</h1>
-} @case ('deleteTranscription') {
-<h1 mat-dialog-title i18n="@@deleteConfirmationDialogTitleDeleteTranscription">
-  Delete {{ data.subject }}
-</h1>
-} @case ('deleteAccount') {
-<h1 mat-dialog-title i18n="@@deleteConfirmationDialogTitleDeleteAccount">
-  Delete {{ data.subject }}
-</h1>
-} }
+<div mat-dialog-title>
+  <div class="dialog-header">
+    @switch (data.type) { @case ('delete') {
+    <h1 i18n="@@deleteConfirmationDialogTitleDelete">
+      Delete {{ data.subject }}
+    </h1>
+    } @case ('leave') {
+    <h1 i18n="@@deleteConfirmationDialogTitleLeave">
+      Leave {{ data.subject }}
+    </h1>
+    } @case ('deleteTranscription') {
+    <h1 i18n="@@deleteConfirmationDialogTitleDeleteTranscription">
+      Delete {{ data.subject }}
+    </h1>
+    } @case ('deleteAccount') {
+    <h1 i18n="@@deleteConfirmationDialogTitleDeleteAccount">
+      Delete {{ data.subject }}
+    </h1>
+    } }
+  </div>
+</div>
 
 <mat-dialog-content>
   <div class="content">
@@ -73,7 +77,7 @@
     Abort
   </button>
   <button
-    mat-button
+    mat-flat-button
     (click)="onConfirm()"
     i18n="@@deleteConfirmationDialogConfirmButton"
     cdkFocusInitial

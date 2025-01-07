@@ -15,9 +15,7 @@
 
       <mat-card-actions>
         <div class="flex justify-center">
-          <button mat-flat-button color="primary" (click)="onClickAbort()">
-            Zurück
-          </button>
+          <button mat-flat-button (click)="onClickAbort()">Zurück</button>
         </div>
       </mat-card-actions>
     </ng-container>
@@ -40,10 +38,8 @@
         <!-- Authenticated User -->
         <mat-card-actions *ngIf="user">
           <div class="flex justify-between">
-            <button mat-button color="primary" (click)="onClickAbort()">
-              Abbrechen
-            </button>
-            <button mat-flat-button color="primary" (click)="onClickJoin()">
+            <button mat-button (click)="onClickAbort()">Abbrechen</button>
+            <button mat-flat-button (click)="onClickJoin()">
               Projekt beitreten
             </button>
           </div>
@@ -52,15 +48,11 @@
         <!-- Unauthenticated -->
         <mat-card-actions *ngIf="!user">
           <div class="flex justify-between">
-            <button mat-button color="primary" (click)="onClickAuth()">
+            <button mat-button (click)="onClickAuth()">
               Anmelden / Registrieren
             </button>
 
-            <button
-              mat-flat-button
-              color="primary"
-              (click)="onClickJoinAsGuest()"
-            >
+            <button mat-flat-button (click)="onClickJoinAsGuest()">
               Als Gast beitreten
             </button>
           </div>

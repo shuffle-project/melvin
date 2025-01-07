@@ -6,7 +6,6 @@ import { LandingFooterComponent } from './components/landing-footer/landing-foot
 import { LandingHeaderComponent } from './components/landing-header/landing-header.component';
 @Component({
   selector: 'app-landing',
-  standalone: true,
   imports: [
     LandingHeaderComponent,
     LandingFooterComponent,

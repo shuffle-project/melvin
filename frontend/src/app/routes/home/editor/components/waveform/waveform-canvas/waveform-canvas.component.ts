@@ -11,16 +11,14 @@ import {
 } from '@angular/core';
 import { filter, fromEvent, merge, Subject, takeUntil } from 'rxjs';
 import { environment } from '../../../../../../../environments/environment';
-import { MediaService } from '../../../services/media/media.service';
+import { MediaService } from '../../../service/media/media.service';
 import { WaveformCanvasSettings, WaveformService } from '../waveform.service';
 
-
 @Component({
-    selector: 'app-waveform-canvas',
-    templateUrl: './waveform-canvas.component.html',
-    styleUrls: ['./waveform-canvas.component.scss'],
-    standalone: true,
-    imports: [],
+  selector: 'app-waveform-canvas',
+  templateUrl: './waveform-canvas.component.html',
+  styleUrls: ['./waveform-canvas.component.scss'],
+  imports: [],
 })
 export class WaveformCanvasComponent
   implements OnInit, OnChanges, AfterViewInit, OnDestroy
@@ -99,7 +97,9 @@ export class WaveformCanvasComponent
     this.canvas.nativeElement.style.width = `${settings.styleWidth}px`;
     this.canvas.nativeElement.style.height = `${settings.styleHeight}px`;
 
-    this.ctx.scale(settings.scale, settings.scale);
+    if (this.ctx) {
+      this.ctx.scale(settings.scale, settings.scale);
+    }
   }
 
   drawCanvas(): void {

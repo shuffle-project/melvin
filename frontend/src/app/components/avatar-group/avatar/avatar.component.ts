@@ -9,11 +9,10 @@ export interface AvatarUser {
 }
 
 @Component({
-  selector: 'app-avatar',
-  templateUrl: './avatar.component.html',
-  styleUrls: ['./avatar.component.scss'],
-  standalone: true,
-  imports: [LogoComponent],
+    selector: 'app-avatar',
+    templateUrl: './avatar.component.html',
+    styleUrls: ['./avatar.component.scss'],
+    imports: [LogoComponent]
 })
 export class AvatarComponent implements OnChanges {
   @Input() user!: AvatarUser;

@@ -12,17 +12,16 @@ import * as editorSelectors from '../../../store/selectors/editor.selector';
 import { ProjectTranscriptionComponent } from '../components/project-transcription/project-transcription.component';
 
 @Component({
-  selector: 'app-dialog-project-transcription',
-  standalone: true,
-  imports: [
-    MatDialogModule,
-    PushPipe,
-    MatIconModule,
-    MatButtonModule,
-    ProjectTranscriptionComponent,
-  ],
-  templateUrl: './dialog-project-transcription.component.html',
-  styleUrl: './dialog-project-transcription.component.scss',
+    selector: 'app-dialog-project-transcription',
+    imports: [
+        MatDialogModule,
+        PushPipe,
+        MatIconModule,
+        MatButtonModule,
+        ProjectTranscriptionComponent,
+    ],
+    templateUrl: './dialog-project-transcription.component.html',
+    styleUrl: './dialog-project-transcription.component.scss'
 })
 export class DialogProjectTranscriptionComponent {
   public project$: Observable<ProjectEntity | null>;

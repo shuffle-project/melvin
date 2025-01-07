@@ -20,7 +20,7 @@ import { CaptionEntity } from '../../../../../../services/api/entities/caption.e
 import * as captionsActions from '../../../../../../store/actions/captions.actions';
 import { AppState } from '../../../../../../store/app.state';
 import * as captionsSelectors from '../../../../../../store/selectors/captions.selector';
-import { MediaService } from '../../../services/media/media.service';
+import { MediaService } from '../../../service/media/media.service';
 import { AppResizeEvent, ResizeDirective } from '../resize/resize.directive';
 import { WaveformService } from '../waveform.service';
 
@@ -38,7 +38,6 @@ export interface ViewCaption {
   selector: 'app-waveform-captions',
   templateUrl: './waveform-captions.component.html',
   styleUrls: ['./waveform-captions.component.scss'],
-  standalone: true,
   imports: [LetDirective, ResizeDirective],
 })
 export class WaveformCaptionsComponent implements OnInit, OnChanges, OnDestroy {
