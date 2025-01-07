@@ -357,7 +357,9 @@ export class AuthService {
   }
 
   async resetPassword(email: string, newPassword: string): Promise<void> {
-    const user = await this.db.userModel.findOne({ email }).exec();
+    const user = await this.db.userModel
+      .findOne({ email: email.toLowerCase() })
+      .exec();
 
     if (user === null) {
       throw new CustomInternalServerException('user_not_found');
