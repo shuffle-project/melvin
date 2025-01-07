@@ -840,7 +840,7 @@
       </trans-unit>
       <trans-unit id="uploadRecordingTitle" datatype="html">
         <source> Upload and Project creation</source>
-        <target state="new"> Upload und Projekterstellung: <x id="INTERPOLATION" equiv-text="{{ data.title }}"/> </target>
+        <target state="final"> Upload und Projekterstellung</target>
       </trans-unit>
       <trans-unit id="uploadRecordingLanguageLabel" datatype="html">
         <source>Language</source>
