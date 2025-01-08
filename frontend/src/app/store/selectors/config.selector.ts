@@ -42,21 +42,8 @@ export const getSupportedASRLanguages = createSelector(
     )[0]?.languages;
     const allLanguages = state.languages;
 
-    // console.log(
-    //   whisperLanguages.filter(
-    //     (wl) => !allLanguages.some((l) => l.code.startsWith(wl.code))
-    //   )
-    // );
-
     return allLanguages.filter((language) => {
       return whisperLanguages.some((l) => language.code.startsWith(l.code));
     });
   }
 );
-
-// getSupportedASRLanguages
-// ASR service von typ WHISPER suchen und languages mit den allgemeinen zusammenfiltern
-
-// iso 639 liste nehmen
-// {englishName, nativeName, code}
-// en-US und en-GB unterstützen / erweitern

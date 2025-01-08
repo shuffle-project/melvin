@@ -23,7 +23,7 @@ import { MatSelectChange, MatSelectModule } from '@angular/material/select';
 import { Router } from '@angular/router';
 import { PushPipe } from '@ngrx/component';
 import { Store } from '@ngrx/store';
-import { take } from 'rxjs';
+import { Subject, take, takeUntil } from 'rxjs';
 import { WrittenOutLanguagePipe } from 'src/app/pipes/written-out-language-pipe/written-out-language.pipe';
 import { ApiService } from '../../../../../services/api/api.service';
 import { AsrVendors } from '../../../../../services/api/dto/create-transcription.dto';
@@ -63,9 +63,9 @@ export class UploadRecordingComponent implements OnInit {
   asrServiceConfig$ = this.store.select(asrServiceConfig);
   asrSelection!: AsrServiceConfig;
 
-  whisperLanguages$ = this.store.select(
-    configSelectors.getSupportedASRLanguages
-  );
+  languages!: { code: string; name: string }[];
+  locale = $localize.locale;
+  destroy$$ = new Subject<void>();
 
   public formGroup: FormGroup = this.fb.group({
     language: this.fb.control('', Validators.required),
@@ -82,8 +82,23 @@ export class UploadRecordingComponent implements OnInit {
   ) {}
 
   async ngOnInit() {
-    // currently only whisper available, no need for selection field
-    // this.selectInitalInputs();
+    this.store
+      .select(configSelectors.getSupportedASRLanguages)
+      .pipe(takeUntil(this.destroy$$))
+      .subscribe((languages) => {
+        this.languages = languages
+          .map((language) => {
+            return {
+              code: language.code,
+              name: this.locale?.startsWith('en')
+                ? language.englishName
+                : language.germanName,
+            };
+          })
+          .sort((a, b) => {
+            return a.name.localeCompare(b.name);
+          });
+      });
 
     const timer = setInterval(() => {
       this.checkReady();
@@ -295,5 +310,9 @@ export class UploadRecordingComponent implements OnInit {
     ) {
       this.uploadingDone = true;
     }
+  }
+
+  ngOnDestroy() {
+    this.destroy$$.next();
   }
 }
