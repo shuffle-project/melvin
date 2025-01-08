@@ -140,6 +140,14 @@ export class ProjectService {
   ) {
     const status = ProjectStatus.WAITING;
 
+    if (
+      !createProjectDto.videoOptions.some(
+        (v) => v.category === MediaCategory.MAIN,
+      )
+    ) {
+      this._setDefaultMainCategory(createProjectDto);
+    }
+
     const mainVideo: Video = {
       _id: new Types.ObjectId(),
       category: MediaCategory.MAIN,
@@ -214,6 +222,40 @@ export class ProjectService {
     return entity;
   }
 
+  private _setDefaultMainCategory(createProjectDto: CreateProjectDto) {
+    if (createProjectDto.videoOptions.length === 1) {
+      // there is only 1 video, make it the main video
+      createProjectDto.videoOptions[0].category = MediaCategory.MAIN;
+    } else {
+      if (createProjectDto.videoOptions.filter((x) => x.useAudio).length) {
+        // there is only 1 useAudio video, make it the main video
+        createProjectDto.videoOptions.find((v) => v.useAudio).category =
+          MediaCategory.MAIN;
+      } else {
+        // if several useAudio videos -> take speaker->slides->other->signlanguage
+        let foundIndex: number;
+
+        foundIndex = createProjectDto.videoOptions.findIndex(
+          (v) => v.useAudio && v.category === MediaCategory.SPEAKER,
+        );
+        if (foundIndex < 0)
+          foundIndex = createProjectDto.videoOptions.findIndex(
+            (v) => v.useAudio && v.category === MediaCategory.SLIDES,
+          );
+        if (foundIndex < 0)
+          foundIndex = createProjectDto.videoOptions.findIndex(
+            (v) => v.useAudio && v.category === MediaCategory.OTHER,
+          );
+        if (foundIndex < 0)
+          foundIndex = createProjectDto.videoOptions.findIndex(
+            (v) => v.useAudio && v.category === MediaCategory.SIGN_LANGUAGE,
+          );
+
+        createProjectDto.videoOptions[foundIndex].category = MediaCategory.MAIN;
+      }
+    }
+  }
+
   async _handleFilesAndTranscriptions(
     authUser: AuthUser,
     project: Project,
@@ -263,11 +305,12 @@ export class ProjectService {
       });
     }
 
-    const mainVideoIndex = createProjectDto.videoOptions.findIndex(
+    let mainVideoIndex = createProjectDto.videoOptions.findIndex(
       (v) => v.category === MediaCategory.MAIN,
     );
 
     const mainMediaFile = videoFiles[mainVideoIndex];
+
     await this.projectQueue.add({
       project: project,
       authUser,

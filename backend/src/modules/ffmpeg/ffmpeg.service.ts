@@ -517,7 +517,8 @@ export class FfmpegService {
 
     const resolutions: Resolution[] = [];
 
-    [240, 360, 480, 720, 1080].forEach((targetHeight) => {
+    // [240, 360, 480, 720, 1080, 1440, 2160,4320]
+    [240, 360, 480, 720, 1080, 1440, 2160].forEach((targetHeight) => {
       if (height >= targetHeight) {
         resolutions.push({
           resolution: targetHeight + 'p',
