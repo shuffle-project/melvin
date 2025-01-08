@@ -16,7 +16,6 @@ import * as configSelector from '../../../../store/selectors/config.selector';
 import { LoginDialogComponent } from './components/login-dialog/login-dialog.component';
 @Component({
   selector: 'app-landing-header',
-  standalone: true,
   imports: [
     MatToolbarModule,
     LogoComponent,
@@ -47,7 +46,7 @@ export class LandingHeaderComponent {
   onOpenLoginDialog() {
     this.dialog.open(LoginDialogComponent, {
       width: '100%',
-      maxWidth: '700px',
+      maxWidth: '50rem',
       maxHeight: '90vh',
     });
   }

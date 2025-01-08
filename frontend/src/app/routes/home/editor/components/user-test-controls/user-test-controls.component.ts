@@ -19,12 +19,11 @@ import { LetDirective, PushPipe } from '@ngrx/component';
     selector: 'app-user-test-controls',
     templateUrl: './user-test-controls.component.html',
     styleUrls: ['./user-test-controls.component.scss'],
-    standalone: true,
     imports: [
-    LetDirective,
-    MatButtonModule,
-    PushPipe
-],
+        LetDirective,
+        MatButtonModule,
+        PushPipe
+    ]
 })
 export class UserTestControlsComponent implements OnInit {
   public show$ = this.store

@@ -10,7 +10,7 @@
     margin-top: 0.625rem;
     display: flex;
     width: 100%;
-    gap: 5px;
+    gap: 0.3125rem;
 
     .title-form-field {
       width: 60%;
@@ -22,11 +22,11 @@
 }
 
 .meter-wrapper {
-  margin-top: 10px;
+  margin-top: 0.625rem;
   width: 90%;
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 0.625rem;
   span {
     text-align: center;
   }
@@ -34,7 +34,7 @@
   .meter {
     flex-grow: 1;
     width: 80%;
-    height: 30px;
+    height: 1.875rem;
     display: flex;
   }
 }
@@ -42,5 +42,5 @@
 video {
   width: 100%;
   object-fit: cover;
-  border-radius: 10px;
+  border-radius: 0.625rem;
 }

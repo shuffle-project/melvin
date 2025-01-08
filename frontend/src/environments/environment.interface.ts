@@ -8,6 +8,7 @@ export interface EnabledFeatures {
   live: boolean;
   documentation: boolean;
   tutorial: boolean;
+  guide: boolean;
 
   // Editor
   timeNavigation: boolean;

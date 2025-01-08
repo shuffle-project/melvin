@@ -17,17 +17,16 @@ import * as editorSelector from '../../../../../store/selectors/editor.selector'
 import { LivestreamService } from '../../../livestream/livestream.service';
 
 @Component({
-  selector: 'app-join-livestream-modal',
-  templateUrl: './join-livestream-modal.component.html',
-  styleUrls: ['./join-livestream-modal.component.scss'],
-  standalone: true,
-  imports: [
-    MatDialogTitle,
-    MatDialogContent,
-    MatDialogActions,
-    MatButtonModule,
-    LetDirective,
-  ],
+    selector: 'app-join-livestream-modal',
+    templateUrl: './join-livestream-modal.component.html',
+    styleUrls: ['./join-livestream-modal.component.scss'],
+    imports: [
+        MatDialogTitle,
+        MatDialogContent,
+        MatDialogActions,
+        MatButtonModule,
+        LetDirective,
+    ]
 })
 export class JoinLivestreamModalComponent implements OnInit {
   constructor(

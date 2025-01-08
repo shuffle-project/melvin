@@ -31,22 +31,21 @@ import * as configSelectors from '../../../../../../../../../store/selectors/con
 import { CreateTranscriptionDialogComponent } from '../../../create-transcription-dialog.component';
 
 @Component({
-  selector: 'app-translate-transcription',
-  standalone: true,
-  imports: [
-    CommonModule,
-    MatFormFieldModule,
-    MatSelectModule,
-    ReactiveFormsModule,
-    MatInputModule,
-    LetDirective,
-    PushPipe,
-    WrittenOutLanguagePipe,
-    MatButtonModule,
-    MatIconModule,
-  ],
-  templateUrl: './translate-transcription.component.html',
-  styleUrl: './translate-transcription.component.scss',
+    selector: 'app-translate-transcription',
+    imports: [
+        CommonModule,
+        MatFormFieldModule,
+        MatSelectModule,
+        ReactiveFormsModule,
+        MatInputModule,
+        LetDirective,
+        PushPipe,
+        WrittenOutLanguagePipe,
+        MatButtonModule,
+        MatIconModule,
+    ],
+    templateUrl: './translate-transcription.component.html',
+    styleUrl: './translate-transcription.component.scss'
 })
 export class TranslateTranscriptionComponent {
   @Input() transcriptionList: TranscriptionEntity[] = [];

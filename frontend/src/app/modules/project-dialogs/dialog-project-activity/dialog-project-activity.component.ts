@@ -8,18 +8,17 @@ import { ProjectActivityComponent } from '../components/project-activity/project
 import { ProjectTranscriptionComponent } from '../components/project-transcription/project-transcription.component';
 
 @Component({
-  selector: 'app-dialog-project-activity',
-  standalone: true,
-  imports: [
-    MatDialogModule,
-    PushPipe,
-    MatIconModule,
-    MatButtonModule,
-    ProjectTranscriptionComponent,
-    ProjectActivityComponent,
-  ],
-  templateUrl: './dialog-project-activity.component.html',
-  styleUrl: './dialog-project-activity.component.scss',
+    selector: 'app-dialog-project-activity',
+    imports: [
+        MatDialogModule,
+        PushPipe,
+        MatIconModule,
+        MatButtonModule,
+        ProjectTranscriptionComponent,
+        ProjectActivityComponent,
+    ],
+    templateUrl: './dialog-project-activity.component.html',
+    styleUrl: './dialog-project-activity.component.scss'
 })
 export class DialogProjectActivityComponent {
   project = inject<{ project: ProjectEntity }>(MAT_DIALOG_DATA).project;

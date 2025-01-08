@@ -61,7 +61,6 @@
       <button
         (click)="onClickSubmit()"
         mat-flat-button
-        color="primary"
         i18n="@@uploadAdditionalMediaUploadButton"
       >
         <mat-icon svgIcon="upload" />
@@ -115,7 +114,7 @@
             Category
           </th>
           <td mat-cell *matCellDef="let element">
-            {{ element.category }}
+            {{ element.category | mediaCategory }}
           </td>
         </ng-container>
 

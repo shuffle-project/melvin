@@ -6,11 +6,10 @@ import {
 } from '../activity/activity.component';
 
 @Component({
-  selector: 'app-notification',
-  templateUrl: './notification.component.html',
-  styleUrls: ['./notification.component.scss'],
-  standalone: true,
-  imports: [ActivityComponent],
+    selector: 'app-notification',
+    templateUrl: './notification.component.html',
+    styleUrls: ['./notification.component.scss'],
+    imports: [ActivityComponent]
 })
 export class NotificationComponent {
   @Input() notification!: NotificationEntity;

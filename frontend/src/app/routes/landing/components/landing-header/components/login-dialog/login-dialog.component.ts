@@ -28,7 +28,6 @@ import { ResetPasswordDialogComponent } from '../reset-password-dialog/reset-pas
 
 @Component({
   selector: 'app-login-dialog',
-  standalone: true,
   imports: [
     MatDialogModule,
     MatButtonModule,
@@ -96,7 +95,7 @@ export class LoginDialogComponent implements OnInit, OnDestroy {
     this.dialogRefLoginDialog.close();
     this.dialog.open(RegisterDialogComponent, {
       width: '100%',
-      maxWidth: '700px',
+      maxWidth: '50rem',
       maxHeight: '90vh',
     });
   }
@@ -105,7 +104,7 @@ export class LoginDialogComponent implements OnInit, OnDestroy {
     this.dialogRefLoginDialog.close();
     this.dialog.open(ResetPasswordDialogComponent, {
       width: '100%',
-      maxWidth: '700px',
+      maxWidth: '50rem',
       maxHeight: '90vh',
     });
   }

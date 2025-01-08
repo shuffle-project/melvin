@@ -19,11 +19,10 @@ form {
 
   background-color: rgba(var(--color-light-grey-rgb), 0.35);
   outline: 2px dashed var(--color-primary);
-  // outline-offset: 0.125rem;
   border-radius: 0.5rem;
 
   width: 100%;
-  max-width: calc(100% - 4px);
+  max-width: calc(100% - 0.25rem);
   height: 100%;
 
   display: flex;

@@ -5,11 +5,10 @@ import { CustomLogger } from '../../classes/logger.class';
 import { WSService } from '../../services/ws/ws.service';
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss'],
-  standalone: true,
-  imports: [RouterOutlet],
+    selector: 'app-home',
+    templateUrl: './home.component.html',
+    styleUrls: ['./home.component.scss'],
+    imports: [RouterOutlet]
 })
 export class HomeComponent implements OnInit, OnDestroy {
   private logger = new CustomLogger('HOME COMPONENT');

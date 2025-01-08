@@ -1,0 +1,12 @@
+.add-speaker-wrapper {
+  margin-inline: 1rem;
+}
+
+.add-speaker-mode-wrapper {
+  display: flex;
+  flex-direction: column;
+
+  .speaker-form-field {
+    margin-bottom: 0.25rem;
+  }
+}

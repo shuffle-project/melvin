@@ -26,6 +26,7 @@ import {
   tap,
   throttleTime,
 } from 'rxjs';
+import { selectQueryParams } from 'src/app/store/selectors/router.selectors';
 import { UserScrollDirective } from '../../../../directives/userScroll/user-scroll.directive';
 import { TiptapCaption } from '../../../../services/api/entities/caption.entity';
 import { SpeakerEntity } from '../../../../services/api/entities/transcription.entity';
@@ -33,13 +34,11 @@ import { AppState } from '../../../../store/app.state';
 import * as viewerSelector from '../../../../store/selectors/viewer.selector';
 import { ViewerService } from '../../services/viewer.service';
 import { generateTranscript } from './transcript.utils';
-import { selectQueryParams } from 'src/app/store/selectors/router.selectors';
 
 @Component({
   selector: 'app-transcript',
   templateUrl: './transcript.component.html',
   styleUrls: ['./transcript.component.scss'],
-  standalone: true,
   imports: [
     MatFormFieldModule,
     MatInputModule,
@@ -246,6 +245,14 @@ export class TranscriptComponent implements OnDestroy, OnInit {
 
   onJumpInVideo(caption: TiptapCaption) {
     this.viewerService.onJumpInAudio(caption.start + 1);
+  }
+
+  onKeyboardJumpInVideo(event: KeyboardEvent, caption: TiptapCaption) {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      event.stopPropagation();
+      this.viewerService.onJumpInAudio(caption.start + 1);
+    }
   }
 
   trackById(index: number, caption: { id: string; speakerId: string }) {

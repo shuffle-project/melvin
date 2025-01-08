@@ -1,6 +1,6 @@
 .container {
-  width: 36px;
-  height: 36px;
+  width: 2.25rem;
+  height: 2.25rem;
   border-radius: 50%;
   position: relative;
 }
@@ -24,10 +24,10 @@
 .letter {
   display: block;
   font-weight: bold;
-  font-size: 16px;
+  font-size: 1rem;
 
   &.editor-view {
-    font-size: 20px;
+    font-size: 1.25rem;
     color: var(--color-white);
   }
 }

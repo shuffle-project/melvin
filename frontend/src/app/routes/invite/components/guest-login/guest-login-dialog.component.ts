@@ -10,16 +10,15 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     selector: 'app-guest-login-dialog',
     templateUrl: './guest-login-dialog.component.html',
     styleUrls: ['./guest-login-dialog.component.scss'],
-    standalone: true,
     imports: [
-    MatDialogTitle,
-    MatDialogContent,
-    ReactiveFormsModule,
-    MatFormFieldModule,
-    MatIconModule,
-    MatInputModule,
-    MatButtonModule
-],
+        MatDialogTitle,
+        MatDialogContent,
+        ReactiveFormsModule,
+        MatFormFieldModule,
+        MatIconModule,
+        MatInputModule,
+        MatButtonModule
+    ]
 })
 export class GuestLoginDialogComponent implements OnInit {
   public formGroup!: FormGroup;

@@ -17,7 +17,7 @@
 <mat-dialog-content class="dialog-content">
   <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
     <mat-form-field appearance="outline">
-      <mat-icon svgIcon="email" matPrefix />
+      <!-- <mat-icon svgIcon="email" matPrefix /> -->
       <mat-label i18n="@@loginDialogEmailLabel">Email</mat-label>
       <input
         formControlName="email"
@@ -40,10 +40,8 @@
     </mat-form-field>
 
     <mat-form-field appearance="outline">
-      <mat-icon svgIcon="lock" matPrefix></mat-icon>
-      <mat-label i18n-placeholder="@@loginDialogPasswordLabel"
-        >Password</mat-label
-      >
+      <!-- <mat-icon svgIcon="lock" matPrefix></mat-icon> -->
+      <mat-label i18n="@@loginDialogPasswordLabel"> Password </mat-label>
       <input
         formControlName="password"
         matInput
@@ -70,11 +68,10 @@
       type="submit"
       [disabled]="loading$ | ngrxPush"
       class="login-button"
-      color="primary"
     >
       <div class="flex items-center" i18n="@@loginDialogLoginButtonLabel">
         @if (loading$ | ngrxPush) {
-        <mat-spinner strokeWidth="2" diameter="20" color="primary" />
+        <mat-spinner strokeWidth="2" diameter="20" />
         } Login
       </div>
     </button>
@@ -101,7 +98,6 @@
     <p i18n="@@loginDialogRegisterIntroText">No account yet?</p>
     <button
       mat-stroked-button
-      color="primary"
       (click)="onOpenRegisterDialog()"
       i18n="@@loginDialogRegisterButton"
     >

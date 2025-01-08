@@ -27,7 +27,6 @@ import { LoginDialogComponent } from '../login-dialog/login-dialog.component';
 
 @Component({
   selector: 'app-register-dialog',
-  standalone: true,
   imports: [
     MatDialogModule,
     MatIconModule,
@@ -113,7 +112,7 @@ export class RegisterDialogComponent implements OnInit, OnDestroy {
     this.dialogRefRegisterDialog.close();
     this.dialog.open(LoginDialogComponent, {
       width: '100%',
-      maxWidth: '700px',
+      maxWidth: '50rem',
       maxHeight: '90vh',
     });
   }

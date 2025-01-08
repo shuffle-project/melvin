@@ -1,8 +1,15 @@
+.profile-user-dm-color {
+  h2,
+  p {
+    color: var(--color-black);
+  }
+}
+
 body.dark-theme {
   .profile-user-dm-color {
     h2,
     p {
-      color: var(--color-white) !important;
+      color: var(--color-white);
     }
   }
 }

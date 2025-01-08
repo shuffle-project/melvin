@@ -7,20 +7,20 @@
 
   app-avatar {
     &:nth-child(2) {
-      transform: translateX(-10px);
+      transform: translateX(-0.625rem);
     }
 
     &:nth-child(3) {
-      transform: translateX(-20px);
+      transform: translateX(-1.25rem);
     }
   }
 
   .more-badge {
     position: absolute;
-    top: 4px;
+    top: 0.25rem;
     right: 0;
-    height: 24px;
-    width: 24px;
+    height: 1.5rem;
+    width: 1.5rem;
     border-radius: 50%;
     color: var(--color-black);
     background-color: var(--color-light-grey);
@@ -36,9 +36,10 @@
 .list-user {
   display: flex;
   align-items: center;
-  padding: 5px 10px;
+  padding: 0.375rem 0.625rem;
+  color: var(--color-text);
 
   app-avatar {
-    margin-right: 5px;
+    margin-right: 0.375rem;
   }
 }

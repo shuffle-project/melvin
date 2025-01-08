@@ -34,7 +34,6 @@ import { LanguageService } from 'src/app/services/language/language.service';
   selector: 'app-edit-transcription-dialog',
   templateUrl: './edit-transcription-dialog.component.html',
   styleUrls: ['./edit-transcription-dialog.component.scss'],
-  standalone: true,
   imports: [
     MatDialogModule,
     ReactiveFormsModule,
@@ -108,7 +107,7 @@ export class EditTranscriptionDialogComponent implements OnInit {
     this.dialog.open(DialogProjectTranscriptionComponent, {
       data: { projectId: this.project.id },
       width: '100%',
-      maxWidth: '800px',
+      maxWidth: '50rem',
       maxHeight: '90vh',
     });
   }

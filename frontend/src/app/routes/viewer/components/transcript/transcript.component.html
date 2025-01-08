@@ -107,8 +107,14 @@
               }} {{ debugMode ? 'debug' : '' }}
                 "
               (click)="onJumpInVideo(item)"
+              (keypress)="onKeyboardJumpInVideo($event, item)"
               [innerHTML]="item.text"
+              role="button"
+              [tabindex]="0"
             >
+              <!-- searchFoundInCaptionIds in map umwandeln, dann könnte man einfach 
+            mit searchFoundInCaptionIds.has(item.id) prüfen
+            -->
               <!-- [title]="item.start + ' ' + item.end" --> </span
             >&nbsp; }
           </div>

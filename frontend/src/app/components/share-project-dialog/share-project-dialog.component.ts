@@ -23,7 +23,6 @@ interface DialogData {
     SharePlayerTabComponent,
     MatButtonModule,
   ],
-  standalone: true,
 })
 export class ShareProjectDialogComponent {
   public project = inject<DialogData>(MAT_DIALOG_DATA).project;

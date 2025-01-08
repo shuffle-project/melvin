@@ -5,35 +5,6 @@
         <app-logo class="clickable logo" [routerLink]="['/home/projects']" />
         <ng-content />
         <div class="header-buttons {{ !viewer ? 'margin-left' : '' }}">
-          @if (('notifications' | featureEnabled) && !viewer) {
-          <!-- TODO removed to make the ui cleaner -->
-          <!-- <button
-            mat-stroked-button
-            class="show-notifications-button"
-            [mat-menu-trigger-for]="notificationMenu"
-            [matBadge]="totalUnreadNotifications"
-            [matBadgeHidden]="totalUnreadNotifications === 0"
-            matBadgeColor="accent"
-          >
-            <mat-icon svgIcon="bell" />
-          </button> -->
-          }
-          <!-- <div class="dark-mode-wrapper" *ngrxLet="colorTheme$ as colorTheme">
-            <mat-icon svgIcon="light_mode"></mat-icon>
-            <mat-slide-toggle
-              aria-label="Activate darkmode"
-              i18n-aria-label="@@headerToggleActivateDarkmode"
-              [checked]="colorTheme === 'dark'"
-              (toggleChange)="
-                onChangeColorTheme(
-                  colorTheme === colorThemeENUM.DARK
-                    ? colorThemeENUM.LIGHT
-                    : colorThemeENUM.DARK
-                )
-              "
-            ></mat-slide-toggle>
-            <mat-icon svgIcon="dark_mode"></mat-icon>
-          </div> -->
           <button
             mat-icon-button
             aria-label="Open darkmode menu"
@@ -124,7 +95,6 @@
             <a
               [matBadge]="totalUnreadNotifications"
               [matBadgeHidden]="totalUnreadNotifications === 0"
-              matBadgeColor="accent"
               matBadgeOverlap="false"
               class="all-notifications-link"
               routerLink="/home/notifications"

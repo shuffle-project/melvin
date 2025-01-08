@@ -1,11 +1,11 @@
 .hint {
   color: var(--color-black);
-  margin-bottom: 30px;
+  margin-bottom: 1.875rem;
 }
 
 .input-wrapper {
   width: 100%;
-  margin: 15px 0px;
+  margin-block: 1rem;
 
   mat-form-field {
     margin-bottom: -1.25em !important;

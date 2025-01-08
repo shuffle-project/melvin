@@ -3,7 +3,7 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { catchError, map, mergeMap, of, tap, withLatestFrom } from 'rxjs';
 import { ApiService } from 'src/app/services/api/api.service';
-import { MediaService } from '../../routes/home/editor/services/media/media.service';
+import { MediaService } from '../../routes/home/editor/service/media/media.service';
 import { AlertService } from '../../services/alert/alert.service';
 import { CaptionListEntity } from '../../services/api/entities/caption-list.entity';
 import { CaptionEntity } from '../../services/api/entities/caption.entity';

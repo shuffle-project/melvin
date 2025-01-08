@@ -1,10 +1,10 @@
 import { enableProdMode, importProvidersFrom } from '@angular/core';
-import * as dayjs from 'dayjs';
+import dayjs from 'dayjs';
 import 'dayjs/locale/de';
 import 'dayjs/locale/en';
-import * as calendar from 'dayjs/plugin/calendar';
-import * as duration from 'dayjs/plugin/duration';
-import * as relativeTime from 'dayjs/plugin/relativeTime';
+import calendar from 'dayjs/plugin/calendar';
+import duration from 'dayjs/plugin/duration';
+import relativeTime from 'dayjs/plugin/relativeTime';
 
 import {
   provideHttpClient,

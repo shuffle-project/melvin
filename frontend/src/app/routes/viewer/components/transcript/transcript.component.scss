@@ -11,6 +11,10 @@
 }
 
 .heading-wrapper {
+  h2 {
+    margin-top: 0;
+  }
+
   .auto-scroll {
     display: none;
   }
@@ -103,12 +107,11 @@ h2,
     &.current-caption {
       color: var(--color-white);
       background-color: var(--color-black);
-      outline: 1.5px solid var(--color-black);
+      outline: 2px solid var(--color-black);
     }
 
     &.debug {
-      border-left: 5px solid black;
-      // border-right: 5px solid black;
+      border-left: 5px solid var(--color-black);
     }
   }
 }

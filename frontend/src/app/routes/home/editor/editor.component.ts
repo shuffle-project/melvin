@@ -4,7 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { Store } from '@ngrx/store';
 import {
   Subject,
@@ -19,6 +19,7 @@ import {
 import { AppState } from 'src/app/store/app.state';
 import { AvatarGroupComponent } from '../../../components/avatar-group/avatar-group.component';
 import { ShareProjectDialogComponent } from '../../../components/share-project-dialog/share-project-dialog.component';
+
 import { DurationPipe } from '../../../pipes/duration-pipe/duration.pipe';
 import { FeatureEnabledPipe } from '../../../pipes/feature-enabled-pipe/feature-enabled.pipe';
 import { ApiService } from '../../../services/api/api.service';
@@ -35,30 +36,32 @@ import * as authSelectors from '../../../store/selectors/auth.selector';
 import * as editorSelectors from '../../../store/selectors/editor.selector';
 import * as transcriptionsSelectors from '../../../store/selectors/transcriptions.selector';
 import { LivestreamService } from '../livestream/livestream.service';
-import { CaptionsComponent } from './components/captions/captions.component';
-import { EditorSettingsComponent } from './components/editor-settings/editor-settings.component';
-import { JoinLivestreamModalComponent } from './components/join-livestream-modal/join-livestream-modal.component';
-import { LiveControlsComponent } from './components/live-controls/live-controls.component';
-import { UserTestControlsComponent } from './components/user-test-controls/user-test-controls.component';
-import { VideoPlayerComponent } from './components/video-player/video-player.component';
-import { WaveformComponent } from './components/waveform/waveform.component';
-import { DialogHelpEditorComponent } from './dialog-help-editor/dialog-help-editor.component';
-import { MediaService } from './services/media/media.service';
 
 import { HttpClient } from '@angular/common/http';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { LetDirective, PushPipe } from '@ngrx/component';
+import { DeleteConfirmationService } from 'src/app/components/delete-confirmation-dialog/delete-confirmation.service';
 import { DialogProjectTranscriptionComponent } from 'src/app/modules/project-dialogs/dialog-project-transcription/dialog-project-transcription.component';
-import { HeaderComponent } from '../../../components/header/header.component';
+import { MediaCategoryPipe } from 'src/app/pipes/media-category-pipe/media-category.pipe';
+import { WrittenOutLanguagePipe } from 'src/app/pipes/written-out-language-pipe/written-out-language.pipe';
 import { SubtitleFormat } from 'src/app/services/api/entities/transcription.entity';
+import { HeaderComponent } from '../../../components/header/header.component';
+import { DialogHelpEditorComponent } from './components/dialog-help-editor/dialog-help-editor.component';
+import { EditorSettingsComponent } from './components/editor-settings/editor-settings.component';
+import { JoinLivestreamModalComponent } from './components/join-livestream-modal/join-livestream-modal.component';
+import { LiveControlsComponent } from './components/live-controls/live-controls.component';
+import { TiptapEditorComponent } from './components/tiptap-editor/tiptap-editor.component';
+import { UserTestControlsComponent } from './components/user-test-controls/user-test-controls.component';
+import { VideoPlayerComponent } from './components/video-player/video-player.component';
+import { WaveformComponent } from './components/waveform/waveform.component';
+import { MediaService } from './service/media/media.service';
 
 @Component({
   selector: 'app-editor',
   templateUrl: './editor.component.html',
   styleUrls: ['./editor.component.scss'],
-  standalone: true,
   imports: [
     HeaderComponent,
     LetDirective,
@@ -77,10 +80,12 @@ import { SubtitleFormat } from 'src/app/services/api/entities/transcription.enti
     VideoPlayerComponent,
     EditorSettingsComponent,
     UserTestControlsComponent,
-    CaptionsComponent,
     PushPipe,
     DurationPipe,
     FeatureEnabledPipe,
+    TiptapEditorComponent,
+    WrittenOutLanguagePipe,
+    MediaCategoryPipe,
   ],
 })
 export class EditorComponent implements OnInit, OnDestroy {
@@ -88,7 +93,8 @@ export class EditorComponent implements OnInit, OnDestroy {
 
   showWaveform = true;
 
-  public editorUsers$ = this.store.select(editorSelectors.selectActiveUsers);
+  public editorUsers$ = this.store.select(editorSelectors.selectEditorUsers);
+  public activeUsers$ = this.store.select(editorSelectors.selectActiveUsers);
 
   private modalOpened = false;
   public project$ = this.store.select(editorSelectors.selectProject).pipe(
@@ -148,12 +154,22 @@ export class EditorComponent implements OnInit, OnDestroy {
     private mediaService: MediaService,
     private appService: AppService,
     public livestreamService: LivestreamService,
-    public http: HttpClient
-  ) {
-    this.projectId = this.route.snapshot.params['id'];
-  }
+    public http: HttpClient,
+    private deleteService: DeleteConfirmationService,
+    private router: Router
+  ) {}
 
   async ngOnInit() {
+    this.projectId = this.route.snapshot.params['id'];
+    this.transcriptionId = this.route.snapshot.queryParams['transcriptionId'];
+
+    if (this.transcriptionId)
+      this.store.dispatch(
+        transcriptionsActions.changeTranscriptionId({
+          transcriptionId: this.transcriptionId,
+        })
+      );
+
     this.store.dispatch(
       editorActions.findProjectFromEditor({ projectId: this.projectId })
     );
@@ -190,6 +206,7 @@ export class EditorComponent implements OnInit, OnDestroy {
   }
 
   onSelectTranscription(transcriptionId: string) {
+    this.router.navigate([], { queryParams: { transcriptionId } });
     this.store.dispatch(
       transcriptionsActions.selectFromEditor({ transcriptionId })
     );
@@ -241,20 +258,21 @@ export class EditorComponent implements OnInit, OnDestroy {
         project,
       },
       width: '100%',
-      maxWidth: '800px',
+      maxWidth: '50rem',
       maxHeight: '90vh',
     });
   }
 
   onDownloadVideo(video: VideoEntity) {
     // TODO refactor, nur provisorisch
+    // use filesaver package
     this.http
       .get(video.resolutions[0].url, { responseType: 'blob' })
       .subscribe((response) => {
         const urlCreator = window.URL || window.webkitURL;
-        const imageUrl = urlCreator.createObjectURL(response);
+        const fileUrl = urlCreator.createObjectURL(response);
         const tag = document.createElement('a');
-        tag.href = imageUrl;
+        tag.href = fileUrl;
         tag.target = '_blank';
         tag.download = video.title + '.' + video.extension;
         document.body.appendChild(tag);
@@ -263,19 +281,22 @@ export class EditorComponent implements OnInit, OnDestroy {
       });
   }
 
-  async onDownloadSubtitles(format: 'srt' | 'vtt' | 'txt') {
-    const format2 =
-      format === 'txt'
-        ? SubtitleFormat.TXT
-        : format === 'srt'
-        ? SubtitleFormat.SRT
-        : SubtitleFormat.VTT;
+  async onDownloadTxt() {
+    this.onDownloadSubtitles(SubtitleFormat.TXT);
+  }
+  async onDownloadVtt() {
+    this.onDownloadSubtitles(SubtitleFormat.VTT);
+  }
+  async onDownloadSrt() {
+    this.onDownloadSubtitles(SubtitleFormat.SRT);
+  }
 
+  async onDownloadSubtitles(format: SubtitleFormat) {
     const transcriptionId = await firstValueFrom(this.selectedTranscriptionId$);
     this.store.dispatch(
       transcriptionsActions.downloadSubtitles({
         transcriptionId,
-        format: format2,
+        format,
       })
     );
   }
@@ -291,9 +312,18 @@ export class EditorComponent implements OnInit, OnDestroy {
     this.dialog.open(DialogProjectTranscriptionComponent, {
       data: { projectId: this.projectId },
       width: '100%',
-      maxWidth: '800px',
+      maxWidth: '50rem',
       maxHeight: '90vh',
     });
+  }
+
+  async onDeleteProject() {
+    const project = await firstValueFrom(this.project$);
+    const isConfirmed = await this.deleteService.deleteProject(project!);
+
+    if (isConfirmed) {
+      this.router.navigate(['/home/projects']);
+    }
   }
 
   onOpenJoinLivestreamModal(livestreamStarted: boolean) {

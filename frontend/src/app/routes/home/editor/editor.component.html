@@ -12,8 +12,8 @@
       <button
         mat-icon-button
         [routerLink]="['/home/projects']"
-        class="sm"
-        style="margin-left: 20px"
+        class="sm editor-back-button"
+        style="margin-left: 1.25rem"
         i18n-matTooltip="@@editorBackToProjectsList"
         i18n-matTooltip="@@editorBackToProjectsList"
         matTooltip="Back to all projects"
@@ -29,6 +29,7 @@
         mat-button
         [matMenuTriggerFor]="menu"
         i18n="@@editorMenuFileLabel"
+        class="editor-action-button"
       >
         File
       </button>
@@ -45,8 +46,12 @@
         </button>
         } @if (isOwner$ | ngrxPush) {
         <mat-divider></mat-divider>
-        <button mat-menu-item i18n="@@editorMenuFileDeleteLabel">
-          <mat-icon svgIcon="delete"></mat-icon>
+        <button
+          (click)="onDeleteProject()"
+          mat-menu-item
+          i18n="@@editorMenuFileDeleteLabel"
+        >
+          <mat-icon svgIcon="delete" />
           Delete
         </button>
         }
@@ -56,25 +61,21 @@
           @if (projectMedia) { @for (video of projectMedia.videos; track $index)
           {
           <button mat-menu-item (click)="onDownloadVideo(video)">
-            {{ video.title }} (.{{ video.extension }})
+            {{ video.category | mediaCategory }}
+            @if (video.title) { [{{ video.title }}] } (.{{ video.extension }})
           </button>
           } }
         </ng-container>
 
-        <button mat-menu-item (click)="onDownloadTranscript()">
+        <button mat-menu-item (click)="onDownloadTxt()">
           Transcript (.txt)
         </button>
-
-        <button mat-menu-item (click)="onDownloadSubtitles('srt')">
-          SubRip (.srt)
-        </button>
-        <button mat-menu-item (click)="onDownloadSubtitles('vtt')">
-          WebVTT (.vtt)
-        </button>
+        <button mat-menu-item (click)="onDownloadSrt()">SubRip (.srt)</button>
+        <button mat-menu-item (click)="onDownloadVtt()">WebVTT (.vtt)</button>
         <!-- <mat-divider></mat-divider> -->
         <!-- <button mat-menu-item i18n="@@editorMenuFileDownloadConfigureLabel">
-          Configure ...
-        </button> -->
+            Configure ...
+          </button> -->
       </mat-menu>
       <!-- Transcription Menu -->
       @if ('transcriptionsMenu' | featureEnabled) {
@@ -82,6 +83,7 @@
         mat-button
         [matMenuTriggerFor]="transcription"
         i18n="@@editorMenuTranscriptionLabel"
+        class="editor-action-button"
       >
         Transcription
       </button>
@@ -100,7 +102,12 @@
                 "
                 svgIcon="done"
               ></mat-icon>
-              <span>{{ transcription.title }}</span>
+              <span>
+                {{
+                  transcription.language
+                    | writtenOutLanguage : transcription.title
+                }}
+              </span>
               <span class="transcription-lang-code">
                 ({{ transcription.language }})</span
               >
@@ -113,9 +120,9 @@
         @if ('editTranscriptions' | featureEnabled) {
         <div class="transcription-button-wrapper">
           <button
-            (click)="onClickTranscriptionEdit()"
             mat-menu-item
             i18n="@@editorMenuTranscriptionEditLabel"
+            (click)="onClickTranscriptionEdit()"
           >
             <mat-icon svgIcon="edit"></mat-icon>
             Edit Transcriptions
@@ -127,19 +134,19 @@
       @if ('helpMenu' | featureEnabled) {
       <!-- TODO removed to make the ui cleaner -->
       <!-- <button mat-button (click)="onOpenHelpDialog()" i18n="@@editorMenuHelp">
-        Help
-      </button> -->
+          Help
+        </button> -->
       }
     </div>
   </div>
   <div class="flex-1"></div>
-  <ng-container *ngrxLet="editorUsers$ as editorUsers">
-    @if (editorUsers.length > 0) {
+  <ng-container *ngrxLet="activeUsers$ as activeUsers">
+    @if (activeUsers.length > 0) {
     <app-avatar-group
-      [users]="editorUsers"
+      [users]="activeUsers"
       [editorView]="true"
     ></app-avatar-group>
-    } @if (editorUsers.length === 0) {
+    } @if (activeUsers.length === 0) {
     <div class="sktn-avatar-wrapper">
       <div class="sktn-avatar"></div>
     </div>
@@ -148,7 +155,6 @@
   @if ('projectShare' | featureEnabled) {
   <button
     mat-flat-button
-    color="primary"
     style="margin: 0 0.75rem"
     class="compact"
     (click)="onClickShare()"
@@ -163,7 +169,7 @@
   @if ('editorActions' | featureEnabled) {
   <div class="sticky">
     @if (showWaveform) {
-    <div class="flex">
+    <div class="flex waveform-wrapper">
       @if ('showWaveform' | featureEnabled) {
       <app-waveform [zoomActivated]="showZoomedWave"></app-waveform>
       } @if (isLiveMode$ | ngrxPush) {
@@ -200,6 +206,7 @@
         @if ('quickForwardRewind' | featureEnabled) {
         <button
           mat-icon-button
+          class="big-icon-mat-button"
           (click)="onSkipBackward()"
           [disabled]="!isReady"
           i18n-matTooltip="@@editorRewind5SecondsButtonLabel"
@@ -212,9 +219,8 @@
         } @if ('playPause' | featureEnabled) {
         <button
           mat-icon-button
+          class="big-icon-mat-button"
           (click)="onTogglePlayPause()"
-          class="lg"
-          color="primary"
           i18n-matTooltip="@@editorPlayOrPauseButtonLabel"
           matTooltip="Play or pause"
           i18n-aria-label="@@editorPlayOrPauseButtonLabel"
@@ -229,6 +235,7 @@
         <button
           mat-icon-button
           (click)="onSkipForward()"
+          class="big-icon-mat-button"
           [disabled]="!isReady"
           i18n-matTooltip="@@editorSkip5SecondsButtonLabel"
           matTooltip="Skip 5 seconds"
@@ -241,10 +248,10 @@
       </div>
       <div class="flex justify-end">
         @if ('toggleZoomedWaveform' | featureEnabled) {
-        <mat-slide-toggle
+        <!-- <mat-slide-toggle
           [(ngModel)]="showZoomedWave"
           labelPosition="before"
-          color="primary"
+       
           i18n-matTooltip="@@editorToogleZoomTooltip"
           matTooltip="Toggle zoom"
           i18n-aria-label="@@editorToogleZoomTooltip"
@@ -252,7 +259,7 @@
           [disabled]="!isReady"
         >
           Edit timings
-        </mat-slide-toggle>
+        </mat-slide-toggle> -->
         }
       </div>
     </div>
@@ -261,8 +268,7 @@
   <div class="content">
     <div class="left">
       <app-video-player></app-video-player>
-      <!-- TODO removed to make the ui cleaner -->
-      <!-- <app-editor-settings></app-editor-settings> -->
+      <app-editor-settings></app-editor-settings>
       <app-user-test-controls></app-user-test-controls>
       @if ('live' | featureEnabled) {
       <div *ngrxLet="project$ as project">
@@ -291,8 +297,29 @@
       </div>
       }
     </div>
-    <div class="right">
-      <app-captions></app-captions>
+    <div
+      class="right"
+      *ngrxLet="selectedTranscriptionId$ as selectedTranscriptionId"
+    >
+      <ng-container *ngrxLet="project$ as project">
+        <ng-container *ngrxLet="editorUsers$ as editorUsers">
+          <ng-container *ngrxLet="activeUsers$ as activeUsers">
+            <!-- <app-captions></app-captions> -->
+            <!-- ADD FULLTEXT EDITOR HERE -->
+            @if(selectedTranscriptionId && activeUsers.length > 0 &&
+            activeUsers[0].id.length>0){
+            <app-tiptap-editor
+              lang="{{ project?.language }}"
+              [transcriptionId$]="selectedTranscriptionId$"
+              [activeUsers]="activeUsers"
+              [editorUsers]="editorUsers"
+              [projectId]="projectId"
+            ></app-tiptap-editor>
+            }
+            <!-- ADD FULLTEXT EDITOR HERE -->
+          </ng-container>
+        </ng-container>
+      </ng-container>
     </div>
   </div>
 </section>

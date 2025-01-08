@@ -42,22 +42,21 @@ export enum CaptionPositionOptions {
 }
 
 @Component({
-  selector: 'app-captions-settings-dialog',
-  templateUrl: './captions-settings-dialog.component.html',
-  styleUrls: ['./captions-settings-dialog.component.scss'],
-  standalone: true,
-  imports: [
-    MatDialogTitle,
-    MatDialogContent,
-    MatButtonModule,
-    MatDialogClose,
-    MatIconModule,
-    LetDirective,
-    MatFormFieldModule,
-    MatSelectModule,
-    MatOptionModule,
-    NgStyle,
-  ],
+    selector: 'app-captions-settings-dialog',
+    templateUrl: './captions-settings-dialog.component.html',
+    styleUrls: ['./captions-settings-dialog.component.scss'],
+    imports: [
+        MatDialogTitle,
+        MatDialogContent,
+        MatButtonModule,
+        MatDialogClose,
+        MatIconModule,
+        LetDirective,
+        MatFormFieldModule,
+        MatSelectModule,
+        MatOptionModule,
+        NgStyle,
+    ]
 })
 export class CaptionsSettingsDialogComponent {
   ColorOptions = ColorOptions;

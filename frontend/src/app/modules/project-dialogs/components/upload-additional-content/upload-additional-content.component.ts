@@ -53,28 +53,27 @@ interface FileUpload {
 }
 
 @Component({
-  selector: 'app-upload-additional-content',
-  templateUrl: './upload-additional-content.component.html',
-  styleUrls: ['./upload-additional-content.component.scss'],
-  standalone: true,
-  imports: [
-    ReactiveFormsModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatSelectModule,
-    MatOptionModule,
-    MatButtonModule,
-    MatIconModule,
-    MatProgressBarModule,
-    LetDirective,
-    PushPipe,
-    MediaCategoryPipe,
-    FormatDatePipe,
-    CommonModule,
-    MatTableModule,
-    MatMenuModule,
-    MatDividerModule,
-  ],
+    selector: 'app-upload-additional-content',
+    templateUrl: './upload-additional-content.component.html',
+    styleUrls: ['./upload-additional-content.component.scss'],
+    imports: [
+        ReactiveFormsModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatSelectModule,
+        MatOptionModule,
+        MatButtonModule,
+        MatIconModule,
+        MatProgressBarModule,
+        LetDirective,
+        PushPipe,
+        MediaCategoryPipe,
+        FormatDatePipe,
+        CommonModule,
+        MatTableModule,
+        MatMenuModule,
+        MatDividerModule,
+    ]
 })
 export class UploadAdditionalContentComponent implements OnInit {
   dataSource = new MatTableDataSource();
