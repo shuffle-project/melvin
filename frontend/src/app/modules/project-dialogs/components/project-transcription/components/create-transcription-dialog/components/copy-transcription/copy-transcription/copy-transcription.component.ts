@@ -13,7 +13,6 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { Store } from '@ngrx/store';
-import { LANGUAGES } from 'src/app/constants/languages.constant';
 import { WrittenOutLanguagePipe } from 'src/app/pipes/written-out-language-pipe/written-out-language.pipe';
 import { CreateTranscriptionDto } from 'src/app/services/api/dto/create-transcription.dto';
 import { TranscriptionEntity } from 'src/app/services/api/entities/transcription.entity';
@@ -22,27 +21,25 @@ import * as transcriptionsActions from '../../../../../../../../../store/actions
 import { CreateTranscriptionDialogComponent } from '../../../create-transcription-dialog.component';
 
 @Component({
-    selector: 'app-copy-transcription',
-    imports: [
-        CommonModule,
-        MatFormFieldModule,
-        MatSelectModule,
-        ReactiveFormsModule,
-        MatInputModule,
-        MatIconModule,
-        MatButtonModule,
-        WrittenOutLanguagePipe,
-    ],
-    templateUrl: './copy-transcription.component.html',
-    styleUrl: './copy-transcription.component.scss'
+  selector: 'app-copy-transcription',
+  imports: [
+    CommonModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    ReactiveFormsModule,
+    MatInputModule,
+    MatIconModule,
+    MatButtonModule,
+    WrittenOutLanguagePipe,
+  ],
+  templateUrl: './copy-transcription.component.html',
+  styleUrl: './copy-transcription.component.scss',
 })
 export class CopyTranscriptionComponent {
   @Input() transcriptionList: TranscriptionEntity[] = [];
 
   dialogRef = inject(MatDialogRef<CreateTranscriptionDialogComponent>);
   constructor(private store: Store<AppState>) {}
-
-  languages = LANGUAGES;
 
   transcriptionGroup = new FormGroup({
     title: new FormControl<string>('', {

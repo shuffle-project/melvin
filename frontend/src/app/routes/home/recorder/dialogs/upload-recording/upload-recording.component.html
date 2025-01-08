@@ -33,12 +33,11 @@
       <mat-form-field class="language-form-field">
         <mat-label i18n="@@uploadRecordingLanguageLabel">Language</mat-label>
         <mat-select formControlName="language" required>
-          @if (whisperLanguages$ | ngrxPush; as whisperLanguages) { @for (lang
-          of whisperLanguages; track lang ) {
+          @for (lang of languages; track lang ) {
           <mat-option [value]="lang.code">
-            {{ lang.code | writtenOutLanguage }}
+            {{ lang.name }}
           </mat-option>
-          } }
+          }
         </mat-select>
         <mat-error i18n="@@uploadRecordingLanguageError">
           Language is required

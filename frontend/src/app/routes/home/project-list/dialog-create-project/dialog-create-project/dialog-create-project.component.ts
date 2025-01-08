@@ -27,7 +27,6 @@ import {
   MatTableDataSource,
   MatTableModule,
 } from '@angular/material/table';
-import { PushPipe } from '@ngrx/component';
 import { Store } from '@ngrx/store';
 import { filter, Subject, Subscription, takeUntil } from 'rxjs';
 import { MediaCategoryPipe } from 'src/app/pipes/media-category-pipe/media-category.pipe';
@@ -54,22 +53,21 @@ interface FileGroup {
 }
 
 @Component({
-    selector: 'app-dialog-create-project',
-    imports: [
-        MatDialogModule,
-        MatIconModule,
-        MatButtonModule,
-        ReactiveFormsModule,
-        MatInputModule,
-        MatTableModule,
-        MatSelectModule,
-        MatCheckboxModule,
-        PushPipe,
-        MediaCategoryPipe,
-        MatProgressBarModule,
-    ],
-    templateUrl: './dialog-create-project.component.html',
-    styleUrl: './dialog-create-project.component.scss'
+  selector: 'app-dialog-create-project',
+  imports: [
+    MatDialogModule,
+    MatIconModule,
+    MatButtonModule,
+    ReactiveFormsModule,
+    MatInputModule,
+    MatTableModule,
+    MatSelectModule,
+    MatCheckboxModule,
+    MediaCategoryPipe,
+    MatProgressBarModule,
+  ],
+  templateUrl: './dialog-create-project.component.html',
+  styleUrl: './dialog-create-project.component.scss',
 })
 export class DialogCreateProjectComponent implements OnDestroy, AfterViewInit {
   @ViewChild(MatTable) table!: MatTable<any>;
@@ -107,9 +105,9 @@ export class DialogCreateProjectComponent implements OnDestroy, AfterViewInit {
   );
 
   private destroy$$ = new Subject<void>();
+
   //TODO whisper rausfiltern
   // languages$ = this.store.select(configSelector.asrServiceConfig);
-
   // languages!: Language[];
   languages!: { code: string; name: string }[];
   locale = $localize.locale;
