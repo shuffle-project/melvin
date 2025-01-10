@@ -18,6 +18,7 @@ export enum StorageKey {
   VIEWER_MEDIA_VOLUME = 'viewer-media-volume',
   VIEWER_MEDIA_MUTED = 'viewer-media-muted',
   VIEWER_SUBTITLES_ENABLED = 'viewer-subtitles-enabled',
+  VIEWER_MAX_RESOLUTION = 'viewer-max-resolution',
 
   // capptions settings
   CAPTIONS_BACKGROUND_COLOR = 'captions-background-color',

@@ -1,8 +1,7 @@
 import { A11yModule } from '@angular/cdk/a11y';
 import { CdkMenuModule } from '@angular/cdk/menu';
 import { ConnectionPositionPair, OverlayModule } from '@angular/cdk/overlay';
-import { AsyncPipe } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -13,10 +12,13 @@ import { MatSliderModule } from '@angular/material/slider';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { LetDirective, PushPipe } from '@ngrx/component';
 import { Store } from '@ngrx/store';
-import { combineLatest, map } from 'rxjs';
+import { combineLatest, map, Subject, takeUntil } from 'rxjs';
 import { MediaCategoryPipe } from 'src/app/pipes/media-category-pipe/media-category.pipe';
 import { WrittenOutLanguagePipe } from 'src/app/pipes/written-out-language-pipe/written-out-language.pipe';
-import { MenuItemCheckboxDirective } from '../../../../../directives/cdkMenuCheckbox/cdk-menu-item-checkbox.directive';
+import {
+  ProjectMediaEntity,
+  ResolutionValue,
+} from 'src/app/services/api/entities/project.entity';
 import { MenuItemRadioDirective } from '../../../../../directives/cdkMenuRadio/cdk-menu-item-radio.directive';
 import { DurationPipe } from '../../../../../pipes/duration-pipe/duration.pipe';
 import { TranscriptionEntity } from '../../../../../services/api/entities/transcription.entity';
@@ -34,32 +36,32 @@ import { CaptionsSettingsDialogComponent } from '../../captions-settings-dialog/
 import { HelpDialogComponent } from '../../help-dialog/help-dialog.component';
 import { ViewerVideo } from '../player.component';
 @Component({
-    selector: 'app-controls',
-    templateUrl: './controls.component.html',
-    styleUrls: ['./controls.component.scss'],
-    imports: [
-        MatSliderModule,
-        ReactiveFormsModule,
-        FormsModule,
-        MatButtonModule,
-        MatTooltipModule,
-        MatIconModule,
-        MatMenuModule,
-        LetDirective,
-        MatCheckboxModule,
-        PushPipe,
-        DurationPipe,
-        CdkMenuModule,
-        MenuItemRadioDirective,
-        MenuItemCheckboxDirective,
-        OverlayModule,
-        A11yModule,
-        AsyncPipe,
-        WrittenOutLanguagePipe,
-        MediaCategoryPipe,
-    ]
+  selector: 'app-controls',
+  templateUrl: './controls.component.html',
+  styleUrls: ['./controls.component.scss'],
+  imports: [
+    MatSliderModule,
+    ReactiveFormsModule,
+    FormsModule,
+    MatButtonModule,
+    MatTooltipModule,
+    MatIconModule,
+    MatMenuModule,
+    LetDirective,
+    MatCheckboxModule,
+    PushPipe,
+    DurationPipe,
+    CdkMenuModule,
+    MenuItemRadioDirective,
+    OverlayModule,
+    A11yModule,
+    WrittenOutLanguagePipe,
+    MediaCategoryPipe,
+  ],
 })
-export class ControlsComponent {
+export class ControlsComponent implements OnInit, OnDestroy {
+  @Input({ required: true }) media!: ProjectMediaEntity;
+
   public tanscriptPositionENUM = TranscriptPosition;
   public colorThemeENUM = ColorTheme;
 
@@ -89,12 +91,45 @@ export class ControlsComponent {
 
   locale = $localize.locale;
 
+  public resolutionOptions = new Set<ResolutionValue>();
+  currentMaxResolution!: ResolutionValue;
+  private destroy$$ = new Subject<void>();
+
   constructor(
     private store: Store<AppState>,
     public viewerService: ViewerService,
     private dialog: MatDialog,
     public overlayService: OverlayService
   ) {}
+
+  ngOnInit(): void {
+    this.media.videos.forEach((video) => {
+      video.resolutions.forEach((resolution) => {
+        this.resolutionOptions.add(resolution.resolution);
+      });
+    });
+
+    this.store
+      .select(viewerSelector.vMaxResolution)
+      .pipe(takeUntil(this.destroy$$))
+      .subscribe((maxResolution) => {
+        if (this.resolutionOptions.has(maxResolution)) {
+          this.currentMaxResolution = maxResolution;
+        } else {
+          this.currentMaxResolution = Array.from(this.resolutionOptions).at(
+            -1
+          )!;
+        }
+      });
+  }
+
+  changeMaxResolution(resolution: ResolutionValue) {
+    if (resolution !== this.currentMaxResolution) {
+      this.store.dispatch(
+        viewerActions.changeMaxResolution({ newMaxResolution: resolution })
+      );
+    }
+  }
 
   sliderLabelVolume(value: number): string {
     return Math.round(value * 100) + '%';
@@ -321,5 +356,9 @@ export class ControlsComponent {
       default:
         break;
     }
+  }
+
+  ngOnDestroy() {
+    this.destroy$$.next();
   }
 }

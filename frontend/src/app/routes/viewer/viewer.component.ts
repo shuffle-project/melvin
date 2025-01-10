@@ -14,14 +14,12 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { LetDirective } from '@ngrx/component';
 import { Subject } from 'rxjs';
-import { HeaderComponent } from '../../components/header/header.component';
 import { LogoComponent } from '../../components/logo/logo.component';
 import * as viewerActions from '../../store/actions/viewer.actions';
 import { AppState } from '../../store/app.state';
 import * as configSelector from '../../store/selectors/config.selector';
 import * as viewerSelector from '../../store/selectors/viewer.selector';
 import { AdjustLayoutDialogComponent } from '../viewer/components/adjust-layout-dialog/adjust-layout-dialog.component';
-import { InfoboxComponent } from '../viewer/components/infobox/infobox.component';
 import { PlayerComponent } from '../viewer/components/player/player.component';
 import { TranscriptComponent } from '../viewer/components/transcript/transcript.component';
 import { ControlsComponent } from './components/player/controls/controls.component';
@@ -34,13 +32,11 @@ import { TranscriptPosition } from './viewer.interfaces';
   templateUrl: './viewer.component.html',
   styleUrls: ['./viewer.component.scss'],
   imports: [
-    HeaderComponent,
     LetDirective,
     MatButtonModule,
     TranscriptComponent,
     PlayerComponent,
     MatProgressSpinnerModule,
-    InfoboxComponent,
     LogoComponent,
     RouterLink,
     ControlsComponent,

@@ -1,4 +1,5 @@
 import {
+  AfterViewInit,
   Component,
   ElementRef,
   Input,
@@ -12,8 +13,16 @@ import { Store } from '@ngrx/store';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { PushPipe } from '@ngrx/component';
-import { Subject, takeUntil, tap, throttleTime } from 'rxjs';
+import {
+  debounceTime,
+  fromEventPattern,
+  Subject,
+  takeUntil,
+  tap,
+  throttleTime,
+} from 'rxjs';
 import { MediaCategoryPipe } from 'src/app/pipes/media-category-pipe/media-category.pipe';
+import { Resolution } from 'src/app/services/api/entities/project.entity';
 import * as viewerActions from '../../../../../store/actions/viewer.actions';
 import { AppState } from '../../../../../store/app.state';
 import * as viewerSelector from '../../../../../store/selectors/viewer.selector';
@@ -21,18 +30,20 @@ import { ViewerService } from '../../../services/viewer.service';
 import { ViewerVideo } from '../player.component';
 
 @Component({
-    selector: 'app-video-container',
-    templateUrl: './video-container.component.html',
-    styleUrls: ['./video-container.component.scss'],
-    imports: [
-        MatIconModule,
-        MatButtonModule,
-        PushPipe,
-        MediaCategoryPipe,
-        MediaCategoryPipe,
-    ]
+  selector: 'app-video-container',
+  templateUrl: './video-container.component.html',
+  styleUrls: ['./video-container.component.scss'],
+  imports: [
+    MatIconModule,
+    MatButtonModule,
+    PushPipe,
+    MediaCategoryPipe,
+    MediaCategoryPipe,
+  ],
 })
-export class VideoContainerComponent implements OnDestroy, OnChanges {
+export class VideoContainerComponent
+  implements OnDestroy, OnChanges, AfterViewInit
+{
   private destroy$$ = new Subject<void>();
 
   @ViewChild('viewerVideo')
@@ -41,18 +52,99 @@ export class VideoContainerComponent implements OnDestroy, OnChanges {
     return this._viewerVideoElementRef.nativeElement;
   }
 
+  @ViewChild('viewerVideoSrc') viewerVideoSrc!: ElementRef<HTMLSourceElement>;
+
   @Input({ required: true })
   size!: 'big' | 'small';
   @Input({ required: true }) video!: ViewerVideo;
 
   public currentSpeed$ = this.store.select(viewerSelector.vCurrentSpeed);
 
+  // capped to the max resolution selected by the user
+  private cappedResolutions: Resolution[] = [];
+  private currentResolution!: Resolution;
+  private videoWidth = 300;
+
   constructor(
     private store: Store<AppState>,
     public viewerService: ViewerService
   ) {}
 
+  ngAfterViewInit(): void {
+    this.store
+      .select(viewerSelector.vMaxResolution)
+      .pipe(takeUntil(this.destroy$$))
+      .subscribe((maxResolution) => {
+        const videoElementWidth = +this.viewerVideoElement
+          .getBoundingClientRect()
+          .width.toFixed();
+
+        const maxResolutionIndex = this.video.resolutions.findIndex(
+          (res) => res.resolution === maxResolution
+        );
+        this.cappedResolutions = this.video.resolutions.slice(
+          0,
+          maxResolutionIndex + 1
+        );
+
+        const filteredResolutions = this.cappedResolutions.filter((res) => {
+          return videoElementWidth >= res.width || res.resolution === '240p';
+        });
+
+        this.currentResolution = filteredResolutions.at(-1)!;
+
+        this.store.dispatch(
+          viewerActions.mediaLoadingSingle({ id: this.video.id })
+        );
+        this.viewerVideoSrc.nativeElement.src = this.currentResolution.url;
+
+        this.viewerVideoElement.load();
+      });
+
+    this.observerResize(this.viewerVideoElement)
+      .pipe(debounceTime(300), takeUntil(this.destroy$$))
+      .subscribe((width) => {
+        if (width && width !== this.videoWidth) {
+          this.videoWidth = +width;
+          const filteredResolutions = this.cappedResolutions.filter((res) => {
+            return +width >= res.width || res.resolution === '240p';
+          });
+
+          if (
+            filteredResolutions.at(-1)!.resolution !==
+            this.currentResolution.resolution
+          ) {
+            this.currentResolution = filteredResolutions.at(-1)!;
+
+            this.store.dispatch(
+              viewerActions.mediaLoadingSingle({ id: this.video.id })
+            );
+            this.viewerVideoSrc.nativeElement.src =
+              filteredResolutions.at(-1)!.url;
+            this.viewerVideoElement.load();
+          }
+        }
+      });
+  }
+
+  observerResize(element: HTMLElement) {
+    return fromEventPattern(
+      (handler) => {
+        const observer = new ResizeObserver((entries) => {
+          const width = entries[0].contentRect.width.toFixed();
+          handler(width);
+        });
+        observer.observe(element);
+        return observer;
+      },
+      (handler, observer) => observer.disconnect()
+    );
+  }
+
+  // __________
+
   ngOnDestroy(): void {
+    this.viewerService.unregisterLoadingEvents(this.video.id);
     this.destroy$$.next();
   }
 
@@ -73,11 +165,6 @@ export class VideoContainerComponent implements OnDestroy, OnChanges {
   onClickVideo() {
     if (this.size === 'big' && this.viewerService.audio) {
       this.store.dispatch(viewerActions.playPauseUser());
-      // if (this.viewerService.audio.paused) {
-      //   this.viewerService.play();
-      // } else {
-      //   this.viewerService.pause();
-      // }
     }
   }
 
@@ -127,8 +214,7 @@ export class VideoContainerComponent implements OnDestroy, OnChanges {
 
     this.viewerService.registerLoadingEvents(
       this.video.id,
-      this.viewerVideoElement,
-      this.destroy$$
+      this.viewerVideoElement
     );
   }
 

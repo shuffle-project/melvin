@@ -32,9 +32,18 @@ export interface MediaEntity {
   mimetype: string;
 }
 
+export type ResolutionValue =
+  | '240p'
+  | '360p'
+  | '480p'
+  | '720p'
+  | '1080p'
+  | '1440p'
+  | '2160p';
+
 export interface Resolution {
   url: string;
-  resolution: string;
+  resolution: ResolutionValue;
   height: number;
   width: number;
 }
