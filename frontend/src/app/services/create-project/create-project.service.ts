@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { CreateProjectFormGroup } from 'src/app/routes/home/project-list/dialog-create-project/dialog-create-project/dialog-create-project.component';
 import { AsrVendors } from '../api/dto/create-transcription.dto';
-import { MediaCategory } from '../api/entities/project.entity';
 
 interface CreateProjectFormData {
   title: string;
@@ -27,10 +26,8 @@ export class CreateProjectService {
       videoOptions: '',
     };
 
-    const mainLanguage = formGroup.controls.files.getRawValue().find((f) => {
-      return f.fileType === 'video' && f.category === MediaCategory.MAIN;
-    })?.language!;
-
+    const mainLanguage = this._getMainLanguage(formGroup);
+    console.log('mainLanguage: ' + mainLanguage);
     createProjectFormData.language = mainLanguage;
 
     const subtitleOptions = formGroup.controls.files
@@ -76,5 +73,13 @@ export class CreateProjectService {
     });
 
     return formData;
+  }
+
+  private _getMainLanguage(formGroup: FormGroup<CreateProjectFormGroup>) {
+    const useAudioFiles = formGroup.controls.files
+      .getRawValue()
+      .filter((f) => f.useAudio);
+
+    return useAudioFiles[0].language;
   }
 }

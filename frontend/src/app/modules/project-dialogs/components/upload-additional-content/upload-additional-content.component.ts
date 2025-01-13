@@ -53,27 +53,27 @@ interface FileUpload {
 }
 
 @Component({
-    selector: 'app-upload-additional-content',
-    templateUrl: './upload-additional-content.component.html',
-    styleUrls: ['./upload-additional-content.component.scss'],
-    imports: [
-        ReactiveFormsModule,
-        MatFormFieldModule,
-        MatInputModule,
-        MatSelectModule,
-        MatOptionModule,
-        MatButtonModule,
-        MatIconModule,
-        MatProgressBarModule,
-        LetDirective,
-        PushPipe,
-        MediaCategoryPipe,
-        FormatDatePipe,
-        CommonModule,
-        MatTableModule,
-        MatMenuModule,
-        MatDividerModule,
-    ]
+  selector: 'app-upload-additional-content',
+  templateUrl: './upload-additional-content.component.html',
+  styleUrls: ['./upload-additional-content.component.scss'],
+  imports: [
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+    MatOptionModule,
+    MatButtonModule,
+    MatIconModule,
+    MatProgressBarModule,
+    LetDirective,
+    PushPipe,
+    MediaCategoryPipe,
+    FormatDatePipe,
+    CommonModule,
+    MatTableModule,
+    MatMenuModule,
+    MatDividerModule,
+  ],
 })
 export class UploadAdditionalContentComponent implements OnInit {
   dataSource = new MatTableDataSource();
@@ -237,24 +237,25 @@ export class UploadAdditionalContentComponent implements OnInit {
 
   onDownloadMedia(project: ProjectEntity, videoEntity: VideoEntity) {
     // console.log(project, mediaEntity);
+    console.log(videoEntity);
 
     const resolution = videoEntity.resolutions.sort((a, b) => {
       return a.width - b.width;
     })[0];
 
-    this.httpClient
-      .get(resolution.url, { responseType: 'blob' })
-      .subscribe((response) => {
-        const urlCreator = window.URL || window.webkitURL;
-        const imageUrl = urlCreator.createObjectURL(response);
-        const tag = document.createElement('a');
-        tag.href = imageUrl;
-        tag.target = '_blank';
-        tag.download = videoEntity.title + '.' + videoEntity.extension;
-        document.body.appendChild(tag);
-        tag.click();
-        document.body.removeChild(tag);
-      });
+    // this.httpClient
+    //   .get(resolution.url, { responseType: 'blob' })
+    //   .subscribe((response) => {
+    //     const urlCreator = window.URL || window.webkitURL;
+    //     const imageUrl = urlCreator.createObjectURL(response);
+    //     const tag = document.createElement('a');
+    //     tag.href = imageUrl;
+    //     tag.target = '_blank';
+    //     tag.download = videoEntity.title + '.' + videoEntity.extension;
+    //     document.body.appendChild(tag);
+    //     tag.click();
+    //     document.body.removeChild(tag);
+    //   });
 
     // window.URL.revokeObjectURL(objectURL);
   }

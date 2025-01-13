@@ -151,14 +151,15 @@ export class DialogCreateProjectComponent implements OnDestroy, AfterViewInit {
         const sourceParent = source.parent as FormGroup<FileGroup>;
 
         // Case: Selecting sign-language category (-> make sure hidden use audio control is false)
+        // Commented out, as it is (for now) possible to upload mute sign language videos
 
-        if (source.value === MediaCategory.SIGN_LANGUAGE) {
-          this.formGroup.controls.files.controls.forEach((fileGroup) => {
-            if (fileGroup.value.name === sourceParent.value.name) {
-              fileGroup.controls.useAudio.setValue(false);
-            }
-          });
-        }
+        // if (source.value === MediaCategory.SIGN_LANGUAGE) {
+        //   this.formGroup.controls.files.controls.forEach((fileGroup) => {
+        //     if (fileGroup.value.name === sourceParent.value.name) {
+        //       fileGroup.controls.useAudio.setValue(false);
+        //     }
+        //   });
+        // }
 
         // - - - - -
         // Case: Audio/Video file language change
