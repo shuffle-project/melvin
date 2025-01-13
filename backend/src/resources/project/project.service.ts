@@ -1119,8 +1119,14 @@ export class ProjectService {
       throw new CustomForbiddenException('can_not_delete_main_video');
     }
 
-    const path = this.pathService.getBaseMediaFile(projectId, mediaObj); // todo videos
+    const path = this.pathService.getBaseMediaFile(projectId, mediaObj);
     remove(path);
+
+    project.videos.forEach((video) => {
+      video.resolutions.forEach((res) => {
+        remove(this.pathService.getVideoFile(projectId, video, res.resolution));
+      });
+    });
 
     await this.db.projectModel
       .findByIdAndUpdate(projectId, {

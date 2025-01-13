@@ -13,6 +13,14 @@ import { CustomLogger } from '../logger/logger.service';
 import { WhisperSpeechService } from '../speech-to-text/whisper/whisper-speech.service';
 import { TiptapService } from '../tiptap/tiptap.service';
 import { ProjectStatus } from '../db/schemas/project.schema';
+import { FfmpegService } from '../ffmpeg/ffmpeg.service';
+import { flatMap } from 'lodash';
+import { stat } from 'fs';
+import { PathService } from '../path/path.service';
+import { Path } from 'mongoose';
+import { exists } from 'fs-extra';
+import { isSameObjectId } from 'src/utils/objectid';
+import { rm } from 'fs/promises';
 
 @Injectable()
 export class MigrationService {
@@ -22,6 +30,8 @@ export class MigrationService {
     private populateService: PopulateService,
     private tiptapService: TiptapService,
     private whisper: WhisperSpeechService,
+    private ffmpegService: FfmpegService,
+    private pathService: PathService,
     @InjectQueue('subtitles')
     private subtitlesQueue: Queue<ProcessSubtitlesJob>,
   ) {
@@ -91,6 +101,79 @@ export class MigrationService {
       settings.dbSchemaVersion = 4;
       await settings.save();
       this.logger.info('Migration to version 4 successful');
+    }
+
+    if (settings.dbSchemaVersion < 5) {
+      this.logger.info(
+        'Migrate to version 5 - create video in several resolutions',
+      );
+
+      await this._generateResolutions();
+
+      // TODO set version to 5
+
+      settings.dbSchemaVersion = 5;
+      await settings.save();
+      this.logger.info('Migration to version 5 successful');
+    }
+  }
+
+  private async _generateResolutions() {
+    const projects = await this.db.projectModel.find({
+      status: [
+        ProjectStatus.DRAFT,
+        ProjectStatus.FINISHED,
+        ProjectStatus.PROCESSING,
+        ProjectStatus.WAITING,
+      ],
+    });
+    this.logger.info('Projects found: ' + projects.length);
+    for (const project of projects) {
+      // if (isSameObjectId(project._id, '67810c548b57305d8e596fd7')) {
+      this.logger.info('Project ' + project._id.toString());
+      this.logger.info('videos: ' + project.videos.length);
+
+      try {
+        for (const video of project.videos) {
+          this.logger.info('Video ' + video._id.toString());
+          const baseMediaFile = this.pathService.getBaseMediaFile(
+            project._id.toString(),
+            video,
+          );
+          const lowResFile = this.pathService.getVideoFile(
+            project._id.toString(),
+            video,
+            '240p',
+          );
+
+          const fileExists = await exists(baseMediaFile);
+          const resolutionsExist = await exists(lowResFile);
+
+          this.logger.info('File exists: ' + fileExists);
+          this.logger.info('Resolutions exist: ' + resolutionsExist);
+
+          // TODO check if resolutions exist?? just replaces it if it exists
+          if (fileExists && !resolutionsExist) {
+            // if (fileExists) {
+            await this.ffmpegService.processVideoFile(
+              baseMediaFile,
+              project._id.toString(),
+              video,
+            );
+
+            this.logger.info('process video done');
+            await rm(baseMediaFile);
+            this.logger.info('deleted: ' + baseMediaFile);
+          }
+        }
+      } catch (e) {
+        this.logger.error(
+          'Error while creating resolutions for project: ' +
+            project._id.toString(),
+        );
+        this.logger.error(e);
+      }
+      // }
     }
   }
 

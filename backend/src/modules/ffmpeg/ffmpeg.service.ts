@@ -115,89 +115,11 @@ export class FfmpegService {
       resolution.width,
       resolution.height,
     );
-    console.log(calculatedResolutions);
 
     const baseVideoFilepath = this.pathService.getBaseMediaFile(
       projectId,
       video,
     );
-
-    // if (videoId === null) {
-    //   videoFilepath = this.pathService.getVideoFile(projectId);
-    // } else {
-    //   // loop through additinal file indexes until the first path who wasnt created yet
-    //   videoFilepath = this.pathService.getAdditionalVideoFile(
-    //     projectId,
-    //     videoId,
-    //   );
-    // }
-
-    // check resolution/aspect ratio etc/ check max resolution -> calculate what resolutions to create
-    // save resolutions in project
-    // create resolutionsx^
-
-    // ffmpeg -loglevel error -i bagger_1_main.mp4 -crf 23 -c:v libx264 -c:a aac -y -filter_complex "[0:v]split=5[v1080][v720][v480][v360][v240]; [v1080]scale=1920:1080[v1080out]; [v720]scale=1280:720[v720out]; [v480]scale=854:480[v480out]; [v360]scale=640:360[v360out]; [v240]scale=426:240[v240out]" -map "[v1080out]" -map 0:a -c:a aac "bagger_1080p.mp4" -map "[v720out]" -map 0:a -c:a aac "bagger_720p.mp4" -map "[v480out]" -map 0:a -c:a aac "bagger_480p.mp4" -map "[v360out]" -map 0:a -c:a aac "bagger_360p.mp4" -map "[v240out]" -map 0:a -c:a aac "bagger_240p.mp4"
-
-    // breite:höhe
-    // ffmpeg -loglevel error -i "${filePath}" -crf 23 -c:v libx264 -c:a aac -y \
-    // -filter_complex "[0:v]split=5[v1080][v720][v480][v360][v240]; \
-    // [v1080]scale=1920:1080[v1080out]; \
-    // [v720]scale=1280:720[v720out]; \
-    // [v480]scale=854:480[v480out]; \
-    // [v360]scale=640:360[v360out]; \
-    // [v240]scale=426:240[v240out]" \
-
-    // -map "[v1080out]" -map 0:a -c:a aac "${videoFilepath}_1080p.mp4" \
-    // -map "[v720out]" -map 0:a -c:a aac "${videoFilepath}_720p.mp4" \
-    // -map "[v480out]" -map 0:a -c:a aac "${videoFilepath}_480p.mp4" \
-    // -map "[v360out]" -map 0:a -c:a aac "${videoFilepath}_360p.mp4" \
-    // -map "[v240out]" -map 0:a -c:a aac "${videoFilepath}_240p.mp4"
-
-    // const split = `"[0:v]split=${
-    //   calculatedResolutions.length
-    // }${calculatedResolutions
-    //   .concat()
-    //   .map((res) => `[v${res.height}]`)
-    //   .join('')};"`;
-
-    // const commands2 = [
-    //   '-loglevel',
-    //   'error',
-    //   '-i',
-    //   `${filePath}`,
-    //   '-crf',
-    //   '23',
-    //   '-c:v',
-    //   'libx264',
-    //   '-c:a',
-    //   'aac',
-    //   '-y',
-    //   '-filter_complex',
-    //   `[0:v]split=${calculatedResolutions.length}`,
-    //   split,
-    //   ...calculatedResolutions.map(
-    //     (res) =>
-    //       `[v${res.height}]scale=${res.height}:${res.height}[v${res.height}out];`,
-    //   ),
-    // ];
-    // calculatedResolutions.forEach((res) => {
-    //   commands2.push(
-    //     ...[
-    //       '-map',
-    //       `"[v${res.height}out]"`,
-    //       '-map',
-    //       '0:a',
-    //       '-c:a',
-    //       'aac',
-    //       `"${videoFilepath.replace('.mp4', '_' + res.resolution + '.mp4')}"`,
-    //     ],
-    //   );
-    // });
-    // console.log(commands2);
-    /**
-     * liste von media files mit verfügbaren auflösungen
-     *
-     */
 
     const commands = [
       // this.ffmpeg,
@@ -229,47 +151,11 @@ export class FfmpegService {
         ],
       );
     });
-    console.log(commands);
-
-    // TODO add resoltuions here? or where?
 
     const project = await this.db.projectModel.findById(projectId);
-    console.log(project.videos, video);
     project.videos.find((v) => isSameObjectId(v._id, video._id)).resolutions =
       calculatedResolutions;
     await project.save();
-
-    const project2 = await this.db.projectModel.findById(projectId);
-    console.log(project2.videos);
-
-    // await this.db.projectModel
-    //   .findByIdAndUpdate(projectId, {
-    //     resolutions: calculatedResolutions,
-    //   })
-    //   .lean()
-    //   .exec();
-
-    // const commands = [
-    //   // this.ffmpeg,
-    //   '-loglevel',
-    //   'error',
-    //   // error = Show all errors, including ones which can be recovered from.
-    //   // fatal = Only show fatal errors which could lead the process to crash, such as an assertion failure.
-    //   '-i',
-    //   `${filePath}`,
-    //   // crf on 51 -> max qual loss, on 0 -> zero qual loss, 23 is default
-    //   '-crf',
-    //   '23',
-    //   // video codec
-    //   '-c:v',
-    //   'libx264',
-    //   //audio codeci
-    //   '-c:a',
-    //   'aac',
-    //   // overwrite file
-    //   '-y',
-    //   `${videoFilepath}`, // output file
-    // ];
 
     if (filePath.endsWith('mp3')) {
       const imgPath = join(
@@ -369,7 +255,6 @@ export class FfmpegService {
   }
 
   public async getVideoDuration(projectId: string, video: Video) {
-    console.log(video);
     const videoFilepath = this.pathService.getVideoFile(projectId, video);
     const commands = [
       this.ffprobe, // `ffprobe`,
@@ -526,6 +411,9 @@ export class FfmpegService {
         });
       }
     });
+    // add at least min resolution
+    if (resolutions.length === 0)
+      resolutions.push({ resolution: '240p', width: 427, height: 240 });
     return resolutions;
   }
 

@@ -6,6 +6,9 @@ import { LoggerModule } from '../logger/logger.module';
 import { SpeechToTextModule } from '../speech-to-text/speech-to-text.module';
 import { TiptapModule } from '../tiptap/tiptap.module';
 import { MigrationService } from './migration.service';
+import { FfmpegModule } from '../ffmpeg/ffmpeg.module';
+import { PathService } from '../path/path.service';
+import { PathModule } from '../path/path.module';
 
 @Module({
   imports: [
@@ -14,9 +17,11 @@ import { MigrationService } from './migration.service';
     LoggerModule,
     TiptapModule,
     SpeechToTextModule,
+    FfmpegModule,
+    PathModule,
     BullModule.registerQueue({ name: 'subtitles' }),
   ],
   providers: [MigrationService],
   exports: [MigrationService],
 })
-export class MigrationModule { }
+export class MigrationModule {}

@@ -33,7 +33,7 @@ export class MediaService {
     });
 
     if (!project) {
-      throw new CustomBadRequestException('Unknown viewer token');
+      throw new CustomBadRequestException('unknown_viewer_token');
     }
 
     // if (mediaAccessUser.projectId !== projectId) {
@@ -53,7 +53,6 @@ export class MediaService {
       project._id.toString(),
       filename,
     );
-    console.log(mediaFilepath);
     try {
       const fileStats = await stat(mediaFilepath);
 
