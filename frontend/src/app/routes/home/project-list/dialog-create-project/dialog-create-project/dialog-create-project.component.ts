@@ -100,9 +100,9 @@ export class DialogCreateProjectComponent implements OnDestroy, AfterViewInit {
   private totalFileSize = 0;
 
   MediaCategory = MediaCategory;
-  mediaCategoryArray = Object.entries(MediaCategory).map(
-    ([label, value]) => value
-  );
+  mediaCategoryArray = Object.entries(MediaCategory)
+    .map(([label, value]) => value)
+    .filter((category) => category !== MediaCategory.MAIN);
 
   private destroy$$ = new Subject<void>();
 

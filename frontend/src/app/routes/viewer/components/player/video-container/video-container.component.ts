@@ -75,9 +75,14 @@ export class VideoContainerComponent
       .select(viewerSelector.vMaxResolution)
       .pipe(takeUntil(this.destroy$$))
       .subscribe((maxResolution) => {
-        const maxResolutionIndex = this.video.resolutions.findIndex(
+        let maxResolutionIndex = this.video.resolutions.findIndex(
           (res) => res.resolution === maxResolution
         );
+
+        if (maxResolutionIndex === -1) {
+          maxResolutionIndex = this.video.resolutions.length - 1;
+        }
+
         this.cappedResolutions = this.video.resolutions.slice(
           0,
           maxResolutionIndex + 1

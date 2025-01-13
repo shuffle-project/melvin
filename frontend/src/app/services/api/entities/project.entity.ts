@@ -13,10 +13,10 @@ export enum MediaStatus {
 
 export enum MediaCategory {
   MAIN = 'main',
-  OTHER = 'other',
-  SIGN_LANGUAGE = 'sign_language',
-  SLIDES = 'slides',
   SPEAKER = 'speaker',
+  SLIDES = 'slides',
+  SIGN_LANGUAGE = 'sign_language',
+  OTHER = 'other',
 }
 
 export interface MediaEntity {
