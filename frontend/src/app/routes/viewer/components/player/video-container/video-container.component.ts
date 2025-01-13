@@ -75,10 +75,6 @@ export class VideoContainerComponent
       .select(viewerSelector.vMaxResolution)
       .pipe(takeUntil(this.destroy$$))
       .subscribe((maxResolution) => {
-        const videoElementWidth = +this.viewerVideoElement
-          .getBoundingClientRect()
-          .width.toFixed();
-
         const maxResolutionIndex = this.video.resolutions.findIndex(
           (res) => res.resolution === maxResolution
         );
@@ -87,18 +83,20 @@ export class VideoContainerComponent
           maxResolutionIndex + 1
         );
 
-        const filteredResolutions = this.cappedResolutions.filter((res) => {
-          return videoElementWidth >= res.width || res.resolution === '240p';
-        });
+        const fittingResolution = this.findFittingResolution();
 
-        this.currentResolution = filteredResolutions.at(-1)!;
+        if (
+          !this.currentResolution ||
+          this.currentResolution.resolution !== fittingResolution.resolution
+        ) {
+          this.currentResolution = fittingResolution;
 
-        this.store.dispatch(
-          viewerActions.mediaLoadingSingle({ id: this.video.id })
-        );
-        this.viewerVideoSrc.nativeElement.src = this.currentResolution.url;
-
-        this.viewerVideoElement.load();
+          this.store.dispatch(
+            viewerActions.mediaLoadingSingle({ id: this.video.id })
+          );
+          this.viewerVideoSrc.nativeElement.src = fittingResolution.url;
+          this.viewerVideoElement.load();
+        }
       });
 
     this.observerResize(this.viewerVideoElement)
@@ -106,21 +104,19 @@ export class VideoContainerComponent
       .subscribe((width) => {
         if (width && width !== this.videoWidth) {
           this.videoWidth = +width;
-          const filteredResolutions = this.cappedResolutions.filter((res) => {
-            return +width >= res.width || res.resolution === '240p';
-          });
+
+          const fittingResolution = this.findFittingResolution();
 
           if (
-            filteredResolutions.at(-1)!.resolution !==
-            this.currentResolution.resolution
+            !this.currentResolution ||
+            this.currentResolution.resolution !== fittingResolution.resolution
           ) {
-            this.currentResolution = filteredResolutions.at(-1)!;
+            this.currentResolution = fittingResolution;
 
             this.store.dispatch(
               viewerActions.mediaLoadingSingle({ id: this.video.id })
             );
-            this.viewerVideoSrc.nativeElement.src =
-              filteredResolutions.at(-1)!.url;
+            this.viewerVideoSrc.nativeElement.src = fittingResolution.url;
             this.viewerVideoElement.load();
           }
         }
@@ -141,7 +137,31 @@ export class VideoContainerComponent
     );
   }
 
-  // __________
+  findFittingResolution() {
+    const aspectRatio =
+      this.cappedResolutions[0].width / this.cappedResolutions[0].height;
+
+    const videoContainerHeight = +(this.videoWidth / aspectRatio).toFixed();
+    const videoContainerSize = videoContainerHeight * this.videoWidth;
+
+    const calculateCappedResoultions = this.cappedResolutions.map(
+      (res) => res.height * res.width
+    );
+
+    const closestFittingResolution = calculateCappedResoultions.reduce(
+      (prev, curr) =>
+        Math.abs(curr - videoContainerSize) <
+        Math.abs(prev - videoContainerSize)
+          ? curr
+          : prev
+    );
+
+    const closestFittingResolutionIndex = calculateCappedResoultions.findIndex(
+      (res) => res === closestFittingResolution
+    );
+
+    return this.cappedResolutions[closestFittingResolutionIndex];
+  }
 
   ngOnDestroy(): void {
     this.viewerService.unregisterLoadingEvents(this.video.id);
