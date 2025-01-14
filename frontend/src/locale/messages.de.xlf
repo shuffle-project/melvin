@@ -572,7 +572,7 @@
       </trans-unit>
       <trans-unit id="mediaCategoryMain" datatype="html">
         <source>Main</source>
-        <target state="final">Hauptanzeige</target>
+        <target state="final">Hauptvideo</target>
       </trans-unit>
       <trans-unit id="mediaCategoryOther" datatype="html">
         <source>Other</source>
@@ -588,7 +588,7 @@
       </trans-unit>
       <trans-unit id="mediaCategorySpeaker" datatype="html">
         <source>Speaker</source>
-        <target state="final">sprechende Person</target>
+        <target state="final">Sprechende Person</target>
       </trans-unit>
       <trans-unit id="projectListOpenViewerAriaLabel" datatype="html">
         <source>Open Viewer in new Tab</source>

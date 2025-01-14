@@ -91,7 +91,7 @@ export class ControlsComponent implements OnInit, OnDestroy {
 
   locale = $localize.locale;
 
-  public resolutionOptions = new Set<ResolutionValue>();
+  sortedResolutions: ResolutionValue[] = [];
   currentMaxResolution!: ResolutionValue;
   private destroy$$ = new Subject<void>();
 
@@ -103,22 +103,26 @@ export class ControlsComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
+    const resolutionOptions = new Set<ResolutionValue>();
+
     this.media.videos.forEach((video) => {
       video.resolutions.forEach((resolution) => {
-        this.resolutionOptions.add(resolution.resolution);
+        resolutionOptions.add(resolution.resolution);
       });
     });
+
+    this.sortedResolutions = Array.from(resolutionOptions).sort((a, b) =>
+      +a.slice(0, -1) > +b.slice(0, -1) ? 1 : -1
+    );
 
     this.store
       .select(viewerSelector.vMaxResolution)
       .pipe(takeUntil(this.destroy$$))
       .subscribe((maxResolution) => {
-        if (this.resolutionOptions.has(maxResolution)) {
+        if (this.sortedResolutions.find((r) => r === maxResolution)) {
           this.currentMaxResolution = maxResolution;
         } else {
-          this.currentMaxResolution = Array.from(this.resolutionOptions).at(
-            -1
-          )!;
+          this.currentMaxResolution = this.sortedResolutions.at(-1)!;
         }
       });
   }

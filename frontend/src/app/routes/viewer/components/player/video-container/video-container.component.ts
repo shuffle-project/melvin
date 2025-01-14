@@ -71,19 +71,23 @@ export class VideoContainerComponent
   ) {}
 
   ngAfterViewInit(): void {
+    const sortedResolutions = [...this.video.resolutions].sort(
+      (a, b) => a.width - b.width
+    );
+
     this.store
       .select(viewerSelector.vMaxResolution)
       .pipe(takeUntil(this.destroy$$))
       .subscribe((maxResolution) => {
-        let maxResolutionIndex = this.video.resolutions.findIndex(
+        let maxResolutionIndex = sortedResolutions.findIndex(
           (res) => res.resolution === maxResolution
         );
 
         if (maxResolutionIndex === -1) {
-          maxResolutionIndex = this.video.resolutions.length - 1;
+          maxResolutionIndex = sortedResolutions.length - 1;
         }
 
-        this.cappedResolutions = this.video.resolutions.slice(
+        this.cappedResolutions = sortedResolutions.slice(
           0,
           maxResolutionIndex + 1
         );
