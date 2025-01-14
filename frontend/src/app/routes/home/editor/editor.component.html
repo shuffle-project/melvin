@@ -1,5 +1,5 @@
-<app-header>
-  <div class="flex flex-col" *ngrxLet="project$ as project">
+<app-header *ngrxLet="project$ as project">
+  <div class="flex flex-col">
     <div class="title-wrapper">
       <span
         #projectTitle
@@ -60,7 +60,11 @@
         <ng-container *ngrxLet="projectMedia$ as projectMedia">
           @if (projectMedia) { @for (video of projectMedia.videos; track $index)
           {
-          <button mat-menu-item (click)="onDownloadVideo(video)">
+          <button
+            mat-menu-item
+            [mat-menu-trigger-for]="resolutionDownloadMenu"
+            [matMenuTriggerData]="{ video }"
+          >
             {{ video.category | mediaCategory }}
             @if (video.title) { [{{ video.title }}] } (.{{ video.extension }})
           </button>
@@ -72,11 +76,23 @@
         </button>
         <button mat-menu-item (click)="onDownloadSrt()">SubRip (.srt)</button>
         <button mat-menu-item (click)="onDownloadVtt()">WebVTT (.vtt)</button>
-        <!-- <mat-divider></mat-divider> -->
-        <!-- <button mat-menu-item i18n="@@editorMenuFileDownloadConfigureLabel">
-            Configure ...
-          </button> -->
       </mat-menu>
+
+      <!-- Rosolution Download Menu -->
+
+      <mat-menu #resolutionDownloadMenu="matMenu" class="dense">
+        <ng-template matMenuContent let-video="video">
+          @if (project) { @for (resolution of video.resolutions; track $index) {
+          <button
+            mat-menu-item
+            (click)="onDownloadVideo(resolution, video, project.title)"
+          >
+            {{ resolution.resolution }}
+          </button>
+          } }
+        </ng-template>
+      </mat-menu>
+
       <!-- Transcription Menu -->
       @if ('transcriptionsMenu' | featureEnabled) {
       <button

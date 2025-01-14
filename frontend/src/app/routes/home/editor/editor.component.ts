@@ -26,6 +26,7 @@ import { ApiService } from '../../../services/api/api.service';
 import {
   ProjectEntity,
   ProjectStatus,
+  Resolution,
   VideoEntity,
 } from '../../../services/api/entities/project.entity';
 import { AppService } from '../../../services/app/app.service';
@@ -154,7 +155,7 @@ export class EditorComponent implements OnInit, OnDestroy {
     private mediaService: MediaService,
     private appService: AppService,
     public livestreamService: LivestreamService,
-    public http: HttpClient,
+    public httpClient: HttpClient,
     private deleteService: DeleteConfirmationService,
     private router: Router
   ) {}
@@ -263,18 +264,29 @@ export class EditorComponent implements OnInit, OnDestroy {
     });
   }
 
-  onDownloadVideo(video: VideoEntity) {
-    // TODO refactor, nur provisorisch
-    // use filesaver package
-    this.http
-      .get(video.resolutions[0].url, { responseType: 'blob' })
+  onDownloadVideo(
+    resolution: Resolution,
+    videoEntity: VideoEntity,
+    projectTitle: string
+  ) {
+    const regexSpecialChars = /[`~!@#$%^&*()|+\=?;:'",.<>\{\}\[\]\\\/]/gi;
+    const filename = `${projectTitle}_${
+      videoEntity.title ? videoEntity.title : videoEntity.category
+    }`;
+
+    const readyFilename = filename
+      .replace(regexSpecialChars, '')
+      .replace(/ /g, '-');
+
+    this.httpClient
+      .get(resolution.url, { responseType: 'blob' })
       .subscribe((response) => {
         const urlCreator = window.URL || window.webkitURL;
-        const fileUrl = urlCreator.createObjectURL(response);
+        const imageUrl = urlCreator.createObjectURL(response);
         const tag = document.createElement('a');
-        tag.href = fileUrl;
+        tag.href = imageUrl;
         tag.target = '_blank';
-        tag.download = video.title + '.' + video.extension;
+        tag.download = readyFilename + '.' + videoEntity.extension;
         document.body.appendChild(tag);
         tag.click();
         document.body.removeChild(tag);
