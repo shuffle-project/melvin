@@ -1,26 +1,23 @@
 import { InjectQueue } from '@nestjs/bull';
 import { Injectable } from '@nestjs/common';
 import { Queue } from 'bull';
+import { exists } from 'fs-extra';
+import { rm } from 'fs/promises';
 import {
   AlignPayload,
   ProcessSubtitlesJob,
+  ProcessVideoJob,
   SubtitlesType,
 } from '../../processors/processor.interfaces';
 import { PopulateService } from '../../resources/populate/populate.service';
 import { generateSecureToken } from '../../utils/crypto';
 import { DbService } from '../db/db.service';
-import { CustomLogger } from '../logger/logger.service';
-import { WhisperSpeechService } from '../speech-to-text/whisper/whisper-speech.service';
-import { TiptapService } from '../tiptap/tiptap.service';
 import { ProjectStatus } from '../db/schemas/project.schema';
 import { FfmpegService } from '../ffmpeg/ffmpeg.service';
-import { flatMap } from 'lodash';
-import { stat } from 'fs';
+import { CustomLogger } from '../logger/logger.service';
 import { PathService } from '../path/path.service';
-import { Path } from 'mongoose';
-import { exists } from 'fs-extra';
-import { isSameObjectId } from 'src/utils/objectid';
-import { rm } from 'fs/promises';
+import { WhisperSpeechService } from '../speech-to-text/whisper/whisper-speech.service';
+import { TiptapService } from '../tiptap/tiptap.service';
 
 @Injectable()
 export class MigrationService {
@@ -34,6 +31,8 @@ export class MigrationService {
     private pathService: PathService,
     @InjectQueue('subtitles')
     private subtitlesQueue: Queue<ProcessSubtitlesJob>,
+    @InjectQueue('video')
+    private videoQueue: Queue<ProcessVideoJob>,
   ) {
     this.logger.setContext('Migration');
   }
@@ -110,8 +109,6 @@ export class MigrationService {
 
       await this._generateResolutions();
 
-      // TODO set version to 5
-
       settings.dbSchemaVersion = 5;
       await settings.save();
       this.logger.info('Migration to version 5 successful');
@@ -128,42 +125,54 @@ export class MigrationService {
       ],
     });
     this.logger.info('Projects found: ' + projects.length);
+    const processVideoJobs: ProcessVideoJob[] = [];
     for (const project of projects) {
       // if (isSameObjectId(project._id, '67810c548b57305d8e596fd7')) {
-      this.logger.info('Project ' + project._id.toString());
-      this.logger.info('videos: ' + project.videos.length);
+      this.logger.verbose('Project ' + project._id.toString());
+      this.logger.verbose('videos: ' + project.videos.length);
 
       try {
         for (const video of project.videos) {
-          this.logger.info('Video ' + video._id.toString());
+          this.logger.verbose('Video ' + video._id.toString());
           const baseMediaFile = this.pathService.getBaseMediaFile(
             project._id.toString(),
             video,
           );
-          const lowResFile = this.pathService.getVideoFile(
-            project._id.toString(),
-            video,
-            '240p',
+
+          const possibleResolutions = [
+            240, 360, 480, 720, 1080, 1440, 2160,
+          ].map((res) =>
+            this.pathService.getVideoFile(
+              project._id.toString(),
+              video,
+              res + 'p',
+            ),
           );
 
           const fileExists = await exists(baseMediaFile);
-          const resolutionsExist = await exists(lowResFile);
+          const resolutionsExist = await exists(possibleResolutions[0]);
 
-          this.logger.info('File exists: ' + fileExists);
-          this.logger.info('Resolutions exist: ' + resolutionsExist);
+          this.logger.verbose('File exists: ' + fileExists);
+          this.logger.verbose('Resolutions exist: ' + resolutionsExist);
 
-          // TODO check if resolutions exist?? just replaces it if it exists
-          if (fileExists && !resolutionsExist) {
-            // if (fileExists) {
+          if (fileExists) {
+            // if (fileExists && !resolutionsExist) {
+            const calcRes = await this.ffmpegService.getCalculatedResolutions(
+              baseMediaFile,
+            );
+
             await this.ffmpegService.processVideoFile(
               baseMediaFile,
               project._id.toString(),
               video,
+              [calcRes[0]],
             );
 
-            this.logger.info('process video done');
-            await rm(baseMediaFile);
-            this.logger.info('deleted: ' + baseMediaFile);
+            this.logger.verbose('Process 240p video done');
+
+            processVideoJobs.push({ projectId: project._id.toString(), video });
+            // await rm(baseMediaFile);
+            // this.logger.info('deleted: ' + baseMediaFile);
           }
         }
       } catch (e) {
@@ -175,6 +184,11 @@ export class MigrationService {
       }
       // }
     }
+
+    // push every video to videoQueue, to process higher quality videos
+    processVideoJobs.forEach((job) => {
+      this.videoQueue.add(job);
+    });
   }
 
   private async _migrateToV3Tiptap() {

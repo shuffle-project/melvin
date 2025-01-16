@@ -27,6 +27,7 @@ import { ProjectModule } from './resources/project/project.module';
 import { TranscriptionModule } from './resources/transcription/transcription.module';
 import { UserModule } from './resources/user/user.module';
 import { MediaModule } from './modules/media/media.module';
+import { VideoProcessor } from './processors/video.processor';
 
 @Module({
   imports: [
@@ -56,6 +57,7 @@ import { MediaModule } from './modules/media/media.module';
       { name: 'project' },
       { name: 'subtitles' },
       { name: 'livestream' },
+      { name: 'video' },
     ),
     DbModule,
     LoggerModule,
@@ -85,6 +87,7 @@ import { MediaModule } from './modules/media/media.module';
     ProjectProcessor,
     SubtitlesProcessor,
     LivestreamProcessor,
+    VideoProcessor,
   ],
 })
 export class AppModule {}

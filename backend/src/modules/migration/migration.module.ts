@@ -19,7 +19,7 @@ import { PathModule } from '../path/path.module';
     SpeechToTextModule,
     FfmpegModule,
     PathModule,
-    BullModule.registerQueue({ name: 'subtitles' }),
+    BullModule.registerQueue({ name: 'subtitles' }, { name: 'video' }),
   ],
   providers: [MigrationService],
   exports: [MigrationService],

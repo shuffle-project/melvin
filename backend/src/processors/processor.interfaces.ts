@@ -77,3 +77,9 @@ export interface ProcessProjectJob {
   mainVideo: Video;
   mainAudio?: Audio;
 }
+
+// Video Processor
+export interface ProcessVideoJob {
+  projectId: string;
+  video: Video;
+}

@@ -7,8 +7,9 @@ import {
   Processor,
 } from '@nestjs/bull';
 import { Job, JobStatus, Queue } from 'bull';
-import { rm } from 'fs-extra';
+import { move, rm } from 'fs-extra';
 import { writeFile } from 'fs/promises';
+import { isSameObjectId } from 'src/utils/objectid';
 import { DbService } from '../modules/db/db.service';
 import {
   Audio,
@@ -23,9 +24,12 @@ import { PathService } from '../modules/path/path.service';
 import { ActivityService } from '../resources/activity/activity.service';
 import { AuthService } from '../resources/auth/auth.service';
 import { ProjectService } from '../resources/project/project.service';
-import { ProcessProjectJob, ProcessSubtitlesJob } from './processor.interfaces';
+import {
+  ProcessProjectJob,
+  ProcessSubtitlesJob,
+  ProcessVideoJob,
+} from './processor.interfaces';
 import { jobWithProjectIdExists } from './processor.utils';
-import { isSameObjectId } from 'src/utils/objectid';
 @Processor('project')
 export class ProjectProcessor {
   constructor(
@@ -37,6 +41,9 @@ export class ProjectProcessor {
     private activityService: ActivityService,
     @InjectQueue('subtitles')
     private subtitlesQueue: Queue<ProcessSubtitlesJob>,
+    @InjectQueue('video')
+    private videoQueue: Queue<ProcessVideoJob>,
+
     private db: DbService,
   ) {
     this.logger.setContext(this.constructor.name);
@@ -55,7 +62,13 @@ export class ProjectProcessor {
       mainVideo,
       MediaStatus.PROCESSING,
     );
-    await this.ffmpegService.processVideoFile(file.path, projectId, mainVideo);
+    const calcRes = await this.ffmpegService.getCalculatedResolutions(
+      file.path,
+    );
+
+    await this.ffmpegService.processVideoFile(file.path, projectId, mainVideo, [
+      calcRes[0],
+    ]);
     await this.projectService._updateMedia(
       projectId,
       mainVideo,
@@ -126,13 +139,13 @@ export class ProjectProcessor {
     }
 
     this.logger.verbose(
-      `Video processing START: Job ${job.id}, ProjectId: ${projectId}`,
+      `Project processing START: Job ${job.id}, ProjectId: ${projectId}`,
     );
   }
 
   @OnQueueCompleted()
   async completeHandler(job: Job<ProcessProjectJob>, result: any) {
-    const { project, file } = job.data;
+    const { project, file, mainVideo } = job.data;
     const projectId = project._id.toString();
 
     const systemUser = await this.authService.findSystemAuthUser();
@@ -161,12 +174,23 @@ export class ProjectProcessor {
       });
     }
 
-    // remove temp file
+    // move tempfile to projectfolder, remove tempfolder, add video to videoqueue
+    const targetFilepath = this.pathService.getBaseMediaFile(
+      projectId,
+      mainVideo,
+    );
+    await move(file.path, targetFilepath);
     await rm(file.destination, { recursive: true });
 
+    this.videoQueue.add({ projectId, video: mainVideo });
+
+    // TODO instead if removing file, move it to project folder
+
     this.logger.verbose(
-      `Video processing DONE: Job ${job.id}, ProjectId: ${projectId}, Result: ${result}`,
+      `Project processing DONE: Job ${job.id}, ProjectId: ${projectId}, Result: ${result}`,
     );
+
+    this.logger.info('ProjectJobs left: ' + projectJobs.length);
   }
 
   @OnQueueFailed()
@@ -188,7 +212,7 @@ export class ProjectProcessor {
     });
 
     this.logger.error(
-      `Video processing FAIL: Job ${job.id}, ProjectId: ${projectId}, Errormessage: ${err.message}`,
+      `Project processing FAIL: Job ${job.id}, ProjectId: ${projectId}, Errormessage: ${err.message}`,
     );
     this.logger.error('Stack:');
     this.logger.error(err.stack);
