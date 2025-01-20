@@ -5,7 +5,8 @@ import {
   Process,
   Processor,
 } from '@nestjs/bull';
-import { Job, JobStatus } from 'bull';
+import { Job } from 'bull';
+import { exists } from 'fs-extra';
 import { DbService } from '../modules/db/db.service';
 import { FfmpegService } from '../modules/ffmpeg/ffmpeg.service';
 import { CustomLogger } from '../modules/logger/logger.service';
@@ -13,7 +14,6 @@ import { PathService } from '../modules/path/path.service';
 import { AuthService } from '../resources/auth/auth.service';
 import { ProjectService } from '../resources/project/project.service';
 import { ProcessVideoJob } from './processor.interfaces';
-import { rm } from 'fs/promises';
 @Processor('video')
 export class VideoProcessor {
   constructor(
@@ -46,6 +46,12 @@ export class VideoProcessor {
 
     // TODO check if file exists
 
+    const fileExists = await exists(filepath);
+    if (!fileExists) {
+      this.logger.error(`Can't process file, file does not exist: ${filepath}`);
+      return;
+    }
+
     await this.ffmpegService.processVideoFile(
       filepath,
       projectId,
@@ -67,9 +73,9 @@ export class VideoProcessor {
   async completeHandler(job: Job<ProcessVideoJob>, result: any) {
     let { projectId, video } = job.data;
 
-    // remove basefile
-    const filepath = this.pathService.getBaseMediaFile(projectId, video);
-    await rm(filepath);
+    // // remove basefile
+    // const filepath = this.pathService.getBaseMediaFile(projectId, video);
+    // await rm(filepath);
 
     this.logger.verbose(
       `Video processing DONE: Job ${job.id}, ProjectId: ${projectId}, Result: ${result}, Video ${video._id}`,

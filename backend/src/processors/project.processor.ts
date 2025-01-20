@@ -55,6 +55,19 @@ export class ProjectProcessor {
     const projectId = project._id.toString();
     const systemUser = await this.authService.findSystemAuthUser();
 
+    // move tempfile to projectfolder, remove tempfolder, add video to videoqueue
+    const targetFilepath = this.pathService.getBaseMediaFile(
+      projectId,
+      mainVideo,
+    );
+    await move(file.path, targetFilepath);
+    await rm(file.destination, { recursive: true });
+
+    const originalFilePath = this.pathService.getBaseMediaFile(
+      projectId,
+      mainVideo,
+    );
+
     // process video
 
     await this.projectService._updateMedia(
@@ -63,12 +76,15 @@ export class ProjectProcessor {
       MediaStatus.PROCESSING,
     );
     const calcRes = await this.ffmpegService.getCalculatedResolutions(
-      file.path,
+      originalFilePath,
     );
 
-    await this.ffmpegService.processVideoFile(file.path, projectId, mainVideo, [
-      calcRes[0],
-    ]);
+    await this.ffmpegService.processVideoFile(
+      originalFilePath,
+      projectId,
+      mainVideo,
+      [calcRes[0]],
+    );
     await this.projectService._updateMedia(
       projectId,
       mainVideo,
@@ -174,17 +190,8 @@ export class ProjectProcessor {
       });
     }
 
-    // move tempfile to projectfolder, remove tempfolder, add video to videoqueue
-    const targetFilepath = this.pathService.getBaseMediaFile(
-      projectId,
-      mainVideo,
-    );
-    await move(file.path, targetFilepath);
-    await rm(file.destination, { recursive: true });
-
+    // start processing video in all resolutions
     this.videoQueue.add({ projectId, video: mainVideo });
-
-    // TODO instead if removing file, move it to project folder
 
     this.logger.verbose(
       `Project processing DONE: Job ${job.id}, ProjectId: ${projectId}, Result: ${result}`,

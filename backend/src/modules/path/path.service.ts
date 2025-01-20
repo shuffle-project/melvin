@@ -48,8 +48,30 @@ export class PathService {
     return join(this.getProjectDirectory(projectId), filename);
   }
 
-  getAudioFile(projectId: string, audio: Audio): string {
+  getHighResVideoFile(projectId: string, video: Video): string {
+    const sorted = video.resolutions.sort((a, b) => b.height - a.height);
+
+    const filename =
+      video._id + '_' + sorted[0].resolution + '.' + video.extension;
+    return join(this.getProjectDirectory(projectId), filename);
+  }
+
+  getLowResVideoFile(projectId: string, video: Video): string {
+    const sorted = video.resolutions.sort((a, b) => a.height - b.height);
+
+    const filename =
+      video._id + '_' + sorted[0].resolution + '.' + video.extension;
+    return join(this.getProjectDirectory(projectId), filename);
+  }
+
+  getBaseAudioFile(projectId: string, audio: Audio): string {
     const filename = audio._id + '.' + audio.extension;
+    return join(this.getProjectDirectory(projectId), filename);
+  }
+
+  getAudioFile(projectId: string, audio: Audio, stereo: boolean): string {
+    const type = stereo ? '_stereo' : '_mono';
+    const filename = audio._id + type + '.' + audio.extension;
     return join(this.getProjectDirectory(projectId), filename);
   }
 

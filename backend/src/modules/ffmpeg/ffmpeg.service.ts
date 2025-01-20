@@ -47,7 +47,11 @@ export class FfmpegService {
     const projectId = project._id.toString();
     // const videoFilepath = this.pathService.getVideoFile(projectId);
     // const audioFilepath = this.pathService.getMp3File(projectId);
-    const audioFilepath = this.pathService.getAudioFile(projectId, audio);
+    const audioFilepath = this.pathService.getAudioFile(
+      projectId,
+      audio,
+      false,
+    );
     const args = [
       // logging
       '-loglevel',
@@ -177,6 +181,7 @@ export class FfmpegService {
           //audio codec
           '-c:a',
           'aac',
+          // preset
           '-preset',
           'fast',
           // video settings
@@ -216,34 +221,59 @@ export class FfmpegService {
     await project.save();
   }
 
-  async createWavFile(projectId: string, video: Video, audio: Audio) {
-    const videoFilepath = this.pathService.getVideoFile(projectId, video);
-    // const audioFilepath = this.pathService.getWavFile(projectId);
-    const audioFilepath = this.pathService.getAudioFile(projectId, audio);
+  // async createWavFile(projectId: string, video: Video, audio: Audio) {
+  //   const videoFilepath = this.pathService.getVideoFile(projectId, video);
+  //   // const audioFilepath = this.pathService.getWavFile(projectId);
+  //   const audioFilepath = this.pathService.getAudioFile(projectId, audio);
 
-    const commands = [
-      '-i',
-      videoFilepath,
-      '-ac',
-      '1', // reduce to mono
-      audioFilepath,
-    ];
-    await this.execAsStream(commands);
-  }
+  //   const commands = [
+  //     '-i',
+  //     videoFilepath,
+  //     '-ac',
+  //     '1', // reduce to mono
+  //     audioFilepath,
+  //   ];
+  //   await this.execAsStream(commands);
+  // }
 
+  /**
+   *  useVideopath used in migration, it will take this path instead of the high res video
+   */
   async createMp3File(projectId: string, video: Video, audio: Audio) {
-    const videoFilepath = this.pathService.getVideoFile(projectId, video);
+    const videoFilepath = this.pathService.getBaseMediaFile(projectId, video);
     // const audioFilepath = this.pathService.getMp3File(projectId);
 
-    const audioFilepath = this.pathService.getAudioFile(projectId, audio);
+    const audioFilepathStereo = this.pathService.getAudioFile(
+      projectId,
+      audio,
+      true,
+    );
+    const audioFilepathMono = this.pathService.getAudioFile(
+      projectId,
+      audio,
+      false,
+    );
 
     const commands = [
       '-i',
       videoFilepath,
+      // for mp3 audio quality
+      '-q:a',
+      '3',
+      // mono
+      '-map',
+      '0:a',
       '-ac',
-      '1', // reduce to mono
-      audioFilepath,
+      '1',
+      audioFilepathMono,
+      // stereo
+      '-map',
+      '0:a',
+      '-ac',
+      '2',
+      audioFilepathStereo,
     ];
+    // ffmpeg -i input.wav -map 0:a -ac 1 output_mono.wav -map 0:a -ac 2 output_stereo.wav
     await this.execAsStream(commands);
   }
 
@@ -450,7 +480,7 @@ export class FfmpegService {
     const resolutions: Resolution[] = [];
 
     // [240, 360, 480, 720, 1080, 1440, 2160,4320]
-    [240, 360, 480, 720, 1080, 1440, 2160].forEach((targetHeight) => {
+    [240, 360, 480, 720, 1080].forEach((targetHeight) => {
       if (height >= targetHeight) {
         resolutions.push({
           resolution: targetHeight + 'p',
