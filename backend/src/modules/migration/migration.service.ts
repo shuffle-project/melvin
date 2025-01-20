@@ -126,54 +126,62 @@ export class MigrationService {
 
     for (const project of projects) {
       for (const audio of project.audios) {
-        const mainVideo = project.videos.find(
-          (video) => video.category === MediaCategory.MAIN,
-        );
+        try {
+          const mainVideo = project.videos.find(
+            (video) => video.category === MediaCategory.MAIN,
+          );
 
-        const baseAudioFile = this.pathService.getBaseAudioFile(
-          project._id.toString(),
-          audio,
-        );
-        const baseVideoFile = this.pathService.getBaseMediaFile(
-          project._id.toString(),
-          mainVideo,
-        );
-        const stereoAudioFile = this.pathService.getAudioFile(
-          project._id.toString(),
-          audio,
-          true,
-        );
-        const monoAudioFile = this.pathService.getAudioFile(
-          project._id.toString(),
-          audio,
-          false,
-        );
-        // const audioBase = await exists(this.pathService.getBaseAudioFile(
-        const videoBaseExists = await exists(baseVideoFile);
-        const stereoExists = await exists(stereoAudioFile);
-        const monoExists = await exists(monoAudioFile);
-
-        if (videoBaseExists && (!stereoExists || !monoExists)) {
-          await this.ffmpegService.createMp3File(
+          const baseAudioFile = this.pathService.getBaseAudioFile(
             project._id.toString(),
-            mainVideo,
             audio,
           );
-          this.logger.verbose(
-            'stereo/mono audio files created for projectId/audioId: ' +
-              project._id.toString() +
-              '/' +
-              audio._id.toString(),
+          const baseVideoFile = this.pathService.getBaseMediaFile(
+            project._id.toString(),
+            mainVideo,
           );
+          const stereoAudioFile = this.pathService.getAudioFile(
+            project._id.toString(),
+            audio,
+            true,
+          );
+          const monoAudioFile = this.pathService.getAudioFile(
+            project._id.toString(),
+            audio,
+            false,
+          );
+          // const audioBase = await exists(this.pathService.getBaseAudioFile(
+          const videoBaseExists = await exists(baseVideoFile);
+          const stereoExists = await exists(stereoAudioFile);
+          const monoExists = await exists(monoAudioFile);
 
-          // remove base audio file after
-          rm(baseAudioFile);
-          this.logger.verbose('deleting base audio file: ' + baseAudioFile);
-        } else {
-          this.logger.verbose('Skip generation of stereo/mono audio files');
-          this.logger.verbose('File exists: ' + videoBaseExists);
-          this.logger.verbose('Stereo exists: ' + stereoExists);
-          this.logger.verbose('Mono exists: ' + monoExists);
+          if (videoBaseExists && (!stereoExists || !monoExists)) {
+            await this.ffmpegService.createMp3File(
+              project._id.toString(),
+              mainVideo,
+              audio,
+            );
+            this.logger.verbose(
+              'stereo/mono audio files created for projectId/audioId: ' +
+                project._id.toString() +
+                '/' +
+                audio._id.toString(),
+            );
+
+            // remove base audio file after
+            rm(baseAudioFile);
+            this.logger.verbose('deleting base audio file: ' + baseAudioFile);
+          } else {
+            this.logger.verbose('Skip generation of stereo/mono audio files');
+            this.logger.verbose('File exists: ' + videoBaseExists);
+            this.logger.verbose('Stereo exists: ' + stereoExists);
+            this.logger.verbose('Mono exists: ' + monoExists);
+          }
+        } catch (error) {
+          this.logger.error(
+            'Error while creating audio files for project: ' +
+              project._id.toString(),
+          );
+          this.logger.error(error);
         }
       }
     }
