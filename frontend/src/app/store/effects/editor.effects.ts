@@ -36,6 +36,21 @@ export class EditorEffects {
     { dispatch: false }
   );
 
+  changeMuted$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(editorActions.toggleMutedFromEditor),
+        withLatestFrom(this.store.select(editorSelectors.selectMuted)),
+        tap(([action, muted]) => {
+          this.storageService.storeInSessionStorage(
+            StorageKey.EDITOR_MEDIA_MUTED,
+            muted
+          );
+        })
+      ),
+    { dispatch: false }
+  );
+
   subtitlesEnabledInVideo$ = createEffect(
     () =>
       this.actions$.pipe(

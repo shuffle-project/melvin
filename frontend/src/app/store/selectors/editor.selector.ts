@@ -132,3 +132,8 @@ export const selectShowUsernames = createSelector(
   selectEditorState,
   (state: EditorState) => state.showUsernames
 );
+
+export const selectMuted = createSelector(
+  selectEditorState,
+  (state: EditorState) => state.muted
+);

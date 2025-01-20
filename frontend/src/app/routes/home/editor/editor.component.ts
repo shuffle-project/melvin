@@ -20,7 +20,6 @@ import { AppState } from 'src/app/store/app.state';
 import { AvatarGroupComponent } from '../../../components/avatar-group/avatar-group.component';
 import { ShareProjectDialogComponent } from '../../../components/share-project-dialog/share-project-dialog.component';
 
-import { DurationPipe } from '../../../pipes/duration-pipe/duration.pipe';
 import { FeatureEnabledPipe } from '../../../pipes/feature-enabled-pipe/feature-enabled.pipe';
 import { ApiService } from '../../../services/api/api.service';
 import {
@@ -55,6 +54,7 @@ import { JoinLivestreamModalComponent } from './components/join-livestream-modal
 import { LiveControlsComponent } from './components/live-controls/live-controls.component';
 import { TiptapEditorComponent } from './components/tiptap-editor/tiptap-editor.component';
 import { UserTestControlsComponent } from './components/user-test-controls/user-test-controls.component';
+import { VideoControlsComponent } from './components/video-controls/video-controls/video-controls.component';
 import { VideoPlayerComponent } from './components/video-player/video-player.component';
 import { WaveformComponent } from './components/waveform/waveform.component';
 import { MediaService } from './service/media/media.service';
@@ -82,11 +82,11 @@ import { MediaService } from './service/media/media.service';
     EditorSettingsComponent,
     UserTestControlsComponent,
     PushPipe,
-    DurationPipe,
     FeatureEnabledPipe,
     TiptapEditorComponent,
     WrittenOutLanguagePipe,
     MediaCategoryPipe,
+    VideoControlsComponent,
   ],
 })
 export class EditorComponent implements OnInit, OnDestroy {
@@ -132,12 +132,8 @@ export class EditorComponent implements OnInit, OnDestroy {
   );
 
   // Media observables
-  public isReady$ = this.mediaService.isReady$;
-  public duration$ = this.mediaService.duration$;
-  public isPlaying$ = this.store.select(editorSelectors.selectIsPlaying);
   public isLiveMode$ = this.store.select(editorSelectors.selectIsLiveMode);
   public isLiveInSync$ = this.store.select(editorSelectors.selectIsLiveInSync);
-  public currentTime$ = this.mediaService.currentTime$;
   public isOwner$ = combineLatest([
     this.store.select(authSelectors.selectUserId),
     this.store.select(editorSelectors.selectProject),
@@ -213,24 +209,8 @@ export class EditorComponent implements OnInit, OnDestroy {
     );
   }
 
-  onTogglePlayPause() {
-    this.store.dispatch(editorActions.togglePlayPauseFromEditor());
-  }
-
-  onClickBackToLive() {
-    this.store.dispatch(editorActions.backToLive());
-  }
-
   onOpenHelpDialog() {
     this.dialog.open(DialogHelpEditorComponent);
-  }
-
-  onSkipForward() {
-    this.mediaService.skipForward(5000);
-  }
-
-  onSkipBackward() {
-    this.mediaService.skipBackward(5000);
   }
 
   onChangeProjectTitle(newProjectTitle: string, project: ProjectEntity | null) {

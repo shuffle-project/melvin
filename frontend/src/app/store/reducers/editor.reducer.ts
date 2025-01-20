@@ -35,6 +35,7 @@ export interface EditorState {
 
   spellchecking: boolean;
   showUsernames: boolean;
+  muted: boolean;
 }
 
 export const initalState: EditorState = {
@@ -63,6 +64,10 @@ export const initalState: EditorState = {
   showUsernames: storage.getFromLocalStorage(
     StorageKey.EDITOR_SHOW_USERNAMES,
     true
+  ) as boolean,
+  muted: storage.getFromSessionStorage(
+    StorageKey.EDITOR_MEDIA_MUTED,
+    false
   ) as boolean,
 };
 
@@ -117,9 +122,9 @@ export const editorReducer = createReducer(
     ...state,
     volume: action.volume,
   })),
-  on(editorActions.toggleVolumeFromVideoComponent, (state) => ({
+  on(editorActions.toggleMutedFromEditor, (state) => ({
     ...state,
-    volume: state.volume > 0 ? 0 : 1,
+    muted: !state.muted,
   })),
   on(editorActions.toggleSubtitlesFromEditor, (state) => ({
     ...state,

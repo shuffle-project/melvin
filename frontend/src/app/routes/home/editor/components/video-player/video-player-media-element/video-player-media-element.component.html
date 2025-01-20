@@ -4,6 +4,7 @@
     *ngrxLet="project$ as project"
     [playbackRate]="playbackRate$ | ngrxPush"
     [volume]="volume$ | ngrxPush"
+    [muted]="muted$ | ngrxPush"
     #video
     preload="auto"
   >
@@ -15,4 +16,3 @@
     }
   </video>
 </ng-container>
-<ng-content></ng-content>

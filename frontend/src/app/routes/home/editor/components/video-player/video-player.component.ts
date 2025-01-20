@@ -11,10 +11,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { LetDirective, PushPipe } from '@ngrx/component';
 import { Store } from '@ngrx/store';
-import { FeatureEnabledPipe } from '../../../../../pipes/feature-enabled-pipe/feature-enabled.pipe';
-import * as editorActions from '../../../../../store/actions/editor.actions';
 import { AppState } from '../../../../../store/app.state';
 import * as editorSelectors from '../../../../../store/selectors/editor.selector';
 import { MediaService } from '../../service/media/media.service';
@@ -26,14 +23,11 @@ import { VideoPlayerMediaElementComponent } from './video-player-media-element/v
   styleUrls: ['./video-player.component.scss'],
   imports: [
     VideoPlayerMediaElementComponent,
-    LetDirective,
     MatButtonModule,
     MatTooltipModule,
     MatIconModule,
     MatSliderModule,
     MatMenuModule,
-    PushPipe,
-    FeatureEnabledPipe,
   ],
 })
 export class VideoPlayerComponent implements OnInit {
@@ -52,8 +46,6 @@ export class VideoPlayerComponent implements OnInit {
   );
   public showPictureInPictureButton = !!this.document.exitPictureInPicture;
 
-  public speedOptions: number[] = [0.25, 0.5, 0.75, 1, 1.25, 1.5, 1.75, 2];
-
   constructor(
     private store: Store<AppState>,
     @Inject(DOCUMENT) private document: Document,
@@ -61,34 +53,6 @@ export class VideoPlayerComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {}
-
-  // onChangeVideoProgress(event: MatSliderChange) {
-  //   this.mediaService.seekToTime(event.value as number, true);
-  // }
-
-  onClickPlayPause() {
-    this.store.dispatch(editorActions.togglePlayPauseFromVideo());
-  }
-
-  onClickToggleVolume() {
-    this.store.dispatch(editorActions.toggleVolumeFromVideoComponent());
-  }
-
-  onChangeVolume(event: any) {
-    this.store.dispatch(
-      editorActions.changeVolumeFromVideoComponent({
-        volume: event.target.value,
-      })
-    );
-  }
-
-  onClickToggleSubtitles() {
-    this.store.dispatch(editorActions.toggleSubtitlesFromEditor());
-  }
-
-  onClickSetPlaybackSpeed(speed: number) {
-    this.store.dispatch(editorActions.changeSpeedFromEditor({ speed }));
-  }
 
   async onClickPictureInPicture() {
     this.mediaElement.nativeElement.togglePictureInPicture();

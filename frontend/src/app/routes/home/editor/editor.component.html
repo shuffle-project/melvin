@@ -181,7 +181,7 @@
   }
 </app-header>
 <!-- content -->
-<section class="content-section" *ngrxLet="isReady$ as isReady">
+<section class="content-section">
   @if ('editorActions' | featureEnabled) {
   <div class="sticky">
     @if (showWaveform) {
@@ -193,92 +193,6 @@
       }
     </div>
     }
-    <div class="actions">
-      @if ('showTime' | featureEnabled) {
-      <div class="time-container" [class.time-disabled]="!isReady">
-        <span class="time-current">
-          {{ (currentTime$ | ngrxPush) || 0 | duration }}
-        </span>
-        <span class="time-spacer">/</span>
-        <span class="time-total">
-          {{ (duration$ | ngrxPush) || 0 | duration }}
-        </span>
-        @if (('playPause' | featureEnabled) && (isLiveMode$ | ngrxPush)) {
-        <button
-          *ngrxLet="isLiveInSync$ as isLiveInSync"
-          mat-stroked-button
-          (click)="onClickBackToLive()"
-          [disabled]="!isReady"
-          class="live"
-          [class.active]="isLiveInSync"
-        >
-          <mat-icon svgIcon="record"></mat-icon>
-          <span>{{ isLiveInSync ? 'LIVE' : 'Zurück zu LIVE' }}</span>
-        </button>
-        }
-      </div>
-      }
-      <div class="flex flex-1 justify-center items-center">
-        @if ('quickForwardRewind' | featureEnabled) {
-        <button
-          mat-icon-button
-          class="big-icon-mat-button"
-          (click)="onSkipBackward()"
-          [disabled]="!isReady"
-          i18n-matTooltip="@@editorRewind5SecondsButtonLabel"
-          matTooltip="Rewind 5 seconds"
-          i18n-aria-label="@@editorRewind5SecondsButtonLabel"
-          aria-label="Rewind 5 seconds"
-        >
-          <mat-icon svgIcon="replay_5"></mat-icon>
-        </button>
-        } @if ('playPause' | featureEnabled) {
-        <button
-          mat-icon-button
-          class="big-icon-mat-button"
-          (click)="onTogglePlayPause()"
-          i18n-matTooltip="@@editorPlayOrPauseButtonLabel"
-          matTooltip="Play or pause"
-          i18n-aria-label="@@editorPlayOrPauseButtonLabel"
-          aria-label="Play or pause"
-          [disabled]="!isReady"
-        >
-          <mat-icon
-            [svgIcon]="(isPlaying$ | ngrxPush) ? 'pause_circle' : 'play_circle'"
-          ></mat-icon>
-        </button>
-        } @if ('quickForwardRewind' | featureEnabled) {
-        <button
-          mat-icon-button
-          (click)="onSkipForward()"
-          class="big-icon-mat-button"
-          [disabled]="!isReady"
-          i18n-matTooltip="@@editorSkip5SecondsButtonLabel"
-          matTooltip="Skip 5 seconds"
-          i18n-aria-label="@@editorSkip5SecondsButtonLabel"
-          aria-label="Skip 5 seconds"
-        >
-          <mat-icon svgIcon="forward_5"></mat-icon>
-        </button>
-        }
-      </div>
-      <div class="flex justify-end">
-        @if ('toggleZoomedWaveform' | featureEnabled) {
-        <!-- <mat-slide-toggle
-          [(ngModel)]="showZoomedWave"
-          labelPosition="before"
-       
-          i18n-matTooltip="@@editorToogleZoomTooltip"
-          matTooltip="Toggle zoom"
-          i18n-aria-label="@@editorToogleZoomTooltip"
-          aria-label="Toggle zoom"
-          [disabled]="!isReady"
-        >
-          Edit timings
-        </mat-slide-toggle> -->
-        }
-      </div>
-    </div>
   </div>
   }
   <div class="content">
@@ -317,6 +231,8 @@
       class="right"
       *ngrxLet="selectedTranscriptionId$ as selectedTranscriptionId"
     >
+      <app-video-controls></app-video-controls>
+
       <ng-container *ngrxLet="project$ as project">
         <ng-container *ngrxLet="editorUsers$ as editorUsers">
           <ng-container *ngrxLet="activeUsers$ as activeUsers">

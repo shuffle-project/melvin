@@ -1,6 +1,6 @@
 import { A11yModule } from '@angular/cdk/a11y';
 import { CdkMenuModule } from '@angular/cdk/menu';
-import { ConnectionPositionPair, OverlayModule } from '@angular/cdk/overlay';
+import { OverlayModule } from '@angular/cdk/overlay';
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -302,40 +302,23 @@ export class ControlsComponent implements OnInit, OnDestroy {
     this.store.dispatch(viewerActions.toggleMute());
   }
 
-  volumeOverlayPositions: ConnectionPositionPair[] = [
-    {
-      offsetX: 8,
-      originX: 'end',
-      originY: 'center',
-      overlayX: 'start',
-      overlayY: 'center',
-    },
-    {
-      offsetX: -8,
-      originX: 'start',
-      originY: 'center',
-      overlayX: 'end',
-      overlayY: 'center',
-    },
-  ];
-
   mouseOverSound = false;
   focusOnVolumeSlider = false;
 
   onMouseEnterBtn() {
-    this.mouseOverSound = true;
+    if (!this.mouseOverSound) this.mouseOverSound = true;
   }
   onMouseOutBtn() {
-    this.mouseOverSound = false;
-    this.focusOnVolumeSlider = false;
+    if (this.mouseOverSound) this.mouseOverSound = false;
+    if (this.focusOnVolumeSlider) this.focusOnVolumeSlider = false;
   }
 
   onFocusVolumeSlider() {
-    this.focusOnVolumeSlider = true;
+    if (!this.focusOnVolumeSlider) this.focusOnVolumeSlider = true;
   }
 
   onBlurVolumeSlider() {
-    this.focusOnVolumeSlider = false;
+    if (this.focusOnVolumeSlider) this.focusOnVolumeSlider = false;
   }
 
   onKeydownVolumeBtn(

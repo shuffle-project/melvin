@@ -1,0 +1,139 @@
+<div
+  class="wrapper"
+  *ngrxLet="isReady$ as isReady"
+  (mouseleave)="onMouseOutBtn()"
+>
+  <div class="left">
+    <button
+      [mat-menu-trigger-for]="playbackSpeedMenu"
+      mat-icon-button
+      i18n-aria-label="@@videoPlaybackSpeedAria"
+      aria-label="Video playback speed"
+    >
+      <mat-icon svgIcon="speed"></mat-icon>
+    </button>
+
+    <div
+      *ngrxLet="sound$ as sound"
+      class="sound-wrapper"
+      (mouseenter)="onMouseEnterBtn()"
+    >
+      <button
+        mat-icon-button
+        (click)="onMuteToggle()"
+        (keydown)="onKeydownVolumeBtn($event, sound.volume, sound.muted)"
+      >
+        @if (sound.muted || sound.volume === 0) {
+        <mat-icon svgIcon="volume-mute" />
+        } @else if(sound.volume < 0.5) {
+        <mat-icon svgIcon="volume-low" />
+        }@else {
+        <mat-icon svgIcon="volume-on" />
+        }
+      </button>
+
+      <mat-slider
+        class="volume-slider black"
+        min="0"
+        max="1"
+        step="0.1"
+        discrete
+        [displayWith]="sliderLabelVolume"
+        [class.visible]="mouseOverSound || focusOnVolumeSlider"
+      >
+        <input
+          aria-label="Volume"
+          i18n-aria-label="@@viewerControlsVolumeSlideLabel"
+          matSliderThumb
+          [value]="sound.muted ? 0 : sound.volume"
+          (valueChange)="onVolumeChange($event, sound.muted)"
+          (focus)="onFocusVolumeSlider()"
+          (blur)="onBlurVolumeSlider()"
+        />
+      </mat-slider>
+    </div>
+  </div>
+  <div class="middle">
+    <div class="play-rewind-buttons">
+      @if ('quickForwardRewind' | featureEnabled) {
+      <button
+        mat-icon-button
+        class="big-icon-mat-button"
+        (click)="onSkipBackward()"
+        [disabled]="!isReady"
+        i18n-matTooltip="@@editorRewind5SecondsButtonLabel"
+        matTooltip="Rewind 5 seconds"
+        i18n-aria-label="@@editorRewind5SecondsButtonLabel"
+        aria-label="Rewind 5 seconds"
+      >
+        <mat-icon svgIcon="replay_5"></mat-icon>
+      </button>
+      } @if ('playPause' | featureEnabled) {
+      <button
+        mat-icon-button
+        class="big-icon-mat-button"
+        (click)="onTogglePlayPause()"
+        i18n-matTooltip="@@editorPlayOrPauseButtonLabel"
+        matTooltip="Play or pause"
+        i18n-aria-label="@@editorPlayOrPauseButtonLabel"
+        aria-label="Play or pause"
+        [disabled]="!isReady"
+      >
+        <mat-icon
+          [svgIcon]="(isPlaying$ | ngrxPush) ? 'pause_circle' : 'play_circle'"
+        ></mat-icon>
+      </button>
+      } @if ('quickForwardRewind' | featureEnabled) {
+      <button
+        mat-icon-button
+        (click)="onSkipForward()"
+        class="big-icon-mat-button"
+        [disabled]="!isReady"
+        i18n-matTooltip="@@editorSkip5SecondsButtonLabel"
+        matTooltip="Skip 5 seconds"
+        i18n-aria-label="@@editorSkip5SecondsButtonLabel"
+        aria-label="Skip 5 seconds"
+      >
+        <mat-icon svgIcon="forward_5"></mat-icon>
+      </button>
+      }
+    </div>
+  </div>
+  <div class="right">
+    @if ('showTime' | featureEnabled) {
+    <div class="time-container" [class.time-disabled]="!isReady">
+      <span class="time-current">
+        {{ (currentTime$ | ngrxPush) || 0 | duration }}
+      </span>
+      <span class="time-spacer">/</span>
+      <span class="time-total">
+        {{ (duration$ | ngrxPush) || 0 | duration }}
+      </span>
+      <!-- @if (('playPause' | featureEnabled) && (isLiveMode$ | ngrxPush)) {
+      <button
+        *ngrxLet="isLiveInSync$ as isLiveInSync"
+        mat-stroked-button
+        (click)="onClickBackToLive()"
+        [disabled]="!isReady"
+        class="live"
+        [class.active]="isLiveInSync"
+      >
+        <mat-icon svgIcon="record"></mat-icon>
+        <span>{{ isLiveInSync ? 'LIVE' : 'Zurück zu LIVE' }}</span>
+      </button>
+      } -->
+    </div>
+    }
+  </div>
+</div>
+
+<mat-menu #playbackSpeedMenu="matMenu" class="dense">
+  @for (speed of speedOptions; track speed) {
+  <button mat-menu-item (click)="onClickSetPlaybackSpeed(speed)">
+    <mat-icon
+      [svgIcon]="(currentSpeed$ | ngrxPush) === speed ? 'done' : ''"
+    ></mat-icon>
+    <span> {{ speed === 1 ? 'Standard' : speed }}</span>
+  </button>
+  }
+</mat-menu>

@@ -10,6 +10,7 @@ export enum StorageKey {
 
   EDITOR_SPELLCHECKING = 'editor-spellchecking',
   EDITOR_SHOW_USERNAMES = 'editor-show-usernames',
+  EDITOR_MEDIA_MUTED = 'editor-media-muted',
 
   // viewer settings
   VIEWER_VIEW_SELECTION_ENABLED = 'viewer-view-selection-enabled',
