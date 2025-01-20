@@ -41,7 +41,6 @@
           >Choose a category</mat-label
         >
         <mat-select formControlName="category">
-          <!-- TODO media category i18n -->
           @for (selectableCategory of selectableMediaCategories; track $index) {
           <mat-option [value]="selectableCategory">{{
             selectableCategory | mediaCategory
@@ -161,7 +160,7 @@
               mat-icon-button
               aria-label="more"
               [matMenuTriggerFor]="mediaMoreMenu"
-              [matMenuTriggerData]="{ media: element }"
+              [matMenuTriggerData]="{ data: { media: element, project } }"
             >
               <mat-icon svgIcon="more" />
             </button>
@@ -177,22 +176,21 @@
 </div>
 
 <mat-menu #mediaMoreMenu="matMenu" class="dense">
-  <ng-template matMenuContent let-media="media">
-    @if (project$ | ngrxPush; as project) {
+  <ng-template matMenuContent let-data="data">
     <button
-      (click)="onDownloadMedia(project, media)"
       mat-menu-item
+      [mat-menu-trigger-for]="downloadMenu"
+      [matMenuTriggerData]="{ data }"
       i18n="@@uploadAdditionalMediaDownloadButtonLabel"
     >
       <mat-icon svgIcon="download" />
       Download
     </button>
-    } @if ((isOwner$ | ngrxPush) && media.category !== 'main' && project$ |
-    ngrxPush; as project) {
+    @if ((isOwner$ | ngrxPush) && data.media.category !== 'main' ) {
     <div>
       <mat-divider />
       <button
-        (click)="onDeleteAdditionalMedia(project, media)"
+        (click)="onDeleteAdditionalMedia(data.project, data.media)"
         i18n="@@uploadAdditionalMediaDeleteButtonLabel"
         mat-menu-item
       >
@@ -200,6 +198,19 @@
         Delete
       </button>
     </div>
+    }
+  </ng-template>
+</mat-menu>
+
+<mat-menu #downloadMenu="matMenu" class="dense">
+  <ng-template matMenuContent let-data="data">
+    @for (resolution of data.media.resolutions; track $index) {
+    <button
+      (click)="onDownloadMedia(resolution, data.media, data.project.title)"
+      mat-menu-item
+    >
+      {{ resolution.resolution }}
+    </button>
     }
   </ng-template>
 </mat-menu>

@@ -20,12 +20,12 @@ import { AppState } from 'src/app/store/app.state';
 import { AvatarGroupComponent } from '../../../components/avatar-group/avatar-group.component';
 import { ShareProjectDialogComponent } from '../../../components/share-project-dialog/share-project-dialog.component';
 
-import { DurationPipe } from '../../../pipes/duration-pipe/duration.pipe';
 import { FeatureEnabledPipe } from '../../../pipes/feature-enabled-pipe/feature-enabled.pipe';
 import { ApiService } from '../../../services/api/api.service';
 import {
   ProjectEntity,
   ProjectStatus,
+  Resolution,
   VideoEntity,
 } from '../../../services/api/entities/project.entity';
 import { AppService } from '../../../services/app/app.service';
@@ -54,6 +54,7 @@ import { JoinLivestreamModalComponent } from './components/join-livestream-modal
 import { LiveControlsComponent } from './components/live-controls/live-controls.component';
 import { TiptapEditorComponent } from './components/tiptap-editor/tiptap-editor.component';
 import { UserTestControlsComponent } from './components/user-test-controls/user-test-controls.component';
+import { VideoControlsComponent } from './components/video-controls/video-controls/video-controls.component';
 import { VideoPlayerComponent } from './components/video-player/video-player.component';
 import { WaveformComponent } from './components/waveform/waveform.component';
 import { MediaService } from './service/media/media.service';
@@ -81,11 +82,11 @@ import { MediaService } from './service/media/media.service';
     EditorSettingsComponent,
     UserTestControlsComponent,
     PushPipe,
-    DurationPipe,
     FeatureEnabledPipe,
     TiptapEditorComponent,
     WrittenOutLanguagePipe,
     MediaCategoryPipe,
+    VideoControlsComponent,
   ],
 })
 export class EditorComponent implements OnInit, OnDestroy {
@@ -131,12 +132,8 @@ export class EditorComponent implements OnInit, OnDestroy {
   );
 
   // Media observables
-  public isReady$ = this.mediaService.isReady$;
-  public duration$ = this.mediaService.duration$;
-  public isPlaying$ = this.store.select(editorSelectors.selectIsPlaying);
   public isLiveMode$ = this.store.select(editorSelectors.selectIsLiveMode);
   public isLiveInSync$ = this.store.select(editorSelectors.selectIsLiveInSync);
-  public currentTime$ = this.mediaService.currentTime$;
   public isOwner$ = combineLatest([
     this.store.select(authSelectors.selectUserId),
     this.store.select(editorSelectors.selectProject),
@@ -154,7 +151,7 @@ export class EditorComponent implements OnInit, OnDestroy {
     private mediaService: MediaService,
     private appService: AppService,
     public livestreamService: LivestreamService,
-    public http: HttpClient,
+    public httpClient: HttpClient,
     private deleteService: DeleteConfirmationService,
     private router: Router
   ) {}
@@ -212,24 +209,8 @@ export class EditorComponent implements OnInit, OnDestroy {
     );
   }
 
-  onTogglePlayPause() {
-    this.store.dispatch(editorActions.togglePlayPauseFromEditor());
-  }
-
-  onClickBackToLive() {
-    this.store.dispatch(editorActions.backToLive());
-  }
-
   onOpenHelpDialog() {
     this.dialog.open(DialogHelpEditorComponent);
-  }
-
-  onSkipForward() {
-    this.mediaService.skipForward(5000);
-  }
-
-  onSkipBackward() {
-    this.mediaService.skipBackward(5000);
   }
 
   onChangeProjectTitle(newProjectTitle: string, project: ProjectEntity | null) {
@@ -263,20 +244,33 @@ export class EditorComponent implements OnInit, OnDestroy {
     });
   }
 
-  onDownloadVideo(video: VideoEntity) {
-    // TODO refactor, nur provisorisch
-    // use filesaver package
-    this.http.get(video.url, { responseType: 'blob' }).subscribe((response) => {
-      const urlCreator = window.URL || window.webkitURL;
-      const fileUrl = urlCreator.createObjectURL(response);
-      const tag = document.createElement('a');
-      tag.href = fileUrl;
-      tag.target = '_blank';
-      tag.download = video.title + '.' + video.extension;
-      document.body.appendChild(tag);
-      tag.click();
-      document.body.removeChild(tag);
-    });
+  onDownloadVideo(
+    resolution: Resolution,
+    videoEntity: VideoEntity,
+    projectTitle: string
+  ) {
+    const regexSpecialChars = /[`~!@#$%^&*()|+\=?;:'",.<>\{\}\[\]\\\/]/gi;
+    const filename = `${projectTitle}_${
+      videoEntity.title ? videoEntity.title : videoEntity.category
+    }`;
+
+    const readyFilename = filename
+      .replace(regexSpecialChars, '')
+      .replace(/ /g, '-');
+
+    this.httpClient
+      .get(resolution.url, { responseType: 'blob' })
+      .subscribe((response) => {
+        const urlCreator = window.URL || window.webkitURL;
+        const imageUrl = urlCreator.createObjectURL(response);
+        const tag = document.createElement('a');
+        tag.href = imageUrl;
+        tag.target = '_blank';
+        tag.download = readyFilename + '.' + videoEntity.extension;
+        document.body.appendChild(tag);
+        tag.click();
+        document.body.removeChild(tag);
+      });
   }
 
   async onDownloadTxt() {

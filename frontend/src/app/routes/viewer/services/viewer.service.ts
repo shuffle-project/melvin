@@ -4,6 +4,7 @@ import {
   BehaviorSubject,
   Observable,
   Subject,
+  Subscription,
   animationFrameScheduler,
   combineLatest,
   debounceTime,
@@ -53,6 +54,8 @@ export class ViewerService {
   public isPlayingUser$ = this.store.select(viewerSelector.vIsPlayingUser);
   public isPlayingMedia$ = this.store.select(viewerSelector.vIsPlayingMedia);
 
+  private loadingEvents: { id: string; subscription: Subscription }[] = [];
+
   constructor(
     private store: Store<AppState>,
     private storageService: StorageService
@@ -65,6 +68,7 @@ export class ViewerService {
     this.projectId = null;
 
     this.destroy$$.next();
+    this.unregisterLoadingEvents('audio');
   }
 
   // play() {
@@ -158,18 +162,14 @@ export class ViewerService {
         })
       )
       .subscribe();
-    this.registerLoadingEvents('audio', audioElement, this.destroy$$);
+    this.registerLoadingEvents('audio', audioElement);
 
     this.saveCurrentTimeInStorage();
     this.audioLoaded = true;
   }
 
-  registerLoadingEvents(
-    id: string,
-    htmlMediaElement: HTMLMediaElement,
-    takeUntil$: Subject<void>
-  ) {
-    merge(
+  registerLoadingEvents(id: string, htmlMediaElement: HTMLMediaElement) {
+    const subscription = merge(
       fromEvent(htmlMediaElement, 'canplay'),
       fromEvent(htmlMediaElement, 'waiting'),
       fromEvent(htmlMediaElement, 'seeking'),
@@ -178,8 +178,7 @@ export class ViewerService {
       fromEvent(htmlMediaElement, 'suspended')
     )
       .pipe(
-        takeUntil(takeUntil$),
-        debounceTime(0),
+        // debounceTime(0),
         tap(() => {
           // HAVE_NOTHING	0	No information is available about the media resource.
           // HAVE_METADATA	1	Enough of the media resource has been retrieved that the metadata attributes are initialized. Seeking will no longer raise an exception.
@@ -190,17 +189,36 @@ export class ViewerService {
           if (htmlMediaElement.readyState > 3) {
             this.store.dispatch(viewerActions.mediaLoaded({ id }));
           } else {
-            this.store.dispatch(viewerActions.mediaLoading({ id }));
+            this.store.dispatch(viewerActions.mediaLoadingSingle({ id }));
           }
 
           // this.isLoading(id);
         })
       )
       .subscribe();
+
+    this.loadingEvents.push({ id, subscription });
+  }
+
+  unregisterLoadingEvents(id: string) {
+    const index = this.loadingEvents.findIndex((event) => event.id === id);
+    if (index !== -1) {
+      this.loadingEvents[index].subscription.unsubscribe();
+      this.loadingEvents.splice(index, 1);
+    }
   }
 
   onJumpInAudio(newSeconds: number) {
     if (this.audio) {
+      this.store.dispatch(
+        viewerActions.mediaLoadingMultiple({
+          ids: this.loadingEvents.map((e) => e.id),
+        })
+      );
+
+      // action to trigger effect for all video IDs and audio ID
+      // only the videos shown in the viewer
+
       this.audio.currentTime = newSeconds / 1000;
     }
   }

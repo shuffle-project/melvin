@@ -13,10 +13,10 @@ export enum MediaStatus {
 
 export enum MediaCategory {
   MAIN = 'main',
-  OTHER = 'other',
-  SIGN_LANGUAGE = 'sign_language',
-  SLIDES = 'slides',
   SPEAKER = 'speaker',
+  SLIDES = 'slides',
+  SIGN_LANGUAGE = 'sign_language',
+  OTHER = 'other',
 }
 
 export interface MediaEntity {
@@ -28,13 +28,32 @@ export interface MediaEntity {
   originalFileName: string;
   category: MediaCategory;
   extension: string;
-  url: string;
+  // url: string;
   mimetype: string;
 }
 
-export interface VideoEntity extends MediaEntity {}
+export type ResolutionValue =
+  | '240p'
+  | '360p'
+  | '480p'
+  | '720p'
+  | '1080p'
+  | '1440p'
+  | '2160p';
+
+export interface Resolution {
+  url: string;
+  resolution: ResolutionValue;
+  height: number;
+  width: number;
+}
+
+export interface VideoEntity extends MediaEntity {
+  resolutions: Resolution[];
+}
 
 export interface AudioEntity extends MediaEntity {
+  url: string;
   waveform: string;
 }
 

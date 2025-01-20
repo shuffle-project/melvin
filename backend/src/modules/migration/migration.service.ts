@@ -1,18 +1,23 @@
 import { InjectQueue } from '@nestjs/bull';
 import { Injectable } from '@nestjs/common';
 import { Queue } from 'bull';
+import { exists } from 'fs-extra';
+import { rm } from 'fs/promises';
 import {
   AlignPayload,
   ProcessSubtitlesJob,
+  ProcessVideoJob,
   SubtitlesType,
 } from '../../processors/processor.interfaces';
 import { PopulateService } from '../../resources/populate/populate.service';
 import { generateSecureToken } from '../../utils/crypto';
 import { DbService } from '../db/db.service';
+import { MediaCategory, ProjectStatus } from '../db/schemas/project.schema';
+import { FfmpegService } from '../ffmpeg/ffmpeg.service';
 import { CustomLogger } from '../logger/logger.service';
+import { PathService } from '../path/path.service';
 import { WhisperSpeechService } from '../speech-to-text/whisper/whisper-speech.service';
 import { TiptapService } from '../tiptap/tiptap.service';
-import { ProjectStatus } from '../db/schemas/project.schema';
 
 @Injectable()
 export class MigrationService {
@@ -22,8 +27,12 @@ export class MigrationService {
     private populateService: PopulateService,
     private tiptapService: TiptapService,
     private whisper: WhisperSpeechService,
+    private ffmpegService: FfmpegService,
+    private pathService: PathService,
     @InjectQueue('subtitles')
     private subtitlesQueue: Queue<ProcessSubtitlesJob>,
+    @InjectQueue('video')
+    private videoQueue: Queue<ProcessVideoJob>,
   ) {
     this.logger.setContext('Migration');
   }
@@ -73,25 +82,184 @@ export class MigrationService {
 
     if (settings.dbSchemaVersion < 4) {
       this.logger.info('Migrate to version 4 - language tags');
-      const projects = await this.db.projectModel.find({});
-      for (const project of projects) {
-        if (
-          project.language === 'de-DE' ||
-          project.language === 'es-ES' ||
-          project.language === 'fr-FR'
-        ) {
-          project.language = project.language.split('-')[0];
-          project.save();
-        }
-        if (project.language === 'en') {
-          project.language = 'en-US';
-          project.save();
-        }
-      }
+      await this._migrateLanguageTags();
+
       settings.dbSchemaVersion = 4;
       await settings.save();
       this.logger.info('Migration to version 4 successful');
     }
+
+    if (settings.dbSchemaVersion < 5) {
+      this.logger.info(
+        'Migrate to version 5 - create video in several resolutions and generate audio in stereo/mono ',
+      );
+
+      await this._generateMonoStereoAudioFiles();
+      await this._generateResolutions();
+
+      settings.dbSchemaVersion = 5;
+      await settings.save();
+      this.logger.info('Migration to version 5 successful');
+    }
+  }
+
+  private async _migrateLanguageTags() {
+    const projects = await this.db.projectModel.find({});
+    for (const project of projects) {
+      if (
+        project.language === 'de-DE' ||
+        project.language === 'es-ES' ||
+        project.language === 'fr-FR'
+      ) {
+        project.language = project.language.split('-')[0];
+        project.save();
+      }
+      if (project.language === 'en') {
+        project.language = 'en-US';
+        project.save();
+      }
+    }
+  }
+
+  private async _generateMonoStereoAudioFiles() {
+    const projects = await this.db.projectModel.find();
+
+    for (const project of projects) {
+      for (const audio of project.audios) {
+        try {
+          const mainVideo = project.videos.find(
+            (video) => video.category === MediaCategory.MAIN,
+          );
+
+          const baseAudioFile = this.pathService.getBaseAudioFile(
+            project._id.toString(),
+            audio,
+          );
+          const baseVideoFile = this.pathService.getBaseMediaFile(
+            project._id.toString(),
+            mainVideo,
+          );
+          const stereoAudioFile = this.pathService.getAudioFile(
+            project._id.toString(),
+            audio,
+            true,
+          );
+          const monoAudioFile = this.pathService.getAudioFile(
+            project._id.toString(),
+            audio,
+            false,
+          );
+          // const audioBase = await exists(this.pathService.getBaseAudioFile(
+          const videoBaseExists = await exists(baseVideoFile);
+          const stereoExists = await exists(stereoAudioFile);
+          const monoExists = await exists(monoAudioFile);
+
+          if (videoBaseExists && (!stereoExists || !monoExists)) {
+            await this.ffmpegService.createMp3File(
+              project._id.toString(),
+              mainVideo,
+              audio,
+            );
+            this.logger.verbose(
+              'stereo/mono audio files created for projectId/audioId: ' +
+                project._id.toString() +
+                '/' +
+                audio._id.toString(),
+            );
+
+            // remove base audio file after
+            rm(baseAudioFile);
+            this.logger.verbose('deleting base audio file: ' + baseAudioFile);
+          } else {
+            this.logger.verbose('Skip generation of stereo/mono audio files');
+            this.logger.verbose('File exists: ' + videoBaseExists);
+            this.logger.verbose('Stereo exists: ' + stereoExists);
+            this.logger.verbose('Mono exists: ' + monoExists);
+          }
+        } catch (error) {
+          this.logger.error(
+            'Error while creating audio files for project: ' +
+              project._id.toString(),
+          );
+          this.logger.error(error);
+        }
+      }
+    }
+  }
+
+  private async _generateResolutions() {
+    const projects = await this.db.projectModel.find({
+      status: [
+        ProjectStatus.DRAFT,
+        ProjectStatus.FINISHED,
+        ProjectStatus.PROCESSING,
+        ProjectStatus.WAITING,
+      ],
+    });
+    this.logger.info('Projects found: ' + projects.length);
+    const processVideoJobs: ProcessVideoJob[] = [];
+    for (const project of projects) {
+      // if (isSameObjectId(project._id, '67810c548b57305d8e596fd7')) {
+      this.logger.verbose('Project ' + project._id.toString());
+      this.logger.verbose('videos: ' + project.videos.length);
+
+      try {
+        for (const video of project.videos) {
+          this.logger.verbose('Video ' + video._id.toString());
+          const baseMediaFile = this.pathService.getBaseMediaFile(
+            project._id.toString(),
+            video,
+          );
+
+          const possibleResolutions = [240, 360, 480, 720, 1080].map((res) =>
+            this.pathService.getVideoFile(
+              project._id.toString(),
+              video,
+              res + 'p',
+            ),
+          );
+
+          const fileExists = await exists(baseMediaFile);
+          const resolutionsExist = await exists(possibleResolutions[0]);
+
+          this.logger.verbose('File exists: ' + fileExists);
+          this.logger.verbose('Resolutions exist: ' + resolutionsExist);
+
+          if (fileExists) {
+            // if (fileExists && !resolutionsExist) {
+            const calcRes = await this.ffmpegService.getCalculatedResolutions(
+              baseMediaFile,
+            );
+
+            await this.ffmpegService.processVideoFile(
+              baseMediaFile,
+              project._id.toString(),
+              video,
+              [calcRes[0]],
+            );
+
+            this.logger.verbose('Process 240p video done');
+
+            processVideoJobs.push({ projectId: project._id.toString(), video });
+            // await rm(baseMediaFile);
+            // this.logger.info('deleted: ' + baseMediaFile);
+          }
+        }
+      } catch (e) {
+        this.logger.error(
+          'Error while creating resolutions for project: ' +
+            project._id.toString(),
+        );
+        this.logger.error(e);
+      }
+      // }
+    }
+
+    // TODO wieder reinnehmen
+    // push every video to videoQueue, to process higher quality videos
+    processVideoJobs.forEach((job) => {
+      this.videoQueue.add(job);
+    });
   }
 
   private async _migrateToV3Tiptap() {

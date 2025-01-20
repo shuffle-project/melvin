@@ -154,9 +154,10 @@ export class WhisperSpeechService implements ISpeechToTextService {
   }
 
   async _transcribe(project: Project, audio: Audio) {
-    const audioPath = this.pathService.getMediaFile(
+    const audioPath = this.pathService.getAudioFile(
       project._id.toString(),
       audio,
+      false,
     );
 
     const file = await readFile(audioPath);
@@ -232,9 +233,10 @@ export class WhisperSpeechService implements ISpeechToTextService {
   }
 
   async _align(project: Project, text: string, language: string, audio: Audio) {
-    const audioPath = this.pathService.getMediaFile(
+    const audioPath = this.pathService.getAudioFile(
       project._id.toString(),
       audio,
+      false,
     );
 
     const file = await readFile(audioPath);

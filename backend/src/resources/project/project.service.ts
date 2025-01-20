@@ -140,6 +140,14 @@ export class ProjectService {
   ) {
     const status = ProjectStatus.WAITING;
 
+    if (
+      !createProjectDto.videoOptions.some(
+        (v) => v.category === MediaCategory.MAIN,
+      )
+    ) {
+      this._setDefaultMainCategory(createProjectDto);
+    }
+
     const mainVideo: Video = {
       _id: new Types.ObjectId(),
       category: MediaCategory.MAIN,
@@ -147,6 +155,7 @@ export class ProjectService {
       originalFileName: '',
       status: MediaStatus.WAITING,
       title: 'Main Video',
+      resolutions: [], // TODO wird dann gefüllt in der videoverarbeitung?
     };
 
     const mainAudio: Audio = {
@@ -213,6 +222,40 @@ export class ProjectService {
     return entity;
   }
 
+  private _setDefaultMainCategory(createProjectDto: CreateProjectDto) {
+    if (createProjectDto.videoOptions.length === 1) {
+      // there is only 1 video, make it the main video
+      createProjectDto.videoOptions[0].category = MediaCategory.MAIN;
+    } else {
+      if (createProjectDto.videoOptions.filter((x) => x.useAudio).length) {
+        // there is only 1 useAudio video, make it the main video
+        createProjectDto.videoOptions.find((v) => v.useAudio).category =
+          MediaCategory.MAIN;
+      } else {
+        // if several useAudio videos -> take speaker->slides->other->signlanguage
+        let foundIndex: number;
+
+        foundIndex = createProjectDto.videoOptions.findIndex(
+          (v) => v.useAudio && v.category === MediaCategory.SPEAKER,
+        );
+        if (foundIndex < 0)
+          foundIndex = createProjectDto.videoOptions.findIndex(
+            (v) => v.useAudio && v.category === MediaCategory.SLIDES,
+          );
+        if (foundIndex < 0)
+          foundIndex = createProjectDto.videoOptions.findIndex(
+            (v) => v.useAudio && v.category === MediaCategory.OTHER,
+          );
+        if (foundIndex < 0)
+          foundIndex = createProjectDto.videoOptions.findIndex(
+            (v) => v.useAudio && v.category === MediaCategory.SIGN_LANGUAGE,
+          );
+
+        createProjectDto.videoOptions[foundIndex].category = MediaCategory.MAIN;
+      }
+    }
+  }
+
   async _handleFilesAndTranscriptions(
     authUser: AuthUser,
     project: Project,
@@ -262,11 +305,12 @@ export class ProjectService {
       });
     }
 
-    const mainVideoIndex = createProjectDto.videoOptions.findIndex(
+    let mainVideoIndex = createProjectDto.videoOptions.findIndex(
       (v) => v.category === MediaCategory.MAIN,
     );
 
     const mainMediaFile = videoFiles[mainVideoIndex];
+
     await this.projectQueue.add({
       project: project,
       authUser,
@@ -337,6 +381,7 @@ export class ProjectService {
       originalFileName: '',
       status: MediaStatus.WAITING,
       title: 'Main Video',
+      resolutions: [], // TODO wird dann gefüllt in der videoverarbeitung?
     };
 
     const mainAudio: Audio = {
@@ -992,6 +1037,7 @@ export class ProjectService {
       originalFileName: file.filename,
       status: MediaStatus.WAITING,
       extension: 'mp4',
+      resolutions: [], // TODO ? wird dann gefüllt bei der videoverarbeitung?
     };
 
     const updatedProject = await this.db.updateProjectByIdAndReturn(projectId, {
@@ -1073,8 +1119,17 @@ export class ProjectService {
       throw new CustomForbiddenException('can_not_delete_main_video');
     }
 
-    const path = this.pathService.getMediaFile(projectId, mediaObj);
+    // todo if audio, delete stereo and mono and original
+    // todo if video, delete all resolutions and original
+
+    const path = this.pathService.getBaseMediaFile(projectId, mediaObj);
     remove(path);
+
+    project.videos.forEach((video) => {
+      video.resolutions.forEach((res) => {
+        remove(this.pathService.getVideoFile(projectId, video, res.resolution));
+      });
+    });
 
     await this.db.projectModel
       .findByIdAndUpdate(projectId, {
@@ -1110,14 +1165,13 @@ export class ProjectService {
       ...audio,
       mimetype: this._getMimetype(audio.extension),
       url: this._buildUrl(
-        project._id.toString(),
-        mediaAuthToken,
+        project.viewerToken,
         audio._id.toString(),
         audio.extension,
+        'stereo',
       ),
       waveform: this._buildUrl(
-        project._id.toString(),
-        mediaAuthToken,
+        project.viewerToken,
         audio._id.toString(),
         'json',
       ),
@@ -1125,24 +1179,35 @@ export class ProjectService {
     const videos: VideoEntity[] = project.videos.map((video) => ({
       ...video,
       mimetype: this._getMimetype(video.extension),
-      url: this._buildUrl(
-        project._id.toString(),
-        mediaAuthToken,
-        video._id.toString(),
-        video.extension,
-      ),
+      resolutions: video.resolutions.map((res) => ({
+        ...res,
+        url: this._buildUrl(
+          project.viewerToken,
+          video._id.toString(),
+          video.extension,
+          res.resolution,
+        ),
+      })),
+      // url: this._buildUrl(
+      //   project._id.toString(),
+      //   project.viewerToken,
+      //   video._id.toString(),
+      //   video.extension,
+      // ),
     }));
 
     return plainToInstance(ProjectMediaEntity, { audios, videos });
   }
 
   private _buildUrl(
-    projectId: string,
-    mediaAuthToken: string,
+    viewerToken: string,
     mediaId: string,
     mediaExtension: string,
+    addition?: string,
   ): string {
-    return `${this.serverBaseUrl}/projects/${projectId}/media/${mediaId}.${mediaExtension}?Authorization=${mediaAuthToken}`;
+    return addition
+      ? `${this.serverBaseUrl}/media/${viewerToken}/${mediaId}_${addition}.${mediaExtension}`
+      : `${this.serverBaseUrl}/media/${viewerToken}/${mediaId}.${mediaExtension}`;
   }
 
   private _getMimetype(extension: string) {

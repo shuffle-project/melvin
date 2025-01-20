@@ -103,6 +103,18 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  opacity: 0;
+
+  animation: fadeInOut 2s ease-in 0.4s forwards;
+
+  @keyframes fadeInOut {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
 }
 
 .views-menu-button {

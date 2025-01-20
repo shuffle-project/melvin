@@ -37,55 +37,29 @@
 .sticky {
   position: sticky;
   top: 4rem;
+  padding-bottom: 0.5rem;
   border-bottom: 1px solid var(--color-border-grey);
-  z-index: 1;
+  z-index: 2;
   overflow: hidden;
   background: var(--color-white);
-}
-
-.actions {
-  box-sizing: border-box;
-  display: flex;
-  align-items: center;
-  width: 100%;
-  background: var(--color-white);
-  padding: 0 1rem;
-
-  .time-container {
-    height: 1.875rem;
-
-    display: flex;
-    align-items: center;
-    color: var(--color-text);
-
-    .time-disabled {
-      opacity: 0.7;
-    }
-    .time-total {
-      opacity: 0.7;
-    }
-
-    .time-spacer {
-      opacity: 0.6;
-      margin: 0 0.3125rem;
-    }
-  }
 }
 
 .content-section {
   display: flex;
   flex-direction: column;
-  min-height: calc(
-    100vh - 3.75rem
-  ); // container will be 100% of the viewport - 60 px header
+  min-height: calc(100vh - 4.0625rem);
+  // container will be 100% of the viewport - 65 px header
 }
 
 .content {
   display: flex;
   padding: 1rem;
 
+  justify-content: center;
+
   flex-direction: row;
   flex-grow: 1;
+  gap: 1rem;
 
   .left {
     max-width: 37.5rem;
@@ -94,10 +68,9 @@
 
   .right {
     flex: 1 1 auto;
-    min-width: 70%;
     box-sizing: border-box;
-    width: auto;
-    padding-left: 1rem;
+    width: 100%;
+    max-width: 52rem;
     display: flex;
     flex-direction: column;
   }

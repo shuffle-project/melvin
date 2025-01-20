@@ -3,8 +3,15 @@ import { exec, spawn } from 'child_process';
 import ffmpegPath from 'ffmpeg-static';
 import ffprobePath from 'ffprobe-static';
 import { join } from 'path';
+import { isSameObjectId } from 'src/utils/objectid';
+import { DbService } from '../db/db.service';
 import { Export } from '../db/schemas/export.schema';
-import { Audio, Project, Video } from '../db/schemas/project.schema';
+import {
+  Audio,
+  Project,
+  Resolution,
+  Video,
+} from '../db/schemas/project.schema';
 import { CustomLogger } from '../logger/logger.service';
 import { PathService } from '../path/path.service';
 import { WaveformData } from './ffmpeg.interfaces';
@@ -25,7 +32,11 @@ export class FfmpegService {
   private ffmpeg = ffmpegPath;
   private ffprobe = ffprobePath.path;
 
-  constructor(private logger: CustomLogger, private pathService: PathService) {
+  constructor(
+    private logger: CustomLogger,
+    private pathService: PathService,
+    private db: DbService,
+  ) {
     this.logger.setContext(this.constructor.name);
   }
 
@@ -36,7 +47,11 @@ export class FfmpegService {
     const projectId = project._id.toString();
     // const videoFilepath = this.pathService.getVideoFile(projectId);
     // const audioFilepath = this.pathService.getMp3File(projectId);
-    const audioFilepath = this.pathService.getMediaFile(projectId, audio);
+    const audioFilepath = this.pathService.getAudioFile(
+      projectId,
+      audio,
+      false,
+    );
     const args = [
       // logging
       '-loglevel',
@@ -88,40 +103,60 @@ export class FfmpegService {
     return waveformData;
   }
 
+  public async getCalculatedResolutions(
+    filePath: string,
+  ): Promise<Resolution[]> {
+    const resolution = await this._getVideoResolution(filePath);
+
+    const calculatedResolutions = this._calculateResolutions(
+      resolution.width,
+      resolution.height,
+    );
+    return calculatedResolutions;
+  }
+
+  _getVideoSettings(resolution: string): string[] {
+    switch (resolution) {
+      case '240p':
+        return ['-maxrate', '700K', '-bufsize', '1400K', '-b:a', '128K'];
+      case '360p':
+        return ['-maxrate', '1M', '-bufsize', '2M', '-b:a', '128K'];
+      case '480p':
+        return ['-maxrate', '2.5M', '-bufsize', '5M', '-b:a', '128K'];
+      case '720p':
+        return ['-maxrate', '5M', '-bufsize', '10M', '-b:a', '256K'];
+      case '1080p':
+        return ['-maxrate', '8M', '-bufsize', '16M', '-b:a', '256K'];
+      case '1440p':
+        return ['-maxrate', '16M', '-bufsize', '32M', '-b:a', '320K'];
+      case '2160p':
+        return ['-maxrate', '35M', '-bufsize', '70M', '-b:a', '320K'];
+    }
+
+    return [];
+  }
+
   public async processVideoFile(
     filePath: string,
     projectId: string,
     video: Video,
+    resolutions: Resolution[],
   ): Promise<void> {
-    // create dir if does not exist
-    // const projDir = this.pathService.getProjectDirectory(projectId);
-    // await ensureDir(join(projDir, 'videos'));
+    this.logger.verbose(
+      'Processing video file: ' +
+        resolutions.map((res) => res.resolution).join(', '),
+    );
+    if (resolutions.length === 0) {
+      // no resolutions to process
+      this.logger.verbose('Skip video');
+      return;
+    }
 
-    const videoFilepath = this.pathService.getMediaFile(projectId, video);
-    // if (videoId === null) {
-    //   videoFilepath = this.pathService.getVideoFile(projectId);
-    // } else {
-    //   // loop through additinal file indexes until the first path who wasnt created yet
-    //   videoFilepath = this.pathService.getAdditionalVideoFile(
-    //     projectId,
-    //     videoId,
-    //   );
-    // }
+    const baseVideoFilepath = this.pathService.getBaseMediaFile(
+      projectId,
+      video,
+    );
 
-    //     ffmpeg -loglevel error -i "${filePath}" -crf 23 -c:v libx264 -c:a aac -y \
-    // -filter_complex "[0:v]split=5[v1080][v720][v480][v360][v240]; \
-    // [v1080]scale=1920:1080[v1080out]; \
-    // [v720]scale=1280:720[v720out]; \
-    // [v480]scale=854:480[v480out]; \
-    // [v360]scale=640:360[v360out]; \
-    // [v240]scale=426:240[v240out]" \
-    // -map "[v1080out]" -map 0:a -c:a aac "${videoFilepath}_1080p.mp4" \
-    // -map "[v720out]" -map 0:a -c:a aac "${videoFilepath}_720p.mp4" \
-    // -map "[v480out]" -map 0:a -c:a aac "${videoFilepath}_480p.mp4" \
-    // -map "[v360out]" -map 0:a -c:a aac "${videoFilepath}_360p.mp4" \
-    // -map "[v240out]" -map 0:a -c:a aac "${videoFilepath}_240p.mp4"
-
-    // TODO limit size of file
     const commands = [
       // this.ffmpeg,
       '-loglevel',
@@ -130,19 +165,35 @@ export class FfmpegService {
       // fatal = Only show fatal errors which could lead the process to crash, such as an assertion failure.
       '-i',
       `${filePath}`,
-      // crf on 51 -> max qual loss, on 0 -> zero qual loss, 23 is default
-      '-crf',
-      '23',
-      // video codec
-      '-c:v',
-      'libx264',
-      //audio codec
-      '-c:a',
-      'aac',
-      // overwrite file
-      '-y',
-      `${videoFilepath}`, // output file
     ];
+
+    resolutions.forEach((res) => {
+      commands.push(
+        ...[
+          // crf on 51 -> max qual loss, on 0 -> zero qual loss, 23 is default
+          '-crf',
+          '23',
+          '-tune',
+          'zerolatency',
+          // video codec
+          '-c:v',
+          'libx264',
+          //audio codec
+          '-c:a',
+          'aac',
+          // preset
+          '-preset',
+          'fast',
+          // video settings
+          ...this._getVideoSettings(res.resolution),
+          // overwrite file
+          '-y',
+          '-vf',
+          `scale=${res.width}:${res.height}`,
+          `${baseVideoFilepath.replace('.mp4', '_' + res.resolution + '.mp4')}`, // output file
+        ],
+      );
+    });
 
     if (filePath.endsWith('mp3')) {
       const imgPath = join(
@@ -153,37 +204,76 @@ export class FfmpegService {
       commands.splice(indexOfVideoInput + 2, 0, `-i`, imgPath);
     }
     // await this.execShellCommand(commands);
+    const start = Date.now();
     await this.execAsStream(commands);
+    const end = Date.now();
+    var seconds = (end - start) / 1000;
+    this.logger.verbose(seconds + 's');
+
+    // save resolutions to db
+    const project = await this.db.projectModel.findById(projectId);
+    const index = project.videos.findIndex((v) =>
+      isSameObjectId(v._id, video._id),
+    );
+    if (!project.videos[index].resolutions)
+      project.videos[index].resolutions = [];
+    project.videos[index].resolutions.push(...resolutions);
+    await project.save();
   }
 
-  async createWavFile(projectId: string, video: Video, audio: Audio) {
-    const videoFilepath = this.pathService.getMediaFile(projectId, video);
-    // const audioFilepath = this.pathService.getWavFile(projectId);
-    const audioFilepath = this.pathService.getMediaFile(projectId, audio);
+  // async createWavFile(projectId: string, video: Video, audio: Audio) {
+  //   const videoFilepath = this.pathService.getVideoFile(projectId, video);
+  //   // const audioFilepath = this.pathService.getWavFile(projectId);
+  //   const audioFilepath = this.pathService.getAudioFile(projectId, audio);
 
-    const commands = [
-      '-i',
-      videoFilepath,
-      '-ac',
-      '1', // reduce to mono
-      audioFilepath,
-    ];
-    await this.execAsStream(commands);
-  }
+  //   const commands = [
+  //     '-i',
+  //     videoFilepath,
+  //     '-ac',
+  //     '1', // reduce to mono
+  //     audioFilepath,
+  //   ];
+  //   await this.execAsStream(commands);
+  // }
 
+  /**
+   *  useVideopath used in migration, it will take this path instead of the high res video
+   */
   async createMp3File(projectId: string, video: Video, audio: Audio) {
-    const videoFilepath = this.pathService.getMediaFile(projectId, video);
+    const videoFilepath = this.pathService.getBaseMediaFile(projectId, video);
     // const audioFilepath = this.pathService.getMp3File(projectId);
 
-    const audioFilepath = this.pathService.getMediaFile(projectId, audio);
+    const audioFilepathStereo = this.pathService.getAudioFile(
+      projectId,
+      audio,
+      true,
+    );
+    const audioFilepathMono = this.pathService.getAudioFile(
+      projectId,
+      audio,
+      false,
+    );
 
     const commands = [
       '-i',
       videoFilepath,
+      // for mp3 audio quality
+      '-q:a',
+      '3',
+      // mono
+      '-map',
+      '0:a',
       '-ac',
-      '1', // reduce to mono
-      audioFilepath,
+      '1',
+      audioFilepathMono,
+      // stereo
+      '-map',
+      '0:a',
+      '-ac',
+      '2',
+      audioFilepathStereo,
     ];
+    // ffmpeg -i input.wav -map 0:a -ac 1 output_mono.wav -map 0:a -ac 2 output_stereo.wav
     await this.execAsStream(commands);
   }
 
@@ -193,8 +283,11 @@ export class FfmpegService {
     subtitleFile: string,
     exportObj: Export,
   ) {
-    const videoFilepath = this.pathService.getMediaFile(projectId, video);
-    const exportFilepath = this.pathService.getMediaFile(projectId, exportObj);
+    const videoFilepath = this.pathService.getVideoFile(projectId, video);
+    const exportFilepath = this.pathService.getBaseMediaFile(
+      projectId,
+      exportObj,
+    );
 
     const commands = [
       '-i',
@@ -208,8 +301,42 @@ export class FfmpegService {
     await this.execAsStream(commands);
   }
 
+  public async _getVideoResolution(
+    filepath: string,
+  ): Promise<{ width: number; height: number }> {
+    if (filepath.endsWith('mp3') || filepath.endsWith('wav')) {
+      return { width: 0, height: 0 };
+    }
+
+    const commands = [
+      this.ffprobe, // `ffprobe`,
+      '-loglevel',
+      'fatal',
+      // error = Show all errors, including ones which can be recovered from.
+      // fatal = Only show fatal errors which could lead the process to crash, such as an assertion failure.
+      '-i',
+      `${filepath}`,
+      '-select_streams',
+      'v:0',
+      '-show_entries',
+      'stream=width,height',
+      '-of',
+      'csv=p=0',
+      '-print_format',
+      'json',
+    ];
+
+    const result: string = await this.execShellCommand(commands);
+    const width: number = Math.floor(JSON.parse(result).streams[0]?.width);
+    const height: number = Math.floor(JSON.parse(result).streams[0]?.height);
+    return {
+      width: isNaN(width) ? 0 : width,
+      height: isNaN(height) ? 0 : height,
+    };
+  }
+
   public async getVideoDuration(projectId: string, video: Video) {
-    const videoFilepath = this.pathService.getMediaFile(projectId, video);
+    const videoFilepath = this.pathService.getVideoFile(projectId, video);
     const commands = [
       this.ffprobe, // `ffprobe`,
       '-loglevel',
@@ -347,5 +474,37 @@ export class FfmpegService {
       maximum = Math.max(maximum, value);
     }
     return { maximum, reducedData };
+  }
+
+  _calculateResolutions(width: number, height: number): Resolution[] {
+    const resolutions: Resolution[] = [];
+
+    // [240, 360, 480, 720, 1080, 1440, 2160,4320]
+    [240, 360, 480, 720, 1080].forEach((targetHeight) => {
+      if (height >= targetHeight) {
+        resolutions.push({
+          resolution: targetHeight + 'p',
+          ...this._scaleResolution(targetHeight, width, height),
+        });
+      }
+    });
+    // add at least min resolution
+    if (resolutions.length === 0)
+      resolutions.push({ resolution: '240p', width: 426, height: 240 });
+    return resolutions;
+  }
+
+  _scaleResolution(scaleTo: number, width: number, height: number) {
+    const aspectRatio = width / height;
+    const scaledWidth = Math.round(scaleTo * aspectRatio);
+
+    return {
+      width: this._isEven(scaledWidth) ? scaledWidth : scaledWidth + 1,
+      height: scaleTo,
+    };
+  }
+
+  _isEven(n: number): boolean {
+    return n % 2 == 0;
   }
 }

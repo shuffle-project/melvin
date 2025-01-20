@@ -365,4 +365,18 @@ export class ViewerEffects {
       ),
     { dispatch: false }
   );
+
+  changeMaxResolution$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(viewerActions.changeMaxResolution),
+        tap((action) => {
+          this.storageService.storeInLocalStorage(
+            StorageKey.VIEWER_MAX_RESOLUTION,
+            action.newMaxResolution
+          );
+        })
+      ),
+    { dispatch: false }
+  );
 }

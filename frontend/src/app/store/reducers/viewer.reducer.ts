@@ -11,6 +11,7 @@ import {
   MediaCategory,
   ProjectEntity,
   ProjectMediaEntity,
+  ResolutionValue,
 } from '../../services/api/entities/project.entity';
 import { TranscriptionEntity } from '../../services/api/entities/transcription.entity';
 import { StorageKey } from '../../services/storage/storage-key.enum';
@@ -45,6 +46,7 @@ export interface ViewerState {
   muted: boolean;
   volume: number;
   subtitlesEnabled: boolean;
+  maxResolution: ResolutionValue;
 
   // TODO new names?
   viewerVideos: ViewerVideo[];
@@ -108,6 +110,10 @@ export const initalState: ViewerState = {
     StorageKey.VIEWER_SUBTITLES_ENABLED,
     false
   ) as boolean,
+  maxResolution: storage.getFromLocalStorage(
+    StorageKey.VIEWER_MAX_RESOLUTION,
+    '720p'
+  ) as ResolutionValue,
 
   viewerVideos: [],
   bigVideoId: '',
@@ -203,6 +209,10 @@ export const viewerReducer = createReducer(
   on(viewerActions.changeSpeed, (state, { newSpeed: speed }) => {
     return { ...state, currentSpeed: speed };
   }),
+  on(viewerActions.changeMaxResolution, (state, { newMaxResolution }) => {
+    return { ...state, maxResolution: newMaxResolution };
+  }),
+
   // videos
   on(viewerActions.findProjectMediaSuccess, (state, { media }) => {
     return {
@@ -263,8 +273,11 @@ export const viewerReducer = createReducer(
     return { ...state, isPlayingUser: !state.isPlayingUser };
   }),
 
-  on(viewerActions.mediaLoading, (state, { id }) => {
+  on(viewerActions.mediaLoadingSingle, (state, { id }) => {
     return { ...state, loadingMediaIds: [...state.loadingMediaIds, id] };
+  }),
+  on(viewerActions.mediaLoadingMultiple, (state, { ids }) => {
+    return { ...state, loadingMediaIds: [...state.loadingMediaIds, ...ids] };
   }),
   on(viewerActions.mediaLoaded, (state, { id }) => {
     return {

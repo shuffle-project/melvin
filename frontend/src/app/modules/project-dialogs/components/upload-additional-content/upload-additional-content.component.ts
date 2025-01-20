@@ -19,6 +19,8 @@ import {
   MediaCategory,
   MediaEntity,
   ProjectEntity,
+  Resolution,
+  VideoEntity,
 } from '../../../../services/api/entities/project.entity';
 import { AppState } from '../../../../store/app.state';
 import * as projectsSelector from '../../../../store/selectors/projects.selector';
@@ -52,27 +54,27 @@ interface FileUpload {
 }
 
 @Component({
-    selector: 'app-upload-additional-content',
-    templateUrl: './upload-additional-content.component.html',
-    styleUrls: ['./upload-additional-content.component.scss'],
-    imports: [
-        ReactiveFormsModule,
-        MatFormFieldModule,
-        MatInputModule,
-        MatSelectModule,
-        MatOptionModule,
-        MatButtonModule,
-        MatIconModule,
-        MatProgressBarModule,
-        LetDirective,
-        PushPipe,
-        MediaCategoryPipe,
-        FormatDatePipe,
-        CommonModule,
-        MatTableModule,
-        MatMenuModule,
-        MatDividerModule,
-    ]
+  selector: 'app-upload-additional-content',
+  templateUrl: './upload-additional-content.component.html',
+  styleUrls: ['./upload-additional-content.component.scss'],
+  imports: [
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+    MatOptionModule,
+    MatButtonModule,
+    MatIconModule,
+    MatProgressBarModule,
+    LetDirective,
+    PushPipe,
+    MediaCategoryPipe,
+    FormatDatePipe,
+    CommonModule,
+    MatTableModule,
+    MatMenuModule,
+    MatDividerModule,
+  ],
 })
 export class UploadAdditionalContentComponent implements OnInit {
   dataSource = new MatTableDataSource();
@@ -234,18 +236,30 @@ export class UploadAdditionalContentComponent implements OnInit {
     );
   }
 
-  onDownloadMedia(project: ProjectEntity, mediaEntity: MediaEntity) {
-    // console.log(project, mediaEntity);
+  onDownloadMedia(
+    resolution: Resolution,
+    videoEntity: VideoEntity,
+    projectTitle: string
+  ) {
+    const regexSpecialChars = /[`~!@#$%^&*()|+\=?;:'",.<>\{\}\[\]\\\/]/gi;
+
+    const filename = `${projectTitle}_${
+      videoEntity.title ? videoEntity.title : videoEntity.category
+    }`;
+
+    const readyFilename = filename
+      .replace(regexSpecialChars, '')
+      .replace(/ /g, '-');
 
     this.httpClient
-      .get(mediaEntity.url, { responseType: 'blob' })
+      .get(resolution.url, { responseType: 'blob' })
       .subscribe((response) => {
         const urlCreator = window.URL || window.webkitURL;
         const imageUrl = urlCreator.createObjectURL(response);
         const tag = document.createElement('a');
         tag.href = imageUrl;
         tag.target = '_blank';
-        tag.download = mediaEntity.title + '.' + mediaEntity.extension;
+        tag.download = readyFilename + '.' + videoEntity.extension;
         document.body.appendChild(tag);
         tag.click();
         document.body.removeChild(tag);

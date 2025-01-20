@@ -120,6 +120,15 @@ mat-divider {
   );
 }
 
+.mat-mdc-table {
+  @include mat.table-overrides(
+    (
+      background-color: transparent,
+      row-item-outline-color: var(--color-border-grey),
+    )
+  );
+}
+
 :root {
   @include mat.slider-overrides(
     (
@@ -129,6 +138,12 @@ mat-divider {
       value-indicator-container-transform: translateX(-50%),
       value-indicator-border-radius: 0.25rem,
       value-indicator-padding: 0.25rem 0.375rem,
+    )
+  );
+
+  @include mat.chips-overrides(
+    (
+      outline-color: transparent,
     )
   );
 }

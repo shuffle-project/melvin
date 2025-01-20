@@ -10,6 +10,7 @@ export enum StorageKey {
 
   EDITOR_SPELLCHECKING = 'editor-spellchecking',
   EDITOR_SHOW_USERNAMES = 'editor-show-usernames',
+  EDITOR_MEDIA_MUTED = 'editor-media-muted',
 
   // viewer settings
   VIEWER_VIEW_SELECTION_ENABLED = 'viewer-view-selection-enabled',
@@ -18,6 +19,7 @@ export enum StorageKey {
   VIEWER_MEDIA_VOLUME = 'viewer-media-volume',
   VIEWER_MEDIA_MUTED = 'viewer-media-muted',
   VIEWER_SUBTITLES_ENABLED = 'viewer-subtitles-enabled',
+  VIEWER_MAX_RESOLUTION = 'viewer-max-resolution',
 
   // capptions settings
   CAPTIONS_BACKGROUND_COLOR = 'captions-background-color',

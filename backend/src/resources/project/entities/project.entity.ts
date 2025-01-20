@@ -8,6 +8,8 @@ import {
 } from '../../../modules/db/schemas/project.schema';
 import { Transcription } from '../../../modules/db/schemas/transcription.schema';
 import { UserEntity } from '../../user/entities/user.entity';
+import { Prop } from '@nestjs/mongoose';
+import { IsEnum, IsInt, IsString } from 'class-validator';
 
 @Exclude()
 export class ProjectTranscriptionEntity extends PickType(Transcription, [
@@ -56,14 +58,38 @@ export class ProjectTranscriptionEntity extends PickType(Transcription, [
 //   videos: VideoLinkEntity[];
 // }
 
+export class Resolution {
+  @ApiProperty({ example: '1080p' })
+  @Prop()
+  @IsString()
+  resolution: string;
+
+  @ApiProperty()
+  @Prop()
+  @IsInt()
+  height: number;
+
+  @ApiProperty()
+  @Prop()
+  @IsInt()
+  width: number;
+}
+
 export class VideoEntity extends Video {
-  @ApiProperty({ type: String })
-  @Type(() => String)
-  url: string;
+  @ApiProperty({ type: [Resolution] })
+  @Type(() => Resolution)
+  resolutions: Resolution[];
+
+  // @ApiProperty({ type: String })
+  // @Type(() => String)
+  // url: string;
 
   @ApiProperty({ type: String })
   @Type(() => String)
   mimetype: string;
+  // @ApiProperty({ type: String })
+  // @Type(() => String)
+  // url: string;
 }
 
 export class AudioEntity extends Audio {

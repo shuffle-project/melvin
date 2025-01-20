@@ -82,7 +82,7 @@
                 class="controls-wrapper overlay"
                 [@fade]="overlayService.showOverlay ? 'show' : 'hide'"
               >
-                <app-controls> </app-controls>
+                <app-controls [media]="media!"> </app-controls>
               </div>
             </div>
             @if ( transcriptPosition === 'right' ) {

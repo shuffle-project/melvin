@@ -509,5 +509,29 @@
         }
       </div>
     </div>
+    <div class="cdk-menu-column">
+      <div cdkMenuGroup aria-labelledby="resolution-section-title">
+        <span
+          id="resolution-section-title"
+          class="section-title"
+          i18n="@@viewerControlsQualityTitle"
+        >
+          Max. Resolution
+        </span>
+        @for (resolution of sortedResolutions; track resolution) {
+        <button
+          mat-button
+          appCdkMenuItemRadio
+          [appKeepMenuOpen]="true"
+          (cdkMenuItemTriggered)="changeMaxResolution(resolution)"
+        >
+          @if(currentMaxResolution === resolution ){
+          <mat-icon svgIcon="check"></mat-icon>
+          }
+          {{ resolution }}
+        </button>
+        }
+      </div>
+    </div>
   </div>
 </ng-template>

@@ -12,6 +12,7 @@ import { TiptapCaption } from '../../services/api/entities/caption.entity';
 import {
   ProjectEntity,
   ProjectMediaEntity,
+  ResolutionValue,
 } from '../../services/api/entities/project.entity';
 import { TranscriptionEntity } from '../../services/api/entities/transcription.entity';
 
@@ -186,15 +187,25 @@ export const changeSpeed = createAction(
   props<{ newSpeed: number }>()
 );
 
+export const changeMaxResolution = createAction(
+  '[CONTROLS COMPONENT] Change max resolution',
+  props<{ newMaxResolution: ResolutionValue }>()
+);
+
 // media loading & playing
 
 export const playPauseUser = createAction(
   '[CONTROLS COMPONENT] User toggle Play/Pause '
 );
 
-export const mediaLoading = createAction(
-  '[VIEWER SERVICE] set loading started for this id',
+export const mediaLoadingSingle = createAction(
+  '[VIEWER SERVICE] set loading started for one id',
   props<{ id: string }>()
+);
+
+export const mediaLoadingMultiple = createAction(
+  '[VIEWER SERVICE] set loading started for multiple id',
+  props<{ ids: string[] }>()
 );
 
 export const mediaLoaded = createAction(

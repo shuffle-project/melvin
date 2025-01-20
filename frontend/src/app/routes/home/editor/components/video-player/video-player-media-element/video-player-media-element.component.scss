@@ -1,14 +1,15 @@
 :host {
-  box-sizing: border-box;
-  display: block;
-  width: 100%;
-  aspect-ratio: 16/9;
-  position: relative;
-  overflow: hidden;
+  display: flex;
 }
 
 video {
   width: 100%;
-  display: block;
+  height: 100%;
+
+  max-width: 20rem;
+  max-height: 20rem;
+
+  // object-fit: cover;
+
   margin: 0;
 }

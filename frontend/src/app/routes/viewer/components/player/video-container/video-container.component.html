@@ -17,7 +17,7 @@
     (dblclick)="onDblClickVideo()"
     (keydown)="onKeyDownVideo($event)"
   >
-    <source src="{{ video.url }}" type="video/mp4" />
+    <source #viewerVideoSrc type="video/mp4" />
   </video>
   @if (size === 'small') {
   <div class="video-overlay">

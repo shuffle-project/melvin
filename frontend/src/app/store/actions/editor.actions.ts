@@ -1,6 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { createAction, props } from '@ngrx/store';
-import { EditorUserColor } from 'src/app/constants/editor.constants';
 import {
   ProjectEntity,
   ProjectMediaEntity,
@@ -43,8 +42,8 @@ export const changeVolumeFromVideoComponent = createAction(
   props<{ volume: number }>()
 );
 
-export const toggleVolumeFromVideoComponent = createAction(
-  '[VIDEO COMPONENT] Toggle Volume'
+export const toggleMutedFromEditor = createAction(
+  '[VIDEO COMPONENT EDITOR] Toggle Muted'
 );
 
 export const toggleSubtitlesFromEditor = createAction(

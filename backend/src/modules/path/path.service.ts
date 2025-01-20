@@ -42,10 +42,48 @@ export class PathService {
     return join(this.getAssetsDirectory(), 'example-project');
   }
 
-  getMediaFile(projectId: string, media: Audio | Video | Export): string {
+  getVideoFile(projectId: string, video: Video, resolution?: string): string {
+    if (!resolution) resolution = video.resolutions[0].resolution;
+    const filename = video._id + '_' + resolution + '.' + video.extension;
+    return join(this.getProjectDirectory(projectId), filename);
+  }
+
+  getHighResVideoFile(projectId: string, video: Video): string {
+    const sorted = video.resolutions.sort((a, b) => b.height - a.height);
+
+    const filename =
+      video._id + '_' + sorted[0].resolution + '.' + video.extension;
+    return join(this.getProjectDirectory(projectId), filename);
+  }
+
+  getLowResVideoFile(projectId: string, video: Video): string {
+    const sorted = video.resolutions.sort((a, b) => a.height - b.height);
+
+    const filename =
+      video._id + '_' + sorted[0].resolution + '.' + video.extension;
+    return join(this.getProjectDirectory(projectId), filename);
+  }
+
+  getBaseAudioFile(projectId: string, audio: Audio): string {
+    const filename = audio._id + '.' + audio.extension;
+    return join(this.getProjectDirectory(projectId), filename);
+  }
+
+  getAudioFile(projectId: string, audio: Audio, stereo: boolean): string {
+    const type = stereo ? '_stereo' : '_mono';
+    const filename = audio._id + type + '.' + audio.extension;
+    return join(this.getProjectDirectory(projectId), filename);
+  }
+
+  getBaseMediaFile(projectId: string, media: Audio | Video | Export): string {
     const filename = media._id + '.' + media.extension;
     return join(this.getProjectDirectory(projectId), filename);
   }
+
+  // getMediaFile(projectId: string, media: Audio | Export): string {
+  //   const filename = media._id + '.' + media.extension;
+  //   return join(this.getProjectDirectory(projectId), filename);
+  // }
 
   getFileWithExt(projectId: string, fileId: string, extension: string): string {
     return join(this.getProjectDirectory(projectId), fileId + '.' + extension);

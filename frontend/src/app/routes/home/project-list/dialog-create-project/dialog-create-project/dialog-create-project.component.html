@@ -141,11 +141,9 @@
         <td mat-cell *matCellDef="let element" [formGroup]="element">
           <div
             class="align-center"
-            [class.hidden]="
-              element.controls?.fileType.value !== 'video' ||
-              element.controls?.category.value === MediaCategory.SIGN_LANGUAGE
-            "
+            [class.hidden]="element.controls?.fileType.value !== 'video'"
           >
+            <!-- || element.controls?.category.value === MediaCategory.SIGN_LANGUAGE -->
             <mat-checkbox formControlName="useAudio" class="checkbox" />
           </div>
         </td>

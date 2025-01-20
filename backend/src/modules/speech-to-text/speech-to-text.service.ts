@@ -269,9 +269,14 @@ export class SpeechToTextService {
     transcription: TranscriptionEntity,
     serviceResponseEntity: TranscriptEntity,
   ): CaptionEntity[] {
+    if (serviceResponseEntity.words.length < 1) {
+      return [];
+    }
+
     const captions: CaptionEntity[] = [];
     let text = '';
     let lastStart = 0;
+
     serviceResponseEntity.words.forEach((word) => {
       if (lastStart + 5000 > word.start) {
         text = text + ' ' + word.text;

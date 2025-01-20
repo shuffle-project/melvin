@@ -214,3 +214,10 @@ export const vCurrentSpeed = createSelector(
     return state.currentSpeed;
   }
 );
+
+export const vMaxResolution = createSelector(
+  selectViewerState,
+  (state: ViewerState) => {
+    return state.maxResolution;
+  }
+);

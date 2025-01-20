@@ -60,6 +60,7 @@ export class VideoPlayerMediaElementComponent implements OnInit, OnDestroy {
 
   public playbackRate$ = this.store.select(editorSelectors.selectCurrentSpeed);
   public volume$ = this.store.select(editorSelectors.selectVolume);
+  public muted$ = this.store.select(editorSelectors.selectMuted);
   public currentTime$!: Observable<number>;
 
   get video(): HTMLVideoElement {

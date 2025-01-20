@@ -26,6 +26,8 @@ import { PopulateModule } from './resources/populate/populate.module';
 import { ProjectModule } from './resources/project/project.module';
 import { TranscriptionModule } from './resources/transcription/transcription.module';
 import { UserModule } from './resources/user/user.module';
+import { MediaModule } from './modules/media/media.module';
+import { VideoProcessor } from './processors/video.processor';
 
 @Module({
   imports: [
@@ -55,6 +57,7 @@ import { UserModule } from './resources/user/user.module';
       { name: 'project' },
       { name: 'subtitles' },
       { name: 'livestream' },
+      { name: 'video' },
     ),
     DbModule,
     LoggerModule,
@@ -71,6 +74,7 @@ import { UserModule } from './resources/user/user.module';
     FfmpegModule,
     PathModule,
     ActivityModule,
+    MediaModule,
     // TODO LivestreamModule,
     // generate captions
     SpeechToTextModule,
@@ -83,6 +87,7 @@ import { UserModule } from './resources/user/user.module';
     ProjectProcessor,
     SubtitlesProcessor,
     LivestreamProcessor,
+    VideoProcessor,
   ],
 })
 export class AppModule {}

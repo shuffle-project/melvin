@@ -100,9 +100,9 @@ export class DialogCreateProjectComponent implements OnDestroy, AfterViewInit {
   private totalFileSize = 0;
 
   MediaCategory = MediaCategory;
-  mediaCategoryArray = Object.entries(MediaCategory).map(
-    ([label, value]) => value
-  );
+  mediaCategoryArray = Object.entries(MediaCategory)
+    .map(([label, value]) => value)
+    .filter((category) => category !== MediaCategory.MAIN);
 
   private destroy$$ = new Subject<void>();
 
@@ -151,14 +151,15 @@ export class DialogCreateProjectComponent implements OnDestroy, AfterViewInit {
         const sourceParent = source.parent as FormGroup<FileGroup>;
 
         // Case: Selecting sign-language category (-> make sure hidden use audio control is false)
+        // Commented out, as it is (for now) possible to upload mute sign language videos
 
-        if (source.value === MediaCategory.SIGN_LANGUAGE) {
-          this.formGroup.controls.files.controls.forEach((fileGroup) => {
-            if (fileGroup.value.name === sourceParent.value.name) {
-              fileGroup.controls.useAudio.setValue(false);
-            }
-          });
-        }
+        // if (source.value === MediaCategory.SIGN_LANGUAGE) {
+        //   this.formGroup.controls.files.controls.forEach((fileGroup) => {
+        //     if (fileGroup.value.name === sourceParent.value.name) {
+        //       fileGroup.controls.useAudio.setValue(false);
+        //     }
+        //   });
+        // }
 
         // - - - - -
         // Case: Audio/Video file language change
@@ -210,45 +211,8 @@ export class DialogCreateProjectComponent implements OnDestroy, AfterViewInit {
 
       files: this.fb.array<FormGroup<FileGroup>>([], {}),
     },
-    { validators: [this.fileContentValidator(), this.mainCategoryValidator()] }
+    { validators: [this.fileContentValidator()] }
   );
-
-  mainCategoryValidator() {
-    return (control: AbstractControl): ValidationErrors | null => {
-      const c = control as FormGroup<CreateProjectFormGroup>;
-      const f = c.controls.files as FormArray<FormGroup<FileGroup>>;
-
-      const atLeastOneVideoFile = f.value.some((fileGroup) => {
-        return fileGroup.fileType === 'video';
-      });
-
-      const atLeastOneMainCategory = f.value.some((fileGroup) => {
-        return fileGroup.category === MediaCategory.MAIN;
-      });
-
-      const atLeastOneCategoryTouched = f.controls.some((fileGroup) => {
-        return fileGroup.controls.category.touched;
-      });
-
-      if (
-        !atLeastOneMainCategory &&
-        control.touched &&
-        atLeastOneVideoFile &&
-        atLeastOneCategoryTouched
-      )
-        return { mainCategoryRequired: true };
-
-      const maxOneMainCategory =
-        f.value.filter((fileGroup) => {
-          return fileGroup.category === MediaCategory.MAIN;
-        }).length <= 1;
-
-      if (!maxOneMainCategory && control.touched)
-        return { maxOneMainCategory: true };
-
-      return null;
-    };
-  }
 
   fileContentValidator() {
     return (control: AbstractControl): ValidationErrors | null => {
