@@ -1119,6 +1119,9 @@ export class ProjectService {
       throw new CustomForbiddenException('can_not_delete_main_video');
     }
 
+    // todo if audio, delete stereo and mono and original
+    // todo if video, delete all resolutions and original
+
     const path = this.pathService.getBaseMediaFile(projectId, mediaObj);
     remove(path);
 
@@ -1165,6 +1168,7 @@ export class ProjectService {
         project.viewerToken,
         audio._id.toString(),
         audio.extension,
+        'stereo',
       ),
       waveform: this._buildUrl(
         project.viewerToken,
@@ -1199,10 +1203,10 @@ export class ProjectService {
     viewerToken: string,
     mediaId: string,
     mediaExtension: string,
-    resolution?: string,
+    addition?: string,
   ): string {
-    return resolution
-      ? `${this.serverBaseUrl}/media/${viewerToken}/${mediaId}_${resolution}.${mediaExtension}`
+    return addition
+      ? `${this.serverBaseUrl}/media/${viewerToken}/${mediaId}_${addition}.${mediaExtension}`
       : `${this.serverBaseUrl}/media/${viewerToken}/${mediaId}.${mediaExtension}`;
   }
 

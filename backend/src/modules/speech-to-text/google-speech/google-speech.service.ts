@@ -130,6 +130,7 @@ export class GoogleSpeechService implements ISpeechToTextService {
     const localAudioPath = this.pathService.getAudioFile(
       project._id.toString(),
       audio,
+      false,
     );
     const destination = `${project._id.toString()}/audio.${audio.extension}`;
 

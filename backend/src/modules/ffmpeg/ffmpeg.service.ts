@@ -3,6 +3,8 @@ import { exec, spawn } from 'child_process';
 import ffmpegPath from 'ffmpeg-static';
 import ffprobePath from 'ffprobe-static';
 import { join } from 'path';
+import { isSameObjectId } from 'src/utils/objectid';
+import { DbService } from '../db/db.service';
 import { Export } from '../db/schemas/export.schema';
 import {
   Audio,
@@ -13,9 +15,6 @@ import {
 import { CustomLogger } from '../logger/logger.service';
 import { PathService } from '../path/path.service';
 import { WaveformData } from './ffmpeg.interfaces';
-import { cp } from 'fs';
-import { DbService } from '../db/db.service';
-import { isSameObjectId } from 'src/utils/objectid';
 
 /**
  * Analyzing sample rate 8000 seems to be a good default: https://trac.ffmpeg.org/wiki/Waveform
@@ -48,7 +47,11 @@ export class FfmpegService {
     const projectId = project._id.toString();
     // const videoFilepath = this.pathService.getVideoFile(projectId);
     // const audioFilepath = this.pathService.getMp3File(projectId);
-    const audioFilepath = this.pathService.getAudioFile(projectId, audio);
+    const audioFilepath = this.pathService.getAudioFile(
+      projectId,
+      audio,
+      false,
+    );
     const args = [
       // logging
       '-loglevel',
@@ -100,21 +103,54 @@ export class FfmpegService {
     return waveformData;
   }
 
-  public async processVideoFile(
+  public async getCalculatedResolutions(
     filePath: string,
-    projectId: string,
-    video: Video,
-  ): Promise<void> {
-    // create dir if does not exist
-    // const projDir = this.pathService.getProjectDirectory(projectId);
-    // await ensureDir(join(projDir, 'videos'));
-
-    const resolution = await this.getVideoResolution(filePath);
+  ): Promise<Resolution[]> {
+    const resolution = await this._getVideoResolution(filePath);
 
     const calculatedResolutions = this._calculateResolutions(
       resolution.width,
       resolution.height,
     );
+    return calculatedResolutions;
+  }
+
+  _getVideoSettings(resolution: string): string[] {
+    switch (resolution) {
+      case '240p':
+        return ['-maxrate', '700K', '-bufsize', '1400K', '-b:a', '128K'];
+      case '360p':
+        return ['-maxrate', '1M', '-bufsize', '2M', '-b:a', '128K'];
+      case '480p':
+        return ['-maxrate', '2.5M', '-bufsize', '5M', '-b:a', '128K'];
+      case '720p':
+        return ['-maxrate', '5M', '-bufsize', '10M', '-b:a', '256K'];
+      case '1080p':
+        return ['-maxrate', '8M', '-bufsize', '16M', '-b:a', '256K'];
+      case '1440p':
+        return ['-maxrate', '16M', '-bufsize', '32M', '-b:a', '320K'];
+      case '2160p':
+        return ['-maxrate', '35M', '-bufsize', '70M', '-b:a', '320K'];
+    }
+
+    return [];
+  }
+
+  public async processVideoFile(
+    filePath: string,
+    projectId: string,
+    video: Video,
+    resolutions: Resolution[],
+  ): Promise<void> {
+    this.logger.verbose(
+      'Processing video file: ' +
+        resolutions.map((res) => res.resolution).join(', '),
+    );
+    if (resolutions.length === 0) {
+      // no resolutions to process
+      this.logger.verbose('Skip video');
+      return;
+    }
 
     const baseVideoFilepath = this.pathService.getBaseMediaFile(
       projectId,
@@ -131,18 +167,25 @@ export class FfmpegService {
       `${filePath}`,
     ];
 
-    calculatedResolutions.forEach((res) => {
+    resolutions.forEach((res) => {
       commands.push(
         ...[
           // crf on 51 -> max qual loss, on 0 -> zero qual loss, 23 is default
           '-crf',
           '23',
+          '-tune',
+          'zerolatency',
           // video codec
           '-c:v',
           'libx264',
-          //audio codeci
+          //audio codec
           '-c:a',
           'aac',
+          // preset
+          '-preset',
+          'fast',
+          // video settings
+          ...this._getVideoSettings(res.resolution),
           // overwrite file
           '-y',
           '-vf',
@@ -151,11 +194,6 @@ export class FfmpegService {
         ],
       );
     });
-
-    const project = await this.db.projectModel.findById(projectId);
-    project.videos.find((v) => isSameObjectId(v._id, video._id)).resolutions =
-      calculatedResolutions;
-    await project.save();
 
     if (filePath.endsWith('mp3')) {
       const imgPath = join(
@@ -166,37 +204,76 @@ export class FfmpegService {
       commands.splice(indexOfVideoInput + 2, 0, `-i`, imgPath);
     }
     // await this.execShellCommand(commands);
+    const start = Date.now();
     await this.execAsStream(commands);
+    const end = Date.now();
+    var seconds = (end - start) / 1000;
+    this.logger.verbose(seconds + 's');
+
+    // save resolutions to db
+    const project = await this.db.projectModel.findById(projectId);
+    const index = project.videos.findIndex((v) =>
+      isSameObjectId(v._id, video._id),
+    );
+    if (!project.videos[index].resolutions)
+      project.videos[index].resolutions = [];
+    project.videos[index].resolutions.push(...resolutions);
+    await project.save();
   }
 
-  async createWavFile(projectId: string, video: Video, audio: Audio) {
-    const videoFilepath = this.pathService.getVideoFile(projectId, video);
-    // const audioFilepath = this.pathService.getWavFile(projectId);
-    const audioFilepath = this.pathService.getAudioFile(projectId, audio);
+  // async createWavFile(projectId: string, video: Video, audio: Audio) {
+  //   const videoFilepath = this.pathService.getVideoFile(projectId, video);
+  //   // const audioFilepath = this.pathService.getWavFile(projectId);
+  //   const audioFilepath = this.pathService.getAudioFile(projectId, audio);
 
-    const commands = [
-      '-i',
-      videoFilepath,
-      '-ac',
-      '1', // reduce to mono
-      audioFilepath,
-    ];
-    await this.execAsStream(commands);
-  }
+  //   const commands = [
+  //     '-i',
+  //     videoFilepath,
+  //     '-ac',
+  //     '1', // reduce to mono
+  //     audioFilepath,
+  //   ];
+  //   await this.execAsStream(commands);
+  // }
 
+  /**
+   *  useVideopath used in migration, it will take this path instead of the high res video
+   */
   async createMp3File(projectId: string, video: Video, audio: Audio) {
-    const videoFilepath = this.pathService.getVideoFile(projectId, video);
+    const videoFilepath = this.pathService.getBaseMediaFile(projectId, video);
     // const audioFilepath = this.pathService.getMp3File(projectId);
 
-    const audioFilepath = this.pathService.getAudioFile(projectId, audio);
+    const audioFilepathStereo = this.pathService.getAudioFile(
+      projectId,
+      audio,
+      true,
+    );
+    const audioFilepathMono = this.pathService.getAudioFile(
+      projectId,
+      audio,
+      false,
+    );
 
     const commands = [
       '-i',
       videoFilepath,
+      // for mp3 audio quality
+      '-q:a',
+      '3',
+      // mono
+      '-map',
+      '0:a',
       '-ac',
-      '1', // reduce to mono
-      audioFilepath,
+      '1',
+      audioFilepathMono,
+      // stereo
+      '-map',
+      '0:a',
+      '-ac',
+      '2',
+      audioFilepathStereo,
     ];
+    // ffmpeg -i input.wav -map 0:a -ac 1 output_mono.wav -map 0:a -ac 2 output_stereo.wav
     await this.execAsStream(commands);
   }
 
@@ -224,9 +301,13 @@ export class FfmpegService {
     await this.execAsStream(commands);
   }
 
-  public async getVideoResolution(
+  public async _getVideoResolution(
     filepath: string,
   ): Promise<{ width: number; height: number }> {
+    if (filepath.endsWith('mp3') || filepath.endsWith('wav')) {
+      return { width: 0, height: 0 };
+    }
+
     const commands = [
       this.ffprobe, // `ffprobe`,
       '-loglevel',
@@ -396,14 +477,10 @@ export class FfmpegService {
   }
 
   _calculateResolutions(width: number, height: number): Resolution[] {
-    if (width === 0 || height === 0) {
-      return [{ resolution: '240p', width: 427, height: 240 }];
-    }
-
     const resolutions: Resolution[] = [];
 
     // [240, 360, 480, 720, 1080, 1440, 2160,4320]
-    [240, 360, 480, 720, 1080, 1440, 2160].forEach((targetHeight) => {
+    [240, 360, 480, 720, 1080].forEach((targetHeight) => {
       if (height >= targetHeight) {
         resolutions.push({
           resolution: targetHeight + 'p',
@@ -413,7 +490,7 @@ export class FfmpegService {
     });
     // add at least min resolution
     if (resolutions.length === 0)
-      resolutions.push({ resolution: '240p', width: 427, height: 240 });
+      resolutions.push({ resolution: '240p', width: 426, height: 240 });
     return resolutions;
   }
 
