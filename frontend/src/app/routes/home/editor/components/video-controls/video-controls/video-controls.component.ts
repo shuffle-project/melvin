@@ -1,3 +1,4 @@
+import { CdkMenuModule } from '@angular/cdk/menu';
 import { Component } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -7,6 +8,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { LetDirective, PushPipe } from '@ngrx/component';
 import { Store } from '@ngrx/store';
 import { combineLatest } from 'rxjs';
+import { MenuItemRadioDirective } from 'src/app/directives/cdkMenuRadio/cdk-menu-item-radio.directive';
 import { DurationPipe } from 'src/app/pipes/duration-pipe/duration.pipe';
 import { FeatureEnabledPipe } from 'src/app/pipes/feature-enabled-pipe/feature-enabled.pipe';
 import * as editorActions from 'src/app/store/actions/editor.actions';
@@ -26,6 +28,8 @@ import { MediaService } from '../../../service/media/media.service';
     FeatureEnabledPipe,
     DurationPipe,
     LetDirective,
+    CdkMenuModule,
+    MenuItemRadioDirective,
   ],
   templateUrl: './video-controls.component.html',
   styleUrl: './video-controls.component.scss',

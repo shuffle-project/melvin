@@ -503,8 +503,8 @@
         >
           @if(currentSpeed === speed ){
           <mat-icon svgIcon="check"></mat-icon>
-          } @if (speed===1) { Standard } @else {
-          {{ speed }}x }
+          }
+          {{ speed === 1 ? 'Standard' : speed + 'x' }}
         </button>
         }
       </div>
