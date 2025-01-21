@@ -221,21 +221,6 @@ export class FfmpegService {
     await project.save();
   }
 
-  // async createWavFile(projectId: string, video: Video, audio: Audio) {
-  //   const videoFilepath = this.pathService.getVideoFile(projectId, video);
-  //   // const audioFilepath = this.pathService.getWavFile(projectId);
-  //   const audioFilepath = this.pathService.getAudioFile(projectId, audio);
-
-  //   const commands = [
-  //     '-i',
-  //     videoFilepath,
-  //     '-ac',
-  //     '1', // reduce to mono
-  //     audioFilepath,
-  //   ];
-  //   await this.execAsStream(commands);
-  // }
-
   /**
    *  useVideopath used in migration, it will take this path instead of the high res video
    */
@@ -273,7 +258,6 @@ export class FfmpegService {
       '2',
       audioFilepathStereo,
     ];
-    // ffmpeg -i input.wav -map 0:a -ac 1 output_mono.wav -map 0:a -ac 2 output_stereo.wav
     await this.execAsStream(commands);
   }
 

@@ -255,7 +255,6 @@ export class MigrationService {
       // }
     }
 
-    // TODO wieder reinnehmen
     // push every video to videoQueue, to process higher quality videos
     processVideoJobs.forEach((job) => {
       this.videoQueue.add(job);

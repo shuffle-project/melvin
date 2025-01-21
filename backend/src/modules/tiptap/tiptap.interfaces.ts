@@ -31,8 +31,6 @@ export interface TiptapDocument {
 }
 
 export interface TiptapCaption {
-  // TODO brauchen wir um das im transkript suchen zu können. im frontend hinzufügen ?
-  // oder direkt im backend? uuid? oder einfach hochzälen?
   id: string;
   text: string;
   start: number;
