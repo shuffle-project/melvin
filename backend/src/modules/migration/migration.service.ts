@@ -130,8 +130,14 @@ export class MigrationService {
           project._id.toString(),
           mainVideo,
         );
-        const statsBaseFile = await lstat(baseVideoFile);
-        const isSymlink = statsBaseFile.isSymbolicLink();
+        const baseFileExists = await exists(baseVideoFile);
+        let isSymlink: boolean;
+        if (baseFileExists) {
+          const statsBaseFile = await lstat(baseVideoFile);
+          isSymlink = statsBaseFile.isSymbolicLink();
+        } else {
+          isSymlink = false;
+        }
         if (isSymlink) {
           // create all symlink files
           const projectDirectory = this.pathService.getProjectDirectory(
