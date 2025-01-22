@@ -1,3 +1,29 @@
+<!-- <audio
+  #viewerAudio
+  (loadedmetadata)="onAudioLoadMetadata($event)"
+  [volume]="volume$ | ngrxPush"
+  [muted]="muted$ | ngrxPush"
+  [playbackRate]="currentSpeed$ | ngrxPush"
+>
+  @if (playingAudio) {
+  <source src="{{ playingAudio.url }}" type="{{ playingAudio.mimetype }}" />
+  }
+</audio> -->
+
+<ng-container *ngrxLet="playingAudio$ as playingAudio">
+  <audio
+    #audio
+    (loadedmetadata)="onAudioloadedmetadata($event)"
+    [volume]="volume$ | ngrxPush"
+    [muted]="muted$ | ngrxPush"
+    [playbackRate]="currentSpeed$ | ngrxPush"
+  >
+    @if (playingAudio) {
+    <source src="{{ playingAudio.url }}" type="{{ playingAudio.mimetype }}" />
+    }
+  </audio>
+</ng-container>
+
 <app-video-player-media-element #mediaElement> </app-video-player-media-element>
 <!-- Actions -->
 <!-- <div class="controls" *ngrxLet="currentSpeed$ as currentSpeed">

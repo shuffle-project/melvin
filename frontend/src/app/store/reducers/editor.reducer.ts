@@ -25,6 +25,10 @@ export interface EditorState {
   media: ProjectMediaEntity | null;
 
   isPlaying: boolean;
+
+  isPlayingUser: boolean;
+  loadingMediaIds: string[];
+
   isLiveInSync: boolean;
   currentSpeed: number;
   editorUsers: EditorUser[];
@@ -43,6 +47,10 @@ export const initalState: EditorState = {
   project: null,
   media: null,
   isPlaying: false,
+
+  isPlayingUser: false,
+  loadingMediaIds: [],
+
   isLiveInSync: false,
   currentSpeed: 1,
   editorUsers: [],
@@ -237,6 +245,28 @@ export const editorReducer = createReducer(
     return {
       ...state,
       isPlaying: true,
+    };
+  }),
+
+  /**
+   * Media loading&playing stuff
+   */
+
+  on(editorActions.ePlayPauseUser, (state) => {
+    return { ...state, isPlayingUser: !state.isPlayingUser };
+  }),
+  on(editorActions.eMediaLodingSingle, (state, { id }) => {
+    return { ...state, loadingMediaIds: [...state.loadingMediaIds, id] };
+  }),
+  on(editorActions.eMediaLoadingMultiple, (state, { ids }) => {
+    return { ...state, loadingMediaIds: [...state.loadingMediaIds, ...ids] };
+  }),
+  on(editorActions.eMediaLoaded, (state, { id }) => {
+    return {
+      ...state,
+      loadingMediaIds: state.loadingMediaIds.filter(
+        (mediaId) => mediaId !== id
+      ),
     };
   })
 );

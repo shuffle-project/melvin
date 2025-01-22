@@ -1,13 +1,15 @@
 <ng-container *ngrxLet="playingVideo$ as playingVideo">
   <video
-    (loadedmetadata)="onLoadedMetadata()"
+    (loadedmetadata)="onLoadedMetadata(playingVideo)"
     *ngrxLet="project$ as project"
     [playbackRate]="playbackRate$ | ngrxPush"
-    [volume]="volume$ | ngrxPush"
-    [muted]="muted$ | ngrxPush"
     #video
     preload="auto"
+    [muted]="true"
   >
+    <!-- TODO add to audio [playbackRate]="playbackRate$ | ngrxPush" -->
+    <!-- TODO add to audio [volume]="volume$ | ngrxPush" -->
+    <!-- TODO add to audio [muted]="muted$ | ngrxPush" -->
     @if (playingVideo && project?.status !== 'live') {
     <source
       [src]="playingVideo.resolutions[0].url"

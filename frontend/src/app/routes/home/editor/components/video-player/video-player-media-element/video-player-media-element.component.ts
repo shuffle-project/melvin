@@ -9,23 +9,12 @@ import {
 } from '@angular/core';
 import { LetDirective, PushPipe } from '@ngrx/component';
 import { Store } from '@ngrx/store';
-import {
-  Observable,
-  Subject,
-  animationFrameScheduler,
-  distinctUntilChanged,
-  filter,
-  fromEvent,
-  interval,
-  map,
-  merge,
-  takeUntil,
-  tap,
-} from 'rxjs';
+import { Observable, Subject, map, takeUntil, tap } from 'rxjs';
 import {
   LivestreamStatus,
   MediaCategory,
   ProjectStatus,
+  VideoEntity,
 } from '../../../../../../services/api/entities/project.entity';
 import * as editorActions from '../../../../../../store/actions/editor.actions';
 import { AppState } from '../../../../../../store/app.state';
@@ -89,28 +78,10 @@ export class VideoPlayerMediaElementComponent implements OnInit, OnDestroy {
     });
   }
 
-  onLoadedMetadata() {
-    // https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement#events
-    this.currentTime$ = merge(
-      fromEvent(this.video, 'timeupdate').pipe(
-        map((o) => (o.target as HTMLMediaElement).currentTime)
-      ),
-      fromEvent(this.video, 'seeking').pipe(
-        map((o) => (o.target as HTMLMediaElement).currentTime)
-      ),
-      //TODO: Maybe start stop interval on media.playing and media.pause
-      interval(0, animationFrameScheduler).pipe(
-        filter(() => !this.video.paused),
-        map(() => this.video.currentTime)
-      )
-    ).pipe(
-      takeUntil(this.destroy$$),
-      distinctUntilChanged(),
-      map((seconds) => seconds * 1000)
-    );
-
+  onLoadedMetadata(playingVideo: VideoEntity | undefined) {
+    // connect to state
     this.store
-      .select(editorSelectors.selectIsPlaying)
+      .select(editorSelectors.eIsPlayingMedia)
       .pipe(
         takeUntil(this.destroy$$),
         tap((isPlaying) => {
@@ -123,7 +94,14 @@ export class VideoPlayerMediaElementComponent implements OnInit, OnDestroy {
       )
       .subscribe();
 
-    this.mediaService.initMediaElement(this);
+    this.mediaService.seeking$
+      .pipe(
+        takeUntil(this.destroy$$),
+        tap((seekTo: number) => this.seekToTime(seekTo))
+      )
+      .subscribe();
+
+    this.mediaService.initMediaElement(this, playingVideo!);
   }
 
   async ngOnDestroy() {

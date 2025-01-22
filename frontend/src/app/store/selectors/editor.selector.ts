@@ -137,3 +137,35 @@ export const selectMuted = createSelector(
   selectEditorState,
   (state: EditorState) => state.muted
 );
+
+/**
+ * Media loading&playing stuff
+ */
+
+export const eIsPlayingUser = createSelector(
+  selectEditorState,
+  (state: EditorState) => state.isPlayingUser
+);
+
+export const eCanPlay = createSelector(
+  selectEditorState,
+  (state: EditorState) => {
+    return state.loadingMediaIds.length === 0;
+  }
+);
+
+export const eIsPlayingMedia = createSelector(
+  eCanPlay,
+  eIsPlayingUser,
+  (canPlay: boolean, isPlayingUser: boolean) => {
+    return canPlay && isPlayingUser;
+  }
+);
+
+export const eShowLoadingSpinner = createSelector(
+  eCanPlay,
+  eIsPlayingUser,
+  (canPlay: boolean, isPlayingUser: boolean) => {
+    return !canPlay && isPlayingUser;
+  }
+);
