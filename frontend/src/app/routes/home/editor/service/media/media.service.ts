@@ -102,22 +102,21 @@ export class MediaService {
 
   initAudioElement(event: Event, audio: HTMLAudioElement) {
     this.registerMediaEvents(audio, 'audio');
+    this.isReady$.next(true);
   }
 
   initMediaElement(
     media: VideoPlayerMediaElementComponent,
     playingVideo: VideoEntity
   ) {
-    this.registerMediaEvents(media.video, playingVideo.id);
-
     this.destroyMediaElement();
-
+    this.registerMediaEvents(media.video, playingVideo.id);
     this.isReady$.next(true);
   }
 
   destroyMediaElement() {
     this.destroy$$.next();
-    this.isReady$.next(false);
+    // this.isReady$.next(false);
     this.duration$.next(0);
     this.currentTime$.next(0);
     this.jumpToCaptionTime$.next(null);

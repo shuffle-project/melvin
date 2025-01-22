@@ -24,7 +24,7 @@ export interface EditorState {
   project: ProjectEntity | null;
   media: ProjectMediaEntity | null;
 
-  isPlaying: boolean;
+  // isPlaying: boolean;
 
   isPlayingUser: boolean;
   loadingMediaIds: string[];
@@ -46,7 +46,7 @@ export const initalState: EditorState = {
   projectLoading: false,
   project: null,
   media: null,
-  isPlaying: false,
+  // isPlaying: false,
 
   isPlayingUser: false,
   loadingMediaIds: [],
@@ -106,15 +106,15 @@ export const editorReducer = createReducer(
   ),
 
   // Toggle Play/Pause
-  on(
-    editorActions.togglePlayPauseFromEditor,
-    editorActions.togglePlayPauseFromVideo,
-    (state) => ({
-      ...state,
-      isPlaying: !state.isPlaying,
-      isLiveInSync: false,
-    })
-  ),
+  // on(
+  //   editorActions.togglePlayPauseFromEditor,
+  //   editorActions.togglePlayPauseFromVideo,
+  //   (state) => ({
+  //     ...state,
+  //     isPlaying: !state.isPlaying,
+  //     isLiveInSync: false,
+  //   })
+  // ),
 
   on(editorActions.backToLive, (state) => ({
     ...state,
@@ -244,7 +244,7 @@ export const editorReducer = createReducer(
   on(userTestActions.resumeFromUserTestEffect, (state) => {
     return {
       ...state,
-      isPlaying: true,
+      isPlayingUser: true,
     };
   }),
 

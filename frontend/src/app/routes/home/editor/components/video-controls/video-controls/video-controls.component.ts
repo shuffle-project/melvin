@@ -38,7 +38,7 @@ export class VideoControlsComponent {
 
   public isReady$ = this.mediaService.isReady$;
   public duration$ = this.mediaService.duration$;
-  public isPlaying$ = this.store.select(editorSelectors.selectIsPlaying);
+  public isPlaying$ = this.store.select(editorSelectors.eIsPlayingUser);
   public currentTime$ = this.mediaService.currentTime$;
 
   public sound$ = combineLatest({ volume: this.volume$, muted: this.muted$ });
