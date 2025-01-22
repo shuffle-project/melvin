@@ -127,6 +127,8 @@ export class PopulateService {
           users: users.map((o) => o._id),
           createdBy: users[0]._id,
           status: ProjectStatus.DRAFT,
+          inviteToken: generateSecureToken(),
+          viewerToken: generateSecureToken(),
         });
       } else {
         const isOldProject = i > Object.keys(ProjectStatus).length;
@@ -399,10 +401,10 @@ export class PopulateService {
       files.push(
         ...filepaths.map((src) => {
           let name = basename(src);
-          if (name === 'video.mp4') {
-            name = video._id.toString() + '.mp4';
-          } else if (name === 'audio.mp3') {
-            name = audio._id.toString() + '.mp3';
+          if (name.startsWith('video')) {
+            name = name.replace('video', video._id.toString());
+          } else if (name.startsWith('audio')) {
+            name = name.replace('audio', audio._id.toString());
           } else if (name === 'waveform.json') {
             name = audio._id.toString() + '.json';
           }
@@ -527,6 +529,8 @@ export class PopulateService {
       users: [user._id],
       createdBy: user._id,
       transcriptions: [transcriptionId],
+      inviteToken: generateSecureToken(),
+      viewerToken: generateSecureToken(),
     });
 
     // add project to user

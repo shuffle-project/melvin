@@ -118,19 +118,19 @@ export class FfmpegService {
   _getVideoSettings(resolution: string): string[] {
     switch (resolution) {
       case '240p':
-        return ['-maxrate', '700K', '-bufsize', '1400K', '-b:a', '128K'];
+        return ['-maxrate', '700K', '-bufsize', '1400K'];
       case '360p':
-        return ['-maxrate', '1M', '-bufsize', '2M', '-b:a', '128K'];
+        return ['-maxrate', '1M', '-bufsize', '2M'];
       case '480p':
-        return ['-maxrate', '2.5M', '-bufsize', '5M', '-b:a', '128K'];
+        return ['-maxrate', '2.5M', '-bufsize', '5M'];
       case '720p':
-        return ['-maxrate', '5M', '-bufsize', '10M', '-b:a', '256K'];
+        return ['-maxrate', '5M', '-bufsize', '10M'];
       case '1080p':
-        return ['-maxrate', '8M', '-bufsize', '16M', '-b:a', '256K'];
+        return ['-maxrate', '8M', '-bufsize', '16M'];
       case '1440p':
-        return ['-maxrate', '16M', '-bufsize', '32M', '-b:a', '320K'];
+        return ['-maxrate', '16M', '-bufsize', '32M'];
       case '2160p':
-        return ['-maxrate', '35M', '-bufsize', '70M', '-b:a', '320K'];
+        return ['-maxrate', '35M', '-bufsize', '70M'];
     }
 
     return [];
@@ -179,8 +179,9 @@ export class FfmpegService {
           '-c:v',
           'libx264',
           //audio codec
-          '-c:a',
-          'aac',
+          // '-c:a',
+          // 'aac',
+          '-an',
           // preset
           '-preset',
           'fast',

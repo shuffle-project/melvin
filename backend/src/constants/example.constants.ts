@@ -47,6 +47,13 @@ export const EXAMPLE_PROJECT = {
       status: 'finished',
       originalFileName: '',
       title: 'mainvideo',
+      resolutions: [
+        { resolution: '240p', width: 428, height: 240 },
+        { resolution: '360p', width: 640, height: 360 },
+        { resolution: '480p', width: 854, height: 480 },
+        { resolution: '720p', width: 1280, height: 720 },
+        { resolution: '1080p', width: 1920, height: 1080 },
+      ],
     },
   ],
 };
