@@ -1,0 +1,31 @@
+environment: docker
+baseUrl: http://localhost:3000 # TODO replace
+mongodb:
+  uri: mongodb://mongodb:27017/captioning
+
+redis:
+  host: redis
+  port: 6379
+
+jwt:
+  secret: YOUR_JWT_SECRET # TODO replace
+  issuer: http://localhost:3000 # TODO replace
+  audience: http://localhost:4200 # TODO replace
+
+whisper:
+  host: http://localhost:8393
+  apikey: YOUR_ASR_SECRET # TODO replace
+
+basicAuth:
+  username: melvin
+  password: YOUR_BASIC_AUTH_SECRET # TODO replace
+
+email:
+  smtpServer: "smtp.example.com"
+  smtpPort: 465
+  user: "info@example.com"
+  password: "secret"
+  mailFrom: info@example.com
+  mailFromName: Melvin
+
+initialUsers: [{ name: "Jane Doe", email: "jane.doe@example.com" }] # TODO add users
