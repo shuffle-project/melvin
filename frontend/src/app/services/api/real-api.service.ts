@@ -516,6 +516,15 @@ export class RealApiService implements ApiService {
     );
   }
 
+  removeSpeaker(
+    transcriptionId: string,
+    speakerId: string
+  ): Observable<TranscriptionEntity> {
+    return this._delete<TranscriptionEntity>(
+      `/transcriptions/${transcriptionId}/speakers/${speakerId}`
+    );
+  }
+
   updateSpeaker(
     transcriptionId: string,
     speakerId: string,

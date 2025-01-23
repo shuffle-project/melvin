@@ -151,6 +151,21 @@ export class TranscriptionController {
     );
   }
 
+  @Delete(':transcriptionId/speakers/:speakerId')
+  @UseGuards(JwtAuthGuard)
+  @ApiResponse({ status: HttpStatus.OK, type: TranscriptionEntity })
+  removeSpeaker(
+    @User() authUser: AuthUser,
+    @Param('transcriptionId', IsValidObjectIdPipe) transcriptionId: string,
+    @Param('speakerId', IsValidObjectIdPipe) speakerId: string,
+  ) {
+    return this.transcriptionService.removeSpeaker(
+      authUser,
+      transcriptionId,
+      speakerId,
+    );
+  }
+
   // Align transcription
 
   @Patch(':id/align')

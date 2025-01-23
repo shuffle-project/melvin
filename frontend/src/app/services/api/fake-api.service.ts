@@ -323,6 +323,13 @@ export class FakeApiService implements ApiService {
     return of();
   }
 
+  removeSpeaker(
+    transcriptionId: string,
+    speakerId: string
+  ): Observable<TranscriptionEntity> {
+    return of();
+  }
+
   updateSpeaker(
     transcriptionId: string,
     speakerId: string,

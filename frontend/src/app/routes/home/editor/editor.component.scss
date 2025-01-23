@@ -55,15 +55,17 @@
   display: flex;
   padding: 1rem;
 
-  justify-content: center;
+  justify-content: left;
 
   flex-direction: row;
   flex-grow: 1;
   gap: 1rem;
 
   .left {
-    max-width: 37.5rem;
+    width: 100%;
+    max-width: 20rem;
     min-width: 12.5rem;
+    box-sizing: border-box;
   }
 
   .right {
@@ -93,4 +95,13 @@ button.live {
 
 .waveform-wrapper {
   min-height: 4rem;
+}
+
+// 20 * 2 (left max-width + gap * 2) + 52 (right max-width) + 2 (gap + outer spacing) = 96
+// Funktioniert nicht, weil nicht alle Videos gleich breit sind ...
+@media (min-width: 96rem) {
+  .content {
+    justify-content: center !important;
+    transform: translateX(-10.5rem);
+  }
 }

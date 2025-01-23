@@ -1,6 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { createAction, props } from '@ngrx/store';
 import { CreateTranscriptionDto } from 'src/app/services/api/dto/create-transcription.dto';
+import { UpdateSpeakerDto } from 'src/app/services/api/dto/update-speaker.dto';
 import { UpdateTranscriptionDto } from 'src/app/services/api/dto/update-transcription.dto';
 import { CreateSpeakersDto } from '../../services/api/dto/create-speakers.dto';
 import {
@@ -79,6 +80,20 @@ export const updateFromEditor = createAction(
 export const createSpeakers = createAction(
   '[EDIT SPEAKER MODAL] Create speakers in transcription',
   props<{ transcriptionId: string; createSpeakersDto: CreateSpeakersDto }>()
+);
+
+export const updateSpeaker = createAction(
+  '[EDIT SPEAKER MODAL] Update speaker in transcription',
+  props<{
+    transcriptionId: string;
+    speakerId: string;
+    updateSpeakerDto: UpdateSpeakerDto;
+  }>()
+);
+
+export const removeSpeaker = createAction(
+  '[EDIT SPEAKER MODAL] Remove speaker from transcription',
+  props<{ transcriptionId: string; speakerId: string }>()
 );
 
 export const updateSuccess = createAction(

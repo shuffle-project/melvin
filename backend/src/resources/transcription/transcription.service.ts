@@ -439,6 +439,50 @@ export class TranscriptionService {
     return entity;
   }
 
+  async removeSpeaker(
+    authUser: AuthUser,
+    transcriptionId: string,
+    speakerId: string,
+  ) {
+    const transcription = await this.db.transcriptionModel
+      .findById(transcriptionId)
+      .orFail(new CustomBadRequestException('unknown_transaction_id'))
+      .populate('project')
+      .lean()
+      .exec();
+
+    const speakerExists = transcription.speakers.some((elem) =>
+      isSameObjectId(elem._id, speakerId),
+    );
+    if (!speakerExists) {
+      throw new CustomBadRequestException('unknown_speaker_id');
+    }
+
+    const project = transcription.project as LeanProjectDocument;
+    if (!this.permissions.isProjectMember(project, authUser)) {
+      throw new CustomForbiddenException('access_to_transcription_denied');
+    }
+
+    const updatedTranscription = await this.db.transcriptionModel
+      .findByIdAndUpdate(
+        transcriptionId,
+        {
+          $pull: { speakers: { _id: new Types.ObjectId(speakerId) } },
+        },
+        { new: true },
+      )
+      .lean()
+      .exec();
+
+    // Entity
+    const entity = plainToInstance(TranscriptionEntity, updatedTranscription);
+
+    // Send events
+    this.events.transcriptionUpdated(project, entity);
+
+    return entity;
+  }
+
   /**
    * new YDOC logic
    */

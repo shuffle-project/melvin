@@ -7,7 +7,9 @@ import {
 } from '@angular/core';
 import {
   AbstractControl,
+  FormArray,
   FormControl,
+  FormGroup,
   ReactiveFormsModule,
   ValidationErrors,
   ValidatorFn,
@@ -20,12 +22,20 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatMenuModule } from '@angular/material/menu';
-import { PushPipe } from '@ngrx/component';
 import { Store } from '@ngrx/store';
-import { firstValueFrom, Observable, Subscription } from 'rxjs';
+import { Observable, Subject, takeUntil } from 'rxjs';
 import { SpeakerEntity } from '../../../../../../../services/api/entities/transcription.entity';
 import * as transcriptionsActions from '../../../../../../../store/actions/transcriptions.actions';
 import * as transcriptionsSelectors from '../../../../../../../store/selectors/transcriptions.selector';
+
+interface EditSpeakerEntity extends SpeakerEntity {
+  editMode: boolean;
+}
+
+interface SpeakerForm {
+  id: FormControl<string>;
+  name: FormControl<string>;
+}
 
 @Component({
   selector: 'app-edit-speaker-modal',
@@ -39,22 +49,26 @@ import * as transcriptionsSelectors from '../../../../../../../store/selectors/t
     MatFormFieldModule,
     MatInputModule,
     ReactiveFormsModule,
-    PushPipe,
   ],
 })
 export class EditSpeakerModalComponent implements OnInit, OnDestroy {
-  @Output() closeMatMenuEvent = new EventEmitter();
-
   @Output() changeSpeakerEvent = new EventEmitter<SpeakerEntity>();
 
   availableSpeaker$!: Observable<SpeakerEntity[]>;
-  addSpeakerMode = false;
   newSpeakerForm = new FormControl<string>('', {
     nonNullable: true,
     validators: [Validators.required, this.nameExistsValidator()],
   });
-  speakers!: SpeakerEntity[];
-  speakerSub!: Subscription;
+
+  // ___________
+
+  formGroup = new FormGroup({
+    speakers: new FormArray<FormGroup<SpeakerForm>>([]),
+  });
+
+  private destroy$$ = new Subject<void>();
+  speakers!: EditSpeakerEntity[];
+  transcriptionId!: string;
 
   readonly errorStateMatcher: ErrorStateMatcher = {
     isErrorState: (control: FormControl) => {
@@ -66,50 +80,147 @@ export class EditSpeakerModalComponent implements OnInit, OnDestroy {
 
   constructor(private store: Store) {}
 
+  get speakersFormArray() {
+    return this.formGroup.controls['speakers'] as FormArray;
+  }
+
+  // TODO find new approach
+  // TODO New Approach -> Everything is a FormGroup
+  // getSpeakerFormControl(speakerId: string) {
+  //   console.log(speakerId);
+  //   const control = this.speakersFormArray.controls.find(
+  //     (c) => c.value.id === speakerId
+  //   ) as FormGroup<SpeakerForm>;
+
+  //   console.log(control);
+  //   return control;
+  // }
+
   ngOnInit(): void {
+    this.store
+      .select(transcriptionsSelectors.selectTranscriptionId)
+      .pipe(takeUntil(this.destroy$$))
+      .subscribe((id) => {
+        this.transcriptionId = id;
+      });
+
     this.availableSpeaker$ = this.store.select(
       transcriptionsSelectors.selectAvailableSpeakers
     );
 
-    this.speakerSub = this.availableSpeaker$.subscribe((speakers) => {
-      this.speakers = speakers;
-    });
+    this.availableSpeaker$
+      .pipe(takeUntil(this.destroy$$))
+      .subscribe((speakers) => {
+        this.speakers = speakers.map((speaker) => ({
+          ...speaker,
+          editMode: false,
+        }));
+      });
   }
 
   ngOnDestroy(): void {
-    this.speakerSub.unsubscribe();
+    this.destroy$$.next();
   }
 
-  changeSpeaker(speaker: SpeakerEntity) {
-    this.changeSpeakerEvent.emit(speaker);
-    // this.store.dispatch(
-    //   captionsActions.update({
-    //     id: captionId,
-    //     updateDto: { speakerId: speaker.id, lockedBy: null },
-    //   })
-    // );
+  onSelectSpeaker(speaker: SpeakerEntity) {
+    // this.changeSpeakerEvent.emit(speaker);
   }
 
-  async onAddSpeaker(newSpeaker: string) {
-    if (this.newSpeakerForm.invalid) {
-      this.newSpeakerForm.markAllAsTouched();
+  onStartEditMode(speaker: SpeakerEntity) {
+    this.speakers = this.speakers.map((s) => {
+      return s.id === speaker.id ? { ...s, editMode: true } : s;
+    });
+  }
+
+  onDeleteSpeaker(speaker: SpeakerEntity) {
+    //TODO add logic, if speaker is used elsewhere
+
+    this.store.dispatch(
+      transcriptionsActions.removeSpeaker({
+        transcriptionId: this.transcriptionId,
+        speakerId: speaker.id,
+      })
+    );
+  }
+
+  onUpdateSpeaker(speaker: SpeakerEntity) {
+    console.log(speaker);
+    console.log(this.speakersFormArray);
+    return;
+
+    // const nameDuplication = this.speakers.some((s) => s.name === newName);
+
+    // if (nameDuplication || newName === '') {
+    //   return;
+    // }
+
+    // if (speaker.name === '') {
+    //   this.speakers = this.speakers.filter((s) => s.id !== speaker.id);
+
+    //   this.store.dispatch(
+    //     transcriptionsActions.createSpeakers({
+    //       transcriptionId: this.transcriptionId,
+    //       createSpeakersDto: { names: [newName] },
+    //     })
+    //   );
+    // } else {
+    //   this.store.dispatch(
+    //     transcriptionsActions.updateSpeaker({
+    //       transcriptionId: this.transcriptionId,
+    //       speakerId: speaker.id,
+    //       updateSpeakerDto: { name: newName },
+    //     })
+    //   );
+    // }
+  }
+
+  onAbortEditMode(speaker: SpeakerEntity) {
+    if (speaker.name === '') {
+      this.speakers = this.speakers.filter((s) => s.id !== speaker.id);
     } else {
-      const transcriptionId = await firstValueFrom(
-        this.store.select(transcriptionsSelectors.selectTranscriptionId)
-      );
-      const createSpeakersDto = { names: [newSpeaker] };
-      this.store.dispatch(
-        transcriptionsActions.createSpeakers({
-          transcriptionId: transcriptionId,
-          createSpeakersDto,
-        })
-      );
+      this.speakers = this.speakers.map((s) => {
+        return s.id === speaker.id ? { ...s, editMode: false } : s;
+      });
     }
   }
 
-  onAddSpeakerMode() {
-    this.addSpeakerMode = true;
+  onAddSpeakerForm() {
+    const newEmptySpeaker: EditSpeakerEntity = {
+      id: crypto.randomUUID(),
+      name: '',
+      updatedAt: Date.now().toString(),
+      editMode: true,
+    };
+
+    this.speakers.push(newEmptySpeaker);
+
+    const speakerForm = new FormGroup<SpeakerForm>({
+      id: new FormControl<string>(newEmptySpeaker.id, { nonNullable: true }),
+      name: new FormControl<string>(newEmptySpeaker.name, {
+        nonNullable: true,
+        validators: [Validators.required, this.nameExistsValidator()],
+      }),
+    });
+
+    this.speakersFormArray.push(speakerForm);
   }
+
+  // async onAddSpeaker(newSpeaker: string) {
+  //   if (this.newSpeakerForm.invalid) {
+  //     this.newSpeakerForm.markAllAsTouched();
+  //   } else {
+  //     const transcriptionId = await firstValueFrom(
+  //       this.store.select(transcriptionsSelectors.selectTranscriptionId)
+  //     );
+  //     const createSpeakersDto = { names: [newSpeaker] };
+  //     this.store.dispatch(
+  //       transcriptionsActions.createSpeakers({
+  //         transcriptionId: transcriptionId,
+  //         createSpeakersDto,
+  //       })
+  //     );
+  //   }
+  // }
 
   nameExistsValidator(): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {

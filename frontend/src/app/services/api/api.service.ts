@@ -217,6 +217,11 @@ export abstract class ApiService {
     createSpeakersDto: CreateSpeakersDto
   ): Observable<TranscriptionEntity>;
 
+  abstract removeSpeaker(
+    transcriptionId: string,
+    speakerId: string
+  ): Observable<TranscriptionEntity>;
+
   abstract updateSpeaker(
     transcriptionId: string,
     speakerId: string,
