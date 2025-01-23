@@ -104,6 +104,7 @@ export class MediaService {
   initAudioElement(event: Event, audio: HTMLAudioElement) {
     this.registerMediaEvents(audio, 'audio');
     this.isReady$.next(true);
+    this.seekToTime(0, false);
   }
 
   initMediaElement(
