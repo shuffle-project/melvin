@@ -69,6 +69,7 @@ export class MediaService {
   }
 
   registerMediaEvents(media: HTMLMediaElement, id: string) {
+    this.store.dispatch(editorActions.eMediaLodingSingle({ id }));
     const subscription = merge(
       fromEvent(media, 'canplay'),
       fromEvent(media, 'waiting'),
@@ -109,7 +110,7 @@ export class MediaService {
     media: VideoPlayerMediaElementComponent,
     playingVideo: VideoEntity
   ) {
-    this.destroyMediaElement();
+    // this.destroyMediaElement();
     this.registerMediaEvents(media.video, playingVideo.id);
     this.isReady$.next(true);
   }

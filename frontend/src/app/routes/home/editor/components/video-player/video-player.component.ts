@@ -64,7 +64,6 @@ export class VideoPlayerComponent implements OnInit, OnDestroy {
   // todo choose audio
   public playingAudio$ = this.media$.pipe(map((media) => media?.audios[0]));
 
-  // public isPlaying$ = this.store.select(editorSelectors.eIsPlayingUser);
   public duration$ = this.store.select(editorSelectors.selectDuration);
   public volume$ = this.store.select(editorSelectors.selectVolume);
   public playbackRate$ = this.store.select(editorSelectors.selectCurrentSpeed);
@@ -94,8 +93,6 @@ export class VideoPlayerComponent implements OnInit, OnDestroy {
   }
 
   onAudioloadedmetadata(event: Event) {
-    console.log('audio metadata loaded', event);
-
     /**
      * pipe current time to mediaservice observable
      */

@@ -120,6 +120,7 @@ export class MigrationService {
     this.logger.info('Projects found: ' + projects.length);
     const processVideoJobs: ProcessVideoJob[] = [];
     for (const project of projects) {
+      const projectId = project._id.toString();
       // check fors symlink stuff
 
       const mainVideo = project.videos.find(
@@ -127,7 +128,7 @@ export class MigrationService {
       );
       if (mainVideo) {
         const baseVideoFile = this.pathService.getBaseMediaFile(
-          project._id.toString(),
+          projectId,
           mainVideo,
         );
         const baseFileExists = await exists(baseVideoFile);
