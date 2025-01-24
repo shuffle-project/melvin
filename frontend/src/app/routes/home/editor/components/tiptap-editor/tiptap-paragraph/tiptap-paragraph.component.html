@@ -16,6 +16,7 @@
 <mat-menu #speakerMenu="matMenu">
   <ng-template matMenuContent>
     <app-edit-speaker-modal
+      [editor]="editor"
       (changeSpeakerEvent)="onChangeSpeaker($event)"
     ></app-edit-speaker-modal>
   </ng-template>

@@ -93,6 +93,17 @@ export class DeleteConfirmationService implements OnDestroy {
     return isConfirmed;
   }
 
+  async deleteSpeaker(speakerName: string): Promise<boolean> {
+    const isConfirmed = await this.confirm({
+      level: DeleteConfirmLevel.LOW,
+      subject: $localize`:@@deleteServiceSubjectSpeaker:Speaker`,
+      description: $localize`:@@deleteServiceDescriptionSpeaker:The speaker „${speakerName}“ is used in several cases. The corresponding texts will not be affected if you delete it.`,
+      type: 'delete',
+    });
+
+    return isConfirmed;
+  }
+
   async deleteProject(project: ProjectEntity): Promise<boolean> {
     const isConfirmed = await this.confirm({
       level: DeleteConfirmLevel.LOW,
