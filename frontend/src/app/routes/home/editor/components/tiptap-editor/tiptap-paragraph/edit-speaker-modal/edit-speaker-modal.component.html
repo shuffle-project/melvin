@@ -1,44 +1,46 @@
 <div (click)="$event.stopPropagation()" [formGroup]="formGroup">
-  @for (speaker of speakers; track speaker.id) { @if (!speaker.editMode) {
+  @for (speakerGroup of speakerFormGroups; track speakerGroup.value.id) { @if
+  (!speakerGroup.value.editMode) {
   <div class="speaker-wrapper">
     <button
       class="select-speaker-button"
       mat-menu-item
-      (click)="onSelectSpeaker(speaker)"
+      (click)="onSelectSpeaker(speakerGroup.value)"
     >
       <mat-icon svgIcon="speaker1" />
-      <span>{{ speaker.name }}</span>
+      <span>{{ speakerGroup.value.name }}</span>
     </button>
     <div class="action-buttons">
-      <button mat-icon-button (click)="onStartEditMode(speaker)">
+      <button mat-icon-button (click)="onStartEditMode(speakerGroup.value)">
         <mat-icon svgIcon="edit" />
       </button>
-      <button mat-icon-button (click)="onDeleteSpeaker(speaker)">
+      <button mat-icon-button (click)="onDeleteSpeaker(speakerGroup.value)">
         <mat-icon svgIcon="delete" />
       </button>
     </div>
   </div>
   } @else {
-  <div class="speaker-wrapper edit-mode">
-    <!-- [formGroup]="getSpeakerFormControl(speaker.id)" -->
+  <div class="speaker-wrapper edit-mode" [formGroup]="speakerGroup">
     <mat-form-field class="speaker-form-field">
-      <mat-label i18n="@@captionsNewSpeakerNameLabel">Speaker name</mat-label>
+      <mat-label i18n="@@editSpeakerMenuNameLabel">Speaker name</mat-label>
       <input
         formControlName="name"
         [errorStateMatcher]="errorStateMatcher"
         matInput="text"
-        [formControl]="newSpeakerForm"
       />
-
-      @if (!newSpeakerForm.valid) {
-      <mat-error>{{ onNewSpeakerInvalid() }}</mat-error>
-      }
+      <mat-error>
+        @if ( speakerGroup.controls['name'].hasError('required')) {
+        <span>Name is required </span>
+        } @if ( speakerGroup.controls['name'].hasError('nameExists')) {
+        <span>Name duplication </span>
+        }
+      </mat-error>
     </mat-form-field>
     <div class="action-buttons">
-      <button mat-icon-button (click)="onUpdateSpeaker(speaker)">
+      <button mat-icon-button (click)="onUpdateSpeaker(speakerGroup)">
         <mat-icon svgIcon="done" />
       </button>
-      <button mat-icon-button (click)="onAbortEditMode(speaker)">
+      <button mat-icon-button (click)="onAbortEditMode(speakerGroup.value)">
         <mat-icon svgIcon="clear" />
       </button>
     </div>
@@ -49,7 +51,7 @@
     <button
       mat-stroked-button
       (click)="onAddSpeakerForm()"
-      i18n="@@captionsAddNewSpeakerButtonLabel"
+      i18n="@@editSpeakerMenuButtonLabel"
     >
       <mat-icon svgIcon="add"></mat-icon>
       Add speaker

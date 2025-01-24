@@ -1,4 +1,6 @@
 import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   EventEmitter,
   OnDestroy,
@@ -8,6 +10,7 @@ import {
 import {
   AbstractControl,
   FormArray,
+  FormBuilder,
   FormControl,
   FormGroup,
   ReactiveFormsModule,
@@ -24,23 +27,28 @@ import { MatInputModule } from '@angular/material/input';
 import { MatMenuModule } from '@angular/material/menu';
 import { Store } from '@ngrx/store';
 import { Observable, Subject, takeUntil } from 'rxjs';
+import { AlertService } from 'src/app/services/alert/alert.service';
 import { SpeakerEntity } from '../../../../../../../services/api/entities/transcription.entity';
 import * as transcriptionsActions from '../../../../../../../store/actions/transcriptions.actions';
 import * as transcriptionsSelectors from '../../../../../../../store/selectors/transcriptions.selector';
 
-interface EditSpeakerEntity extends SpeakerEntity {
+interface SpeakerValues {
+  id: string;
+  name: string;
   editMode: boolean;
 }
 
-interface SpeakerForm {
+interface SpeakerFormGroup {
   id: FormControl<string>;
   name: FormControl<string>;
+  editMode: FormControl<boolean>;
 }
 
 @Component({
   selector: 'app-edit-speaker-modal',
   templateUrl: './edit-speaker-modal.component.html',
   styleUrls: ['./edit-speaker-modal.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     MatMenuModule,
     MatIconModule,
@@ -52,49 +60,43 @@ interface SpeakerForm {
   ],
 })
 export class EditSpeakerModalComponent implements OnInit, OnDestroy {
-  @Output() changeSpeakerEvent = new EventEmitter<SpeakerEntity>();
+  @Output() changeSpeakerEvent = new EventEmitter<string>();
 
   availableSpeaker$!: Observable<SpeakerEntity[]>;
-  newSpeakerForm = new FormControl<string>('', {
-    nonNullable: true,
-    validators: [Validators.required, this.nameExistsValidator()],
-  });
 
   // ___________
 
-  formGroup = new FormGroup({
-    speakers: new FormArray<FormGroup<SpeakerForm>>([]),
+  formGroup = this.fb.group({
+    speakers: this.fb.array([]),
   });
 
   private destroy$$ = new Subject<void>();
-  speakers!: EditSpeakerEntity[];
-  transcriptionId!: string;
+  private transcriptionId!: string;
+
+  private oldNames = new Map<string, string>();
 
   readonly errorStateMatcher: ErrorStateMatcher = {
     isErrorState: (control: FormControl) => {
       if (control?.dirty && control.hasError('required')) return true;
-      if (control.hasError('nameExists')) return true;
+      if (control?.dirty && control.hasError('nameExists')) return true;
       return false;
     },
   };
 
-  constructor(private store: Store) {}
+  constructor(
+    private store: Store,
+    private fb: FormBuilder,
+    private changeDetector: ChangeDetectorRef,
+    private alertService: AlertService
+  ) {}
 
   get speakersFormArray() {
     return this.formGroup.controls['speakers'] as FormArray;
   }
 
-  // TODO find new approach
-  // TODO New Approach -> Everything is a FormGroup
-  // getSpeakerFormControl(speakerId: string) {
-  //   console.log(speakerId);
-  //   const control = this.speakersFormArray.controls.find(
-  //     (c) => c.value.id === speakerId
-  //   ) as FormGroup<SpeakerForm>;
-
-  //   console.log(control);
-  //   return control;
-  // }
+  get speakerFormGroups() {
+    return this.speakersFormArray.controls as FormGroup[];
+  }
 
   ngOnInit(): void {
     this.store
@@ -111,134 +113,154 @@ export class EditSpeakerModalComponent implements OnInit, OnDestroy {
     this.availableSpeaker$
       .pipe(takeUntil(this.destroy$$))
       .subscribe((speakers) => {
-        this.speakers = speakers.map((speaker) => ({
-          ...speaker,
-          editMode: false,
-        }));
+        this.speakersFormArray.controls.forEach((control, i) => {
+          const speakerIndex = speakers.findIndex(
+            (s) => s.id === control.value.id
+          );
+
+          if (speakerIndex === -1) {
+            this.speakersFormArray.removeAt(i);
+            this.changeDetector.detectChanges();
+          }
+        });
+
+        speakers.forEach((speaker) => {
+          const speakerIndex = this.speakersFormArray.controls.findIndex(
+            (c) => c.value.id === speaker.id
+          );
+
+          if (speakerIndex !== -1) {
+            this.speakersFormArray.controls[speakerIndex].patchValue({
+              name: speaker.name,
+              editMode: false,
+            });
+          } else {
+            this._pushNewSpeakerForm(speaker, false);
+          }
+        });
       });
+  }
+
+  _pushNewSpeakerForm(speaker: SpeakerEntity, editMode: boolean) {
+    const newSpeakerForm = this.fb.group({
+      id: this.fb.control<string>(speaker.id, { nonNullable: true }),
+      name: this.fb.control<string>(speaker.name, {
+        nonNullable: true,
+        validators: [Validators.required, this.nameExistsValidator()],
+      }),
+      editMode: this.fb.control<boolean>(editMode, { nonNullable: true }),
+    });
+    this.speakersFormArray.push(newSpeakerForm);
   }
 
   ngOnDestroy(): void {
     this.destroy$$.next();
   }
 
-  onSelectSpeaker(speaker: SpeakerEntity) {
-    // this.changeSpeakerEvent.emit(speaker);
+  onSelectSpeaker(speaker: SpeakerValues) {
+    this.changeSpeakerEvent.emit(speaker.id);
   }
 
-  onStartEditMode(speaker: SpeakerEntity) {
-    this.speakers = this.speakers.map((s) => {
-      return s.id === speaker.id ? { ...s, editMode: true } : s;
+  onStartEditMode(speaker: SpeakerValues) {
+    if (speaker.name !== '') {
+      this.oldNames.set(speaker.id, speaker.name);
+    }
+
+    const speakerIndex = this.speakersFormArray.controls.findIndex(
+      (s) => s.value.id === speaker.id
+    );
+
+    this.speakersFormArray.controls[speakerIndex].patchValue({
+      editMode: true,
     });
   }
 
-  onDeleteSpeaker(speaker: SpeakerEntity) {
+  onDeleteSpeaker(speaker: SpeakerValues) {
+    if (this.speakersFormArray.controls.length === 1) {
+      this.alertService.error(
+        $localize`:@@editSpeakerMenuAtLeastOneProjectError:At least one speaker is required.`
+      );
+      return;
+    }
+
     //TODO add logic, if speaker is used elsewhere
 
-    this.store.dispatch(
-      transcriptionsActions.removeSpeaker({
-        transcriptionId: this.transcriptionId,
-        speakerId: speaker.id,
-      })
-    );
+    // this.store.dispatch(
+    //   transcriptionsActions.removeSpeaker({
+    //     transcriptionId: this.transcriptionId,
+    //     speakerId: speaker.id,
+    //   })
+    // );
   }
 
-  onUpdateSpeaker(speaker: SpeakerEntity) {
-    console.log(speaker);
-    console.log(this.speakersFormArray);
-    return;
+  onUpdateSpeaker(speaker: FormGroup<SpeakerFormGroup>) {
+    if (!speaker.controls['name'].valid) return;
 
-    // const nameDuplication = this.speakers.some((s) => s.name === newName);
+    if (speaker.getRawValue().id.startsWith('edit-')) {
+      const speakerIndex = this.speakersFormArray.controls.findIndex(
+        (e) => e.getRawValue().id === speaker.getRawValue().id
+      );
 
-    // if (nameDuplication || newName === '') {
-    //   return;
-    // }
+      this.speakersFormArray.removeAt(speakerIndex);
 
-    // if (speaker.name === '') {
-    //   this.speakers = this.speakers.filter((s) => s.id !== speaker.id);
-
-    //   this.store.dispatch(
-    //     transcriptionsActions.createSpeakers({
-    //       transcriptionId: this.transcriptionId,
-    //       createSpeakersDto: { names: [newName] },
-    //     })
-    //   );
-    // } else {
-    //   this.store.dispatch(
-    //     transcriptionsActions.updateSpeaker({
-    //       transcriptionId: this.transcriptionId,
-    //       speakerId: speaker.id,
-    //       updateSpeakerDto: { name: newName },
-    //     })
-    //   );
-    // }
-  }
-
-  onAbortEditMode(speaker: SpeakerEntity) {
-    if (speaker.name === '') {
-      this.speakers = this.speakers.filter((s) => s.id !== speaker.id);
+      this.store.dispatch(
+        transcriptionsActions.createSpeakers({
+          transcriptionId: this.transcriptionId,
+          createSpeakersDto: { names: [speaker.getRawValue().name] },
+        })
+      );
     } else {
-      this.speakers = this.speakers.map((s) => {
-        return s.id === speaker.id ? { ...s, editMode: false } : s;
+      this.store.dispatch(
+        transcriptionsActions.updateSpeaker({
+          transcriptionId: this.transcriptionId,
+          speakerId: speaker.getRawValue().id,
+          updateSpeakerDto: { name: speaker.getRawValue().name },
+        })
+      );
+    }
+
+    this.oldNames.delete(speaker.getRawValue().id);
+  }
+
+  onAbortEditMode(speaker: SpeakerValues) {
+    const oldSpeakerName = this.oldNames.get(speaker.id);
+
+    const speakerIndex = this.speakersFormArray.controls.findIndex(
+      (s) => s.value.id === speaker.id
+    );
+
+    if (oldSpeakerName) {
+      this.speakersFormArray.controls[speakerIndex].patchValue({
+        name: oldSpeakerName,
+        editMode: false,
       });
+
+      this.oldNames.delete(speaker.id);
+    } else {
+      this.speakersFormArray.removeAt(speakerIndex);
     }
   }
 
   onAddSpeakerForm() {
-    const newEmptySpeaker: EditSpeakerEntity = {
-      id: crypto.randomUUID(),
+    const newEmptySpeaker: SpeakerEntity = {
+      id: 'edit-' + crypto.randomUUID(),
       name: '',
       updatedAt: Date.now().toString(),
-      editMode: true,
     };
 
-    this.speakers.push(newEmptySpeaker);
-
-    const speakerForm = new FormGroup<SpeakerForm>({
-      id: new FormControl<string>(newEmptySpeaker.id, { nonNullable: true }),
-      name: new FormControl<string>(newEmptySpeaker.name, {
-        nonNullable: true,
-        validators: [Validators.required, this.nameExistsValidator()],
-      }),
-    });
-
-    this.speakersFormArray.push(speakerForm);
+    this._pushNewSpeakerForm(newEmptySpeaker, true);
   }
-
-  // async onAddSpeaker(newSpeaker: string) {
-  //   if (this.newSpeakerForm.invalid) {
-  //     this.newSpeakerForm.markAllAsTouched();
-  //   } else {
-  //     const transcriptionId = await firstValueFrom(
-  //       this.store.select(transcriptionsSelectors.selectTranscriptionId)
-  //     );
-  //     const createSpeakersDto = { names: [newSpeaker] };
-  //     this.store.dispatch(
-  //       transcriptionsActions.createSpeakers({
-  //         transcriptionId: transcriptionId,
-  //         createSpeakersDto,
-  //       })
-  //     );
-  //   }
-  // }
 
   nameExistsValidator(): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
       const speakerName = control.value;
       if (!speakerName) return null;
-      return this.speakers.find((speaker) => speaker.name === speakerName)
+
+      return this.speakersFormArray.controls.filter(
+        (s) => s.getRawValue().name === speakerName
+      ).length !== 1
         ? { nameExists: true }
         : null;
     };
-  }
-
-  onNewSpeakerInvalid() {
-    if (this.newSpeakerForm.hasError('required')) {
-      return $localize`:@@editSpeakerModalNameRequiredError:You must enter a name`;
-    }
-
-    return this.newSpeakerForm.hasError('nameExists')
-      ? $localize`:@@editSpeakerModalNameAlreadyExists:Name already exists`
-      : '';
   }
 }

@@ -14,7 +14,9 @@
 <p tiptapNodeViewContent (click)="onClickParagraph($event)"></p>
 
 <mat-menu #speakerMenu="matMenu">
-  <app-edit-speaker-modal
-    (changeSpeakerEvent)="onChangeSpeaker($event)"
-  ></app-edit-speaker-modal>
+  <ng-template matMenuContent>
+    <app-edit-speaker-modal
+      (changeSpeakerEvent)="onChangeSpeaker($event)"
+    ></app-edit-speaker-modal>
+  </ng-template>
 </mat-menu>
