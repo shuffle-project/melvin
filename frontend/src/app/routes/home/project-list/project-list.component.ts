@@ -110,6 +110,8 @@ export class ProjectListComponent implements OnInit, AfterViewInit, OnDestroy {
     'more',
   ];
 
+  public allProject$ = this.store.select(projectsSelectors.selectAllProjects);
+
   // Table data
   public filteredProjects$: Observable<ProjectEntity[]>;
   public projectsSubscription!: Subscription;
@@ -153,6 +155,7 @@ export class ProjectListComponent implements OnInit, AfterViewInit, OnDestroy {
     this.filteredProjects$ = this.store.select(
       projectsSelectors.selectFilteredProjects
     );
+
     this.userId$ = this.store.select(authSelectors.selectUserId);
   }
 
@@ -247,6 +250,15 @@ export class ProjectListComponent implements OnInit, AfterViewInit, OnDestroy {
       maxWidth: '50rem',
       maxHeight: '90vh',
     });
+  }
+
+  async onClickCreateDefaultProject() {
+    this.api.createDefaultProject().subscribe((project) => {
+      this.store.dispatch(
+        projectsActions.createFromWS({ createdProject: project })
+      );
+    });
+    // location.reload();
   }
 
   // onOpenViewer(project: ProjectEntity) {

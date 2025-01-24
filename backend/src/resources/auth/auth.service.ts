@@ -192,7 +192,7 @@ export class AuthService {
     // });
 
     //  Create default project
-    await this.populateService._generateDefaultProject(user);
+    // await this.populateService._generateDefaultProject(user);
 
     // TODO: Send email with verificationToken
   }

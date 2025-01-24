@@ -315,6 +315,10 @@ export class RealApiService implements ApiService {
     });
   }
 
+  createDefaultProject(): Observable<ProjectEntity> {
+    return this._post<ProjectEntity>(`/projects/default`, {});
+  }
+
   deleteMedia(
     projectId: string,
     mediaId: string

@@ -2,7 +2,7 @@ import { InjectQueue } from '@nestjs/bull';
 import { Injectable } from '@nestjs/common';
 import { Queue } from 'bull';
 import { exists } from 'fs-extra';
-import { lstat, rm, statfs } from 'fs/promises';
+import { rm, statfs } from 'fs/promises';
 import {
   AlignPayload,
   ProcessSubtitlesJob,
@@ -121,49 +121,19 @@ export class MigrationService {
     const processVideoJobs: ProcessVideoJob[] = [];
     for (const project of projects) {
       const projectId = project._id.toString();
-      // check fors symlink stuff
 
-      const mainVideo = project.videos.find(
-        (video) => video.category === MediaCategory.MAIN,
-      );
-      if (mainVideo) {
-        const baseVideoFile = this.pathService.getBaseMediaFile(
-          projectId,
-          mainVideo,
-        );
-        const baseFileExists = await exists(baseVideoFile);
-        let isSymlink: boolean;
-        if (baseFileExists) {
-          const statsBaseFile = await lstat(baseVideoFile);
-          isSymlink = statsBaseFile.isSymbolicLink();
-        } else {
-          isSymlink = false;
-        }
-        if (isSymlink) {
-          // create all symlink files
-          const projectDirectory = this.pathService.getProjectDirectory(
-            project._id.toString(),
-          );
-          await rm(projectDirectory, {
-            recursive: true,
-            force: true,
-          });
-          await this.populateService._copyMediaFiles([project]);
-        } else {
-          /**
-           * audio
-           */
-          for (const audio of project.audios) {
-            await this._runAudio(project, audio);
-          }
+      /**
+       * audio
+       */
+      for (const audio of project.audios) {
+        await this._runAudio(project, audio);
+      }
 
-          /**
-           * video
-           */
-          for (const video of project.videos) {
-            await this._runVideo(video, project, processVideoJobs);
-          }
-        }
+      /**
+       * video
+       */
+      for (const video of project.videos) {
+        await this._runVideo(video, project, processVideoJobs);
       }
     }
 

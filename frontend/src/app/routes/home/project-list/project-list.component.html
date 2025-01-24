@@ -425,5 +425,12 @@
       [class.disabled]="!isClickable(row)"
     ></tr>
   </table>
+
+  <ng-container *ngrxLet="allProject$ as allProjects">
+    @if(allProjects.length === 0) {
+
+    <button (click)="onClickCreateDefaultProject()">create default</button>
+    }
+  </ng-container>
 </section>
 <app-landing-footer />
