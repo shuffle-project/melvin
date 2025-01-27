@@ -255,15 +255,10 @@ export class ProjectListComponent implements OnInit, AfterViewInit, OnDestroy {
   async onClickCreateDefaultProject() {
     this.api.createDefaultProject().subscribe((project) => {
       this.store.dispatch(
-        projectsActions.createFromWS({ createdProject: project })
+        projectsActions.createFromDefaultCreation({ createdProject: project })
       );
     });
-    // location.reload();
   }
-
-  // onOpenViewer(project: ProjectEntity) {
-  //   this.router.navigate(['/viewer', project.viewerToken]);
-  // }
 
   onGetCorrectIcon(status: string) {
     switch (status) {
