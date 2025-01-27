@@ -87,6 +87,8 @@ export class MediaService {
           // HAVE_CURRENT_DATA	2	Data is available for the current playback position, but not enough to actually play more than one frame.
           // HAVE_FUTURE_DATA	3	Data for the current playback position as well as for at least a little bit of time into the future is available (in other words, at least two frames of video, for example).
           // HAVE_ENOUGH_DATA	4	Enough data is available—and the download rate is high enough—that the media can be
+
+          console.log(media.readyState, id, event.type);
           if (media.readyState > 3) {
             this.store.dispatch(editorActions.eMediaLoaded({ id }));
           } else {
@@ -98,7 +100,7 @@ export class MediaService {
       )
       .subscribe();
 
-    // this.seekToTime(this.currentTime$.value, false);
+    this.seekToTime(this.currentTime$.value, false);
     this.loadingEvents.push({ id, subscription });
   }
 
