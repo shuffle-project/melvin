@@ -1,14 +1,4 @@
-export enum EditorUserColor {
-  PRIMARY = 'primary',
-  UNKNOWN = 'unknown',
-  ORANGE = 'orange',
-  RED = 'red',
-  PINK = 'pink',
-  PURPLE = 'purple',
-  BLUE = 'blue',
-  GREEN = 'green',
-  TURQUOISE = 'turquoise',
-}
+export type EditorUserColor = 0 | 1 | 2 | 3 | 4 | 5;
 
 export interface EditorActiveUser {
   userId: string;
@@ -17,6 +7,5 @@ export interface EditorActiveUser {
   color: EditorUserColor;
 }
 
-export const AVAILABLE_EDITOR_USER_COLORS = Object.values(
-  EditorUserColor,
-).slice(2, Object.values(EditorUserColor).length);
+// exclude 0, as it stands for grey (unknown)
+export const AVAILABLE_EDITOR_USER_COLORS: EditorUserColor[] = [1, 2, 3, 4, 5];

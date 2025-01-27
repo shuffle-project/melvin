@@ -1,5 +1,5 @@
 import { createReducer, on } from '@ngrx/store';
-import { EditorUserColor } from '../../constants/editor.constants';
+import { EditorUserColor } from 'src/app/interfaces/editor-user.interface';
 import {
   ProjectEntity,
   ProjectMediaEntity,

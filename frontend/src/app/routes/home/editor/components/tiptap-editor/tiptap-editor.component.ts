@@ -280,7 +280,10 @@ export class TiptapEditorComponent implements AfterViewInit, OnInit, OnDestroy {
             if (this.showUsernames) {
               const label = document.createElement('div');
               label.classList.add('collaboration-cursor__label');
-              label.setAttribute('style', `background-color: ${color}`);
+              label.setAttribute(
+                'style',
+                `background-color: ${color}; color: var(--color-white);`
+              );
               label.insertBefore(document.createTextNode(user['name']), null);
               cursor.insertBefore(label, null);
             }

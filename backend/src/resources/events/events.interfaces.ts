@@ -1,4 +1,3 @@
-import { EditorUserColor } from '../../constants/editor.constants';
 import { CaptionEntity } from '../caption/entities/caption.entity';
 import { NotificationEntity } from '../notification/entities/notification.entity';
 import { ProjectEntity } from '../project/entities/project.entity';
@@ -13,7 +12,7 @@ interface EditorUser {
   userId: string;
   clientId: string;
   active: boolean;
-  color: EditorUserColor;
+  color: number;
 }
 
 export interface ServerToClientEvents {
