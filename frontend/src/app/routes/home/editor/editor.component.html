@@ -1,184 +1,188 @@
 <app-header *ngrxLet="project$ as project">
-  <div class="flex flex-col">
-    <div class="title-wrapper">
-      <span
-        #projectTitle
-        class="project-title"
-        [attr.contenteditable]="isOwner$ | ngrxPush"
-        (blur)="onChangeProjectTitle(projectTitle.innerText, project)"
-      >
-        {{ project?.title }}
-      </span>
-      <button
-        mat-icon-button
-        [routerLink]="['/home/projects']"
-        class="sm editor-back-button"
-        style="margin-left: 1.25rem"
-        i18n-matTooltip="@@editorBackToProjectsList"
-        i18n-matTooltip="@@editorBackToProjectsList"
-        matTooltip="Back to all projects"
-        aria-label="Back to all projects"
-      >
-        <mat-icon svgIcon="folder_back_outline"></mat-icon>
-      </button>
-    </div>
-    <div class="actions-menu">
-      <!-- File Menu -->
-      @if ('fileMenu' | featureEnabled) {
-      <button
-        mat-button
-        [matMenuTriggerFor]="menu"
-        i18n="@@editorMenuFileLabel"
-        class="editor-action-button"
-      >
-        File
-      </button>
-      }
-      <mat-menu #menu="matMenu" class="dense">
-        @if ('download' | featureEnabled) {
-        <button
-          mat-menu-item
-          [matMenuTriggerFor]="downloadMenu"
-          i18n="@@editorMenuFileDownloadLabel"
+  <div>
+    <div>
+      <div class="title-wrapper">
+        <span
+          #projectTitle
+          class="project-title"
+          [attr.contenteditable]="isOwner$ | ngrxPush"
+          (blur)="onChangeProjectTitle(projectTitle.innerText, project)"
         >
-          <mat-icon svgIcon="download"></mat-icon>
-          Download
+          {{ project?.title }}
+        </span>
+        <button
+          mat-icon-button
+          [routerLink]="['/home/projects']"
+          class="sm editor-back-button"
+          style="margin-left: 1.25rem"
+          i18n-matTooltip="@@editorBackToProjectsList"
+          i18n-matTooltip="@@editorBackToProjectsList"
+          matTooltip="Back to all projects"
+          aria-label="Back to all projects"
+        >
+          <mat-icon svgIcon="folder_back_outline"></mat-icon>
         </button>
-        } @if (isOwner$ | ngrxPush) {
-        <mat-divider></mat-divider>
+      </div>
+      <div class="actions-menu">
+        <!-- File Menu -->
+        @if ('fileMenu' | featureEnabled) {
         <button
-          (click)="onDeleteProject()"
-          mat-menu-item
-          i18n="@@editorMenuFileDeleteLabel"
+          mat-button
+          [matMenuTriggerFor]="menu"
+          i18n="@@editorMenuFileLabel"
+          class="editor-action-button"
         >
-          <mat-icon svgIcon="delete" />
-          Delete
+          File
         </button>
         }
-      </mat-menu>
-      <mat-menu #downloadMenu="matMenu" class="dense">
-        <ng-container *ngrxLet="projectMedia$ as projectMedia">
-          @if (projectMedia) { @for (video of projectMedia.videos; track $index)
-          {
+        <mat-menu #menu="matMenu" class="dense">
+          @if ('download' | featureEnabled) {
           <button
             mat-menu-item
-            [mat-menu-trigger-for]="resolutionDownloadMenu"
-            [matMenuTriggerData]="{ video }"
+            [matMenuTriggerFor]="downloadMenu"
+            i18n="@@editorMenuFileDownloadLabel"
           >
-            {{ video.category | mediaCategory }}
-            @if (video.title) { [{{ video.title }}] } (.{{ video.extension }})
+            <mat-icon svgIcon="download"></mat-icon>
+            Download
           </button>
-          } }
-        </ng-container>
-
-        <button mat-menu-item (click)="onDownloadTxt()">
-          Transcript (.txt)
-        </button>
-        <button mat-menu-item (click)="onDownloadSrt()">SubRip (.srt)</button>
-        <button mat-menu-item (click)="onDownloadVtt()">WebVTT (.vtt)</button>
-      </mat-menu>
-
-      <!-- Rosolution Download Menu -->
-
-      <mat-menu #resolutionDownloadMenu="matMenu" class="dense">
-        <ng-template matMenuContent let-video="video">
-          @if (project) { @for (resolution of video.resolutions; track $index) {
+          } @if (isOwner$ | ngrxPush) {
+          <mat-divider></mat-divider>
           <button
+            (click)="onDeleteProject()"
             mat-menu-item
-            (click)="onDownloadVideo(resolution, video, project.title)"
+            i18n="@@editorMenuFileDeleteLabel"
           >
-            {{ resolution.resolution }}
+            <mat-icon svgIcon="delete" />
+            Delete
           </button>
-          } }
-        </ng-template>
-      </mat-menu>
-
-      <!-- Transcription Menu -->
-      @if ('transcriptionsMenu' | featureEnabled) {
-      <button
-        mat-button
-        [matMenuTriggerFor]="transcription"
-        i18n="@@editorMenuTranscriptionLabel"
-        class="editor-action-button"
-      >
-        Transcription
-      </button>
-      }
-      <mat-menu #transcription="matMenu" class="dense">
-        <div *ngrxLet="transcriptionsList$ as transcriptionList">
-          @for (transcription of transcriptionList; track transcription) {
-          <div>
+          }
+        </mat-menu>
+        <mat-menu #downloadMenu="matMenu" class="dense">
+          <ng-container *ngrxLet="projectMedia$ as projectMedia">
+            @if (projectMedia) { @for (video of projectMedia.videos; track
+            $index) {
             <button
-              (click)="onSelectTranscription(transcription.id)"
               mat-menu-item
+              [mat-menu-trigger-for]="resolutionDownloadMenu"
+              [matMenuTriggerData]="{ video }"
             >
-              <mat-icon
-                [class.hidden]="
-                  transcription.id !== (selectedTranscriptionId$ | ngrxPush)
-                "
-                svgIcon="done"
-              ></mat-icon>
-              <span>
-                {{
-                  transcription.language
-                    | writtenOutLanguage : transcription.title
-                }}
-              </span>
-              <span class="transcription-lang-code">
-                ({{ transcription.language }})</span
+              {{ video.category | mediaCategory }}
+              @if (video.title) { [{{ video.title }}] } (.{{ video.extension }})
+            </button>
+            } }
+          </ng-container>
+
+          <button mat-menu-item (click)="onDownloadTxt()">
+            Transcript (.txt)
+          </button>
+          <button mat-menu-item (click)="onDownloadSrt()">SubRip (.srt)</button>
+          <button mat-menu-item (click)="onDownloadVtt()">WebVTT (.vtt)</button>
+        </mat-menu>
+
+        <!-- Rosolution Download Menu -->
+
+        <mat-menu #resolutionDownloadMenu="matMenu" class="dense">
+          <ng-template matMenuContent let-video="video">
+            @if (project) { @for (resolution of video.resolutions; track $index)
+            {
+            <button
+              mat-menu-item
+              (click)="onDownloadVideo(resolution, video, project.title)"
+            >
+              {{ resolution.resolution }}
+            </button>
+            } }
+          </ng-template>
+        </mat-menu>
+
+        <!-- Transcription Menu -->
+        @if ('transcriptionsMenu' | featureEnabled) {
+        <button
+          mat-button
+          [matMenuTriggerFor]="transcription"
+          i18n="@@editorMenuTranscriptionLabel"
+          class="editor-action-button"
+        >
+          Transcription
+        </button>
+        }
+        <mat-menu #transcription="matMenu" class="dense">
+          <div *ngrxLet="transcriptionsList$ as transcriptionList">
+            @for (transcription of transcriptionList; track transcription) {
+            <div>
+              <button
+                (click)="onSelectTranscription(transcription.id)"
+                mat-menu-item
               >
+                <mat-icon
+                  [class.hidden]="
+                    transcription.id !== (selectedTranscriptionId$ | ngrxPush)
+                  "
+                  svgIcon="done"
+                ></mat-icon>
+                <span>
+                  {{
+                    transcription.language
+                      | writtenOutLanguage : transcription.title
+                  }}
+                </span>
+                <span class="transcription-lang-code">
+                  ({{ transcription.language }})</span
+                >
+              </button>
+            </div>
+            } @if (transcriptionList.length > 0) {
+            <mat-divider class="transcription-mat-divider" />
+            }
+          </div>
+          @if ('editTranscriptions' | featureEnabled) {
+          <div class="transcription-button-wrapper">
+            <button
+              mat-menu-item
+              i18n="@@editorMenuTranscriptionEditLabel"
+              (click)="onClickTranscriptionEdit()"
+            >
+              <mat-icon svgIcon="edit"></mat-icon>
+              Edit Transcriptions
             </button>
           </div>
-          } @if (transcriptionList.length > 0) {
-          <mat-divider class="transcription-mat-divider" />
           }
-        </div>
-        @if ('editTranscriptions' | featureEnabled) {
-        <div class="transcription-button-wrapper">
-          <button
-            mat-menu-item
-            i18n="@@editorMenuTranscriptionEditLabel"
-            (click)="onClickTranscriptionEdit()"
-          >
-            <mat-icon svgIcon="edit"></mat-icon>
-            Edit Transcriptions
-          </button>
-        </div>
-        }
-      </mat-menu>
-      <!-- Help Menu -->
-      @if ('helpMenu' | featureEnabled) {
-      <!-- TODO removed to make the ui cleaner -->
-      <!-- <button mat-button (click)="onOpenHelpDialog()" i18n="@@editorMenuHelp">
+        </mat-menu>
+        <!-- Help Menu -->
+        @if ('helpMenu' | featureEnabled) {
+        <!-- TODO removed to make the ui cleaner -->
+        <!-- <button mat-button (click)="onOpenHelpDialog()" i18n="@@editorMenuHelp">
           Help
         </button> -->
-      }
+        }
+      </div>
     </div>
   </div>
-  <div class="flex-1"></div>
-  <ng-container *ngrxLet="activeUsers$ as activeUsers">
-    @if (activeUsers.length > 0) {
-    <app-avatar-group
-      [users]="activeUsers"
-      [editorView]="true"
-    ></app-avatar-group>
-    } @if (activeUsers.length === 0) {
-    <div class="sktn-avatar-wrapper">
-      <div class="sktn-avatar"></div>
-    </div>
+  <div class="right-header">
+    <ng-container *ngrxLet="activeUsers$ as activeUsers">
+      @if (activeUsers.length > 0) {
+      <app-avatar-group
+        [users]="activeUsers"
+        [editorView]="true"
+      ></app-avatar-group>
+      } @if (activeUsers.length === 0) {
+      <div class="sktn-avatar-wrapper">
+        <div class="sktn-avatar"></div>
+      </div>
+      }
+    </ng-container>
+    @if ('projectShare' | featureEnabled) {
+    <button
+      mat-flat-button
+      style="margin: 0 0.75rem"
+      class="compact"
+      (click)="onClickShare()"
+      i18n="@@editorShareProjectButtonLabel"
+    >
+      Share
+    </button>
     }
-  </ng-container>
-  @if ('projectShare' | featureEnabled) {
-  <button
-    mat-flat-button
-    style="margin: 0 0.75rem"
-    class="compact"
-    (click)="onClickShare()"
-    i18n="@@editorShareProjectButtonLabel"
-  >
-    Share
-  </button>
-  }
+  </div>
 </app-header>
 <!-- content -->
 <section class="content-section">

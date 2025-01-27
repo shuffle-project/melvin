@@ -4,6 +4,12 @@
   display: block;
 }
 
+.right-header {
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+}
+
 .title-wrapper {
   margin-top: 0.25rem;
   display: flex;
@@ -12,8 +18,13 @@
   .project-title {
     padding-inline: 0.375rem;
     font-size: 1.25rem;
+    max-width: clamp(5rem, 45vw + 0.125rem, 60rem);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 
-    &:hover {
+    &:hover,
+    &:focus {
       outline: 2px solid var(--color-primary);
     }
   }

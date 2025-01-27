@@ -1,5 +1,5 @@
 import { animate, style, transition, trigger } from '@angular/animations';
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatButtonModule } from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
@@ -25,36 +25,34 @@ import { ColorTheme } from '../../store/reducers/config.reducer';
 import { LogoComponent } from '../logo/logo.component';
 
 @Component({
-    selector: 'app-header',
-    templateUrl: './header.component.html',
-    styleUrls: ['./header.component.scss'],
-    animations: [
-        trigger('fadeIn', [
-            transition(':enter', [
-                style({ opacity: 0 }),
-                animate('100ms', style({ opacity: 1 })),
-            ]),
-        ]),
-    ],
-    imports: [
-        LetDirective,
-        MatToolbarModule,
-        LogoComponent,
-        RouterLink,
-        MatIconModule,
-        MatButtonModule,
-        MatMenuModule,
-        MatBadgeModule,
-        NotificationComponent,
-        MatTooltipModule,
-        PushPipe,
-        FeatureEnabledPipe,
-        MatDivider,
-    ]
+  selector: 'app-header',
+  templateUrl: './header.component.html',
+  styleUrls: ['./header.component.scss'],
+  animations: [
+    trigger('fadeIn', [
+      transition(':enter', [
+        style({ opacity: 0 }),
+        animate('100ms', style({ opacity: 1 })),
+      ]),
+    ]),
+  ],
+  imports: [
+    LetDirective,
+    MatToolbarModule,
+    LogoComponent,
+    RouterLink,
+    MatIconModule,
+    MatButtonModule,
+    MatMenuModule,
+    MatBadgeModule,
+    NotificationComponent,
+    MatTooltipModule,
+    PushPipe,
+    FeatureEnabledPipe,
+    MatDivider,
+  ],
 })
 export class HeaderComponent implements OnDestroy, OnInit {
-  @Input() viewer = false;
-
   public colorThemeENUM = ColorTheme;
 
   isLoggedIn$: Observable<boolean>;
