@@ -72,6 +72,7 @@ export class MediaService {
     this.store.dispatch(editorActions.eMediaLodingSingle({ id }));
     const subscription = merge(
       fromEvent(media, 'canplay'),
+      fromEvent(media, 'canplaythrough'),
       fromEvent(media, 'waiting'),
       fromEvent(media, 'seeking'),
       fromEvent(media, 'seeked'),
@@ -80,13 +81,12 @@ export class MediaService {
     )
       .pipe(
         // debounceTime(0),
-        tap(() => {
+        tap((event) => {
           // HAVE_NOTHING	0	No information is available about the media resource.
           // HAVE_METADATA	1	Enough of the media resource has been retrieved that the metadata attributes are initialized. Seeking will no longer raise an exception.
           // HAVE_CURRENT_DATA	2	Data is available for the current playback position, but not enough to actually play more than one frame.
           // HAVE_FUTURE_DATA	3	Data for the current playback position as well as for at least a little bit of time into the future is available (in other words, at least two frames of video, for example).
           // HAVE_ENOUGH_DATA	4	Enough data is available—and the download rate is high enough—that the media can be
-          console.log(id, media.readyState);
           if (media.readyState > 3) {
             this.store.dispatch(editorActions.eMediaLoaded({ id }));
           } else {
@@ -98,7 +98,7 @@ export class MediaService {
       )
       .subscribe();
 
-    this.seekToTime(this.currentTime$.value, false);
+    // this.seekToTime(this.currentTime$.value, false);
     this.loadingEvents.push({ id, subscription });
   }
 
