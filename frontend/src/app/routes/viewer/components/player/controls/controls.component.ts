@@ -244,6 +244,11 @@ export class ControlsComponent implements OnInit, OnDestroy {
     bigVideoId: ViewerVideo | undefined,
     videos: ViewerVideo[]
   ) {
+    const shownVideos = videos.filter((video) => video.shown);
+    if (shownVideos.length === 1 && video.shown) {
+      return;
+    }
+
     if (bigVideoId?.id === video.id) {
       const makeNewBig = videos.find(
         (video) => video.shown && video.id !== bigVideoId.id
