@@ -1526,6 +1526,12 @@
       <trans-unit id="projectListCreateDefaultInfotext" datatype="html">
         <source> There are currently no projects. <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br /&gt;"/> You can either create a new project or an example project. </source>
       </trans-unit>
+      <trans-unit id="editorMenuTranscriptionsHeader" datatype="html">
+        <source>Transcripts </source>
+      </trans-unit>
+      <trans-unit id="editorMenuVideosHeader" datatype="html">
+        <source>Videos</source>
+      </trans-unit>
     </body>
   </file>
 </xliff>

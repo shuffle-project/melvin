@@ -2016,23 +2016,31 @@
       </trans-unit>
       <trans-unit id="projectListCreateDefaultProjectButtonLabel" datatype="html">
         <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;plus&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/> Create Exampleproject </source>
-        <target state="new"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;plus&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/> Beispielprojekt erstellen </target>
+        <target state="final"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;plus&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/> Beispielprojekt erstellen </target>
       </trans-unit>
       <trans-unit id="landingHeaderGuideLinkLabel" datatype="html">
         <source> Guide </source>
-        <target state="new"> Leitfaden </target>
+        <target state="final"> Leitfaden </target>
       </trans-unit>
       <trans-unit id="GuidePageTitle" datatype="html">
         <source>Guide - Melvin</source>
-        <target state="new">Leitfaden - Melvin</target>
+        <target state="final">Leitfaden - Melvin</target>
       </trans-unit>
       <trans-unit id="viewerControlsQualityTitle" datatype="html">
         <source> Max. Resolution </source>
-        <target state="new"> Max. Auflösung </target>
+        <target state="final"> Max. Auflösung </target>
       </trans-unit>
       <trans-unit id="projectListCreateDefaultInfotext" datatype="html">
         <source> There are currently no projects. <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br /&gt;"/> You can either create a new project or an example project. </source>
-        <target state="new"> Es gibt aktuell keine Projekte. <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br /&gt;"/> Du kannst entweder ein neues Projekt oder ein Beispielprojekt erstellen. </target>
+        <target state="final"> Es gibt aktuell keine Projekte. <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br /&gt;"/> Du kannst entweder ein neues Projekt oder ein Beispielprojekt erstellen. </target>
+      </trans-unit>
+      <trans-unit id="editorMenuVideosHeader" datatype="html">
+        <source>Videos</source>
+        <target state="final">Videos</target>
+      </trans-unit>
+      <trans-unit id="editorMenuTranscriptionsHeader" datatype="html">
+        <source>Transcripts </source>
+        <target state="final">Transkripte </target>
       </trans-unit>
     </body>
   </file>
