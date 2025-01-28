@@ -2004,7 +2004,7 @@
       </trans-unit>
       <trans-unit id="tiptap-editorMenuTranscriptionLabel" datatype="html">
         <source>Transcription</source>
-        <target state="new">Transcription</target>
+        <target state="final">Transkription</target>
       </trans-unit>
       <trans-unit id="editSpeakerMenuNameLabel" datatype="html">
         <source>Speaker name</source>
@@ -2012,23 +2012,23 @@
       </trans-unit>
       <trans-unit id="editSpeakerMenuAtLeastOneProjectError" datatype="html">
         <source>At least one speaker is required.</source>
-        <target state="new">At least one speaker is required.</target>
+        <target state="final">Mindestens ein Sprecher ist erforderlich.</target>
       </trans-unit>
       <trans-unit id="projectListCreateDefaultProjectButtonLabel" datatype="html">
         <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;plus&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/> Create default project </source>
-        <target state="new"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;plus&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/> Create default project </target>
+        <target state="new"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;plus&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/> Standardprojekt erstellen </target>
       </trans-unit>
       <trans-unit id="landingHeaderGuideLinkLabel" datatype="html">
         <source> Guide </source>
-        <target state="new"> Guide </target>
+        <target state="new"> Leitfaden </target>
       </trans-unit>
       <trans-unit id="GuidePageTitle" datatype="html">
         <source>Guide - Melvin</source>
-        <target state="new">Guide - Melvin</target>
+        <target state="new">Leitfaden - Melvin</target>
       </trans-unit>
       <trans-unit id="viewerControlsQualityTitle" datatype="html">
         <source> Max. Resolution </source>
-        <target state="new"> Max. Resolution </target>
+        <target state="new"> Max. Auflösung </target>
       </trans-unit>
     </body>
   </file>
