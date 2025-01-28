@@ -119,7 +119,6 @@ export class UploadAdditionalContentComponent implements OnInit {
   ) {
     this.media$.pipe(takeUntil(this.destroy$$)).subscribe((media) => {
       if (media) {
-        console.log(media);
         const mediaArray = [...media.videos];
         this.dataSource.data = mediaArray;
       }
@@ -235,34 +234,30 @@ export class UploadAdditionalContentComponent implements OnInit {
     );
   }
 
-  onDownloadMedia(video: VideoEntity, project: ProjectEntity) {
-    console.log(video);
-    console.log(' - - - ');
-    console.log(project);
+  onDownloadMedia(videoEntity: VideoEntity, projectTitle: string) {
+    const regexSpecialChars = /[`~!@#$%^&*()|+\=?;:'",.<>\{\}\[\]\\\/]/gi;
 
-    // const regexSpecialChars = /[`~!@#$%^&*()|+\=?;:'",.<>\{\}\[\]\\\/]/gi;
+    const filename = `${projectTitle}_${
+      videoEntity.title ? videoEntity.title : videoEntity.category
+    }`;
 
-    // const filename = `${projectTitle}_${
-    //   videoEntity.title ? videoEntity.title : videoEntity.category
-    // }`;
+    const readyFilename = filename
+      .replace(regexSpecialChars, '')
+      .replace(/ /g, '-');
 
-    // const readyFilename = filename
-    //   .replace(regexSpecialChars, '')
-    //   .replace(/ /g, '-');
-
-    // this.httpClient
-    //   .get(resolution.url, { responseType: 'blob' })
-    //   .subscribe((response) => {
-    //     const urlCreator = window.URL || window.webkitURL;
-    //     const imageUrl = urlCreator.createObjectURL(response);
-    //     const tag = document.createElement('a');
-    //     tag.href = imageUrl;
-    //     tag.target = '_blank';
-    //     tag.download = readyFilename + '.' + videoEntity.extension;
-    //     document.body.appendChild(tag);
-    //     tag.click();
-    //     document.body.removeChild(tag);
-    //   });
+    this.httpClient
+      .get(videoEntity.url, { responseType: 'blob' })
+      .subscribe((response) => {
+        const urlCreator = window.URL || window.webkitURL;
+        const imageUrl = urlCreator.createObjectURL(response);
+        const tag = document.createElement('a');
+        tag.href = imageUrl;
+        tag.target = '_blank';
+        tag.download = readyFilename + '.' + videoEntity.extension;
+        document.body.appendChild(tag);
+        tag.click();
+        document.body.removeChild(tag);
+      });
   }
 
   announceSortChange(sortState: any) {

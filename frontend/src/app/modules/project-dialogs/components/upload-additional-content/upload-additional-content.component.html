@@ -179,7 +179,7 @@
   <ng-template matMenuContent let-data="data">
     <button
       mat-menu-item
-      (click)="onDownloadMedia(data.media, data.project)"
+      (click)="onDownloadMedia(data.media, data.project.title)"
       i18n="@@uploadAdditionalMediaDownloadButtonLabel"
     >
       <mat-icon svgIcon="download" />

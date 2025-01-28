@@ -63,8 +63,7 @@
             $index) {
             <button
               mat-menu-item
-              [mat-menu-trigger-for]="resolutionDownloadMenu"
-              [matMenuTriggerData]="{ video }"
+              (click)="onDownloadVideo(video, project?.title)"
             >
               {{ video.category | mediaCategory }}
               @if (video.title) { [{{ video.title }}] } (.{{ video.extension }})
@@ -77,22 +76,6 @@
           </button>
           <button mat-menu-item (click)="onDownloadSrt()">SubRip (.srt)</button>
           <button mat-menu-item (click)="onDownloadVtt()">WebVTT (.vtt)</button>
-        </mat-menu>
-
-        <!-- Rosolution Download Menu -->
-
-        <mat-menu #resolutionDownloadMenu="matMenu" class="dense">
-          <ng-template matMenuContent let-video="video">
-            @if (project) { @for (resolution of video.resolutions; track $index)
-            {
-            <button
-              mat-menu-item
-              (click)="onDownloadVideo(resolution, video, project.title)"
-            >
-              {{ resolution.resolution }}
-            </button>
-            } }
-          </ng-template>
         </mat-menu>
 
         <!-- Transcription Menu -->
