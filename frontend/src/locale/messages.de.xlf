@@ -2015,8 +2015,8 @@
         <target state="final">Mindestens ein Sprecher ist erforderlich.</target>
       </trans-unit>
       <trans-unit id="projectListCreateDefaultProjectButtonLabel" datatype="html">
-        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;plus&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/> Create default project </source>
-        <target state="new"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;plus&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/> Standardprojekt erstellen </target>
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;plus&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/> Create Exampleproject </source>
+        <target state="new"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;plus&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/> Beispielprojekt erstellen </target>
       </trans-unit>
       <trans-unit id="landingHeaderGuideLinkLabel" datatype="html">
         <source> Guide </source>
@@ -2029,6 +2029,10 @@
       <trans-unit id="viewerControlsQualityTitle" datatype="html">
         <source> Max. Resolution </source>
         <target state="new"> Max. Auflösung </target>
+      </trans-unit>
+      <trans-unit id="projectListCreateDefaultInfotext" datatype="html">
+        <source> There are currently no projects. <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br /&gt;"/> You can either create a new project or an example project. </source>
+        <target state="new"> Es gibt aktuell keine Projekte. <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br /&gt;"/> Du kannst entweder ein neues Projekt oder ein Beispielprojekt erstellen. </target>
       </trans-unit>
     </body>
   </file>

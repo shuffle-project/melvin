@@ -77,7 +77,7 @@ export class Transcription {
   @Transform(({ obj }) => obj.project.toString())
   project: PopulatedDoc<Project>;
 
-  @ApiProperty({ example: EXAMPLE_TRANSCRIPTION.title })
+  @ApiProperty({ example: 'German' })
   @Prop()
   @IsString()
   @IsOptional()

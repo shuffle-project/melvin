@@ -430,6 +430,12 @@
     @if(allProjects.length === 0) {
 
     <div class="new-default-project-button-wrapper">
+      <span i18n="@@projectListCreateDefaultInfotext">
+        There are currently no projects.
+        <br />
+        You can either create a new project or an example project.
+      </span>
+
       <button
         mat-flat-button
         class="new-default-project-button"
@@ -437,7 +443,7 @@
         i18n="@@projectListCreateDefaultProjectButtonLabel"
       >
         <mat-icon svgIcon="plus"></mat-icon>
-        Create default project
+        Create Exampleproject
       </button>
     </div>
 
