@@ -199,6 +199,11 @@
     }
   </div>
   }
+
+  <div class="controls-narrow-viewport">
+    <app-video-controls></app-video-controls>
+  </div>
+
   <div class="content">
     <div class="left">
       <app-video-player></app-video-player>
@@ -235,7 +240,9 @@
       class="right"
       *ngrxLet="selectedTranscriptionId$ as selectedTranscriptionId"
     >
-      <app-video-controls></app-video-controls>
+      <div class="controls-wide-viewport">
+        <app-video-controls></app-video-controls>
+      </div>
 
       <ng-container *ngrxLet="project$ as project">
         <ng-container *ngrxLet="editorUsers$ as editorUsers">
