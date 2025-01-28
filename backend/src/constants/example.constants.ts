@@ -23,7 +23,7 @@ export const EXAMPLE_PROJECT = {
   duration: 408000,
   start: 0,
   end: 408000,
-  language: 'de-DE',
+  language: 'de',
   createdBy: ids.user,
   users: [ids.user],
   transcriptions: [ids.transcription],
@@ -80,8 +80,8 @@ export const EXAMPLE_SPEAKER = {
 
 export const EXAMPLE_TRANSCRIPTION = {
   _id: ids.transcription,
-  title: 'German',
-  language: 'de-DE',
+  // title: '',
+  language: 'de',
   speakers: [{ ...EXAMPLE_SPEAKER }],
   project: EXAMPLE_PROJECT._id,
 };

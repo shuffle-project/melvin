@@ -1515,13 +1515,16 @@
         <source> Guide </source>
       </trans-unit>
       <trans-unit id="projectListCreateDefaultProjectButtonLabel" datatype="html">
-        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;plus&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/> Create default project </source>
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;plus&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/> Create Exampleproject </source>
       </trans-unit>
       <trans-unit id="tiptap-editorMenuTranscriptionLabel" datatype="html">
         <source>Transcription</source>
       </trans-unit>
       <trans-unit id="viewerControlsQualityTitle" datatype="html">
         <source> Max. Resolution </source>
+      </trans-unit>
+      <trans-unit id="projectListCreateDefaultInfotext" datatype="html">
+        <source> There are currently no projects. <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br /&gt;"/> You can either create a new project or an example project. </source>
       </trans-unit>
     </body>
   </file>
