@@ -65,9 +65,6 @@ export class VideoControlsComponent {
   }
 
   onTogglePlayPause() {
-    this.store.dispatch(editorActions.togglePlayPauseFromEditor());
-
-    // new
     this.store.dispatch(editorActions.ePlayPauseUser());
   }
 

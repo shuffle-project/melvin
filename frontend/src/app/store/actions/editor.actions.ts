@@ -11,14 +11,6 @@ export const playFromCaption = createAction(
   '[CAPTION COMPONENT] Start playing'
 );
 
-export const togglePlayPauseFromEditor = createAction(
-  '[EDITOR COMPONENT] Toggle Play Pause'
-);
-
-export const togglePlayPauseFromVideo = createAction(
-  '[VIDEO COMPONENT] Toggle Play Pause'
-);
-
 export const playFromMediaService = createAction(
   '[MEDIA SERVICE] isPlaying on true'
 );
