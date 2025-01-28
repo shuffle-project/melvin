@@ -425,5 +425,23 @@
       [class.disabled]="!isClickable(row)"
     ></tr>
   </table>
+
+  <ng-container *ngrxLet="allProject$ as allProjects">
+    @if(allProjects.length === 0) {
+
+    <div class="new-default-project-button-wrapper">
+      <button
+        mat-flat-button
+        class="new-default-project-button"
+        (click)="onClickCreateDefaultProject()"
+        i18n="@@projectListCreateDefaultProjectButtonLabel"
+      >
+        <mat-icon svgIcon="plus"></mat-icon>
+        Create default project
+      </button>
+    </div>
+
+    }
+  </ng-container>
 </section>
 <app-landing-footer />

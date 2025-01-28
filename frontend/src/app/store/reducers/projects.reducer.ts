@@ -57,10 +57,14 @@ export const initialState: ProjectsState = {
 export const projectsReducer = createReducer(
   initialState,
 
-  on(projectsActions.createFromWS, (state, { createdProject }) => ({
-    ...state,
-    projectsList: [{ ...createdProject }, ...state.projectsList],
-  })),
+  on(
+    projectsActions.createFromWS,
+    projectsActions.createFromDefaultCreation,
+    (state, { createdProject }) => ({
+      ...state,
+      projectsList: [{ ...createdProject }, ...state.projectsList],
+    })
+  ),
 
   // modify one single project by id functions
   on(projectsActions.updateSuccess, (state, { updatedProject }) => ({

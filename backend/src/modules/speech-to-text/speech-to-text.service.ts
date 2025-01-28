@@ -12,13 +12,12 @@ import { Caption } from '../db/schemas/caption.schema';
 import { Audio, Project } from '../db/schemas/project.schema';
 import { CustomLogger } from '../logger/logger.service';
 import { PathService } from '../path/path.service';
+import { TiptapDocument } from '../tiptap/tiptap.interfaces';
 import { TiptapService } from '../tiptap/tiptap.service';
 import { AssemblyAiService } from './assemblyai/assemblyai.service';
 import { GoogleSpeechService } from './google-speech/google-speech.service';
 import { TranscriptEntity, WordEntity } from './speech-to-text.interfaces';
 import { WhisperSpeechService } from './whisper/whisper-speech.service';
-import { text } from 'stream/consumers';
-import { TiptapDocument } from '../tiptap/tiptap.interfaces';
 
 @Injectable()
 export class SpeechToTextService {

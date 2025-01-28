@@ -1,6 +1,15 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { BehaviorSubject, combineLatest, Subject, takeUntil, tap } from 'rxjs';
+import {
+  BehaviorSubject,
+  combineLatest,
+  fromEvent,
+  merge,
+  Subject,
+  Subscription,
+  tap,
+} from 'rxjs';
+import { VideoEntity } from 'src/app/services/api/entities/project.entity';
 import { CaptionEntity } from '../../../../../services/api/entities/caption.entity';
 import * as editorActions from '../../../../../store/actions/editor.actions';
 import * as captionsSelectors from '../../../../../store/selectors/captions.selector';
@@ -12,7 +21,6 @@ import { VideoPlayerMediaElementComponent } from '../../components/video-player/
 })
 export class MediaService {
   private destroy$$ = new Subject<void>();
-  private media!: VideoPlayerMediaElementComponent | null;
 
   public isReady$ = new BehaviorSubject<boolean>(false);
   public duration$ = new BehaviorSubject<number>(0);
@@ -22,6 +30,10 @@ export class MediaService {
   >(null);
   public jumpToCaptionTime$ = new BehaviorSubject<number | null>(null);
   public captionCreated$ = new Subject<CaptionEntity>();
+
+  public seeking$ = new Subject<number>();
+
+  loadingEvents: { id: string; subscription: Subscription }[] = [];
 
   constructor(private store: Store) {
     // Project duration
@@ -56,28 +68,60 @@ export class MediaService {
       .subscribe();
   }
 
-  initMediaElement(media: VideoPlayerMediaElementComponent) {
-    this.destroyMediaElement();
-
-    this.media = media;
-
-    // Subscribe to currentTime
-    media.currentTime$
+  registerMediaEvents(media: HTMLMediaElement, id: string) {
+    this.store.dispatch(editorActions.eMediaLodingSingle({ id }));
+    const subscription = merge(
+      fromEvent(media, 'canplay'),
+      fromEvent(media, 'canplaythrough'),
+      fromEvent(media, 'waiting'),
+      fromEvent(media, 'seeking'),
+      fromEvent(media, 'seeked'),
+      fromEvent(media, 'stalled'),
+      fromEvent(media, 'suspended')
+    )
       .pipe(
-        takeUntil(this.destroy$$),
-        tap((currentTime) => this.currentTime$.next(currentTime))
+        // debounceTime(0),
+        tap((event) => {
+          // HAVE_NOTHING	0	No information is available about the media resource.
+          // HAVE_METADATA	1	Enough of the media resource has been retrieved that the metadata attributes are initialized. Seeking will no longer raise an exception.
+          // HAVE_CURRENT_DATA	2	Data is available for the current playback position, but not enough to actually play more than one frame.
+          // HAVE_FUTURE_DATA	3	Data for the current playback position as well as for at least a little bit of time into the future is available (in other words, at least two frames of video, for example).
+          // HAVE_ENOUGH_DATA	4	Enough data is available—and the download rate is high enough—that the media can be
+
+          console.log(media.readyState, id, event.type);
+          if (media.readyState > 3) {
+            this.store.dispatch(editorActions.eMediaLoaded({ id }));
+          } else {
+            this.store.dispatch(editorActions.eMediaLodingSingle({ id }));
+          }
+
+          // this.isLoading(id);
+        })
       )
       .subscribe();
 
+    this.seekToTime(this.currentTime$.value, false);
+    this.loadingEvents.push({ id, subscription });
+  }
+
+  initAudioElement(event: Event, audio: HTMLAudioElement) {
+    this.registerMediaEvents(audio, 'audio');
     this.isReady$.next(true);
+  }
+
+  initMediaElement(
+    media: VideoPlayerMediaElementComponent,
+    playingVideo: VideoEntity
+  ) {
+    // this.destroyMediaElement();
+    this.registerMediaEvents(media.video, playingVideo.id);
   }
 
   destroyMediaElement() {
     this.destroy$$.next();
-    this.isReady$.next(false);
+    // this.isReady$.next(false);
     this.duration$.next(0);
     this.currentTime$.next(0);
-    this.media = null;
     this.jumpToCaptionTime$.next(null);
   }
 
@@ -90,7 +134,8 @@ export class MediaService {
   }
 
   seekToTime(milliseconds: number, jumpToNearestCaption: boolean): void {
-    this.media?.seekToTime(milliseconds);
+    // this.media?.seekToTime(milliseconds);
+    this.seeking$.next(milliseconds);
     if (jumpToNearestCaption) {
       this.jumpToCaptionTime$.next(milliseconds);
     }

@@ -12,7 +12,9 @@ Instructions for the deployment can be found here: [https://github.com/shuffle-p
 
 The Automatic Speech Recognition API service is maintained here: [https://github.com/shuffle-project/melvin-asr](https://github.com/shuffle-project/melvin-asr)
 
-## Getting started
+## Deploying melvin
+
+## Getting started as developer
 
 Start docker compose for databases and asr service:
 

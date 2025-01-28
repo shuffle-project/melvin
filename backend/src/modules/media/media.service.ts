@@ -1,14 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { ReadStream, createReadStream } from 'fs';
-import {
-  CustomBadRequestException,
-  CustomForbiddenException,
-} from 'src/utils/exceptions';
-import { ensureDir, remove, rm } from 'fs-extra';
 import { stat } from 'fs/promises';
-import { PathService } from 'src/modules/path/path.service';
-import { CustomLogger } from 'src/modules/logger/logger.service';
 import { DbService } from 'src/modules/db/db.service';
+import { CustomLogger } from 'src/modules/logger/logger.service';
+import { PathService } from 'src/modules/path/path.service';
+import { CustomBadRequestException } from 'src/utils/exceptions';
 
 import { Request, Response } from 'express';
 

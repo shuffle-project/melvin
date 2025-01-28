@@ -6,6 +6,11 @@ import { ProjectEntity } from '../../services/api/entities/project.entity';
 
 // edit projects list
 
+export const createFromDefaultCreation = createAction(
+  '[PROJECT LIST] Project created',
+  props<{ createdProject: ProjectEntity }>()
+);
+
 export const createFromWS = createAction(
   '[WS SERVICE] Project created',
   props<{ createdProject: ProjectEntity }>()

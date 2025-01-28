@@ -1,0 +1,47 @@
+# config.yml
+# This file is used to configure the service for a production stage in a Docker container
+debug: True
+host: "0.0.0.0"
+api_keys:
+  - YOUR_ASR_SECRET # TODO replace
+
+# Transcription Configuration, defaults set for websocket_stream and rest_runner
+transcription_default:
+  # all valid faster-whisper transcription settings are allowed here
+  # see "src/helper/transcription_settings.py"
+  vad_filter: True
+  condition_on_previous_text: False
+
+# Runner Configuration
+# The max. count of runners for rest_runner is 10
+# The max. count of runners for stream_runner is 1
+
+websocket_stream:
+  cpu:
+    # Loads a model on CPU that is used for transcription of the audio stream,
+    # if GPU is active as well this is the fallback.
+    active: False
+    # model: tiny, small, medium, large, large-v3 (https://huggingface.co/Systran)
+    model: tiny
+    # cpu_threads: Only for CPU, depends on the type of CPU, try out different values to find the best one
+    # for 128 cores, use 8/16
+    # for 64 cores, use 4/8
+    # for 32 cores, use 2/4
+    cpu_threads: 4
+    # Number of streams that can be processed in parallel by the CPU
+    worker_seats: 2
+
+  cuda:
+    active: False
+    # model: tiny, small, medium, large, large-v3 (https://huggingface.co/Systran)
+    model: tiny
+    # device_index: Only for Cuda, device_index is the index of the GPU, see CLI "nvidia-smi"
+    device_index: 0
+    # Number of streams that can be processed in parallel by the GPU
+    worker_seats: 1
+
+rest_runner:
+  - device: cpu
+    device-index: 0
+    model: tiny
+    compute_type: float16

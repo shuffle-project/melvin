@@ -24,6 +24,7 @@ import { IsValidObjectIdPipe } from '../../pipes/is-valid-objectid.pipe';
 import { MediaUser, User } from '../auth/auth.decorator';
 import { AuthUser, MediaAccessUser } from '../auth/auth.interfaces';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
+import { PopulateService } from '../populate/populate.service';
 import { CreateLegacyProjectDto } from './dto/create-legacy-project.dto';
 import { CreateProjectDto } from './dto/create-project.dto';
 import { FindAllProjectsQuery } from './dto/find-all-projects.dto';
@@ -42,7 +43,17 @@ import { ProjectService } from './project.service';
 @UseInterceptors(ClassSerializerInterceptor)
 @Controller('projects')
 export class ProjectController {
-  constructor(private readonly projectService: ProjectService) {}
+  constructor(
+    private readonly projectService: ProjectService,
+    private populateService: PopulateService,
+  ) {}
+
+  @UseGuards(JwtAuthGuard)
+  @Post('default')
+  @ApiResponse({ status: HttpStatus.CREATED })
+  async createDefault(@User() authUser: AuthUser) {
+    return await this.populateService._generateDefaultProject(authUser.id);
+  }
 
   @UseGuards(JwtAuthGuard)
   @Post()

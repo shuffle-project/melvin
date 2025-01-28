@@ -1,0 +1,84 @@
+services:
+  backend:
+    image: ghcr.io/shuffle-project/melvin-backend:${BACKEND_TAG}
+    container_name: ${COMPOSE_PROJECT_NAME}-backend
+    depends_on:
+      mongodb: 
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      melvin-asr:
+        condition: service_healthy
+    ports:
+      - 127.0.0.1:3000:3000
+    restart: unless-stopped
+    healthcheck:
+      test: wget --no-verbose --tries=1 --spider localhost:3000 || exit 1
+      interval: 5s
+      retries: 10
+      timeout: 3s
+    volumes:
+      - ./backend.config.yml:/app/config.yml
+      - ${DATA_ROOT_PATH}/backend/media:/app/media/projects
+    
+  frontend:
+    image: ghcr.io/shuffle-project/melvin-frontend:${FRONTEND_TAG}
+    container_name: ${COMPOSE_PROJECT_NAME}-frontend
+    ports:
+      - 127.0.0.1:4200:80
+    restart: unless-stopped
+    depends_on:
+      backend:
+        condition: service_healthy
+    environment:
+      - FRONTEND_BASE_URL=http://localhost:4200 # TODO replace
+      - BACKEND_BASE_URL=http://localhost:3000 # TODO replace
+
+  mongodb:
+    image: mongo:7
+    container_name: ${COMPOSE_PROJECT_NAME}-mongo
+    restart: unless-stopped
+    volumes:
+      - ${DATA_ROOT_PATH}/mongodb:/data/db
+    healthcheck:
+      test: echo 'db.runCommand("ping").ok' | mongosh localhost:27017/captioning --quiet
+      interval: 10s
+      timeout: 10s
+      retries: 5
+
+  redis:
+    image: redis
+    container_name: ${COMPOSE_PROJECT_NAME}-redis
+    restart: unless-stopped
+    volumes:
+      - ${DATA_ROOT_PATH}/redis:/data
+    healthcheck:
+      test: [ "CMD", "redis-cli", "--raw", "incr", "ping" ]
+      interval: 1s
+      timeout: 3s
+      retries: 5
+
+  melvin-asr:
+    image: ghcr.io/shuffle-project/melvin-asr:${ASR_API_TAG}
+    container_name: ${COMPOSE_PROJECT_NAME}-asr
+    restart: unless-stopped
+    volumes:
+      - ${DATA_ROOT_PATH}/asr:/asr/data
+      - ${WHISPER_MODELS_CACHE_PATH}:/asr/models
+      - ./asr.config.yml:/asr/config.yml
+    ports:
+      - '127.0.0.1:8393:8393' # HTTP
+      - '127.0.0.1:8394:8394' # WebSocket
+    healthcheck:
+      test: curl --fail -X OPTIONS http://localhost:8393 || exit 1
+      interval: 10s
+      retries: 10
+      timeout: 3s
+    # TODO uncomment the following lines if you want to use GPU
+    # deploy:
+    #   resources:
+    #     reservations:
+    #       devices:
+    #         - driver: nvidia
+    #           device_ids: [ "0" ]
+    #           capabilities: [ gpu ]

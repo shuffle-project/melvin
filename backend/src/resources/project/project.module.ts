@@ -11,6 +11,7 @@ import { SubtitleFormatModule } from '../../modules/subtitle-format/subtitle-for
 import { ActivityModule } from '../activity/activity.module';
 import { AuthModule } from '../auth/auth.module';
 import { EventsModule } from '../events/events.module';
+import { PopulateModule } from '../populate/populate.module';
 import { TranscriptionModule } from '../transcription/transcription.module';
 import { ProjectController } from './project.controller';
 import { ProjectService } from './project.service';
@@ -29,6 +30,7 @@ import { ProjectService } from './project.service';
     AuthModule,
     SubtitleFormatModule,
     SpeechToTextModule,
+    PopulateModule,
     BullModule.registerQueue(
       { name: 'project' },
       { name: 'subtitles' },

@@ -139,3 +139,23 @@ export const changeSpellchecking = createAction(
 export const toggleShowUsernames = createAction(
   '[EDITOR SETTINGS COMPONENT] toggle show usernames'
 );
+
+/**
+ * Media loading&playing stuff
+ */
+
+export const ePlayPauseUser = createAction(
+  '[EDITOR COMPONENT] Play Pause User'
+);
+export const eMediaLodingSingle = createAction(
+  '[EDITOR COMPONENT] Loading single media id',
+  props<{ id: string }>()
+);
+export const eMediaLoadingMultiple = createAction(
+  '[EDITOR COMPONENT] Loading multiple media ids',
+  props<{ ids: string[] }>()
+);
+export const eMediaLoaded = createAction(
+  '[EDITOR COMPONENT] Media loaded',
+  props<{ id: string }>()
+);

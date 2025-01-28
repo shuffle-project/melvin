@@ -38,7 +38,7 @@ export class UserTestEffects {
     () =>
       this.actions$.pipe(
         ofType(userTestActions.updateCurrentTimeFromWS),
-        withLatestFrom(this.store.select(editorSelectors.selectIsPlaying)),
+        withLatestFrom(this.store.select(editorSelectors.eIsPlayingUser)),
         filter(
           ([action, isPlaying]) =>
             !isPlaying && this.appService.hasUserInteractedWithDOM

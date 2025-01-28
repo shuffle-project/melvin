@@ -81,57 +81,6 @@ export class ProjectService {
     this.serverBaseUrl = this.configService.get<string>('baseUrl');
   }
 
-  // _generateInviteToken(): Promise<string> {
-  //   return new Promise((resolve, reject) =>
-  //     randomBytes(64, (err, buffer) =>
-  //       err ? reject(err) : resolve(buffer.toString('base64url')),
-  //     ),
-  //   );
-  // }
-
-  // async _getMediaLinksEntity(
-  //   project: LeanProjectDocument,
-  //   authUser: AuthUser,
-  // ): Promise<MediaLinksEntity> {
-  //   const mediaAuthToken = await this.authService.createMediaAccessToken(
-  //     authUser,
-  //     {
-  //       projectId: project._id.toString(),
-  //     },
-  //   );
-
-  //   const videoId = project.videos[0]._id.toString();
-  //   const audioId = project.audios[0]._id.toString();
-
-  //   const video = `${
-  //     this.serverBaseUrl
-  //   }/projects/${project._id.toString()}/video/${videoId}?Authorization=${
-  //     mediaAuthToken.token
-  //   }`;
-
-  //   const audio = `${
-  //     this.serverBaseUrl
-  //   }/projects/${project._id.toString()}/audio/${audioId}?Authorization=${
-  //     mediaAuthToken.token
-  //   }`;
-
-  //   //  additionalVideos
-  //   const additionalVideos: VideoLinkEntity[] = project.videos.map((media) => ({
-  //     id: media._id.toString(),
-  //     status: media.status,
-  //     title: media.title,
-  //     originalFileName: media.originalFileName,
-  //     category: media.category,
-  //     url: `${
-  //       this.serverBaseUrl
-  //     }/projects/${project._id.toString()}/video/${media._id.toString()}?Authorization=${
-  //       mediaAuthToken.token
-  //     }`,
-  //   }));
-
-  //   return { video, audio, videos: additionalVideos };
-  // }
-
   async create(
     authUser: AuthUser,
     createProjectDto: CreateProjectDto,
@@ -155,7 +104,7 @@ export class ProjectService {
       originalFileName: '',
       status: MediaStatus.WAITING,
       title: 'Main Video',
-      resolutions: [], // TODO wird dann gefüllt in der videoverarbeitung?
+      resolutions: [],
     };
 
     const mainAudio: Audio = {
@@ -381,7 +330,7 @@ export class ProjectService {
       originalFileName: '',
       status: MediaStatus.WAITING,
       title: 'Main Video',
-      resolutions: [], // TODO wird dann gefüllt in der videoverarbeitung?
+      resolutions: [],
     };
 
     const mainAudio: Audio = {
@@ -720,7 +669,7 @@ export class ProjectService {
     try {
       rm(projectDir, { recursive: true, force: true });
     } catch (e) {
-      // TODO could not delete files
+      // could not delete files
       console.log('could not delete files ' + id);
       console.log(e);
     }
@@ -1037,7 +986,7 @@ export class ProjectService {
       originalFileName: file.filename,
       status: MediaStatus.WAITING,
       extension: 'mp4',
-      resolutions: [], // TODO ? wird dann gefüllt bei der videoverarbeitung?
+      resolutions: [],
     };
 
     const updatedProject = await this.db.updateProjectByIdAndReturn(projectId, {
@@ -1118,9 +1067,6 @@ export class ProjectService {
     if (mediaObj.category === MediaCategory.MAIN) {
       throw new CustomForbiddenException('can_not_delete_main_video');
     }
-
-    // todo if audio, delete stereo and mono and original
-    // todo if video, delete all resolutions and original
 
     const path = this.pathService.getBaseMediaFile(projectId, mediaObj);
     remove(path);

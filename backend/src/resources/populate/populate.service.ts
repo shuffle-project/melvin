@@ -3,11 +3,16 @@ import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { parse } from '@plussub/srt-vtt-parser';
 import { Queue } from 'bull';
+import { plainToInstance } from 'class-transformer';
 import dayjs from 'dayjs';
-import { emptyDir, ensureDir, symlink } from 'fs-extra';
-import { copyFile, readFile, readdir } from 'fs/promises';
+import { emptyDir, ensureDir, readFile, symlink } from 'fs-extra';
+import { copyFile, readdir } from 'fs/promises';
 import { Types } from 'mongoose';
 import { basename, join } from 'path';
+import { Caption } from 'src/modules/db/schemas/caption.schema';
+import { WordEntity } from 'src/modules/speech-to-text/speech-to-text.interfaces';
+import { WhiTranscriptEntity } from 'src/modules/speech-to-text/whisper/whisper.interfaces';
+import { TiptapService } from 'src/modules/tiptap/tiptap.service';
 import {
   EmailConfig,
   Environment,
@@ -21,7 +26,6 @@ import {
 } from '../../constants/example.constants';
 import { DbService } from '../../modules/db/db.service';
 import { Activity } from '../../modules/db/schemas/activity.schema';
-import { Caption } from '../../modules/db/schemas/caption.schema';
 import { Notification } from '../../modules/db/schemas/notification.schema';
 import {
   Project,
@@ -38,6 +42,7 @@ import {
 import { generateSecureToken } from '../../utils/crypto';
 import { isSameObjectId } from '../../utils/objectid';
 import { CreateActivityDto } from '../activity/dto/create-activity.dto';
+import { ProjectEntity } from '../project/entities/project.entity';
 import { UserRole } from '../user/user.interfaces';
 import { Person } from './populate.interfaces';
 import { CAPTION_TEXTS, LANGUAGES, TITLES } from './random-data.constants';
@@ -58,6 +63,7 @@ export class PopulateService {
     @InjectQueue('subtitles')
     private subtitlesQueue: Queue<ProcessSubtitlesJob>,
     @InjectQueue('project') private projectQueue: Queue<ProcessProjectJob>,
+    private tiptapService: TiptapService,
   ) {
     this.logger.setContext(this.constructor.name);
     const initialUsers = this.configService.get<PopulateUser[]>('initialUsers');
@@ -127,6 +133,8 @@ export class PopulateService {
           users: users.map((o) => o._id),
           createdBy: users[0]._id,
           status: ProjectStatus.DRAFT,
+          inviteToken: generateSecureToken(),
+          viewerToken: generateSecureToken(),
         });
       } else {
         const isOldProject = i > Object.keys(ProjectStatus).length;
@@ -399,10 +407,10 @@ export class PopulateService {
       files.push(
         ...filepaths.map((src) => {
           let name = basename(src);
-          if (name === 'video.mp4') {
-            name = video._id.toString() + '.mp4';
-          } else if (name === 'audio.mp3') {
-            name = audio._id.toString() + '.mp3';
+          if (name.startsWith('video')) {
+            name = name.replace('video', video._id.toString());
+          } else if (name.startsWith('audio')) {
+            name = name.replace('audio', audio._id.toString());
           } else if (name === 'waveform.json') {
             name = audio._id.toString() + '.json';
           }
@@ -462,27 +470,27 @@ export class PopulateService {
       project.transcriptions = projectTranscriptions.map((o) => o._id);
     }
 
-    // Captions
-    this.logger.verbose('Generate captions');
-    const captions: Caption[] = [];
-    for (let i = 0; i < transcriptions.length; i++) {
-      const transcription = transcriptions[i];
-      const project = projects.find((o) =>
-        isSameObjectId(o._id, transcription.project._id),
-      );
-      this.logger.verbose(
-        `Generate captions for transcription (${i + 1} / ${
-          transcriptions.length
-        })`,
-      );
+    // // Captions
+    // this.logger.verbose('Generate captions');
+    // const captions: Caption[] = [];
+    // for (let i = 0; i < transcriptions.length; i++) {
+    //   const transcription = transcriptions[i];
+    //   const project = projects.find((o) =>
+    //     isSameObjectId(o._id, transcription.project._id),
+    //   );
+    //   this.logger.verbose(
+    //     `Generate captions for transcription (${i + 1} / ${
+    //       transcriptions.length
+    //     })`,
+    //   );
 
-      const transcriptionCaptions =
-        i === 0
-          ? await this._generateDefaultCaptions(project, transcription)
-          : this._generateRandomCaptions(project, transcription);
+    //   const transcriptionCaptions =
+    //     i === 0
+    //       ? await this._generateDefaultCaptions(project, transcription)
+    //       : this._generateRandomCaptions(project, transcription);
 
-      captions.push(...transcriptionCaptions);
-    }
+    //   captions.push(...transcriptionCaptions);
+    // }
 
     // Activities
     const activities: Activity[] = [];
@@ -502,7 +510,7 @@ export class PopulateService {
       this.db.userModel.insertMany([systemUser, ...users]),
       this.db.projectModel.insertMany(projects),
       this.db.transcriptionModel.insertMany(transcriptions),
-      this.db.captionModel.insertMany(captions),
+      // this.db.captionModel.insertMany(captions),
       this.db.activityModel.insertMany(activities),
       this.db.notificationModel.insertMany(notifications),
     ]);
@@ -516,7 +524,7 @@ export class PopulateService {
     this.logger.verbose('Populate finished');
   }
 
-  async _generateDefaultProject(user: User) {
+  async _generateDefaultProject(userId: string) {
     const projectId = new Types.ObjectId();
     const transcriptionId = new Types.ObjectId();
 
@@ -524,45 +532,92 @@ export class PopulateService {
     const project = new this.db.projectModel({
       ...EXAMPLE_PROJECT,
       _id: projectId,
-      users: [user._id],
-      createdBy: user._id,
+      users: [userId],
+      createdBy: userId,
       transcriptions: [transcriptionId],
+      inviteToken: generateSecureToken(),
+      viewerToken: generateSecureToken(),
     });
 
     // add project to user
-    await this.db.userModel.findByIdAndUpdate(user._id, {
+    await this.db.userModel.findByIdAndUpdate(userId, {
       $push: { projects: projectId },
     });
 
+    const speaker1Id = new Types.ObjectId();
     // transcription
     const transcription = new this.db.transcriptionModel({
       ...EXAMPLE_TRANSCRIPTION,
       _id: transcriptionId,
-      createdBy: user._id,
+      createdBy: userId,
       project: projectId,
       speakers: [
         {
-          _id: new Types.ObjectId(),
+          _id: speaker1Id,
           name: 'Sprecherin 1',
         },
       ],
     });
 
-    // captions
-    const captions = await this._generateDefaultCaptions(
-      project,
-      transcription,
-    );
+    // // captions
+    // const captions = await this._generateDefaultCaptions(
+    //   project,
+    //   transcription,
+    // );
 
     await Promise.all([
       this.db.projectModel.insertMany([project]),
       this.db.transcriptionModel.insertMany([transcription]),
-      this.db.captionModel.insertMany(captions),
+      // this.db.captionModel.insertMany(captions),
       // this.db.activityModel.insertMany(activities),
       // this.db.notificationModel.insertMany(notifications),
     ]);
 
+    const content = await readFile(
+      join(
+        this.pathService.getAssetsDirectory(),
+        'subtitles',
+        'erklaervideoUDL_De_words.json',
+      ),
+      'utf-8',
+    );
+
+    // const { entries } = parse(content);
+    const whi: WhiTranscriptEntity = JSON.parse(content);
+
+    const words: WordEntity[] = [];
+
+    let lastSegmentEnd = 0;
+    whi.transcript.segments.forEach((segment) => {
+      const secondsToLastSegment = segment.start - lastSegmentEnd;
+
+      lastSegmentEnd = segment.end;
+
+      segment.words.forEach((word, i) => {
+        if (word.text.length > 0) {
+          const startParagraph = i === 0 && secondsToLastSegment > 3;
+          words.push({
+            text: word.text,
+            start: word.start * 1000,
+            end: word.end * 1000,
+            confidence: word.probability,
+            startParagraph,
+            speakerId: null,
+          });
+        }
+      });
+    });
+    const doc = this.tiptapService.wordsToTiptap(words, speaker1Id.toString());
+
+    await this.tiptapService.updateDocument(transcription._id.toString(), doc);
+
     await this._copyMediaFiles([project]);
-    return;
+
+    const finalProject = await this.db.findProjectByIdOrThrow(projectId);
+    const entity = plainToInstance(ProjectEntity, {
+      ...finalProject,
+    }) as unknown as ProjectEntity;
+
+    return entity;
   }
 }

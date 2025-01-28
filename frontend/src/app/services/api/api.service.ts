@@ -121,6 +121,8 @@ export abstract class ApiService {
     project: FormData
   ): Observable<HttpEvent<ProjectEntity>>;
 
+  abstract createDefaultProject(): Observable<ProjectEntity>;
+
   abstract findAllProjects(): Observable<ProjectListEntity>;
 
   abstract findOneProject(
