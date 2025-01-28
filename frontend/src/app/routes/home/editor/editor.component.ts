@@ -268,18 +268,17 @@ export class EditorComponent implements OnInit, OnDestroy {
       });
   }
 
-  async onDownloadTxt() {
-    this.onDownloadSubtitles(SubtitleFormat.TXT);
+  onDownloadTxt(transcriptionId: string) {
+    this.onDownloadSubtitles(transcriptionId, SubtitleFormat.TXT);
   }
-  async onDownloadVtt() {
-    this.onDownloadSubtitles(SubtitleFormat.VTT);
+  onDownloadVtt(transcriptionId: string) {
+    this.onDownloadSubtitles(transcriptionId, SubtitleFormat.VTT);
   }
-  async onDownloadSrt() {
-    this.onDownloadSubtitles(SubtitleFormat.SRT);
+  onDownloadSrt(transcriptionId: string) {
+    this.onDownloadSubtitles(transcriptionId, SubtitleFormat.SRT);
   }
 
-  async onDownloadSubtitles(format: SubtitleFormat) {
-    const transcriptionId = await firstValueFrom(this.selectedTranscriptionId$);
+  onDownloadSubtitles(transcriptionId: string, format: SubtitleFormat) {
     this.store.dispatch(
       transcriptionsActions.downloadSubtitles({
         transcriptionId,

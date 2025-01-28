@@ -59,6 +59,9 @@
         </mat-menu>
         <mat-menu #downloadMenu="matMenu" class="dense">
           <ng-container *ngrxLet="projectMedia$ as projectMedia">
+            <span class="menu-header" i18n="@@editorMenuVideosHeader"
+              >Videos</span
+            >
             @if (projectMedia) { @for (video of projectMedia.videos; track
             $index) {
             <button
@@ -71,11 +74,38 @@
             } }
           </ng-container>
 
-          <button mat-menu-item (click)="onDownloadTxt()">
-            Transcript (.txt)
+          <mat-divider />
+          <span class="menu-header" i18n="@@editorMenuTranscriptionsHeader"
+            >Transcripts
+          </span>
+
+          @for(transcription of transcriptionsList$ |ngrxPush; track
+          transcription) {
+          <button
+            mat-menu-item
+            [matMenuTriggerFor]="transcriptionDownloadMenu"
+            [matMenuTriggerData]="{ transcription }"
+          >
+            {{
+              transcription.language | writtenOutLanguage : transcription.title
+            }}
           </button>
-          <button mat-menu-item (click)="onDownloadSrt()">SubRip (.srt)</button>
-          <button mat-menu-item (click)="onDownloadVtt()">WebVTT (.vtt)</button>
+          }
+        </mat-menu>
+
+        <!-- transcriptionDownloadMenu -->
+        <mat-menu #transcriptionDownloadMenu="matMenu" class="dense">
+          <ng-template matMenuContent let-transcription="transcription">
+            <button mat-menu-item (click)="onDownloadTxt(transcription.id)">
+              Transcript (.txt)
+            </button>
+            <button mat-menu-item (click)="onDownloadSrt(transcription.id)">
+              SubRip (.srt)
+            </button>
+            <button mat-menu-item (click)="onDownloadVtt(transcription.id)">
+              WebVTT (.vtt)
+            </button>
+          </ng-template>
         </mat-menu>
 
         <!-- Transcription Menu -->
