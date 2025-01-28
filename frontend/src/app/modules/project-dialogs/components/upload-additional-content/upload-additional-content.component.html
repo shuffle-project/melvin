@@ -179,8 +179,7 @@
   <ng-template matMenuContent let-data="data">
     <button
       mat-menu-item
-      [mat-menu-trigger-for]="downloadMenu"
-      [matMenuTriggerData]="{ data }"
+      (click)="onDownloadMedia(data.media, data.project)"
       i18n="@@uploadAdditionalMediaDownloadButtonLabel"
     >
       <mat-icon svgIcon="download" />
@@ -198,19 +197,6 @@
         Delete
       </button>
     </div>
-    }
-  </ng-template>
-</mat-menu>
-
-<mat-menu #downloadMenu="matMenu" class="dense">
-  <ng-template matMenuContent let-data="data">
-    @for (resolution of data.media.resolutions; track $index) {
-    <button
-      (click)="onDownloadMedia(resolution, data.media, data.project.title)"
-      mat-menu-item
-    >
-      {{ resolution.resolution }}
-    </button>
     }
   </ng-template>
 </mat-menu>

@@ -1,5 +1,5 @@
 import { animate, style, transition, trigger } from '@angular/animations';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatButtonModule } from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
@@ -53,6 +53,7 @@ import { LogoComponent } from '../logo/logo.component';
   ],
 })
 export class HeaderComponent implements OnDestroy, OnInit {
+  @Input() isProjectList: boolean = false;
   public colorThemeENUM = ColorTheme;
 
   isLoggedIn$: Observable<boolean>;
