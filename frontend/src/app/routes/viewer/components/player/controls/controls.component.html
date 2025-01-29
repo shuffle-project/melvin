@@ -1,9 +1,11 @@
 @if (viewerService.audio) {
 <div class="controls">
   <div class="video-progress-slider-wrapper">
-    <span class="time-info">{{
-      viewerService.audio.currentTime * 1000 | duration : 'mm:ss'
-    }}</span>
+    <span
+      class="time-info"
+      *ngrxLet="viewerService.currentTime$ as currentTime"
+      >{{ currentTime * 1000 | duration : 'mm:ss' }}</span
+    >
     <mat-slider
       class="video-progress-slider black"
       min="0"
@@ -16,11 +18,12 @@
         aria-label="Video timeline"
         i18n-aria-label="@@viewerControlsTimelineLabel"
         matSliderThumb
-        [value]="viewerService.audio.currentTime"
+        [value]="viewerService.currentTime$ | ngrxPush"
         (dragEnd)="onChangeCurrentTime(progressInput.value)"
         (keydown)="onKeypressChangeCurrentTime($event, progressInput.value)"
       />
     </mat-slider>
+    <!-- [value]="viewerService.audio.currentTime" -->
     <span class="time-info">{{
       viewerService.audio.duration * 1000 | duration : 'mm:ss'
     }}</span>
