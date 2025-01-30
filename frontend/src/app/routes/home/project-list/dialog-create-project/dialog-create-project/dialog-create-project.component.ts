@@ -106,9 +106,6 @@ export class DialogCreateProjectComponent implements OnDestroy, AfterViewInit {
 
   private destroy$$ = new Subject<void>();
 
-  //TODO whisper rausfiltern
-  // languages$ = this.store.select(configSelector.asrServiceConfig);
-  // languages!: Language[];
   languages!: { code: string; name: string }[];
   locale = $localize.locale;
 
@@ -150,19 +147,7 @@ export class DialogCreateProjectComponent implements OnDestroy, AfterViewInit {
         const source = e.source as FormGroup;
         const sourceParent = source.parent as FormGroup<FileGroup>;
 
-        // Case: Selecting sign-language category (-> make sure hidden use audio control is false)
-        // Commented out, as it is (for now) possible to upload mute sign language videos
-
-        // if (source.value === MediaCategory.SIGN_LANGUAGE) {
-        //   this.formGroup.controls.files.controls.forEach((fileGroup) => {
-        //     if (fileGroup.value.name === sourceParent.value.name) {
-        //       fileGroup.controls.useAudio.setValue(false);
-        //     }
-        //   });
-        // }
-
-        // - - - - -
-        // Case: Audio/Video file language change
+        if (!sourceParent.controls.language) return;
 
         if (this.languages.map((l) => l.code).includes(source.value)) {
           if (
@@ -321,7 +306,12 @@ export class DialogCreateProjectComponent implements OnDestroy, AfterViewInit {
     this.formGroup.controls.title.reset();
   }
 
-  onRemoveFile(index: number) {
+  onRemoveFile(index: number, event: any) {
+    if (event.target.type !== 'button') {
+      console.log(event);
+      return;
+    }
+
     if (
       !this.formGroup.controls.files.controls[index].controls.language.disabled
     ) {

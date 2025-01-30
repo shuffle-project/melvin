@@ -53,7 +53,7 @@ import { LogoComponent } from '../logo/logo.component';
   ],
 })
 export class HeaderComponent implements OnDestroy, OnInit {
-  @Input() isProjectList: boolean = false;
+  @Input() actionButtonsAlignRight: boolean = false;
   public colorThemeENUM = ColorTheme;
 
   isLoggedIn$: Observable<boolean>;

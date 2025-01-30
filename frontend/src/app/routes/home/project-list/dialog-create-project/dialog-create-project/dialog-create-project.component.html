@@ -160,9 +160,10 @@
         <td mat-cell *matCellDef="let i = index">
           <div class="align-center">
             <button
-              (click)="onRemoveFile(i)"
+              (click)="onRemoveFile(i, $event)"
               mat-icon-button
               aria-label="delete"
+              type="button"
             >
               <mat-icon svgIcon="delete" />
             </button>

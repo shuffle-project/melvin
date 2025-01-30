@@ -4,7 +4,10 @@
       <mat-toolbar>
         <app-logo class="clickable logo" [routerLink]="['/home/projects']" />
         <ng-content />
-        <div class="header-buttons" [class.margin-left]="isProjectList">
+        <div
+          class="header-buttons"
+          [class.margin-left]="actionButtonsAlignRight"
+        >
           <button
             mat-icon-button
             aria-label="Open darkmode menu"
