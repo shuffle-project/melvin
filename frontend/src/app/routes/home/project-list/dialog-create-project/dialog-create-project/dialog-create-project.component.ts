@@ -307,10 +307,10 @@ export class DialogCreateProjectComponent implements OnDestroy, AfterViewInit {
   }
 
   onRemoveFile(index: number, event: any) {
-    if (event.target.type !== 'button') {
-      console.log(event);
-      return;
-    }
+    // if (event.target.type !== 'button') {
+    //   console.log(event);
+    //   return;
+    // }
 
     if (
       !this.formGroup.controls.files.controls[index].controls.language.disabled
