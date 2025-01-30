@@ -50,7 +50,6 @@ import { ViewerVideo } from '../player.component';
     LetDirective,
     MatCheckboxModule,
     PushPipe,
-    DurationPipe,
     CdkMenuModule,
     MenuItemRadioDirective,
     OverlayModule,
@@ -58,9 +57,23 @@ import { ViewerVideo } from '../player.component';
     WrittenOutLanguagePipe,
     MediaCategoryPipe,
   ],
+  providers: [DurationPipe],
 })
 export class ControlsComponent implements OnInit, OnDestroy {
   @Input({ required: true }) media!: ProjectMediaEntity;
+
+  public currentProgress$ = this.viewerService.currentTime$.pipe(
+    map((time) => {
+      return {
+        progress: time,
+        time: this.durationPipe.transform(time * 1000, 'mm:ss'),
+        duration: this.durationPipe.transform(
+          (this.viewerService.audio?.duration || 0) * 1000,
+          'mm:ss'
+        ),
+      };
+    })
+  );
 
   public tanscriptPositionENUM = TranscriptPosition;
   public colorThemeENUM = ColorTheme;
@@ -99,7 +112,8 @@ export class ControlsComponent implements OnInit, OnDestroy {
     private store: Store<AppState>,
     public viewerService: ViewerService,
     private dialog: MatDialog,
-    public overlayService: OverlayService
+    public overlayService: OverlayService,
+    private durationPipe: DurationPipe
   ) {}
 
   ngOnInit(): void {

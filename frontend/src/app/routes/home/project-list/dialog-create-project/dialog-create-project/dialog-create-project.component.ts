@@ -147,7 +147,7 @@ export class DialogCreateProjectComponent implements OnDestroy, AfterViewInit {
         const source = e.source as FormGroup;
         const sourceParent = source.parent as FormGroup<FileGroup>;
 
-        if (!sourceParent.controls.language) return;
+        if (sourceParent === null || !sourceParent.controls.language) return;
 
         if (this.languages.map((l) => l.code).includes(source.value)) {
           if (
@@ -307,11 +307,6 @@ export class DialogCreateProjectComponent implements OnDestroy, AfterViewInit {
   }
 
   onRemoveFile(index: number, event: any) {
-    // if (event.target.type !== 'button') {
-    //   console.log(event);
-    //   return;
-    // }
-
     if (
       !this.formGroup.controls.files.controls[index].controls.language.disabled
     ) {
