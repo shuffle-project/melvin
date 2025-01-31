@@ -109,15 +109,19 @@
         </ng-template>
       </mat-menu>
       <mat-menu #usermenu="matMenu">
-        <button
+        <a
           mat-menu-item
-          (click)="openProfile()"
-          matTooltip="Go to your Profile"
           i18n="@@headerMenuProfileButton"
-          i18n-matTooltip="@@headerMenuProfileButtonTooltip"
+          routerLink="/home/profile"
         >
           <mat-icon svgIcon="person"></mat-icon>Profile
-        </button>
+        </a>
+        <a mat-menu-item routerLink="/" i18n="@@headerMenuProfileButton">
+          <mat-icon svgIcon="start"></mat-icon>Startpage
+        </a>
+        <a mat-menu-item routerLink="/guide" i18n="@@headerMenuGuideButton">
+          <mat-icon svgIcon="book"></mat-icon>Guide
+        </a>
         <button
           mat-menu-item
           (click)="logout()"
