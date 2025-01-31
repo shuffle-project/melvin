@@ -60,7 +60,22 @@ export class ProjectProcessor {
       projectId,
       mainVideo,
     );
-    await move(file.path, targetFilepath);
+
+    if (file.mimetype.includes('audio')) {
+      // if its an audio file, convert it to video
+      const baseVideoFilepath = this.pathService.getBaseMediaFile(
+        projectId,
+        mainVideo,
+      );
+      await this.ffmpegService.processAudioToVideo(
+        project._id.toString(),
+        file.path,
+        baseVideoFilepath,
+      );
+    } else {
+      // if its not an audio file, just move the file
+      await move(file.path, targetFilepath);
+    }
     await rm(file.destination, { recursive: true });
 
     const originalFilePath = this.pathService.getBaseMediaFile(

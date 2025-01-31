@@ -121,7 +121,6 @@ export class MigrationService {
     const processVideoJobs: ProcessVideoJob[] = [];
     for (const project of projects) {
       const projectId = project._id.toString();
-
       /**
        * audio
        */
@@ -234,6 +233,18 @@ export class MigrationService {
         project._id.toString(),
         video,
       );
+
+      const resolution = await this.ffmpegService._getVideoResolution(
+        baseMediaFile,
+      );
+      if (resolution.height === 0) {
+        this.logger.verbose('Video has no resolution, processing to video');
+        await this.ffmpegService.processAudioToVideo(
+          project._id.toString(),
+          baseMediaFile,
+          baseMediaFile,
+        );
+      }
 
       const possibleResolutions = [240, 360, 480, 720, 1080].map((res) =>
         this.pathService.getVideoFile(project._id.toString(), video, res + 'p'),
