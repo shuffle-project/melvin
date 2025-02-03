@@ -1,29 +1,13 @@
 import { UserRole } from '../interfaces/auth.interfaces';
 import { EditorUserEntity } from '../interfaces/editor-user.interface';
 
-export enum EditorUserColor {
-  PRIMARY = 'primary',
-  UNKNOWN = 'unknown',
-  ORANGE = 'orange',
-  RED = 'red',
-  PINK = 'pink',
-  PURPLE = 'purple',
-  BLUE = 'blue',
-  GREEN = 'green',
-  TURQUOISE = 'turquoise',
-}
-// test
-export const AVAILABLE_EDITOR_USER_COLORS = Object.values(
-  EditorUserColor
-).slice(2, Object.values(EditorUserColor).length);
-
 export const EDITOR_USER_LOADING: EditorUserEntity = {
   id: '',
   clientId: '',
   name: 'Lädt...',
   email: '',
   role: '',
-  color: EditorUserColor.UNKNOWN,
+  color: 0, //color 0 -> grey (unknown)
 };
 
 export const EDITOR_USER_UNKNOWN: EditorUserEntity = {
@@ -32,5 +16,5 @@ export const EDITOR_USER_UNKNOWN: EditorUserEntity = {
   clientId: '',
   id: '',
   email: '',
-  color: EditorUserColor.UNKNOWN,
+  color: 0, //color 0 -> grey (unknown)
 };

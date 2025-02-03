@@ -11,6 +11,7 @@ import { Server, WebSocket } from 'ws';
 import {
   AVAILABLE_EDITOR_USER_COLORS,
   EditorActiveUser,
+  EditorUserColor,
 } from '../../constants/editor.constants';
 import { DbService } from '../../modules/db/db.service';
 import { LeanProjectDocument } from '../../modules/db/schemas/project.schema';
@@ -22,7 +23,7 @@ import { NotificationEntity } from '../notification/entities/notification.entity
 import { UpdatePartialProjectDto } from '../project/dto/update-partial-project.dto';
 import { ProjectEntity } from '../project/entities/project.entity';
 import { TranscriptionEntity } from '../transcription/entities/transcription.entity';
-import { AuthorizedWebSocket, SocketService } from './socket.service';
+import { SocketService } from './socket.service';
 
 @WebSocketGateway()
 export class EventsGateway
@@ -83,9 +84,10 @@ export class EventsGateway
 
   _getUserColor(userId: string, project: LeanProjectDocument) {
     const index = project.users.findIndex((o) => o._id.toString() === userId);
+
     return AVAILABLE_EDITOR_USER_COLORS[
       index % AVAILABLE_EDITOR_USER_COLORS.length
-    ];
+    ] as EditorUserColor;
   }
 
   _getUsers(room: string, project: LeanProjectDocument): EditorActiveUser[] {

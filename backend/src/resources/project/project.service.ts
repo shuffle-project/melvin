@@ -1125,6 +1125,7 @@ export class ProjectService {
     const videos: VideoEntity[] = project.videos.map((video) => ({
       ...video,
       mimetype: this._getMimetype(video.extension),
+      url: this._buildUrl(project.viewerToken, video._id.toString(), 'mp4'),
       resolutions: video.resolutions.map((res) => ({
         ...res,
         url: this._buildUrl(

@@ -1,7 +1,6 @@
 import { Injector } from '@angular/core';
 import { Mark, mergeAttributes } from '@tiptap/core';
 import { TiptapEditorService } from '../tiptap-editor.service';
-import { randomUUID } from 'crypto';
 
 export const CustomWord = (injector: Injector) => {
   return Mark.create({
@@ -104,7 +103,7 @@ export const CustomWord = (injector: Injector) => {
       if (modifiedBy) {
         const tiptapEditorService = injector.get(TiptapEditorService);
         const color = tiptapEditorService.getUserColor(modifiedBy);
-        attrs.style = `color: rgb(var(--color-editor-user-${color}-rgb))`;
+        attrs.style = `text-decoration: underline; text-underline-offset: 0.25rem; color: rgb(var(--color-editor-user-${color}-rgb))`;
       }
 
       // Render timestamp classes for highlighting currently spoken words

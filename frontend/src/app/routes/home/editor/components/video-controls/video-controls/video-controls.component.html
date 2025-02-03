@@ -5,7 +5,7 @@
 >
   <div class="left">
     <button
-      [mat-menu-trigger-for]="playbackSpeedMenu"
+      [cdkMenuTriggerFor]="playbackSpeedMenu"
       mat-icon-button
       i18n-aria-label="@@videoPlaybackSpeedAria"
       aria-label="Video playback speed"
@@ -127,13 +127,37 @@
   </div>
 </div>
 
-<mat-menu #playbackSpeedMenu="matMenu" class="dense">
-  @for (speed of speedOptions; track speed) {
-  <button mat-menu-item (click)="onClickSetPlaybackSpeed(speed)">
-    <mat-icon
-      [svgIcon]="(currentSpeed$ | ngrxPush) === speed ? 'done' : ''"
-    ></mat-icon>
-    <span> {{ speed === 1 ? 'Standard' : speed }}</span>
-  </button>
-  }
-</mat-menu>
+<!-- Playback Speed Menu  -->
+<ng-template #playbackSpeedMenu>
+  <div
+    cdkMenu
+    class="cdk-menu-wrapper menu-shadow viewer-control-menu-dm"
+    *ngrxLet="currentSpeed$ as currentSpeed"
+  >
+    <div class="cdk-menu-column">
+      <div cdkMenuGroup aria-labelledby="playback-section-title">
+        <span
+          id="playback-section-title"
+          class="section-title"
+          i18n="@@videoControlsPlaybackSpeedMenuTitle"
+        >
+          Playback Speed
+        </span>
+
+        @for (speed of speedOptions; track speed) {
+        <button
+          mat-button
+          [appKeepMenuOpen]="true"
+          appCdkMenuItemRadio
+          (cdkMenuItemTriggered)="onClickSetPlaybackSpeed(speed)"
+        >
+          @if(currentSpeed === speed ){
+          <mat-icon svgIcon="check"></mat-icon>
+          }
+          {{ speed === 1 ? 'Standard' : speed + 'x' }}
+        </button>
+        }
+      </div>
+    </div>
+  </div>
+</ng-template>

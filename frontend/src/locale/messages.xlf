@@ -38,9 +38,6 @@
       <trans-unit id="headerShowAllNotifications" datatype="html">
         <source> Show all notifications </source>
       </trans-unit>
-      <trans-unit id="headerMenuProfileButtonTooltip" datatype="html">
-        <source>Go to your Profile</source>
-      </trans-unit>
       <trans-unit id="headerMenuProfileButton" datatype="html">
         <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;person&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/>Profile </source>
       </trans-unit>
@@ -87,7 +84,7 @@
         <source> Created by </source>
       </trans-unit>
       <trans-unit id="projectTranscriptionAlignButtonLabel" datatype="html">
-        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;refresh&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/> Align </source>
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;refresh&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/> Synchronize timestamps </source>
       </trans-unit>
       <trans-unit id="projectTranscriptionOpenButtonLabel" datatype="html">
         <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;open-transcript&quot; /&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;open-transcript&quot; /&gt;"/> Open </source>
@@ -122,35 +119,14 @@
       <trans-unit id="projectStatusError" datatype="html">
         <source>Error</source>
       </trans-unit>
-      <trans-unit id="captionsAddNewSpeakerButtonLabel" datatype="html">
+      <trans-unit id="editSpeakerMenuButtonLabel" datatype="html">
         <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;add&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/> Add speaker </source>
-      </trans-unit>
-      <trans-unit id="captionsNewSpeakerNameLabel" datatype="html">
-        <source>New speaker name</source>
-      </trans-unit>
-      <trans-unit id="captionsAddSpeakerButtonLabel" datatype="html">
-        <source> Add </source>
-      </trans-unit>
-      <trans-unit id="editSpeakerModalNameRequiredError" datatype="html">
-        <source>You must enter a name</source>
-      </trans-unit>
-      <trans-unit id="editSpeakerModalNameAlreadyExists" datatype="html">
-        <source>Name already exists</source>
-      </trans-unit>
-      <trans-unit id="videoMuteUnmuteSoundTooltip" datatype="html">
-        <source>Mute or unmute Sound</source>
-      </trans-unit>
-      <trans-unit id="videoSettingsTooltip" datatype="html">
-        <source>Video settings</source>
-      </trans-unit>
-      <trans-unit id="videoPictureInPictureTooltip" datatype="html">
-        <source>Show video in seperate window</source>
       </trans-unit>
       <trans-unit id="videoPlaybackSpeedAria" datatype="html">
         <source>Video playback speed</source>
       </trans-unit>
-      <trans-unit id="videoPlaybackSpeedLabel" datatype="html">
-        <source>Playback speed</source>
+      <trans-unit id="videoControlsPlaybackSpeedMenuTitle" datatype="html">
+        <source> Playback Speed </source>
       </trans-unit>
       <trans-unit id="editorHelpDialogShortcutsTitle" datatype="html">
         <source>Keyboard shortcuts</source>
@@ -1516,6 +1492,48 @@
       </trans-unit>
       <trans-unit id="editorSettingsUsernamesCheckbox" datatype="html">
         <source>Show Usernames</source>
+      </trans-unit>
+      <trans-unit id="deleteServiceDescriptionSpeaker" datatype="html">
+        <source>The speaker „<x id="PH" equiv-text="speakerName"/>“ is used in several cases. The corresponding texts will not be affected if you delete it.</source>
+      </trans-unit>
+      <trans-unit id="deleteServiceSubjectSpeaker" datatype="html">
+        <source>Speaker</source>
+      </trans-unit>
+      <trans-unit id="editSpeakerMenuAtLeastOneProjectError" datatype="html">
+        <source>At least one speaker is required.</source>
+      </trans-unit>
+      <trans-unit id="editSpeakerMenuNameLabel" datatype="html">
+        <source>Speaker name</source>
+      </trans-unit>
+      <trans-unit id="GuidePageTitle" datatype="html">
+        <source>Guide - Melvin</source>
+      </trans-unit>
+      <trans-unit id="landingHeaderGuideLinkLabel" datatype="html">
+        <source> Guide </source>
+      </trans-unit>
+      <trans-unit id="projectListCreateDefaultProjectButtonLabel" datatype="html">
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;plus&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/> Create Exampleproject </source>
+      </trans-unit>
+      <trans-unit id="tiptap-editorMenuTranscriptionLabel" datatype="html">
+        <source>Transcription</source>
+      </trans-unit>
+      <trans-unit id="viewerControlsQualityTitle" datatype="html">
+        <source> Max. Resolution </source>
+      </trans-unit>
+      <trans-unit id="projectListCreateDefaultInfotext" datatype="html">
+        <source> There are currently no projects. <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br /&gt;"/> You can either create a new project or an example project. </source>
+      </trans-unit>
+      <trans-unit id="editorMenuTranscriptionsHeader" datatype="html">
+        <source>Transcripts </source>
+      </trans-unit>
+      <trans-unit id="editorMenuVideosHeader" datatype="html">
+        <source>Videos</source>
+      </trans-unit>
+      <trans-unit id="headerMenuGuideButton" datatype="html">
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;book&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/>Guide </source>
+      </trans-unit>
+      <trans-unit id="headerMenuStartpageButton" datatype="html">
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;start&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/>Startpage </source>
       </trans-unit>
     </body>
   </file>

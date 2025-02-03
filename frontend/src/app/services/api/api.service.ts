@@ -121,6 +121,8 @@ export abstract class ApiService {
     project: FormData
   ): Observable<HttpEvent<ProjectEntity>>;
 
+  abstract createDefaultProject(): Observable<ProjectEntity>;
+
   abstract findAllProjects(): Observable<ProjectListEntity>;
 
   abstract findOneProject(
@@ -215,6 +217,11 @@ export abstract class ApiService {
   abstract createSpeakers(
     transcriptionId: string,
     createSpeakersDto: CreateSpeakersDto
+  ): Observable<TranscriptionEntity>;
+
+  abstract removeSpeaker(
+    transcriptionId: string,
+    speakerId: string
   ): Observable<TranscriptionEntity>;
 
   abstract updateSpeaker(

@@ -25,7 +25,6 @@ import { ApiService } from '../../../services/api/api.service';
 import {
   ProjectEntity,
   ProjectStatus,
-  Resolution,
   VideoEntity,
 } from '../../../services/api/entities/project.entity';
 import { AppService } from '../../../services/app/app.service';
@@ -244,11 +243,7 @@ export class EditorComponent implements OnInit, OnDestroy {
     });
   }
 
-  onDownloadVideo(
-    resolution: Resolution,
-    videoEntity: VideoEntity,
-    projectTitle: string
-  ) {
+  onDownloadVideo(videoEntity: VideoEntity, projectTitle: string = '') {
     const regexSpecialChars = /[`~!@#$%^&*()|+\=?;:'",.<>\{\}\[\]\\\/]/gi;
     const filename = `${projectTitle}_${
       videoEntity.title ? videoEntity.title : videoEntity.category
@@ -259,7 +254,7 @@ export class EditorComponent implements OnInit, OnDestroy {
       .replace(/ /g, '-');
 
     this.httpClient
-      .get(resolution.url, { responseType: 'blob' })
+      .get(videoEntity.url, { responseType: 'blob' })
       .subscribe((response) => {
         const urlCreator = window.URL || window.webkitURL;
         const imageUrl = urlCreator.createObjectURL(response);
@@ -273,18 +268,17 @@ export class EditorComponent implements OnInit, OnDestroy {
       });
   }
 
-  async onDownloadTxt() {
-    this.onDownloadSubtitles(SubtitleFormat.TXT);
+  onDownloadTxt(transcriptionId: string) {
+    this.onDownloadSubtitles(transcriptionId, SubtitleFormat.TXT);
   }
-  async onDownloadVtt() {
-    this.onDownloadSubtitles(SubtitleFormat.VTT);
+  onDownloadVtt(transcriptionId: string) {
+    this.onDownloadSubtitles(transcriptionId, SubtitleFormat.VTT);
   }
-  async onDownloadSrt() {
-    this.onDownloadSubtitles(SubtitleFormat.SRT);
+  onDownloadSrt(transcriptionId: string) {
+    this.onDownloadSubtitles(transcriptionId, SubtitleFormat.SRT);
   }
 
-  async onDownloadSubtitles(format: SubtitleFormat) {
-    const transcriptionId = await firstValueFrom(this.selectedTranscriptionId$);
+  onDownloadSubtitles(transcriptionId: string, format: SubtitleFormat) {
     this.store.dispatch(
       transcriptionsActions.downloadSubtitles({
         transcriptionId,

@@ -203,8 +203,7 @@ export class SubtitlesProcessor {
       );
       this.logger.error(err.stack);
     } catch (err) {
-      // TODO
-      console.log(err);
+      this.logger.error(err);
     }
   }
 

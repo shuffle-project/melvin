@@ -315,6 +315,10 @@ export class RealApiService implements ApiService {
     });
   }
 
+  createDefaultProject(): Observable<ProjectEntity> {
+    return this._post<ProjectEntity>(`/projects/default`, {});
+  }
+
   deleteMedia(
     projectId: string,
     mediaId: string
@@ -513,6 +517,15 @@ export class RealApiService implements ApiService {
     return this._post<TranscriptionEntity>(
       `/transcriptions/${transcriptionId}/speakers`,
       { ...createSpeakersDto }
+    );
+  }
+
+  removeSpeaker(
+    transcriptionId: string,
+    speakerId: string
+  ): Observable<TranscriptionEntity> {
+    return this._delete<TranscriptionEntity>(
+      `/transcriptions/${transcriptionId}/speakers/${speakerId}`
     );
   }
 

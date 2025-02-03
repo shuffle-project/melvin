@@ -1,6 +1,7 @@
 import { BullModule } from '@nestjs/bull';
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
+import { TiptapModule } from 'src/modules/tiptap/tiptap.module';
 import { DbModule } from '../../modules/db/db.module';
 import { LoggerModule } from '../../modules/logger/logger.module';
 import { PathModule } from '../../modules/path/path.module';
@@ -13,6 +14,7 @@ import { PopulateService } from './populate.service';
     LoggerModule,
     PathModule,
     ConfigModule,
+    TiptapModule,
     BullModule.registerQueue(
       { name: 'project' },
       { name: 'subtitles' },

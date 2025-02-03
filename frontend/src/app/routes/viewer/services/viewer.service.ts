@@ -171,6 +171,7 @@ export class ViewerService {
   registerLoadingEvents(id: string, htmlMediaElement: HTMLMediaElement) {
     const subscription = merge(
       fromEvent(htmlMediaElement, 'canplay'),
+      fromEvent(htmlMediaElement, 'canplaythrough'),
       fromEvent(htmlMediaElement, 'waiting'),
       fromEvent(htmlMediaElement, 'seeking'),
       fromEvent(htmlMediaElement, 'seeked'),

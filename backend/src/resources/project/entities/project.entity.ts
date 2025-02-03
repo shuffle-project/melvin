@@ -1,5 +1,7 @@
+import { Prop } from '@nestjs/mongoose';
 import { ApiProperty, OmitType, PickType } from '@nestjs/swagger';
 import { Exclude, Expose, Type } from 'class-transformer';
+import { IsInt, IsString } from 'class-validator';
 import { PopulatedDoc } from 'mongoose';
 import {
   Audio,
@@ -8,8 +10,6 @@ import {
 } from '../../../modules/db/schemas/project.schema';
 import { Transcription } from '../../../modules/db/schemas/transcription.schema';
 import { UserEntity } from '../../user/entities/user.entity';
-import { Prop } from '@nestjs/mongoose';
-import { IsEnum, IsInt, IsString } from 'class-validator';
 
 @Exclude()
 export class ProjectTranscriptionEntity extends PickType(Transcription, [
@@ -80,9 +80,9 @@ export class VideoEntity extends Video {
   @Type(() => Resolution)
   resolutions: Resolution[];
 
-  // @ApiProperty({ type: String })
-  // @Type(() => String)
-  // url: string;
+  @ApiProperty({ type: String })
+  @Type(() => String)
+  url: string;
 
   @ApiProperty({ type: String })
   @Type(() => String)

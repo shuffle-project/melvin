@@ -4,7 +4,10 @@
       <mat-toolbar>
         <app-logo class="clickable logo" [routerLink]="['/home/projects']" />
         <ng-content />
-        <div class="header-buttons {{ !viewer ? 'margin-left' : '' }}">
+        <div
+          class="header-buttons"
+          [class.margin-left]="actionButtonsAlignRight"
+        >
           <button
             mat-icon-button
             aria-label="Open darkmode menu"
@@ -106,21 +109,23 @@
         </ng-template>
       </mat-menu>
       <mat-menu #usermenu="matMenu">
-        <button
+        <a
           mat-menu-item
-          (click)="openProfile()"
-          matTooltip="Go to your Profile"
           i18n="@@headerMenuProfileButton"
-          i18n-matTooltip="@@headerMenuProfileButtonTooltip"
+          routerLink="/home/profile"
         >
           <mat-icon svgIcon="person"></mat-icon>Profile
-        </button>
+        </a>
+        <a mat-menu-item routerLink="/" i18n="@@headerMenuStartpageButton">
+          <mat-icon svgIcon="start"></mat-icon>Startpage
+        </a>
+        <a mat-menu-item routerLink="/guide" i18n="@@headerMenuGuideButton">
+          <mat-icon svgIcon="book"></mat-icon>Guide
+        </a>
         <button
           mat-menu-item
           (click)="logout()"
-          matTooltip="Logout"
           i18n="@@headerMenuLogoutButton"
-          i18n-matTooltip="@@headerMenuLogoutButtonTooltip"
         >
           <mat-icon svgIcon="logout"></mat-icon>Logout
         </button>

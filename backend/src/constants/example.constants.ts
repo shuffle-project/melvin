@@ -23,7 +23,7 @@ export const EXAMPLE_PROJECT = {
   duration: 408000,
   start: 0,
   end: 408000,
-  language: 'de-DE',
+  language: 'de',
   createdBy: ids.user,
   users: [ids.user],
   transcriptions: [ids.transcription],
@@ -47,6 +47,13 @@ export const EXAMPLE_PROJECT = {
       status: 'finished',
       originalFileName: '',
       title: 'mainvideo',
+      resolutions: [
+        { resolution: '240p', width: 428, height: 240 },
+        { resolution: '360p', width: 640, height: 360 },
+        { resolution: '480p', width: 854, height: 480 },
+        { resolution: '720p', width: 1280, height: 720 },
+        { resolution: '1080p', width: 1920, height: 1080 },
+      ],
     },
   ],
 };
@@ -73,8 +80,8 @@ export const EXAMPLE_SPEAKER = {
 
 export const EXAMPLE_TRANSCRIPTION = {
   _id: ids.transcription,
-  title: 'German',
-  language: 'de-DE',
+  // title: '',
+  language: 'de',
   speakers: [{ ...EXAMPLE_SPEAKER }],
   project: EXAMPLE_PROJECT._id,
 };

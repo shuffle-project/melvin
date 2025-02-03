@@ -14,7 +14,6 @@ import { MatMenuModule } from '@angular/material/menu';
 import { Store } from '@ngrx/store';
 import { AngularNodeViewComponent, NgxTiptapModule } from 'ngx-tiptap';
 import { debounceTime, merge, Subject, takeUntil } from 'rxjs';
-import { SpeakerEntity } from 'src/app/services/api/entities/transcription.entity';
 import { AppState } from 'src/app/store/app.state';
 import * as editorSelector from 'src/app/store/selectors/editor.selector';
 import { MediaService } from '../../../service/media/media.service';
@@ -111,7 +110,7 @@ export class TiptapParagraphComponent
       speakers.find((speaker) => speaker.id === speakerId)?.name || 'Unknown';
   }
 
-  onChangeSpeaker(speaker: SpeakerEntity) {
+  onChangeSpeaker(speakerId: string) {
     const { state, view } = this.editor!;
     const { tr } = state;
 
@@ -119,7 +118,7 @@ export class TiptapParagraphComponent
     const paragraph = state.doc.nodeAt(pos);
 
     if (paragraph?.type.name === 'paragraph') {
-      const newAttrs = { ...paragraph.attrs, speakerId: speaker.id };
+      const newAttrs = { ...paragraph.attrs, speakerId: speakerId };
       tr.setNodeMarkup(pos, undefined, newAttrs);
 
       view.dispatch(tr);

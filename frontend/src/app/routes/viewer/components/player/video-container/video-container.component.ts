@@ -13,14 +13,7 @@ import { Store } from '@ngrx/store';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { PushPipe } from '@ngrx/component';
-import {
-  debounceTime,
-  fromEventPattern,
-  Subject,
-  takeUntil,
-  tap,
-  throttleTime,
-} from 'rxjs';
+import { debounceTime, fromEventPattern, Subject, takeUntil, tap } from 'rxjs';
 import { MediaCategoryPipe } from 'src/app/pipes/media-category-pipe/media-category.pipe';
 import { Resolution } from 'src/app/services/api/entities/project.entity';
 import * as viewerActions from '../../../../../store/actions/viewer.actions';
@@ -277,20 +270,20 @@ export class VideoContainerComponent
       .subscribe();
 
     // sync to audio
-    this.viewerService.currentTime$
-      .pipe(
-        takeUntil(this.destroy$$),
-        throttleTime(2000),
-        tap((audioCurrentTime: number) => {
-          // return if viewerVideo duration is already reached
+    // this.viewerService.currentTime$
+    //   .pipe(
+    //     takeUntil(this.destroy$$),
+    //     throttleTime(2000),
+    //     tap((audioCurrentTime: number) => {
+    //       // return if viewerVideo duration is already reached
 
-          const audioTime = audioCurrentTime;
-          const videoTime = this.viewerVideoElement.currentTime;
+    //       const audioTime = audioCurrentTime;
+    //       const videoTime = this.viewerVideoElement.currentTime;
 
-          this._resyncIfNeeded(audioTime, videoTime);
-        })
-      )
-      .subscribe();
+    //       // this._resyncIfNeeded(audioTime, videoTime);
+    //     })
+    //   )
+    //   .subscribe();
   }
 
   private _resyncIfNeeded(audioTime: number, videoTime: number) {

@@ -17,9 +17,7 @@ import { Subject, Subscription, combineLatest, map, takeUntil } from 'rxjs';
 import { ApiService } from '../../../../services/api/api.service';
 import {
   MediaCategory,
-  MediaEntity,
   ProjectEntity,
-  Resolution,
   VideoEntity,
 } from '../../../../services/api/entities/project.entity';
 import { AppState } from '../../../../store/app.state';
@@ -226,7 +224,7 @@ export class UploadAdditionalContentComponent implements OnInit {
 
   async onDeleteAdditionalMedia(
     project: ProjectEntity,
-    mediaEntity: MediaEntity
+    mediaEntity: VideoEntity
   ) {
     this.store.dispatch(
       editorActions.deleteProjectMedia({
@@ -236,11 +234,7 @@ export class UploadAdditionalContentComponent implements OnInit {
     );
   }
 
-  onDownloadMedia(
-    resolution: Resolution,
-    videoEntity: VideoEntity,
-    projectTitle: string
-  ) {
+  onDownloadMedia(videoEntity: VideoEntity, projectTitle: string) {
     const regexSpecialChars = /[`~!@#$%^&*()|+\=?;:'",.<>\{\}\[\]\\\/]/gi;
 
     const filename = `${projectTitle}_${
@@ -252,7 +246,7 @@ export class UploadAdditionalContentComponent implements OnInit {
       .replace(/ /g, '-');
 
     this.httpClient
-      .get(resolution.url, { responseType: 'blob' })
+      .get(videoEntity.url, { responseType: 'blob' })
       .subscribe((response) => {
         const urlCreator = window.URL || window.webkitURL;
         const imageUrl = urlCreator.createObjectURL(response);
@@ -264,8 +258,6 @@ export class UploadAdditionalContentComponent implements OnInit {
         tag.click();
         document.body.removeChild(tag);
       });
-
-    // window.URL.revokeObjectURL(objectURL);
   }
 
   announceSortChange(sortState: any) {

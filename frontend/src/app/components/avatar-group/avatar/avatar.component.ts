@@ -4,15 +4,15 @@ import { LogoComponent } from '../../logo/logo.component';
 export interface AvatarUser {
   name: string;
   clientId?: string;
-  color?: string;
+  color?: number;
   [key: string]: any;
 }
 
 @Component({
-    selector: 'app-avatar',
-    templateUrl: './avatar.component.html',
-    styleUrls: ['./avatar.component.scss'],
-    imports: [LogoComponent]
+  selector: 'app-avatar',
+  templateUrl: './avatar.component.html',
+  styleUrls: ['./avatar.component.scss'],
+  imports: [LogoComponent],
 })
 export class AvatarComponent implements OnChanges {
   @Input() user!: AvatarUser;

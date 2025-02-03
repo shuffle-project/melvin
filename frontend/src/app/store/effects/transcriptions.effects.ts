@@ -125,10 +125,7 @@ export class TranscriptionsEffects {
 
   createSpeakers$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(
-        transcriptionsActions.createSpeakers
-        // transcriptionsActions.updateFromEditSpeaker
-      ),
+      ofType(transcriptionsActions.createSpeakers),
       mergeMap((action) =>
         this.api
           .createSpeakers(action.transcriptionId, action.createSpeakersDto)
@@ -140,6 +137,42 @@ export class TranscriptionsEffects {
               of(transcriptionsActions.updateFail({ error }))
             )
           )
+      )
+    )
+  );
+
+  updateSpeaker$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(transcriptionsActions.updateSpeaker),
+      mergeMap((action) =>
+        this.api
+          .updateSpeaker(
+            action.transcriptionId,
+            action.speakerId,
+            action.updateSpeakerDto
+          )
+          .pipe(
+            map((updatedTranscription: TranscriptionEntity) =>
+              transcriptionsActions.updateSuccess({ updatedTranscription })
+            ),
+            catchError((error) =>
+              of(transcriptionsActions.updateFail({ error }))
+            )
+          )
+      )
+    )
+  );
+
+  removeSpeaker$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(transcriptionsActions.removeSpeaker),
+      mergeMap((action) =>
+        this.api.removeSpeaker(action.transcriptionId, action.speakerId).pipe(
+          map((updatedTranscription: TranscriptionEntity) =>
+            transcriptionsActions.updateSuccess({ updatedTranscription })
+          ),
+          catchError((error) => of(transcriptionsActions.updateFail({ error })))
+        )
       )
     )
   );

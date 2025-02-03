@@ -1,0 +1,4631 @@
+{
+   "end_time": "2025-01-24T07:11:54Z",
+   "language": null,
+   "model": null,
+   "settings": {
+       "condition_on_previous": false,
+       "language": "de"
+   },
+   "start_time": "2025-01-24T07:11:38Z",
+   "status": "finished",
+   "task": "transcribe",
+   "text": null,
+   "transcript": {
+       "segments": [
+           {
+               "end": 5.44,
+               "start": 1.9,
+               "text": " Dieses Video ist eine Einführung in das Modell des Universal Design for Learning.",
+               "words": [
+                   {
+                       "end": 2.04,
+                       "probability": 0.95556640625,
+                       "start": 1.9,
+                       "text": " Dieses"
+                   },
+                   {
+                       "end": 2.38,
+                       "probability": 0.99951171875,
+                       "start": 2.04,
+                       "text": " Video"
+                   },
+                   {
+                       "end": 2.62,
+                       "probability": 1.0,
+                       "start": 2.38,
+                       "text": " ist"
+                   },
+                   {
+                       "end": 2.8,
+                       "probability": 0.9990234375,
+                       "start": 2.62,
+                       "text": " eine"
+                   },
+                   {
+                       "end": 3.42,
+                       "probability": 1.0,
+                       "start": 2.8,
+                       "text": " Einführung"
+                   },
+                   {
+                       "end": 3.54,
+                       "probability": 1.0,
+                       "start": 3.42,
+                       "text": " in"
+                   },
+                   {
+                       "end": 3.64,
+                       "probability": 1.0,
+                       "start": 3.54,
+                       "text": " das"
+                   },
+                   {
+                       "end": 4.02,
+                       "probability": 0.999755859375,
+                       "start": 3.64,
+                       "text": " Modell"
+                   },
+                   {
+                       "end": 4.14,
+                       "probability": 0.98876953125,
+                       "start": 4.02,
+                       "text": " des"
+                   },
+                   {
+                       "end": 4.46,
+                       "probability": 0.99658203125,
+                       "start": 4.14,
+                       "text": " Universal"
+                   },
+                   {
+                       "end": 4.98,
+                       "probability": 1.0,
+                       "start": 4.46,
+                       "text": " Design"
+                   },
+                   {
+                       "end": 5.34,
+                       "probability": 0.99609375,
+                       "start": 4.98,
+                       "text": " for"
+                   },
+                   {
+                       "end": 5.44,
+                       "probability": 1.0,
+                       "start": 5.34,
+                       "text": " Learning."
+                   }
+               ]
+           },
+           {
+               "end": 8.58,
+               "start": 5.86,
+               "text": " Die Abkürzung dafür ist UDL.",
+               "words": [
+                   {
+                       "end": 6.38,
+                       "probability": 1.0,
+                       "start": 5.86,
+                       "text": " Die"
+                   },
+                   {
+                       "end": 6.82,
+                       "probability": 0.9990234375,
+                       "start": 6.4,
+                       "text": " Abkürzung"
+                   },
+                   {
+                       "end": 7.1,
+                       "probability": 0.99951171875,
+                       "start": 6.82,
+                       "text": " dafür"
+                   },
+                   {
+                       "end": 7.56,
+                       "probability": 1.0,
+                       "start": 7.1,
+                       "text": " ist"
+                   },
+                   {
+                       "end": 8.58,
+                       "probability": 0.9847005208333334,
+                       "start": 7.56,
+                       "text": " UDL."
+                   }
+               ]
+           },
+           {
+               "end": 14.87,
+               "start": 11.45,
+               "text": " Wir stellen grundlegende Prinzipien und Annahmen des UDL vor.",
+               "words": [
+                   {
+                       "end": 11.79,
+                       "probability": 1.0,
+                       "start": 11.45,
+                       "text": " Wir"
+                   },
+                   {
+                       "end": 12.03,
+                       "probability": 1.0,
+                       "start": 11.8,
+                       "text": " stellen"
+                   },
+                   {
+                       "end": 12.69,
+                       "probability": 0.99951171875,
+                       "start": 12.03,
+                       "text": " grundlegende"
+                   },
+                   {
+                       "end": 13.33,
+                       "probability": 0.999755859375,
+                       "start": 12.69,
+                       "text": " Prinzipien"
+                   },
+                   {
+                       "end": 13.45,
+                       "probability": 1.0,
+                       "start": 13.33,
+                       "text": " und"
+                   },
+                   {
+                       "end": 13.87,
+                       "probability": 0.9957682291666666,
+                       "start": 13.45,
+                       "text": " Annahmen"
+                   },
+                   {
+                       "end": 14.01,
+                       "probability": 1.0,
+                       "start": 13.87,
+                       "text": " des"
+                   },
+                   {
+                       "end": 14.53,
+                       "probability": 1.0,
+                       "start": 14.01,
+                       "text": " UDL"
+                   },
+                   {
+                       "end": 14.87,
+                       "probability": 1.0,
+                       "start": 14.53,
+                       "text": " vor."
+                   }
+               ]
+           },
+           {
+               "end": 18.65,
+               "start": 15.13,
+               "text": " Für eine vollständige Vorstellung ist das Modell jedoch zu komplex.",
+               "words": [
+                   {
+                       "end": 15.73,
+                       "probability": 1.0,
+                       "start": 15.13,
+                       "text": " Für"
+                   },
+                   {
+                       "end": 15.95,
+                       "probability": 1.0,
+                       "start": 15.78,
+                       "text": " eine"
+                   },
+                   {
+                       "end": 16.59,
+                       "probability": 1.0,
+                       "start": 15.95,
+                       "text": " vollständige"
+                   },
+                   {
+                       "end": 17.07,
+                       "probability": 1.0,
+                       "start": 16.59,
+                       "text": " Vorstellung"
+                   },
+                   {
+                       "end": 17.33,
+                       "probability": 1.0,
+                       "start": 17.07,
+                       "text": " ist"
+                   },
+                   {
+                       "end": 17.51,
+                       "probability": 0.99951171875,
+                       "start": 17.33,
+                       "text": " das"
+                   },
+                   {
+                       "end": 17.81,
+                       "probability": 1.0,
+                       "start": 17.51,
+                       "text": " Modell"
+                   },
+                   {
+                       "end": 18.01,
+                       "probability": 1.0,
+                       "start": 17.81,
+                       "text": " jedoch"
+                   },
+                   {
+                       "end": 18.21,
+                       "probability": 1.0,
+                       "start": 18.01,
+                       "text": " zu"
+                   },
+                   {
+                       "end": 18.65,
+                       "probability": 1.0,
+                       "start": 18.21,
+                       "text": " komplex."
+                   }
+               ]
+           },
+           {
+               "end": 26.45,
+               "start": 22.59,
+               "text": " Das Universal Design for Learning basiert auf dem Modell Universal Design.",
+               "words": [
+                   {
+                       "end": 22.69,
+                       "probability": 1.0,
+                       "start": 22.59,
+                       "text": " Das"
+                   },
+                   {
+                       "end": 23.03,
+                       "probability": 0.99853515625,
+                       "start": 22.69,
+                       "text": " Universal"
+                   },
+                   {
+                       "end": 23.61,
+                       "probability": 1.0,
+                       "start": 23.03,
+                       "text": " Design"
+                   },
+                   {
+                       "end": 23.93,
+                       "probability": 0.9990234375,
+                       "start": 23.61,
+                       "text": " for"
+                   },
+                   {
+                       "end": 24.23,
+                       "probability": 1.0,
+                       "start": 23.93,
+                       "text": " Learning"
+                   },
+                   {
+                       "end": 24.79,
+                       "probability": 1.0,
+                       "start": 24.23,
+                       "text": " basiert"
+                   },
+                   {
+                       "end": 24.89,
+                       "probability": 1.0,
+                       "start": 24.79,
+                       "text": " auf"
+                   },
+                   {
+                       "end": 25.01,
+                       "probability": 1.0,
+                       "start": 24.89,
+                       "text": " dem"
+                   },
+                   {
+                       "end": 25.39,
+                       "probability": 1.0,
+                       "start": 25.01,
+                       "text": " Modell"
+                   },
+                   {
+                       "end": 25.85,
+                       "probability": 0.9990234375,
+                       "start": 25.39,
+                       "text": " Universal"
+                   },
+                   {
+                       "end": 26.45,
+                       "probability": 1.0,
+                       "start": 25.85,
+                       "text": " Design."
+                   }
+               ]
+           },
+           {
+               "end": 31.25,
+               "start": 29.35,
+               "text": " Auf Deutsch heißt das Design für alle.",
+               "words": [
+                   {
+                       "end": 29.45,
+                       "probability": 0.99609375,
+                       "start": 29.35,
+                       "text": " Auf"
+                   },
+                   {
+                       "end": 29.75,
+                       "probability": 0.97705078125,
+                       "start": 29.45,
+                       "text": " Deutsch"
+                   },
+                   {
+                       "end": 29.95,
+                       "probability": 0.99951171875,
+                       "start": 29.75,
+                       "text": " heißt"
+                   },
+                   {
+                       "end": 30.17,
+                       "probability": 0.9990234375,
+                       "start": 29.95,
+                       "text": " das"
+                   },
+                   {
+                       "end": 30.67,
+                       "probability": 0.998046875,
+                       "start": 30.17,
+                       "text": " Design"
+                   },
+                   {
+                       "end": 31.03,
+                       "probability": 0.99951171875,
+                       "start": 30.67,
+                       "text": " für"
+                   },
+                   {
+                       "end": 31.25,
+                       "probability": 0.5234375,
+                       "start": 31.03,
+                       "text": " alle."
+                   }
+               ]
+           },
+           {
+               "end": 36.96,
+               "start": 33.9,
+               "text": " Universal Design kommt ursprünglich aus der Architektur.",
+               "words": [
+                   {
+                       "end": 34.08,
+                       "probability": 0.99853515625,
+                       "start": 33.9,
+                       "text": " Universal"
+                   },
+                   {
+                       "end": 34.6,
+                       "probability": 1.0,
+                       "start": 34.08,
+                       "text": " Design"
+                   },
+                   {
+                       "end": 35.2,
+                       "probability": 0.99951171875,
+                       "start": 34.6,
+                       "text": " kommt"
+                   },
+                   {
+                       "end": 35.88,
+                       "probability": 0.9998779296875,
+                       "start": 35.2,
+                       "text": " ursprünglich"
+                   },
+                   {
+                       "end": 36.08,
+                       "probability": 0.9990234375,
+                       "start": 35.88,
+                       "text": " aus"
+                   },
+                   {
+                       "end": 36.18,
+                       "probability": 0.99609375,
+                       "start": 36.08,
+                       "text": " der"
+                   },
+                   {
+                       "end": 36.96,
+                       "probability": 1.0,
+                       "start": 36.18,
+                       "text": " Architektur."
+                   }
+               ]
+           },
+           {
+               "end": 42.44,
+               "start": 36.96,
+               "text": " Ziel in der Architektur ist die Gestaltung von Kaufhäusern und öffentlichen Orten,",
+               "words": [
+                   {
+                       "end": 37.92,
+                       "probability": 0.62890625,
+                       "start": 36.96,
+                       "text": " Ziel"
+                   },
+                   {
+                       "end": 38.18,
+                       "probability": 0.99658203125,
+                       "start": 37.92,
+                       "text": " in"
+                   },
+                   {
+                       "end": 38.28,
+                       "probability": 1.0,
+                       "start": 38.18,
+                       "text": " der"
+                   },
+                   {
+                       "end": 39.06,
+                       "probability": 0.9998779296875,
+                       "start": 38.28,
+                       "text": " Architektur"
+                   },
+                   {
+                       "end": 39.5,
+                       "probability": 0.9990234375,
+                       "start": 39.06,
+                       "text": " ist"
+                   },
+                   {
+                       "end": 39.68,
+                       "probability": 1.0,
+                       "start": 39.52,
+                       "text": " die"
+                   },
+                   {
+                       "end": 40.14,
+                       "probability": 1.0,
+                       "start": 39.68,
+                       "text": " Gestaltung"
+                   },
+                   {
+                       "end": 40.36,
+                       "probability": 1.0,
+                       "start": 40.14,
+                       "text": " von"
+                   },
+                   {
+                       "end": 41.12,
+                       "probability": 0.9996337890625,
+                       "start": 40.36,
+                       "text": " Kaufhäusern"
+                   },
+                   {
+                       "end": 41.46,
+                       "probability": 1.0,
+                       "start": 41.12,
+                       "text": " und"
+                   },
+                   {
+                       "end": 42.06,
+                       "probability": 0.99951171875,
+                       "start": 41.46,
+                       "text": " öffentlichen"
+                   },
+                   {
+                       "end": 42.44,
+                       "probability": 1.0,
+                       "start": 42.06,
+                       "text": " Orten,"
+                   }
+               ]
+           },
+           {
+               "end": 46.28,
+               "start": 42.98,
+               "text": " sodass möglichst alle Personen diese Orte nutzen können.",
+               "words": [
+                   {
+                       "end": 43.26,
+                       "probability": 0.93505859375,
+                       "start": 42.98,
+                       "text": " sodass"
+                   },
+                   {
+                       "end": 43.62,
+                       "probability": 1.0,
+                       "start": 43.26,
+                       "text": " möglichst"
+                   },
+                   {
+                       "end": 43.96,
+                       "probability": 1.0,
+                       "start": 43.62,
+                       "text": " alle"
+                   },
+                   {
+                       "end": 44.42,
+                       "probability": 1.0,
+                       "start": 43.96,
+                       "text": " Personen"
+                   },
+                   {
+                       "end": 45.0,
+                       "probability": 1.0,
+                       "start": 44.42,
+                       "text": " diese"
+                   },
+                   {
+                       "end": 45.44,
+                       "probability": 0.99462890625,
+                       "start": 45.0,
+                       "text": " Orte"
+                   },
+                   {
+                       "end": 45.68,
+                       "probability": 1.0,
+                       "start": 45.44,
+                       "text": " nutzen"
+                   },
+                   {
+                       "end": 46.28,
+                       "probability": 1.0,
+                       "start": 45.68,
+                       "text": " können."
+                   }
+               ]
+           },
+           {
+               "end": 52.72,
+               "start": 48.44,
+               "text": " Das Universal Design for Learning überträgt diesen Gedanken auf Curricula.",
+               "words": [
+                   {
+                       "end": 48.54,
+                       "probability": 0.99755859375,
+                       "start": 48.44,
+                       "text": " Das"
+                   },
+                   {
+                       "end": 48.94,
+                       "probability": 0.9951171875,
+                       "start": 48.54,
+                       "text": " Universal"
+                   },
+                   {
+                       "end": 49.54,
+                       "probability": 0.99658203125,
+                       "start": 48.94,
+                       "text": " Design"
+                   },
+                   {
+                       "end": 49.84,
+                       "probability": 0.998046875,
+                       "start": 49.54,
+                       "text": " for"
+                   },
+                   {
+                       "end": 50.22,
+                       "probability": 1.0,
+                       "start": 49.84,
+                       "text": " Learning"
+                   },
+                   {
+                       "end": 51.18,
+                       "probability": 0.99951171875,
+                       "start": 50.22,
+                       "text": " überträgt"
+                   },
+                   {
+                       "end": 51.38,
+                       "probability": 0.9990234375,
+                       "start": 51.18,
+                       "text": " diesen"
+                   },
+                   {
+                       "end": 51.74,
+                       "probability": 1.0,
+                       "start": 51.38,
+                       "text": " Gedanken"
+                   },
+                   {
+                       "end": 52.2,
+                       "probability": 1.0,
+                       "start": 51.74,
+                       "text": " auf"
+                   },
+                   {
+                       "end": 52.72,
+                       "probability": 0.9938151041666666,
+                       "start": 52.2,
+                       "text": " Curricula."
+                   }
+               ]
+           },
+           {
+               "end": 56.12,
+               "start": 53.66,
+               "text": " Es geht nicht mehr um physisch existierende Orte,",
+               "words": [
+                   {
+                       "end": 53.76,
+                       "probability": 0.99853515625,
+                       "start": 53.66,
+                       "text": " Es"
+                   },
+                   {
+                       "end": 53.9,
+                       "probability": 1.0,
+                       "start": 53.76,
+                       "text": " geht"
+                   },
+                   {
+                       "end": 54.06,
+                       "probability": 1.0,
+                       "start": 53.9,
+                       "text": " nicht"
+                   },
+                   {
+                       "end": 54.3,
+                       "probability": 1.0,
+                       "start": 54.06,
+                       "text": " mehr"
+                   },
+                   {
+                       "end": 54.52,
+                       "probability": 1.0,
+                       "start": 54.3,
+                       "text": " um"
+                   },
+                   {
+                       "end": 54.96,
+                       "probability": 0.999755859375,
+                       "start": 54.52,
+                       "text": " physisch"
+                   },
+                   {
+                       "end": 55.64,
+                       "probability": 1.0,
+                       "start": 54.96,
+                       "text": " existierende"
+                   },
+                   {
+                       "end": 56.12,
+                       "probability": 1.0,
+                       "start": 55.64,
+                       "text": " Orte,"
+                   }
+               ]
+           },
+           {
+               "end": 59.58,
+               "start": 56.14,
+               "text": " sondern um Lernen, Lehrpläne und Lerninhalte.",
+               "words": [
+                   {
+                       "end": 56.74,
+                       "probability": 1.0,
+                       "start": 56.14,
+                       "text": " sondern"
+                   },
+                   {
+                       "end": 56.98,
+                       "probability": 1.0,
+                       "start": 56.74,
+                       "text": " um"
+                   },
+                   {
+                       "end": 57.46,
+                       "probability": 0.998291015625,
+                       "start": 56.98,
+                       "text": " Lernen,"
+                   },
+                   {
+                       "end": 58.66,
+                       "probability": 0.999267578125,
+                       "start": 57.56,
+                       "text": " Lehrpläne"
+                   },
+                   {
+                       "end": 59.14,
+                       "probability": 1.0,
+                       "start": 58.66,
+                       "text": " und"
+                   },
+                   {
+                       "end": 59.58,
+                       "probability": 0.99814453125,
+                       "start": 59.14,
+                       "text": " Lerninhalte."
+                   }
+               ]
+           },
+           {
+               "end": 65.97,
+               "start": 62.32,
+               "text": " Curricula sollen alle Lernenden in ihrem Lernprozess unterstützen.",
+               "words": [
+                   {
+                       "end": 62.69,
+                       "probability": 0.9996744791666666,
+                       "start": 62.32,
+                       "text": " Curricula"
+                   },
+                   {
+                       "end": 63.07,
+                       "probability": 0.9765625,
+                       "start": 62.69,
+                       "text": " sollen"
+                   },
+                   {
+                       "end": 63.45,
+                       "probability": 0.99951171875,
+                       "start": 63.07,
+                       "text": " alle"
+                   },
+                   {
+                       "end": 64.03,
+                       "probability": 0.9998372395833334,
+                       "start": 63.45,
+                       "text": " Lernenden"
+                   },
+                   {
+                       "end": 64.47,
+                       "probability": 1.0,
+                       "start": 64.03,
+                       "text": " in"
+                   },
+                   {
+                       "end": 64.69,
+                       "probability": 0.99755859375,
+                       "start": 64.47,
+                       "text": " ihrem"
+                   },
+                   {
+                       "end": 65.37,
+                       "probability": 1.0,
+                       "start": 64.69,
+                       "text": " Lernprozess"
+                   },
+                   {
+                       "end": 65.97,
+                       "probability": 1.0,
+                       "start": 65.37,
+                       "text": " unterstützen."
+                   }
+               ]
+           },
+           {
+               "end": 74.46,
+               "start": 68.74,
+               "text": " Verschiedene Lernprozesse von verschiedenen Menschen finden bereits in der Konzeption Berücksichtigung.",
+               "words": [
+                   {
+                       "end": 69.08,
+                       "probability": 0.830078125,
+                       "start": 68.74,
+                       "text": " Verschiedene"
+                   },
+                   {
+                       "end": 69.78,
+                       "probability": 0.99814453125,
+                       "start": 69.08,
+                       "text": " Lernprozesse"
+                   },
+                   {
+                       "end": 70.06,
+                       "probability": 0.99755859375,
+                       "start": 69.78,
+                       "text": " von"
+                   },
+                   {
+                       "end": 70.44,
+                       "probability": 0.99072265625,
+                       "start": 70.06,
+                       "text": " verschiedenen"
+                   },
+                   {
+                       "end": 70.86,
+                       "probability": 0.990234375,
+                       "start": 70.44,
+                       "text": " Menschen"
+                   },
+                   {
+                       "end": 71.72,
+                       "probability": 0.9951171875,
+                       "start": 70.86,
+                       "text": " finden"
+                   },
+                   {
+                       "end": 72.16,
+                       "probability": 0.9990234375,
+                       "start": 71.72,
+                       "text": " bereits"
+                   },
+                   {
+                       "end": 72.64,
+                       "probability": 0.98876953125,
+                       "start": 72.16,
+                       "text": " in"
+                   },
+                   {
+                       "end": 72.76,
+                       "probability": 0.99951171875,
+                       "start": 72.66,
+                       "text": " der"
+                   },
+                   {
+                       "end": 73.46,
+                       "probability": 0.9993489583333334,
+                       "start": 72.76,
+                       "text": " Konzeption"
+                   },
+                   {
+                       "end": 74.46,
+                       "probability": 0.996337890625,
+                       "start": 73.46,
+                       "text": " Berücksichtigung."
+                   }
+               ]
+           },
+           {
+               "end": 79.32,
+               "start": 74.94,
+               "text": " So sind individuelle Anpassungen im Nachhinein nur selten notwendig.",
+               "words": [
+                   {
+                       "end": 75.26,
+                       "probability": 0.9912109375,
+                       "start": 74.94,
+                       "text": " So"
+                   },
+                   {
+                       "end": 75.92,
+                       "probability": 0.99951171875,
+                       "start": 75.26,
+                       "text": " sind"
+                   },
+                   {
+                       "end": 76.46,
+                       "probability": 0.999267578125,
+                       "start": 75.92,
+                       "text": " individuelle"
+                   },
+                   {
+                       "end": 77.12,
+                       "probability": 1.0,
+                       "start": 76.46,
+                       "text": " Anpassungen"
+                   },
+                   {
+                       "end": 77.34,
+                       "probability": 0.99951171875,
+                       "start": 77.12,
+                       "text": " im"
+                   },
+                   {
+                       "end": 77.96,
+                       "probability": 0.9998779296875,
+                       "start": 77.34,
+                       "text": " Nachhinein"
+                   },
+                   {
+                       "end": 78.26,
+                       "probability": 0.99951171875,
+                       "start": 77.96,
+                       "text": " nur"
+                   },
+                   {
+                       "end": 78.64,
+                       "probability": 1.0,
+                       "start": 78.26,
+                       "text": " selten"
+                   },
+                   {
+                       "end": 79.32,
+                       "probability": 0.99951171875,
+                       "start": 78.64,
+                       "text": " notwendig."
+                   }
+               ]
+           },
+           {
+               "end": 81.82,
+               "start": 79.96,
+               "text": " Das gilt auch für Medienwelten.",
+               "words": [
+                   {
+                       "end": 80.08,
+                       "probability": 0.9990234375,
+                       "start": 79.96,
+                       "text": " Das"
+                   },
+                   {
+                       "end": 80.62,
+                       "probability": 0.99609375,
+                       "start": 80.52,
+                       "text": " gilt"
+                   },
+                   {
+                       "end": 80.82,
+                       "probability": 1.0,
+                       "start": 80.62,
+                       "text": " auch"
+                   },
+                   {
+                       "end": 80.98,
+                       "probability": 1.0,
+                       "start": 80.82,
+                       "text": " für"
+                   },
+                   {
+                       "end": 81.82,
+                       "probability": 0.9990234375,
+                       "start": 80.98,
+                       "text": " Medienwelten."
+                   }
+               ]
+           },
+           {
+               "end": 84.88,
+               "start": 82.04,
+               "text": " Sie sollen von Beginn an für alle zugänglich sein.",
+               "words": [
+                   {
+                       "end": 82.36,
+                       "probability": 0.9951171875,
+                       "start": 82.04,
+                       "text": " Sie"
+                   },
+                   {
+                       "end": 82.74,
+                       "probability": 1.0,
+                       "start": 82.38,
+                       "text": " sollen"
+                   },
+                   {
+                       "end": 82.96,
+                       "probability": 1.0,
+                       "start": 82.74,
+                       "text": " von"
+                   },
+                   {
+                       "end": 83.3,
+                       "probability": 0.999755859375,
+                       "start": 82.96,
+                       "text": " Beginn"
+                   },
+                   {
+                       "end": 83.48,
+                       "probability": 1.0,
+                       "start": 83.3,
+                       "text": " an"
+                   },
+                   {
+                       "end": 83.66,
+                       "probability": 0.99951171875,
+                       "start": 83.48,
+                       "text": " für"
+                   },
+                   {
+                       "end": 83.98,
+                       "probability": 1.0,
+                       "start": 83.66,
+                       "text": " alle"
+                   },
+                   {
+                       "end": 84.64,
+                       "probability": 0.9998372395833334,
+                       "start": 83.98,
+                       "text": " zugänglich"
+                   },
+                   {
+                       "end": 84.88,
+                       "probability": 1.0,
+                       "start": 84.64,
+                       "text": " sein."
+                   }
+               ]
+           },
+           {
+               "end": 90.1,
+               "start": 87.28,
+               "text": " Wenn wir Curricula mit dem UDL betrachten,",
+               "words": [
+                   {
+                       "end": 87.38,
+                       "probability": 0.9892578125,
+                       "start": 87.28,
+                       "text": " Wenn"
+                   },
+                   {
+                       "end": 87.54,
+                       "probability": 1.0,
+                       "start": 87.38,
+                       "text": " wir"
+                   },
+                   {
+                       "end": 88.04,
+                       "probability": 0.9796549479166666,
+                       "start": 87.54,
+                       "text": " Curricula"
+                   },
+                   {
+                       "end": 88.44,
+                       "probability": 0.99853515625,
+                       "start": 88.04,
+                       "text": " mit"
+                   },
+                   {
+                       "end": 88.62,
+                       "probability": 0.9990234375,
+                       "start": 88.44,
+                       "text": " dem"
+                   },
+                   {
+                       "end": 89.36,
+                       "probability": 0.8689778645833334,
+                       "start": 88.62,
+                       "text": " UDL"
+                   },
+                   {
+                       "end": 90.1,
+                       "probability": 1.0,
+                       "start": 89.36,
+                       "text": " betrachten,"
+                   }
+               ]
+           },
+           {
+               "end": 92.04,
+               "start": 90.24,
+               "text": " achten wir auf Folgendes.",
+               "words": [
+                   {
+                       "end": 90.96,
+                       "probability": 0.999755859375,
+                       "start": 90.24,
+                       "text": " achten"
+                   },
+                   {
+                       "end": 91.12,
+                       "probability": 1.0,
+                       "start": 90.96,
+                       "text": " wir"
+                   },
+                   {
+                       "end": 91.32,
+                       "probability": 0.99951171875,
+                       "start": 91.12,
+                       "text": " auf"
+                   },
+                   {
+                       "end": 92.04,
+                       "probability": 0.821533203125,
+                       "start": 91.32,
+                       "text": " Folgendes."
+                   }
+               ]
+           },
+           {
+               "end": 96.92,
+               "start": 94.1,
+               "text": " Wo sind Barrieren oder Probleme für das Lernen?",
+               "words": [
+                   {
+                       "end": 94.2,
+                       "probability": 0.8408203125,
+                       "start": 94.1,
+                       "text": " Wo"
+                   },
+                   {
+                       "end": 94.6,
+                       "probability": 0.99658203125,
+                       "start": 94.2,
+                       "text": " sind"
+                   },
+                   {
+                       "end": 95.32,
+                       "probability": 0.9988606770833334,
+                       "start": 94.74,
+                       "text": " Barrieren"
+                   },
+                   {
+                       "end": 95.5,
+                       "probability": 0.99951171875,
+                       "start": 95.32,
+                       "text": " oder"
+                   },
+                   {
+                       "end": 95.9,
+                       "probability": 1.0,
+                       "start": 95.5,
+                       "text": " Probleme"
+                   },
+                   {
+                       "end": 96.38,
+                       "probability": 0.99951171875,
+                       "start": 95.9,
+                       "text": " für"
+                   },
+                   {
+                       "end": 96.52,
+                       "probability": 1.0,
+                       "start": 96.38,
+                       "text": " das"
+                   },
+                   {
+                       "end": 96.92,
+                       "probability": 1.0,
+                       "start": 96.52,
+                       "text": " Lernen?"
+                   }
+               ]
+           },
+           {
+               "end": 98.14,
+               "start": 96.92,
+               "text": " Finden",
+               "words": [
+                   {
+                       "end": 98.14,
+                       "probability": 0.806396484375,
+                       "start": 96.92,
+                       "text": " Finden"
+                   }
+               ]
+           },
+           {
+               "end": 102.88,
+               "start": 100.42,
+               "text": " verschiedene Voraussetzungen Berücksichtigung?",
+               "words": [
+                   {
+                       "end": 100.76,
+                       "probability": 0.99609375,
+                       "start": 100.42,
+                       "text": " verschiedene"
+                   },
+                   {
+                       "end": 101.88,
+                       "probability": 0.9998046875,
+                       "start": 100.76,
+                       "text": " Voraussetzungen"
+                   },
+                   {
+                       "end": 102.88,
+                       "probability": 0.99560546875,
+                       "start": 101.88,
+                       "text": " Berücksichtigung?"
+                   }
+               ]
+           },
+           {
+               "end": 109.8,
+               "start": 106.3,
+               "text": " Wo gibt es Alternativen in der Gestaltung von Lerninhalten?",
+               "words": [
+                   {
+                       "end": 106.4,
+                       "probability": 0.94091796875,
+                       "start": 106.3,
+                       "text": " Wo"
+                   },
+                   {
+                       "end": 107.06,
+                       "probability": 0.64501953125,
+                       "start": 106.4,
+                       "text": " gibt"
+                   },
+                   {
+                       "end": 107.18,
+                       "probability": 1.0,
+                       "start": 107.06,
+                       "text": " es"
+                   },
+                   {
+                       "end": 107.9,
+                       "probability": 0.9998372395833334,
+                       "start": 107.18,
+                       "text": " Alternativen"
+                   },
+                   {
+                       "end": 108.2,
+                       "probability": 0.99951171875,
+                       "start": 107.9,
+                       "text": " in"
+                   },
+                   {
+                       "end": 108.28,
+                       "probability": 1.0,
+                       "start": 108.2,
+                       "text": " der"
+                   },
+                   {
+                       "end": 108.84,
+                       "probability": 1.0,
+                       "start": 108.28,
+                       "text": " Gestaltung"
+                   },
+                   {
+                       "end": 109.16,
+                       "probability": 1.0,
+                       "start": 108.84,
+                       "text": " von"
+                   },
+                   {
+                       "end": 109.8,
+                       "probability": 0.9649658203125,
+                       "start": 109.16,
+                       "text": " Lerninhalten?"
+                   }
+               ]
+           },
+           {
+               "end": 118.87,
+               "start": 112.51,
+               "text": " Als nächstes stellen wir die verschiedenen Ebenen des Universal Design for Learning in Anlehnung an CAST vor.",
+               "words": [
+                   {
+                       "end": 112.61,
+                       "probability": 0.998046875,
+                       "start": 112.51,
+                       "text": " Als"
+                   },
+                   {
+                       "end": 113.07,
+                       "probability": 0.998779296875,
+                       "start": 112.61,
+                       "text": " nächstes"
+                   },
+                   {
+                       "end": 113.53,
+                       "probability": 0.99951171875,
+                       "start": 113.07,
+                       "text": " stellen"
+                   },
+                   {
+                       "end": 113.69,
+                       "probability": 1.0,
+                       "start": 113.53,
+                       "text": " wir"
+                   },
+                   {
+                       "end": 113.81,
+                       "probability": 1.0,
+                       "start": 113.69,
+                       "text": " die"
+                   },
+                   {
+                       "end": 114.19,
+                       "probability": 1.0,
+                       "start": 113.81,
+                       "text": " verschiedenen"
+                   },
+                   {
+                       "end": 114.87,
+                       "probability": 0.9998372395833334,
+                       "start": 114.19,
+                       "text": " Ebenen"
+                   },
+                   {
+                       "end": 115.21,
+                       "probability": 0.9990234375,
+                       "start": 114.87,
+                       "text": " des"
+                   },
+                   {
+                       "end": 115.53,
+                       "probability": 0.99365234375,
+                       "start": 115.21,
+                       "text": " Universal"
+                   },
+                   {
+                       "end": 116.17,
+                       "probability": 0.99951171875,
+                       "start": 115.53,
+                       "text": " Design"
+                   },
+                   {
+                       "end": 116.51,
+                       "probability": 0.994140625,
+                       "start": 116.17,
+                       "text": " for"
+                   },
+                   {
+                       "end": 116.89,
+                       "probability": 1.0,
+                       "start": 116.51,
+                       "text": " Learning"
+                   },
+                   {
+                       "end": 117.43,
+                       "probability": 0.99951171875,
+                       "start": 117.33,
+                       "text": " in"
+                   },
+                   {
+                       "end": 118.05,
+                       "probability": 0.994873046875,
+                       "start": 117.43,
+                       "text": " Anlehnung"
+                   },
+                   {
+                       "end": 118.21,
+                       "probability": 1.0,
+                       "start": 118.05,
+                       "text": " an"
+                   },
+                   {
+                       "end": 118.59,
+                       "probability": 0.82861328125,
+                       "start": 118.21,
+                       "text": " CAST"
+                   },
+                   {
+                       "end": 118.87,
+                       "probability": 0.99755859375,
+                       "start": 118.59,
+                       "text": " vor."
+                   }
+               ]
+           },
+           {
+               "end": 123.82,
+               "start": 121.14,
+               "text": " Das Modell ist als Tabelle mit drei Spalten dargestellt.",
+               "words": [
+                   {
+                       "end": 121.24,
+                       "probability": 1.0,
+                       "start": 121.14,
+                       "text": " Das"
+                   },
+                   {
+                       "end": 121.72,
+                       "probability": 1.0,
+                       "start": 121.24,
+                       "text": " Modell"
+                   },
+                   {
+                       "end": 121.84,
+                       "probability": 0.99951171875,
+                       "start": 121.72,
+                       "text": " ist"
+                   },
+                   {
+                       "end": 122.04,
+                       "probability": 0.97412109375,
+                       "start": 121.84,
+                       "text": " als"
+                   },
+                   {
+                       "end": 122.38,
+                       "probability": 0.65576171875,
+                       "start": 122.04,
+                       "text": " Tabelle"
+                   },
+                   {
+                       "end": 122.56,
+                       "probability": 1.0,
+                       "start": 122.38,
+                       "text": " mit"
+                   },
+                   {
+                       "end": 122.8,
+                       "probability": 0.99072265625,
+                       "start": 122.56,
+                       "text": " drei"
+                   },
+                   {
+                       "end": 123.36,
+                       "probability": 0.999755859375,
+                       "start": 122.8,
+                       "text": " Spalten"
+                   },
+                   {
+                       "end": 123.82,
+                       "probability": 0.999267578125,
+                       "start": 123.36,
+                       "text": " dargestellt."
+                   }
+               ]
+           },
+           {
+               "end": 126.78,
+               "start": 124.68,
+               "text": " Jede Spalte steht für eine Ebene.",
+               "words": [
+                   {
+                       "end": 124.82,
+                       "probability": 0.999755859375,
+                       "start": 124.68,
+                       "text": " Jede"
+                   },
+                   {
+                       "end": 125.26,
+                       "probability": 0.9996744791666666,
+                       "start": 124.82,
+                       "text": " Spalte"
+                   },
+                   {
+                       "end": 125.66,
+                       "probability": 0.9990234375,
+                       "start": 125.26,
+                       "text": " steht"
+                   },
+                   {
+                       "end": 125.84,
+                       "probability": 1.0,
+                       "start": 125.66,
+                       "text": " für"
+                   },
+                   {
+                       "end": 126.12,
+                       "probability": 1.0,
+                       "start": 125.84,
+                       "text": " eine"
+                   },
+                   {
+                       "end": 126.78,
+                       "probability": 0.999755859375,
+                       "start": 126.12,
+                       "text": " Ebene."
+                   }
+               ]
+           },
+           {
+               "end": 131.22,
+               "start": 129.18,
+               "text": " Die erste Ebene heißt Lernengagement.",
+               "words": [
+                   {
+                       "end": 129.28,
+                       "probability": 1.0,
+                       "start": 129.18,
+                       "text": " Die"
+                   },
+                   {
+                       "end": 129.56,
+                       "probability": 1.0,
+                       "start": 129.28,
+                       "text": " erste"
+                   },
+                   {
+                       "end": 130.16,
+                       "probability": 1.0,
+                       "start": 129.56,
+                       "text": " Ebene"
+                   },
+                   {
+                       "end": 130.44,
+                       "probability": 0.99853515625,
+                       "start": 130.16,
+                       "text": " heißt"
+                   },
+                   {
+                       "end": 131.22,
+                       "probability": 0.9810791015625,
+                       "start": 130.44,
+                       "text": " Lernengagement."
+                   }
+               ]
+           },
+           {
+               "end": 134.32,
+               "start": 132.04,
+               "text": " Sie findet sich in einer grünen Spalte.",
+               "words": [
+                   {
+                       "end": 132.14,
+                       "probability": 0.97998046875,
+                       "start": 132.04,
+                       "text": " Sie"
+                   },
+                   {
+                       "end": 132.76,
+                       "probability": 0.998046875,
+                       "start": 132.14,
+                       "text": " findet"
+                   },
+                   {
+                       "end": 133.0,
+                       "probability": 1.0,
+                       "start": 132.76,
+                       "text": " sich"
+                   },
+                   {
+                       "end": 133.12,
+                       "probability": 1.0,
+                       "start": 133.0,
+                       "text": " in"
+                   },
+                   {
+                       "end": 133.28,
+                       "probability": 1.0,
+                       "start": 133.12,
+                       "text": " einer"
+                   },
+                   {
+                       "end": 133.68,
+                       "probability": 0.9998372395833334,
+                       "start": 133.28,
+                       "text": " grünen"
+                   },
+                   {
+                       "end": 134.32,
+                       "probability": 1.0,
+                       "start": 133.68,
+                       "text": " Spalte."
+                   }
+               ]
+           },
+           {
+               "end": 138.88,
+               "start": 136.66,
+               "text": " Diese Ebene betrachtet, warum wir lernen.",
+               "words": [
+                   {
+                       "end": 136.76,
+                       "probability": 0.99658203125,
+                       "start": 136.66,
+                       "text": " Diese"
+                   },
+                   {
+                       "end": 137.2,
+                       "probability": 0.999755859375,
+                       "start": 136.76,
+                       "text": " Ebene"
+                   },
+                   {
+                       "end": 137.72,
+                       "probability": 1.0,
+                       "start": 137.2,
+                       "text": " betrachtet,"
+                   },
+                   {
+                       "end": 138.22,
+                       "probability": 0.99755859375,
+                       "start": 137.86,
+                       "text": " warum"
+                   },
+                   {
+                       "end": 138.54,
+                       "probability": 1.0,
+                       "start": 138.22,
+                       "text": " wir"
+                   },
+                   {
+                       "end": 138.88,
+                       "probability": 0.99951171875,
+                       "start": 138.54,
+                       "text": " lernen."
+                   }
+               ]
+           },
+           {
+               "end": 144.98,
+               "start": 139.24,
+               "text": " Es geht darum, das Lerninteresse und die Motivation der des Lernenden zu fördern.",
+               "words": [
+                   {
+                       "end": 139.6,
+                       "probability": 0.99951171875,
+                       "start": 139.24,
+                       "text": " Es"
+                   },
+                   {
+                       "end": 139.72,
+                       "probability": 0.99951171875,
+                       "start": 139.62,
+                       "text": " geht"
+                   },
+                   {
+                       "end": 140.16,
+                       "probability": 1.0,
+                       "start": 139.72,
+                       "text": " darum,"
+                   },
+                   {
+                       "end": 140.52,
+                       "probability": 0.99951171875,
+                       "start": 140.3,
+                       "text": " das"
+                   },
+                   {
+                       "end": 141.34,
+                       "probability": 0.9996337890625,
+                       "start": 140.52,
+                       "text": " Lerninteresse"
+                   },
+                   {
+                       "end": 141.88,
+                       "probability": 1.0,
+                       "start": 141.34,
+                       "text": " und"
+                   },
+                   {
+                       "end": 142.14,
+                       "probability": 1.0,
+                       "start": 141.94,
+                       "text": " die"
+                   },
+                   {
+                       "end": 142.78,
+                       "probability": 1.0,
+                       "start": 142.14,
+                       "text": " Motivation"
+                   },
+                   {
+                       "end": 143.14,
+                       "probability": 0.9990234375,
+                       "start": 142.78,
+                       "text": " der"
+                   },
+                   {
+                       "end": 143.5,
+                       "probability": 0.63623046875,
+                       "start": 143.14,
+                       "text": " des"
+                   },
+                   {
+                       "end": 144.1,
+                       "probability": 1.0,
+                       "start": 143.5,
+                       "text": " Lernenden"
+                   },
+                   {
+                       "end": 144.42,
+                       "probability": 1.0,
+                       "start": 144.1,
+                       "text": " zu"
+                   },
+                   {
+                       "end": 144.98,
+                       "probability": 0.999755859375,
+                       "start": 144.42,
+                       "text": " fördern."
+                   }
+               ]
+           },
+           {
+               "end": 151.73,
+               "start": 147.36,
+               "text": " Medien können dies zum Beispiel durch vielfältige, interaktive Elemente leisten.",
+               "words": [
+                   {
+                       "end": 147.63,
+                       "probability": 0.99951171875,
+                       "start": 147.36,
+                       "text": " Medien"
+                   },
+                   {
+                       "end": 147.93,
+                       "probability": 0.99951171875,
+                       "start": 147.63,
+                       "text": " können"
+                   },
+                   {
+                       "end": 148.19,
+                       "probability": 0.99951171875,
+                       "start": 147.93,
+                       "text": " dies"
+                   },
+                   {
+                       "end": 148.31,
+                       "probability": 0.94580078125,
+                       "start": 148.19,
+                       "text": " zum"
+                   },
+                   {
+                       "end": 148.67,
+                       "probability": 1.0,
+                       "start": 148.31,
+                       "text": " Beispiel"
+                   },
+                   {
+                       "end": 148.93,
+                       "probability": 1.0,
+                       "start": 148.67,
+                       "text": " durch"
+                   },
+                   {
+                       "end": 149.81,
+                       "probability": 0.998046875,
+                       "start": 148.93,
+                       "text": " vielfältige,"
+                   },
+                   {
+                       "end": 150.81,
+                       "probability": 1.0,
+                       "start": 149.83,
+                       "text": " interaktive"
+                   },
+                   {
+                       "end": 151.43,
+                       "probability": 1.0,
+                       "start": 150.81,
+                       "text": " Elemente"
+                   },
+                   {
+                       "end": 151.73,
+                       "probability": 1.0,
+                       "start": 151.43,
+                       "text": " leisten."
+                   }
+               ]
+           },
+           {
+               "end": 155.27,
+               "start": 152.61,
+               "text": " Sie setzen außerdem an Erfahrung aus dem Alltag an.",
+               "words": [
+                   {
+                       "end": 152.71,
+                       "probability": 0.99951171875,
+                       "start": 152.61,
+                       "text": " Sie"
+                   },
+                   {
+                       "end": 152.97,
+                       "probability": 0.9990234375,
+                       "start": 152.71,
+                       "text": " setzen"
+                   },
+                   {
+                       "end": 153.51,
+                       "probability": 1.0,
+                       "start": 152.97,
+                       "text": " außerdem"
+                   },
+                   {
+                       "end": 153.79,
+                       "probability": 0.9990234375,
+                       "start": 153.51,
+                       "text": " an"
+                   },
+                   {
+                       "end": 154.13,
+                       "probability": 0.87255859375,
+                       "start": 153.79,
+                       "text": " Erfahrung"
+                   },
+                   {
+                       "end": 154.49,
+                       "probability": 1.0,
+                       "start": 154.13,
+                       "text": " aus"
+                   },
+                   {
+                       "end": 154.69,
+                       "probability": 1.0,
+                       "start": 154.49,
+                       "text": " dem"
+                   },
+                   {
+                       "end": 155.05,
+                       "probability": 1.0,
+                       "start": 154.69,
+                       "text": " Alltag"
+                   },
+                   {
+                       "end": 155.27,
+                       "probability": 0.99951171875,
+                       "start": 155.05,
+                       "text": " an."
+                   }
+               ]
+           },
+           {
+               "end": 160.78,
+               "start": 158.7,
+               "text": " Die zweite Ebene heißt Information.",
+               "words": [
+                   {
+                       "end": 159.22,
+                       "probability": 0.99609375,
+                       "start": 158.7,
+                       "text": " Die"
+                   },
+                   {
+                       "end": 159.56,
+                       "probability": 0.982421875,
+                       "start": 159.24,
+                       "text": " zweite"
+                   },
+                   {
+                       "end": 160.12,
+                       "probability": 1.0,
+                       "start": 159.56,
+                       "text": " Ebene"
+                   },
+                   {
+                       "end": 160.36,
+                       "probability": 0.99853515625,
+                       "start": 160.12,
+                       "text": " heißt"
+                   },
+                   {
+                       "end": 160.78,
+                       "probability": 0.9794921875,
+                       "start": 160.36,
+                       "text": " Information."
+                   }
+               ]
+           },
+           {
+               "end": 163.84,
+               "start": 161.66,
+               "text": " Sie findet sich in einer lila Spalte.",
+               "words": [
+                   {
+                       "end": 161.76,
+                       "probability": 0.974609375,
+                       "start": 161.66,
+                       "text": " Sie"
+                   },
+                   {
+                       "end": 162.14,
+                       "probability": 0.9990234375,
+                       "start": 161.76,
+                       "text": " findet"
+                   },
+                   {
+                       "end": 162.46,
+                       "probability": 1.0,
+                       "start": 162.14,
+                       "text": " sich"
+                   },
+                   {
+                       "end": 162.7,
+                       "probability": 1.0,
+                       "start": 162.46,
+                       "text": " in"
+                   },
+                   {
+                       "end": 162.92,
+                       "probability": 1.0,
+                       "start": 162.7,
+                       "text": " einer"
+                   },
+                   {
+                       "end": 163.2,
+                       "probability": 0.79736328125,
+                       "start": 162.92,
+                       "text": " lila"
+                   },
+                   {
+                       "end": 163.84,
+                       "probability": 0.9998372395833334,
+                       "start": 163.2,
+                       "text": " Spalte."
+                   }
+               ]
+           },
+           {
+               "end": 168.84,
+               "start": 166.68,
+               "text": " Diese Ebene betrachtet, was wir lernen.",
+               "words": [
+                   {
+                       "end": 166.78,
+                       "probability": 0.99951171875,
+                       "start": 166.68,
+                       "text": " Diese"
+                   },
+                   {
+                       "end": 167.2,
+                       "probability": 1.0,
+                       "start": 166.78,
+                       "text": " Ebene"
+                   },
+                   {
+                       "end": 167.76,
+                       "probability": 1.0,
+                       "start": 167.2,
+                       "text": " betrachtet,"
+                   },
+                   {
+                       "end": 168.14,
+                       "probability": 0.99951171875,
+                       "start": 167.9,
+                       "text": " was"
+                   },
+                   {
+                       "end": 168.52,
+                       "probability": 1.0,
+                       "start": 168.42,
+                       "text": " wir"
+                   },
+                   {
+                       "end": 168.84,
+                       "probability": 1.0,
+                       "start": 168.52,
+                       "text": " lernen."
+                   }
+               ]
+           },
+           {
+               "end": 172.66,
+               "start": 169.36,
+               "text": " Es geht darum, Informationen darzustellen und wahrzunehmen.",
+               "words": [
+                   {
+                       "end": 169.46,
+                       "probability": 0.9228515625,
+                       "start": 169.36,
+                       "text": " Es"
+                   },
+                   {
+                       "end": 169.6,
+                       "probability": 0.99853515625,
+                       "start": 169.46,
+                       "text": " geht"
+                   },
+                   {
+                       "end": 169.96,
+                       "probability": 0.99951171875,
+                       "start": 169.6,
+                       "text": " darum,"
+                   },
+                   {
+                       "end": 170.64,
+                       "probability": 0.99853515625,
+                       "start": 170.12,
+                       "text": " Informationen"
+                   },
+                   {
+                       "end": 171.64,
+                       "probability": 1.0,
+                       "start": 170.64,
+                       "text": " darzustellen"
+                   },
+                   {
+                       "end": 172.0,
+                       "probability": 0.99951171875,
+                       "start": 171.64,
+                       "text": " und"
+                   },
+                   {
+                       "end": 172.66,
+                       "probability": 0.9998779296875,
+                       "start": 172.0,
+                       "text": " wahrzunehmen."
+                   }
+               ]
+           },
+           {
+               "end": 177.36,
+               "start": 173.38,
+               "text": " Medien können hierbei die Wahlmöglichkeiten der Darstellungen erweitern.",
+               "words": [
+                   {
+                       "end": 173.64,
+                       "probability": 1.0,
+                       "start": 173.38,
+                       "text": " Medien"
+                   },
+                   {
+                       "end": 173.92,
+                       "probability": 1.0,
+                       "start": 173.64,
+                       "text": " können"
+                   },
+                   {
+                       "end": 174.46,
+                       "probability": 1.0,
+                       "start": 173.92,
+                       "text": " hierbei"
+                   },
+                   {
+                       "end": 174.88,
+                       "probability": 1.0,
+                       "start": 174.46,
+                       "text": " die"
+                   },
+                   {
+                       "end": 175.72,
+                       "probability": 0.9991455078125,
+                       "start": 174.88,
+                       "text": " Wahlmöglichkeiten"
+                   },
+                   {
+                       "end": 175.9,
+                       "probability": 1.0,
+                       "start": 175.72,
+                       "text": " der"
+                   },
+                   {
+                       "end": 176.58,
+                       "probability": 0.8150227864583334,
+                       "start": 175.9,
+                       "text": " Darstellungen"
+                   },
+                   {
+                       "end": 177.36,
+                       "probability": 1.0,
+                       "start": 176.58,
+                       "text": " erweitern."
+                   }
+               ]
+           },
+           {
+               "end": 185.1,
+               "start": 180.6,
+               "text": " Die dritte Ebene heißt Informationsverarbeitung und Interaktion mit Lerngegenständen.",
+               "words": [
+                   {
+                       "end": 180.7,
+                       "probability": 0.994140625,
+                       "start": 180.6,
+                       "text": " Die"
+                   },
+                   {
+                       "end": 181.02,
+                       "probability": 0.9931640625,
+                       "start": 180.7,
+                       "text": " dritte"
+                   },
+                   {
+                       "end": 181.42,
+                       "probability": 0.999755859375,
+                       "start": 181.02,
+                       "text": " Ebene"
+                   },
+                   {
+                       "end": 181.72,
+                       "probability": 0.998046875,
+                       "start": 181.42,
+                       "text": " heißt"
+                   },
+                   {
+                       "end": 183.1,
+                       "probability": 0.99912109375,
+                       "start": 181.72,
+                       "text": " Informationsverarbeitung"
+                   },
+                   {
+                       "end": 183.28,
+                       "probability": 0.99951171875,
+                       "start": 183.1,
+                       "text": " und"
+                   },
+                   {
+                       "end": 183.94,
+                       "probability": 0.9983723958333334,
+                       "start": 183.28,
+                       "text": " Interaktion"
+                   },
+                   {
+                       "end": 184.1,
+                       "probability": 0.99951171875,
+                       "start": 183.94,
+                       "text": " mit"
+                   },
+                   {
+                       "end": 185.1,
+                       "probability": 0.99609375,
+                       "start": 184.1,
+                       "text": " Lerngegenständen."
+                   }
+               ]
+           },
+           {
+               "end": 188.06,
+               "start": 185.78,
+               "text": " Sie findet sich in einer blauen Spalte.",
+               "words": [
+                   {
+                       "end": 185.88,
+                       "probability": 0.984375,
+                       "start": 185.78,
+                       "text": " Sie"
+                   },
+                   {
+                       "end": 186.58,
+                       "probability": 0.93896484375,
+                       "start": 185.88,
+                       "text": " findet"
+                   },
+                   {
+                       "end": 186.8,
+                       "probability": 1.0,
+                       "start": 186.58,
+                       "text": " sich"
+                   },
+                   {
+                       "end": 186.92,
+                       "probability": 1.0,
+                       "start": 186.8,
+                       "text": " in"
+                   },
+                   {
+                       "end": 187.06,
+                       "probability": 1.0,
+                       "start": 186.92,
+                       "text": " einer"
+                   },
+                   {
+                       "end": 187.46,
+                       "probability": 1.0,
+                       "start": 187.06,
+                       "text": " blauen"
+                   },
+                   {
+                       "end": 188.06,
+                       "probability": 1.0,
+                       "start": 187.46,
+                       "text": " Spalte."
+                   }
+               ]
+           },
+           {
+               "end": 193.23,
+               "start": 190.92,
+               "text": " Diese Ebene betrachtet, wie wir lernen.",
+               "words": [
+                   {
+                       "end": 191.03,
+                       "probability": 0.99951171875,
+                       "start": 190.92,
+                       "text": " Diese"
+                   },
+                   {
+                       "end": 191.45,
+                       "probability": 1.0,
+                       "start": 191.03,
+                       "text": " Ebene"
+                   },
+                   {
+                       "end": 192.05,
+                       "probability": 1.0,
+                       "start": 191.45,
+                       "text": " betrachtet,"
+                   },
+                   {
+                       "end": 192.47,
+                       "probability": 0.99853515625,
+                       "start": 192.15,
+                       "text": " wie"
+                   },
+                   {
+                       "end": 192.91,
+                       "probability": 0.998046875,
+                       "start": 192.47,
+                       "text": " wir"
+                   },
+                   {
+                       "end": 193.23,
+                       "probability": 0.9990234375,
+                       "start": 192.91,
+                       "text": " lernen."
+                   }
+               ]
+           },
+           {
+               "end": 199.17,
+               "start": 193.33,
+               "text": " Es geht darum, mit Lerngegenständen zu interagieren und den Prozess des Lernens zu unterstützen.",
+               "words": [
+                   {
+                       "end": 193.85,
+                       "probability": 1.0,
+                       "start": 193.33,
+                       "text": " Es"
+                   },
+                   {
+                       "end": 194.01,
+                       "probability": 1.0,
+                       "start": 193.85,
+                       "text": " geht"
+                   },
+                   {
+                       "end": 194.35,
+                       "probability": 1.0,
+                       "start": 194.01,
+                       "text": " darum,"
+                   },
+                   {
+                       "end": 194.59,
+                       "probability": 1.0,
+                       "start": 194.41,
+                       "text": " mit"
+                   },
+                   {
+                       "end": 195.59,
+                       "probability": 0.9998372395833334,
+                       "start": 194.59,
+                       "text": " Lerngegenständen"
+                   },
+                   {
+                       "end": 195.75,
+                       "probability": 1.0,
+                       "start": 195.59,
+                       "text": " zu"
+                   },
+                   {
+                       "end": 196.37,
+                       "probability": 0.9983723958333334,
+                       "start": 195.75,
+                       "text": " interagieren"
+                   },
+                   {
+                       "end": 196.93,
+                       "probability": 0.99951171875,
+                       "start": 196.37,
+                       "text": " und"
+                   },
+                   {
+                       "end": 197.13,
+                       "probability": 0.99951171875,
+                       "start": 196.98,
+                       "text": " den"
+                   },
+                   {
+                       "end": 197.65,
+                       "probability": 1.0,
+                       "start": 197.13,
+                       "text": " Prozess"
+                   },
+                   {
+                       "end": 197.81,
+                       "probability": 1.0,
+                       "start": 197.65,
+                       "text": " des"
+                   },
+                   {
+                       "end": 198.45,
+                       "probability": 1.0,
+                       "start": 197.81,
+                       "text": " Lernens"
+                   },
+                   {
+                       "end": 198.67,
+                       "probability": 1.0,
+                       "start": 198.45,
+                       "text": " zu"
+                   },
+                   {
+                       "end": 199.17,
+                       "probability": 1.0,
+                       "start": 198.67,
+                       "text": " unterstützen."
+                   }
+               ]
+           },
+           {
+               "end": 209.39,
+               "start": 202.7,
+               "text": " Mithilfe von Medien erweitern sich die Wege der Kommunikation und die Möglichkeiten Transparenz zu schaffen.",
+               "words": [
+                   {
+                       "end": 203.13,
+                       "probability": 0.77081298828125,
+                       "start": 202.7,
+                       "text": " Mithilfe"
+                   },
+                   {
+                       "end": 203.27,
+                       "probability": 0.998046875,
+                       "start": 203.13,
+                       "text": " von"
+                   },
+                   {
+                       "end": 203.65,
+                       "probability": 0.99853515625,
+                       "start": 203.27,
+                       "text": " Medien"
+                   },
+                   {
+                       "end": 204.35,
+                       "probability": 0.9959309895833334,
+                       "start": 203.65,
+                       "text": " erweitern"
+                   },
+                   {
+                       "end": 204.55,
+                       "probability": 0.99951171875,
+                       "start": 204.35,
+                       "text": " sich"
+                   },
+                   {
+                       "end": 204.81,
+                       "probability": 0.99853515625,
+                       "start": 204.55,
+                       "text": " die"
+                   },
+                   {
+                       "end": 205.19,
+                       "probability": 0.999267578125,
+                       "start": 204.81,
+                       "text": " Wege"
+                   },
+                   {
+                       "end": 205.31,
+                       "probability": 0.99755859375,
+                       "start": 205.19,
+                       "text": " der"
+                   },
+                   {
+                       "end": 206.07,
+                       "probability": 0.9996744791666666,
+                       "start": 205.31,
+                       "text": " Kommunikation"
+                   },
+                   {
+                       "end": 206.85,
+                       "probability": 0.98876953125,
+                       "start": 206.07,
+                       "text": " und"
+                   },
+                   {
+                       "end": 207.11,
+                       "probability": 0.98974609375,
+                       "start": 206.85,
+                       "text": " die"
+                   },
+                   {
+                       "end": 207.67,
+                       "probability": 0.99365234375,
+                       "start": 207.14,
+                       "text": " Möglichkeiten"
+                   },
+                   {
+                       "end": 208.73,
+                       "probability": 0.83306884765625,
+                       "start": 207.67,
+                       "text": " Transparenz"
+                   },
+                   {
+                       "end": 208.99,
+                       "probability": 0.99853515625,
+                       "start": 208.73,
+                       "text": " zu"
+                   },
+                   {
+                       "end": 209.39,
+                       "probability": 0.99853515625,
+                       "start": 208.99,
+                       "text": " schaffen."
+                   }
+               ]
+           },
+           {
+               "end": 217.18,
+               "start": 213.78,
+               "text": " Nun gibt es zwei Arten die Tabelle des Modells zu lesen.",
+               "words": [
+                   {
+                       "end": 213.88,
+                       "probability": 0.982421875,
+                       "start": 213.78,
+                       "text": " Nun"
+                   },
+                   {
+                       "end": 214.18,
+                       "probability": 0.99755859375,
+                       "start": 213.88,
+                       "text": " gibt"
+                   },
+                   {
+                       "end": 214.32,
+                       "probability": 0.99755859375,
+                       "start": 214.18,
+                       "text": " es"
+                   },
+                   {
+                       "end": 214.56,
+                       "probability": 0.93896484375,
+                       "start": 214.32,
+                       "text": " zwei"
+                   },
+                   {
+                       "end": 215.08,
+                       "probability": 0.997802734375,
+                       "start": 214.56,
+                       "text": " Arten"
+                   },
+                   {
+                       "end": 215.28,
+                       "probability": 0.767578125,
+                       "start": 215.08,
+                       "text": " die"
+                   },
+                   {
+                       "end": 215.72,
+                       "probability": 0.9951171875,
+                       "start": 215.28,
+                       "text": " Tabelle"
+                   },
+                   {
+                       "end": 215.92,
+                       "probability": 0.99609375,
+                       "start": 215.72,
+                       "text": " des"
+                   },
+                   {
+                       "end": 216.36,
+                       "probability": 0.992431640625,
+                       "start": 215.92,
+                       "text": " Modells"
+                   },
+                   {
+                       "end": 216.66,
+                       "probability": 0.99609375,
+                       "start": 216.36,
+                       "text": " zu"
+                   },
+                   {
+                       "end": 217.18,
+                       "probability": 0.987060546875,
+                       "start": 216.66,
+                       "text": " lesen."
+                   }
+               ]
+           },
+           {
+               "end": 224.29,
+               "start": 219.45,
+               "text": " Bei Möglichkeit 1 liegt der Fokus auf einer Förderung der drei verschiedenen Ebenen,",
+               "words": [
+                   {
+                       "end": 219.55,
+                       "probability": 0.97119140625,
+                       "start": 219.45,
+                       "text": " Bei"
+                   },
+                   {
+                       "end": 219.91,
+                       "probability": 0.99072265625,
+                       "start": 219.55,
+                       "text": " Möglichkeit"
+                   },
+                   {
+                       "end": 220.35,
+                       "probability": 0.96923828125,
+                       "start": 219.91,
+                       "text": " 1"
+                   },
+                   {
+                       "end": 220.89,
+                       "probability": 0.994140625,
+                       "start": 220.35,
+                       "text": " liegt"
+                   },
+                   {
+                       "end": 221.03,
+                       "probability": 0.9970703125,
+                       "start": 220.89,
+                       "text": " der"
+                   },
+                   {
+                       "end": 221.45,
+                       "probability": 0.991455078125,
+                       "start": 221.03,
+                       "text": " Fokus"
+                   },
+                   {
+                       "end": 221.61,
+                       "probability": 0.9990234375,
+                       "start": 221.45,
+                       "text": " auf"
+                   },
+                   {
+                       "end": 221.81,
+                       "probability": 0.9853515625,
+                       "start": 221.61,
+                       "text": " einer"
+                   },
+                   {
+                       "end": 222.49,
+                       "probability": 0.9990234375,
+                       "start": 221.81,
+                       "text": " Förderung"
+                   },
+                   {
+                       "end": 222.73,
+                       "probability": 0.99609375,
+                       "start": 222.49,
+                       "text": " der"
+                   },
+                   {
+                       "end": 223.01,
+                       "probability": 0.9765625,
+                       "start": 222.73,
+                       "text": " drei"
+                   },
+                   {
+                       "end": 223.57,
+                       "probability": 0.9970703125,
+                       "start": 223.01,
+                       "text": " verschiedenen"
+                   },
+                   {
+                       "end": 224.29,
+                       "probability": 0.99951171875,
+                       "start": 223.57,
+                       "text": " Ebenen,"
+                   }
+               ]
+           },
+           {
+               "end": 227.99,
+               "start": 224.29,
+               "text": " die wir zuvor in den drei verschiedenen Farben vorgestellt haben.",
+               "words": [
+                   {
+                       "end": 224.69,
+                       "probability": 0.99609375,
+                       "start": 224.29,
+                       "text": " die"
+                   },
+                   {
+                       "end": 224.81,
+                       "probability": 0.998046875,
+                       "start": 224.71,
+                       "text": " wir"
+                   },
+                   {
+                       "end": 225.29,
+                       "probability": 0.99951171875,
+                       "start": 224.81,
+                       "text": " zuvor"
+                   },
+                   {
+                       "end": 225.47,
+                       "probability": 0.994140625,
+                       "start": 225.29,
+                       "text": " in"
+                   },
+                   {
+                       "end": 225.57,
+                       "probability": 0.98876953125,
+                       "start": 225.47,
+                       "text": " den"
+                   },
+                   {
+                       "end": 225.85,
+                       "probability": 0.99658203125,
+                       "start": 225.57,
+                       "text": " drei"
+                   },
+                   {
+                       "end": 226.41,
+                       "probability": 0.9951171875,
+                       "start": 225.85,
+                       "text": " verschiedenen"
+                   },
+                   {
+                       "end": 227.03,
+                       "probability": 0.998046875,
+                       "start": 226.41,
+                       "text": " Farben"
+                   },
+                   {
+                       "end": 227.49,
+                       "probability": 0.9990234375,
+                       "start": 227.03,
+                       "text": " vorgestellt"
+                   },
+                   {
+                       "end": 227.99,
+                       "probability": 0.99951171875,
+                       "start": 227.49,
+                       "text": " haben."
+                   }
+               ]
+           },
+           {
+               "end": 229.99,
+               "start": 228.25,
+               "text": " Wir lesen jede Spalte,",
+               "words": [
+                   {
+                       "end": 228.87,
+                       "probability": 0.99462890625,
+                       "start": 228.25,
+                       "text": " Wir"
+                   },
+                   {
+                       "end": 229.19,
+                       "probability": 0.994873046875,
+                       "start": 228.88,
+                       "text": " lesen"
+                   },
+                   {
+                       "end": 229.39,
+                       "probability": 0.99462890625,
+                       "start": 229.19,
+                       "text": " jede"
+                   },
+                   {
+                       "end": 229.99,
+                       "probability": 0.9869791666666666,
+                       "start": 229.39,
+                       "text": " Spalte,"
+                   }
+               ]
+           },
+           {
+               "end": 231.53,
+               "start": 230.03,
+               "text": " also jede Farbe für sich",
+               "words": [
+                   {
+                       "end": 230.37,
+                       "probability": 0.99755859375,
+                       "start": 230.03,
+                       "text": " also"
+                   },
+                   {
+                       "end": 230.61,
+                       "probability": 0.9990234375,
+                       "start": 230.37,
+                       "text": " jede"
+                   },
+                   {
+                       "end": 231.13,
+                       "probability": 0.99951171875,
+                       "start": 230.61,
+                       "text": " Farbe"
+                   },
+                   {
+                       "end": 231.27,
+                       "probability": 0.95263671875,
+                       "start": 231.13,
+                       "text": " für"
+                   },
+                   {
+                       "end": 231.53,
+                       "probability": 0.99853515625,
+                       "start": 231.3,
+                       "text": " sich"
+                   }
+               ]
+           },
+           {
+               "end": 233.29,
+               "start": 232.05,
+               "text": " und von oben nach unten.",
+               "words": [
+                   {
+                       "end": 232.15,
+                       "probability": 0.96533203125,
+                       "start": 232.05,
+                       "text": " und"
+                   },
+                   {
+                       "end": 232.45,
+                       "probability": 0.99853515625,
+                       "start": 232.15,
+                       "text": " von"
+                   },
+                   {
+                       "end": 232.79,
+                       "probability": 0.9990234375,
+                       "start": 232.5,
+                       "text": " oben"
+                   },
+                   {
+                       "end": 232.97,
+                       "probability": 0.99951171875,
+                       "start": 232.79,
+                       "text": " nach"
+                   },
+                   {
+                       "end": 233.29,
+                       "probability": 0.99853515625,
+                       "start": 232.97,
+                       "text": " unten."
+                   }
+               ]
+           },
+           {
+               "end": 234.43,
+               "start": 233.48,
+               "text": " Bei",
+               "words": [
+                   {
+                       "end": 234.43,
+                       "probability": 0.8798828125,
+                       "start": 233.48,
+                       "text": " Bei"
+                   }
+               ]
+           },
+           {
+               "end": 241.13,
+               "start": 236.46,
+               "text": " Möglichkeit 2 liegt der Fokus auf einem Lernprozess von außen nach innen.",
+               "words": [
+                   {
+                       "end": 236.89,
+                       "probability": 0.6484375,
+                       "start": 236.46,
+                       "text": " Möglichkeit"
+                   },
+                   {
+                       "end": 237.27,
+                       "probability": 0.96337890625,
+                       "start": 236.89,
+                       "text": " 2"
+                   },
+                   {
+                       "end": 237.89,
+                       "probability": 0.998046875,
+                       "start": 237.27,
+                       "text": " liegt"
+                   },
+                   {
+                       "end": 238.05,
+                       "probability": 0.99951171875,
+                       "start": 237.89,
+                       "text": " der"
+                   },
+                   {
+                       "end": 238.43,
+                       "probability": 0.9990234375,
+                       "start": 238.05,
+                       "text": " Fokus"
+                   },
+                   {
+                       "end": 238.61,
+                       "probability": 1.0,
+                       "start": 238.43,
+                       "text": " auf"
+                   },
+                   {
+                       "end": 238.81,
+                       "probability": 0.9990234375,
+                       "start": 238.61,
+                       "text": " einem"
+                   },
+                   {
+                       "end": 239.45,
+                       "probability": 0.9996337890625,
+                       "start": 238.81,
+                       "text": " Lernprozess"
+                   },
+                   {
+                       "end": 239.81,
+                       "probability": 0.99658203125,
+                       "start": 239.45,
+                       "text": " von"
+                   },
+                   {
+                       "end": 240.37,
+                       "probability": 0.9716796875,
+                       "start": 239.81,
+                       "text": " außen"
+                   },
+                   {
+                       "end": 240.75,
+                       "probability": 0.99853515625,
+                       "start": 240.37,
+                       "text": " nach"
+                   },
+                   {
+                       "end": 241.13,
+                       "probability": 1.0,
+                       "start": 240.75,
+                       "text": " innen."
+                   }
+               ]
+           },
+           {
+               "end": 246.58,
+               "start": 243.92,
+               "text": " Dazu lesen wir die Tabelle von links nach rechts.",
+               "words": [
+                   {
+                       "end": 244.16,
+                       "probability": 0.99951171875,
+                       "start": 243.92,
+                       "text": " Dazu"
+                   },
+                   {
+                       "end": 244.98,
+                       "probability": 0.995849609375,
+                       "start": 244.16,
+                       "text": " lesen"
+                   },
+                   {
+                       "end": 245.06,
+                       "probability": 0.99951171875,
+                       "start": 244.98,
+                       "text": " wir"
+                   },
+                   {
+                       "end": 245.2,
+                       "probability": 1.0,
+                       "start": 245.06,
+                       "text": " die"
+                   },
+                   {
+                       "end": 245.6,
+                       "probability": 0.999267578125,
+                       "start": 245.2,
+                       "text": " Tabelle"
+                   },
+                   {
+                       "end": 245.82,
+                       "probability": 0.99951171875,
+                       "start": 245.6,
+                       "text": " von"
+                   },
+                   {
+                       "end": 246.06,
+                       "probability": 0.99853515625,
+                       "start": 245.82,
+                       "text": " links"
+                   },
+                   {
+                       "end": 246.28,
+                       "probability": 0.99951171875,
+                       "start": 246.06,
+                       "text": " nach"
+                   },
+                   {
+                       "end": 246.58,
+                       "probability": 1.0,
+                       "start": 246.28,
+                       "text": " rechts."
+                   }
+               ]
+           },
+           {
+               "end": 250.48,
+               "start": 247.24,
+               "text": " Dadurch sind alle drei farbigen Ebenen gleichzeitig im Blick.",
+               "words": [
+                   {
+                       "end": 247.54,
+                       "probability": 0.99951171875,
+                       "start": 247.24,
+                       "text": " Dadurch"
+                   },
+                   {
+                       "end": 247.78,
+                       "probability": 1.0,
+                       "start": 247.68,
+                       "text": " sind"
+                   },
+                   {
+                       "end": 248.04,
+                       "probability": 0.99951171875,
+                       "start": 247.78,
+                       "text": " alle"
+                   },
+                   {
+                       "end": 248.32,
+                       "probability": 0.98291015625,
+                       "start": 248.04,
+                       "text": " drei"
+                   },
+                   {
+                       "end": 249.0,
+                       "probability": 0.9951171875,
+                       "start": 248.32,
+                       "text": " farbigen"
+                   },
+                   {
+                       "end": 249.42,
+                       "probability": 0.9998372395833334,
+                       "start": 249.0,
+                       "text": " Ebenen"
+                   },
+                   {
+                       "end": 249.78,
+                       "probability": 0.99951171875,
+                       "start": 249.42,
+                       "text": " gleichzeitig"
+                   },
+                   {
+                       "end": 250.24,
+                       "probability": 1.0,
+                       "start": 249.78,
+                       "text": " im"
+                   },
+                   {
+                       "end": 250.48,
+                       "probability": 1.0,
+                       "start": 250.24,
+                       "text": " Blick."
+                   }
+               ]
+           },
+           {
+               "end": 255.52,
+               "start": 253.2,
+               "text": " Zuerst sehen wir die Ebene des Zugangs.",
+               "words": [
+                   {
+                       "end": 253.7,
+                       "probability": 0.9988606770833334,
+                       "start": 253.2,
+                       "text": " Zuerst"
+                   },
+                   {
+                       "end": 253.96,
+                       "probability": 0.822265625,
+                       "start": 253.7,
+                       "text": " sehen"
+                   },
+                   {
+                       "end": 254.18,
+                       "probability": 0.99951171875,
+                       "start": 253.96,
+                       "text": " wir"
+                   },
+                   {
+                       "end": 254.34,
+                       "probability": 1.0,
+                       "start": 254.18,
+                       "text": " die"
+                   },
+                   {
+                       "end": 254.74,
+                       "probability": 0.99951171875,
+                       "start": 254.34,
+                       "text": " Ebene"
+                   },
+                   {
+                       "end": 254.88,
+                       "probability": 1.0,
+                       "start": 254.74,
+                       "text": " des"
+                   },
+                   {
+                       "end": 255.52,
+                       "probability": 0.998779296875,
+                       "start": 254.88,
+                       "text": " Zugangs."
+                   }
+               ]
+           },
+           {
+               "end": 259.69,
+               "start": 257.89,
+               "text": " Hier geht es vor allem um das Äußere.",
+               "words": [
+                   {
+                       "end": 257.99,
+                       "probability": 0.99951171875,
+                       "start": 257.89,
+                       "text": " Hier"
+                   },
+                   {
+                       "end": 258.33,
+                       "probability": 1.0,
+                       "start": 257.99,
+                       "text": " geht"
+                   },
+                   {
+                       "end": 258.49,
+                       "probability": 1.0,
+                       "start": 258.33,
+                       "text": " es"
+                   },
+                   {
+                       "end": 258.65,
+                       "probability": 0.99853515625,
+                       "start": 258.49,
+                       "text": " vor"
+                   },
+                   {
+                       "end": 258.93,
+                       "probability": 0.99951171875,
+                       "start": 258.65,
+                       "text": " allem"
+                   },
+                   {
+                       "end": 259.13,
+                       "probability": 1.0,
+                       "start": 258.93,
+                       "text": " um"
+                   },
+                   {
+                       "end": 259.27,
+                       "probability": 0.99951171875,
+                       "start": 259.13,
+                       "text": " das"
+                   },
+                   {
+                       "end": 259.69,
+                       "probability": 0.9973958333333334,
+                       "start": 259.27,
+                       "text": " Äußere."
+                   }
+               ]
+           },
+           {
+               "end": 262.97,
+               "start": 260.43,
+               "text": " Wie gestalte ich zum Beispiel die Lernumgebung,",
+               "words": [
+                   {
+                       "end": 260.53,
+                       "probability": 0.9873046875,
+                       "start": 260.43,
+                       "text": " Wie"
+                   },
+                   {
+                       "end": 261.09,
+                       "probability": 1.0,
+                       "start": 260.53,
+                       "text": " gestalte"
+                   },
+                   {
+                       "end": 261.29,
+                       "probability": 1.0,
+                       "start": 261.09,
+                       "text": " ich"
+                   },
+                   {
+                       "end": 261.47,
+                       "probability": 0.91162109375,
+                       "start": 261.29,
+                       "text": " zum"
+                   },
+                   {
+                       "end": 261.81,
+                       "probability": 1.0,
+                       "start": 261.47,
+                       "text": " Beispiel"
+                   },
+                   {
+                       "end": 262.13,
+                       "probability": 1.0,
+                       "start": 261.81,
+                       "text": " die"
+                   },
+                   {
+                       "end": 262.97,
+                       "probability": 0.9998046875,
+                       "start": 262.13,
+                       "text": " Lernumgebung,"
+                   }
+               ]
+           },
+           {
+               "end": 266.31,
+               "start": 262.99,
+               "text": " die Lerninhalte oder die eingesetzten Medien?",
+               "words": [
+                   {
+                       "end": 263.39,
+                       "probability": 0.99951171875,
+                       "start": 262.99,
+                       "text": " die"
+                   },
+                   {
+                       "end": 264.25,
+                       "probability": 0.999609375,
+                       "start": 263.4,
+                       "text": " Lerninhalte"
+                   },
+                   {
+                       "end": 264.77,
+                       "probability": 0.99853515625,
+                       "start": 264.25,
+                       "text": " oder"
+                   },
+                   {
+                       "end": 265.15,
+                       "probability": 1.0,
+                       "start": 264.77,
+                       "text": " die"
+                   },
+                   {
+                       "end": 265.89,
+                       "probability": 0.9988606770833334,
+                       "start": 265.15,
+                       "text": " eingesetzten"
+                   },
+                   {
+                       "end": 266.31,
+                       "probability": 0.99658203125,
+                       "start": 265.89,
+                       "text": " Medien?"
+                   }
+               ]
+           },
+           {
+               "end": 268.69,
+               "start": 267.93,
+               "text": " Dann",
+               "words": [
+                   {
+                       "end": 268.69,
+                       "probability": 0.7646484375,
+                       "start": 267.93,
+                       "text": " Dann"
+                   }
+               ]
+           },
+           {
+               "end": 270.27,
+               "start": 269.27,
+               "text": " kommt die Ebene der Entwicklung.",
+               "words": [
+                   {
+                       "end": 269.37,
+                       "probability": 0.9970703125,
+                       "start": 269.27,
+                       "text": " kommt"
+                   },
+                   {
+                       "end": 269.51,
+                       "probability": 0.99951171875,
+                       "start": 269.37,
+                       "text": " die"
+                   },
+                   {
+                       "end": 269.83,
+                       "probability": 0.99951171875,
+                       "start": 269.51,
+                       "text": " Ebene"
+                   },
+                   {
+                       "end": 269.93,
+                       "probability": 0.99951171875,
+                       "start": 269.83,
+                       "text": " der"
+                   },
+                   {
+                       "end": 270.27,
+                       "probability": 0.99951171875,
+                       "start": 269.93,
+                       "text": " Entwicklung."
+                   }
+               ]
+           },
+           {
+               "end": 272.99,
+               "start": 271.23,
+               "text": " Wie bleiben Lernende im Lernprozess?",
+               "words": [
+                   {
+                       "end": 271.33,
+                       "probability": 0.88525390625,
+                       "start": 271.23,
+                       "text": " Wie"
+                   },
+                   {
+                       "end": 271.71,
+                       "probability": 0.99853515625,
+                       "start": 271.33,
+                       "text": " bleiben"
+                   },
+                   {
+                       "end": 272.17,
+                       "probability": 0.9801432291666666,
+                       "start": 271.71,
+                       "text": " Lernende"
+                   },
+                   {
+                       "end": 272.35,
+                       "probability": 0.99951171875,
+                       "start": 272.17,
+                       "text": " im"
+                   },
+                   {
+                       "end": 272.99,
+                       "probability": 1.0,
+                       "start": 272.35,
+                       "text": " Lernprozess?"
+                   }
+               ]
+           },
+           {
+               "end": 276.91,
+               "start": 273.21,
+               "text": " Wie unterstützen Medien den Ausdruck und die Kommunikation?",
+               "words": [
+                   {
+                       "end": 273.63,
+                       "probability": 0.79638671875,
+                       "start": 273.21,
+                       "text": " Wie"
+                   },
+                   {
+                       "end": 274.05,
+                       "probability": 0.9990234375,
+                       "start": 273.66,
+                       "text": " unterstützen"
+                   },
+                   {
+                       "end": 274.53,
+                       "probability": 0.9990234375,
+                       "start": 274.05,
+                       "text": " Medien"
+                   },
+                   {
+                       "end": 274.97,
+                       "probability": 0.99951171875,
+                       "start": 274.53,
+                       "text": " den"
+                   },
+                   {
+                       "end": 275.59,
+                       "probability": 1.0,
+                       "start": 274.97,
+                       "text": " Ausdruck"
+                   },
+                   {
+                       "end": 275.95,
+                       "probability": 0.99951171875,
+                       "start": 275.59,
+                       "text": " und"
+                   },
+                   {
+                       "end": 276.05,
+                       "probability": 1.0,
+                       "start": 275.95,
+                       "text": " die"
+                   },
+                   {
+                       "end": 276.91,
+                       "probability": 1.0,
+                       "start": 276.05,
+                       "text": " Kommunikation?"
+                   }
+               ]
+           },
+           {
+               "end": 282.22,
+               "start": 279.39,
+               "text": " Ganz unten in der Tabelle ist die Ebene der Verinnerlichung.",
+               "words": [
+                   {
+                       "end": 279.49,
+                       "probability": 0.9990234375,
+                       "start": 279.39,
+                       "text": " Ganz"
+                   },
+                   {
+                       "end": 279.75,
+                       "probability": 1.0,
+                       "start": 279.49,
+                       "text": " unten"
+                   },
+                   {
+                       "end": 279.91,
+                       "probability": 0.99951171875,
+                       "start": 279.75,
+                       "text": " in"
+                   },
+                   {
+                       "end": 280.03,
+                       "probability": 1.0,
+                       "start": 279.91,
+                       "text": " der"
+                   },
+                   {
+                       "end": 280.49,
+                       "probability": 0.99951171875,
+                       "start": 280.03,
+                       "text": " Tabelle"
+                   },
+                   {
+                       "end": 280.83,
+                       "probability": 0.99951171875,
+                       "start": 280.73,
+                       "text": " ist"
+                   },
+                   {
+                       "end": 281.01,
+                       "probability": 1.0,
+                       "start": 280.83,
+                       "text": " die"
+                   },
+                   {
+                       "end": 281.41,
+                       "probability": 0.999755859375,
+                       "start": 281.01,
+                       "text": " Ebene"
+                   },
+                   {
+                       "end": 281.57,
+                       "probability": 1.0,
+                       "start": 281.41,
+                       "text": " der"
+                   },
+                   {
+                       "end": 282.22,
+                       "probability": 0.9991455078125,
+                       "start": 281.57,
+                       "text": " Verinnerlichung."
+                   }
+               ]
+           },
+           {
+               "end": 285.85,
+               "start": 283.2,
+               "text": " Unten steht also das Innere des Lernens.",
+               "words": [
+                   {
+                       "end": 283.49,
+                       "probability": 0.99951171875,
+                       "start": 283.2,
+                       "text": " Unten"
+                   },
+                   {
+                       "end": 283.71,
+                       "probability": 1.0,
+                       "start": 283.49,
+                       "text": " steht"
+                   },
+                   {
+                       "end": 284.03,
+                       "probability": 0.99951171875,
+                       "start": 283.71,
+                       "text": " also"
+                   },
+                   {
+                       "end": 284.41,
+                       "probability": 0.998046875,
+                       "start": 284.03,
+                       "text": " das"
+                   },
+                   {
+                       "end": 284.87,
+                       "probability": 0.998046875,
+                       "start": 284.41,
+                       "text": " Innere"
+                   },
+                   {
+                       "end": 285.13,
+                       "probability": 1.0,
+                       "start": 284.87,
+                       "text": " des"
+                   },
+                   {
+                       "end": 285.85,
+                       "probability": 1.0,
+                       "start": 285.13,
+                       "text": " Lernens."
+                   }
+               ]
+           },
+           {
+               "end": 289.2,
+               "start": 288.22,
+               "text": " Hierbei geht es darum,",
+               "words": [
+                   {
+                       "end": 288.46,
+                       "probability": 0.99169921875,
+                       "start": 288.22,
+                       "text": " Hierbei"
+                   },
+                   {
+                       "end": 288.68,
+                       "probability": 1.0,
+                       "start": 288.46,
+                       "text": " geht"
+                   },
+                   {
+                       "end": 288.82,
+                       "probability": 1.0,
+                       "start": 288.68,
+                       "text": " es"
+                   },
+                   {
+                       "end": 289.2,
+                       "probability": 1.0,
+                       "start": 288.82,
+                       "text": " darum,"
+                   }
+               ]
+           },
+           {
+               "end": 294.44,
+               "start": 289.4,
+               "text": " wie können Lernende ihren Lernprozess selbstständig organisieren und strukturieren.",
+               "words": [
+                   {
+                       "end": 289.86,
+                       "probability": 1.0,
+                       "start": 289.4,
+                       "text": " wie"
+                   },
+                   {
+                       "end": 290.16,
+                       "probability": 0.99755859375,
+                       "start": 289.88,
+                       "text": " können"
+                   },
+                   {
+                       "end": 290.64,
+                       "probability": 0.9970703125,
+                       "start": 290.16,
+                       "text": " Lernende"
+                   },
+                   {
+                       "end": 290.88,
+                       "probability": 0.99951171875,
+                       "start": 290.64,
+                       "text": " ihren"
+                   },
+                   {
+                       "end": 291.56,
+                       "probability": 1.0,
+                       "start": 290.88,
+                       "text": " Lernprozess"
+                   },
+                   {
+                       "end": 292.54,
+                       "probability": 0.9934895833333334,
+                       "start": 291.56,
+                       "text": " selbstständig"
+                   },
+                   {
+                       "end": 293.36,
+                       "probability": 0.999755859375,
+                       "start": 292.54,
+                       "text": " organisieren"
+                   },
+                   {
+                       "end": 293.7,
+                       "probability": 0.99951171875,
+                       "start": 293.36,
+                       "text": " und"
+                   },
+                   {
+                       "end": 294.44,
+                       "probability": 0.9996744791666666,
+                       "start": 293.7,
+                       "text": " strukturieren."
+                   }
+               ]
+           },
+           {
+               "end": 297.4,
+               "start": 295.1,
+               "text": " Wie unterstützen Medien das Verständnis?",
+               "words": [
+                   {
+                       "end": 295.2,
+                       "probability": 0.99755859375,
+                       "start": 295.1,
+                       "text": " Wie"
+                   },
+                   {
+                       "end": 295.92,
+                       "probability": 0.9990234375,
+                       "start": 295.2,
+                       "text": " unterstützen"
+                   },
+                   {
+                       "end": 296.38,
+                       "probability": 0.99951171875,
+                       "start": 295.92,
+                       "text": " Medien"
+                   },
+                   {
+                       "end": 296.74,
+                       "probability": 1.0,
+                       "start": 296.38,
+                       "text": " das"
+                   },
+                   {
+                       "end": 297.4,
+                       "probability": 1.0,
+                       "start": 296.74,
+                       "text": " Verständnis?"
+                   }
+               ]
+           },
+           {
+               "end": 301.77,
+               "start": 300.1,
+               "text": " Zuletzt steht eine Zusammenfassung.",
+               "words": [
+                   {
+                       "end": 300.49,
+                       "probability": 0.9744466145833334,
+                       "start": 300.1,
+                       "text": " Zuletzt"
+                   },
+                   {
+                       "end": 300.69,
+                       "probability": 0.9912109375,
+                       "start": 300.49,
+                       "text": " steht"
+                   },
+                   {
+                       "end": 300.91,
+                       "probability": 1.0,
+                       "start": 300.69,
+                       "text": " eine"
+                   },
+                   {
+                       "end": 301.77,
+                       "probability": 0.9998372395833334,
+                       "start": 300.91,
+                       "text": " Zusammenfassung."
+                   }
+               ]
+           },
+           {
+               "end": 305.13,
+               "start": 302.26,
+               "text": " Ziel ist die Entwicklung von LernexpertInnen.",
+               "words": [
+                   {
+                       "end": 302.79,
+                       "probability": 0.986328125,
+                       "start": 302.26,
+                       "text": " Ziel"
+                   },
+                   {
+                       "end": 303.11,
+                       "probability": 1.0,
+                       "start": 302.79,
+                       "text": " ist"
+                   },
+                   {
+                       "end": 303.43,
+                       "probability": 1.0,
+                       "start": 303.26,
+                       "text": " die"
+                   },
+                   {
+                       "end": 303.75,
+                       "probability": 1.0,
+                       "start": 303.43,
+                       "text": " Entwicklung"
+                   },
+                   {
+                       "end": 304.17,
+                       "probability": 1.0,
+                       "start": 303.75,
+                       "text": " von"
+                   },
+                   {
+                       "end": 305.13,
+                       "probability": 0.9967447916666666,
+                       "start": 304.17,
+                       "text": " LernexpertInnen."
+                   }
+               ]
+           },
+           {
+               "end": 316.86,
+               "start": 308.16,
+               "text": " LernexpertInnen sind Lernende, welche die Umsetzung des UDL beherrschen und auf den jeweiligen Ebenen folgende Eigenschaften besitzen.",
+               "words": [
+                   {
+                       "end": 308.96,
+                       "probability": 0.9998372395833334,
+                       "start": 308.16,
+                       "text": " LernexpertInnen"
+                   },
+                   {
+                       "end": 309.36,
+                       "probability": 0.99951171875,
+                       "start": 308.96,
+                       "text": " sind"
+                   },
+                   {
+                       "end": 309.86,
+                       "probability": 0.9996744791666666,
+                       "start": 309.36,
+                       "text": " Lernende,"
+                   },
+                   {
+                       "end": 310.5,
+                       "probability": 0.99951171875,
+                       "start": 310.0,
+                       "text": " welche"
+                   },
+                   {
+                       "end": 310.66,
+                       "probability": 1.0,
+                       "start": 310.5,
+                       "text": " die"
+                   },
+                   {
+                       "end": 311.18,
+                       "probability": 0.9990234375,
+                       "start": 310.66,
+                       "text": " Umsetzung"
+                   },
+                   {
+                       "end": 311.46,
+                       "probability": 0.99951171875,
+                       "start": 311.18,
+                       "text": " des"
+                   },
+                   {
+                       "end": 312.3,
+                       "probability": 0.9690755208333334,
+                       "start": 311.46,
+                       "text": " UDL"
+                   },
+                   {
+                       "end": 313.46,
+                       "probability": 0.9991455078125,
+                       "start": 312.3,
+                       "text": " beherrschen"
+                   },
+                   {
+                       "end": 313.7,
+                       "probability": 0.99951171875,
+                       "start": 313.46,
+                       "text": " und"
+                   },
+                   {
+                       "end": 313.86,
+                       "probability": 0.99951171875,
+                       "start": 313.7,
+                       "text": " auf"
+                   },
+                   {
+                       "end": 313.98,
+                       "probability": 0.828125,
+                       "start": 313.86,
+                       "text": " den"
+                   },
+                   {
+                       "end": 314.56,
+                       "probability": 1.0,
+                       "start": 313.98,
+                       "text": " jeweiligen"
+                   },
+                   {
+                       "end": 314.98,
+                       "probability": 0.9998372395833334,
+                       "start": 314.56,
+                       "text": " Ebenen"
+                   },
+                   {
+                       "end": 315.6,
+                       "probability": 0.999755859375,
+                       "start": 314.98,
+                       "text": " folgende"
+                   },
+                   {
+                       "end": 316.34,
+                       "probability": 0.9998372395833334,
+                       "start": 315.6,
+                       "text": " Eigenschaften"
+                   },
+                   {
+                       "end": 316.86,
+                       "probability": 0.9952799479166666,
+                       "start": 316.34,
+                       "text": " besitzen."
+                   }
+               ]
+           },
+           {
+               "end": 324.29,
+               "start": 319.35,
+               "text": " LernexpertInnen sind auf der Ebene des Lernengagements vielstrebig und motiviert.",
+               "words": [
+                   {
+                       "end": 320.15,
+                       "probability": 1.0,
+                       "start": 319.35,
+                       "text": " LernexpertInnen"
+                   },
+                   {
+                       "end": 320.63,
+                       "probability": 1.0,
+                       "start": 320.53,
+                       "text": " sind"
+                   },
+                   {
+                       "end": 320.75,
+                       "probability": 1.0,
+                       "start": 320.63,
+                       "text": " auf"
+                   },
+                   {
+                       "end": 320.87,
+                       "probability": 1.0,
+                       "start": 320.75,
+                       "text": " der"
+                   },
+                   {
+                       "end": 321.29,
+                       "probability": 0.999755859375,
+                       "start": 320.87,
+                       "text": " Ebene"
+                   },
+                   {
+                       "end": 321.43,
+                       "probability": 0.99853515625,
+                       "start": 321.29,
+                       "text": " des"
+                   },
+                   {
+                       "end": 322.05,
+                       "probability": 0.8740234375,
+                       "start": 321.43,
+                       "text": " Lernengagements"
+                   },
+                   {
+                       "end": 323.19,
+                       "probability": 0.8953857421875,
+                       "start": 322.05,
+                       "text": " vielstrebig"
+                   },
+                   {
+                       "end": 323.59,
+                       "probability": 0.99951171875,
+                       "start": 323.19,
+                       "text": " und"
+                   },
+                   {
+                       "end": 324.29,
+                       "probability": 0.999755859375,
+                       "start": 323.59,
+                       "text": " motiviert."
+                   }
+               ]
+           },
+           {
+               "end": 332.38,
+               "start": 327.24,
+               "text": " LernexpertInnen sind auf der Ebene der Informationen einfallsreich und sachkundig.",
+               "words": [
+                   {
+                       "end": 328.04,
+                       "probability": 1.0,
+                       "start": 327.24,
+                       "text": " LernexpertInnen"
+                   },
+                   {
+                       "end": 328.44,
+                       "probability": 1.0,
+                       "start": 328.04,
+                       "text": " sind"
+                   },
+                   {
+                       "end": 328.56,
+                       "probability": 1.0,
+                       "start": 328.44,
+                       "text": " auf"
+                   },
+                   {
+                       "end": 328.66,
+                       "probability": 1.0,
+                       "start": 328.56,
+                       "text": " der"
+                   },
+                   {
+                       "end": 329.04,
+                       "probability": 1.0,
+                       "start": 328.66,
+                       "text": " Ebene"
+                   },
+                   {
+                       "end": 329.22,
+                       "probability": 1.0,
+                       "start": 329.04,
+                       "text": " der"
+                   },
+                   {
+                       "end": 329.56,
+                       "probability": 0.65576171875,
+                       "start": 329.22,
+                       "text": " Informationen"
+                   },
+                   {
+                       "end": 330.86,
+                       "probability": 0.974609375,
+                       "start": 329.56,
+                       "text": " einfallsreich"
+                   },
+                   {
+                       "end": 331.46,
+                       "probability": 1.0,
+                       "start": 331.36,
+                       "text": " und"
+                   },
+                   {
+                       "end": 332.38,
+                       "probability": 0.9791259765625,
+                       "start": 331.46,
+                       "text": " sachkundig."
+                   }
+               ]
+           },
+           {
+               "end": 340.66,
+               "start": 335.2,
+               "text": " LernexpertInnen sind auf der Ebene der Informationsverarbeitung strategisch und zielführend.",
+               "words": [
+                   {
+                       "end": 335.86,
+                       "probability": 0.99072265625,
+                       "start": 335.2,
+                       "text": " LernexpertInnen"
+                   },
+                   {
+                       "end": 336.24,
+                       "probability": 1.0,
+                       "start": 335.86,
+                       "text": " sind"
+                   },
+                   {
+                       "end": 336.4,
+                       "probability": 1.0,
+                       "start": 336.24,
+                       "text": " auf"
+                   },
+                   {
+                       "end": 336.48,
+                       "probability": 1.0,
+                       "start": 336.4,
+                       "text": " der"
+                   },
+                   {
+                       "end": 336.88,
+                       "probability": 1.0,
+                       "start": 336.48,
+                       "text": " Ebene"
+                   },
+                   {
+                       "end": 337.04,
+                       "probability": 1.0,
+                       "start": 336.88,
+                       "text": " der"
+                   },
+                   {
+                       "end": 338.46,
+                       "probability": 0.99990234375,
+                       "start": 337.04,
+                       "text": " Informationsverarbeitung"
+                   },
+                   {
+                       "end": 339.6,
+                       "probability": 0.99951171875,
+                       "start": 338.46,
+                       "text": " strategisch"
+                   },
+                   {
+                       "end": 339.9,
+                       "probability": 0.99951171875,
+                       "start": 339.8,
+                       "text": " und"
+                   },
+                   {
+                       "end": 340.66,
+                       "probability": 0.9998046875,
+                       "start": 339.9,
+                       "text": " zielführend."
+                   }
+               ]
+           },
+           {
+               "end": 345.09,
+               "start": 343.27,
+               "text": " Um diese LernexpertInnen zu erreichen,",
+               "words": [
+                   {
+                       "end": 343.37,
+                       "probability": 0.99951171875,
+                       "start": 343.27,
+                       "text": " Um"
+                   },
+                   {
+                       "end": 343.65,
+                       "probability": 1.0,
+                       "start": 343.37,
+                       "text": " diese"
+                   },
+                   {
+                       "end": 344.65,
+                       "probability": 0.9998372395833334,
+                       "start": 343.65,
+                       "text": " LernexpertInnen"
+                   },
+                   {
+                       "end": 344.81,
+                       "probability": 1.0,
+                       "start": 344.65,
+                       "text": " zu"
+                   },
+                   {
+                       "end": 345.09,
+                       "probability": 1.0,
+                       "start": 344.81,
+                       "text": " erreichen,"
+                   }
+               ]
+           },
+           {
+               "end": 347.29,
+               "start": 345.51,
+               "text": " lesen wir die Tabelle von U,",
+               "words": [
+                   {
+                       "end": 346.17,
+                       "probability": 0.99853515625,
+                       "start": 345.51,
+                       "text": " lesen"
+                   },
+                   {
+                       "end": 346.25,
+                       "probability": 0.9990234375,
+                       "start": 346.17,
+                       "text": " wir"
+                   },
+                   {
+                       "end": 346.39,
+                       "probability": 1.0,
+                       "start": 346.25,
+                       "text": " die"
+                   },
+                   {
+                       "end": 346.85,
+                       "probability": 0.9990234375,
+                       "start": 346.39,
+                       "text": " Tabelle"
+                   },
+                   {
+                       "end": 347.01,
+                       "probability": 0.7197265625,
+                       "start": 346.85,
+                       "text": " von"
+                   },
+                   {
+                       "end": 347.29,
+                       "probability": 0.97900390625,
+                       "start": 347.01,
+                       "text": " U,"
+                   }
+               ]
+           },
+           {
+               "end": 352.17,
+               "start": 347.47,
+               "text": " D, L immer von oben nach unten und gleichzeitig auch von links nach rechts.",
+               "words": [
+                   {
+                       "end": 347.77,
+                       "probability": 0.9970703125,
+                       "start": 347.47,
+                       "text": " D,"
+                   },
+                   {
+                       "end": 348.25,
+                       "probability": 1.0,
+                       "start": 347.93,
+                       "text": " L"
+                   },
+                   {
+                       "end": 348.89,
+                       "probability": 0.99755859375,
+                       "start": 348.25,
+                       "text": " immer"
+                   },
+                   {
+                       "end": 349.11,
+                       "probability": 1.0,
+                       "start": 348.89,
+                       "text": " von"
+                   },
+                   {
+                       "end": 349.43,
+                       "probability": 1.0,
+                       "start": 349.11,
+                       "text": " oben"
+                   },
+                   {
+                       "end": 349.55,
+                       "probability": 1.0,
+                       "start": 349.43,
+                       "text": " nach"
+                   },
+                   {
+                       "end": 349.87,
+                       "probability": 1.0,
+                       "start": 349.55,
+                       "text": " unten"
+                   },
+                   {
+                       "end": 350.27,
+                       "probability": 0.99951171875,
+                       "start": 349.87,
+                       "text": " und"
+                   },
+                   {
+                       "end": 350.63,
+                       "probability": 1.0,
+                       "start": 350.27,
+                       "text": " gleichzeitig"
+                   },
+                   {
+                       "end": 350.99,
+                       "probability": 1.0,
+                       "start": 350.63,
+                       "text": " auch"
+                   },
+                   {
+                       "end": 351.31,
+                       "probability": 1.0,
+                       "start": 350.99,
+                       "text": " von"
+                   },
+                   {
+                       "end": 351.59,
+                       "probability": 1.0,
+                       "start": 351.31,
+                       "text": " links"
+                   },
+                   {
+                       "end": 351.83,
+                       "probability": 1.0,
+                       "start": 351.59,
+                       "text": " nach"
+                   },
+                   {
+                       "end": 352.17,
+                       "probability": 1.0,
+                       "start": 351.83,
+                       "text": " rechts."
+                   }
+               ]
+           },
+           {
+               "end": 357.59,
+               "start": 354.28,
+               "text": " Denn die oberen Ebenen sind immer Voraussetzungen,",
+               "words": [
+                   {
+                       "end": 354.47,
+                       "probability": 0.99658203125,
+                       "start": 354.28,
+                       "text": " Denn"
+                   },
+                   {
+                       "end": 355.09,
+                       "probability": 0.99658203125,
+                       "start": 354.47,
+                       "text": " die"
+                   },
+                   {
+                       "end": 355.63,
+                       "probability": 1.0,
+                       "start": 355.1,
+                       "text": " oberen"
+                   },
+                   {
+                       "end": 356.05,
+                       "probability": 0.9996744791666666,
+                       "start": 355.63,
+                       "text": " Ebenen"
+                   },
+                   {
+                       "end": 356.45,
+                       "probability": 1.0,
+                       "start": 356.05,
+                       "text": " sind"
+                   },
+                   {
+                       "end": 356.65,
+                       "probability": 1.0,
+                       "start": 356.45,
+                       "text": " immer"
+                   },
+                   {
+                       "end": 357.59,
+                       "probability": 0.99208984375,
+                       "start": 356.65,
+                       "text": " Voraussetzungen,"
+                   }
+               ]
+           },
+           {
+               "end": 359.15,
+               "start": 357.61,
+               "text": " um das untere zu erreichen.",
+               "words": [
+                   {
+                       "end": 357.85,
+                       "probability": 1.0,
+                       "start": 357.61,
+                       "text": " um"
+                   },
+                   {
+                       "end": 357.93,
+                       "probability": 1.0,
+                       "start": 357.85,
+                       "text": " das"
+                   },
+                   {
+                       "end": 358.39,
+                       "probability": 0.990966796875,
+                       "start": 357.93,
+                       "text": " untere"
+                   },
+                   {
+                       "end": 358.77,
+                       "probability": 0.99951171875,
+                       "start": 358.39,
+                       "text": " zu"
+                   },
+                   {
+                       "end": 359.15,
+                       "probability": 1.0,
+                       "start": 358.77,
+                       "text": " erreichen."
+                   }
+               ]
+           },
+           {
+               "end": 359.54,
+               "start": 359.15,
+               "text": " Beispiel.",
+               "words": [
+                   {
+                       "end": 359.54,
+                       "probability": 0.89404296875,
+                       "start": 359.15,
+                       "text": " Beispiel."
+                   }
+               ]
+           },
+           {
+               "end": 366.57,
+               "start": 362.45,
+               "text": " Wenn die Lernumgebung nicht sinnvoll und ansprechend gestaltet ist,",
+               "words": [
+                   {
+                       "end": 363.09,
+                       "probability": 0.57373046875,
+                       "start": 362.45,
+                       "text": " Wenn"
+                   },
+                   {
+                       "end": 363.25,
+                       "probability": 0.9990234375,
+                       "start": 363.1,
+                       "text": " die"
+                   },
+                   {
+                       "end": 364.03,
+                       "probability": 0.99892578125,
+                       "start": 363.25,
+                       "text": " Lernumgebung"
+                   },
+                   {
+                       "end": 364.25,
+                       "probability": 1.0,
+                       "start": 364.03,
+                       "text": " nicht"
+                   },
+                   {
+                       "end": 364.73,
+                       "probability": 1.0,
+                       "start": 364.25,
+                       "text": " sinnvoll"
+                   },
+                   {
+                       "end": 365.07,
+                       "probability": 1.0,
+                       "start": 364.73,
+                       "text": " und"
+                   },
+                   {
+                       "end": 365.79,
+                       "probability": 0.9996744791666666,
+                       "start": 365.07,
+                       "text": " ansprechend"
+                   },
+                   {
+                       "end": 366.27,
+                       "probability": 0.9677734375,
+                       "start": 365.79,
+                       "text": " gestaltet"
+                   },
+                   {
+                       "end": 366.57,
+                       "probability": 1.0,
+                       "start": 366.27,
+                       "text": " ist,"
+                   }
+               ]
+           },
+           {
+               "end": 368.43,
+               "start": 367.22,
+               "text": " lernen die Lernenden nicht,",
+               "words": [
+                   {
+                       "end": 367.39,
+                       "probability": 0.99853515625,
+                       "start": 367.22,
+                       "text": " lernen"
+                   },
+                   {
+                       "end": 367.67,
+                       "probability": 1.0,
+                       "start": 367.39,
+                       "text": " die"
+                   },
+                   {
+                       "end": 368.11,
+                       "probability": 0.9899088541666666,
+                       "start": 367.67,
+                       "text": " Lernenden"
+                   },
+                   {
+                       "end": 368.43,
+                       "probability": 1.0,
+                       "start": 368.11,
+                       "text": " nicht,"
+                   }
+               ]
+           },
+           {
+               "end": 371.69,
+               "start": 368.61,
+               "text": " den Lernprozess selbst reguliert zu gestalten.",
+               "words": [
+                   {
+                       "end": 369.01,
+                       "probability": 0.99951171875,
+                       "start": 368.61,
+                       "text": " den"
+                   },
+                   {
+                       "end": 369.69,
+                       "probability": 1.0,
+                       "start": 369.02,
+                       "text": " Lernprozess"
+                   },
+                   {
+                       "end": 370.05,
+                       "probability": 1.0,
+                       "start": 369.69,
+                       "text": " selbst"
+                   },
+                   {
+                       "end": 370.75,
+                       "probability": 0.982666015625,
+                       "start": 370.05,
+                       "text": " reguliert"
+                   },
+                   {
+                       "end": 371.13,
+                       "probability": 0.99951171875,
+                       "start": 370.75,
+                       "text": " zu"
+                   },
+                   {
+                       "end": 371.69,
+                       "probability": 1.0,
+                       "start": 371.13,
+                       "text": " gestalten."
+                   }
+               ]
+           },
+           {
+               "end": 377.66,
+               "start": 374.38,
+               "text": " Das war ein erster Einblick in das Universal Design for Learning.",
+               "words": [
+                   {
+                       "end": 374.48,
+                       "probability": 0.99951171875,
+                       "start": 374.38,
+                       "text": " Das"
+                   },
+                   {
+                       "end": 374.66,
+                       "probability": 0.99951171875,
+                       "start": 374.48,
+                       "text": " war"
+                   },
+                   {
+                       "end": 374.8,
+                       "probability": 0.998046875,
+                       "start": 374.66,
+                       "text": " ein"
+                   },
+                   {
+                       "end": 375.22,
+                       "probability": 0.999755859375,
+                       "start": 374.8,
+                       "text": " erster"
+                   },
+                   {
+                       "end": 375.64,
+                       "probability": 1.0,
+                       "start": 375.22,
+                       "text": " Einblick"
+                   },
+                   {
+                       "end": 375.82,
+                       "probability": 1.0,
+                       "start": 375.64,
+                       "text": " in"
+                   },
+                   {
+                       "end": 375.92,
+                       "probability": 1.0,
+                       "start": 375.82,
+                       "text": " das"
+                   },
+                   {
+                       "end": 376.26,
+                       "probability": 0.99658203125,
+                       "start": 375.92,
+                       "text": " Universal"
+                   },
+                   {
+                       "end": 376.92,
+                       "probability": 0.99951171875,
+                       "start": 376.26,
+                       "text": " Design"
+                   },
+                   {
+                       "end": 377.3,
+                       "probability": 0.99658203125,
+                       "start": 376.92,
+                       "text": " for"
+                   },
+                   {
+                       "end": 377.66,
+                       "probability": 1.0,
+                       "start": 377.3,
+                       "text": " Learning."
+                   }
+               ]
+           },
+           {
+               "end": 378.74,
+               "start": 377.98,
+               "text": " Wenn",
+               "words": [
+                   {
+                       "end": 378.74,
+                       "probability": 0.99951171875,
+                       "start": 377.98,
+                       "text": " Wenn"
+                   }
+               ]
+           },
+           {
+               "end": 383.23,
+               "start": 380.75,
+               "text": " du noch mehr über das UDL wissen möchtest,",
+               "words": [
+                   {
+                       "end": 380.87,
+                       "probability": 0.8837890625,
+                       "start": 380.75,
+                       "text": " du"
+                   },
+                   {
+                       "end": 381.05,
+                       "probability": 1.0,
+                       "start": 380.87,
+                       "text": " noch"
+                   },
+                   {
+                       "end": 381.25,
+                       "probability": 1.0,
+                       "start": 381.05,
+                       "text": " mehr"
+                   },
+                   {
+                       "end": 381.65,
+                       "probability": 1.0,
+                       "start": 381.25,
+                       "text": " über"
+                   },
+                   {
+                       "end": 381.89,
+                       "probability": 0.99951171875,
+                       "start": 381.65,
+                       "text": " das"
+                   },
+                   {
+                       "end": 382.39,
+                       "probability": 0.8857421875,
+                       "start": 381.89,
+                       "text": " UDL"
+                   },
+                   {
+                       "end": 382.61,
+                       "probability": 0.990234375,
+                       "start": 382.39,
+                       "text": " wissen"
+                   },
+                   {
+                       "end": 383.23,
+                       "probability": 0.9998372395833334,
+                       "start": 382.61,
+                       "text": " möchtest,"
+                   }
+               ]
+           },
+           {
+               "end": 386.05,
+               "start": 383.78,
+               "text": " besuche die Website der UDL Guidelines,",
+               "words": [
+                   {
+                       "end": 383.97,
+                       "probability": 0.98681640625,
+                       "start": 383.78,
+                       "text": " besuche"
+                   },
+                   {
+                       "end": 384.15,
+                       "probability": 1.0,
+                       "start": 383.97,
+                       "text": " die"
+                   },
+                   {
+                       "end": 384.69,
+                       "probability": 0.98486328125,
+                       "start": 384.15,
+                       "text": " Website"
+                   },
+                   {
+                       "end": 384.99,
+                       "probability": 0.99951171875,
+                       "start": 384.69,
+                       "text": " der"
+                   },
+                   {
+                       "end": 385.45,
+                       "probability": 0.9990234375,
+                       "start": 384.99,
+                       "text": " UDL"
+                   },
+                   {
+                       "end": 386.05,
+                       "probability": 0.9287109375,
+                       "start": 385.45,
+                       "text": " Guidelines,"
+                   }
+               ]
+           },
+           {
+               "end": 389.69,
+               "start": 386.25,
+               "text": " udlguidelines.cast.org.",
+               "words": [
+                   {
+                       "end": 387.53,
+                       "probability": 0.98125,
+                       "start": 386.25,
+                       "text": " udlguidelines"
+                   },
+                   {
+                       "end": 388.55,
+                       "probability": 0.994873046875,
+                       "start": 387.53,
+                       "text": ".cast"
+                   },
+                   {
+                       "end": 389.69,
+                       "probability": 0.999755859375,
+                       "start": 388.55,
+                       "text": ".org."
+                   }
+               ]
+           },
+           {
+               "end": 390.75,
+               "start": 389.69,
+               "text": " Idee",
+               "words": [
+                   {
+                       "end": 390.75,
+                       "probability": 0.84912109375,
+                       "start": 389.69,
+                       "text": " Idee"
+                   }
+               ]
+           },
+           {
+               "end": 394.83,
+               "start": 392.51,
+               "text": " und Konzeption Jule Günther,",
+               "words": [
+                   {
+                       "end": 392.83,
+                       "probability": 0.9990234375,
+                       "start": 392.51,
+                       "text": " und"
+                   },
+                   {
+                       "end": 393.53,
+                       "probability": 0.9996744791666666,
+                       "start": 392.83,
+                       "text": " Konzeption"
+                   },
+                   {
+                       "end": 394.29,
+                       "probability": 0.876708984375,
+                       "start": 393.53,
+                       "text": " Jule"
+                   },
+                   {
+                       "end": 394.83,
+                       "probability": 0.995361328125,
+                       "start": 394.29,
+                       "text": " Günther,"
+                   }
+               ]
+           },
+           {
+               "end": 400.91,
+               "start": 394.89,
+               "text": " Insa Menke, Muriel Punschak, Universität Bielefeld im Rahmen des Projekts Schaffel",
+               "words": [
+                   {
+                       "end": 395.39,
+                       "probability": 0.932861328125,
+                       "start": 394.89,
+                       "text": " Insa"
+                   },
+                   {
+                       "end": 395.73,
+                       "probability": 0.9814453125,
+                       "start": 395.39,
+                       "text": " Menke,"
+                   },
+                   {
+                       "end": 396.59,
+                       "probability": 0.92919921875,
+                       "start": 395.95,
+                       "text": " Muriel"
+                   },
+                   {
+                       "end": 397.21,
+                       "probability": 0.6460774739583334,
+                       "start": 396.59,
+                       "text": " Punschak,"
+                   },
+                   {
+                       "end": 398.03,
+                       "probability": 0.98974609375,
+                       "start": 397.31,
+                       "text": " Universität"
+                   },
+                   {
+                       "end": 398.61,
+                       "probability": 0.9996744791666666,
+                       "start": 398.03,
+                       "text": " Bielefeld"
+                   },
+                   {
+                       "end": 399.17,
+                       "probability": 0.74755859375,
+                       "start": 398.61,
+                       "text": " im"
+                   },
+                   {
+                       "end": 399.43,
+                       "probability": 1.0,
+                       "start": 399.17,
+                       "text": " Rahmen"
+                   },
+                   {
+                       "end": 399.65,
+                       "probability": 1.0,
+                       "start": 399.43,
+                       "text": " des"
+                   },
+                   {
+                       "end": 400.31,
+                       "probability": 0.9993489583333334,
+                       "start": 399.65,
+                       "text": " Projekts"
+                   },
+                   {
+                       "end": 400.91,
+                       "probability": 0.8234049479166666,
+                       "start": 400.31,
+                       "text": " Schaffel"
+                   }
+               ]
+           }
+       ],
+       "text": " Dieses Video ist eine Einführung in das Modell des Universal Design for Learning. Die Abkürzung dafür ist UDL. Wir stellen grundlegende Prinzipien und Annahmen des UDL vor. Für eine vollständige Vorstellung ist das Modell jedoch zu komplex. Das Universal Design for Learning basiert auf dem Modell Universal Design. Auf Deutsch heißt das Design für alle. Universal Design kommt ursprünglich aus der Architektur. Ziel in der Architektur ist die Gestaltung von Kaufhäusern und öffentlichen Orten, sodass möglichst alle Personen diese Orte nutzen können. Das Universal Design for Learning überträgt diesen Gedanken auf Curricula. Es geht nicht mehr um physisch existierende Orte, sondern um Lernen, Lehrpläne und Lerninhalte. Curricula sollen alle Lernenden in ihrem Lernprozess unterstützen. Verschiedene Lernprozesse von verschiedenen Menschen finden bereits in der Konzeption Berücksichtigung. So sind individuelle Anpassungen im Nachhinein nur selten notwendig. Das gilt auch für Medienwelten. Sie sollen von Beginn an für alle zugänglich sein. Wenn wir Curricula mit dem UDL betrachten, achten wir auf Folgendes. Wo sind Barrieren oder Probleme für das Lernen? Finden verschiedene Voraussetzungen Berücksichtigung? Wo gibt es Alternativen in der Gestaltung von Lerninhalten? Als nächstes stellen wir die verschiedenen Ebenen des Universal Design for Learning in Anlehnung an CAST vor. Das Modell ist als Tabelle mit drei Spalten dargestellt. Jede Spalte steht für eine Ebene. Die erste Ebene heißt Lernengagement. Sie findet sich in einer grünen Spalte. Diese Ebene betrachtet, warum wir lernen. Es geht darum, das Lerninteresse und die Motivation der des Lernenden zu fördern. Medien können dies zum Beispiel durch vielfältige, interaktive Elemente leisten. Sie setzen außerdem an Erfahrung aus dem Alltag an. Die zweite Ebene heißt Information. Sie findet sich in einer lila Spalte. Diese Ebene betrachtet, was wir lernen. Es geht darum, Informationen darzustellen und wahrzunehmen. Medien können hierbei die Wahlmöglichkeiten der Darstellungen erweitern. Die dritte Ebene heißt Informationsverarbeitung und Interaktion mit Lerngegenständen. Sie findet sich in einer blauen Spalte. Diese Ebene betrachtet, wie wir lernen. Es geht darum, mit Lerngegenständen zu interagieren und den Prozess des Lernens zu unterstützen. Mithilfe von Medien erweitern sich die Wege der Kommunikation und die Möglichkeiten Transparenz zu schaffen. Nun gibt es zwei Arten die Tabelle des Modells zu lesen. Bei Möglichkeit 1 liegt der Fokus auf einer Förderung der drei verschiedenen Ebenen, die wir zuvor in den drei verschiedenen Farben vorgestellt haben. Wir lesen jede Spalte, also jede Farbe für sich und von oben nach unten. Bei Möglichkeit 2 liegt der Fokus auf einem Lernprozess von außen nach innen. Dazu lesen wir die Tabelle von links nach rechts. Dadurch sind alle drei farbigen Ebenen gleichzeitig im Blick. Zuerst sehen wir die Ebene des Zugangs. Hier geht es vor allem um das Äußere. Wie gestalte ich zum Beispiel die Lernumgebung, die Lerninhalte oder die eingesetzten Medien? Dann kommt die Ebene der Entwicklung. Wie bleiben Lernende im Lernprozess? Wie unterstützen Medien den Ausdruck und die Kommunikation? Ganz unten in der Tabelle ist die Ebene der Verinnerlichung. Unten steht also das Innere des Lernens. Hierbei geht es darum, wie können Lernende ihren Lernprozess selbstständig organisieren und strukturieren. Wie unterstützen Medien das Verständnis? Zuletzt steht eine Zusammenfassung. Ziel ist die Entwicklung von LernexpertInnen. LernexpertInnen sind Lernende, welche die Umsetzung des UDL beherrschen und auf den jeweiligen Ebenen folgende Eigenschaften besitzen. LernexpertInnen sind auf der Ebene des Lernengagements vielstrebig und motiviert. LernexpertInnen sind auf der Ebene der Informationen einfallsreich und sachkundig. LernexpertInnen sind auf der Ebene der Informationsverarbeitung strategisch und zielführend. Um diese LernexpertInnen zu erreichen, lesen wir die Tabelle von U, D, L immer von oben nach unten und gleichzeitig auch von links nach rechts. Denn die oberen Ebenen sind immer Voraussetzungen, um das untere zu erreichen. Beispiel. Wenn die Lernumgebung nicht sinnvoll und ansprechend gestaltet ist, lernen die Lernenden nicht, den Lernprozess selbst reguliert zu gestalten. Das war ein erster Einblick in das Universal Design for Learning. Wenn du noch mehr über das UDL wissen möchtest, besuche die Website der UDL Guidelines, udlguidelines.cast.org. Idee und Konzeption Jule Günther, Insa Menke, Muriel Punschak, Universität Bielefeld im Rahmen des Projekts Schaffel"
+   },
+   "transcription_id": "087a11d5-899f-4bc5-b71a-905e4e57ea83"
+}

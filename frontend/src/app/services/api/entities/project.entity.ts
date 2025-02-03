@@ -49,6 +49,7 @@ export interface Resolution {
 }
 
 export interface VideoEntity extends MediaEntity {
+  url: string;
   resolutions: Resolution[];
 }
 

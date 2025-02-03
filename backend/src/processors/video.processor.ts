@@ -44,8 +44,6 @@ export class VideoProcessor {
       return;
     }
 
-    // TODO check if file exists
-
     const fileExists = await exists(filepath);
     if (!fileExists) {
       this.logger.error(`Can't process file, file does not exist: ${filepath}`);

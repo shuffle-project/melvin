@@ -36,7 +36,7 @@
       </trans-unit>
       <trans-unit id="projectListCreateProjectButtonLabel" datatype="html">
         <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;plus&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/> New project </source>
-        <target state="new"> <x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;plus&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/> Neues Projekt</target>
+        <target state="final"> <x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;plus&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/> Neues Projekt</target>
       </trans-unit>
       <trans-unit id="projectListTableHeaderTitleLabel" datatype="html">
         <source> Title </source>
@@ -72,15 +72,15 @@
       </trans-unit>
       <trans-unit id="projectListMoreMenuLeaveLabel" datatype="html">
         <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;leave&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/> Leave </source>
-        <target state="new"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;edit&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/> Verlassen </target>
+        <target state="final"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;edit&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/> Verlassen </target>
       </trans-unit>
       <trans-unit id="projectListMoreMenuShareLabel" datatype="html">
         <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;share&quot; /&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;share&quot; /&gt;"/> Share </source>
-        <target state="new"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;share&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/> Teilen </target>
+        <target state="final"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;share&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/> Teilen </target>
       </trans-unit>
       <trans-unit id="projectListMoreMenuDeleteLabel" datatype="html">
         <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;delete&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/> Delete </source>
-        <target state="new"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;delete&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/> Löschen </target>
+        <target state="final"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;delete&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/> Löschen </target>
       </trans-unit>
       <trans-unit id="projectListFilterAllProjects" datatype="html">
         <source> All Projects </source>
@@ -144,11 +144,11 @@
       </trans-unit>
       <trans-unit id="editorMenuFileDownloadLabel" datatype="html">
         <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;download&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/> Download </source>
-        <target state="new"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="D"/> Herunterladen </target>
+        <target state="final"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;download&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/> Herunterladen </target>
       </trans-unit>
       <trans-unit id="editorMenuFileDeleteLabel" datatype="html">
         <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;delete&quot; /&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;delete&quot; /&gt;"/> Delete </source>
-        <target state="new"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="D"/> Löschen </target>
+        <target state="final"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;delete&quot; /&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;delete&quot; /&gt;"/> Löschen </target>
       </trans-unit>
       <trans-unit id="editorMenuTranscriptionLabel" datatype="html">
         <source> Transcription </source>
@@ -156,47 +156,19 @@
       </trans-unit>
       <trans-unit id="editorMenuTranscriptionEditLabel" datatype="html">
         <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;edit&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/> Edit Transcriptions </source>
-        <target state="new"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon"/> Transkriptionen bearbeiten </target>
+        <target state="final"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;edit&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/> Transkriptionen bearbeiten </target>
       </trans-unit>
       <trans-unit id="editorShareProjectButtonLabel" datatype="html">
         <source> Share </source>
         <target state="final"> Freigeben </target>
       </trans-unit>
-      <trans-unit id="captionsAddNewSpeakerButtonLabel" datatype="html">
+      <trans-unit id="editSpeakerMenuButtonLabel" datatype="html">
         <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;add&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/> Add speaker </source>
         <target state="final"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;add&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/> Sprecher*in hinzufügen </target>
       </trans-unit>
-      <trans-unit id="captionsNewSpeakerNameLabel" datatype="html">
-        <source>New speaker name</source>
-        <target state="final">Neuer Name</target>
-      </trans-unit>
-      <trans-unit id="captionsAddSpeakerButtonLabel" datatype="html">
-        <source> Add </source>
-        <target state="final"> Hinzufügen </target>
-      </trans-unit>
-      <trans-unit id="editSpeakerModalNameRequiredError" datatype="html">
-        <source>You must enter a name</source>
-        <target state="final">Sie müssen einen Namen eingeben</target>
-      </trans-unit>
-      <trans-unit id="editSpeakerModalNameAlreadyExists" datatype="html">
-        <source>Name already exists</source>
-        <target state="final">Name existiert bereits</target>
-      </trans-unit>
-      <trans-unit id="videoSettingsTooltip" datatype="html">
-        <source>Video settings</source>
-        <target state="final">Video Einstellungen</target>
-      </trans-unit>
-      <trans-unit id="videoPictureInPictureTooltip" datatype="html">
-        <source>Show video in seperate window</source>
-        <target state="final">Video in einem seperaten Fenster anzeigen.</target>
-      </trans-unit>
-      <trans-unit id="videoPlaybackSpeedLabel" datatype="html">
-        <source>Playback speed</source>
+      <trans-unit id="videoControlsPlaybackSpeedMenuTitle" datatype="html">
+        <source> Playback Speed </source>
         <target state="final">Wiedergabegeschwindigkeit</target>
-      </trans-unit>
-      <trans-unit id="videoMuteUnmuteSoundTooltip" datatype="html">
-        <source>Mute or unmute Sound</source>
-        <target state="final">Ton ein- oder ausschalten</target>
       </trans-unit>
       <trans-unit id="inviteCardSubtitleInvalidInvite" datatype="html">
         <source>Project invitation</source>
@@ -216,7 +188,7 @@
       </trans-unit>
       <trans-unit id="inviteFromMessage" datatype="html">
         <source> You were invited by <x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span class=&quot;bold&quot;&gt;"/><x id="INTERPOLATION" equiv-text="{{ invite.userName }}"/><x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span&gt;"/> participate in a project. </source>
-        <target state="new">Sie wurden von <x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span class=&quot;bold&quot;&gt;"/><x id="INTERPOLATION" equiv-text="}}"/><x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="to join a"/> zu einem Projekt eingeladen. </target>
+        <target state="final">Sie wurden von <x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span class=&quot;bold&quot;&gt;"/><x id="INTERPOLATION" equiv-text="}}"/><x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="to join a"/> zu einem Projekt eingeladen. </target>
       </trans-unit>
       <trans-unit id="guestLoginDialogHeader" datatype="html">
         <source>Login as Guest</source>
@@ -315,12 +287,12 @@
         <target state="final">Erstellt von</target>
       </trans-unit>
       <trans-unit id="projectTranscriptionAlignButtonLabel" datatype="html">
-        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;refresh&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/> Align </source>
-        <target state="new"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt; Edit"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="Edit"/> Align </target>
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;refresh&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/> Synchronize timestamps </source>
+        <target state="final"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt; Edit"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="Edit"/> Zeitstempel synchronizieren </target>
       </trans-unit>
       <trans-unit id="projectTranscriptionDeleteButtonLabel" datatype="html">
         <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;delete&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/> Delete </source>
-        <target state="new"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt; Delete"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="Del"/> Löschen </target>
+        <target state="final"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt; Delete"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="Del"/> Löschen </target>
       </trans-unit>
       <trans-unit id="dialogProjectTranscriptionSubheading" datatype="html">
         <source>Transcriptions</source>
@@ -332,7 +304,7 @@
       </trans-unit>
       <trans-unit id="projectTranscriptionOpenButtonLabel" datatype="html">
         <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;open-transcript&quot; /&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;open-transcript&quot; /&gt;"/> Open </source>
-        <target state="new"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt; Open"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="Ope"/> Öffnen </target>
+        <target state="final"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;open-transcript&quot; /&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;open-transcript&quot; /&gt;"/> Öffnen </target>
       </trans-unit>
       <trans-unit id="projectListMoreMenuAriaLabel" datatype="html">
         <source>Open/Close menu</source>
@@ -344,7 +316,7 @@
       </trans-unit>
       <trans-unit id="projectTranscriptionDownloadButtonLabel" datatype="html">
         <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;download&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/> Download </source>
-        <target state="new"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt; Dow"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="Downl"/> Download </target>
+        <target state="final"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;download&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/> Herunterladen </target>
       </trans-unit>
       <trans-unit id="activityVideoProcessingFinishedDescription" datatype="html">
         <source>Video was processed successfully.</source>
@@ -390,13 +362,9 @@
         <source> Show all notifications </source>
         <target state="final"> Zeige alle Benachrichtigungen </target>
       </trans-unit>
-      <trans-unit id="headerMenuProfileButtonTooltip" datatype="html">
-        <source>Go to your Profile</source>
-        <target state="final">Gehe zum Profil</target>
-      </trans-unit>
       <trans-unit id="headerMenuProfileButton" datatype="html">
         <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;person&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/>Profile </source>
-        <target state="new"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon"/> Profil </target>
+        <target state="final"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon"/> Profil </target>
       </trans-unit>
       <trans-unit id="headerMenuLogoutButtonTooltip" datatype="html">
         <source>Logout</source>
@@ -404,7 +372,7 @@
       </trans-unit>
       <trans-unit id="headerMenuLogoutButton" datatype="html">
         <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;logout&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/>Logout </source>
-        <target state="new"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="Logout"/>Abmelden </target>
+        <target state="final"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="Logout"/>Abmelden </target>
       </trans-unit>
       <trans-unit id="notificationListTitle" datatype="html">
         <source>Notifications</source>
@@ -428,7 +396,7 @@
       </trans-unit>
       <trans-unit id="viewerAdjustLayoutDialogTitle" datatype="html">
         <source>Transcript settings</source>
-        <target state="new">Layout anpassen</target>
+        <target state="final">Layout anpassen</target>
       </trans-unit>
       <trans-unit id="viewerAdjustLayoutDialogSettingsHint" datatype="html">
         <source> The settings are applied directly. </source>
@@ -440,7 +408,7 @@
       </trans-unit>
       <trans-unit id="viewerCaptionsSettingsDialogTitle" datatype="html">
         <source>Caption settings</source>
-        <target state="new"> Darstellung der Untertitel </target>
+        <target state="final"> Darstellung der Untertitel </target>
       </trans-unit>
       <trans-unit id="viewerCaptionsSettingsDialogHint" datatype="html">
         <source> The settings are applied directly. </source>
@@ -504,7 +472,7 @@
       </trans-unit>
       <trans-unit id="viewerCaptionsSettingsDialogPositionOptionOver" datatype="html">
         <source> In front of the video </source>
-        <target state="new"> Vor dem Video </target>
+        <target state="final"> Vor dem Video </target>
       </trans-unit>
       <trans-unit id="viewerCaptionsSettingsDialogExampletext" datatype="html">
         <source> Example text: This is what the subtitles will look like. </source>
@@ -552,7 +520,7 @@
       </trans-unit>
       <trans-unit id="uploadAdditionalMediaUploadButton" datatype="html">
         <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;upload&quot; /&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;upload&quot; /&gt;"/> Upload </source>
-        <target state="new"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="Uploa"/> Hochladen </target>
+        <target state="final"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="Uploa"/> Hochladen </target>
       </trans-unit>
       <trans-unit id="uploadAdditionalMediaUploadingHeader" datatype="html">
         <source>Uploading</source>
@@ -620,7 +588,7 @@
       </trans-unit>
       <trans-unit id="createTranscriptionDialogTabUploadLabel" datatype="html">
         <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;upload&quot; class=&quot;tab-icon&quot; /&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;upload&quot; class=&quot;tab-icon&quot; /&gt;"/> Upload </source>
-        <target state="new"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="/ng-template&gt;"/> Hochladen </target>
+        <target state="final"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="/ng-template&gt;"/> Hochladen </target>
       </trans-unit>
       <trans-unit id="uploadFilesFormRemoveFileAriaLabel" datatype="html">
         <source>Remove file</source>
@@ -700,7 +668,7 @@
       </trans-unit>
       <trans-unit id="createTranscriptionDialogTabCopyLabel" datatype="html">
         <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;copy-file&quot; class=&quot;tab-icon&quot; /&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;copy-file&quot; class=&quot;tab-icon&quot; /&gt;"/> Copy </source>
-        <target state="new"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="n&quot; /&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="g-template&gt;"/> Kopie </target>
+        <target state="final"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="n&quot; /&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="g-template&gt;"/> Kopie </target>
       </trans-unit>
       <trans-unit id="createTranscriptionDialogSubmitButtonLabel" datatype="html">
         <source> Create transcription </source>
@@ -712,7 +680,7 @@
       </trans-unit>
       <trans-unit id="createTranscriptionDialogTabEmptyFileLabel" datatype="html">
         <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;add&quot; class=&quot;tab-icon&quot; /&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;add&quot; class=&quot;tab-icon&quot; /&gt;"/> Empty file </source>
-        <target state="new"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/ng-template&gt;"/> Leere Datei </target>
+        <target state="final"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/ng-template&gt;"/> Leere Datei </target>
       </trans-unit>
       <trans-unit id="viewerAdjustLayoutDialogCloseButton" datatype="html">
         <source>Close</source>
@@ -804,7 +772,7 @@
       </trans-unit>
       <trans-unit id="recorderNoAudioAdded" datatype="html">
         <source><x id="START_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;i&gt;"/>No audio source added<x id="CLOSE_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;/i&gt;"/></source>
-        <target state="new"><x id="START_ITALIC_TEXT" ctype="x-i" equiv-text="No audio source added&lt;/i"/>Keine Audioquelle hinzugefügt<x id="CLOSE_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;/i&gt;"/></target>
+        <target state="final"><x id="START_ITALIC_TEXT" ctype="x-i" equiv-text="No audio source added&lt;/i"/>Keine Audioquelle hinzugefügt<x id="CLOSE_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;/i&gt;"/></target>
       </trans-unit>
       <trans-unit id="recorderAddAudioSourceButton" datatype="html">
         <source> Add audio source </source>
@@ -816,7 +784,7 @@
       </trans-unit>
       <trans-unit id="recorderNoVideoAdded" datatype="html">
         <source><x id="START_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;i&gt;"/>No video source added<x id="CLOSE_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;/i&gt;"/></source>
-        <target state="new"><x id="START_ITALIC_TEXT" ctype="x-i" equiv-text="No video source added&lt;/i"/>Keine Videoquelle hinzugefügt<x id="CLOSE_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;/i&gt;"/></target>
+        <target state="final"><x id="START_ITALIC_TEXT" ctype="x-i" equiv-text="No video source added&lt;/i"/>Keine Videoquelle hinzugefügt<x id="CLOSE_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;/i&gt;"/></target>
       </trans-unit>
       <trans-unit id="recorderAddVideoSourceButton" datatype="html">
         <source> Add video source </source>
@@ -828,7 +796,7 @@
       </trans-unit>
       <trans-unit id="recorderNoScreensharingAdded" datatype="html">
         <source><x id="START_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;i&gt;"/>No screensharing source added<x id="CLOSE_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;/i&gt;"/></source>
-        <target state="new"><x id="START_ITALIC_TEXT" ctype="x-i" equiv-text="No screensharing source added&lt;/i"/>Keine Bildschirmfreigabe hinzugefügt<x id="CLOSE_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;/i&gt;"/></target>
+        <target state="final"><x id="START_ITALIC_TEXT" ctype="x-i" equiv-text="No screensharing source added&lt;/i"/>Keine Bildschirmfreigabe hinzugefügt<x id="CLOSE_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;/i&gt;"/></target>
       </trans-unit>
       <trans-unit id="recorderAddScreensharingButton" datatype="html">
         <source> Add screensharing source </source>
@@ -856,7 +824,7 @@
       </trans-unit>
       <trans-unit id="uploadRecordingFileHeader" datatype="html">
         <source><x id="START_BLOCK_IF" equiv-text="@if(i ===0){"/> Main Video and Audio <x id="CLOSE_BLOCK_IF" equiv-text="}"/><x id="START_BLOCK_ELSE" equiv-text="@else {"/> Additional Video <x id="CLOSE_BLOCK_ELSE" equiv-text="}"/></source>
-        <target state="new"><x id="START_BLOCK_IF" equiv-text="Metadata and main v"/> Metadaten und Hauptvideo <x id="CLOSE_BLOCK_IF" equiv-text="}"/><x id="START_BLOCK_ELSE" equiv-text="@else {"/> Aditional Video <x id="CLOSE_BLOCK_ELSE" equiv-text="}"/></target>
+        <target state="final"><x id="START_BLOCK_IF" equiv-text="Metadata and main v"/> Metadaten und Hauptvideo <x id="CLOSE_BLOCK_IF" equiv-text="}"/><x id="START_BLOCK_ELSE" equiv-text="@else {"/> Aditional Video <x id="CLOSE_BLOCK_ELSE" equiv-text="}"/></target>
       </trans-unit>
       <trans-unit id="uploadRecordingSuccessfullyUploaded" datatype="html">
         <source> Successfully uploaded! </source>
@@ -880,7 +848,7 @@
       </trans-unit>
       <trans-unit id="uploadRecordingAllSuccessfulHint" datatype="html">
         <source> The project has been successfully created, you can now close this dialog! You will find the project in the project list, but it may still be being processed. </source>
-        <target state="new"> Das Projekt wurde erfolgreich erstellt, Sie können diesen Dialog nun schließen. Schließen Sie diesen Dialog! Sie finden das Projekt in der Projektliste, es befindet sich aber möglicherweise noch in der Bearbeitung. </target>
+        <target state="final"> Das Projekt wurde erfolgreich erstellt, Sie können diesen Dialog nun schließen. Sie finden das Projekt in der Projektliste, es befindet sich aber möglicherweise noch in der Bearbeitung. </target>
       </trans-unit>
       <trans-unit id="uploadRecordingDownloadFilesButton" datatype="html">
         <source> Download recordings locally </source>
@@ -924,7 +892,7 @@
       </trans-unit>
       <trans-unit id="recorderAddAudioSourceRetryBtn" datatype="html">
         <source> Retry <x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;repeat&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/></source>
-        <target state="new"> Erneut versuchen <x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;repeat&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/button&gt;"/></target>
+        <target state="final"> Erneut versuchen <x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;repeat&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/button&gt;"/></target>
       </trans-unit>
       <trans-unit id="recorderAddScreensharingTitle" datatype="html">
         <source> Add Screensharing </source>
@@ -972,7 +940,7 @@
       </trans-unit>
       <trans-unit id="recorderAddScreensharingRetryBtn" datatype="html">
         <source> Retry <x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;repeat&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/></source>
-        <target state="new"> Erneut versuchen <x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;repeat&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/button&gt;"/></target>
+        <target state="final"> Erneut versuchen <x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;repeat&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/button&gt;"/></target>
       </trans-unit>
       <trans-unit id="recorderAddVideoSourceTitle" datatype="html">
         <source>Add Videosource</source>
@@ -1000,7 +968,7 @@
       </trans-unit>
       <trans-unit id="recorderAddVideoSourceRetryButton" datatype="html">
         <source> Retry <x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;repeat&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/></source>
-        <target state="new"> Erneut <x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;repeat&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/button&gt;"/></target>
+        <target state="final"> Erneut <x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;repeat&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/button&gt;"/></target>
       </trans-unit>
       <trans-unit id="viewerControlsLanguageMenuTooltip" datatype="html">
         <source>Show language menu</source>
@@ -1168,11 +1136,11 @@
       </trans-unit>
       <trans-unit id="inviteCollaboratorShareLinkButton" datatype="html">
         <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;public&quot; /&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;public&quot; /&gt;"/> Copy link </source>
-        <target state="new"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/button&gt;"/> Link kopieren </target>
+        <target state="final"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/button&gt;"/> Link kopieren </target>
       </trans-unit>
       <trans-unit id="inviteCollaboratorGenerateNewLinkButton" datatype="html">
         <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;change&quot; /&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;change&quot; /&gt;"/> Generate new link, revoke old one </source>
-        <target state="new"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="Genera"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="link, revoke old"/> Neuen Link erstellen, alten widerrufen </target>
+        <target state="final"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="Genera"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="link, revoke old"/> Neuen Link erstellen, alten widerrufen </target>
       </trans-unit>
       <trans-unit id="inviteCollaboratorNewLinkSuccess" datatype="html">
         <source>New link generated</source>
@@ -1248,19 +1216,19 @@
       </trans-unit>
       <trans-unit id="projectListMoreMenuMediaLabel" datatype="html">
         <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;media&quot; /&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;media&quot; /&gt;"/> Media </source>
-        <target state="new"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;media&quot; /&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;media&quot; /&gt;"/> Medien </target>
+        <target state="final"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;media&quot; /&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;media&quot; /&gt;"/> Medien </target>
       </trans-unit>
       <trans-unit id="projectListMoreMenuActivityLabel" datatype="html">
         <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;activity&quot; /&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;activity&quot; /&gt;"/> Activity </source>
-        <target state="new"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;activity&quot; /&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;activity&quot; /&gt;"/> Verlauf </target>
+        <target state="final"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;activity&quot; /&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;activity&quot; /&gt;"/> Verlauf </target>
       </trans-unit>
       <trans-unit id="sharePlayerShareLinkButton" datatype="html">
         <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;public&quot; /&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;public&quot; /&gt;"/> Copy link </source>
-        <target state="new"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/button&gt;"/> Link kopieren </target>
+        <target state="final"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/button&gt;"/> Link kopieren </target>
       </trans-unit>
       <trans-unit id="sharePlayerGenerateNewLinkButton" datatype="html">
         <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;change&quot; /&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;change&quot; /&gt;"/> Generate new link, revoke old one </source>
-        <target state="new"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="G"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="ink, revoke old o"/> Neuen Link erstellen, alten widerrufen </target>
+        <target state="final"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="G"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="ink, revoke old o"/> Neuen Link erstellen, alten widerrufen </target>
       </trans-unit>
       <trans-unit id="sharePlayerCodeAriaLabel" datatype="html">
         <source>Embed videoplayer code</source>
@@ -1600,7 +1568,7 @@
       </trans-unit>
       <trans-unit id="projectTranscriptionEditButtonLabel" datatype="html">
         <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;edit&quot; /&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;edit&quot; /&gt;"/> Edit </source>
-        <target state="new"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="Edit"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="n&gt; &lt;button"/> Bearbeiten </target>
+        <target state="final"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="Edit"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="n&gt; &lt;button"/> Bearbeiten </target>
       </trans-unit>
       <trans-unit id="projectTranscriptionDownloadTranscriptButtonLabel" datatype="html">
         <source> Transcript (.txt) </source>
@@ -1800,11 +1768,11 @@
       </trans-unit>
       <trans-unit id="uploadAdditionalMediaDownloadButtonLabel" datatype="html">
         <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;download&quot; /&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;download&quot; /&gt;"/> Download </source>
-        <target state="new"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="Download"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="utton&gt; } @if"/> Herunterladen </target>
+        <target state="final"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="Download"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="utton&gt; } @if"/> Herunterladen </target>
       </trans-unit>
       <trans-unit id="uploadAdditionalMediaDeleteButtonLabel" datatype="html">
         <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;delete&quot; /&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;delete&quot; /&gt;"/> Delete </source>
-        <target state="new"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="Delete"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="/button&gt; &lt;/di"/> Löschen </target>
+        <target state="final"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="Delete"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="/button&gt; &lt;/di"/> Löschen </target>
       </trans-unit>
       <trans-unit id="profileDeleteAccountButtonLabel" datatype="html">
         <source> Delete Account </source>
@@ -1816,15 +1784,15 @@
       </trans-unit>
       <trans-unit id="headerToggleDarkmodeLight" datatype="html">
         <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;light_mode&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/>Light </source>
-        <target state="new"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="Light"/>Hell </target>
+        <target state="final"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="Light"/>Hell </target>
       </trans-unit>
       <trans-unit id="headerToggleDarkmodeSystem" datatype="html">
         <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;system_mode&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/>Auto </source>
-        <target state="new"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="Auto"/>Automatisch </target>
+        <target state="final"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="Auto"/>Automatisch </target>
       </trans-unit>
       <trans-unit id="headerToggleDarkmodeDark" datatype="html">
         <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;dark_mode&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/>Dark </source>
-        <target state="new"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="Dark"/>Dunkel </target>
+        <target state="final"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="Dark"/>Dunkel </target>
       </trans-unit>
       <trans-unit id="landingHeaderToggleDarkmodeToggleMenuButton" datatype="html">
         <source>Open darkmode menu</source>
@@ -1916,11 +1884,11 @@
       </trans-unit>
       <trans-unit id="fromMediaTranscriptionTabHeading" datatype="html">
         <source> Generate a new transcription from media </source>
-        <target state="new"> Generate a new transcription from media </target>
+        <target state="new"> Erzeugen einer neuen Transkription aus einer Mediendatei </target>
       </trans-unit>
       <trans-unit id="fromMediaTranscriptionTabLanguageLabel" datatype="html">
         <source>Language</source>
-        <target state="new">Language</target>
+        <target state="final">Sprache</target>
       </trans-unit>
       <trans-unit id="fromMediaTranscriptionTabLanguageErrorRequired" datatype="html">
         <source>Select a language </source>
@@ -1928,19 +1896,19 @@
       </trans-unit>
       <trans-unit id="fromMediaTranscriptionTabTitleLabel" datatype="html">
         <source>Title</source>
-        <target state="new">Title</target>
+        <target state="final">Titel</target>
       </trans-unit>
       <trans-unit id="fromMediaTranscriptionTabTitleHint" datatype="html">
         <source> Optional (e.g. with audio description) </source>
-        <target state="new"> Optional (e.g. with audio description) </target>
+        <target state="final"> Optional (z.B. mit Audiodeskription) </target>
       </trans-unit>
       <trans-unit id="fromMediaTranscriptionTabFileErrorMaximum" datatype="html">
         <source> Maximum 1 file </source>
-        <target state="new"> Maximum 1 file </target>
+        <target state="final"> Maximal 1 Datei </target>
       </trans-unit>
       <trans-unit id="fromMediaTranscriptionTabFileErrorRequired" datatype="html">
         <source> An audio or video file is required </source>
-        <target state="new"> An audio or video file is required </target>
+        <target state="final"> Eine Audio- oder Videodatei ist erforderlich </target>
       </trans-unit>
       <trans-unit id="fromMediaTranscriptionUploadsInfo" datatype="html">
         <source>Uploads</source>
@@ -1948,7 +1916,7 @@
       </trans-unit>
       <trans-unit id="translateTranscriptionTabHeading" datatype="html">
         <source> Translate an existing transcription </source>
-        <target state="new"> Translate an existing transcription </target>
+        <target state="final"> Eine bestehende Transkription übersetzen </target>
       </trans-unit>
       <trans-unit id="translateTranscriptionTabTranscriptionErrorRequired" datatype="html">
         <source>Select a transcription</source>
@@ -1956,11 +1924,11 @@
       </trans-unit>
       <trans-unit id="translateTranscriptionTabVendorLabel" datatype="html">
         <source>Vendor</source>
-        <target state="new">Vendor</target>
+        <target state="final">Anbieter</target>
       </trans-unit>
       <trans-unit id="translateTranscriptionTabVendorHint" datatype="html">
         <source>Languages are vendor dependent </source>
-        <target state="new">Languages are vendor dependent </target>
+        <target state="final">Sprachen sind Anbieterabhängig </target>
       </trans-unit>
       <trans-unit id="translateTranscriptionTabVendorErrorRequired" datatype="html">
         <source>Select a vendor</source>
@@ -2021,6 +1989,62 @@
       <trans-unit id="editorSettingsUsernamesCheckbox" datatype="html">
         <source>Show Usernames</source>
         <target state="final">Profilnamen anzeigen</target>
+      </trans-unit>
+      <trans-unit id="deleteServiceSubjectSpeaker" datatype="html">
+        <source>Speaker</source>
+        <target state="new">Speaker</target>
+      </trans-unit>
+      <trans-unit id="deleteServiceDescriptionSpeaker" datatype="html">
+        <source>The speaker „<x id="PH" equiv-text="speakerName"/>“ is used in several cases. The corresponding texts will not be affected if you delete it.</source>
+        <target state="new">The speaker „<x id="PH" equiv-text="speakerName"/>“ is used in several cases. The corresponding texts will not be affected if you delete it.</target>
+      </trans-unit>
+      <trans-unit id="tiptap-editorMenuTranscriptionLabel" datatype="html">
+        <source>Transcription</source>
+        <target state="final">Transkription</target>
+      </trans-unit>
+      <trans-unit id="editSpeakerMenuNameLabel" datatype="html">
+        <source>Speaker name</source>
+        <target state="new">Speaker name</target>
+      </trans-unit>
+      <trans-unit id="editSpeakerMenuAtLeastOneProjectError" datatype="html">
+        <source>At least one speaker is required.</source>
+        <target state="final">Mindestens ein Sprecher ist erforderlich.</target>
+      </trans-unit>
+      <trans-unit id="projectListCreateDefaultProjectButtonLabel" datatype="html">
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;plus&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/> Create Exampleproject </source>
+        <target state="final"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;plus&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/> Beispielprojekt erstellen </target>
+      </trans-unit>
+      <trans-unit id="landingHeaderGuideLinkLabel" datatype="html">
+        <source> Guide </source>
+        <target state="final"> Leitfaden </target>
+      </trans-unit>
+      <trans-unit id="GuidePageTitle" datatype="html">
+        <source>Guide - Melvin</source>
+        <target state="final">Leitfaden - Melvin</target>
+      </trans-unit>
+      <trans-unit id="viewerControlsQualityTitle" datatype="html">
+        <source> Max. Resolution </source>
+        <target state="final"> Max. Auflösung </target>
+      </trans-unit>
+      <trans-unit id="projectListCreateDefaultInfotext" datatype="html">
+        <source> There are currently no projects. <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br /&gt;"/> You can either create a new project or an example project. </source>
+        <target state="final"> Es gibt aktuell keine Projekte. <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br /&gt;"/> Du kannst entweder ein neues Projekt oder ein Beispielprojekt erstellen. </target>
+      </trans-unit>
+      <trans-unit id="editorMenuVideosHeader" datatype="html">
+        <source>Videos</source>
+        <target state="final">Videos</target>
+      </trans-unit>
+      <trans-unit id="editorMenuTranscriptionsHeader" datatype="html">
+        <source>Transcripts </source>
+        <target state="final">Transkripte </target>
+      </trans-unit>
+      <trans-unit id="headerMenuStartpageButton" datatype="html">
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;start&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/>Startpage </source>
+        <target state="final"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;start&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/>Startseite </target>
+      </trans-unit>
+      <trans-unit id="headerMenuGuideButton" datatype="html">
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;book&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/>Guide </source>
+        <target state="final"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;book&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/>Leitfaden </target>
       </trans-unit>
     </body>
   </file>

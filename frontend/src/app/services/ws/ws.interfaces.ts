@@ -1,9 +1,8 @@
-import { EditorUserColor } from 'src/app/constants/editor.constants';
+import { EditorUser } from 'src/app/store/reducers/editor.reducer';
 import { CaptionEntity } from '../api/entities/caption.entity';
 import { NotificationEntity } from '../api/entities/notification.entity';
 import { ProjectEntity } from '../api/entities/project.entity';
 import { TranscriptionEntity } from '../api/entities/transcription.entity';
-import { EditorUser } from 'src/app/store/reducers/editor.reducer';
 
 export interface ClientToServerEvents {
   'connection:auth': (payload: { token: string }) => void;

@@ -174,6 +174,11 @@ export class FakeApiService implements ApiService {
     return of({ ...PROJECT_ENTITY_MOCK[0] });
   }
 
+  createDefaultProject(): Observable<any> {
+    this.logger.verbose('createProject default mocked');
+    return of({ ...PROJECT_ENTITY_MOCK[0] });
+  }
+
   deleteMedia(projectId: string, mediaId: string) {
     return of();
   }
@@ -319,6 +324,13 @@ export class FakeApiService implements ApiService {
   createSpeakers(
     transcriptionId: string,
     createSpeakersDto: CreateSpeakersDto
+  ): Observable<TranscriptionEntity> {
+    return of();
+  }
+
+  removeSpeaker(
+    transcriptionId: string,
+    speakerId: string
   ): Observable<TranscriptionEntity> {
     return of();
   }

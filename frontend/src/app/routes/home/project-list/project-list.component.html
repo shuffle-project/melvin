@@ -1,4 +1,4 @@
-<app-header>
+<app-header [actionButtonsAlignRight]="true">
   <h1 i18n="@@projectListProjectListHeader">Project List</h1>
 </app-header>
 <section>
@@ -425,5 +425,29 @@
       [class.disabled]="!isClickable(row)"
     ></tr>
   </table>
+
+  <ng-container *ngrxLet="allProject$ as allProjects">
+    @if(allProjects.length === 0) {
+
+    <div class="new-default-project-button-wrapper">
+      <span i18n="@@projectListCreateDefaultInfotext">
+        There are currently no projects.
+        <br />
+        You can either create a new project or an example project.
+      </span>
+
+      <button
+        mat-flat-button
+        class="new-default-project-button"
+        (click)="onClickCreateDefaultProject()"
+        i18n="@@projectListCreateDefaultProjectButtonLabel"
+      >
+        <mat-icon svgIcon="plus"></mat-icon>
+        Create Exampleproject
+      </button>
+    </div>
+
+    }
+  </ng-container>
 </section>
 <app-landing-footer />

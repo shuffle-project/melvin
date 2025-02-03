@@ -1,9 +1,10 @@
 @if (viewerService.audio) {
 <div class="controls">
-  <div class="video-progress-slider-wrapper">
-    <span class="time-info">{{
-      viewerService.audio.currentTime * 1000 | duration : 'mm:ss'
-    }}</span>
+  <div
+    class="video-progress-slider-wrapper"
+    *ngrxLet="currentProgress$ as currentProgress"
+  >
+    <span class="time-info">{{ currentProgress.time }}</span>
     <mat-slider
       class="video-progress-slider black"
       min="0"
@@ -16,14 +17,12 @@
         aria-label="Video timeline"
         i18n-aria-label="@@viewerControlsTimelineLabel"
         matSliderThumb
-        [value]="viewerService.audio.currentTime"
+        [value]="currentProgress.progress"
         (dragEnd)="onChangeCurrentTime(progressInput.value)"
         (keydown)="onKeypressChangeCurrentTime($event, progressInput.value)"
       />
     </mat-slider>
-    <span class="time-info">{{
-      viewerService.audio.duration * 1000 | duration : 'mm:ss'
-    }}</span>
+    <span class="time-info">{{ currentProgress.duration }}</span>
   </div>
   <div class="main-controls" (mouseleave)="onMouseOutBtn()">
     <div class="left" *ngrxLet="isPlayingUser$ as isPlayingUser">
@@ -503,8 +502,8 @@
         >
           @if(currentSpeed === speed ){
           <mat-icon svgIcon="check"></mat-icon>
-          } @if (speed===1) { Standard } @else {
-          {{ speed }}x }
+          }
+          {{ speed === 1 ? 'Standard' : speed + 'x' }}
         </button>
         }
       </div>

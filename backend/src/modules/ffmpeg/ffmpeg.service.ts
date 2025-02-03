@@ -2,6 +2,8 @@ import { Injectable } from '@nestjs/common';
 import { exec, spawn } from 'child_process';
 import ffmpegPath from 'ffmpeg-static';
 import ffprobePath from 'ffprobe-static';
+import { exists, move } from 'fs-extra';
+import { rm } from 'fs/promises';
 import { join } from 'path';
 import { isSameObjectId } from 'src/utils/objectid';
 import { DbService } from '../db/db.service';
@@ -112,28 +114,75 @@ export class FfmpegService {
       resolution.width,
       resolution.height,
     );
+
     return calculatedResolutions;
   }
 
   _getVideoSettings(resolution: string): string[] {
     switch (resolution) {
       case '240p':
-        return ['-maxrate', '700K', '-bufsize', '1400K', '-b:a', '128K'];
+        return ['-maxrate', '700K', '-bufsize', '1400K'];
       case '360p':
-        return ['-maxrate', '1M', '-bufsize', '2M', '-b:a', '128K'];
+        return ['-maxrate', '1M', '-bufsize', '2M'];
       case '480p':
-        return ['-maxrate', '2.5M', '-bufsize', '5M', '-b:a', '128K'];
+        return ['-maxrate', '2.5M', '-bufsize', '5M'];
       case '720p':
-        return ['-maxrate', '5M', '-bufsize', '10M', '-b:a', '256K'];
+        return ['-maxrate', '5M', '-bufsize', '10M'];
       case '1080p':
-        return ['-maxrate', '8M', '-bufsize', '16M', '-b:a', '256K'];
+        return ['-maxrate', '8M', '-bufsize', '16M'];
       case '1440p':
-        return ['-maxrate', '16M', '-bufsize', '32M', '-b:a', '320K'];
+        return ['-maxrate', '16M', '-bufsize', '32M'];
       case '2160p':
-        return ['-maxrate', '35M', '-bufsize', '70M', '-b:a', '320K'];
+        return ['-maxrate', '35M', '-bufsize', '70M'];
     }
 
     return [];
+  }
+
+  public async processAudioToVideo(
+    projectId: string,
+    inputpath: string,
+    outputpath: string,
+  ): Promise<void> {
+    this.logger.verbose('Converting audio to video: ' + projectId);
+
+    const imgPath = join(
+      this.pathService.getAssetsDirectory(),
+      'coverimage.jpg',
+    );
+
+    if (inputpath === outputpath) {
+      await move(inputpath, inputpath + '_temp');
+      inputpath = inputpath + '_temp';
+    }
+
+    const commands = [
+      // this.ffmpeg,
+      '-loglevel',
+      'error',
+      // error = Show all errors, including ones which can be recovered from.
+      // fatal = Only show fatal errors which could lead the process to crash, such as an assertion failure.
+      '-loop',
+      '1',
+      '-i',
+      imgPath,
+      '-i',
+      `${inputpath}`,
+      '-vf',
+      'scale=426:240',
+      '-tune',
+      'stillimage',
+      '-shortest',
+      outputpath,
+    ];
+    await this.execAsStream(commands);
+
+    if (inputpath.endsWith('_temp')) {
+      const tempFileExists = await exists(inputpath);
+      if (tempFileExists) {
+        await rm(inputpath);
+      }
+    }
   }
 
   public async processVideoFile(
@@ -179,8 +228,9 @@ export class FfmpegService {
           '-c:v',
           'libx264',
           //audio codec
-          '-c:a',
-          'aac',
+          // '-c:a',
+          // 'aac',
+          '-an',
           // preset
           '-preset',
           'fast',
@@ -288,35 +338,36 @@ export class FfmpegService {
   public async _getVideoResolution(
     filepath: string,
   ): Promise<{ width: number; height: number }> {
-    if (filepath.endsWith('mp3') || filepath.endsWith('wav')) {
+    try {
+      const commands = [
+        this.ffprobe, // `ffprobe`,
+        '-loglevel',
+        'fatal',
+        // error = Show all errors, including ones which can be recovered from.
+        // fatal = Only show fatal errors which could lead the process to crash, such as an assertion failure.
+        '-i',
+        `${filepath}`,
+        '-select_streams',
+        'v:0',
+        '-show_entries',
+        'stream=width,height',
+        '-of',
+        'csv=p=0',
+        '-print_format',
+        'json',
+      ];
+
+      const result: string = await this.execShellCommand(commands);
+      const width: number = Math.floor(JSON.parse(result).streams[0]?.width);
+      const height: number = Math.floor(JSON.parse(result).streams[0]?.height);
+      return {
+        width: isNaN(width) ? 0 : width,
+        height: isNaN(height) ? 0 : height,
+      };
+    } catch (e) {
+      this.logger.error('Error getting video resolution. setting to 0:0');
       return { width: 0, height: 0 };
     }
-
-    const commands = [
-      this.ffprobe, // `ffprobe`,
-      '-loglevel',
-      'fatal',
-      // error = Show all errors, including ones which can be recovered from.
-      // fatal = Only show fatal errors which could lead the process to crash, such as an assertion failure.
-      '-i',
-      `${filepath}`,
-      '-select_streams',
-      'v:0',
-      '-show_entries',
-      'stream=width,height',
-      '-of',
-      'csv=p=0',
-      '-print_format',
-      'json',
-    ];
-
-    const result: string = await this.execShellCommand(commands);
-    const width: number = Math.floor(JSON.parse(result).streams[0]?.width);
-    const height: number = Math.floor(JSON.parse(result).streams[0]?.height);
-    return {
-      width: isNaN(width) ? 0 : width,
-      height: isNaN(height) ? 0 : height,
-    };
   }
 
   public async getVideoDuration(projectId: string, video: Video) {
