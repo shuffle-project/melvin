@@ -362,10 +362,6 @@
         <source> Show all notifications </source>
         <target state="final"> Zeige alle Benachrichtigungen </target>
       </trans-unit>
-      <trans-unit id="headerMenuProfileButtonTooltip" datatype="html">
-        <source>Go to your Profile</source>
-        <target state="final">Gehe zum Profil</target>
-      </trans-unit>
       <trans-unit id="headerMenuProfileButton" datatype="html">
         <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;person&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/>Profile </source>
         <target state="final"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon"/> Profil </target>
@@ -2041,6 +2037,14 @@
       <trans-unit id="editorMenuTranscriptionsHeader" datatype="html">
         <source>Transcripts </source>
         <target state="final">Transkripte </target>
+      </trans-unit>
+      <trans-unit id="headerMenuStartpageButton" datatype="html">
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;start&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/>Startpage </source>
+        <target state="final"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;start&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/>Startseite </target>
+      </trans-unit>
+      <trans-unit id="headerMenuGuideButton" datatype="html">
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;book&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/>Guide </source>
+        <target state="final"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;book&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/>Leitfaden </target>
       </trans-unit>
     </body>
   </file>

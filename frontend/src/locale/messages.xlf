@@ -38,9 +38,6 @@
       <trans-unit id="headerShowAllNotifications" datatype="html">
         <source> Show all notifications </source>
       </trans-unit>
-      <trans-unit id="headerMenuProfileButtonTooltip" datatype="html">
-        <source>Go to your Profile</source>
-      </trans-unit>
       <trans-unit id="headerMenuProfileButton" datatype="html">
         <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;person&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/>Profile </source>
       </trans-unit>
@@ -1531,6 +1528,12 @@
       </trans-unit>
       <trans-unit id="editorMenuVideosHeader" datatype="html">
         <source>Videos</source>
+      </trans-unit>
+      <trans-unit id="headerMenuGuideButton" datatype="html">
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;book&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/>Guide </source>
+      </trans-unit>
+      <trans-unit id="headerMenuStartpageButton" datatype="html">
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;start&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/>Startpage </source>
       </trans-unit>
     </body>
   </file>
