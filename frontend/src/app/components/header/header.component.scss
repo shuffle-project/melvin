@@ -19,8 +19,9 @@ header {
   }
 
   .header-buttons {
+    margin-left: auto;
     &.margin-left {
-      margin-left: auto;
+      margin-left: initial;
     }
     display: flex;
     align-items: center;
