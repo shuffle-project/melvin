@@ -16,6 +16,9 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { Store } from '@ngrx/store';
 import {
+  createLocalAudioTrack,
+  createLocalScreenTracks,
+  createLocalVideoTrack,
   RemoteParticipant,
   RemoteTrack,
   RemoteTrackPublication,
@@ -29,8 +32,10 @@ import * as configSelector from '../../../store/selectors/config.selector';
 import { MediaSourceComponent } from './components/media-source/media-source.component';
 import { RecorderService } from './recorder.service';
 
-import { firstValueFrom } from 'rxjs';
+import { firstValueFrom, lastValueFrom } from 'rxjs';
 import { ApiService } from 'src/app/services/api/api.service';
+import { AddAudioSourceComponent } from './dialogs/add-audio-source/add-audio-source.component';
+import { AddVideoSourceComponent } from './dialogs/add-video-source/add-video-source.component';
 
 @Component({
   selector: 'app-recorder',
@@ -94,7 +99,7 @@ export class RecorderComponent implements OnInit, OnDestroy {
         publication: RemoteTrackPublication,
         participant: RemoteParticipant
       ) => {
-        console.log('Track subscribed event', track, publication, participant);
+        // console.log('Track subscribed event', track, publication, participant);
         const element = track.attach();
         this.lalelu.nativeElement.appendChild(element);
       }
@@ -107,7 +112,7 @@ export class RecorderComponent implements OnInit, OnDestroy {
       });
     });
 
-    await this.room.localParticipant.enableCameraAndMicrophone();
+    // await this.room.localParticipant.enableCameraAndMicrophone();
   }
 
   ngOnDestroy(): void {
@@ -115,49 +120,58 @@ export class RecorderComponent implements OnInit, OnDestroy {
     this.room.disconnect(true);
   }
 
-  onAddAudioSource() {
-    // let roomxx = await this.room.connect(url, token, {
-    //   autoSubscribe: false,
-    // });
-    // this.room.on(RoomEvent.TrackPublished, (publication, participant) => {
-    //   publication.setSubscribed(true);
-    // });
-    // // Also subscribe to tracks published before participant joined
-    // this.room.remoteParticipants.forEach((participant) => {
-    //   participant.trackPublications.forEach((publication) => {
-    //     publication.setSubscribed(true);
-    //   });
-    // });
-    // this.dialog.open(AddAudioSourceComponent, {
-    //   data: {},
-    // });
+  async onAddAudioSource() {
+    const selectedAudioDeviceId = await lastValueFrom(
+      this.dialog.open(AddAudioSourceComponent).afterClosed()
+    );
+
+    if (!selectedAudioDeviceId) return;
+
+    const audioTrack = await createLocalAudioTrack({
+      deviceId: selectedAudioDeviceId,
+      echoCancellation: true,
+      noiseSuppression: true,
+    });
+
+    const audioPublication = await this.room.localParticipant.publishTrack(
+      audioTrack
+    );
   }
 
   async onAddVideoSource() {
-    // const videoTrack = await createLocalVideoTrack({
-    //   facingMode: 'user',
-    //   // preset resolutions
-    //   resolution: VideoPresets.h720,
-    // });
-    // const audioTrack = await createLocalAudioTrack({
-    //   echoCancellation: true,
-    //   noiseSuppression: true,
-    // });
-    // const videoPublication = await this.room.localParticipant.publishTrack(
-    //   videoTrack
-    // );
-    // const audioPublication = await this.room.localParticipant.publishTrack(
-    //   audioTrack
-    // );
-    // this.dialog.open(AddVideoSourceComponent, {
-    //   data: {},
-    // });
+    const selectedVideoDeviceId = await lastValueFrom(
+      this.dialog.open(AddVideoSourceComponent).afterClosed()
+    );
+
+    if (!selectedVideoDeviceId) return;
+
+    const videoTrack = await createLocalVideoTrack({
+      deviceId: selectedVideoDeviceId,
+      // TODO resolution? resolution: VideoPresets.h720
+    });
+
+    const videoPublication = await this.room.localParticipant.publishTrack(
+      videoTrack
+    );
   }
 
-  onAddScreenSharingSource() {
-    // this.dialog.open(AddScreensharingSourceComponent, {
-    //   data: {},
-    // });
+  async onAddScreenSharingSource() {
+    // const selectedScreensharingSource: ScreensharingSource =
+    //   await lastValueFrom(
+    //     this.dialog.open(AddScreensharingSourceComponent).afterClosed()
+    //   );
+    // if (!selectedScreensharingSource) return;
+
+    const screensharingTrack = await createLocalScreenTracks({
+      audio: true,
+      video: true,
+    });
+
+    console.log(screensharingTrack);
+
+    // TODO only use first track in array? test
+    const screensharingPublication =
+      await this.room.localParticipant.publishTrack(screensharingTrack[0]);
   }
 
   getCurrentDuration() {

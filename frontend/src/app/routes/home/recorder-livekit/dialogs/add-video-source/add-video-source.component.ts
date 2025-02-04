@@ -148,6 +148,6 @@ export class AddVideoSourceComponent implements OnInit, OnDestroy {
     this.recorderService.videos.push({ ...this.videoSource });
     this.videoSource.mediaStream = null;
 
-    this.dialogRef.close();
+    this.dialogRef.close(this.videoSource.deviceId);
   }
 }
