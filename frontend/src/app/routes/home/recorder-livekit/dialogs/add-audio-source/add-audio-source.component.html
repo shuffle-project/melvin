@@ -1,0 +1,82 @@
+<h2 mat-dialog-title i18n="@@recorderAddAudioSourceTitle">Add Audiosource</h2>
+<mat-dialog-content class="mat-dialog-content">
+  @if (loading) {
+  <div class="flex justify-center" style="margin-top: 1.25rem">
+    <mat-spinner></mat-spinner>
+  </div>
+  } @if (loadingError) {
+  {{ loadingError }}
+  } @if (!loading && !loadingError) {
+  <mat-form-field class="sources-field" style="width: 100%">
+    <mat-label i18n="@@recorderAddAudioSourceSelectionLabel">Sources</mat-label>
+    <mat-select
+      [(ngModel)]="currentInput"
+      (selectionChange)="onSelectionChange()"
+    >
+      @for (audioInput of audioinputs; track audioInput) {
+      <mat-option [value]="audioInput">
+        {{ audioInput.label }}
+      </mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field style="width: 100%">
+    <mat-label i18n="@@recorderAddAudioSourceTitleLabel">Title</mat-label>
+    <input matInput type="text" [(ngModel)]="audioSource.title" />
+  </mat-form-field>
+  <br />
+  @if (deviceError) {
+  {{ deviceError }}
+  } @else if (audioSource.mediaStream) {
+  <div class="audio-wrapper">
+    <audio
+      [srcObject]="audioSource.mediaStream"
+      autoplay
+      [muted]="true"
+    ></audio>
+    <div class="meter-wrapper">
+      <span i18n="@@recorderAddAudioAudioLevel"> Audio level </span>
+      <div class="meter">
+        <app-audio-meter
+          [mediaStream]="audioSource.mediaStream"
+        ></app-audio-meter>
+      </div>
+    </div>
+  </div>
+  } @else {
+  <div
+    class="flex justify-center"
+    style="margin-top: 1.25rem; width: 100%; height: 5rem"
+  >
+    <mat-spinner></mat-spinner>
+  </div>
+  } }
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button
+    mat-stroked-button
+    (click)="onCloseDialog()"
+    i18n="@@recorderAddAudioSourceCancelBtn"
+  >
+    Cancel
+  </button>
+  @if (!loadingError && !loading && !loadingError) {
+  <button
+    mat-flat-button
+    [disabled]="deviceError"
+    (click)="onSubmitDialog()"
+    i18n="@@recorderAddAudioSourceAddBtn"
+  >
+    Add
+  </button>
+  } @if (loadingError) {
+  <button
+    mat-flat-button
+    (click)="onClickTryAgain()"
+    i18n="@@recorderAddAudioSourceRetryBtn"
+  >
+    Retry
+    <mat-icon svgIcon="repeat"></mat-icon>
+  </button>
+  }
+</mat-dialog-actions>

@@ -47,6 +47,7 @@ import { CaptionListEntity } from './entities/caption-list.entity';
 import { CaptionEntity, CaptionHistoryEntity } from './entities/caption.entity';
 import { ConfigEntity } from './entities/config.entity';
 import { ConnectLivestreamEntity } from './entities/connect-livestream.entity';
+import { LivekitAuthEntity } from './entities/livekit.entity';
 import { NotificationListEntity } from './entities/notification-list.entity';
 import { NotificationEntity } from './entities/notification.entity';
 import { PauseLivestreamEntity } from './entities/pause-livestream.entity';
@@ -709,5 +710,10 @@ export class RealApiService implements ApiService {
 
   userTestReset(projectId: string): Observable<void> {
     return this._post('/user-test/reset', { projectId });
+  }
+
+  // livekit
+  getLivekitToken(): Observable<LivekitAuthEntity> {
+    return this._get('/livekit/token');
   }
 }

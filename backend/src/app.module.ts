@@ -9,6 +9,7 @@ import { configuration } from './config/config.load';
 import { DbModule } from './modules/db/db.module';
 import { FfmpegModule } from './modules/ffmpeg/ffmpeg.module';
 import { LoggerModule } from './modules/logger/logger.module';
+import { MediaModule } from './modules/media/media.module';
 import { MigrationModule } from './modules/migration/migration.module';
 import { PathModule } from './modules/path/path.module';
 import { SpeechToTextModule } from './modules/speech-to-text/speech-to-text.module';
@@ -17,17 +18,17 @@ import { TranslationModule } from './modules/translation/translation.module';
 import { LivestreamProcessor } from './processors/livestream.processor';
 import { ProjectProcessor } from './processors/project.processor';
 import { SubtitlesProcessor } from './processors/subtitles.processor';
+import { VideoProcessor } from './processors/video.processor';
 import { ActivityModule } from './resources/activity/activity.module';
 import { AuthModule } from './resources/auth/auth.module';
 import { CaptionModule } from './resources/caption/caption.module';
 import { EventsModule } from './resources/events/events.module';
+import { LivekitModule } from './resources/livekit/livekit.module';
 import { NotificationModule } from './resources/notification/notification.module';
 import { PopulateModule } from './resources/populate/populate.module';
 import { ProjectModule } from './resources/project/project.module';
 import { TranscriptionModule } from './resources/transcription/transcription.module';
 import { UserModule } from './resources/user/user.module';
-import { MediaModule } from './modules/media/media.module';
-import { VideoProcessor } from './processors/video.processor';
 
 @Module({
   imports: [
@@ -80,6 +81,7 @@ import { VideoProcessor } from './processors/video.processor';
     SpeechToTextModule,
     SubtitleFormatModule,
     TranslationModule,
+    LivekitModule,
   ],
   controllers: [AppController],
   providers: [

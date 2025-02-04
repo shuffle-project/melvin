@@ -1,0 +1,46 @@
+.mat-dialog-content {
+  width: 100%;
+  max-width: 37.5rem;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .controls {
+    margin-top: 0.625rem;
+    display: flex;
+    width: 100%;
+    gap: 0.3125rem;
+
+    .title-form-field {
+      width: 60%;
+    }
+    .category-form-field {
+      width: 40%;
+    }
+  }
+}
+
+.meter-wrapper {
+  margin-top: 0.625rem;
+  width: 90%;
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  span {
+    text-align: center;
+  }
+
+  .meter {
+    flex-grow: 1;
+    width: 80%;
+    height: 1.875rem;
+    display: flex;
+  }
+}
+
+video {
+  width: 100%;
+  object-fit: cover;
+  border-radius: 0.625rem;
+}

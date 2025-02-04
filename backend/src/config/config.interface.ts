@@ -133,6 +133,20 @@ export class WhisperConfig {
   apikey: string;
 }
 
+export class LivekitConfig {
+  @IsString()
+  @IsDefined()
+  url: string;
+
+  @IsString()
+  @IsDefined()
+  apikey: string;
+
+  @IsString()
+  @IsDefined()
+  secret: string;
+}
+
 export class PopulateUser {
   @IsString()
   name: string;
@@ -190,4 +204,7 @@ export class Config {
 
   @ValidateNested({ each: true })
   whisper: WhisperConfig;
+
+  @ValidateNested({ each: true })
+  livekit: LivekitConfig;
 }

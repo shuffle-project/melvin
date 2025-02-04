@@ -1,0 +1,125 @@
+.discard-button {
+  border: 1px solid var(--color-red);
+}
+
+.mat-dialog-content {
+  width: 100%;
+  max-width: 36rem;
+  margin-inline: auto;
+  margin-block: 1.25rem;
+
+  .actions-list {
+    list-style-type: none;
+    padding: 0;
+
+    hr {
+      margin-top: 0.625rem;
+      margin-bottom: 0.375rem;
+      background-color: var(--color-border-grey);
+      height: 1px;
+      border: 0;
+    }
+
+    .action-item {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      gap: 0.625rem;
+      padding-block: 0.375rem 0;
+
+      border-radius: 0.375rem;
+
+      .status {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .content {
+        min-height: 1.25rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        flex: 1;
+
+        .title {
+          display: flex;
+          flex-direction: column;
+
+          .header {
+            font-size: 1.125rem;
+            font-weight: 500;
+            padding-bottom: 0.25rem;
+          }
+          .subheader {
+            font-size: 0.875rem;
+            padding-bottom: 0.5rem;
+            color: var(--color-dark-grey);
+          }
+        }
+        .upload-state {
+          font-size: 0.875rem;
+          color: var(--color-dark-grey);
+
+          &.error {
+            color: var(--color-red);
+          }
+        }
+      }
+      .actions {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .progressbar-wrapper {
+        min-height: 0.875rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin: 1px 5%;
+      }
+    }
+  }
+
+  .progress-wrapper {
+    display: flex;
+    margin: 1.25rem;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .inputs {
+    display: flex;
+    margin-bottom: 1.25rem;
+    justify-content: stretch;
+    flex-direction: column;
+
+    form {
+      margin-top: 0.625rem;
+      width: 100%;
+
+      .language-form-field {
+        width: 100%;
+      }
+    }
+  }
+
+  .infotext {
+    margin-top: 2.5rem;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    gap: 0.625rem;
+
+    .mat-icon {
+      min-width: 1.5rem;
+      min-height: 1.5rem;
+    }
+
+    p {
+      margin: 0;
+      line-height: 130%;
+      font-size: 0.875rem;
+    }
+  }
+}

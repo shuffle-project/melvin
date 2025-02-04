@@ -1,0 +1,26 @@
+.mat-dialog-content {
+  width: 100%;
+  max-width: 37.5rem;
+
+  .sources-field {
+    margin-top: 0.625rem;
+  }
+
+  .controls {
+    display: flex;
+    gap: 0.3125rem;
+
+    .title-form-field {
+      width: 60%;
+    }
+    .category-form-field {
+      width: 40%;
+    }
+  }
+}
+
+video {
+  width: 100%;
+  object-fit: cover;
+  border-radius: 0.625rem;
+}

@@ -21,6 +21,13 @@ basicAuth:
   username: admin
   password: secret
 
+
+livekit:
+  url: wss://livekit-url
+  apikey: livekit-apikey;
+  secret: livekit-secret
+
+
 email:
   smtpServer: 'smtp.example.com'
   smtpPort: 465

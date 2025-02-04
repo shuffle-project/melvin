@@ -41,6 +41,7 @@ import {
 } from './entities/caption.entity';
 import { ConfigEntity } from './entities/config.entity';
 import { ConnectLivestreamEntity } from './entities/connect-livestream.entity';
+import { LivekitAuthEntity } from './entities/livekit.entity';
 import { NotificationListEntity } from './entities/notification-list.entity';
 import { NotificationEntity } from './entities/notification.entity';
 import { PauseLivestreamEntity } from './entities/pause-livestream.entity';
@@ -345,4 +346,7 @@ export abstract class ApiService {
   abstract userTestStart(projectId: string): Observable<void>;
   abstract userTestStop(projectId: string): Observable<void>;
   abstract userTestReset(projectId: string): Observable<void>;
+
+  // Livekit
+  abstract getLivekitToken(): Observable<LivekitAuthEntity>;
 }

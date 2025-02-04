@@ -21,6 +21,11 @@ email:
   mailFrom: info@example.com
   mailFromName: Melvin
 
+livekit:
+  url: wss://livekit-url
+  apikey: livekit-api-key
+  secret: livekit-secret
+
 deepL:
   url: https://api-free.deepl.com/v2
   apikey: this-is-an-api-key

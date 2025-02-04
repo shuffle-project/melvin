@@ -42,6 +42,7 @@ import {
 import { CaptionListEntity } from './entities/caption-list.entity';
 import { CaptionEntity } from './entities/caption.entity';
 import { ConnectLivestreamEntity } from './entities/connect-livestream.entity';
+import { LivekitAuthEntity } from './entities/livekit.entity';
 import { NotificationListEntity } from './entities/notification-list.entity';
 import { NotificationEntity } from './entities/notification.entity';
 import { PauseLivestreamEntity } from './entities/pause-livestream.entity';
@@ -516,5 +517,12 @@ export class FakeApiService implements ApiService {
   userTestReset(projectId: string): Observable<void> {
     this.logger.verbose('userTestReset mocked');
     return of();
+  }
+
+  // livekit
+
+  getLivekitToken(): Observable<LivekitAuthEntity> {
+    this.logger.verbose('getLivekitToken mocked');
+    return of({ url: 'livekiturl', authToken: 'livekitToken' });
   }
 }

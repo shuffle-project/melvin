@@ -1,0 +1,89 @@
+<h2 mat-dialog-title i18n="@@recorderAddVideoSourceTitle">Add Videosource</h2>
+<mat-dialog-content class="mat-dialog-content">
+  @if (loading) {
+  <div class="flex justify-center" style="margin-top: 1.25rem">
+    <mat-spinner></mat-spinner>
+  </div>
+  } @if (!loading && loadingError) {
+  <p>
+    {{ loadingError }}
+  </p>
+  } @if (!loading && !loadingError) {
+  <mat-form-field class="sources-field" style="width: 100%">
+    <mat-label i18n="@@recorderAddVideoSourceSelectionLabel">Sources</mat-label>
+    <mat-select
+      (selectionChange)="onSelectionChange()"
+      [(ngModel)]="currentInput"
+    >
+      @for (videoInput of videoinputs; track videoInput) {
+      <mat-option [value]="videoInput">
+        {{ videoInput.label }}
+      </mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+  <div class="controls">
+    <mat-form-field class="title-form-field">
+      <mat-label i18n="@@recorderAddVideoSourceTitleLabel">Title</mat-label>
+      <input matInput type="text" [(ngModel)]="videoSource.title" />
+    </mat-form-field>
+    <mat-form-field class="category-form-field">
+      <mat-label i18n="@@recorderAddVideoSourceMediaCategoryLabel"
+        >Media Category</mat-label
+      >
+      <mat-select [(ngModel)]="videoSource.mediaCategory">
+        @for (category of mediaCategoryArray; track category) {
+        <mat-option value="category">{{ category | mediaCategory }}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <br />
+  @if (deviceError) {
+  {{ deviceError }}
+  } @else if (videoSource.mediaStream) {
+  <div>
+    <video
+      [srcObject]="videoSource.mediaStream"
+      autoplay
+      controls
+      muted
+    ></video>
+  </div>
+  } @else {
+  <div
+    class="flex justify-center"
+    style="margin-top: 1.25rem; width: 100%; height: 12.5rem"
+  >
+    <mat-spinner></mat-spinner>
+  </div>
+  } }
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button
+    mat-stroked-button
+    (click)="onCloseDialog()"
+    i18n="@@recorderAddVideoSourceCancelButton"
+  >
+    Cancel
+  </button>
+  @if (!loadingError && !loading && !loadingError) {
+  <button
+    mat-flat-button
+    [disabled]="deviceError"
+    (click)="onSubmitDialog()"
+    i18n="@@recorderAddVideoSourceAddButton"
+  >
+    Add
+  </button>
+  } @if (loadingError) {
+  <button
+    mat-flat-button
+    (click)="onClickTryAgain()"
+    i18n="@@recorderAddVideoSourceRetryButton"
+  >
+    Retry
+    <mat-icon svgIcon="repeat"></mat-icon>
+  </button>
+  }
+</mat-dialog-actions>

@@ -39,6 +39,15 @@ export const HomeRoutes: Routes = [
           import('./recorder/recorder.routes').then((m) => m.RecorderRoutes),
       },
       {
+        path: 'recorder-livekit',
+        canActivate: [HasRoleGuard],
+        data: { roles: [UserRole.USER] },
+        loadChildren: () =>
+          import('./recorder-livekit/recorder.routes').then(
+            (m) => m.RecorderRoutes
+          ),
+      },
+      {
         path: 'profile',
         canActivate: [HasRoleGuard],
         data: { roles: [UserRole.USER] },
