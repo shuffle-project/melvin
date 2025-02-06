@@ -1,5 +1,6 @@
-import { Controller, Get, HttpStatus, UseGuards } from '@nestjs/common';
+import { Controller, HttpStatus, Param, Post, UseGuards } from '@nestjs/common';
 import { ApiResponse } from '@nestjs/swagger';
+import { IsValidObjectIdPipe } from 'src/pipes/is-valid-objectid.pipe';
 import { User } from '../auth/auth.decorator';
 import { AuthUser } from '../auth/auth.interfaces';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
@@ -11,9 +12,12 @@ export class LivekitController {
   constructor(private livekitService: LivekitService) {}
 
   @UseGuards(JwtAuthGuard)
-  @Get('token')
+  @Post('authenticate/:id')
   @ApiResponse({ status: HttpStatus.OK })
-  getToken(@User() authUser: AuthUser): Promise<LivekitAuthEntity> {
-    return this.livekitService.getToken(authUser, 'projectId');
+  authenticate(
+    @User() authUser: AuthUser,
+    @Param('id', IsValidObjectIdPipe) id: string,
+  ): Promise<LivekitAuthEntity> {
+    return this.livekitService.authenticate(authUser, id);
   }
 }

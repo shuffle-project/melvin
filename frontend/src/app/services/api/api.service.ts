@@ -349,4 +349,8 @@ export abstract class ApiService {
 
   // Livekit
   abstract getLivekitToken(): Observable<LivekitAuthEntity>;
+
+  abstract authenticateLivekit(
+    projectId: string
+  ): Observable<LivekitAuthEntity>;
 }

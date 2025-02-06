@@ -525,4 +525,8 @@ export class FakeApiService implements ApiService {
     this.logger.verbose('getLivekitToken mocked');
     return of({ url: 'livekiturl', authToken: 'livekitToken' });
   }
+
+  authenticateLivekit(projectId: string): Observable<LivekitAuthEntity> {
+    return of({ url: 'livekiturl', authToken: 'live' });
+  }
 }
