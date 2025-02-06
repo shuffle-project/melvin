@@ -43,7 +43,10 @@ import { EventsGateway } from '../events/events.gateway';
 import { TranscriptionService } from '../transcription/transcription.service';
 import { UserRole } from '../user/user.interfaces';
 import { CreateLegacyProjectDto } from './dto/create-legacy-project.dto';
-import { CreateProjectDto } from './dto/create-project.dto';
+import {
+  CreateProjectDto,
+  CreateRecorderProjectDto,
+} from './dto/create-project.dto';
 import { FindAllProjectsQuery } from './dto/find-all-projects.dto';
 import { InviteDto } from './dto/invite.dto';
 import { UpdatePartialProjectDto } from './dto/update-partial-project.dto';
@@ -79,6 +82,65 @@ export class ProjectService {
   ) {
     this.logger.setContext(this.constructor.name);
     this.serverBaseUrl = this.configService.get<string>('baseUrl');
+  }
+
+  async createForRecorder(
+    authUser: AuthUser,
+    createProjectDto: CreateRecorderProjectDto,
+  ) {
+    const status = ProjectStatus.LIVE;
+
+    //create project
+    const project = await this.db.projectModel.create({
+      title: createProjectDto.title,
+      language: createProjectDto.language,
+      createdBy: authUser.id,
+      users: [authUser.id],
+      status,
+      inviteToken: generateSecureToken(),
+      viewerToken: generateSecureToken(),
+    });
+
+    await ensureDir(
+      this.pathService.getProjectDirectory(project._id.toString()),
+    );
+
+    // add project to owner
+    await this.db.userModel
+      .updateOne({ _id: authUser.id }, { $push: { projects: project._id } })
+      .lean()
+      .exec();
+
+    // Create activity
+    await this.activityService.create(
+      project.toObject(),
+      getObjectIdAsString(project.createdBy),
+      'project-created',
+      {},
+    );
+
+    // Entity
+    const populatedProject = await this.db.findProjectByIdOrThrow(project._id);
+
+    // handle video and subtitle files / add queue jobs / generate subtitles
+    // await this._handleFilesAndTranscriptions(
+    //   authUser,
+    //   populatedProject,
+    //   videoFiles,
+    //   subtitleFiles,
+    //   createProjectDto,
+    //   mainVideo,
+    //   mainAudio,
+    // );
+
+    const entity = plainToInstance(ProjectEntity, {
+      ...populatedProject,
+    }) as unknown as ProjectEntity;
+
+    // Send events
+
+    this.events.projectCreated(entity);
+    return entity;
   }
 
   async create(

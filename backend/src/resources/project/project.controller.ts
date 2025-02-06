@@ -26,7 +26,10 @@ import { AuthUser, MediaAccessUser } from '../auth/auth.interfaces';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { PopulateService } from '../populate/populate.service';
 import { CreateLegacyProjectDto } from './dto/create-legacy-project.dto';
-import { CreateProjectDto } from './dto/create-project.dto';
+import {
+  CreateProjectDto,
+  CreateRecorderProjectDto,
+} from './dto/create-project.dto';
 import { FindAllProjectsQuery } from './dto/find-all-projects.dto';
 import { InviteDto } from './dto/invite.dto';
 import { UpdateProjectDto } from './dto/update-project.dto';
@@ -53,6 +56,20 @@ export class ProjectController {
   @ApiResponse({ status: HttpStatus.CREATED })
   async createDefault(@User() authUser: AuthUser) {
     return await this.populateService._generateDefaultProject(authUser.id);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Post('recorder')
+  @ApiResponse({ status: HttpStatus.CREATED })
+  async createRecorder(
+    @User() authUser: AuthUser,
+    @Body()
+    createProjectDto: CreateRecorderProjectDto,
+  ) {
+    return await this.projectService.createForRecorder(
+      authUser,
+      createProjectDto,
+    );
   }
 
   @UseGuards(JwtAuthGuard)

@@ -716,4 +716,8 @@ export class RealApiService implements ApiService {
   getLivekitToken(): Observable<LivekitAuthEntity> {
     return this._get('/livekit/token');
   }
+
+  authenticateLivekit(projectId: string): Observable<LivekitAuthEntity> {
+    return this._post('/livekit/authenticate/' + projectId, {});
+  }
 }
