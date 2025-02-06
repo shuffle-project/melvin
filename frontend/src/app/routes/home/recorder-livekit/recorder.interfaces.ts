@@ -1,4 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
+import { LocalTrack } from 'livekit-client';
 import {
   MediaCategory,
   ProjectEntity,
@@ -7,26 +8,26 @@ import {
 export interface SourceObject {
   id: string;
   title: string;
-  mediaStream: MediaStream | null;
 }
 
 export interface AudioSource extends SourceObject {
   type: 'audio';
-  deviceId: string;
   label: string;
+  audioTrack: LocalTrack;
 }
 
 export interface VideoSource extends SourceObject {
   type: 'video';
-  deviceId: string;
   label: string;
   mediaCategory: MediaCategory;
+  videoTrack: LocalTrack;
 }
 
-export interface ScreensharingSource extends SourceObject {
-  type: 'screensharing';
+export interface ScreenSource extends SourceObject {
+  type: 'screen';
   mediaCategory: MediaCategory;
-  sound: boolean;
+  videoTrack: LocalTrack;
+  audioTrack?: LocalTrack;
 }
 
 export interface Recording {

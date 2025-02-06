@@ -24,7 +24,7 @@
 
     <div class="infotext">
       <mat-icon svgIcon="info"></mat-icon>
-      @if (!this.recorderService.recording) {
+      <!-- @if (!this.recorderService.recording) {
       <span i18n="@@recorderNotRecordingHints">
         You can add or delete sources. <br />
         To start the recording you need at least 1 visual and 1 auditive source.
@@ -34,14 +34,14 @@
         Recording ongoing. Press Stop recording if you want to save or dismiss
         your recording.
       </span>
-      }
+      } -->
     </div>
 
     <!-- setup buttons -->
     <div class="buttons">
       <!-- record buttons -->
 
-      @if (recorderService.recording) { @if(recorderService.recordingPaused){
+      <!-- @if (recorderService.recording) { @if(recorderService.recordingPaused){
       <mat-icon class="" svgIcon="pause"></mat-icon>
       }@else {
       <mat-icon class="recording-indicator" svgIcon="recording_red"></mat-icon>
@@ -49,10 +49,10 @@
 
       <p>{{ getCurrentDuration() | duration }}</p>
 
-      }
+      } -->
 
       <!-- start & stop -->
-      @if(recorderService.recording){
+      <!-- @if(recorderService.recording){
 
       <button
         class="action-btn"
@@ -74,7 +74,6 @@
         Start recording
       </button>
       }
-      <!-- pause & resume -->
       @if (recorderService.recordingPaused) {
 
       <button
@@ -103,7 +102,7 @@
         Pause recording
       </button>
 
-      }
+      } -->
     </div>
   </div>
 
@@ -111,19 +110,19 @@
   <div class="all-media-wrapper">
     <div class="media-category-wrapper">
       <h2 i18n="@@recorderAudioSourcesTitle">Audio sources</h2>
-      @if (recorderService.audios.length === 0) {
+      <!-- @if (recorderService.audios.length === 0) {
       <p i18n="@@recorderNoAudioAdded">
         <i>No audio source added</i>
       </p>
-      }
+      } -->
       <div class="media-list-wrapper">
-        @for (audio of recorderService.audios; track audio; let index = $index)
+        <!-- @for (audio of recorderService.audios; track audio; let index = $index)
         {
         <app-media-source [mediaSource]="audio"></app-media-source>
-        }
+        } -->
       </div>
       <!--  -->
-      @if (!recorderService.recording) {
+      <!-- @if (!recorderService.recording) {
       <button
         class="add-btn"
         mat-stroked-button
@@ -132,23 +131,23 @@
       >
         Add audio source
       </button>
-      }
+      } -->
     </div>
     <div class="media-category-wrapper">
       <h2 i18n="@@recorderVideoSourcesTitle">Video sources</h2>
-      @if (recorderService.videos.length === 0) {
+      <!-- @if (recorderService.videos.length === 0) {
       <p i18n="@@recorderNoVideoAdded">
         <i>No video source added</i>
       </p>
-      }
+      } -->
       <div class="media-list-wrapper">
-        @for (video of recorderService.videos; track video; let index = $index)
+        <!-- @for (video of recorderService.videos; track video; let index = $index)
         {
         <app-media-source [mediaSource]="video"></app-media-source>
-        }
+        } -->
       </div>
       <!--  -->
-      @if (!recorderService.recording ) {
+      <!-- @if (!recorderService.recording ) {
       <button
         class="add-btn"
         mat-stroked-button
@@ -157,23 +156,28 @@
       >
         Add video source
       </button>
-      }
+      } -->
     </div>
     <div class="media-category-wrapper">
       <h2 i18n="@@recorderScreensharingSourcesTitle">Screensharing sources</h2>
-      @if (recorderService.screensharings.length === 0) {
+      <!-- @if (recorderService.screensharings.length === 0) {
       <p i18n="@@recorderNoScreensharingAdded">
         <i>No screensharing source added</i>
       </p>
-      }
+      } -->
       <div class="media-list-wrapper">
-        @for ( screen of recorderService.screensharings; track screen; let index
-        = $index) {
-        <app-media-source [mediaSource]="screen"></app-media-source>
+        @for (screenSource of livekitService.screenSourceMap.values(); track
+        screenSource.id) {
+        <app-media-source [mediaSource]="screenSource" />
         }
+
+        <!-- @for ( screen of recorderService.screensharings; track screen; let
+        index = $index) {
+        <app-media-source [mediaSource]="screen"></app-media-source>
+        } -->
       </div>
       <!--  -->
-      @if (!recorderService.recording) {
+      @if (!livekitService.sessionInProgess) {
       <button
         class="add-btn"
         mat-stroked-button

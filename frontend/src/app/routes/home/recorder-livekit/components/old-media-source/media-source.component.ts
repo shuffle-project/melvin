@@ -1,11 +1,4 @@
-import {
-  AfterViewInit,
-  Component,
-  ElementRef,
-  Input,
-  OnInit,
-  ViewChild,
-} from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatChipsModule } from '@angular/material/chips';
@@ -17,12 +10,12 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSelectModule } from '@angular/material/select';
 import { MediaCategoryPipe } from 'src/app/pipes/media-category-pipe/media-category.pipe';
 import { MediaCategory } from '../../../../../services/api/entities/project.entity';
-import { LiveKitService } from '../../liveKit.service';
 import {
   AudioSource,
-  ScreenSource,
+  ScreensharingSource,
   VideoSource,
 } from '../../recorder.interfaces';
+import { RecorderService } from '../../recorder.service';
 import { AudioMeterComponent } from '../audio-meter/audio-meter.component';
 
 @Component({
@@ -43,24 +36,21 @@ import { AudioMeterComponent } from '../audio-meter/audio-meter.component';
     MediaCategoryPipe,
   ],
 })
-export class MediaSourceComponent implements OnInit, AfterViewInit {
-  @ViewChild('screenVideo') screenVideo!: ElementRef<HTMLVideoElement>;
-
+export class MediaSourceComponent implements OnInit {
   MediaCategory = MediaCategory;
-  mediaCategoryArray = Object.entries(MediaCategory)
-    .map(([label, value]) => value)
-    .filter((category) => category !== MediaCategory.MAIN);
-
   @Input({ required: true }) mediaSource!:
     | AudioSource
     | VideoSource
-    | ScreenSource;
+    | ScreensharingSource;
 
   audioSource: AudioSource | null = null;
   videoSource: VideoSource | null = null;
-  screenSource: ScreenSource | null = null;
+  screensharingSource: ScreensharingSource | null = null;
 
-  constructor(public liveKitService: LiveKitService) {}
+  constructor(public recorderService: RecorderService) {
+    // if( this.mediaSource instanceof AudioSource){
+    // }
+  }
 
   ngOnInit() {
     switch (this.mediaSource['type']) {
@@ -70,26 +60,20 @@ export class MediaSourceComponent implements OnInit, AfterViewInit {
       case 'video':
         this.videoSource = this.mediaSource as VideoSource;
         break;
-      case 'screen':
-        this.screenSource = this.mediaSource as ScreenSource;
+      case 'screensharing':
+        this.screensharingSource = this.mediaSource as ScreensharingSource;
         break;
     }
   }
 
-  ngAfterViewInit(): void {
-    if (this.screenSource) {
-      this.screenSource.videoTrack.attach(this.screenVideo.nativeElement);
-    }
-  }
-
   onRemoveMediaSource() {
-    this.liveKitService.removeTrack(this.mediaSource);
+    this.recorderService.removeById(this.mediaSource.id);
   }
 
   onChangeCategory(mediaCategory: MediaCategory) {
-    // this.recorderService.updateMediaCategoryById(
-    //   this.mediaSource.id,
-    //   mediaCategory
-    // );
+    this.recorderService.updateMediaCategoryById(
+      this.mediaSource.id,
+      mediaCategory
+    );
   }
 }

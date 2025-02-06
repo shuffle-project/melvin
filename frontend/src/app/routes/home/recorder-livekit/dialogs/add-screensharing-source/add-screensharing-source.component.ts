@@ -1,4 +1,11 @@
-import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  Inject,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import {
@@ -10,11 +17,10 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSelectModule } from '@angular/material/select';
-import { v4 } from 'uuid';
+import { Track } from 'livekit-client';
+import { MediaCategoryPipe } from 'src/app/pipes/media-category-pipe/media-category.pipe';
 import { MediaCategory } from '../../../../../services/api/entities/project.entity';
 import { AudioMeterComponent } from '../../components/audio-meter/audio-meter.component';
-import { ScreensharingSource } from '../../recorder.interfaces';
-import { RecorderService } from '../../recorder.service';
 
 @Component({
   selector: 'app-add-screensharing-source',
@@ -29,69 +35,50 @@ import { RecorderService } from '../../recorder.service';
     MatSelectModule,
     FormsModule,
     MatInputModule,
+    MediaCategoryPipe,
   ],
 })
 export class AddScreensharingSourceComponent implements OnInit, OnDestroy {
-  MediaCategory = MediaCategory;
-  loading = true;
-  loadingError: any | null = null;
+  @ViewChild('videoElement') videoElement!: ElementRef<HTMLVideoElement>;
 
-  screensharingSource: ScreensharingSource = {
-    type: 'screensharing',
-    id: v4(),
-    title: 'Screensharing title',
-    mediaCategory: MediaCategory.SLIDES,
-    mediaStream: null,
-    sound: false,
-  };
+  videoTrack: Track | null = null;
+  audioTrack: Track | null = null;
+
+  MediaCategory = MediaCategory;
+  mediaCategoryArray = Object.entries(MediaCategory)
+    .map(([label, value]) => value)
+    .filter((category) => category !== MediaCategory.MAIN);
+
+  title = 'Screensharing title'; // TODO i18n
+  mediaCategory = MediaCategory.SLIDES;
 
   constructor(
     public dialogRef: MatDialogRef<AddScreensharingSourceComponent>,
     @Inject(MAT_DIALOG_DATA)
-    public data: {},
-    private recorderService: RecorderService
+    public data: Track[]
   ) {}
 
   ngOnInit() {
-    this.fetchStream();
+    const [videoTrack, audioTrack] = this.data;
+    this.videoTrack = videoTrack;
+    this.audioTrack = audioTrack;
   }
 
-  ngOnDestroy() {
-    this.screensharingSource.mediaStream
-      ?.getTracks()
-      .forEach((track) => track.stop());
-  }
-
-  async fetchStream() {
-    this.loading = true;
-    this.loadingError = null;
-
-    try {
-      this.screensharingSource.mediaStream =
-        await navigator.mediaDevices.getDisplayMedia({
-          audio: true,
-          video: true,
-        });
-
-      this.screensharingSource.sound =
-        this.screensharingSource.mediaStream.getAudioTracks().length > 0;
-    } catch (error) {
-      if (error instanceof DOMException) {
-        this.loadingError = 'Permission denied.';
-      } else {
-        this.loadingError = error;
-      }
+  ngAfterViewInit() {
+    if (this.videoElement) {
+      this.videoTrack?.attach(this.videoElement.nativeElement);
     }
-    this.loading = false;
   }
+
+  ngOnDestroy() {}
 
   onCloseDialog() {
     this.dialogRef.close();
   }
   onSubmitDialog() {
-    this.recorderService.screensharings.push({ ...this.screensharingSource });
-    this.screensharingSource.mediaStream = null;
-
-    this.dialogRef.close(this.screensharingSource);
+    this.dialogRef.close({
+      title: this.title,
+      mediaCategory: this.mediaCategory,
+    });
   }
 }

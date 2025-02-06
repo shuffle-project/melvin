@@ -11,10 +11,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSelectModule } from '@angular/material/select';
 import { Subject } from 'rxjs';
-import { v4 } from 'uuid';
 import { AudioMeterComponent } from '../../components/audio-meter/audio-meter.component';
-import { AudioSource } from '../../recorder.interfaces';
-import { RecorderService } from '../../recorder.service';
 
 @Component({
   selector: 'app-add-audio-source',
@@ -40,20 +37,19 @@ export class AddAudioSourceComponent implements OnInit, OnDestroy {
 
   audioinputs: MediaDeviceInfo[] = [];
   currentInput!: MediaDeviceInfo;
-  audioSource: AudioSource = {
-    type: 'audio',
-    id: v4(),
-    title: 'default audio',
-    deviceId: '',
-    label: '',
-    mediaStream: null,
-  };
+  // audioSource: AudioSource = {
+  //   type: 'audio',
+  //   id: v4(),
+  //   title: 'default audio',
+  //   deviceId: '',
+  //   label: '',
+  //   mediaStream: null,
+  // };
 
   constructor(
     public dialogRef: MatDialogRef<AddAudioSourceComponent>,
     @Inject(MAT_DIALOG_DATA)
-    public data: {},
-    public recorderService: RecorderService
+    public data: {}
   ) {}
 
   async ngOnInit() {
@@ -61,8 +57,8 @@ export class AddAudioSourceComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.audioSource.mediaStream?.getTracks().forEach((track) => track.stop());
-    this.audioSource.mediaStream = null;
+    // this.audioSource.mediaStream?.getTracks().forEach((track) => track.stop());
+    // this.audioSource.mediaStream = null;
     this.destroy$$.next();
   }
 
@@ -77,16 +73,16 @@ export class AddAudioSourceComponent implements OnInit, OnDestroy {
         audio: true,
       });
 
-      this.audioSource.deviceId = userMedia.id;
-      this.audioSource.label = 'default';
-      this.audioSource.mediaStream = userMedia;
+      // this.audioSource.deviceId = userMedia.id;
+      // this.audioSource.label = 'default';
+      // this.audioSource.mediaStream = userMedia;
     } catch (error) {
       console.log(error);
       this.deviceError =
         'Der Zugriff auf das Gerät war nicht erfolgreich. Eventuell wird das Gerät von einem anderen Programm verwendet.';
     }
 
-    this.audioinputs = await this.recorderService.getDevices('audioinput');
+    // this.audioinputs = await this.recorderService.getDevices('audioinput');
 
     if (this.audioinputs.length > 0) {
       this.currentInput = this.audioinputs[0];
@@ -102,24 +98,24 @@ export class AddAudioSourceComponent implements OnInit, OnDestroy {
   async resetAudioSource(mediaDeviceInfo: MediaDeviceInfo) {
     this.deviceError = null;
 
-    this.audioSource.deviceId = mediaDeviceInfo.deviceId;
-    this.audioSource.label = mediaDeviceInfo.label;
+    // this.audioSource.deviceId = mediaDeviceInfo.deviceId;
+    // this.audioSource.label = mediaDeviceInfo.label;
 
     // remove old stream
-    if (this.audioSource.mediaStream) {
-      this.audioSource.mediaStream.getTracks().forEach((track) => track.stop());
-      this.audioSource.mediaStream = null;
-    }
+    // if (this.audioSource.mediaStream) {
+    //   this.audioSource.mediaStream.getTracks().forEach((track) => track.stop());
+    //   this.audioSource.mediaStream = null;
+    // }
 
     // create new stream
-    try {
-      this.audioSource.mediaStream = await navigator.mediaDevices.getUserMedia({
-        audio: { deviceId: mediaDeviceInfo.deviceId },
-        video: false,
-      });
-    } catch (error) {
-      this.deviceError = error;
-    }
+    // try {
+    //   this.audioSource.mediaStream = await navigator.mediaDevices.getUserMedia({
+    //     audio: { deviceId: mediaDeviceInfo.deviceId },
+    //     video: false,
+    //   });
+    // } catch (error) {
+    //   this.deviceError = error;
+    // }
   }
 
   onSelectionChange() {
@@ -134,9 +130,10 @@ export class AddAudioSourceComponent implements OnInit, OnDestroy {
     this.dialogRef.close();
   }
   onSubmitDialog() {
-    this.recorderService.audios.push({ ...this.audioSource });
-    this.audioSource.mediaStream = null;
+    // this.recorderService.audios.push({ ...this.audioSource });
+    // this.audioSource.mediaStream = null;
 
-    this.dialogRef.close(this.audioSource.deviceId);
+    // this.dialogRef.close(this.audioSource.deviceId);
+    this.dialogRef.close();
   }
 }

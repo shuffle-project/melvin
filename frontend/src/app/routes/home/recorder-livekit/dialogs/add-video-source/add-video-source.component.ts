@@ -12,10 +12,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSelectModule } from '@angular/material/select';
 import { Subject } from 'rxjs';
 import { MediaCategoryPipe } from 'src/app/pipes/media-category-pipe/media-category.pipe';
-import { v4 } from 'uuid';
 import { MediaCategory } from '../../../../../services/api/entities/project.entity';
-import { VideoSource } from '../../recorder.interfaces';
-import { RecorderService } from '../../recorder.service';
 
 @Component({
   selector: 'app-add-video-source',
@@ -48,21 +45,20 @@ export class AddVideoSourceComponent implements OnInit, OnDestroy {
   videoinputs: MediaDeviceInfo[] = [];
 
   currentInput!: MediaDeviceInfo;
-  videoSource: VideoSource = {
-    type: 'video',
-    id: v4(),
-    title: 'default video',
-    deviceId: '',
-    label: '',
-    mediaCategory: MediaCategory.OTHER,
-    mediaStream: null,
-  };
+  // videoSource: VideoSource = {
+  //   type: 'video',
+  //   id: v4(),
+  //   title: 'default video',
+  //   deviceId: '',
+  //   label: '',
+  //   mediaCategory: MediaCategory.OTHER,
+  //   mediaStream: null,
+  // };
 
   constructor(
     public dialogRef: MatDialogRef<AddVideoSourceComponent>,
     @Inject(MAT_DIALOG_DATA)
-    public data: {},
-    public recorderService: RecorderService
+    public data: {}
   ) {}
 
   async ngOnInit() {
@@ -70,8 +66,8 @@ export class AddVideoSourceComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.videoSource.mediaStream?.getTracks().forEach((track) => track.stop());
-    this.videoSource.mediaStream = null;
+    // this.videoSource.mediaStream?.getTracks().forEach((track) => track.stop());
+    // this.videoSource.mediaStream = null;
     this.destroy$$.next();
   }
 
@@ -86,16 +82,16 @@ export class AddVideoSourceComponent implements OnInit, OnDestroy {
         video: { frameRate: 25 },
         audio: false,
       });
-      this.videoSource.deviceId = userMedia.id;
-      this.videoSource.label = 'default';
-      this.videoSource.mediaStream = userMedia;
+      // this.videoSource.deviceId = userMedia.id;
+      // this.videoSource.label = 'default';
+      // this.videoSource.mediaStream = userMedia;
     } catch (error) {
       console.log(error);
       this.deviceError =
         'Der Zugriff auf das Gerät war nicht erfolgreich. Eventuell wird das Gerät von einem anderen Programm verwendet.';
     }
 
-    this.videoinputs = await this.recorderService.getDevices('videoinput');
+    // this.videoinputs = await this.recorderService.getDevices('videoinput');
 
     if (this.videoinputs.length > 0) {
       this.currentInput = this.videoinputs[0];
@@ -112,24 +108,24 @@ export class AddVideoSourceComponent implements OnInit, OnDestroy {
   async resetVideoSourceDevice(mediaDeviceInfo: MediaDeviceInfo) {
     this.deviceError = null;
 
-    this.videoSource.deviceId = mediaDeviceInfo.deviceId;
-    this.videoSource.label = mediaDeviceInfo.label;
+    // this.videoSource.deviceId = mediaDeviceInfo.deviceId;
+    // this.videoSource.label = mediaDeviceInfo.label;
 
     // remove old stream
-    if (this.videoSource.mediaStream) {
-      this.videoSource.mediaStream.getTracks().forEach((track) => track.stop());
-      this.videoSource.mediaStream = null;
-    }
+    // if (this.videoSource.mediaStream) {
+    //   this.videoSource.mediaStream.getTracks().forEach((track) => track.stop());
+    //   this.videoSource.mediaStream = null;
+    // }
 
     // create new stream
-    try {
-      this.videoSource.mediaStream = await navigator.mediaDevices.getUserMedia({
-        audio: false,
-        video: { deviceId: mediaDeviceInfo.deviceId },
-      });
-    } catch (error) {
-      this.deviceError = error; // TODO
-    }
+    // try {
+    //   this.videoSource.mediaStream = await navigator.mediaDevices.getUserMedia({
+    //     audio: false,
+    //     video: { deviceId: mediaDeviceInfo.deviceId },
+    //   });
+    // } catch (error) {
+    //   this.deviceError = error; // TODO
+    // }
   }
 
   onSelectionChange() {
@@ -145,9 +141,10 @@ export class AddVideoSourceComponent implements OnInit, OnDestroy {
   }
 
   onSubmitDialog() {
-    this.recorderService.videos.push({ ...this.videoSource });
-    this.videoSource.mediaStream = null;
+    // this.recorderService.videos.push({ ...this.videoSource });
+    // this.videoSource.mediaStream = null;
 
-    this.dialogRef.close(this.videoSource.deviceId);
+    // this.dialogRef.close(this.videoSource.deviceId);
+    this.dialogRef.close();
   }
 }

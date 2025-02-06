@@ -22,12 +22,13 @@
   </mat-form-field>
   <mat-form-field style="width: 100%">
     <mat-label i18n="@@recorderAddAudioSourceTitleLabel">Title</mat-label>
-    <input matInput type="text" [(ngModel)]="audioSource.title" />
+    <!-- <input matInput type="text" [(ngModel)]="audioSource.title" /> -->
   </mat-form-field>
   <br />
   @if (deviceError) {
   {{ deviceError }}
-  } @else if (audioSource.mediaStream) {
+  }
+  <!-- @else if (audioSource.mediaStream) {
   <div class="audio-wrapper">
     <audio
       [srcObject]="audioSource.mediaStream"
@@ -43,7 +44,8 @@
       </div>
     </div>
   </div>
-  } @else {
+  }  -->
+  @else {
   <div
     class="flex justify-center"
     style="margin-top: 1.25rem; width: 100%; height: 5rem"

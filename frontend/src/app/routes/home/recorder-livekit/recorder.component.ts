@@ -3,7 +3,9 @@ import {
   ElementRef,
   OnDestroy,
   OnInit,
+  QueryList,
   ViewChild,
+  ViewChildren,
 } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -15,27 +17,17 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { Store } from '@ngrx/store';
-import {
-  createLocalAudioTrack,
-  createLocalScreenTracks,
-  createLocalVideoTrack,
-  RemoteParticipant,
-  RemoteTrack,
-  RemoteTrackPublication,
-  Room,
-  RoomEvent,
-} from 'livekit-client';
+import { LocalTrack } from 'livekit-client';
 import { HeaderComponent } from '../../../components/header/header.component';
 import { DurationPipe } from '../../../pipes/duration-pipe/duration.pipe';
 import { AppState } from '../../../store/app.state';
 import * as configSelector from '../../../store/selectors/config.selector';
 import { MediaSourceComponent } from './components/media-source/media-source.component';
-import { RecorderService } from './recorder.service';
 
-import { firstValueFrom, lastValueFrom } from 'rxjs';
-import { ApiService } from 'src/app/services/api/api.service';
+import { lastValueFrom } from 'rxjs';
 import { AddAudioSourceComponent } from './dialogs/add-audio-source/add-audio-source.component';
 import { AddVideoSourceComponent } from './dialogs/add-video-source/add-video-source.component';
+import { LiveKitService } from './liveKit.service';
 
 @Component({
   selector: 'app-recorder',
@@ -59,6 +51,7 @@ import { AddVideoSourceComponent } from './dialogs/add-video-source/add-video-so
 })
 export class RecorderComponent implements OnInit, OnDestroy {
   @ViewChild('lalelu') lalelu!: ElementRef<HTMLDivElement>;
+  @ViewChild('testWrapper') testWrapper!: ElementRef<HTMLDivElement>;
 
   public languages$ = this.store.select(configSelector.languagesConfig);
 
@@ -67,11 +60,15 @@ export class RecorderComponent implements OnInit, OnDestroy {
 
   loading = true;
 
+  screensharingTracks: LocalTrack[] = [];
+  @ViewChildren('screenSharingVideoElement')
+  screenSharingVideoElements!: QueryList<ElementRef<HTMLVideoElement>>;
+
   constructor(
     public dialog: MatDialog,
-    public recorderService: RecorderService,
+    // public recorderService: RecorderService,
     private store: Store<AppState>,
-    private api: ApiService
+    public livekitService: LiveKitService
   ) {
     if (this.locale?.startsWith('en')) {
       this.recordingTitle = 'Recording from ' + new Date().toLocaleDateString();
@@ -80,44 +77,56 @@ export class RecorderComponent implements OnInit, OnDestroy {
     }
   }
 
-  room!: Room;
+  // ngAfterViewInit() {
+  //   this.screenSharingVideoElements.changes.subscribe((elements) => {
+  //     this.screenSharingVideoElements.forEach((element, i) => {
+  //       if ([...this.livekitService.videoSourceMap][i]) {
+  //         [...this.livekitService.videoSourceMap][i][1].track.attach(
+  //           element.nativeElement
+  //         );
+  //       }
+  //       if (this.screensharingTracks[i]) {
+  //         this.screensharingTracks[i].attach(element.nativeElement);
+  //       }
+  //     });
+  //   });
+  // }
+
+  onRemoveTrack(track: LocalTrack) {
+    // this.livekitService.removeTrack(track);
+  }
 
   async ngOnInit() {
     this.loading = false;
+    this.livekitService.init('projectId');
 
-    const res = await firstValueFrom(this.api.getLivekitToken());
-    console.log(res);
-
-    this.room = new Room();
-    await this.room.connect(res.url, res.authToken);
-    console.log('connected to room', this.room.name);
     // this.room.emit('chatMessage', 'hello from angular');
-    this.room.on(
-      RoomEvent.TrackSubscribed,
-      (
-        track: RemoteTrack,
-        publication: RemoteTrackPublication,
-        participant: RemoteParticipant
-      ) => {
-        // console.log('Track subscribed event', track, publication, participant);
-        const element = track.attach();
-        this.lalelu.nativeElement.appendChild(element);
-      }
-    );
+    // this.room.on(
+    //   RoomEvent.TrackSubscribed,
+    //   (
+    //     track: RemoteTrack,
+    //     publication: RemoteTrackPublication,
+    //     participant: RemoteParticipant
+    //   ) => {
+    // console.log('Track subscribed event', track, publication, participant);
+    // const element = track.attach();
+    // this.lalelu.nativeElement.appendChild(element);
+    //   }
+    // );
 
     // Also subscribe to tracks published before participant joined
-    this.room.remoteParticipants.forEach((participant) => {
-      participant.trackPublications.forEach((publication) => {
-        publication.setSubscribed(true);
-      });
-    });
+    // this.room.remoteParticipants.forEach((participant) => {
+    //   participant.trackPublications.forEach((publication) => {
+    //     publication.setSubscribed(true);
+    //   });
+    // });
 
     // await this.room.localParticipant.enableCameraAndMicrophone();
   }
 
   ngOnDestroy(): void {
-    this.recorderService.resetData();
-    this.room.disconnect(true);
+    // this.recorderService.resetData();
+    this.livekitService.destroy();
   }
 
   async onAddAudioSource() {
@@ -125,17 +134,8 @@ export class RecorderComponent implements OnInit, OnDestroy {
       this.dialog.open(AddAudioSourceComponent).afterClosed()
     );
 
-    if (!selectedAudioDeviceId) return;
-
-    const audioTrack = await createLocalAudioTrack({
-      deviceId: selectedAudioDeviceId,
-      echoCancellation: true,
-      noiseSuppression: true,
-    });
-
-    const audioPublication = await this.room.localParticipant.publishTrack(
-      audioTrack
-    );
+    if (selectedAudioDeviceId)
+      this.livekitService.addAudioTrack(selectedAudioDeviceId);
   }
 
   async onAddVideoSource() {
@@ -143,78 +143,54 @@ export class RecorderComponent implements OnInit, OnDestroy {
       this.dialog.open(AddVideoSourceComponent).afterClosed()
     );
 
-    if (!selectedVideoDeviceId) return;
-
-    const videoTrack = await createLocalVideoTrack({
-      deviceId: selectedVideoDeviceId,
-      // TODO resolution? resolution: VideoPresets.h720
-    });
-
-    const videoPublication = await this.room.localParticipant.publishTrack(
-      videoTrack
-    );
+    if (selectedVideoDeviceId)
+      this.livekitService.addVideoTrack(selectedVideoDeviceId);
   }
 
   async onAddScreenSharingSource() {
-    // const selectedScreensharingSource: ScreensharingSource =
-    //   await lastValueFrom(
-    //     this.dialog.open(AddScreensharingSourceComponent).afterClosed()
-    //   );
-    // if (!selectedScreensharingSource) return;
-
-    const screensharingTrack = await createLocalScreenTracks({
-      audio: true,
-      video: true,
-    });
-
-    console.log(screensharingTrack);
-
-    // TODO only use first track in array? test
-    const screensharingPublication =
-      await this.room.localParticipant.publishTrack(screensharingTrack[0]);
+    await this.livekitService.addScreenTrack();
   }
 
   getCurrentDuration() {
-    if (
-      this.recorderService.recordingPaused ||
-      !this.recorderService.recording
-    ) {
-      return this.recorderService.previousDuration;
-    } else {
-      return (
-        this.recorderService.previousDuration +
-        (Date.now() - this.recorderService.recordingTimestamp)
-      );
-    }
+    // if (
+    //   this.recorderService.recordingPaused ||
+    //   !this.recorderService.recording
+    // ) {
+    //   return this.recorderService.previousDuration;
+    // } else {
+    //   return (
+    //     this.recorderService.previousDuration +
+    //     (Date.now() - this.recorderService.recordingTimestamp)
+    //   );
+    // }
   }
 
   onClickStartRecord() {
-    this.recorderService.startRecording();
+    // this.recorderService.startRecording();
   }
 
   async onClickStopRecord() {
-    this.recorderService.stopRecording(this.recordingTitle);
+    // this.recorderService.stopRecording(this.recordingTitle);
   }
 
   onClickTogglePauseRecording() {
-    if (this.recorderService.recordingPaused) {
-      this.recorderService.onResumeMediaRecorder();
-    } else {
-      this.recorderService.onPauseMediaRecorder();
-    }
+    // if (this.recorderService.recordingPaused) {
+    //   this.recorderService.onResumeMediaRecorder();
+    // } else {
+    //   this.recorderService.onPauseMediaRecorder();
+    // }
   }
 
   recordingDisabled() {
-    const noAudioAvailable =
-      this.recorderService.audios.length === 0 &&
-      this.recorderService.screensharings.filter((value) => value.sound)
-        .length === 0;
-    const noVideoAvailable =
-      this.recorderService.videos.length === 0 &&
-      this.recorderService.screensharings.length === 0;
-
-    return (
-      this.recorderService.recording || noAudioAvailable || noVideoAvailable
-    );
+    // const noAudioAvailable =
+    //   this.recorderService.audios.length === 0 &&
+    //   this.recorderService.screensharings.filter((value) => value.sound)
+    //     .length === 0;
+    // const noVideoAvailable =
+    //   this.recorderService.videos.length === 0 &&
+    //   this.recorderService.screensharings.length === 0;
+    // return (
+    //   this.recorderService.recording || noAudioAvailable || noVideoAvailable
+    // );
   }
 }

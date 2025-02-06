@@ -3,19 +3,17 @@
     <div>
       <h3 class="title">{{ mediaSource.title }}</h3>
       <div class="subtitle">
-        @if ( videoSource?.mediaCategory || screensharingSource?.mediaCategory )
-        {
+        @if ( videoSource?.mediaCategory || screenSource?.mediaCategory ) {
         <mat-chip
-          class="media-category {{
-            !recorderService.recording ? 'clickable' : ''
-          }}"
+          class="media-category"
           [matMenuTriggerFor]="mediaCategoryMenu"
-          [disabled]="recorderService.recording"
+          [disabled]="liveKitService.sessionInProgess"
+          [class.clickable]="!liveKitService.sessionInProgess"
         >
           @if ( videoSource?.mediaCategory) {
           {{ videoSource!.mediaCategory | mediaCategory }}
-          } @if ( screensharingSource?.mediaCategory) {
-          {{ screensharingSource!.mediaCategory | mediaCategory }}
+          } @if ( screenSource?.mediaCategory) {
+          {{ screenSource!.mediaCategory | mediaCategory }}
           }
         </mat-chip>
         }
@@ -23,82 +21,22 @@
       </div>
     </div>
     <mat-menu #mediaCategoryMenu="matMenu">
-      <button mat-menu-item (click)="onChangeCategory(MediaCategory.OTHER)">
+      @for (mediaCategory of mediaCategoryArray; track mediaCategory) {
+      <button mat-menu-item (click)="onChangeCategory(mediaCategory)">
         <mat-icon
           [svgIcon]="
-            videoSource?.mediaCategory === MediaCategory.OTHER ||
-            screensharingSource?.mediaCategory === MediaCategory.OTHER
+            videoSource?.mediaCategory === mediaCategory ||
+            screenSource?.mediaCategory === mediaCategory
               ? 'check'
               : ''
           "
         ></mat-icon>
-        Other
+        {{ mediaCategory | mediaCategory }}
       </button>
-      <button
-        mat-menu-item
-        (click)="onChangeCategory(MediaCategory.SIGN_LANGUAGE)"
-      >
-        <mat-icon
-          [svgIcon]="
-            videoSource?.mediaCategory === MediaCategory.SIGN_LANGUAGE ||
-            screensharingSource?.mediaCategory === MediaCategory.SIGN_LANGUAGE
-              ? 'check'
-              : ''
-          "
-        ></mat-icon>
-        Sign Language
-      </button>
-      <button mat-menu-item (click)="onChangeCategory(MediaCategory.SLIDES)">
-        <mat-icon
-          [svgIcon]="
-            videoSource?.mediaCategory === MediaCategory.SLIDES ||
-            screensharingSource?.mediaCategory === MediaCategory.SLIDES
-              ? 'check'
-              : ''
-          "
-        ></mat-icon>
-        Slides
-      </button>
-      <button mat-menu-item (click)="onChangeCategory(MediaCategory.SPEAKER)">
-        <mat-icon
-          [svgIcon]="
-            videoSource?.mediaCategory === MediaCategory.SPEAKER ||
-            screensharingSource?.mediaCategory === MediaCategory.SPEAKER
-              ? 'check'
-              : ''
-          "
-        ></mat-icon>
-        Speaker
-      </button>
+      }
     </mat-menu>
     <div class="header-buttons">
-      <!-- <div
-        *ngIf="
-        screensharingSource &&
-        screensharingSource.mediaStream &&
-        screensharingSource.sound === true
-        "
-        class="flex"
-        > -->
-      <!-- <div class="meter-wrapper">
-        <app-audio-meter
-          [mediaStream]="screensharingSource.mediaStream"
-        ></app-audio-meter>
-      </div> -->
-      <!-- <button mat-icon-button class="md" matTooltip="">
-      <mat-icon svgIcon="volume"></mat-icon>
-    </button> -->
-      <!-- </div> -->
-      <!-- <button
-  *ngIf="screensharingSource && screensharingSource.sound === false"
-  mat-icon-button
-  class="md"
-  matTooltip="Ton wurde nicht genehmigt. Bitte neu hinzufügen."
-  >
-  <mat-icon svgIcon="volume_off"></mat-icon>
-</button> -->
-
-      @if (!recorderService.recording) {
+      @if (!liveKitService.sessionInProgess) {
       <button mat-icon-button class="md" (click)="onRemoveMediaSource()">
         <mat-icon svgIcon="delete"></mat-icon>
       </button>
@@ -106,34 +44,31 @@
     </div>
   </div>
   <div class="tile-content">
-    @if (audioSource && audioSource.mediaStream) {
-    <audio
+    @if (screenSource) {
+    <video #screenVideo></video>
+    } @if (audioSource) {
+    <!-- <audio
       [srcObject]="audioSource.mediaStream"
       autoplay
       [muted]="true"
       muted
-    ></audio>
+    ></audio> -->
     <div class="meter-wrapper">
       <span> Audio level </span>
       <div class="meter">
-        <app-audio-meter
+        <!-- <app-audio-meter
           [mediaStream]="audioSource.mediaStream"
-        ></app-audio-meter>
+        ></app-audio-meter> -->
       </div>
     </div>
     } @if (videoSource) {
-    <video
+    <!-- <video
       [srcObject]="videoSource.mediaStream"
       autoplay
       [muted]="true"
-    ></video>
-    } @if (screensharingSource) { @if (screensharingSource.mediaStream) {
-    <video
-      [srcObject]="screensharingSource.mediaStream"
-      autoplay
-      [muted]="true"
-    ></video>
-    } @if (screensharingSource.sound && screensharingSource.mediaStream) {
+    ></video> -->
+    }
+    <!-- @if (screensharingSource.sound && screensharingSource.mediaStream) {
     <div class="meter-wrapper">
       <span> Audio level </span>
       <div class="meter">
@@ -142,6 +77,6 @@
         ></app-audio-meter>
       </div>
     </div>
-    } }
+    }  -->
   </div>
 </div>
