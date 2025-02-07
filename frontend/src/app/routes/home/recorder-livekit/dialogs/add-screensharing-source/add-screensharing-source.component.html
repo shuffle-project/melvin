@@ -23,7 +23,14 @@
   <video #videoElement></video>
 
   @if (audioTrack) {
-  <p>hier ist ein Audiotrack</p>
+  <div class="meter-wrapper">
+    <span> Audio level </span>
+    <div class="meter">
+      <app-audio-meter
+        [mediaStream]="audioTrack.mediaStream!"
+      ></app-audio-meter>
+    </div>
+  </div>
   }
 </mat-dialog-content>
 <mat-dialog-actions align="end">

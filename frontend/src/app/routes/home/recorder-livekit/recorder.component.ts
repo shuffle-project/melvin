@@ -24,9 +24,6 @@ import { AppState } from '../../../store/app.state';
 import * as configSelector from '../../../store/selectors/config.selector';
 import { MediaSourceComponent } from './components/media-source/media-source.component';
 
-import { lastValueFrom } from 'rxjs';
-import { AddAudioSourceComponent } from './dialogs/add-audio-source/add-audio-source.component';
-import { AddVideoSourceComponent } from './dialogs/add-video-source/add-video-source.component';
 import { LiveKitService } from './liveKit.service';
 
 @Component({
@@ -130,21 +127,11 @@ export class RecorderComponent implements OnInit, OnDestroy {
   }
 
   async onAddAudioSource() {
-    const selectedAudioDeviceId = await lastValueFrom(
-      this.dialog.open(AddAudioSourceComponent).afterClosed()
-    );
-
-    if (selectedAudioDeviceId)
-      this.livekitService.addAudioTrack(selectedAudioDeviceId);
+    this.livekitService.addAudioTrack();
   }
 
   async onAddVideoSource() {
-    const selectedVideoDeviceId = await lastValueFrom(
-      this.dialog.open(AddVideoSourceComponent).afterClosed()
-    );
-
-    if (selectedVideoDeviceId)
-      this.livekitService.addVideoTrack(selectedVideoDeviceId);
+    await this.livekitService.addVideoTrack();
   }
 
   async onAddScreenSharingSource() {

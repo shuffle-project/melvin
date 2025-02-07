@@ -45,6 +45,7 @@ import { AudioMeterComponent } from '../audio-meter/audio-meter.component';
 })
 export class MediaSourceComponent implements OnInit, AfterViewInit {
   @ViewChild('screenVideo') screenVideo!: ElementRef<HTMLVideoElement>;
+  @ViewChild('video') video!: ElementRef<HTMLVideoElement>;
 
   MediaCategory = MediaCategory;
   mediaCategoryArray = Object.entries(MediaCategory)
@@ -80,6 +81,10 @@ export class MediaSourceComponent implements OnInit, AfterViewInit {
     if (this.screenSource) {
       this.screenSource.videoTrack.attach(this.screenVideo.nativeElement);
     }
+
+    if (this.videoSource) {
+      this.videoSource.videoTrack.attach(this.video.nativeElement);
+    }
   }
 
   onRemoveMediaSource() {
@@ -87,9 +92,8 @@ export class MediaSourceComponent implements OnInit, AfterViewInit {
   }
 
   onChangeCategory(mediaCategory: MediaCategory) {
-    // this.recorderService.updateMediaCategoryById(
-    //   this.mediaSource.id,
-    //   mediaCategory
-    // );
+    if (this.mediaSource.type !== 'audio') {
+      this.liveKitService.changeMediaCategory(this.mediaSource, mediaCategory);
+    }
   }
 }

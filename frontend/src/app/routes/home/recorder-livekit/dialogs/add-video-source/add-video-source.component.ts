@@ -1,18 +1,14 @@
-import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
-import {
-  MAT_DIALOG_DATA,
-  MatDialogModule,
-  MatDialogRef,
-} from '@angular/material/dialog';
+import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSelectModule } from '@angular/material/select';
-import { Subject } from 'rxjs';
 import { MediaCategoryPipe } from 'src/app/pipes/media-category-pipe/media-category.pipe';
 import { MediaCategory } from '../../../../../services/api/entities/project.entity';
+import { LiveKitService } from '../../liveKit.service';
 
 @Component({
   selector: 'app-add-video-source',
@@ -31,8 +27,6 @@ import { MediaCategory } from '../../../../../services/api/entities/project.enti
   ],
 })
 export class AddVideoSourceComponent implements OnInit, OnDestroy {
-  private destroy$$ = new Subject<void>();
-
   MediaCategory = MediaCategory;
   mediaCategoryArray = Object.entries(MediaCategory)
     .map(([label, value]) => value)
@@ -45,20 +39,16 @@ export class AddVideoSourceComponent implements OnInit, OnDestroy {
   videoinputs: MediaDeviceInfo[] = [];
 
   currentInput!: MediaDeviceInfo;
-  // videoSource: VideoSource = {
-  //   type: 'video',
-  //   id: v4(),
-  //   title: 'default video',
-  //   deviceId: '',
-  //   label: '',
-  //   mediaCategory: MediaCategory.OTHER,
-  //   mediaStream: null,
-  // };
+
+  title = '';
+  label = '';
+  deviceId = '';
+  mediaStream: MediaStream | null = null;
+  mediaCategory: MediaCategory = MediaCategory.SPEAKER;
 
   constructor(
     public dialogRef: MatDialogRef<AddVideoSourceComponent>,
-    @Inject(MAT_DIALOG_DATA)
-    public data: {}
+    private liveKitService: LiveKitService
   ) {}
 
   async ngOnInit() {
@@ -66,9 +56,8 @@ export class AddVideoSourceComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    // this.videoSource.mediaStream?.getTracks().forEach((track) => track.stop());
-    // this.videoSource.mediaStream = null;
-    this.destroy$$.next();
+    // this.mediaStream?.getTracks().forEach((track) => track.stop());
+    this.mediaStream = null;
   }
 
   async load() {
@@ -82,24 +71,23 @@ export class AddVideoSourceComponent implements OnInit, OnDestroy {
         video: { frameRate: 25 },
         audio: false,
       });
-      // this.videoSource.deviceId = userMedia.id;
-      // this.videoSource.label = 'default';
-      // this.videoSource.mediaStream = userMedia;
+
+      this.title = 'Video ' + (this.liveKitService.videoSourceMap.size + 1);
+      this.deviceId = userMedia.id;
+      this.label = 'default';
+      this.mediaStream = userMedia;
     } catch (error) {
       console.log(error);
-      this.deviceError =
-        'Der Zugriff auf das Gerät war nicht erfolgreich. Eventuell wird das Gerät von einem anderen Programm verwendet.';
+      this.deviceError = $localize`:@@recorderAddVideoDeviceError:Access to the device failed. The device may be used by another program.`;
     }
 
-    // this.videoinputs = await this.recorderService.getDevices('videoinput');
+    this.videoinputs = await this.liveKitService.getDevices('videoinput');
 
     if (this.videoinputs.length > 0) {
       this.currentInput = this.videoinputs[0];
       await this.resetVideoSourceDevice(this.videoinputs[0]);
     } else {
-      // TODO permissions ? keine geräte ? show error
-      this.loadingError =
-        'Es konnten keine Videogeräte gefunden werden. Entweder sind keine Berechtigungen gesetzt oder ist kein Videogerät angeschlossen!';
+      this.loadingError = $localize`:@@recorderAddVideoLoadingError:No video devices found. Either the permissions are not set or no video device is connected!`;
     }
 
     this.loading = false;
@@ -108,24 +96,24 @@ export class AddVideoSourceComponent implements OnInit, OnDestroy {
   async resetVideoSourceDevice(mediaDeviceInfo: MediaDeviceInfo) {
     this.deviceError = null;
 
-    // this.videoSource.deviceId = mediaDeviceInfo.deviceId;
-    // this.videoSource.label = mediaDeviceInfo.label;
+    this.deviceId = mediaDeviceInfo.deviceId;
+    this.label = mediaDeviceInfo.label;
 
     // remove old stream
-    // if (this.videoSource.mediaStream) {
-    //   this.videoSource.mediaStream.getTracks().forEach((track) => track.stop());
-    //   this.videoSource.mediaStream = null;
-    // }
+    if (this.mediaStream) {
+      this.mediaStream.getTracks().forEach((track) => track.stop());
+      this.mediaStream = null;
+    }
 
     // create new stream
-    // try {
-    //   this.videoSource.mediaStream = await navigator.mediaDevices.getUserMedia({
-    //     audio: false,
-    //     video: { deviceId: mediaDeviceInfo.deviceId },
-    //   });
-    // } catch (error) {
-    //   this.deviceError = error; // TODO
-    // }
+    try {
+      this.mediaStream = await navigator.mediaDevices.getUserMedia({
+        audio: false,
+        video: { deviceId: mediaDeviceInfo.deviceId },
+      });
+    } catch (error) {
+      this.deviceError = error;
+    }
   }
 
   onSelectionChange() {
@@ -141,10 +129,13 @@ export class AddVideoSourceComponent implements OnInit, OnDestroy {
   }
 
   onSubmitDialog() {
-    // this.recorderService.videos.push({ ...this.videoSource });
-    // this.videoSource.mediaStream = null;
+    this.mediaStream = null;
 
-    // this.dialogRef.close(this.videoSource.deviceId);
-    this.dialogRef.close();
+    this.dialogRef.close({
+      title: this.title,
+      label: this.label,
+      deviceId: this.deviceId,
+      mediaCategory: this.mediaCategory,
+    });
   }
 }

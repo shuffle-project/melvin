@@ -46,37 +46,26 @@
   <div class="tile-content">
     @if (screenSource) {
     <video #screenVideo></video>
-    } @if (audioSource) {
-    <!-- <audio
-      [srcObject]="audioSource.mediaStream"
-      autoplay
-      [muted]="true"
-      muted
-    ></audio> -->
-    <div class="meter-wrapper">
-      <span> Audio level </span>
-      <div class="meter">
-        <!-- <app-audio-meter
-          [mediaStream]="audioSource.mediaStream"
-        ></app-audio-meter> -->
-      </div>
-    </div>
-    } @if (videoSource) {
-    <!-- <video
-      [srcObject]="videoSource.mediaStream"
-      autoplay
-      [muted]="true"
-    ></video> -->
-    }
-    <!-- @if (screensharingSource.sound && screensharingSource.mediaStream) {
+    @if (screenSource.audioTrack) {
     <div class="meter-wrapper">
       <span> Audio level </span>
       <div class="meter">
         <app-audio-meter
-          [mediaStream]="screensharingSource.mediaStream"
+          [mediaStream]="screenSource.audioTrack.mediaStream!"
         ></app-audio-meter>
       </div>
     </div>
-    }  -->
+    } } @if (audioSource) {
+    <div class="meter-wrapper">
+      <span> Audio level </span>
+      <div class="meter">
+        <app-audio-meter
+          [mediaStream]="audioSource.audioTrack.mediaStream!"
+        ></app-audio-meter>
+      </div>
+    </div>
+    } @if (videoSource) {
+    <video #video [muted]="true"></video>
+    }
   </div>
 </div>

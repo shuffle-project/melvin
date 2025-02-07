@@ -2,7 +2,6 @@ import {
   Component,
   ElementRef,
   Inject,
-  OnDestroy,
   OnInit,
   ViewChild,
 } from '@angular/core';
@@ -21,6 +20,7 @@ import { Track } from 'livekit-client';
 import { MediaCategoryPipe } from 'src/app/pipes/media-category-pipe/media-category.pipe';
 import { MediaCategory } from '../../../../../services/api/entities/project.entity';
 import { AudioMeterComponent } from '../../components/audio-meter/audio-meter.component';
+import { LiveKitService } from '../../liveKit.service';
 
 @Component({
   selector: 'app-add-screensharing-source',
@@ -38,7 +38,7 @@ import { AudioMeterComponent } from '../../components/audio-meter/audio-meter.co
     MediaCategoryPipe,
   ],
 })
-export class AddScreensharingSourceComponent implements OnInit, OnDestroy {
+export class AddScreensharingSourceComponent implements OnInit {
   @ViewChild('videoElement') videoElement!: ElementRef<HTMLVideoElement>;
 
   videoTrack: Track | null = null;
@@ -49,19 +49,23 @@ export class AddScreensharingSourceComponent implements OnInit, OnDestroy {
     .map(([label, value]) => value)
     .filter((category) => category !== MediaCategory.MAIN);
 
-  title = 'Screensharing title'; // TODO i18n
+  title = '';
   mediaCategory = MediaCategory.SLIDES;
 
   constructor(
     public dialogRef: MatDialogRef<AddScreensharingSourceComponent>,
     @Inject(MAT_DIALOG_DATA)
-    public data: Track[]
+    public data: Track[],
+    private liveKitService: LiveKitService
   ) {}
 
   ngOnInit() {
     const [videoTrack, audioTrack] = this.data;
+
     this.videoTrack = videoTrack;
     this.audioTrack = audioTrack;
+    this.title =
+      'Screensharing ' + (this.liveKitService.screenSourceMap.size + 1);
   }
 
   ngAfterViewInit() {
@@ -69,8 +73,6 @@ export class AddScreensharingSourceComponent implements OnInit, OnDestroy {
       this.videoTrack?.attach(this.videoElement.nativeElement);
     }
   }
-
-  ngOnDestroy() {}
 
   onCloseDialog() {
     this.dialogRef.close();
