@@ -58,6 +58,17 @@ button.big-icon-mat-button {
   );
 }
 
+mat-chip.recorder-mat-chips {
+  @include mat.chips-overrides(
+    (
+      outline-color: var(--color-primary),
+      label-text-color: var(--color-primary),
+      disabled-outline-color: var(--color-dark-grey),
+      disabled-label-text-color: var(--color-dark-grey),
+    )
+  );
+}
+
 mat-slider {
   .mdc-slider__track--inactive {
     opacity: 40%;

@@ -220,20 +220,16 @@ export class LiveKitService {
   removeTrack(mediaSource: AudioSource | VideoSource | ScreenSource) {
     if (mediaSource.type === 'screen') {
       if (mediaSource.audioTrack) {
-        this.room.localParticipant.unpublishTrack(mediaSource.audioTrack);
+        this.room.localParticipant.unpublishTrack(mediaSource.audioTrack, true);
       }
 
-      this.room.localParticipant.unpublishTrack(mediaSource.videoTrack);
-      // TODO right approach to stop track? nescessary?
-      // https://docs.livekit.io/client-sdk-js/classes/localparticipant.html#unpublishtrack
-      // unpublishTrack(track: MediaStreamTrack | LocalTrack, stopOnUnpublish?: boolean)
-      // mediaSource.videoTrack.stop();
+      this.room.localParticipant.unpublishTrack(mediaSource.videoTrack, true);
       this.screenSourceMap.delete(mediaSource.id);
     } else if (mediaSource.type === 'video') {
-      this.room.localParticipant.unpublishTrack(mediaSource.videoTrack);
+      this.room.localParticipant.unpublishTrack(mediaSource.videoTrack, true);
       this._videoSourceMap.delete(mediaSource.id);
     } else {
-      this.room.localParticipant.unpublishTrack(mediaSource.audioTrack);
+      this.room.localParticipant.unpublishTrack(mediaSource.audioTrack, true);
       this._audioSourceMap.delete(mediaSource.id);
     }
     this._isVideoAndAudioAvailable();

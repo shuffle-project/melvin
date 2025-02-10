@@ -33,7 +33,9 @@
       >
       <mat-select [(ngModel)]="mediaCategory">
         @for (category of mediaCategoryArray; track category) {
-        <mat-option value="category">{{ category | mediaCategory }}</mat-option>
+        <mat-option [value]="category">{{
+          category | mediaCategory
+        }}</mat-option>
         }
       </mat-select>
     </mat-form-field>

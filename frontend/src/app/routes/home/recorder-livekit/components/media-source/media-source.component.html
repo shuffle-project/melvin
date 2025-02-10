@@ -5,7 +5,7 @@
       <div class="subtitle">
         @if ( videoSource?.mediaCategory || screenSource?.mediaCategory ) {
         <mat-chip
-          class="media-category"
+          class="media-category recorder-mat-chips"
           [matMenuTriggerFor]="mediaCategoryMenu"
           [disabled]="liveKitService.sessionInProgress"
           [class.clickable]="!liveKitService.sessionInProgress"
