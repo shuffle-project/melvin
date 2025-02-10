@@ -24,6 +24,7 @@ import { AppState } from '../../../store/app.state';
 import * as configSelector from '../../../store/selectors/config.selector';
 import { MediaSourceComponent } from './components/media-source/media-source.component';
 
+import { LetDirective } from '@ngrx/component';
 import { LiveKitService } from './liveKit.service';
 
 @Component({
@@ -44,6 +45,7 @@ import { LiveKitService } from './liveKit.service';
     MatSelectModule,
     DurationPipe,
     MatSlideToggleModule,
+    LetDirective,
   ],
 })
 export class RecorderComponent implements OnInit, OnDestroy {
@@ -51,9 +53,6 @@ export class RecorderComponent implements OnInit, OnDestroy {
   @ViewChild('testWrapper') testWrapper!: ElementRef<HTMLDivElement>;
 
   public languages$ = this.store.select(configSelector.languagesConfig);
-
-  locale = $localize.locale;
-  recordingTitle: string = '';
 
   loading = true;
 
@@ -63,53 +62,15 @@ export class RecorderComponent implements OnInit, OnDestroy {
 
   constructor(
     public dialog: MatDialog,
-    // public recorderService: RecorderService,
     private store: Store<AppState>,
     public livekitService: LiveKitService
-  ) {
-    if (this.locale?.startsWith('en')) {
-      this.recordingTitle = 'Recording from ' + new Date().toLocaleDateString();
-    } else {
-      this.recordingTitle = 'Aufnahme vom ' + new Date().toLocaleDateString();
-    }
-  }
-
-  // ngAfterViewInit() {
-  //   this.screenSharingVideoElements.changes.subscribe((elements) => {
-  //     this.screenSharingVideoElements.forEach((element, i) => {
-  //       if ([...this.livekitService.videoSourceMap][i]) {
-  //         [...this.livekitService.videoSourceMap][i][1].track.attach(
-  //           element.nativeElement
-  //         );
-  //       }
-  //       if (this.screensharingTracks[i]) {
-  //         this.screensharingTracks[i].attach(element.nativeElement);
-  //       }
-  //     });
-  //   });
-  // }
-
-  onRemoveTrack(track: LocalTrack) {
-    // this.livekitService.removeTrack(track);
-  }
+  ) {}
 
   async ngOnInit() {
     this.loading = false;
     this.livekitService.init('projectId');
 
     // this.room.emit('chatMessage', 'hello from angular');
-    // this.room.on(
-    //   RoomEvent.TrackSubscribed,
-    //   (
-    //     track: RemoteTrack,
-    //     publication: RemoteTrackPublication,
-    //     participant: RemoteParticipant
-    //   ) => {
-    // console.log('Track subscribed event', track, publication, participant);
-    // const element = track.attach();
-    // this.lalelu.nativeElement.appendChild(element);
-    //   }
-    // );
 
     // Also subscribe to tracks published before participant joined
     // this.room.remoteParticipants.forEach((participant) => {
@@ -117,8 +78,6 @@ export class RecorderComponent implements OnInit, OnDestroy {
     //     publication.setSubscribed(true);
     //   });
     // });
-
-    // await this.room.localParticipant.enableCameraAndMicrophone();
   }
 
   ngOnDestroy(): void {
@@ -152,19 +111,19 @@ export class RecorderComponent implements OnInit, OnDestroy {
     // }
   }
 
-  onClickStartRecord() {
-    // this.recorderService.startRecording();
+  onClickStartSession() {
+    this.livekitService.startSession();
   }
 
-  async onClickStopRecord() {
-    // this.recorderService.stopRecording(this.recordingTitle);
+  onClickStopSession() {
+    this.livekitService.stopSession();
   }
 
-  onClickTogglePauseRecording() {
-    // if (this.recorderService.recordingPaused) {
-    //   this.recorderService.onResumeMediaRecorder();
-    // } else {
-    //   this.recorderService.onPauseMediaRecorder();
-    // }
+  onClickTogglePauseSession() {
+    if (this.livekitService.sessionPaused) {
+      this.livekitService.resumeSession();
+    } else {
+      this.livekitService.pauseSession();
+    }
   }
 }

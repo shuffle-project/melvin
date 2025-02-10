@@ -27,13 +27,9 @@
     align-items: center;
 
     margin-inline: 1.125rem;
-
-    .recording-title-field {
-      margin-top: 1.375rem;
-    }
+    min-height: 5rem;
 
     .infotext {
-      flex: 1;
       display: flex;
       justify-content: center;
       align-items: center;

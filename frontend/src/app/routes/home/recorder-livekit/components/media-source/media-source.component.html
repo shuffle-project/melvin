@@ -7,8 +7,8 @@
         <mat-chip
           class="media-category"
           [matMenuTriggerFor]="mediaCategoryMenu"
-          [disabled]="liveKitService.sessionInProgess"
-          [class.clickable]="!liveKitService.sessionInProgess"
+          [disabled]="liveKitService.sessionInProgress"
+          [class.clickable]="!liveKitService.sessionInProgress"
         >
           @if ( videoSource?.mediaCategory) {
           {{ videoSource!.mediaCategory | mediaCategory }}
@@ -36,7 +36,7 @@
       }
     </mat-menu>
     <div class="header-buttons">
-      @if (!liveKitService.sessionInProgess) {
+      @if (!liveKitService.sessionInProgress) {
       <button mat-icon-button class="md" (click)="onRemoveMediaSource()">
         <mat-icon svgIcon="delete"></mat-icon>
       </button>

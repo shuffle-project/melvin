@@ -11,17 +11,6 @@
   </div>
   } @if (!loading) {
   <div class="head-wrapper">
-    <mat-form-field class="recording-title-field" style="min-width: 18.75rem">
-      <mat-label i18n="@@recorderRecordingTitleLabel"
-        >Recording title</mat-label
-      >
-      <input matInput [(ngModel)]="recordingTitle" required />
-      <!-- value="Aufnahme vom {{ today | date }}" -->
-      <mat-error i18n="@@recorderRecordingTitleError"
-        >Recording title is required
-      </mat-error>
-    </mat-form-field>
-
     <div class="infotext">
       <mat-icon svgIcon="info"></mat-icon>
       @if (!livekitService.sessionInProgress) {
@@ -41,15 +30,14 @@
     <div class="buttons">
       <!-- record buttons -->
 
-      <!-- @if (recorderService.recording) { @if(recorderService.recordingPaused){
-      <mat-icon class="" svgIcon="pause"></mat-icon>
-      }@else {
-      <mat-icon class="recording-indicator" svgIcon="recording_red"></mat-icon>
-      }
-
-      <p>{{ getCurrentDuration() | duration }}</p>
-
-      } -->
+      @if (livekitService.sessionInProgress) { @if
+      (livekitService.sessionPaused) {
+      <mat-icon class="" svgIcon="pause" />
+      } @else {
+      <p *ngrxLet="livekitService.currentDuation$; let currentDuration">
+        {{ currentDuration | duration }}
+      </p>
+      } }
 
       <!-- start & stop -->
       @if(livekitService.sessionInProgress){
@@ -57,7 +45,7 @@
       <button
         class="action-btn"
         mat-flat-button
-        (click)="onClickStopRecord()"
+        (click)="onClickStopSession()"
         [disabled]="!livekitService.sessionInProgress"
         i18n="@@recorderStopRecordingButton"
       >
@@ -67,7 +55,7 @@
       <button
         class="action-btn"
         mat-flat-button
-        (click)="onClickStartRecord()"
+        (click)="onClickStartSession()"
         i18n="@@recorderStartRecordingButton"
         [disabled]="
           !livekitService.videoAndAudioAvailable ||
@@ -81,7 +69,7 @@
       <button
         class="action-btn"
         mat-flat-button
-        (click)="onClickTogglePauseRecording()"
+        (click)="onClickTogglePauseSession()"
         i18n="@@recorderResumeRecordingButton"
       >
         Resume recording
@@ -90,8 +78,9 @@
       <button
         class="action-btn"
         mat-flat-button
-        (click)="onClickTogglePauseRecording()"
+        (click)="onClickTogglePauseSession()"
         i18n="@@recorderPauseRecordingButton"
+        [disabled]="!livekitService.sessionInProgress"
       >
         Pause recording
       </button>

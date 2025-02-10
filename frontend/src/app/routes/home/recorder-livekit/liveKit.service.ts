@@ -7,7 +7,13 @@ import {
   LocalTrackPublication,
   Room,
 } from 'livekit-client';
-import { firstValueFrom, lastValueFrom } from 'rxjs';
+import {
+  BehaviorSubject,
+  firstValueFrom,
+  interval,
+  lastValueFrom,
+  takeWhile,
+} from 'rxjs';
 import { ApiService } from 'src/app/services/api/api.service';
 import { MediaCategory } from 'src/app/services/api/entities/project.entity';
 import { AddAudioSourceComponent } from './dialogs/add-audio-source/add-audio-source.component';
@@ -24,6 +30,9 @@ export class LiveKitService {
   private _sessionInProgress = false;
   private _videoAndAudioAvailable = false;
   private _sessionPaused = false;
+
+  private _timer = 0;
+  public currentDuation$ = new BehaviorSubject<number>(0);
 
   private _videoSourceMap: Map<string, VideoSource> = new Map();
   private _screenSourceMap: Map<string, ScreenSource> = new Map();
@@ -72,6 +81,17 @@ export class LiveKitService {
       this._videoSourceMap.size > 0 || this._screenSourceMap.size > 0;
 
     this._videoAndAudioAvailable = audioAvailable && videoAvailable;
+  }
+
+  _startTimer() {
+    interval(1000)
+      .pipe(takeWhile(() => this._sessionInProgress))
+      .subscribe(() => {
+        if (!this._sessionPaused) {
+          this._timer += 1000;
+          this.currentDuation$.next(this._timer);
+        }
+      });
   }
 
   async addVideoTrack() {
@@ -230,6 +250,24 @@ export class LiveKitService {
     } else {
       this._videoSourceMap.set(mediaSource.id, mediaSource);
     }
+  }
+
+  resumeSession() {
+    this._sessionPaused = false;
+  }
+
+  stopSession() {
+    this._sessionInProgress = false;
+    this._sessionPaused = false;
+  }
+
+  pauseSession() {
+    this._sessionPaused = true;
+  }
+
+  startSession() {
+    this._sessionInProgress = true;
+    this._startTimer();
   }
 
   destroy() {
