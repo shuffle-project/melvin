@@ -21,11 +21,25 @@ import { AudioSource, ScreenSource, VideoSource } from './recorder.interfaces';
 export class LiveKitService {
   private room!: Room;
 
-  public sessionInProgess = false;
+  private _sessionInProgress = false;
+  private _videoAndAudioAvailable = false;
+  private _sessionPaused = false;
 
   private _videoSourceMap: Map<string, VideoSource> = new Map();
   private _screenSourceMap: Map<string, ScreenSource> = new Map();
   private _audioSourceMap: Map<string, AudioSource> = new Map();
+
+  get sessionInProgress() {
+    return this._sessionInProgress;
+  }
+
+  get videoAndAudioAvailable() {
+    return this._videoAndAudioAvailable;
+  }
+
+  get sessionPaused() {
+    return this._sessionPaused;
+  }
 
   get screenSourceMap() {
     return this._screenSourceMap;
@@ -51,6 +65,14 @@ export class LiveKitService {
   }
 
   // TODO add reInit
+
+  _isVideoAndAudioAvailable() {
+    const audioAvailable = this._audioSourceMap.size > 0;
+    const videoAvailable =
+      this._videoSourceMap.size > 0 || this._screenSourceMap.size > 0;
+
+    this._videoAndAudioAvailable = audioAvailable && videoAvailable;
+  }
 
   async addVideoTrack() {
     const selectedVideoData: {
@@ -82,6 +104,7 @@ export class LiveKitService {
     };
 
     this._videoSourceMap.set(newVideoSource.id, newVideoSource);
+    this._isVideoAndAudioAvailable();
   }
 
   async addAudioTrack() {
@@ -114,6 +137,7 @@ export class LiveKitService {
     };
 
     this._audioSourceMap.set(newAudioSource.id, newAudioSource);
+    this._isVideoAndAudioAvailable();
   }
 
   async getDevices(
@@ -167,6 +191,9 @@ export class LiveKitService {
       }
 
       this.screenSourceMap.set(newScreenSource.id, newScreenSource);
+      this._isVideoAndAudioAvailable();
+    } else {
+      screensharingTracks.forEach((track) => track.stop());
     }
   }
 
@@ -177,6 +204,10 @@ export class LiveKitService {
       }
 
       this.room.localParticipant.unpublishTrack(mediaSource.videoTrack);
+      // TODO right approach to stop track? nescessary?
+      // https://docs.livekit.io/client-sdk-js/classes/localparticipant.html#unpublishtrack
+      // unpublishTrack(track: MediaStreamTrack | LocalTrack, stopOnUnpublish?: boolean)
+      // mediaSource.videoTrack.stop();
       this.screenSourceMap.delete(mediaSource.id);
     } else if (mediaSource.type === 'video') {
       this.room.localParticipant.unpublishTrack(mediaSource.videoTrack);
@@ -185,6 +216,7 @@ export class LiveKitService {
       this.room.localParticipant.unpublishTrack(mediaSource.audioTrack);
       this._audioSourceMap.delete(mediaSource.id);
     }
+    this._isVideoAndAudioAvailable();
   }
 
   changeMediaCategory(

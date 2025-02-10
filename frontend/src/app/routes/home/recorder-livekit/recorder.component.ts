@@ -167,17 +167,4 @@ export class RecorderComponent implements OnInit, OnDestroy {
     //   this.recorderService.onPauseMediaRecorder();
     // }
   }
-
-  recordingDisabled() {
-    // const noAudioAvailable =
-    //   this.recorderService.audios.length === 0 &&
-    //   this.recorderService.screensharings.filter((value) => value.sound)
-    //     .length === 0;
-    // const noVideoAvailable =
-    //   this.recorderService.videos.length === 0 &&
-    //   this.recorderService.screensharings.length === 0;
-    // return (
-    //   this.recorderService.recording || noAudioAvailable || noVideoAvailable
-    // );
-  }
 }
