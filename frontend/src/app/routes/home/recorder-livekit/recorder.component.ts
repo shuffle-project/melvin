@@ -81,7 +81,6 @@ export class RecorderComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    // this.recorderService.resetData();
     this.livekitService.destroy();
   }
 
@@ -95,20 +94,6 @@ export class RecorderComponent implements OnInit, OnDestroy {
 
   async onAddScreenSharingSource() {
     await this.livekitService.addScreenTrack();
-  }
-
-  getCurrentDuration() {
-    // if (
-    //   this.recorderService.recordingPaused ||
-    //   !this.recorderService.recording
-    // ) {
-    //   return this.recorderService.previousDuration;
-    // } else {
-    //   return (
-    //     this.recorderService.previousDuration +
-    //     (Date.now() - this.recorderService.recordingTimestamp)
-    //   );
-    // }
   }
 
   onClickStartSession() {

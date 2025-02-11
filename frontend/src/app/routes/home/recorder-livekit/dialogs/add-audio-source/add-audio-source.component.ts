@@ -116,9 +116,8 @@ export class AddAudioSourceComponent implements OnInit, OnDestroy {
   onCloseDialog() {
     this.dialogRef.close();
   }
-  onSubmitDialog() {
-    this.mediaStream = null;
 
+  onSubmitDialog() {
     this.dialogRef.close({
       title: this.title,
       label: this.label,

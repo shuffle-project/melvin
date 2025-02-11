@@ -6,6 +6,7 @@ import {
   createLocalVideoTrack,
   LocalTrackPublication,
   Room,
+  RoomEvent,
 } from 'livekit-client';
 import {
   BehaviorSubject,
@@ -71,11 +72,23 @@ export class LiveKitService {
       this.api.authenticateLivekit('6200e98c9f6b0de828dbe34a')
     );
     await this.room.connect(res.url, res.authToken);
+
+    this.room.on(
+      RoomEvent.LocalTrackUnpublished,
+      this._handleLocalTrackUnpublished
+    );
+  }
+
+  private _handleLocalTrackUnpublished(publication: LocalTrackPublication) {
+    console.log(publication.track);
+
+    publication.track?.stop();
+    console.log(publication);
   }
 
   // TODO add reInit
 
-  _isVideoAndAudioAvailable() {
+  private _isVideoAndAudioAvailable() {
     const audioAvailable = this._audioSourceMap.size > 0;
     const videoAvailable =
       this._videoSourceMap.size > 0 || this._screenSourceMap.size > 0;
@@ -83,7 +96,7 @@ export class LiveKitService {
     this._videoAndAudioAvailable = audioAvailable && videoAvailable;
   }
 
-  _startTimer() {
+  private _startTimer() {
     interval(1000)
       .pipe(takeWhile(() => this._sessionInProgress))
       .subscribe(() => {

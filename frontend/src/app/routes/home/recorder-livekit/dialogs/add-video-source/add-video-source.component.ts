@@ -56,7 +56,7 @@ export class AddVideoSourceComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    // this.mediaStream?.getTracks().forEach((track) => track.stop());
+    this.mediaStream?.getTracks().forEach((track) => track.stop());
     this.mediaStream = null;
   }
 
@@ -129,8 +129,6 @@ export class AddVideoSourceComponent implements OnInit, OnDestroy {
   }
 
   onSubmitDialog() {
-    this.mediaStream = null;
-
     this.dialogRef.close({
       title: this.title,
       label: this.label,
