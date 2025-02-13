@@ -172,7 +172,9 @@ export class RecorderService {
 
     allStreams.forEach((streamToRecord) => {
       const chunks: Blob[] = [];
-      const mediaRecorder = new MediaRecorder(streamToRecord.stream);
+      const mediaRecorder = new MediaRecorder(streamToRecord.stream, {
+        mimeType: 'video/webm',
+      });
 
       const recording: Recording = {
         id: streamToRecord.source.id,
