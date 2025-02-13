@@ -172,6 +172,7 @@ export class RecorderService {
 
     allStreams.forEach((streamToRecord) => {
       const chunks: Blob[] = [];
+
       const mediaRecorder = new MediaRecorder(streamToRecord.stream);
 
       const recording: Recording = {

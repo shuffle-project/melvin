@@ -1,7 +1,9 @@
-import { defineAgent, JobContext } from '@livekit/agents';
+import { defineAgent } from '@livekit/agents';
 
 export default defineAgent({
-  entry: async (ctx: JobContext) => {
+  entry: async (ctx) => {
+    console.log('entrypoint agent');
+
     // connect to the room
     await ctx.connect();
     // handle the session
