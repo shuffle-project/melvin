@@ -29,6 +29,12 @@
           }
         </div>
         <div class="right-side-wrapper">
+          @if (feedbackLink) {
+          <a class="feedback-link" href="" mat-flat-button>
+            Feedback geben ❤️
+          </a>
+          }
+
           <button
             mat-icon-button
             aria-label="Open darkmode menu"

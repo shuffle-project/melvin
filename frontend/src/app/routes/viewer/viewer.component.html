@@ -57,15 +57,10 @@
                 <h1>
                   {{ project?.title }}
                 </h1>
-                @if (embed) {
-                <!-- todo maybe show logo here and let it navigate to new tab -->
-                <!-- <app-logo
-                  class="clickable"
-                  target="_blank"
-                  [routerLink]="['']"
-                  aria-label="Melvin Logo, open viewer in new tab"
-                  i18n-aria-label="@@viewerLogoAriaLabelNewTab"
-                /> -->
+                @if (feedbackLink) {
+                <a class="feedback-link" href="" mat-flat-button>
+                  Feedback geben ❤️
+                </a>
                 } @else {
                 <app-logo
                   class="clickable"

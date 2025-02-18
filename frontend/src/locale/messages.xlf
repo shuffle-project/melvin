@@ -1407,7 +1407,7 @@
         <source> Password </source>
       </trans-unit>
       <trans-unit id="registerDialogEmailContactInfo" datatype="html">
-        <source> Melvin is currently still in a closed test phase. Would you like to test Melvin? Please contact us at <x id="START_LINK" ctype="x-a" equiv-text="&lt;a href=&quot;mailto:melvin@shuffle-projekt.de&quot;&gt;"/>melvin@shuffle-projekt.de<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/></source>
+        <source> Melvin is currently still in a closed test phase. Would you like to test Melvin? Please contact us at <x id="START_LINK" ctype="x-a" equiv-text="&lt;a href=&quot;mailto:melvin@hdm-suttgart.de&quot;&gt;"/>melvin@hdm-suttgart.de<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/></source>
       </trans-unit>
       <trans-unit id="fromMediaTranscriptionTabFileErrorMaximum" datatype="html">
         <source> Maximum 1 file </source>
@@ -1534,6 +1534,258 @@
       </trans-unit>
       <trans-unit id="editorSettingsHeadline" datatype="html">
         <source>Settings</source>
+      </trans-unit>
+      <trans-unit id="guideAccessibleMaterialsDefinition" datatype="html">
+        <source> When combining videos with other digital learning formats such as text, images, or interactive tools, ensure that all materials comply with accessibility standards<x id="START_SUPERSCRIPT" ctype="x-sup" equiv-text="&lt;sup&gt;"/>4<x id="CLOSE_SUPERSCRIPT" ctype="x-sup" equiv-text="&lt;/sup&gt;"/>. </source>
+      </trans-unit>
+      <trans-unit id="guideAccessibleMaterialsTerm" datatype="html">
+        <source> Accessible Digital Materials </source>
+      </trans-unit>
+      <trans-unit id="guideAcquiredKnowledgeDefinition" datatype="html">
+        <source> Where can students test their newly acquired knowledge? <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>Quizzes<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/> or targeted exercises can be embedded in the video or incorporated into follow-up in-person sessions. </source>
+      </trans-unit>
+      <trans-unit id="guideAcquiredKnowledgeTerm" datatype="html">
+        <source>Reviewing Acquired Knowledge</source>
+      </trans-unit>
+      <trans-unit id="guideClearTopicDefinition" datatype="html">
+        <source> Each video should address a <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>well-defined topic<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/>, clearly stated at the beginning. A precise title enhances recognizability and helps students navigate the content effectively. </source>
+      </trans-unit>
+      <trans-unit id="guideClearTopicTerm" datatype="html">
+        <source>Clear Topic Focus</source>
+      </trans-unit>
+      <trans-unit id="guideContentHeading" datatype="html">
+        <source>Content Planning</source>
+      </trans-unit>
+      <trans-unit id="guideContentTableContent" datatype="html">
+        <source> Content Planning </source>
+      </trans-unit>
+      <trans-unit id="guideContentTableDidactic" datatype="html">
+        <source> Didactic Planning </source>
+      </trans-unit>
+      <trans-unit id="guideContentTableHeading" datatype="html">
+        <source>Table of contents</source>
+      </trans-unit>
+      <trans-unit id="guideContentTablePlanningVideo" datatype="html">
+        <source> Planning the Video </source>
+      </trans-unit>
+      <trans-unit id="guideContentTableReferences" datatype="html">
+        <source> References </source>
+      </trans-unit>
+      <trans-unit id="guideContentTableTechnical" datatype="html">
+        <source> Technical Planning </source>
+      </trans-unit>
+      <trans-unit id="guideContentTableWhy" datatype="html">
+        <source> Why Didactic Recommendations? </source>
+      </trans-unit>
+      <trans-unit id="guideDidacticHeading" datatype="html">
+        <source> Didactic Planning </source>
+      </trans-unit>
+      <trans-unit id="guideEasyAccessDefinition" datatype="html">
+        <source> Learning videos should be easily accessible on the learning platform. An accompanying syllabus summarizing the video’s content in bullet points enhances clarity and transparency. </source>
+      </trans-unit>
+      <trans-unit id="guideEasyAccessTerm" datatype="html">
+        <source>Easy Video Access</source>
+      </trans-unit>
+      <trans-unit id="guideExamRelevantDefinition" datatype="html">
+        <source> If a video covers content relevant to exams, this should be explicitly stated in the learning objectives. Additionally, <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>providing practice questions<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/> can help students gain confidence in exam situations. </source>
+      </trans-unit>
+      <trans-unit id="guideExamRelevantTerm" datatype="html">
+        <source>Exam-Relevant Content</source>
+      </trans-unit>
+      <trans-unit id="guideFileNamingDefinition" datatype="html">
+        <source> The video file name should be <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>meaningful<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/> and include key information such as title, author, topic, and date. </source>
+      </trans-unit>
+      <trans-unit id="guideFileNamingExample" datatype="html">
+        <source> Example: Hearing_Disorders_Baumgart_Pediatric_Audiology_WS23_24 </source>
+      </trans-unit>
+      <trans-unit id="guideFileNamingTerm" datatype="html">
+        <source>Clear and Informative File Naming</source>
+      </trans-unit>
+      <trans-unit id="guideFrameworkDefinition" datatype="html">
+        <source> It is crucial to determine in advance how the videos will be integrated into teaching and for what <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>purpose<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/> they will be used. What role do the videos play within the broader instructional framework? Defining this objective helps in designing the videos effectively. </source>
+      </trans-unit>
+      <trans-unit id="guideFrameworkTerm" datatype="html">
+        <source>General Instructional Framework</source>
+      </trans-unit>
+      <trans-unit id="guideHighQualityMediaDefinition" datatype="html">
+        <source> Both image and sound quality should be optimal, with good lighting and a distraction-free recording environment. A calm and clear speaking style, with sufficient pauses, enhances comprehensibility. A neutral background helps keep the focus on the content. </source>
+      </trans-unit>
+      <trans-unit id="guideHighQualityMediaTerm" datatype="html">
+        <source> Ensuring High-Quality Audio and Video: </source>
+      </trans-unit>
+      <trans-unit id="guideInvertedClassroomDefinition" datatype="html">
+        <source> When videos are used as part of an Inverted Classroom model, <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>clear incentives<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/> should be provided for students to prepare for deeper engagement during in-person sessions. If a video is assigned to a specific session, this should be clearly communicated, and students should have <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>sufficient time<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/> to review the content and any accompanying materials. </source>
+      </trans-unit>
+      <trans-unit id="guideInvertedClassroomTerm" datatype="html">
+        <source>Inverted Classroom</source>
+      </trans-unit>
+      <trans-unit id="guideLearningObjectivesDefinition" datatype="html">
+        <source> Each video should specify its learning objectives at the beginning and in the course syllabus. This improves transparency and aids students in organizing their knowledge acquisition. </source>
+      </trans-unit>
+      <trans-unit id="guideLearningObjectivesTerm" datatype="html">
+        <source>Defining Learning Objectives</source>
+      </trans-unit>
+      <trans-unit id="guideMainHeading" datatype="html">
+        <source>Guide</source>
+      </trans-unit>
+      <trans-unit id="guideMicroLearningDefinition" datatype="html">
+        <source> If a video is intended to introduce or deepen a specific aspect, a short and focused microlearning unit (also known as a &quot;learning nugget&quot;<x id="START_SUPERSCRIPT" ctype="x-sup" equiv-text="&lt;sup&gt;"/>2<x id="CLOSE_SUPERSCRIPT" ctype="x-sup" equiv-text="&lt;/sup&gt;"/>) may be appropriate. These concise videos effectively present knowledge in just a few minutes. Multiple microlearning units can be organized into a series, with clear titles and sequencing information to enhance clarity. </source>
+      </trans-unit>
+      <trans-unit id="guideMicroLearningExampleHeading" datatype="html">
+        <source>Examples:</source>
+      </trans-unit>
+      <trans-unit id="guideMicroLearningExampleOne" datatype="html">
+        <source> A video on how to effectively search for academic articles in databases. </source>
+      </trans-unit>
+      <trans-unit id="guideMicroLearningExampleTwo" datatype="html">
+        <source> A video explaining proper scientific citation methods. </source>
+      </trans-unit>
+      <trans-unit id="guideMicroLearningTerm" datatype="html">
+        <source>Microlearning Units</source>
+      </trans-unit>
+      <trans-unit id="guideOptimalLenghtDefinition" datatype="html">
+        <source> Depending on the purpose, learning videos can vary in length, but they should not exceed a certain duration to avoid cognitive overload. Empirical research suggests a <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>maximum duration of 20 minutes<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/> (Brück 2023). </source>
+      </trans-unit>
+      <trans-unit id="guideOptimalLenghtTerm" datatype="html">
+        <source>Optimal Video Length</source>
+      </trans-unit>
+      <trans-unit id="guideParticipationDefinition" datatype="html">
+        <source> Integrating interactive elements, such as exercises, can promote active learning and deeper engagement with the material. </source>
+      </trans-unit>
+      <trans-unit id="guideParticipationTerm" datatype="html">
+        <source>Encouraging Active Participation</source>
+      </trans-unit>
+      <trans-unit id="guidePlanningHeading" datatype="html">
+        <source>Planning the Video</source>
+      </trans-unit>
+      <trans-unit id="guidePlanningIntro" datatype="html">
+        <source> Before starting video production, careful planning from a didactic, content-related, and technical perspective is essential. This ensures that the video meets the intended learning objectives and reaches all students effectively. </source>
+      </trans-unit>
+      <trans-unit id="guideReferencesHeading" datatype="html">
+        <source>References</source>
+      </trans-unit>
+      <trans-unit id="guideReflectionDefiniton" datatype="html">
+        <source> Videos can include reflection questions or closing exercises to reinforce learning. Opportunities for feedback and discussion can be facilitated through digital learning platforms or in subsequent in-person sessions. </source>
+      </trans-unit>
+      <trans-unit id="guideReflectionTerm" datatype="html">
+        <source> Providing Feedback and Reflection Opportunities </source>
+      </trans-unit>
+      <trans-unit id="guideRepetitionClearSpeechOne" datatype="html">
+        <source>Clear speech</source>
+      </trans-unit>
+      <trans-unit id="guideRepetitionClearSpeechTwo" datatype="html">
+        <source>with enough pauses</source>
+      </trans-unit>
+      <trans-unit id="guideRepetitionContentBreaksOne" datatype="html">
+        <source>Content breaks</source>
+      </trans-unit>
+      <trans-unit id="guideRepetitionContentBreaksTwo" datatype="html">
+        <source> help with clarity </source>
+      </trans-unit>
+      <trans-unit id="guideRepetitionEnvironmentOne" datatype="html">
+        <source>Bright &amp; quiet environment</source>
+      </trans-unit>
+      <trans-unit id="guideRepetitionEnvironmentTwo" datatype="html">
+        <source>for a good recording</source>
+      </trans-unit>
+      <trans-unit id="guideRepetitionFileNameOne" datatype="html">
+        <source>Title, author, topic, date</source>
+      </trans-unit>
+      <trans-unit id="guideRepetitionFileNameTwo" datatype="html">
+        <source>as a descriptive file name</source>
+      </trans-unit>
+      <trans-unit id="guideRepetitionHeading" datatype="html">
+        <source>Repetition</source>
+      </trans-unit>
+      <trans-unit id="guideRepetitionInteractiveElementsOne" datatype="html">
+        <source>Interactive elements</source>
+      </trans-unit>
+      <trans-unit id="guideRepetitionInteractiveElementsTwo" datatype="html">
+        <source>to encourage participation </source>
+      </trans-unit>
+      <trans-unit id="guideRepetitionLengthOne" datatype="html">
+        <source>20 minutes</source>
+      </trans-unit>
+      <trans-unit id="guideRepetitionLengthTwo" datatype="html">
+        <source>maximum video duration</source>
+      </trans-unit>
+      <trans-unit id="guideRepetitionOneVideoOne" datatype="html">
+        <source>One topic</source>
+      </trans-unit>
+      <trans-unit id="guideRepetitionOneVideoTwo" datatype="html">
+        <source>per video</source>
+      </trans-unit>
+      <trans-unit id="guideRepetitionPracticeQuestionOne" datatype="html">
+        <source>Practice questions</source>
+      </trans-unit>
+      <trans-unit id="guideRepetitionPracticeQuestionTwo" datatype="html">
+        <source>for reinforcement</source>
+      </trans-unit>
+      <trans-unit id="guideRepetitionVerbalOne" datatype="html">
+        <source>Verbal description</source>
+      </trans-unit>
+      <trans-unit id="guideRepetitionVerbalTwo" datatype="html">
+        <source> of figures and tables </source>
+      </trans-unit>
+      <trans-unit id="guideSelfRegulationDefinition" datatype="html">
+        <source> Providing videos places more responsibility on students for their own learning. Learning videos should therefore foster strategies for self-regulated learning (SRL<x id="START_SUPERSCRIPT" ctype="x-sup" equiv-text="&lt;sup&gt;"/>1<x id="CLOSE_SUPERSCRIPT" ctype="x-sup" equiv-text="&lt;/sup&gt;"/>) and motivate students to engage actively with the content. </source>
+      </trans-unit>
+      <trans-unit id="guideSelfRegulationTerm" datatype="html">
+        <source>Self-Regulated Learning</source>
+      </trans-unit>
+      <trans-unit id="guideStructuringVideoDefinition" datatype="html">
+        <source> The longer the video, the more important it is to maintain a <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>clear structure and include pauses<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/> to support comprehension. Planning recognizable sections (introduction, main part, conclusion) in advance is advisable. Creating <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>a script, storyboard,<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/> or screenplay can help structure the content and voiceover effectively. </source>
+      </trans-unit>
+      <trans-unit id="guideStructuringVideoTerm" datatype="html">
+        <source>Structuring the Video</source>
+      </trans-unit>
+      <trans-unit id="guideSubHeading" datatype="html">
+        <source> Didactic Recommendations – How to Use Melvin Effectively </source>
+      </trans-unit>
+      <trans-unit id="guideTechnicalEquipmentDefinition" datatype="html">
+        <source> Reliable technical equipment and pre-recording checks ensure smoother production. <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>Test recordings<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/> can help identify optimal settings. Depending on the setup, using <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>two monitors<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/> may facilitate the recording process. </source>
+      </trans-unit>
+      <trans-unit id="guideTechnicalEquipmentTerm" datatype="html">
+        <source> Technical Equipment Considerations </source>
+      </trans-unit>
+      <trans-unit id="guideTechnicalHeading" datatype="html">
+        <source> Technical planning </source>
+      </trans-unit>
+      <trans-unit id="guideTechnicalTermsDefinition" datatype="html">
+        <source> Complex concepts or technical terminology should be clearly explained, with <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>references to additional resources<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/> (e.g., central websites or literature) when necessary. </source>
+      </trans-unit>
+      <trans-unit id="guideTechnicalTermsTerm" datatype="html">
+        <source>Clarifying Technical Terms</source>
+      </trans-unit>
+      <trans-unit id="guideUDLDefinition" datatype="html">
+        <source> To promote accessibility, information should be presented in multiple formats—for example, through both auditory and visual means. <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>Tools like Melvin<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/>, which automatically generate subtitles and transcripts, can facilitate this approach. </source>
+      </trans-unit>
+      <trans-unit id="guideUDLTerm" datatype="html">
+        <source> Ensuring Accessibility – Universal Design for Learning (UDL)/Multi-Sensory Design Principle </source>
+      </trans-unit>
+      <trans-unit id="guideUsabilityDefinition" datatype="html">
+        <source> Is the video intended for one-time use, or should it be accessible across multiple semesters or courses? For long-term use, prioritize general and <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>broadly applicable information<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/> while minimizing temporary references (e.g., links to potentially outdated websites). </source>
+      </trans-unit>
+      <trans-unit id="guideUsabilityExample" datatype="html">
+        <source> Example: A video explaining the fundamentals of qualitative or quantitative research methods in social sciences. </source>
+      </trans-unit>
+      <trans-unit id="guideUsabilityTerm" datatype="html">
+        <source>Long-Term Usability</source>
+      </trans-unit>
+      <trans-unit id="guideVerbalizingDefinition" datatype="html">
+        <source> All essential visual elements used in the video should also be described verbally. Ideally, the key content of an image or figure should be integrated into the spoken text. If this is not feasible, a separate audio or text-based description should be provided as an additional resource.<x id="START_SUPERSCRIPT" ctype="x-sup" equiv-text="&lt;sup&gt;"/>3<x id="CLOSE_SUPERSCRIPT" ctype="x-sup" equiv-text="&lt;/sup&gt;"/>. </source>
+      </trans-unit>
+      <trans-unit id="guideVerbalizingTerm" datatype="html">
+        <source>Verbalizing Visual Elements</source>
+      </trans-unit>
+      <trans-unit id="guideWhyHeading" datatype="html">
+        <source> Why Didactic Recommendations? </source>
+      </trans-unit>
+      <trans-unit id="guideWhyPartOne" datatype="html">
+        <source> According to a working group of the Hochschulforum Digitalisierung, digitalization in education should not be &quot;an end in itself&quot; (Persike &amp; Friedrich, 2016, p. 5). Instead, digital learning and teaching concepts should aim to improve teaching quality, enhance effectiveness, and promote equal opportunities in higher education (Hanft et al., 2019, p. 325). Overall, aspects of equal opportunities, inclusion, and digitalization are still rarely considered in combination and insufficiently researched (Bosse et al., 2021; Hafer et al., 2019), particularly in relation to didactic issues. While digital tools offer many possibilities, not everything that is technically feasible is didactically useful or even accessible. </source>
+      </trans-unit>
+      <trans-unit id="guideWhyPartTwo" datatype="html">
+        <source> Melvin, as a video platform, is primarily a tool that offers functionality and allows for creative freedom. Thoughtful consideration of didactic implementation can significantly contribute to ensuring equal and barrier-free access to content for all users. These didactic guidelines aim to encourage a reflective approach when using Melvin. </source>
       </trans-unit>
     </body>
   </file>

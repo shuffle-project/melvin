@@ -5,6 +5,12 @@
         <app-logo class="clickable logo" [routerLink]="['/home/projects']" />
         <ng-content />
         <div class="header-buttons" [class.margin-left]="editorView">
+          @if (feedbackLink) {
+          <a class="feedback-link" href="" mat-flat-button>
+            Feedback geben ❤️
+          </a>
+          }
+
           <button
             mat-icon-button
             aria-label="Open darkmode menu"

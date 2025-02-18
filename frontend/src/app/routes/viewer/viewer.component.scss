@@ -86,11 +86,10 @@
         display: flex;
         gap: 0.3125rem;
         justify-content: space-between;
+        align-items: center;
 
-        h1,
-        app-logo {
-          margin: 1rem;
-        }
+        padding-inline: 1rem;
+        box-sizing: border-box;
       }
 
       .controls-wrapper {

@@ -11,7 +11,6 @@ import { Router } from '@angular/router';
 import { LetDirective } from '@ngrx/component';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { AvatarComponent } from 'src/app/components/avatar-group/avatar/avatar.component';
 import { DeleteConfirmationService } from 'src/app/components/delete-confirmation-dialog/delete-confirmation.service';
 import { ApiService } from 'src/app/services/api/api.service';
 import { logout } from 'src/app/store/actions/auth.actions';
@@ -40,7 +39,6 @@ interface PasswordChangeForm {
     MatIconModule,
     MatButtonModule,
     MatProgressSpinnerModule,
-    AvatarComponent,
     MatDividerModule,
   ],
 })

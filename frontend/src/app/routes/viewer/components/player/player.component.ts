@@ -17,7 +17,6 @@ import {
   ElementRef,
   HostListener,
   Input,
-  OnChanges,
   OnDestroy,
   OnInit,
   ViewChild,
@@ -66,9 +65,7 @@ export interface ViewerVideo extends VideoEntity {
     ]),
   ],
 })
-export class PlayerComponent
-  implements OnDestroy, AfterViewInit, OnInit, OnChanges
-{
+export class PlayerComponent implements OnDestroy, AfterViewInit, OnInit {
   private destroy$$ = new Subject<void>();
 
   @Input({ required: true }) project!: ProjectEntity;
@@ -151,8 +148,6 @@ export class PlayerComponent
   ngOnInit() {
     this.chooseAudio();
   }
-
-  ngOnChanges(): void {}
 
   chooseAudio() {
     const mp3 = this.media.audios.find((obj) => obj.extension === 'mp3');

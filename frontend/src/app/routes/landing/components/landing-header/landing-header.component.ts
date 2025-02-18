@@ -10,6 +10,7 @@ import { Store } from '@ngrx/store';
 import { LogoComponent } from 'src/app/components/logo/logo.component';
 import { FeatureEnabledPipe } from 'src/app/pipes/feature-enabled-pipe/feature-enabled.pipe';
 import { ColorTheme } from 'src/app/store/reducers/config.reducer';
+import { environment } from 'src/environments/environment';
 import * as configActions from '../../../../store/actions/config.actions';
 import * as authSelector from '../../../../store/selectors/auth.selector';
 import * as configSelector from '../../../../store/selectors/config.selector';
@@ -36,6 +37,8 @@ export class LandingHeaderComponent {
   public colorThemeENUM = ColorTheme;
   public colorTheme$ = this.store.select(configSelector.colorTheme);
   public isLoggedIn$ = this.store.select(authSelector.selectIsLoggedIn);
+
+  feedbackLink = environment.features.feedbackLink;
 
   constructor(private dialog: MatDialog, private store: Store) {
     this.colorTheme$.subscribe((colorTheme) => {

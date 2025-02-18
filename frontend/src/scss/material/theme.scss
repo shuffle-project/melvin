@@ -58,6 +58,14 @@ button.big-icon-mat-button {
   );
 }
 
+a.feedback-link {
+  @include mat.button-overrides(
+    (
+      filled-container-color: var(--color-black),
+    )
+  );
+}
+
 mat-slider {
   .mdc-slider__track--inactive {
     opacity: 40%;

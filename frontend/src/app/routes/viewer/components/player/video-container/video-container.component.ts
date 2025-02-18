@@ -15,7 +15,10 @@ import { MatIconModule } from '@angular/material/icon';
 import { PushPipe } from '@ngrx/component';
 import { debounceTime, fromEventPattern, Subject, takeUntil, tap } from 'rxjs';
 import { MediaCategoryPipe } from 'src/app/pipes/media-category-pipe/media-category.pipe';
-import { Resolution } from 'src/app/services/api/entities/project.entity';
+import {
+  Resolution,
+  ResolutionValue,
+} from 'src/app/services/api/entities/project.entity';
 import * as viewerActions from '../../../../../store/actions/viewer.actions';
 import { AppState } from '../../../../../store/app.state';
 import * as viewerSelector from '../../../../../store/selectors/viewer.selector';
@@ -57,6 +60,8 @@ export class VideoContainerComponent
   private cappedResolutions: Resolution[] = [];
   private currentResolution!: Resolution;
   private videoWidth = 300;
+  private maxResolution: ResolutionValue = '1080p';
+  private manuallyTriggerResize$ = new Subject<void>();
 
   constructor(
     private store: Store<AppState>,
@@ -64,68 +69,68 @@ export class VideoContainerComponent
   ) {}
 
   ngAfterViewInit(): void {
-    const sortedResolutions = [...this.video.resolutions].sort(
-      (a, b) => a.width - b.width
-    );
-
     this.store
       .select(viewerSelector.vMaxResolution)
       .pipe(takeUntil(this.destroy$$))
       .subscribe((maxResolution) => {
-        let maxResolutionIndex = sortedResolutions.findIndex(
-          (res) => res.resolution === maxResolution
-        );
+        this.maxResolution = maxResolution;
+        this._capResolutions();
 
-        if (maxResolutionIndex === -1) {
-          maxResolutionIndex = sortedResolutions.length - 1;
-        }
-
-        this.cappedResolutions = sortedResolutions.slice(
-          0,
-          maxResolutionIndex + 1
-        );
-
-        const fittingResolution = this.findFittingResolution();
+        const fittingResolution = this._findFittingResolution();
 
         if (
           !this.currentResolution ||
           this.currentResolution.resolution !== fittingResolution.resolution
         ) {
-          this.currentResolution = fittingResolution;
-
-          this.store.dispatch(
-            viewerActions.mediaLoadingSingle({ id: this.video.id })
-          );
-          this.viewerVideoSrc.nativeElement.src = fittingResolution.url;
-          this.viewerVideoElement.load();
+          this._handleNewCurrentResolution(fittingResolution);
         }
       });
 
-    this.observerResize(this.viewerVideoElement)
+    this._observerResize(this.viewerVideoElement)
       .pipe(debounceTime(300), takeUntil(this.destroy$$))
       .subscribe((width) => {
-        if (width && width !== this.videoWidth) {
-          this.videoWidth = +width;
+        if (!width) return;
 
-          const fittingResolution = this.findFittingResolution();
+        const newWidth = +width!;
+
+        if (newWidth !== this.videoWidth) {
+          this.videoWidth = newWidth;
+
+          const fittingResolution = this._findFittingResolution();
 
           if (
             !this.currentResolution ||
             this.currentResolution.resolution !== fittingResolution.resolution
           ) {
-            this.currentResolution = fittingResolution;
-
-            this.store.dispatch(
-              viewerActions.mediaLoadingSingle({ id: this.video.id })
-            );
-            this.viewerVideoSrc.nativeElement.src = fittingResolution.url;
-            this.viewerVideoElement.load();
+            this._handleNewCurrentResolution(fittingResolution);
           }
         }
       });
+
+    this.manuallyTriggerResize$
+      .pipe(takeUntil(this.destroy$$))
+      .subscribe(() => {
+        const fittingResolution = this._findFittingResolution();
+        this._handleNewCurrentResolution(fittingResolution);
+      });
   }
 
-  observerResize(element: HTMLElement) {
+  private _handleNewCurrentResolution(resolution: Resolution) {
+    //TODO getting error here
+    //  NG0100: ExpressionChangedAfterItHasBeenCheckedError
+    // While the video plays and the user changes the main video
+    // or removes a small one
+    this.currentResolution = resolution;
+
+    this.store.dispatch(
+      viewerActions.mediaLoadingSingle({ id: this.video.id })
+    );
+
+    this.viewerVideoSrc.nativeElement.src = resolution.url;
+    this.viewerVideoElement.load();
+  }
+
+  private _observerResize(element: HTMLElement) {
     return fromEventPattern(
       (handler) => {
         const observer = new ResizeObserver((entries) => {
@@ -139,7 +144,7 @@ export class VideoContainerComponent
     );
   }
 
-  findFittingResolution() {
+  private _findFittingResolution() {
     const aspectRatio =
       this.cappedResolutions[0].width / this.cappedResolutions[0].height;
 
@@ -165,6 +170,22 @@ export class VideoContainerComponent
     return this.cappedResolutions[closestFittingResolutionIndex];
   }
 
+  private _capResolutions() {
+    const sortedResolutions = [...this.video.resolutions].sort(
+      (a, b) => a.width - b.width
+    );
+
+    let maxResolutionIndex = sortedResolutions.findIndex(
+      (res) => res.resolution === this.maxResolution
+    );
+
+    if (maxResolutionIndex === -1) {
+      maxResolutionIndex = sortedResolutions.length - 1;
+    }
+
+    this.cappedResolutions = sortedResolutions.slice(0, maxResolutionIndex + 1);
+  }
+
   ngOnDestroy(): void {
     this.viewerService.unregisterLoadingEvents(this.video.id);
     this.destroy$$.next();
@@ -172,9 +193,12 @@ export class VideoContainerComponent
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['video'] && !changes['video'].isFirstChange()) {
-      this.destroy$$.next();
-
-      this.viewerVideoElement.load();
+      if (
+        changes['video'].previousValue.id !== changes['video'].currentValue.id
+      ) {
+        this._capResolutions();
+        this.manuallyTriggerResize$.next();
+      }
     }
   }
 
