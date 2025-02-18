@@ -61,7 +61,6 @@ export class VideoContainerComponent
   private currentResolution!: Resolution;
   private videoWidth = 300;
   private maxResolution: ResolutionValue = '1080p';
-  private manuallyTriggerResize$ = new Subject<void>();
 
   constructor(
     private store: Store<AppState>,
@@ -105,13 +104,6 @@ export class VideoContainerComponent
             this._handleNewCurrentResolution(fittingResolution);
           }
         }
-      });
-
-    this.manuallyTriggerResize$
-      .pipe(takeUntil(this.destroy$$))
-      .subscribe(() => {
-        const fittingResolution = this._findFittingResolution();
-        this._handleNewCurrentResolution(fittingResolution);
       });
   }
 
@@ -197,7 +189,8 @@ export class VideoContainerComponent
         changes['video'].previousValue.id !== changes['video'].currentValue.id
       ) {
         this._capResolutions();
-        this.manuallyTriggerResize$.next();
+        const fittingResolution = this._findFittingResolution();
+        this._handleNewCurrentResolution(fittingResolution);
       }
     }
   }
