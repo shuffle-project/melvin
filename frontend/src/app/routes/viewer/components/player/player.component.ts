@@ -24,7 +24,14 @@ import {
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { LetDirective, PushPipe } from '@ngrx/component';
 import { Store } from '@ngrx/store';
-import { Subject, combineLatest, map, withLatestFrom } from 'rxjs';
+import {
+  Subject,
+  combineLatest,
+  debounce,
+  interval,
+  map,
+  withLatestFrom,
+} from 'rxjs';
 import {
   AudioEntity,
   ProjectEntity,
@@ -127,9 +134,9 @@ export class PlayerComponent implements OnDestroy, AfterViewInit, OnInit {
     map((list) => list.length)
   );
 
-  public showLoadingSpinner$ = this.store.select(
-    viewerSelector.vShowLoadingSpinner
-  );
+  public showLoadingSpinner$ = this.store
+    .select(viewerSelector.vShowLoadingSpinner)
+    .pipe(debounce(() => interval(5)));
 
   // helper variables for dragndrop
   private resizingVideoWidth = false;

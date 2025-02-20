@@ -61,6 +61,7 @@ export class VideoContainerComponent
   private currentResolution!: Resolution;
   private videoWidth = 300;
   private maxResolution: ResolutionValue = '1080p';
+  private immediateInputChange = false;
 
   constructor(
     private store: Store<AppState>,
@@ -89,14 +90,15 @@ export class VideoContainerComponent
       .pipe(debounceTime(300), takeUntil(this.destroy$$))
       .subscribe((width) => {
         if (!width) return;
+        if (this.immediateInputChange) {
+          this.immediateInputChange = false;
+          return;
+        }
 
         const newWidth = +width!;
-
         if (newWidth !== this.videoWidth) {
           this.videoWidth = newWidth;
-
           const fittingResolution = this._findFittingResolution();
-
           if (
             !this.currentResolution ||
             this.currentResolution.resolution !== fittingResolution.resolution
@@ -108,10 +110,6 @@ export class VideoContainerComponent
   }
 
   private _handleNewCurrentResolution(resolution: Resolution) {
-    //TODO getting error here
-    //  NG0100: ExpressionChangedAfterItHasBeenCheckedError
-    // While the video plays and the user changes the main video
-    // or removes a small one
     this.currentResolution = resolution;
 
     this.store.dispatch(
@@ -188,6 +186,7 @@ export class VideoContainerComponent
       if (
         changes['video'].previousValue.id !== changes['video'].currentValue.id
       ) {
+        this.immediateInputChange = true;
         this._capResolutions();
         const fittingResolution = this._findFittingResolution();
         this._handleNewCurrentResolution(fittingResolution);
