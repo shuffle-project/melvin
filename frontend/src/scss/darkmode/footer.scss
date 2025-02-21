@@ -1,0 +1,16 @@
+.footer-foundation-link-dm {
+  background-image: url('/assets/logo-foundation.svg');
+
+  width: 8rem;
+  height: 2.5rem;
+  display: block;
+  margin-inline: auto;
+  margin-top: 1.5rem;
+  background-size: contain;
+}
+
+body.dark-theme {
+  .footer-foundation-link-dm {
+    background-image: url('/assets/logo-foundation-white.svg');
+  }
+}
