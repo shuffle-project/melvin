@@ -261,7 +261,7 @@ export class VideoContainerComponent
       .select(viewerSelector.vIsPlayingMedia)
       .pipe(
         takeUntil(this.destroy$$),
-        tap((isPlaying) => {
+        tap(async (isPlaying) => {
           if (this.viewerService.audio) {
             const audioTime = this.viewerService.audio.currentTime;
             const videoTime = this.viewerVideoElement.currentTime;
@@ -270,7 +270,12 @@ export class VideoContainerComponent
           }
 
           if (isPlaying) {
-            this.viewerVideoElement.play();
+            try {
+              await this.viewerVideoElement.play();
+            } catch (e) {
+              // This is fine
+              // Play fails because user changed video or resolution
+            }
           } else {
             this.viewerVideoElement.pause();
           }

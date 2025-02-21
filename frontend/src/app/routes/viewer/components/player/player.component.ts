@@ -27,9 +27,11 @@ import { Store } from '@ngrx/store';
 import {
   Subject,
   combineLatest,
-  debounce,
-  interval,
+  distinctUntilChanged,
   map,
+  of,
+  switchMap,
+  timer,
   withLatestFrom,
 } from 'rxjs';
 import {
@@ -134,9 +136,14 @@ export class PlayerComponent implements OnDestroy, AfterViewInit, OnInit {
     map((list) => list.length)
   );
 
-  public showLoadingSpinner$ = this.store
+  showLoadingSpinner$ = this.store
     .select(viewerSelector.vShowLoadingSpinner)
-    .pipe(debounce(() => interval(5)));
+    .pipe(
+      switchMap((value) =>
+        value ? timer(400).pipe(map(() => true)) : of(false)
+      ),
+      distinctUntilChanged()
+    );
 
   // helper variables for dragndrop
   private resizingVideoWidth = false;
