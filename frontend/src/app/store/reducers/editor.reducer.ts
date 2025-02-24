@@ -256,10 +256,12 @@ export const editorReducer = createReducer(
     return { ...state, isPlayingUser: !state.isPlayingUser };
   }),
   on(editorActions.eMediaLodingSingle, (state, { id }) => {
-    return { ...state, loadingMediaIds: [...state.loadingMediaIds, id] };
+    const mediaIdSet = new Set([...state.loadingMediaIds, id]);
+    return { ...state, loadingMediaIds: Array.from(mediaIdSet) };
   }),
   on(editorActions.eMediaLoadingMultiple, (state, { ids }) => {
-    return { ...state, loadingMediaIds: [...state.loadingMediaIds, ...ids] };
+    const mediaIdSet = new Set([...state.loadingMediaIds, ...ids]);
+    return { ...state, loadingMediaIds: Array.from(mediaIdSet) };
   }),
   on(editorActions.eMediaLoaded, (state, { id }) => {
     return {
