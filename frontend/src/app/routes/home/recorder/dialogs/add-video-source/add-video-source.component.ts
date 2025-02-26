@@ -82,8 +82,7 @@ export class AddVideoSourceComponent implements OnInit, OnDestroy {
 
     try {
       const userMedia = await navigator.mediaDevices.getUserMedia({
-        // TODO which is the correct framerate?
-        video: { frameRate: 25 },
+        video: { frameRate: 30 },
         audio: false,
       });
       this.videoSource.deviceId = userMedia.id;
@@ -125,7 +124,7 @@ export class AddVideoSourceComponent implements OnInit, OnDestroy {
     try {
       this.videoSource.mediaStream = await navigator.mediaDevices.getUserMedia({
         audio: false,
-        video: { deviceId: mediaDeviceInfo.deviceId },
+        video: { deviceId: mediaDeviceInfo.deviceId, frameRate: 30 },
       });
     } catch (error) {
       this.deviceError = error; // TODO

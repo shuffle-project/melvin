@@ -239,7 +239,7 @@ export class FfmpegService {
           // overwrite file
           '-y',
           '-vf',
-          `scale=${res.width}:${res.height}`,
+          `scale=${res.width}:${res.height},fps=30`,
           `${baseVideoFilepath.replace('.mp4', '_' + res.resolution + '.mp4')}`, // output file
         ],
       );

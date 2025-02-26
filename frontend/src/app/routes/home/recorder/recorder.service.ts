@@ -195,6 +195,9 @@ export class RecorderService {
       mediaRecorder.ondataavailable = (e) =>
         this.onDataAvailableMediaRecorder(e, recording);
       mediaRecorder.onstop = (e) => this.onStopMediaRecorder(e, recording);
+      mediaRecorder.onerror = (e) => {
+        console.error('Recording error:', e);
+      };
 
       mediaRecorder.start();
 
@@ -203,17 +206,14 @@ export class RecorderService {
   }
 
   onDataAvailableMediaRecorder(e: BlobEvent, recording: Recording) {
-    console.log('onDataAvailableMediaRecorder');
     if (e.data.size > 0) recording.chunks.push(e.data);
   }
 
   onStopMediaRecorder(e: Event, recording: Recording) {
-    console.log('onStopMediaRecorder');
     recording.complete = true;
 
     // all recordings finished?
     if (!this.recordings.some((rec) => rec.complete === false)) {
-      // this.finishRecording();
       this.recording = false;
     }
     // recording.mediaRecorder.ondataavailable = null;
