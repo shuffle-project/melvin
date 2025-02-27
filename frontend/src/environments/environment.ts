@@ -17,7 +17,7 @@ export const environment: Environment = {
     documentation: false,
     tutorial: false,
     guide: true,
-    feedbackLink: false,
+    feedbackLink: true,
 
     // Editor
     timeNavigation: true,
