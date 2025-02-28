@@ -63,11 +63,11 @@ form {
   width: 100%;
   margin-top: 1.875rem;
   border-radius: 0.5rem;
-  border: 2px solid transparent;
+  border: 1px solid transparent;
   transition: border 0.3s ease;
 
   &.with-error {
-    border: 2px solid var(--color-red);
+    border: 1px solid var(--color-warn);
     transition: border 0.3s ease;
   }
 
@@ -108,13 +108,13 @@ form {
   width: 100%;
 
   .mat-error {
-    color: var(--color-red);
+    color: var(--color-warn);
     font-size: 0.75rem;
-    font-weight: 300;
+    font-weight: 400;
     margin: 0;
 
     span {
-      color: var(--color-red);
+      color: var(--color-warn);
     }
   }
 }
