@@ -2,6 +2,9 @@
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
   <file source-language="en-US" datatype="plaintext" original="ng2.template">
     <body>
+      <trans-unit id="notificationAriaLabelNotYetRead" datatype="html">
+        <source>Not yet read</source>
+      </trans-unit>
       <trans-unit id="activityVideoProcessingFinishedDescription" datatype="html">
         <source>Video was processed successfully.</source>
       </trans-unit>
@@ -29,6 +32,75 @@
       <trans-unit id="activityProjectUserLeftDescription" datatype="html">
         <source><x id="PH" equiv-text="details.user.name"/> left the project.</source>
       </trans-unit>
+      <trans-unit id="deleteConfirmationDialogTitleDelete" datatype="html">
+        <source> Delete <x id="INTERPOLATION" equiv-text="{{ data.subject }}"/> </source>
+      </trans-unit>
+      <trans-unit id="deleteConfirmationDialogTitleLeave" datatype="html">
+        <source> Leave <x id="INTERPOLATION" equiv-text="{{ data.subject }}"/> </source>
+      </trans-unit>
+      <trans-unit id="deleteConfirmationDialogTitleDeleteTranscription" datatype="html">
+        <source> Delete <x id="INTERPOLATION" equiv-text="{{ data.subject }}"/> </source>
+      </trans-unit>
+      <trans-unit id="deleteConfirmationDialogTitleDeleteAccount" datatype="html">
+        <source> Delete <x id="INTERPOLATION" equiv-text="{{ data.subject }}"/> </source>
+      </trans-unit>
+      <trans-unit id="deleteConfirmationDialogAreYouSureDelete" datatype="html">
+        <source> Are you sure you want to delete this <x id="INTERPOLATION" equiv-text="{{ data.subject }}"/>? </source>
+      </trans-unit>
+      <trans-unit id="deleteConfirmationDialogAreYouSureLeave" datatype="html">
+        <source> Are you sure you want to leave this <x id="INTERPOLATION" equiv-text="{{ data.subject }}"/>? </source>
+      </trans-unit>
+      <trans-unit id="deleteConfirmationDialogAreYouSureDeleteTranscription" datatype="html">
+        <source> Are you sure you want to delete this <x id="INTERPOLATION" equiv-text="{{ data.subject }}"/>? </source>
+      </trans-unit>
+      <trans-unit id="deleteConfirmationDialogPasswordExplanation" datatype="html">
+        <source> To delete your account you need to enter your password </source>
+      </trans-unit>
+      <trans-unit id="deleteConfirmationDialogPasswordLabel" datatype="html">
+        <source> Password </source>
+      </trans-unit>
+      <trans-unit id="deleteConfirmationDialogPasswordError" datatype="html">
+        <source> Password is required </source>
+      </trans-unit>
+      <trans-unit id="deleteConfirmationDialogAbortButton" datatype="html">
+        <source> Abort </source>
+      </trans-unit>
+      <trans-unit id="deleteConfirmationDialogConfirmButton" datatype="html">
+        <source> Confirm </source>
+      </trans-unit>
+      <trans-unit id="deleteConfirmationDialogPasswordIsIncorrect" datatype="html">
+        <source>Password is incorrect</source>
+      </trans-unit>
+      <trans-unit id="deleteServiceSubjectTranscription" datatype="html">
+        <source>transcription</source>
+      </trans-unit>
+      <trans-unit id="deleteServiceSubjectSpeaker" datatype="html">
+        <source>Speaker</source>
+      </trans-unit>
+      <trans-unit id="deleteServiceDescriptionSpeaker" datatype="html">
+        <source>The speaker „<x id="PH" equiv-text="speakerName"/>“ is used in several cases. The corresponding texts will not be affected if you delete it.</source>
+      </trans-unit>
+      <trans-unit id="deleteServiceSubjectProject" datatype="html">
+        <source>project</source>
+      </trans-unit>
+      <trans-unit id="deleteServiceSubjectCaption" datatype="html">
+        <source>Caption</source>
+      </trans-unit>
+      <trans-unit id="deleteServiceDeleteAccountDescription" datatype="html">
+        <source>If you confirm this, your account with all created projects and data will be deleted. This can NOT be undone!</source>
+      </trans-unit>
+      <trans-unit id="headerToggleDarkmodeToggleMenuButton" datatype="html">
+        <source>Open darkmode menu</source>
+      </trans-unit>
+      <trans-unit id="headerToggleDarkmodeLight" datatype="html">
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;light_mode&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/>Light </source>
+      </trans-unit>
+      <trans-unit id="headerToggleDarkmodeSystem" datatype="html">
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;system_mode&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/>Auto </source>
+      </trans-unit>
+      <trans-unit id="headerToggleDarkmodeDark" datatype="html">
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;dark_mode&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/>Dark </source>
+      </trans-unit>
       <trans-unit id="headerNotificationMenuTitle" datatype="html">
         <source> Notifications </source>
       </trans-unit>
@@ -41,17 +113,131 @@
       <trans-unit id="headerMenuProfileButton" datatype="html">
         <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;person&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/>Profile </source>
       </trans-unit>
+      <trans-unit id="headerMenuStartpageButton" datatype="html">
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;start&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/>Startpage </source>
+      </trans-unit>
+      <trans-unit id="headerMenuGuideButton" datatype="html">
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;book&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/>Guide </source>
+      </trans-unit>
       <trans-unit id="headerMenuLogoutButton" datatype="html">
         <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;logout&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/>Logout </source>
+      </trans-unit>
+      <trans-unit id="headerMenuDocumentationButton" datatype="html">
+        <source>Documentation</source>
+      </trans-unit>
+      <trans-unit id="headerMenuTutorialButton" datatype="html">
+        <source>Tutorial</source>
+      </trans-unit>
+      <trans-unit id="logoAltText" datatype="html">
+        <source>Melvin Logo, to start page</source>
+      </trans-unit>
+      <trans-unit id="inviteCollaboratorAddUserInputLabel" datatype="html">
+        <source>Collaborator email</source>
+      </trans-unit>
+      <trans-unit id="inviteCollaboratorAddUserInputHint" datatype="html">
+        <source>Addresses that are not linked to an account will be invited to the project via email. </source>
+      </trans-unit>
+      <trans-unit id="inviteCollaboratorInputErrorEmailRequired" datatype="html">
+        <source>Email is required</source>
+      </trans-unit>
+      <trans-unit id="inviteCollaboratorInputErrorEmailInvalid" datatype="html">
+        <source>Email is invalid</source>
+      </trans-unit>
+      <trans-unit id="inviteCollaboratorInputErrorUserDuplication" datatype="html">
+        <source>User already added</source>
+      </trans-unit>
+      <trans-unit id="inviteCollaboratorHeadingAllUsers" datatype="html">
+        <source>People with access</source>
+      </trans-unit>
+      <trans-unit id="inviteCollaboratorAllUserList" datatype="html">
+        <source>People with access</source>
+      </trans-unit>
+      <trans-unit id="inviteCollaboratorYouIndicator" datatype="html">
+        <source>(You)</source>
+      </trans-unit>
+      <trans-unit id="inviteCollaboratorOwnerInfo" datatype="html">
+        <source>Project Owner</source>
+      </trans-unit>
+      <trans-unit id="inviteCollaboratorRemoveButton" datatype="html">
+        <source> Remove </source>
+      </trans-unit>
+      <trans-unit id="inviteCollaboratorHeadingGeneralAccess" datatype="html">
+        <source>General Access</source>
+      </trans-unit>
+      <trans-unit id="inviteCollaboratorInviteLinkWarningText" datatype="html">
+        <source> Any person who has this link can join the project registered or anonymously. </source>
+      </trans-unit>
+      <trans-unit id="inviteCollaboratorShareLinkButton" datatype="html">
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;public&quot; /&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;public&quot; /&gt;"/> Copy link </source>
+      </trans-unit>
+      <trans-unit id="inviteCollaboratorGenerateNewLinkButton" datatype="html">
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;change&quot; /&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;change&quot; /&gt;"/> Generate new link, revoke old one </source>
+      </trans-unit>
+      <trans-unit id="inviteCollaboratorNewLinkSuccess" datatype="html">
+        <source>New link generated</source>
+      </trans-unit>
+      <trans-unit id="inviteCollaboratorCopyLinkSuccess" datatype="html">
+        <source>Link copied</source>
+      </trans-unit>
+      <trans-unit id="sharePlayerLinkHeader" datatype="html">
+        <source>Videoplayer Link</source>
+      </trans-unit>
+      <trans-unit id="sharePlayerLinkGeneralInfo" datatype="html">
+        <source> Any person who has this link can open the videoplayer. </source>
+      </trans-unit>
+      <trans-unit id="sharePlayerShareLinkButton" datatype="html">
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;public&quot; /&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;public&quot; /&gt;"/> Copy link </source>
+      </trans-unit>
+      <trans-unit id="sharePlayerGenerateNewLinkButton" datatype="html">
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;change&quot; /&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;change&quot; /&gt;"/> Generate new link, revoke old one </source>
+      </trans-unit>
+      <trans-unit id="sharePlayerEmbedHeader" datatype="html">
+        <source>Embed Videoplayer</source>
+      </trans-unit>
+      <trans-unit id="sharePlayerCodeAriaLabel" datatype="html">
+        <source>Embed videoplayer code</source>
+      </trans-unit>
+      <trans-unit id="sharePlayerCodeCopyButton" datatype="html">
+        <source> Copy </source>
+      </trans-unit>
+      <trans-unit id="sharePlayerCopiedToClipboardMessage" datatype="html">
+        <source>Copied to clipboard</source>
       </trans-unit>
       <trans-unit id="sharePlayerLinkCopiedMessage" datatype="html">
         <source>Link copied</source>
       </trans-unit>
+      <trans-unit id="sharePlayerNewLinkMessage" datatype="html">
+        <source>New link generated</source>
+      </trans-unit>
+      <trans-unit id="dialogProjectShareSubheading" datatype="html">
+        <source>Share</source>
+      </trans-unit>
+      <trans-unit id="dialogCloseButton" datatype="html">
+        <source>Close</source>
+      </trans-unit>
+      <trans-unit id="dialogProjectSharePlayerTabLabel" datatype="html">
+        <source> Share videoplayer </source>
+      </trans-unit>
+      <trans-unit id="dialogProjectShareEditTabLabel" datatype="html">
+        <source> Invite collaborators </source>
+      </trans-unit>
       <trans-unit id="uploadFilesFormRemoveFileTooltip" datatype="html">
         <source>Remove file</source>
       </trans-unit>
+      <trans-unit id="uploadFilesFormRemoveFileAriaLabel" datatype="html">
+        <source>Remove file</source>
+      </trans-unit>
+      <trans-unit id="uploadFilesForAddMoreFileAriaLabel" datatype="html">
+        <source>Add more files </source>
+      </trans-unit>
       <trans-unit id="uploadFilesFormDropzoneText" datatype="html">
         <source> Drag your audio, video and subtitle file * here </source>
+      </trans-unit>
+      <trans-unit id="uploadFilesFormDropzoneTextTranscription" datatype="html">
+        <source> Drag your subtitle file (.vtt or .srt) * here </source>
+      </trans-unit>
+      <trans-unit id="uploadFilesFormDropzoneTextMedia" datatype="html">
+        <source> Drag your audio or video file * here </source>
       </trans-unit>
       <trans-unit id="uploadFilesFormDropzoneTextOr" datatype="html">
         <source>or</source>
@@ -59,11 +245,143 @@
       <trans-unit id="uploadFilesFormChooseFile" datatype="html">
         <source>Choose file </source>
       </trans-unit>
+      <trans-unit id="copyTranscriptionTabHeading" datatype="html">
+        <source>Copy an existing transcription</source>
+      </trans-unit>
+      <trans-unit id="copyTranscriptionTabTranscriptionLabel" datatype="html">
+        <source>Transcription</source>
+      </trans-unit>
+      <trans-unit id="copyTranscriptionTabTranscriptionErrorRequired" datatype="html">
+        <source>Select a transcription</source>
+      </trans-unit>
+      <trans-unit id="copyTranscriptionTabTitleLabel" datatype="html">
+        <source>Title</source>
+      </trans-unit>
+      <trans-unit id="copyTranscriptionTabTitleHint" datatype="html">
+        <source> Optional (e.g. with audio description) </source>
+      </trans-unit>
+      <trans-unit id="copyTranscriptionTabCopy" datatype="html">
+        <source>copy</source>
+      </trans-unit>
+      <trans-unit id="emptyTranscriptionTabHeading" datatype="html">
+        <source> Create a new empty transcription file </source>
+      </trans-unit>
+      <trans-unit id="emptyTranscriptionTabLanguageLabel" datatype="html">
+        <source>Language</source>
+      </trans-unit>
+      <trans-unit id="emptyTranscriptionTabLanguageError" datatype="html">
+        <source>Select a language</source>
+      </trans-unit>
+      <trans-unit id="emptyTranscriptionTabTitleLabel" datatype="html">
+        <source>Title</source>
+      </trans-unit>
+      <trans-unit id="emptyTranscriptionTabTitleHint" datatype="html">
+        <source> Optional (e.g. with audio description) </source>
+      </trans-unit>
+      <trans-unit id="fromMediaTranscriptionTabHeading" datatype="html">
+        <source> Generate a new transcription from media </source>
+      </trans-unit>
+      <trans-unit id="fromMediaTranscriptionTabLanguageLabel" datatype="html">
+        <source>Language</source>
+      </trans-unit>
+      <trans-unit id="fromMediaTranscriptionTabLanguageErrorRequired" datatype="html">
+        <source>Select a language </source>
+      </trans-unit>
+      <trans-unit id="fromMediaTranscriptionTabTitleLabel" datatype="html">
+        <source>Title</source>
+      </trans-unit>
+      <trans-unit id="fromMediaTranscriptionTabTitleHint" datatype="html">
+        <source> Optional (e.g. with audio description) </source>
+      </trans-unit>
+      <trans-unit id="fromMediaTranscriptionTabFileErrorMaximum" datatype="html">
+        <source> Maximum 1 file </source>
+      </trans-unit>
+      <trans-unit id="fromMediaTranscriptionTabFileErrorRequired" datatype="html">
+        <source> An audio or video file is required </source>
+      </trans-unit>
+      <trans-unit id="fromMediaTranscriptionUploadsInfo" datatype="html">
+        <source>Uploads</source>
+      </trans-unit>
+      <trans-unit id="translateTranscriptionTabHeading" datatype="html">
+        <source> Translate an existing transcription </source>
+      </trans-unit>
+      <trans-unit id="translateTranscriptionTabTranscriptionErrorRequired" datatype="html">
+        <source>Select a transcription</source>
+      </trans-unit>
+      <trans-unit id="translateTranscriptionTabVendorLabel" datatype="html">
+        <source>Vendor</source>
+      </trans-unit>
+      <trans-unit id="translateTranscriptionTabVendorHint" datatype="html">
+        <source>Languages are vendor dependent </source>
+      </trans-unit>
+      <trans-unit id="translateTranscriptionTabVendorErrorRequired" datatype="html">
+        <source>Select a vendor</source>
+      </trans-unit>
+      <trans-unit id="translateTranscriptionTabLanguageLabel" datatype="html">
+        <source>Language</source>
+      </trans-unit>
+      <trans-unit id="translateTranscriptionTabLanguageHint" datatype="html">
+        <source>Select a vendor first</source>
+      </trans-unit>
+      <trans-unit id="translateTranscriptionTabLanguageErrorRequired" datatype="html">
+        <source>Select a language </source>
+      </trans-unit>
+      <trans-unit id="translateTranscriptionTabTitleLabel" datatype="html">
+        <source>Title</source>
+      </trans-unit>
+      <trans-unit id="translateTranscriptionTabTitleErrorRequired" datatype="html">
+        <source>Title is required</source>
+      </trans-unit>
+      <trans-unit id="translateTranscriptionTabNoTranslationVendor" datatype="html">
+        <source> There is currently no translation vendor connected to Melvin. Please contact the person who manages this Melvin instance. </source>
+      </trans-unit>
+      <trans-unit id="uploadTranscriptionTabHeading" datatype="html">
+        <source>Upload a new transcription</source>
+      </trans-unit>
+      <trans-unit id="uploadTranscriptionTabUploadsInfo" datatype="html">
+        <source>Uploads</source>
+      </trans-unit>
+      <trans-unit id="uploadTranscriptionTabLanguageLabel" datatype="html">
+        <source>Language</source>
+      </trans-unit>
+      <trans-unit id="uploadTranscriptionTabLanguageErrorRequired" datatype="html">
+        <source>Select a language</source>
+      </trans-unit>
+      <trans-unit id="uploadTranscriptionTabTitleLabel" datatype="html">
+        <source>Title</source>
+      </trans-unit>
+      <trans-unit id="uploadTranscriptionTabTitleHint" datatype="html">
+        <source> Optional (e.g. with audio description) </source>
+      </trans-unit>
+      <trans-unit id="uploadTranscriptionTabFileErrorMaximum" datatype="html">
+        <source> Maximum 1 file </source>
+      </trans-unit>
+      <trans-unit id="uploadTranscriptionTabFileErrorRequired" datatype="html">
+        <source> A transcription file (.vtt or .srt) is required </source>
+      </trans-unit>
       <trans-unit id="createTranscriptionDialogTitle" datatype="html">
         <source>Add transcription</source>
       </trans-unit>
+      <trans-unit id="createTranscriptionDialogCloseButton" datatype="html">
+        <source>Close</source>
+      </trans-unit>
+      <trans-unit id="createTranscriptionDialogTabUploadLabel" datatype="html">
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;upload&quot; class=&quot;tab-icon&quot; /&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;upload&quot; class=&quot;tab-icon&quot; /&gt;"/> Upload </source>
+      </trans-unit>
+      <trans-unit id="createTranscriptionDialogTabCopyLabel" datatype="html">
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;copy-file&quot; class=&quot;tab-icon&quot; /&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;copy-file&quot; class=&quot;tab-icon&quot; /&gt;"/> Copy </source>
+      </trans-unit>
+      <trans-unit id="createTranscriptionDialogTabEmptyFileLabel" datatype="html">
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;add&quot; class=&quot;tab-icon&quot; /&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;add&quot; class=&quot;tab-icon&quot; /&gt;"/> Empty file </source>
+      </trans-unit>
+      <trans-unit id="createTranscriptionDialogSubmitButtonLabel" datatype="html">
+        <source> Create transcription </source>
+      </trans-unit>
       <trans-unit id="editTranscriptionModalTitle" datatype="html">
         <source>Edit transcription</source>
+      </trans-unit>
+      <trans-unit id="dialogProjectDetailCloseButton" datatype="html">
+        <source>Close</source>
       </trans-unit>
       <trans-unit id="editTranscriptionModalLanguageLabel" datatype="html">
         <source>Language</source>
@@ -74,14 +392,35 @@
       <trans-unit id="editTranscriptionModalTitleLabel" datatype="html">
         <source>Title</source>
       </trans-unit>
+      <trans-unit id="editTranscriptionModalTitleHint" datatype="html">
+        <source> Optional (e.g. with audio description) </source>
+      </trans-unit>
+      <trans-unit id="editTranscriptionModalPreviewText" datatype="html">
+        <source> Preview: </source>
+      </trans-unit>
       <trans-unit id="editTranscriptionModalSaveButton" datatype="html">
         <source> Save </source>
+      </trans-unit>
+      <trans-unit id="projectTranscriptionNewButtonLabel" datatype="html">
+        <source> New transcription </source>
+      </trans-unit>
+      <trans-unit id="projectTranscriptionTableLanguageHeader" datatype="html">
+        <source> Language </source>
+      </trans-unit>
+      <trans-unit id="projectTranscriptionTableTitleHeader" datatype="html">
+        <source> Title </source>
+      </trans-unit>
+      <trans-unit id="projectTranscriptionTableLastEditHeader" datatype="html">
+        <source> Last edit </source>
       </trans-unit>
       <trans-unit id="projectTranscriptionTableCreatedByHeader" datatype="html">
         <source> Created by </source>
       </trans-unit>
-      <trans-unit id="projectTranscriptionAlignButtonLabel" datatype="html">
-        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;refresh&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/> Synchronize timestamps </source>
+      <trans-unit id="projectTranscriptionTableMoreHeader" datatype="html">
+        <source> More </source>
+      </trans-unit>
+      <trans-unit id="projectTranscriptionEditButtonLabel" datatype="html">
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;edit&quot; /&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;edit&quot; /&gt;"/> Edit </source>
       </trans-unit>
       <trans-unit id="projectTranscriptionOpenButtonLabel" datatype="html">
         <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;open-transcript&quot; /&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;open-transcript&quot; /&gt;"/> Open </source>
@@ -92,11 +431,86 @@
       <trans-unit id="projectTranscriptionDeleteButtonLabel" datatype="html">
         <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;delete&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/> Delete </source>
       </trans-unit>
-      <trans-unit id="dialogProjectTranscriptionSubheading" datatype="html">
-        <source>Transcriptions</source>
+      <trans-unit id="projectTranscriptionAlignButtonLabel" datatype="html">
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;refresh&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/> Synchronize timestamps </source>
+      </trans-unit>
+      <trans-unit id="projectTranscriptionDownloadTranscriptButtonLabel" datatype="html">
+        <source> Transcript (.txt) </source>
+      </trans-unit>
+      <trans-unit id="projectTranscriptionDownloadSRTButtonLabel" datatype="html">
+        <source> SubRip (.srt) </source>
+      </trans-unit>
+      <trans-unit id="projectTranscriptionDownloadVTTButtonLabel" datatype="html">
+        <source> WebVTT (.vtt) </source>
+      </trans-unit>
+      <trans-unit id="transcriptionDeleteErrorAlert" datatype="html">
+        <source>At least one transcription is required.</source>
+      </trans-unit>
+      <trans-unit id="uploadAdditionalMediaTitle" datatype="html">
+        <source>Upload additional media files</source>
+      </trans-unit>
+      <trans-unit id="uploadAdditionalMediaVideoFileErrorRequired" datatype="html">
+        <source> A video file is required </source>
+      </trans-unit>
+      <trans-unit id="uploadAdditionalMediaVideoCategoryLabel" datatype="html">
+        <source>Choose a category</source>
+      </trans-unit>
+      <trans-unit id="uploadAdditionalMediaVideoCategoryErrorRequired" datatype="html">
+        <source> Category is required </source>
+      </trans-unit>
+      <trans-unit id="uploadAdditionalMediaUploadButton" datatype="html">
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;upload&quot; /&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;upload&quot; /&gt;"/> Upload </source>
+      </trans-unit>
+      <trans-unit id="uploadAdditionalMediaUploadingHeader" datatype="html">
+        <source>Uploading</source>
+      </trans-unit>
+      <trans-unit id="uploadAdditionalMediaListHeader" datatype="html">
+        <source>Uploaded media</source>
+      </trans-unit>
+      <trans-unit id="uploadAdditionalMediaTableLanguageHeader" datatype="html">
+        <source> Category </source>
+      </trans-unit>
+      <trans-unit id="uploadAdditionalMediaTableTitleHeader" datatype="html">
+        <source> Title </source>
+      </trans-unit>
+      <trans-unit id="uploadAdditionalMediaTableLastEditHeader" datatype="html">
+        <source> Created at </source>
+      </trans-unit>
+      <trans-unit id="uploadAdditionalMediaTableMoreHeader" datatype="html">
+        <source> More </source>
+      </trans-unit>
+      <trans-unit id="uploadAdditionalMediaDownloadButtonLabel" datatype="html">
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;download&quot; /&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;download&quot; /&gt;"/> Download </source>
+      </trans-unit>
+      <trans-unit id="uploadAdditionalMediaDeleteButtonLabel" datatype="html">
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;delete&quot; /&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;delete&quot; /&gt;"/> Delete </source>
       </trans-unit>
       <trans-unit id="dialogProjectActivitySubheading" datatype="html">
         <source>Activity</source>
+      </trans-unit>
+      <trans-unit id="dialogProjectMediaSubheading" datatype="html">
+        <source>Media</source>
+      </trans-unit>
+      <trans-unit id="dialogProjectTranscriptionSubheading" datatype="html">
+        <source>Transcriptions</source>
+      </trans-unit>
+      <trans-unit id="mediaCategoryMain" datatype="html">
+        <source>Main</source>
+      </trans-unit>
+      <trans-unit id="mediaCategoryOther" datatype="html">
+        <source>Other</source>
+      </trans-unit>
+      <trans-unit id="mediaCategorySignLanguage" datatype="html">
+        <source>Sign Language</source>
+      </trans-unit>
+      <trans-unit id="mediaCategorySlides" datatype="html">
+        <source>Slides</source>
+      </trans-unit>
+      <trans-unit id="mediaCategorySpeaker" datatype="html">
+        <source>Speaker</source>
+      </trans-unit>
+      <trans-unit id="projectStatusAll" datatype="html">
+        <source>All</source>
       </trans-unit>
       <trans-unit id="projectStatusDraft" datatype="html">
         <source>Draft</source>
@@ -116,15 +530,6 @@
       <trans-unit id="projectStatusError" datatype="html">
         <source>Error</source>
       </trans-unit>
-      <trans-unit id="editSpeakerMenuButtonLabel" datatype="html">
-        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;add&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/> Add speaker </source>
-      </trans-unit>
-      <trans-unit id="videoPlaybackSpeedAria" datatype="html">
-        <source>Video playback speed</source>
-      </trans-unit>
-      <trans-unit id="videoControlsPlaybackSpeedMenuTitle" datatype="html">
-        <source> Playback Speed </source>
-      </trans-unit>
       <trans-unit id="editorHelpDialogShortcutsTitle" datatype="html">
         <source>Keyboard shortcuts</source>
       </trans-unit>
@@ -143,6 +548,48 @@
       <trans-unit id="editorHelpDialogShortcutCommandToggleComment" datatype="html">
         <source>Toggle Comment</source>
       </trans-unit>
+      <trans-unit id="editorSettingsHeadline" datatype="html">
+        <source>Settings</source>
+      </trans-unit>
+      <trans-unit id="editorSettingsSpellcheckingCheckbox" datatype="html">
+        <source>Spellchecking </source>
+      </trans-unit>
+      <trans-unit id="editorSettingsUsernamesCheckbox" datatype="html">
+        <source>Show Usernames</source>
+      </trans-unit>
+      <trans-unit id="tiptap-editorMenuTranscriptionLabel" datatype="html">
+        <source>Transcription</source>
+      </trans-unit>
+      <trans-unit id="editorMenuTranscriptionEditLabel" datatype="html">
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;edit&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/> Edit Transcriptions </source>
+      </trans-unit>
+      <trans-unit id="editSpeakerMenuNameLabel" datatype="html">
+        <source>Speaker name</source>
+      </trans-unit>
+      <trans-unit id="editSpeakerMenuButtonLabel" datatype="html">
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;add&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/> Add speaker </source>
+      </trans-unit>
+      <trans-unit id="editSpeakerMenuAtLeastOneProjectError" datatype="html">
+        <source>At least one speaker is required.</source>
+      </trans-unit>
+      <trans-unit id="videoPlaybackSpeedAria" datatype="html">
+        <source>Video playback speed</source>
+      </trans-unit>
+      <trans-unit id="viewerControlsVolumeSlideLabel" datatype="html">
+        <source>Volume</source>
+      </trans-unit>
+      <trans-unit id="editorRewind5SecondsButtonLabel" datatype="html">
+        <source>Rewind 5 seconds</source>
+      </trans-unit>
+      <trans-unit id="editorPlayOrPauseButtonLabel" datatype="html">
+        <source>Play or pause</source>
+      </trans-unit>
+      <trans-unit id="editorSkip5SecondsButtonLabel" datatype="html">
+        <source>Skip 5 seconds</source>
+      </trans-unit>
+      <trans-unit id="videoControlsPlaybackSpeedMenuTitle" datatype="html">
+        <source> Playback Speed </source>
+      </trans-unit>
       <trans-unit id="editorBackToProjectsList" datatype="html">
         <source>Back to all projects</source>
       </trans-unit>
@@ -155,23 +602,17 @@
       <trans-unit id="editorMenuFileDeleteLabel" datatype="html">
         <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;delete&quot; /&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;delete&quot; /&gt;"/> Delete </source>
       </trans-unit>
+      <trans-unit id="editorMenuVideosHeader" datatype="html">
+        <source>Videos</source>
+      </trans-unit>
+      <trans-unit id="editorMenuTranscriptionsHeader" datatype="html">
+        <source>Transcripts </source>
+      </trans-unit>
       <trans-unit id="editorMenuTranscriptionLabel" datatype="html">
         <source> Transcription </source>
       </trans-unit>
-      <trans-unit id="editorMenuTranscriptionEditLabel" datatype="html">
-        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;edit&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/> Edit Transcriptions </source>
-      </trans-unit>
       <trans-unit id="editorShareProjectButtonLabel" datatype="html">
         <source> Share </source>
-      </trans-unit>
-      <trans-unit id="editorRewind5SecondsButtonLabel" datatype="html">
-        <source>Rewind 5 seconds</source>
-      </trans-unit>
-      <trans-unit id="editorPlayOrPauseButtonLabel" datatype="html">
-        <source>Play or pause</source>
-      </trans-unit>
-      <trans-unit id="editorSkip5SecondsButtonLabel" datatype="html">
-        <source>Skip 5 seconds</source>
       </trans-unit>
       <trans-unit id="notificationListTitle" datatype="html">
         <source>Notifications</source>
@@ -194,11 +635,116 @@
       <trans-unit id="notificationListYesterdayLabel" datatype="html">
         <source>[Yesterday]</source>
       </trans-unit>
+      <trans-unit id="dialogChangePasswordHeader" datatype="html">
+        <source>Change Password</source>
+      </trans-unit>
+      <trans-unit id="dialogChangePasswordCloseButton" datatype="html">
+        <source>Close</source>
+      </trans-unit>
+      <trans-unit id="dialogChangePasswordCurrentPasswordLabel" datatype="html">
+        <source>Current Password</source>
+      </trans-unit>
+      <trans-unit id="dialogChangePasswordCurrentPasswordRequiredError" datatype="html">
+        <source> Current password required </source>
+      </trans-unit>
+      <trans-unit id="dialogChangePasswordNewPasswordLabel" datatype="html">
+        <source>New Password</source>
+      </trans-unit>
+      <trans-unit id="dialogChangePasswordNewPasswordRequiredError" datatype="html">
+        <source> New password required </source>
+      </trans-unit>
+      <trans-unit id="dialogChangePasswordConfirmPasswordLabel" datatype="html">
+        <source>Confirm New Password</source>
+      </trans-unit>
+      <trans-unit id="dialogChangePasswordConfirmPasswordRequiredError" datatype="html">
+        <source>Confirm new password required</source>
+      </trans-unit>
+      <trans-unit id="dialogChangePasswordDoNotMatchError" datatype="html">
+        <source>Passwords do not match</source>
+      </trans-unit>
+      <trans-unit id="dialogChangePasswordSubmitButtonLabel" datatype="html">
+        <source> Change Password </source>
+      </trans-unit>
+      <trans-unit id="profileHeader" datatype="html">
+        <source>Profile</source>
+      </trans-unit>
+      <trans-unit id="profilePasswordButtonLabel" datatype="html">
+        <source> Change Passwort </source>
+      </trans-unit>
+      <trans-unit id="profileDeleteAccountButtonLabel" datatype="html">
+        <source> Delete Account </source>
+      </trans-unit>
+      <trans-unit id="profileSelectLabel" datatype="html">
+        <source>Interface language</source>
+      </trans-unit>
+      <trans-unit id="profileSelectEnglishOption" datatype="html">
+        <source> English </source>
+      </trans-unit>
+      <trans-unit id="profileSelectGermanOption" datatype="html">
+        <source> German </source>
+      </trans-unit>
       <trans-unit id="dialogCreateProjectHeadline" datatype="html">
         <source>New Project</source>
       </trans-unit>
       <trans-unit id="dialogCreateProjectCloseButton" datatype="html">
         <source>Close</source>
+      </trans-unit>
+      <trans-unit id="dialogCreateProjectIntroText" datatype="html">
+        <source> Check the &quot;Use Audio&quot; box to select the file from which you would like to use the audio track. </source>
+      </trans-unit>
+      <trans-unit id="dialogCreateProjectDropzoneText" datatype="html">
+        <source> Drop audio, video or subtitle (.vtt/.srt) files * here or <x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span class=&quot;dropzone-label&quot;&gt;"/>Select files<x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span&gt;"/></source>
+      </trans-unit>
+      <trans-unit id="dialogCreateProjectTableHeaderFilename" datatype="html">
+        <source> Filename </source>
+      </trans-unit>
+      <trans-unit id="dialogCreateProjectTableHeaderCategory" datatype="html">
+        <source> Category </source>
+      </trans-unit>
+      <trans-unit id="dialogCreateProjectSelectPlaceholder" datatype="html">
+        <source>Select</source>
+      </trans-unit>
+      <trans-unit id="dialogCreateProjectCategoryErrorRequired" datatype="html">
+        <source> Category is required </source>
+      </trans-unit>
+      <trans-unit id="dialogCreateProjectTableHeaderLanguage" datatype="html">
+        <source> Language </source>
+      </trans-unit>
+      <trans-unit id="dialogCreateProjectLanguageErrorRequired" datatype="html">
+        <source> Language is required </source>
+      </trans-unit>
+      <trans-unit id="dialogCreateProjectTableHeaderUseAudio" datatype="html">
+        <source> Use Audio </source>
+      </trans-unit>
+      <trans-unit id="dialogCreateProjectTableHeaderDelete" datatype="html">
+        <source> Delete </source>
+      </trans-unit>
+      <trans-unit id="dialogCreateProjectOneVideoError" datatype="html">
+        <source> At least one video or audio file is required. </source>
+      </trans-unit>
+      <trans-unit id="dialogCreateProjectOneUseAudioError" datatype="html">
+        <source> At least one &quot;use audio&quot; source required. </source>
+      </trans-unit>
+      <trans-unit id="dialogCreateProjectSameFileError" datatype="html">
+        <source> Uploading the same file several times is not allowed. </source>
+      </trans-unit>
+      <trans-unit id="dialogCreateProjectOneMainCategoryError" datatype="html">
+        <source> At least one audio/video file with the &quot;main&quot; category required. </source>
+      </trans-unit>
+      <trans-unit id="dialogCreateProjectMaxOneMainCategoryError" datatype="html">
+        <source> Max one audio/video file with the &quot;main&quot; category. </source>
+      </trans-unit>
+      <trans-unit id="dialogCreateProjectTitleLabel" datatype="html">
+        <source>Title</source>
+      </trans-unit>
+      <trans-unit id="dialogCreateProjectTitleRequiredError" datatype="html">
+        <source>Title is required</source>
+      </trans-unit>
+      <trans-unit id="dialogCreateProjectUploadProgressLabel" datatype="html">
+        <source>Upload-Progress:</source>
+      </trans-unit>
+      <trans-unit id="dialogCreateProjectCreateButton" datatype="html">
+        <source> Create Project </source>
       </trans-unit>
       <trans-unit id="projectListProjectListHeader" datatype="html">
         <source>Project List</source>
@@ -209,6 +755,9 @@
       <trans-unit id="projectListSearchWithTitleTooltip" datatype="html">
         <source>Search with Projecttitle</source>
       </trans-unit>
+      <trans-unit id="projectListFilterStatusLabel" datatype="html">
+        <source>Project status</source>
+      </trans-unit>
       <trans-unit id="projectListFilterAllProjects" datatype="html">
         <source> All Projects </source>
       </trans-unit>
@@ -218,11 +767,14 @@
       <trans-unit id="projectListFilterSharedProjects" datatype="html">
         <source> Shared Projects </source>
       </trans-unit>
-      <trans-unit id="projectListFilterStatusLabel" datatype="html">
-        <source>Project status</source>
-      </trans-unit>
       <trans-unit id="projectListCreateProjectButtonLabel" datatype="html">
         <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;plus&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/> New project </source>
+      </trans-unit>
+      <trans-unit id="projectListCreateProjectMenuUpload" datatype="html">
+        <source>Upload file</source>
+      </trans-unit>
+      <trans-unit id="projectListCreateProjectMenuRecorder" datatype="html">
+        <source>Recorder</source>
       </trans-unit>
       <trans-unit id="projectListTableHeaderTitleLabel" datatype="html">
         <source> Title </source>
@@ -245,14 +797,23 @@
       <trans-unit id="projectListTableHeaderMembersLabel" datatype="html">
         <source> Members </source>
       </trans-unit>
+      <trans-unit id="projectListTableHeaderPlayerLabel" datatype="html">
+        <source> Videoplayer </source>
+      </trans-unit>
+      <trans-unit id="projectListOpenViewerAriaLabel" datatype="html">
+        <source>Open Viewer in new Tab</source>
+      </trans-unit>
       <trans-unit id="projectListTableHeaderMoreLabel" datatype="html">
         <source> More </source>
       </trans-unit>
       <trans-unit id="projectListMoreMenuAriaLabel" datatype="html">
         <source>Open/Close menu</source>
       </trans-unit>
-      <trans-unit id="projectListMoreMenuLeaveLabel" datatype="html">
-        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;leave&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/> Leave </source>
+      <trans-unit id="projectListMoreMenuMediaLabel" datatype="html">
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;media&quot; /&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;media&quot; /&gt;"/> Media </source>
+      </trans-unit>
+      <trans-unit id="projectListMoreMenuActivityLabel" datatype="html">
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;activity&quot; /&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;activity&quot; /&gt;"/> Activity </source>
       </trans-unit>
       <trans-unit id="projectListMoreMenuShareLabel" datatype="html">
         <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;share&quot; /&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;share&quot; /&gt;"/> Share </source>
@@ -260,8 +821,746 @@
       <trans-unit id="projectListMoreMenuDeleteLabel" datatype="html">
         <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;delete&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/> Delete </source>
       </trans-unit>
+      <trans-unit id="projectListMoreMenuLeaveLabel" datatype="html">
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;leave&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/> Leave </source>
+      </trans-unit>
+      <trans-unit id="projectListCreateDefaultInfotext" datatype="html">
+        <source> There are currently no projects. <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br /&gt;"/> You can either create a new project or an example project. </source>
+      </trans-unit>
+      <trans-unit id="projectListCreateDefaultProjectButtonLabel" datatype="html">
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;plus&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/> Create Exampleproject </source>
+      </trans-unit>
+      <trans-unit id="recorderAddAudioSourceTitle" datatype="html">
+        <source>Add Audiosource</source>
+      </trans-unit>
+      <trans-unit id="recorderAddAudioSourceSelectionLabel" datatype="html">
+        <source>Sources</source>
+      </trans-unit>
+      <trans-unit id="recorderAddAudioSourceTitleLabel" datatype="html">
+        <source>Title</source>
+      </trans-unit>
+      <trans-unit id="recorderAddAudioAudioLevel" datatype="html">
+        <source> Audio level </source>
+      </trans-unit>
+      <trans-unit id="recorderAddAudioSourceCancelBtn" datatype="html">
+        <source> Cancel </source>
+      </trans-unit>
+      <trans-unit id="recorderAddAudioSourceAddBtn" datatype="html">
+        <source> Add </source>
+      </trans-unit>
+      <trans-unit id="recorderAddAudioSourceRetryBtn" datatype="html">
+        <source> Retry <x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;repeat&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/></source>
+      </trans-unit>
+      <trans-unit id="recorderAddScreensharingTitle" datatype="html">
+        <source> Add Screensharing </source>
+      </trans-unit>
+      <trans-unit id="recorderAddScreensharingSelectionError" datatype="html">
+        <source> An error occurred during the selection when sharing the screen. <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br /&gt;"/> Please make sure that your Browser does have the necessary permissions to share the screen. </source>
+      </trans-unit>
+      <trans-unit id="recorderAddScreensharingTitleLabel" datatype="html">
+        <source>Title</source>
+      </trans-unit>
+      <trans-unit id="recorderAddScreensharingMediaCategoryTitleLabel" datatype="html">
+        <source>Media Category</source>
+      </trans-unit>
+      <trans-unit id="recorderAddScreensharingMediaCategorySignLanguage" datatype="html">
+        <source>Sign Language</source>
+      </trans-unit>
+      <trans-unit id="recorderAddScreensharingMediaCategorySlides" datatype="html">
+        <source>Slides</source>
+      </trans-unit>
+      <trans-unit id="recorderAddScreensharingMediaCategorySpeaker" datatype="html">
+        <source>Speaker</source>
+      </trans-unit>
+      <trans-unit id="recorderAddScreensharingMediaCategoryOther" datatype="html">
+        <source>Other</source>
+      </trans-unit>
+      <trans-unit id="recorderAddScreensharingAudioLevel" datatype="html">
+        <source> Audio level </source>
+      </trans-unit>
+      <trans-unit id="recorderAddScreensharingCancelBtn" datatype="html">
+        <source> Cancel </source>
+      </trans-unit>
+      <trans-unit id="recorderAddScreensharingAddBtn" datatype="html">
+        <source> Add </source>
+      </trans-unit>
+      <trans-unit id="recorderAddScreensharingRetryBtn" datatype="html">
+        <source> Retry <x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;repeat&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/></source>
+      </trans-unit>
+      <trans-unit id="recorderAddVideoSourceTitle" datatype="html">
+        <source>Add Videosource</source>
+      </trans-unit>
+      <trans-unit id="recorderAddVideoSourceSelectionLabel" datatype="html">
+        <source>Sources</source>
+      </trans-unit>
+      <trans-unit id="recorderAddVideoSourceTitleLabel" datatype="html">
+        <source>Title</source>
+      </trans-unit>
+      <trans-unit id="recorderAddVideoSourceMediaCategoryLabel" datatype="html">
+        <source>Media Category</source>
+      </trans-unit>
+      <trans-unit id="recorderAddVideoSourceCancelButton" datatype="html">
+        <source> Cancel </source>
+      </trans-unit>
+      <trans-unit id="recorderAddVideoSourceAddButton" datatype="html">
+        <source> Add </source>
+      </trans-unit>
+      <trans-unit id="recorderAddVideoSourceRetryButton" datatype="html">
+        <source> Retry <x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;repeat&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/></source>
+      </trans-unit>
+      <trans-unit id="uploadRecordingTitle" datatype="html">
+        <source> Upload and Project creation</source>
+      </trans-unit>
+      <trans-unit id="uploadRecordingLanguageFormIntroduction" datatype="html">
+        <source> Please select the main language of the recording. </source>
+      </trans-unit>
+      <trans-unit id="uploadRecordingLanguageLabel" datatype="html">
+        <source>Language</source>
+      </trans-unit>
+      <trans-unit id="uploadRecordingLanguageError" datatype="html">
+        <source> Language is required </source>
+      </trans-unit>
+      <trans-unit id="uploadRecordingReadyToUploadHint" datatype="html">
+        <source> All files are ready. You can now upload the project or download the files locally. </source>
+      </trans-unit>
+      <trans-unit id="uploadRecordingFilesProcessingHint" datatype="html">
+        <source> The files are being processed, please wait until all files are ready. </source>
+      </trans-unit>
+      <trans-unit id="uploadRecordingFileHeader" datatype="html">
+        <source><x id="START_BLOCK_IF" equiv-text="@if(i ===0){"/> Main Video and Audio <x id="CLOSE_BLOCK_IF" equiv-text="}"/><x id="START_BLOCK_ELSE" equiv-text="@else {"/> Additional Video <x id="CLOSE_BLOCK_ELSE" equiv-text="}"/></source>
+      </trans-unit>
+      <trans-unit id="uploadRecordingSuccessfullyUploaded" datatype="html">
+        <source> Successfully uploaded! </source>
+      </trans-unit>
+      <trans-unit id="uploadRecordingFailedWithError" datatype="html">
+        <source> Failed with error: <x id="INTERPOLATION" equiv-text="{{ recording.upload.error.error.message }}"/> </source>
+      </trans-unit>
+      <trans-unit id="uploadRecordingWaitingForUploadHint" datatype="html">
+        <source> Please wait until all files have been uploaded. </source>
+      </trans-unit>
+      <trans-unit id="uploadRecordingDownloadLocallyHint" datatype="html">
+        <source> Download the videos manually and try to create the projects with the files manually. </source>
+      </trans-unit>
+      <trans-unit id="uploadRecordingAdditionalVideoFailedHint" datatype="html">
+        <source> The project and the main file could be uploaded and created! However, a problem has occurred with an additional video. Check in the project details which video could not be uploaded and upload it manually if necessary. </source>
+      </trans-unit>
+      <trans-unit id="uploadRecordingAllSuccessfulHint" datatype="html">
+        <source> The project has been successfully created, you can now close this dialog! You will find the project in the project list, but it may still be being processed. </source>
+      </trans-unit>
+      <trans-unit id="uploadRecordingDownloadFilesButton" datatype="html">
+        <source> Download recordings locally </source>
+      </trans-unit>
+      <trans-unit id="uploadRecordingDiscardButton" datatype="html">
+        <source> Discard and close </source>
+      </trans-unit>
+      <trans-unit id="uploadRecordingUploadButton" datatype="html">
+        <source> Upload and create project </source>
+      </trans-unit>
+      <trans-unit id="uploadRecordingToProjectlistButton" datatype="html">
+        <source> To Projectlist </source>
+      </trans-unit>
+      <trans-unit id="uploadRecordingRecordAnotherVideoButton" datatype="html">
+        <source> Record another video </source>
+      </trans-unit>
+      <trans-unit id="recorderTitle" datatype="html">
+        <source> Recorder </source>
+      </trans-unit>
+      <trans-unit id="recorderRecordingTitleLabel" datatype="html">
+        <source>Recording title</source>
+      </trans-unit>
+      <trans-unit id="recorderRecordingTitleError" datatype="html">
+        <source>Recording title is required </source>
+      </trans-unit>
+      <trans-unit id="recorderNotRecordingHints" datatype="html">
+        <source> You can add or delete sources. <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br /&gt;"/> To start the recording you need at least 1 visual and 1 auditive source. </source>
+      </trans-unit>
+      <trans-unit id="recorderRecordingHints" datatype="html">
+        <source> Recording ongoing. Press Stop recording if you want to save or dismiss your recording. </source>
+      </trans-unit>
+      <trans-unit id="recorderStopRecordingButton" datatype="html">
+        <source> Stop recording </source>
+      </trans-unit>
+      <trans-unit id="recorderStartRecordingButton" datatype="html">
+        <source> Start recording </source>
+      </trans-unit>
+      <trans-unit id="recorderResumeRecordingButton" datatype="html">
+        <source> Resume recording </source>
+      </trans-unit>
+      <trans-unit id="recorderPauseRecordingButton" datatype="html">
+        <source> Pause recording </source>
+      </trans-unit>
+      <trans-unit id="recorderAudioSourcesTitle" datatype="html">
+        <source>Audio sources</source>
+      </trans-unit>
+      <trans-unit id="recorderNoAudioAdded" datatype="html">
+        <source><x id="START_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;i&gt;"/>No audio source added<x id="CLOSE_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;/i&gt;"/></source>
+      </trans-unit>
+      <trans-unit id="recorderAddAudioSourceButton" datatype="html">
+        <source> Add audio source </source>
+      </trans-unit>
+      <trans-unit id="recorderVideoSourcesTitle" datatype="html">
+        <source>Video sources</source>
+      </trans-unit>
+      <trans-unit id="recorderNoVideoAdded" datatype="html">
+        <source><x id="START_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;i&gt;"/>No video source added<x id="CLOSE_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;/i&gt;"/></source>
+      </trans-unit>
+      <trans-unit id="recorderAddVideoSourceButton" datatype="html">
+        <source> Add video source </source>
+      </trans-unit>
+      <trans-unit id="recorderScreensharingSourcesTitle" datatype="html">
+        <source>Screensharing sources</source>
+      </trans-unit>
+      <trans-unit id="recorderNoScreensharingAdded" datatype="html">
+        <source><x id="START_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;i&gt;"/>No screensharing source added<x id="CLOSE_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;/i&gt;"/></source>
+      </trans-unit>
+      <trans-unit id="recorderAddScreensharingButton" datatype="html">
+        <source> Add screensharing source </source>
+      </trans-unit>
+      <trans-unit id="guestLoginDialogHeader" datatype="html">
+        <source>Login as Guest</source>
+      </trans-unit>
+      <trans-unit id="guestLoginNamePlaceholder" datatype="html">
+        <source>Name</source>
+      </trans-unit>
+      <trans-unit id="guestLoginJoinButtonLabel" datatype="html">
+        <source> Join </source>
+      </trans-unit>
+      <trans-unit id="inviteCardSubtitleInvalidInvite" datatype="html">
+        <source>Project invitation</source>
+      </trans-unit>
+      <trans-unit id="inviteLinkInvalidError" datatype="html">
+        <source>The invitation link is no longer valid.</source>
+      </trans-unit>
+      <trans-unit id="inviteInvalidBackButtonLabel" datatype="html">
+        <source> Back </source>
+      </trans-unit>
+      <trans-unit id="inviteCardSubtitleValidInvite" datatype="html">
+        <source>Project invitation</source>
+      </trans-unit>
+      <trans-unit id="inviteFromMessage" datatype="html">
+        <source> You were invited by <x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span class=&quot;bold&quot;&gt;"/><x id="INTERPOLATION" equiv-text="{{ invite.userName }}"/><x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span&gt;"/> participate in a project. </source>
+      </trans-unit>
+      <trans-unit id="inviteCancelButtonLabel" datatype="html">
+        <source> Cancel </source>
+      </trans-unit>
+      <trans-unit id="inviteJoinProjectButtonLabel" datatype="html">
+        <source> Join Project </source>
+      </trans-unit>
+      <trans-unit id="inviteLoginOrRegisterButtonLabel" datatype="html">
+        <source> Login / Register </source>
+      </trans-unit>
+      <trans-unit id="inviteJoinAsGuestButtonLabel" datatype="html">
+        <source> Join as Guest </source>
+      </trans-unit>
+      <trans-unit id="documentationMainHeading" datatype="html">
+        <source>Documentation</source>
+      </trans-unit>
+      <trans-unit id="landingSubpageWIPInfo" datatype="html">
+        <source> Sorry, this page is still under development. Please come back at a later time. </source>
+      </trans-unit>
+      <trans-unit id="guideMainHeading" datatype="html">
+        <source>Guide</source>
+      </trans-unit>
+      <trans-unit id="guideSubHeading" datatype="html">
+        <source> Didactic Recommendations – How to Use Melvin Effectively </source>
+      </trans-unit>
+      <trans-unit id="guideContentTableHeading" datatype="html">
+        <source>Table of contents</source>
+      </trans-unit>
+      <trans-unit id="guideContentTableWhy" datatype="html">
+        <source> Why Didactic Recommendations? </source>
+      </trans-unit>
+      <trans-unit id="guideContentTablePlanningVideo" datatype="html">
+        <source> Planning the Video </source>
+      </trans-unit>
+      <trans-unit id="guideContentTableDidactic" datatype="html">
+        <source> Didactic Planning </source>
+      </trans-unit>
+      <trans-unit id="guideContentTableContent" datatype="html">
+        <source> Content Planning </source>
+      </trans-unit>
+      <trans-unit id="guideContentTableTechnical" datatype="html">
+        <source> Technical Planning </source>
+      </trans-unit>
+      <trans-unit id="guideContentTableReferences" datatype="html">
+        <source> References </source>
+      </trans-unit>
+      <trans-unit id="guideWhyHeading" datatype="html">
+        <source> Why Didactic Recommendations? </source>
+      </trans-unit>
+      <trans-unit id="guideWhyPartOne" datatype="html">
+        <source> According to a working group of the Hochschulforum Digitalisierung, digitalization in education should not be &quot;an end in itself&quot; (Persike &amp; Friedrich, 2016, p. 5). Instead, digital learning and teaching concepts should aim to improve teaching quality, enhance effectiveness, and promote equal opportunities in higher education (Hanft et al., 2019, p. 325). Overall, aspects of equal opportunities, inclusion, and digitalization are still rarely considered in combination and insufficiently researched (Bosse et al., 2021; Hafer et al., 2019), particularly in relation to didactic issues. While digital tools offer many possibilities, not everything that is technically feasible is didactically useful or even accessible. </source>
+      </trans-unit>
+      <trans-unit id="guideWhyPartTwo" datatype="html">
+        <source> Melvin, as a video platform, is primarily a tool that offers functionality and allows for creative freedom. Thoughtful consideration of didactic implementation can significantly contribute to ensuring equal and barrier-free access to content for all users. These didactic guidelines aim to encourage a reflective approach when using Melvin. </source>
+      </trans-unit>
+      <trans-unit id="guidePlanningHeading" datatype="html">
+        <source>Planning the Video</source>
+      </trans-unit>
+      <trans-unit id="guidePlanningIntro" datatype="html">
+        <source> Before starting video production, careful planning from a didactic, content-related, and technical perspective is essential. This ensures that the video meets the intended learning objectives and reaches all students effectively. </source>
+      </trans-unit>
+      <trans-unit id="guideDidacticHeading" datatype="html">
+        <source> Didactic Planning </source>
+      </trans-unit>
+      <trans-unit id="guideFrameworkTerm" datatype="html">
+        <source>General Instructional Framework</source>
+      </trans-unit>
+      <trans-unit id="guideFrameworkDefinition" datatype="html">
+        <source> It is crucial to determine in advance how the videos will be integrated into teaching and for what <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>purpose<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/> they will be used. What role do the videos play within the broader instructional framework? Defining this objective helps in designing the videos effectively. </source>
+      </trans-unit>
+      <trans-unit id="guideSelfRegulationTerm" datatype="html">
+        <source>Self-Regulated Learning</source>
+      </trans-unit>
+      <trans-unit id="guideSelfRegulationDefinition" datatype="html">
+        <source> Providing videos places more responsibility on students for their own learning. Learning videos should therefore foster strategies for self-regulated learning (SRL<x id="START_SUPERSCRIPT" ctype="x-sup" equiv-text="&lt;sup&gt;"/>1<x id="CLOSE_SUPERSCRIPT" ctype="x-sup" equiv-text="&lt;/sup&gt;"/>) and motivate students to engage actively with the content. </source>
+      </trans-unit>
+      <trans-unit id="guideOptimalLenghtTerm" datatype="html">
+        <source>Optimal Video Length</source>
+      </trans-unit>
+      <trans-unit id="guideOptimalLenghtDefinition" datatype="html">
+        <source> Depending on the purpose, learning videos can vary in length, but they should not exceed a certain duration to avoid cognitive overload. Empirical research suggests a <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>maximum duration of 20 minutes<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/> (Brück 2023). </source>
+      </trans-unit>
+      <trans-unit id="guideStructuringVideoTerm" datatype="html">
+        <source>Structuring the Video</source>
+      </trans-unit>
+      <trans-unit id="guideStructuringVideoDefinition" datatype="html">
+        <source> The longer the video, the more important it is to maintain a <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>clear structure and include pauses<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/> to support comprehension. Planning recognizable sections (introduction, main part, conclusion) in advance is advisable. Creating <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>a script, storyboard,<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/> or screenplay can help structure the content and voiceover effectively. </source>
+      </trans-unit>
+      <trans-unit id="guideInvertedClassroomTerm" datatype="html">
+        <source>Inverted Classroom</source>
+      </trans-unit>
+      <trans-unit id="guideInvertedClassroomDefinition" datatype="html">
+        <source> When videos are used as part of an Inverted Classroom model, <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>clear incentives<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/> should be provided for students to prepare for deeper engagement during in-person sessions. If a video is assigned to a specific session, this should be clearly communicated, and students should have <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>sufficient time<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/> to review the content and any accompanying materials. </source>
+      </trans-unit>
+      <trans-unit id="guideMicroLearningTerm" datatype="html">
+        <source>Microlearning Units</source>
+      </trans-unit>
+      <trans-unit id="guideMicroLearningDefinition" datatype="html">
+        <source> If a video is intended to introduce or deepen a specific aspect, a short and focused microlearning unit (also known as a &quot;learning nugget&quot;<x id="START_SUPERSCRIPT" ctype="x-sup" equiv-text="&lt;sup&gt;"/>2<x id="CLOSE_SUPERSCRIPT" ctype="x-sup" equiv-text="&lt;/sup&gt;"/>) may be appropriate. These concise videos effectively present knowledge in just a few minutes. Multiple microlearning units can be organized into a series, with clear titles and sequencing information to enhance clarity. </source>
+      </trans-unit>
+      <trans-unit id="guideMicroLearningExampleHeading" datatype="html">
+        <source>Examples:</source>
+      </trans-unit>
+      <trans-unit id="guideMicroLearningExampleOne" datatype="html">
+        <source> A video on how to effectively search for academic articles in databases. </source>
+      </trans-unit>
+      <trans-unit id="guideMicroLearningExampleTwo" datatype="html">
+        <source> A video explaining proper scientific citation methods. </source>
+      </trans-unit>
+      <trans-unit id="guideUsabilityTerm" datatype="html">
+        <source>Long-Term Usability</source>
+      </trans-unit>
+      <trans-unit id="guideUsabilityDefinition" datatype="html">
+        <source> Is the video intended for one-time use, or should it be accessible across multiple semesters or courses? For long-term use, prioritize general and <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>broadly applicable information<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/> while minimizing temporary references (e.g., links to potentially outdated websites). </source>
+      </trans-unit>
+      <trans-unit id="guideUsabilityExample" datatype="html">
+        <source> Example: A video explaining the fundamentals of qualitative or quantitative research methods in social sciences. </source>
+      </trans-unit>
+      <trans-unit id="guideUDLTerm" datatype="html">
+        <source> Ensuring Accessibility – Universal Design for Learning (UDL)/Multi-Sensory Design Principle </source>
+      </trans-unit>
+      <trans-unit id="guideUDLDefinition" datatype="html">
+        <source> To promote accessibility, information should be presented in multiple formats—for example, through both auditory and visual means. <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>Tools like Melvin<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/>, which automatically generate subtitles and transcripts, can facilitate this approach. </source>
+      </trans-unit>
+      <trans-unit id="guideVerbalizingTerm" datatype="html">
+        <source>Verbalizing Visual Elements</source>
+      </trans-unit>
+      <trans-unit id="guideVerbalizingDefinition" datatype="html">
+        <source> All essential visual elements used in the video should also be described verbally. Ideally, the key content of an image or figure should be integrated into the spoken text. If this is not feasible, a separate audio or text-based description should be provided as an additional resource.<x id="START_SUPERSCRIPT" ctype="x-sup" equiv-text="&lt;sup&gt;"/>3<x id="CLOSE_SUPERSCRIPT" ctype="x-sup" equiv-text="&lt;/sup&gt;"/>. </source>
+      </trans-unit>
+      <trans-unit id="guideAccessibleMaterialsTerm" datatype="html">
+        <source> Accessible Digital Materials </source>
+      </trans-unit>
+      <trans-unit id="guideAccessibleMaterialsDefinition" datatype="html">
+        <source> When combining videos with other digital learning formats such as text, images, or interactive tools, ensure that all materials comply with accessibility standards<x id="START_SUPERSCRIPT" ctype="x-sup" equiv-text="&lt;sup&gt;"/>4<x id="CLOSE_SUPERSCRIPT" ctype="x-sup" equiv-text="&lt;/sup&gt;"/>. </source>
+      </trans-unit>
+      <trans-unit id="guideRepetitionHeading" datatype="html">
+        <source>Repetition</source>
+      </trans-unit>
+      <trans-unit id="guideRepetitionLengthOne" datatype="html">
+        <source>20 minutes</source>
+      </trans-unit>
+      <trans-unit id="guideRepetitionLengthTwo" datatype="html">
+        <source>maximum video duration</source>
+      </trans-unit>
+      <trans-unit id="guideRepetitionVerbalOne" datatype="html">
+        <source>Verbal description</source>
+      </trans-unit>
+      <trans-unit id="guideRepetitionVerbalTwo" datatype="html">
+        <source> of figures and tables </source>
+      </trans-unit>
+      <trans-unit id="guideRepetitionContentBreaksOne" datatype="html">
+        <source>Content breaks</source>
+      </trans-unit>
+      <trans-unit id="guideRepetitionContentBreaksTwo" datatype="html">
+        <source> help with clarity </source>
+      </trans-unit>
+      <trans-unit id="guideContentHeading" datatype="html">
+        <source>Content Planning</source>
+      </trans-unit>
+      <trans-unit id="guideClearTopicTerm" datatype="html">
+        <source>Clear Topic Focus</source>
+      </trans-unit>
+      <trans-unit id="guideClearTopicDefinition" datatype="html">
+        <source> Each video should address a <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>well-defined topic<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/>, clearly stated at the beginning. A precise title enhances recognizability and helps students navigate the content effectively. </source>
+      </trans-unit>
+      <trans-unit id="guideLearningObjectivesTerm" datatype="html">
+        <source>Defining Learning Objectives</source>
+      </trans-unit>
+      <trans-unit id="guideLearningObjectivesDefinition" datatype="html">
+        <source> Each video should specify its learning objectives at the beginning and in the course syllabus. This improves transparency and aids students in organizing their knowledge acquisition. </source>
+      </trans-unit>
+      <trans-unit id="guideExamRelevantTerm" datatype="html">
+        <source>Exam-Relevant Content</source>
+      </trans-unit>
+      <trans-unit id="guideExamRelevantDefinition" datatype="html">
+        <source> If a video covers content relevant to exams, this should be explicitly stated in the learning objectives. Additionally, <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>providing practice questions<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/> can help students gain confidence in exam situations. </source>
+      </trans-unit>
+      <trans-unit id="guideParticipationTerm" datatype="html">
+        <source>Encouraging Active Participation</source>
+      </trans-unit>
+      <trans-unit id="guideParticipationDefinition" datatype="html">
+        <source> Integrating interactive elements, such as exercises, can promote active learning and deeper engagement with the material. </source>
+      </trans-unit>
+      <trans-unit id="guideAcquiredKnowledgeTerm" datatype="html">
+        <source>Reviewing Acquired Knowledge</source>
+      </trans-unit>
+      <trans-unit id="guideAcquiredKnowledgeDefinition" datatype="html">
+        <source> Where can students test their newly acquired knowledge? <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>Quizzes<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/> or targeted exercises can be embedded in the video or incorporated into follow-up in-person sessions. </source>
+      </trans-unit>
+      <trans-unit id="guideTechnicalTermsTerm" datatype="html">
+        <source>Clarifying Technical Terms</source>
+      </trans-unit>
+      <trans-unit id="guideTechnicalTermsDefinition" datatype="html">
+        <source> Complex concepts or technical terminology should be clearly explained, with <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>references to additional resources<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/> (e.g., central websites or literature) when necessary. </source>
+      </trans-unit>
+      <trans-unit id="guideReflectionTerm" datatype="html">
+        <source> Providing Feedback and Reflection Opportunities </source>
+      </trans-unit>
+      <trans-unit id="guideReflectionDefiniton" datatype="html">
+        <source> Videos can include reflection questions or closing exercises to reinforce learning. Opportunities for feedback and discussion can be facilitated through digital learning platforms or in subsequent in-person sessions. </source>
+      </trans-unit>
+      <trans-unit id="guideRepetitionOneVideoOne" datatype="html">
+        <source>One topic</source>
+      </trans-unit>
+      <trans-unit id="guideRepetitionOneVideoTwo" datatype="html">
+        <source>per video</source>
+      </trans-unit>
+      <trans-unit id="guideRepetitionPracticeQuestionOne" datatype="html">
+        <source>Practice questions</source>
+      </trans-unit>
+      <trans-unit id="guideRepetitionPracticeQuestionTwo" datatype="html">
+        <source>for reinforcement</source>
+      </trans-unit>
+      <trans-unit id="guideRepetitionInteractiveElementsOne" datatype="html">
+        <source>Interactive elements</source>
+      </trans-unit>
+      <trans-unit id="guideRepetitionInteractiveElementsTwo" datatype="html">
+        <source>to encourage participation </source>
+      </trans-unit>
+      <trans-unit id="guideTechnicalHeading" datatype="html">
+        <source> Technical planning </source>
+      </trans-unit>
+      <trans-unit id="guideHighQualityMediaTerm" datatype="html">
+        <source> Ensuring High-Quality Audio and Video </source>
+      </trans-unit>
+      <trans-unit id="guideHighQualityMediaDefinition" datatype="html">
+        <source> Both image and sound quality should be optimal, with good lighting and a distraction-free recording environment. A calm and clear speaking style, with sufficient pauses, enhances comprehensibility. A neutral background helps keep the focus on the content. </source>
+      </trans-unit>
+      <trans-unit id="guideTechnicalEquipmentTerm" datatype="html">
+        <source> Technical Equipment Considerations </source>
+      </trans-unit>
+      <trans-unit id="guideTechnicalEquipmentDefinition" datatype="html">
+        <source> Reliable technical equipment and pre-recording checks ensure smoother production. <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>Test recordings<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/> can help identify optimal settings. Depending on the setup, using <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>two monitors<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/> may facilitate the recording process. </source>
+      </trans-unit>
+      <trans-unit id="guideFileNamingTerm" datatype="html">
+        <source>Clear and Informative File Naming</source>
+      </trans-unit>
+      <trans-unit id="guideFileNamingDefinition" datatype="html">
+        <source> The video file name should be <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>meaningful<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/> and include key information such as title, author, topic, and date. </source>
+      </trans-unit>
+      <trans-unit id="guideFileNamingExample" datatype="html">
+        <source> Example: Hearing_Disorders_Baumgart_Pediatric_Audiology_WS23_24 </source>
+      </trans-unit>
+      <trans-unit id="guideEasyAccessTerm" datatype="html">
+        <source>Easy Video Access</source>
+      </trans-unit>
+      <trans-unit id="guideEasyAccessDefinition" datatype="html">
+        <source> Learning videos should be easily accessible on the learning platform. An accompanying syllabus summarizing the video’s content in bullet points enhances clarity and transparency. </source>
+      </trans-unit>
+      <trans-unit id="guideRepetitionClearSpeechOne" datatype="html">
+        <source>Clear speech</source>
+      </trans-unit>
+      <trans-unit id="guideRepetitionClearSpeechTwo" datatype="html">
+        <source>with enough pauses</source>
+      </trans-unit>
+      <trans-unit id="guideRepetitionEnvironmentOne" datatype="html">
+        <source>Bright &amp; quiet environment</source>
+      </trans-unit>
+      <trans-unit id="guideRepetitionEnvironmentTwo" datatype="html">
+        <source>for a good recording</source>
+      </trans-unit>
+      <trans-unit id="guideRepetitionFileNameOne" datatype="html">
+        <source>Title, author, topic, date</source>
+      </trans-unit>
+      <trans-unit id="guideRepetitionFileNameTwo" datatype="html">
+        <source>as a descriptive file name</source>
+      </trans-unit>
+      <trans-unit id="guideReferencesHeading" datatype="html">
+        <source>References</source>
+      </trans-unit>
+      <trans-unit id="imprintMainHeading" datatype="html">
+        <source>Imprint</source>
+      </trans-unit>
+      <trans-unit id="imprintPartnerHeading" datatype="html">
+        <source>Project partners:</source>
+      </trans-unit>
+      <trans-unit id="imprintPartnerUpperText" datatype="html">
+        <source> Melvin is part of the SHUFFLE project funded by the Stiftung Innovation in der Hochschullehre. Three other universities are involved in the project under the direction of the Hochschule der Medien: </source>
+      </trans-unit>
+      <trans-unit id="imprintFreiburg" datatype="html">
+        <source> Freiburg University of Education </source>
+      </trans-unit>
+      <trans-unit id="imprintHeidelberg" datatype="html">
+        <source> Heidelberg University of Education </source>
+      </trans-unit>
+      <trans-unit id="imprintBielefeld" datatype="html">
+        <source> University Bielefeld </source>
+      </trans-unit>
+      <trans-unit id="imprintPartnerLowerText" datatype="html">
+        <source> Hochschule der Medien Stuttgart is a body under public law. It is legally represented by the Rector Prof. Dr. Alexander W. Roos. </source>
+      </trans-unit>
+      <trans-unit id="imprintVATNumber" datatype="html">
+        <source><x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>VAT ID number:<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/> DE 224 427 890 </source>
+      </trans-unit>
+      <trans-unit id="imprintResponsiblePersonHeading" datatype="html">
+        <source>Responsible for the website:</source>
+      </trans-unit>
+      <trans-unit id="imprintResponsibleAuthorityHeading" datatype="html">
+        <source> Responsible regulatory authority: </source>
+      </trans-unit>
+      <trans-unit id="imprintDisclaimerHeading" datatype="html">
+        <source>Disclaimer</source>
+      </trans-unit>
+      <trans-unit id="imprintWebsiteContentHeading" datatype="html">
+        <source>1. Content of the website</source>
+      </trans-unit>
+      <trans-unit id="imprintWebsiteContentText" datatype="html">
+        <source> The author (provider of this website) assumes no liability for the topicality, correctness, completeness or quality of the information provided. Liability claims against the author relating to material or immaterial damage caused by the use or non-use of the information provided or by the use of incorrect or incomplete information are fundamentally excluded, unless there is evidence of wilful intent or gross negligence on the part of the author. All content is subject to change and non-binding. The author expressly reserve the right to change, supplement or delete parts of the pages or the entire website without prior notice or to cease publication temporarily or permanently. </source>
+      </trans-unit>
+      <trans-unit id="imprintReferencesHeading" datatype="html">
+        <source>2. References and links</source>
+      </trans-unit>
+      <trans-unit id="imprintReferencesText" datatype="html">
+        <source> In the case of direct or indirect references to external websites (&quot;links&quot;) that lie outside the author&apos;s area of responsibility, a liability obligation would only come into force in the event that the author is aware of the content and it would be technically possible and reasonable for him to prevent use in the event of illegal content. The author hereby expressly declares that no illegal content was recognizable on the linked pages at the time the links were created. The author has no influence whatsoever on the current and future design, content or authorship of the linked pages. The author therefore expressly distances himself from all contents of all linked pages that were changed after the link was created. This statement applies to all links and references set within the author&apos;s own website as well as to third-party entries in guest books, discussion forums and mailing lists set up by the author. Liability for illegal, incorrect or incomplete content and in particular for damages resulting from the use or non-use of such information lies solely with the provider of the page to which reference is made, and not with the person who merely refers to the respective publication via links. </source>
+      </trans-unit>
+      <trans-unit id="imprintCopyrightHeading" datatype="html">
+        <source>3. Copyright and trademark law</source>
+      </trans-unit>
+      <trans-unit id="imprintCopyrightUpperText" datatype="html">
+        <source> The author makes every effort to respect the copyright of the graphics, sound documents, video sequences and texts used in all publications, to use graphics, sound documents, video sequences and texts created by themselves or to use license-free graphics, sound documents, video sequences and texts. </source>
+      </trans-unit>
+      <trans-unit id="imprintCopyrightLowerText" datatype="html">
+        <source> All brand names and trademarks mentioned on the website and potentially protected by third parties are subject without restriction to the regulations of the applicable trademark law and the ownership rights of the respective registered owners. The mere mention of a trademark does not imply that it is not protected by third-party rights! The copyright for published objects created by the author or author himself remains solely with the author/authors of the pages or texts and contents. Reproduction or use of such graphics, audio documents, video sequences and texts in other electronic or printed publications is not permitted without the express consent of the author(s). </source>
+      </trans-unit>
+      <trans-unit id="imprintLegalValidityHeading" datatype="html">
+        <source> 4. Legal validity of this disclaimer </source>
+      </trans-unit>
+      <trans-unit id="imprintLegalValidityText" datatype="html">
+        <source> This disclaimer is to be regarded as part of the internet publication which you were referred from. If sections or individual terms of this statement are not legal or correct, the content or validity of the other parts remain uninfluenced by this fact. </source>
+      </trans-unit>
+      <trans-unit id="imprintSourceText" datatype="html">
+        <source> Source: <x id="START_LINK" ctype="x-a" equiv-text="&lt;a href=&quot;https://www.juraforum.de/&quot;&gt;"/>www.Juraforum.de<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/> - Legal portal with lawyer search as at: August 2017 </source>
+      </trans-unit>
+      <trans-unit id="landingFooterPrivacyLinkLabel" datatype="html">
+        <source> Privacy </source>
+      </trans-unit>
+      <trans-unit id="landingFooterImprintLinkLabel" datatype="html">
+        <source> Imprint </source>
+      </trans-unit>
+      <trans-unit id="landingFooterAccessibilityStatementLinkLabel" datatype="html">
+        <source> Accessibility statement </source>
+      </trans-unit>
+      <trans-unit id="landingFooterNewTabAriaLabel" datatype="html">
+        <source>Opens in new tab</source>
+      </trans-unit>
+      <trans-unit id="landingFooterSHUFFLELinkLabel" datatype="html">
+        <source> SHUFFLE-Project <x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;new-tab&quot; aria-hidden=&quot;false&quot; i18n-aria-label=&quot;@@landingFooterNewTabAriaLabel&quot; aria-label=&quot;Opens in new tab&quot; class=&quot;icon&quot; /&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;new-tab&quot; aria-hidden=&quot;false&quot; i18n-aria-label=&quot;@@landingFooterNewTabAriaLabel&quot; aria-label=&quot;Opens in new tab&quot; class=&quot;icon&quot; /&gt;"/></source>
+      </trans-unit>
+      <trans-unit id="loginDialogHeadline" datatype="html">
+        <source>Login</source>
+      </trans-unit>
+      <trans-unit id="loginDialogEmailLabel" datatype="html">
+        <source>Email</source>
+      </trans-unit>
+      <trans-unit id="loginDialogEmailErrorNotValid" datatype="html">
+        <source>Email address is not valid</source>
+      </trans-unit>
+      <trans-unit id="loginDialogEmailErrorRequired" datatype="html">
+        <source>Email is required</source>
+      </trans-unit>
+      <trans-unit id="loginDialogPasswordLabel" datatype="html">
+        <source> Password </source>
+      </trans-unit>
+      <trans-unit id="loginDialogPasswordErrorRequired" datatype="html">
+        <source> Password is required </source>
+      </trans-unit>
+      <trans-unit id="loginDialogStayLoggedInCheckboxLabel" datatype="html">
+        <source>Stay logged in</source>
+      </trans-unit>
+      <trans-unit id="loginDialogLoginButtonLabel" datatype="html">
+        <source><x id="START_BLOCK_IF" equiv-text="@if (loading$ | ngrxPush) {"/><x id="START_TAG_MAT_SPINNER" ctype="x-mat_spinner" equiv-text="&lt;mat-spinner strokeWidth=&quot;2&quot; diameter=&quot;20&quot; /&gt;"/><x id="CLOSE_TAG_MAT_SPINNER" ctype="x-mat_spinner" equiv-text="&lt;mat-spinner strokeWidth=&quot;2&quot; diameter=&quot;20&quot; /&gt;"/><x id="CLOSE_BLOCK_IF" equiv-text="}"/> Login </source>
+      </trans-unit>
+      <trans-unit id="loginDialogForgotPasswordButton" datatype="html">
+        <source> Forgot password? </source>
+      </trans-unit>
+      <trans-unit id="loginDialogRegisterIntroText" datatype="html">
+        <source>No account yet?</source>
+      </trans-unit>
+      <trans-unit id="loginDialogRegisterButton" datatype="html">
+        <source> Register </source>
+      </trans-unit>
+      <trans-unit id="registerDialogMainHeading" datatype="html">
+        <source>Register</source>
+      </trans-unit>
+      <trans-unit id="registerDialogEmailContactInfo" datatype="html">
+        <source> Melvin is currently still in a closed test phase. Would you like to test Melvin? Please contact us at <x id="START_LINK" ctype="x-a" equiv-text="&lt;a href=&quot;mailto:melvin@hdm-suttgart.de&quot;&gt;"/>melvin@hdm-suttgart.de<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/></source>
+      </trans-unit>
+      <trans-unit id="registerDialogLoginIntroText" datatype="html">
+        <source>Already have an account?</source>
+      </trans-unit>
+      <trans-unit id="registerDialogLoginButton" datatype="html">
+        <source> Login </source>
+      </trans-unit>
+      <trans-unit id="resetPasswordDialogHeading" datatype="html">
+        <source>Reset password</source>
+      </trans-unit>
+      <trans-unit id="resetPasswordWIPInfo" datatype="html">
+        <source>This feature is still under development.</source>
+      </trans-unit>
+      <trans-unit id="landingHeaderGuideLinkLabel" datatype="html">
+        <source> Guide </source>
+      </trans-unit>
+      <trans-unit id="landingHeaderTutorialLinkLabel" datatype="html">
+        <source> Tutorial </source>
+      </trans-unit>
+      <trans-unit id="landingHeaderDocumentationLinkLabel" datatype="html">
+        <source> Documentation </source>
+      </trans-unit>
+      <trans-unit id="landingHeaderToggleDarkmodeToggleMenuButton" datatype="html">
+        <source>Open darkmode menu</source>
+      </trans-unit>
+      <trans-unit id="landingHeaderToTheProjectsButton" datatype="html">
+        <source>To the projects</source>
+      </trans-unit>
+      <trans-unit id="landingHeaderLoginButton" datatype="html">
+        <source> Login </source>
+      </trans-unit>
+      <trans-unit id="landingHeaderToggleDarkmodeLight" datatype="html">
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;light_mode&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/>Light </source>
+      </trans-unit>
+      <trans-unit id="landingHeaderToggleDarkmodeSystem" datatype="html">
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;system_mode&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/>Auto </source>
+      </trans-unit>
+      <trans-unit id="landingHeaderToggleDarkmodeDark" datatype="html">
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;dark_mode&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/>Dark </source>
+      </trans-unit>
+      <trans-unit id="landingMainHeadingAccessibleVideos" datatype="html">
+        <source>Accessible videos - </source>
+      </trans-unit>
+      <trans-unit id="landingMainHeadingFeatures" datatype="html">
+        <source>recording, subtitling and sharing </source>
+      </trans-unit>
+      <trans-unit id="landingMainHeadingWithMelvin" datatype="html">
+        <source>with Melvin</source>
+      </trans-unit>
+      <trans-unit id="landingMainOpenSourceChip" datatype="html">
+        <source> Open-Source </source>
+      </trans-unit>
+      <trans-unit id="landingMainFreeOfChargeChip" datatype="html">
+        <source> Free of charge </source>
+      </trans-unit>
+      <trans-unit id="landingMainWIPChip" datatype="html">
+        <source>Work in progress</source>
+      </trans-unit>
+      <trans-unit id="landingMainRecordingHeading" datatype="html">
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;video&quot; /&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;video&quot; /&gt;"/> Recording </source>
+      </trans-unit>
+      <trans-unit id="landingMainRecordingExplanationTop" datatype="html">
+        <source> Start your recording directly in the browser, without any additional software. Plus, you have complete control over which audio and video sources you want to use. </source>
+      </trans-unit>
+      <trans-unit id="landingMainRecordingExplanationBottom" datatype="html">
+        <source> You already have a recording? Simply upload it and use it too. </source>
+      </trans-unit>
+      <trans-unit id="landingMainSubtitlingHeading" datatype="html">
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;edit&quot; /&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;edit&quot; /&gt;"/> Subtitling </source>
+      </trans-unit>
+      <trans-unit id="landingMainSubtitlingExplanation" datatype="html">
+        <source> After recording, your videos are automatically transcribed and subtitles are created. Using the editor, you can then make the final corrections manually, either alone or together with others. </source>
+      </trans-unit>
+      <trans-unit id="landingMainSharingHeading" datatype="html">
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;play-outline&quot; /&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;play-outline&quot; /&gt;"/> Sharing </source>
+      </trans-unit>
+      <trans-unit id="landingMainSharingExplanationTop" datatype="html">
+        <source> Your recording can now be shared with our accessible player. You can simply share the link or embed the player in your website. </source>
+      </trans-unit>
+      <trans-unit id="landingMainSharingExplanationBottom" datatype="html">
+        <source> Of course, you can also download your files and upload them elsewhere. </source>
+      </trans-unit>
+      <trans-unit id="landingMainWIPExplanationTop" datatype="html">
+        <source> Melvin is currently still under development. However, you can already test the application now. </source>
+      </trans-unit>
+      <trans-unit id="landingMainWIPExplanationBottom" datatype="html">
+        <source> In addition to improvements in accessibility and user experience, we are currently working on a <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>livestream mode<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/>. Stay tuned and feel free to check back regularly. </source>
+      </trans-unit>
+      <trans-unit id="privacyMainHeading" datatype="html">
+        <source>Privacy</source>
+      </trans-unit>
+      <trans-unit id="sitemapListExplanation" datatype="html">
+        <source> This sitemap lists all pages alphabetically. </source>
+      </trans-unit>
+      <trans-unit id="landingSidenavMenuHeader" datatype="html">
+        <source>Menu</source>
+      </trans-unit>
+      <trans-unit id="landingSidenavStartpageLink" datatype="html">
+        <source> Startpage </source>
+      </trans-unit>
+      <trans-unit id="landingSidenavTutorialLink" datatype="html">
+        <source> Tutorial </source>
+      </trans-unit>
+      <trans-unit id="landingSidenavDocumentationLink" datatype="html">
+        <source> Documentation </source>
+      </trans-unit>
+      <trans-unit id="landingSidenavCloseButton" datatype="html">
+        <source> Close </source>
+      </trans-unit>
+      <trans-unit id="startPageTitle" datatype="html">
+        <source>Melvin</source>
+      </trans-unit>
+      <trans-unit id="privacyPageTitle" datatype="html">
+        <source>Privacy - Melvin</source>
+      </trans-unit>
+      <trans-unit id="imprintPageTitle" datatype="html">
+        <source>Imprint - Melvin</source>
+      </trans-unit>
+      <trans-unit id="accessibilityStatementPageTitle" datatype="html">
+        <source>Accessibility Statement - Melvin</source>
+      </trans-unit>
+      <trans-unit id="tutorialPageTitle" datatype="html">
+        <source>Tutorial - Melvin</source>
+      </trans-unit>
+      <trans-unit id="documentationPageTitle" datatype="html">
+        <source>Documentation - Melvin</source>
+      </trans-unit>
+      <trans-unit id="GuidePageTitle" datatype="html">
+        <source>Guide - Melvin</source>
+      </trans-unit>
       <trans-unit id="viewerAdjustLayoutDialogTitle" datatype="html">
         <source>Transcript settings</source>
+      </trans-unit>
+      <trans-unit id="viewerAdjustLayoutDialogCloseButton" datatype="html">
+        <source>Close</source>
       </trans-unit>
       <trans-unit id="viewerAdjustLayoutDialogSettingsHint" datatype="html">
         <source> The settings are applied directly. </source>
@@ -271,6 +1570,9 @@
       </trans-unit>
       <trans-unit id="viewerCaptionsSettingsDialogTitle" datatype="html">
         <source>Caption settings</source>
+      </trans-unit>
+      <trans-unit id="viewerCaptionsSettingsDialogCloseButton" datatype="html">
+        <source>Close</source>
       </trans-unit>
       <trans-unit id="viewerCaptionsSettingsDialogHint" datatype="html">
         <source> The settings are applied directly. </source>
@@ -326,59 +1628,26 @@
       <trans-unit id="viewerCaptionsSettingsDialogExampletext" datatype="html">
         <source> Example text: This is what the subtitles will look like. </source>
       </trans-unit>
+      <trans-unit id="viewerHeloDialogTitle" datatype="html">
+        <source>Help</source>
+      </trans-unit>
+      <trans-unit id="viewerHelpDialogCloseButton" datatype="html">
+        <source>Close</source>
+      </trans-unit>
+      <trans-unit id="helpDialogExplanation" datatype="html">
+        <source> This application is currently under development. Unexpected errors may therefore occur. You can find more information on the <x id="START_LINK" ctype="x-a" equiv-text="&lt;a href=&quot;https://shuffle-projekt.de/&quot;&gt;"/>SHUFFLE research project website<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/>. If you have any feedback or questions, you will also find a contact option there. </source>
+      </trans-unit>
       <trans-unit id="viewerControlsTimelineLabel" datatype="html">
         <source>Video timeline</source>
       </trans-unit>
-      <trans-unit id="viewerControlsVolumeSlideLabel" datatype="html">
-        <source>Volume</source>
+      <trans-unit id="viewerControlsLanguageMenuTooltip" datatype="html">
+        <source>Show language menu</source>
       </trans-unit>
       <trans-unit id="viewerControlsGalleryMenuTooltip" datatype="html">
         <source>Shown video selection</source>
       </trans-unit>
-      <trans-unit id="playerTranscriptHeader" datatype="html">
-        <source>Transcript</source>
-      </trans-unit>
-      <trans-unit id="playerTranscriptSearchLabel" datatype="html">
-        <source>Search</source>
-      </trans-unit>
-      <trans-unit id="playerTranscriptAutomaticScrollLabel" datatype="html">
-        <source> Automatic scrolling </source>
-      </trans-unit>
-      <trans-unit id="guestLoginDialogHeader" datatype="html">
-        <source>Login as Guest</source>
-      </trans-unit>
-      <trans-unit id="guestLoginNamePlaceholder" datatype="html">
-        <source>Name</source>
-      </trans-unit>
-      <trans-unit id="guestLoginJoinButtonLabel" datatype="html">
-        <source> Join </source>
-      </trans-unit>
-      <trans-unit id="inviteCardSubtitleInvalidInvite" datatype="html">
-        <source>Project invitation</source>
-      </trans-unit>
-      <trans-unit id="inviteLinkInvalidError" datatype="html">
-        <source>The invitation link is no longer valid.</source>
-      </trans-unit>
-      <trans-unit id="inviteInvalidBackButtonLabel" datatype="html">
-        <source> Back </source>
-      </trans-unit>
-      <trans-unit id="inviteCardSubtitleValidInvite" datatype="html">
-        <source>Project invitation</source>
-      </trans-unit>
-      <trans-unit id="inviteFromMessage" datatype="html">
-        <source> You were invited by <x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span class=&quot;bold&quot;&gt;"/><x id="INTERPOLATION" equiv-text="{{ invite.userName }}"/><x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span&gt;"/> participate in a project. </source>
-      </trans-unit>
-      <trans-unit id="inviteCancelButtonLabel" datatype="html">
-        <source> Cancel </source>
-      </trans-unit>
-      <trans-unit id="inviteLoginOrRegisterButtonLabel" datatype="html">
-        <source> Login / Register </source>
-      </trans-unit>
-      <trans-unit id="inviteJoinAsGuestButtonLabel" datatype="html">
-        <source> Join as Guest </source>
-      </trans-unit>
-      <trans-unit id="inviteJoinProjectButtonLabel" datatype="html">
-        <source> Join Project </source>
+      <trans-unit id="viewerControlsSettingsMenuTooltip" datatype="html">
+        <source>Settings Menu</source>
       </trans-unit>
       <trans-unit id="viewerControlsFullscreenToggleTooltipActive" datatype="html">
         <source>Close fullscreen</source>
@@ -386,128 +1655,95 @@
       <trans-unit id="viewerControlsFullscreenToggleTooltipInactive" datatype="html">
         <source>Open fullscreen</source>
       </trans-unit>
-      <trans-unit id="uploadAdditionalMediaListHeader" datatype="html">
-        <source>Uploaded media</source>
+      <trans-unit id="viewerControlsAudioTitle" datatype="html">
+        <source>Audiolanguage</source>
       </trans-unit>
-      <trans-unit id="uploadAdditionalMediaTitle" datatype="html">
-        <source>Upload additional media files</source>
+      <trans-unit id="viewerControlsTextlanguageTitle" datatype="html">
+        <source> Textlanguage </source>
       </trans-unit>
-      <trans-unit id="uploadAdditionalMediaUploadButton" datatype="html">
-        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;upload&quot; /&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;upload&quot; /&gt;"/> Upload </source>
+      <trans-unit id="viewerControlsCaptionsTitle" datatype="html">
+        <source>Captions </source>
       </trans-unit>
-      <trans-unit id="uploadAdditionalMediaUploadingHeader" datatype="html">
-        <source>Uploading</source>
+      <trans-unit id="viewerControlsCaptionsOffLabel" datatype="html">
+        <source>Off</source>
       </trans-unit>
-      <trans-unit id="uploadAdditionalMediaVideoCategoryLabel" datatype="html">
-        <source>Choose a category</source>
+      <trans-unit id="viewerControlsCaptionsOnLabel" datatype="html">
+        <source>On</source>
       </trans-unit>
-      <trans-unit id="mediaCategoryMain" datatype="html">
-        <source>Main</source>
+      <trans-unit id="viewerControlsCaptionsSettingsLabel" datatype="html">
+        <source> Settings </source>
       </trans-unit>
-      <trans-unit id="mediaCategoryOther" datatype="html">
-        <source>Other</source>
+      <trans-unit id="viewerControlsTranscriptTitle" datatype="html">
+        <source>Transcript </source>
       </trans-unit>
-      <trans-unit id="mediaCategorySignLanguage" datatype="html">
-        <source>Sign Language</source>
+      <trans-unit id="viewerControlsTranscriptOffLabel" datatype="html">
+        <source>Off</source>
       </trans-unit>
-      <trans-unit id="mediaCategorySlides" datatype="html">
-        <source>Slides</source>
+      <trans-unit id="viewerControlsTranscriptLeftLabel" datatype="html">
+        <source>Left</source>
       </trans-unit>
-      <trans-unit id="mediaCategorySpeaker" datatype="html">
-        <source>Speaker</source>
+      <trans-unit id="viewerControlsTranscriptRightLabel" datatype="html">
+        <source>Right</source>
       </trans-unit>
-      <trans-unit id="projectListOpenViewerAriaLabel" datatype="html">
-        <source>Open Viewer in new Tab</source>
+      <trans-unit id="viewerControlsTranscriptSettingsLabel" datatype="html">
+        <source> Settings </source>
       </trans-unit>
-      <trans-unit id="projectListTableHeaderPlayerLabel" datatype="html">
-        <source> Videoplayer </source>
+      <trans-unit id="viewerControlsTranscriptVideosTitle" datatype="html">
+        <source> Videos </source>
       </trans-unit>
-      <trans-unit id="projectStatusAll" datatype="html">
-        <source>All</source>
+      <trans-unit id="viewerControlsDarkmodeTitle" datatype="html">
+        <source>Darkmode </source>
       </trans-unit>
-      <trans-unit id="createTranscriptionDialogCloseButton" datatype="html">
-        <source>Close</source>
+      <trans-unit id="viewerControlsDarkmodeAutoLabel" datatype="html">
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;{{ colorTheme === colorThemeENUM.SYSTEM ? &apos;check&apos; : &apos;&apos; }}&quot; &gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon &gt;"/>Automatic </source>
       </trans-unit>
-      <trans-unit id="dialogProjectDetailCloseButton" datatype="html">
-        <source>Close</source>
+      <trans-unit id="viewerControlsDarkmodeLight" datatype="html">
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;{{ colorTheme === colorThemeENUM.LIGHT ? &apos;check&apos; : &apos;&apos; }}&quot; &gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon &gt;"/>Light </source>
       </trans-unit>
-      <trans-unit id="uploadAdditionalMediaVideoCategoryErrorRequired" datatype="html">
-        <source> Category is required </source>
+      <trans-unit id="viewerControlsTranscriptDarkLabel" datatype="html">
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;{{ colorTheme === colorThemeENUM.DARK ? &apos;check&apos; : &apos;&apos; }}&quot; &gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon &gt;"/>Dark </source>
       </trans-unit>
-      <trans-unit id="uploadAdditionalMediaVideoFileErrorRequired" datatype="html">
-        <source> A video file is required </source>
+      <trans-unit id="viewerControlsInterfaceLanguageTitle" datatype="html">
+        <source>Interface language </source>
       </trans-unit>
-      <trans-unit id="createTranscriptionDialogTabUploadLabel" datatype="html">
-        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;upload&quot; class=&quot;tab-icon&quot; /&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;upload&quot; class=&quot;tab-icon&quot; /&gt;"/> Upload </source>
+      <trans-unit id="viewerControlsGermanLabel" datatype="html">
+        <source>German</source>
       </trans-unit>
-      <trans-unit id="copyTranscriptionTabHeading" datatype="html">
-        <source>Copy an existing transcription</source>
+      <trans-unit id="viewerControlsEnglishLabel" datatype="html">
+        <source>English</source>
       </trans-unit>
-      <trans-unit id="dialogCreateProjectTitleRequiredError" datatype="html">
-        <source>Title is required</source>
+      <trans-unit id="viewerControlsOthersTitle" datatype="html">
+        <source>Others </source>
       </trans-unit>
-      <trans-unit id="copyTranscriptionTabTitleLabel" datatype="html">
-        <source>Title</source>
+      <trans-unit id="viewerControlsHelpLabel" datatype="html">
+        <source> Help </source>
       </trans-unit>
-      <trans-unit id="copyTranscriptionTabTranscriptionErrorRequired" datatype="html">
-        <source>Select a transcription</source>
+      <trans-unit id="viewerControlsPlaybackspeedTitle" datatype="html">
+        <source>Speed </source>
       </trans-unit>
-      <trans-unit id="copyTranscriptionTabTranscriptionLabel" datatype="html">
-        <source>Transcription</source>
+      <trans-unit id="viewerControlsQualityTitle" datatype="html">
+        <source> Max. Resolution </source>
       </trans-unit>
-      <trans-unit id="createTranscriptionDialogSubmitButtonLabel" datatype="html">
-        <source> Create transcription </source>
+      <trans-unit id="viewerControlsPlayTooltip" datatype="html">
+        <source>Play</source>
       </trans-unit>
-      <trans-unit id="createTranscriptionDialogTabCopyLabel" datatype="html">
-        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;copy-file&quot; class=&quot;tab-icon&quot; /&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;copy-file&quot; class=&quot;tab-icon&quot; /&gt;"/> Copy </source>
+      <trans-unit id="viewerControlsPauseTooltip" datatype="html">
+        <source>Pause</source>
       </trans-unit>
-      <trans-unit id="emptyTranscriptionTabLanguageError" datatype="html">
-        <source>Select a language</source>
+      <trans-unit id="viewerVideoContainerToMainviewAriaHidden" datatype="html">
+        <source>Switch</source>
       </trans-unit>
-      <trans-unit id="emptyTranscriptionTabLanguageLabel" datatype="html">
-        <source>Language</source>
+      <trans-unit id="viewerVideoContainerToMainviewScreenreader" datatype="html">
+        <source>Switch video &apos;<x id="INTERPOLATION" equiv-text="{{ video.category | mediaCategory }}"/>&apos; to main view</source>
       </trans-unit>
-      <trans-unit id="emptyTranscriptionTabTitleLabel" datatype="html">
-        <source>Title</source>
+      <trans-unit id="playerTranscriptHeader" datatype="html">
+        <source>Transcript</source>
       </trans-unit>
-      <trans-unit id="dialogCreateProjectTitleLabel" datatype="html">
-        <source>Title</source>
+      <trans-unit id="playerTranscriptAutomaticScrollLabelMobile" datatype="html">
+        <source> Auto scroll </source>
       </trans-unit>
-      <trans-unit id="uploadFilesFormDropzoneTextMedia" datatype="html">
-        <source> Drag your audio or video file * here </source>
-      </trans-unit>
-      <trans-unit id="uploadFilesFormDropzoneTextTranscription" datatype="html">
-        <source> Drag your subtitle file (.vtt or .srt) * here </source>
-      </trans-unit>
-      <trans-unit id="uploadFilesFormRemoveFileAriaLabel" datatype="html">
-        <source>Remove file</source>
-      </trans-unit>
-      <trans-unit id="uploadTranscriptionTabFileErrorMaximum" datatype="html">
-        <source> Maximum 1 file </source>
-      </trans-unit>
-      <trans-unit id="uploadTranscriptionTabFileErrorRequired" datatype="html">
-        <source> A transcription file (.vtt or .srt) is required </source>
-      </trans-unit>
-      <trans-unit id="uploadTranscriptionTabHeading" datatype="html">
-        <source>Upload a new transcription</source>
-      </trans-unit>
-      <trans-unit id="uploadTranscriptionTabLanguageErrorRequired" datatype="html">
-        <source>Select a language</source>
-      </trans-unit>
-      <trans-unit id="uploadTranscriptionTabLanguageLabel" datatype="html">
-        <source>Language</source>
-      </trans-unit>
-      <trans-unit id="uploadTranscriptionTabTitleLabel" datatype="html">
-        <source>Title</source>
-      </trans-unit>
-      <trans-unit id="uploadTranscriptionTabUploadsInfo" datatype="html">
-        <source>Uploads</source>
-      </trans-unit>
-      <trans-unit id="createTranscriptionDialogTabEmptyFileLabel" datatype="html">
-        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;add&quot; class=&quot;tab-icon&quot; /&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;add&quot; class=&quot;tab-icon&quot; /&gt;"/> Empty file </source>
-      </trans-unit>
-      <trans-unit id="notificationAriaLabelNotYetRead" datatype="html">
-        <source>Not yet read</source>
+      <trans-unit id="playerTranscriptSearchLabel" datatype="html">
+        <source>Search</source>
       </trans-unit>
       <trans-unit id="playerTranscriptSearchClearButton" datatype="html">
         <source>Clear</source>
@@ -521,1271 +1757,98 @@
       <trans-unit id="playerTranscriptSearchResultsPart" datatype="html">
         <source>results</source>
       </trans-unit>
-      <trans-unit id="viewerAdjustLayoutDialogCloseButton" datatype="html">
-        <source>Close</source>
-      </trans-unit>
-      <trans-unit id="viewerCaptionsSettingsDialogCloseButton" datatype="html">
-        <source>Close</source>
-      </trans-unit>
-      <trans-unit id="deleteConfirmationDialogAbortButton" datatype="html">
-        <source> Abort </source>
-      </trans-unit>
-      <trans-unit id="deleteConfirmationDialogAreYouSureDelete" datatype="html">
-        <source> Are you sure you want to delete this <x id="INTERPOLATION" equiv-text="{{ data.subject }}"/>? </source>
-      </trans-unit>
-      <trans-unit id="deleteConfirmationDialogConfirmButton" datatype="html">
-        <source> Confirm </source>
-      </trans-unit>
-      <trans-unit id="deleteConfirmationDialogTitleDelete" datatype="html">
-        <source> Delete <x id="INTERPOLATION" equiv-text="{{ data.subject }}"/> </source>
-      </trans-unit>
-      <trans-unit id="deleteServiceSubjectCaption" datatype="html">
-        <source>Caption</source>
-      </trans-unit>
-      <trans-unit id="deleteServiceSubjectProject" datatype="html">
-        <source>project</source>
-      </trans-unit>
-      <trans-unit id="deleteServiceSubjectTranscription" datatype="html">
-        <source>transcription</source>
-      </trans-unit>
-      <trans-unit id="recorderAddAudioSourceButton" datatype="html">
-        <source> Add audio source </source>
-      </trans-unit>
-      <trans-unit id="recorderAddScreensharingButton" datatype="html">
-        <source> Add screensharing source </source>
-      </trans-unit>
-      <trans-unit id="recorderAddVideoSourceButton" datatype="html">
-        <source> Add video source </source>
-      </trans-unit>
-      <trans-unit id="recorderAudioSourcesTitle" datatype="html">
-        <source>Audio sources</source>
-      </trans-unit>
-      <trans-unit id="recorderNoAudioAdded" datatype="html">
-        <source><x id="START_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;i&gt;"/>No audio source added<x id="CLOSE_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;/i&gt;"/></source>
-      </trans-unit>
-      <trans-unit id="recorderNoScreensharingAdded" datatype="html">
-        <source><x id="START_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;i&gt;"/>No screensharing source added<x id="CLOSE_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;/i&gt;"/></source>
-      </trans-unit>
-      <trans-unit id="recorderNotRecordingHints" datatype="html">
-        <source> You can add or delete sources. <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br /&gt;"/> To start the recording you need at least 1 visual and 1 auditive source. </source>
-      </trans-unit>
-      <trans-unit id="recorderNoVideoAdded" datatype="html">
-        <source><x id="START_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;i&gt;"/>No video source added<x id="CLOSE_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;/i&gt;"/></source>
-      </trans-unit>
-      <trans-unit id="recorderPauseRecordingButton" datatype="html">
-        <source> Pause recording </source>
-      </trans-unit>
-      <trans-unit id="recorderRecordingHints" datatype="html">
-        <source> Recording ongoing. Press Stop recording if you want to save or dismiss your recording. </source>
-      </trans-unit>
-      <trans-unit id="recorderRecordingTitleLabel" datatype="html">
-        <source>Recording title</source>
-      </trans-unit>
-      <trans-unit id="recorderResumeRecordingButton" datatype="html">
-        <source> Resume recording </source>
-      </trans-unit>
-      <trans-unit id="recorderScreensharingSourcesTitle" datatype="html">
-        <source>Screensharing sources</source>
-      </trans-unit>
-      <trans-unit id="recorderStartRecordingButton" datatype="html">
-        <source> Start recording </source>
-      </trans-unit>
-      <trans-unit id="recorderStopRecordingButton" datatype="html">
-        <source> Stop recording </source>
-      </trans-unit>
-      <trans-unit id="recorderTitle" datatype="html">
-        <source> Recorder </source>
-      </trans-unit>
-      <trans-unit id="recorderVideoSourcesTitle" datatype="html">
-        <source>Video sources</source>
-      </trans-unit>
-      <trans-unit id="uploadFilesForAddMoreFileAriaLabel" datatype="html">
-        <source>Add more files </source>
-      </trans-unit>
-      <trans-unit id="uploadRecordingAdditionalVideoFailedHint" datatype="html">
-        <source> The project and the main file could be uploaded and created! However, a problem has occurred with an additional video. Check in the project details which video could not be uploaded and upload it manually if necessary. </source>
-      </trans-unit>
-      <trans-unit id="uploadRecordingAllSuccessfulHint" datatype="html">
-        <source> The project has been successfully created, you can now close this dialog! You will find the project in the project list, but it may still be being processed. </source>
-      </trans-unit>
-      <trans-unit id="uploadRecordingDiscardButton" datatype="html">
-        <source> Discard and close </source>
-      </trans-unit>
-      <trans-unit id="uploadRecordingDownloadFilesButton" datatype="html">
-        <source> Download recordings locally </source>
-      </trans-unit>
-      <trans-unit id="uploadRecordingDownloadLocallyHint" datatype="html">
-        <source> Download the videos manually and try to create the projects with the files manually. </source>
-      </trans-unit>
-      <trans-unit id="uploadRecordingFailedWithError" datatype="html">
-        <source> Failed with error: <x id="INTERPOLATION" equiv-text="{{ recording.upload.error.error.message }}"/> </source>
-      </trans-unit>
-      <trans-unit id="uploadRecordingFileHeader" datatype="html">
-        <source><x id="START_BLOCK_IF" equiv-text="@if(i ===0){"/> Main Video and Audio <x id="CLOSE_BLOCK_IF" equiv-text="}"/><x id="START_BLOCK_ELSE" equiv-text="@else {"/> Additional Video <x id="CLOSE_BLOCK_ELSE" equiv-text="}"/></source>
-      </trans-unit>
-      <trans-unit id="uploadRecordingFilesProcessingHint" datatype="html">
-        <source> The files are being processed, please wait until all files are ready. </source>
-      </trans-unit>
-      <trans-unit id="uploadRecordingLanguageLabel" datatype="html">
-        <source>Language</source>
-      </trans-unit>
-      <trans-unit id="uploadRecordingReadyToUploadHint" datatype="html">
-        <source> All files are ready. You can now upload the project or download the files locally. </source>
-      </trans-unit>
-      <trans-unit id="uploadRecordingRecordAnotherVideoButton" datatype="html">
-        <source> Record another video </source>
-      </trans-unit>
-      <trans-unit id="uploadRecordingSuccessfullyUploaded" datatype="html">
-        <source> Successfully uploaded! </source>
-      </trans-unit>
-      <trans-unit id="uploadRecordingTitle" datatype="html">
-        <source> Upload and Project creation</source>
-      </trans-unit>
-      <trans-unit id="uploadRecordingUploadButton" datatype="html">
-        <source> Upload and create project </source>
-      </trans-unit>
-      <trans-unit id="uploadRecordingWaitingForUploadHint" datatype="html">
-        <source> Please wait until all files have been uploaded. </source>
-      </trans-unit>
-      <trans-unit id="recorderAddAudioAudioLevel" datatype="html">
-        <source> Audio level </source>
-      </trans-unit>
-      <trans-unit id="recorderAddAudioSourceAddBtn" datatype="html">
-        <source> Add </source>
-      </trans-unit>
-      <trans-unit id="recorderAddAudioSourceCancelBtn" datatype="html">
-        <source> Cancel </source>
-      </trans-unit>
-      <trans-unit id="recorderAddAudioSourceRetryBtn" datatype="html">
-        <source> Retry <x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;repeat&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/></source>
-      </trans-unit>
-      <trans-unit id="recorderAddAudioSourceSelectionLabel" datatype="html">
-        <source>Sources</source>
-      </trans-unit>
-      <trans-unit id="recorderAddAudioSourceTitle" datatype="html">
-        <source>Add Audiosource</source>
-      </trans-unit>
-      <trans-unit id="recorderAddAudioSourceTitleLabel" datatype="html">
-        <source>Title</source>
-      </trans-unit>
-      <trans-unit id="recorderAddScreensharingAddBtn" datatype="html">
-        <source> Add </source>
-      </trans-unit>
-      <trans-unit id="recorderAddScreensharingAudioLevel" datatype="html">
-        <source> Audio level </source>
-      </trans-unit>
-      <trans-unit id="recorderAddScreensharingCancelBtn" datatype="html">
-        <source> Cancel </source>
-      </trans-unit>
-      <trans-unit id="recorderAddScreensharingMediaCategoryOther" datatype="html">
-        <source>Other</source>
-      </trans-unit>
-      <trans-unit id="recorderAddScreensharingMediaCategorySignLanguage" datatype="html">
-        <source>Sign Language</source>
-      </trans-unit>
-      <trans-unit id="recorderAddScreensharingMediaCategorySlides" datatype="html">
-        <source>Slides</source>
-      </trans-unit>
-      <trans-unit id="recorderAddScreensharingMediaCategorySpeaker" datatype="html">
-        <source>Speaker</source>
-      </trans-unit>
-      <trans-unit id="recorderAddScreensharingMediaCategoryTitleLabel" datatype="html">
-        <source>Media Category</source>
-      </trans-unit>
-      <trans-unit id="recorderAddScreensharingRetryBtn" datatype="html">
-        <source> Retry <x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;repeat&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/></source>
-      </trans-unit>
-      <trans-unit id="recorderAddScreensharingSelectionError" datatype="html">
-        <source> An error occurred during the selection when sharing the screen. <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br /&gt;"/> Please make sure that your Browser does have the necessary permissions to share the screen. </source>
-      </trans-unit>
-      <trans-unit id="recorderAddScreensharingTitle" datatype="html">
-        <source> Add Screensharing </source>
-      </trans-unit>
-      <trans-unit id="recorderAddScreensharingTitleLabel" datatype="html">
-        <source>Title</source>
-      </trans-unit>
-      <trans-unit id="recorderAddVideoSourceAddButton" datatype="html">
-        <source> Add </source>
-      </trans-unit>
-      <trans-unit id="recorderAddVideoSourceCancelButton" datatype="html">
-        <source> Cancel </source>
-      </trans-unit>
-      <trans-unit id="recorderAddVideoSourceMediaCategoryLabel" datatype="html">
-        <source>Media Category</source>
-      </trans-unit>
-      <trans-unit id="recorderAddVideoSourceRetryButton" datatype="html">
-        <source> Retry <x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;repeat&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/></source>
-      </trans-unit>
-      <trans-unit id="recorderAddVideoSourceSelectionLabel" datatype="html">
-        <source>Sources</source>
-      </trans-unit>
-      <trans-unit id="recorderAddVideoSourceTitle" datatype="html">
-        <source>Add Videosource</source>
-      </trans-unit>
-      <trans-unit id="recorderAddVideoSourceTitleLabel" datatype="html">
-        <source>Title</source>
-      </trans-unit>
-      <trans-unit id="viewerControlsLanguageMenuTooltip" datatype="html">
-        <source>Show language menu</source>
-      </trans-unit>
-      <trans-unit id="viewerControlsSettingsMenuTooltip" datatype="html">
-        <source>Settings Menu</source>
-      </trans-unit>
-      <trans-unit id="viewerErrorDescription" datatype="html">
-        <source> The project is no longer available under this link. The access link may have been changed or the project may no longer exist. </source>
-      </trans-unit>
-      <trans-unit id="viewerErrorTitle" datatype="html">
-        <source>Error while loading the project</source>
+      <trans-unit id="transcriptRecentFindAriaLabel" datatype="html">
+        <source>Recent find</source>
       </trans-unit>
       <trans-unit id="transcriptNextFindAriaLabel" datatype="html">
         <source>Next find</source>
       </trans-unit>
-      <trans-unit id="transcriptRecentFindAriaLabel" datatype="html">
-        <source>Recent find</source>
+      <trans-unit id="playerTranscriptAutomaticScrollLabel" datatype="html">
+        <source> Automatic scrolling </source>
       </trans-unit>
-      <trans-unit id="viewerControlsAudioTitle" datatype="html">
-        <source>Audiolanguage</source>
+      <trans-unit id="viewerErrorTitle" datatype="html">
+        <source>Error while loading the project</source>
       </trans-unit>
-      <trans-unit id="viewerControlsCaptionsOffLabel" datatype="html">
-        <source>Off</source>
-      </trans-unit>
-      <trans-unit id="viewerControlsCaptionsOnLabel" datatype="html">
-        <source>On</source>
-      </trans-unit>
-      <trans-unit id="viewerControlsCaptionsSettingsLabel" datatype="html">
-        <source> Settings </source>
-      </trans-unit>
-      <trans-unit id="viewerControlsCaptionsTitle" datatype="html">
-        <source>Captions </source>
-      </trans-unit>
-      <trans-unit id="viewerControlsDarkmodeAutoLabel" datatype="html">
-        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;{{ colorTheme === colorThemeENUM.SYSTEM ? &apos;check&apos; : &apos;&apos; }}&quot; &gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon &gt;"/>Automatic </source>
-      </trans-unit>
-      <trans-unit id="viewerControlsDarkmodeLight" datatype="html">
-        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;{{ colorTheme === colorThemeENUM.LIGHT ? &apos;check&apos; : &apos;&apos; }}&quot; &gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon &gt;"/>Light </source>
-      </trans-unit>
-      <trans-unit id="viewerControlsDarkmodeTitle" datatype="html">
-        <source>Darkmode </source>
-      </trans-unit>
-      <trans-unit id="viewerControlsHelpLabel" datatype="html">
-        <source> Help </source>
-      </trans-unit>
-      <trans-unit id="viewerControlsPlaybackspeedTitle" datatype="html">
-        <source>Speed </source>
-      </trans-unit>
-      <trans-unit id="viewerControlsTextlanguageTitle" datatype="html">
-        <source> Textlanguage </source>
-      </trans-unit>
-      <trans-unit id="viewerControlsTranscriptDarkLabel" datatype="html">
-        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;{{ colorTheme === colorThemeENUM.DARK ? &apos;check&apos; : &apos;&apos; }}&quot; &gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon &gt;"/>Dark </source>
-      </trans-unit>
-      <trans-unit id="viewerControlsTranscriptLeftLabel" datatype="html">
-        <source>Left</source>
-      </trans-unit>
-      <trans-unit id="viewerControlsTranscriptOffLabel" datatype="html">
-        <source>Off</source>
-      </trans-unit>
-      <trans-unit id="viewerControlsTranscriptRightLabel" datatype="html">
-        <source>Right</source>
-      </trans-unit>
-      <trans-unit id="viewerControlsTranscriptSettingsLabel" datatype="html">
-        <source> Settings </source>
-      </trans-unit>
-      <trans-unit id="viewerControlsTranscriptTitle" datatype="html">
-        <source>Transcript </source>
-      </trans-unit>
-      <trans-unit id="viewerControlsTranscriptVideosTitle" datatype="html">
-        <source> Videos </source>
+      <trans-unit id="viewerErrorDescription" datatype="html">
+        <source> The project is no longer available under this link. The access link may have been changed or the project may no longer exist. </source>
       </trans-unit>
       <trans-unit id="viewerLogoAriaLabel" datatype="html">
         <source>Melvin Logo, to main webpage</source>
       </trans-unit>
-      <trans-unit id="viewerHeloDialogTitle" datatype="html">
-        <source>Help</source>
-      </trans-unit>
-      <trans-unit id="viewerHelpDialogCloseButton" datatype="html">
-        <source>Close</source>
-      </trans-unit>
-      <trans-unit id="viewerControlsOthersTitle" datatype="html">
-        <source>Others </source>
-      </trans-unit>
-      <trans-unit id="viewerControlsEnglishLabel" datatype="html">
-        <source>English</source>
-      </trans-unit>
-      <trans-unit id="viewerControlsGermanLabel" datatype="html">
-        <source>German</source>
-      </trans-unit>
-      <trans-unit id="viewerControlsInterfaceLanguageTitle" datatype="html">
-        <source>Interface language </source>
-      </trans-unit>
-      <trans-unit id="viewerControlsPauseTooltip" datatype="html">
-        <source>Pause</source>
-      </trans-unit>
-      <trans-unit id="viewerControlsPlayTooltip" datatype="html">
-        <source>Play</source>
-      </trans-unit>
-      <trans-unit id="deleteConfirmationDialogTitleLeave" datatype="html">
-        <source> Leave <x id="INTERPOLATION" equiv-text="{{ data.subject }}"/> </source>
-      </trans-unit>
-      <trans-unit id="accessibilityStatementMainHeading" datatype="html">
-        <source>Accessibility Statement</source>
-      </trans-unit>
-      <trans-unit id="accessibilityStatementPageTitle" datatype="html">
-        <source>Accessibility Statement - Melvin</source>
-      </trans-unit>
-      <trans-unit id="dialogCloseButton" datatype="html">
-        <source>Close</source>
-      </trans-unit>
-      <trans-unit id="dialogProjectMediaSubheading" datatype="html">
-        <source>Media</source>
-      </trans-unit>
-      <trans-unit id="dialogProjectShareEditTabLabel" datatype="html">
-        <source> Invite collaborators </source>
-      </trans-unit>
-      <trans-unit id="dialogProjectSharePlayerTabLabel" datatype="html">
-        <source> Share videoplayer </source>
-      </trans-unit>
-      <trans-unit id="dialogProjectShareSubheading" datatype="html">
-        <source>Share</source>
-      </trans-unit>
-      <trans-unit id="inviteCollaboratorAddUserInputHint" datatype="html">
-        <source>Addresses that are not linked to an account will be invited to the project via email. </source>
-      </trans-unit>
-      <trans-unit id="inviteCollaboratorAddUserInputLabel" datatype="html">
-        <source>Collaborator email</source>
-      </trans-unit>
-      <trans-unit id="inviteCollaboratorAllUserList" datatype="html">
-        <source>People with access</source>
-      </trans-unit>
-      <trans-unit id="inviteCollaboratorCopyLinkSuccess" datatype="html">
-        <source>Link copied</source>
-      </trans-unit>
-      <trans-unit id="inviteCollaboratorGenerateNewLinkButton" datatype="html">
-        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;change&quot; /&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;change&quot; /&gt;"/> Generate new link, revoke old one </source>
-      </trans-unit>
-      <trans-unit id="inviteCollaboratorHeadingAllUsers" datatype="html">
-        <source>People with access</source>
-      </trans-unit>
-      <trans-unit id="inviteCollaboratorHeadingGeneralAccess" datatype="html">
-        <source>General Access</source>
-      </trans-unit>
-      <trans-unit id="inviteCollaboratorInputErrorEmailInvalid" datatype="html">
-        <source>Email is invalid</source>
-      </trans-unit>
-      <trans-unit id="inviteCollaboratorInputErrorEmailRequired" datatype="html">
-        <source>Email is required</source>
-      </trans-unit>
-      <trans-unit id="inviteCollaboratorInputErrorUserDuplication" datatype="html">
-        <source>User already added</source>
-      </trans-unit>
-      <trans-unit id="inviteCollaboratorInviteLinkWarningText" datatype="html">
-        <source> Any person who has this link can join the project registered or anonymously. </source>
-      </trans-unit>
-      <trans-unit id="inviteCollaboratorNewLinkSuccess" datatype="html">
-        <source>New link generated</source>
-      </trans-unit>
-      <trans-unit id="inviteCollaboratorOwnerInfo" datatype="html">
-        <source>Project Owner</source>
-      </trans-unit>
-      <trans-unit id="inviteCollaboratorRemoveButton" datatype="html">
-        <source> Remove </source>
-      </trans-unit>
-      <trans-unit id="inviteCollaboratorShareLinkButton" datatype="html">
-        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;public&quot; /&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;public&quot; /&gt;"/> Copy link </source>
-      </trans-unit>
-      <trans-unit id="inviteCollaboratorYouIndicator" datatype="html">
-        <source>(You)</source>
-      </trans-unit>
-      <trans-unit id="projectListMoreMenuActivityLabel" datatype="html">
-        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;activity&quot; /&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;activity&quot; /&gt;"/> Activity </source>
-      </trans-unit>
-      <trans-unit id="projectListMoreMenuMediaLabel" datatype="html">
-        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;media&quot; /&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;media&quot; /&gt;"/> Media </source>
-      </trans-unit>
-      <trans-unit id="sharePlayerCodeAriaLabel" datatype="html">
-        <source>Embed videoplayer code</source>
-      </trans-unit>
-      <trans-unit id="sharePlayerCodeCopyButton" datatype="html">
-        <source> Copy </source>
-      </trans-unit>
-      <trans-unit id="sharePlayerCopiedToClipboardMessage" datatype="html">
-        <source>Copied to clipboard</source>
-      </trans-unit>
-      <trans-unit id="sharePlayerGenerateNewLinkButton" datatype="html">
-        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;change&quot; /&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;change&quot; /&gt;"/> Generate new link, revoke old one </source>
-      </trans-unit>
-      <trans-unit id="sharePlayerNewLinkMessage" datatype="html">
-        <source>New link generated</source>
-      </trans-unit>
-      <trans-unit id="sharePlayerShareLinkButton" datatype="html">
-        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;public&quot; /&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;public&quot; /&gt;"/> Copy link </source>
-      </trans-unit>
-      <trans-unit id="documentationMainHeading" datatype="html">
-        <source>Documentation</source>
-      </trans-unit>
-      <trans-unit id="documentationPageTitle" datatype="html">
-        <source>Documentation - Melvin</source>
-      </trans-unit>
-      <trans-unit id="imprintMainHeading" datatype="html">
-        <source>Imprint</source>
-      </trans-unit>
-      <trans-unit id="imprintPageTitle" datatype="html">
-        <source>Imprint - Melvin</source>
-      </trans-unit>
-      <trans-unit id="landingFooterAccessibilityStatementLinkLabel" datatype="html">
-        <source> Accessibility statement </source>
-      </trans-unit>
-      <trans-unit id="landingFooterImprintLinkLabel" datatype="html">
-        <source> Imprint </source>
-      </trans-unit>
-      <trans-unit id="landingFooterNewTabAriaLabel" datatype="html">
-        <source>Opens in new tab</source>
-      </trans-unit>
-      <trans-unit id="landingFooterPrivacyLinkLabel" datatype="html">
-        <source> Privacy </source>
-      </trans-unit>
-      <trans-unit id="landingFooterSHUFFLELinkLabel" datatype="html">
-        <source> SHUFFLE-Project <x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;new-tab&quot; aria-hidden=&quot;false&quot; i18n-aria-label=&quot;@@landingFooterNewTabAriaLabel&quot; aria-label=&quot;Opens in new tab&quot; class=&quot;icon&quot; /&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;new-tab&quot; aria-hidden=&quot;false&quot; i18n-aria-label=&quot;@@landingFooterNewTabAriaLabel&quot; aria-label=&quot;Opens in new tab&quot; class=&quot;icon&quot; /&gt;"/></source>
-      </trans-unit>
-      <trans-unit id="landingHeaderDocumentationLinkLabel" datatype="html">
-        <source> Documentation </source>
-      </trans-unit>
-      <trans-unit id="landingHeaderLoginButton" datatype="html">
-        <source> Login </source>
-      </trans-unit>
-      <trans-unit id="landingHeaderTutorialLinkLabel" datatype="html">
-        <source> Tutorial </source>
-      </trans-unit>
-      <trans-unit id="landingMainFreeOfChargeChip" datatype="html">
-        <source> Free of charge </source>
-      </trans-unit>
-      <trans-unit id="landingMainHeadingAccessibleVideos" datatype="html">
-        <source>Accessible videos - </source>
-      </trans-unit>
-      <trans-unit id="landingMainHeadingFeatures" datatype="html">
-        <source>recording, subtitling and sharing </source>
-      </trans-unit>
-      <trans-unit id="landingMainHeadingWithMelvin" datatype="html">
-        <source>with Melvin</source>
-      </trans-unit>
-      <trans-unit id="landingMainOpenSourceChip" datatype="html">
-        <source> Open-Source </source>
-      </trans-unit>
-      <trans-unit id="landingMainRecordingExplanationBottom" datatype="html">
-        <source> You already have a recording? Simply upload it and use it too. </source>
-      </trans-unit>
-      <trans-unit id="landingMainRecordingExplanationTop" datatype="html">
-        <source> Start your recording directly in the browser, without any additional software. Plus, you have complete control over which audio and video sources you want to use. </source>
-      </trans-unit>
-      <trans-unit id="landingMainRecordingHeading" datatype="html">
-        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;video&quot; /&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;video&quot; /&gt;"/> Recording </source>
-      </trans-unit>
-      <trans-unit id="landingMainSharingExplanationBottom" datatype="html">
-        <source> Of course, you can also download your files and upload them elsewhere. </source>
-      </trans-unit>
-      <trans-unit id="landingMainSharingExplanationTop" datatype="html">
-        <source> Your recording can now be shared with our accessible player. You can simply share the link or embed the player in your website. </source>
-      </trans-unit>
-      <trans-unit id="landingMainSharingHeading" datatype="html">
-        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;play-outline&quot; /&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;play-outline&quot; /&gt;"/> Sharing </source>
-      </trans-unit>
-      <trans-unit id="landingMainSubtitlingExplanation" datatype="html">
-        <source> After recording, your videos are automatically transcribed and subtitles are created. Using the editor, you can then make the final corrections manually, either alone or together with others. </source>
-      </trans-unit>
-      <trans-unit id="landingMainSubtitlingHeading" datatype="html">
-        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;edit&quot; /&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;edit&quot; /&gt;"/> Subtitling </source>
-      </trans-unit>
-      <trans-unit id="landingMainWIPChip" datatype="html">
-        <source>Work in progress</source>
-      </trans-unit>
-      <trans-unit id="landingMainWIPExplanationBottom" datatype="html">
-        <source> In addition to improvements in accessibility and user experience, we are currently working on a <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>livestream mode<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/>. Stay tuned and feel free to check back regularly. </source>
-      </trans-unit>
-      <trans-unit id="landingMainWIPExplanationTop" datatype="html">
-        <source> Melvin is currently still under development. However, you can already test the application now. </source>
-      </trans-unit>
-      <trans-unit id="landingSidenavCloseButton" datatype="html">
-        <source> Close </source>
-      </trans-unit>
-      <trans-unit id="landingSidenavDocumentationLink" datatype="html">
-        <source> Documentation </source>
-      </trans-unit>
-      <trans-unit id="landingSidenavMenuHeader" datatype="html">
-        <source>Menu</source>
-      </trans-unit>
-      <trans-unit id="landingSidenavStartpageLink" datatype="html">
-        <source> Startpage </source>
-      </trans-unit>
-      <trans-unit id="landingSidenavTutorialLink" datatype="html">
-        <source> Tutorial </source>
-      </trans-unit>
-      <trans-unit id="landingSubpageWIPInfo" datatype="html">
-        <source> Sorry, this page is still under development. Please come back at a later time. </source>
-      </trans-unit>
-      <trans-unit id="loginDialogEmailErrorNotValid" datatype="html">
-        <source>Email address is not valid</source>
-      </trans-unit>
-      <trans-unit id="loginDialogEmailErrorRequired" datatype="html">
-        <source>Email is required</source>
-      </trans-unit>
-      <trans-unit id="loginDialogEmailLabel" datatype="html">
-        <source>Email</source>
-      </trans-unit>
-      <trans-unit id="loginDialogForgotPasswordButton" datatype="html">
-        <source> Forgot password? </source>
-      </trans-unit>
-      <trans-unit id="loginDialogHeadline" datatype="html">
-        <source>Login</source>
-      </trans-unit>
-      <trans-unit id="loginDialogLoginButtonLabel" datatype="html">
-        <source><x id="START_BLOCK_IF" equiv-text="@if (loading$ | ngrxPush) {"/><x id="START_TAG_MAT_SPINNER" ctype="x-mat_spinner" equiv-text="&lt;mat-spinner strokeWidth=&quot;2&quot; diameter=&quot;20&quot; /&gt;"/><x id="CLOSE_TAG_MAT_SPINNER" ctype="x-mat_spinner" equiv-text="&lt;mat-spinner strokeWidth=&quot;2&quot; diameter=&quot;20&quot; /&gt;"/><x id="CLOSE_BLOCK_IF" equiv-text="}"/> Login </source>
-      </trans-unit>
-      <trans-unit id="loginDialogPasswordErrorRequired" datatype="html">
-        <source> Password is required </source>
-      </trans-unit>
-      <trans-unit id="loginDialogRegisterButton" datatype="html">
-        <source> Register </source>
-      </trans-unit>
-      <trans-unit id="loginDialogRegisterIntroText" datatype="html">
-        <source>No account yet?</source>
-      </trans-unit>
-      <trans-unit id="loginDialogStayLoggedInCheckboxLabel" datatype="html">
-        <source>Stay logged in</source>
-      </trans-unit>
-      <trans-unit id="logoAltText" datatype="html">
-        <source>Melvin Logo, to start page</source>
-      </trans-unit>
-      <trans-unit id="privacyMainHeading" datatype="html">
-        <source>Privacy</source>
-      </trans-unit>
-      <trans-unit id="registerDialogLoginButton" datatype="html">
-        <source> Login </source>
-      </trans-unit>
-      <trans-unit id="registerDialogLoginIntroText" datatype="html">
-        <source>Already have an account?</source>
-      </trans-unit>
-      <trans-unit id="registerDialogMainHeading" datatype="html">
-        <source>Register</source>
-      </trans-unit>
-      <trans-unit id="resetPasswordDialogHeading" datatype="html">
-        <source>Reset password</source>
-      </trans-unit>
-      <trans-unit id="resetPasswordWIPInfo" datatype="html">
-        <source>This feature is still under development.</source>
-      </trans-unit>
-      <trans-unit id="sitemapListExplanation" datatype="html">
-        <source> This sitemap lists all pages alphabetically. </source>
-      </trans-unit>
-      <trans-unit id="startPageTitle" datatype="html">
-        <source>Melvin</source>
-      </trans-unit>
-      <trans-unit id="tutorialPageTitle" datatype="html">
-        <source>Tutorial - Melvin</source>
-      </trans-unit>
-      <trans-unit id="imprintBielefeld" datatype="html">
-        <source> University Bielefeld </source>
-      </trans-unit>
-      <trans-unit id="imprintCopyrightHeading" datatype="html">
-        <source>3. Copyright and trademark law</source>
-      </trans-unit>
-      <trans-unit id="imprintCopyrightLowerText" datatype="html">
-        <source> All brand names and trademarks mentioned on the website and potentially protected by third parties are subject without restriction to the regulations of the applicable trademark law and the ownership rights of the respective registered owners. The mere mention of a trademark does not imply that it is not protected by third-party rights! The copyright for published objects created by the author or author himself remains solely with the author/authors of the pages or texts and contents. Reproduction or use of such graphics, audio documents, video sequences and texts in other electronic or printed publications is not permitted without the express consent of the author(s). </source>
-      </trans-unit>
-      <trans-unit id="imprintCopyrightUpperText" datatype="html">
-        <source> The author makes every effort to respect the copyright of the graphics, sound documents, video sequences and texts used in all publications, to use graphics, sound documents, video sequences and texts created by themselves or to use license-free graphics, sound documents, video sequences and texts. </source>
-      </trans-unit>
-      <trans-unit id="imprintDisclaimerHeading" datatype="html">
-        <source>Disclaimer</source>
-      </trans-unit>
-      <trans-unit id="imprintFreiburg" datatype="html">
-        <source> Freiburg University of Education </source>
-      </trans-unit>
-      <trans-unit id="imprintHeidelberg" datatype="html">
-        <source> Heidelberg University of Education </source>
-      </trans-unit>
-      <trans-unit id="imprintLegalValidityHeading" datatype="html">
-        <source> 4. Legal validity of this disclaimer </source>
-      </trans-unit>
-      <trans-unit id="imprintLegalValidityText" datatype="html">
-        <source> This disclaimer is to be regarded as part of the internet publication which you were referred from. If sections or individual terms of this statement are not legal or correct, the content or validity of the other parts remain uninfluenced by this fact. </source>
-      </trans-unit>
-      <trans-unit id="imprintPartnerHeading" datatype="html">
-        <source>Project partners:</source>
-      </trans-unit>
-      <trans-unit id="imprintPartnerLowerText" datatype="html">
-        <source> Hochschule der Medien Stuttgart is a body under public law. It is legally represented by the Rector Prof. Dr. Alexander W. Roos. </source>
-      </trans-unit>
-      <trans-unit id="imprintPartnerUpperText" datatype="html">
-        <source> Melvin is part of the SHUFFLE project funded by the Stiftung Innovation in der Hochschullehre. Three other universities are involved in the project under the direction of the Hochschule der Medien: </source>
-      </trans-unit>
-      <trans-unit id="imprintReferencesHeading" datatype="html">
-        <source>2. References and links</source>
-      </trans-unit>
-      <trans-unit id="imprintReferencesText" datatype="html">
-        <source> In the case of direct or indirect references to external websites (&quot;links&quot;) that lie outside the author&apos;s area of responsibility, a liability obligation would only come into force in the event that the author is aware of the content and it would be technically possible and reasonable for him to prevent use in the event of illegal content. The author hereby expressly declares that no illegal content was recognizable on the linked pages at the time the links were created. The author has no influence whatsoever on the current and future design, content or authorship of the linked pages. The author therefore expressly distances himself from all contents of all linked pages that were changed after the link was created. This statement applies to all links and references set within the author&apos;s own website as well as to third-party entries in guest books, discussion forums and mailing lists set up by the author. Liability for illegal, incorrect or incomplete content and in particular for damages resulting from the use or non-use of such information lies solely with the provider of the page to which reference is made, and not with the person who merely refers to the respective publication via links. </source>
-      </trans-unit>
-      <trans-unit id="imprintResponsibleAuthorityHeading" datatype="html">
-        <source> Responsible regulatory authority: </source>
-      </trans-unit>
-      <trans-unit id="imprintResponsiblePersonHeading" datatype="html">
-        <source>Responsible for the website:</source>
-      </trans-unit>
-      <trans-unit id="imprintSourceText" datatype="html">
-        <source> Source: <x id="START_LINK" ctype="x-a" equiv-text="&lt;a href=&quot;https://www.juraforum.de/&quot;&gt;"/>www.Juraforum.de<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/> - Legal portal with lawyer search as at: August 2017 </source>
-      </trans-unit>
-      <trans-unit id="imprintVATNumber" datatype="html">
-        <source><x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>VAT ID number:<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/> DE 224 427 890 </source>
-      </trans-unit>
-      <trans-unit id="imprintWebsiteContentHeading" datatype="html">
-        <source>1. Content of the website</source>
-      </trans-unit>
-      <trans-unit id="imprintWebsiteContentText" datatype="html">
-        <source> The author (provider of this website) assumes no liability for the topicality, correctness, completeness or quality of the information provided. Liability claims against the author relating to material or immaterial damage caused by the use or non-use of the information provided or by the use of incorrect or incomplete information are fundamentally excluded, unless there is evidence of wilful intent or gross negligence on the part of the author. All content is subject to change and non-binding. The author expressly reserve the right to change, supplement or delete parts of the pages or the entire website without prior notice or to cease publication temporarily or permanently. </source>
-      </trans-unit>
-      <trans-unit id="copyTranscriptionTabCopy" datatype="html">
-        <source>copy</source>
-      </trans-unit>
-      <trans-unit id="copyTranscriptionTabTitleHint" datatype="html">
-        <source> Optional (e.g. with audio description) </source>
-      </trans-unit>
-      <trans-unit id="deleteConfirmationDialogAreYouSureDeleteTranscription" datatype="html">
-        <source> Are you sure you want to delete this <x id="INTERPOLATION" equiv-text="{{ data.subject }}"/>? </source>
-      </trans-unit>
-      <trans-unit id="deleteConfirmationDialogAreYouSureLeave" datatype="html">
-        <source> Are you sure you want to leave this <x id="INTERPOLATION" equiv-text="{{ data.subject }}"/>? </source>
-      </trans-unit>
-      <trans-unit id="deleteConfirmationDialogTitleDeleteTranscription" datatype="html">
-        <source> Delete <x id="INTERPOLATION" equiv-text="{{ data.subject }}"/> </source>
-      </trans-unit>
-      <trans-unit id="dialogCreateProjectCategoryErrorRequired" datatype="html">
-        <source> Category is required </source>
-      </trans-unit>
-      <trans-unit id="dialogCreateProjectCreateButton" datatype="html">
-        <source> Create Project </source>
-      </trans-unit>
-      <trans-unit id="dialogCreateProjectDropzoneText" datatype="html">
-        <source> Drop audio, video or subtitle (.vtt/.srt) files * here or <x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span class=&quot;dropzone-label&quot;&gt;"/>Select files<x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span&gt;"/></source>
-      </trans-unit>
-      <trans-unit id="dialogCreateProjectIntroText" datatype="html">
-        <source> Check the &quot;Use Audio&quot; box to select the file from which you would like to use the audio track. </source>
-      </trans-unit>
-      <trans-unit id="dialogCreateProjectLanguageErrorRequired" datatype="html">
-        <source> Language is required </source>
-      </trans-unit>
-      <trans-unit id="dialogCreateProjectMaxOneMainCategoryError" datatype="html">
-        <source> Max one audio/video file with the &quot;main&quot; category. </source>
-      </trans-unit>
-      <trans-unit id="dialogCreateProjectOneMainCategoryError" datatype="html">
-        <source> At least one audio/video file with the &quot;main&quot; category required. </source>
-      </trans-unit>
-      <trans-unit id="dialogCreateProjectOneUseAudioError" datatype="html">
-        <source> At least one &quot;use audio&quot; source required. </source>
-      </trans-unit>
-      <trans-unit id="dialogCreateProjectOneVideoError" datatype="html">
-        <source> At least one video or audio file is required. </source>
-      </trans-unit>
-      <trans-unit id="dialogCreateProjectSameFileError" datatype="html">
-        <source> Uploading the same file several times is not allowed. </source>
-      </trans-unit>
-      <trans-unit id="dialogCreateProjectSelectPlaceholder" datatype="html">
-        <source>Select</source>
-      </trans-unit>
-      <trans-unit id="dialogCreateProjectTableHeaderCategory" datatype="html">
-        <source> Category </source>
-      </trans-unit>
-      <trans-unit id="dialogCreateProjectTableHeaderDelete" datatype="html">
-        <source> Delete </source>
-      </trans-unit>
-      <trans-unit id="dialogCreateProjectTableHeaderFilename" datatype="html">
-        <source> Filename </source>
-      </trans-unit>
-      <trans-unit id="dialogCreateProjectTableHeaderLanguage" datatype="html">
-        <source> Language </source>
-      </trans-unit>
-      <trans-unit id="dialogCreateProjectTableHeaderUseAudio" datatype="html">
-        <source> Use Audio </source>
-      </trans-unit>
-      <trans-unit id="dialogCreateProjectUploadProgressLabel" datatype="html">
-        <source>Upload-Progress:</source>
-      </trans-unit>
-      <trans-unit id="editTranscriptionModalPreviewText" datatype="html">
-        <source> Preview: </source>
-      </trans-unit>
-      <trans-unit id="editTranscriptionModalTitleHint" datatype="html">
-        <source> Optional (e.g. with audio description) </source>
-      </trans-unit>
-      <trans-unit id="emptyTranscriptionTabHeading" datatype="html">
-        <source> Create a new empty transcription file </source>
-      </trans-unit>
-      <trans-unit id="emptyTranscriptionTabTitleHint" datatype="html">
-        <source> Optional (e.g. with audio description) </source>
-      </trans-unit>
-      <trans-unit id="privacyPageTitle" datatype="html">
-        <source>Privacy - Melvin</source>
-      </trans-unit>
       <trans-unit id="projectEffectKickUserFromDeletedProject" datatype="html">
         <source>The opened project was deleted.</source>
-      </trans-unit>
-      <trans-unit id="projectTranscriptionDownloadSRTButtonLabel" datatype="html">
-        <source> SubRip (.srt) </source>
-      </trans-unit>
-      <trans-unit id="projectTranscriptionDownloadTranscriptButtonLabel" datatype="html">
-        <source> Transcript (.txt) </source>
-      </trans-unit>
-      <trans-unit id="projectTranscriptionDownloadVTTButtonLabel" datatype="html">
-        <source> WebVTT (.vtt) </source>
-      </trans-unit>
-      <trans-unit id="projectTranscriptionEditButtonLabel" datatype="html">
-        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;edit&quot; /&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;edit&quot; /&gt;"/> Edit </source>
-      </trans-unit>
-      <trans-unit id="projectTranscriptionNewButtonLabel" datatype="html">
-        <source> New transcription </source>
-      </trans-unit>
-      <trans-unit id="projectTranscriptionTableLanguageHeader" datatype="html">
-        <source> Language </source>
-      </trans-unit>
-      <trans-unit id="projectTranscriptionTableLastEditHeader" datatype="html">
-        <source> Last edit </source>
-      </trans-unit>
-      <trans-unit id="projectTranscriptionTableMoreHeader" datatype="html">
-        <source> More </source>
-      </trans-unit>
-      <trans-unit id="projectTranscriptionTableTitleHeader" datatype="html">
-        <source> Title </source>
-      </trans-unit>
-      <trans-unit id="transcriptionDeleteErrorAlert" datatype="html">
-        <source>At least one transcription is required.</source>
-      </trans-unit>
-      <trans-unit id="transcriptionEffectKickUserFromTranscript" datatype="html">
-        <source>The opened transcript was deleted and another one selected.</source>
-      </trans-unit>
-      <trans-unit id="uploadTranscriptionTabTitleHint" datatype="html">
-        <source> Optional (e.g. with audio description) </source>
-      </trans-unit>
-      <trans-unit id="dialogChangePasswordCloseButton" datatype="html">
-        <source>Close</source>
-      </trans-unit>
-      <trans-unit id="dialogChangePasswordHeader" datatype="html">
-        <source>Change Password</source>
-      </trans-unit>
-      <trans-unit id="profileHeader" datatype="html">
-        <source>Profile</source>
-      </trans-unit>
-      <trans-unit id="profilePasswordButtonLabel" datatype="html">
-        <source> Change Passwort </source>
-      </trans-unit>
-      <trans-unit id="profileSelectEnglishOption" datatype="html">
-        <source> English </source>
-      </trans-unit>
-      <trans-unit id="profileSelectGermanOption" datatype="html">
-        <source> German </source>
-      </trans-unit>
-      <trans-unit id="profileSelectLabel" datatype="html">
-        <source>Interface language</source>
-      </trans-unit>
-      <trans-unit id="dialogChangePasswordConfirmPasswordLabel" datatype="html">
-        <source>Confirm New Password</source>
-      </trans-unit>
-      <trans-unit id="dialogChangePasswordConfirmPasswordRequiredError" datatype="html">
-        <source>Confirm new password required</source>
-      </trans-unit>
-      <trans-unit id="dialogChangePasswordCurrentPasswordLabel" datatype="html">
-        <source>Current Password</source>
-      </trans-unit>
-      <trans-unit id="dialogChangePasswordCurrentPasswordRequiredError" datatype="html">
-        <source> Current password required </source>
-      </trans-unit>
-      <trans-unit id="dialogChangePasswordDoNotMatchError" datatype="html">
-        <source>Passwords do not match</source>
-      </trans-unit>
-      <trans-unit id="dialogChangePasswordNewPasswordLabel" datatype="html">
-        <source>New Password</source>
-      </trans-unit>
-      <trans-unit id="dialogChangePasswordNewPasswordRequiredError" datatype="html">
-        <source> New password required </source>
-      </trans-unit>
-      <trans-unit id="dialogChangePasswordSubmitButtonLabel" datatype="html">
-        <source> Change Password </source>
       </trans-unit>
       <trans-unit id="projectEffectKickUserFromActiveProject" datatype="html">
         <source>You have been removed from the opened project.</source>
       </trans-unit>
-      <trans-unit id="profileDeleteAccountButtonLabel" datatype="html">
-        <source> Delete Account </source>
+      <trans-unit id="transcriptionEffectKickUserFromTranscript" datatype="html">
+        <source>The opened transcript was deleted and another one selected.</source>
       </trans-unit>
-      <trans-unit id="uploadAdditionalMediaDeleteButtonLabel" datatype="html">
-        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;delete&quot; /&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;delete&quot; /&gt;"/> Delete </source>
+      <trans-unit id="accessibilityStatementCompatibilityHeading" datatype="html">
+        <source> Information on compatibility </source>
       </trans-unit>
-      <trans-unit id="uploadAdditionalMediaDownloadButtonLabel" datatype="html">
-        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;download&quot; /&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;download&quot; /&gt;"/> Download </source>
+      <trans-unit id="accessibilityStatementCompatibilityText" datatype="html">
+        <source> Our website is optimized for the following browsers: Chrome, Firefox, Edge, Safari. Internet Explorer is not supported. </source>
       </trans-unit>
-      <trans-unit id="uploadAdditionalMediaTableLanguageHeader" datatype="html">
-        <source> Category </source>
+      <trans-unit id="accessibilityStatementComplianceHeading" datatype="html">
+        <source>Compliance status</source>
       </trans-unit>
-      <trans-unit id="uploadAdditionalMediaTableLastEditHeader" datatype="html">
-        <source> Created at </source>
+      <trans-unit id="accessibilityStatementComplianceText" datatype="html">
+        <source> This website is partially compliant with Section 10 (1) L-BGG due to the the following non-compliances. </source>
       </trans-unit>
-      <trans-unit id="uploadAdditionalMediaTableMoreHeader" datatype="html">
-        <source> More </source>
+      <trans-unit id="accessibilityStatementEnforcementHeading" datatype="html">
+        <source> Enforcement procedure </source>
       </trans-unit>
-      <trans-unit id="uploadAdditionalMediaTableTitleHeader" datatype="html">
-        <source> Title </source>
+      <trans-unit id="accessibilityStatementEnforcementPartFive" datatype="html">
+        <source> The option of bringing an action against associations in accordance with Section 12 (1) sentence 1 no. 4 L-BGG is hereby mentioned. </source>
       </trans-unit>
-      <trans-unit id="headerToggleDarkmodeDark" datatype="html">
-        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;dark_mode&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/>Dark </source>
+      <trans-unit id="accessibilityStatementEnforcementPartFour" datatype="html">
+        <source> This procedure is free of charge. </source>
       </trans-unit>
-      <trans-unit id="headerToggleDarkmodeLight" datatype="html">
-        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;light_mode&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/>Light </source>
+      <trans-unit id="accessibilityStatementEnforcementPartOne" datatype="html">
+        <source> To ensure that this website meets the requirements described in Section 10 (1) L-BGG, you can contact the SHUFFLE project partners (<x id="START_LINK" ctype="x-a" equiv-text="&lt;a href=&quot;mailto:melvin@shuffle-projekt.de&quot; &gt;"/>melvin@shuffle-projekt.de<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a &gt;"/>) by email and provide appropriate feedback. </source>
       </trans-unit>
-      <trans-unit id="headerToggleDarkmodeSystem" datatype="html">
-        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;system_mode&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/>Auto </source>
+      <trans-unit id="accessibilityStatementEnforcementPartThree" datatype="html">
+        <source> You can contact the National Center for Accessibility (LZ-BARR) as follows: <x id="START_LINK" ctype="x-a" equiv-text="&lt;a href=&quot;mailto:schlichtung@barrierefreiheit.bwl.de&quot; &gt;"/>schlichtung@barrierefreiheit.bwl.de<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/> , <x id="START_LINK_1" equiv-text="&lt;a href=&quot;tel:004971112339375&quot;&gt;"/>Tel. +49 711 123 39375<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/>, Address: Landeszentrum Barrierefreiheit, Schlichtungsstelle, Else-Josenhans-Straße 6, 70173 Stuttgart. </source>
       </trans-unit>
-      <trans-unit id="headerToggleDarkmodeToggleMenuButton" datatype="html">
-        <source>Open darkmode menu</source>
+      <trans-unit id="accessibilityStatementEnforcementPartTwo" datatype="html">
+        <source> If the Melvin project team does not respond to your request within four weeks, you may file a complaint with the National Center for Accessibility (LZ-BARR). </source>
       </trans-unit>
-      <trans-unit id="landingHeaderToggleDarkmodeDark" datatype="html">
-        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;dark_mode&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/>Dark </source>
+      <trans-unit id="accessibilityStatementFeedbackHeading" datatype="html">
+        <source> Feedback and contact information </source>
       </trans-unit>
-      <trans-unit id="landingHeaderToggleDarkmodeLight" datatype="html">
-        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;light_mode&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/>Light </source>
+      <trans-unit id="accessibilityStatementFeedbackText" datatype="html">
+        <source> You would like to inform us about existing barriers or request information on the implementation of accessibility? For your feedback and any further information, please get in touch with our contact person: </source>
       </trans-unit>
-      <trans-unit id="landingHeaderToggleDarkmodeSystem" datatype="html">
-        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;system_mode&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/>Auto </source>
+      <trans-unit id="accessibilityStatementMainHeading" datatype="html">
+        <source>Accessibility Statement</source>
       </trans-unit>
-      <trans-unit id="landingHeaderToggleDarkmodeToggleMenuButton" datatype="html">
-        <source>Open darkmode menu</source>
+      <trans-unit id="accessibilityStatementNonAccessibleHeading" datatype="html">
+        <source> Non-accessible content </source>
       </trans-unit>
-      <trans-unit id="playerTranscriptAutomaticScrollLabelMobile" datatype="html">
-        <source> Auto scroll </source>
+      <trans-unit id="accessibilityStatementNonAccessiblePartOne" datatype="html">
+        <source> The Melvin application for creating videos and correcting subtitles is not accessible to screen reader users or people who only use a keyboard. </source>
       </trans-unit>
-      <trans-unit id="recorderRecordingTitleError" datatype="html">
-        <source>Recording title is required </source>
+      <trans-unit id="accessibilityStatementNonAccessiblePartThree" datatype="html">
+        <source> The homepage and the Melvin video player are accessible. </source>
       </trans-unit>
-      <trans-unit id="uploadRecordingLanguageError" datatype="html">
-        <source> Language is required </source>
+      <trans-unit id="accessibilityStatementNonAccessiblePartTwo" datatype="html">
+        <source> We are working on the accessible implementation of the content mentioned above. </source>
       </trans-unit>
-      <trans-unit id="uploadRecordingLanguageFormIntroduction" datatype="html">
-        <source> Please select the main language of the recording. </source>
+      <trans-unit id="accessibilityStatementPreparationHeading" datatype="html">
+        <source> Preparation of this accessibility statement </source>
       </trans-unit>
-      <trans-unit id="uploadRecordingToProjectlistButton" datatype="html">
-        <source> To Projectlist </source>
+      <trans-unit id="accessibilityStatementPreparationText" datatype="html">
+        <source> This statement was prepared on 28.02.2025. It is based on a self-assessment that was conducted on 28.02.2025. This declaration was last reviewed on 28.02.2025. </source>
       </trans-unit>
-      <trans-unit id="helpDialogExplanation" datatype="html">
-        <source> This application is currently under development. Unexpected errors may therefore occur. You can find more information on the <x id="START_LINK" ctype="x-a" equiv-text="&lt;a href=&quot;https://shuffle-projekt.de/&quot;&gt;"/>SHUFFLE research project website<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/>. If you have any feedback or questions, you will also find a contact option there. </source>
+      <trans-unit id="accessibilityStatementScopeHeading" datatype="html">
+        <source>Scope of application</source>
       </trans-unit>
-      <trans-unit id="landingHeaderToTheProjectsButton" datatype="html">
-        <source>To the projects</source>
+      <trans-unit id="accessibilityStatementScopePartOne" datatype="html">
+        <source> This accessibility statement refers to the current version of the State Act on Equal Opportunities for Persons with Disabilities (Landes-Behindertengleichstellungsgesetz - L-BGG) of December 17, 2014. The SHUFFLE project is committed to making this website accessible in accordance with Section 10 (1) of the State Disability Equality Act (L-BGG). </source>
       </trans-unit>
-      <trans-unit id="deleteConfirmationDialogTitleDeleteAccount" datatype="html">
-        <source> Delete <x id="INTERPOLATION" equiv-text="{{ data.subject }}"/> </source>
-      </trans-unit>
-      <trans-unit id="deleteServiceDeleteAccountDescription" datatype="html">
-        <source>If you confirm this, your account with all created projects and data will be deleted. This can NOT be undone!</source>
-      </trans-unit>
-      <trans-unit id="headerMenuDocumentationButton" datatype="html">
-        <source>Documentation</source>
-      </trans-unit>
-      <trans-unit id="headerMenuTutorialButton" datatype="html">
-        <source>Tutorial</source>
-      </trans-unit>
-      <trans-unit id="viewerVideoContainerToMainviewAriaHidden" datatype="html">
-        <source>Switch</source>
-      </trans-unit>
-      <trans-unit id="viewerVideoContainerToMainviewScreenreader" datatype="html">
-        <source>Switch video &apos;<x id="INTERPOLATION" equiv-text="{{ video.category | mediaCategory }}"/>&apos; to main view</source>
-      </trans-unit>
-      <trans-unit id="deleteConfirmationDialogPasswordError" datatype="html">
-        <source> Password is required </source>
-      </trans-unit>
-      <trans-unit id="deleteConfirmationDialogPasswordExplanation" datatype="html">
-        <source> To delete your account you need to enter your password </source>
-      </trans-unit>
-      <trans-unit id="deleteConfirmationDialogPasswordIsIncorrect" datatype="html">
-        <source>Password is incorrect</source>
-      </trans-unit>
-      <trans-unit id="deleteConfirmationDialogPasswordLabel" datatype="html">
-        <source> Password </source>
-      </trans-unit>
-      <trans-unit id="registerDialogEmailContactInfo" datatype="html">
-        <source> Melvin is currently still in a closed test phase. Would you like to test Melvin? Please contact us at <x id="START_LINK" ctype="x-a" equiv-text="&lt;a href=&quot;mailto:melvin@hdm-suttgart.de&quot;&gt;"/>melvin@hdm-suttgart.de<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/></source>
-      </trans-unit>
-      <trans-unit id="fromMediaTranscriptionTabFileErrorMaximum" datatype="html">
-        <source> Maximum 1 file </source>
-      </trans-unit>
-      <trans-unit id="fromMediaTranscriptionTabFileErrorRequired" datatype="html">
-        <source> An audio or video file is required </source>
-      </trans-unit>
-      <trans-unit id="fromMediaTranscriptionTabHeading" datatype="html">
-        <source> Generate a new transcription from media </source>
-      </trans-unit>
-      <trans-unit id="fromMediaTranscriptionTabLanguageErrorRequired" datatype="html">
-        <source>Select a language </source>
-      </trans-unit>
-      <trans-unit id="fromMediaTranscriptionTabLanguageLabel" datatype="html">
-        <source>Language</source>
-      </trans-unit>
-      <trans-unit id="fromMediaTranscriptionTabTitleHint" datatype="html">
-        <source> Optional (e.g. with audio description) </source>
-      </trans-unit>
-      <trans-unit id="fromMediaTranscriptionTabTitleLabel" datatype="html">
-        <source>Title</source>
-      </trans-unit>
-      <trans-unit id="fromMediaTranscriptionUploadsInfo" datatype="html">
-        <source>Uploads</source>
-      </trans-unit>
-      <trans-unit id="projectListCreateProjectMenuRecorder" datatype="html">
-        <source>Recorder</source>
-      </trans-unit>
-      <trans-unit id="projectListCreateProjectMenuUpload" datatype="html">
-        <source>Upload file</source>
-      </trans-unit>
-      <trans-unit id="translateTranscriptionTabHeading" datatype="html">
-        <source> Translate an existing transcription </source>
-      </trans-unit>
-      <trans-unit id="translateTranscriptionTabLanguageErrorRequired" datatype="html">
-        <source>Select a language </source>
-      </trans-unit>
-      <trans-unit id="translateTranscriptionTabLanguageHint" datatype="html">
-        <source>Select a vendor first</source>
-      </trans-unit>
-      <trans-unit id="translateTranscriptionTabLanguageLabel" datatype="html">
-        <source>Language</source>
-      </trans-unit>
-      <trans-unit id="translateTranscriptionTabNoTranslationVendor" datatype="html">
-        <source> There is currently no translation vendor connected to Melvin. Please contact the person who manages this Melvin instance. </source>
-      </trans-unit>
-      <trans-unit id="translateTranscriptionTabTitleErrorRequired" datatype="html">
-        <source>Title is required</source>
-      </trans-unit>
-      <trans-unit id="translateTranscriptionTabTitleLabel" datatype="html">
-        <source>Title</source>
-      </trans-unit>
-      <trans-unit id="translateTranscriptionTabTranscriptionErrorRequired" datatype="html">
-        <source>Select a transcription</source>
-      </trans-unit>
-      <trans-unit id="translateTranscriptionTabVendorErrorRequired" datatype="html">
-        <source>Select a vendor</source>
-      </trans-unit>
-      <trans-unit id="translateTranscriptionTabVendorHint" datatype="html">
-        <source>Languages are vendor dependent </source>
-      </trans-unit>
-      <trans-unit id="translateTranscriptionTabVendorLabel" datatype="html">
-        <source>Vendor</source>
-      </trans-unit>
-      <trans-unit id="loginDialogPasswordLabel" datatype="html">
-        <source> Password </source>
-      </trans-unit>
-      <trans-unit id="sharePlayerEmbedHeader" datatype="html">
-        <source>Embed Videoplayer</source>
-      </trans-unit>
-      <trans-unit id="sharePlayerLinkGeneralInfo" datatype="html">
-        <source> Any person who has this link can open the videoplayer. </source>
-      </trans-unit>
-      <trans-unit id="sharePlayerLinkHeader" datatype="html">
-        <source>Videoplayer Link</source>
-      </trans-unit>
-      <trans-unit id="editorSettingsSpellcheckingCheckbox" datatype="html">
-        <source>Spellchecking </source>
-      </trans-unit>
-      <trans-unit id="editorSettingsUsernamesCheckbox" datatype="html">
-        <source>Show Usernames</source>
-      </trans-unit>
-      <trans-unit id="deleteServiceDescriptionSpeaker" datatype="html">
-        <source>The speaker „<x id="PH" equiv-text="speakerName"/>“ is used in several cases. The corresponding texts will not be affected if you delete it.</source>
-      </trans-unit>
-      <trans-unit id="deleteServiceSubjectSpeaker" datatype="html">
-        <source>Speaker</source>
-      </trans-unit>
-      <trans-unit id="editSpeakerMenuAtLeastOneProjectError" datatype="html">
-        <source>At least one speaker is required.</source>
-      </trans-unit>
-      <trans-unit id="editSpeakerMenuNameLabel" datatype="html">
-        <source>Speaker name</source>
-      </trans-unit>
-      <trans-unit id="GuidePageTitle" datatype="html">
-        <source>Guide - Melvin</source>
-      </trans-unit>
-      <trans-unit id="landingHeaderGuideLinkLabel" datatype="html">
-        <source> Guide </source>
-      </trans-unit>
-      <trans-unit id="projectListCreateDefaultProjectButtonLabel" datatype="html">
-        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;plus&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/> Create Exampleproject </source>
-      </trans-unit>
-      <trans-unit id="tiptap-editorMenuTranscriptionLabel" datatype="html">
-        <source>Transcription</source>
-      </trans-unit>
-      <trans-unit id="viewerControlsQualityTitle" datatype="html">
-        <source> Max. Resolution </source>
-      </trans-unit>
-      <trans-unit id="projectListCreateDefaultInfotext" datatype="html">
-        <source> There are currently no projects. <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br /&gt;"/> You can either create a new project or an example project. </source>
-      </trans-unit>
-      <trans-unit id="editorMenuTranscriptionsHeader" datatype="html">
-        <source>Transcripts </source>
-      </trans-unit>
-      <trans-unit id="editorMenuVideosHeader" datatype="html">
-        <source>Videos</source>
-      </trans-unit>
-      <trans-unit id="headerMenuGuideButton" datatype="html">
-        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;book&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/>Guide </source>
-      </trans-unit>
-      <trans-unit id="headerMenuStartpageButton" datatype="html">
-        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;start&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/>Startpage </source>
-      </trans-unit>
-      <trans-unit id="editorSettingsHeadline" datatype="html">
-        <source>Settings</source>
-      </trans-unit>
-      <trans-unit id="guideAccessibleMaterialsDefinition" datatype="html">
-        <source> When combining videos with other digital learning formats such as text, images, or interactive tools, ensure that all materials comply with accessibility standards<x id="START_SUPERSCRIPT" ctype="x-sup" equiv-text="&lt;sup&gt;"/>4<x id="CLOSE_SUPERSCRIPT" ctype="x-sup" equiv-text="&lt;/sup&gt;"/>. </source>
-      </trans-unit>
-      <trans-unit id="guideAccessibleMaterialsTerm" datatype="html">
-        <source> Accessible Digital Materials </source>
-      </trans-unit>
-      <trans-unit id="guideAcquiredKnowledgeDefinition" datatype="html">
-        <source> Where can students test their newly acquired knowledge? <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>Quizzes<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/> or targeted exercises can be embedded in the video or incorporated into follow-up in-person sessions. </source>
-      </trans-unit>
-      <trans-unit id="guideAcquiredKnowledgeTerm" datatype="html">
-        <source>Reviewing Acquired Knowledge</source>
-      </trans-unit>
-      <trans-unit id="guideClearTopicDefinition" datatype="html">
-        <source> Each video should address a <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>well-defined topic<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/>, clearly stated at the beginning. A precise title enhances recognizability and helps students navigate the content effectively. </source>
-      </trans-unit>
-      <trans-unit id="guideClearTopicTerm" datatype="html">
-        <source>Clear Topic Focus</source>
-      </trans-unit>
-      <trans-unit id="guideContentHeading" datatype="html">
-        <source>Content Planning</source>
-      </trans-unit>
-      <trans-unit id="guideContentTableContent" datatype="html">
-        <source> Content Planning </source>
-      </trans-unit>
-      <trans-unit id="guideContentTableDidactic" datatype="html">
-        <source> Didactic Planning </source>
-      </trans-unit>
-      <trans-unit id="guideContentTableHeading" datatype="html">
-        <source>Table of contents</source>
-      </trans-unit>
-      <trans-unit id="guideContentTablePlanningVideo" datatype="html">
-        <source> Planning the Video </source>
-      </trans-unit>
-      <trans-unit id="guideContentTableReferences" datatype="html">
-        <source> References </source>
-      </trans-unit>
-      <trans-unit id="guideContentTableTechnical" datatype="html">
-        <source> Technical Planning </source>
-      </trans-unit>
-      <trans-unit id="guideContentTableWhy" datatype="html">
-        <source> Why Didactic Recommendations? </source>
-      </trans-unit>
-      <trans-unit id="guideDidacticHeading" datatype="html">
-        <source> Didactic Planning </source>
-      </trans-unit>
-      <trans-unit id="guideEasyAccessDefinition" datatype="html">
-        <source> Learning videos should be easily accessible on the learning platform. An accompanying syllabus summarizing the video’s content in bullet points enhances clarity and transparency. </source>
-      </trans-unit>
-      <trans-unit id="guideEasyAccessTerm" datatype="html">
-        <source>Easy Video Access</source>
-      </trans-unit>
-      <trans-unit id="guideExamRelevantDefinition" datatype="html">
-        <source> If a video covers content relevant to exams, this should be explicitly stated in the learning objectives. Additionally, <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>providing practice questions<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/> can help students gain confidence in exam situations. </source>
-      </trans-unit>
-      <trans-unit id="guideExamRelevantTerm" datatype="html">
-        <source>Exam-Relevant Content</source>
-      </trans-unit>
-      <trans-unit id="guideFileNamingDefinition" datatype="html">
-        <source> The video file name should be <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>meaningful<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/> and include key information such as title, author, topic, and date. </source>
-      </trans-unit>
-      <trans-unit id="guideFileNamingExample" datatype="html">
-        <source> Example: Hearing_Disorders_Baumgart_Pediatric_Audiology_WS23_24 </source>
-      </trans-unit>
-      <trans-unit id="guideFileNamingTerm" datatype="html">
-        <source>Clear and Informative File Naming</source>
-      </trans-unit>
-      <trans-unit id="guideFrameworkDefinition" datatype="html">
-        <source> It is crucial to determine in advance how the videos will be integrated into teaching and for what <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>purpose<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/> they will be used. What role do the videos play within the broader instructional framework? Defining this objective helps in designing the videos effectively. </source>
-      </trans-unit>
-      <trans-unit id="guideFrameworkTerm" datatype="html">
-        <source>General Instructional Framework</source>
-      </trans-unit>
-      <trans-unit id="guideHighQualityMediaDefinition" datatype="html">
-        <source> Both image and sound quality should be optimal, with good lighting and a distraction-free recording environment. A calm and clear speaking style, with sufficient pauses, enhances comprehensibility. A neutral background helps keep the focus on the content. </source>
-      </trans-unit>
-      <trans-unit id="guideHighQualityMediaTerm" datatype="html">
-        <source> Ensuring High-Quality Audio and Video: </source>
-      </trans-unit>
-      <trans-unit id="guideInvertedClassroomDefinition" datatype="html">
-        <source> When videos are used as part of an Inverted Classroom model, <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>clear incentives<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/> should be provided for students to prepare for deeper engagement during in-person sessions. If a video is assigned to a specific session, this should be clearly communicated, and students should have <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>sufficient time<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/> to review the content and any accompanying materials. </source>
-      </trans-unit>
-      <trans-unit id="guideInvertedClassroomTerm" datatype="html">
-        <source>Inverted Classroom</source>
-      </trans-unit>
-      <trans-unit id="guideLearningObjectivesDefinition" datatype="html">
-        <source> Each video should specify its learning objectives at the beginning and in the course syllabus. This improves transparency and aids students in organizing their knowledge acquisition. </source>
-      </trans-unit>
-      <trans-unit id="guideLearningObjectivesTerm" datatype="html">
-        <source>Defining Learning Objectives</source>
-      </trans-unit>
-      <trans-unit id="guideMainHeading" datatype="html">
-        <source>Guide</source>
-      </trans-unit>
-      <trans-unit id="guideMicroLearningDefinition" datatype="html">
-        <source> If a video is intended to introduce or deepen a specific aspect, a short and focused microlearning unit (also known as a &quot;learning nugget&quot;<x id="START_SUPERSCRIPT" ctype="x-sup" equiv-text="&lt;sup&gt;"/>2<x id="CLOSE_SUPERSCRIPT" ctype="x-sup" equiv-text="&lt;/sup&gt;"/>) may be appropriate. These concise videos effectively present knowledge in just a few minutes. Multiple microlearning units can be organized into a series, with clear titles and sequencing information to enhance clarity. </source>
-      </trans-unit>
-      <trans-unit id="guideMicroLearningExampleHeading" datatype="html">
-        <source>Examples:</source>
-      </trans-unit>
-      <trans-unit id="guideMicroLearningExampleOne" datatype="html">
-        <source> A video on how to effectively search for academic articles in databases. </source>
-      </trans-unit>
-      <trans-unit id="guideMicroLearningExampleTwo" datatype="html">
-        <source> A video explaining proper scientific citation methods. </source>
-      </trans-unit>
-      <trans-unit id="guideMicroLearningTerm" datatype="html">
-        <source>Microlearning Units</source>
-      </trans-unit>
-      <trans-unit id="guideOptimalLenghtDefinition" datatype="html">
-        <source> Depending on the purpose, learning videos can vary in length, but they should not exceed a certain duration to avoid cognitive overload. Empirical research suggests a <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>maximum duration of 20 minutes<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/> (Brück 2023). </source>
-      </trans-unit>
-      <trans-unit id="guideOptimalLenghtTerm" datatype="html">
-        <source>Optimal Video Length</source>
-      </trans-unit>
-      <trans-unit id="guideParticipationDefinition" datatype="html">
-        <source> Integrating interactive elements, such as exercises, can promote active learning and deeper engagement with the material. </source>
-      </trans-unit>
-      <trans-unit id="guideParticipationTerm" datatype="html">
-        <source>Encouraging Active Participation</source>
-      </trans-unit>
-      <trans-unit id="guidePlanningHeading" datatype="html">
-        <source>Planning the Video</source>
-      </trans-unit>
-      <trans-unit id="guidePlanningIntro" datatype="html">
-        <source> Before starting video production, careful planning from a didactic, content-related, and technical perspective is essential. This ensures that the video meets the intended learning objectives and reaches all students effectively. </source>
-      </trans-unit>
-      <trans-unit id="guideReferencesHeading" datatype="html">
-        <source>References</source>
-      </trans-unit>
-      <trans-unit id="guideReflectionDefiniton" datatype="html">
-        <source> Videos can include reflection questions or closing exercises to reinforce learning. Opportunities for feedback and discussion can be facilitated through digital learning platforms or in subsequent in-person sessions. </source>
-      </trans-unit>
-      <trans-unit id="guideReflectionTerm" datatype="html">
-        <source> Providing Feedback and Reflection Opportunities </source>
-      </trans-unit>
-      <trans-unit id="guideRepetitionClearSpeechOne" datatype="html">
-        <source>Clear speech</source>
-      </trans-unit>
-      <trans-unit id="guideRepetitionClearSpeechTwo" datatype="html">
-        <source>with enough pauses</source>
-      </trans-unit>
-      <trans-unit id="guideRepetitionContentBreaksOne" datatype="html">
-        <source>Content breaks</source>
-      </trans-unit>
-      <trans-unit id="guideRepetitionContentBreaksTwo" datatype="html">
-        <source> help with clarity </source>
-      </trans-unit>
-      <trans-unit id="guideRepetitionEnvironmentOne" datatype="html">
-        <source>Bright &amp; quiet environment</source>
-      </trans-unit>
-      <trans-unit id="guideRepetitionEnvironmentTwo" datatype="html">
-        <source>for a good recording</source>
-      </trans-unit>
-      <trans-unit id="guideRepetitionFileNameOne" datatype="html">
-        <source>Title, author, topic, date</source>
-      </trans-unit>
-      <trans-unit id="guideRepetitionFileNameTwo" datatype="html">
-        <source>as a descriptive file name</source>
-      </trans-unit>
-      <trans-unit id="guideRepetitionHeading" datatype="html">
-        <source>Repetition</source>
-      </trans-unit>
-      <trans-unit id="guideRepetitionInteractiveElementsOne" datatype="html">
-        <source>Interactive elements</source>
-      </trans-unit>
-      <trans-unit id="guideRepetitionInteractiveElementsTwo" datatype="html">
-        <source>to encourage participation </source>
-      </trans-unit>
-      <trans-unit id="guideRepetitionLengthOne" datatype="html">
-        <source>20 minutes</source>
-      </trans-unit>
-      <trans-unit id="guideRepetitionLengthTwo" datatype="html">
-        <source>maximum video duration</source>
-      </trans-unit>
-      <trans-unit id="guideRepetitionOneVideoOne" datatype="html">
-        <source>One topic</source>
-      </trans-unit>
-      <trans-unit id="guideRepetitionOneVideoTwo" datatype="html">
-        <source>per video</source>
-      </trans-unit>
-      <trans-unit id="guideRepetitionPracticeQuestionOne" datatype="html">
-        <source>Practice questions</source>
-      </trans-unit>
-      <trans-unit id="guideRepetitionPracticeQuestionTwo" datatype="html">
-        <source>for reinforcement</source>
-      </trans-unit>
-      <trans-unit id="guideRepetitionVerbalOne" datatype="html">
-        <source>Verbal description</source>
-      </trans-unit>
-      <trans-unit id="guideRepetitionVerbalTwo" datatype="html">
-        <source> of figures and tables </source>
-      </trans-unit>
-      <trans-unit id="guideSelfRegulationDefinition" datatype="html">
-        <source> Providing videos places more responsibility on students for their own learning. Learning videos should therefore foster strategies for self-regulated learning (SRL<x id="START_SUPERSCRIPT" ctype="x-sup" equiv-text="&lt;sup&gt;"/>1<x id="CLOSE_SUPERSCRIPT" ctype="x-sup" equiv-text="&lt;/sup&gt;"/>) and motivate students to engage actively with the content. </source>
-      </trans-unit>
-      <trans-unit id="guideSelfRegulationTerm" datatype="html">
-        <source>Self-Regulated Learning</source>
-      </trans-unit>
-      <trans-unit id="guideStructuringVideoDefinition" datatype="html">
-        <source> The longer the video, the more important it is to maintain a <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>clear structure and include pauses<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/> to support comprehension. Planning recognizable sections (introduction, main part, conclusion) in advance is advisable. Creating <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>a script, storyboard,<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/> or screenplay can help structure the content and voiceover effectively. </source>
-      </trans-unit>
-      <trans-unit id="guideStructuringVideoTerm" datatype="html">
-        <source>Structuring the Video</source>
-      </trans-unit>
-      <trans-unit id="guideSubHeading" datatype="html">
-        <source> Didactic Recommendations – How to Use Melvin Effectively </source>
-      </trans-unit>
-      <trans-unit id="guideTechnicalEquipmentDefinition" datatype="html">
-        <source> Reliable technical equipment and pre-recording checks ensure smoother production. <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>Test recordings<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/> can help identify optimal settings. Depending on the setup, using <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>two monitors<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/> may facilitate the recording process. </source>
-      </trans-unit>
-      <trans-unit id="guideTechnicalEquipmentTerm" datatype="html">
-        <source> Technical Equipment Considerations </source>
-      </trans-unit>
-      <trans-unit id="guideTechnicalHeading" datatype="html">
-        <source> Technical planning </source>
-      </trans-unit>
-      <trans-unit id="guideTechnicalTermsDefinition" datatype="html">
-        <source> Complex concepts or technical terminology should be clearly explained, with <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>references to additional resources<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/> (e.g., central websites or literature) when necessary. </source>
-      </trans-unit>
-      <trans-unit id="guideTechnicalTermsTerm" datatype="html">
-        <source>Clarifying Technical Terms</source>
-      </trans-unit>
-      <trans-unit id="guideUDLDefinition" datatype="html">
-        <source> To promote accessibility, information should be presented in multiple formats—for example, through both auditory and visual means. <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>Tools like Melvin<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/>, which automatically generate subtitles and transcripts, can facilitate this approach. </source>
-      </trans-unit>
-      <trans-unit id="guideUDLTerm" datatype="html">
-        <source> Ensuring Accessibility – Universal Design for Learning (UDL)/Multi-Sensory Design Principle </source>
-      </trans-unit>
-      <trans-unit id="guideUsabilityDefinition" datatype="html">
-        <source> Is the video intended for one-time use, or should it be accessible across multiple semesters or courses? For long-term use, prioritize general and <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>broadly applicable information<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/> while minimizing temporary references (e.g., links to potentially outdated websites). </source>
-      </trans-unit>
-      <trans-unit id="guideUsabilityExample" datatype="html">
-        <source> Example: A video explaining the fundamentals of qualitative or quantitative research methods in social sciences. </source>
-      </trans-unit>
-      <trans-unit id="guideUsabilityTerm" datatype="html">
-        <source>Long-Term Usability</source>
-      </trans-unit>
-      <trans-unit id="guideVerbalizingDefinition" datatype="html">
-        <source> All essential visual elements used in the video should also be described verbally. Ideally, the key content of an image or figure should be integrated into the spoken text. If this is not feasible, a separate audio or text-based description should be provided as an additional resource.<x id="START_SUPERSCRIPT" ctype="x-sup" equiv-text="&lt;sup&gt;"/>3<x id="CLOSE_SUPERSCRIPT" ctype="x-sup" equiv-text="&lt;/sup&gt;"/>. </source>
-      </trans-unit>
-      <trans-unit id="guideVerbalizingTerm" datatype="html">
-        <source>Verbalizing Visual Elements</source>
-      </trans-unit>
-      <trans-unit id="guideWhyHeading" datatype="html">
-        <source> Why Didactic Recommendations? </source>
-      </trans-unit>
-      <trans-unit id="guideWhyPartOne" datatype="html">
-        <source> According to a working group of the Hochschulforum Digitalisierung, digitalization in education should not be &quot;an end in itself&quot; (Persike &amp; Friedrich, 2016, p. 5). Instead, digital learning and teaching concepts should aim to improve teaching quality, enhance effectiveness, and promote equal opportunities in higher education (Hanft et al., 2019, p. 325). Overall, aspects of equal opportunities, inclusion, and digitalization are still rarely considered in combination and insufficiently researched (Bosse et al., 2021; Hafer et al., 2019), particularly in relation to didactic issues. While digital tools offer many possibilities, not everything that is technically feasible is didactically useful or even accessible. </source>
-      </trans-unit>
-      <trans-unit id="guideWhyPartTwo" datatype="html">
-        <source> Melvin, as a video platform, is primarily a tool that offers functionality and allows for creative freedom. Thoughtful consideration of didactic implementation can significantly contribute to ensuring equal and barrier-free access to content for all users. These didactic guidelines aim to encourage a reflective approach when using Melvin. </source>
+      <trans-unit id="accessibilityStatementScopePartTwo" datatype="html">
+        <source> This accessibility statement applies to this website (www.melvin.shuffle-projekt.de). This statement explicitly does not refer to the other websites and mobile apps of the Hochschule der Medien or the universities involved in the project and not to the content of third-party providers referred to via external links. </source>
       </trans-unit>
     </body>
   </file>
