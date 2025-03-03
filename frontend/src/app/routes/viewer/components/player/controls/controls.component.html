@@ -49,9 +49,10 @@
         <button
           mat-icon-button
           class="md"
-          (click)="onMuteToggle()"
+          (click)="onMuteToggle(sound)"
           (keydown)="onKeydownVolumeBtn($event, sound.volume, sound.muted)"
-          matTooltip="{{ getVolumeTooltip(sound.muted, sound.volume) }}"
+          [matTooltip]="sound.muted ? unmuteLocalize : muteLocalize"
+          [attr.aria-label]="sound.muted ? unmuteLocalize : muteLocalize"
         >
           @if (sound.muted || sound.volume === 0) {
           <mat-icon svgIcon="volume-mute" />

@@ -1070,11 +1070,11 @@
         <source>English</source>
         <target state="final"> Englisch </target>
       </trans-unit>
-      <trans-unit id="viewerControlsPlayTooltip" datatype="html">
+      <trans-unit id="viewerControlsPlayLabel" datatype="html">
         <source>Play</source>
         <target state="final">Abspielen</target>
       </trans-unit>
-      <trans-unit id="viewerControlsPauseTooltip" datatype="html">
+      <trans-unit id="viewerControlsPauseLabel" datatype="html">
         <source>Pause</source>
         <target state="final">Pausieren</target>
       </trans-unit>
@@ -1872,11 +1872,11 @@
       </trans-unit>
       <trans-unit id="registerDialogEmailContactInfo" datatype="html">
         <source> Melvin is currently still in a closed test phase. Would you like to test Melvin? Please contact us at <x id="START_LINK" ctype="x-a" equiv-text="&lt;a href=&quot;mailto:melvin@hdm-suttgart.de&quot;&gt;"/>melvin@hdm-suttgart.de<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/></source>
-        <target state="new"> Melvin befindet sich aktuell noch in einer geschlossenen Testphase. Sie möchten Melvin testen? Kontaktieren Sie uns gerne unter <x id="START_LINK" ctype="x-a" equiv-text="&lt;a href=&quot;mailto:melvin@hdm-stuttgart.de&quot;&gt;"/>melvin@hdm-stuttgart.de<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/></target>
+        <target state="final"> Melvin befindet sich aktuell noch in einer geschlossenen Testphase. Sie möchten Melvin testen? Kontaktieren Sie uns gerne unter <x id="START_LINK" ctype="x-a" equiv-text="&lt;a href=&quot;mailto:melvin@hdm-stuttgart.de&quot;&gt;"/>melvin@hdm-stuttgart.de<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/></target>
       </trans-unit>
       <trans-unit id="fromMediaTranscriptionTabHeading" datatype="html">
         <source> Generate a new transcription from media </source>
-        <target state="new"> Erzeugen einer neuen Transkription aus einer Mediendatei </target>
+        <target state="final"> Erzeugen einer neuen Transkription aus einer Mediendatei </target>
       </trans-unit>
       <trans-unit id="fromMediaTranscriptionTabLanguageLabel" datatype="html">
         <source>Language</source>
@@ -1904,7 +1904,7 @@
       </trans-unit>
       <trans-unit id="fromMediaTranscriptionUploadsInfo" datatype="html">
         <source>Uploads</source>
-        <target state="new">Uploads</target>
+        <target state="final">Lädt hoch</target>
       </trans-unit>
       <trans-unit id="translateTranscriptionTabHeading" datatype="html">
         <source> Translate an existing transcription </source>
@@ -1984,11 +1984,11 @@
       </trans-unit>
       <trans-unit id="deleteServiceSubjectSpeaker" datatype="html">
         <source>Speaker</source>
-        <target state="new">Speaker</target>
+        <target state="final">Sprecher*in</target>
       </trans-unit>
       <trans-unit id="deleteServiceDescriptionSpeaker" datatype="html">
         <source>The speaker „<x id="PH" equiv-text="speakerName"/>“ is used in several cases. The corresponding texts will not be affected if you delete it.</source>
-        <target state="new">The speaker „<x id="PH" equiv-text="speakerName"/>“ is used in several cases. The corresponding texts will not be affected if you delete it.</target>
+        <target state="final">Die sprechende Person „<x id="PH" equiv-text="speakerName"/>“ wird mehrfach verwendet. Die entsprechenden Texte werden durch die Löschung nicht beeinflusst.</target>
       </trans-unit>
       <trans-unit id="tiptap-editorMenuTranscriptionLabel" datatype="html">
         <source>Transcription</source>
@@ -1996,7 +1996,7 @@
       </trans-unit>
       <trans-unit id="editSpeakerMenuNameLabel" datatype="html">
         <source>Speaker name</source>
-        <target state="new">Speaker name</target>
+        <target state="final">Name Sprecher*in</target>
       </trans-unit>
       <trans-unit id="editSpeakerMenuAtLeastOneProjectError" datatype="html">
         <source>At least one speaker is required.</source>
@@ -2304,7 +2304,7 @@
       </trans-unit>
       <trans-unit id="guideRepetitionInteractiveElementsOne" datatype="html">
         <source>Interactive elements</source>
-        <target state="new">Interactive elements</target>
+        <target state="final">Interaktive Elemente</target>
       </trans-unit>
       <trans-unit id="guideRepetitionInteractiveElementsTwo" datatype="html">
         <source>to encourage participation </source>
@@ -2316,7 +2316,7 @@
       </trans-unit>
       <trans-unit id="guideHighQualityMediaTerm" datatype="html">
         <source> Ensuring High-Quality Audio and Video </source>
-        <target state="new"> Hochwertige Bild- und Tonqualität </target>
+        <target state="final"> Hochwertige Bild- und Tonqualität </target>
       </trans-unit>
       <trans-unit id="guideHighQualityMediaDefinition" datatype="html">
         <source> Both image and sound quality should be optimal, with good lighting and a distraction-free recording environment. A calm and clear speaking style, with sufficient pauses, enhances comprehensibility. A neutral background helps keep the focus on the content. </source>
@@ -2408,7 +2408,7 @@
       </trans-unit>
       <trans-unit id="accessibilityStatementNonAccessiblePartOne" datatype="html">
         <source> The Melvin application for creating videos and correcting subtitles is not accessible to screen reader users or people who only use a keyboard. </source>
-        <target state="final"> Die Melvin Anwendung zum Erstellen von Videos und zur Korrektur der Untertitel ist nicht für Screenreader-Nutzende sowie für Personen, die ausschließlich die Tastatur benutzen, zugänglich.  </target>
+        <target state="final"> Die Melvin Anwendung zum Erstellen von Videos und zur Korrektur der Untertitel ist nicht für Screenreader-Nutzende sowie für Personen, die ausschließlich die Tastatur benutzen, zugänglich. </target>
       </trans-unit>
       <trans-unit id="accessibilityStatementNonAccessiblePartTwo" datatype="html">
         <source> We are working on the accessible implementation of the content mentioned above. </source>
@@ -2440,7 +2440,7 @@
       </trans-unit>
       <trans-unit id="accessibilityStatementEnforcementPartOne" datatype="html">
         <source> To ensure that this website meets the requirements described in Section 10 (1) L-BGG, you can contact the SHUFFLE project partners (<x id="START_LINK" ctype="x-a" equiv-text="&lt;a href=&quot;mailto:melvin@shuffle-projekt.de&quot; &gt;"/>melvin@shuffle-projekt.de<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a &gt;"/>) by email and provide appropriate feedback. </source>
-        <target state="final"> Um zu gewährleisten, dass diese Webseite den in § 10 Absatz 1 L-BGG beschriebenen Anforderungen genügt, können Sie sich per Email an die SHUFFLE-Projekt-Partner  (<x id="START_LINK" ctype="x-a" equiv-text="&lt;a href=&quot;mailto:melvin@shuffle-projekt.de&quot; &gt;"/>melvin@shuffle-projekt.de<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a &gt;"/>) wenden und eine entsprechende Rückmeldung geben. </target>
+        <target state="final"> Um zu gewährleisten, dass diese Webseite den in § 10 Absatz 1 L-BGG beschriebenen Anforderungen genügt, können Sie sich per Email an die SHUFFLE-Projekt-Partner (<x id="START_LINK" ctype="x-a" equiv-text="&lt;a href=&quot;mailto:melvin@shuffle-projekt.de&quot; &gt;"/>melvin@shuffle-projekt.de<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a &gt;"/>) wenden und eine entsprechende Rückmeldung geben. </target>
       </trans-unit>
       <trans-unit id="accessibilityStatementEnforcementPartTwo" datatype="html">
         <source> If the Melvin project team does not respond to your request within four weeks, you may file a complaint with the National Center for Accessibility (LZ-BARR). </source>
@@ -2465,6 +2465,14 @@
       <trans-unit id="accessibilityStatementCompatibilityText" datatype="html">
         <source> Our website is optimized for the following browsers: Chrome, Firefox, Edge, Safari. Internet Explorer is not supported. </source>
         <target state="final"> Unsere Website ist für die folgenden Browser optimiert: Chrome, Firefox, Edge, Safari. Internet Explorer wird nicht unterstützt. </target>
+      </trans-unit>
+      <trans-unit id="viewerControlsMuteLabel" datatype="html">
+        <source>Mute</source>
+        <target state="final">Stummschalten</target>
+      </trans-unit>
+      <trans-unit id="viewerControlsUnmuteLabel" datatype="html">
+        <source>Unmute</source>
+        <target state="final">Lautschalten</target>
       </trans-unit>
     </body>
   </file>

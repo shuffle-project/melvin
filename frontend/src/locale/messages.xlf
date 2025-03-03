@@ -1724,10 +1724,10 @@
       <trans-unit id="viewerControlsQualityTitle" datatype="html">
         <source> Max. Resolution </source>
       </trans-unit>
-      <trans-unit id="viewerControlsPlayTooltip" datatype="html">
+      <trans-unit id="viewerControlsPlayLabel" datatype="html">
         <source>Play</source>
       </trans-unit>
-      <trans-unit id="viewerControlsPauseTooltip" datatype="html">
+      <trans-unit id="viewerControlsPauseLabel" datatype="html">
         <source>Pause</source>
       </trans-unit>
       <trans-unit id="viewerVideoContainerToMainviewAriaHidden" datatype="html">
@@ -1849,6 +1849,12 @@
       </trans-unit>
       <trans-unit id="accessibilityStatementScopePartTwo" datatype="html">
         <source> This accessibility statement applies to this website (www.melvin.shuffle-projekt.de). This statement explicitly does not refer to the other websites and mobile apps of the Hochschule der Medien or the universities involved in the project and not to the content of third-party providers referred to via external links. </source>
+      </trans-unit>
+      <trans-unit id="viewerControlsMuteLabel" datatype="html">
+        <source>Mute</source>
+      </trans-unit>
+      <trans-unit id="viewerControlsUnmuteLabel" datatype="html">
+        <source>Unmute</source>
       </trans-unit>
     </body>
   </file>

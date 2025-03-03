@@ -105,8 +105,10 @@ export class ControlsComponent implements OnInit, OnDestroy {
 
   locale = $localize.locale;
 
-  playLocalize = $localize`:@@viewerControlsPlayTooltip:Play`;
-  pauseLocalize = $localize`:@@viewerControlsPauseTooltip:Pause`;
+  playLocalize = $localize`:@@viewerControlsPlayLabel:Play`;
+  pauseLocalize = $localize`:@@viewerControlsPauseLabel:Pause`;
+  muteLocalize = $localize`:@@viewerControlsMuteLabel:Mute`;
+  unmuteLocalize = $localize`:@@viewerControlsUnmuteLabel:Unmute`;
 
   sortedResolutions: ResolutionValue[] = [];
   currentMaxResolution!: ResolutionValue;
@@ -166,12 +168,6 @@ export class ControlsComponent implements OnInit, OnDestroy {
       const newHref = document.location.href.replace(this.locale, newLocale);
       document.location.href = newHref;
     }
-  }
-
-  getVolumeTooltip(muted: boolean, volume: number) {
-    return `Volume ${Math.floor(volume * 100)}%, ${
-      muted ? 'muted' : 'unmuted'
-    }`;
   }
 
   onPlayPauseVideo() {
@@ -305,15 +301,28 @@ export class ControlsComponent implements OnInit, OnDestroy {
     if (muted) {
       this.store.dispatch(viewerActions.toggleMute());
     }
+
     this.store.dispatch(
       viewerActions.changeVolume({
         newVolume: volumeChange,
       })
     );
+
+    if (volumeChange === 0) {
+      this.store.dispatch(viewerActions.toggleMute());
+    }
   }
 
-  onMuteToggle() {
+  onMuteToggle(sound: { volume: number; muted: boolean }) {
     this.store.dispatch(viewerActions.toggleMute());
+
+    if (sound.volume === 0) {
+      this.store.dispatch(
+        viewerActions.changeVolume({
+          newVolume: 0.5,
+        })
+      );
+    }
   }
 
   mouseOverSound = false;
