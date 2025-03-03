@@ -93,8 +93,10 @@
         [cdkMenuTriggerFor]="languageMenu"
         (cdkMenuOpened)="onMenuOpened()"
         (cdkMenuClosed)="onMenuClosed()"
-        matTooltip="Show language menu"
+        matTooltip="Language menu"
         i18n-matTooltip="@@viewerControlsLanguageMenuTooltip"
+        aria-label="Language menu"
+        i18n-aria-label="@@viewerControlsLanguageMenuAriaLabel"
       >
         <mat-icon svgIcon="subtitles_white"></mat-icon>
       </button>
@@ -107,8 +109,10 @@
           [cdkMenuTriggerFor]="galleryMenu"
           (cdkMenuOpened)="onMenuOpened()"
           (cdkMenuClosed)="onMenuClosed()"
-          matTooltip="Shown video selection"
+          matTooltip="Video selection menu"
           i18n-matTooltip="@@viewerControlsGalleryMenuTooltip"
+          aria-label="Video selection menu"
+          i18n-aria-label="@@viewerControlsGalleryMenuAriaLabel"
         >
           <mat-icon svgIcon="gallery"></mat-icon>
         </button>
@@ -122,8 +126,10 @@
         [cdkMenuTriggerFor]="settingsMenu"
         (cdkMenuOpened)="onMenuOpened()"
         (cdkMenuClosed)="onMenuClosed()"
-        matTooltip="Settings Menu"
+        matTooltip="Settings menu"
         i18n-matTooltip="@@viewerControlsSettingsMenuTooltip"
+        aria-label="Settings menu"
+        i18n-aria-label="@@viewerControlsSettingsMenuAriaLabel"
       >
         <mat-icon svgIcon="setting"></mat-icon>
       </button>
