@@ -71,13 +71,24 @@
     color: var(--color-text);
 
     .media-category-wrapper {
-      border: 1px solid var(--color-border-grey);
+      border-width: 0;
+      border-style: solid;
+      border-color: var(--color-border-grey);
       padding: 1.25rem;
       width: calc(100% / 3);
       display: flex;
       flex-direction: column;
       border: 0px 1px;
       overflow-y: auto;
+
+      &.video {
+        border-width: 1px 1px 0 1px;
+      }
+
+      &.audio,
+      &.screensharing {
+        border-width: 1px 0 0 0;
+      }
 
       h2,
       p {
