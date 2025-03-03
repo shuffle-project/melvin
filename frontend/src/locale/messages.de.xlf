@@ -526,13 +526,9 @@
         <source>Uploaded media</source>
         <target state="final">Hochgeladene Medien</target>
       </trans-unit>
-      <trans-unit id="viewerControlsFullscreenToggleTooltipActive" datatype="html">
+      <trans-unit id="viewerControlsCloseFullscreenLabel" datatype="html">
         <source>Close fullscreen</source>
         <target state="final">Vollbild schließen</target>
-      </trans-unit>
-      <trans-unit id="viewerControlsFullscreenToggleTooltipInactive" datatype="html">
-        <source>Open fullscreen</source>
-        <target state="final">Vollbild öffnen</target>
       </trans-unit>
       <trans-unit id="mediaCategoryMain" datatype="html">
         <source>Main</source>
@@ -2485,6 +2481,10 @@
       <trans-unit id="viewerControlsSettingsMenuAriaLabel" datatype="html">
         <source>Settings menu</source>
         <target state="final">Einstellungen Menü</target>
+      </trans-unit>
+      <trans-unit id="viewerControlsFullscreenLabel" datatype="html">
+        <source>Fullscreen</source>
+        <target state="final">Vollbild</target>
       </trans-unit>
     </body>
   </file>

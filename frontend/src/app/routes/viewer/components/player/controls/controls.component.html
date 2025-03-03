@@ -134,27 +134,27 @@
         <mat-icon svgIcon="setting"></mat-icon>
       </button>
 
-      @if (viewerService.isFullscreenActive()) {
       <button
         mat-icon-button
         class="md fullscreen-button"
         (click)="viewerService.onRequestFullscreen()"
-        matTooltip="Close fullscreen"
-        i18n-matTooltip="@@viewerControlsFullscreenToggleTooltipActive"
+        [matTooltip]="
+          viewerService.isFullscreenActive()
+            ? closeFullscreenLocalize
+            : fullscreenLocalize
+        "
+        [attr.aria-label]="
+          viewerService.isFullscreenActive()
+            ? closeFullscreenLocalize
+            : fullscreenLocalize
+        "
       >
+        @if (viewerService.isFullscreenActive()) {
         <mat-icon svgIcon="fullscreen_close"></mat-icon>
-      </button>
-      }@else {
-      <button
-        mat-icon-button
-        class="md fullscreen-button"
-        (click)="viewerService.onRequestFullscreen()"
-        matTooltip="Open fullscreen"
-        i18n-matTooltip="@@viewerControlsFullscreenToggleTooltipInactive"
-      >
+        }@else {
         <mat-icon svgIcon="fullscreen"></mat-icon>
+        }
       </button>
-      }
     </div>
   </div>
 </div>

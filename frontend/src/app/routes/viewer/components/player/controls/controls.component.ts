@@ -109,6 +109,8 @@ export class ControlsComponent implements OnInit, OnDestroy {
   pauseLocalize = $localize`:@@viewerControlsPauseLabel:Pause`;
   muteLocalize = $localize`:@@viewerControlsMuteLabel:Mute`;
   unmuteLocalize = $localize`:@@viewerControlsUnmuteLabel:Unmute`;
+  fullscreenLocalize = $localize`:@@viewerControlsFullscreenLabel:Fullscreen`;
+  closeFullscreenLocalize = $localize`:@@viewerControlsCloseFullscreenLabel:Close fullscreen`;
 
   sortedResolutions: ResolutionValue[] = [];
   currentMaxResolution!: ResolutionValue;

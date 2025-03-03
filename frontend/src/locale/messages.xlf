@@ -1649,11 +1649,8 @@
       <trans-unit id="viewerControlsSettingsMenuTooltip" datatype="html">
         <source>Settings menu</source>
       </trans-unit>
-      <trans-unit id="viewerControlsFullscreenToggleTooltipActive" datatype="html">
+      <trans-unit id="viewerControlsCloseFullscreenLabel" datatype="html">
         <source>Close fullscreen</source>
-      </trans-unit>
-      <trans-unit id="viewerControlsFullscreenToggleTooltipInactive" datatype="html">
-        <source>Open fullscreen</source>
       </trans-unit>
       <trans-unit id="viewerControlsAudioTitle" datatype="html">
         <source>Audiolanguage</source>
@@ -1864,6 +1861,9 @@
       </trans-unit>
       <trans-unit id="viewerControlsSettingsMenuAriaLabel" datatype="html">
         <source>Settings menu</source>
+      </trans-unit>
+      <trans-unit id="viewerControlsFullscreenLabel" datatype="html">
+        <source>Fullscreen</source>
       </trans-unit>
     </body>
   </file>
