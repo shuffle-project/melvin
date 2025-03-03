@@ -13,7 +13,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { LetDirective, PushPipe } from '@ngrx/component';
 import { Store } from '@ngrx/store';
 import dayjs from 'dayjs';
-import { combineLatest, map, Subject, takeUntil } from 'rxjs';
+import { combineLatest, map, Subject, take, takeUntil } from 'rxjs';
 import { MediaCategoryPipe } from 'src/app/pipes/media-category-pipe/media-category.pipe';
 import { WrittenOutLanguagePipe } from 'src/app/pipes/written-out-language-pipe/written-out-language.pipe';
 import {
@@ -67,10 +67,10 @@ export class ControlsComponent implements OnInit, OnDestroy {
     map((time) => {
       return {
         progress: time,
-        time: this.durationPipe.transform(time * 1000, 'mm:ss'),
+        time: this.durationPipe.transform(time * 1000, this.durationFormat),
         duration: this.durationPipe.transform(
           (this.viewerService.audio?.duration || 0) * 1000,
-          'mm:ss'
+          this.durationFormat
         ),
       };
     })
@@ -103,8 +103,9 @@ export class ControlsComponent implements OnInit, OnDestroy {
 
   public project$ = this.store.select(viewerSelector.vProject);
 
-  locale = $localize.locale;
+  durationFormat = 'mm:ss';
 
+  locale = $localize.locale;
   playLocalize = $localize`:@@viewerControlsPlayLabel:Play`;
   pauseLocalize = $localize`:@@viewerControlsPauseLabel:Pause`;
   muteLocalize = $localize`:@@viewerControlsMuteLabel:Mute`;
@@ -122,9 +123,17 @@ export class ControlsComponent implements OnInit, OnDestroy {
     private dialog: MatDialog,
     public overlayService: OverlayService,
     private durationPipe: DurationPipe
-  ) {}
+  ) {
+    // Bind the context of sliderProgressLabel to ensure 'this' is correct
+    this.sliderProgressLabel = this.sliderProgressLabel.bind(this);
+  }
 
   ngOnInit(): void {
+    this.project$.pipe(take(1)).subscribe((project) => {
+      this.durationFormat =
+        project?.duration! >= 3600000 ? 'HH:mm:ss' : 'mm:ss';
+    });
+
     const resolutionOptions = new Set<ResolutionValue>();
 
     this.media.videos.forEach((video) => {
@@ -162,7 +171,7 @@ export class ControlsComponent implements OnInit, OnDestroy {
   }
 
   sliderProgressLabel(value: number): string {
-    return dayjs.duration(value * 1000).format('mm:ss');
+    return dayjs.duration(value * 1000).format(this.durationFormat);
   }
 
   onSwitchLanguage(newLocale: string) {
