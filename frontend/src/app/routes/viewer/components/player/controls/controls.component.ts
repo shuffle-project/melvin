@@ -129,10 +129,12 @@ export class ControlsComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.project$.pipe(take(1)).subscribe((project) => {
-      this.durationFormat =
-        project?.duration! >= 3600000 ? 'HH:mm:ss' : 'mm:ss';
-    });
+    this.project$
+      .pipe(take(1), takeUntil(this.destroy$$))
+      .subscribe((project) => {
+        this.durationFormat =
+          project?.duration! >= 3600000 ? 'HH:mm:ss' : 'mm:ss';
+      });
 
     const resolutionOptions = new Set<ResolutionValue>();
 

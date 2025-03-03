@@ -71,6 +71,10 @@ form {
     transition: border 0.3s ease;
   }
 
+  .file-name {
+    word-break: break-all;
+  }
+
   .select-mat-form-field {
     width: 100%;
     max-width: 10rem;
