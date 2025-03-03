@@ -1641,13 +1641,13 @@
         <source>Video timeline</source>
       </trans-unit>
       <trans-unit id="viewerControlsLanguageMenuTooltip" datatype="html">
-        <source>Show language menu</source>
+        <source>Language menu</source>
       </trans-unit>
       <trans-unit id="viewerControlsGalleryMenuTooltip" datatype="html">
-        <source>Shown video selection</source>
+        <source>Video selection menu</source>
       </trans-unit>
       <trans-unit id="viewerControlsSettingsMenuTooltip" datatype="html">
-        <source>Settings Menu</source>
+        <source>Settings menu</source>
       </trans-unit>
       <trans-unit id="viewerControlsFullscreenToggleTooltipActive" datatype="html">
         <source>Close fullscreen</source>
@@ -1855,6 +1855,15 @@
       </trans-unit>
       <trans-unit id="viewerControlsUnmuteLabel" datatype="html">
         <source>Unmute</source>
+      </trans-unit>
+      <trans-unit id="viewerControlsGalleryMenuAriaLabel" datatype="html">
+        <source>Video selection menu</source>
+      </trans-unit>
+      <trans-unit id="viewerControlsLanguageMenuAriaLabel" datatype="html">
+        <source>Language menu</source>
+      </trans-unit>
+      <trans-unit id="viewerControlsSettingsMenuAriaLabel" datatype="html">
+        <source>Settings menu</source>
       </trans-unit>
     </body>
   </file>

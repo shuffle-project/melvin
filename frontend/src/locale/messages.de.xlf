@@ -487,8 +487,8 @@
         <target state="final">Lautstärke</target>
       </trans-unit>
       <trans-unit id="viewerControlsGalleryMenuTooltip" datatype="html">
-        <source>Shown video selection</source>
-        <target state="final">Gezeigte Videoauswahl</target>
+        <source>Video selection menu</source>
+        <target state="final">Videoauswahl Menü</target>
       </trans-unit>
       <trans-unit id="playerTranscriptHeader" datatype="html">
         <source>Transcript</source>
@@ -967,12 +967,12 @@
         <target state="final"> Erneut <x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;repeat&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/button&gt;"/></target>
       </trans-unit>
       <trans-unit id="viewerControlsLanguageMenuTooltip" datatype="html">
-        <source>Show language menu</source>
+        <source>Language menu</source>
         <target state="final">Sprachen Menü</target>
       </trans-unit>
       <trans-unit id="viewerControlsSettingsMenuTooltip" datatype="html">
-        <source>Settings Menu</source>
-        <target state="final">Einstellungs Menü</target>
+        <source>Settings menu</source>
+        <target state="final">Einstellungen Menü</target>
       </trans-unit>
       <trans-unit id="viewerErrorTitle" datatype="html">
         <source>Error while loading the project</source>
@@ -2473,6 +2473,18 @@
       <trans-unit id="viewerControlsUnmuteLabel" datatype="html">
         <source>Unmute</source>
         <target state="final">Lautschalten</target>
+      </trans-unit>
+      <trans-unit id="viewerControlsLanguageMenuAriaLabel" datatype="html">
+        <source>Language menu</source>
+        <target state="final">Sprachen Menü</target>
+      </trans-unit>
+      <trans-unit id="viewerControlsGalleryMenuAriaLabel" datatype="html">
+        <source>Video selection menu</source>
+        <target state="final">Videoauswahl Menü</target>
+      </trans-unit>
+      <trans-unit id="viewerControlsSettingsMenuAriaLabel" datatype="html">
+        <source>Settings menu</source>
+        <target state="final">Einstellungen Menü</target>
       </trans-unit>
     </body>
   </file>
