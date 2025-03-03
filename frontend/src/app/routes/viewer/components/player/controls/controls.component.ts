@@ -12,6 +12,7 @@ import { MatSliderModule } from '@angular/material/slider';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { LetDirective, PushPipe } from '@ngrx/component';
 import { Store } from '@ngrx/store';
+import dayjs from 'dayjs';
 import { combineLatest, map, Subject, takeUntil } from 'rxjs';
 import { MediaCategoryPipe } from 'src/app/pipes/media-category-pipe/media-category.pipe';
 import { WrittenOutLanguagePipe } from 'src/app/pipes/written-out-language-pipe/written-out-language.pipe';
@@ -104,6 +105,9 @@ export class ControlsComponent implements OnInit, OnDestroy {
 
   locale = $localize.locale;
 
+  playLocalize = $localize`:@@viewerControlsPlayTooltip:Play`;
+  pauseLocalize = $localize`:@@viewerControlsPauseTooltip:Pause`;
+
   sortedResolutions: ResolutionValue[] = [];
   currentMaxResolution!: ResolutionValue;
   private destroy$$ = new Subject<void>();
@@ -153,10 +157,8 @@ export class ControlsComponent implements OnInit, OnDestroy {
     return Math.round(value * 100) + '%';
   }
 
-  audioProgressLabel(value: number): string {
-    const pipe = new DurationPipe();
-    const transform = pipe.transform(value * 1000);
-    return transform;
+  sliderProgressLabel(value: number): string {
+    return dayjs.duration(value * 1000).format('mm:ss');
   }
 
   onSwitchLanguage(newLocale: string) {
@@ -164,13 +166,6 @@ export class ControlsComponent implements OnInit, OnDestroy {
       const newHref = document.location.href.replace(this.locale, newLocale);
       document.location.href = newHref;
     }
-  }
-
-  get playTooltip() {
-    return $localize`:@@viewerControlsPlayTooltip:Play`;
-  }
-  get pauseTooltip() {
-    return $localize`:@@viewerControlsPauseTooltip:Pause`;
   }
 
   getVolumeTooltip(muted: boolean, volume: number) {

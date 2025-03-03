@@ -10,7 +10,7 @@
       min="0"
       [max]="viewerService.audio.duration"
       discrete
-      [displayWith]="audioProgressLabel"
+      [displayWith]="sliderProgressLabel"
     >
       <input
         #progressInput
@@ -29,7 +29,8 @@
       <button
         mat-icon-button
         class="md"
-        matTooltip="{{ !isPlayingUser ? playTooltip : pauseTooltip }}"
+        matTooltip="{{ !isPlayingUser ? playLocalize : pauseLocalize }}"
+        [attr.aria-label]="!isPlayingUser ? playLocalize : pauseLocalize"
         (click)="onPlayPauseVideo()"
       >
         @if (!isPlayingUser) {
