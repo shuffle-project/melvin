@@ -106,6 +106,8 @@ export class MigrationService {
       await settings.save();
       this.logger.info('Migration to version 5 successful');
     }
+
+    // rerun proces video for all videos
   }
 
   private async _migrateVideoAudioFiles() {
