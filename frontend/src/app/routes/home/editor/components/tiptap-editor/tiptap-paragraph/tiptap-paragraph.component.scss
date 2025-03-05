@@ -3,6 +3,10 @@
   width: 100%;
 }
 
+::spelling-error {
+  text-decoration: 2px dotted underline var(--color-warn);
+}
+
 .left {
   margin: 0.375rem;
   width: 7.5rem;

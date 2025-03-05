@@ -2486,6 +2486,10 @@
         <source>Fullscreen</source>
         <target state="final">Vollbild</target>
       </trans-unit>
+      <trans-unit id="playerInnerResizerAriaLabel" datatype="html">
+        <source>Move to resize video</source>
+        <target state="final">Verschieben, um die Größe des Videos zu ändern</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

@@ -1865,6 +1865,9 @@
       <trans-unit id="viewerControlsFullscreenLabel" datatype="html">
         <source>Fullscreen</source>
       </trans-unit>
+      <trans-unit id="playerInnerResizerAriaLabel" datatype="html">
+        <source>Move to resize video</source>
+      </trans-unit>
     </body>
   </file>
 </xliff>
