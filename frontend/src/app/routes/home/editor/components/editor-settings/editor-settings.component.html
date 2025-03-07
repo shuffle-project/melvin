@@ -2,14 +2,21 @@
 <div class="container">
   <h3 i18n="@@editorSettingsHeadline">Settings</h3>
 
-  <ng-container *ngrxLet="selectSpellchecking$ as spellchecking">
+  <div
+    class="spellcheck-wrapper"
+    *ngrxLet="selectSpellchecking$ as spellchecking"
+  >
     <mat-checkbox
       checked="spellchecking"
       (change)="onChangeSpellchecking($event)"
       i18n="@@editorSettingsSpellcheckingCheckbox"
       >Spellchecking
     </mat-checkbox>
-  </ng-container>
+
+    <button mat-icon-button (click)="onOpenDialogSpellcheckInfo()">
+      <mat-icon svgIcon="info"></mat-icon>
+    </button>
+  </div>
 
   <ng-container *ngrxLet="showUsernames$ as showUsernames">
     <mat-checkbox

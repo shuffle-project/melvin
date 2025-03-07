@@ -2490,6 +2490,50 @@
         <source>Move to resize video</source>
         <target state="final">Verschieben, um die Größe des Videos zu ändern</target>
       </trans-unit>
+      <trans-unit id="dialogSpellcheckInfoMainHeadline" datatype="html">
+        <source>Spellcheck browser info</source>
+        <target state="final">Rechtschreibprüfung Browser-Info</target>
+      </trans-unit>
+      <trans-unit id="dialogSpellcheckInfoCloseAriaLabel" datatype="html">
+        <source>Close</source>
+        <target state="final">Schließen</target>
+      </trans-unit>
+      <trans-unit id="dialogSpellcheckInfoFirefoxOne" datatype="html">
+        <source> You must install a dictionary in order to use the Firefox spell checker. Follow the link below for an overview of the available dictionaries. </source>
+        <target state="final"> Sie müssen ein Wörterbuch installieren, um die Firefox-Rechtschreibprüfung nutzen zu können. Folgen Sie dem folgenden Link, um einen Überblick über die verfügbaren Wörterbücher zu erhalten. </target>
+      </trans-unit>
+      <trans-unit id="dialogSpellcheckInfoFirefoxTwo" datatype="html">
+        <source> Once you have added the dictionary, you may need to right-click on the transcript here in the Melvin Editor and activate “Check spelling” in the resulting menu and select the appropriate language under “Languages”. </source>
+        <target state="final"> Wenn Sie das Wörterbuch hinzugefügt haben, müssen Sie hier im Melvin Editor mit der rechten Maustaste auf das Transkript klicken und im daraufhin angezeigten Menü „ Rechtschreibung prüfen“ aktivieren und unter „ Sprachen“ die entsprechende Sprache auswählen. </target>
+      </trans-unit>
+      <trans-unit id="dialogSpellcheckInfoFirefoxThree" datatype="html">
+        <source> The words are visually highlighted with reddish dots below. </source>
+        <target state="final"> Die Wörter werden visuell mit rötlichen Punkten darunter hervorgehoben. </target>
+      </trans-unit>
+      <trans-unit id="dialogSpellcheckInfoFirefoxLinkLabel" datatype="html">
+        <source>To the Firefox dictionary overview</source>
+        <target state="final">Zur Firefox-Wörterbuchübersicht</target>
+      </trans-unit>
+      <trans-unit id="dialogSpellcheckInfoFirefoxLinkNewTab" datatype="html">
+        <source>Opens in new tab</source>
+        <target state="final">Öffnet in neuem Fenster</target>
+      </trans-unit>
+      <trans-unit id="dialogSpellcheckInfoSafariOne" datatype="html">
+        <source> The Safari browser automatically uses the integrated spell checker. All you need to do is select the “Spellchecking” option in the Melvin Editor before clicking inside the transcript. However, it may take a few seconds before Safari highlights the first words. </source>
+        <target state="final">Der Safari-Browser verwendet automatisch die integrierte Rechtschreibprüfung. Sie müssen lediglich die Option „Rechtschreibprüfung“ im Melvin-Editor auswählen, bevor Sie in das Transkript klicken. Es kann jedoch ein paar Sekunden dauern, bis Safari die ersten Wörter hervorhebt.</target>
+      </trans-unit>
+      <trans-unit id="dialogSpellcheckInfoSafariTwo" datatype="html">
+        <source> The words are visually highlighted with reddish dots below. </source>
+        <target state="final">Die Wörter werden visuell mit rötlichen Punkten darunter hervorgehoben. </target>
+      </trans-unit>
+      <trans-unit id="dialogSpellcheckInfoChromeOne" datatype="html">
+        <source> The Chrome browser automatically uses the integrated spell checker. All you need to do is select the “Spellchecking” option in the Melvin Editor before clicking inside the transcript. </source>
+        <target state="final"> TDer Chrome-Browser verwendet automatisch die integrierte Rechtschreibprüfung. Sie müssen lediglich die Option „Rechtschreibprüfung“ im Melvin-Editor auswählen, bevor Sie in das Transkript klicken. </target>
+      </trans-unit>
+      <trans-unit id="dialogSpellcheckInfoChromeTwo" datatype="html">
+        <source> The words are visually highlighted with reddish dots below. </source>
+        <target state="final"> Die Wörter werden visuell mit rötlichen Punkten darunter hervorgehoben. </target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

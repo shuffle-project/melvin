@@ -1868,6 +1868,39 @@
       <trans-unit id="playerInnerResizerAriaLabel" datatype="html">
         <source>Move to resize video</source>
       </trans-unit>
+      <trans-unit id="dialogSpellcheckInfoChromeOne" datatype="html">
+        <source> The Chrome browser automatically uses the integrated spell checker. All you need to do is select the “Spellchecking” option in the Melvin Editor before clicking inside the transcript. </source>
+      </trans-unit>
+      <trans-unit id="dialogSpellcheckInfoChromeTwo" datatype="html">
+        <source> The words are highlighted with reddish dots below. </source>
+      </trans-unit>
+      <trans-unit id="dialogSpellcheckInfoCloseAriaLabel" datatype="html">
+        <source>Close</source>
+      </trans-unit>
+      <trans-unit id="dialogSpellcheckInfoFirefoxLinkLabel" datatype="html">
+        <source>To the Firefox dictionary overview</source>
+      </trans-unit>
+      <trans-unit id="dialogSpellcheckInfoFirefoxLinkNewTab" datatype="html">
+        <source>Opens in new tab</source>
+      </trans-unit>
+      <trans-unit id="dialogSpellcheckInfoFirefoxOne" datatype="html">
+        <source> You must install a dictionary in order to use the Firefox spell checker. Follow the link below for an overview of the available dictionaries. </source>
+      </trans-unit>
+      <trans-unit id="dialogSpellcheckInfoFirefoxThree" datatype="html">
+        <source> The words are highlighted with reddish dots below. </source>
+      </trans-unit>
+      <trans-unit id="dialogSpellcheckInfoFirefoxTwo" datatype="html">
+        <source> Once you have added the dictionary, you may need to right-click on the transcript here in the Melvin Editor and activate “Check spelling” in the resulting menu and select the appropriate language under “Languages”. </source>
+      </trans-unit>
+      <trans-unit id="dialogSpellcheckInfoMainHeadline" datatype="html">
+        <source>Spellcheck browser info</source>
+      </trans-unit>
+      <trans-unit id="dialogSpellcheckInfoSafariOne" datatype="html">
+        <source> The Safari browser automatically uses the integrated spell checker. All you need to do is select the “Spellchecking” option in the Melvin Editor before clicking inside the transcript. However, it may take a few seconds before Safari highlights the first words. </source>
+      </trans-unit>
+      <trans-unit id="dialogSpellcheckInfoSafariTwo" datatype="html">
+        <source> The words are highlighted with reddish dots below. </source>
+      </trans-unit>
     </body>
   </file>
 </xliff>
