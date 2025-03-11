@@ -1,4 +1,5 @@
-import { Injectable } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
+import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { EditorUserEntity } from 'src/app/interfaces/editor-user.interface';
@@ -18,7 +19,11 @@ export class TiptapEditorService {
   public activeUsers$ = new BehaviorSubject<EditorUserEntity[]>([]);
   public editorUsers$ = new BehaviorSubject<EditorUser[]>([]);
 
-  constructor(private store: Store, private mediaService: MediaService) {
+  constructor(
+    private store: Store,
+    private mediaService: MediaService,
+    @Inject(PLATFORM_ID) private platformId: Object
+  ) {
     this.store
       .select(transcriptionsSelectors.selectAvailableSpeakers)
       .subscribe((speakers) => this.speakers$.next(speakers));
@@ -34,17 +39,23 @@ export class TiptapEditorService {
 
   getUserColor(userId: string) {
     const editorUsers = this.editorUsers$.getValue();
-    // console.log(editorUsers);
     return (
       editorUsers.find((user) => user.userId === userId)?.color || 'primary'
     );
   }
 
   clickWord(event: MouseEvent) {
-    if (event.metaKey) {
-      const target = event?.target as HTMLElement;
-      const start = target?.attributes.getNamedItem('data-start')?.value;
-      if (start) this.mediaService.seekToTime(+start, false);
+    if (event.metaKey || event.ctrlKey) {
+      const isMac =
+        isPlatformBrowser(this.platformId) && /Mac/i.test(navigator.userAgent);
+
+      if ((isMac && event.metaKey) || (!isMac && event.ctrlKey)) {
+        const target = event?.target as HTMLElement;
+        const start = target?.attributes.getNamedItem('data-start')?.value;
+        if (start) {
+          this.mediaService.seekToTime(+start, false);
+        }
+      }
     }
   }
 }

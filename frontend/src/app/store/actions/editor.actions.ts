@@ -139,6 +139,7 @@ export const toggleShowUsernames = createAction(
 export const ePlayPauseUser = createAction(
   '[EDITOR COMPONENT] Play Pause User'
 );
+
 export const eMediaLodingSingle = createAction(
   '[EDITOR COMPONENT] Loading single media id',
   props<{ id: string }>()

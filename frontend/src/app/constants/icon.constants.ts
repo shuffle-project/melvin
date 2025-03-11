@@ -54,6 +54,7 @@ export const ICONS = [
   'minus',
   'dark_mode',
   'more',
+  'mouse-click',
   'new-tab',
   'no_account',
   'open-transcript',

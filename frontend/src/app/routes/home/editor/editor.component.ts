@@ -51,6 +51,7 @@ import { DialogHelpEditorComponent } from './components/dialog-help-editor/dialo
 import { EditorSettingsComponent } from './components/editor-settings/editor-settings.component';
 import { JoinLivestreamModalComponent } from './components/join-livestream-modal/join-livestream-modal.component';
 import { LiveControlsComponent } from './components/live-controls/live-controls.component';
+import { ShortcutsComponent } from './components/shortcuts/short-cuts/shortcuts.component';
 import { TiptapEditorComponent } from './components/tiptap-editor/tiptap-editor.component';
 import { UserTestControlsComponent } from './components/user-test-controls/user-test-controls.component';
 import { VideoControlsComponent } from './components/video-controls/video-controls/video-controls.component';
@@ -86,6 +87,7 @@ import { MediaService } from './service/media/media.service';
     WrittenOutLanguagePipe,
     MediaCategoryPipe,
     VideoControlsComponent,
+    ShortcutsComponent,
   ],
 })
 export class EditorComponent implements OnInit, OnDestroy {

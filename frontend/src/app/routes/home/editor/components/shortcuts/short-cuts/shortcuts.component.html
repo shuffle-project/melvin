@@ -1,0 +1,49 @@
+<div class="accordion-wrapper">
+  <mat-accordion>
+    <mat-expansion-panel class="shortcuts-panel">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <h3>Shortcuts</h3>
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <mat-panel-description>
+        <ul>
+          <li>
+            <span>To Current Caption</span>
+            <span class="keys">{{ toCurrentCaptionKeys }}</span>
+          </li>
+          <li>
+            <span>Toggle Play / Pause</span>
+            <span class="keys">{{ togglePlayPauseKeys }}</span>
+          </li>
+          <li>
+            <span>Rewind 5 Seconds</span>
+            <span class="keys"
+              >{{ rewind5SecondsKeys }} <span class="arrow-left"></span>
+            </span>
+          </li>
+          <li>
+            <span>Skip 5 Seconds</span>
+            <span class="keys">
+              {{ skip5SecondsKeys }} <span class="arrow-right"></span>
+            </span>
+          </li>
+        </ul>
+
+        <ul class="second-shortcut-list">
+          <li>
+            <span>Jump to Word</span>
+            <span class="keys">{{ jumpToWordKeys }}</span>
+          </li>
+          <li>
+            <span>Jump to Word (Mouse)</span>
+            <span class="keys">
+              {{ jumpoToWordMouseKeys }}
+              <mat-icon svgIcon="mouse-click"></mat-icon>
+            </span>
+          </li>
+        </ul>
+      </mat-panel-description>
+    </mat-expansion-panel>
+  </mat-accordion>
+</div>
