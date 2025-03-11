@@ -82,4 +82,5 @@ export interface ProcessProjectJob {
 export interface ProcessVideoJob {
   projectId: string;
   video: Video;
+  skipLowestResolution: boolean;
 }

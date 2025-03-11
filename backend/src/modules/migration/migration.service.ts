@@ -107,7 +107,7 @@ export class MigrationService {
       this.logger.info('Migration to version 5 successful');
     }
 
-    if (settings.dbSchemaVersion < 6) {
+    if (settings.dbSchemaVersion < 7) {
       this.logger.info(
         'Migrate to version 6 - reprocess all videos to repair broken videos',
       );
@@ -169,7 +169,11 @@ export class MigrationService {
           await rm(tempPath);
 
           // add to processVideoQueue to reprocess video resolutions
-          processVideoJobs.push({ projectId: project._id.toString(), video });
+          processVideoJobs.push({
+            projectId: project._id.toString(),
+            video,
+            skipLowestResolution: false,
+          });
         } catch (e) {
           this.logger.error(
             'Error while reprocessing video: ' +
@@ -352,7 +356,11 @@ export class MigrationService {
 
         this.logger.verbose('Process 240p video done');
 
-        processVideoJobs.push({ projectId: project._id.toString(), video });
+        processVideoJobs.push({
+          projectId: project._id.toString(),
+          video,
+          skipLowestResolution: true,
+        });
         // await rm(baseMediaFile);
         // this.logger.info('deleted: ' + baseMediaFile);
       }

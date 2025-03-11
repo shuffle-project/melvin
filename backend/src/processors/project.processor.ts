@@ -216,7 +216,11 @@ export class ProjectProcessor {
     }
 
     // start processing video in all resolutions
-    this.videoQueue.add({ projectId, video: mainVideo });
+    this.videoQueue.add({
+      projectId,
+      video: mainVideo,
+      skipLowestResolution: true,
+    });
 
     this.logger.verbose(
       `Project processing DONE: Job ${job.id}, ProjectId: ${projectId}, Result: ${result}`,

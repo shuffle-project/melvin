@@ -29,13 +29,13 @@ export class VideoProcessor {
 
   @Process()
   async processVideo(job: Job<ProcessVideoJob>) {
-    let { projectId, video } = job.data;
+    let { projectId, video, skipLowestResolution } = job.data;
 
     const filepath = this.pathService.getBaseMediaFile(projectId, video);
     const calcRes = await this.ffmpegService.getCalculatedResolutions(filepath);
 
     // remove the lowest resolution, since that is already created inside the projectprocessor
-    calcRes.shift();
+    if (skipLowestResolution) calcRes.shift();
 
     if (calcRes.length === 0) {
       this.logger.verbose(
