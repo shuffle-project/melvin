@@ -6,8 +6,13 @@
         <ng-content />
         <div class="header-buttons" [class.margin-left]="editorView">
           @if (feedbackLink) {
-          <a class="feedback-link" href="" mat-flat-button>
-            Feedback geben ❤️
+          <a
+            class="feedback-link"
+            href=""
+            mat-flat-button
+            i18n="@@headerFeedbackLinkLabel"
+          >
+            Provide Feedback ❤️
           </a>
           }
 
@@ -123,7 +128,7 @@
           <mat-icon svgIcon="start"></mat-icon>Startpage
         </a>
         <a mat-menu-item routerLink="/guide" i18n="@@headerMenuGuideButton">
-          <mat-icon svgIcon="book"></mat-icon>Guide
+          <mat-icon svgIcon="book"></mat-icon>Didactic Guide
         </a>
         <button
           mat-menu-item

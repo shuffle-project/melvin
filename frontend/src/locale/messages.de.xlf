@@ -2003,8 +2003,8 @@
         <target state="final"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;plus&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/> Beispielprojekt erstellen </target>
       </trans-unit>
       <trans-unit id="landingHeaderGuideLinkLabel" datatype="html">
-        <source> Guide </source>
-        <target state="final"> Leitfaden </target>
+        <source> Didactic Guide </source>
+        <target state="new"> Leitfaden </target>
       </trans-unit>
       <trans-unit id="GuidePageTitle" datatype="html">
         <source>Guide - Melvin</source>
@@ -2031,16 +2031,16 @@
         <target state="final"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;start&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/>Startseite </target>
       </trans-unit>
       <trans-unit id="headerMenuGuideButton" datatype="html">
-        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;book&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/>Guide </source>
-        <target state="final"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;book&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/>Leitfaden </target>
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;book&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/>Didactic Guide </source>
+        <target state="new"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;book&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/>Leitfaden </target>
       </trans-unit>
       <trans-unit id="editorSettingsHeadline" datatype="html">
         <source>Settings</source>
         <target state="final">Einstellungen</target>
       </trans-unit>
       <trans-unit id="guideMainHeading" datatype="html">
-        <source>Guide</source>
-        <target state="final">Leitfaden</target>
+        <source>Didactic Guide</source>
+        <target state="new">Leitfaden</target>
       </trans-unit>
       <trans-unit id="guideSubHeading" datatype="html">
         <source> Didactic Recommendations – How to Use Melvin Effectively </source>
@@ -2533,6 +2533,18 @@
       <trans-unit id="dialogSpellcheckInfoChromeTwo" datatype="html">
         <source> The words are visually highlighted with reddish dots below. </source>
         <target state="final"> Die Wörter werden visuell mit rötlichen Punkten darunter hervorgehoben. </target>
+      </trans-unit>
+      <trans-unit id="headerFeedbackLinkLabel" datatype="html">
+        <source> Provide Feedback ❤️ </source>
+        <target state="final"> Feedback geben ❤️ </target>
+      </trans-unit>
+      <trans-unit id="landingHeaderFeedbackLinkLabel" datatype="html">
+        <source> Provide Feedback ❤️ </source>
+        <target state="final"> Feedback geben ❤️ </target>
+      </trans-unit>
+      <trans-unit id="viewerFeedbackLinkLabel" datatype="html">
+        <source> Provide Feedback ❤️ </source>
+        <target state="final"> Feedback geben ❤️ </target>
       </trans-unit>
     </body>
   </file>

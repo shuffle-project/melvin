@@ -58,8 +58,13 @@
                   {{ project?.title }}
                 </h1>
                 @if (feedbackLink) {
-                <a class="feedback-link" href="" mat-flat-button>
-                  Feedback geben ❤️
+                <a
+                  class="feedback-link"
+                  href=""
+                  mat-flat-button
+                  i18n="@@viewerFeedbackLinkLabel"
+                >
+                  Provide Feedback ❤️
                 </a>
                 } @else {
                 <app-logo

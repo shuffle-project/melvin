@@ -117,7 +117,7 @@
         <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;start&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/>Startpage </source>
       </trans-unit>
       <trans-unit id="headerMenuGuideButton" datatype="html">
-        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;book&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/>Guide </source>
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;book&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/>Didactic Guide </source>
       </trans-unit>
       <trans-unit id="headerMenuLogoutButton" datatype="html">
         <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;logout&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/>Logout </source>
@@ -1059,7 +1059,7 @@
         <source> Sorry, this page is still under development. Please come back at a later time. </source>
       </trans-unit>
       <trans-unit id="guideMainHeading" datatype="html">
-        <source>Guide</source>
+        <source>Didactic Guide</source>
       </trans-unit>
       <trans-unit id="guideSubHeading" datatype="html">
         <source> Didactic Recommendations – How to Use Melvin Effectively </source>
@@ -1440,7 +1440,7 @@
         <source>This feature is still under development.</source>
       </trans-unit>
       <trans-unit id="landingHeaderGuideLinkLabel" datatype="html">
-        <source> Guide </source>
+        <source> Didactic Guide </source>
       </trans-unit>
       <trans-unit id="landingHeaderTutorialLinkLabel" datatype="html">
         <source> Tutorial </source>
@@ -1872,7 +1872,7 @@
         <source> The Chrome browser automatically uses the integrated spell checker. All you need to do is select the “Spellchecking” option in the Melvin Editor before clicking inside the transcript. </source>
       </trans-unit>
       <trans-unit id="dialogSpellcheckInfoChromeTwo" datatype="html">
-        <source> The words are highlighted with reddish dots below. </source>
+        <source> The words are visually highlighted with reddish dots below. </source>
       </trans-unit>
       <trans-unit id="dialogSpellcheckInfoCloseAriaLabel" datatype="html">
         <source>Close</source>
@@ -1887,7 +1887,7 @@
         <source> You must install a dictionary in order to use the Firefox spell checker. Follow the link below for an overview of the available dictionaries. </source>
       </trans-unit>
       <trans-unit id="dialogSpellcheckInfoFirefoxThree" datatype="html">
-        <source> The words are highlighted with reddish dots below. </source>
+        <source> The words are visually highlighted with reddish dots below. </source>
       </trans-unit>
       <trans-unit id="dialogSpellcheckInfoFirefoxTwo" datatype="html">
         <source> Once you have added the dictionary, you may need to right-click on the transcript here in the Melvin Editor and activate “Check spelling” in the resulting menu and select the appropriate language under “Languages”. </source>
@@ -1899,7 +1899,16 @@
         <source> The Safari browser automatically uses the integrated spell checker. All you need to do is select the “Spellchecking” option in the Melvin Editor before clicking inside the transcript. However, it may take a few seconds before Safari highlights the first words. </source>
       </trans-unit>
       <trans-unit id="dialogSpellcheckInfoSafariTwo" datatype="html">
-        <source> The words are highlighted with reddish dots below. </source>
+        <source> The words are visually highlighted with reddish dots below. </source>
+      </trans-unit>
+      <trans-unit id="headerFeedbackLinkLabel" datatype="html">
+        <source> Provide Feedback ❤️ </source>
+      </trans-unit>
+      <trans-unit id="landingHeaderFeedbackLinkLabel" datatype="html">
+        <source> Provide Feedback ❤️ </source>
+      </trans-unit>
+      <trans-unit id="viewerFeedbackLinkLabel" datatype="html">
+        <source> Provide Feedback ❤️ </source>
       </trans-unit>
     </body>
   </file>
