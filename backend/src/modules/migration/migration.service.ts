@@ -1,7 +1,7 @@
 import { InjectQueue } from '@nestjs/bull';
 import { Injectable } from '@nestjs/common';
 import { Queue } from 'bull';
-import { exists } from 'fs-extra';
+import { exists, move } from 'fs-extra';
 import { rm, statfs } from 'fs/promises';
 import {
   AlignPayload,
@@ -107,7 +107,90 @@ export class MigrationService {
       this.logger.info('Migration to version 5 successful');
     }
 
-    // rerun proces video for all videos
+    if (settings.dbSchemaVersion < 7) {
+      this.logger.info(
+        'Migrate to version 6 - reprocess all videos to repair broken videos',
+      );
+
+      await this._migrateReprocessVideos();
+
+      settings.dbSchemaVersion = 6;
+      await settings.save();
+      this.logger.info('Migration to version 6 successful');
+    }
+  }
+
+  private async _migrateReprocessVideos() {
+    const projects = await this.db.projectModel.find({
+      status: [
+        ProjectStatus.DRAFT,
+        ProjectStatus.FINISHED,
+        ProjectStatus.PROCESSING,
+        ProjectStatus.WAITING,
+      ],
+    });
+    this.logger.info('Projects found: ' + projects.length);
+
+    const processVideoJobs: ProcessVideoJob[] = [];
+    for (const project of projects) {
+      // projects.forEach(async (project) => {
+      // const projectDir = this.pathService.getProjectDirectory(
+      //   project._id.toString(),
+      // );
+      // const dirExists = await exists(projectDir);
+      // console.log(
+      //   'dirExists ' + project.title + ' - ' + project._id.toString(),
+      //   dirExists,
+      // );
+      for (const video of project.videos) {
+        // project.videos.forEach(async (video) => {
+        try {
+          this.logger.info(
+            'Reprocess project/video: ' +
+              project._id.toString() +
+              ' / ' +
+              video._id.toString(),
+          );
+          // reprocess base video file
+          const path = this.pathService.getBaseMediaFile(
+            project._id.toString(),
+            video,
+          );
+
+          const tempPath = path.replace('.mp4', '_temp.mp4');
+          await move(path, tempPath);
+
+          await this.ffmpegService.processBaseFile(
+            project._id.toString(),
+            tempPath,
+            path,
+            true,
+          );
+          await rm(tempPath);
+
+          // add to processVideoQueue to reprocess video resolutions
+          processVideoJobs.push({
+            projectId: project._id.toString(),
+            video,
+            skipLowestResolution: false,
+          });
+        } catch (e) {
+          this.logger.error(
+            'Error while reprocessing video: ' +
+              project._id.toString() +
+              ' / ' +
+              video._id.toString(),
+          );
+          this.logger.error(e);
+        }
+      } //)
+    } //)
+    this.logger.info(
+      'Base video files reprocessed, now reprocess video resolutions',
+    );
+    processVideoJobs.forEach((job) => {
+      this.videoQueue.add(job);
+    });
   }
 
   private async _migrateVideoAudioFiles() {
@@ -273,7 +356,11 @@ export class MigrationService {
 
         this.logger.verbose('Process 240p video done');
 
-        processVideoJobs.push({ projectId: project._id.toString(), video });
+        processVideoJobs.push({
+          projectId: project._id.toString(),
+          video,
+          skipLowestResolution: true,
+        });
         // await rm(baseMediaFile);
         // this.logger.info('deleted: ' + baseMediaFile);
       }

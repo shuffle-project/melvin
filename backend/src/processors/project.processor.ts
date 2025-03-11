@@ -72,10 +72,20 @@ export class ProjectProcessor {
         file.path,
         baseVideoFilepath,
       );
-    } else {
-      // if its not an audio file, just move the file
+    } else if (file.filename.endsWith('.mp4')) {
+      // if its not an audio file but an mp4 file, just move the file
       await move(file.path, targetFilepath);
+    } else {
+      // TODO if recorder -> use flags -> if no dont use flag
+      // make it an mp4 file otherwise
+      await this.ffmpegService.processBaseFile(
+        project._id.toString(),
+        file.path,
+        targetFilepath,
+        true,
+      );
     }
+
     await rm(file.destination, { recursive: true });
 
     const originalFilePath = this.pathService.getBaseMediaFile(
@@ -206,7 +216,11 @@ export class ProjectProcessor {
     }
 
     // start processing video in all resolutions
-    this.videoQueue.add({ projectId, video: mainVideo });
+    this.videoQueue.add({
+      projectId,
+      video: mainVideo,
+      skipLowestResolution: true,
+    });
 
     this.logger.verbose(
       `Project processing DONE: Job ${job.id}, ProjectId: ${projectId}, Result: ${result}`,
