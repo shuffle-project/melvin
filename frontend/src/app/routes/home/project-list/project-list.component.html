@@ -17,6 +17,7 @@
             [value]="projectFilter.searchString"
             matInput
             type="text"
+            (keyup)="onEnterSearch($event)"
           />
           <button
             matSuffix
@@ -25,7 +26,7 @@
             i18n-aria-label="@@projectListSearchWithTitleTooltip"
             aria-label="Search with Projecttitle"
             mat-icon-button
-            (click)="filterProjects()"
+            (click)="onFilterProjects()"
           >
             <mat-icon svgIcon="search"></mat-icon>
           </button>
@@ -39,7 +40,7 @@
           >
           <mat-select
             #projectStatusSelect
-            (selectionChange)="filterProjects()"
+            (selectionChange)="onFilterProjects()"
             [value]="projectFilter.selectedProjectStatus"
           >
             @for (status of projectStatus; track status) {
@@ -54,7 +55,7 @@
       <div class="project-set-wrapper">
         <mat-button-toggle-group
           #projectSetGroup="matButtonToggleGroup"
-          (change)="filterProjects()"
+          (change)="onFilterProjects()"
           [value]="projectFilter.selectedProjectSet"
         >
           <mat-button-toggle
