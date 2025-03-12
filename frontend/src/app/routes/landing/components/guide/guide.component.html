@@ -4,16 +4,8 @@
     Didactic Recommendations – How to Use Melvin Effectively
   </p>
 
-  <div class="decorative-image-wrapper">
-    <img
-      src="../../../../../assets/landing/guide-decoration.png"
-      alt=""
-      aria-hidden="true"
-    />
-  </div>
-
   <nav>
-    <h2 i18n="@@guideContentTableHeading">Table of contents</h2>
+    <h2 i18n="@@guideContentTableHeading">Table of Contents</h2>
     <ul class="table-of-contents">
       <li>
         <a
@@ -22,6 +14,15 @@
           i18n="@@guideContentTableWhy"
         >
           Why Didactic Recommendations?
+        </a>
+      </li>
+      <li>
+        <a
+          routerLink="./"
+          fragment="supporting-documents"
+          i18n="@@guideContentSupportingDocuments"
+        >
+          Supporting Documents
         </a>
       </li>
       <li>
@@ -97,6 +98,47 @@
     barrier-free access to content for all users. These didactic guidelines aim
     to encourage a reflective approach when using Melvin.
   </p>
+
+  <h2 id="supporting-documents" i18n="@@guideSupportingDocumentsHeading">
+    Supporting Documents
+  </h2>
+
+  <table mat-table [dataSource]="supportingDocumentsData">
+    <!-- Title Column -->
+    <ng-container matColumnDef="title">
+      <th mat-header-cell *matHeaderCellDef>Title</th>
+      <td mat-cell *matCellDef="let element">{{ element.title }}</td>
+    </ng-container>
+
+    <!-- Download Column -->
+    <ng-container matColumnDef="download">
+      <th mat-header-cell *matHeaderCellDef class="table-th-downlaod">
+        Download PDF
+      </th>
+      <td mat-cell *matCellDef="let element">
+        <div class="download-links-wrapper">
+          <a [href]="element.download.germanLink" download mat-button>
+            <span i18n="@@guideSupportingDocumentsDownloadGermanLabel">
+              German
+            </span>
+            <span class="sr-only">{{ element.title }}</span>
+          </a>
+          <a [href]="element.download.englishLink" download mat-button>
+            <span i18n="@@guideSupportingDocumentsDownloadEnglishLabel">
+              English
+            </span>
+            <span class="sr-only">{{ element.title }}</span>
+          </a>
+        </div>
+      </td>
+
+      <tr mat-header-row *matHeaderRowDef="supportingDocumentsColumns"></tr>
+      <tr
+        mat-row
+        *matRowDef="let row; columns: supportingDocumentsColumns"
+      ></tr>
+    </ng-container>
+  </table>
 
   <h2 i18n="@@guidePlanningHeading">Planning the Video</h2>
   <p i18n="@@guidePlanningIntro">
@@ -240,10 +282,21 @@
       <dt i18n="@@guideAccessibleMaterialsTerm">
         Accessible Digital Materials
       </dt>
-      <dd i18n="@@guideAccessibleMaterialsDefinition">
-        When combining videos with other digital learning formats such as text,
-        images, or interactive tools, ensure that all materials comply with
-        accessibility standards<sup>4</sup>.
+      <dd>
+        <span i18n="@@guideAccessibleMaterialsDefinition">
+          When combining videos with other digital learning formats such as
+          text, images, or interactive tools, ensure that all materials comply
+          with accessibility standards.
+        </span>
+
+        <a
+          routerLink="./"
+          fragment="supporting-documents"
+          i18n="@@guideAccessibleMaterialsDocumentLink"
+          class="block-link"
+        >
+          See document Tips for Accessible Tools
+        </a>
       </dd>
     </div>
   </dl>
