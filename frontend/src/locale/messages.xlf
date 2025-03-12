@@ -1065,7 +1065,7 @@
         <source> Didactic Recommendations – How to Use Melvin Effectively </source>
       </trans-unit>
       <trans-unit id="guideContentTableHeading" datatype="html">
-        <source>Table of contents</source>
+        <source>Table of Contents</source>
       </trans-unit>
       <trans-unit id="guideContentTableWhy" datatype="html">
         <source> Why Didactic Recommendations? </source>
@@ -1173,7 +1173,7 @@
         <source> Accessible Digital Materials </source>
       </trans-unit>
       <trans-unit id="guideAccessibleMaterialsDefinition" datatype="html">
-        <source> When combining videos with other digital learning formats such as text, images, or interactive tools, ensure that all materials comply with accessibility standards<x id="START_SUPERSCRIPT" ctype="x-sup" equiv-text="&lt;sup&gt;"/>4<x id="CLOSE_SUPERSCRIPT" ctype="x-sup" equiv-text="&lt;/sup&gt;"/>. </source>
+        <source> When combining videos with other digital learning formats such as text, images, or interactive tools, ensure that all materials comply with accessibility standards. </source>
       </trans-unit>
       <trans-unit id="guideRepetitionHeading" datatype="html">
         <source>Repetition</source>
@@ -1909,6 +1909,24 @@
       </trans-unit>
       <trans-unit id="viewerFeedbackLinkLabel" datatype="html">
         <source> Provide Feedback ❤️ </source>
+      </trans-unit>
+      <trans-unit id="guideAccessibleMaterialsDocumentLink" datatype="html">
+        <source> See document Tips for Accessible Tools </source>
+      </trans-unit>
+      <trans-unit id="guideContentSupportingDocuments" datatype="html">
+        <source> Supporting Documents </source>
+      </trans-unit>
+      <trans-unit id="guideSupportingDocumentsDownloadEnglishLabel" datatype="html">
+        <source> English </source>
+      </trans-unit>
+      <trans-unit id="guideSupportingDocumentsDownloadGermanLabel" datatype="html">
+        <source> German </source>
+      </trans-unit>
+      <trans-unit id="guideSupportingDocumentsHeading" datatype="html">
+        <source> Supporting Documents </source>
+      </trans-unit>
+      <trans-unit id="guideSupportingDocumentTipsAccessibleTools" datatype="html">
+        <source>Tips for Accessible Tools</source>
       </trans-unit>
     </body>
   </file>
