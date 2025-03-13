@@ -72,23 +72,29 @@ export class ShortcutsComponent {
 
       switch (keyCombination) {
         case 'Ctrl+Cmd+k':
+          event.preventDefault();
           document
             .getElementsByClassName(`time-${this.currentTime}`)[0]
             .scrollIntoView({ behavior: 'smooth', block: 'center' });
           break;
         case 'Ctrl+Cmd+p':
+          event.preventDefault();
           this.store.dispatch(editorActions.ePlayPauseUser());
           break;
         case 'Ctrl+Cmd+arrowright':
+          event.preventDefault();
           this.mediaService.skipForward(5000);
           break;
         case 'Ctrl+Cmd+arrowleft':
+          event.preventDefault();
           this.mediaService.skipBackward(5000);
           break;
         case 'Ctrl+Cmd+enter':
+          event.preventDefault();
           this.jumpToWordKeyboard();
           break;
         case 'Cmd+enter':
+          event.preventDefault();
           this.jumpToWordKeyboard();
           break;
       }
@@ -101,23 +107,29 @@ export class ShortcutsComponent {
 
       switch (keyCombination) {
         case 'Ctrl+Alt+k':
+          event.preventDefault();
           document
             .getElementsByClassName(`time-${this.currentTime}`)[0]
             .scrollIntoView({ behavior: 'smooth', block: 'center' });
           break;
         case 'Ctrl+Alt+p':
+          event.preventDefault();
           this.store.dispatch(editorActions.ePlayPauseUser());
           break;
         case 'Ctrl+Alt+arrowright':
+          event.preventDefault();
           this.mediaService.skipForward(5000);
           break;
         case 'Ctrl+Alt+arrowleft':
+          event.preventDefault();
           this.mediaService.skipBackward(5000);
           break;
         case 'Ctrl+Alt+enter':
+          event.preventDefault();
           this.jumpToWordKeyboard();
           break;
         case 'Ctrl+enter':
+          event.preventDefault();
           this.jumpToWordKeyboard();
           break;
       }
