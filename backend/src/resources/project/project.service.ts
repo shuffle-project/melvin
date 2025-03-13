@@ -982,6 +982,8 @@ export class ProjectService {
 
     const video: Video = {
       ...uploadVideoDto,
+      category: uploadVideoDto.category ?? MediaCategory.OTHER,
+      title: uploadVideoDto.title ?? '',
       _id: new Types.ObjectId(),
       originalFileName: file.filename,
       status: MediaStatus.WAITING,
