@@ -2192,7 +2192,7 @@
       </trans-unit>
       <trans-unit id="guideAccessibleMaterialsDefinition" datatype="html">
         <source> When combining videos with other digital learning formats such as text, images, or interactive tools, ensure that all materials comply with accessibility standards. </source>
-        <target state="new"> Wenn Sie die Videos mit anderen digitalen Lernformaten wie Texten, Bildern oder auch mit interaktiven Tools kombinieren, achten Sie stets auf die Barrierefreiheit der Dokumente und Tools<x id="START_SUPERSCRIPT" ctype="x-sup" equiv-text="&lt;sup&gt;"/>4<x id="CLOSE_SUPERSCRIPT" ctype="x-sup" equiv-text="&lt;/sup&gt;"/>. </target>
+        <target state="final"> Wenn Sie die Videos mit anderen digitalen Lernformaten wie Texten, Bildern oder auch mit interaktiven Tools kombinieren, achten Sie stets auf die Barrierefreiheit der Dokumente und Tools. </target>
       </trans-unit>
       <trans-unit id="guideRepetitionHeading" datatype="html">
         <source>Repetition</source>
