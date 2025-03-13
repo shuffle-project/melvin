@@ -107,7 +107,7 @@ export class MigrationService {
       this.logger.info('Migration to version 5 successful');
     }
 
-    if (settings.dbSchemaVersion < 7) {
+    if (settings.dbSchemaVersion < 6) {
       this.logger.info(
         'Migrate to version 6 - reprocess all videos to repair broken videos',
       );
