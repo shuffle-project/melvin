@@ -260,6 +260,7 @@ export class UploadRecordingComponent implements OnInit {
     const uploadVideoDto: UploadVideoDto = {
       title: rec.title,
       category: rec.category,
+      recorder: true,
     };
 
     rec.upload.progress = 0;

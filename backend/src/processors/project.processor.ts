@@ -51,7 +51,7 @@ export class ProjectProcessor {
 
   @Process()
   async processProject(job: Job<ProcessProjectJob>) {
-    let { project, file, mainVideo, mainAudio } = job.data;
+    let { project, file, mainVideo, mainAudio, recorder } = job.data;
     const projectId = project._id.toString();
     const systemUser = await this.authService.findSystemAuthUser();
 
@@ -63,6 +63,9 @@ export class ProjectProcessor {
 
     if (file.mimetype.includes('audio')) {
       // if its an audio file, convert it to video
+      this.logger.debug(
+        project._id.toString() + ' Processing audio file to video',
+      );
       const baseVideoFilepath = this.pathService.getBaseMediaFile(
         projectId,
         mainVideo,
@@ -73,16 +76,24 @@ export class ProjectProcessor {
         baseVideoFilepath,
       );
     } else if (file.filename.endsWith('.mp4')) {
+      this.logger.debug(
+        project._id.toString() + ' Not Processing file since it is an mp4 file',
+      );
       // if its not an audio file but an mp4 file, just move the file
       await move(file.path, targetFilepath);
     } else {
+      this.logger.debug(
+        project._id.toString() +
+          ' Processing file to mp4 file, flags: ' +
+          recorder,
+      );
       // TODO if recorder -> use flags -> if no dont use flag
       // make it an mp4 file otherwise
       await this.ffmpegService.processBaseFile(
         project._id.toString(),
         file.path,
         targetFilepath,
-        true,
+        recorder,
       );
     }
 
