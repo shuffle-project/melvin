@@ -38,6 +38,7 @@ export const environment: Environment = {
     showTime: true,
     editorActions: true,
     showSpeaker: true,
+    showShortcuts: true,
 
     // Video-Player
     playbackSpeed: true,

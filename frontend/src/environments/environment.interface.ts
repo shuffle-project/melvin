@@ -30,6 +30,7 @@ export interface EnabledFeatures {
   showTime: boolean;
   editorActions: boolean;
   showSpeaker: boolean;
+  showShortcuts: boolean;
 
   // Video-Player
   playbackSpeed: boolean;

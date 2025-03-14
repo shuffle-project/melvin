@@ -221,7 +221,9 @@
     <div class="left">
       <app-video-player></app-video-player>
       <app-editor-settings></app-editor-settings>
+      @if ('showShortcuts' | featureEnabled) {
       <app-shortcuts></app-shortcuts>
+      }
       <app-user-test-controls></app-user-test-controls>
       @if ('live' | featureEnabled) {
       <div *ngrxLet="project$ as project">
