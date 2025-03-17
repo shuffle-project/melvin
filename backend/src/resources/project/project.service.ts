@@ -329,6 +329,7 @@ export class ProjectService {
       subsequentJobs,
       mainVideo: mainVideo,
       mainAudio: mainAudio,
+      recorder: false,
     });
 
     if (createProjectDto.videoOptions.length > 1) {
@@ -350,6 +351,7 @@ export class ProjectService {
             {
               title: title,
               category: MediaCategory[mediaCategoryKey[0]],
+              recorder: false,
             },
             file,
           );
@@ -557,6 +559,7 @@ export class ProjectService {
         subsequentJobs,
         mainVideo: mainVideo,
         mainAudio: mainAudio,
+        recorder: true,
       });
     }
   }
@@ -1044,6 +1047,8 @@ export class ProjectService {
 
     const video: Video = {
       ...uploadVideoDto,
+      category: uploadVideoDto.category ?? MediaCategory.OTHER,
+      title: uploadVideoDto.title ?? '',
       _id: new Types.ObjectId(),
       originalFileName: file.filename,
       status: MediaStatus.WAITING,
@@ -1075,6 +1080,7 @@ export class ProjectService {
       file,
       subsequentJobs: [],
       mainVideo: video,
+      recorder: uploadVideoDto.recorder,
     });
 
     return updatedProject;

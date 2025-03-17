@@ -76,10 +76,12 @@ export interface ProcessProjectJob {
   // videoId: string | null;
   mainVideo: Video;
   mainAudio?: Audio;
+  recorder: boolean;
 }
 
 // Video Processor
 export interface ProcessVideoJob {
   projectId: string;
   video: Video;
+  skipLowestResolution: boolean;
 }

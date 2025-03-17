@@ -108,7 +108,7 @@
   </div>
 
   <div class="all-media-wrapper">
-    <div class="media-category-wrapper">
+    <div class="media-category-wrapper audio">
       <h2 i18n="@@recorderAudioSourcesTitle">Audio sources</h2>
       @if (recorderService.audios.length === 0) {
       <p i18n="@@recorderNoAudioAdded">
@@ -133,7 +133,7 @@
       </button>
       }
     </div>
-    <div class="media-category-wrapper">
+    <div class="media-category-wrapper video">
       <h2 i18n="@@recorderVideoSourcesTitle">Video sources</h2>
       @if (recorderService.videos.length === 0) {
       <p i18n="@@recorderNoVideoAdded">
@@ -158,7 +158,7 @@
       </button>
       }
     </div>
-    <div class="media-category-wrapper">
+    <div class="media-category-wrapper screensharing">
       <h2 i18n="@@recorderScreensharingSourcesTitle">Screensharing sources</h2>
       @if (recorderService.screensharings.length === 0) {
       <p i18n="@@recorderNoScreensharingAdded">

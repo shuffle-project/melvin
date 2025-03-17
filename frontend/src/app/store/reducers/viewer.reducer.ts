@@ -274,10 +274,12 @@ export const viewerReducer = createReducer(
   }),
 
   on(viewerActions.mediaLoadingSingle, (state, { id }) => {
-    return { ...state, loadingMediaIds: [...state.loadingMediaIds, id] };
+    const mediaIdSet = new Set([...state.loadingMediaIds, id]);
+    return { ...state, loadingMediaIds: Array.from(mediaIdSet) };
   }),
   on(viewerActions.mediaLoadingMultiple, (state, { ids }) => {
-    return { ...state, loadingMediaIds: [...state.loadingMediaIds, ...ids] };
+    const mediaIdSet = new Set([...state.loadingMediaIds, ...ids]);
+    return { ...state, loadingMediaIds: Array.from(mediaIdSet) };
   }),
   on(viewerActions.mediaLoaded, (state, { id }) => {
     return {

@@ -1,10 +1,8 @@
-import { inject, Injector } from '@angular/core';
+import { Injector } from '@angular/core';
 import { Editor, Extension } from '@tiptap/core';
-import { NodeType, Schema } from '@tiptap/pm/model';
+import { Schema } from '@tiptap/pm/model';
 import { Plugin, PluginKey, Transaction } from '@tiptap/pm/state';
 import { TiptapEditorService } from '../tiptap-editor.service';
-import { create } from 'domain';
-import { Step } from '@tiptap/pm/transform';
 
 const addModifiedMarksAt = (
   userId: string,

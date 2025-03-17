@@ -163,6 +163,7 @@ export class UploadAdditionalContentComponent implements OnInit {
               // TODO title?
               title: '',
               category: this.formGroup.value.category!,
+              recorder: false,
             },
             this.selectedFile
           )

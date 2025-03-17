@@ -9,6 +9,7 @@ export interface EnabledFeatures {
   documentation: boolean;
   tutorial: boolean;
   guide: boolean;
+  feedbackLink: boolean;
 
   // Editor
   timeNavigation: boolean;
@@ -29,6 +30,7 @@ export interface EnabledFeatures {
   showTime: boolean;
   editorActions: boolean;
   showSpeaker: boolean;
+  showShortcuts: boolean;
 
   // Video-Player
   playbackSpeed: boolean;

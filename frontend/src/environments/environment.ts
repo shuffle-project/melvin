@@ -17,6 +17,7 @@ export const environment: Environment = {
     documentation: false,
     tutorial: false,
     guide: true,
+    feedbackLink: true,
 
     // Editor
     timeNavigation: true,
@@ -37,6 +38,7 @@ export const environment: Environment = {
     showTime: true,
     editorActions: true,
     showSpeaker: true,
+    showShortcuts: true,
 
     // Video-Player
     playbackSpeed: true,

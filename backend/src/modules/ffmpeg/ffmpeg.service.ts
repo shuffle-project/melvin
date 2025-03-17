@@ -185,6 +185,69 @@ export class FfmpegService {
     }
   }
 
+  public async processBaseFile(
+    projectId: string,
+    inputpath: string,
+    outputpath: string,
+    useFlags: boolean = true,
+  ) {
+    this.logger.verbose('Processing base video file: ' + projectId);
+
+    let commands: string[];
+    if (useFlags) {
+      commands = [
+        // this.ffmpeg,
+        '-loglevel',
+        'error',
+        // error = Show all errors, including ones which can be recovered from.
+        // fatal = Only show fatal errors which could lead the process to crash, such as an assertion failure.
+        '-i',
+        `${inputpath}`,
+        // crf on 51 -> max qual loss, on 0 -> zero qual loss, 23 is default
+        '-crf',
+        '23',
+        '-tune',
+        'zerolatency',
+        // video codec
+        '-c:v',
+        'libx264',
+        //audio codec
+        '-c:a',
+        'aac',
+        // preset
+        '-preset',
+        'fast',
+        // overwrite file
+        '-y',
+        '-vf',
+        `fps=30`,
+        `${outputpath}`, // output file
+      ];
+    } else {
+      commands = [
+        // this.ffmpeg,
+        '-loglevel',
+        'error',
+        // error = Show all errors, including ones which can be recovered from.
+        // fatal = Only show fatal errors which could lead the process to crash, such as an assertion failure.
+        '-i',
+        `${inputpath}`,
+        // overwrite file
+        '-y',
+        `${outputpath}`, // output file
+      ];
+    }
+
+    // await this.execShellCommand(commands);
+    const start = Date.now();
+    await this.execAsStream(commands);
+    const end = Date.now();
+    var seconds = (end - start) / 1000;
+    this.logger.verbose(
+      'processing base file ' + projectId + ' needed ' + seconds + 's',
+    );
+  }
+
   public async processVideoFile(
     filePath: string,
     projectId: string,
@@ -239,7 +302,7 @@ export class FfmpegService {
           // overwrite file
           '-y',
           '-vf',
-          `scale=${res.width}:${res.height}`,
+          `scale=${res.width}:${res.height},fps=30`,
           `${baseVideoFilepath.replace('.mp4', '_' + res.resolution + '.mp4')}`, // output file
         ],
       );

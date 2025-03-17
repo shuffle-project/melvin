@@ -1,416 +1,551 @@
 <div class="landing-subpage-wrapper">
-  <!-- <h1 class="with-subheading" i18n="@@guideMainHeading">Guide</h1> -->
-  <h1 class="with-subheading">Leitfaden</h1>
-  <p class="subheading">
-    Didaktische Hinweise – Wie kann ich Melvin gut einsetzen?
+  <h1 class="with-subheading" i18n="@@guideMainHeading">Didactic Guide</h1>
+  <p class="subheading" i18n="@@guideSubHeading">
+    Didactic Recommendations – How to Use Melvin Effectively
   </p>
 
-  <div class="decorative-image-wrapper">
-    <img
-      src="../../../../../assets/landing/guide-decoration.png"
-      alt=""
-      aria-hidden="true"
-    />
-  </div>
-
   <nav>
-    <h2>Inhaltsverzeichnis</h2>
+    <h2 i18n="@@guideContentTableHeading">Table of Contents</h2>
     <ul class="table-of-contents">
       <li>
-        <a routerLink="./" fragment="why-didactic-tips">
-          Warum didaktische Hinweise?
+        <a
+          routerLink="./"
+          fragment="why-didactic-tips"
+          i18n="@@guideContentTableWhy"
+        >
+          Why Didactic Recommendations?
         </a>
       </li>
       <li>
-        <a routerLink="./" fragment="planning-the-video">
-          Planung des Videos
+        <a
+          routerLink="./"
+          fragment="supporting-documents"
+          i18n="@@guideContentSupportingDocuments"
+        >
+          Supporting Documents
+        </a>
+      </li>
+      <li>
+        <a
+          routerLink="./"
+          fragment="planning-the-video"
+          i18n="@@guideContentTablePlanningVideo"
+        >
+          Planning the Video
         </a>
       </li>
       <ul>
         <li>
-          <a routerLink="./" fragment="didactic-planning">
-            Didaktische Planung
+          <a
+            routerLink="./"
+            fragment="didactic-planning"
+            i18n="@@guideContentTableDidactic"
+          >
+            Didactic Planning
           </a>
         </li>
         <li>
-          <a routerLink="./" fragment="content-planning">
-            Inhaltliche Planung
+          <a
+            routerLink="./"
+            fragment="content-planning"
+            i18n="@@guideContentTableContent"
+          >
+            Content Planning
           </a>
         </li>
         <li>
-          <a routerLink="./" fragment="technical-planning">
-            Technische Planung
+          <a
+            routerLink="./"
+            fragment="technical-planning"
+            i18n="@@guideContentTableTechnical"
+          >
+            Technical Planning
+          </a>
+        </li>
+        <li>
+          <a
+            routerLink="./"
+            fragment="references"
+            i18n="@@guideContentTableReferences"
+          >
+            References
           </a>
         </li>
       </ul>
     </ul>
   </nav>
 
-  <h2 id="why-didactic-tips">Warum didaktische Hinweise?</h2>
-  <p>
-    Digitalisierung in der Bildung dürfe „kein Selbstzweck“ sein, so eine
-    Arbeitsgruppe des Hochschulforums Digitalisierung (Persiske & Friedrich
-    2016, 5). Vielmehr müsse das Ziel der Konzepte für digitales Lernen und
-    Lehren sein, die Qualität der Lehre, ihre Leistungsstärke, aber eben auch
-    die Chancengerechtigkeit des Hochschulsystems weiter zu verbessern (Hanft et
-    al 2019, 325) Insgesamt werden jedoch Chancengerechtigkeit, Inklusion  und
-    Digitalisierung noch viel zu selten im Zusammenspiel betrachtet und auch
-    noch zu wenig beforscht (Bosse et al. 2021; Hafer et al 2019) – und
-    besonders nicht unter dem Aspekt fachdidaktischer Fragestellungen. Denn für
-    digitale Tools ergeben sich zwar vielfältige Anwendungsmöglichkeiten, aber
-    nicht alles, was technisch machbar ist, ist didaktisch sinnvoll und darüber
-    hinaus barrierefrei.
+  <h2 id="why-didactic-tips" i18n="@@guideWhyHeading">
+    Why Didactic Recommendations?
+  </h2>
+  <p i18n="@@guideWhyPartOne">
+    According to a working group of the Hochschulforum Digitalisierung,
+    digitalization in education should not be "an end in itself" (Persike &
+    Friedrich, 2016, p. 5). Instead, digital learning and teaching concepts
+    should aim to improve teaching quality, enhance effectiveness, and promote
+    equal opportunities in higher education (Hanft et al., 2019, p. 325).
+    Overall, aspects of equal opportunities, inclusion, and digitalization are
+    still rarely considered in combination and insufficiently researched (Bosse
+    et al., 2021; Hafer et al., 2019), particularly in relation to didactic
+    issues. While digital tools offer many possibilities, not everything that is
+    technically feasible is didactically useful or even accessible.
   </p>
 
-  <p>
-    Auch Melvin als Videoplattform ist zunächst „nur“ ein Werkzeug, das
-    Funktionen bereitstellt und gestalterische Freiräume eröffnet.
-    Vorausschauende Überlegungen zur didaktischen Umsetzung der technischen
-    Möglichkeiten können entscheidend dazu beitragen, einen barrierefreien und
-    gleichberechtigten Zugang zu den Inhalten für alle Nutzenden zu
-    gewährleisten. Solch ein didaktisch-reflektiertes Vorgehen bei der Anwendung
-    von Melvin möchten diese didaktischen Hinweise befördern.
+  <p i18n="@@guideWhyPartTwo">
+    Melvin, as a video platform, is primarily a tool that offers functionality
+    and allows for creative freedom. Thoughtful consideration of didactic
+    implementation can significantly contribute to ensuring equal and
+    barrier-free access to content for all users. These didactic guidelines aim
+    to encourage a reflective approach when using Melvin.
   </p>
 
-  <h2>Planung des Videos</h2>
-  <p>
-    Bevor Sie mit der Produktion Ihres Videos beginnen, sollte das Video
-    didaktisch, inhaltlich und technisch geplant werden. Dies soll dazu
-    beitragen, dass Ihr Video die gewünschten Lernziele wie auch alle
-    Studierenden erreicht.
+  <h2 id="supporting-documents" i18n="@@guideSupportingDocumentsHeading">
+    Supporting Documents
+  </h2>
+
+  <table mat-table [dataSource]="supportingDocumentsData">
+    <!-- Title Column -->
+    <ng-container matColumnDef="title">
+      <th mat-header-cell *matHeaderCellDef>Title</th>
+      <td mat-cell *matCellDef="let element">{{ element.title }}</td>
+    </ng-container>
+
+    <!-- Download Column -->
+    <ng-container matColumnDef="download">
+      <th mat-header-cell *matHeaderCellDef class="table-th-downlaod">
+        Download PDF
+      </th>
+      <td mat-cell *matCellDef="let element">
+        <div class="download-links-wrapper">
+          <a [href]="element.download.germanLink" download mat-button>
+            <span i18n="@@guideSupportingDocumentsDownloadGermanLabel">
+              German
+            </span>
+            <span class="sr-only">{{ element.title }}</span>
+          </a>
+          <a [href]="element.download.englishLink" download mat-button>
+            <span i18n="@@guideSupportingDocumentsDownloadEnglishLabel">
+              English
+            </span>
+            <span class="sr-only">{{ element.title }}</span>
+          </a>
+        </div>
+      </td>
+
+      <tr mat-header-row *matHeaderRowDef="supportingDocumentsColumns"></tr>
+      <tr
+        mat-row
+        *matRowDef="let row; columns: supportingDocumentsColumns"
+      ></tr>
+    </ng-container>
+  </table>
+
+  <h2 i18n="@@guidePlanningHeading">Planning the Video</h2>
+  <p i18n="@@guidePlanningIntro">
+    Before starting video production, careful planning from a didactic,
+    content-related, and technical perspective is essential. This ensures that
+    the video meets the intended learning objectives and reaches all students
+    effectively.
   </p>
 
-  <h3 id="didactic-planning">Didaktische Planung</h3>
+  <h3 id="didactic-planning" i18n="@@guideDidacticHeading">
+    Didactic Planning
+  </h3>
 
   <dl>
     <div class="term-definition-wrapper">
-      <dt>Übergeordnetes Lehrkonzept</dt>
-      <dd>
-        Vorab sind grundsätzliche Überlegungen wichtig, für welche Teile der
-        Lehre bzw. auf welche Art die Videos eingesetzt werden. Welchem
-        <strong>Zweck</strong> dienen die Videos, in welches
-        <strong>übergeordnete Lehrkonzept</strong> sind die Videos eingebettet?
-        Wenn diese Zielsetzung festgelegt ist, lässt sich die didaktische
-        Gestaltung der Videos darauf basierend effektiver ableiten.
+      <dt i18n="@@guideFrameworkTerm">General Instructional Framework</dt>
+      <dd i18n="@@guideFrameworkDefinition">
+        It is crucial to determine in advance how the videos will be integrated
+        into teaching and for what <strong>purpose</strong> they will be used.
+        What role do the videos play within the broader instructional framework?
+        Defining this objective helps in designing the videos effectively.
       </dd>
     </div>
 
     <hr aria-hidden="true" />
 
     <div class="term-definition-wrapper">
-      <dt>Selbstgesteuertes Lernen</dt>
-      <dd>
-        Grundsätzlich führt das Bereitstellen von Videos dazu, dass Studierende
-        stärker für ihr eigenes Lernen verantwortlich sind. Lernvideos sollten
-        daher
-        <strong>Strategien des Selbstgesteuerten Lernens</strong>
-        (SDL<sup>1</sup>) fördern und dazu motivieren, sich aktiv mit den
-        Inhalten auseinanderzusetzen.
+      <dt i18n="@@guideSelfRegulationTerm">Self-Regulated Learning</dt>
+      <dd i18n="@@guideSelfRegulationDefinition">
+        Providing videos places more responsibility on students for their own
+        learning. Learning videos should therefore foster strategies for
+        self-regulated learning (SRL<sup>1</sup>) and motivate students to
+        engage actively with the content.
       </dd>
     </div>
 
     <hr aria-hidden="true" />
     <div class="term-definition-wrapper">
-      <dt>Länge des Videos</dt>
-      <dd>
-        Je nach Zielsetzung und Zweck sind Lernvideos unterschiedlich lang,
-        sollten aber - um einen „cognitive overload“ zu vermeiden - eine
-        bestimmte Länge nicht überschreiten. Basierend auf Erfahrungswerten
-        beträgt die empfohlene
-        <strong>maximale Dauer 20 Minuten </strong> (Weber 2023).
+      <dt i18n="@@guideOptimalLenghtTerm">Optimal Video Length</dt>
+      <dd i18n="@@guideOptimalLenghtDefinition">
+        Depending on the purpose, learning videos can vary in length, but they
+        should not exceed a certain duration to avoid cognitive overload.
+        Empirical research suggests a
+        <strong>maximum duration of 20 minutes</strong> (Brück 2023).
       </dd>
     </div>
     <hr aria-hidden="true" />
     <div class="term-definition-wrapper">
-      <dt>Struktur des Videos</dt>
-      <dd>
-        Je länger das Video ist, desto wichtiger sind
-        <strong>Strukturierung und inhaltliche Pausen</strong>, um die
-        Übersichtlichkeit zu wahren. Planen Sie daher erkennbare Strukturen
-        (Einleitung, Hauptteil, Schlussteil) vorab ein. Die Erstellung eines
-        <strong>Manuskripts, eines Storyboards</strong> oder gar eines
-        Drehbuches kann hilfreich sein, um die Abfolge der Inhalte und den
-        eigenen Sprechtext zu gliedern.
+      <dt i18n="@@guideStructuringVideoTerm">Structuring the Video</dt>
+      <dd i18n="@@guideStructuringVideoDefinition">
+        The longer the video, the more important it is to maintain a
+        <strong>clear structure and include pauses</strong> to support
+        comprehension. Planning recognizable sections (introduction, main part,
+        conclusion) in advance is advisable. Creating
+        <strong>a script, storyboard,</strong> or screenplay can help structure
+        the content and voiceover effectively.
       </dd>
     </div>
     <hr aria-hidden="true" />
     <div class="term-definition-wrapper">
-      <dt lang="en">Inverted Classroom</dt>
-      <dd>
-        Dient das Video im Rahmen des Inverted Classrooms zur Vorbereitung auf
-        eine Präsenzsitzung, sollten <strong>konkrete Anreize</strong> gesetzt
-        werden, sich auf die Vertiefung in der Präsenzveranstaltung
-        vorzubereiten. Bei Zuordnung des Videos zu einer
-        <strong>bestimmten Präsenzsitzung</strong> sollte dies klar erkennbar
-        und kommuniziert sein. Den Studierenden sollte darüber hinaus
-        <strong>ausreichend Zeit</strong> gegeben werden, um sich mit den
-        Inhalten des Videos (und ggf. weiteren Materialien) auseinandersetzen zu
-        können.
+      <dt i18n="@@guideInvertedClassroomTerm">Inverted Classroom</dt>
+      <dd i18n="@@guideInvertedClassroomDefinition">
+        When videos are used as part of an Inverted Classroom model,
+        <strong>clear incentives</strong> should be provided for students to
+        prepare for deeper engagement during in-person sessions. If a video is
+        assigned to a specific session, this should be clearly communicated, and
+        students should have <strong>sufficient time</strong> to review the
+        content and any accompanying materials.
       </dd>
     </div>
     <hr aria-hidden="true" />
     <div class="term-definition-wrapper">
-      <dt>Lern-Nuggets</dt>
+      <dt i18n="@@guideMicroLearningTerm">Microlearning Units</dt>
       <dd>
-        Dient das Video (nur) zur Vorstellung oder Vertiefung eines spezifischen
-        Aspekts? Hier lässt sich im Sinne des „Microlearning“<sup>2</sup> ein
-        eher kurzes und fokussiertes Video – ein sogenannter
-        „<strong>Lern-Nugget</strong>“- erstellen. In wenigen Minuten kann so
-        pointiert und konzentriert Wissen vermittelt werden. Es können auch
-        mehrere solcher kurzen Lerneinheiten/“Lern-Nuggets“ (als Reihe/Serie)
-        erstellt werden – hier sind eindeutige Titel und ggf. die Information
-        über eine einzuhaltende Reihenfolge besonders wichtig.
+        <span i18n="@@guideMicroLearningDefinition">
+          If a video is intended to introduce or deepen a specific aspect, a
+          short and focused microlearning unit (also known as a "learning
+          nugget"<sup>2</sup>) may be appropriate. These concise videos
+          effectively present knowledge in just a few minutes. Multiple
+          microlearning units can be organized into a series, with clear titles
+          and sequencing information to enhance clarity.
+        </span>
+
         <div class="example-wrapper">
-          Beispiele:
+          <span i18n="@@guideMicroLearningExampleHeading">Examples:</span>
           <ul>
-            <li>
-              Ein Video zur effektiven Suche nach wissenschaftlichen Artikeln in
-              Datenbanken.
+            <li i18n="@@guideMicroLearningExampleOne">
+              A video on how to effectively search for academic articles in
+              databases.
             </li>
-            <li>Ein Video zur richtigen wissenschaftlichen Zitation.</li>
+            <li i18n="@@guideMicroLearningExampleTwo">
+              A video explaining proper scientific citation methods.
+            </li>
           </ul>
         </div>
       </dd>
     </div>
     <hr aria-hidden="true" />
     <div class="term-definition-wrapper">
-      <dt>Nutzungsdauer</dt>
+      <dt i18n="@@guideUsabilityTerm">Long-Term Usability</dt>
       <dd>
-        Ist das Video für den einmaligen Einsatz vorgesehen oder soll es
-        semester- und/oder studiengangübergreifend zur Verfügung stehen? Bei
-        einer langfristigen Nutzung empfiehlt es sich,
-        <strong>allgemeingültige Hinweise</strong>
-        zu bevorzugen und auf zeitlich begrenzte Verweise, wie etwa Links zu
-        möglicherweise veralteten Webseiten, weitgehend zu verzichten.
-
-        <div class="example-wrapper">
-          Beispiel: Ein Video, das die Grundlagen der qualitativen oder
-          quantitativen Forschungsmethoden in den Sozialwissenschaften
-          vermittelt.
+        <span i18n="@@guideUsabilityDefinition">
+          Is the video intended for one-time use, or should it be accessible
+          across multiple semesters or courses? For long-term use, prioritize
+          general and <strong>broadly applicable information</strong> while
+          minimizing temporary references (e.g., links to potentially outdated
+          websites).
+        </span>
+        <div class="example-wrapper" i18n="@@guideUsabilityExample">
+          Example: A video explaining the fundamentals of qualitative or
+          quantitative research methods in social sciences.
         </div>
       </dd>
     </div>
     <hr aria-hidden="true" />
     <div class="term-definition-wrapper">
-      <dt>Umsetzung des „Mehr Sinne-Prinzips“ (UDL)</dt>
-      <dd>
-        Zur Gewährleistung der Barrierefreiheit ist es entscheidend,
-        Informationen in verschiedenen Darstellungsformen anzubieten- etwa durch
-        eine auditive sowie eine visuelle Präsentation der Lerninhalte.
-        Hilfreich sind hier <strong>Tools wie Melvin</strong>, die das Prinzip
-        automatisiert umsetzen, indem Untertitel und ein Transkript automatisch
-        generiert werden.
+      <dt i18n="@@guideUDLTerm">
+        Ensuring Accessibility – Universal Design for Learning
+        (UDL)/Multi-Sensory Design Principle
+      </dt>
+      <dd i18n="@@guideUDLDefinition">
+        To promote accessibility, information should be presented in multiple
+        formats—for example, through both auditory and visual means.
+        <strong>Tools like Melvin</strong>, which automatically generate
+        subtitles and transcripts, can facilitate this approach.
       </dd>
     </div>
     <hr aria-hidden="true" />
     <div class="term-definition-wrapper">
-      <dt>Abbildungen</dt>
-      <dd>
-        Im Video verwendete <strong>Abbildungen</strong> sollten auch sprachlich
-        vermittelt werden. Im besten Fall können alle zentralen Inhalte einer
-        Abbildung in den Sprechtext integriert werden. Ist dies nicht möglich,
-        kann
-        <strong>eine gesonderte Bildbeschreibung/Audiodeskription</strong>
-        erstellt werden, die als eigenes Video oder/und Text erstellt und
-        bereitgestellt wird<sup>3</sup>.
+      <dt i18n="@@guideVerbalizingTerm">Verbalizing Visual Elements</dt>
+      <dd i18n="@@guideVerbalizingDefinition">
+        All essential visual elements used in the video should also be described
+        verbally. Ideally, the key content of an image or figure should be
+        integrated into the spoken text. If this is not feasible, a separate
+        audio or text-based description should be provided as an additional
+        resource.<sup>3</sup>.
       </dd>
     </div>
     <hr aria-hidden="true" />
     <div class="term-definition-wrapper">
-      <dt>Barrierefreiheit der verwendeten digitalen Tools und Materialien</dt>
+      <dt i18n="@@guideAccessibleMaterialsTerm">
+        Accessible Digital Materials
+      </dt>
       <dd>
-        Wenn Sie die Videos mit anderen digitalen Lernformaten wie Texten,
-        Bildern oder auch mit interaktiven Tools <strong>kombinieren</strong>,
-        achten Sie stets auf die <strong>Barrierefreiheit</strong> der Dokumente
-        und Tools<sup>4</sup>.
+        <span i18n="@@guideAccessibleMaterialsDefinition">
+          When combining videos with other digital learning formats such as
+          text, images, or interactive tools, ensure that all materials comply
+          with accessibility standards.
+        </span>
+
+        <a
+          routerLink="./"
+          fragment="supporting-documents"
+          i18n="@@guideAccessibleMaterialsDocumentLink"
+          class="block-link"
+        >
+          See document Tips for Accessible Tools
+        </a>
       </dd>
     </div>
   </dl>
 
   <div class="repetition-wrapper">
-    <p class="repetition-label">Wiederholung</p>
+    <p class="repetition-label" i18n="@@guideRepetitionHeading">Repetition</p>
     <div>
       <p>
-        <span class="upper-text">20 Minuten</span>
-        <span class="lower-text">Maximale Dauer des Videos</span>
+        <span class="upper-text" i18n="@@guideRepetitionLengthOne"
+          >20 minutes</span
+        >
+        <span class="lower-text" i18n="@@guideRepetitionLengthTwo"
+          >maximum video duration</span
+        >
       </p>
       <p>
-        <span class="upper-text">Sprachliche Beschreibung</span>
-        <span class="lower-text"> Von Abbildungen und Tabellen </span>
+        <span class="upper-text" i18n="@@guideRepetitionVerbalOne"
+          >Verbal description</span
+        >
+        <span class="lower-text" i18n="@@guideRepetitionVerbalTwo">
+          of figures and tables
+        </span>
       </p>
 
       <p>
-        <span class="upper-text">Inhaltliche Pausen</span>
-        <span class="lower-text"> helfen bei der Übersichtlichkeit </span>
+        <span class="upper-text" i18n="@@guideRepetitionContentBreaksOne"
+          >Content breaks</span
+        >
+        <span class="lower-text" i18n="@@guideRepetitionContentBreaksTwo">
+          help with clarity
+        </span>
       </p>
     </div>
   </div>
 
-  <h3 id="content-planning">Inhaltliche Planung</h3>
+  <h3 id="content-planning" i18n="@@guideContentHeading">Content Planning</h3>
 
   <dl>
     <div class="term-definition-wrapper">
-      <dt>Klare Themenfokussierung</dt>
-      <dd>
-        Das Video sollte ein
-        <strong>eindeutig abgegrenztes Thema</strong> behandeln, das zu Beginn
-        des Videos deutlich angekündigt wird. Ebenso ist es entscheidend, dass
-        der Inhalt durch einen <strong>präzisen</strong> Titel leicht erkennbar
-        ist.
+      <dt i18n="@@guideClearTopicTerm">Clear Topic Focus</dt>
+      <dd i18n="@@guideClearTopicDefinition">
+        Each video should address a <strong>well-defined topic</strong>, clearly
+        stated at the beginning. A precise title enhances recognizability and
+        helps students navigate the content effectively.
       </dd>
     </div>
     <hr aria-hidden="true" />
     <div class="term-definition-wrapper">
-      <dt>Benennung der Lernziele</dt>
-      <dd>
-        Jedes Video sollte ein oder mehrere definierte
-        <strong>Lernziele</strong> haben, welche ebenfalls zu Beginn des Videos
-        und ebenso im Syllabus benannt werden. Dies trägt zur Transparenz und
-        Übersicht der Lernvideos und damit zur Selbstorganisation des
-        Wissenserwerbs bei.
+      <dt i18n="@@guideLearningObjectivesTerm">Defining Learning Objectives</dt>
+      <dd i18n="@@guideLearningObjectivesDefinition">
+        Each video should specify its learning objectives at the beginning and
+        in the course syllabus. This improves transparency and aids students in
+        organizing their knowledge acquisition.
       </dd>
     </div>
     <hr aria-hidden="true" />
     <div class="term-definition-wrapper">
-      <dt>Prüfungsrelevante Inhalte</dt>
-      <dd>
-        Sollten die im Video vermittelten Inhalte direkt auf
-        <strong>Prüfungsformate</strong>
-        abzielen, ist dies ebenfalls in den Lernzielen explizit zu vermerken.
-        Zudem können <strong>Prüfungsfragen als Übungsaufgaben</strong> zur
-        Verfügung gestellt werden, um den Studierenden mehr Sicherheit im Umgang
-        mit Prüfungssituationen zu vermitteln.
+      <dt i18n="@@guideExamRelevantTerm">Exam-Relevant Content</dt>
+      <dd i18n="@@guideExamRelevantDefinition">
+        If a video covers content relevant to exams, this should be explicitly
+        stated in the learning objectives. Additionally,
+        <strong>providing practice questions</strong> can help students gain
+        confidence in exam situations.
       </dd>
     </div>
     <hr aria-hidden="true" />
     <div class="term-definition-wrapper">
-      <dt>Aktive Beteiligung</dt>
-      <dd>
-        Planen Sie interaktive Elemente ein, zum Beispiel durch das Einbauen von
-        Aufgaben. Sie dienen zur
-        <strong>konzentrierteren Auseinandersetzung</strong> mit dem Material
-        und fördern das aktive Lernen.
+      <dt i18n="@@guideParticipationTerm">Encouraging Active Participation</dt>
+      <dd i18n="@@guideParticipationDefinition">
+        Integrating interactive elements, such as exercises, can promote active
+        learning and deeper engagement with the material.
       </dd>
     </div>
     <hr aria-hidden="true" />
     <div class="term-definition-wrapper">
-      <dt>Überprüfung des Gelernten</dt>
-      <dd>
-        Wo könnte das <strong>neu erworbene Wissen überprüft</strong> werden? In
-        das Video lassen sich <strong>Quizze einbauen</strong> oder konkrete
-        Aufgabenstellen. Dies kann aber auch in einer folgenden Präsenzsitzung
-        erfolgen.
+      <dt i18n="@@guideAcquiredKnowledgeTerm">Reviewing Acquired Knowledge</dt>
+      <dd i18n="@@guideAcquiredKnowledgeDefinition">
+        Where can students test their newly acquired knowledge?
+        <strong>Quizzes</strong> or targeted exercises can be embedded in the
+        video or incorporated into follow-up in-person sessions.
       </dd>
     </div>
     <hr aria-hidden="true" />
     <div class="term-definition-wrapper">
-      <dt>Fachtermini</dt>
-      <dd>
-        Verwendete Fachbegriffe oder besonders komplexe Sachverhalte sollten
-        erklärt und ggf. mit Hinweisen für
-        <strong>weiterführende Informationen</strong> (Links zu zentralen
-        Webseiten, Literatur etc.) ergänzt werden - dies trägt zur
-        Verständnissicherung bei.
+      <dt i18n="@@guideTechnicalTermsTerm">Clarifying Technical Terms</dt>
+      <dd i18n="@@guideTechnicalTermsDefinition">
+        Complex concepts or technical terminology should be clearly explained,
+        with <strong>references to additional resources</strong> (e.g., central
+        websites or literature) when necessary.
       </dd>
     </div>
     <hr aria-hidden="true" />
     <div class="term-definition-wrapper">
-      <dt>Feedback und Reflexion</dt>
-      <dd>
-        Lernvideos können am Ende Reflexionsfragen oder abschließende Übungen
-        enthalten, die die Lernenden dabei unterstützen, das Gelernte zu
-        vertiefen und anzuwenden. Zudem kann die Möglichkeit für Rückmeldungen
-        oder Fragen etwa durch gesonderte digitale Austauschformate (auf der
-        verwendeten Lernplattform) bereitgestellt oder in einer folgenden
-        Präsenzsitzung besprochen werden.
+      <dt i18n="@@guideReflectionTerm">
+        Providing Feedback and Reflection Opportunities
+      </dt>
+      <dd i18n="@@guideReflectionDefiniton">
+        Videos can include reflection questions or closing exercises to
+        reinforce learning. Opportunities for feedback and discussion can be
+        facilitated through digital learning platforms or in subsequent
+        in-person sessions.
       </dd>
     </div>
   </dl>
 
   <div class="repetition-wrapper">
-    <p class="repetition-label">Wiederholung</p>
+    <p class="repetition-label" i18n="@@guideRepetitionHeading">Repetition</p>
     <div>
       <p>
-        <span class="upper-text">Ein Thema</span>
-        <span class="lower-text">ein Video</span>
+        <span class="upper-text" i18n="@@guideRepetitionOneVideoOne"
+          >One topic</span
+        >
+        <span class="lower-text" i18n="@@guideRepetitionOneVideoTwo"
+          >per video</span
+        >
       </p>
       <p>
-        <span class="upper-text">Prüfungsfragen zum Üben</span>
-        <span class="lower-text">geben Sicherheit</span>
+        <span class="upper-text" i18n="@@guideRepetitionPracticeQuestionOne"
+          >Practice questions</span
+        >
+        <span class="lower-text" i18n="@@guideRepetitionPracticeQuestionTwo"
+          >for reinforcement</span
+        >
       </p>
 
       <p>
-        <span class="upper-text">Interative Elemente</span>
-        <span class="lower-text">fördern die aktive Beteiligung</span>
+        <span class="upper-text" i18n="@@guideRepetitionInteractiveElementsOne"
+          >Interactive elements</span
+        >
+        <span class="lower-text" i18n="@@guideRepetitionInteractiveElementsTwo"
+          >to encourage participation
+        </span>
       </p>
     </div>
   </div>
 
-  <h3 id="technical-planning">Technische Planung</h3>
+  <h3 id="technical-planning" i18n="@@guideTechnicalHeading">
+    Technical planning
+  </h3>
   <dl>
     <div class="term-definition-wrapper">
-      <dt>Hochwertige Bild- und Tonqualität</dt>
-      <dd>
-        Stellen Sie sicher, dass sowohl die Bild- als auch die Tonqualität einer
-        guten Qualität entsprechen, indem Sie für eine optimale Beleuchtung und
-        eine störungsfreie Umgebung sorgen. Eine ruhige, klare Sprechweise mit
-        ausreichend Pausen fördert die Verständlichkeit, während ein dezenter,
-        neutraler Hintergrund den Fokus auf den Inhalt lenkt.
+      <dt i18n="@@guideHighQualityMediaTerm">
+        Ensuring High-Quality Audio and Video
+      </dt>
+      <dd i18n="@@guideHighQualityMediaDefinition">
+        Both image and sound quality should be optimal, with good lighting and a
+        distraction-free recording environment. A calm and clear speaking style,
+        with sufficient pauses, enhances comprehensibility. A neutral background
+        helps keep the focus on the content.
       </dd>
     </div>
     <hr aria-hidden="true" />
     <div class="term-definition-wrapper">
-      <dt>Technische Ausstattung</dt>
-      <dd>
-        Eine solide technische Ausstattung sowie eine vorherige Überprüfung
-        sorgen für mehr Sicherheit während der Aufnahme. Machen Sie vorab
-        <strong>Probeaufnahmen</strong>, um ein besseres Verständnis für die
-        benötigten Geräte und deren Einsatz zu gewinnen. Je nach Setting kann es
-        beispielsweise vorteilhaft sein, <strong>zwei Monitore</strong> zur
-        Unterstützung der Videoaufnahme zu verwenden.
+      <dt i18n="@@guideTechnicalEquipmentTerm">
+        Technical Equipment Considerations
+      </dt>
+      <dd i18n="@@guideTechnicalEquipmentDefinition">
+        Reliable technical equipment and pre-recording checks ensure smoother
+        production. <strong>Test recordings</strong> can help identify optimal
+        settings. Depending on the setup, using
+        <strong>two monitors</strong> may facilitate the recording process.
       </dd>
     </div>
     <hr aria-hidden="true" />
     <div class="term-definition-wrapper">
-      <dt>Benennung der Videos</dt>
+      <dt i18n="@@guideFileNamingTerm">Clear and Informative File Naming</dt>
       <dd>
-        Die Benennung des Videos sollte <strong>aussagekräftig</strong> sein und
-        die wichtigsten Informationen wie Titel, Autor, Thema und Datum
-        beinhalten.
-
-        <div class="example-wrapper">
-          Beispiel: Hörstörungen_Baumgart_Pädaudiologie_WS23_24
+        <span i18n="@@guideFileNamingDefinition">
+          The video file name should be <strong>meaningful</strong> and include
+          key information such as title, author, topic, and date.
+        </span>
+        <div class="example-wrapper" i18n="@@guideFileNamingExample">
+          Example: Hearing_Disorders_Baumgart_Pediatric_Audiology_WS23_24
         </div>
       </dd>
     </div>
     <hr aria-hidden="true" />
     <div class="term-definition-wrapper">
-      <dt>Auffindbarkeit des Videos</dt>
-      <dd>
-        Die Lernvideos sollten so in die verwendeten Lernplattformen integriert
-        werden, dass sie <strong>leicht auffindbar</strong> sind. Ein
-        dazugehöriger Syllabus, der auf den Inhalt des Videos in Stichpunkten
-        eingeht, erhöht die Übersichtlichkeit und Transparenz.
+      <dt i18n="@@guideEasyAccessTerm">Easy Video Access</dt>
+      <dd i18n="@@guideEasyAccessDefinition">
+        Learning videos should be easily accessible on the learning platform. An
+        accompanying syllabus summarizing the video’s content in bullet points
+        enhances clarity and transparency.
       </dd>
     </div>
   </dl>
 
   <div class="repetition-wrapper">
-    <p class="repetition-label">Wiederholung</p>
+    <p class="repetition-label" i18n="@@guideRepetitionHeading">Repetition</p>
     <div>
       <p>
-        <span class="upper-text">Klare Sprechweise</span>
-        <span class="lower-text">mit ausreichend Pausen</span>
+        <span class="upper-text" i18n="@@guideRepetitionClearSpeechOne"
+          >Clear speech</span
+        >
+        <span class="lower-text" i18n="@@guideRepetitionClearSpeechTwo"
+          >with enough pauses</span
+        >
       </p>
       <p>
-        <span class="upper-text">Helle & leise Umgebung</span>
-        <span class="lower-text">für eine gute Aufnahme</span>
+        <span class="upper-text" i18n="@@guideRepetitionEnvironmentOne"
+          >Bright & quiet environment</span
+        >
+        <span class="lower-text" i18n="@@guideRepetitionEnvironmentTwo"
+          >for a good recording</span
+        >
       </p>
 
       <p>
-        <span class="upper-text">Titel, Thema, Autor, Datum</span>
-        <span class="lower-text">als Dateiname des Videos</span>
+        <span class="upper-text" i18n="@@guideRepetitionFileNameOne"
+          >Title, author, topic, date</span
+        >
+        <span class="lower-text" i18n="@@guideRepetitionFileNameTwo"
+          >as a descriptive file name</span
+        >
       </p>
     </div>
+  </div>
+
+  <div>
+    <h3 id="references" i18n="@@guideReferencesHeading">References</h3>
+
+    <p>
+      Bosse, I.; Schluchter, J.-R. & Zorn, I. (Ed.) (2019): Handbuch Inklusion
+      und Medienbildung. Weinheim: Beltz Juventa.
+    </p>
+
+    <p>
+      <a href="https://www.hessenhub.de/2023/03/30/lernvideos-im-studium/">
+        Brück, F. (2023, 30. März). Lernvideos im Studium. HessenHub.
+      </a>
+    </p>
+
+    <p>
+      Persike, M. & Friedrich, J.D. (2016). Lernen mit digitalen Medien aus
+      Studierendenperspektive, Arbeitspapier Nr. 17. Berlin: Hochschulforum
+      Digtalisierung.
+    </p>
+
+    <p>
+      Hanft, A.; Kretschmer, S. & Hug, V. (2019): Hochschullehre aus der
+      Studierenden-Perspektive denken: individuelle Lernpfade im Inverted
+      Classroom. In: Zeitschrift für Hochschulentwicklung 14 (3), S. 323–340.
+      DOI: 10.3217/ZFHE-14-03/19.
+    </p>
+
+    <p>
+      Hafer, J.; Mauch, M. & Schumann, M. (Hg.) (2019): Teilhabe in der
+      digitalen Bildungswelt. Münster New York: Waxmann (Medien in der
+      Wissenschaft).
+    </p>
   </div>
 </div>

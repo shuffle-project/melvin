@@ -189,7 +189,8 @@ export class UploadRecordingComponent implements OnInit {
     });
 
     const file = new File(
-      recording.chunks.splice(0, recording.chunks.length),
+      // recording.chunks.splice(0, recording.chunks.length),
+      recording.chunks,
       'video.webm',
       {
         type: 'video/webm',
@@ -215,11 +216,15 @@ export class UploadRecordingComponent implements OnInit {
   }
 
   onDownloadVideoLocally(rec: Recording, i = -1) {
+    console.log(rec);
     const prefix = i < 0 ? '' : i + 1 + '_';
     const filename = prefix + rec.title.replace(/\s/g, '_') + '.webm';
-    const file = new File(rec.chunks.splice(0, rec.chunks.length), filename, {
+    const file = new File(rec.chunks, filename, {
       type: 'video/webm',
     });
+    // const file = new File(rec.chunks.splice(0, rec.chunks.length), filename, {
+    //   type: 'video/webm',
+    // });
     const objectURL = window.URL.createObjectURL(file);
     const downloadElement = document.createElement('a');
     downloadElement.href = objectURL;
@@ -255,6 +260,7 @@ export class UploadRecordingComponent implements OnInit {
     const uploadVideoDto: UploadVideoDto = {
       title: rec.title,
       category: rec.category,
+      recorder: true,
     };
 
     rec.upload.progress = 0;

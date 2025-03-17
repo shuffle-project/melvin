@@ -1,0 +1,71 @@
+<div mat-dialog-title>
+  <div class="dialog-header">
+    <div>
+      <h1 i18n="@@dialogSpellcheckInfoMainHeadline">Spellcheck browser info</h1>
+    </div>
+
+    <button
+      mat-icon-button
+      [mat-dialog-close]="true"
+      aria-label="Close"
+      i18n-aria-label="@@dialogSpellcheckInfoCloseAriaLabel"
+    >
+      <mat-icon svgIcon="close" />
+    </button>
+  </div>
+</div>
+
+<mat-dialog-content>
+  <mat-tab-group>
+    <mat-tab label="Firefox">
+      <p i18n="@@dialogSpellcheckInfoFirefoxOne">
+        You must install a dictionary in order to use the Firefox spell checker.
+        Follow the link below for an overview of the available dictionaries.
+      </p>
+      <p i18n="@@dialogSpellcheckInfoFirefoxTwo">
+        Once you have added the dictionary, you may need to right-click on the
+        transcript here in the Melvin Editor and activate “Check spelling” in
+        the resulting menu and select the appropriate language under
+        “Languages”.
+      </p>
+      <p i18n="@@dialogSpellcheckInfoFirefoxThree">
+        The words are visually highlighted with reddish dots below.
+      </p>
+      <a
+        class="resource-link"
+        [href]="firefoxResourceLink"
+        target="_blank"
+        rel="noreferrer nofollow"
+      >
+        <span i18n="@@dialogSpellcheckInfoFirefoxLinkLabel"
+          >To the Firefox dictionary overview</span
+        >
+        <span i18n="@@dialogSpellcheckInfoFirefoxLinkNewTab" class="sr-only"
+          >Opens in new tab</span
+        >
+        <mat-icon svgIcon="new-tab"></mat-icon>
+      </a>
+    </mat-tab>
+    <mat-tab label="Safari">
+      <p i18n="@@dialogSpellcheckInfoSafariOne">
+        The Safari browser automatically uses the integrated spell checker. All
+        you need to do is select the “Spellchecking” option in the Melvin Editor
+        before clicking inside the transcript. However, it may take a few
+        seconds before Safari highlights the first words.
+      </p>
+      <p i18n="@@dialogSpellcheckInfoSafariTwo">
+        The words are visually highlighted with reddish dots below.
+      </p>
+    </mat-tab>
+    <mat-tab label="Chrome">
+      <p i18n="@@dialogSpellcheckInfoChromeOne">
+        The Chrome browser automatically uses the integrated spell checker. All
+        you need to do is select the “Spellchecking” option in the Melvin Editor
+        before clicking inside the transcript.
+      </p>
+      <p i18n="@@dialogSpellcheckInfoChromeTwo">
+        The words are visually highlighted with reddish dots below.
+      </p>
+    </mat-tab>
+  </mat-tab-group>
+</mat-dialog-content>

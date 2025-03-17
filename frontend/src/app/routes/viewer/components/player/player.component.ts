@@ -17,7 +17,6 @@ import {
   ElementRef,
   HostListener,
   Input,
-  OnChanges,
   OnDestroy,
   OnInit,
   ViewChild,
@@ -25,7 +24,16 @@ import {
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { LetDirective, PushPipe } from '@ngrx/component';
 import { Store } from '@ngrx/store';
-import { Subject, combineLatest, map, withLatestFrom } from 'rxjs';
+import {
+  Subject,
+  combineLatest,
+  distinctUntilChanged,
+  map,
+  of,
+  switchMap,
+  timer,
+  withLatestFrom,
+} from 'rxjs';
 import {
   AudioEntity,
   ProjectEntity,
@@ -66,9 +74,7 @@ export interface ViewerVideo extends VideoEntity {
     ]),
   ],
 })
-export class PlayerComponent
-  implements OnDestroy, AfterViewInit, OnInit, OnChanges
-{
+export class PlayerComponent implements OnDestroy, AfterViewInit, OnInit {
   private destroy$$ = new Subject<void>();
 
   @Input({ required: true }) project!: ProjectEntity;
@@ -130,9 +136,14 @@ export class PlayerComponent
     map((list) => list.length)
   );
 
-  public showLoadingSpinner$ = this.store.select(
-    viewerSelector.vShowLoadingSpinner
-  );
+  showLoadingSpinner$ = this.store
+    .select(viewerSelector.vShowLoadingSpinner)
+    .pipe(
+      switchMap((value) =>
+        value ? timer(400).pipe(map(() => true)) : of(false)
+      ),
+      distinctUntilChanged()
+    );
 
   // helper variables for dragndrop
   private resizingVideoWidth = false;
@@ -151,8 +162,6 @@ export class PlayerComponent
   ngOnInit() {
     this.chooseAudio();
   }
-
-  ngOnChanges(): void {}
 
   chooseAudio() {
     const mp3 = this.media.audios.find((obj) => obj.extension === 'mp3');

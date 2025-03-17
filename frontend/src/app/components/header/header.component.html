@@ -5,6 +5,17 @@
         <app-logo class="clickable logo" [routerLink]="['/home/projects']" />
         <ng-content />
         <div class="header-buttons" [class.margin-left]="editorView">
+          @if (feedbackLink) {
+          <a
+            class="feedback-link"
+            href=""
+            mat-flat-button
+            i18n="@@headerFeedbackLinkLabel"
+          >
+            Provide Feedback ❤️
+          </a>
+          }
+
           <button
             mat-icon-button
             aria-label="Open darkmode menu"
@@ -117,7 +128,7 @@
           <mat-icon svgIcon="start"></mat-icon>Startpage
         </a>
         <a mat-menu-item routerLink="/guide" i18n="@@headerMenuGuideButton">
-          <mat-icon svgIcon="book"></mat-icon>Guide
+          <mat-icon svgIcon="book"></mat-icon>Didactic Guide
         </a>
         <button
           mat-menu-item

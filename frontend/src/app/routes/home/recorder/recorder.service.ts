@@ -172,8 +172,9 @@ export class RecorderService {
 
     allStreams.forEach((streamToRecord) => {
       const chunks: Blob[] = [];
-
-      const mediaRecorder = new MediaRecorder(streamToRecord.stream);
+      const mediaRecorder = new MediaRecorder(streamToRecord.stream, {
+        mimeType: 'video/webm',
+      });
 
       const recording: Recording = {
         id: streamToRecord.source.id,
@@ -194,6 +195,9 @@ export class RecorderService {
       mediaRecorder.ondataavailable = (e) =>
         this.onDataAvailableMediaRecorder(e, recording);
       mediaRecorder.onstop = (e) => this.onStopMediaRecorder(e, recording);
+      mediaRecorder.onerror = (e) => {
+        console.error('Recording error:', e);
+      };
 
       mediaRecorder.start();
 
@@ -202,17 +206,14 @@ export class RecorderService {
   }
 
   onDataAvailableMediaRecorder(e: BlobEvent, recording: Recording) {
-    console.log('onDataAvailableMediaRecorder');
     if (e.data.size > 0) recording.chunks.push(e.data);
   }
 
   onStopMediaRecorder(e: Event, recording: Recording) {
-    console.log('onStopMediaRecorder');
     recording.complete = true;
 
     // all recordings finished?
     if (!this.recordings.some((rec) => rec.complete === false)) {
-      // this.finishRecording();
       this.recording = false;
     }
     // recording.mediaRecorder.ondataavailable = null;

@@ -171,7 +171,13 @@ export class ProjectListComponent implements OnInit, AfterViewInit, OnDestroy {
     this.tableDataSource.sort = this.sort;
   }
 
-  filterProjects() {
+  onEnterSearch(event: KeyboardEvent) {
+    if (event.key === 'Enter') {
+      this.onFilterProjects();
+    }
+  }
+
+  onFilterProjects() {
     this.store.dispatch(
       projectsActions.updateFilter({
         updateProjectFilter: {

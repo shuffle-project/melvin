@@ -119,9 +119,14 @@ export class VideoPlayerComponent implements OnInit, OnDestroy {
       .select(editorSelectors.eIsPlayingMedia)
       .pipe(
         takeUntil(this.destroy$$),
-        tap((isPlaying) => {
+        tap(async (isPlaying) => {
           if (isPlaying && this.audio.paused) {
-            this.audio.play();
+            try {
+              await this.audio.play();
+            } catch (e) {
+              // This is fine
+              // Play fails because user changed video or resolution
+            }
           } else if (!isPlaying && !this.audio.paused) {
             this.audio.pause();
           }

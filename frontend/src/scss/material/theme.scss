@@ -58,13 +58,10 @@ button.big-icon-mat-button {
   );
 }
 
-mat-chip.recorder-mat-chips {
-  @include mat.chips-overrides(
+a.feedback-link {
+  @include mat.button-overrides(
     (
-      outline-color: var(--color-primary),
-      label-text-color: var(--color-primary),
-      disabled-outline-color: var(--color-dark-grey),
-      disabled-label-text-color: var(--color-dark-grey),
+      filled-container-color: var(--color-black),
     )
   );
 }

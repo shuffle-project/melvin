@@ -10,7 +10,7 @@
       min="0"
       [max]="viewerService.audio.duration"
       discrete
-      [displayWith]="audioProgressLabel"
+      [displayWith]="sliderProgressLabel"
     >
       <input
         #progressInput
@@ -29,7 +29,8 @@
       <button
         mat-icon-button
         class="md"
-        matTooltip="{{ !isPlayingUser ? playTooltip : pauseTooltip }}"
+        matTooltip="{{ !isPlayingUser ? playLocalize : pauseLocalize }}"
+        [attr.aria-label]="!isPlayingUser ? playLocalize : pauseLocalize"
         (click)="onPlayPauseVideo()"
       >
         @if (!isPlayingUser) {
@@ -48,9 +49,10 @@
         <button
           mat-icon-button
           class="md"
-          (click)="onMuteToggle()"
+          (click)="onMuteToggle(sound)"
           (keydown)="onKeydownVolumeBtn($event, sound.volume, sound.muted)"
-          matTooltip="{{ getVolumeTooltip(sound.muted, sound.volume) }}"
+          [matTooltip]="sound.muted ? unmuteLocalize : muteLocalize"
+          [attr.aria-label]="sound.muted ? unmuteLocalize : muteLocalize"
         >
           @if (sound.muted || sound.volume === 0) {
           <mat-icon svgIcon="volume-mute" />
@@ -91,8 +93,10 @@
         [cdkMenuTriggerFor]="languageMenu"
         (cdkMenuOpened)="onMenuOpened()"
         (cdkMenuClosed)="onMenuClosed()"
-        matTooltip="Show language menu"
+        matTooltip="Language menu"
         i18n-matTooltip="@@viewerControlsLanguageMenuTooltip"
+        aria-label="Language menu"
+        i18n-aria-label="@@viewerControlsLanguageMenuAriaLabel"
       >
         <mat-icon svgIcon="subtitles_white"></mat-icon>
       </button>
@@ -105,8 +109,10 @@
           [cdkMenuTriggerFor]="galleryMenu"
           (cdkMenuOpened)="onMenuOpened()"
           (cdkMenuClosed)="onMenuClosed()"
-          matTooltip="Shown video selection"
+          matTooltip="Video selection menu"
           i18n-matTooltip="@@viewerControlsGalleryMenuTooltip"
+          aria-label="Video selection menu"
+          i18n-aria-label="@@viewerControlsGalleryMenuAriaLabel"
         >
           <mat-icon svgIcon="gallery"></mat-icon>
         </button>
@@ -120,33 +126,35 @@
         [cdkMenuTriggerFor]="settingsMenu"
         (cdkMenuOpened)="onMenuOpened()"
         (cdkMenuClosed)="onMenuClosed()"
-        matTooltip="Settings Menu"
+        matTooltip="Settings menu"
         i18n-matTooltip="@@viewerControlsSettingsMenuTooltip"
+        aria-label="Settings menu"
+        i18n-aria-label="@@viewerControlsSettingsMenuAriaLabel"
       >
         <mat-icon svgIcon="setting"></mat-icon>
       </button>
 
-      @if (viewerService.isFullscreenActive()) {
       <button
         mat-icon-button
         class="md fullscreen-button"
         (click)="viewerService.onRequestFullscreen()"
-        matTooltip="Close fullscreen"
-        i18n-matTooltip="@@viewerControlsFullscreenToggleTooltipActive"
+        [matTooltip]="
+          viewerService.isFullscreenActive()
+            ? closeFullscreenLocalize
+            : fullscreenLocalize
+        "
+        [attr.aria-label]="
+          viewerService.isFullscreenActive()
+            ? closeFullscreenLocalize
+            : fullscreenLocalize
+        "
       >
+        @if (viewerService.isFullscreenActive()) {
         <mat-icon svgIcon="fullscreen_close"></mat-icon>
-      </button>
-      }@else {
-      <button
-        mat-icon-button
-        class="md fullscreen-button"
-        (click)="viewerService.onRequestFullscreen()"
-        matTooltip="Open fullscreen"
-        i18n-matTooltip="@@viewerControlsFullscreenToggleTooltipInactive"
-      >
+        }@else {
         <mat-icon svgIcon="fullscreen"></mat-icon>
+        }
       </button>
-      }
     </div>
   </div>
 </div>

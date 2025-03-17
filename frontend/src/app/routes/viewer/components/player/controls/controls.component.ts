@@ -12,7 +12,8 @@ import { MatSliderModule } from '@angular/material/slider';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { LetDirective, PushPipe } from '@ngrx/component';
 import { Store } from '@ngrx/store';
-import { combineLatest, map, Subject, takeUntil } from 'rxjs';
+import dayjs from 'dayjs';
+import { combineLatest, map, Subject, take, takeUntil } from 'rxjs';
 import { MediaCategoryPipe } from 'src/app/pipes/media-category-pipe/media-category.pipe';
 import { WrittenOutLanguagePipe } from 'src/app/pipes/written-out-language-pipe/written-out-language.pipe';
 import {
@@ -66,10 +67,10 @@ export class ControlsComponent implements OnInit, OnDestroy {
     map((time) => {
       return {
         progress: time,
-        time: this.durationPipe.transform(time * 1000, 'mm:ss'),
+        time: this.durationPipe.transform(time * 1000, this.durationFormat),
         duration: this.durationPipe.transform(
           (this.viewerService.audio?.duration || 0) * 1000,
-          'mm:ss'
+          this.durationFormat
         ),
       };
     })
@@ -102,7 +103,15 @@ export class ControlsComponent implements OnInit, OnDestroy {
 
   public project$ = this.store.select(viewerSelector.vProject);
 
+  durationFormat = 'mm:ss';
+
   locale = $localize.locale;
+  playLocalize = $localize`:@@viewerControlsPlayLabel:Play`;
+  pauseLocalize = $localize`:@@viewerControlsPauseLabel:Pause`;
+  muteLocalize = $localize`:@@viewerControlsMuteLabel:Mute`;
+  unmuteLocalize = $localize`:@@viewerControlsUnmuteLabel:Unmute`;
+  fullscreenLocalize = $localize`:@@viewerControlsFullscreenLabel:Fullscreen`;
+  closeFullscreenLocalize = $localize`:@@viewerControlsCloseFullscreenLabel:Close fullscreen`;
 
   sortedResolutions: ResolutionValue[] = [];
   currentMaxResolution!: ResolutionValue;
@@ -114,9 +123,19 @@ export class ControlsComponent implements OnInit, OnDestroy {
     private dialog: MatDialog,
     public overlayService: OverlayService,
     private durationPipe: DurationPipe
-  ) {}
+  ) {
+    // Bind the context of sliderProgressLabel to ensure 'this' is correct
+    this.sliderProgressLabel = this.sliderProgressLabel.bind(this);
+  }
 
   ngOnInit(): void {
+    this.project$
+      .pipe(take(1), takeUntil(this.destroy$$))
+      .subscribe((project) => {
+        this.durationFormat =
+          project?.duration! >= 3600000 ? 'HH:mm:ss' : 'mm:ss';
+      });
+
     const resolutionOptions = new Set<ResolutionValue>();
 
     this.media.videos.forEach((video) => {
@@ -153,10 +172,8 @@ export class ControlsComponent implements OnInit, OnDestroy {
     return Math.round(value * 100) + '%';
   }
 
-  audioProgressLabel(value: number): string {
-    const pipe = new DurationPipe();
-    const transform = pipe.transform(value * 1000);
-    return transform;
+  sliderProgressLabel(value: number): string {
+    return dayjs.duration(value * 1000).format(this.durationFormat);
   }
 
   onSwitchLanguage(newLocale: string) {
@@ -164,19 +181,6 @@ export class ControlsComponent implements OnInit, OnDestroy {
       const newHref = document.location.href.replace(this.locale, newLocale);
       document.location.href = newHref;
     }
-  }
-
-  get playTooltip() {
-    return $localize`:@@viewerControlsPlayTooltip:Play`;
-  }
-  get pauseTooltip() {
-    return $localize`:@@viewerControlsPauseTooltip:Pause`;
-  }
-
-  getVolumeTooltip(muted: boolean, volume: number) {
-    return `Volume ${Math.floor(volume * 100)}%, ${
-      muted ? 'muted' : 'unmuted'
-    }`;
   }
 
   onPlayPauseVideo() {
@@ -310,15 +314,28 @@ export class ControlsComponent implements OnInit, OnDestroy {
     if (muted) {
       this.store.dispatch(viewerActions.toggleMute());
     }
+
     this.store.dispatch(
       viewerActions.changeVolume({
         newVolume: volumeChange,
       })
     );
+
+    if (volumeChange === 0) {
+      this.store.dispatch(viewerActions.toggleMute());
+    }
   }
 
-  onMuteToggle() {
+  onMuteToggle(sound: { volume: number; muted: boolean }) {
     this.store.dispatch(viewerActions.toggleMute());
+
+    if (sound.volume === 0) {
+      this.store.dispatch(
+        viewerActions.changeVolume({
+          newVolume: 0.5,
+        })
+      );
+    }
   }
 
   mouseOverSound = false;

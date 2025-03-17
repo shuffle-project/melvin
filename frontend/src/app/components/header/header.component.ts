@@ -20,6 +20,7 @@ import { MatDivider } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { LetDirective, PushPipe } from '@ngrx/component';
+import { environment } from 'src/environments/environment';
 import * as configActions from '../../store/actions/config.actions';
 import { ColorTheme } from '../../store/reducers/config.reducer';
 import { LogoComponent } from '../logo/logo.component';
@@ -55,6 +56,8 @@ import { LogoComponent } from '../logo/logo.component';
 export class HeaderComponent implements OnDestroy, OnInit {
   @Input() editorView: boolean = false;
   public colorThemeENUM = ColorTheme;
+
+  feedbackLink = environment.features.feedbackLink;
 
   isLoggedIn$: Observable<boolean>;
   isMenuOpen: boolean = false;

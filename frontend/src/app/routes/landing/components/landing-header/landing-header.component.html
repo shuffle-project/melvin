@@ -8,7 +8,7 @@
           @if ('guide' | featureEnabled) {
           <li>
             <a routerLink="/guide" i18n="@@landingHeaderGuideLinkLabel">
-              Guide
+              Didactic Guide
             </a>
           </li>
           } @if ('tutorial' | featureEnabled) {
@@ -29,6 +29,17 @@
           }
         </div>
         <div class="right-side-wrapper">
+          @if (feedbackLink) {
+          <a
+            class="feedback-link"
+            href=""
+            mat-flat-button
+            i18n="@@landingHeaderFeedbackLinkLabel"
+          >
+            Provide Feedback ❤️
+          </a>
+          }
+
           <button
             mat-icon-button
             aria-label="Open darkmode menu"

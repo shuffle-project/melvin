@@ -1,23 +1,27 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { NonNullableFormBuilder } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
 import {
   MatCheckboxChange,
   MatCheckboxModule,
 } from '@angular/material/checkbox';
+import { MatDialog } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import {
   MatSlideToggleChange,
   MatSlideToggleModule,
 } from '@angular/material/slide-toggle';
-import { LetDirective, PushPipe } from '@ngrx/component';
+import { LetDirective } from '@ngrx/component';
 import { Store } from '@ngrx/store';
 import { Subject } from 'rxjs';
 import { FeatureEnabledPipe } from '../../../../../pipes/feature-enabled-pipe/feature-enabled.pipe';
 import * as editorActions from '../../../../../store/actions/editor.actions';
 import { AppState } from '../../../../../store/app.state';
 import * as editorSelectors from '../../../../../store/selectors/editor.selector';
+import { DialogSpellcheckInfoComponent } from '../dialog-spellcheck-info/dialog-spellcheck-info/dialog-spellcheck-info.component';
 
 @Component({
   selector: 'app-editor-settings',
@@ -25,7 +29,8 @@ import * as editorSelectors from '../../../../../store/selectors/editor.selector
   styleUrls: ['./editor-settings.component.scss'],
   imports: [
     MatSlideToggleModule,
-    PushPipe,
+    MatIconModule,
+    MatButtonModule,
     FeatureEnabledPipe,
     MatSelectModule,
     MatFormFieldModule,
@@ -50,13 +55,18 @@ export class EditorSettingsComponent implements OnInit, OnDestroy {
 
   constructor(
     private store: Store<AppState>,
-    private fb: NonNullableFormBuilder
+    private fb: NonNullableFormBuilder,
+    private dialog: MatDialog
   ) {}
 
   ngOnInit(): void {}
 
   ngOnDestroy(): void {
     this.destroy$$.next();
+  }
+
+  onOpenDialogSpellcheckInfo() {
+    this.dialog.open(DialogSpellcheckInfoComponent);
   }
 
   onToggleUsernames() {
