@@ -69,6 +69,7 @@ export class WSService {
     this.logger.verbose('disconnect()');
     this.disconnected$.next();
     this.socket.complete();
+    this.createSocket();
   }
 
   emit<Ev extends EventNames<ClientToServerEvents>>(
