@@ -107,6 +107,9 @@ export class PlayerComponent implements OnDestroy, AfterViewInit, OnInit {
   );
 
   public captions$ = this.store.select(viewerSelector.vCaptions);
+  public currentCaptionText$ = this.viewerService.currentCaption$.pipe(
+    map((caption) => caption?.text.replace('\n', '<br>') || '-')
+  );
 
   // captions in video
   combinedCaptionsStyling$ = combineLatest([

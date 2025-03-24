@@ -30,6 +30,14 @@ export interface TiptapDocument {
   content: Array<TiptapParagraph>;
 }
 
+export interface TiptapCaptionLine {
+  text: string;
+  start: number;
+  end: number;
+  speakerId: string;
+  startNewCaption: boolean;
+  startNewParagraph: boolean;
+}
 export interface TiptapCaption {
   id: string;
   text: string;

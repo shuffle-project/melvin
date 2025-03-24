@@ -10,8 +10,8 @@ export interface ISpeechToTextService {
 
 export class WordEntity {
   text: string;
-  start: number;
-  end: number;
+  start: number; // in milliseconds
+  end: number; // in milliseconds
   startParagraph: boolean;
   speakerId: string | null;
   confidence?: number;
