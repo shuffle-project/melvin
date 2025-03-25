@@ -19,7 +19,7 @@ Melvin can easily be deployed with a docker.
 
 Minimum system requirements to run Melvin and ASR processing.
 
-- Storage: X MB/hour for a video containing a screen recording and a speaker video.
+- Storage: 1 GB/hour per video
 - RAM: 16GB
 - GPU: We recommend a GPU with 16GB VRAM. CPU can be used for ASR, but is significantly slower. See our [ASR service](https://github.com/shuffle-project/melvin-asr) for more information.
 - CPU: Melvin uses ffmpeg to convert videos. Having multiple CPU cores available increases processing speed, particularly for long videos with high resolution.
