@@ -121,7 +121,7 @@ export class LivekitService {
     });
 
     try {
-      await worker.run();
+      // await worker.run();
     } catch {
       console.log('worker failed');
       process.exit(1);
