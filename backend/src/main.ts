@@ -3,6 +3,7 @@ import { ConfigService } from '@nestjs/config';
 import { NestFactory } from '@nestjs/core';
 import { WsAdapter } from '@nestjs/platform-ws';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import express from 'express';
 import helmet from 'helmet';
 import { AppModule } from './app.module';
 import { CustomLogger } from './modules/logger/logger.service';
@@ -14,9 +15,11 @@ async function bootstrap() {
   // App definition
   const app = await NestFactory.create(AppModule, {
     bufferLogs: true,
-    bodyParser: true,
     cors: true,
   });
+
+  app.use(express.json({ limit: '10GB' }));
+  app.use(express.urlencoded({ limit: '10GB' }));
 
   const configService = app.get(ConfigService);
 
