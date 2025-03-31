@@ -44,7 +44,6 @@ import { AuthService } from '../auth/auth.service';
 import { EventsGateway } from '../events/events.gateway';
 import { TranscriptionService } from '../transcription/transcription.service';
 import { UserRole } from '../user/user.interfaces';
-import { CreateLegacyProjectDto } from './dto/create-legacy-project.dto';
 import { CreateProjectDto } from './dto/create-project.dto';
 import { FindAllProjectsQuery } from './dto/find-all-projects.dto';
 import { InviteDto } from './dto/invite.dto';
@@ -87,13 +86,13 @@ export class ProjectService {
   async create(
     authUser: AuthUser,
     createProjectDto: CreateProjectDto,
-    videoFiles: Array<Express.Multer.File> | null = null,
-    subtitleFiles: Array<Express.Multer.File> | null = null,
+    // videoFiles: Array<Express.Multer.File> | null = null,
+    // subtitleFiles: Array<Express.Multer.File> | null = null,
   ) {
     const status = ProjectStatus.WAITING;
 
-    const videos = [];
-    const subtitles = [];
+    const videosMetadata: MediaFileMetadata[] = [];
+    const stubtitlesMetadata: MediaFileMetadata[] = [];
 
     createProjectDto.videoOptions.forEach(async (video) => {
       console.log(video);
@@ -102,7 +101,7 @@ export class ProjectService {
       );
 
       // TODO check if upload completed
-      videos.push(metadataObject);
+      videosMetadata.push(metadataObject);
     });
 
     createProjectDto.subtitleOptions.forEach(async (subtitle) => {
@@ -110,7 +109,7 @@ export class ProjectService {
         subtitle.uploadId,
       );
       // TODO check if upload completed
-      subtitles.push(metadataObject);
+      stubtitlesMetadata.push(metadataObject);
     });
 
     if (
@@ -178,8 +177,8 @@ export class ProjectService {
     await this._handleFilesAndTranscriptions(
       authUser,
       populatedProject,
-      videos,
-      subtitles,
+      videosMetadata,
+      stubtitlesMetadata,
       createProjectDto,
       mainVideo,
       mainAudio,
@@ -232,17 +231,17 @@ export class ProjectService {
   async _handleFilesAndTranscriptions(
     authUser: AuthUser,
     project: Project,
-    videoFiles: MediaFileMetadata[],
-    subtitleFiles: MediaFileMetadata[],
+    videosMetadata: MediaFileMetadata[],
+    subtitlesMetadata: MediaFileMetadata[],
     createProjectDto: CreateProjectDto,
     mainVideo: Video,
     mainAudio: Audio,
   ) {
     const subsequentJobs: ProcessSubtitlesJob[] = [];
-    if (subtitleFiles) {
+    if (subtitlesMetadata) {
       // use files to generate subtitles
       await Promise.all(
-        subtitleFiles.map((file, i) => {
+        subtitlesMetadata.map((file, i) => {
           const language = createProjectDto.subtitleOptions[i].language;
 
           this.transcriptionService.create(authUser, {
@@ -279,7 +278,7 @@ export class ProjectService {
       (v) => v.category === MediaCategory.MAIN,
     );
 
-    const mainMediaFile = videoFiles[mainVideoIndex];
+    const mainMediaFile = videosMetadata[mainVideoIndex];
 
     await this.projectQueue.add({
       project: project,
@@ -292,7 +291,7 @@ export class ProjectService {
     });
 
     if (createProjectDto.videoOptions.length > 1) {
-      videoFiles.forEach((file, i) => {
+      videosMetadata.forEach((file, i) => {
         if (i !== mainVideoIndex) {
           const mediaCategoryKey = Object.entries(MediaCategory).find(
             ([key, value]) => {
@@ -439,82 +438,82 @@ export class ProjectService {
   //   return entity;
   // }
 
-  async _legacyHandleFilesAndTranscriptions(
-    authUser: AuthUser,
-    project: Project,
-    videoFiles: MediaFileMetadata[],
-    subtitleFiles: MediaFileMetadata[],
-    createProjectDto: CreateLegacyProjectDto,
-    mainVideo: Video,
-    mainAudio: Audio,
-  ) {
-    //either add jobs to queue or add to subsequent jobs to run after video processing
-    const subsequentJobs: ProcessSubtitlesJob[] = [];
-    if (subtitleFiles) {
-      // use files to generate subtitles
-      await Promise.all(
-        subtitleFiles.map((file) => {
-          this.transcriptionService.create(authUser, {
-            project: new Types.ObjectId(project._id),
-            language: project.language,
-            title: `${project.title} - ${project.language}`,
-            uploadId: file.uploadId,
-          });
-        }),
-      );
-    } else if (createProjectDto.asrVendor) {
-      const createdTranscription = await this.transcriptionService.create(
-        authUser,
-        {
-          project: new Types.ObjectId(project._id),
-          language: project.language,
-          title: `${project.title} - ${project.language}`,
-        },
-      );
+  // async _legacyHandleFilesAndTranscriptions(
+  //   authUser: AuthUser,
+  //   project: Project,
+  //   videoFiles: MediaFileMetadata[],
+  //   subtitleFiles: MediaFileMetadata[],
+  //   createProjectDto: CreateLegacyProjectDto,
+  //   mainVideo: Video,
+  //   mainAudio: Audio,
+  // ) {
+  //   //either add jobs to queue or add to subsequent jobs to run after video processing
+  //   const subsequentJobs: ProcessSubtitlesJob[] = [];
+  //   if (subtitleFiles) {
+  //     // use files to generate subtitles
+  //     await Promise.all(
+  //       subtitleFiles.map((file) => {
+  //         this.transcriptionService.create(authUser, {
+  //           project: new Types.ObjectId(project._id),
+  //           language: project.language,
+  //           title: `${project.title} - ${project.language}`,
+  //           uploadId: file.uploadId,
+  //         });
+  //       }),
+  //     );
+  //   } else if (createProjectDto.asrVendor) {
+  //     const createdTranscription = await this.transcriptionService.create(
+  //       authUser,
+  //       {
+  //         project: new Types.ObjectId(project._id),
+  //         language: project.language,
+  //         title: `${project.title} - ${project.language}`,
+  //       },
+  //     );
 
-      // generate subtitles
-      subsequentJobs.push({
-        project: project,
-        transcription: createdTranscription,
-        payload: {
-          type: SubtitlesType.FROM_ASR,
-          vendor: createProjectDto.asrVendor,
-          audio: mainAudio,
-        },
-      });
-    } else {
-      //  create empty transcription
-      const emptyTranscription = await this.transcriptionService.create(
-        authUser,
-        {
-          project: new Types.ObjectId(project._id),
-          language: project.language,
-          title: `${project.title} - ${project.language}`,
-        },
-      );
-      await this.transcriptionService.createSpeakers(
-        authUser,
-        emptyTranscription._id.toString(),
-        {
-          names: ['Sprecher 1'],
-        },
-      );
-    }
+  //     // generate subtitles
+  //     subsequentJobs.push({
+  //       project: project,
+  //       transcription: createdTranscription,
+  //       payload: {
+  //         type: SubtitlesType.FROM_ASR,
+  //         vendor: createProjectDto.asrVendor,
+  //         audio: mainAudio,
+  //       },
+  //     });
+  //   } else {
+  //     //  create empty transcription
+  //     const emptyTranscription = await this.transcriptionService.create(
+  //       authUser,
+  //       {
+  //         project: new Types.ObjectId(project._id),
+  //         language: project.language,
+  //         title: `${project.title} - ${project.language}`,
+  //       },
+  //     );
+  //     await this.transcriptionService.createSpeakers(
+  //       authUser,
+  //       emptyTranscription._id.toString(),
+  //       {
+  //         names: ['Sprecher 1'],
+  //       },
+  //     );
+  //   }
 
-    // media file
-    if (videoFiles) {
-      const mediaFile = videoFiles[0];
-      await this.projectQueue.add({
-        project: project,
-        authUser,
-        file: mediaFile,
-        subsequentJobs,
-        mainVideo: mainVideo,
-        mainAudio: mainAudio,
-        recorder: true,
-      });
-    }
-  }
+  //   // media file
+  //   if (videoFiles) {
+  //     const mediaFile = videoFiles[0];
+  //     await this.projectQueue.add({
+  //       project: project,
+  //       authUser,
+  //       file: mediaFile,
+  //       subsequentJobs,
+  //       mainVideo: mainVideo,
+  //       mainAudio: mainAudio,
+  //       recorder: true,
+  //     });
+  //   }
+  // }
 
   async findAll(
     authUser: AuthUser,

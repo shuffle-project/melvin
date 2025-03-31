@@ -36,6 +36,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { LetDirective, PushPipe } from '@ngrx/component';
+import { UploadProgress } from 'src/app/services/upload/upload.interfaces';
 import { UploadService } from 'src/app/services/upload/upload.service';
 import * as uuid from 'uuid';
 import { FormatDatePipe } from '../../../../pipes/format-date-pipe/format-date.pipe';
@@ -154,7 +155,14 @@ export class UploadAdditionalContentComponent implements OnInit {
     } else {
       const id = uuid.v4();
 
-      const uploaded = await this.uploadService.upload(this.selectedFile);
+      const uploadProgress = new Subject<UploadProgress>();
+      uploadProgress.subscribe((progress) => {
+        console.log({ ...progress });
+      });
+      const uploaded = await this.uploadService.upload(
+        this.selectedFile,
+        uploadProgress
+      );
       console.log(uploaded);
 
       // this.fileUploads.push({

@@ -12,7 +12,6 @@ import {
   Req,
   Res,
   UploadedFile,
-  UploadedFiles,
   UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
@@ -35,7 +34,6 @@ import { ProjectListEntity } from './entities/project-list.entity';
 import { ProjectViewerTokenEntity } from './entities/project-viewer.entity';
 import { ProjectEntity, ProjectMediaEntity } from './entities/project.entity';
 import { MediaFileInterceptor } from './interceptors/media-file.interceptor';
-import { MultiFileInterceptor } from './interceptors/multi-file.interceptor';
 import { ProjectService } from './project.service';
 
 @UseInterceptors(ClassSerializerInterceptor)
@@ -55,24 +53,24 @@ export class ProjectController {
 
   @UseGuards(JwtAuthGuard)
   @Post()
-  @ApiConsumes('application/json', 'multipart/form-data')
-  @UseInterceptors(MultiFileInterceptor)
+  @ApiConsumes('application/json') //, 'multipart/form-data'
+  // @UseInterceptors(MultiFileInterceptor)
   @ApiResponse({ status: HttpStatus.CREATED, type: ProjectEntity })
   async create(
     @User() authUser: AuthUser,
     @Body()
     createProjectDto: CreateProjectDto,
-    @UploadedFiles() //TODO swagger
-    files?: {
-      videos: Array<Express.Multer.File>;
-      subtitles: Array<Express.Multer.File>;
-    },
+    // @UploadedFiles() //TODO swagger
+    // files?: {
+    //   videos: Array<Express.Multer.File>;
+    //   subtitles: Array<Express.Multer.File>;
+    // },
   ) {
     return await this.projectService.create(
       authUser,
       createProjectDto,
-      files?.videos ? files.videos : null,
-      files?.subtitles ? files.subtitles : null,
+      // files?.videos ? files.videos : null,
+      // files?.subtitles ? files.subtitles : null,
     );
   }
 

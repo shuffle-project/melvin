@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
-import { lastValueFrom, retry, timer } from 'rxjs';
+import { lastValueFrom, retry, Subject, timer } from 'rxjs';
 import { ApiService } from '../api/api.service';
+import { CreateMediaEntity } from '../api/entities/upload-file.entity';
+import { UploadProgress } from './upload.interfaces';
 
 @Injectable({
   providedIn: 'root',
@@ -10,10 +12,29 @@ export class UploadService {
 
   constructor(private api: ApiService) {}
 
-  async upload(file: File) {
-    const createMediaEntity = await lastValueFrom(
-      this.api.createMediaFile(file.name, file.size)
-    );
+  async upload(file: File, progress: Subject<UploadProgress>) {
+    const progressData: UploadProgress = {
+      status: 'uploading',
+      progress: 0,
+      bytesSent: 0,
+      bytesTotal: file.size,
+      starttime: Date.now(),
+      eta: 0,
+    };
+    progress.next(progressData);
+    let createMediaEntity: CreateMediaEntity;
+    try {
+      createMediaEntity = await lastValueFrom(
+        this.api.createMediaFile(file.name, file.size)
+      );
+    } catch (error) {
+      progress.next({
+        ...progressData,
+        status: 'failed',
+        error: 'failed to create upload', // TODO
+      });
+      throw error;
+    }
     console.log(file);
     console.log(createMediaEntity);
 
@@ -28,23 +49,54 @@ export class UploadService {
 
       // TODO retry backoff
       // if failes -> retry -> fail again -> retry after 5 seconods
-      await lastValueFrom(
-        this.api.updateMediaFile(createMediaEntity.id, chunk).pipe(
-          retry({
-            count: 5,
-            delay: (error, count) => {
-              console.log(error);
-              console.log('timer', Math.min(60000, Math.pow(2, count) * 1000));
-              return timer(Math.min(60000, Math.pow(2, count) * 1000));
-            },
-          })
-        )
-      );
+      try {
+        await lastValueFrom(
+          this.api.updateMediaFile(createMediaEntity.id, chunk).pipe(
+            retry({
+              count: 5,
+              delay: (error, count) => {
+                console.log(error);
+                console.log(
+                  'timer',
+                  Math.min(60000, Math.pow(2, count) * 1000)
+                );
+                return timer(Math.min(60000, Math.pow(2, count) * 1000));
+              },
+            })
+          )
+        );
+
+        progressData.bytesSent += chunk.size;
+        progressData.progress = progressData.bytesSent / file.size;
+
+        const timeElapsedInSeconds =
+          (Date.now() - progressData.starttime) / 1000;
+        const uploadSpeedInSeconds =
+          progressData.bytesSent / timeElapsedInSeconds;
+
+        progressData.eta =
+          (progressData.bytesTotal - progressData.bytesSent) /
+          uploadSpeedInSeconds;
+
+        progress.next(progressData);
+      } catch (error) {
+        progress.next({
+          ...progressData,
+          status: 'failed',
+          error: 'failed to upload', // TODO
+        });
+        throw error;
+      }
 
       from = to;
       to = Math.min(to + chunksize, file.size);
     }
 
+    progress.next({
+      ...progressData,
+      status: 'completed',
+      eta: 0,
+    });
     return { id: createMediaEntity.id };
   }
 
