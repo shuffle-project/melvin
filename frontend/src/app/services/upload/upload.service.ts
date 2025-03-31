@@ -15,7 +15,7 @@ export class UploadService {
   async upload(file: File, progress: Subject<UploadProgress>) {
     const progressData: UploadProgress = {
       status: 'uploading',
-      progress: 0,
+      value: 0,
       bytesSent: 0,
       bytesTotal: file.size,
       starttime: Date.now(),
@@ -25,7 +25,11 @@ export class UploadService {
     let createMediaEntity: CreateMediaEntity;
     try {
       createMediaEntity = await lastValueFrom(
-        this.api.createMediaFile(file.name, file.size)
+        this.api.createMediaFile({
+          filename: file.name,
+          filesize: file.size,
+          mimetype: file.type,
+        })
       );
     } catch (error) {
       progress.next({
@@ -67,7 +71,7 @@ export class UploadService {
         );
 
         progressData.bytesSent += chunk.size;
-        progressData.progress = progressData.bytesSent / file.size;
+        progressData.value = progressData.bytesSent / file.size;
 
         const timeElapsedInSeconds =
           (Date.now() - progressData.starttime) / 1000;

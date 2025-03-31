@@ -10,6 +10,7 @@ import {
   CAPTIONS_ENTITY_MOCK,
   TRANSCIRPTIONS_ENITITY_MOCK,
 } from '../../constants/mocks/captions.mock';
+import { CreateMediaFileDto } from '../upload/upload.interfaces';
 import { ApiService } from './api.service';
 import { ChangePasswordDto } from './dto/auth.dto';
 import { BulkRemoveDto } from './dto/bulk-remove.dto';
@@ -185,8 +186,7 @@ export class FakeApiService implements ApiService {
 
   uploadVideo(
     projectId: string,
-    uploadVideoDto: UploadVideoDto,
-    file: File
+    uploadVideoDto: UploadVideoDto
   ): Observable<any> {
     return of({ ...PROJECT_ENTITY_MOCK[0] });
   }
@@ -520,7 +520,7 @@ export class FakeApiService implements ApiService {
 
   // upload service
 
-  createMediaFile(filename: string, filesize: number) {
+  createMediaFile(createMediaFileDto: CreateMediaFileDto) {
     this.logger.verbose('createMediaFile mocked');
     return of();
   }

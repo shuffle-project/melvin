@@ -12,6 +12,7 @@ import { UserEntity } from 'src/app/services/api/entities/user.entity';
 import { environment } from 'src/environments/environment';
 import * as authSelectors from '../../store/selectors/auth.selector';
 import * as viewerSelector from '../../store/selectors/viewer.selector';
+import { CreateMediaFileDto } from '../upload/upload.interfaces';
 import { ApiService } from './api.service';
 import { ChangePasswordDto } from './dto/auth.dto';
 import { BulkRemoveDto } from './dto/bulk-remove.dto';
@@ -331,22 +332,12 @@ export class RealApiService implements ApiService {
 
   uploadVideo(
     projectId: string,
-    uploadVideoDto: UploadVideoDto,
-    file: File
-  ): Observable<HttpEvent<ProjectEntity>> {
-    const formData = new FormData();
-    formData.append('title', uploadVideoDto.title);
-    formData.append('category', uploadVideoDto.category);
-    formData.append('file', file);
-
-    return this._post<HttpEvent<ProjectEntity>>(
-      `/projects/${projectId}/media/upload`,
-      formData,
-      {
-        reportProgress: true,
-        observe: 'events' as any,
-      }
-    );
+    uploadVideoDto: UploadVideoDto
+  ): Observable<ProjectEntity> {
+    console.log(uploadVideoDto);
+    return this._post<ProjectEntity>(`/projects/${projectId}/media/upload`, {
+      ...uploadVideoDto,
+    });
   }
 
   findAllProjects(): Observable<ProjectListEntity> {
@@ -714,8 +705,8 @@ export class RealApiService implements ApiService {
 
   // upload service
 
-  createMediaFile(filename: string, filesize: number) {
-    return this._post<CreateMediaEntity>('/media', { filename, filesize });
+  createMediaFile(createMediaFileDto: CreateMediaFileDto) {
+    return this._post<CreateMediaEntity>('/media', { ...createMediaFileDto });
   }
   updateMediaFile(id: string, filePart: Blob) {
     console.log('upadeMediaFile called', id);

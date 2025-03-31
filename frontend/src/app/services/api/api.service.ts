@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { UserEntity } from 'src/app/services/api/entities/user.entity';
 import { environment } from '../../../environments/environment';
+import { CreateMediaFileDto } from '../upload/upload.interfaces';
 import { ChangePasswordDto } from './dto/auth.dto';
 import { BulkRemoveDto } from './dto/bulk-remove.dto';
 import { ConnectLivestreamDto } from './dto/connect-livestream.dto';
@@ -150,9 +151,8 @@ export abstract class ApiService {
 
   abstract uploadVideo(
     projectId: string,
-    uploadVideoDto: UploadVideoDto,
-    file: File
-  ): Observable<HttpEvent<ProjectEntity>>;
+    uploadVideoDto: UploadVideoDto
+  ): Observable<ProjectEntity>;
 
   abstract invite(projectId: string, emails: string[]): Observable<void>;
   abstract removeUserFromProject(
@@ -349,8 +349,7 @@ export abstract class ApiService {
 
   // upload service
   abstract createMediaFile(
-    filename: string,
-    filesize: number
+    createMediaFileDto: CreateMediaFileDto
   ): Observable<CreateMediaEntity>;
   abstract updateMediaFile(id: string, filePart: Blob): Observable<any>;
 }

@@ -1,9 +1,4 @@
-import {
-  HttpClient,
-  HttpErrorResponse,
-  HttpEvent,
-  HttpEventType,
-} from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Component, Input, OnInit } from '@angular/core';
 import {
   FormControl,
@@ -13,7 +8,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { Subject, Subscription, combineLatest, map, takeUntil } from 'rxjs';
+import { Subject, combineLatest, lastValueFrom, map, takeUntil } from 'rxjs';
 import { ApiService } from '../../../../services/api/api.service';
 import {
   MediaCategory,
@@ -36,6 +31,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { LetDirective, PushPipe } from '@ngrx/component';
+import { UploadProgressComponent } from 'src/app/components/upload-progress/upload-progress.component';
 import { UploadProgress } from 'src/app/services/upload/upload.interfaces';
 import { UploadService } from 'src/app/services/upload/upload.service';
 import * as uuid from 'uuid';
@@ -46,11 +42,15 @@ import { selectUserId } from '../../../../store/selectors/auth.selector';
 import * as editorSelector from '../../../../store/selectors/editor.selector';
 
 interface FileUpload {
+  // id: string;
+  // name: string;
+  // sub: Subscription;
+  // loaded?: number;
+  // totalSize?: number;
+
   id: string;
   name: string;
-  sub: Subscription;
-  loaded?: number;
-  totalSize?: number;
+  progress$: Subject<UploadProgress>;
 }
 
 @Component({
@@ -74,6 +74,7 @@ interface FileUpload {
     MatTableModule,
     MatMenuModule,
     MatDividerModule,
+    UploadProgressComponent,
   ],
 })
 export class UploadAdditionalContentComponent implements OnInit {
@@ -156,14 +157,23 @@ export class UploadAdditionalContentComponent implements OnInit {
       const id = uuid.v4();
 
       const uploadProgress = new Subject<UploadProgress>();
+      this.fileUploads.push({ id, name: 'test', progress$: uploadProgress });
       uploadProgress.subscribe((progress) => {
         console.log({ ...progress });
       });
-      const uploaded = await this.uploadService.upload(
+      const finishedUpload = await this.uploadService.upload(
         this.selectedFile,
         uploadProgress
       );
-      console.log(uploaded);
+      console.log(finishedUpload);
+
+      const uploadVideoDto = {
+        title: '',
+        category: this.formGroup.value.category!,
+        recorder: false,
+        uploadId: finishedUpload.id,
+      };
+      await lastValueFrom(this.api.uploadVideo(this.projectId, uploadVideoDto));
 
       // this.fileUploads.push({
       //   id,
@@ -193,49 +203,48 @@ export class UploadAdditionalContentComponent implements OnInit {
   }
 
   onCancelUpload(fileUpload: FileUpload) {
-    fileUpload.sub.unsubscribe();
-
-    this.fileUploads.splice(
-      this.fileUploads.findIndex((element) => element.id === fileUpload.id),
-      1
-    );
-
+    // fileUpload.sub.unsubscribe();
+    // TODO
+    // this.fileUploads.splice(
+    //   this.fileUploads.findIndex((element) => element.id === fileUpload.id),
+    //   1
+    // );
     // this.uploadSubscriptions.indexOf(element => element.)
   }
 
-  private _handleHttpEvent(id: string, event: HttpEvent<ProjectEntity>): void {
-    const fileUpload = this.fileUploads.find((element) => element.id === id);
+  // private _handleHttpEvent(id: string, event: HttpEvent<ProjectEntity>): void {
+  //   const fileUpload = this.fileUploads.find((element) => element.id === id);
 
-    switch (event.type) {
-      case HttpEventType.UploadProgress:
-        if (fileUpload) {
-          fileUpload.loaded = event.loaded;
-        }
-        // this.fileUploadProgress = (event.loaded / this.totalFileSize) * 100;
-        break;
-      case HttpEventType.Response:
-        // TODO maybe call store method?? -> user will get the ws eveent anyways
-        this.fileUploads.splice(
-          this.fileUploads.findIndex((element) => element.id === id),
-          1
-        );
+  //   switch (event.type) {
+  //     case HttpEventType.UploadProgress:
+  //       if (fileUpload) {
+  //         fileUpload.loaded = event.loaded;
+  //       }
+  //       // this.fileUploadProgress = (event.loaded / this.totalFileSize) * 100;
+  //       break;
+  //     case HttpEventType.Response:
+  //       // TODO maybe call store method?? -> user will get the ws eveent anyways
+  //       this.fileUploads.splice(
+  //         this.fileUploads.findIndex((element) => element.id === id),
+  //         1
+  //       );
 
-        this.store.dispatch(
-          editorActions.findProjectMedia({ projectId: this.projectId })
-        );
+  //       this.store.dispatch(
+  //         editorActions.findProjectMedia({ projectId: this.projectId })
+  //       );
 
-        break;
-      default:
-        break;
-    }
-  }
+  //       break;
+  //     default:
+  //       break;
+  //   }
+  // }
 
-  private _handleHttpError(id: string, error: HttpErrorResponse): void {
-    this.fileUploads.splice(
-      this.fileUploads.findIndex((element) => element.id === id),
-      1
-    );
-  }
+  // private _handleHttpError(id: string, error: HttpErrorResponse): void {
+  //   this.fileUploads.splice(
+  //     this.fileUploads.findIndex((element) => element.id === id),
+  //     1
+  //   );
+  // }
 
   async onDeleteAdditionalMedia(
     project: ProjectEntity,

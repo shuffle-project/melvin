@@ -985,6 +985,7 @@ export class ProjectService {
     projectId: string,
     uploadVideoDto: UploadVideoDto,
   ): Promise<ProjectEntity> {
+    console.log(uploadVideoDto);
     const project = await this.db.findProjectByIdOrThrow(projectId);
 
     const file = await this.mediaService.getMetadata(uploadVideoDto.uploadId);

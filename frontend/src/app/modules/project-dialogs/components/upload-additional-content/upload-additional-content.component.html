@@ -73,17 +73,21 @@
     <ul class="upload-list">
       @for (fileUpload of fileUploads; track fileUpload) {
       <li>
-        {{ fileUpload.name }}
+        <!-- {{ fileUpload.name }}
         @if (fileUpload.loaded && fileUpload.totalSize) {
         <mat-progress-bar
           mode="determinate"
           [value]="(fileUpload.loaded / fileUpload.totalSize) * 100"
         ></mat-progress-bar>
         }
-        <!-- {{ (fileUpload.loaded / fileUpload.totalSize) * 100 }}% -->
         <button mat-icon-button (click)="onCancelUpload(fileUpload)">
           <mat-icon svgIcon="close"></mat-icon>
-        </button>
+        </button> -->
+        <app-upload-progress
+          [progress$]="fileUpload.progress$"
+          [title]="fileUpload.name"
+          [fileIcon]="'video'"
+        ></app-upload-progress>
       </li>
       }
     </ul>

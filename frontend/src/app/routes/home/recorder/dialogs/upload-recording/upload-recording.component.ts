@@ -27,7 +27,6 @@ import { Subject, take, takeUntil } from 'rxjs';
 import { WrittenOutLanguagePipe } from 'src/app/pipes/written-out-language-pipe/written-out-language.pipe';
 import { ApiService } from '../../../../../services/api/api.service';
 import { AsrVendors } from '../../../../../services/api/dto/create-transcription.dto';
-import { UploadVideoDto } from '../../../../../services/api/dto/upload-video.dto';
 import {
   AsrServiceConfig,
   LanguageShort,
@@ -257,19 +256,21 @@ export class UploadRecordingComponent implements OnInit {
       type: 'video/webm',
     });
 
-    const uploadVideoDto: UploadVideoDto = {
-      title: rec.title,
-      category: rec.category,
-      recorder: true,
-    };
+    // TODO
 
-    rec.upload.progress = 0;
+    // const uploadVideoDto: UploadVideoDto = {
+    //   title: rec.title,
+    //   category: rec.category,
+    //   recorder: true,
+    // };
 
-    this.api.uploadVideo(newProject.id, uploadVideoDto, recFile).subscribe({
-      next: (event: HttpEvent<ProjectEntity>) =>
-        this._onNextHttpEvent(event, rec),
-      error: (error: HttpErrorResponse) => this._onErrorHttpEvent(rec, error),
-    });
+    // rec.upload.progress = 0;
+
+    // this.api.uploadVideo(newProject.id, uploadVideoDto, recFile).subscribe({
+    //   next: (event: HttpEvent<ProjectEntity>) =>
+    //     this._onNextHttpEvent(event, rec),
+    //   error: (error: HttpErrorResponse) => this._onErrorHttpEvent(rec, error),
+    // });
   }
 
   _onNextHttpEvent(event: HttpEvent<ProjectEntity>, rec: Recording) {

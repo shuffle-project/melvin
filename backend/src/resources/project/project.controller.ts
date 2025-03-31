@@ -259,6 +259,7 @@ export class ProjectController {
     @Body() uploadMediaDto: UploadVideoDto,
     // @UploadedFile() file: Express.Multer.File, //
   ): Promise<ProjectEntity> {
+    console.log(uploadMediaDto);
     return this.projectService.uploadVideo(authUser, id, uploadMediaDto);
   }
 

@@ -4,7 +4,8 @@
       <span class="filename text-ellipsis">{{ title }}</span>
       @switch (progress.status) { @case ('uploading') {
       <span class="message"
-        >22.34 MB ({{ progress.eta }} seconds remaining)</span
+        >22.34 MB ({{ progress.eta | number : '1.0-0' }} seconds
+        remaining)</span
       >
       } @case ('completed') {
       <span class="message success">Upload completed</span>
@@ -17,7 +18,7 @@
     <button mat-icon-button><mat-icon svgIcon="download"></mat-icon></button>
 
     } @switch (progress.status) { @case ('uploading') {
-    <span>{{ progress.value }}%</span>
+    <span>{{ progress.value * 100 }}%</span>
     } @case ('completed') {
     <mat-icon svgIcon="check" class="icon-success"></mat-icon>
     } @case ('failed') {
@@ -28,7 +29,7 @@
   @if(progress.status === 'uploading') {
   <mat-progress-bar
     mode="determinate"
-    [value]="progress.value"
+    [value]="progress.value * 100"
   ></mat-progress-bar>
   }
 </div>

@@ -64,6 +64,7 @@ export class ProjectProcessor {
       projectId,
       mainVideo,
     );
+    console.log(file);
 
     if (file.mimetype.includes('audio')) {
       // if its an audio file, convert it to video
