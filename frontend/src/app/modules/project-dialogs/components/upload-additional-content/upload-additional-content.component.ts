@@ -157,23 +157,25 @@ export class UploadAdditionalContentComponent implements OnInit {
       const id = uuid.v4();
 
       const uploadProgress = new Subject<UploadProgress>();
-      this.fileUploads.push({ id, name: 'test', progress$: uploadProgress });
-      uploadProgress.subscribe((progress) => {
-        console.log({ ...progress });
+      this.fileUploads.push({
+        id,
+        name: this.formGroup.value.category!,
+        progress$: uploadProgress,
       });
+
       const finishedUpload = await this.uploadService.upload(
         this.selectedFile,
         uploadProgress
       );
-      console.log(finishedUpload);
 
-      const uploadVideoDto = {
-        title: '',
-        category: this.formGroup.value.category!,
-        recorder: false,
-        uploadId: finishedUpload.id,
-      };
-      await lastValueFrom(this.api.uploadVideo(this.projectId, uploadVideoDto));
+      await lastValueFrom(
+        this.api.uploadVideo(this.projectId, {
+          title: '',
+          category: this.formGroup.value.category!,
+          uploadId: finishedUpload.id,
+          recorder: false,
+        })
+      );
 
       // this.fileUploads.push({
       //   id,
