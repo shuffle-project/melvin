@@ -330,7 +330,7 @@ export class RealApiService implements ApiService {
     );
   }
 
-  uploadVideo(
+  createAdditionalVideo(
     projectId: string,
     uploadVideoDto: UploadVideoDto
   ): Observable<ProjectEntity> {

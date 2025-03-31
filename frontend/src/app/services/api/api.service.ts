@@ -149,7 +149,7 @@ export abstract class ApiService {
     mediaId: string
   ): Observable<ProjectMediaEntity>;
 
-  abstract uploadVideo(
+  abstract createAdditionalVideo(
     projectId: string,
     uploadVideoDto: UploadVideoDto
   ): Observable<ProjectEntity>;

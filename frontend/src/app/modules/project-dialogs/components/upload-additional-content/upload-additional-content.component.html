@@ -84,7 +84,7 @@
           <mat-icon svgIcon="close"></mat-icon>
         </button> -->
         <app-upload-progress
-          [progress$]="fileUpload.progress$"
+          [progress$]="fileUpload.uploadHandler.progress$"
           [title]="fileUpload.name"
           [fileIcon]="'video'"
         ></app-upload-progress>

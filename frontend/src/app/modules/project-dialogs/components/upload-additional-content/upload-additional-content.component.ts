@@ -32,7 +32,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { LetDirective, PushPipe } from '@ngrx/component';
 import { UploadProgressComponent } from 'src/app/components/upload-progress/upload-progress.component';
-import { UploadProgress } from 'src/app/services/upload/upload.interfaces';
+import { UploadHandler } from 'src/app/services/upload/upload-handler';
 import { UploadService } from 'src/app/services/upload/upload.service';
 import * as uuid from 'uuid';
 import { FormatDatePipe } from '../../../../pipes/format-date-pipe/format-date.pipe';
@@ -50,7 +50,7 @@ interface FileUpload {
 
   id: string;
   name: string;
-  progress$: Subject<UploadProgress>;
+  uploadHandler: UploadHandler;
 }
 
 @Component({
@@ -151,56 +151,32 @@ export class UploadAdditionalContentComponent implements OnInit {
   }
 
   async onClickSubmit() {
+    const category = this.formGroup.value.category!;
+
     if (!this.formGroup.valid) {
       this.formGroup.markAllAsTouched();
     } else {
+      this.formGroup.reset();
       const id = uuid.v4();
 
-      const uploadProgress = new Subject<UploadProgress>();
+      const uploadHandler = this.uploadService.createUpload(this.selectedFile);
       this.fileUploads.push({
         id,
-        name: this.formGroup.value.category!,
-        progress$: uploadProgress,
+        name: this.selectedFile.name,
+        uploadHandler,
       });
+      // todo trycatch logic
+      await uploadHandler.start();
 
-      const finishedUpload = await this.uploadService.upload(
-        this.selectedFile,
-        uploadProgress
-      );
-
+      // TODO use createAdditionalVideo everywhere
       await lastValueFrom(
-        this.api.uploadVideo(this.projectId, {
-          title: '',
-          category: this.formGroup.value.category!,
-          uploadId: finishedUpload.id,
+        this.api.createAdditionalVideo(this.projectId, {
+          title: '', // TODO make it optional
+          category,
+          uploadId: uploadHandler.progress$.value.uploadId!,
           recorder: false,
         })
       );
-
-      // this.fileUploads.push({
-      //   id,
-      //   // TODO title?
-      //   name: '',
-      //   totalSize: this.selectedFile.size,
-      //   sub: this.api
-      //     .uploadVideo(
-      //       this.projectId,
-      //       {
-      //         // TODO title?
-      //         title: '',
-      //         category: this.formGroup.value.category!,
-      //         recorder: false,
-      //       },
-      //       this.selectedFile
-      //     )
-      //     .subscribe({
-      //       next: (event: HttpEvent<ProjectEntity>) =>
-      //         this._handleHttpEvent(id, event),
-      //       error: (error: HttpErrorResponse) =>
-      //         this._handleHttpError(id, error),
-      //     }),
-      // });
-      this.formGroup.reset();
     }
   }
 

@@ -184,7 +184,7 @@ export class FakeApiService implements ApiService {
     return of();
   }
 
-  uploadVideo(
+  createAdditionalVideo(
     projectId: string,
     uploadVideoDto: UploadVideoDto
   ): Observable<any> {

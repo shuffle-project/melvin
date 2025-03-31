@@ -1,5 +1,6 @@
 export interface UploadProgress {
-  status: 'uploading' | 'completed' | 'failed';
+  uploadId: string | null;
+  status: 'pending' | 'uploading' | 'completed' | 'failed';
   value: number;
   bytesSent: number;
   bytesTotal: number;
