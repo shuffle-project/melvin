@@ -1,0 +1,34 @@
+<div *ngrxLet="progress$ as progress" class="container">
+  <div class="flex items-center">
+    <div class="flex flex-1 flex-col justify-center">
+      <span class="filename text-ellipsis">{{ title }}</span>
+      @switch (progress.status) { @case ('uploading') {
+      <span class="message"
+        >22.34 MB ({{ progress.eta }} seconds remaining)</span
+      >
+      } @case ('completed') {
+      <span class="message success">Upload completed</span>
+      } @case ('failed') {
+      <span class="message error">Upload failed</span>
+      } }
+    </div>
+
+    @if(downloadLink) {
+    <button mat-icon-button><mat-icon svgIcon="download"></mat-icon></button>
+
+    } @switch (progress.status) { @case ('uploading') {
+    <span>{{ progress.value }}%</span>
+    } @case ('completed') {
+    <mat-icon svgIcon="check" class="icon-success"></mat-icon>
+    } @case ('failed') {
+    <mat-icon svgIcon="error" class="icon-error"></mat-icon>
+    } }
+  </div>
+
+  @if(progress.status === 'uploading') {
+  <mat-progress-bar
+    mode="determinate"
+    [value]="progress.value"
+  ></mat-progress-bar>
+  }
+</div>
