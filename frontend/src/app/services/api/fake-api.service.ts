@@ -517,4 +517,15 @@ export class FakeApiService implements ApiService {
     this.logger.verbose('userTestReset mocked');
     return of();
   }
+
+  // upload service
+
+  createMediaFile(filename: string, filesize: number) {
+    this.logger.verbose('createMediaFile mocked');
+    return of();
+  }
+  updateMediaFile(id: string, filePart: Blob) {
+    this.logger.verbose('updateMediaFile mocked');
+    return of();
+  }
 }

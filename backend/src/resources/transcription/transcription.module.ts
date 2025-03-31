@@ -1,5 +1,6 @@
 import { BullModule } from '@nestjs/bull';
 import { Module } from '@nestjs/common';
+import { MediaModule } from 'src/modules/media/media.module';
 import { DbModule } from '../../modules/db/db.module';
 import { LoggerModule } from '../../modules/logger/logger.module';
 import { PathModule } from '../../modules/path/path.module';
@@ -24,6 +25,7 @@ import { TranscriptionService } from './transcription.service';
     TranslationModule,
     LoggerModule,
     TiptapModule,
+    MediaModule,
   ],
   controllers: [TranscriptionController],
   providers: [TranscriptionService],

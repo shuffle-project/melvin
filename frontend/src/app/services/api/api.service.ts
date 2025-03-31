@@ -59,6 +59,7 @@ import {
   SubtitleFormat,
   TranscriptionEntity,
 } from './entities/transcription.entity';
+import { CreateMediaEntity } from './entities/upload-file.entity';
 import { WaveformData } from './entities/waveform-data.entity';
 import { FakeApiService } from './fake-api.service';
 import { RealApiService } from './real-api.service';
@@ -345,4 +346,11 @@ export abstract class ApiService {
   abstract userTestStart(projectId: string): Observable<void>;
   abstract userTestStop(projectId: string): Observable<void>;
   abstract userTestReset(projectId: string): Observable<void>;
+
+  // upload service
+  abstract createMediaFile(
+    filename: string,
+    filesize: number
+  ): Observable<CreateMediaEntity>;
+  abstract updateMediaFile(id: string, filePart: Blob): Observable<any>;
 }

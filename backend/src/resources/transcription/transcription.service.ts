@@ -3,6 +3,7 @@ import { Injectable, StreamableFile } from '@nestjs/common';
 import { Queue } from 'bull';
 import { plainToInstance } from 'class-transformer';
 import { Types } from 'mongoose';
+import { MediaService } from 'src/modules/media/media.service';
 import { DbService } from '../../modules/db/db.service';
 import { LeanProjectDocument } from '../../modules/db/schemas/project.schema';
 import {
@@ -52,6 +53,7 @@ export class TranscriptionService {
     @InjectQueue('subtitles')
     private subtitlesQueue: Queue<ProcessSubtitlesJob>,
     private tiptapService: TiptapService,
+    private mediaService: MediaService,
   ) {}
 
   /**
@@ -63,7 +65,6 @@ export class TranscriptionService {
   async create(
     authUser: AuthUser,
     createTranscriptionDto: CreateTranscriptionDto,
-    subtitleFile: Express.Multer.File = null,
   ): Promise<TranscriptionEntity> {
     const { project: projectId, ...dto } = createTranscriptionDto;
 
@@ -124,7 +125,10 @@ export class TranscriptionService {
     ) as unknown as TranscriptionEntity;
 
     // add queue job to fill transcription
-    if (subtitleFile) {
+    if (createTranscriptionDto.uploadId) {
+      const subtitleFile = await this.mediaService.getMetadata(
+        createTranscriptionDto.uploadId,
+      );
       // fill with subtitles file
       this.subtitlesQueue.add({
         project: updatedProject,

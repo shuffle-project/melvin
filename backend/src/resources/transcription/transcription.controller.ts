@@ -10,7 +10,6 @@ import {
   Post,
   Query,
   StreamableFile,
-  UploadedFile,
   UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
@@ -27,7 +26,6 @@ import { FindAllTranscriptionsQuery } from './dto/find-all-transcriptions.dto';
 import { UpdateSpeakerDto } from './dto/update-speaker.dto';
 import { UpdateTranscriptionDto } from './dto/update-transcription.dto';
 import { TranscriptionEntity } from './entities/transcription.entity';
-import { SubtitleFileInterceptor } from './interceptors/subtitle-file.interceptor';
 import { TranscriptionService } from './transcription.service';
 
 @UseInterceptors(ClassSerializerInterceptor)
@@ -37,18 +35,14 @@ export class TranscriptionController {
 
   @UseGuards(JwtAuthGuard)
   @Post()
-  @UseInterceptors(SubtitleFileInterceptor)
+  // @UseInterceptors(SubtitleFileInterceptor)
   @ApiResponse({ status: HttpStatus.CREATED, type: TranscriptionEntity })
   create(
     @User() authUser: AuthUser,
     @Body() createTranscriptionDto: CreateTranscriptionDto,
-    @UploadedFile() file?: Express.Multer.File, //TODO swagger
+    // @UploadedFile() file?: Express.Multer.File, //TODO swagger
   ): Promise<TranscriptionEntity> {
-    return this.transcriptionService.create(
-      authUser,
-      createTranscriptionDto,
-      file,
-    );
+    return this.transcriptionService.create(authUser, createTranscriptionDto);
   }
 
   @Get()

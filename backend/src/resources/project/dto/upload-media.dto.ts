@@ -5,4 +5,6 @@ export class UploadVideoDto extends PartialType(
   PickType(Video, ['title', 'category'] as const),
 ) {
   recorder: boolean;
+
+  uploadId: string;
 }

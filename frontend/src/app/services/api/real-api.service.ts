@@ -65,6 +65,7 @@ import {
   SubtitleFormat,
   TranscriptionEntity,
 } from './entities/transcription.entity';
+import { CreateMediaEntity } from './entities/upload-file.entity';
 import { WaveformData } from './entities/waveform-data.entity';
 
 export interface RequestOptions {
@@ -709,5 +710,17 @@ export class RealApiService implements ApiService {
 
   userTestReset(projectId: string): Observable<void> {
     return this._post('/user-test/reset', { projectId });
+  }
+
+  // upload service
+
+  createMediaFile(filename: string, filesize: number) {
+    return this._post<CreateMediaEntity>('/media', { filename, filesize });
+  }
+  updateMediaFile(id: string, filePart: Blob) {
+    console.log('upadeMediaFile called', id);
+    return this._patch(`/media/${id}`, filePart, {
+      headers: { 'Content-Type': 'application/octet-stream' },
+    });
   }
 }

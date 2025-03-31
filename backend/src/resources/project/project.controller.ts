@@ -25,7 +25,6 @@ import { MediaUser, User } from '../auth/auth.decorator';
 import { AuthUser, MediaAccessUser } from '../auth/auth.interfaces';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { PopulateService } from '../populate/populate.service';
-import { CreateLegacyProjectDto } from './dto/create-legacy-project.dto';
 import { CreateProjectDto } from './dto/create-project.dto';
 import { FindAllProjectsQuery } from './dto/find-all-projects.dto';
 import { InviteDto } from './dto/invite.dto';
@@ -35,7 +34,6 @@ import { ProjectInviteTokenEntity } from './entities/project-invite.entity';
 import { ProjectListEntity } from './entities/project-list.entity';
 import { ProjectViewerTokenEntity } from './entities/project-viewer.entity';
 import { ProjectEntity, ProjectMediaEntity } from './entities/project.entity';
-import { LegacyMultiFileInterceptor } from './interceptors/legacy-multi-file.interceptor';
 import { MediaFileInterceptor } from './interceptors/media-file.interceptor';
 import { MultiFileInterceptor } from './interceptors/multi-file.interceptor';
 import { ProjectService } from './project.service';
@@ -78,27 +76,27 @@ export class ProjectController {
     );
   }
 
-  @UseGuards(JwtAuthGuard)
-  @Post('legacy')
-  @ApiConsumes('application/json', 'multipart/form-data')
-  @UseInterceptors(LegacyMultiFileInterceptor)
-  @ApiResponse({ status: HttpStatus.CREATED, type: ProjectEntity })
-  async createLegacy(
-    @User() authUser: AuthUser,
-    @Body() createProjectDto: CreateLegacyProjectDto,
-    @UploadedFiles() //TODO swagger
-    files?: {
-      video: Array<Express.Multer.File>;
-      subtitles: Array<Express.Multer.File>;
-    },
-  ) {
-    return await this.projectService.createLegacy(
-      authUser,
-      createProjectDto,
-      files?.video ? files.video : null,
-      files?.subtitles ? files.subtitles : null,
-    );
-  }
+  // @UseGuards(JwtAuthGuard)
+  // @Post('legacy')
+  // @ApiConsumes('application/json', 'multipart/form-data')
+  // @UseInterceptors(LegacyMultiFileInterceptor)
+  // @ApiResponse({ status: HttpStatus.CREATED, type: ProjectEntity })
+  // async createLegacy(
+  //   @User() authUser: AuthUser,
+  //   @Body() createProjectDto: CreateLegacyProjectDto,
+  //   @UploadedFiles() //TODO swagger
+  //   files?: {
+  //     video: Array<Express.Multer.File>;
+  //     subtitles: Array<Express.Multer.File>;
+  //   },
+  // ) {
+  //   return await this.projectService.createLegacy(
+  //     authUser,
+  //     createProjectDto,
+  //     files?.video ? files.video : null,
+  //     files?.subtitles ? files.subtitles : null,
+  //   );
+  // }
 
   @UseGuards(JwtAuthGuard)
   @Get()
@@ -255,15 +253,15 @@ export class ProjectController {
 
   @UseGuards(JwtAuthGuard)
   @Post(':id/media/upload')
-  @UseInterceptors(MediaFileInterceptor)
+  // @UseInterceptors(MediaFileInterceptor)
   @ApiResponse({ type: ProjectEntity })
   uploadVideo(
     @User() authUser: AuthUser,
     @Param('id', IsValidObjectIdPipe) id: string,
     @Body() uploadMediaDto: UploadVideoDto,
-    @UploadedFile() file: Express.Multer.File, //
+    // @UploadedFile() file: Express.Multer.File, //
   ): Promise<ProjectEntity> {
-    return this.projectService.uploadVideo(authUser, id, uploadMediaDto, file);
+    return this.projectService.uploadVideo(authUser, id, uploadMediaDto);
   }
 
   @UseGuards(JwtAuthGuard)

@@ -1,3 +1,4 @@
+import { MediaFileMetadata } from 'src/modules/media/media.interfaces';
 import { CaptionEntity } from 'src/resources/caption/entities/caption.entity';
 import { Audio, Project, Video } from '../modules/db/schemas/project.schema';
 import { AuthUser } from '../resources/auth/auth.interfaces';
@@ -27,7 +28,7 @@ export enum SubtitlesType {
 
 export interface FilePayload {
   type: SubtitlesType.FROM_FILE;
-  file: Express.Multer.File;
+  file: MediaFileMetadata;
 }
 export interface AsrPayload {
   type: SubtitlesType.FROM_ASR;
@@ -71,7 +72,7 @@ export interface ProcessSubtitlesJob {
 export interface ProcessProjectJob {
   project: Project;
   authUser: AuthUser;
-  file: Express.Multer.File;
+  file: MediaFileMetadata;
   subsequentJobs: ProcessSubtitlesJob[];
   // videoId: string | null;
   mainVideo: Video;

@@ -6,9 +6,10 @@ import { Types } from 'mongoose';
 import { AuthUser } from '../../resources/auth/auth.interfaces';
 import { CaptionService } from '../../resources/caption/caption.service';
 import { CreateCaptionDto } from '../../resources/caption/dto/create-caption.dto';
+import { MediaFileMetadata } from '../media/media.interfaces';
 import { PathService } from '../path/path.service';
-import { TiptapService } from '../tiptap/tiptap.service';
 import { WordEntity } from '../speech-to-text/speech-to-text.interfaces';
+import { TiptapService } from '../tiptap/tiptap.service';
 
 @Injectable()
 export class ImportSubtitlesService {
@@ -20,16 +21,20 @@ export class ImportSubtitlesService {
 
   async fromFile(
     authUser: AuthUser,
-    file: Express.Multer.File,
+    file: MediaFileMetadata,
     transcriptionId: string,
     speakerId: string,
   ) {
     // TODO Read utf-16 file etc.
-    let content = await readFile(file.path, 'utf-8');
+    const filePath = this.pathService.getUploadFile(
+      file.uploadId,
+      file.extension,
+    );
+    let content = await readFile(filePath, 'utf-8');
     content = content.replace(/^\uFEFF/gm, '').replace(/^\u00BB\u00BF/gm, ''); // remove BOM-tag from Utf-8-BOM
 
     try {
-      if (file.originalname.endsWith('json')) {
+      if (file.filename.endsWith('json')) {
         await this.fromDeepspeechModel(
           content,
           speakerId,

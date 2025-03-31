@@ -1,12 +1,21 @@
 import { Injectable } from '@nestjs/common';
 import { ReadStream, createReadStream } from 'fs';
-import { stat } from 'fs/promises';
+import { appendFile, stat, writeFile } from 'fs/promises';
 import { DbService } from 'src/modules/db/db.service';
 import { CustomLogger } from 'src/modules/logger/logger.service';
 import { PathService } from 'src/modules/path/path.service';
 import { CustomBadRequestException } from 'src/utils/exceptions';
 
 import { Request, Response } from 'express';
+import { ensureDir, exists, readJson, writeJSON } from 'fs-extra';
+import { extname, join } from 'path';
+import { AuthUser } from 'src/resources/auth/auth.interfaces';
+import { v4 } from 'uuid';
+import {
+  CreateMediaEntity,
+  CreateMediaFileDto,
+  MediaFileMetadata,
+} from './media.interfaces';
 
 @Injectable()
 export class MediaService {
@@ -119,4 +128,89 @@ export class MediaService {
         return 'text/plain';
     }
   }
+
+  // TODO job that clears old tempfiles
+
+  async createMediaFile(
+    authUser: AuthUser,
+    createMediaFileDto: CreateMediaFileDto,
+  ): Promise<CreateMediaEntity> {
+    // TODO auth
+    // TODO check max file size
+
+    const id = v4();
+    const path = this.pathService.getTempDirectory(id);
+    await ensureDir(path);
+
+    const extension = extname(createMediaFileDto.filename);
+    const metadata: MediaFileMetadata = {
+      ...createMediaFileDto,
+      uploadId: id,
+      createdBy: authUser.id,
+      extension,
+    };
+
+    const metadataPath = join(path, 'metadata.json');
+    await writeJSON(metadataPath, metadata);
+
+    const filename = this.pathService.getUploadFile(id, metadata.extension);
+    await writeFile(filename, []);
+    return { id };
+  }
+
+  async updateMediaFile(authUser: AuthUser, id: string, filePart: Buffer) {
+    // TODO auth
+
+    // if (Math.random() > 0.5) {
+    //   throw new CustomBadRequestException('random_error');
+    // }
+
+    const metadataPath = this.pathService.getUploadMetadataFile(id);
+
+    const metadataFileExists = await exists(metadataPath);
+    if (!metadataFileExists) {
+      throw new CustomBadRequestException('metadata_file_not_found');
+    }
+
+    const metadata: MediaFileMetadata = await readJson(metadataPath);
+
+    if (metadata.createdBy !== authUser.id) {
+      throw new CustomBadRequestException('access_to_file_denied');
+    }
+
+    const filename = this.pathService.getUploadFile(id, metadata.extension);
+    const fileExists = await exists(filename);
+    if (!fileExists) {
+      throw new CustomBadRequestException('file_not_found');
+    }
+
+    const fileStat = await stat(filename);
+    if (fileStat.size + filePart.length > metadata.filesize) {
+      throw new CustomBadRequestException('file_too_large');
+    }
+
+    // Append file
+    await appendFile(filename, filePart);
+  }
+
+  async getMetadata(id: string) {
+    const metadataPath = this.pathService.getUploadMetadataFile(id);
+
+    const metadataFileExists = await exists(metadataPath);
+    if (!metadataFileExists) {
+      throw new CustomBadRequestException('metadata_file_not_found');
+    }
+
+    const metadata: MediaFileMetadata = await readJson(metadataPath);
+
+    return metadata;
+  }
+
+  // mediaService.getFilePath
+  //
+
+  /**
+   * upload controller / service
+   *
+   */
 }

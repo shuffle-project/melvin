@@ -36,6 +36,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { LetDirective, PushPipe } from '@ngrx/component';
+import { UploadService } from 'src/app/services/upload/upload.service';
 import * as uuid from 'uuid';
 import { FormatDatePipe } from '../../../../pipes/format-date-pipe/format-date.pipe';
 import { MediaCategoryPipe } from '../../../../pipes/media-category-pipe/media-category.pipe';
@@ -115,7 +116,8 @@ export class UploadAdditionalContentComponent implements OnInit {
     private store: Store<AppState>,
     private api: ApiService,
     private httpClient: HttpClient,
-    private liveAnnouncer: LiveAnnouncer
+    private liveAnnouncer: LiveAnnouncer,
+    private uploadService: UploadService
   ) {
     this.media$.pipe(takeUntil(this.destroy$$)).subscribe((media) => {
       if (media) {
@@ -151,29 +153,33 @@ export class UploadAdditionalContentComponent implements OnInit {
       this.formGroup.markAllAsTouched();
     } else {
       const id = uuid.v4();
-      this.fileUploads.push({
-        id,
-        // TODO title?
-        name: '',
-        totalSize: this.selectedFile.size,
-        sub: this.api
-          .uploadVideo(
-            this.projectId,
-            {
-              // TODO title?
-              title: '',
-              category: this.formGroup.value.category!,
-              recorder: false,
-            },
-            this.selectedFile
-          )
-          .subscribe({
-            next: (event: HttpEvent<ProjectEntity>) =>
-              this._handleHttpEvent(id, event),
-            error: (error: HttpErrorResponse) =>
-              this._handleHttpError(id, error),
-          }),
-      });
+
+      const uploaded = await this.uploadService.upload(this.selectedFile);
+      console.log(uploaded);
+
+      // this.fileUploads.push({
+      //   id,
+      //   // TODO title?
+      //   name: '',
+      //   totalSize: this.selectedFile.size,
+      //   sub: this.api
+      //     .uploadVideo(
+      //       this.projectId,
+      //       {
+      //         // TODO title?
+      //         title: '',
+      //         category: this.formGroup.value.category!,
+      //         recorder: false,
+      //       },
+      //       this.selectedFile
+      //     )
+      //     .subscribe({
+      //       next: (event: HttpEvent<ProjectEntity>) =>
+      //         this._handleHttpEvent(id, event),
+      //       error: (error: HttpErrorResponse) =>
+      //         this._handleHttpError(id, error),
+      //     }),
+      // });
       this.formGroup.reset();
     }
   }

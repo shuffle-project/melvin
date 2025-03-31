@@ -6,6 +6,9 @@ import { AsrVendors } from '../../../processors/processor.interfaces';
 
 class VideoOption {
   @ApiProperty({ type: String, required: true })
+  uploadId: string;
+
+  @ApiProperty({ type: String, required: true })
   category: string;
 
   @ApiProperty({ type: Boolean, required: true })
@@ -13,6 +16,9 @@ class VideoOption {
 }
 
 class SubtitleOption {
+  @ApiProperty({ type: String, required: true })
+  uploadId: string;
+
   @ApiProperty({ type: String, required: true })
   language: string;
 }
@@ -31,7 +37,7 @@ export class CreateProjectDto extends PickType(Project, [
     required: true,
   })
   @IsArray()
-  videoOptions: { category: string; useAudio: boolean }[];
+  videoOptions: VideoOption[];
 
   @Transform(({ value }) => JSON.parse(value))
   @ApiProperty({
@@ -40,5 +46,5 @@ export class CreateProjectDto extends PickType(Project, [
   })
   @IsArray()
   @IsOptional()
-  subtitleOptions?: { language: string }[];
+  subtitleOptions?: SubtitleOption[];
 }

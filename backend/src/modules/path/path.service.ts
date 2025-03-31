@@ -1,6 +1,5 @@
 import { Injectable } from '@nestjs/common';
 import { join } from 'path';
-import { v4 } from 'uuid';
 import { Export } from '../db/schemas/export.schema';
 import { Audio, Video } from '../db/schemas/project.schema';
 import { CustomLogger } from '../logger/logger.service';
@@ -18,8 +17,20 @@ export class PathService {
     this.logger.setContext(this.constructor.name);
   }
 
-  getTempDirectory(): string {
-    return join(MEDIA_TEMP_DIR, v4());
+  getTempDirectory(id: string): string {
+    return join(MEDIA_TEMP_DIR, id);
+  }
+
+  getUploadDirectory(id: string): string {
+    return this.getTempDirectory(id);
+  }
+
+  getUploadMetadataFile(id: string): string {
+    return join(this.getUploadDirectory(id), 'metadata.json');
+  }
+
+  getUploadFile(id: string, ext: string): string {
+    return join(this.getUploadDirectory(id), 'file.' + ext);
   }
 
   getRootProjectDirectory(): string {

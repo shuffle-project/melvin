@@ -9,6 +9,8 @@ import { ensureDir, remove, rm } from 'fs-extra';
 import { stat } from 'fs/promises';
 import { Types } from 'mongoose';
 import { LeanUserDocument } from 'src/modules/db/schemas/user.schema';
+import { MediaFileMetadata } from 'src/modules/media/media.interfaces';
+import { MediaService } from 'src/modules/media/media.service';
 import { DbService } from '../../modules/db/db.service';
 import {
   Audio,
@@ -72,6 +74,7 @@ export class ProjectService {
     private pathService: PathService,
     private transcriptionService: TranscriptionService,
     private configService: ConfigService,
+    private mediaService: MediaService,
     private authService: AuthService,
     @InjectQueue('project') private projectQueue: Queue<ProcessProjectJob>,
     @InjectQueue('livestream')
@@ -88,6 +91,27 @@ export class ProjectService {
     subtitleFiles: Array<Express.Multer.File> | null = null,
   ) {
     const status = ProjectStatus.WAITING;
+
+    const videos = [];
+    const subtitles = [];
+
+    createProjectDto.videoOptions.forEach(async (video) => {
+      console.log(video);
+      const metadataObject = await this.mediaService.getMetadata(
+        video.uploadId,
+      );
+
+      // TODO check if upload completed
+      videos.push(metadataObject);
+    });
+
+    createProjectDto.subtitleOptions.forEach(async (subtitle) => {
+      const metadataObject = await this.mediaService.getMetadata(
+        subtitle.uploadId,
+      );
+      // TODO check if upload completed
+      subtitles.push(metadataObject);
+    });
 
     if (
       !createProjectDto.videoOptions.some(
@@ -154,8 +178,8 @@ export class ProjectService {
     await this._handleFilesAndTranscriptions(
       authUser,
       populatedProject,
-      videoFiles,
-      subtitleFiles,
+      videos,
+      subtitles,
       createProjectDto,
       mainVideo,
       mainAudio,
@@ -208,8 +232,8 @@ export class ProjectService {
   async _handleFilesAndTranscriptions(
     authUser: AuthUser,
     project: Project,
-    videoFiles: Express.Multer.File[],
-    subtitleFiles: Express.Multer.File[],
+    videoFiles: MediaFileMetadata[],
+    subtitleFiles: MediaFileMetadata[],
     createProjectDto: CreateProjectDto,
     mainVideo: Video,
     mainAudio: Audio,
@@ -221,14 +245,11 @@ export class ProjectService {
         subtitleFiles.map((file, i) => {
           const language = createProjectDto.subtitleOptions[i].language;
 
-          this.transcriptionService.create(
-            authUser,
-            {
-              project: new Types.ObjectId(project._id),
-              language: language,
-            },
-            file,
-          );
+          this.transcriptionService.create(authUser, {
+            project: new Types.ObjectId(project._id),
+            language: language,
+            uploadId: file.uploadId,
+          });
         }),
       );
     }
@@ -283,150 +304,146 @@ export class ProjectService {
           const title =
             mediaCategoryKey[1].charAt(0).toUpperCase() +
             mediaCategoryKey[1].slice(1);
-          this.uploadVideo(
-            authUser,
-            project._id.toString(),
-            {
-              title: title,
-              category: MediaCategory[mediaCategoryKey[0]],
-              recorder: false,
-            },
-            file,
-          );
+          this.uploadVideo(authUser, project._id.toString(), {
+            title: title,
+            category: MediaCategory[mediaCategoryKey[0]],
+            recorder: false,
+            uploadId: file.uploadId,
+          });
         }
       });
     }
   }
 
-  async createLegacy(
-    authUser: AuthUser,
-    createProjectDto: CreateLegacyProjectDto,
-    videoFiles: Array<Express.Multer.File> | null = null,
-    subtitleFiles: Array<Express.Multer.File> | null = null,
-  ): Promise<ProjectEntity> {
-    // const inviteToken = await this._generateInviteToken();
+  // async createLegacy(
+  //   authUser: AuthUser,
+  //   createProjectDto: CreateLegacyProjectDto,
+  //   videoFiles: Array<Express.Multer.File> | null = null,
+  //   subtitleFiles: Array<Express.Multer.File> | null = null,
+  // ): Promise<ProjectEntity> {
+  //   // const inviteToken = await this._generateInviteToken();
 
-    let users = null;
-    let userIds: Types.ObjectId[] = [];
-    // find all users
-    if (createProjectDto.emails) {
-      users = await this.db.userModel
-        .find({
-          email: {
-            $in: [...createProjectDto.emails],
-          },
-        })
-        .lean()
-        .exec();
-      userIds = users.map((o) => o._id);
-    }
+  //   let users = null;
+  //   let userIds: Types.ObjectId[] = [];
+  //   // find all users
+  //   if (createProjectDto.emails) {
+  //     users = await this.db.userModel
+  //       .find({
+  //         email: {
+  //           $in: [...createProjectDto.emails],
+  //         },
+  //       })
+  //       .lean()
+  //       .exec();
+  //     userIds = users.map((o) => o._id);
+  //   }
 
-    const status = createProjectDto.url
-      ? ProjectStatus.LIVE
-      : ProjectStatus.WAITING;
+  //   const status = createProjectDto.url
+  //     ? ProjectStatus.LIVE
+  //     : ProjectStatus.WAITING;
 
-    const mainVideo: Video = {
-      _id: new Types.ObjectId(),
-      category: MediaCategory.MAIN,
-      extension: 'mp4',
-      originalFileName: '',
-      status: MediaStatus.WAITING,
-      title: 'Main Video',
-      resolutions: [],
-    };
+  //   const mainVideo: Video = {
+  //     _id: new Types.ObjectId(),
+  //     category: MediaCategory.MAIN,
+  //     extension: 'mp4',
+  //     originalFileName: '',
+  //     status: MediaStatus.WAITING,
+  //     title: 'Main Video',
+  //     resolutions: [],
+  //   };
 
-    const mainAudio: Audio = {
-      _id: new Types.ObjectId(),
-      category: MediaCategory.MAIN,
-      extension: 'mp3',
-      originalFileName: '',
-      status: MediaStatus.WAITING,
-      title: 'Main Audio',
-    };
+  //   const mainAudio: Audio = {
+  //     _id: new Types.ObjectId(),
+  //     category: MediaCategory.MAIN,
+  //     extension: 'mp3',
+  //     originalFileName: '',
+  //     status: MediaStatus.WAITING,
+  //     title: 'Main Audio',
+  //   };
 
-    //create project
-    const project = await this.db.projectModel.create({
-      ...createProjectDto,
-      createdBy: authUser.id,
-      users: [authUser.id, ...userIds],
-      status,
-      inviteToken: generateSecureToken(),
-      viewerToken: generateSecureToken(),
-      videos: [mainVideo],
-      audios: [mainAudio],
-    });
+  //   //create project
+  //   const project = await this.db.projectModel.create({
+  //     ...createProjectDto,
+  //     createdBy: authUser.id,
+  //     users: [authUser.id, ...userIds],
+  //     status,
+  //     inviteToken: generateSecureToken(),
+  //     viewerToken: generateSecureToken(),
+  //     videos: [mainVideo],
+  //     audios: [mainAudio],
+  //   });
 
-    await ensureDir(
-      this.pathService.getProjectDirectory(project._id.toString()),
-    );
+  //   await ensureDir(
+  //     this.pathService.getProjectDirectory(project._id.toString()),
+  //   );
 
-    // add project to owner and invited users
-    await this.db.userModel
-      .updateMany(
-        {
-          _id: {
-            $in: [authUser.id, ...userIds],
-          },
-        },
-        { $push: { projects: project._id } },
-      )
-      .lean()
-      .exec();
+  //   // add project to owner and invited users
+  //   await this.db.userModel
+  //     .updateMany(
+  //       {
+  //         _id: {
+  //           $in: [authUser.id, ...userIds],
+  //         },
+  //       },
+  //       { $push: { projects: project._id } },
+  //     )
+  //     .lean()
+  //     .exec();
 
-    // filter all unknown emails & send invites
-    if (createProjectDto.emails) {
-      const addedMails = users.map((o) => o.email);
-      const inviteNeeded = createProjectDto.emails.filter(
-        (o) => !addedMails.includes(o),
-      );
+  //   // filter all unknown emails & send invites
+  //   if (createProjectDto.emails) {
+  //     const addedMails = users.map((o) => o.email);
+  //     const inviteNeeded = createProjectDto.emails.filter(
+  //       (o) => !addedMails.includes(o),
+  //     );
 
-      const user = await this.db.userModel.findById(authUser.id);
-      this.mailService.sendInviteEmail(project, user, inviteNeeded);
-    }
+  //     const user = await this.db.userModel.findById(authUser.id);
+  //     this.mailService.sendInviteEmail(project, user, inviteNeeded);
+  //   }
 
-    // Create activity
-    await this.activityService.create(
-      project.toObject(),
-      getObjectIdAsString(project.createdBy),
-      // (project.createdBy as Types.ObjectId).toString(),
-      'project-created',
-      {},
-    );
+  //   // Create activity
+  //   await this.activityService.create(
+  //     project.toObject(),
+  //     getObjectIdAsString(project.createdBy),
+  //     // (project.createdBy as Types.ObjectId).toString(),
+  //     'project-created',
+  //     {},
+  //   );
 
-    // Entity
+  //   // Entity
 
-    const populatedProject = await this.db.findProjectByIdOrThrow(project._id);
-    // await project.populate([
-    //   'users',
-    //   'transcriptions',
-    // ]);
+  //   const populatedProject = await this.db.findProjectByIdOrThrow(project._id);
+  //   // await project.populate([
+  //   //   'users',
+  //   //   'transcriptions',
+  //   // ]);
 
-    // handle video and subtitle files / add queue jobs / generate subtitles
-    await this._legacyHandleFilesAndTranscriptions(
-      authUser,
-      populatedProject,
-      videoFiles,
-      subtitleFiles,
-      createProjectDto,
-      mainVideo,
-      mainAudio,
-    );
+  //   // handle video and subtitle files / add queue jobs / generate subtitles
+  //   await this._legacyHandleFilesAndTranscriptions(
+  //     authUser,
+  //     populatedProject,
+  //     videoFiles,
+  //     subtitleFiles,
+  //     createProjectDto,
+  //     mainVideo,
+  //     mainAudio,
+  //   );
 
-    const entity = plainToInstance(ProjectEntity, {
-      ...populatedProject,
-    }) as unknown as ProjectEntity;
+  //   const entity = plainToInstance(ProjectEntity, {
+  //     ...populatedProject,
+  //   }) as unknown as ProjectEntity;
 
-    // Send events
-    this.events.projectCreated(entity);
+  //   // Send events
+  //   this.events.projectCreated(entity);
 
-    return entity;
-  }
+  //   return entity;
+  // }
 
   async _legacyHandleFilesAndTranscriptions(
     authUser: AuthUser,
     project: Project,
-    videoFiles: Express.Multer.File[],
-    subtitleFiles: Express.Multer.File[],
+    videoFiles: MediaFileMetadata[],
+    subtitleFiles: MediaFileMetadata[],
     createProjectDto: CreateLegacyProjectDto,
     mainVideo: Video,
     mainAudio: Audio,
@@ -437,15 +454,12 @@ export class ProjectService {
       // use files to generate subtitles
       await Promise.all(
         subtitleFiles.map((file) => {
-          this.transcriptionService.create(
-            authUser,
-            {
-              project: new Types.ObjectId(project._id),
-              language: project.language,
-              title: `${project.title} - ${project.language}`,
-            },
-            file,
-          );
+          this.transcriptionService.create(authUser, {
+            project: new Types.ObjectId(project._id),
+            language: project.language,
+            title: `${project.title} - ${project.language}`,
+            uploadId: file.uploadId,
+          });
         }),
       );
     } else if (createProjectDto.asrVendor) {
@@ -971,9 +985,10 @@ export class ProjectService {
     authUser: AuthUser,
     projectId: string,
     uploadVideoDto: UploadVideoDto,
-    file: Express.Multer.File,
   ): Promise<ProjectEntity> {
     const project = await this.db.findProjectByIdOrThrow(projectId);
+
+    const file = await this.mediaService.getMetadata(uploadVideoDto.uploadId);
 
     if (!this.permissions.isProjectMember(project, authUser)) {
       throw new CustomForbiddenException('access_to_project_denied');
