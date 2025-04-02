@@ -1,5 +1,4 @@
 import { ApiProperty, PickType } from '@nestjs/swagger';
-import { Transform } from 'class-transformer';
 import { IsArray, IsEnum, IsOptional } from 'class-validator';
 import { Project } from '../../../modules/db/schemas/project.schema';
 import { AsrVendors } from '../../../processors/processor.interfaces';
@@ -31,7 +30,6 @@ export class CreateProjectDto extends PickType(Project, [
   @IsEnum(AsrVendors)
   asrVendor: AsrVendors;
 
-  @Transform(({ value }) => JSON.parse(value))
   @ApiProperty({
     type: [VideoOption],
     required: true,
@@ -39,7 +37,6 @@ export class CreateProjectDto extends PickType(Project, [
   @IsArray()
   videoOptions: VideoOption[];
 
-  @Transform(({ value }) => JSON.parse(value))
   @ApiProperty({
     type: [SubtitleOption],
     required: false,

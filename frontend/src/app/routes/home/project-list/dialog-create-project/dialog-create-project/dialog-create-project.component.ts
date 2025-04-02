@@ -1,8 +1,4 @@
-import {
-  HttpErrorResponse,
-  HttpEvent,
-  HttpEventType,
-} from '@angular/common/http';
+import { HttpErrorResponse } from '@angular/common/http';
 import { AfterViewInit, Component, OnDestroy, ViewChild } from '@angular/core';
 import {
   AbstractControl,
@@ -28,14 +24,20 @@ import {
   MatTableModule,
 } from '@angular/material/table';
 import { Store } from '@ngrx/store';
-import { filter, Subject, Subscription, takeUntil } from 'rxjs';
+import { filter, lastValueFrom, Subject, Subscription, takeUntil } from 'rxjs';
+import { UploadProgressComponent } from 'src/app/components/upload-progress/upload-progress.component';
 import { MediaCategoryPipe } from 'src/app/pipes/media-category-pipe/media-category.pipe';
 import { ApiService } from 'src/app/services/api/api.service';
 import {
-  MediaCategory,
-  ProjectEntity,
-} from 'src/app/services/api/entities/project.entity';
+  CreateProjectDto,
+  SubtitleOption,
+  VideoOption,
+} from 'src/app/services/api/dto/create-project.dto';
+import { AsrVendors } from 'src/app/services/api/dto/create-transcription.dto';
+import { MediaCategory } from 'src/app/services/api/entities/project.entity';
 import { CreateProjectService } from 'src/app/services/create-project/create-project.service';
+import { UploadHandler } from 'src/app/services/upload/upload-handler';
+import { UploadService } from 'src/app/services/upload/upload.service';
 import { AppState } from 'src/app/store/app.state';
 import * as configSelectors from '../../../../../store/selectors/config.selector';
 export interface CreateProjectFormGroup {
@@ -65,6 +67,7 @@ interface FileGroup {
     MatCheckboxModule,
     MediaCategoryPipe,
     MatProgressBarModule,
+    UploadProgressComponent,
   ],
   templateUrl: './dialog-create-project.component.html',
   styleUrl: './dialog-create-project.component.scss',
@@ -111,12 +114,15 @@ export class DialogCreateProjectComponent implements OnDestroy, AfterViewInit {
 
   loading = false;
 
+  uploadHandlers: UploadHandler[] = [];
+
   constructor(
     private fb: NonNullableFormBuilder,
     private api: ApiService,
     private store: Store<AppState>,
     private createProjectService: CreateProjectService,
-    private dialogRef: MatDialogRef<DialogCreateProjectComponent>
+    private dialogRef: MatDialogRef<DialogCreateProjectComponent>,
+    private uploadService: UploadService
   ) {
     this.store
       .select(configSelectors.getSupportedASRLanguages)
@@ -333,7 +339,7 @@ export class DialogCreateProjectComponent implements OnDestroy, AfterViewInit {
     }
   }
 
-  onSubmitForm() {
+  async onSubmitForm() {
     if (this.formGroup.invalid) {
       this.formGroup.markAllAsTouched();
       this.formGroup.updateValueAndValidity();
@@ -345,44 +351,87 @@ export class DialogCreateProjectComponent implements OnDestroy, AfterViewInit {
       .reduce((total, current) => total + current);
 
     this.loading = true;
-    const formData = this.createProjectService.createVideoProject(
-      this.formGroup
-    );
 
-    this.timeStarted = Date.now();
-    this.uploadSubscription = this.api.createProject(formData).subscribe({
-      next: (event: HttpEvent<ProjectEntity>) => this._handleHttpEvent(event),
-      error: (error: HttpErrorResponse) => this._handleErrorHttpEvent(error),
-    });
-  }
+    try {
+      this.formGroup.controls.files.getRawValue().forEach((f) => {
+        this.uploadHandlers.push(this.uploadService.createUpload(f.file));
+      });
 
-  private _handleHttpEvent(event: HttpEvent<ProjectEntity>) {
-    switch (event.type) {
-      case HttpEventType.UploadProgress:
-        this.fileUploadProgress = (event.loaded / this.totalFileSize) * 100;
+      for (let index = 0; index < this.uploadHandlers.length; index++) {
+        const handler = this.uploadHandlers[index];
+        await handler.start();
+      }
 
-        const timeElapsedInSeconds = (Date.now() - this.timeStarted) / 1000;
-        const uploadSpeedInSeconds = event.loaded / timeElapsedInSeconds;
+      const uploads = this.uploadHandlers.map((handler) => {
+        handler.file.name, handler.progress$.value.uploadId;
+      });
+      console.log(uploads);
 
-        this.eta = (this.totalFileSize - event.loaded) / uploadSpeedInSeconds;
+      const subtitleOptions: SubtitleOption[] = this.formGroup.controls.files
+        .getRawValue()
+        .filter((f) => {
+          {
+            return f.fileType === 'text';
+          }
+        })
+        .map((f) => {
+          return {
+            language: f.language,
+            uploadId: this.uploadHandlers.find(
+              (uploadHandler) => uploadHandler.file.name === f.name
+            )!.progress$.value.uploadId!,
+          };
+        });
 
-        break;
-      case HttpEventType.Response:
-        // TODO maybe call store method?? -> user will get the ws eveent anyways
-        this.loading = false;
-        this.dialogRef.close();
-        break;
-      default:
-        break;
+      const videoOptions: VideoOption[] = this.formGroup.controls.files
+        .getRawValue()
+        .filter((f) => {
+          {
+            return f.fileType === 'video';
+          }
+        })
+        .map((f) => {
+          return {
+            category: f.category,
+            useAudio: f.useAudio,
+            uploadId: this.uploadHandlers.find(
+              (uploadHandler) => uploadHandler.file.name === f.name
+            )!.progress$.value.uploadId!,
+          };
+        });
+
+      const createProjectDto: CreateProjectDto = {
+        asrVendor: AsrVendors.WHISPER,
+        title: this.formGroup.controls.title.getRawValue(),
+        language: this.createProjectService._getMainLanguage(this.formGroup),
+        videoOptions, // TODO fill
+        subtitleOptions:
+          subtitleOptions.length > 0 ? subtitleOptions : undefined, // TODO fill
+        sourceMode: 'video',
+      };
+
+      const project = await lastValueFrom(
+        this.api.createProject(createProjectDto)
+      );
+      // this.timeStarted = Date.now();
+      // this.uploadSubscription = this.api.createProject(formData).subscribe({
+      //   next: (event: HttpEvent<ProjectEntity>) => this._handleHttpEvent(event),
+      //   error: (error: HttpErrorResponse) => this._handleErrorHttpEvent(error),
+      // });
+      this.loading = false;
+      this.dialogRef.close();
+    } catch (error) {
+      // TODO error
+      this.loading = false;
+      this.formGroup.enable();
+
+      if (error instanceof HttpErrorResponse) {
+        this.error = error;
+        console.log('error in project creation', error);
+      }
+      // this.error = error;
+      // console.log('error in project creation', error);
     }
-  }
-
-  private _handleErrorHttpEvent(error: HttpErrorResponse) {
-    this.loading = false;
-    this.formGroup.enable();
-
-    this.error = error;
-    console.log('error in project creation', error);
   }
 
   ngOnDestroy() {

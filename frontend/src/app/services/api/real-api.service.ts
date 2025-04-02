@@ -18,6 +18,7 @@ import { ChangePasswordDto } from './dto/auth.dto';
 import { BulkRemoveDto } from './dto/bulk-remove.dto';
 import { ConnectLivestreamDto } from './dto/connect-livestream.dto';
 import { CreateCaptionDto } from './dto/create-caption.dto';
+import { CreateProjectDto } from './dto/create-project.dto';
 import { CreateSpeakersDto } from './dto/create-speakers.dto';
 import { CreateTranscriptionDto } from './dto/create-transcription.dto';
 import { PauseLivestreamDto } from './dto/pause-livestream.dto';
@@ -310,11 +311,15 @@ export class RealApiService implements ApiService {
     });
   }
 
-  createProject(project: FormData): Observable<HttpEvent<ProjectEntity>> {
+  createProjectOld(project: FormData): Observable<HttpEvent<ProjectEntity>> {
     return this._post<HttpEvent<ProjectEntity>>(`/projects`, project, {
       reportProgress: true,
       observe: 'events' as any,
     });
+  }
+
+  createProject(createProjectDto: CreateProjectDto): Observable<ProjectEntity> {
+    return this._post<ProjectEntity>(`/projects`, createProjectDto);
   }
 
   createDefaultProject(): Observable<ProjectEntity> {

@@ -83,16 +83,13 @@ export class ProjectService {
     this.serverBaseUrl = this.configService.get<string>('baseUrl');
   }
 
-  async create(
-    authUser: AuthUser,
-    createProjectDto: CreateProjectDto,
-    // videoFiles: Array<Express.Multer.File> | null = null,
-    // subtitleFiles: Array<Express.Multer.File> | null = null,
-  ) {
+  async create(authUser: AuthUser, createProjectDto: CreateProjectDto) {
     const status = ProjectStatus.WAITING;
 
+    console.log(createProjectDto);
+
     const videosMetadata: MediaFileMetadata[] = [];
-    const stubtitlesMetadata: MediaFileMetadata[] = [];
+    const subtitlesMetadata: MediaFileMetadata[] = [];
 
     createProjectDto.videoOptions.forEach(async (video) => {
       console.log(video);
@@ -104,13 +101,18 @@ export class ProjectService {
       videosMetadata.push(metadataObject);
     });
 
-    createProjectDto.subtitleOptions.forEach(async (subtitle) => {
-      const metadataObject = await this.mediaService.getMetadata(
-        subtitle.uploadId,
-      );
-      // TODO check if upload completed
-      stubtitlesMetadata.push(metadataObject);
-    });
+    if (createProjectDto.subtitleOptions) {
+      createProjectDto.subtitleOptions.forEach(async (subtitle) => {
+        const metadataObject = await this.mediaService.getMetadata(
+          subtitle.uploadId,
+        );
+        // TODO check if upload completed
+        subtitlesMetadata.push(metadataObject);
+      });
+    }
+
+    console.log(videosMetadata);
+    console.log(subtitlesMetadata);
 
     if (
       !createProjectDto.videoOptions.some(
@@ -178,7 +180,7 @@ export class ProjectService {
       authUser,
       populatedProject,
       videosMetadata,
-      stubtitlesMetadata,
+      subtitlesMetadata,
       createProjectDto,
       mainVideo,
       mainAudio,

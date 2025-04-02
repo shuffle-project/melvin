@@ -224,7 +224,13 @@
   } @else {
   <div class="upload">
     <p i18n="@@dialogCreateProjectUploadProgressLabel">Upload-Progress:</p>
-    <mat-progress-bar mode="determinate" [value]="fileUploadProgress" />
+    @for (uploadHandler of uploadHandlers; track uploadHandler) {
+    <app-upload-progress
+      [progress$]="uploadHandler.progress$"
+      [title]="uploadHandler.file.name"
+    ></app-upload-progress>
+    }
+    <!-- <mat-progress-bar mode="determinate" [value]="fileUploadProgress" /> -->
   </div>
 
   }

@@ -75,7 +75,7 @@ export class CreateProjectService {
     return formData;
   }
 
-  private _getMainLanguage(formGroup: FormGroup<CreateProjectFormGroup>) {
+  public _getMainLanguage(formGroup: FormGroup<CreateProjectFormGroup>) {
     const useAudioFiles = formGroup.controls.files
       .getRawValue()
       .filter((f) => f.useAudio);

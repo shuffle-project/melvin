@@ -60,18 +60,8 @@ export class ProjectController {
     @User() authUser: AuthUser,
     @Body()
     createProjectDto: CreateProjectDto,
-    // @UploadedFiles() //TODO swagger
-    // files?: {
-    //   videos: Array<Express.Multer.File>;
-    //   subtitles: Array<Express.Multer.File>;
-    // },
   ) {
-    return await this.projectService.create(
-      authUser,
-      createProjectDto,
-      // files?.videos ? files.videos : null,
-      // files?.subtitles ? files.subtitles : null,
-    );
+    return await this.projectService.create(authUser, createProjectDto);
   }
 
   // @UseGuards(JwtAuthGuard)

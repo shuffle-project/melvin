@@ -16,6 +16,7 @@ import { ChangePasswordDto } from './dto/auth.dto';
 import { BulkRemoveDto } from './dto/bulk-remove.dto';
 import { ConnectLivestreamDto } from './dto/connect-livestream.dto';
 import { CreateCaptionDto } from './dto/create-caption.dto';
+import { CreateProjectDto } from './dto/create-project.dto';
 import { CreateSpeakersDto } from './dto/create-speakers.dto';
 import { CreateTranscriptionDto } from './dto/create-transcription.dto';
 import { PauseLivestreamDto } from './dto/pause-livestream.dto';
@@ -170,7 +171,7 @@ export class FakeApiService implements ApiService {
     return of({ ...PROJECT_ENTITY_MOCK[0] });
   }
 
-  createProject(project: FormData): Observable<any> {
+  createProject(project: CreateProjectDto): Observable<ProjectEntity> {
     this.logger.verbose('createProject mocked');
     return of({ ...PROJECT_ENTITY_MOCK[0] });
   }

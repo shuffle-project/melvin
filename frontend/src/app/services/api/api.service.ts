@@ -8,6 +8,7 @@ import { ChangePasswordDto } from './dto/auth.dto';
 import { BulkRemoveDto } from './dto/bulk-remove.dto';
 import { ConnectLivestreamDto } from './dto/connect-livestream.dto';
 import { CreateCaptionDto } from './dto/create-caption.dto';
+import { CreateProjectDto } from './dto/create-project.dto';
 import { CreateSpeakersDto } from './dto/create-speakers.dto';
 import { CreateTranscriptionDto } from './dto/create-transcription.dto';
 import { PauseLivestreamDto } from './dto/pause-livestream.dto';
@@ -119,9 +120,7 @@ export abstract class ApiService {
     project: FormData
   ): Observable<HttpEvent<ProjectEntity>>;
 
-  abstract createProject(
-    project: FormData
-  ): Observable<HttpEvent<ProjectEntity>>;
+  abstract createProject(project: CreateProjectDto): Observable<ProjectEntity>;
 
   abstract createDefaultProject(): Observable<ProjectEntity>;
 

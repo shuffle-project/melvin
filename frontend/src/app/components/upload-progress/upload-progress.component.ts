@@ -22,7 +22,6 @@ import { UploadProgress } from 'src/app/services/upload/upload.interfaces';
 export class UploadProgressComponent implements OnInit {
   @Input() progress$!: Subject<UploadProgress>;
   @Input() title!: string;
-  @Input() fileIcon!: string;
 
   @Input() downloadLink?: string;
 

@@ -21,16 +21,11 @@ export class UploadHandler {
 
   async start() {
     // start upload#
-    const progressData: UploadProgress = {
-      uploadId: null,
+    this.progress$.next({
+      ...this.progress$.value,
       status: 'uploading',
-      value: 0,
-      bytesSent: 0,
-      bytesTotal: this.file.size,
       starttime: Date.now(),
-      eta: 0,
-    };
-    this.progress$.next(progressData);
+    });
     let createMediaEntity: CreateMediaEntity;
     try {
       createMediaEntity = await lastValueFrom(
@@ -46,7 +41,7 @@ export class UploadHandler {
       });
     } catch (error) {
       this.progress$.next({
-        ...progressData,
+        ...this.progress$.value,
         status: 'failed',
         error: 'failed to create upload', // TODO
       });
@@ -83,6 +78,8 @@ export class UploadHandler {
           )
         );
 
+        const progressData = { ...this.progress$.value };
+
         progressData.bytesSent += chunk.size;
         progressData.value = progressData.bytesSent / this.file.size;
 
@@ -98,7 +95,7 @@ export class UploadHandler {
         this.progress$.next(progressData);
       } catch (error) {
         this.progress$.next({
-          ...progressData,
+          ...this.progress$.value,
           status: 'failed',
           error: 'failed to upload', // TODO
         });
@@ -110,7 +107,7 @@ export class UploadHandler {
     }
 
     this.progress$.next({
-      ...progressData,
+      ...this.progress$.value,
       status: 'completed',
       eta: 0,
     });
