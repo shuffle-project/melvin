@@ -19,6 +19,7 @@ export interface CreateProjectDto {
   sourceMode: 'video' | 'live';
   liveProject?: LiveProjectDto;
   videoProject?: VideoProjectDto;
+  recorder?: boolean;
 
   videoOptions: VideoOption[];
   subtitleOptions?: SubtitleOption[];

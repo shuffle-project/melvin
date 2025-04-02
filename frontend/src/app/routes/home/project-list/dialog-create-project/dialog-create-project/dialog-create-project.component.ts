@@ -357,8 +357,7 @@ export class DialogCreateProjectComponent implements OnDestroy, AfterViewInit {
         this.uploadHandlers.push(this.uploadService.createUpload(f.file));
       });
 
-      for (let index = 0; index < this.uploadHandlers.length; index++) {
-        const handler = this.uploadHandlers[index];
+      for (const handler of this.uploadHandlers) {
         await handler.start();
       }
 

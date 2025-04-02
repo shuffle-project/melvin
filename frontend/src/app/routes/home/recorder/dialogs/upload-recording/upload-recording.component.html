@@ -110,11 +110,17 @@
             </div>
             } @else {
             <!-- upload ongoing -->
+
             <div class="progressbar-wrapper">
-              <mat-progress-bar
+              <app-upload-progress
+                [progress$]="uploadHandlers[i].progress$"
+                [title]="uploadHandlers[i].file.name"
+              ></app-upload-progress>
+
+              <!-- <mat-progress-bar
                 mode="determinate"
                 [value]="recording.upload.progress"
-              ></mat-progress-bar>
+              ></mat-progress-bar> -->
             </div>
             }
           </div>

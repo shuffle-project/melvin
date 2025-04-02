@@ -35,12 +35,10 @@ export class TranscriptionController {
 
   @UseGuards(JwtAuthGuard)
   @Post()
-  // @UseInterceptors(SubtitleFileInterceptor)
   @ApiResponse({ status: HttpStatus.CREATED, type: TranscriptionEntity })
   create(
     @User() authUser: AuthUser,
     @Body() createTranscriptionDto: CreateTranscriptionDto,
-    // @UploadedFile() file?: Express.Multer.File, //TODO swagger
   ): Promise<TranscriptionEntity> {
     return this.transcriptionService.create(authUser, createTranscriptionDto);
   }

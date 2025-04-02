@@ -11,11 +11,10 @@ import {
   Query,
   Req,
   Res,
-  UploadedFile,
   UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
-import { ApiConsumes, ApiResponse } from '@nestjs/swagger';
+import { ApiResponse } from '@nestjs/swagger';
 import { Request, Response } from 'express';
 import { Project } from '../../modules/db/schemas/project.schema';
 import { IsValidFilenamePipe } from '../../pipes/is-valid-filename.pipe';
@@ -53,8 +52,6 @@ export class ProjectController {
 
   @UseGuards(JwtAuthGuard)
   @Post()
-  @ApiConsumes('application/json') //, 'multipart/form-data'
-  // @UseInterceptors(MultiFileInterceptor)
   @ApiResponse({ status: HttpStatus.CREATED, type: ProjectEntity })
   async create(
     @User() authUser: AuthUser,
@@ -63,28 +60,6 @@ export class ProjectController {
   ) {
     return await this.projectService.create(authUser, createProjectDto);
   }
-
-  // @UseGuards(JwtAuthGuard)
-  // @Post('legacy')
-  // @ApiConsumes('application/json', 'multipart/form-data')
-  // @UseInterceptors(LegacyMultiFileInterceptor)
-  // @ApiResponse({ status: HttpStatus.CREATED, type: ProjectEntity })
-  // async createLegacy(
-  //   @User() authUser: AuthUser,
-  //   @Body() createProjectDto: CreateLegacyProjectDto,
-  //   @UploadedFiles() //TODO swagger
-  //   files?: {
-  //     video: Array<Express.Multer.File>;
-  //     subtitles: Array<Express.Multer.File>;
-  //   },
-  // ) {
-  //   return await this.projectService.createLegacy(
-  //     authUser,
-  //     createProjectDto,
-  //     files?.video ? files.video : null,
-  //     files?.subtitles ? files.subtitles : null,
-  //   );
-  // }
 
   @UseGuards(JwtAuthGuard)
   @Get()
@@ -114,9 +89,8 @@ export class ProjectController {
     @User() authUser: AuthUser,
     @Param('id', IsValidObjectIdPipe) id: string,
     @Body() updateProjectDto: UpdateProjectDto,
-    @UploadedFile() file?: Express.Multer.File, //TODO swagger
   ): Promise<ProjectEntity> {
-    return this.projectService.update(authUser, id, updateProjectDto, file);
+    return this.projectService.update(authUser, id, updateProjectDto);
   }
 
   @UseGuards(JwtAuthGuard)
@@ -240,17 +214,15 @@ export class ProjectController {
   }
 
   @UseGuards(JwtAuthGuard)
-  @Post(':id/media/upload')
-  // @UseInterceptors(MediaFileInterceptor)
+  @Post(':id/media/create')
   @ApiResponse({ type: ProjectEntity })
-  uploadVideo(
+  createVideo(
     @User() authUser: AuthUser,
     @Param('id', IsValidObjectIdPipe) id: string,
     @Body() uploadMediaDto: UploadVideoDto,
-    // @UploadedFile() file: Express.Multer.File, //
   ): Promise<ProjectEntity> {
     console.log(uploadMediaDto);
-    return this.projectService.uploadVideo(authUser, id, uploadMediaDto);
+    return this.projectService.createVideo(authUser, id, uploadMediaDto);
   }
 
   @UseGuards(JwtAuthGuard)

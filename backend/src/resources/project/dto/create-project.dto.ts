@@ -1,5 +1,5 @@
 import { ApiProperty, PickType } from '@nestjs/swagger';
-import { IsArray, IsEnum, IsOptional } from 'class-validator';
+import { IsArray, IsBoolean, IsEnum, IsOptional } from 'class-validator';
 import { Project } from '../../../modules/db/schemas/project.schema';
 import { AsrVendors } from '../../../processors/processor.interfaces';
 
@@ -44,4 +44,9 @@ export class CreateProjectDto extends PickType(Project, [
   @IsArray()
   @IsOptional()
   subtitleOptions?: SubtitleOption[];
+
+  @ApiProperty({ type: Boolean, required: false, default: false })
+  @IsBoolean()
+  @IsOptional()
+  recorder?: boolean = false;
 }

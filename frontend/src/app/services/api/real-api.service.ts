@@ -37,7 +37,7 @@ import {
 import { UpdateProjectDto } from './dto/update-project.dto';
 import { UpdateSpeakerDto } from './dto/update-speaker.dto';
 import { UpdateTranscriptionDto } from './dto/update-transcription.dto';
-import { UploadVideoDto } from './dto/upload-video.dto';
+import { UploadVideoDto as CreateVideoDto } from './dto/upload-video.dto';
 import { ActivityListEntity } from './entities/activitiy-list.entity';
 import {
   ChangePasswordEntity,
@@ -279,31 +279,6 @@ export class RealApiService implements ApiService {
     return this._post<void>('/users', { password });
   }
 
-  // projects
-  // createProject(
-  //   createProjectDto: CreateProjectDto,
-  //   videoFile: File,
-  //   subtitleFiles: File[] = []
-  // ): Observable<HttpEvent<ProjectEntity>> {
-  //   const formData = new FormData();
-  //   formData.append('data', JSON.stringify(createProjectDto));
-  //   formData.append('video', videoFile);
-  //   subtitleFiles.forEach((file) => formData.append('subtitles', file));
-
-  //   formData.append('title', createProjectDto.title);
-  //   formData.append('language', createProjectDto.language);
-  //   if (createProjectDto.asrVendor)
-  //     formData.append('asrVendor', createProjectDto.asrVendor);
-
-  //   const { emails = [] } = createProjectDto;
-  //   emails.forEach((mail) => formData.append('emails', mail));
-
-  //   return this._post<HttpEvent<ProjectEntity>>(`/projects`, formData, {
-  //     reportProgress: true,
-  //     observe: 'events' as any,
-  //   });
-  // }
-
   createLegacyProject(project: FormData): Observable<HttpEvent<ProjectEntity>> {
     return this._post<HttpEvent<ProjectEntity>>(`/projects/legacy`, project, {
       reportProgress: true,
@@ -337,11 +312,11 @@ export class RealApiService implements ApiService {
 
   createAdditionalVideo(
     projectId: string,
-    uploadVideoDto: UploadVideoDto
+    createVideoDto: CreateVideoDto
   ): Observable<ProjectEntity> {
-    console.log(uploadVideoDto);
-    return this._post<ProjectEntity>(`/projects/${projectId}/media/upload`, {
-      ...uploadVideoDto,
+    console.log(createVideoDto);
+    return this._post<ProjectEntity>(`/projects/${projectId}/media/create`, {
+      ...createVideoDto,
     });
   }
 
