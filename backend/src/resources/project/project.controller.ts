@@ -9,18 +9,14 @@ import {
   Patch,
   Post,
   Query,
-  Req,
-  Res,
   UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
 import { ApiResponse } from '@nestjs/swagger';
-import { Request, Response } from 'express';
 import { Project } from '../../modules/db/schemas/project.schema';
-import { IsValidFilenamePipe } from '../../pipes/is-valid-filename.pipe';
 import { IsValidObjectIdPipe } from '../../pipes/is-valid-objectid.pipe';
-import { MediaUser, User } from '../auth/auth.decorator';
-import { AuthUser, MediaAccessUser } from '../auth/auth.interfaces';
+import { User } from '../auth/auth.decorator';
+import { AuthUser } from '../auth/auth.interfaces';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { PopulateService } from '../populate/populate.service';
 import { CreateProjectDto } from './dto/create-project.dto';
@@ -190,26 +186,6 @@ export class ProjectController {
     return this.projectService.joinViaInviteToken(
       authUser,
       inviteToken.inviteToken,
-    );
-  }
-
-  // file management
-  @UseGuards(JwtAuthGuard)
-  @Get(':id/media/:filename')
-  @ApiResponse({ status: HttpStatus.PARTIAL_CONTENT })
-  async getAdditionalVideoChunk(
-    @Param('id', IsValidObjectIdPipe) id: string,
-    @Param('filename', IsValidFilenamePipe) filename: string,
-    @MediaUser() mediaAccessUser: MediaAccessUser,
-    @Req() req: Request,
-    @Res() res: Response,
-  ) {
-    return this.projectService.getMediaChunk(
-      id,
-      mediaAccessUser,
-      req,
-      res,
-      filename,
     );
   }
 

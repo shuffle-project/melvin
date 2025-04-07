@@ -30,7 +30,8 @@ export class PathService {
   }
 
   getUploadFile(id: string, ext: string): string {
-    return join(this.getUploadDirectory(id), 'file.' + ext);
+    const filename = 'file' + ext.startsWith('.') ? ext : '.' + ext;
+    return join(this.getUploadDirectory(id), filename);
   }
 
   getRootProjectDirectory(): string {

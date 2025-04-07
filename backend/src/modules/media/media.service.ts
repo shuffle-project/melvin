@@ -193,7 +193,7 @@ export class MediaService {
     await appendFile(filename, filePart);
   }
 
-  async getMetadata(id: string) {
+  async getMetadata(id: string): Promise<MediaFileMetadata> {
     const metadataPath = this.pathService.getUploadMetadataFile(id);
 
     const metadataFileExists = await exists(metadataPath);

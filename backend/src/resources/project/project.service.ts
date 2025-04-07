@@ -3,10 +3,7 @@ import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { Queue } from 'bull';
 import { plainToInstance } from 'class-transformer';
-import { Request, Response } from 'express';
-import { ReadStream, createReadStream } from 'fs';
 import { ensureDir, remove, rm } from 'fs-extra';
-import { stat } from 'fs/promises';
 import { Types } from 'mongoose';
 import { LeanUserDocument } from 'src/modules/db/schemas/user.schema';
 import { MediaFileMetadata } from 'src/modules/media/media.interfaces';
@@ -39,7 +36,7 @@ import {
 } from '../../utils/exceptions';
 import { getObjectIdAsString, isSameObjectId } from '../../utils/objectid';
 import { ActivityService } from '../activity/activity.service';
-import { AuthUser, MediaAccessUser } from '../auth/auth.interfaces';
+import { AuthUser } from '../auth/auth.interfaces';
 import { AuthService } from '../auth/auth.service';
 import { EventsGateway } from '../events/events.gateway';
 import { TranscriptionService } from '../transcription/transcription.service';
@@ -106,13 +103,11 @@ export class ProjectService {
         const metadataObject = await this.mediaService.getMetadata(
           subtitle.uploadId,
         );
+
         // TODO check if upload completed
         subtitlesMetadata.push(metadataObject);
       });
     }
-
-    console.log(videosMetadata);
-    console.log(subtitlesMetadata);
 
     if (
       !createProjectDto.videoOptions.some(
@@ -698,75 +693,6 @@ export class ProjectService {
         $push: { users: user },
       }),
     ]);
-  }
-
-  async getMediaChunk(
-    projectId: string,
-    mediaAccessUser: MediaAccessUser,
-    request: Request,
-    response: Response,
-    filename: string,
-  ) {
-    if (mediaAccessUser.projectId !== projectId) {
-      throw new CustomForbiddenException();
-    }
-
-    const [mediaId, ext] = filename.split('.');
-
-    // https://blog.logrocket.com/full-stack-app-tutorial-nestjs-react/
-    // https://betterprogramming.pub/video-stream-with-node-js-and-html5-320b3191a6b6
-    // https://www.geeksforgeeks.org/how-to-stream-large-mp4-files/
-
-    // const audioFilepath = this.pathService.getMp3File(projectId);
-    const mediaFilepath = this.pathService.getFile(projectId, filename);
-
-    try {
-      const fileStats = await stat(mediaFilepath);
-
-      const { range } = request.headers;
-      let readStream: ReadStream;
-      if (range) {
-        // version 1
-        // send in 1MB chunks
-        // const CHUNK_SIZE2 = 1 * 1e6;
-        // const start = Number(range.replace(/\D/g, ''));
-        // const end = Math.min(start2 + CHUNK_SIZE2, videoStats.size - 1);
-        // const chunksize = end - start + 1;
-
-        // version 2
-        const parts = range.replace(/bytes=/, '').split('-');
-        const start = parseInt(parts[0], 10);
-        // in some cases end may not exists, if its not exists make it end of file
-        const end = parts[1] ? parseInt(parts[1], 10) : fileStats.size - 1;
-        // chunk size is what the part of video we are sending.
-        const chunksize = end - start + 1;
-
-        response.status(206); // Parial content header
-        response.header({
-          'Content-Range': `bytes ${start}-${end}/${fileStats.size}`,
-          'Accept-Ranges': 'bytes',
-          'Content-length': chunksize,
-          'Content-Type': this._getMimetype(ext),
-        });
-        readStream = createReadStream(mediaFilepath, {
-          start: start,
-          end: end,
-        });
-      } else {
-        //if not send the video from start
-        response.status(200);
-        response.header({
-          'Content-Length': fileStats.size,
-          'Content-Type': this._getMimetype(ext),
-        });
-        readStream = createReadStream(mediaFilepath);
-      }
-      // pipe stream to response
-      readStream.pipe(response);
-    } catch (error) {
-      this.logger.error(error.message, { error });
-      response.status(400).send('Bad Request');
-    }
   }
 
   // upload file

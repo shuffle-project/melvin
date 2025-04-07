@@ -233,6 +233,10 @@
     <!-- <mat-progress-bar mode="determinate" [value]="fileUploadProgress" /> -->
   </div>
 
+  } @if(error){
+  <div class="upload-state error" i18n="@@createProjectFailedWithError">
+    Failed with error: {{ error.error.message }} <br />You can try again.
+  </div>
   }
 </mat-dialog-content>
 
