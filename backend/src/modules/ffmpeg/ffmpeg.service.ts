@@ -193,6 +193,15 @@ export class FfmpegService {
   ) {
     this.logger.verbose('Processing base video file: ' + projectId);
 
+    // make sure height is divisible by 2
+    const resolution = await this._getVideoResolution(inputpath);
+    const width = this._isEven(resolution.width)
+      ? resolution.width
+      : resolution.width + 1;
+    const height = this._isEven(resolution.height)
+      ? resolution.height
+      : resolution.height + 1;
+
     let commands: string[];
     if (useFlags) {
       commands = [
@@ -220,7 +229,7 @@ export class FfmpegService {
         // overwrite file
         '-y',
         '-vf',
-        `fps=30`,
+        `scale=${width}:${height},fps=30`,
         `${outputpath}`, // output file
       ];
     } else {
