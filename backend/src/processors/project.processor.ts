@@ -93,7 +93,7 @@ export class ProjectProcessor {
         project._id.toString(),
         file.path,
         targetFilepath,
-        recorder,
+        recorder || file.filename.endsWith('.webm'),
       );
     }
 
