@@ -10,6 +10,7 @@ import { Request, Response } from 'express';
 import { ensureDir, exists, readJson, writeJSON } from 'fs-extra';
 import { extname, join } from 'path';
 import { AuthUser } from 'src/resources/auth/auth.interfaces';
+import { UserRole } from 'src/resources/user/user.interfaces';
 import { v4 } from 'uuid';
 import {
   CreateMediaEntity,
@@ -135,8 +136,14 @@ export class MediaService {
     authUser: AuthUser,
     createMediaFileDto: CreateMediaFileDto,
   ): Promise<CreateMediaEntity> {
-    // TODO auth
     // TODO check max file size
+
+    // upload only allowed for admins, systems and users
+    if (
+      ![UserRole.ADMIN, UserRole.SYSTEM, UserRole.USER].includes(authUser.role)
+    ) {
+      throw new CustomBadRequestException('not_allowed_to_upload_files');
+    }
 
     const id = v4();
     const path = this.pathService.getTempDirectory(id);
@@ -159,8 +166,6 @@ export class MediaService {
   }
 
   async updateMediaFile(authUser: AuthUser, id: string, filePart: Buffer) {
-    // TODO auth
-
     // if (Math.random() > 0.5) {
     //   throw new CustomBadRequestException('random_error');
     // }
@@ -205,12 +210,4 @@ export class MediaService {
 
     return metadata;
   }
-
-  // mediaService.getFilePath
-  //
-
-  /**
-   * upload controller / service
-   *
-   */
 }
