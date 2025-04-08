@@ -17,6 +17,9 @@ export class PathService {
     this.logger.setContext(this.constructor.name);
   }
 
+  getRootTempDirectory(): string {
+    return MEDIA_TEMP_DIR;
+  }
   getTempDirectory(id: string): string {
     return join(MEDIA_TEMP_DIR, id);
   }

@@ -4,6 +4,7 @@ import { ConfigService } from '@nestjs/config';
 import { Queue } from 'bull';
 import { plainToInstance } from 'class-transformer';
 import { ensureDir, remove, rm } from 'fs-extra';
+import { stat } from 'fs/promises';
 import { Types } from 'mongoose';
 import { LeanUserDocument } from 'src/modules/db/schemas/user.schema';
 import { MediaFileMetadata } from 'src/modules/media/media.interfaces';
@@ -94,7 +95,17 @@ export class ProjectService {
         video.uploadId,
       );
 
-      // TODO check if upload completed
+      // check if upload completed
+      const uploadedFile = this.pathService.getUploadFile(
+        metadataObject.uploadId,
+        metadataObject.extension,
+      );
+      const uploadedFileStats = await stat(uploadedFile);
+      console.log(metadataObject, uploadedFileStats);
+
+      if (uploadedFileStats.size < metadataObject.filesize) {
+        throw new CustomBadRequestException('file_upload_not_completed');
+      }
       videosMetadata.push(metadataObject);
     });
 
@@ -104,7 +115,18 @@ export class ProjectService {
           subtitle.uploadId,
         );
 
-        // TODO check if upload completed
+        const uploadedFile = this.pathService.getUploadFile(
+          metadataObject.uploadId,
+          metadataObject.extension,
+        );
+        const uploadedFileStats = await stat(uploadedFile);
+        console.log(metadataObject, uploadedFileStats);
+
+        if (uploadedFileStats.size < metadataObject.filesize) {
+          throw new CustomBadRequestException('file_upload_not_completed');
+        }
+
+        // check if upload completed
         subtitlesMetadata.push(metadataObject);
       });
     }
