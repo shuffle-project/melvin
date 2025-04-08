@@ -1425,7 +1425,7 @@
         <source>Register</source>
       </trans-unit>
       <trans-unit id="registerDialogEmailContactInfo" datatype="html">
-        <source> Melvin is currently still in a closed test phase. Would you like to test Melvin? Please contact us at <x id="START_LINK" ctype="x-a" equiv-text="&lt;a href=&quot;mailto:melvin@hdm-suttgart.de&quot;&gt;"/>melvin@hdm-suttgart.de<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/></source>
+        <source> Melvin is currently still in a closed test phase. Would you like to test Melvin? Please contact us at <x id="START_LINK" ctype="x-a" equiv-text="&lt;a href=&quot;mailto:melvin@hdm-stuttgart.de&quot;&gt;"/>melvin@hdm-suttgart.de<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/></source>
       </trans-unit>
       <trans-unit id="registerDialogLoginIntroText" datatype="html">
         <source>Already have an account?</source>
@@ -1518,7 +1518,7 @@
         <source>Privacy</source>
       </trans-unit>
       <trans-unit id="sitemapListExplanation" datatype="html">
-        <source> This sitemap lists all pages alphabetically. </source>
+        <source> This sitemap lists all pages that do not require a login in alphabetical order. </source>
       </trans-unit>
       <trans-unit id="landingSidenavMenuHeader" datatype="html">
         <source>Menu</source>
@@ -1554,7 +1554,7 @@
         <source>Documentation - Melvin</source>
       </trans-unit>
       <trans-unit id="GuidePageTitle" datatype="html">
-        <source>Guide - Melvin</source>
+        <source>Didactic Guide - Melvin</source>
       </trans-unit>
       <trans-unit id="viewerAdjustLayoutDialogTitle" datatype="html">
         <source>Transcript settings</source>
@@ -1927,6 +1927,24 @@
       </trans-unit>
       <trans-unit id="guideSupportingDocumentTipsAccessibleTools" datatype="html">
         <source>Tips for Accessible Tools</source>
+      </trans-unit>
+      <trans-unit id="landingFooterAccessibilityHeader" datatype="html">
+        <source>Accessibility</source>
+      </trans-unit>
+      <trans-unit id="landingFooterDidacticGuideLinkLabel" datatype="html">
+        <source> Didactic Guide </source>
+      </trans-unit>
+      <trans-unit id="landingFooterFoundationLinkAriaLabel" datatype="html">
+        <source>Foundation &apos;Stiftung Innovation in der Hochschullehre&apos;, opens in new tab</source>
+      </trans-unit>
+      <trans-unit id="landingFooterLegalHeader" datatype="html">
+        <source>Legal</source>
+      </trans-unit>
+      <trans-unit id="landingFooterNavAriaLabel" datatype="html">
+        <source>Footer navigation</source>
+      </trans-unit>
+      <trans-unit id="landingFooterTutorialsHeader" datatype="html">
+        <source>Tutorials</source>
       </trans-unit>
     </body>
   </file>

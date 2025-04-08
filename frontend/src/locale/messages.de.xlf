@@ -1371,8 +1371,8 @@
         <target state="final">Datenschutzerklärung</target>
       </trans-unit>
       <trans-unit id="sitemapListExplanation" datatype="html">
-        <source> This sitemap lists all pages alphabetically. </source>
-        <target state="final"> Diese Sitemap listet alle Seiten alphabetisch auf. </target>
+        <source> This sitemap lists all pages that do not require a login in alphabetical order. </source>
+        <target state="new"> Diese Sitemap listet alle Seiten alphabetisch auf. </target>
       </trans-unit>
       <trans-unit id="landingSidenavMenuHeader" datatype="html">
         <source>Menu</source>
@@ -1867,8 +1867,8 @@
         <target state="final">Password ist nicht korrekt</target>
       </trans-unit>
       <trans-unit id="registerDialogEmailContactInfo" datatype="html">
-        <source> Melvin is currently still in a closed test phase. Would you like to test Melvin? Please contact us at <x id="START_LINK" ctype="x-a" equiv-text="&lt;a href=&quot;mailto:melvin@hdm-suttgart.de&quot;&gt;"/>melvin@hdm-suttgart.de<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/></source>
-        <target state="final"> Melvin befindet sich aktuell noch in einer geschlossenen Testphase. Sie möchten Melvin testen? Kontaktieren Sie uns gerne unter <x id="START_LINK" ctype="x-a" equiv-text="&lt;a href=&quot;mailto:melvin@hdm-stuttgart.de&quot;&gt;"/>melvin@hdm-stuttgart.de<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/></target>
+        <source> Melvin is currently still in a closed test phase. Would you like to test Melvin? Please contact us at <x id="START_LINK" ctype="x-a" equiv-text="&lt;a href=&quot;mailto:melvin@hdm-stuttgart.de&quot;&gt;"/>melvin@hdm-suttgart.de<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/></source>
+        <target state="new"> Melvin befindet sich aktuell noch in einer geschlossenen Testphase. Sie möchten Melvin testen? Kontaktieren Sie uns gerne unter <x id="START_LINK" ctype="x-a" equiv-text="&lt;a href=&quot;mailto:melvin@hdm-stuttgart.de&quot;&gt;"/>melvin@hdm-stuttgart.de<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/></target>
       </trans-unit>
       <trans-unit id="fromMediaTranscriptionTabHeading" datatype="html">
         <source> Generate a new transcription from media </source>
@@ -2004,11 +2004,11 @@
       </trans-unit>
       <trans-unit id="landingHeaderGuideLinkLabel" datatype="html">
         <source> Didactic Guide </source>
-        <target state="new"> Leitfaden </target>
+        <target state="final"> Didaktik-Guide </target>
       </trans-unit>
       <trans-unit id="GuidePageTitle" datatype="html">
-        <source>Guide - Melvin</source>
-        <target state="final">Leitfaden - Melvin</target>
+        <source>Didactic Guide - Melvin</source>
+        <target state="final">Didaktik-Guide - Melvin</target>
       </trans-unit>
       <trans-unit id="viewerControlsQualityTitle" datatype="html">
         <source> Max. Resolution </source>
@@ -2032,7 +2032,7 @@
       </trans-unit>
       <trans-unit id="headerMenuGuideButton" datatype="html">
         <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;book&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/>Didactic Guide </source>
-        <target state="new"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;book&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/>Leitfaden </target>
+        <target state="new"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;book&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/>Didaktik-Guide </target>
       </trans-unit>
       <trans-unit id="editorSettingsHeadline" datatype="html">
         <source>Settings</source>
@@ -2040,7 +2040,7 @@
       </trans-unit>
       <trans-unit id="guideMainHeading" datatype="html">
         <source>Didactic Guide</source>
-        <target state="new">Leitfaden</target>
+        <target state="final">Didaktik-Guide</target>
       </trans-unit>
       <trans-unit id="guideSubHeading" datatype="html">
         <source> Didactic Recommendations – How to Use Melvin Effectively </source>
@@ -2048,7 +2048,7 @@
       </trans-unit>
       <trans-unit id="guideContentTableHeading" datatype="html">
         <source>Table of Contents</source>
-        <target state="new">Inhaltsverzeichnis</target>
+        <target state="final">Inhaltsverzeichnis</target>
       </trans-unit>
       <trans-unit id="guideContentTableWhy" datatype="html">
         <source> Why Didactic Recommendations? </source>
@@ -2569,6 +2569,30 @@
       <trans-unit id="guideSupportingDocumentTipsAccessibleTools" datatype="html">
         <source>Tips for Accessible Tools</source>
         <target state="final">Tipps für barrierefreie Tools</target>
+      </trans-unit>
+      <trans-unit id="landingFooterNavAriaLabel" datatype="html">
+        <source>Footer navigation</source>
+        <target state="final">Fußnavigation</target>
+      </trans-unit>
+      <trans-unit id="landingFooterLegalHeader" datatype="html">
+        <source>Legal</source>
+        <target state="final">Rechtliches</target>
+      </trans-unit>
+      <trans-unit id="landingFooterTutorialsHeader" datatype="html">
+        <source>Tutorials</source>
+        <target state="final">Anleitungen</target>
+      </trans-unit>
+      <trans-unit id="landingFooterDidacticGuideLinkLabel" datatype="html">
+        <source> Didactic Guide </source>
+        <target state="final"> Didaktik-Guide </target>
+      </trans-unit>
+      <trans-unit id="landingFooterAccessibilityHeader" datatype="html">
+        <source>Accessibility</source>
+        <target state="final">Barrierefreiheit</target>
+      </trans-unit>
+      <trans-unit id="landingFooterFoundationLinkAriaLabel" datatype="html">
+        <source>Foundation &apos;Stiftung Innovation in der Hochschullehre&apos;, opens in new tab</source>
+        <target state="final">Stiftung Innovation in der Hochschullehre, öffnet in neuem Tab</target>
       </trans-unit>
     </body>
   </file>

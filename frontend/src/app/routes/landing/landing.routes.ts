@@ -64,7 +64,7 @@ export const LandingRoutes: Routes = [
       {
         path: 'guide',
         component: GuideComponent,
-        title: $localize`:@@GuidePageTitle:Guide - Melvin`,
+        title: $localize`:@@GuidePageTitle:Didactic Guide - Melvin`,
       },
       //   {
       //     path: '**',
