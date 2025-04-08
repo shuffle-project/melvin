@@ -116,10 +116,6 @@ export abstract class ApiService {
   abstract deleteAccount(password: string): Observable<void>;
 
   // projects
-  abstract createLegacyProject(
-    project: FormData
-  ): Observable<HttpEvent<ProjectEntity>>;
-
   abstract createProject(project: CreateProjectDto): Observable<ProjectEntity>;
 
   abstract createDefaultProject(): Observable<ProjectEntity>;

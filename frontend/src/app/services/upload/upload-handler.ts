@@ -5,7 +5,7 @@ import { UploadProgress } from './upload.interfaces';
 
 export class UploadHandler {
   public progress$: BehaviorSubject<UploadProgress>;
-  CHUNKSIZE = 20; // in MB
+  MAX_CHUNKSIZE = 20; // in MB
 
   constructor(public file: File, private api: ApiService) {
     this.progress$ = new BehaviorSubject<UploadProgress>({
@@ -50,9 +50,11 @@ export class UploadHandler {
     console.log(this.file);
     console.log(createMediaEntity);
 
-    const chunksize = this.CHUNKSIZE * 1000 * 1000; // 4mb
+    let index = 1;
+    const maxChunksize = this.MAX_CHUNKSIZE * 1000 * 1000;
+    let currentChunksize = 2 * 1000 * 1000; // 2MB
     let from = 0;
-    let to = Math.min(chunksize, this.file.size);
+    let to = Math.min(currentChunksize, this.file.size);
 
     console.log('file.size: ' + this.file.size);
     while (from < this.file.size) {
@@ -103,7 +105,13 @@ export class UploadHandler {
       }
 
       from = to;
-      to = Math.min(to + chunksize, this.file.size);
+
+      // set currentChunksize to 2,4,8,16,20,20,20,... MB
+      currentChunksize = currentChunksize * 2;
+      if (currentChunksize > maxChunksize) currentChunksize = maxChunksize;
+
+      to = Math.min(to + currentChunksize, this.file.size);
+      index++;
     }
 
     this.progress$.next({
