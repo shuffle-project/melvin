@@ -228,9 +228,9 @@
     <app-upload-progress
       [progress$]="uploadHandler.progress$"
       [title]="uploadHandler.file.name"
-    ></app-upload-progress>
+      [fileSize]="uploadHandler.file.size"
+    />
     }
-    <!-- <mat-progress-bar mode="determinate" [value]="fileUploadProgress" /> -->
   </div>
 
   } @if(error){

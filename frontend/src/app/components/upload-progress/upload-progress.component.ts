@@ -7,6 +7,17 @@ import { LetDirective } from '@ngrx/component';
 import { Subject } from 'rxjs';
 import { UploadProgress } from 'src/app/services/upload/upload.interfaces';
 
+function toCorrectSizeUnit(n: number) {
+  const ONE_MB = 1000 * 1000;
+  const ONE_GB = ONE_MB * 1000;
+
+  if (n < ONE_GB) {
+    return `${(n / ONE_MB).toFixed(2)} MB`;
+  } else {
+    return `${(n / ONE_GB).toFixed(2)} GB`;
+  }
+}
+
 @Component({
   selector: 'app-upload-progress',
   imports: [
@@ -22,6 +33,7 @@ import { UploadProgress } from 'src/app/services/upload/upload.interfaces';
 export class UploadProgressComponent implements OnInit {
   @Input() progress$!: Subject<UploadProgress>;
   @Input() title!: string;
+  @Input({ transform: toCorrectSizeUnit }) fileSize!: string;
 
   @Input() downloadLink?: string;
 
@@ -29,7 +41,7 @@ export class UploadProgressComponent implements OnInit {
     this.progress$ = new Subject();
   }
 
-  async ngOnInit() {
+  ngOnInit() {
     // const stepDuration = 10;
     // for (let i = 0; i < 100; i++) {
     //   this.progress$.next({
