@@ -12,7 +12,7 @@ import { UserEntity } from 'src/app/services/api/entities/user.entity';
 import { environment } from 'src/environments/environment';
 import * as authSelectors from '../../store/selectors/auth.selector';
 import * as viewerSelector from '../../store/selectors/viewer.selector';
-import { CreateMediaFileDto } from '../upload/upload.interfaces';
+import { UploadDto } from '../upload/upload.interfaces';
 import { ApiService } from './api.service';
 import { ChangePasswordDto } from './dto/auth.dto';
 import { BulkRemoveDto } from './dto/bulk-remove.dto';
@@ -67,7 +67,7 @@ import {
   SubtitleFormat,
   TranscriptionEntity,
 } from './entities/transcription.entity';
-import { CreateMediaEntity } from './entities/upload-file.entity';
+import { UploadEntity } from './entities/upload-file.entity';
 import { WaveformData } from './entities/waveform-data.entity';
 
 export interface RequestOptions {
@@ -685,11 +685,11 @@ export class RealApiService implements ApiService {
 
   // upload service
 
-  createMediaFile(createMediaFileDto: CreateMediaFileDto) {
-    return this._post<CreateMediaEntity>('/upload', { ...createMediaFileDto });
+  createUpload(uploadDto: UploadDto) {
+    return this._post<UploadEntity>('/upload', { ...uploadDto });
   }
-  updateMediaFile(id: string, filePart: Blob) {
-    console.log('upadeMediaFile called', id);
+  updateUpload(id: string, filePart: Blob) {
+    console.log('updateUpload called', id);
     return this._patch(`/upload/${id}`, filePart, {
       headers: { 'Content-Type': 'application/octet-stream' },
     });

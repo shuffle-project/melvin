@@ -10,7 +10,7 @@ export interface UploadProgress {
   error?: string;
 }
 
-export interface CreateMediaFileDto {
+export interface UploadDto {
   filesize: number;
   filename: string;
   mimetype: string;

@@ -1,6 +1,6 @@
 import { BehaviorSubject, lastValueFrom, retry, timer } from 'rxjs';
 import { ApiService } from '../api/api.service';
-import { CreateMediaEntity } from '../api/entities/upload-file.entity';
+import { UploadEntity } from '../api/entities/upload-file.entity';
 import { UploadProgress } from './upload.interfaces';
 
 export class UploadHandler {
@@ -26,10 +26,10 @@ export class UploadHandler {
       status: 'uploading',
       starttime: Date.now(),
     });
-    let createMediaEntity: CreateMediaEntity;
+    let createMediaEntity: UploadEntity;
     try {
       createMediaEntity = await lastValueFrom(
-        this.api.createMediaFile({
+        this.api.createUpload({
           filename: this.file.name,
           filesize: this.file.size,
           mimetype: this.file.type,
@@ -65,7 +65,7 @@ export class UploadHandler {
       // if failes -> retry -> fail again -> retry after 5 seconods
       try {
         await lastValueFrom(
-          this.api.updateMediaFile(createMediaEntity.id, chunk).pipe(
+          this.api.updateUpload(createMediaEntity.id, chunk).pipe(
             retry({
               count: 5,
               delay: (error, count) => {

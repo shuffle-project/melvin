@@ -1,3 +1,3 @@
-export interface CreateMediaEntity {
+export interface UploadEntity {
   id: string;
 }

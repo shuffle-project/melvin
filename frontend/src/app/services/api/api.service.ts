@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { UserEntity } from 'src/app/services/api/entities/user.entity';
 import { environment } from '../../../environments/environment';
-import { CreateMediaFileDto } from '../upload/upload.interfaces';
+import { UploadDto } from '../upload/upload.interfaces';
 import { ChangePasswordDto } from './dto/auth.dto';
 import { BulkRemoveDto } from './dto/bulk-remove.dto';
 import { ConnectLivestreamDto } from './dto/connect-livestream.dto';
@@ -61,7 +61,7 @@ import {
   SubtitleFormat,
   TranscriptionEntity,
 } from './entities/transcription.entity';
-import { CreateMediaEntity } from './entities/upload-file.entity';
+import { UploadEntity } from './entities/upload-file.entity';
 import { WaveformData } from './entities/waveform-data.entity';
 import { FakeApiService } from './fake-api.service';
 import { RealApiService } from './real-api.service';
@@ -343,9 +343,7 @@ export abstract class ApiService {
   abstract userTestReset(projectId: string): Observable<void>;
 
   // upload service
-  abstract createMediaFile(
-    createMediaFileDto: CreateMediaFileDto
-  ): Observable<CreateMediaEntity>;
-  abstract updateMediaFile(id: string, filePart: Blob): Observable<any>;
+  abstract createUpload(uploadDto: UploadDto): Observable<UploadEntity>;
+  abstract updateUpload(id: string, filePart: Blob): Observable<any>;
   abstract cancelUpload(id: string): Observable<any>;
 }
