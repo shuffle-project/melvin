@@ -11,7 +11,7 @@ import { UploadEntity } from '../api/entities/upload-file.entity';
 import { UploadProgress } from './upload.interfaces';
 
 export class UploadHandler {
-  private cancel$$ = new Subject<void>();
+  public cancel$$ = new Subject<void>();
   public progress$: BehaviorSubject<UploadProgress>;
   MAX_CHUNKSIZE = 20; // in MB
 
