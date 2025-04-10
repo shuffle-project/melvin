@@ -127,6 +127,7 @@ export class UploadRecordingComponent implements OnInit {
       const handlerProgress = handler.progress$.value;
 
       if (handlerProgress.status === 'uploading') {
+        handler.cancel$$.next(); // HERE
         await lastValueFrom(this.api.cancelUpload(handlerProgress.uploadId!));
       }
     }
