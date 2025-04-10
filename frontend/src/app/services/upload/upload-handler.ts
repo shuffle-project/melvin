@@ -26,9 +26,9 @@ export class UploadHandler {
       status: 'uploading',
       starttime: Date.now(),
     });
-    let createMediaEntity: UploadEntity;
+    let uploadEntity: UploadEntity;
     try {
-      createMediaEntity = await lastValueFrom(
+      uploadEntity = await lastValueFrom(
         this.api.createUpload({
           filename: this.file.name,
           filesize: this.file.size,
@@ -37,7 +37,7 @@ export class UploadHandler {
       );
       this.progress$.next({
         ...this.progress$.value,
-        uploadId: createMediaEntity.id,
+        uploadId: uploadEntity.id,
       });
     } catch (error) {
       this.progress$.next({
@@ -48,7 +48,7 @@ export class UploadHandler {
       throw error;
     }
     console.log(this.file);
-    console.log(createMediaEntity);
+    console.log(uploadEntity);
 
     let index = 1;
     const maxChunksize = this.MAX_CHUNKSIZE * 1000 * 1000;
@@ -65,7 +65,7 @@ export class UploadHandler {
       // if failes -> retry -> fail again -> retry after 5 seconods
       try {
         await lastValueFrom(
-          this.api.updateUpload(createMediaEntity.id, chunk).pipe(
+          this.api.updateUpload(uploadEntity.id, chunk).pipe(
             retry({
               count: 5,
               delay: (error, count) => {
