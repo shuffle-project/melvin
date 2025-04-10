@@ -15,16 +15,15 @@
       } }
     </div>
 
-    @if(downloadLink) {
-    <button mat-icon-button><mat-icon svgIcon="download" /></button>
-
-    } @switch (progress.status) { @case ('uploading') {
+    @switch (progress.status) { @case ('uploading') {
     <span>{{ progress.value * 100 | number : '1.0-0' }}%</span>
     } @case ('completed') {
     <mat-icon svgIcon="check" class="icon-success" />
     } @case ('failed') {
     <mat-icon svgIcon="error" class="icon-error" />
     } }
+
+    <ng-content />
   </div>
 
   @if(progress.status === 'uploading') {

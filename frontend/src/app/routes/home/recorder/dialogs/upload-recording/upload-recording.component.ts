@@ -17,11 +17,9 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSelectChange, MatSelectModule } from '@angular/material/select';
 import { Router } from '@angular/router';
-import { PushPipe } from '@ngrx/component';
 import { Store } from '@ngrx/store';
 import { lastValueFrom, Subject, take, takeUntil } from 'rxjs';
 import { UploadProgressComponent } from 'src/app/components/upload-progress/upload-progress.component';
-import { WrittenOutLanguagePipe } from 'src/app/pipes/written-out-language-pipe/written-out-language.pipe';
 import {
   CreateProjectDto,
   VideoOption,
@@ -48,9 +46,7 @@ import { Recording } from '../../recorder.interfaces';
     MatButtonModule,
     MatIconModule,
     MatSelectModule,
-    WrittenOutLanguagePipe,
     ReactiveFormsModule,
-    PushPipe,
     UploadProgressComponent,
   ],
   templateUrl: './upload-recording.component.html',
@@ -211,27 +207,13 @@ export class UploadRecordingComponent implements OnInit {
     }
   }
 
-  onDownloadVideosLocally() {
-    this.data.recordings.forEach((rec, i) => {
-      this.onDownloadVideoLocally(rec, i);
-    });
-  }
+  onDownloadVideoLocally(file: File) {
+    const filename = file.name.replace(/\s/g, '_');
 
-  onDownloadVideoLocally(rec: Recording, i = -1) {
-    console.log(rec);
-    const prefix = i < 0 ? '' : i + 1 + '_';
-    const filename = prefix + rec.title.replace(/\s/g, '_') + '.webm';
-    const file = new File(rec.chunks, filename, {
-      type: 'video/webm',
-    });
-    // const file = new File(rec.chunks.splice(0, rec.chunks.length), filename, {
-    //   type: 'video/webm',
-    // });
     const objectURL = window.URL.createObjectURL(file);
     const downloadElement = document.createElement('a');
     downloadElement.href = objectURL;
     downloadElement.download = filename;
-    // downloadElement.target ='_blank'
     downloadElement.click();
     downloadElement.remove();
     window.URL.revokeObjectURL(objectURL);

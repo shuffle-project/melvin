@@ -35,8 +35,6 @@ export class UploadProgressComponent implements OnInit {
   @Input() title!: string;
   @Input({ transform: toCorrectSizeUnit }) fileSize!: string;
 
-  @Input() downloadLink?: string;
-
   constructor() {
     this.progress$ = new Subject();
   }

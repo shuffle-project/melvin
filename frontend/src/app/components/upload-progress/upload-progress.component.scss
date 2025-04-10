@@ -1,3 +1,5 @@
+@use '@angular/material' as mat;
+
 :host {
   flex: 1;
   width: 100%;
@@ -48,6 +50,14 @@
 
 .icon-error {
   color: var(--color-warn);
+}
+
+.download-button {
+  @include mat.icon-button-overrides(
+    (
+      icon-color: orange,
+    )
+  );
 }
 
 mat-progress-bar {
