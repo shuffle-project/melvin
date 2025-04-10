@@ -26,7 +26,7 @@ export class UploadService {
 
   async createUpload(
     authUser: AuthUser,
-    createMediaFileDto: CreateUploadDto,
+    createUploadDto: CreateUploadDto,
   ): Promise<UploadEntity> {
     // TODO check max file size
 
@@ -41,9 +41,9 @@ export class UploadService {
     const path = this.pathService.getTempDirectory(id);
     await ensureDir(path);
 
-    const extension = extname(createMediaFileDto.filename);
+    const extension = extname(createUploadDto.filename);
     const metadata: UploadMetadata = {
-      ...createMediaFileDto,
+      ...createUploadDto,
       uploadId: id,
       createdBy: authUser.id,
       extension,
