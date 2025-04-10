@@ -15,10 +15,10 @@ import {
 } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
-import { MatSelectChange, MatSelectModule } from '@angular/material/select';
+import { MatSelectModule } from '@angular/material/select';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { lastValueFrom, Subject, take, takeUntil } from 'rxjs';
+import { lastValueFrom, Subject, takeUntil } from 'rxjs';
 import { UploadProgressComponent } from 'src/app/components/upload-progress/upload-progress.component';
 import {
   CreateProjectDto,
@@ -28,10 +28,7 @@ import { UploadHandler } from 'src/app/services/upload/upload-handler';
 import { UploadService } from 'src/app/services/upload/upload.service';
 import { ApiService } from '../../../../../services/api/api.service';
 import { AsrVendors } from '../../../../../services/api/dto/create-transcription.dto';
-import {
-  AsrServiceConfig,
-  LanguageShort,
-} from '../../../../../services/api/entities/config.entity';
+import { AsrServiceConfig } from '../../../../../services/api/entities/config.entity';
 import { AppState } from '../../../../../store/app.state';
 import * as configSelectors from '../../../../../store/selectors/config.selector';
 import { asrServiceConfig } from '../../../../../store/selectors/config.selector';
@@ -68,6 +65,7 @@ export class UploadRecordingComponent implements OnInit {
   public formGroup: FormGroup = this.fb.group({
     language: this.fb.control('', Validators.required),
   });
+
   uploadHandlers: UploadHandler[] = [];
 
   constructor(
@@ -113,6 +111,7 @@ export class UploadRecordingComponent implements OnInit {
       (recording) => recording.complete
     );
   }
+
   onClose(toProjectlist = false) {
     this.dialogRef.close();
     if (toProjectlist) {
@@ -120,36 +119,33 @@ export class UploadRecordingComponent implements OnInit {
     }
   }
 
-  onChangeAsrService(change: MatSelectChange) {
-    const languages: LanguageShort[] = change.value.languages;
+  // onChangeAsrService(change: MatSelectChange) {
+  //   const languages: LanguageShort[] = change.value.languages;
 
-    // choose same language again if it is possible for the new asrservice
-    const prev = languages.find(
-      (l) => l.code === this.formGroup.value.language
-    );
-    if (prev) {
-      this.formGroup.value.language = prev.code;
-    } else if (languages.length > 0) {
-      // choose first language (should always be possible)
-      this.formGroup.value.language = languages[0].code;
-    }
-  }
+  //   // choose same language again if it is possible for the new asrservice
+  //   const prev = languages.find(
+  //     (l) => l.code === this.formGroup.value.language
+  //   );
+  //   if (prev) {
+  //     this.formGroup.value.language = prev.code;
+  //   } else if (languages.length > 0) {
+  //     // choose first language (should always be possible)
+  //     this.formGroup.value.language = languages[0].code;
+  //   }
+  // }
 
-  selectInitalInputs() {
-    this.asrServiceConfig$.pipe(take(1)).subscribe((configs) => {
-      // preselect asr config
-      const whisperConfig = configs.find(
-        (config) => config.asrVendor === AsrVendors.WHISPER
-      );
-      if (whisperConfig) {
-        this.asrSelection = whisperConfig;
-        // this.language = whisperConfig.languages[0].code;
-      } else if (configs.length > 0) {
-        this.asrSelection = configs[0];
-        // this.language = configs[0].languages[0].code;
-      }
-    });
-  }
+  // selectInitalInputs() {
+  //   this.asrServiceConfig$.pipe(take(1)).subscribe((configs) => {
+  //     const whisperConfig = configs.find(
+  //       (config) => config.asrVendor === AsrVendors.WHISPER
+  //     );
+  //     if (whisperConfig) {
+  //       this.asrSelection = whisperConfig;
+  //     } else if (configs.length > 0) {
+  //       this.asrSelection = configs[0];
+  //     }
+  //   });
+  // }
 
   async onUploadRecording() {
     if (!this.formGroup.value.language) {

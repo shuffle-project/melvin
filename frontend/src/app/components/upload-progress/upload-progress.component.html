@@ -1,35 +1,36 @@
 <div *ngrxLet="progress$ as progress" class="container">
-  <div class="flex items-center justify-between text-wrapper">
-    <div class="flex flex-1 flex-col justify-center left-side">
-      <span class="filename text-ellipsis">{{ title }}</span>
+  <div class="static">
+    <div class="text-wrapper">
+      <div class="flex flex-1 flex-col justify-center left-side">
+        <span class="filename text-ellipsis">{{ title }}</span>
+
+        @switch (progress.status) { @case ('uploading') {
+        <span class="message">
+          {{ this.fileSize }} ({{ progress.eta | number : '1.0-0' }} seconds
+          remaining)
+        </span>
+        } @case ('completed') {
+        <span class="message success">Upload completed</span>
+        } @case ('failed') {
+        <span class="message error">Upload failed</span>
+        } }
+      </div>
 
       @switch (progress.status) { @case ('uploading') {
-      <span class="message">
-        {{ this.fileSize }} ({{ progress.eta | number : '1.0-0' }} seconds
-        remaining)
-      </span>
+      <span>{{ progress.value * 100 | number : '1.0-0' }}%</span>
       } @case ('completed') {
-      <span class="message success">Upload completed</span>
+      <mat-icon svgIcon="check" class="icon-success" />
       } @case ('failed') {
-      <span class="message error">Upload failed</span>
+      <mat-icon svgIcon="error" class="icon-error" />
       } }
     </div>
 
-    @switch (progress.status) { @case ('uploading') {
-    <span>{{ progress.value * 100 | number : '1.0-0' }}%</span>
-    } @case ('completed') {
-    <mat-icon svgIcon="check" class="icon-success" />
-    } @case ('failed') {
-    <mat-icon svgIcon="error" class="icon-error" />
-    } }
-
-    <ng-content />
+    @if(progress.status === 'uploading') {
+    <mat-progress-bar
+      mode="determinate"
+      [value]="progress.value * 100"
+    ></mat-progress-bar>
+    }
   </div>
-
-  @if(progress.status === 'uploading') {
-  <mat-progress-bar
-    mode="determinate"
-    [value]="progress.value * 100"
-  ></mat-progress-bar>
-  }
+  <ng-content />
 </div>
