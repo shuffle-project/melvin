@@ -1,9 +1,17 @@
-import { BehaviorSubject, lastValueFrom, retry, timer } from 'rxjs';
+import {
+  BehaviorSubject,
+  lastValueFrom,
+  retry,
+  Subject,
+  takeUntil,
+  timer,
+} from 'rxjs';
 import { ApiService } from '../api/api.service';
 import { UploadEntity } from '../api/entities/upload-file.entity';
 import { UploadProgress } from './upload.interfaces';
 
 export class UploadHandler {
+  private cancel$$ = new Subject<void>();
   public progress$: BehaviorSubject<UploadProgress>;
   MAX_CHUNKSIZE = 20; // in MB
 
@@ -66,6 +74,7 @@ export class UploadHandler {
       try {
         await lastValueFrom(
           this.api.updateUpload(uploadEntity.id, chunk).pipe(
+            takeUntil(this.cancel$$),
             retry({
               count: 5,
               delay: (error, count) => {
