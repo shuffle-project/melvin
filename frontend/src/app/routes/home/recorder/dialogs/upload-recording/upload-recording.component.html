@@ -30,6 +30,8 @@
   </div>
 
   <div>
+    @if (readyToUpload) {
+
     <ul class="actions-list">
       @for (uploadHandler of uploadHandlers; track uploadHandler.file.name) {
       <li class="action-item">
@@ -37,6 +39,7 @@
           <app-upload-progress
             [progress$]="uploadHandler.progress$"
             [title]="uploadHandler.file.name"
+            [fileSize]="uploadHandler.file.size"
           >
             <button
               mat-icon-button
@@ -51,6 +54,11 @@
       </li>
       }
     </ul>
+    } @else {
+    <div class="spinner-wrapper">
+      <mat-spinner diameter="50" />
+    </div>
+    }
   </div>
 
   <div>
@@ -101,7 +109,6 @@
 </mat-dialog-content>
 
 <mat-dialog-actions align="end">
-  @if (!uploading) {
   <button
     mat-stroked-button
     (click)="onClose()"
@@ -111,6 +118,7 @@
     Discard and close
   </button>
 
+  @if (!uploading) {
   <button
     mat-flat-button
     [disabled]="!readyToUpload"

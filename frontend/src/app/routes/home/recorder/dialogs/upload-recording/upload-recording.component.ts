@@ -15,6 +15,7 @@ import {
 } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSelectModule } from '@angular/material/select';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
@@ -45,6 +46,7 @@ import { Recording } from '../../recorder.interfaces';
     MatSelectModule,
     ReactiveFormsModule,
     UploadProgressComponent,
+    MatProgressSpinnerModule,
   ],
   templateUrl: './upload-recording.component.html',
   styleUrl: './upload-recording.component.scss',
@@ -102,6 +104,14 @@ export class UploadRecordingComponent implements OnInit {
       this.checkReady();
       if (this.readyToUpload) {
         clearInterval(timer);
+
+        this.data.recordings.forEach((rec) => {
+          const recFile = new File(rec.chunks, 'video.webm', {
+            type: 'video/webm',
+          });
+
+          this.uploadHandlers.push(this.uploadService.createUpload(recFile));
+        });
       }
     }, 1000);
   }
@@ -112,40 +122,21 @@ export class UploadRecordingComponent implements OnInit {
     );
   }
 
-  onClose(toProjectlist = false) {
+  async onClose(toProjectlist = false) {
+    for (const handler of this.uploadHandlers) {
+      const handlerProgress = handler.progress$.value;
+
+      if (handlerProgress.status === 'uploading') {
+        await lastValueFrom(this.api.cancelUpload(handlerProgress.uploadId!));
+      }
+    }
+
     this.dialogRef.close();
+
     if (toProjectlist) {
       this.router.navigate(['home']);
     }
   }
-
-  // onChangeAsrService(change: MatSelectChange) {
-  //   const languages: LanguageShort[] = change.value.languages;
-
-  //   // choose same language again if it is possible for the new asrservice
-  //   const prev = languages.find(
-  //     (l) => l.code === this.formGroup.value.language
-  //   );
-  //   if (prev) {
-  //     this.formGroup.value.language = prev.code;
-  //   } else if (languages.length > 0) {
-  //     // choose first language (should always be possible)
-  //     this.formGroup.value.language = languages[0].code;
-  //   }
-  // }
-
-  // selectInitalInputs() {
-  //   this.asrServiceConfig$.pipe(take(1)).subscribe((configs) => {
-  //     const whisperConfig = configs.find(
-  //       (config) => config.asrVendor === AsrVendors.WHISPER
-  //     );
-  //     if (whisperConfig) {
-  //       this.asrSelection = whisperConfig;
-  //     } else if (configs.length > 0) {
-  //       this.asrSelection = configs[0];
-  //     }
-  //   });
-  // }
 
   async onUploadRecording() {
     if (!this.formGroup.value.language) {
@@ -156,14 +147,6 @@ export class UploadRecordingComponent implements OnInit {
     this.uploading = true;
 
     try {
-      this.data.recordings.forEach((rec) => {
-        const recFile = new File(rec.chunks, 'video.webm', {
-          type: 'video/webm',
-        });
-
-        this.uploadHandlers.push(this.uploadService.createUpload(recFile));
-      });
-
       for (const handler of this.uploadHandlers) {
         await handler.start();
       }
@@ -194,12 +177,11 @@ export class UploadRecordingComponent implements OnInit {
     } catch (error) {
       console.error(error);
 
-      // rec.upload.progress = 100;
-      // rec.upload.error = error;
       if (error instanceof HttpErrorResponse)
-        this.data.recordings[0].upload.error = error;
+        // not visible anymore with new upload component, needs discussion
+        // this.data.recordings[0].upload.error = error;
 
-      this.uploadingError = true;
+        this.uploadingError = true;
     }
   }
 

@@ -13,6 +13,10 @@
         <span class="message success">Upload completed</span>
         } @case ('failed') {
         <span class="message error">Upload failed</span>
+        } @default {
+        <span class="message">
+          {{ this.fileSize }}
+        </span>
         } }
       </div>
 
