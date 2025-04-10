@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { Cron, CronExpression } from '@nestjs/schedule';
 
-import { readdir, rmdir, stat } from 'fs/promises';
+import { readdir, rm, stat } from 'fs/promises';
 import { join } from 'path';
 import { validate } from 'uuid';
 import { DbService } from '../db/db.service';
@@ -35,7 +35,7 @@ export class TasksService {
         const ageInDays = ageInMs / 1000 / 60 / 60 / 24;
         // remove everything older than 7 days
         if (ageInDays > 7) {
-          await rmdir(dirPath, { recursive: true });
+          await rm(dirPath, { recursive: true });
           this.logger.info(
             'removed temp dir(' + Math.round(ageInDays) + 'd old): ' + dirPath,
           );

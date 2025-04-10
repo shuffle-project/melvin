@@ -686,12 +686,15 @@ export class RealApiService implements ApiService {
   // upload service
 
   createMediaFile(createMediaFileDto: CreateMediaFileDto) {
-    return this._post<CreateMediaEntity>('/media', { ...createMediaFileDto });
+    return this._post<CreateMediaEntity>('/upload', { ...createMediaFileDto });
   }
   updateMediaFile(id: string, filePart: Blob) {
     console.log('upadeMediaFile called', id);
-    return this._patch(`/media/${id}`, filePart, {
+    return this._patch(`/upload/${id}`, filePart, {
       headers: { 'Content-Type': 'application/octet-stream' },
     });
+  }
+  cancelUpload(id: string) {
+    return this._delete(`/upload/${id}`);
   }
 }
