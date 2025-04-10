@@ -529,4 +529,9 @@ export class FakeApiService implements ApiService {
     this.logger.verbose('updateMediaFile mocked');
     return of();
   }
+
+  cancelUpload(id: string) {
+    this.logger.verbose('cancelUpload mocked');
+    return of();
+  }
 }

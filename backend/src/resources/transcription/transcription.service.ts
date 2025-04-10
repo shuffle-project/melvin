@@ -3,7 +3,7 @@ import { Injectable, StreamableFile } from '@nestjs/common';
 import { Queue } from 'bull';
 import { plainToInstance } from 'class-transformer';
 import { Types } from 'mongoose';
-import { MediaService } from 'src/modules/media/media.service';
+import { UploadService } from 'src/modules/upload/upload.service';
 import { DbService } from '../../modules/db/db.service';
 import { LeanProjectDocument } from '../../modules/db/schemas/project.schema';
 import {
@@ -53,7 +53,7 @@ export class TranscriptionService {
     @InjectQueue('subtitles')
     private subtitlesQueue: Queue<ProcessSubtitlesJob>,
     private tiptapService: TiptapService,
-    private mediaService: MediaService,
+    private uploadService: UploadService,
   ) {}
 
   /**
@@ -126,7 +126,7 @@ export class TranscriptionService {
 
     // add queue job to fill transcription
     if (createTranscriptionDto.uploadId) {
-      const subtitleFile = await this.mediaService.getMetadata(
+      const subtitleFile = await this.uploadService.getUploadMetadata(
         createTranscriptionDto.uploadId,
       );
       // fill with subtitles file

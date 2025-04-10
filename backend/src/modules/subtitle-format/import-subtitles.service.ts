@@ -6,10 +6,10 @@ import { Types } from 'mongoose';
 import { AuthUser } from '../../resources/auth/auth.interfaces';
 import { CaptionService } from '../../resources/caption/caption.service';
 import { CreateCaptionDto } from '../../resources/caption/dto/create-caption.dto';
-import { MediaFileMetadata } from '../media/media.interfaces';
 import { PathService } from '../path/path.service';
 import { WordEntity } from '../speech-to-text/speech-to-text.interfaces';
 import { TiptapService } from '../tiptap/tiptap.service';
+import { UploadMetadata } from '../upload/upload.interfaces';
 
 @Injectable()
 export class ImportSubtitlesService {
@@ -21,7 +21,7 @@ export class ImportSubtitlesService {
 
   async fromFile(
     authUser: AuthUser,
-    file: MediaFileMetadata,
+    file: UploadMetadata,
     transcriptionId: string,
     speakerId: string,
   ) {

@@ -347,4 +347,5 @@ export abstract class ApiService {
     createMediaFileDto: CreateMediaFileDto
   ): Observable<CreateMediaEntity>;
   abstract updateMediaFile(id: string, filePart: Blob): Observable<any>;
+  abstract cancelUpload(id: string): Observable<any>;
 }

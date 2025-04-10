@@ -7,8 +7,9 @@ import { ensureDir, remove, rm } from 'fs-extra';
 import { stat } from 'fs/promises';
 import { Types } from 'mongoose';
 import { LeanUserDocument } from 'src/modules/db/schemas/user.schema';
-import { MediaFileMetadata } from 'src/modules/media/media.interfaces';
 import { MediaService } from 'src/modules/media/media.service';
+import { UploadMetadata } from 'src/modules/upload/upload.interfaces';
+import { UploadService } from 'src/modules/upload/upload.service';
 import { DbService } from '../../modules/db/db.service';
 import {
   Audio,
@@ -72,6 +73,7 @@ export class ProjectService {
     private transcriptionService: TranscriptionService,
     private configService: ConfigService,
     private mediaService: MediaService,
+    private uploadService: UploadService,
     private authService: AuthService,
     @InjectQueue('project') private projectQueue: Queue<ProcessProjectJob>,
     @InjectQueue('livestream')
@@ -86,12 +88,12 @@ export class ProjectService {
 
     console.log(createProjectDto);
 
-    const videosMetadata: MediaFileMetadata[] = [];
-    const subtitlesMetadata: MediaFileMetadata[] = [];
+    const videosMetadata: UploadMetadata[] = [];
+    const subtitlesMetadata: UploadMetadata[] = [];
 
     createProjectDto.videoOptions.forEach(async (video) => {
       console.log(video);
-      const metadataObject = await this.mediaService.getMetadata(
+      const metadataObject = await this.uploadService.getUploadMetadata(
         video.uploadId,
       );
 
@@ -111,7 +113,7 @@ export class ProjectService {
 
     if (createProjectDto.subtitleOptions) {
       createProjectDto.subtitleOptions.forEach(async (subtitle) => {
-        const metadataObject = await this.mediaService.getMetadata(
+        const metadataObject = await this.uploadService.getUploadMetadata(
           subtitle.uploadId,
         );
 
@@ -250,8 +252,8 @@ export class ProjectService {
   async _handleFilesAndTranscriptions(
     authUser: AuthUser,
     project: Project,
-    videosMetadata: MediaFileMetadata[],
-    subtitlesMetadata: MediaFileMetadata[],
+    videosMetadata: UploadMetadata[],
+    subtitlesMetadata: UploadMetadata[],
     createProjectDto: CreateProjectDto,
     mainVideo: Video,
     mainAudio: Audio,
@@ -726,7 +728,9 @@ export class ProjectService {
     console.log(uploadVideoDto);
     const project = await this.db.findProjectByIdOrThrow(projectId);
 
-    const file = await this.mediaService.getMetadata(uploadVideoDto.uploadId);
+    const file = await this.uploadService.getUploadMetadata(
+      uploadVideoDto.uploadId,
+    );
 
     if (!this.permissions.isProjectMember(project, authUser)) {
       throw new CustomForbiddenException('access_to_project_denied');

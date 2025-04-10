@@ -1,6 +1,7 @@
 import { BullModule } from '@nestjs/bull';
 import { Module } from '@nestjs/common';
 import { MediaModule } from 'src/modules/media/media.module';
+import { UploadModule } from 'src/modules/upload/upload.module';
 import { DbModule } from '../../modules/db/db.module';
 import { FfmpegModule } from '../../modules/ffmpeg/ffmpeg.module';
 import { LoggerModule } from '../../modules/logger/logger.module';
@@ -33,6 +34,7 @@ import { ProjectService } from './project.service';
     SpeechToTextModule,
     PopulateModule,
     MediaModule,
+    UploadModule,
     BullModule.registerQueue(
       { name: 'project' },
       { name: 'subtitles' },

@@ -56,7 +56,7 @@ import { UserModule } from './resources/user/user.module';
       inject: [ConfigService],
     }),
     BullModule.registerQueue(
-      { name: 'project' },
+      { name: 'project' }, // TODO removeOnComplete & removeOnFail
       { name: 'subtitles' },
       { name: 'livestream' },
       { name: 'video' },
