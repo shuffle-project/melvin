@@ -926,15 +926,6 @@
       <trans-unit id="uploadRecordingFilesProcessingHint" datatype="html">
         <source> The files are being processed, please wait until all files are ready. </source>
       </trans-unit>
-      <trans-unit id="uploadRecordingFileHeader" datatype="html">
-        <source><x id="START_BLOCK_IF" equiv-text="@if(i ===0){"/> Main Video and Audio <x id="CLOSE_BLOCK_IF" equiv-text="}"/><x id="START_BLOCK_ELSE" equiv-text="@else {"/> Additional Video <x id="CLOSE_BLOCK_ELSE" equiv-text="}"/></source>
-      </trans-unit>
-      <trans-unit id="uploadRecordingSuccessfullyUploaded" datatype="html">
-        <source> Successfully uploaded! </source>
-      </trans-unit>
-      <trans-unit id="uploadRecordingFailedWithError" datatype="html">
-        <source> Failed with error: <x id="INTERPOLATION" equiv-text="{{ recording.upload.error.error.message }}"/> </source>
-      </trans-unit>
       <trans-unit id="uploadRecordingWaitingForUploadHint" datatype="html">
         <source> Please wait until all files have been uploaded. </source>
       </trans-unit>
@@ -946,9 +937,6 @@
       </trans-unit>
       <trans-unit id="uploadRecordingAllSuccessfulHint" datatype="html">
         <source> The project has been successfully created, you can now close this dialog! You will find the project in the project list, but it may still be being processed. </source>
-      </trans-unit>
-      <trans-unit id="uploadRecordingDownloadFilesButton" datatype="html">
-        <source> Download recordings locally </source>
       </trans-unit>
       <trans-unit id="uploadRecordingDiscardButton" datatype="html">
         <source> Discard and close </source>
@@ -1945,6 +1933,12 @@
       </trans-unit>
       <trans-unit id="landingFooterTutorialsHeader" datatype="html">
         <source>Tutorials</source>
+      </trans-unit>
+      <trans-unit id="createProjectFailedWithError" datatype="html">
+        <source> Failed with error: <x id="INTERPOLATION" equiv-text="{{ error.error.message }}"/> <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br /&gt;"/>You can try again. </source>
+      </trans-unit>
+      <trans-unit id="uploadRecordingCancelButton" datatype="html">
+        <source> Cancel and close </source>
       </trans-unit>
     </body>
   </file>

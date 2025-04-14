@@ -814,18 +814,6 @@
         <source> The files are being processed, please wait until all files are ready. </source>
         <target state="final"> Die Dateien werden gerade verarbeitet, bitte warten Sie, bis alle Dateien fertig sind. </target>
       </trans-unit>
-      <trans-unit id="uploadRecordingFileHeader" datatype="html">
-        <source><x id="START_BLOCK_IF" equiv-text="@if(i ===0){"/> Main Video and Audio <x id="CLOSE_BLOCK_IF" equiv-text="}"/><x id="START_BLOCK_ELSE" equiv-text="@else {"/> Additional Video <x id="CLOSE_BLOCK_ELSE" equiv-text="}"/></source>
-        <target state="final"><x id="START_BLOCK_IF" equiv-text="Metadata and main v"/> Metadaten und Hauptvideo <x id="CLOSE_BLOCK_IF" equiv-text="}"/><x id="START_BLOCK_ELSE" equiv-text="@else {"/> Aditional Video <x id="CLOSE_BLOCK_ELSE" equiv-text="}"/></target>
-      </trans-unit>
-      <trans-unit id="uploadRecordingSuccessfullyUploaded" datatype="html">
-        <source> Successfully uploaded! </source>
-        <target state="final"> Erfolgreich hochgeladen! </target>
-      </trans-unit>
-      <trans-unit id="uploadRecordingFailedWithError" datatype="html">
-        <source> Failed with error: <x id="INTERPOLATION" equiv-text="{{ recording.upload.error.error.message }}"/> </source>
-        <target state="final"> Fehlgeschlagen: <x id="INTERPOLATION" equiv-text="{{ recording.upload.error.error.message }}"/> </target>
-      </trans-unit>
       <trans-unit id="uploadRecordingWaitingForUploadHint" datatype="html">
         <source> Please wait until all files have been uploaded. </source>
         <target state="final"> Laden Sie die Videos manuell herunter und versuchen Sie, die Projekte mit den Dateien manuell zu erstellen. </target>
@@ -841,10 +829,6 @@
       <trans-unit id="uploadRecordingAllSuccessfulHint" datatype="html">
         <source> The project has been successfully created, you can now close this dialog! You will find the project in the project list, but it may still be being processed. </source>
         <target state="final"> Das Projekt wurde erfolgreich erstellt, Sie können diesen Dialog nun schließen. Sie finden das Projekt in der Projektliste, es befindet sich aber möglicherweise noch in der Bearbeitung. </target>
-      </trans-unit>
-      <trans-unit id="uploadRecordingDownloadFilesButton" datatype="html">
-        <source> Download recordings locally </source>
-        <target state="final"> Aufnahmedateien runterladen </target>
       </trans-unit>
       <trans-unit id="uploadRecordingDiscardButton" datatype="html">
         <source> Discard and close </source>
@@ -2593,6 +2577,14 @@
       <trans-unit id="landingFooterFoundationLinkAriaLabel" datatype="html">
         <source>Foundation &apos;Stiftung Innovation in der Hochschullehre&apos;, opens in new tab</source>
         <target state="final">Stiftung Innovation in der Hochschullehre, öffnet in neuem Tab</target>
+      </trans-unit>
+      <trans-unit id="createProjectFailedWithError" datatype="html">
+        <source> Failed with error: <x id="INTERPOLATION" equiv-text="{{ error.error.message }}"/> <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br /&gt;"/>You can try again. </source>
+        <target state="new"> Failed with error: <x id="INTERPOLATION" equiv-text="{{ error.error.message }}"/> <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br /&gt;"/>You can try again. </target>
+      </trans-unit>
+      <trans-unit id="uploadRecordingCancelButton" datatype="html">
+        <source> Cancel and close </source>
+        <target state="final"> Abbrechen und schließen </target>
       </trans-unit>
     </body>
   </file>

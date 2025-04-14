@@ -112,10 +112,13 @@
   <button
     mat-stroked-button
     (click)="onClose()"
-    i18n="@@uploadRecordingDiscardButton"
     class="discard-button mat-warn"
   >
-    Discard and close
+    @if (!uploading) {
+    <span i18n="@@uploadRecordingDiscardButton"> Discard and close </span>
+    } @else {
+    <span i18n="@@uploadRecordingCancelButton"> Cancel and close </span>
+    }
   </button>
 
   @if (!uploading) {
