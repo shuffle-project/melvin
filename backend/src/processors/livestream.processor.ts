@@ -41,7 +41,10 @@ export class LivestreamProcessor {
           this.projectService.update(systemUser, project._id.toString(), {
             duration: project.duration + 1000,
           }),
-          this.livestreamQueue.add({ projectId: project._id.toString() }),
+          this.livestreamQueue.add(
+            { projectId: project._id.toString() },
+            { removeOnComplete: 100, removeOnFail: 500 },
+          ),
           this.events.projectMediaWaveformUpdated(
             project,
             Array(100)

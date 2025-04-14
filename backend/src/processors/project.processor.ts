@@ -177,7 +177,10 @@ export class ProjectProcessor {
 
     //push to subtitles queue with updated project
     job.data.subsequentJobs.forEach((job) =>
-      this.subtitlesQueue.add({ ...job, project: updatedProject }),
+      this.subtitlesQueue.add(
+        { ...job, project: updatedProject },
+        { removeOnComplete: 100, removeOnFail: 500 },
+      ),
     );
 
     return null;
@@ -235,11 +238,14 @@ export class ProjectProcessor {
     }
 
     // start processing video in all resolutions
-    this.videoQueue.add({
-      projectId,
-      video: mainVideo,
-      skipLowestResolution: true,
-    });
+    this.videoQueue.add(
+      {
+        projectId,
+        video: mainVideo,
+        skipLowestResolution: true,
+      },
+      { removeOnComplete: 100, removeOnFail: 500 },
+    );
 
     this.logger.verbose(
       `Project processing DONE: Job ${job.id}, ProjectId: ${projectId}, Result: ${result}`,

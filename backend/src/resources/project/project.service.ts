@@ -301,15 +301,18 @@ export class ProjectService {
 
     const mainMediaFile = videosMetadata[mainVideoIndex];
 
-    await this.projectQueue.add({
-      project: project,
-      authUser,
-      file: mainMediaFile,
-      subsequentJobs,
-      mainVideo: mainVideo,
-      mainAudio: mainAudio,
-      recorder: false,
-    });
+    await this.projectQueue.add(
+      {
+        project: project,
+        authUser,
+        file: mainMediaFile,
+        subsequentJobs,
+        mainVideo: mainVideo,
+        mainAudio: mainAudio,
+        recorder: false,
+      },
+      { removeOnComplete: 100, removeOnFail: 500 },
+    );
 
     if (createProjectDto.videoOptions.length > 1) {
       videosMetadata.forEach((metadata, i) => {
@@ -769,14 +772,17 @@ export class ProjectService {
     //   .lean()
     //   .exec();
 
-    this.projectQueue.add({
-      authUser,
-      project,
-      file,
-      subsequentJobs: [],
-      mainVideo: video,
-      recorder: uploadVideoDto.recorder,
-    });
+    this.projectQueue.add(
+      {
+        authUser,
+        project,
+        file,
+        subsequentJobs: [],
+        mainVideo: video,
+        recorder: uploadVideoDto.recorder,
+      },
+      { removeOnComplete: 100, removeOnFail: 500 },
+    );
 
     return updatedProject;
   }
