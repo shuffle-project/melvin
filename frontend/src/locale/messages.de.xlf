@@ -1356,7 +1356,7 @@
       </trans-unit>
       <trans-unit id="sitemapListExplanation" datatype="html">
         <source> This sitemap lists all pages that do not require a login in alphabetical order. </source>
-        <target state="new"> Diese Sitemap listet alle Seiten alphabetisch auf. </target>
+        <target state="final"> Diese Sitemap listet alle Seiten, die kein Login benötigen, alphabetisch auf. </target>
       </trans-unit>
       <trans-unit id="landingSidenavMenuHeader" datatype="html">
         <source>Menu</source>
