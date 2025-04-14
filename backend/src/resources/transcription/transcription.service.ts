@@ -130,57 +130,45 @@ export class TranscriptionService {
         createTranscriptionDto.uploadId,
       );
       // fill with subtitles file
-      this.subtitlesQueue.add(
-        {
-          project: updatedProject,
-          transcription: entity,
-          payload: {
-            type: SubtitlesType.FROM_FILE,
-            file: subtitleFile,
-          },
+      this.subtitlesQueue.add({
+        project: updatedProject,
+        transcription: entity,
+        payload: {
+          type: SubtitlesType.FROM_FILE,
+          file: subtitleFile,
         },
-        { removeOnComplete: 100, removeOnFail: 500 },
-      );
+      });
     } else if (createTranscriptionDto.asrDto) {
       const audio = // TODO this id should be in the DTO I guess ?
         updatedProject.audios.find((audio) => audio.extension === 'mp3') ||
         updatedProject.audios[0];
-      this.subtitlesQueue.add(
-        {
-          project: updatedProject,
-          transcription: entity,
-          payload: {
-            type: SubtitlesType.FROM_ASR,
-            ...createTranscriptionDto.asrDto,
-            audio,
-          },
+      this.subtitlesQueue.add({
+        project: updatedProject,
+        transcription: entity,
+        payload: {
+          type: SubtitlesType.FROM_ASR,
+          ...createTranscriptionDto.asrDto,
+          audio,
         },
-        { removeOnComplete: 100, removeOnFail: 500 },
-      );
+      });
     } else if (createTranscriptionDto.translateDto) {
-      this.subtitlesQueue.add(
-        {
-          project: updatedProject,
-          transcription: entity,
-          payload: {
-            type: SubtitlesType.FROM_TRANSLATION,
-            ...createTranscriptionDto.translateDto,
-          },
+      this.subtitlesQueue.add({
+        project: updatedProject,
+        transcription: entity,
+        payload: {
+          type: SubtitlesType.FROM_TRANSLATION,
+          ...createTranscriptionDto.translateDto,
         },
-        { removeOnComplete: 100, removeOnFail: 500 },
-      );
+      });
     } else if (createTranscriptionDto.copyDto) {
-      this.subtitlesQueue.add(
-        {
-          project: updatedProject,
-          transcription: entity,
-          payload: {
-            type: SubtitlesType.FROM_COPY,
-            ...createTranscriptionDto.copyDto,
-          },
+      this.subtitlesQueue.add({
+        project: updatedProject,
+        transcription: entity,
+        payload: {
+          type: SubtitlesType.FROM_COPY,
+          ...createTranscriptionDto.copyDto,
         },
-        { removeOnComplete: 100, removeOnFail: 500 },
-      );
+      });
     } else {
       // empty transcription
     }
@@ -582,14 +570,11 @@ export class TranscriptionService {
       transcriptionId: transcription._id.toString(),
       text,
     };
-    this.subtitlesQueue.add(
-      {
-        project: project,
-        transcription: newtranscription,
-        payload,
-      },
-      { removeOnComplete: 100, removeOnFail: 500 },
-    );
+    this.subtitlesQueue.add({
+      project: project,
+      transcription: newtranscription,
+      payload,
+    });
 
     // events
     await newtranscription.populate('createdBy');

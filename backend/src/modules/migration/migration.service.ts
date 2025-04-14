@@ -189,7 +189,7 @@ export class MigrationService {
       'Base video files reprocessed, now reprocess video resolutions',
     );
     processVideoJobs.forEach((job) => {
-      this.videoQueue.add(job, { removeOnComplete: 100, removeOnFail: 500 });
+      this.videoQueue.add(job);
     });
   }
 
@@ -223,7 +223,7 @@ export class MigrationService {
 
     // push every video to videoQueue, to process higher quality videos
     processVideoJobs.forEach((job) => {
-      this.videoQueue.add(job, { removeOnComplete: 100, removeOnFail: 500 });
+      this.videoQueue.add(job);
     });
   }
 
@@ -413,14 +413,11 @@ export class MigrationService {
             text,
             syncSpeaker: captions,
           };
-          this.subtitlesQueue.add(
-            {
-              project: project,
-              transcription: transcription,
-              payload,
-            },
-            { removeOnComplete: 100, removeOnFail: 500 },
-          );
+          this.subtitlesQueue.add({
+            project: project,
+            transcription: transcription,
+            payload,
+          });
         } else {
           console.log('project does not exist', transcription.project, project);
         }

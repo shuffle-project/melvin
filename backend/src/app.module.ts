@@ -56,10 +56,22 @@ import { UserModule } from './resources/user/user.module';
       inject: [ConfigService],
     }),
     BullModule.registerQueue(
-      { name: 'project' },
-      { name: 'subtitles' },
-      { name: 'livestream' },
-      { name: 'video' },
+      {
+        name: 'project',
+        defaultJobOptions: { removeOnComplete: true, removeOnFail: true },
+      },
+      {
+        name: 'subtitles',
+        defaultJobOptions: { removeOnComplete: true, removeOnFail: true },
+      },
+      {
+        name: 'livestream',
+        defaultJobOptions: { removeOnComplete: true, removeOnFail: true },
+      },
+      {
+        name: 'video',
+        defaultJobOptions: { removeOnComplete: true, removeOnFail: true },
+      },
     ),
     ScheduleModule.forRoot(),
     DbModule,

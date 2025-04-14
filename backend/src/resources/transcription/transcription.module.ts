@@ -22,7 +22,10 @@ import { TranscriptionService } from './transcription.service';
     SubtitleFormatModule,
     CaptionModule,
     PathModule,
-    BullModule.registerQueue({ name: 'subtitles' }),
+    BullModule.registerQueue({
+      name: 'subtitles',
+      defaultJobOptions: { removeOnComplete: true, removeOnFail: true },
+    }),
     TranslationModule,
     LoggerModule,
     TiptapModule,
