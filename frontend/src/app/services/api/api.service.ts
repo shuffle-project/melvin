@@ -1,4 +1,3 @@
-import { HttpEvent } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { UserEntity } from 'src/app/services/api/entities/user.entity';
@@ -189,10 +188,10 @@ export abstract class ApiService {
     transcription: CreateTranscriptionDto
   ): Observable<TranscriptionEntity>;
 
-  abstract createTranscriptionFromFile(
-    transcription: CreateTranscriptionDto,
-    file: File
-  ): Observable<HttpEvent<TranscriptionEntity>>;
+  // abstract createTranscriptionFromFile(
+  //   transcription: CreateTranscriptionDto,
+  //   file: File
+  // ): Observable<HttpEvent<TranscriptionEntity>>;
 
   abstract findAllTranscriptions(
     projectId: string,

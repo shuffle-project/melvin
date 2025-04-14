@@ -1,10 +1,5 @@
 import { CommonModule } from '@angular/common';
 import {
-  HttpErrorResponse,
-  HttpEvent,
-  HttpEventType,
-} from '@angular/common/http';
-import {
   Component,
   DestroyRef,
   EventEmitter,
@@ -25,6 +20,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSelectModule } from '@angular/material/select';
 import { PushPipe } from '@ngrx/component';
 import { Store } from '@ngrx/store';
+import { lastValueFrom } from 'rxjs';
 import { UploadFilesComponent } from 'src/app/components/upload-files/upload-files.component';
 import { WrittenOutLanguagePipe } from 'src/app/pipes/written-out-language-pipe/written-out-language.pipe';
 import { ApiService } from 'src/app/services/api/api.service';
@@ -32,27 +28,27 @@ import {
   AsrVendors,
   CreateTranscriptionDto,
 } from 'src/app/services/api/dto/create-transcription.dto';
-import { TranscriptionEntity } from 'src/app/services/api/entities/transcription.entity';
+import { UploadService } from 'src/app/services/upload/upload.service';
 import { AppState } from 'src/app/store/app.state';
 import * as configSelectors from '../../../../../../../../../store/selectors/config.selector';
 import { CreateTranscriptionDialogComponent } from '../../../create-transcription-dialog.component';
 
 @Component({
-    selector: 'app-from-media-transcription',
-    imports: [
-        CommonModule,
-        ReactiveFormsModule,
-        MatInputModule,
-        MatSelectModule,
-        WrittenOutLanguagePipe,
-        PushPipe,
-        MatIconModule,
-        MatButtonModule,
-        UploadFilesComponent,
-        MatProgressBarModule,
-    ],
-    templateUrl: './from-media-transcription.component.html',
-    styleUrl: './from-media-transcription.component.scss'
+  selector: 'app-from-media-transcription',
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    MatInputModule,
+    MatSelectModule,
+    WrittenOutLanguagePipe,
+    PushPipe,
+    MatIconModule,
+    MatButtonModule,
+    UploadFilesComponent,
+    MatProgressBarModule,
+  ],
+  templateUrl: './from-media-transcription.component.html',
+  styleUrl: './from-media-transcription.component.scss',
 })
 export class FromMediaTranscriptionComponent {
   private asrLanguages$ = this.store.select(
@@ -73,7 +69,10 @@ export class FromMediaTranscriptionComponent {
   destroyRef = inject(DestroyRef);
   api = inject(ApiService);
 
-  constructor(private store: Store<AppState>) {
+  constructor(
+    private store: Store<AppState>,
+    private uploadService: UploadService
+  ) {
     this.asrLanguages$.subscribe((languages) => {
       this.asrLanguages = languages.map((l) => {
         if (this.locale?.startsWith('en')) {
@@ -122,26 +121,18 @@ export class FromMediaTranscriptionComponent {
     this.loading = true;
     this.loadingEvent.emit(true);
 
-    const res = await new Promise((resolve, reject) => {
-      this.api
-        .createTranscriptionFromFile(newTranscription, file![0])
-        .subscribe({
-          next: (event: HttpEvent<TranscriptionEntity>) => {
-            if (event.type === HttpEventType.UploadProgress) {
-              this.uploadProgress =
-                (event.loaded / (event.total ? event.total : file![0].size)) *
-                100;
-            } else if (event.type === HttpEventType.Response) {
-              resolve(event);
-              this.dialogRef.close();
-            }
-          },
-          error: (error: HttpErrorResponse) => {
-            console.log(error); // TODO handle error
-            reject(error);
-          },
-        });
-    });
+    const uploadHandler = this.uploadService.createUpload(file![0]);
+    await uploadHandler.start();
+
+    // TODO
+    const createdTranscription = await lastValueFrom(
+      this.api.createTranscription({
+        ...newTranscription,
+        uploadId: uploadHandler.progress$.value.uploadId!,
+      })
+    );
+
+    this.dialogRef.close();
 
     this.loading = false;
     this.loadingEvent.emit(false);

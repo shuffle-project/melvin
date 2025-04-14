@@ -76,12 +76,12 @@ export class FakeApiService implements ApiService {
     throw new Error('Method not implemented.');
   }
 
-  createTranscriptionFromFile(
-    transcription: CreateTranscriptionDto,
-    file: File
-  ): Observable<any> {
-    throw new Error('Method not implemented.');
-  }
+  // createTranscriptionFromFile(
+  //   transcription: CreateTranscriptionDto,
+  //   file: File
+  // ): Observable<any> {
+  //   throw new Error('Method not implemented.');
+  // }
 
   getConfig(): Observable<any> {
     this.logger.verbose('config mocked');
