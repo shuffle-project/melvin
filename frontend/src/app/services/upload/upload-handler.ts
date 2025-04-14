@@ -78,11 +78,6 @@ export class UploadHandler {
             retry({
               count: 5,
               delay: (error, count) => {
-                console.log(error);
-                console.log(
-                  'timer',
-                  Math.min(60000, Math.pow(2, count) * 1000)
-                );
                 return timer(Math.min(60000, Math.pow(2, count) * 1000));
               },
             })

@@ -138,6 +138,10 @@ export class MediaService {
     this.seeking$.next(milliseconds);
     if (jumpToNearestCaption) {
       this.jumpToCaptionTime$.next(milliseconds);
+      const seconds = Math.round(milliseconds / 1000);
+      document
+        .getElementsByClassName(`time-${seconds}`)[0]
+        .scrollIntoView({ behavior: 'smooth', block: 'center' });
     }
   }
 
