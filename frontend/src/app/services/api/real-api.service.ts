@@ -435,25 +435,25 @@ export class RealApiService implements ApiService {
     });
   }
 
-  createTranscriptionFromFile(
-    transcription: CreateTranscriptionDto,
-    file: File
-  ): Observable<HttpEvent<TranscriptionEntity>> {
-    const formData = new FormData();
-    formData.append('project', transcription.project);
-    formData.append('title', transcription.title);
-    formData.append('language', transcription.language);
-    formData.append('file', file);
+  // createTranscriptionFromFile(
+  //   transcription: CreateTranscriptionDto,
+  //   file: File
+  // ): Observable<HttpEvent<TranscriptionEntity>> {
+  //   const formData = new FormData();
+  //   formData.append('project', transcription.project);
+  //   formData.append('title', transcription.title);
+  //   formData.append('language', transcription.language);
+  //   formData.append('file', file);
 
-    return this._post<HttpEvent<TranscriptionEntity>>(
-      `/transcriptions`,
-      formData,
-      {
-        reportProgress: true,
-        observe: 'events' as any,
-      }
-    );
-  }
+  //   return this._post<HttpEvent<TranscriptionEntity>>(
+  //     `/transcriptions`,
+  //     formData,
+  //     {
+  //       reportProgress: true,
+  //       observe: 'events' as any,
+  //     }
+  //   );
+  // }
 
   findAllTranscriptions(
     projectId: string,

@@ -1,9 +1,4 @@
 import { CommonModule } from '@angular/common';
-import {
-  HttpErrorResponse,
-  HttpEvent,
-  HttpEventType,
-} from '@angular/common/http';
 import { Component, EventEmitter, Output, inject } from '@angular/core';
 import {
   FormControl,
@@ -18,38 +13,47 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSelectModule } from '@angular/material/select';
+import { lastValueFrom } from 'rxjs';
 import { UploadFilesComponent } from 'src/app/components/upload-files/upload-files.component';
+import { UploadProgressComponent } from 'src/app/components/upload-progress/upload-progress.component';
 import { WrittenOutLanguagePipe } from 'src/app/pipes/written-out-language-pipe/written-out-language.pipe';
 import { ApiService } from 'src/app/services/api/api.service';
 import { CreateTranscriptionDto } from 'src/app/services/api/dto/create-transcription.dto';
-import { TranscriptionEntity } from 'src/app/services/api/entities/transcription.entity';
 import { LanguageService } from 'src/app/services/language/language.service';
+import { UploadHandler } from 'src/app/services/upload/upload-handler';
+import { UploadService } from 'src/app/services/upload/upload.service';
 import { CreateTranscriptionDialogComponent } from '../../../create-transcription-dialog.component';
 
 @Component({
-    selector: 'app-upload-transcription',
-    imports: [
-        CommonModule,
-        MatFormFieldModule,
-        MatSelectModule,
-        ReactiveFormsModule,
-        UploadFilesComponent,
-        MatInputModule,
-        MatIconModule,
-        MatButtonModule,
-        WrittenOutLanguagePipe,
-        MatProgressBarModule,
-    ],
-    templateUrl: './upload-transcription.component.html',
-    styleUrl: './upload-transcription.component.scss'
+  selector: 'app-upload-transcription',
+  imports: [
+    CommonModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    ReactiveFormsModule,
+    UploadFilesComponent,
+    MatInputModule,
+    MatIconModule,
+    MatButtonModule,
+    WrittenOutLanguagePipe,
+    MatProgressBarModule,
+    UploadProgressComponent,
+  ],
+  templateUrl: './upload-transcription.component.html',
+  styleUrl: './upload-transcription.component.scss',
 })
 export class UploadTranscriptionComponent {
   @Output() loadingEvent = new EventEmitter<boolean>();
 
   loading = false;
-  uploadProgress: number = 0;
+  // uploadProgress: number = 0
+  public uploadHandler: UploadHandler | undefined = undefined;
+  filename: string = '';
 
-  constructor(private languageService: LanguageService) {}
+  constructor(
+    private languageService: LanguageService,
+    private uploadService: UploadService
+  ) {}
 
   languages = this.languageService.getLocalizedLanguages();
   acceptedFileFormats = ['.vtt', '.srt'];
@@ -90,27 +94,20 @@ export class UploadTranscriptionComponent {
 
     this.loading = true;
     this.loadingEvent.emit(true);
+    this.filename = file![0].name;
+    const uploadHandler = this.uploadService.createUpload(file![0]);
+    this.uploadHandler = uploadHandler;
+    await uploadHandler.start();
 
-    const res = await new Promise((resolve, reject) => {
-      this.api
-        .createTranscriptionFromFile(newTranscription, file![0])
-        .subscribe({
-          next: (event: HttpEvent<TranscriptionEntity>) => {
-            if (event.type === HttpEventType.UploadProgress) {
-              this.uploadProgress =
-                (event.loaded / (event.total ? event.total : file![0].size)) *
-                100;
-            } else if (event.type === HttpEventType.Response) {
-              resolve(event);
-              this.dialogRef.close();
-            }
-          },
-          error: (error: HttpErrorResponse) => {
-            console.log(error); // TODO handle error
-            reject(error);
-          },
-        });
-    });
+    const createdTranscription = await lastValueFrom(
+      this.api.createTranscription({
+        ...newTranscription,
+        uploadId: uploadHandler.progress$.value.uploadId!,
+      })
+    );
+
+    // TODO
+    this.dialogRef.close();
 
     this.loading = false;
     this.loadingEvent.emit(false);

@@ -2,11 +2,13 @@
 
 @if(loading) {
 <p i18n="@@uploadTranscriptionTabUploadsInfo">Uploads</p>
-<mat-progress-bar
-  mode="determinate"
-  [value]="uploadProgress"
-></mat-progress-bar>
-} @else {
+
+@if(uploadHandler) {
+<app-upload-progress
+  [progress$]="uploadHandler.progress$"
+  [title]="filename"
+></app-upload-progress>
+} } @else {
 <form [formGroup]="transcriptionGroup">
   <div class="language-title-wrapper">
     <mat-form-field>
