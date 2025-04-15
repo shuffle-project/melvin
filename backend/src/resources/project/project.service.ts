@@ -1078,9 +1078,13 @@ export class ProjectService {
     remove(path);
 
     project.videos.forEach((video) => {
-      video.resolutions.forEach((res) => {
-        remove(this.pathService.getVideoFile(projectId, video, res.resolution));
-      });
+      if (video._id.toString() === mediaId) {
+        video.resolutions.forEach((res) => {
+          remove(
+            this.pathService.getVideoFile(projectId, video, res.resolution),
+          );
+        });
+      }
     });
 
     await this.db.projectModel
