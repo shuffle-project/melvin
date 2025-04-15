@@ -36,14 +36,15 @@
     </mat-hint>
   </mat-form-field>
 
-  <app-upload-files
+  <!-- Use new app-upload-area in case this component gets used once again -->
+  <!-- <app-upload-files
     formControlName="file"
     [acceptedFileFormats]="acceptedFileFormats"
     [acceptOnlyOneFile]="true"
     ariaDesribedByIds="video-audio-file-error-maximum video-audio-file-error-required"
     label="media"
-  />
-  <!-- TODO find a better solution for ariadesribedby with these ids -->
+  /> -->
+
   <div class="file-errors-wrapper">
     @if(transcriptionGroup.controls['file'].hasError('maxlength')){
     <p

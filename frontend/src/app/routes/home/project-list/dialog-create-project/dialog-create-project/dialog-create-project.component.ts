@@ -388,9 +388,7 @@ export class DialogCreateProjectComponent implements OnDestroy, AfterViewInit {
         sourceMode: 'video',
       };
 
-      const project = await lastValueFrom(
-        this.api.createProject(createProjectDto)
-      );
+      await lastValueFrom(this.api.createProject(createProjectDto));
 
       this.loading = false;
       this.dialogRef.close();
@@ -415,5 +413,18 @@ export class DialogCreateProjectComponent implements OnDestroy, AfterViewInit {
 
   ngOnDestroy() {
     this.destroy$$.next();
+  }
+
+  async onCancelUpload() {
+    for (const handler of this.uploadHandlers) {
+      const handlerProgress = handler.progress$.value;
+
+      if (handlerProgress.status === 'uploading') {
+        handler.cancel$$.next();
+        await lastValueFrom(this.api.cancelUpload(handlerProgress.uploadId!));
+      }
+    }
+
+    this.dialogRef.close();
   }
 }

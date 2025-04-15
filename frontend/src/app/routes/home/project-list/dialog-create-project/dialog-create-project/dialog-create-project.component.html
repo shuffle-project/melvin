@@ -229,15 +229,25 @@
     />
     }
   </div>
-
   } @if(error){
   <div class="upload-state error" i18n="@@createProjectFailedWithError">
-    Failed with error: {{ error.error.message }} <br />You can try again.
+    Failed with error: {{ error.message }} <br />You can try again.
   </div>
   }
 </mat-dialog-content>
 
 <mat-dialog-actions align="end">
+  @if (loading) {
+  <button
+    mat-stroked-button
+    (click)="onCancelUpload()"
+    class="discard-button mat-warn"
+    i18n="@@dialogCreateProjectCancelUploadButton"
+  >
+    Cancel and close
+  </button>
+  }
+
   <button
     mat-flat-button
     (click)="onSubmitForm()"

@@ -8,13 +8,16 @@ import { Subject } from 'rxjs';
 import { UploadProgress } from 'src/app/services/upload/upload.interfaces';
 
 function toCorrectSizeUnit(n: number) {
+  const ONE_KB = 1000;
   const ONE_MB = 1000 * 1000;
   const ONE_GB = ONE_MB * 1000;
 
-  if (n < ONE_GB) {
+  if (n >= ONE_GB) {
+    return `${(n / ONE_GB).toFixed(2)} GB`;
+  } else if (n >= ONE_MB) {
     return `${(n / ONE_MB).toFixed(2)} MB`;
   } else {
-    return `${(n / ONE_GB).toFixed(2)} GB`;
+    return `${(n / ONE_KB).toFixed(2)} KB`;
   }
 }
 

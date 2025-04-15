@@ -1,14 +1,5 @@
 <h2 i18n="@@uploadTranscriptionTabHeading">Upload a new transcription</h2>
 
-@if(loading) {
-<p i18n="@@uploadTranscriptionTabUploadsInfo">Uploads</p>
-
-@if(uploadHandler) {
-<app-upload-progress
-  [progress$]="uploadHandler.progress$"
-  [title]="filename"
-></app-upload-progress>
-} } @else {
 <form [formGroup]="transcriptionGroup">
   <div class="language-title-wrapper">
     <mat-form-field>
@@ -40,20 +31,21 @@
   </div>
 
   <div class="file-dropzone-wrapper">
-    <app-upload-files
+    <app-upload-area
       formControlName="file"
       [acceptedFileFormats]="acceptedFileFormats"
-      [acceptOnlyOneFile]="true"
-      ariaDesribedByIds="transcript-file-error-maximum transcript-file-error-required"
-      label="transcription"
+      [fileFormatsLabel]="fileFormatsLabel"
+      [acceptMultipleFiles]="false"
+      [attr.aria-describedby]="
+        'transcript-file-error-required transcript-file-error-maximum'
+      "
     />
   </div>
-  <!-- TODO find a better solution for ariadesribedby with these ids -->
-  <div class="file-errors-wrapper">
+
+  <div class="file-errors-wrapper" aria-live="polite">
     @if(transcriptionGroup.controls['file'].hasError('maxlength')){
     <p
       id="transcript-file-error-maximum"
-      aria-live="polite"
       i18n="@@uploadTranscriptionTabFileErrorMaximum"
     >
       Maximum 1 file
@@ -62,7 +54,6 @@
     transcriptionGroup.controls['file'].touched){
     <p
       id="transcript-file-error-required"
-      aria-live="polite"
       i18n="@@uploadTranscriptionTabFileErrorRequired"
     >
       A transcription file (.vtt or .srt) is required
@@ -70,4 +61,19 @@
     }
   </div>
 </form>
+
+@if(uploadHandler) {
+<app-upload-progress
+  [progress$]="uploadHandler.progress$"
+  [fileSize]="uploadHandler.file.size"
+  [title]="uploadHandler.file.name"
+>
+  <button
+    class="upload-outline-button"
+    mat-icon-button
+    (click)="onCancelUpload()"
+  >
+    <mat-icon svgIcon="clear" />
+  </button>
+</app-upload-progress>
 }

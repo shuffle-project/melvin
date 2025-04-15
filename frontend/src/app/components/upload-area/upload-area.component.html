@@ -1,4 +1,8 @@
-<div class="dropzone" [class.invalid-input]="showError">
+<div
+  class="dropzone"
+  [class.invalid-input]="showError"
+  [class.disabled]="disabled"
+>
   <div>
     <div class="input-ready-dropzone">
       <input
@@ -9,6 +13,7 @@
         [multiple]="acceptMultipleFiles"
         required
         [accept]="acceptedFileFormats"
+        [disabled]="disabled"
       />
 
       <div class="content-wrapper">
