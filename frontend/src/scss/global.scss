@@ -49,17 +49,34 @@ a {
   align-items: center;
   margin-bottom: 0.25rem;
   margin-top: 0.875rem;
+  gap: clamp(3rem, 15vw + 0.125rem, 8rem);
 
   h1 {
     margin: 0;
     display: flex;
-    font-size: clamp(1.5rem, 3vw + 0.25rem, 2rem);
+
     flex-direction: column;
 
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    -webkit-hyphens: auto;
+    -moz-hyphens: auto;
+    hyphens: auto;
+
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 120%;
+
+    &:not(:has(span)) {
+      font-size: clamp(1.5rem, 3vw + 0.25rem, 2rem);
+      font-weight: bold;
+      line-height: 100%;
+    }
+
     span {
-      font-size: 1rem;
-      font-weight: 400;
-      margin-bottom: 0.25rem;
+      font-size: clamp(1.5rem, 3vw + 0.25rem, 2rem);
+      font-weight: bold;
+      margin-bottom: 0.375rem;
       line-height: 100%;
     }
   }
@@ -116,4 +133,13 @@ a {
     line-height: 150%;
     font-size: 1rem;
   }
+}
+
+.break-long-text {
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+
+  -webkit-hyphens: auto;
+  -moz-hyphens: auto;
+  hyphens: auto;
 }

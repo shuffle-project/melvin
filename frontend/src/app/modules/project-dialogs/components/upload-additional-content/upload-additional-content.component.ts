@@ -181,6 +181,10 @@ export class UploadAdditionalContentComponent implements OnInit {
           recorder: false,
         })
       );
+
+      this.store.dispatch(
+        editorActions.findProjectMedia({ projectId: this.projectId })
+      );
     } catch (error) {
       console.log(error);
     }
@@ -195,51 +199,16 @@ export class UploadAdditionalContentComponent implements OnInit {
     });
   }
 
-  onCancelUpload(fileUpload: FileUpload) {
-    console.log(fileUpload);
+  async onCancelUpload(fileUpload: FileUpload) {
+    const handlerProgress = fileUpload.uploadHandler.progress$.value;
 
-    // fileUpload.sub.unsubscribe();
-    // TODO
-    // this.fileUploads.splice(
-    //   this.fileUploads.findIndex((element) => element.id === fileUpload.id),
-    //   1
-    // );
-    // this.uploadSubscriptions.indexOf(element => element.)
+    if (handlerProgress.status === 'uploading') {
+      fileUpload.uploadHandler.cancel$$.next();
+      await lastValueFrom(this.api.cancelUpload(handlerProgress.uploadId!));
+    }
+
+    this.fileUploads = this.fileUploads.filter((fp) => fp.id !== fileUpload.id);
   }
-
-  // private _handleHttpEvent(id: string, event: HttpEvent<ProjectEntity>): void {
-  //   const fileUpload = this.fileUploads.find((element) => element.id === id);
-
-  //   switch (event.type) {
-  //     case HttpEventType.UploadProgress:
-  //       if (fileUpload) {
-  //         fileUpload.loaded = event.loaded;
-  //       }
-  //       // this.fileUploadProgress = (event.loaded / this.totalFileSize) * 100;
-  //       break;
-  //     case HttpEventType.Response:
-  //       // TODO maybe call store method?? -> user will get the ws eveent anyways
-  //       this.fileUploads.splice(
-  //         this.fileUploads.findIndex((element) => element.id === id),
-  //         1
-  //       );
-
-  //       this.store.dispatch(
-  //         editorActions.findProjectMedia({ projectId: this.projectId })
-  //       );
-
-  //       break;
-  //     default:
-  //       break;
-  //   }
-  // }
-
-  // private _handleHttpError(id: string, error: HttpErrorResponse): void {
-  //   this.fileUploads.splice(
-  //     this.fileUploads.findIndex((element) => element.id === id),
-  //     1
-  //   );
-  // }
 
   async onDeleteAdditionalMedia(
     project: ProjectEntity,
