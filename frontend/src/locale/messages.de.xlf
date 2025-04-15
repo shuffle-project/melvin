@@ -2512,7 +2512,7 @@
       </trans-unit>
       <trans-unit id="dialogSpellcheckInfoChromeOne" datatype="html">
         <source> The Chrome browser automatically uses the integrated spell checker. All you need to do is select the “Spellchecking” option in the Melvin Editor before clicking inside the transcript. </source>
-        <target state="final"> TDer Chrome-Browser verwendet automatisch die integrierte Rechtschreibprüfung. Sie müssen lediglich die Option „Rechtschreibprüfung“ im Melvin-Editor auswählen, bevor Sie in das Transkript klicken. </target>
+        <target state="final"> Der Chrome-Browser verwendet automatisch die integrierte Rechtschreibprüfung. Sie müssen lediglich die Option „Rechtschreibprüfung“ im Melvin-Editor auswählen, bevor Sie in das Transkript klicken. </target>
       </trans-unit>
       <trans-unit id="dialogSpellcheckInfoChromeTwo" datatype="html">
         <source> The words are visually highlighted with reddish dots below. </source>

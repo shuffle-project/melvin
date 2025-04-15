@@ -1,84 +1,40 @@
+@use '@angular/material' as mat;
+
 .wrapper {
   padding-top: 1.25rem;
+}
+
+.media-files-wrapper {
+  margin-top: 3.75rem;
 }
 
 .upload-form {
   display: flex;
   flex-direction: column;
-
-  .first-row {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
-    .upload-wrapper {
-      flex-grow: 1;
-    }
-    .category {
-      flex-grow: 1;
-    }
-  }
-
-  .second-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-  }
-}
-
-.upload-wrapper {
-  &.error {
-    input[type='file'] {
-      border: 1px solid var(--color-warn);
-    }
-  }
-
-  .file-error-wrapper {
-    min-height: 1.34375rem;
-    padding-top: 0.25rem;
-    box-sizing: border-box;
-  }
-
-  .file-error {
-    color: var(--color-warn);
-    font-size: 0.75rem;
-    margin-left: 1.25rem;
-
-    margin-bottom: 0;
-    font-weight: 300;
-  }
-
-  input[type='file'] {
-    color: var(--color-text);
-    padding: 0.5625rem 0.5625rem;
-    background: var(--color-background-grey);
-    border-radius: 0.3125rem;
-    border: 1px solid var(--color-light-grey);
-  }
-
-  input[type='file']::file-selector-button {
-    margin-right: 1.25rem;
-    border: none;
-    background: var(--color-primary-500);
-    padding: 0.625rem 1.25rem;
-    border-radius: 0.3125rem;
-    color: var(--color-white);
-    cursor: pointer;
-  }
-
-  input[type='file']::file-selector-button:hover {
-    background: var(--color-primary-700);
-  }
 }
 
 .upload-list {
+  list-style: none;
   padding: 0;
 
-  li {
-    list-style-type: none;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 0.3125rem;
+  margin: 1.25rem 0 0;
+
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+}
+
+.upload-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+
+  button.upload-outline-button {
+    border: 1px solid var(--color-dark-grey);
+    color: var(--color-dark-grey);
   }
+}
+
+.dense-category-form-field {
+  @include mat.all-component-densities(-1);
 }

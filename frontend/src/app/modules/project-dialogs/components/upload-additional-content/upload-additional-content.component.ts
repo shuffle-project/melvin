@@ -5,7 +5,6 @@ import {
   FormGroup,
   NonNullableFormBuilder,
   ReactiveFormsModule,
-  Validators,
 } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Subject, combineLatest, lastValueFrom, map, takeUntil } from 'rxjs';
@@ -35,6 +34,7 @@ import { UploadProgressComponent } from 'src/app/components/upload-progress/uplo
 import { UploadHandler } from 'src/app/services/upload/upload-handler';
 import { UploadService } from 'src/app/services/upload/upload.service';
 import * as uuid from 'uuid';
+import { UploadAreaComponent } from '../../../../components/upload-area/upload-area.component';
 import { FormatDatePipe } from '../../../../pipes/format-date-pipe/format-date.pipe';
 import { MediaCategoryPipe } from '../../../../pipes/media-category-pipe/media-category.pipe';
 import * as editorActions from '../../../../store/actions/editor.actions';
@@ -42,15 +42,10 @@ import { selectUserId } from '../../../../store/selectors/auth.selector';
 import * as editorSelector from '../../../../store/selectors/editor.selector';
 
 interface FileUpload {
-  // id: string;
-  // name: string;
-  // sub: Subscription;
-  // loaded?: number;
-  // totalSize?: number;
-
   id: string;
   name: string;
   uploadHandler: UploadHandler;
+  category: MediaCategory;
 }
 
 @Component({
@@ -75,6 +70,7 @@ interface FileUpload {
     MatMenuModule,
     MatDividerModule,
     UploadProgressComponent,
+    UploadAreaComponent,
   ],
 })
 export class UploadAdditionalContentComponent implements OnInit {
@@ -87,6 +83,10 @@ export class UploadAdditionalContentComponent implements OnInit {
     MediaCategory.SLIDES,
     MediaCategory.SPEAKER,
   ];
+
+  acceptedFileFormats = ['video/*', 'video'];
+  fileFormatsLabel = 'MP4, WebM';
+
   @Input() projectId!: string;
 
   destroy$$ = new Subject<void>();
@@ -105,10 +105,12 @@ export class UploadAdditionalContentComponent implements OnInit {
     this.project$,
   ]).pipe(map(([userId, project]) => userId === project?.createdBy.id));
 
-  public formGroup!: FormGroup<{
-    file: FormControl<File | null>;
-    category: FormControl<MediaCategory | null>;
-  }>;
+  public formGroup = new FormGroup({
+    files: new FormControl<File[]>([], {
+      nonNullable: true,
+    }),
+  });
+
   private selectedFile: any;
 
   fileUploads: FileUpload[] = [];
@@ -134,12 +136,27 @@ export class UploadAdditionalContentComponent implements OnInit {
       editorActions.findProjectMedia({ projectId: this.projectId })
     );
 
-    this.formGroup = this.fb.group({
-      file: this.fb.control<File | null>(null, [Validators.required]),
-      category: this.fb.control<MediaCategory | null>(null, [
-        Validators.required,
-      ]),
-    });
+    this.formGroup.valueChanges
+      .pipe(takeUntil(this.destroy$$))
+      .subscribe((value) => {
+        const { files } = value;
+
+        if (files?.length === 0) return;
+
+        files?.forEach((file: File) => {
+          const uploadHandler = this.uploadService.createUpload(file);
+          const id = uuid.v4();
+
+          this.fileUploads.push({
+            id,
+            name: file.name,
+            uploadHandler,
+            category: MediaCategory.OTHER,
+          });
+        });
+
+        this.formGroup.reset();
+      });
   }
 
   ngOnDestroy(): void {
@@ -150,24 +167,11 @@ export class UploadAdditionalContentComponent implements OnInit {
     this.selectedFile = event.target.files[0];
   }
 
-  async onClickSubmit() {
-    const category = this.formGroup.value.category!;
+  async onClickSubmit(fileUpload: FileUpload) {
+    const { uploadHandler, category } = fileUpload;
 
-    if (!this.formGroup.valid) {
-      this.formGroup.markAllAsTouched();
-    } else {
-      this.formGroup.reset();
-      const id = uuid.v4();
-
-      const uploadHandler = this.uploadService.createUpload(this.selectedFile);
-      this.fileUploads.push({
-        id,
-        name: this.selectedFile.name,
-        uploadHandler,
-      });
-      // todo trycatch logic
+    try {
       await uploadHandler.start();
-
       // TODO use createAdditionalVideo everywhere
       await lastValueFrom(
         this.api.createAdditionalVideo(this.projectId, {
@@ -177,10 +181,23 @@ export class UploadAdditionalContentComponent implements OnInit {
           recorder: false,
         })
       );
+    } catch (error) {
+      console.log(error);
     }
   }
 
+  onCategoryChange(fileUpload: FileUpload, newCategory: MediaCategory) {
+    this.fileUploads.map((element) => {
+      if (element.id === fileUpload.id) {
+        element.category = newCategory;
+      }
+      return element;
+    });
+  }
+
   onCancelUpload(fileUpload: FileUpload) {
+    console.log(fileUpload);
+
     // fileUpload.sub.unsubscribe();
     // TODO
     // this.fileUploads.splice(

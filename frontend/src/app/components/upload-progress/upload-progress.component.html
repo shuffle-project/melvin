@@ -1,4 +1,8 @@
-<div *ngrxLet="progress$ as progress" class="container">
+<div
+  *ngrxLet="progress$ as progress"
+  class="container"
+  [style.padding-inline.rem]="customInlinePadding"
+>
   <div class="static">
     <div class="text-wrapper">
       <div class="flex flex-1 flex-col justify-center left-side">
@@ -36,5 +40,6 @@
     ></mat-progress-bar>
     }
   </div>
+
   <ng-content />
 </div>

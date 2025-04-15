@@ -34,6 +34,7 @@ export class UploadProgressComponent implements OnInit {
   @Input() progress$!: Subject<UploadProgress>;
   @Input() title!: string;
   @Input({ transform: toCorrectSizeUnit }) fileSize!: string;
+  @Input() customInlinePadding = 1;
 
   constructor() {
     this.progress$ = new Subject();

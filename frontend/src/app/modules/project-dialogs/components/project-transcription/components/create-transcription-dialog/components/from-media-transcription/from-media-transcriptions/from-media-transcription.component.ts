@@ -23,10 +23,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSelectModule } from '@angular/material/select';
-import { PushPipe } from '@ngrx/component';
 import { Store } from '@ngrx/store';
 import { UploadFilesComponent } from 'src/app/components/upload-files/upload-files.component';
-import { WrittenOutLanguagePipe } from 'src/app/pipes/written-out-language-pipe/written-out-language.pipe';
 import { ApiService } from 'src/app/services/api/api.service';
 import {
   AsrVendors,
@@ -38,21 +36,19 @@ import * as configSelectors from '../../../../../../../../../store/selectors/con
 import { CreateTranscriptionDialogComponent } from '../../../create-transcription-dialog.component';
 
 @Component({
-    selector: 'app-from-media-transcription',
-    imports: [
-        CommonModule,
-        ReactiveFormsModule,
-        MatInputModule,
-        MatSelectModule,
-        WrittenOutLanguagePipe,
-        PushPipe,
-        MatIconModule,
-        MatButtonModule,
-        UploadFilesComponent,
-        MatProgressBarModule,
-    ],
-    templateUrl: './from-media-transcription.component.html',
-    styleUrl: './from-media-transcription.component.scss'
+  selector: 'app-from-media-transcription',
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    MatInputModule,
+    MatSelectModule,
+    MatIconModule,
+    MatButtonModule,
+    UploadFilesComponent,
+    MatProgressBarModule,
+  ],
+  templateUrl: './from-media-transcription.component.html',
+  styleUrl: './from-media-transcription.component.scss',
 })
 export class FromMediaTranscriptionComponent {
   private asrLanguages$ = this.store.select(

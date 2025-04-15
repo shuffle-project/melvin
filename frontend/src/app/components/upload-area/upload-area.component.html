@@ -1,0 +1,33 @@
+<div class="dropzone" [class.invalid-input]="showError">
+  <div>
+    <div class="input-ready-dropzone">
+      <input
+        (change)="onAddFiles($event)"
+        type="file"
+        #fileDropRef
+        id="fileDropRef"
+        [multiple]="acceptMultipleFiles"
+        required
+        [accept]="acceptedFileFormats"
+      />
+
+      <div class="content-wrapper">
+        <div class="text-wrapper">
+          <p class="instruction" i18n="@@uploadAreaFormDropzoneText">
+            Drag and drop files here or select them
+          </p>
+          <p class="file-formats">
+            <span i18n="@@uploadAreaFormDropzoneFileFormats"
+              >Accepted file types:</span
+            >
+            {{ fileFormatsLabel }}
+          </p>
+        </div>
+
+        <label class="label" for="fileDropRef" i18n="@@uploadAreaFormSelectFile"
+          >Select file
+        </label>
+      </div>
+    </div>
+  </div>
+</div>
