@@ -111,8 +111,6 @@ export class UploadAdditionalContentComponent implements OnInit {
     }),
   });
 
-  private selectedFile: any;
-
   fileUploads: FileUpload[] = [];
 
   constructor(
@@ -161,10 +159,6 @@ export class UploadAdditionalContentComponent implements OnInit {
 
   ngOnDestroy(): void {
     this.destroy$$.next();
-  }
-
-  onFileChange(event: any) {
-    this.selectedFile = event.target.files[0];
   }
 
   async onClickSubmit(fileUpload: FileUpload) {
