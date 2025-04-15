@@ -88,7 +88,10 @@ export class DialogCreateProjectComponent implements OnDestroy, AfterViewInit {
   ];
 
   uploadAreaFormGroup = new FormGroup({
-    files: new FormControl<File[]>([], { nonNullable: true }),
+    files: new FormControl<File[]>([], {
+      validators: [Validators.required],
+      nonNullable: true,
+    }),
   });
 
   acceptedFileFormats: string[] = [
@@ -331,6 +334,11 @@ export class DialogCreateProjectComponent implements OnDestroy, AfterViewInit {
     this.formGroup.markAsTouched();
     this.formGroup.controls.files.removeAt(index);
 
+    if (this.formGroup.controls.files.value.length === 0) {
+      this.uploadAreaFormGroup.markAllAsTouched();
+      this.uploadAreaFormGroup.updateValueAndValidity();
+    }
+
     this.dataSource = new MatTableDataSource(
       (this.formGroup.controls.files as FormArray).controls
     );
@@ -346,6 +354,8 @@ export class DialogCreateProjectComponent implements OnDestroy, AfterViewInit {
     if (this.formGroup.invalid) {
       this.formGroup.markAllAsTouched();
       this.formGroup.updateValueAndValidity();
+      this.uploadAreaFormGroup.markAllAsTouched();
+      this.uploadAreaFormGroup.updateValueAndValidity();
       return;
     }
 
