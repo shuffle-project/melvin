@@ -43,6 +43,7 @@ export class TiptapParagraphComponent
   public showSpeaker = false;
 
   public speakerName!: string;
+  public isSpeakerSet: boolean = false;
 
   public spellchecking = false;
 
@@ -88,8 +89,6 @@ export class TiptapParagraphComponent
 
   private updateSpeakerName() {
     const pos = this.getPos();
-    const resolvedPos = this.editor.state.doc.resolve(pos);
-    const prevNode = resolvedPos.nodeBefore;
 
     const previousSpeakerIds: string[] = [];
     this.editor.state.doc.nodesBetween(0, pos, (node, pos) => {
@@ -102,6 +101,7 @@ export class TiptapParagraphComponent
       previousSpeakerIds.reverse().find((speakerId) => speakerId) || null;
 
     const speakerId = this.node.attrs['speakerId'] || prevSpeakerId;
+    this.isSpeakerSet = !!this.node.attrs['speakerId'];
 
     this.showSpeaker = true;
 
