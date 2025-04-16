@@ -254,63 +254,6 @@
       <trans-unit id="emptyTranscriptionTabTitleHint" datatype="html">
         <source> Optional (e.g. with audio description) </source>
       </trans-unit>
-      <trans-unit id="fromMediaTranscriptionTabHeading" datatype="html">
-        <source> Generate a new transcription from media </source>
-      </trans-unit>
-      <trans-unit id="fromMediaTranscriptionTabLanguageLabel" datatype="html">
-        <source>Language</source>
-      </trans-unit>
-      <trans-unit id="fromMediaTranscriptionTabLanguageErrorRequired" datatype="html">
-        <source>Select a language </source>
-      </trans-unit>
-      <trans-unit id="fromMediaTranscriptionTabTitleLabel" datatype="html">
-        <source>Title</source>
-      </trans-unit>
-      <trans-unit id="fromMediaTranscriptionTabTitleHint" datatype="html">
-        <source> Optional (e.g. with audio description) </source>
-      </trans-unit>
-      <trans-unit id="fromMediaTranscriptionTabFileErrorMaximum" datatype="html">
-        <source> Maximum 1 file </source>
-      </trans-unit>
-      <trans-unit id="fromMediaTranscriptionTabFileErrorRequired" datatype="html">
-        <source> An audio or video file is required </source>
-      </trans-unit>
-      <trans-unit id="fromMediaTranscriptionUploadsInfo" datatype="html">
-        <source>Uploads</source>
-      </trans-unit>
-      <trans-unit id="translateTranscriptionTabHeading" datatype="html">
-        <source> Translate an existing transcription </source>
-      </trans-unit>
-      <trans-unit id="translateTranscriptionTabTranscriptionErrorRequired" datatype="html">
-        <source>Select a transcription</source>
-      </trans-unit>
-      <trans-unit id="translateTranscriptionTabVendorLabel" datatype="html">
-        <source>Vendor</source>
-      </trans-unit>
-      <trans-unit id="translateTranscriptionTabVendorHint" datatype="html">
-        <source>Languages are vendor dependent </source>
-      </trans-unit>
-      <trans-unit id="translateTranscriptionTabVendorErrorRequired" datatype="html">
-        <source>Select a vendor</source>
-      </trans-unit>
-      <trans-unit id="translateTranscriptionTabLanguageLabel" datatype="html">
-        <source>Language</source>
-      </trans-unit>
-      <trans-unit id="translateTranscriptionTabLanguageHint" datatype="html">
-        <source>Select a vendor first</source>
-      </trans-unit>
-      <trans-unit id="translateTranscriptionTabLanguageErrorRequired" datatype="html">
-        <source>Select a language </source>
-      </trans-unit>
-      <trans-unit id="translateTranscriptionTabTitleLabel" datatype="html">
-        <source>Title</source>
-      </trans-unit>
-      <trans-unit id="translateTranscriptionTabTitleErrorRequired" datatype="html">
-        <source>Title is required</source>
-      </trans-unit>
-      <trans-unit id="translateTranscriptionTabNoTranslationVendor" datatype="html">
-        <source> There is currently no translation vendor connected to Melvin. Please contact the person who manages this Melvin instance. </source>
-      </trans-unit>
       <trans-unit id="uploadTranscriptionTabHeading" datatype="html">
         <source>Upload a new transcription</source>
       </trans-unit>
@@ -521,7 +464,7 @@
       <trans-unit id="tiptap-editorMenuTranscriptionLabel" datatype="html">
         <source>Transcription</source>
       </trans-unit>
-      <trans-unit id="editorMenuTranscriptionEditLabel" datatype="html">
+      <trans-unit id="transcriptionMenuContentEditLabel" datatype="html">
         <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;edit&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/> Edit Transcriptions </source>
       </trans-unit>
       <trans-unit id="editSpeakerMenuNameLabel" datatype="html">
@@ -1909,6 +1852,9 @@
       </trans-unit>
       <trans-unit id="uploadAreaFormSelectFile" datatype="html">
         <source>Select file </source>
+      </trans-unit>
+      <trans-unit id="transcriptionMenuContentAddLabel" datatype="html">
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;add&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/> Add Transcription </source>
       </trans-unit>
     </body>
   </file>
