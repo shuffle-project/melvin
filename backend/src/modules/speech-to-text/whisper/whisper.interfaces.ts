@@ -59,17 +59,17 @@ export class WhiInterface {
 }
 
 export class WhiSegment {
+  text: string;
+  words: WhiWord[];
+  start: number;
+  end: number;
   avg_logprob?: number;
   compression_ratio?: number;
-  end: number;
   id?: number;
   no_speech_prob?: number;
-  seek: number;
-  start: number;
+  seek?: number;
   temperature?: number;
-  text: string;
   tokens?: any[];
-  words: WhiWord[];
 }
 
 export class WhiTranscriptEntity {

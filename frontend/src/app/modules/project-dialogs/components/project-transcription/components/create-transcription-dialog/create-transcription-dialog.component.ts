@@ -17,20 +17,20 @@ import { FromMediaTranscriptionComponent } from './components/from-media-transcr
 import { TranslateTranscriptionComponent } from './components/translate-transcription/translate-transcription/translate-transcription.component';
 import { UploadTranscriptionComponent } from './components/upload-transcription/upload-transcription/upload-transcription.component';
 @Component({
-    selector: 'app-create-transcription-dialog',
-    templateUrl: './create-transcription-dialog.component.html',
-    styleUrls: ['./create-transcription-dialog.component.scss'],
-    imports: [
-        MatIconModule,
-        MatButtonModule,
-        MatDialogModule,
-        MatTabsModule,
-        CopyTranscriptionComponent,
-        TranslateTranscriptionComponent,
-        UploadTranscriptionComponent,
-        FromMediaTranscriptionComponent,
-        EmptyFileTranscriptionComponent,
-    ]
+  selector: 'app-create-transcription-dialog',
+  templateUrl: './create-transcription-dialog.component.html',
+  styleUrls: ['./create-transcription-dialog.component.scss'],
+  imports: [
+    MatIconModule,
+    MatButtonModule,
+    MatDialogModule,
+    MatTabsModule,
+    CopyTranscriptionComponent,
+    TranslateTranscriptionComponent,
+    UploadTranscriptionComponent,
+    FromMediaTranscriptionComponent,
+    EmptyFileTranscriptionComponent,
+  ],
 })
 export class CreateTranscriptionDialogComponent implements OnInit, OnDestroy {
   private destroy$$ = new Subject<void>();
@@ -38,13 +38,13 @@ export class CreateTranscriptionDialogComponent implements OnInit, OnDestroy {
   public loading = false;
 
   // tabs = ['upload', 'copy', 'translate', 'from media', 'empty file'];
-  tabs = ['upload', 'copy', 'empty file'];
+  tabs = ['upload', 'copy', 'translate', 'empty file'];
   selectedTab = 'upload';
 
   @ViewChild('uploadForm') uploadForm!: UploadTranscriptionComponent;
   @ViewChild('copyForm') copyForm!: CopyTranscriptionComponent;
   // @ViewChild('asrForm') asrForm!: CopyTranscriptionComponent;
-  // @ViewChild('translateForm') translateForm!: CopyTranscriptionComponent;
+  @ViewChild('translateForm') translateForm!: CopyTranscriptionComponent;
   @ViewChild('emptyFileForm') emptyFileForm!: EmptyFileTranscriptionComponent;
 
   uploadProgress: number = 0;
@@ -88,9 +88,9 @@ export class CreateTranscriptionDialogComponent implements OnInit, OnDestroy {
       case 'copy':
         this.copyForm.submit(this.project.id);
         break;
-      // case 'translate':
-      // this.translateForm.submit(this.project.id);
-      // break;
+      case 'translate':
+        this.translateForm.submit(this.project.id);
+        break;
       // case 'from media':
       // this.asrForm.submit(this.project.id);
       // break;

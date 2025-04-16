@@ -31,21 +31,21 @@ import * as configSelectors from '../../../../../../../../../store/selectors/con
 import { CreateTranscriptionDialogComponent } from '../../../create-transcription-dialog.component';
 
 @Component({
-    selector: 'app-translate-transcription',
-    imports: [
-        CommonModule,
-        MatFormFieldModule,
-        MatSelectModule,
-        ReactiveFormsModule,
-        MatInputModule,
-        LetDirective,
-        PushPipe,
-        WrittenOutLanguagePipe,
-        MatButtonModule,
-        MatIconModule,
-    ],
-    templateUrl: './translate-transcription.component.html',
-    styleUrl: './translate-transcription.component.scss'
+  selector: 'app-translate-transcription',
+  imports: [
+    CommonModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    ReactiveFormsModule,
+    MatInputModule,
+    LetDirective,
+    PushPipe,
+    WrittenOutLanguagePipe,
+    MatButtonModule,
+    MatIconModule,
+  ],
+  templateUrl: './translate-transcription.component.html',
+  styleUrl: './translate-transcription.component.scss',
 })
 export class TranslateTranscriptionComponent {
   @Input() transcriptionList: TranscriptionEntity[] = [];
@@ -125,10 +125,12 @@ export class TranslateTranscriptionComponent {
   }
 
   submit(projectId: string) {
+    console.log('submit');
     if (!this.transcriptionGroup.valid) {
       this.transcriptionGroup.markAllAsTouched();
       return;
     }
+    console.log('submit2');
 
     const { title, language, transcription, translationVendor } =
       this.transcriptionGroup.getRawValue();
