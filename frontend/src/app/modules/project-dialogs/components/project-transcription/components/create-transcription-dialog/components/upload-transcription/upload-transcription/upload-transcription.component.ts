@@ -136,14 +136,16 @@ export class UploadTranscriptionComponent implements OnInit, OnDestroy {
   }
 
   async onCancelUpload() {
-    const handlerProgress = this.uploadHandler!.progress$.value;
+    try {
+      const handlerProgress = this.uploadHandler!.progress$.value;
 
-    if (handlerProgress.status === 'uploading') {
-      this.uploadHandler!.cancel$$.next();
-      await lastValueFrom(this.api.cancelUpload(handlerProgress.uploadId!));
+      if (handlerProgress.status === 'uploading') {
+        this.uploadHandler!.cancel$$.next();
+        await lastValueFrom(this.api.cancelUpload(handlerProgress.uploadId!));
+      }
+    } finally {
+      this.uploadHandler = undefined;
+      this.transcriptionGroup.controls.file.enable();
     }
-
-    this.uploadHandler = undefined;
-    this.transcriptionGroup.controls.file.enable();
   }
 }

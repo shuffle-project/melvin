@@ -426,15 +426,17 @@ export class DialogCreateProjectComponent implements OnDestroy, AfterViewInit {
   }
 
   async onCancelUpload() {
-    for (const handler of this.uploadHandlers) {
-      const handlerProgress = handler.progress$.value;
+    try {
+      for (const handler of this.uploadHandlers) {
+        const handlerProgress = handler.progress$.value;
 
-      if (handlerProgress.status === 'uploading') {
-        handler.cancel$$.next();
-        await lastValueFrom(this.api.cancelUpload(handlerProgress.uploadId!));
+        if (handlerProgress.status === 'uploading') {
+          handler.cancel$$.next();
+          await lastValueFrom(this.api.cancelUpload(handlerProgress.uploadId!));
+        }
       }
+    } finally {
+      this.dialogRef.close();
     }
-
-    this.dialogRef.close();
   }
 }

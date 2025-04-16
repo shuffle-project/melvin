@@ -196,12 +196,16 @@ export class UploadAdditionalContentComponent implements OnInit {
   async onCancelUpload(fileUpload: FileUpload) {
     const handlerProgress = fileUpload.uploadHandler.progress$.value;
 
-    if (handlerProgress.status === 'uploading') {
-      fileUpload.uploadHandler.cancel$$.next();
-      await lastValueFrom(this.api.cancelUpload(handlerProgress.uploadId!));
+    try {
+      if (handlerProgress.status === 'uploading') {
+        fileUpload.uploadHandler.cancel$$.next();
+        await lastValueFrom(this.api.cancelUpload(handlerProgress.uploadId!));
+      }
+    } finally {
+      this.fileUploads = this.fileUploads.filter(
+        (fp) => fp.id !== fileUpload.id
+      );
     }
-
-    this.fileUploads = this.fileUploads.filter((fp) => fp.id !== fileUpload.id);
   }
 
   async onDeleteAdditionalMedia(
