@@ -221,30 +221,6 @@
       <trans-unit id="dialogProjectShareEditTabLabel" datatype="html">
         <source> Invite collaborators </source>
       </trans-unit>
-      <trans-unit id="uploadFilesFormRemoveFileTooltip" datatype="html">
-        <source>Remove file</source>
-      </trans-unit>
-      <trans-unit id="uploadFilesFormRemoveFileAriaLabel" datatype="html">
-        <source>Remove file</source>
-      </trans-unit>
-      <trans-unit id="uploadFilesForAddMoreFileAriaLabel" datatype="html">
-        <source>Add more files </source>
-      </trans-unit>
-      <trans-unit id="uploadFilesFormDropzoneText" datatype="html">
-        <source> Drag your audio, video and subtitle file * here </source>
-      </trans-unit>
-      <trans-unit id="uploadFilesFormDropzoneTextTranscription" datatype="html">
-        <source> Drag your subtitle file (.vtt or .srt) * here </source>
-      </trans-unit>
-      <trans-unit id="uploadFilesFormDropzoneTextMedia" datatype="html">
-        <source> Drag your audio or video file * here </source>
-      </trans-unit>
-      <trans-unit id="uploadFilesFormDropzoneTextOr" datatype="html">
-        <source>or</source>
-      </trans-unit>
-      <trans-unit id="uploadFilesFormChooseFile" datatype="html">
-        <source>Choose file </source>
-      </trans-unit>
       <trans-unit id="copyTranscriptionTabHeading" datatype="html">
         <source>Copy an existing transcription</source>
       </trans-unit>
@@ -337,9 +313,6 @@
       </trans-unit>
       <trans-unit id="uploadTranscriptionTabHeading" datatype="html">
         <source>Upload a new transcription</source>
-      </trans-unit>
-      <trans-unit id="uploadTranscriptionTabUploadsInfo" datatype="html">
-        <source>Uploads</source>
       </trans-unit>
       <trans-unit id="uploadTranscriptionTabLanguageLabel" datatype="html">
         <source>Language</source>
@@ -449,23 +422,11 @@
       <trans-unit id="uploadAdditionalMediaTitle" datatype="html">
         <source>Upload additional media files</source>
       </trans-unit>
-      <trans-unit id="uploadAdditionalMediaVideoFileErrorRequired" datatype="html">
-        <source> A video file is required </source>
-      </trans-unit>
       <trans-unit id="uploadAdditionalMediaVideoCategoryLabel" datatype="html">
-        <source>Choose a category</source>
-      </trans-unit>
-      <trans-unit id="uploadAdditionalMediaVideoCategoryErrorRequired" datatype="html">
-        <source> Category is required </source>
-      </trans-unit>
-      <trans-unit id="uploadAdditionalMediaUploadButton" datatype="html">
-        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;upload&quot; /&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;upload&quot; /&gt;"/> Upload </source>
-      </trans-unit>
-      <trans-unit id="uploadAdditionalMediaUploadingHeader" datatype="html">
-        <source>Uploading</source>
+        <source> Category </source>
       </trans-unit>
       <trans-unit id="uploadAdditionalMediaListHeader" datatype="html">
-        <source>Uploaded media</source>
+        <source>Media files</source>
       </trans-unit>
       <trans-unit id="uploadAdditionalMediaTableLanguageHeader" datatype="html">
         <source> Category </source>
@@ -691,9 +652,6 @@
       </trans-unit>
       <trans-unit id="dialogCreateProjectIntroText" datatype="html">
         <source> Check the &quot;Use Audio&quot; box to select the file from which you would like to use the audio track. </source>
-      </trans-unit>
-      <trans-unit id="dialogCreateProjectDropzoneText" datatype="html">
-        <source> Drop audio, video or subtitle (.vtt/.srt) files * here or <x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span class=&quot;dropzone-label&quot;&gt;"/>Select files<x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span&gt;"/></source>
       </trans-unit>
       <trans-unit id="dialogCreateProjectTableHeaderFilename" datatype="html">
         <source> Filename </source>
@@ -1935,10 +1893,22 @@
         <source>Tutorials</source>
       </trans-unit>
       <trans-unit id="createProjectFailedWithError" datatype="html">
-        <source> Failed with error: <x id="INTERPOLATION" equiv-text="{{ error.error.message }}"/> <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br /&gt;"/>You can try again. </source>
+        <source> Failed with error: <x id="INTERPOLATION" equiv-text="{{ error.message }}"/> <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br /&gt;"/>You can try again. </source>
       </trans-unit>
       <trans-unit id="uploadRecordingCancelButton" datatype="html">
         <source> Cancel and close </source>
+      </trans-unit>
+      <trans-unit id="dialogCreateProjectCancelUploadButton" datatype="html">
+        <source> Cancel and close </source>
+      </trans-unit>
+      <trans-unit id="uploadAreaFormDropzoneFileFormats" datatype="html">
+        <source>Accepted file types:</source>
+      </trans-unit>
+      <trans-unit id="uploadAreaFormDropzoneText" datatype="html">
+        <source> Drag and drop files here or select them </source>
+      </trans-unit>
+      <trans-unit id="uploadAreaFormSelectFile" datatype="html">
+        <source>Select file </source>
       </trans-unit>
     </body>
   </file>
