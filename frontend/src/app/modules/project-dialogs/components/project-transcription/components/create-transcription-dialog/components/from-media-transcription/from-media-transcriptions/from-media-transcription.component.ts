@@ -20,7 +20,6 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSelectModule } from '@angular/material/select';
 import { Store } from '@ngrx/store';
 import { lastValueFrom } from 'rxjs';
-import { UploadFilesComponent } from 'src/app/components/upload-files/upload-files.component';
 import { ApiService } from 'src/app/services/api/api.service';
 import {
   AsrVendors,
@@ -40,7 +39,6 @@ import { CreateTranscriptionDialogComponent } from '../../../create-transcriptio
     MatSelectModule,
     MatIconModule,
     MatButtonModule,
-    UploadFilesComponent,
     MatProgressBarModule,
   ],
   templateUrl: './from-media-transcription.component.html',

@@ -22,6 +22,10 @@ html {
   );
 }
 
+.dense-category-form-field {
+  @include mat.all-component-densities(-1);
+}
+
 button.editor-back-button {
   @include mat.icon-button-overrides(
     (

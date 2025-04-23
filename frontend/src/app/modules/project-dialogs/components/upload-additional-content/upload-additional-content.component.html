@@ -9,7 +9,6 @@
       [fileFormatsLabel]="fileFormatsLabel"
     />
   </form>
-  }
   <div>
     <ul class="upload-list">
       @for (fileUpload of fileUploads; track fileUpload) {
@@ -18,7 +17,6 @@
           [progress$]="fileUpload.uploadHandler.progress$"
           [fileSize]="fileUpload.uploadHandler.file.size"
           [customInlinePadding]="2"
-          x
           [title]="fileUpload.name"
         >
           <div class="upload-actions">

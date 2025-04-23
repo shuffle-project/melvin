@@ -1,5 +1,4 @@
 .dropzone {
-  margin-top: 1.25rem;
   width: 100%;
   box-sizing: border-box;
   text-align: center;
@@ -8,6 +7,28 @@
   border-radius: 0.3125rem;
   position: relative;
   padding: 1.875rem;
+
+  &.disabled {
+    border: 2px solid var(--color-grey);
+
+    .input-ready-dropzone {
+      input {
+        cursor: initial;
+      }
+
+      .content-wrapper {
+        .text-wrapper {
+          p {
+            color: var(--color-grey);
+          }
+        }
+      }
+    }
+
+    .label {
+      background-color: var(--color-grey);
+    }
+  }
 
   &.invalid-input {
     border: 2px solid var(--color-warn);
@@ -21,51 +42,51 @@
     color: var(--color-white);
   }
 
-  input {
-    opacity: 0;
-    position: absolute;
-    z-index: 1;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    cursor: pointer;
-  }
-
-  .content-wrapper {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
-
-    gap: 2rem;
-  }
-
-  .text-wrapper {
-    display: flex;
-    flex-direction: column;
-    align-items: start;
-    gap: 0.625rem;
-
-    p {
-      margin: 0;
-    }
-
-    .instruction {
-      font-size: 1rem;
-      font-weight: 500;
-    }
-
-    .file-formats {
-      color: var(--color-text);
-      opacity: 90%;
-    }
-  }
-
   .input-ready-dropzone {
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
+
+    input {
+      opacity: 0;
+      position: absolute;
+      z-index: 1;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      cursor: pointer;
+    }
+
+    .content-wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+
+      gap: 2rem;
+
+      .text-wrapper {
+        display: flex;
+        flex-direction: column;
+        align-items: start;
+        gap: 0.625rem;
+
+        p {
+          margin: 0;
+        }
+
+        .instruction {
+          font-size: 1rem;
+          font-weight: 500;
+        }
+
+        .file-formats {
+          color: var(--color-text);
+          opacity: 90%;
+        }
+      }
+    }
   }
 }

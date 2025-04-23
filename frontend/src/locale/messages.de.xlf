@@ -98,25 +98,9 @@
         <source>New Project</source>
         <target state="final">Neues Project</target>
       </trans-unit>
-      <trans-unit id="uploadFilesFormDropzoneText" datatype="html">
-        <source> Drag your audio, video and subtitle file * here </source>
-        <target state="final"> Video- * oder Untertitel-Datei hierhin ziehen </target>
-      </trans-unit>
-      <trans-unit id="uploadFilesFormDropzoneTextOr" datatype="html">
-        <source>or</source>
-        <target state="final">oder</target>
-      </trans-unit>
-      <trans-unit id="uploadFilesFormChooseFile" datatype="html">
-        <source>Choose file </source>
-        <target state="final">Datei auswählen </target>
-      </trans-unit>
       <trans-unit id="dialogCreateProjectCloseButton" datatype="html">
         <source>Close</source>
         <target state="final"> Schließen </target>
-      </trans-unit>
-      <trans-unit id="uploadFilesFormRemoveFileTooltip" datatype="html">
-        <source>Remove file</source>
-        <target state="final">Datei entfernen</target>
       </trans-unit>
       <trans-unit id="projectListProjectListHeader" datatype="html">
         <source>Project List</source>
@@ -154,7 +138,7 @@
         <source> Transcription </source>
         <target state="final"> Transkription </target>
       </trans-unit>
-      <trans-unit id="editorMenuTranscriptionEditLabel" datatype="html">
+      <trans-unit id="transcriptionMenuContentEditLabel" datatype="html">
         <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;edit&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/> Edit Transcriptions </source>
         <target state="final"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;edit&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/> Transkriptionen bearbeiten </target>
       </trans-unit>
@@ -511,20 +495,12 @@
         <target state="final"> Zusätzliche Medien hochladen </target>
       </trans-unit>
       <trans-unit id="uploadAdditionalMediaVideoCategoryLabel" datatype="html">
-        <source>Choose a category</source>
-        <target state="final">Kategorie auswählen</target>
-      </trans-unit>
-      <trans-unit id="uploadAdditionalMediaUploadButton" datatype="html">
-        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;upload&quot; /&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;upload&quot; /&gt;"/> Upload </source>
-        <target state="final"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="Uploa"/> Hochladen </target>
-      </trans-unit>
-      <trans-unit id="uploadAdditionalMediaUploadingHeader" datatype="html">
-        <source>Uploading</source>
-        <target state="final">Hochladen</target>
+        <source> Category </source>
+        <target state="final">Kategorie</target>
       </trans-unit>
       <trans-unit id="uploadAdditionalMediaListHeader" datatype="html">
-        <source>Uploaded media</source>
-        <target state="final">Hochgeladene Medien</target>
+        <source>Media files</source>
+        <target state="final">Medien</target>
       </trans-unit>
       <trans-unit id="viewerControlsCloseFullscreenLabel" datatype="html">
         <source>Close fullscreen</source>
@@ -570,29 +546,9 @@
         <source>Close</source>
         <target state="final">Schließen</target>
       </trans-unit>
-      <trans-unit id="uploadAdditionalMediaVideoCategoryErrorRequired" datatype="html">
-        <source> Category is required </source>
-        <target state="final"> Kategorie wird benötigt </target>
-      </trans-unit>
-      <trans-unit id="uploadAdditionalMediaVideoFileErrorRequired" datatype="html">
-        <source> A video file is required </source>
-        <target state="final"> Video-Datei wird benötigt </target>
-      </trans-unit>
       <trans-unit id="createTranscriptionDialogTabUploadLabel" datatype="html">
         <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;upload&quot; class=&quot;tab-icon&quot; /&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;upload&quot; class=&quot;tab-icon&quot; /&gt;"/> Upload </source>
         <target state="final"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="/ng-template&gt;"/> Hochladen </target>
-      </trans-unit>
-      <trans-unit id="uploadFilesFormRemoveFileAriaLabel" datatype="html">
-        <source>Remove file</source>
-        <target state="final">Datei entfernen</target>
-      </trans-unit>
-      <trans-unit id="uploadFilesFormDropzoneTextTranscription" datatype="html">
-        <source> Drag your subtitle file (.vtt or .srt) * here </source>
-        <target state="final"> Ziehen Sie Ihre Untertiteldatei (.vtt oder .srt) * hierher </target>
-      </trans-unit>
-      <trans-unit id="uploadFilesFormDropzoneTextMedia" datatype="html">
-        <source> Drag your audio or video file * here </source>
-        <target state="final"> Ziehen Sie Ihre Audio- oder Videodatei * hierher </target>
       </trans-unit>
       <trans-unit id="copyTranscriptionTabHeading" datatype="html">
         <source>Copy an existing transcription</source>
@@ -633,10 +589,6 @@
       <trans-unit id="uploadTranscriptionTabHeading" datatype="html">
         <source>Upload a new transcription</source>
         <target state="final">Neue Transkription hochladen</target>
-      </trans-unit>
-      <trans-unit id="uploadTranscriptionTabUploadsInfo" datatype="html">
-        <source>Uploads</source>
-        <target state="final">Hochladen</target>
       </trans-unit>
       <trans-unit id="uploadTranscriptionTabLanguageLabel" datatype="html">
         <source>Language</source>
@@ -793,10 +745,6 @@
       <trans-unit id="recorderAddScreensharingButton" datatype="html">
         <source> Add screensharing source </source>
         <target state="final"> Bildschirmfreigabe hinzufügen </target>
-      </trans-unit>
-      <trans-unit id="uploadFilesForAddMoreFileAriaLabel" datatype="html">
-        <source>Add more files </source>
-        <target state="final">Mehr Dateien hinzufügen </target>
       </trans-unit>
       <trans-unit id="uploadRecordingTitle" datatype="html">
         <source> Upload and Project creation</source>
@@ -1562,10 +1510,6 @@
         <source> Check the &quot;Use Audio&quot; box to select the file from which you would like to use the audio track. </source>
         <target state="final"> Kreuzen Sie das Kästchen &quot;Ton nutzen&quot; an, um die Datei auszuwählen, von der Sie die Audiospur verwenden möchten. </target>
       </trans-unit>
-      <trans-unit id="dialogCreateProjectDropzoneText" datatype="html">
-        <source> Drop audio, video or subtitle (.vtt/.srt) files * here or <x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span class=&quot;dropzone-label&quot;&gt;"/>Select files<x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span&gt;"/></source>
-        <target state="final"> Legen Sie Audio-, Video- oder Untertiteldateien (.vtt/.srt) * hier ab oder <x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span class=&quot;dropzone-label&quot;&gt;"/>Dateien auswählen<x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span&gt;"/></target>
-      </trans-unit>
       <trans-unit id="dialogCreateProjectTableHeaderFilename" datatype="html">
         <source> Filename </source>
         <target state="final"> Dateiname </target>
@@ -1852,83 +1796,7 @@
       </trans-unit>
       <trans-unit id="registerDialogEmailContactInfo" datatype="html">
         <source> Melvin is currently still in a closed test phase. Would you like to test Melvin? Please contact us at <x id="START_LINK" ctype="x-a" equiv-text="&lt;a href=&quot;mailto:melvin@hdm-stuttgart.de&quot;&gt;"/>melvin@hdm-suttgart.de<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/></source>
-        <target state="new"> Melvin befindet sich aktuell noch in einer geschlossenen Testphase. Sie möchten Melvin testen? Kontaktieren Sie uns gerne unter <x id="START_LINK" ctype="x-a" equiv-text="&lt;a href=&quot;mailto:melvin@hdm-stuttgart.de&quot;&gt;"/>melvin@hdm-stuttgart.de<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/></target>
-      </trans-unit>
-      <trans-unit id="fromMediaTranscriptionTabHeading" datatype="html">
-        <source> Generate a new transcription from media </source>
-        <target state="final"> Erzeugen einer neuen Transkription aus einer Mediendatei </target>
-      </trans-unit>
-      <trans-unit id="fromMediaTranscriptionTabLanguageLabel" datatype="html">
-        <source>Language</source>
-        <target state="final">Sprache</target>
-      </trans-unit>
-      <trans-unit id="fromMediaTranscriptionTabLanguageErrorRequired" datatype="html">
-        <source>Select a language </source>
-        <target state="final">Sprache benötigt </target>
-      </trans-unit>
-      <trans-unit id="fromMediaTranscriptionTabTitleLabel" datatype="html">
-        <source>Title</source>
-        <target state="final">Titel</target>
-      </trans-unit>
-      <trans-unit id="fromMediaTranscriptionTabTitleHint" datatype="html">
-        <source> Optional (e.g. with audio description) </source>
-        <target state="final"> Optional (z.B. mit Audiodeskription) </target>
-      </trans-unit>
-      <trans-unit id="fromMediaTranscriptionTabFileErrorMaximum" datatype="html">
-        <source> Maximum 1 file </source>
-        <target state="final"> Maximal 1 Datei </target>
-      </trans-unit>
-      <trans-unit id="fromMediaTranscriptionTabFileErrorRequired" datatype="html">
-        <source> An audio or video file is required </source>
-        <target state="final"> Eine Audio- oder Videodatei ist erforderlich </target>
-      </trans-unit>
-      <trans-unit id="fromMediaTranscriptionUploadsInfo" datatype="html">
-        <source>Uploads</source>
-        <target state="final">Lädt hoch</target>
-      </trans-unit>
-      <trans-unit id="translateTranscriptionTabHeading" datatype="html">
-        <source> Translate an existing transcription </source>
-        <target state="final"> Eine bestehende Transkription übersetzen </target>
-      </trans-unit>
-      <trans-unit id="translateTranscriptionTabTranscriptionErrorRequired" datatype="html">
-        <source>Select a transcription</source>
-        <target state="final">Transkription benötigt</target>
-      </trans-unit>
-      <trans-unit id="translateTranscriptionTabVendorLabel" datatype="html">
-        <source>Vendor</source>
-        <target state="final">Anbieter</target>
-      </trans-unit>
-      <trans-unit id="translateTranscriptionTabVendorHint" datatype="html">
-        <source>Languages are vendor dependent </source>
-        <target state="final">Sprachen sind Anbieterabhängig </target>
-      </trans-unit>
-      <trans-unit id="translateTranscriptionTabVendorErrorRequired" datatype="html">
-        <source>Select a vendor</source>
-        <target state="final">Anbieter benötigt</target>
-      </trans-unit>
-      <trans-unit id="translateTranscriptionTabLanguageLabel" datatype="html">
-        <source>Language</source>
-        <target state="final">Sprache</target>
-      </trans-unit>
-      <trans-unit id="translateTranscriptionTabLanguageHint" datatype="html">
-        <source>Select a vendor first</source>
-        <target state="final">Wählen Sie zuerst einen Anbieter aus</target>
-      </trans-unit>
-      <trans-unit id="translateTranscriptionTabLanguageErrorRequired" datatype="html">
-        <source>Select a language </source>
-        <target state="final">Sprache benötigt</target>
-      </trans-unit>
-      <trans-unit id="translateTranscriptionTabTitleLabel" datatype="html">
-        <source>Title</source>
-        <target state="final">Titel</target>
-      </trans-unit>
-      <trans-unit id="translateTranscriptionTabTitleErrorRequired" datatype="html">
-        <source>Title is required</source>
-        <target state="final">Titel benötigt</target>
-      </trans-unit>
-      <trans-unit id="translateTranscriptionTabNoTranslationVendor" datatype="html">
-        <source> There is currently no translation vendor connected to Melvin. Please contact the person who manages this Melvin instance. </source>
-        <target state="final"> Derzeit gibt es keinen Übersetzungsanbieter, der mit Melvin verbunden ist. Bitte kontaktieren Sie die Person, die diese Melvin-Instanz verwaltet. </target>
+        <target state="final"> Melvin befindet sich aktuell noch in einer geschlossenen Testphase. Sie möchten Melvin testen? Kontaktieren Sie uns gerne unter <x id="START_LINK" ctype="x-a" equiv-text="&lt;a href=&quot;mailto:melvin@hdm-stuttgart.de&quot;&gt;"/>melvin@hdm-stuttgart.de<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/></target>
       </trans-unit>
       <trans-unit id="projectListCreateProjectMenuUpload" datatype="html">
         <source>Upload file</source>
@@ -2016,7 +1884,7 @@
       </trans-unit>
       <trans-unit id="headerMenuGuideButton" datatype="html">
         <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;book&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/>Didactic Guide </source>
-        <target state="new"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;book&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/>Didaktik-Guide </target>
+        <target state="final"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;book&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/>Didaktik-Guide </target>
       </trans-unit>
       <trans-unit id="editorSettingsHeadline" datatype="html">
         <source>Settings</source>
@@ -2579,12 +2447,32 @@
         <target state="final">Stiftung Innovation in der Hochschullehre, öffnet in neuem Tab</target>
       </trans-unit>
       <trans-unit id="createProjectFailedWithError" datatype="html">
-        <source> Failed with error: <x id="INTERPOLATION" equiv-text="{{ error.error.message }}"/> <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br /&gt;"/>You can try again. </source>
-        <target state="new"> Failed with error: <x id="INTERPOLATION" equiv-text="{{ error.error.message }}"/> <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br /&gt;"/>You can try again. </target>
+        <source> Failed with error: <x id="INTERPOLATION" equiv-text="{{ error.message }}"/> <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br /&gt;"/>You can try again. </source>
+        <target state="final"> Mit dem folgenden Fehler fehlgeschlagen: <x id="INTERPOLATION" equiv-text="{{ error.message }}"/> <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br /&gt;"/>Du kannst es nochmal probieren. </target>
       </trans-unit>
       <trans-unit id="uploadRecordingCancelButton" datatype="html">
         <source> Cancel and close </source>
         <target state="final"> Abbrechen und schließen </target>
+      </trans-unit>
+      <trans-unit id="uploadAreaFormDropzoneText" datatype="html">
+        <source> Drag and drop files here or select them </source>
+        <target state="final"> Dateien hierher ziehen und ablegen oder auswählen </target>
+      </trans-unit>
+      <trans-unit id="uploadAreaFormDropzoneFileFormats" datatype="html">
+        <source>Accepted file types:</source>
+        <target state="final">Akzeptierte Dateitypen:</target>
+      </trans-unit>
+      <trans-unit id="uploadAreaFormSelectFile" datatype="html">
+        <source>Select file </source>
+        <target state="final">Datei auswählen </target>
+      </trans-unit>
+      <trans-unit id="dialogCreateProjectCancelUploadButton" datatype="html">
+        <source> Cancel and close </source>
+        <target state="final"> Abbrechen und schließen </target>
+      </trans-unit>
+      <trans-unit id="transcriptionMenuContentAddLabel" datatype="html">
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;add&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/> Add Transcription </source>
+        <target state="final"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;add&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/> Transkription hinzufügen </target>
       </trans-unit>
     </body>
   </file>

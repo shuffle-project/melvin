@@ -13,7 +13,6 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatTabsModule } from '@angular/material/tabs';
 import { CopyTranscriptionComponent } from './components/copy-transcription/copy-transcription/copy-transcription.component';
 import { EmptyFileTranscriptionComponent } from './components/empty-file-transcription/empty-file-transcription/empty-file-transcription.component';
-import { FromMediaTranscriptionComponent } from './components/from-media-transcription/from-media-transcriptions/from-media-transcription.component';
 import { TranslateTranscriptionComponent } from './components/translate-transcription/translate-transcription/translate-transcription.component';
 import { UploadTranscriptionComponent } from './components/upload-transcription/upload-transcription/upload-transcription.component';
 @Component({
@@ -26,9 +25,8 @@ import { UploadTranscriptionComponent } from './components/upload-transcription/
     MatDialogModule,
     MatTabsModule,
     CopyTranscriptionComponent,
-    TranslateTranscriptionComponent,
     UploadTranscriptionComponent,
-    FromMediaTranscriptionComponent,
+    TranslateTranscriptionComponent,
     EmptyFileTranscriptionComponent,
   ],
 })

@@ -12,7 +12,10 @@ import {
   ValueChangeEvent,
 } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
-import { MatCheckboxModule } from '@angular/material/checkbox';
+import {
+  MatCheckboxChange,
+  MatCheckboxModule,
+} from '@angular/material/checkbox';
 import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
@@ -25,6 +28,7 @@ import {
 } from '@angular/material/table';
 import { Store } from '@ngrx/store';
 import { filter, lastValueFrom, Subject, takeUntil } from 'rxjs';
+import { UploadAreaComponent } from 'src/app/components/upload-area/upload-area.component';
 import { UploadProgressComponent } from 'src/app/components/upload-progress/upload-progress.component';
 import { MediaCategoryPipe } from 'src/app/pipes/media-category-pipe/media-category.pipe';
 import { ApiService } from 'src/app/services/api/api.service';
@@ -67,6 +71,7 @@ interface FileGroup {
     MediaCategoryPipe,
     MatProgressBarModule,
     UploadProgressComponent,
+    UploadAreaComponent,
   ],
   templateUrl: './dialog-create-project.component.html',
   styleUrl: './dialog-create-project.component.scss',
@@ -82,6 +87,13 @@ export class DialogCreateProjectComponent implements OnDestroy, AfterViewInit {
     'delete',
   ];
 
+  uploadAreaFormGroup = new FormGroup({
+    files: new FormControl<File[]>([], {
+      validators: [Validators.required],
+      nonNullable: true,
+    }),
+  });
+
   acceptedFileFormats: string[] = [
     'audio',
     'video',
@@ -90,6 +102,8 @@ export class DialogCreateProjectComponent implements OnDestroy, AfterViewInit {
     '.srt',
     '.vtt',
   ];
+
+  fileFormatsLabel = 'MP4, WebM, MP3, WAV, SRT, VTT';
 
   // calculate eta
   timeStarted!: number;
@@ -138,6 +152,16 @@ export class DialogCreateProjectComponent implements OnDestroy, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
+    this.uploadAreaFormGroup.valueChanges
+      .pipe(takeUntil(this.destroy$$))
+      .subscribe((value) => {
+        const { files } = value;
+        if (files?.length === 0) return;
+
+        this.addFiles(files!);
+        this.uploadAreaFormGroup.reset();
+      });
+
     this.formGroup.events
       .pipe(
         filter((e) => e instanceof ValueChangeEvent),
@@ -170,22 +194,13 @@ export class DialogCreateProjectComponent implements OnDestroy, AfterViewInit {
           }
         }
       });
+  }
 
-    this.formGroup.controls.files.valueChanges
-      .pipe(takeUntil(this.destroy$$))
-      .subscribe((files) => {
-        files.forEach((f) => {
-          if (
-            (f.file?.type.includes('audio') ||
-              f.file?.type.includes('video')) &&
-            this.formGroup.controls.title.value === '' &&
-            f.useAudio
-          ) {
-            const cleanName = f.name!.replace(/\.[^/.]+$/, '');
-            this.formGroup.controls.title.setValue(cleanName);
-          }
-        });
-      });
+  onChangeUseAudio(e: MatCheckboxChange, name: string) {
+    if (e.checked && this.formGroup.controls.title.value === '') {
+      const cleanName = name.replace(/\.[^/.]+$/, '');
+      this.formGroup.controls.title.setValue(cleanName);
+    }
   }
 
   public formGroup: FormGroup<CreateProjectFormGroup> = this.fb.group(
@@ -239,10 +254,7 @@ export class DialogCreateProjectComponent implements OnDestroy, AfterViewInit {
     };
   }
 
-  onAddFiles(event: any) {
-    this.formGroup.markAsTouched();
-    const files: File[] = event.target.files;
-
+  addFiles(files: File[]) {
     // TODO snackbar with allowed file formats if wrong format submitted?
     const onlyValidFiles = [...files].filter((file: File) => {
       return this.acceptedFileFormats.find((acceptedFormat) => {
@@ -322,6 +334,11 @@ export class DialogCreateProjectComponent implements OnDestroy, AfterViewInit {
     this.formGroup.markAsTouched();
     this.formGroup.controls.files.removeAt(index);
 
+    if (this.formGroup.controls.files.value.length === 0) {
+      this.uploadAreaFormGroup.markAllAsTouched();
+      this.uploadAreaFormGroup.updateValueAndValidity();
+    }
+
     this.dataSource = new MatTableDataSource(
       (this.formGroup.controls.files as FormArray).controls
     );
@@ -337,6 +354,8 @@ export class DialogCreateProjectComponent implements OnDestroy, AfterViewInit {
     if (this.formGroup.invalid) {
       this.formGroup.markAllAsTouched();
       this.formGroup.updateValueAndValidity();
+      this.uploadAreaFormGroup.markAllAsTouched();
+      this.uploadAreaFormGroup.updateValueAndValidity();
       return;
     }
 
@@ -379,9 +398,7 @@ export class DialogCreateProjectComponent implements OnDestroy, AfterViewInit {
         sourceMode: 'video',
       };
 
-      const project = await lastValueFrom(
-        this.api.createProject(createProjectDto)
-      );
+      await lastValueFrom(this.api.createProject(createProjectDto));
 
       this.loading = false;
       this.dialogRef.close();
@@ -406,5 +423,20 @@ export class DialogCreateProjectComponent implements OnDestroy, AfterViewInit {
 
   ngOnDestroy() {
     this.destroy$$.next();
+  }
+
+  async onCancelUpload() {
+    try {
+      for (const handler of this.uploadHandlers) {
+        const handlerProgress = handler.progress$.value;
+
+        if (handlerProgress.status === 'uploading') {
+          handler.cancel$$.next();
+          await lastValueFrom(this.api.cancelUpload(handlerProgress.uploadId!));
+        }
+      }
+    } finally {
+      this.dialogRef.close();
+    }
   }
 }

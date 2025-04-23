@@ -1,5 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Output, inject } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  inject,
+  OnDestroy,
+  OnInit,
+  Output,
+} from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -13,15 +20,14 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSelectModule } from '@angular/material/select';
-import { lastValueFrom } from 'rxjs';
-import { UploadFilesComponent } from 'src/app/components/upload-files/upload-files.component';
+import { lastValueFrom, Subject, takeUntil } from 'rxjs';
 import { UploadProgressComponent } from 'src/app/components/upload-progress/upload-progress.component';
-import { WrittenOutLanguagePipe } from 'src/app/pipes/written-out-language-pipe/written-out-language.pipe';
 import { ApiService } from 'src/app/services/api/api.service';
 import { CreateTranscriptionDto } from 'src/app/services/api/dto/create-transcription.dto';
 import { LanguageService } from 'src/app/services/language/language.service';
 import { UploadHandler } from 'src/app/services/upload/upload-handler';
 import { UploadService } from 'src/app/services/upload/upload.service';
+import { UploadAreaComponent } from '../../../../../../../../../components/upload-area/upload-area.component';
 import { CreateTranscriptionDialogComponent } from '../../../create-transcription-dialog.component';
 
 @Component({
@@ -31,18 +37,17 @@ import { CreateTranscriptionDialogComponent } from '../../../create-transcriptio
     MatFormFieldModule,
     MatSelectModule,
     ReactiveFormsModule,
-    UploadFilesComponent,
     MatInputModule,
     MatIconModule,
     MatButtonModule,
-    WrittenOutLanguagePipe,
     MatProgressBarModule,
     UploadProgressComponent,
+    UploadAreaComponent,
   ],
   templateUrl: './upload-transcription.component.html',
   styleUrl: './upload-transcription.component.scss',
 })
-export class UploadTranscriptionComponent {
+export class UploadTranscriptionComponent implements OnInit, OnDestroy {
   @Output() loadingEvent = new EventEmitter<boolean>();
 
   loading = false;
@@ -57,7 +62,9 @@ export class UploadTranscriptionComponent {
 
   languages = this.languageService.getLocalizedLanguages();
   acceptedFileFormats = ['.vtt', '.srt'];
+  fileFormatsLabel = 'VTT, SRT';
 
+  destroy$$ = new Subject<void>();
   dialogRef = inject(MatDialogRef<CreateTranscriptionDialogComponent>);
   api = inject(ApiService);
 
@@ -73,6 +80,23 @@ export class UploadTranscriptionComponent {
       validators: [Validators.required, Validators.maxLength(1)],
     }),
   });
+
+  ngOnInit() {
+    this.transcriptionGroup.controls.file.valueChanges
+      .pipe(takeUntil(this.destroy$$))
+      .subscribe((file) => {
+        if (file?.length === 0) return;
+
+        this.uploadHandler = this.uploadService.createUpload(file![0]);
+
+        this.transcriptionGroup.controls.file.setValue([]);
+        this.transcriptionGroup.controls.file.disable();
+      });
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$$.next();
+  }
 
   onClearTitle() {
     this.transcriptionGroup.controls['title'].setValue('');
@@ -99,10 +123,12 @@ export class UploadTranscriptionComponent {
     this.uploadHandler = uploadHandler;
     await uploadHandler.start();
 
-    const createdTranscription = await lastValueFrom(
+    await this.uploadHandler!.start();
+
+    await lastValueFrom(
       this.api.createTranscription({
         ...newTranscription,
-        uploadId: uploadHandler.progress$.value.uploadId!,
+        uploadId: this.uploadHandler!.progress$.value.uploadId!,
       })
     );
 
@@ -111,5 +137,19 @@ export class UploadTranscriptionComponent {
 
     this.loading = false;
     this.loadingEvent.emit(false);
+  }
+
+  async onCancelUpload() {
+    try {
+      const handlerProgress = this.uploadHandler!.progress$.value;
+
+      if (handlerProgress.status === 'uploading') {
+        this.uploadHandler!.cancel$$.next();
+        await lastValueFrom(this.api.cancelUpload(handlerProgress.uploadId!));
+      }
+    } finally {
+      this.uploadHandler = undefined;
+      this.transcriptionGroup.controls.file.enable();
+    }
   }
 }
