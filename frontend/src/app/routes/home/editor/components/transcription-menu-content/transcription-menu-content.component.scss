@@ -1,0 +1,10 @@
+.mat-icon {
+  &.hidden {
+    visibility: hidden;
+  }
+}
+
+.transcription-lang-code {
+  font-size: 0.625rem;
+  color: rgba(var(--color-black-rgb), 0.7);
+}

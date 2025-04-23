@@ -10,11 +10,13 @@ import {
   CAPTIONS_ENTITY_MOCK,
   TRANSCIRPTIONS_ENITITY_MOCK,
 } from '../../constants/mocks/captions.mock';
+import { UploadDto } from '../upload/upload.interfaces';
 import { ApiService } from './api.service';
 import { ChangePasswordDto } from './dto/auth.dto';
 import { BulkRemoveDto } from './dto/bulk-remove.dto';
 import { ConnectLivestreamDto } from './dto/connect-livestream.dto';
 import { CreateCaptionDto } from './dto/create-caption.dto';
+import { CreateProjectDto } from './dto/create-project.dto';
 import { CreateSpeakersDto } from './dto/create-speakers.dto';
 import { CreateTranscriptionDto } from './dto/create-transcription.dto';
 import { PauseLivestreamDto } from './dto/pause-livestream.dto';
@@ -74,12 +76,12 @@ export class FakeApiService implements ApiService {
     throw new Error('Method not implemented.');
   }
 
-  createTranscriptionFromFile(
-    transcription: CreateTranscriptionDto,
-    file: File
-  ): Observable<any> {
-    throw new Error('Method not implemented.');
-  }
+  // createTranscriptionFromFile(
+  //   transcription: CreateTranscriptionDto,
+  //   file: File
+  // ): Observable<any> {
+  //   throw new Error('Method not implemented.');
+  // }
 
   getConfig(): Observable<any> {
     this.logger.verbose('config mocked');
@@ -169,7 +171,7 @@ export class FakeApiService implements ApiService {
     return of({ ...PROJECT_ENTITY_MOCK[0] });
   }
 
-  createProject(project: FormData): Observable<any> {
+  createProject(project: CreateProjectDto): Observable<ProjectEntity> {
     this.logger.verbose('createProject mocked');
     return of({ ...PROJECT_ENTITY_MOCK[0] });
   }
@@ -183,10 +185,9 @@ export class FakeApiService implements ApiService {
     return of();
   }
 
-  uploadVideo(
+  createAdditionalVideo(
     projectId: string,
-    uploadVideoDto: UploadVideoDto,
-    file: File
+    uploadVideoDto: UploadVideoDto
   ): Observable<any> {
     return of({ ...PROJECT_ENTITY_MOCK[0] });
   }
@@ -515,6 +516,22 @@ export class FakeApiService implements ApiService {
 
   userTestReset(projectId: string): Observable<void> {
     this.logger.verbose('userTestReset mocked');
+    return of();
+  }
+
+  // upload service
+
+  createUpload(uploadDto: UploadDto) {
+    this.logger.verbose('createUpload mocked');
+    return of();
+  }
+  updateUpload(id: string, filePart: Blob) {
+    this.logger.verbose('updateUpload mocked');
+    return of();
+  }
+
+  cancelUpload(id: string) {
+    this.logger.verbose('cancelUpload mocked');
     return of();
   }
 }

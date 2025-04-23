@@ -68,4 +68,9 @@ export class CreateTranscriptionDto extends PickType(Transcription, [
   @ValidateNested({ each: true })
   @Type(() => CopyDto)
   copyDto?: CopyDto;
+
+  @ApiPropertyOptional()
+  @IsOptional()
+  @Type(() => String)
+  uploadId?: string;
 }

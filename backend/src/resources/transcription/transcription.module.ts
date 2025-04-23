@@ -1,5 +1,7 @@
 import { BullModule } from '@nestjs/bull';
 import { Module } from '@nestjs/common';
+import { MediaModule } from 'src/modules/media/media.module';
+import { UploadModule } from 'src/modules/upload/upload.module';
 import { DbModule } from '../../modules/db/db.module';
 import { LoggerModule } from '../../modules/logger/logger.module';
 import { PathModule } from '../../modules/path/path.module';
@@ -20,10 +22,15 @@ import { TranscriptionService } from './transcription.service';
     SubtitleFormatModule,
     CaptionModule,
     PathModule,
-    BullModule.registerQueue({ name: 'subtitles' }),
+    BullModule.registerQueue({
+      name: 'subtitles',
+      defaultJobOptions: { removeOnComplete: true, removeOnFail: true },
+    }),
     TranslationModule,
     LoggerModule,
     TiptapModule,
+    MediaModule,
+    UploadModule,
   ],
   controllers: [TranscriptionController],
   providers: [TranscriptionService],

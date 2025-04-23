@@ -221,30 +221,6 @@
       <trans-unit id="dialogProjectShareEditTabLabel" datatype="html">
         <source> Invite collaborators </source>
       </trans-unit>
-      <trans-unit id="uploadFilesFormRemoveFileTooltip" datatype="html">
-        <source>Remove file</source>
-      </trans-unit>
-      <trans-unit id="uploadFilesFormRemoveFileAriaLabel" datatype="html">
-        <source>Remove file</source>
-      </trans-unit>
-      <trans-unit id="uploadFilesForAddMoreFileAriaLabel" datatype="html">
-        <source>Add more files </source>
-      </trans-unit>
-      <trans-unit id="uploadFilesFormDropzoneText" datatype="html">
-        <source> Drag your audio, video and subtitle file * here </source>
-      </trans-unit>
-      <trans-unit id="uploadFilesFormDropzoneTextTranscription" datatype="html">
-        <source> Drag your subtitle file (.vtt or .srt) * here </source>
-      </trans-unit>
-      <trans-unit id="uploadFilesFormDropzoneTextMedia" datatype="html">
-        <source> Drag your audio or video file * here </source>
-      </trans-unit>
-      <trans-unit id="uploadFilesFormDropzoneTextOr" datatype="html">
-        <source>or</source>
-      </trans-unit>
-      <trans-unit id="uploadFilesFormChooseFile" datatype="html">
-        <source>Choose file </source>
-      </trans-unit>
       <trans-unit id="copyTranscriptionTabHeading" datatype="html">
         <source>Copy an existing transcription</source>
       </trans-unit>
@@ -278,68 +254,8 @@
       <trans-unit id="emptyTranscriptionTabTitleHint" datatype="html">
         <source> Optional (e.g. with audio description) </source>
       </trans-unit>
-      <trans-unit id="fromMediaTranscriptionTabHeading" datatype="html">
-        <source> Generate a new transcription from media </source>
-      </trans-unit>
-      <trans-unit id="fromMediaTranscriptionTabLanguageLabel" datatype="html">
-        <source>Language</source>
-      </trans-unit>
-      <trans-unit id="fromMediaTranscriptionTabLanguageErrorRequired" datatype="html">
-        <source>Select a language </source>
-      </trans-unit>
-      <trans-unit id="fromMediaTranscriptionTabTitleLabel" datatype="html">
-        <source>Title</source>
-      </trans-unit>
-      <trans-unit id="fromMediaTranscriptionTabTitleHint" datatype="html">
-        <source> Optional (e.g. with audio description) </source>
-      </trans-unit>
-      <trans-unit id="fromMediaTranscriptionTabFileErrorMaximum" datatype="html">
-        <source> Maximum 1 file </source>
-      </trans-unit>
-      <trans-unit id="fromMediaTranscriptionTabFileErrorRequired" datatype="html">
-        <source> An audio or video file is required </source>
-      </trans-unit>
-      <trans-unit id="fromMediaTranscriptionUploadsInfo" datatype="html">
-        <source>Uploads</source>
-      </trans-unit>
-      <trans-unit id="translateTranscriptionTabHeading" datatype="html">
-        <source> Translate an existing transcription </source>
-      </trans-unit>
-      <trans-unit id="translateTranscriptionTabTranscriptionErrorRequired" datatype="html">
-        <source>Select a transcription</source>
-      </trans-unit>
-      <trans-unit id="translateTranscriptionTabVendorLabel" datatype="html">
-        <source>Vendor</source>
-      </trans-unit>
-      <trans-unit id="translateTranscriptionTabVendorHint" datatype="html">
-        <source>Languages are vendor dependent </source>
-      </trans-unit>
-      <trans-unit id="translateTranscriptionTabVendorErrorRequired" datatype="html">
-        <source>Select a vendor</source>
-      </trans-unit>
-      <trans-unit id="translateTranscriptionTabLanguageLabel" datatype="html">
-        <source>Language</source>
-      </trans-unit>
-      <trans-unit id="translateTranscriptionTabLanguageHint" datatype="html">
-        <source>Select a vendor first</source>
-      </trans-unit>
-      <trans-unit id="translateTranscriptionTabLanguageErrorRequired" datatype="html">
-        <source>Select a language </source>
-      </trans-unit>
-      <trans-unit id="translateTranscriptionTabTitleLabel" datatype="html">
-        <source>Title</source>
-      </trans-unit>
-      <trans-unit id="translateTranscriptionTabTitleErrorRequired" datatype="html">
-        <source>Title is required</source>
-      </trans-unit>
-      <trans-unit id="translateTranscriptionTabNoTranslationVendor" datatype="html">
-        <source> There is currently no translation vendor connected to Melvin. Please contact the person who manages this Melvin instance. </source>
-      </trans-unit>
       <trans-unit id="uploadTranscriptionTabHeading" datatype="html">
         <source>Upload a new transcription</source>
-      </trans-unit>
-      <trans-unit id="uploadTranscriptionTabUploadsInfo" datatype="html">
-        <source>Uploads</source>
       </trans-unit>
       <trans-unit id="uploadTranscriptionTabLanguageLabel" datatype="html">
         <source>Language</source>
@@ -449,23 +365,11 @@
       <trans-unit id="uploadAdditionalMediaTitle" datatype="html">
         <source>Upload additional media files</source>
       </trans-unit>
-      <trans-unit id="uploadAdditionalMediaVideoFileErrorRequired" datatype="html">
-        <source> A video file is required </source>
-      </trans-unit>
       <trans-unit id="uploadAdditionalMediaVideoCategoryLabel" datatype="html">
-        <source>Choose a category</source>
-      </trans-unit>
-      <trans-unit id="uploadAdditionalMediaVideoCategoryErrorRequired" datatype="html">
-        <source> Category is required </source>
-      </trans-unit>
-      <trans-unit id="uploadAdditionalMediaUploadButton" datatype="html">
-        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;upload&quot; /&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;upload&quot; /&gt;"/> Upload </source>
-      </trans-unit>
-      <trans-unit id="uploadAdditionalMediaUploadingHeader" datatype="html">
-        <source>Uploading</source>
+        <source> Category </source>
       </trans-unit>
       <trans-unit id="uploadAdditionalMediaListHeader" datatype="html">
-        <source>Uploaded media</source>
+        <source>Media files</source>
       </trans-unit>
       <trans-unit id="uploadAdditionalMediaTableLanguageHeader" datatype="html">
         <source> Category </source>
@@ -560,7 +464,7 @@
       <trans-unit id="tiptap-editorMenuTranscriptionLabel" datatype="html">
         <source>Transcription</source>
       </trans-unit>
-      <trans-unit id="editorMenuTranscriptionEditLabel" datatype="html">
+      <trans-unit id="transcriptionMenuContentEditLabel" datatype="html">
         <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;edit&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/> Edit Transcriptions </source>
       </trans-unit>
       <trans-unit id="editSpeakerMenuNameLabel" datatype="html">
@@ -691,9 +595,6 @@
       </trans-unit>
       <trans-unit id="dialogCreateProjectIntroText" datatype="html">
         <source> Check the &quot;Use Audio&quot; box to select the file from which you would like to use the audio track. </source>
-      </trans-unit>
-      <trans-unit id="dialogCreateProjectDropzoneText" datatype="html">
-        <source> Drop audio, video or subtitle (.vtt/.srt) files * here or <x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span class=&quot;dropzone-label&quot;&gt;"/>Select files<x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span&gt;"/></source>
       </trans-unit>
       <trans-unit id="dialogCreateProjectTableHeaderFilename" datatype="html">
         <source> Filename </source>
@@ -926,15 +827,6 @@
       <trans-unit id="uploadRecordingFilesProcessingHint" datatype="html">
         <source> The files are being processed, please wait until all files are ready. </source>
       </trans-unit>
-      <trans-unit id="uploadRecordingFileHeader" datatype="html">
-        <source><x id="START_BLOCK_IF" equiv-text="@if(i ===0){"/> Main Video and Audio <x id="CLOSE_BLOCK_IF" equiv-text="}"/><x id="START_BLOCK_ELSE" equiv-text="@else {"/> Additional Video <x id="CLOSE_BLOCK_ELSE" equiv-text="}"/></source>
-      </trans-unit>
-      <trans-unit id="uploadRecordingSuccessfullyUploaded" datatype="html">
-        <source> Successfully uploaded! </source>
-      </trans-unit>
-      <trans-unit id="uploadRecordingFailedWithError" datatype="html">
-        <source> Failed with error: <x id="INTERPOLATION" equiv-text="{{ recording.upload.error.error.message }}"/> </source>
-      </trans-unit>
       <trans-unit id="uploadRecordingWaitingForUploadHint" datatype="html">
         <source> Please wait until all files have been uploaded. </source>
       </trans-unit>
@@ -946,9 +838,6 @@
       </trans-unit>
       <trans-unit id="uploadRecordingAllSuccessfulHint" datatype="html">
         <source> The project has been successfully created, you can now close this dialog! You will find the project in the project list, but it may still be being processed. </source>
-      </trans-unit>
-      <trans-unit id="uploadRecordingDownloadFilesButton" datatype="html">
-        <source> Download recordings locally </source>
       </trans-unit>
       <trans-unit id="uploadRecordingDiscardButton" datatype="html">
         <source> Discard and close </source>
@@ -1945,6 +1834,27 @@
       </trans-unit>
       <trans-unit id="landingFooterTutorialsHeader" datatype="html">
         <source>Tutorials</source>
+      </trans-unit>
+      <trans-unit id="createProjectFailedWithError" datatype="html">
+        <source> Failed with error: <x id="INTERPOLATION" equiv-text="{{ error.message }}"/> <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br /&gt;"/>You can try again. </source>
+      </trans-unit>
+      <trans-unit id="uploadRecordingCancelButton" datatype="html">
+        <source> Cancel and close </source>
+      </trans-unit>
+      <trans-unit id="dialogCreateProjectCancelUploadButton" datatype="html">
+        <source> Cancel and close </source>
+      </trans-unit>
+      <trans-unit id="uploadAreaFormDropzoneFileFormats" datatype="html">
+        <source>Accepted file types:</source>
+      </trans-unit>
+      <trans-unit id="uploadAreaFormDropzoneText" datatype="html">
+        <source> Drag and drop files here or select them </source>
+      </trans-unit>
+      <trans-unit id="uploadAreaFormSelectFile" datatype="html">
+        <source>Select file </source>
+      </trans-unit>
+      <trans-unit id="transcriptionMenuContentAddLabel" datatype="html">
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;add&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/> Add Transcription </source>
       </trans-unit>
     </body>
   </file>

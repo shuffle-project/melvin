@@ -42,7 +42,6 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { LetDirective, PushPipe } from '@ngrx/component';
 import { DeleteConfirmationService } from 'src/app/components/delete-confirmation-dialog/delete-confirmation.service';
-import { DialogProjectTranscriptionComponent } from 'src/app/modules/project-dialogs/dialog-project-transcription/dialog-project-transcription.component';
 import { MediaCategoryPipe } from 'src/app/pipes/media-category-pipe/media-category.pipe';
 import { WrittenOutLanguagePipe } from 'src/app/pipes/written-out-language-pipe/written-out-language.pipe';
 import { SubtitleFormat } from 'src/app/services/api/entities/transcription.entity';
@@ -53,6 +52,7 @@ import { JoinLivestreamModalComponent } from './components/join-livestream-modal
 import { LiveControlsComponent } from './components/live-controls/live-controls.component';
 import { ShortcutsComponent } from './components/shortcuts/short-cuts/shortcuts.component';
 import { TiptapEditorComponent } from './components/tiptap-editor/tiptap-editor.component';
+import { TranscriptionMenuContentComponent } from './components/transcription-menu-content/transcription-menu-content.component';
 import { UserTestControlsComponent } from './components/user-test-controls/user-test-controls.component';
 import { VideoControlsComponent } from './components/video-controls/video-controls/video-controls.component';
 import { VideoPlayerComponent } from './components/video-player/video-player.component';
@@ -88,6 +88,7 @@ import { MediaService } from './service/media/media.service';
     MediaCategoryPipe,
     VideoControlsComponent,
     ShortcutsComponent,
+    TranscriptionMenuContentComponent,
   ],
 })
 export class EditorComponent implements OnInit, OnDestroy {
@@ -294,15 +295,6 @@ export class EditorComponent implements OnInit, OnDestroy {
     this.store.dispatch(
       transcriptionsActions.downloadTranscript({ transcriptionId })
     );
-  }
-
-  async onClickTranscriptionEdit() {
-    this.dialog.open(DialogProjectTranscriptionComponent, {
-      data: { projectId: this.projectId },
-      width: '100%',
-      maxWidth: '50rem',
-      maxHeight: '90vh',
-    });
   }
 
   async onDeleteProject() {

@@ -1,10 +1,12 @@
 import { ApiProperty, PickType } from '@nestjs/swagger';
-import { Transform } from 'class-transformer';
-import { IsArray, IsEnum, IsOptional } from 'class-validator';
+import { IsArray, IsBoolean, IsEnum, IsOptional } from 'class-validator';
 import { Project } from '../../../modules/db/schemas/project.schema';
 import { AsrVendors } from '../../../processors/processor.interfaces';
 
 class VideoOption {
+  @ApiProperty({ type: String, required: true })
+  uploadId: string;
+
   @ApiProperty({ type: String, required: true })
   category: string;
 
@@ -13,6 +15,9 @@ class VideoOption {
 }
 
 class SubtitleOption {
+  @ApiProperty({ type: String, required: true })
+  uploadId: string;
+
   @ApiProperty({ type: String, required: true })
   language: string;
 }
@@ -25,20 +30,23 @@ export class CreateProjectDto extends PickType(Project, [
   @IsEnum(AsrVendors)
   asrVendor: AsrVendors;
 
-  @Transform(({ value }) => JSON.parse(value))
   @ApiProperty({
     type: [VideoOption],
     required: true,
   })
   @IsArray()
-  videoOptions: { category: string; useAudio: boolean }[];
+  videoOptions: VideoOption[];
 
-  @Transform(({ value }) => JSON.parse(value))
   @ApiProperty({
     type: [SubtitleOption],
     required: false,
   })
   @IsArray()
   @IsOptional()
-  subtitleOptions?: { language: string }[];
+  subtitleOptions?: SubtitleOption[];
+
+  @ApiProperty({ type: Boolean, required: false, default: false })
+  @IsBoolean()
+  @IsOptional()
+  recorder?: boolean = false;
 }

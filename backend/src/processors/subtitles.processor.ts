@@ -166,7 +166,11 @@ export class SubtitlesProcessor {
     if (payload.type === SubtitlesType.FROM_FILE) {
       const { file } = payload;
 
-      await rm(file.destination, { recursive: true });
+      // TODO remove directory - correct here?
+
+      const uploadDir = this.pathService.getUploadDirectory(file.uploadId);
+
+      await rm(uploadDir, { recursive: true });
     }
 
     this.logger.verbose(

@@ -1,0 +1,64 @@
+.container {
+  padding: 1rem;
+  box-sizing: border-box;
+  background-color: var(--color-background-grey);
+  border-radius: 0.625rem;
+
+  display: flex;
+  align-items: center;
+
+  gap: 1rem;
+
+  width: 100%;
+  max-width: 100%;
+}
+
+.static {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+
+  flex: 1;
+  min-width: 0;
+}
+
+.text-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2.5rem;
+}
+
+.left-side {
+  flex: 1;
+  min-width: 0;
+}
+
+.filename {
+  font-size: 1rem;
+}
+
+.message {
+  font-size: 0.75rem;
+  color: var(--color-dark-grey);
+}
+
+.message.success {
+  color: var(--color-green);
+}
+
+.icon-success {
+  color: var(--color-green);
+}
+
+.message.error {
+  color: var(--color-warn);
+}
+
+.icon-error {
+  color: var(--color-warn);
+}
+
+mat-progress-bar {
+  margin-top: 0.25rem;
+}

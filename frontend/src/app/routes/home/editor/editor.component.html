@@ -119,48 +119,11 @@
           Transcription
         </button>
         }
+
         <mat-menu #transcription="matMenu" class="dense">
-          <div *ngrxLet="transcriptionsList$ as transcriptionList">
-            @for (transcription of transcriptionList; track transcription) {
-            <div>
-              <button
-                (click)="onSelectTranscription(transcription.id)"
-                mat-menu-item
-              >
-                <mat-icon
-                  [class.hidden]="
-                    transcription.id !== (selectedTranscriptionId$ | ngrxPush)
-                  "
-                  svgIcon="done"
-                ></mat-icon>
-                <span>
-                  {{
-                    transcription.language
-                      | writtenOutLanguage : transcription.title
-                  }}
-                </span>
-                <span class="transcription-lang-code">
-                  ({{ transcription.language }})</span
-                >
-              </button>
-            </div>
-            } @if (transcriptionList.length > 0) {
-            <mat-divider class="transcription-mat-divider" />
-            }
-          </div>
-          @if ('editTranscriptions' | featureEnabled) {
-          <div class="transcription-button-wrapper">
-            <button
-              mat-menu-item
-              i18n="@@editorMenuTranscriptionEditLabel"
-              (click)="onClickTranscriptionEdit()"
-            >
-              <mat-icon svgIcon="edit"></mat-icon>
-              Edit Transcriptions
-            </button>
-          </div>
-          }
+          <app-transcription-menu-content [projectId]="projectId" />
         </mat-menu>
+
         <!-- Help Menu -->
         @if ('helpMenu' | featureEnabled) {
         <!-- TODO removed to make the ui cleaner -->

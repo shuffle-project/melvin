@@ -24,6 +24,7 @@ async function bootstrap() {
 
   app.use(express.json({ limit: '10GB' }));
   app.use(express.urlencoded({ limit: '10GB' }));
+  app.use(express.raw({ limit: '10GB' }));
 
   const configService = app.get(ConfigService);
 

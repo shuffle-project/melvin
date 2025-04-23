@@ -16,9 +16,18 @@ import { PopulateService } from './populate.service';
     ConfigModule,
     TiptapModule,
     BullModule.registerQueue(
-      { name: 'project' },
-      { name: 'subtitles' },
-      { name: 'livestream' },
+      {
+        name: 'project',
+        defaultJobOptions: { removeOnComplete: true, removeOnFail: true },
+      },
+      {
+        name: 'subtitles',
+        defaultJobOptions: { removeOnComplete: true, removeOnFail: true },
+      },
+      {
+        name: 'livestream',
+        defaultJobOptions: { removeOnComplete: true, removeOnFail: true },
+      },
     ),
   ],
   controllers: [PopulateController],

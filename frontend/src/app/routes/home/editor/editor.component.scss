@@ -43,17 +43,6 @@
   display: flex;
 }
 
-.transcription-lang-code {
-  font-size: 0.625rem;
-  color: rgba(var(--color-black-rgb), 0.7);
-}
-
-.mat-icon {
-  &.hidden {
-    visibility: hidden;
-  }
-}
-
 .sticky {
   position: sticky;
   top: 4rem;
