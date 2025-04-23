@@ -9,6 +9,7 @@
       [fileFormatsLabel]="fileFormatsLabel"
     />
   </form>
+
   <div>
     <ul class="upload-list">
       @for (fileUpload of fileUploads; track fileUpload) {
@@ -61,7 +62,7 @@
       }
     </ul>
   </div>
-
+  }
   <ng-container *ngrxLet="project$ as project">
     <ng-container *ngrxLet="media$ as media">
       @if ( project && media) {
