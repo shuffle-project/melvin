@@ -213,13 +213,16 @@ export class TranslationService {
           const segment: WhiSegment = {
             start: 0,
             end: 0,
-            text: paragraph.content.map((x) => x.text).join(),
-            words: paragraph.content.map((word) => ({
-              text: word.text,
-              start: 0,
-              end: 0,
-              probability: 0,
-            })),
+            text: paragraph.content.map((x) => x.text).join(''),
+            words: paragraph.content.map((word) => {
+              console.log(word.marks[0].attrs);
+              return {
+                text: word.text,
+                start: (word.marks[0].attrs.start / 1000) | 0,
+                end: (word.marks[0].attrs.end / 1000) | 0,
+                probability: word.marks[0].attrs.confidence | 0,
+              };
+            }),
           };
           text += segment.text;
           segments.push(segment);
@@ -242,7 +245,19 @@ export class TranslationService {
         };
 
         const trascript = await this.melvinTranslate.run(melvinTranslateDto);
+        trascript.words.forEach((word) => {
+          word.text += ' ';
+        });
 
+        const tiptapobj = this.tiptapService.wordsToTiptap(
+          trascript.words,
+          newSpeakers[0]._id.toString(),
+        );
+
+        await this.tiptapService.updateDocument(
+          target._id.toString(),
+          tiptapobj,
+        );
         // const googleEntity = await this.googleTranslate.translateText(
         //   textsToTranslate,
         //   source.language,

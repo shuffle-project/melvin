@@ -48,6 +48,7 @@ export class MelvinTranslateService {
             }),
             catchError((error: AxiosError) => {
               if (error?.response?.status) {
+                console.log(error.response.data);
                 throw new HttpException(
                   error.response.data,
                   error.response.status,
@@ -74,27 +75,23 @@ export class MelvinTranslateService {
 
   async run(melvinTranslateDto: MelvinTranslateDto) {
     const translate = await this._translate(melvinTranslateDto);
-
-    return this._fetchResult(translate);
+    return this._fetchResult(translate.id);
   }
 
   async _translate(melvinTranslateDto: MelvinTranslateDto) {
     console.log(`${this.host}/translate`);
     console.log(melvinTranslateDto);
+    console.log(JSON.stringify(melvinTranslateDto.transcript.segments));
     const response = await lastValueFrom(
       this.httpService
-        .post<WhiTranscriptEntity>(
-          `${this.host}/translate`,
-          melvinTranslateDto,
-          {
-            headers: {
-              Authorization: this.apikey,
-              'Content-Type': 'application/json',
-            },
+        .post<{ id: string }>(`${this.host}/translate`, melvinTranslateDto, {
+          headers: {
+            Authorization: this.apikey,
+            'Content-Type': 'application/json',
           },
-        )
+        })
         .pipe(
-          map((res: AxiosResponse<WhiTranscriptEntity>) => {
+          map((res: AxiosResponse<{ id: string }>) => {
             return res.data;
           }),
           catchError((error: AxiosError) => {
@@ -115,13 +112,13 @@ export class MelvinTranslateService {
   }
 
   // copy from whisper speech service
-  private async _fetchResult(transcribe: WhiTranscriptEntity) {
+  private async _fetchResult(id: string) {
+    console.log('_fetchResult');
+    console.log(id);
     const transcriptEntity: WhiTranscriptEntity = await new Promise(
       (resolve) => {
         const interval = setInterval(async () => {
-          const transcriptEntityTemp = await this._getTranscript(
-            transcribe.transcription_id,
-          );
+          const transcriptEntityTemp = await this._getTranscript(id);
           if (
             transcriptEntityTemp.status === 'done' ||
             transcriptEntityTemp.status === 'finished' ||
@@ -165,6 +162,8 @@ export class MelvinTranslateService {
 
   // copy from whisper-speech service
   async _getTranscript(transcriptId: string): Promise<WhiTranscriptEntity> {
+    console.log('_getTranscript');
+    console.log(transcriptId);
     const response = await lastValueFrom(
       this.httpService
         .get<WhiTranscriptEntity>(
@@ -182,6 +181,7 @@ export class MelvinTranslateService {
           }),
           catchError((error: AxiosError) => {
             if (error?.response?.status) {
+              console.log(error.response.data);
               throw new HttpException(
                 error.response.data,
                 error.response.status,
