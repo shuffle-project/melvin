@@ -156,6 +156,7 @@
           routerLink="/home/editor/{{ element.id }}"
           aria-label="Edit"
           i18n-aria-label="@@projectListEditProjectAriaLabel"
+          [disabled]="!isClickable(element)"
           [class.disabled]="!isClickable(element)"
         >
           <mat-icon svgIcon="edit"></mat-icon
@@ -179,6 +180,7 @@
           aria-label="Open Viewer in new Tab"
           i18n-aria-label="@@projectListOpenViewerAriaLabel"
           target="_blank"
+          [disabled]="!isClickable(element)"
           [class.disabled]="!isClickable(element)"
         >
           <mat-icon svgIcon="play" />

@@ -164,7 +164,12 @@ export class ProjectListComponent implements OnInit, AfterViewInit, OnDestroy {
   ngOnInit(): void {
     this.store.dispatch(projectsActions.findAll());
     this.projectsSubscription = this.filteredProjects$.subscribe((projects) => {
-      this.tableDataSource.data = projects;
+      this.tableDataSource.data = projects.map((p, i) => {
+        return {
+          ...p,
+          status: i === 0 ? ProjectStatus.PROCESSING : ProjectStatus.DRAFT,
+        };
+      });
       this.currentProjectCount = projects.length;
     });
   }
