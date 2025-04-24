@@ -66,6 +66,7 @@ export class TranscriptionService {
     authUser: AuthUser,
     createTranscriptionDto: CreateTranscriptionDto,
   ): Promise<TranscriptionEntity> {
+    console.log(createTranscriptionDto);
     const { project: projectId, ...dto } = createTranscriptionDto;
 
     const project = await this.db.projectModel

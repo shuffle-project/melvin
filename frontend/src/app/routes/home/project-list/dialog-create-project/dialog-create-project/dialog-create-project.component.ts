@@ -28,6 +28,7 @@ import {
 } from '@angular/material/table';
 import { Store } from '@ngrx/store';
 import { filter, lastValueFrom, Subject, takeUntil } from 'rxjs';
+import { UploadAreaComponent } from 'src/app/components/upload-area/upload-area.component';
 import { UploadProgressComponent } from 'src/app/components/upload-progress/upload-progress.component';
 import { MediaCategoryPipe } from 'src/app/pipes/media-category-pipe/media-category.pipe';
 import { ApiService } from 'src/app/services/api/api.service';
@@ -41,7 +42,6 @@ import { MediaCategory } from 'src/app/services/api/entities/project.entity';
 import { UploadHandler } from 'src/app/services/upload/upload-handler';
 import { UploadService } from 'src/app/services/upload/upload.service';
 import { AppState } from 'src/app/store/app.state';
-import { UploadAreaComponent } from '../../../../../components/upload-area/upload-area.component';
 import * as configSelectors from '../../../../../store/selectors/config.selector';
 export interface CreateProjectFormGroup {
   title: FormControl<string>;

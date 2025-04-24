@@ -108,7 +108,7 @@ export class UploadTranscriptionComponent implements OnInit, OnDestroy {
       return;
     }
 
-    const { title, language } = this.transcriptionGroup.getRawValue();
+    const { title, language, file } = this.transcriptionGroup.getRawValue();
 
     const newTranscription: CreateTranscriptionDto = {
       project: projectId,
@@ -118,6 +118,10 @@ export class UploadTranscriptionComponent implements OnInit, OnDestroy {
 
     this.loading = true;
     this.loadingEvent.emit(true);
+    this.filename = file![0].name;
+    const uploadHandler = this.uploadService.createUpload(file![0]);
+    this.uploadHandler = uploadHandler;
+    await uploadHandler.start();
 
     await this.uploadHandler!.start();
 
