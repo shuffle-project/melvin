@@ -33,11 +33,7 @@
 
 }
 
-<button
-  mat-menu-item
-  i18n="@@transcriptionMenuContentAddLabel"
-  (click)="onClickTranscriptionAdd()"
->
+<button mat-menu-item (click)="onClickTranscriptionAdd()">
   <mat-icon svgIcon="add"></mat-icon>
-  Add Transcription
+  <span i18n="@@transcriptionMenuContentAddLabel"> Add Transcription </span>
 </button>

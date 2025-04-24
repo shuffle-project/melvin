@@ -2451,8 +2451,8 @@
         <target state="final">Grafikkarte</target>
       </trans-unit>
       <trans-unit id="installationTableGPUDescription" datatype="html">
-        <source>Der Prozessor kann für die Transkription verwendet werden, ist aber deutlich langsamer.</source>
-        <target state="final"></target>
+        <source>CPU can be used for ASR, but is significantly slower.</source>
+        <target state="new"/>
       </trans-unit>
       <trans-unit id="installationTableCPUComponent" datatype="html">
         <source>CPU</source>
@@ -2489,6 +2489,7 @@
       <trans-unit id="installationPageTitle" datatype="html">
         <source>Installation - Melvin</source>
         <target state="final">Installation - Melvin</target>
+      </trans-unit>
       <trans-unit id="createProjectFailedWithError" datatype="html">
         <source> Failed with error: <x id="INTERPOLATION" equiv-text="{{ error.message }}"/> <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br /&gt;"/>You can try again. </source>
         <target state="final"> Mit dem folgenden Fehler fehlgeschlagen: <x id="INTERPOLATION" equiv-text="{{ error.message }}"/> <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br /&gt;"/>Du kannst es nochmal probieren. </target>
@@ -2514,8 +2515,12 @@
         <target state="final"> Abbrechen und schließen </target>
       </trans-unit>
       <trans-unit id="transcriptionMenuContentAddLabel" datatype="html">
-        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;add&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/> Add Transcription </source>
-        <target state="final"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;add&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/> Transkription hinzufügen </target>
+        <source> Add Transcription </source>
+        <target state="final"> Transkription hinzufügen </target>
+      </trans-unit>
+      <trans-unit id="installationIntroText" datatype="html">
+        <source> Melvin is an open source project. As such, you can install and use the application on your own server. Follow the GitHub link below for the installation instructions: </source>
+        <target state="final"> Melvin ist ein Open-Source Projekt. Somit können Sie die Anwedung auf einem eigenen Server installieren und nutzen. Die Installationsanleitung finden Sie unter dem folgenden GitHub-Link: </target>
       </trans-unit>
     </body>
   </file>

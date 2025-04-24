@@ -1867,6 +1867,7 @@
       </trans-unit>
       <trans-unit id="landingHeaderInstallationLinkLabel" datatype="html">
         <source> Installation </source>
+      </trans-unit>
       <trans-unit id="createProjectFailedWithError" datatype="html">
         <source> Failed with error: <x id="INTERPOLATION" equiv-text="{{ error.message }}"/> <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br /&gt;"/>You can try again. </source>
       </trans-unit>
@@ -1885,8 +1886,11 @@
       <trans-unit id="uploadAreaFormSelectFile" datatype="html">
         <source>Select file </source>
       </trans-unit>
+      <trans-unit id="installationIntroText" datatype="html">
+        <source> Melvin is an open source project. As such, you can install and use the application on your own server. Follow the GitHub link below for the installation instructions: </source>
+      </trans-unit>
       <trans-unit id="transcriptionMenuContentAddLabel" datatype="html">
-        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;add&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/> Add Transcription </source>
+        <source> Add Transcription </source>
       </trans-unit>
     </body>
   </file>
