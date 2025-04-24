@@ -12,11 +12,13 @@ import { UserEntity } from 'src/app/services/api/entities/user.entity';
 import { environment } from 'src/environments/environment';
 import * as authSelectors from '../../store/selectors/auth.selector';
 import * as viewerSelector from '../../store/selectors/viewer.selector';
+import { UploadDto } from '../upload/upload.interfaces';
 import { ApiService } from './api.service';
 import { ChangePasswordDto } from './dto/auth.dto';
 import { BulkRemoveDto } from './dto/bulk-remove.dto';
 import { ConnectLivestreamDto } from './dto/connect-livestream.dto';
 import { CreateCaptionDto } from './dto/create-caption.dto';
+import { CreateProjectDto } from './dto/create-project.dto';
 import { CreateSpeakersDto } from './dto/create-speakers.dto';
 import { CreateTranscriptionDto } from './dto/create-transcription.dto';
 import { PauseLivestreamDto } from './dto/pause-livestream.dto';
@@ -35,7 +37,7 @@ import {
 import { UpdateProjectDto } from './dto/update-project.dto';
 import { UpdateSpeakerDto } from './dto/update-speaker.dto';
 import { UpdateTranscriptionDto } from './dto/update-transcription.dto';
-import { UploadVideoDto } from './dto/upload-video.dto';
+import { UploadVideoDto as CreateVideoDto } from './dto/upload-video.dto';
 import { ActivityListEntity } from './entities/activitiy-list.entity';
 import {
   ChangePasswordEntity,
@@ -65,6 +67,7 @@ import {
   SubtitleFormat,
   TranscriptionEntity,
 } from './entities/transcription.entity';
+import { UploadEntity } from './entities/upload-file.entity';
 import { WaveformData } from './entities/waveform-data.entity';
 
 export interface RequestOptions {
@@ -276,31 +279,6 @@ export class RealApiService implements ApiService {
     return this._post<void>('/users', { password });
   }
 
-  // projects
-  // createProject(
-  //   createProjectDto: CreateProjectDto,
-  //   videoFile: File,
-  //   subtitleFiles: File[] = []
-  // ): Observable<HttpEvent<ProjectEntity>> {
-  //   const formData = new FormData();
-  //   formData.append('data', JSON.stringify(createProjectDto));
-  //   formData.append('video', videoFile);
-  //   subtitleFiles.forEach((file) => formData.append('subtitles', file));
-
-  //   formData.append('title', createProjectDto.title);
-  //   formData.append('language', createProjectDto.language);
-  //   if (createProjectDto.asrVendor)
-  //     formData.append('asrVendor', createProjectDto.asrVendor);
-
-  //   const { emails = [] } = createProjectDto;
-  //   emails.forEach((mail) => formData.append('emails', mail));
-
-  //   return this._post<HttpEvent<ProjectEntity>>(`/projects`, formData, {
-  //     reportProgress: true,
-  //     observe: 'events' as any,
-  //   });
-  // }
-
   createLegacyProject(project: FormData): Observable<HttpEvent<ProjectEntity>> {
     return this._post<HttpEvent<ProjectEntity>>(`/projects/legacy`, project, {
       reportProgress: true,
@@ -308,11 +286,15 @@ export class RealApiService implements ApiService {
     });
   }
 
-  createProject(project: FormData): Observable<HttpEvent<ProjectEntity>> {
+  createProjectOld(project: FormData): Observable<HttpEvent<ProjectEntity>> {
     return this._post<HttpEvent<ProjectEntity>>(`/projects`, project, {
       reportProgress: true,
       observe: 'events' as any,
     });
+  }
+
+  createProject(createProjectDto: CreateProjectDto): Observable<ProjectEntity> {
+    return this._post<ProjectEntity>(`/projects`, createProjectDto);
   }
 
   createDefaultProject(): Observable<ProjectEntity> {
@@ -328,24 +310,14 @@ export class RealApiService implements ApiService {
     );
   }
 
-  uploadVideo(
+  createAdditionalVideo(
     projectId: string,
-    uploadVideoDto: UploadVideoDto,
-    file: File
-  ): Observable<HttpEvent<ProjectEntity>> {
-    const formData = new FormData();
-    formData.append('title', uploadVideoDto.title);
-    formData.append('category', uploadVideoDto.category);
-    formData.append('file', file);
-
-    return this._post<HttpEvent<ProjectEntity>>(
-      `/projects/${projectId}/media/upload`,
-      formData,
-      {
-        reportProgress: true,
-        observe: 'events' as any,
-      }
-    );
+    createVideoDto: CreateVideoDto
+  ): Observable<ProjectEntity> {
+    console.log(createVideoDto);
+    return this._post<ProjectEntity>(`/projects/${projectId}/media/create`, {
+      ...createVideoDto,
+    });
   }
 
   findAllProjects(): Observable<ProjectListEntity> {
@@ -463,25 +435,25 @@ export class RealApiService implements ApiService {
     });
   }
 
-  createTranscriptionFromFile(
-    transcription: CreateTranscriptionDto,
-    file: File
-  ): Observable<HttpEvent<TranscriptionEntity>> {
-    const formData = new FormData();
-    formData.append('project', transcription.project);
-    formData.append('title', transcription.title);
-    formData.append('language', transcription.language);
-    formData.append('file', file);
+  // createTranscriptionFromFile(
+  //   transcription: CreateTranscriptionDto,
+  //   file: File
+  // ): Observable<HttpEvent<TranscriptionEntity>> {
+  //   const formData = new FormData();
+  //   formData.append('project', transcription.project);
+  //   formData.append('title', transcription.title);
+  //   formData.append('language', transcription.language);
+  //   formData.append('file', file);
 
-    return this._post<HttpEvent<TranscriptionEntity>>(
-      `/transcriptions`,
-      formData,
-      {
-        reportProgress: true,
-        observe: 'events' as any,
-      }
-    );
-  }
+  //   return this._post<HttpEvent<TranscriptionEntity>>(
+  //     `/transcriptions`,
+  //     formData,
+  //     {
+  //       reportProgress: true,
+  //       observe: 'events' as any,
+  //     }
+  //   );
+  // }
 
   findAllTranscriptions(
     projectId: string,
@@ -709,5 +681,20 @@ export class RealApiService implements ApiService {
 
   userTestReset(projectId: string): Observable<void> {
     return this._post('/user-test/reset', { projectId });
+  }
+
+  // upload service
+
+  createUpload(uploadDto: UploadDto) {
+    return this._post<UploadEntity>('/upload', { ...uploadDto });
+  }
+  updateUpload(id: string, filePart: Blob) {
+    console.log('updateUpload called', id);
+    return this._patch(`/upload/${id}`, filePart, {
+      headers: { 'Content-Type': 'application/octet-stream' },
+    });
+  }
+  cancelUpload(id: string) {
+    return this._delete(`/upload/${id}`);
   }
 }

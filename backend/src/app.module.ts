@@ -2,6 +2,7 @@ import { BullModule } from '@nestjs/bull';
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
+import { ScheduleModule } from '@nestjs/schedule';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { MongodbConfig, RedisConfig } from './config/config.interface';
@@ -9,14 +10,17 @@ import { configuration } from './config/config.load';
 import { DbModule } from './modules/db/db.module';
 import { FfmpegModule } from './modules/ffmpeg/ffmpeg.module';
 import { LoggerModule } from './modules/logger/logger.module';
+import { MediaModule } from './modules/media/media.module';
 import { MigrationModule } from './modules/migration/migration.module';
 import { PathModule } from './modules/path/path.module';
 import { SpeechToTextModule } from './modules/speech-to-text/speech-to-text.module';
 import { SubtitleFormatModule } from './modules/subtitle-format/subtitle-format.module';
+import { TasksModule } from './modules/tasks/tasks.module';
 import { TranslationModule } from './modules/translation/translation.module';
 import { LivestreamProcessor } from './processors/livestream.processor';
 import { ProjectProcessor } from './processors/project.processor';
 import { SubtitlesProcessor } from './processors/subtitles.processor';
+import { VideoProcessor } from './processors/video.processor';
 import { ActivityModule } from './resources/activity/activity.module';
 import { AuthModule } from './resources/auth/auth.module';
 import { CaptionModule } from './resources/caption/caption.module';
@@ -26,8 +30,6 @@ import { PopulateModule } from './resources/populate/populate.module';
 import { ProjectModule } from './resources/project/project.module';
 import { TranscriptionModule } from './resources/transcription/transcription.module';
 import { UserModule } from './resources/user/user.module';
-import { MediaModule } from './modules/media/media.module';
-import { VideoProcessor } from './processors/video.processor';
 
 @Module({
   imports: [
@@ -54,11 +56,24 @@ import { VideoProcessor } from './processors/video.processor';
       inject: [ConfigService],
     }),
     BullModule.registerQueue(
-      { name: 'project' },
-      { name: 'subtitles' },
-      { name: 'livestream' },
-      { name: 'video' },
+      {
+        name: 'project',
+        defaultJobOptions: { removeOnComplete: true, removeOnFail: true },
+      },
+      {
+        name: 'subtitles',
+        defaultJobOptions: { removeOnComplete: true, removeOnFail: true },
+      },
+      {
+        name: 'livestream',
+        defaultJobOptions: { removeOnComplete: true, removeOnFail: true },
+      },
+      {
+        name: 'video',
+        defaultJobOptions: { removeOnComplete: true, removeOnFail: true },
+      },
     ),
+    ScheduleModule.forRoot(),
     DbModule,
     LoggerModule,
     PopulateModule,
@@ -75,6 +90,7 @@ import { VideoProcessor } from './processors/video.processor';
     PathModule,
     ActivityModule,
     MediaModule,
+    TasksModule,
     // TODO LivestreamModule,
     // generate captions
     SpeechToTextModule,

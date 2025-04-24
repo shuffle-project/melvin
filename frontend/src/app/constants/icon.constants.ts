@@ -31,6 +31,8 @@ export const ICONS = [
   'edit',
   'email',
   'error',
+  'file',
+  'file_audio',
   'file_text',
   'file_video',
   'filter',

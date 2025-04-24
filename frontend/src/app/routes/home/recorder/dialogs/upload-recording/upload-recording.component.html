@@ -8,24 +8,7 @@
 </div>
 
 <mat-dialog-content class="mat-dialog-content">
-  @if (!uploading) {
   <div class="inputs">
-    <!-- <mat-form-field *ngrxLet="asrServiceConfig$ as asrServiceConfig">
-      <mat-label i18n="@@uploadRecordingAsrServiceLabel">ASR Service</mat-label>
-      <mat-select
-        required
-        [(value)]="asrSelection"
-        (selectionChange)="onChangeAsrService($event)"
-      >
-        @for (service of asrServiceConfig; track service.asrVendor ) {
-        <mat-option [value]="service">
-          {{ service.fullName }}
-        </mat-option>
-        }
-      </mat-select>
-    </mat-form-field> -->
-
-    <!-- <h2 i18n="@@uploadRecordingASRHeader">Automatic trancription</h2> -->
     <p i18n="@@uploadRecordingLanguageFormIntroduction">
       Please select the main language of the recording.
     </p>
@@ -42,17 +25,46 @@
         <mat-error i18n="@@uploadRecordingLanguageError">
           Language is required
         </mat-error>
-        <!-- <mat-hint i18n="@@uploadRecordingLanguageHint"
-          >Please select the main language of the recording
-        </mat-hint> -->
       </mat-form-field>
     </form>
   </div>
 
   <div>
+    @if (readyToUpload) {
+
+    <ul class="actions-list">
+      @for (uploadHandler of uploadHandlers; track uploadHandler.file.name) {
+      <li class="action-item">
+        <div class="progressbar-wrapper">
+          <app-upload-progress
+            [progress$]="uploadHandler.progress$"
+            [title]="uploadHandler.file.name"
+            [fileSize]="uploadHandler.file.size"
+          >
+            <button
+              mat-icon-button
+              class="upload-outline-button"
+              (click)="onDownloadVideoLocally(uploadHandler.file)"
+              [attr.aria-label]="'Download ' + uploadHandler.file.name"
+            >
+              <mat-icon svgIcon="download" />
+            </button>
+          </app-upload-progress>
+        </div>
+      </li>
+      }
+    </ul>
+    } @else {
+    <div class="spinner-wrapper">
+      <mat-spinner diameter="50" />
+    </div>
+    }
+  </div>
+
+  <div>
     <div class="infotext">
       <mat-icon svgIcon="info" />
-      @if (readyToUpload) {
+      @if (!uploading) { @if (readyToUpload) {
       <p i18n="@@uploadRecordingReadyToUploadHint">
         All files are ready. You can now upload the project or download the
         files locally.
@@ -61,149 +73,55 @@
       <p i18n="@@uploadRecordingFilesProcessingHint">
         The files are being processed, please wait until all files are ready.
       </p>
-      }
-    </div>
-  </div>
+      } } @else { @if (!this.uploadingDone) {
 
-  } @else {
-  <div>
-    <div>
-      <ul class="actions-list">
-        @for (recording of data.recordings; track recording.id; let i = $index)
-        {
-        <li class="action-item">
-          <div class="status">
-            <mat-icon
-              [svgIcon]="
-                recording.upload.error
-                  ? 'warning'
-                  : recording.upload.result
-                  ? 'check'
-                  : 'setting'
-              "
-            ></mat-icon>
-          </div>
-          <div class="content">
-            <div class="title">
-              <span class="header" i18n="@@uploadRecordingFileHeader">
-                @if(i ===0){ Main Video and Audio } @else { Additional Video }
-              </span>
-              <span class="subheader">
-                {{ recording.title }}
-              </span>
-            </div>
-            @if (recording.upload.result) {
-            <!-- recording successfully uploaded -->
-            <div
-              class="upload-state"
-              i18n="@@uploadRecordingSuccessfullyUploaded"
-            >
-              Successfully uploaded!
-            </div>
-            } @else if (recording.upload.error) {
-            <!-- recording upload failed -->
-            <div
-              class="upload-state error"
-              i18n="@@uploadRecordingFailedWithError"
-            >
-              Failed with error: {{ recording.upload.error.error.message }}
-            </div>
-            } @else {
-            <!-- upload ongoing -->
-            <div class="progressbar-wrapper">
-              <mat-progress-bar
-                mode="determinate"
-                [value]="recording.upload.progress"
-              ></mat-progress-bar>
-            </div>
-            }
-          </div>
-          <div class="actions">
-            <button mat-icon-button (click)="onDownloadVideoLocally(recording)">
-              <mat-icon svgIcon="download"></mat-icon>
-            </button>
-          </div>
-        </li>
-        @if (data.recordings.length - 1 !== i) {
-        <hr aria-hidden="true" />
-        } }
-      </ul>
-    </div>
+      <p i18n="@@uploadRecordingWaitingForUploadHint">
+        Please wait until all files have been uploaded.
+      </p>
 
-    @if (!this.uploadingDone) {
-    <div>
-      <div class="infotext">
-        <mat-icon svgIcon="info"></mat-icon>
-        <p i18n="@@uploadRecordingWaitingForUploadHint">
-          Please wait until all files have been uploaded.
-        </p>
-      </div>
-    </div>
+      }@else{ @if (uploadingError) { @if (data.recordings[0].upload.error) {
 
-    }@else{
-    <!--  -->
-    @if (uploadingError) { @if (data.recordings[0].upload.error) {
-    <div class="infotext">
-      <mat-icon svgIcon="info"></mat-icon>
       <p i18n="@@uploadRecordingDownloadLocallyHint">
         Download the videos manually and try to create the projects with the
         files manually.
       </p>
-    </div>
-    <!-- TODO -->
-    <!-- <button mat-flat-button >Try again!</button> -->
 
-    }@else {
-    <div class="infotext">
-      <mat-icon svgIcon="info"></mat-icon>
+      }@else {
+
       <p i18n="@@uploadRecordingAdditionalVideoFailedHint">
         The project and the main file could be uploaded and created! However, a
         problem has occurred with an additional video. Check in the project
         details which video could not be uploaded and upload it manually if
         necessary.
       </p>
-    </div>
-    <!-- TODO -->
-    <!-- <button mat-flat-button >Try again!</button> -->
 
-    }
-    <!--  -->
-    } @else {
+      } } @else {
 
-    <div class="infotext">
-      <mat-icon svgIcon="info"></mat-icon>
       <p i18n="@@uploadRecordingAllSuccessfulHint">
         The project has been successfully created, you can now close this
         dialog! You will find the project in the project list, but it may still
         be being processed.
       </p>
+
+      } } }
     </div>
-    } }
   </div>
-  }
 </mat-dialog-content>
 
 <mat-dialog-actions align="end">
-  <button
-    mat-stroked-button
-    [disabled]="!readyToUpload"
-    (click)="onDownloadVideosLocally()"
-    i18n="@@uploadRecordingDownloadFilesButton"
-  >
-    Download recordings locally
-  </button>
-
-  @if (!uploading) {
-
+  @if (!uploadingDone) {
   <button
     mat-stroked-button
     (click)="onClose()"
-    i18n="@@uploadRecordingDiscardButton"
     class="discard-button mat-warn"
   >
-    Discard and close
+    @if (!uploading ) {
+    <span i18n="@@uploadRecordingDiscardButton"> Discard and close </span>
+    } @else {
+    <span i18n="@@uploadRecordingCancelButton"> Cancel and close </span>
+    }
   </button>
-
+  } @if (!uploading) {
   <button
     mat-flat-button
     [disabled]="!readyToUpload"

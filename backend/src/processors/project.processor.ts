@@ -52,6 +52,10 @@ export class ProjectProcessor {
   @Process()
   async processProject(job: Job<ProcessProjectJob>) {
     let { project, file, mainVideo, mainAudio, recorder } = job.data;
+    const filePath = this.pathService.getUploadFile(
+      file.uploadId,
+      file.extension,
+    );
     const projectId = project._id.toString();
     const systemUser = await this.authService.findSystemAuthUser();
 
@@ -60,6 +64,7 @@ export class ProjectProcessor {
       projectId,
       mainVideo,
     );
+    console.log(file);
 
     if (file.mimetype.includes('audio')) {
       // if its an audio file, convert it to video
@@ -72,7 +77,7 @@ export class ProjectProcessor {
       );
       await this.ffmpegService.processAudioToVideo(
         project._id.toString(),
-        file.path,
+        filePath,
         baseVideoFilepath,
       );
     } else if (file.filename.endsWith('.mp4')) {
@@ -80,7 +85,8 @@ export class ProjectProcessor {
         project._id.toString() + ' Not Processing file since it is an mp4 file',
       );
       // if its not an audio file but an mp4 file, just move the file
-      await move(file.path, targetFilepath);
+
+      await move(filePath, targetFilepath);
     } else {
       this.logger.debug(
         project._id.toString() +
@@ -91,13 +97,15 @@ export class ProjectProcessor {
       // make it an mp4 file otherwise
       await this.ffmpegService.processBaseFile(
         project._id.toString(),
-        file.path,
+        filePath,
         targetFilepath,
         recorder || file.filename.endsWith('.webm'),
       );
     }
 
-    await rm(file.destination, { recursive: true });
+    // TODO clear upload directory here -> is this correct?
+    const uploadDir = this.pathService.getUploadDirectory(file.uploadId);
+    await rm(uploadDir, { recursive: true });
 
     const originalFilePath = this.pathService.getBaseMediaFile(
       projectId,

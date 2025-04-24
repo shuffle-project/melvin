@@ -1,5 +1,7 @@
 import { BullModule } from '@nestjs/bull';
 import { Module } from '@nestjs/common';
+import { MediaModule } from 'src/modules/media/media.module';
+import { UploadModule } from 'src/modules/upload/upload.module';
 import { DbModule } from '../../modules/db/db.module';
 import { FfmpegModule } from '../../modules/ffmpeg/ffmpeg.module';
 import { LoggerModule } from '../../modules/logger/logger.module';
@@ -31,10 +33,21 @@ import { ProjectService } from './project.service';
     SubtitleFormatModule,
     SpeechToTextModule,
     PopulateModule,
+    MediaModule,
+    UploadModule,
     BullModule.registerQueue(
-      { name: 'project' },
-      { name: 'subtitles' },
-      { name: 'livestream' },
+      {
+        name: 'project',
+        defaultJobOptions: { removeOnComplete: true, removeOnFail: true },
+      },
+      {
+        name: 'subtitles',
+        defaultJobOptions: { removeOnComplete: true, removeOnFail: true },
+      },
+      {
+        name: 'livestream',
+        defaultJobOptions: { removeOnComplete: true, removeOnFail: true },
+      },
     ),
   ],
   controllers: [ProjectController],

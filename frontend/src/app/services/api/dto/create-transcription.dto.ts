@@ -5,6 +5,7 @@ export interface CreateTranscriptionDto {
   translateDto?: TranslateDto;
   asrDto?: AsrDto;
   copyDto?: CopyDto;
+  uploadId?: string;
 }
 
 export interface TranslateDto {

@@ -79,3 +79,10 @@ a.disabled {
   min-height: 2rem;
   align-items: center;
 }
+
+.project-title {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 16rem;
+}
