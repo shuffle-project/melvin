@@ -138,17 +138,8 @@
           <mat-icon svgIcon="logout"></mat-icon>Logout
         </button>
 
-        @if (('documentation' | featureEnabled) || ('tutorial' |
-        featureEnabled)) {
+        @if (('tutorial' | featureEnabled)) {
         <mat-divider />
-        } @if ('documentation' | featureEnabled) {
-
-        <a
-          i18n="@@headerMenuDocumentationButton"
-          routerLink="/documentation"
-          mat-menu-item
-          >Documentation</a
-        >
         } @if (('tutorial' | featureEnabled)) {
 
         <a

@@ -1,0 +1,20 @@
+td,
+th {
+  font-size: 1rem;
+}
+
+.component-wrapper {
+  vertical-align: top;
+  padding-block: 1rem;
+}
+
+.requirement-wrapper {
+  padding-block: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+
+  .requirement-description {
+    font-size: 0.875rem;
+  }
+}

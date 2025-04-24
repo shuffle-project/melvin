@@ -83,6 +83,16 @@
             Didactic Guide
           </a>
         </li>
+        @if (('installation' | featureEnabled)) {
+        <li>
+          <a
+            routerLink="/installation"
+            i18n="@@landingFooterInstallationLinkLabel"
+          >
+            Installation
+          </a>
+        </li>
+        }
         <!-- <li>
           <a routerLink="/how-to-melvin"> How to Melvin </a>
         </li> -->

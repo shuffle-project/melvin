@@ -122,9 +122,6 @@
       <trans-unit id="headerMenuLogoutButton" datatype="html">
         <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;logout&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/>Logout </source>
       </trans-unit>
-      <trans-unit id="headerMenuDocumentationButton" datatype="html">
-        <source>Documentation</source>
-      </trans-unit>
       <trans-unit id="headerMenuTutorialButton" datatype="html">
         <source>Tutorial</source>
       </trans-unit>
@@ -1052,9 +1049,6 @@
       <trans-unit id="inviteJoinAsGuestButtonLabel" datatype="html">
         <source> Join as Guest </source>
       </trans-unit>
-      <trans-unit id="documentationMainHeading" datatype="html">
-        <source>Documentation</source>
-      </trans-unit>
       <trans-unit id="landingSubpageWIPInfo" datatype="html">
         <source> Sorry, this page is still under development. Please come back at a later time. </source>
       </trans-unit>
@@ -1445,9 +1439,6 @@
       <trans-unit id="landingHeaderTutorialLinkLabel" datatype="html">
         <source> Tutorial </source>
       </trans-unit>
-      <trans-unit id="landingHeaderDocumentationLinkLabel" datatype="html">
-        <source> Documentation </source>
-      </trans-unit>
       <trans-unit id="landingHeaderToggleDarkmodeToggleMenuButton" datatype="html">
         <source>Open darkmode menu</source>
       </trans-unit>
@@ -1549,9 +1540,6 @@
       </trans-unit>
       <trans-unit id="tutorialPageTitle" datatype="html">
         <source>Tutorial - Melvin</source>
-      </trans-unit>
-      <trans-unit id="documentationPageTitle" datatype="html">
-        <source>Documentation - Melvin</source>
       </trans-unit>
       <trans-unit id="GuidePageTitle" datatype="html">
         <source>Didactic Guide - Melvin</source>
@@ -1945,6 +1933,51 @@
       </trans-unit>
       <trans-unit id="landingFooterTutorialsHeader" datatype="html">
         <source>Tutorials</source>
+      </trans-unit>
+      <trans-unit id="installationGitHubLinkLabel" datatype="html">
+        <source>To the GitHub Repo</source>
+      </trans-unit>
+      <trans-unit id="installationMainHeading" datatype="html">
+        <source>Installation</source>
+      </trans-unit>
+      <trans-unit id="installationPageTitle" datatype="html">
+        <source>Installation - Melvin</source>
+      </trans-unit>
+      <trans-unit id="installationTableComponentHeading" datatype="html">
+        <source> Component </source>
+      </trans-unit>
+      <trans-unit id="installationTableCPUComponent" datatype="html">
+        <source>CPU</source>
+      </trans-unit>
+      <trans-unit id="installationTableCPUDescription" datatype="html">
+        <source>Melvin uses ffmpeg to convert videos. Having multiple CPU cores available increases processing speed, particularly for long videos with high resolution.</source>
+      </trans-unit>
+      <trans-unit id="installationTableCPURequirement" datatype="html">
+        <source>8 cores / 16 threads</source>
+      </trans-unit>
+      <trans-unit id="installationTableGPUComponent" datatype="html">
+        <source>GPU</source>
+      </trans-unit>
+      <trans-unit id="installationTableGPUDescription" datatype="html">
+        <source>CPU can be used for ASR, but is significantly slower.</source>
+      </trans-unit>
+      <trans-unit id="installationTableRAMComponent" datatype="html">
+        <source>RAM</source>
+      </trans-unit>
+      <trans-unit id="installationTableRequirementHeading" datatype="html">
+        <source> Minimum requirement </source>
+      </trans-unit>
+      <trans-unit id="installationTableStorageComponent" datatype="html">
+        <source>Storage</source>
+      </trans-unit>
+      <trans-unit id="installationTableStorageDescription" datatype="html">
+        <source>A one-hour video is approximately 1 GB in size</source>
+      </trans-unit>
+      <trans-unit id="landingFooterInstallationLinkLabel" datatype="html">
+        <source> Installation </source>
+      </trans-unit>
+      <trans-unit id="landingHeaderInstallationLinkLabel" datatype="html">
+        <source> Installation </source>
       </trans-unit>
     </body>
   </file>

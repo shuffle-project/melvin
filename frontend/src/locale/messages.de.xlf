@@ -1154,10 +1154,6 @@
         <source> Sorry, this page is still under development. Please come back at a later time. </source>
         <target state="final"> Diese Seite befindet sich leider noch in der Entwicklung. Bitte schauen Sie zu einem späteren Zeitpunkt wieder vorbei. </target>
       </trans-unit>
-      <trans-unit id="documentationMainHeading" datatype="html">
-        <source>Documentation</source>
-        <target state="final">Dokumentation</target>
-      </trans-unit>
       <trans-unit id="imprintMainHeading" datatype="html">
         <source>Imprint</source>
         <target state="final">Impressum</target>
@@ -1294,10 +1290,6 @@
         <source> Tutorial </source>
         <target state="final"> Tutorial </target>
       </trans-unit>
-      <trans-unit id="landingHeaderDocumentationLinkLabel" datatype="html">
-        <source> Documentation </source>
-        <target state="final"> Dokumentation </target>
-      </trans-unit>
       <trans-unit id="landingHeaderLoginButton" datatype="html">
         <source> Login </source>
         <target state="final"> Anmelden </target>
@@ -1409,10 +1401,6 @@
       <trans-unit id="tutorialPageTitle" datatype="html">
         <source>Tutorial - Melvin</source>
         <target state="final">Tutorial - Melvin</target>
-      </trans-unit>
-      <trans-unit id="documentationPageTitle" datatype="html">
-        <source>Documentation - Melvin</source>
-        <target state="final">Dokumentation - Melvin</target>
       </trans-unit>
       <trans-unit id="imprintPartnerHeading" datatype="html">
         <source>Project partners:</source>
@@ -1833,10 +1821,6 @@
       <trans-unit id="deleteServiceDeleteAccountDescription" datatype="html">
         <source>If you confirm this, your account with all created projects and data will be deleted. This can NOT be undone!</source>
         <target state="final">Wenn Sie dies bestätigen, wird Ihr Konto mit allen erstellten Projekten und Daten gelöscht. Dies kann NICHT rückgängig gemacht werden!</target>
-      </trans-unit>
-      <trans-unit id="headerMenuDocumentationButton" datatype="html">
-        <source>Documentation</source>
-        <target state="final">Dokumentation</target>
       </trans-unit>
       <trans-unit id="headerMenuTutorialButton" datatype="html">
         <source>Tutorial</source>
@@ -2593,6 +2577,66 @@
       <trans-unit id="landingFooterFoundationLinkAriaLabel" datatype="html">
         <source>Foundation &apos;Stiftung Innovation in der Hochschullehre&apos;, opens in new tab</source>
         <target state="final">Stiftung Innovation in der Hochschullehre, öffnet in neuem Tab</target>
+      </trans-unit>
+      <trans-unit id="installationMainHeading" datatype="html">
+        <source>Installation</source>
+        <target state="final">Installation</target>
+      </trans-unit>
+      <trans-unit id="installationGitHubLinkLabel" datatype="html">
+        <source>To the GitHub Repo</source>
+        <target state="final">Zum GitHub-Repo</target>
+      </trans-unit>
+      <trans-unit id="installationTableComponentHeading" datatype="html">
+        <source> Component </source>
+        <target state="final"> Komponente </target>
+      </trans-unit>
+      <trans-unit id="installationTableRequirementHeading" datatype="html">
+        <source> Minimum requirement </source>
+        <target state="final"> Mindestanforderung </target>
+      </trans-unit>
+      <trans-unit id="installationTableGPUComponent" datatype="html">
+        <source>GPU</source>
+        <target state="final">Grafikkarte</target>
+      </trans-unit>
+      <trans-unit id="installationTableGPUDescription" datatype="html">
+        <source>Der Prozessor kann für die Transkription verwendet werden, ist aber deutlich langsamer.</source>
+        <target state="final"></target>
+      </trans-unit>
+      <trans-unit id="installationTableCPUComponent" datatype="html">
+        <source>CPU</source>
+        <target state="final">Prozessor</target>
+      </trans-unit>
+      <trans-unit id="installationTableCPURequirement" datatype="html">
+        <source>8 cores / 16 threads</source>
+        <target state="final">8 Kerne / 16 Threads</target>
+      </trans-unit>
+      <trans-unit id="installationTableCPUDescription" datatype="html">
+        <source>Melvin uses ffmpeg to convert videos. Having multiple CPU cores available increases processing speed, particularly for long videos with high resolution.</source>
+        <target state="final">Melvin verwendet ffmpeg, um Videos zu konvertieren. Wenn mehrere CPU-Kerne zur Verfügung stehen, erhöht sich die Verarbeitungsgeschwindigkeit, insbesondere bei langen Videos mit hoher Auflösung.</target>
+      </trans-unit>
+      <trans-unit id="installationTableStorageComponent" datatype="html">
+        <source>Storage</source>
+        <target state="final">Datenträger</target>
+      </trans-unit>
+      <trans-unit id="installationTableStorageDescription" datatype="html">
+        <source>A one-hour video is approximately 1 GB in size</source>
+        <target state="final">Ein einstündiges Video entspricht ca. 1 GB</target>
+      </trans-unit>
+      <trans-unit id="installationTableRAMComponent" datatype="html">
+        <source>RAM</source>
+        <target state="final">Arbeitsspeicher</target>
+      </trans-unit>
+      <trans-unit id="landingFooterInstallationLinkLabel" datatype="html">
+        <source> Installation </source>
+        <target state="final"> Installation </target>
+      </trans-unit>
+      <trans-unit id="landingHeaderInstallationLinkLabel" datatype="html">
+        <source> Installation </source>
+        <target state="final"> Installation </target>
+      </trans-unit>
+      <trans-unit id="installationPageTitle" datatype="html">
+        <source>Installation - Melvin</source>
+        <target state="final">Installation - Melvin</target>
       </trans-unit>
     </body>
   </file>

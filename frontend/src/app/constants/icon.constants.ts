@@ -41,6 +41,7 @@ export const ICONS = [
   'fullscreen',
   'fullscreen_close',
   'group_add',
+  'github',
   'help-circle',
   'history',
   'joined',

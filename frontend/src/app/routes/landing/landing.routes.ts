@@ -1,8 +1,8 @@
 import { Routes } from '@angular/router';
 import { AccessibilityStatementComponent } from './components/accessibility-statement/accessibility-statement.component';
-import { DocumentationComponent } from './components/documentation/documentation.component';
 import { GuideComponent } from './components/guide/guide.component';
 import { ImprintComponent } from './components/imprint/imprint.component';
+import { InstallationComponent } from './components/installation/installation.component';
 import { LandingMainComponent } from './components/landing-main/landing-main.component';
 import { PlainLanguageComponent } from './components/plain-language/plain-language.component';
 import { PrivacyComponent } from './components/privacy/privacy.component';
@@ -57,9 +57,9 @@ export const LandingRoutes: Routes = [
         title: $localize`:@@tutorialPageTitle:Tutorial - Melvin`,
       },
       {
-        path: 'documentation',
-        component: DocumentationComponent,
-        title: $localize`:@@documentationPageTitle:Documentation - Melvin`,
+        path: 'installation',
+        component: InstallationComponent,
+        title: $localize`:@@installationPageTitle:Installation - Melvin`,
       },
       {
         path: 'guide',

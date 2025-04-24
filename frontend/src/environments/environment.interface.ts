@@ -6,7 +6,7 @@ export interface EnabledFeatures {
   projectEdit: boolean;
   download: boolean;
   live: boolean;
-  documentation: boolean;
+  installation: boolean;
   tutorial: boolean;
   guide: boolean;
   feedbackLink: boolean;
