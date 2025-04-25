@@ -1,78 +1,60 @@
 body.dark-theme {
   .mat-mdc-chip {
-    * {
-      color: var(--color-white);
+    &.finished,
+    &.draft {
+      background-color: var(--color-grey);
     }
 
-    &.finished {
-      --color-gradient-a: var(--color-dm-chip-finished-1);
-      --color-gradient-b: var(--color-dm-chip-finished-2);
-    }
-
+    &.processing,
     &.waiting {
-      --color-gradient-a: var(--color-dm-chip-waiting-1);
-      --color-gradient-b: var(--color-dm-chip-waiting-2);
-    }
-
-    &.processing {
-      --color-gradient-a: var(--color-dm-chip-waiting-1);
-      --color-gradient-b: var(--color-dm-chip-waiting-2);
+      * {
+        color: var(--color-white);
+      }
     }
   }
 }
 
-.mat-mdc-chip {
-  * {
-    color: rgba(var(--color-black-rgb), 0.75);
-  }
+body {
+  .mat-mdc-chip {
+    * {
+      color: var(--color-text);
+    }
 
-  background: linear-gradient(
-    90deg,
-    var(--color-gradient-a) 0%,
-    var(--color-gradient-b) 100%
-  );
-
-  &.finished {
-    --color-gradient-a: rgba(var(--color-grey-rgb), 0.3);
-    --color-gradient-b: rgba(var(--color-light-grey-rgb), 0.3);
-  }
-
-  &.draft {
-    --color-gradient-a: var(--color-light-blue);
-    --color-gradient-b: var(--color-sky-blue);
-  }
-
-  &.live,
-  &.paused {
-    --color-gradient-a: var(--color-orange);
-    --color-gradient-b: var(--color-yellow);
-  }
-
-  // &.waiting {
-  //   --color-gradient-a: rgba(var(--color-grey-rgb), 0.7);
-  //   --color-gradient-b: rgba(var(--color-light-grey-rgb), 0.7);
-  // }
-
-  &.processing {
-    --color-gradient-a: rgba(var(--color-grey-rgb), 0.7);
-    --color-gradient-b: rgba(var(--color-light-grey-rgb), 0.7);
-  }
-
-  &.error {
-    --color-gradient-a: var(--color-light-red);
-    --color-gradient-b: var(--color-orange);
-  }
-
-  .status-icon {
-    &.processing {
-      position: absolute;
-      top: 0.75rem;
-      left: 1.125rem;
-      animation: 4s linear infinite settings-spinner;
+    &.finished,
+    &.draft {
+      background-color: var(--color-background-grey);
     }
 
     &.live {
-      animation: 3s ease-in-out infinite live-record;
+      background-color: var(--color-primary);
+      * {
+        color: var(--color-white);
+      }
+    }
+
+    &.processing,
+    &.waiting {
+      background-color: var(--color-light-yellow);
+    }
+
+    &.error {
+      background-color: var(--color-warn);
+      * {
+        color: var(--color-white);
+      }
+    }
+
+    .status-icon {
+      &.processing {
+        position: absolute;
+        top: 0.75rem;
+        left: 1.125rem;
+        animation: 4s linear infinite settings-spinner;
+      }
+
+      &.live {
+        animation: 3s ease-in-out infinite live-record;
+      }
     }
   }
 }

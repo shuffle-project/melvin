@@ -534,10 +534,6 @@
         <source>All</source>
         <target state="final">Alle</target>
       </trans-unit>
-      <trans-unit id="projectListTableHeaderPlayerLabel" datatype="html">
-        <source> Videoplayer </source>
-        <target state="final"> Player </target>
-      </trans-unit>
       <trans-unit id="createTranscriptionDialogCloseButton" datatype="html">
         <source>Close</source>
         <target state="final">Schließen</target>
@@ -2521,6 +2517,62 @@
       <trans-unit id="installationIntroText" datatype="html">
         <source> Melvin is an open source project. As such, you can install and use the application on your own server. Follow the GitHub link below for the installation instructions: </source>
         <target state="final"> Melvin ist ein Open-Source Projekt. Somit können Sie die Anwedung auf einem eigenen Server installieren und nutzen. Die Installationsanleitung finden Sie unter dem folgenden GitHub-Link: </target>
+      </trans-unit>
+      <trans-unit id="translateTranscriptionTabHeading" datatype="html">
+        <source> Translate an existing transcription </source>
+        <target state="new"> Translate an existing transcription </target>
+      </trans-unit>
+      <trans-unit id="translateTranscriptionTabTranscriptionErrorRequired" datatype="html">
+        <source>Select a transcription</source>
+        <target state="new">Select a transcription</target>
+      </trans-unit>
+      <trans-unit id="translateTranscriptionTabVendorLabel" datatype="html">
+        <source>Vendor</source>
+        <target state="new">Vendor</target>
+      </trans-unit>
+      <trans-unit id="translateTranscriptionTabVendorHint" datatype="html">
+        <source>Languages are vendor dependent </source>
+        <target state="new">Languages are vendor dependent </target>
+      </trans-unit>
+      <trans-unit id="translateTranscriptionTabVendorErrorRequired" datatype="html">
+        <source>Select a vendor</source>
+        <target state="new">Select a vendor</target>
+      </trans-unit>
+      <trans-unit id="translateTranscriptionTabLanguageLabel" datatype="html">
+        <source>Language</source>
+        <target state="new">Language</target>
+      </trans-unit>
+      <trans-unit id="translateTranscriptionTabLanguageHint" datatype="html">
+        <source>Select a vendor first</source>
+        <target state="new">Select a vendor first</target>
+      </trans-unit>
+      <trans-unit id="translateTranscriptionTabLanguageErrorRequired" datatype="html">
+        <source>Select a language </source>
+        <target state="new">Select a language </target>
+      </trans-unit>
+      <trans-unit id="translateTranscriptionTabTitleLabel" datatype="html">
+        <source>Title</source>
+        <target state="new">Title</target>
+      </trans-unit>
+      <trans-unit id="translateTranscriptionTabTitleErrorRequired" datatype="html">
+        <source>Title is required</source>
+        <target state="new">Title is required</target>
+      </trans-unit>
+      <trans-unit id="translateTranscriptionTabNoTranslationVendor" datatype="html">
+        <source> There is currently no translation vendor connected to Melvin. Please contact the person who manages this Melvin instance. </source>
+        <target state="new"> There is currently no translation vendor connected to Melvin. Please contact the person who manages this Melvin instance. </target>
+      </trans-unit>
+      <trans-unit id="projectListTableHeaderEditLabel" datatype="html">
+        <source> Edit </source>
+        <target state="final"> Bearbeiten </target>
+      </trans-unit>
+      <trans-unit id="projectListEditProjectAriaLabel" datatype="html">
+        <source>Edit</source>
+        <target state="final">Bearbeiten</target>
+      </trans-unit>
+      <trans-unit id="projectListTableHeaderWatchLabel" datatype="html">
+        <source> Watch </source>
+        <target state="final"> Abspielen </target>
       </trans-unit>
     </body>
   </file>

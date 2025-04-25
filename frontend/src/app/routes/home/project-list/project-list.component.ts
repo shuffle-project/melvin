@@ -26,7 +26,7 @@ import { MatSelect, MatSelectModule } from '@angular/material/select';
 import { MatSort, MatSortModule, Sort } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { LetDirective, PushPipe } from '@ngrx/component';
 import { Store } from '@ngrx/store';
 import { Observable, Subscription, take } from 'rxjs';
@@ -93,6 +93,7 @@ import { DialogCreateProjectComponent } from './dialog-create-project/dialog-cre
     ActivityComponent,
     CdkMenuModule,
     LandingFooterComponent,
+    RouterLink,
   ],
 })
 export class ProjectListComponent implements OnInit, AfterViewInit, OnDestroy {
@@ -100,13 +101,14 @@ export class ProjectListComponent implements OnInit, AfterViewInit, OnDestroy {
 
   public displayedColumns: string[] = [
     'title',
+    'edit',
+    'player',
     'language',
     'status',
     'duration',
     'updatedAt',
     'createdAt',
     'members',
-    'player',
     'more',
   ];
 
