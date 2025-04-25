@@ -36,7 +36,7 @@ export class CreateTranscriptionDialogComponent implements OnInit, OnDestroy {
   public loading = false;
 
   // tabs = ['upload', 'copy', 'translate', 'from media', 'empty file'];
-  tabs = ['upload', 'copy', 'empty file'];
+  tabs = ['upload', 'copy', 'translate', 'empty file'];
   selectedTab = 'upload';
 
   @ViewChild('uploadForm') uploadForm!: UploadTranscriptionComponent;
