@@ -1,5 +1,5 @@
 .controls {
-  height: 100px;
+  height: 6.25rem;
 
   .video-progress-slider-wrapper {
     display: flex;
@@ -101,6 +101,8 @@
 
 @media (max-width: 27.5rem) {
   .controls {
+    height: 100%;
+
     .main-controls {
       flex-wrap: wrap;
 
