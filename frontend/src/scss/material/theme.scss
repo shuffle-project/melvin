@@ -70,6 +70,10 @@ a.feedback-link {
   );
 }
 
+.dense-category-form-field {
+  @include mat.all-component-densities(-1);
+}
+
 mat-slider {
   .mdc-slider__track--inactive {
     opacity: 40%;
