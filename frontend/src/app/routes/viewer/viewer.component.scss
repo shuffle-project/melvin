@@ -1,3 +1,8 @@
+// Delete when the feedback link gets removed
+.feedback-link {
+  flex-shrink: 0;
+}
+
 .viewer-header-buttons {
   margin-left: auto;
   display: flex;
