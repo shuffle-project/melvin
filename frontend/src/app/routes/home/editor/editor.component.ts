@@ -42,6 +42,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { LetDirective, PushPipe } from '@ngrx/component';
 import { DeleteConfirmationService } from 'src/app/components/delete-confirmation-dialog/delete-confirmation.service';
+import { CreateTranscriptionDialogComponent } from 'src/app/modules/project-dialogs/components/project-transcription/components/create-transcription-dialog/create-transcription-dialog.component';
 import { MediaCategoryPipe } from 'src/app/pipes/media-category-pipe/media-category.pipe';
 import { WrittenOutLanguagePipe } from 'src/app/pipes/written-out-language-pipe/written-out-language.pipe';
 import { SubtitleFormat } from 'src/app/services/api/entities/transcription.entity';
@@ -310,6 +311,15 @@ export class EditorComponent implements OnInit, OnDestroy {
     this.dialog.open(JoinLivestreamModalComponent, {
       disableClose: !livestreamStarted,
       data: { livestreamStarted, projectId: this.projectId },
+    });
+  }
+
+  onOpenTranslationDialog() {
+    this.dialog.open(CreateTranscriptionDialogComponent, {
+      data: { selectedTab: 'translate' },
+      width: '100%',
+      maxWidth: '50rem',
+      maxHeight: '90vh',
     });
   }
 }

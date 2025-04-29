@@ -124,13 +124,14 @@
           <app-transcription-menu-content [projectId]="projectId" />
         </mat-menu>
 
-        <!-- Help Menu -->
-        @if ('helpMenu' | featureEnabled) {
-        <!-- TODO removed to make the ui cleaner -->
-        <!-- <button mat-button (click)="onOpenHelpDialog()" i18n="@@editorMenuHelp">
-          Help
-        </button> -->
-        }
+        <button
+          mat-button
+          (click)="onOpenTranslationDialog()"
+          i18n="@@editorMenuTranslateLabel"
+          class="editor-action-button highlight-button"
+        >
+          Translate
+        </button>
       </div>
     </div>
   </div>

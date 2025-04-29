@@ -15,6 +15,7 @@
   <mat-tab-group
     dynamicHeight
     (selectedTabChange)="onSelectedTabChange($event.index)"
+    [selectedIndex]="selectedTabIndex"
   >
     <mat-tab [disabled]="loading">
       <ng-template
