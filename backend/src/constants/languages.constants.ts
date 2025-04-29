@@ -220,6 +220,12 @@ export const LANGUAGES: Language[] = [
   //   englishName: 'Dzongkha',
   //   germanName: 'Dzongkha',
   // },
+
+  {
+    code: 'en',
+    englishName: 'English',
+    germanName: 'Englisch',
+  },
   {
     code: 'en-GB',
     englishName: 'English (GB)',
@@ -337,6 +343,11 @@ export const LANGUAGES: Language[] = [
     code: 'ha',
     englishName: 'Hausa',
     germanName: 'Hausa',
+  },
+  {
+    code: 'haw',
+    englishName: 'Hawaiian',
+    germanName: 'Hawaiianisch',
   },
   {
     code: 'he',
@@ -517,12 +528,11 @@ export const LANGUAGES: Language[] = [
     englishName: 'Lao',
     germanName: 'Laotisch',
   },
-  // ancient language
-  // {
-  //   code: 'la',
-  //   englishName: 'Latin',
-  //   germanName: 'Latein',
-  // },
+  {
+    code: 'la',
+    englishName: 'Latin',
+    germanName: 'Latein',
+  },
   {
     code: 'lv',
     englishName: 'Latvian',
@@ -764,12 +774,12 @@ export const LANGUAGES: Language[] = [
   //   englishName: 'Sango',
   //   germanName: 'Sango',
   // },
-  // ancient language
-  // {
-  //   code: 'sa',
-  //   englishName: 'Sanskrit',
-  //   germanName: 'Sanskrit',
-  // },
+
+  {
+    code: 'sa',
+    englishName: 'Sanskrit',
+    germanName: 'Sanskrit',
+  },
   // no whisper support
   // {
   //   code: 'sc',
@@ -854,12 +864,11 @@ export const LANGUAGES: Language[] = [
   //   englishName: 'Tahitian',
   //   germanName: 'Tahitianisch, Tahitisch',
   // },
-  // no whisper support
-  // {
-  //   code: 'tg',
-  //   englishName: 'Tajik',
-  //   germanName: 'Tadschikisch',
-  // },
+  {
+    code: 'tg',
+    englishName: 'Tajik',
+    germanName: 'Tadschikisch',
+  },
   {
     code: 'ta',
     englishName: 'Tamil',
@@ -1001,6 +1010,11 @@ export const LANGUAGES: Language[] = [
     code: 'yo',
     englishName: 'Yoruba',
     germanName: 'Yoruba',
+  },
+  {
+    code: 'yue',
+    englishName: 'Yue Chinese',
+    germanName: 'Kantonesisch',
   },
   // no whisper support
   // {
