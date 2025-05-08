@@ -23,7 +23,8 @@ import {
 } from 'src/app/services/api/entities/config.entity';
 import { TranscriptionEntity } from 'src/app/services/api/entities/transcription.entity';
 import { AppState } from 'src/app/store/app.state';
-import * as transcriptionsActions from '../../../../../../../../../store/actions/transcriptions.actions';
+import * as transcriptionsActions from '../../../../../../../../..//store/actions/transcriptions.actions';
+import { LanguageAutocompleteComponent } from '../../../../../../../../../components/language-autocomplete/language-autocomplete/language-autocomplete.component';
 import * as configSelectors from '../../../../../../../../../store/selectors/config.selector';
 import { CreateTranscriptionDialogComponent } from '../../../create-transcription-dialog.component';
 @Component({
@@ -38,6 +39,7 @@ import { CreateTranscriptionDialogComponent } from '../../../create-transcriptio
     WrittenOutLanguagePipe,
     MatButtonModule,
     MatIconModule,
+    LanguageAutocompleteComponent,
   ],
   templateUrl: './translate-transcription.component.html',
   styleUrl: './translate-transcription.component.scss',
@@ -69,21 +71,6 @@ export class TranslateTranscriptionComponent implements OnDestroy {
           this.translationLanguages = melvinService.languages;
         }
       });
-
-    // this.translationLanguages$ = this.transcriptionGroup.controls[
-    //   'translationVendor'
-    // ].valueChanges.pipe(
-    //   switchMap((selectedVendor) =>
-    //     this.translationServices$.pipe(
-    //       map((services: TranslationServiceConfig[]) =>
-    //         services.find(
-    //           (service) => service.translateVendor === selectedVendor
-    //         )
-    //       ),
-    //       map((service) => service?.languages)
-    //     )
-    //   )
-    // );
   }
 
   transcriptionGroup = new FormGroup({

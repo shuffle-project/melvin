@@ -20,13 +20,17 @@
       >
     </mat-form-field>
 
-    <mat-form-field>
+    <app-language-autocomplete
+      formControlName="language"
+      [languages]="translationLanguages"
+    />
+
+    <!-- <mat-form-field>
       <mat-label i18n="@@translateTranscriptionTabLanguageLabel"
         >Language</mat-label
       >
 
       <mat-select formControlName="language">
-        <!-- show languages depeding on chosen vendor -->
         @for (language of translationLanguages; track language) {
         <mat-option value="{{ language.code }}">
           {{ language.code | writtenOutLanguage }} ({{ language.code }})
@@ -37,7 +41,7 @@
       <mat-error i18n="@@translateTranscriptionTabLanguageErrorRequired"
         >Select a language
       </mat-error>
-    </mat-form-field>
+    </mat-form-field> -->
   </div>
 
   <mat-form-field>
