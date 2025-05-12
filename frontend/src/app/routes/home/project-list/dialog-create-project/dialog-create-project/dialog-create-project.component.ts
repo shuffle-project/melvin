@@ -42,6 +42,7 @@ import { MediaCategory } from 'src/app/services/api/entities/project.entity';
 import { UploadHandler } from 'src/app/services/upload/upload-handler';
 import { UploadService } from 'src/app/services/upload/upload.service';
 import { AppState } from 'src/app/store/app.state';
+import { LanguageAutocompleteComponent } from '../../../../../components/language-autocomplete/language-autocomplete/language-autocomplete.component';
 import * as configSelectors from '../../../../../store/selectors/config.selector';
 export interface CreateProjectFormGroup {
   title: FormControl<string>;
@@ -72,6 +73,7 @@ interface FileGroup {
     MatProgressBarModule,
     UploadProgressComponent,
     UploadAreaComponent,
+    LanguageAutocompleteComponent,
   ],
   templateUrl: './dialog-create-project.component.html',
   styleUrl: './dialog-create-project.component.scss',
@@ -351,6 +353,10 @@ export class DialogCreateProjectComponent implements OnDestroy, AfterViewInit {
   }
 
   async onSubmitForm() {
+    this.formGroup.controls.files.getRawValue().forEach((fileGroup) => {
+      console.log(fileGroup);
+    });
+
     if (this.formGroup.invalid) {
       this.formGroup.markAllAsTouched();
       this.formGroup.updateValueAndValidity();
