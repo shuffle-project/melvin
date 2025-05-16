@@ -1835,12 +1835,12 @@
         <target state="final"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;plus&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/> Beispielprojekt erstellen </target>
       </trans-unit>
       <trans-unit id="landingHeaderGuideLinkLabel" datatype="html">
-        <source> Didactic Guide </source>
-        <target state="final"> Didaktik-Guide </target>
+        <source> Best Practice </source>
+        <target state="final"> Best Practice </target>
       </trans-unit>
       <trans-unit id="GuidePageTitle" datatype="html">
-        <source>Didactic Guide - Melvin</source>
-        <target state="final">Didaktik-Guide - Melvin</target>
+        <source>Best Practice - Melvin</source>
+        <target state="final">Best Practice - Melvin</target>
       </trans-unit>
       <trans-unit id="viewerControlsQualityTitle" datatype="html">
         <source> Max. Resolution </source>
@@ -1863,16 +1863,16 @@
         <target state="final"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;start&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/>Startseite </target>
       </trans-unit>
       <trans-unit id="headerMenuGuideButton" datatype="html">
-        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;book&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/>Didactic Guide </source>
-        <target state="final"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;book&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/>Didaktik-Guide </target>
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;book&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/>Best Practice </source>
+        <target state="final"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;book&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/>Best Practice </target>
       </trans-unit>
       <trans-unit id="editorSettingsHeadline" datatype="html">
         <source>Settings</source>
         <target state="final">Einstellungen</target>
       </trans-unit>
       <trans-unit id="guideMainHeading" datatype="html">
-        <source>Didactic Guide</source>
-        <target state="final">Didaktik-Guide</target>
+        <source>Best Practice</source>
+        <target state="final">Best Practice</target>
       </trans-unit>
       <trans-unit id="guideSubHeading" datatype="html">
         <source> Didactic Recommendations – How to Use Melvin Effectively </source>
@@ -2415,8 +2415,8 @@
         <target state="final">Anleitungen</target>
       </trans-unit>
       <trans-unit id="landingFooterDidacticGuideLinkLabel" datatype="html">
-        <source> Didactic Guide </source>
-        <target state="final"> Didaktik-Guide </target>
+        <source> Best Practice </source>
+        <target state="final"> Best Practice </target>
       </trans-unit>
       <trans-unit id="landingFooterAccessibilityHeader" datatype="html">
         <source>Accessibility</source>
@@ -2475,10 +2475,6 @@
         <target state="final">Arbeitsspeicher</target>
       </trans-unit>
       <trans-unit id="landingFooterInstallationLinkLabel" datatype="html">
-        <source> Installation </source>
-        <target state="final"> Installation </target>
-      </trans-unit>
-      <trans-unit id="landingHeaderInstallationLinkLabel" datatype="html">
         <source> Installation </source>
         <target state="final"> Installation </target>
       </trans-unit>
