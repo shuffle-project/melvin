@@ -16,7 +16,6 @@
         Copy link
       </button>
 
-      @if ((authUser$ | ngrxPush )?.id === project.createdBy.id) {
       <button
         (click)="onClickUpdateViewer()"
         i18n="@@sharePlayerGenerateNewLinkButton"
@@ -26,7 +25,6 @@
         <mat-icon svgIcon="change" />
         Generate new link, revoke old one
       </button>
-      }
     </div>
 
     <div class="embed-wrapper">

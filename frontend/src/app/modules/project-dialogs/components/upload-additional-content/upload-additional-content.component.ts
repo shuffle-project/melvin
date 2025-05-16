@@ -7,7 +7,7 @@ import {
   ReactiveFormsModule,
 } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { Subject, combineLatest, lastValueFrom, map, takeUntil } from 'rxjs';
+import { Subject, lastValueFrom, map, takeUntil } from 'rxjs';
 import { ApiService } from '../../../../services/api/api.service';
 import {
   MediaCategory,
@@ -38,7 +38,6 @@ import { UploadAreaComponent } from '../../../../components/upload-area/upload-a
 import { FormatDatePipe } from '../../../../pipes/format-date-pipe/format-date.pipe';
 import { MediaCategoryPipe } from '../../../../pipes/media-category-pipe/media-category.pipe';
 import * as editorActions from '../../../../store/actions/editor.actions';
-import { selectUserId } from '../../../../store/selectors/auth.selector';
 import * as editorSelector from '../../../../store/selectors/editor.selector';
 
 interface FileUpload {
@@ -99,11 +98,6 @@ export class UploadAdditionalContentComponent implements OnInit {
     )
   );
   public media$ = this.store.select(editorSelector.selectMedia);
-
-  public isOwner$ = combineLatest([
-    this.store.select(selectUserId),
-    this.project$,
-  ]).pipe(map(([userId, project]) => userId === project?.createdBy.id));
 
   public formGroup = new FormGroup({
     files: new FormControl<File[]>([], {

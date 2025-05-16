@@ -282,13 +282,9 @@ export class TranscriptionService {
       .exec();
 
     const project = transcription.project as LeanProjectDocument;
-    if (
-      !(
-        this.permissions.isProjectOwner(project, authUser) ||
-        this.permissions.isTranscriptionOwner(transcription, authUser)
-      )
-    ) {
-      throw new CustomForbiddenException('must_be_owner');
+
+    if (!this.permissions.isProjectMember(project, authUser)) {
+      throw new CustomForbiddenException('access_to_project_denied');
     }
 
     //TODO als transaction
