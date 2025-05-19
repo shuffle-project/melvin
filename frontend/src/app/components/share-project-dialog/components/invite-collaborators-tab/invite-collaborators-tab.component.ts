@@ -103,7 +103,7 @@ export class InviteCollaboratorsTabComponent implements OnInit, OnDestroy {
     this.authUser$ = this.store.select(authSelectors.selectUser);
   }
 
-  get inviteLink(): string {
+  inviteLink(): string {
     return `${environment.frontendBaseUrl}/invite/${this.inviteToken}`;
   }
 
@@ -115,10 +115,7 @@ export class InviteCollaboratorsTabComponent implements OnInit, OnDestroy {
         .select(editorSelectors.selectProject)
         .pipe(takeUntil(this.destroy$$))
         .subscribe((project) => {
-          if (project === null) {
-            return;
-          }
-          this.project = project;
+          if (project) this.project = project;
         });
     } else {
       this.store
@@ -212,8 +209,8 @@ export class InviteCollaboratorsTabComponent implements OnInit, OnDestroy {
     this.destroy$$.next();
   }
 
-  onClickCopyLink(link: string) {
-    this.clipboard.copy(link);
+  onClickCopyLink() {
+    this.clipboard.copy(this.inviteLink());
     this.alertService.success(
       $localize`:@@inviteCollaboratorCopyLinkSuccess:Link copied`
     );

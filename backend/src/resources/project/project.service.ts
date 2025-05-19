@@ -543,8 +543,8 @@ export class ProjectService {
   async invite(authUser: AuthUser, id: string, dto: InviteDto): Promise<void> {
     const project = await this.db.findProjectByIdOrThrow(id);
 
-    if (!this.permissions.isProjectOwner(project, authUser)) {
-      throw new CustomForbiddenException('must_be_owner');
+    if (!this.permissions.isProjectMember(project, authUser)) {
+      throw new CustomForbiddenException('access_to_project_denied');
     }
 
     // Filter emails of users that already joined the project
@@ -600,36 +600,28 @@ export class ProjectService {
   ) {
     const project = await this.db.findProjectByIdOrThrow(projectId);
 
-    // NOT allowed to remove project owner
     if (isSameObjectId(userId, project.createdBy)) {
       throw new CustomForbiddenException('cannot_remove_owner');
     }
 
-    // ALLOWED to remove yourself from project as a user or as project owner
-    if (
-      isSameObjectId(userId, authUser.id) ||
-      this.permissions.isProjectOwner(project, authUser)
-    ) {
-      const updatedUserList = project.users.filter(
-        (user) => !isSameObjectId(user._id, userId),
-      );
-
-      await this.db.userModel.findByIdAndUpdate(userId, {
-        $pullAll: { projects: [project._id] },
-      });
-
-      const updatedProject = await this.db.updateProjectByIdAndReturn(
-        projectId,
-        {
-          $set: { users: updatedUserList },
-        },
-      );
-
-      const entity = plainToInstance(ProjectEntity, updatedProject);
-      await this.events.projectUpdated(entity, [userId]);
-    } else {
-      throw new CustomForbiddenException('must_be_owner');
+    if (!this.permissions.isProjectMember(project, authUser)) {
+      throw new CustomForbiddenException('access_to_project_denied');
     }
+
+    const updatedUserList = project.users.filter(
+      (user) => !isSameObjectId(user._id, userId),
+    );
+
+    await this.db.userModel.findByIdAndUpdate(userId, {
+      $pullAll: { projects: [project._id] },
+    });
+
+    const updatedProject = await this.db.updateProjectByIdAndReturn(projectId, {
+      $set: { users: updatedUserList },
+    });
+
+    const entity = plainToInstance(ProjectEntity, updatedProject);
+    await this.events.projectUpdated(entity, [userId]);
   }
 
   async getViewerToken(
@@ -651,8 +643,8 @@ export class ProjectService {
   ): Promise<ProjectViewerTokenEntity> {
     const project = await this.db.findProjectByIdOrThrow(id);
 
-    if (!this.permissions.isProjectOwner(project, authUser)) {
-      throw new CustomForbiddenException('must_be_owner');
+    if (!this.permissions.isProjectMember(project, authUser)) {
+      throw new CustomForbiddenException('access_to_project_denied');
     }
 
     const viewerToken = generateSecureToken();
@@ -670,8 +662,8 @@ export class ProjectService {
   ): Promise<ProjectInviteTokenEntity> {
     const project = await this.db.findProjectByIdOrThrow(id);
 
-    if (!this.permissions.isProjectOwner(project, authUser)) {
-      throw new CustomForbiddenException('must_be_owner');
+    if (!this.permissions.isProjectMember(project, authUser)) {
+      throw new CustomForbiddenException('access_to_project_denied');
     }
 
     return { inviteToken: project.inviteToken };
@@ -683,8 +675,8 @@ export class ProjectService {
   ): Promise<ProjectInviteTokenEntity> {
     const project = await this.db.findProjectByIdOrThrow(id);
 
-    if (!this.permissions.isProjectOwner(project, authUser)) {
-      throw new CustomForbiddenException('must_be_owner');
+    if (!this.permissions.isProjectMember(project, authUser)) {
+      throw new CustomForbiddenException('access_to_project_denied');
     }
 
     const inviteToken = generateSecureToken();
@@ -736,10 +728,6 @@ export class ProjectService {
       throw new CustomForbiddenException('access_to_project_denied');
     }
 
-    if (!this.permissions.isProjectOwner(project, authUser)) {
-      throw new CustomForbiddenException('must_be_owner');
-    }
-
     const video: Video = {
       ...uploadVideoDto,
       category: uploadVideoDto.category ?? MediaCategory.OTHER,
@@ -756,18 +744,6 @@ export class ProjectService {
         videos: video,
       },
     });
-    // const updatedProject = await this.db.projectModel
-    //   .findByIdAndUpdate(
-    //     projectId,
-    //     {
-    //       $push: {
-    //         videos: video,
-    //       },
-    //     },
-    //     { populate: ['users'], new: true },
-    //   )
-    //   .lean()
-    //   .exec();
 
     this.projectQueue.add({
       authUser,
@@ -813,10 +789,6 @@ export class ProjectService {
 
     if (!this.permissions.isProjectMember(project, authUser)) {
       throw new CustomForbiddenException('access_to_project_denied');
-    }
-
-    if (!this.permissions.isProjectOwner(project, authUser)) {
-      throw new CustomForbiddenException('must_be_owner');
     }
 
     const mediaObj = project.videos.find((media) =>

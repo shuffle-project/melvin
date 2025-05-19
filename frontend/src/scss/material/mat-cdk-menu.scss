@@ -1,5 +1,6 @@
 .cdk-menu-wrapper {
   display: flex;
+
   gap: 1.25rem;
   padding: 1.25rem;
   color: var(--color-text);
@@ -53,4 +54,13 @@
   border-top-right-radius: 4px;
 
   box-sizing: border-box;
+}
+
+@media (max-width: 30rem) {
+  .cdk-menu-wrapper {
+    flex-wrap: wrap;
+    overflow: scroll;
+    max-width: 70vw;
+    max-height: 70vh;
+  }
 }

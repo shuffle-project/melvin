@@ -1,8 +1,7 @@
 @if (project) {
 
 <div class="mat-tab-content">
-  @if(authUser$ | ngrxPush; as authUser) { @if (authUser?.id ===
-  project.createdBy.id) {
+  @if(authUser$ | ngrxPush; as authUser) {
   <form #addMemberForm class="add-member-form">
     <mat-form-field>
       <mat-label i18n="@@inviteCollaboratorAddUserInputLabel"
@@ -45,9 +44,15 @@
         }
       </mat-autocomplete>
     </mat-form-field>
-    <button mat-flat-button (click)="inviteMember()">Invite</button>
+    <button
+      mat-flat-button
+      (click)="inviteMember()"
+      i18n="@@inviteCollaboratorInviteButtonLabel"
+    >
+      Invite
+    </button>
   </form>
-  }
+
   <h2 i18n="@@inviteCollaboratorHeadingAllUsers">People with access</h2>
 
   <ul
@@ -72,7 +77,7 @@
       <div class="part-in-project">
         @if (user.id === project.createdBy.id) {
         <span i18n="@@inviteCollaboratorOwnerInfo">Project Owner</span>
-        } @else if (authUser?.id === project.createdBy.id) {
+        } @if (user.id !== project.createdBy.id) {
         <button
           mat-stroked-button
           i18n="@@inviteCollaboratorRemoveButton"
@@ -95,7 +100,7 @@
       </p>
       <div class="general-access-buttons">
         <button
-          (click)="onClickCopyLink(inviteLink)"
+          (click)="onClickCopyLink()"
           i18n="@@inviteCollaboratorShareLinkButton"
           class="copy-button"
           mat-flat-button
@@ -104,7 +109,6 @@
           Copy link
         </button>
 
-        @if (authUser?.id === project.createdBy.id) {
         <button
           (click)="onClickUpdateInvite()"
           i18n="@@inviteCollaboratorGenerateNewLinkButton"
@@ -114,7 +118,6 @@
           <mat-icon svgIcon="change" />
           Generate new link, revoke old one
         </button>
-        }
       </div>
     </div>
   </div>

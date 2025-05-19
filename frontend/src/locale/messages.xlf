@@ -117,7 +117,7 @@
         <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;start&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/>Startpage </source>
       </trans-unit>
       <trans-unit id="headerMenuGuideButton" datatype="html">
-        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;book&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/>Didactic Guide </source>
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;book&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/>Best Practice </source>
       </trans-unit>
       <trans-unit id="headerMenuLogoutButton" datatype="html">
         <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;logout&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/>Logout </source>
@@ -801,7 +801,7 @@
         <source> Retry <x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;repeat&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/></source>
       </trans-unit>
       <trans-unit id="uploadRecordingTitle" datatype="html">
-        <source> Upload and Project creation</source>
+        <source>Project creation</source>
       </trans-unit>
       <trans-unit id="uploadRecordingLanguageFormIntroduction" datatype="html">
         <source> Please select the main language of the recording. </source>
@@ -936,7 +936,7 @@
         <source> Sorry, this page is still under development. Please come back at a later time. </source>
       </trans-unit>
       <trans-unit id="guideMainHeading" datatype="html">
-        <source>Didactic Guide</source>
+        <source>Best Practice</source>
       </trans-unit>
       <trans-unit id="guideSubHeading" datatype="html">
         <source> Didactic Recommendations – How to Use Melvin Effectively </source>
@@ -1317,7 +1317,7 @@
         <source>This feature is still under development.</source>
       </trans-unit>
       <trans-unit id="landingHeaderGuideLinkLabel" datatype="html">
-        <source> Didactic Guide </source>
+        <source> Best Practice </source>
       </trans-unit>
       <trans-unit id="landingHeaderTutorialLinkLabel" datatype="html">
         <source> Tutorial </source>
@@ -1425,7 +1425,7 @@
         <source>Tutorial - Melvin</source>
       </trans-unit>
       <trans-unit id="GuidePageTitle" datatype="html">
-        <source>Didactic Guide - Melvin</source>
+        <source>Best Practice - Melvin</source>
       </trans-unit>
       <trans-unit id="viewerAdjustLayoutDialogTitle" datatype="html">
         <source>Transcript settings</source>
@@ -1803,7 +1803,7 @@
         <source>Accessibility</source>
       </trans-unit>
       <trans-unit id="landingFooterDidacticGuideLinkLabel" datatype="html">
-        <source> Didactic Guide </source>
+        <source> Best Practice </source>
       </trans-unit>
       <trans-unit id="landingFooterFoundationLinkAriaLabel" datatype="html">
         <source>Foundation &apos;Stiftung Innovation in der Hochschullehre&apos;, opens in new tab</source>
@@ -1857,9 +1857,6 @@
         <source>A one-hour video is approximately 1 GB in size</source>
       </trans-unit>
       <trans-unit id="landingFooterInstallationLinkLabel" datatype="html">
-        <source> Installation </source>
-      </trans-unit>
-      <trans-unit id="landingHeaderInstallationLinkLabel" datatype="html">
         <source> Installation </source>
       </trans-unit>
       <trans-unit id="createProjectFailedWithError" datatype="html">
@@ -1921,6 +1918,9 @@
       </trans-unit>
       <trans-unit id="translateTranscriptionTabTitleHint" datatype="html">
         <source> Optional (e.g. with audio description) </source>
+      </trans-unit>
+      <trans-unit id="inviteCollaboratorInviteButtonLabel" datatype="html">
+        <source> Invite </source>
       </trans-unit>
     </body>
   </file>

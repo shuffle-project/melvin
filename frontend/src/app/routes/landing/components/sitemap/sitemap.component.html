@@ -9,14 +9,15 @@
   @if (locale?.includes('de')) {
 
   <ul>
+    @if ('guide' | featureEnabled) {
+    <li>
+      <a routerLink="/guide"> Best Practice </a>
+    </li>
+    }
+
     <li>
       <a routerLink="/privacy">Datenschutzerklärung</a>
     </li>
-    @if ('guide' | featureEnabled) {
-    <li>
-      <a routerLink="/guide"> Didaktik-Guide </a>
-    </li>
-    }
 
     <li>
       <a routerLink="/accessibility-statement"
@@ -58,7 +59,7 @@
     </li>
     @if ('guide' | featureEnabled) {
     <li>
-      <a routerLink="/guide"> Didactic-Guide </a>
+      <a routerLink="/guide"> Best Practice </a>
     </li>
     }
     <li>

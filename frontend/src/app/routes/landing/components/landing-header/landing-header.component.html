@@ -8,22 +8,13 @@
           @if ('guide' | featureEnabled) {
           <li>
             <a routerLink="/guide" i18n="@@landingHeaderGuideLinkLabel">
-              Didactic Guide
+              Best Practice
             </a>
           </li>
           } @if ('tutorial' | featureEnabled) {
           <li>
             <a routerLink="/tutorial" i18n="@@landingHeaderTutorialLinkLabel">
               Tutorial
-            </a>
-          </li>
-          } @if (('installation' | featureEnabled)) {
-          <li>
-            <a
-              routerLink="/installation"
-              i18n="@@landingHeaderInstallationLinkLabel"
-            >
-              Installation
             </a>
           </li>
           }
