@@ -144,7 +144,7 @@
       </trans-unit>
       <trans-unit id="editorShareProjectButtonLabel" datatype="html">
         <source> Share </source>
-        <target state="final"> Freigeben </target>
+        <target state="final"> Teilen </target>
       </trans-unit>
       <trans-unit id="editSpeakerMenuButtonLabel" datatype="html">
         <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;add&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/> Add speaker </source>
@@ -743,8 +743,8 @@
         <target state="final"> Bildschirmfreigabe hinzufügen </target>
       </trans-unit>
       <trans-unit id="uploadRecordingTitle" datatype="html">
-        <source> Upload and Project creation</source>
-        <target state="final"> Upload und Projekterstellung</target>
+        <source>Project creation</source>
+        <target state="final"> Projekterstellung</target>
       </trans-unit>
       <trans-unit id="uploadRecordingLanguageLabel" datatype="html">
         <source>Language</source>
@@ -1716,7 +1716,7 @@
       </trans-unit>
       <trans-unit id="uploadRecordingLanguageFormIntroduction" datatype="html">
         <source> Please select the main language of the recording. </source>
-        <target state="final">Bitte wähle die Hauptsprache der Aufnahme aus</target>
+        <target state="final">Bitte wähle die Hauptsprache der Aufnahme aus.</target>
       </trans-unit>
       <trans-unit id="uploadRecordingToProjectlistButton" datatype="html">
         <source> To Projectlist </source>
@@ -1835,12 +1835,12 @@
         <target state="final"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;plus&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/> Beispielprojekt erstellen </target>
       </trans-unit>
       <trans-unit id="landingHeaderGuideLinkLabel" datatype="html">
-        <source> Didactic Guide </source>
-        <target state="final"> Didaktik-Guide </target>
+        <source> Best Practice </source>
+        <target state="final"> Best Practice </target>
       </trans-unit>
       <trans-unit id="GuidePageTitle" datatype="html">
-        <source>Didactic Guide - Melvin</source>
-        <target state="final">Didaktik-Guide - Melvin</target>
+        <source>Best Practice - Melvin</source>
+        <target state="final">Best Practice - Melvin</target>
       </trans-unit>
       <trans-unit id="viewerControlsQualityTitle" datatype="html">
         <source> Max. Resolution </source>
@@ -1863,16 +1863,16 @@
         <target state="final"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;start&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/>Startseite </target>
       </trans-unit>
       <trans-unit id="headerMenuGuideButton" datatype="html">
-        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;book&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/>Didactic Guide </source>
-        <target state="final"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;book&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/>Didaktik-Guide </target>
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;book&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/>Best Practice </source>
+        <target state="final"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;book&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/>Best Practice </target>
       </trans-unit>
       <trans-unit id="editorSettingsHeadline" datatype="html">
         <source>Settings</source>
         <target state="final">Einstellungen</target>
       </trans-unit>
       <trans-unit id="guideMainHeading" datatype="html">
-        <source>Didactic Guide</source>
-        <target state="final">Didaktik-Guide</target>
+        <source>Best Practice</source>
+        <target state="final">Best Practice</target>
       </trans-unit>
       <trans-unit id="guideSubHeading" datatype="html">
         <source> Didactic Recommendations – How to Use Melvin Effectively </source>
@@ -2415,8 +2415,8 @@
         <target state="final">Anleitungen</target>
       </trans-unit>
       <trans-unit id="landingFooterDidacticGuideLinkLabel" datatype="html">
-        <source> Didactic Guide </source>
-        <target state="final"> Didaktik-Guide </target>
+        <source> Best Practice </source>
+        <target state="final"> Best Practice </target>
       </trans-unit>
       <trans-unit id="landingFooterAccessibilityHeader" datatype="html">
         <source>Accessibility</source>
@@ -2448,7 +2448,7 @@
       </trans-unit>
       <trans-unit id="installationTableGPUDescription" datatype="html">
         <source>CPU can be used for ASR, but is significantly slower.</source>
-        <target state="new"/>
+        <target state="final">Der Prozessor kann für die automatische Spracherkennung genutzt werden, ist aber deutlich langsamer.</target>
       </trans-unit>
       <trans-unit id="installationTableCPUComponent" datatype="html">
         <source>CPU</source>
@@ -2475,10 +2475,6 @@
         <target state="final">Arbeitsspeicher</target>
       </trans-unit>
       <trans-unit id="landingFooterInstallationLinkLabel" datatype="html">
-        <source> Installation </source>
-        <target state="final"> Installation </target>
-      </trans-unit>
-      <trans-unit id="landingHeaderInstallationLinkLabel" datatype="html">
         <source> Installation </source>
         <target state="final"> Installation </target>
       </trans-unit>
@@ -2573,6 +2569,10 @@
       <trans-unit id="projectListTableHeaderWatchLabel" datatype="html">
         <source> Watch </source>
         <target state="final"> Abspielen </target>
+      </trans-unit>
+      <trans-unit id="inviteCollaboratorInviteButtonLabel" datatype="html">
+        <source> Invite </source>
+        <target state="final"> Einladen </target>
       </trans-unit>
     </body>
   </file>
