@@ -45,7 +45,13 @@
         }
       </mat-autocomplete>
     </mat-form-field>
-    <button mat-flat-button (click)="inviteMember()">Invite</button>
+    <button
+      mat-flat-button
+      (click)="inviteMember()"
+      i18n="@@inviteCollaboratorInviteButtonLabel"
+    >
+      Invite
+    </button>
   </form>
   }
   <h2 i18n="@@inviteCollaboratorHeadingAllUsers">People with access</h2>

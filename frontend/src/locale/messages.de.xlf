@@ -743,8 +743,8 @@
         <target state="final"> Bildschirmfreigabe hinzufügen </target>
       </trans-unit>
       <trans-unit id="uploadRecordingTitle" datatype="html">
-        <source> Upload and Project creation</source>
-        <target state="final"> Upload und Projekterstellung</target>
+        <source>Project creation</source>
+        <target state="final"> Projekterstellung</target>
       </trans-unit>
       <trans-unit id="uploadRecordingLanguageLabel" datatype="html">
         <source>Language</source>
@@ -1716,7 +1716,7 @@
       </trans-unit>
       <trans-unit id="uploadRecordingLanguageFormIntroduction" datatype="html">
         <source> Please select the main language of the recording. </source>
-        <target state="final">Bitte wähle die Hauptsprache der Aufnahme aus</target>
+        <target state="final">Bitte wähle die Hauptsprache der Aufnahme aus.</target>
       </trans-unit>
       <trans-unit id="uploadRecordingToProjectlistButton" datatype="html">
         <source> To Projectlist </source>
@@ -2448,7 +2448,7 @@
       </trans-unit>
       <trans-unit id="installationTableGPUDescription" datatype="html">
         <source>CPU can be used for ASR, but is significantly slower.</source>
-        <target state="new"/>
+        <target state="final">Der Prozessor kann für die automatische Spracherkennung genutzt werden, ist aber deutlich langsamer.</target>
       </trans-unit>
       <trans-unit id="installationTableCPUComponent" datatype="html">
         <source>CPU</source>
@@ -2569,6 +2569,10 @@
       <trans-unit id="projectListTableHeaderWatchLabel" datatype="html">
         <source> Watch </source>
         <target state="final"> Abspielen </target>
+      </trans-unit>
+      <trans-unit id="inviteCollaboratorInviteButtonLabel" datatype="html">
+        <source> Invite </source>
+        <target state="final"> Einladen </target>
       </trans-unit>
     </body>
   </file>

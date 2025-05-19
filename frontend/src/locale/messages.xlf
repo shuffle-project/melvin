@@ -804,7 +804,7 @@
         <source> Retry <x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;repeat&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/></source>
       </trans-unit>
       <trans-unit id="uploadRecordingTitle" datatype="html">
-        <source> Upload and Project creation</source>
+        <source>Project creation</source>
       </trans-unit>
       <trans-unit id="uploadRecordingLanguageFormIntroduction" datatype="html">
         <source> Please select the main language of the recording. </source>
@@ -1927,6 +1927,9 @@
       </trans-unit>
       <trans-unit id="translateTranscriptionTabVendorLabel" datatype="html">
         <source>Vendor</source>
+      </trans-unit>
+      <trans-unit id="inviteCollaboratorInviteButtonLabel" datatype="html">
+        <source> Invite </source>
       </trans-unit>
     </body>
   </file>
