@@ -127,9 +127,16 @@
         <a mat-menu-item routerLink="/" i18n="@@headerMenuStartpageButton">
           <mat-icon svgIcon="start"></mat-icon>Startpage
         </a>
-        <a mat-menu-item routerLink="/guide" i18n="@@headerMenuGuideButton">
+        <a mat-menu-item routerLink="/guide">
           <mat-icon svgIcon="book"></mat-icon>Best Practice
         </a>
+        @if ('tutorial' | featureEnabled) {
+        <a routerLink="/tutorial" mat-menu-item>
+          <mat-icon svgIcon="tutorial"></mat-icon>
+          Tutorial
+        </a>
+        }
+
         <button
           mat-menu-item
           (click)="logout()"
@@ -137,18 +144,6 @@
         >
           <mat-icon svgIcon="logout"></mat-icon>Logout
         </button>
-
-        @if (('tutorial' | featureEnabled)) {
-        <mat-divider />
-        } @if (('tutorial' | featureEnabled)) {
-
-        <a
-          i18n="@@headerMenuTutorialButton"
-          routerLink="/tutorial"
-          mat-menu-item
-          >Tutorial</a
-        >
-        }
       </mat-menu>
     </div>
   </div>

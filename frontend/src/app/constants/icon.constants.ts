@@ -101,6 +101,7 @@ export const ICONS = [
   'transcription-file',
   'translate-transcription',
   'transcription-viewer',
+  'tutorial',
   'upload-transcription',
   'upload',
   'video',

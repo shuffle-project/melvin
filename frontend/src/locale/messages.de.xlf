@@ -1728,7 +1728,7 @@
       </trans-unit>
       <trans-unit id="playerTranscriptAutomaticScrollLabelMobile" datatype="html">
         <source> Auto scroll </source>
-        <target state="final"> Auto scrollen </target>
+        <target state="final"> Mitscrollen </target>
       </trans-unit>
       <trans-unit id="landingHeaderToTheProjectsButton" datatype="html">
         <source>To the projects</source>
