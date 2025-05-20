@@ -220,12 +220,6 @@ export const LANGUAGES: Language[] = [
   //   englishName: 'Dzongkha',
   //   germanName: 'Dzongkha',
   // },
-
-  {
-    code: 'en',
-    englishName: 'English',
-    germanName: 'Englisch',
-  },
   {
     code: 'en-GB',
     englishName: 'English (GB)',

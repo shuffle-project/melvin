@@ -2,8 +2,8 @@
   Translate an existing transcription
 </h2>
 
-@if(translationServices$ | ngrxPush; as translationServices ){ @if
-(translationServices.length !== 0){
+@if(translationLanguages$ | ngrxPush; as translationLanguages ){ @if
+(translationLanguages.length !== 0){
 <form [formGroup]="transcriptionGroup">
   <div class="transcription-language-wrapper">
     <mat-form-field class="transcription-dropdown">

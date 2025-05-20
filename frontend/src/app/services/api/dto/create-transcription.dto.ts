@@ -26,6 +26,7 @@ export enum TranslateVendors {
   LIBRE = 'libreTranslate',
   DEEPL = 'deepl',
   GOOGLE = 'googleTranslate',
+  MELVIN = 'melvin',
 }
 
 export enum AsrVendors {

@@ -14,13 +14,12 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { PushPipe } from '@ngrx/component';
 import { Store } from '@ngrx/store';
-import { Subject, takeUntil } from 'rxjs';
+import { Subject } from 'rxjs';
 import { WrittenOutLanguagePipe } from 'src/app/pipes/written-out-language-pipe/written-out-language.pipe';
-import { CreateTranscriptionDto } from 'src/app/services/api/dto/create-transcription.dto';
 import {
-  LanguageShort,
-  TranslationServiceConfig,
-} from 'src/app/services/api/entities/config.entity';
+  CreateTranscriptionDto,
+  TranslateVendors,
+} from 'src/app/services/api/dto/create-transcription.dto';
 import { TranscriptionEntity } from 'src/app/services/api/entities/transcription.entity';
 import { AppState } from 'src/app/store/app.state';
 import * as transcriptionsActions from '../../../../../../../../..//store/actions/transcriptions.actions';
@@ -50,28 +49,13 @@ export class TranslateTranscriptionComponent implements OnDestroy {
   writtenOutLanguagePipe = inject(WrittenOutLanguagePipe);
   dialogRef = inject(MatDialogRef<CreateTranscriptionDialogComponent>);
 
-  public translationServices$ = this.store.select(
-    configSelectors.translationServiceConfig
+  public translationLanguages$ = this.store.select(
+    configSelectors.getSupportedTranslationLanguages
   );
-
-  private translationServices!: TranslationServiceConfig;
-
-  public translationLanguages!: LanguageShort[];
 
   private destroy$$ = new Subject<void>();
 
-  constructor(private store: Store<AppState>) {
-    this.translationServices$
-      .pipe(takeUntil(this.destroy$$))
-      .subscribe((services) => {
-        const melvinService = services.find((s) => s.fullName === 'Melvin');
-
-        if (melvinService) {
-          this.translationServices = melvinService;
-          this.translationLanguages = melvinService.languages;
-        }
-      });
-  }
+  constructor(private store: Store<AppState>) {}
 
   transcriptionGroup = new FormGroup({
     title: new FormControl<string>('', {
@@ -106,7 +90,7 @@ export class TranslateTranscriptionComponent implements OnDestroy {
       language,
       translateDto: {
         sourceTranscriptionId: transcription,
-        vendor: this.translationServices.translateVendor,
+        vendor: TranslateVendors.MELVIN,
         targetLanguage: language,
       },
     };
