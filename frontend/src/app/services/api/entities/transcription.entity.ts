@@ -1,3 +1,10 @@
+export enum TranscriptionStatus {
+  WAITING = 'waiting',
+  PROCESSING = 'processing',
+  OK = 'ok',
+  ERROR = 'error',
+}
+
 export interface TranscriptionEntity {
   id: string;
   createdAt: string;
@@ -7,6 +14,7 @@ export interface TranscriptionEntity {
   title: string;
   language: string;
   speakers: SpeakerEntity[];
+  transcriptionStatus: TranscriptionStatus;
 }
 export interface ShortTranscriptionEntity {
   id: string;
