@@ -221,7 +221,7 @@ export class SubtitlesProcessor {
       systemUser,
       transcription._id.toString(),
       {
-        names: ['Sprecher 1'],
+        names: ['Person 1'],
       },
     );
     await this.importSubtitlesService.fromFile(
@@ -242,7 +242,7 @@ export class SubtitlesProcessor {
       systemUser,
       transcription._id.toString(),
       {
-        names: ['Sprecher 1'],
+        names: ['Person 1'],
       },
     );
 
