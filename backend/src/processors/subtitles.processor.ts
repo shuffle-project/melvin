@@ -264,7 +264,9 @@ export class SubtitlesProcessor {
       sysUser,
       payload.sourceTranscriptionId,
     );
+
     target.language = payload.targetLanguage;
+
     await this.translationService.translateTranscription(
       project,
       source,
