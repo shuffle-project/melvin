@@ -1,20 +1,101 @@
 <div class="landing-subpage-wrapper">
   <h1>Tutorial</h1>
-
-  <h2>Create Videos</h2>
-  <h3>Record videos in the browser</h3>
+  <p>
+    The following videos show an earlier version of the web application. Minor
+    differences – such as labels or element positions – may therefore occur.
+    However, they still provide reliable guidance. The respective text versions
+    have been updated and reflect the current state.
+  </p>
+  <h2>Creating Videos</h2>
+  <p>
+    With Melvin, you can record new videos directly in your browser or upload
+    existing ones.
+  </p>
+  <h3>Record Videos in the Browser</h3>
   <mat-tab-group>
     <mat-tab label="Text">
-      <ul>
+      <app-tutorial-list [tutorialList]="recordTutorial" />
+      <!-- <ul>
         <li class="step">
           <p class="number">01.</p>
-          <div class="content">test</div>
+          <div class="content">
+            <p>
+              Click on <strong>“New Project”</strong> above your project list
+              and select <strong>“Recorder”</strong> from the drop-down menu.
+            </p>
+          </div>
         </li>
         <li class="step">
           <p class="number">02.</p>
-          <div class="content">test</div>
+          <div class="content">
+            <p>
+              You are now on the recorder page. Add your desired input sources
+              here (e.g., microphone, camera, or screen). At least
+              <strong>one audio source</strong> and
+              <strong>one video or screen source</strong> are required to start
+              recording.
+            </p>
+            <div class="info">
+              <mat-icon svgIcon="info"></mat-icon>
+              <p>
+                The browser will request permission the first time. Allow access
+                when prompted. If no prompt appears, search online for: “[Your
+                browser, e.g., Firefox] [microphone / camera / screen] allow
+                permissions”
+              </p>
+            </div>
+          </div>
         </li>
-      </ul>
+        <li class="step">
+          <p class="number">03.</p>
+          <div class="content">
+            <p>
+              The audio level indicator shows whether your microphone is picking
+              up sound.
+            </p>
+          </div>
+        </li>
+        <li class="step">
+          <p class="number">04.</p>
+          <div class="content">
+            <p>
+              Start recording by clicking <strong>“Start recording”</strong>.
+              Please note that you cannot add or remove input sources during the
+              recording.
+            </p>
+          </div>
+        </li>
+        <li class="step">
+          <p class="number">05.</p>
+          <div class="content">
+            <p>
+              After clicking <strong>“Stop recording”</strong>, the
+              <strong>“Project Creation”</strong> dialog opens automatically.
+              Specify the primary language of the recording to enable file
+              upload and initiate project creation. To save individual files
+              locally, use the download button located beside each file.
+            </p>
+
+            <div class="info">
+              <mat-icon svgIcon="info"></mat-icon>
+              <p>
+                If you experience upload issues, save the video locally and use
+                the “Upload Existing Video” function later (see below).
+              </p>
+            </div>
+          </div>
+        </li>
+        <li class="step">
+          <p class="number">06.</p>
+          <div class="content">
+            <p>
+              Once the project is created, your recording will appear in the
+              project list. Processing may take some time depending on the video
+              length.
+            </p>
+          </div>
+        </li>
+      </ul> -->
     </mat-tab>
     <mat-tab label="Video">
       <iframe
@@ -29,7 +110,7 @@
     </mat-tab>
   </mat-tab-group>
 
-  <h3>YYYYY</h3>
+  <h3>Upload Existing Videos</h3>
   <mat-tab-group>
     <mat-tab label="Text"> </mat-tab>
     <mat-tab label="Video">
