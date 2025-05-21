@@ -9,6 +9,7 @@ import {
 import { Job, JobStatus, Queue } from 'bull';
 import { plainToInstance } from 'class-transformer';
 import { rm } from 'fs/promises';
+import { TranscriptionStatus } from 'src/modules/db/schemas/transcription.schema';
 import { DbService } from '../modules/db/db.service';
 import { Project, ProjectStatus } from '../modules/db/schemas/project.schema';
 import { CustomLogger } from '../modules/logger/logger.service';
@@ -118,13 +119,21 @@ export class SubtitlesProcessor {
 
   @OnQueueActive()
   async activeHandler(job: Job<ProcessSubtitlesJob>) {
-    const { project } = job.data;
+    const { project, transcription } = job.data;
 
-    if (project.status !== ProjectStatus.PROCESSING) {
-      const systemUser = await this.authService.findSystemAuthUser();
-      await this.projectService.update(systemUser, project._id.toString(), {
-        status: ProjectStatus.PROCESSING,
-      });
+    if (transcription.status !== TranscriptionStatus.PROCESSING) {
+      // const systemUser = await this.authService.findSystemAuthUser();
+      // await this.projectService.update(systemUser, project._id.toString(), {
+      //   status: ProjectStatus.PROCESSING,
+      // });
+      await this.db.transcriptionModel
+        .findByIdAndUpdate(transcription._id, {
+          $set: {
+            status: TranscriptionStatus.PROCESSING,
+          },
+        })
+        .lean()
+        .exec();
     }
 
     this.logger.verbose(
@@ -136,7 +145,7 @@ export class SubtitlesProcessor {
 
   @OnQueueCompleted()
   async completeHandler(job: Job<ProcessSubtitlesJob>, result: any) {
-    const { project, payload } = job.data;
+    const { project, payload, transcription } = job.data;
     const systemUser = await this.authService.findSystemAuthUser();
 
     await this.activityService.create(
@@ -162,6 +171,15 @@ export class SubtitlesProcessor {
       });
     }
 
+    await this.db.transcriptionModel
+      .findByIdAndUpdate(transcription._id, {
+        $set: {
+          status: TranscriptionStatus.OK,
+        },
+      })
+      .lean()
+      .exec();
+
     // remove temp file
     if (payload.type === SubtitlesType.FROM_FILE) {
       const { file } = payload;
@@ -182,7 +200,7 @@ export class SubtitlesProcessor {
 
   @OnQueueFailed()
   async failHandler(job: Job<ProcessSubtitlesJob>, err: Error) {
-    const { project } = job.data;
+    const { project, transcription } = job.data;
 
     const systemUser = await this.authService.findSystemAuthUser();
 
@@ -194,9 +212,17 @@ export class SubtitlesProcessor {
     );
 
     try {
-      await this.projectService.update(systemUser, project._id.toString(), {
-        status: ProjectStatus.ERROR,
-      });
+      // await this.projectService.update(systemUser, project._id.toString(), {
+      //   status: ProjectStatus.ERROR,
+      // });
+      await this.db.transcriptionModel
+        .findByIdAndUpdate(transcription._id, {
+          $set: {
+            status: TranscriptionStatus.ERROR,
+          },
+        })
+        .lean()
+        .exec();
 
       this.logger.error(
         `Subtitle creation FAIL: Job ${
