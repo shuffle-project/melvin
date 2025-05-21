@@ -2,7 +2,10 @@ import {
   CaptionEntity,
   CaptionStatusEnum,
 } from '../../services/api/entities/caption.entity';
-import { TranscriptionEntity } from '../../services/api/entities/transcription.entity';
+import {
+  TranscriptionEntity,
+  TranscriptionStatus,
+} from '../../services/api/entities/transcription.entity';
 
 export const CAPTIONS_ENTITY_MOCK: CaptionEntity[] = [
   {
@@ -41,6 +44,7 @@ export const TRANSCIRPTIONS_ENITITY_MOCK: TranscriptionEntity[] = [
     project: '6200e98c9f6b0de828dbe34a',
     title: 'German',
     language: 'de-DE',
+    transcriptionStatus: TranscriptionStatus.OK,
     speakers: [
       {
         id: '6200e99681b1aa5840db08a5',
