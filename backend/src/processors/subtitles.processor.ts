@@ -6,12 +6,12 @@ import {
   Process,
   Processor,
 } from '@nestjs/bull';
-import { Job, JobStatus, Queue } from 'bull';
+import { Job, Queue } from 'bull';
 import { plainToInstance } from 'class-transformer';
 import { rm } from 'fs/promises';
 import { TranscriptionStatus } from 'src/modules/db/schemas/transcription.schema';
 import { DbService } from '../modules/db/db.service';
-import { Project, ProjectStatus } from '../modules/db/schemas/project.schema';
+import { Project } from '../modules/db/schemas/project.schema';
 import { CustomLogger } from '../modules/logger/logger.service';
 import { PathService } from '../modules/path/path.service';
 import { SpeechToTextService } from '../modules/speech-to-text/speech-to-text.service';
@@ -37,7 +37,6 @@ import {
   SubtitlesType,
   TranslationPayload,
 } from './processor.interfaces';
-import { jobWithProjectIdExists } from './processor.utils';
 
 @Processor('subtitles')
 export class SubtitlesProcessor {
@@ -122,7 +121,6 @@ export class SubtitlesProcessor {
     const { project, transcription } = job.data;
 
     if (transcription.status !== TranscriptionStatus.PROCESSING) {
-      // const systemUser = await this.authService.findSystemAuthUser();
       // await this.projectService.update(systemUser, project._id.toString(), {
       //   status: ProjectStatus.PROCESSING,
       // });
@@ -135,6 +133,14 @@ export class SubtitlesProcessor {
         .lean()
         .exec();
     }
+
+    const systemUser = await this.authService.findSystemAuthUser();
+    const updatedTranscription = await this.transcriptionService.findOne(
+      systemUser,
+      transcription._id.toString(),
+    );
+    const entity = plainToInstance(TranscriptionEntity, updatedTranscription);
+    this.events.transcriptionUpdated(project, entity);
 
     this.logger.verbose(
       `Subtitle creation START: Job ${
@@ -155,21 +161,21 @@ export class SubtitlesProcessor {
       { transcription: job.data.transcription },
     );
 
-    const jobTypes: JobStatus[] = ['active', 'paused', 'waiting', 'delayed'];
-    const subtitleJobs = await job.queue.getJobs(jobTypes);
-    const projectJobs = await this.projectQueue.getJobs(jobTypes);
-    // if there are no more project jobs, set status to draft
-    const projectJobExists = jobWithProjectIdExists(
-      project._id.toString(),
-      subtitleJobs,
-      projectJobs,
-    );
+    // const jobTypes: JobStatus[] = ['active', 'paused', 'waiting', 'delayed'];
+    // const subtitleJobs = await job.queue.getJobs(jobTypes);
+    // const projectJobs = await this.projectQueue.getJobs(jobTypes);
+    // // if there are no more project jobs, set status to draft
+    // const projectJobExists = jobWithProjectIdExists(
+    //   project._id.toString(),
+    //   subtitleJobs,
+    //   projectJobs,
+    // );
 
-    if (!projectJobExists) {
-      await this.projectService.update(systemUser, project._id.toString(), {
-        status: ProjectStatus.DRAFT,
-      });
-    }
+    // if (!projectJobExists) {
+    //   await this.projectService.update(systemUser, project._id.toString(), {
+    //     status: ProjectStatus.DRAFT,
+    //   });
+    // }
 
     await this.db.transcriptionModel
       .findByIdAndUpdate(transcription._id, {
@@ -179,6 +185,13 @@ export class SubtitlesProcessor {
       })
       .lean()
       .exec();
+
+    const updatedTranscription = await this.transcriptionService.findOne(
+      systemUser,
+      transcription._id.toString(),
+    );
+    const entity = plainToInstance(TranscriptionEntity, updatedTranscription);
+    this.events.transcriptionUpdated(project, entity);
 
     // remove temp file
     if (payload.type === SubtitlesType.FROM_FILE) {

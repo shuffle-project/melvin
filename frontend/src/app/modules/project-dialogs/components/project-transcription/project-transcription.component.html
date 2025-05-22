@@ -28,24 +28,21 @@
       <div class="language-wrapper">
         <span>{{ element.language | writtenOutLanguage }}</span>
 
-        @if (element.transcriptionStatus !== undefined &&
-        element.transcriptionStatus !== tStatus.OK ) {
-        <mat-chip [ngClass]="element.transcriptionStatus">
+        @if (element.status !== undefined && element.status !== tStatus.OK ) {
+        <mat-chip [ngClass]="element.status">
           <mat-icon
             matChipAvatar
             class="status-icon"
-            [ngClass]="element.transcriptionStatus"
+            [ngClass]="element.status"
             [svgIcon]="
-              element.transcriptionStatus === tStatus.WAITING
+              element.status === tStatus.WAITING
                 ? 'pause'
-                : element.transcriptionStatus === tStatus.ERROR
+                : element.status === tStatus.ERROR
                 ? 'warning'
                 : 'setting'
             "
           ></mat-icon>
-          <span class="nowrap">{{
-            element.transcriptionStatus | readableStatus
-          }}</span>
+          <span class="nowrap">{{ element.status | readableStatus }}</span>
         </mat-chip>
         }
       </div>
@@ -110,8 +107,7 @@
         [matMenuTriggerFor]="transcriptionMenu"
         [matMenuTriggerData]="{ transcription: element }"
         [disabled]="
-          element.transcriptionStatus !== undefined &&
-          element.transcriptionStatus !== tStatus.OK
+          element.status !== undefined && element.status !== tStatus.OK
         "
       >
         <mat-icon svgIcon="more" />

@@ -44,7 +44,7 @@ export const TRANSCIRPTIONS_ENITITY_MOCK: TranscriptionEntity[] = [
     project: '6200e98c9f6b0de828dbe34a',
     title: 'German',
     language: 'de-DE',
-    transcriptionStatus: TranscriptionStatus.OK,
+    status: TranscriptionStatus.OK,
     speakers: [
       {
         id: '6200e99681b1aa5840db08a5',

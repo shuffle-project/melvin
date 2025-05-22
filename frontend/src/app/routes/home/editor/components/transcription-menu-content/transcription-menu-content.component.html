@@ -4,21 +4,17 @@
     <button
       (click)="onSelectTranscription(t.id)"
       mat-menu-item
-      [disabled]="
-        t.transcriptionStatus !== tStatus.OK &&
-        t.transcriptionStatus !== undefined
-      "
-      [class]="t.transcriptionStatus"
+      [disabled]="t.status !== tStatus.OK && t.status !== undefined"
+      [class]="t.status"
     >
-      @if(t.transcriptionStatus !== undefined && t.transcriptionStatus !==
-      tStatus.OK) {
+      @if(t.status !== undefined && t.status !== tStatus.OK) {
       <mat-icon
         class="status-icon"
-        [class]="t.transcriptionStatus"
+        [class]="t.status"
         [svgIcon]="
-          t.transcriptionStatus === tStatus.WAITING
+          t.status === tStatus.WAITING
             ? 'pause'
-            : t.transcriptionStatus === tStatus.ERROR
+            : t.status === tStatus.ERROR
             ? 'warning'
             : 'setting'
         "
@@ -31,10 +27,9 @@
       }
 
       <div class="button-label-wrapper">
-        @if (t.transcriptionStatus !== undefined && t.transcriptionStatus !==
-        tStatus.OK ) {
+        @if (t.status !== undefined && t.status !== tStatus.OK ) {
         <span class="status">
-          {{ t.transcriptionStatus | readableStatus }}
+          {{ t.status | readableStatus }}
         </span>
         }
         <span>

@@ -14,22 +14,18 @@ export interface TranscriptionEntity {
   title: string;
   language: string;
   speakers: SpeakerEntity[];
-  transcriptionStatus: TranscriptionStatus;
+  status: TranscriptionStatus;
 }
 export interface ShortTranscriptionEntity {
   id: string;
   language: string;
+  status: TranscriptionStatus;
 }
 
 export interface SpeakerEntity {
   id: string;
   updatedAt: string;
   name: string;
-}
-
-export interface ShortTranscriptionEntity {
-  id: string;
-  language: string;
 }
 
 export enum SubtitleFormat {
