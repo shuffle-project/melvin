@@ -60,24 +60,28 @@ h2,
   padding-inline: 1.25rem;
   line-height: 170%;
 
-  &.fontsize-80 {
-    font-size: 0.875rem;
-  }
-
   &.fontsize-100 {
-    font-size: 1rem;
+    font-size: 100%;
   }
 
-  &.fontsize-120 {
-    font-size: 1.125rem;
+  &.fontsize-150 {
+    font-size: 150%;
   }
 
-  &.fontsize-140 {
-    font-size: 1.25rem;
+  &.fontsize-200 {
+    font-size: 200%;
   }
 
-  &.fontsize-160 {
-    font-size: 1.375rem;
+  &.fontsize-250 {
+    font-size: 250%;
+  }
+
+  &.fontsize-300 {
+    font-size: 300%;
+  }
+
+  &.fontsize-400 {
+    font-size: 400%;
   }
 
   .transcript-paragraph {

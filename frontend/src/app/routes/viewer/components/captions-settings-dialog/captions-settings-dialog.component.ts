@@ -28,12 +28,12 @@ export enum ColorOptions {
 }
 
 export enum SizeOptions {
-  P80 = '80',
   P100 = '100',
-  P120 = '120',
-  P140 = '140',
-  P160 = '160',
+  P150 = '150',
   P200 = '200',
+  P250 = '250',
+  P300 = '300',
+  P400 = '400',
 }
 
 export enum CaptionPositionOptions {
@@ -42,21 +42,21 @@ export enum CaptionPositionOptions {
 }
 
 @Component({
-    selector: 'app-captions-settings-dialog',
-    templateUrl: './captions-settings-dialog.component.html',
-    styleUrls: ['./captions-settings-dialog.component.scss'],
-    imports: [
-        MatDialogTitle,
-        MatDialogContent,
-        MatButtonModule,
-        MatDialogClose,
-        MatIconModule,
-        LetDirective,
-        MatFormFieldModule,
-        MatSelectModule,
-        MatOptionModule,
-        NgStyle,
-    ]
+  selector: 'app-captions-settings-dialog',
+  templateUrl: './captions-settings-dialog.component.html',
+  styleUrls: ['./captions-settings-dialog.component.scss'],
+  imports: [
+    MatDialogTitle,
+    MatDialogContent,
+    MatButtonModule,
+    MatDialogClose,
+    MatIconModule,
+    LetDirective,
+    MatFormFieldModule,
+    MatSelectModule,
+    MatOptionModule,
+    NgStyle,
+  ],
 })
 export class CaptionsSettingsDialogComponent {
   ColorOptions = ColorOptions;
