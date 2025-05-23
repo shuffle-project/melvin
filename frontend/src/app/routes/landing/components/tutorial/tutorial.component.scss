@@ -47,6 +47,14 @@ ol {
       flex-direction: column;
       gap: 1.25rem;
 
+      img {
+        width: 100%;
+        height: auto;
+
+        border: 1px solid var(--color-border-grey);
+        border-radius: 0.625rem;
+      }
+
       p {
         margin: 0;
       }
