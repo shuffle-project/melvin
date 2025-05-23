@@ -1,7 +1,13 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { ApiProperty } from '@nestjs/swagger';
 import { Exclude, Expose, Transform, Type } from 'class-transformer';
-import { IsDate, IsMongoId, IsOptional, IsString } from 'class-validator';
+import {
+  IsDate,
+  IsEnum,
+  IsMongoId,
+  IsOptional,
+  IsString,
+} from 'class-validator';
 import { HydratedDocument, PopulatedDoc, SchemaTypes, Types } from 'mongoose';
 import {
   EXAMPLE_PROJECT,
@@ -11,6 +17,13 @@ import {
 } from '../../../constants/example.constants';
 import { Project } from './project.schema';
 import { User } from './user.schema';
+
+export enum TranscriptionStatus {
+  WAITING = 'waiting',
+  PROCESSING = 'processing',
+  OK = 'ok',
+  ERROR = 'error',
+}
 
 export type TranscriptionDocument = HydratedDocument<Transcription>;
 
@@ -92,6 +105,11 @@ export class Transcription {
   @Prop()
   @Type(() => Speaker)
   speakers: Speaker[];
+
+  @ApiProperty({ enum: TranscriptionStatus, example: TranscriptionStatus.OK })
+  @Prop()
+  @IsEnum(TranscriptionStatus)
+  status: TranscriptionStatus;
 
   @Prop({ type: SchemaTypes.Buffer })
   ydoc: Uint8Array;

@@ -58,7 +58,6 @@ import { UserTestControlsComponent } from './components/user-test-controls/user-
 import { VideoControlsComponent } from './components/video-controls/video-controls/video-controls.component';
 import { VideoPlayerComponent } from './components/video-player/video-player.component';
 import { WaveformComponent } from './components/waveform/waveform.component';
-import { MediaService } from './service/media/media.service';
 
 @Component({
   selector: 'app-editor',
@@ -85,11 +84,11 @@ import { MediaService } from './service/media/media.service';
     PushPipe,
     FeatureEnabledPipe,
     TiptapEditorComponent,
-    WrittenOutLanguagePipe,
     MediaCategoryPipe,
     VideoControlsComponent,
     ShortcutsComponent,
     TranscriptionMenuContentComponent,
+    WrittenOutLanguagePipe,
   ],
 })
 export class EditorComponent implements OnInit, OnDestroy {
@@ -130,6 +129,7 @@ export class EditorComponent implements OnInit, OnDestroy {
   public transcriptionsList$ = this.store.select(
     transcriptionsSelectors.selectTranscriptionList
   );
+
   public selectedTranscriptionId$ = this.store.select(
     transcriptionsSelectors.selectTranscriptionId
   );
@@ -151,7 +151,6 @@ export class EditorComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private dialog: MatDialog,
     private api: ApiService,
-    private mediaService: MediaService,
     private appService: AppService,
     public livestreamService: LivestreamService,
     public httpClient: HttpClient,

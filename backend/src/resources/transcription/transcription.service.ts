@@ -9,6 +9,7 @@ import { LeanProjectDocument } from '../../modules/db/schemas/project.schema';
 import {
   LeanTranscriptionDocument,
   Speaker,
+  TranscriptionStatus,
 } from '../../modules/db/schemas/transcription.schema';
 import { PermissionsService } from '../../modules/permissions/permissions.service';
 import { ExportSubtitlesService } from '../../modules/subtitle-format/export-subtitles.service';
@@ -87,7 +88,8 @@ export class TranscriptionService {
         createdBy: authUser.id,
         _id: transcriptionId,
         project: projectId,
-      }),
+        status: TranscriptionStatus.WAITING,
+      }), // ,{populate:'createdBy'}
       this.db.updateProjectByIdAndReturn(projectId as Types.ObjectId, {
         $push: { transcriptions: transcriptionId },
       }),
@@ -171,6 +173,15 @@ export class TranscriptionService {
       });
     } else {
       // empty transcription
+      await this.db.transcriptionModel
+        .findByIdAndUpdate(transcription._id, {
+          $set: {
+            status: TranscriptionStatus.OK,
+          },
+        })
+        .lean()
+        .exec();
+      entity.status = TranscriptionStatus.OK;
     }
 
     const projectEntity = plainToInstance(ProjectEntity, updatedProject);
