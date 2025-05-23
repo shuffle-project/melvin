@@ -71,3 +71,12 @@ ol {
     }
   }
 }
+
+@media (max-width: 31.25rem) {
+  ol {
+    li {
+      display: flex;
+      flex-direction: column;
+    }
+  }
+}
