@@ -215,7 +215,6 @@ export class TranslationService {
             end: 0,
             text: paragraph.content.map((x) => x.text).join(''),
             words: paragraph.content.map((word) => {
-              console.log(word.marks[0].attrs);
               return {
                 text: word.text,
                 start: (word.marks[0].attrs.start / 1000) | 0,

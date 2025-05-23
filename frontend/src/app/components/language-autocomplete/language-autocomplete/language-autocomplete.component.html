@@ -16,7 +16,7 @@
   >
     @for (language of filteredLanguages; track language.code) {
     <mat-option [value]="language">
-      {{ language.name }}
+      {{ language.name }} ({{ language.code }})
     </mat-option>
     }
   </mat-autocomplete>
