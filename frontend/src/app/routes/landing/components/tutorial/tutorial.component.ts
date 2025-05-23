@@ -13,13 +13,6 @@ export class TutorialComponent {
   constructor(private router: Router, private route: ActivatedRoute) {}
 
   ngOnInit(): void {
-    // if (!this.route.snapshot.fragment) {
-    //   const element = document.getElementById('tutorial-heading');
-    //   if (element) {
-    //     element.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    //   }
-    // }
-
     this.router.events.subscribe(() => {
       const fragment = this.route.snapshot.fragment;
       if (fragment) {
