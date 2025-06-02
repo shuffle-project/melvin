@@ -19,6 +19,7 @@ import {
   ProjectStatus,
   Video,
 } from '../db/schemas/project.schema';
+import { TranscriptionStatus } from '../db/schemas/transcription.schema';
 import { FfmpegService } from '../ffmpeg/ffmpeg.service';
 import { CustomLogger } from '../logger/logger.service';
 import { PathService } from '../path/path.service';
@@ -117,6 +118,25 @@ export class MigrationService {
       settings.dbSchemaVersion = 6;
       await settings.save();
       this.logger.info('Migration to version 6 successful');
+    }
+
+    if (settings.dbSchemaVersion < 7) {
+      this.logger.info('Migrate to version 7 - set transcription status');
+
+      await this.db.transcriptionModel
+        .updateMany(
+          {},
+          {
+            $set: {
+              status: TranscriptionStatus.OK,
+            },
+          },
+        )
+        .exec();
+
+      settings.dbSchemaVersion = 7;
+      await settings.save();
+      this.logger.info('Migration to version 7 successful');
     }
   }
 

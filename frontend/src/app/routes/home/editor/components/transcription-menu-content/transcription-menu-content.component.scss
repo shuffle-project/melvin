@@ -8,3 +8,18 @@
   font-size: 0.625rem;
   color: rgba(var(--color-black-rgb), 0.7);
 }
+
+.mat-mdc-menu-item {
+  .button-label-wrapper {
+    display: flex;
+    flex-direction: column;
+
+    .status {
+      font-size: 0.75rem;
+    }
+  }
+
+  &:disabled {
+    opacity: 100%;
+  }
+}

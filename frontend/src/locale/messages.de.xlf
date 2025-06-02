@@ -1514,10 +1514,6 @@
         <source> Language </source>
         <target state="final"> Sprache </target>
       </trans-unit>
-      <trans-unit id="dialogCreateProjectLanguageErrorRequired" datatype="html">
-        <source> Language is required </source>
-        <target state="final"> Sprache benötigt </target>
-      </trans-unit>
       <trans-unit id="dialogCreateProjectTableHeaderUseAudio" datatype="html">
         <source> Use Audio </source>
         <target state="final"> Ton nutzen </target>
@@ -2516,43 +2512,19 @@
       </trans-unit>
       <trans-unit id="translateTranscriptionTabHeading" datatype="html">
         <source> Translate an existing transcription </source>
-        <target state="new"> Translate an existing transcription </target>
+        <target state="final"> Eine bestehende Transkription übersetzen </target>
       </trans-unit>
       <trans-unit id="translateTranscriptionTabTranscriptionErrorRequired" datatype="html">
         <source>Select a transcription</source>
-        <target state="new">Select a transcription</target>
+        <target state="final">Transkription benötigt</target>
       </trans-unit>
-      <trans-unit id="translateTranscriptionTabVendorLabel" datatype="html">
-        <source>Vendor</source>
-        <target state="new">Vendor</target>
-      </trans-unit>
-      <trans-unit id="translateTranscriptionTabVendorHint" datatype="html">
-        <source>Languages are vendor dependent </source>
-        <target state="new">Languages are vendor dependent </target>
-      </trans-unit>
-      <trans-unit id="translateTranscriptionTabVendorErrorRequired" datatype="html">
-        <source>Select a vendor</source>
-        <target state="new">Select a vendor</target>
-      </trans-unit>
-      <trans-unit id="translateTranscriptionTabLanguageLabel" datatype="html">
+      <trans-unit id="languageAutoCompleteLanguageLabel" datatype="html">
         <source>Language</source>
-        <target state="new">Language</target>
-      </trans-unit>
-      <trans-unit id="translateTranscriptionTabLanguageHint" datatype="html">
-        <source>Select a vendor first</source>
-        <target state="new">Select a vendor first</target>
-      </trans-unit>
-      <trans-unit id="translateTranscriptionTabLanguageErrorRequired" datatype="html">
-        <source>Select a language </source>
-        <target state="new">Select a language </target>
+        <target state="final">Sprache</target>
       </trans-unit>
       <trans-unit id="translateTranscriptionTabTitleLabel" datatype="html">
         <source>Title</source>
-        <target state="new">Title</target>
-      </trans-unit>
-      <trans-unit id="translateTranscriptionTabTitleErrorRequired" datatype="html">
-        <source>Title is required</source>
-        <target state="new">Title is required</target>
+        <target state="final">Titel</target>
       </trans-unit>
       <trans-unit id="translateTranscriptionTabNoTranslationVendor" datatype="html">
         <source> There is currently no translation vendor connected to Melvin. Please contact the person who manages this Melvin instance. </source>
@@ -2573,6 +2545,22 @@
       <trans-unit id="inviteCollaboratorInviteButtonLabel" datatype="html">
         <source> Invite </source>
         <target state="final"> Einladen </target>
+      </trans-unit>
+      <trans-unit id="languageAutoCompleteErrorMessage" datatype="html">
+        <source>Language is required </source>
+        <target state="final"> Sprache benötigt </target>
+      </trans-unit>
+      <trans-unit id="translateTranscriptionTabTitleHint" datatype="html">
+        <source> Optional (e.g. with audio description) </source>
+        <target state="final"> Optional (z. B. mit Audiobeschreibung) </target>
+      </trans-unit>
+      <trans-unit id="createTranscriptionDialogTabTranslateLabel" datatype="html">
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;translate&quot; class=&quot;tab-icon&quot; /&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;translate&quot; class=&quot;tab-icon&quot; /&gt;"/> Translate </source>
+        <target state="final"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;translate&quot; class=&quot;tab-icon&quot; /&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;translate&quot; class=&quot;tab-icon&quot; /&gt;"/> Übersetzen </target>
+      </trans-unit>
+      <trans-unit id="editorMenuTranslateLabel" datatype="html">
+        <source> Translate </source>
+        <target state="final"> Übersetzen </target>
       </trans-unit>
     </body>
   </file>

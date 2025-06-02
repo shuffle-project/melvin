@@ -2,78 +2,30 @@
   Translate an existing transcription
 </h2>
 
-@if(translationServices$ | ngrxPush; as translationServices ){ @if
-(translationServices.length !== 0){
+@if(translationLanguages$ | ngrxPush; as translationLanguages ){ @if
+(translationLanguages.length !== 0){
 <form [formGroup]="transcriptionGroup">
-  <mat-form-field class="transcription-dropdown">
-    <mat-label>Transcription</mat-label>
-    <mat-select formControlName="transcription">
-      @for (transcription of transcriptionList; track transcription) {
-      <mat-option [value]="transcription.id"
-        >{{ transcription.language }} | {{ transcription.title }}</mat-option
-      >
-      }
-    </mat-select>
-    <mat-error i18n="@@translateTranscriptionTabTranscriptionErrorRequired"
-      >Select a transcription</mat-error
-    >
-  </mat-form-field>
-  <div class="vendor-language-wrapper">
-    <mat-form-field>
-      <mat-label i18n="@@translateTranscriptionTabVendorLabel"
-        >Vendor</mat-label
-      >
-      <mat-select
-        formControlName="translationVendor"
-        (valueChange)="transcriptionGroup.get('language')?.reset()"
-      >
-        <!-- reset language field if vendor changes -->
-        @for (service of translationServices; track service) {
-        <mat-option value="{{ service.translateVendor }}">
-          {{ service.fullName }}
-        </mat-option>
+  <div class="transcription-language-wrapper">
+    <mat-form-field class="transcription-dropdown">
+      <mat-label>Transcription</mat-label>
+      <mat-select formControlName="transcription">
+        @for (transcription of transcriptionList; track transcription) {
+        <mat-option [value]="transcription.id">{{
+          transcription.language | writtenOutLanguage : transcription.title
+        }}</mat-option>
         }
       </mat-select>
-      <mat-hint i18n="@@translateTranscriptionTabVendorHint"
-        >Languages are vendor dependent
-      </mat-hint>
-      <mat-error i18n="@@translateTranscriptionTabVendorErrorRequired"
-        >Select a vendor</mat-error
+      <mat-error i18n="@@translateTranscriptionTabTranscriptionErrorRequired"
+        >Select a transcription</mat-error
       >
     </mat-form-field>
 
-    <mat-form-field>
-      <mat-label i18n="@@translateTranscriptionTabLanguageLabel"
-        >Language</mat-label
-      >
-
-      <mat-select
-        [disabled]="
-          transcriptionGroup.controls['translationVendor'].value === ''
-        "
-        formControlName="language"
-        (selectionChange)="onSelectLanguage($event.value)"
-      >
-        <!-- show languages depeding on chosen vendor -->
-        @if( translationLanguages$ | ngrxPush; as translationLanguages ) { @for
-        (language of translationLanguages; track language) {
-        <mat-option value="{{ language.code }}">
-          {{ language.code | writtenOutLanguage }} ({{ language.code }})
-        </mat-option>
-        } }
-      </mat-select>
-
-      @if(transcriptionGroup.controls['translationVendor'].value === '') {
-      <mat-hint i18n="@@translateTranscriptionTabLanguageHint"
-        >Select a vendor first</mat-hint
-      >
-      }
-
-      <mat-error i18n="@@translateTranscriptionTabLanguageErrorRequired"
-        >Select a language
-      </mat-error>
-    </mat-form-field>
+    <app-language-autocomplete
+      formControlName="language"
+      [languages]="translationLanguages"
+    />
   </div>
+
   <mat-form-field>
     <mat-label i18n="@@translateTranscriptionTabTitleLabel">Title</mat-label>
     <input matInput formControlName="title" />
@@ -83,9 +35,10 @@
       <mat-icon svgIcon="close-small" />
     </button>
     }
-    <mat-error i18n="@@translateTranscriptionTabTitleErrorRequired"
-      >Title is required</mat-error
-    >
+
+    <mat-hint i18n="@@translateTranscriptionTabTitleHint">
+      Optional (e.g. with audio description)
+    </mat-hint>
   </mat-form-field>
 </form>
 }@else {

@@ -25,7 +25,27 @@
       Language
     </th>
     <td mat-cell *matCellDef="let element">
-      {{ element.language | writtenOutLanguage }}
+      <div class="language-wrapper">
+        <span>{{ element.language | writtenOutLanguage }}</span>
+
+        @if (element.status !== undefined && element.status !== tStatus.OK ) {
+        <mat-chip [ngClass]="element.status">
+          <mat-icon
+            matChipAvatar
+            class="status-icon"
+            [ngClass]="element.status"
+            [svgIcon]="
+              element.status === tStatus.WAITING
+                ? 'pause'
+                : element.status === tStatus.ERROR
+                ? 'warning'
+                : 'setting'
+            "
+          ></mat-icon>
+          <span class="nowrap">{{ element.status | readableStatus }}</span>
+        </mat-chip>
+        }
+      </div>
     </td>
   </ng-container>
 
@@ -86,6 +106,9 @@
         aria-label="more"
         [matMenuTriggerFor]="transcriptionMenu"
         [matMenuTriggerData]="{ transcription: element }"
+        [disabled]="
+          element.status !== undefined && element.status !== tStatus.OK
+        "
       >
         <mat-icon svgIcon="more" />
       </button>

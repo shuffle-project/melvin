@@ -1,0 +1,27 @@
+<mat-form-field>
+  <mat-label i18n="@@languageAutoCompleteLanguageLabel">Language</mat-label>
+  <input
+    type="text"
+    matInput
+    [matAutocomplete]="autoGroup"
+    (input)="onInputChange($event)"
+    [formControl]="inputControl"
+    [required]="required"
+  />
+
+  <mat-autocomplete
+    #autoGroup="matAutocomplete"
+    (optionSelected)="onSelectionChanged($event)"
+    [displayWith]="displayFn"
+  >
+    @for (language of filteredLanguages; track language.code) {
+    <mat-option [value]="language">
+      {{ language.name }} ({{ language.code }})
+    </mat-option>
+    }
+  </mat-autocomplete>
+
+  <mat-error i18n="@@languageAutoCompleteErrorMessage"
+    >Language is required
+  </mat-error>
+</mat-form-field>
