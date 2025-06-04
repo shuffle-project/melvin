@@ -60,6 +60,16 @@ h2,
   padding-inline: 1.25rem;
   line-height: 170%;
 
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  -webkit-hyphens: auto;
+  -moz-hyphens: auto;
+  hyphens: auto;
+
+  &.fontsize-80 {
+    font-size: 0.875rem;
+  }
+
   &.fontsize-100 {
     font-size: 100%;
   }

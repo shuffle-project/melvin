@@ -1298,18 +1298,6 @@
         <source>Menu</source>
         <target state="final">Menü</target>
       </trans-unit>
-      <trans-unit id="landingSidenavStartpageLink" datatype="html">
-        <source> Startpage </source>
-        <target state="final"> Startseite </target>
-      </trans-unit>
-      <trans-unit id="landingSidenavTutorialLink" datatype="html">
-        <source> Tutorial </source>
-        <target state="final"> Tutorial </target>
-      </trans-unit>
-      <trans-unit id="landingSidenavDocumentationLink" datatype="html">
-        <source> Documentation </source>
-        <target state="final"> Dokumentation </target>
-      </trans-unit>
       <trans-unit id="landingSidenavCloseButton" datatype="html">
         <source> Close </source>
         <target state="final"> Schließen </target>
@@ -1724,7 +1712,7 @@
       </trans-unit>
       <trans-unit id="playerTranscriptAutomaticScrollLabelMobile" datatype="html">
         <source> Auto scroll </source>
-        <target state="final"> Auto scrollen </target>
+        <target state="final"> Mitscrollen </target>
       </trans-unit>
       <trans-unit id="landingHeaderToTheProjectsButton" datatype="html">
         <source>To the projects</source>
@@ -1741,10 +1729,6 @@
       <trans-unit id="deleteServiceDeleteAccountDescription" datatype="html">
         <source>If you confirm this, your account with all created projects and data will be deleted. This can NOT be undone!</source>
         <target state="final">Wenn Sie dies bestätigen, wird Ihr Konto mit allen erstellten Projekten und Daten gelöscht. Dies kann NICHT rückgängig gemacht werden!</target>
-      </trans-unit>
-      <trans-unit id="headerMenuTutorialButton" datatype="html">
-        <source>Tutorial</source>
-        <target state="final">Tutorial</target>
       </trans-unit>
       <trans-unit id="viewerVideoContainerToMainviewAriaHidden" datatype="html">
         <source>Switch</source>
@@ -1857,10 +1841,6 @@
       <trans-unit id="headerMenuStartpageButton" datatype="html">
         <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;start&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/>Startpage </source>
         <target state="final"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;start&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/>Startseite </target>
-      </trans-unit>
-      <trans-unit id="headerMenuGuideButton" datatype="html">
-        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;book&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/>Best Practice </source>
-        <target state="final"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;book&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/>Best Practice </target>
       </trans-unit>
       <trans-unit id="editorSettingsHeadline" datatype="html">
         <source>Settings</source>
@@ -2545,6 +2525,234 @@
       <trans-unit id="inviteCollaboratorInviteButtonLabel" datatype="html">
         <source> Invite </source>
         <target state="final"> Einladen </target>
+      </trans-unit>
+      <trans-unit id="tutorialIntroExplanation" datatype="html">
+        <source> The following videos show an earlier version of the web application. Minor differences – such as labels or element positions – may therefore occur. However, they still provide reliable guidance. The respective text versions have been updated and reflect the current state. </source>
+        <target state="final"> Die folgenden Videos zeigen eine frühere Version der Web-Anwendung. Geringfügige Abweichungen – etwa bei Beschriftungen oder Positionen – sind daher möglich. Sie bieten jedoch weiterhin eine zuverlässige Orientierung. Die jeweiligen Textversionen wurden aktualisiert und spiegeln den aktuellen Stand dar. </target>
+      </trans-unit>
+      <trans-unit id="tutorialContentsTableHeading" datatype="html">
+        <source>Table of Contents</source>
+        <target state="final">Inhaltsverzeichnis</target>
+      </trans-unit>
+      <trans-unit id="tutorialCreatingVideosLinkLabel" datatype="html">
+        <source> Creating Videos </source>
+        <target state="final"> Videos erstellen </target>
+      </trans-unit>
+      <trans-unit id="tutorialRecordLinkLabel" datatype="html">
+        <source> Record Videos in the Browser </source>
+        <target state="final"> Videos im Browser aufnehmen </target>
+      </trans-unit>
+      <trans-unit id="tutorialUploadLinkLabel" datatype="html">
+        <source> Upload Existing Videos </source>
+        <target state="final"> Existierende Videos hochladen </target>
+      </trans-unit>
+      <trans-unit id="tutorialEditLinkLabel" datatype="html">
+        <source> Edit a Project </source>
+        <target state="final">Projekt bearbeiten </target>
+      </trans-unit>
+      <trans-unit id="tutorialCollaborativeEditingLinkLabel" datatype="html">
+        <source> Collaborative Editing </source>
+        <target state="final"> Projekte gemeinsam bearbeiten </target>
+      </trans-unit>
+      <trans-unit id="tutorialAddTranscriptLinkLabel" datatype="html">
+        <source> Add Additional Transcripts </source>
+        <target state="final"> Weitere Transkripte hinzufügen</target>
+      </trans-unit>
+      <trans-unit id="tutorialPlayerLinkLabel" datatype="html">
+        <source> Player </source>
+        <target state="final"> Player </target>
+      </trans-unit>
+      <trans-unit id="tutorialShareVideoLinkLabel" datatype="html">
+        <source> Share a Video </source>
+        <target state="final"> Video teilen </target>
+      </trans-unit>
+      <trans-unit id="tutorialCreatingVideosHeading" datatype="html">
+        <source> Creating Videos </source>
+        <target state="final"> Videos erstellen </target>
+      </trans-unit>
+      <trans-unit id="tutorialCreatingVideosExplanation" datatype="html">
+        <source> With Melvin, you can record new videos directly in your browser or upload existing ones. </source>
+        <target state="final"> Mit Melvin können Sie direkt im Browser neue Videos aufnehmen oder bereits vorhandene Videos hochladen. </target>
+      </trans-unit>
+      <trans-unit id="tutorialRecordHeading" datatype="html">
+        <source> Record Videos in the Browser </source>
+        <target state="final"> Videos im Browser aufnehmen </target>
+      </trans-unit>
+      <trans-unit id="tutorialRecordStep1" datatype="html">
+        <source> Click on <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>“New Project”<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/> above your project list and select <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>“Recorder”<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/> from the drop-down menu. </source>
+        <target state="final"> Klicken Sie oberhalb Ihrer Projektliste auf <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>„Neues Projekt“<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/>und wählen Sie im geöffneten Dropdown-Menü die Option<x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>„Rekorder“<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/> aus. </target>
+      </trans-unit>
+      <trans-unit id="tutorialRecordStep2" datatype="html">
+        <source> You are now on the recorder page. Add your desired input sources here (e.g., microphone, camera, or screen). At least <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>one audio source<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/> and <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>one video or screen source<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/> are required to start recording. </source>
+        <target state="final"> Sie befinden sich nun auf der Rekorder-Seite. Fügen Sie hier Ihre gewünschten Eingabequellen hinzu (z.B. Mikrofon, Kamera oder Bildschirm). Mindestens eine <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>Audioquelle <x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/> und eine <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>Video-/ oder Bildschirmquelle<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/> sind erforderlich, um eine Aufnahme zu starten. </target>
+      </trans-unit>
+      <trans-unit id="tutorialRecordStep2Info" datatype="html">
+        <source> The browser will request permission the first time. Allow access when prompted. If no prompt appears, search online for: “[Your browser, e.g., Firefox] [microphone / camera / screen] allow permissions” </source>
+        <target state="final"> Beim ersten Zugriff fragt ihr Browser nach Berechtigungen. Bestätigen Sie diese Freigaben. Erscheint keine Abfrage, suche Sie online nach: „[Ihr Browser, z.B. Firefox] [Mikrofon / Kamera / Bildschirm] Berechtigung freigeben“</target>
+      </trans-unit>
+      <trans-unit id="tutorialRecordStep3" datatype="html">
+        <source> The audio level indicator shows whether your microphone is picking up sound. </source>
+        <target state="final"> Über das Audiolevel erkennen Sie bei einer Audioquelle, ob ihr Mikrofon Ton aufnimmt. </target>
+      </trans-unit>
+      <trans-unit id="tutorialRecordStep4" datatype="html">
+        <source> Start recording by clicking <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>“Start recording”<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/>. Please note that you cannot add or remove input sources during the recording. </source>
+        <target state="final"> Starten Sie die Aufnahme mit dem Button <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>„Aufnahme starten<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/>. Beachten Sie bitte, dass Sie während der Aufnahmen keine Eingabequellen hinzufügen oder entfernen können. </target>
+      </trans-unit>
+      <trans-unit id="tutorialRecordStep5" datatype="html">
+        <source> After clicking <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>“Stop recording”<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/>, the <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>“Project Creation”<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/> dialog opens automatically. Specify the primary language of the recording to enable file upload and initiate project creation. To save individual files locally, use the download button located beside each file. </source>
+        <target state="final"> Nachdem Sie auf <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>„Aufnahme stoppen“<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/>geklickt haben, öffnet sich automatisch das Dialogfenster<x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>„Projekterstellung“<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/>. Geben Sie dort die Hauptsprache der Aufnahme an, um anschließend die Dateien hochladen und das Projekt erstellen zu können. Möchten Sie die Dateien lokal speichern, nutzen Sie den Download-Button bei der entsprechenden Datei. </target>
+      </trans-unit>
+      <trans-unit id="tutorialRecordStep5Info" datatype="html">
+        <source> If you experience upload issues, save the video locally and use the “Upload Existing Video” function later (see below). </source>
+        <target state="final"> Bei Schwierigkeiten beim Hochladen können Sie das Video lokal speichern und später die Funktion „Existierende Videos hochladen“ (siehe unten) nutzen. </target>
+      </trans-unit>
+      <trans-unit id="tutorialRecordStep6" datatype="html">
+        <source> Once the project is created, your recording will appear in the project list. Processing may take some time depending on the video length. </source>
+        <target state="final"> Nach der Projekterstellung erscheint Ihre Aufnahme in der Projektliste. Die Verarbeitung kann je nach Länge etwas dauern. </target>
+      </trans-unit>
+      <trans-unit id="tutorialUploadHeading" datatype="html">
+        <source>Upload Existing Videos</source>
+        <target state="final">Existierende Videos hochladen</target>
+      </trans-unit>
+      <trans-unit id="tutorialUploadStep1" datatype="html">
+        <source> Click on <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>“New Project”<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/> above your project list and select <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>“Upload File”<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/> from the drop-down menu. </source>
+        <target state="final"> Klicken Sie oberhalb Ihrer Projektliste auf <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>„Neues Projekt“<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/>. Wählen Sie im geöffneten Dropdown-Menü die Option<x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>„Datei hochladen“ <x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/> aus. </target>
+      </trans-unit>
+      <trans-unit id="tutorialUploadStep2" datatype="html">
+        <source> In the <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>“New Project”<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/> dialog that appears, you can drag and drop files or use the <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>“Select Files”<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/> button to upload one or more files from your computer. </source>
+        <target state="final"> Im nun geöffneten Dialogfenster <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>„Neues Projekt“<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/> können Sie per Drag and Drop oder über den Button <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>„Dateien auswählen“<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/> eine oder mehrere Dateien von Ihrem Computer auswählen. </target>
+      </trans-unit>
+      <trans-unit id="tutorialUploadStep3" datatype="html">
+        <source> For each file, select a category and language. </source>
+        <target state="final"> Wählen Sie für jede Datei jeweils eine Kategorie und die Sprache aus </target>
+      </trans-unit>
+      <trans-unit id="tutorialUploadStep4" datatype="html">
+        <source> Check <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>“Use Audio”<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/> for the file that should be transcribed and used as the audio track. </source>
+        <target state="final"> Setzen Sie bei der Datei das <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>„Ton nutzen“<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/>-Häkchen, die transkribiert und als Tonspur genutzt werden soll. </target>
+      </trans-unit>
+      <trans-unit id="tutorialUploadStep5" datatype="html">
+        <source> Set a project title and click <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>“Create Project”<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/>. </source>
+        <target state="final"> Vergeben Sie einen Projekttitel und klicken Sie auf <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>„Projekt erstellen“<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/>. </target>
+      </trans-unit>
+      <trans-unit id="tutorialUploadStep6" datatype="html">
+        <source> Your project will now appear in the project list. Processing may take some time. </source>
+        <target state="final"> Ihr Projekt erscheint nun in der Projektliste. Die Verarbeitung kann einige Zeit dauern.</target>
+      </trans-unit>
+      <trans-unit id="tutorialEditHeading" datatype="html">
+        <source>Edit a Project</source>
+        <target state="final">Projekt bearbeiten</target>
+      </trans-unit>
+      <trans-unit id="tutorialEditStep1" datatype="html">
+        <source> To edit a project transcript, select a project from the <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>project list.<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/> Click the project title or the <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>“Edit”<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/> button. </source>
+        <target state="final"> Um das Transkript eines Projektes zu bearbeiten, wählen Sie ein Projekt aus der Projektliste aus. Klicken Sie dazu auf den <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>Projekttitel<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/> oder den entsprechenden <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>„Bearbeiten“<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/>-Button. </target>
+      </trans-unit>
+      <trans-unit id="tutorialEditStep2" datatype="html">
+        <source> You are now in the editor. Click the project name at the top left to rename it. </source>
+        <target state="final"> Sie befinden sich nun im Editor. Klicken Sie oben links auf den Projektnamen, um ihn nachträglich zu ändern. </target>
+      </trans-unit>
+      <trans-unit id="tutorialEditStep3" datatype="html">
+        <source> Edit the transcript directly in the text field. You can navigate the video using the audio waveform. </source>
+        <target state="final"> Bearbeiten Sie das Transkript direkt im Textfeld. Über die Audiospur können Sie im Video navigieren. </target>
+      </trans-unit>
+      <trans-unit id="tutorialEditStep4" datatype="html">
+        <source> If a speaker change was not detected, press Enter to create a new paragraph and assign the new speaker. Paragraphs can be merged using Backspace. To change the speaker, click on the name. </source>
+        <target state="final"> Wenn der Wechsel der sprechenden Person nicht erkannt wurde, drücken Sie Enter für einen neuen Absatz und wählen Sie den neuen Sprechenden aus. Absätze lassen sich mit Backspace zusammenführen. Um die sprechende Person zu ändern, klicken Sie auf den Namen. </target>
+      </trans-unit>
+      <trans-unit id="tutorialCollaborativeEditingHeading" datatype="html">
+        <source> Collaborative Editing </source>
+        <target state="final"> Projekte gemeinsam bearbeiten </target>
+      </trans-unit>
+      <trans-unit id="tutorialCollaborativeEditingStep1" datatype="html">
+        <source> Click the <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>“Share”<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/> button in the top right corner of the editor. </source>
+        <target state="final"> Klicken Sie im Editor oben rechts auf den <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>„Teilen“<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/>-Button. </target>
+      </trans-unit>
+      <trans-unit id="tutorialCollaborativeEditingStep2" datatype="html">
+        <source> Select the <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>“Invite collaborators”<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/> tab. </source>
+        <target state="final"> Wählen Sie den Reiter <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>„Personen einladen“<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/> aus. </target>
+      </trans-unit>
+      <trans-unit id="tutorialCollaborativeEditingStep3" datatype="html">
+        <source> Enter the person&apos;s email address and click <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>“Invite”<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/>. If they already have a Melvin account, they’ll be added immediately. Otherwise, an email invitation will be sent. </source>
+        <target state="final"> Geben Sie die E-Mail-Adresse der Person ein und klicken Sie auf <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>„Einladen“<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/>. Besteht bereits ein Melvin-Konto, wird die Person sofort hinzugefügt. Ohne Konto erfolgt eine Einladung per Mail. </target>
+      </trans-unit>
+      <trans-unit id="tutorialCollaborativeEditingStep4" datatype="html">
+        <source> Alternatively, use <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>“Copy Link”<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/> to generate a shareable link that allows anonymous collaboration on the project. </source>
+        <target state="final"> Alternativ können Sie über <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>„Link kopieren“<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/> einen Freigabelink erzeugen und versenden. Der Link erlaubt anonyme Mitarbeit am Projekt. </target>
+      </trans-unit>
+      <trans-unit id="tutorialAddTranscriptHeading" datatype="html">
+        <source> Add Additional Transcripts </source>
+        <target state="final"> Weitere Transkripte hinzufügen </target>
+      </trans-unit>
+      <trans-unit id="tutorialAddTranscriptIntro" datatype="html">
+        <source> A transcript in the video&apos;s primary language is automatically created for each project. To offer subtitles and transcripts in multiple languages, you can add more transcripts to a project. </source>
+        <target state="final"> Für jedes Projekt wird automatisch ein Transkript in der Hauptsprache des Videos erstellt. Um Untertitel und Transkripte in verschiedenen Sprachen anzubieten, können Sie mehrere Transkripte für ein Projekt anlegen. </target>
+      </trans-unit>
+      <trans-unit id="tutorialAddTranscriptStep1" datatype="html">
+        <source> Click on <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>“Transcription”<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/> below the project name in the editor. </source>
+        <target state="final"> Klicken Sie im Editor unterhalb des Projektnamens auf <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>„Transkription“<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/>. </target>
+      </trans-unit>
+      <trans-unit id="tutorialAddTranscriptStep2" datatype="html">
+        <source> Here, you&apos;ll see all available transcripts and options to <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>“Add Transcription”<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/> or <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>“Edit Transcription”.<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/></source>
+        <target state="final"> Hier sehen Sie alle vorhandenen Transkripte und die Optionen <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>„Transkription hinzuzufügen“<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/> und <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>„Transkription Bearbeiten“<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/>.</target>
+      </trans-unit>
+      <trans-unit id="tutorialAddTranscriptStep3" datatype="html">
+        <source> Clicking <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>“Edit Transcriptions”<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/> opens a dialog showing all current transcripts. You can download, delete, or edit them using the <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>“More”<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/> button (three dots). </source>
+        <target state="final"> Unter <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>„Transkriptionen bearbeiten“<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/> öffnet sich das Transkription-Dialogfenster mit einer Auflistung der bestehenden Transkripte. Diese können Sie über den <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>„Mehr“<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/>-Button, dargestellt als drei Punkte, herunterladen, löschen oder bearbeiten. </target>
+      </trans-unit>
+      <trans-unit id="tutorialAddTranscriptStep4" datatype="html">
+        <source> Use <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>“Add Transcript”<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/> to upload or copy transcripts. </source>
+        <target state="final"> Über <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>„Transkript hinzufügen“<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/> können Sie Transkripte hochladen oder kopieren. </target>
+      </trans-unit>
+      <trans-unit id="tutorialPlayerHeading" datatype="html">
+        <source>Player</source>
+        <target state="final">Player</target>
+      </trans-unit>
+      <trans-unit id="tutorialPlayerStep1" datatype="html">
+        <source> Click the <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>“Watch”<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/> button in the project list to open the project in the player (in a new browser tab). </source>
+        <target state="final"> Klicken Sie in der Projektliste auf den <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>„Abspielen“<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/>-Button des gewünschten Projekts. Das Projekt öffnet sich im Player ( in einem neuen Browser-Tab). </target>
+      </trans-unit>
+      <trans-unit id="tutorialPlayerStep2" datatype="html">
+        <source> Below the video are various buttons to control and configure the player. Hover over a button to see its function, or use the Tab key to navigate to it. </source>
+        <target state="final"> Unterhalb des Videos befinden sich verschiedene Buttons, mit dem Sie den Player steuern und konfigurieren können. Bewegen Sie den Mauszeiger über einen Button, um dessen Funktion anzeigen zu lassen. Alternativ können Sie die Buttons auch mit der Tabulator-Taste fokussieren. </target>
+      </trans-unit>
+      <trans-unit id="tutorialPlayerStep3" datatype="html">
+        <source> Use the <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>“Language menu”<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/> to show/hide and customize the subtitles and the transcript. For more options, click <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>“Settings”<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/> to open the settings dialog. </source>
+        <target state="final"> Über das <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>„Sprachen-Menü“<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/> lassen sich Untertitel und Transkripte ein- und ausblenden sowie individuell anpassen. Für weitere Optionen klicken Sie auf den <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>„Einstellungen“<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/>-Button, um das entsprechende Dialogfenster zu öffnen. </target>
+      </trans-unit>
+      <trans-unit id="tutorialPlayerStep4" datatype="html">
+        <source> If your project contains multiple videos, you can manage them using the <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>“Video Selection menu”<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/> button, located below the video next to the <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>“Languages menu”<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/>. </source>
+        <target state="final"> Falls Ihr Projekt mehrere Videos enthält, können Sie diese über den <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>„Videoauswahl-Menü“<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/>-Button gezielt ein- oder ausblenden. Diese Schaltfläche befindet sich direkt unter dem Video, neben dem <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>„Sprachen-Menü“<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/>. </target>
+      </trans-unit>
+      <trans-unit id="tutorialPlayerStep5" datatype="html">
+        <source> Use the transcript to navigate the video: clicking a sentence jumps to the corresponding point in the video. </source>
+        <target state="final"> Nutzen Sie das Transkript, um gezielt im Video zu navigieren – ein Klick auf einen Satz springt direkt zur entsprechenden Stelle im Video. </target>
+      </trans-unit>
+      <trans-unit id="tutorialShareVideoHeading" datatype="html">
+        <source>Share a Video</source>
+        <target state="final">Video teilen</target>
+      </trans-unit>
+      <trans-unit id="tutorialShareVideoOption1Intro" datatype="html">
+        <source> You can easily share your videos using the integrated, accessible player: </source>
+        <target state="final"> Sie können Ihre Videos bequem und einfach über den integrierten und barrierefreien Player teilen: </target>
+      </trans-unit>
+      <trans-unit id="tutorialShareVideoOption1Step1" datatype="html">
+        <source> In the project list, click the <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>“Watch”<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/> button for your project. The video will open in a new tab using the player. </source>
+        <target state="final"> Klicken Sie in der Projektliste auf den <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>„Abspielen“<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/>-Button Ihres Projektes. Das Video öffnet sich in einem neuen Tab im Player. </target>
+      </trans-unit>
+      <trans-unit id="tutorialShareVideoOption1Step2" datatype="html">
+        <source> Copy the <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>browser URL<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/> to share the video. </source>
+        <target state="final"> Kopieren Sie die <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>Browser-URL<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/>, um das Video zu teilen. </target>
+      </trans-unit>
+      <trans-unit id="tutorialShareVideoOption2Intro" datatype="html">
+        <source> Alternatively, you can embed the video with the player into your website using an iframe. </source>
+        <target state="final"> Alternativ können Sie das Video inklusive Player per iFrame in Ihre Website einbetten. </target>
+      </trans-unit>
+      <trans-unit id="tutorialShareVideoOption2Step1" datatype="html">
+        <source> In the project list, click the <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>“More”<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/> button of the project and select <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>“Share”<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/>. The sharing dialog will open. </source>
+        <target state="final"> Gehen Sie in der Projektliste auf den <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>„Mehr“<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/>-Button des Projektes und wählen Sie <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>„Teilen“<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/> aus. Das Teilen-Dialogfenster öffnet sich nun. </target>
+      </trans-unit>
+      <trans-unit id="tutorialShareVideoOption2Step2" datatype="html">
+        <source> Under the <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>“Share videoplayer”<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/> tab, click <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>“Copy”<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/> to copy the embed code to your clipboard. </source>
+        <target state="final"> Über den Reiter <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>„Player teilen“<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/> können Sie den Code zum Einbetten über den Button <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>„Kopieren“<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/> in ihre Zwischenablage kopieren. </target>
       </trans-unit>
       <trans-unit id="languageAutoCompleteErrorMessage" datatype="html">
         <source>Language is required </source>
