@@ -215,7 +215,6 @@ export class TranslationService {
             end: 0,
             text: paragraph.content.map((x) => x.text).join(''),
             words: paragraph.content.map((word) => {
-              console.log(word.marks[0].attrs);
               return {
                 text: word.text,
                 start: (word.marks[0].attrs.start / 1000) | 0,
@@ -230,8 +229,10 @@ export class TranslationService {
         //
 
         const melvinTranslateDto: MelvinTranslateDto = {
-          language: source.language,
-          target_language: translationPayload.targetLanguage,
+          language: source.language.startsWith('en-') ? 'en' : source.language,
+          target_language: translationPayload.targetLanguage.startsWith('en-')
+            ? 'en'
+            : translationPayload.targetLanguage,
           transcript: {
             text,
             segments,

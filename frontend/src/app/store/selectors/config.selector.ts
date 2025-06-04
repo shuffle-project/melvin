@@ -43,7 +43,29 @@ export const getSupportedASRLanguages = createSelector(
     const allLanguages = state.languages;
 
     return allLanguages.filter((language) => {
-      return whisperLanguages.some((l) => language.code.startsWith(l.code));
+      return whisperLanguages.some(
+        (l) =>
+          language.code === l.code || language.code.startsWith(l.code + '-')
+      );
+    });
+  }
+);
+
+export const getSupportedTranslationLanguages = createSelector(
+  configState,
+  (state: ConfigState) => {
+    const translationService = state.translationServices.filter(
+      (s) => s.fullName === 'Melvin'
+    );
+
+    const translationLanguages = translationService[0].languages;
+    const allLanguages = state.languages;
+
+    return allLanguages.filter((language) => {
+      return translationLanguages.some(
+        (l) =>
+          language.code === l.code || language.code.startsWith(l.code + '-')
+      );
     });
   }
 );

@@ -1,5 +1,6 @@
 body.dark-theme {
-  .mat-mdc-chip {
+  .mat-mdc-chip,
+  .mat-mdc-menu-item {
     &.finished,
     &.draft {
       background-color: var(--color-grey);
@@ -15,7 +16,8 @@ body.dark-theme {
 }
 
 body {
-  .mat-mdc-chip {
+  .mat-mdc-chip,
+  .mat-mdc-menu-item {
     * {
       color: var(--color-text);
     }
@@ -46,9 +48,6 @@ body {
 
     .status-icon {
       &.processing {
-        position: absolute;
-        top: 0.75rem;
-        left: 1.125rem;
         animation: 4s linear infinite settings-spinner;
       }
 
@@ -73,9 +72,9 @@ body {
 
 @keyframes settings-spinner {
   from {
-    transform: translate3d(-50%, -50%, 0) rotate(0deg);
+    transform: rotate(0deg);
   }
   to {
-    transform: translate3d(-50%, -50%, 0) rotate(360deg);
+    transform: rotate(360deg);
   }
 }

@@ -9,7 +9,9 @@ import { Store } from '@ngrx/store';
 import { CreateTranscriptionDialogComponent } from 'src/app/modules/project-dialogs/components/project-transcription/components/create-transcription-dialog/create-transcription-dialog.component';
 import { DialogProjectTranscriptionComponent } from 'src/app/modules/project-dialogs/dialog-project-transcription/dialog-project-transcription.component';
 import { FeatureEnabledPipe } from 'src/app/pipes/feature-enabled-pipe/feature-enabled.pipe';
+import { ProjectStatusPipe } from 'src/app/pipes/project-status-pipe/project-status.pipe';
 import { WrittenOutLanguagePipe } from 'src/app/pipes/written-out-language-pipe/written-out-language.pipe';
+import { TranscriptionStatus } from 'src/app/services/api/entities/transcription.entity';
 import { AppState } from 'src/app/store/app.state';
 import * as transcriptionsActions from '../../../../../../app/store/actions/transcriptions.actions';
 import * as transcriptionsSelectors from '../../../../../../app/store/selectors/transcriptions.selector';
@@ -24,6 +26,7 @@ import * as transcriptionsSelectors from '../../../../../../app/store/selectors/
     WrittenOutLanguagePipe,
     LetDirective,
     PushPipe,
+    ProjectStatusPipe,
   ],
   templateUrl: './transcription-menu-content.component.html',
   styleUrl: './transcription-menu-content.component.scss',
@@ -38,6 +41,8 @@ export class TranscriptionMenuContentComponent {
   public transcriptionsList$ = this.store.select(
     transcriptionsSelectors.selectTranscriptionList
   );
+
+  tStatus = TranscriptionStatus;
 
   constructor(
     private dialog: MatDialog,

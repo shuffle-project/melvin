@@ -1,24 +1,46 @@
 <div *ngrxLet="transcriptionsList$ as transcriptionList">
-  @for (transcription of transcriptionList; track transcription) {
+  @for (t of transcriptionList; track t) {
   <div>
-    <button (click)="onSelectTranscription(transcription.id)" mat-menu-item>
+    <button
+      (click)="onSelectTranscription(t.id)"
+      mat-menu-item
+      [disabled]="t.status !== tStatus.OK && t.status !== undefined"
+      [class]="t.status"
+    >
+      @if(t.status !== undefined && t.status !== tStatus.OK) {
       <mat-icon
-        [class.hidden]="
-          transcription.id !== (selectedTranscriptionId$ | ngrxPush)
+        class="status-icon"
+        [class]="t.status"
+        [svgIcon]="
+          t.status === tStatus.WAITING
+            ? 'pause'
+            : t.status === tStatus.ERROR
+            ? 'warning'
+            : 'setting'
         "
+      />
+      } @else {
+      <mat-icon
+        [class.hidden]="t.id !== (selectedTranscriptionId$ | ngrxPush)"
         svgIcon="done"
-      ></mat-icon>
-      <span>
-        {{ transcription.language | writtenOutLanguage : transcription.title }}
-      </span>
-      <span class="transcription-lang-code">
-        ({{ transcription.language }})
-      </span>
+      />
+      }
+
+      <div class="button-label-wrapper">
+        @if (t.status !== undefined && t.status !== tStatus.OK ) {
+        <span class="status">
+          {{ t.status | readableStatus }}
+        </span>
+        }
+        <span>
+          {{ t.language | writtenOutLanguage : t.title }}
+          <span class="transcription-lang-code"> ({{ t.language }}) </span>
+        </span>
+      </div>
     </button>
   </div>
-  } @if (transcriptionList.length > 0) {
-  <mat-divider />
   }
+  <mat-divider />
 </div>
 @if ('editTranscriptions' | featureEnabled) {
 

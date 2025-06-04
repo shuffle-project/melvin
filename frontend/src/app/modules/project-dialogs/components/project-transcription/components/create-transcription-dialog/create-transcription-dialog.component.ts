@@ -1,6 +1,17 @@
-import { Component, OnDestroy, OnInit, ViewChild, inject } from '@angular/core';
+import {
+  Component,
+  Inject,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+  inject,
+} from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
-import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import {
+  MAT_DIALOG_DATA,
+  MatDialog,
+  MatDialogModule,
+} from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
 import { Observable, Subject, firstValueFrom, takeUntil } from 'rxjs';
 import { TranscriptionEntity } from 'src/app/services/api/entities/transcription.entity';
@@ -36,8 +47,9 @@ export class CreateTranscriptionDialogComponent implements OnInit, OnDestroy {
   public loading = false;
 
   // tabs = ['upload', 'copy', 'translate', 'from media', 'empty file'];
-  tabs = ['upload', 'copy', 'empty file'];
+  tabs = ['upload', 'copy', 'translate', 'empty file'];
   selectedTab = 'upload';
+  selectedTabIndex = 0;
 
   @ViewChild('uploadForm') uploadForm!: UploadTranscriptionComponent;
   @ViewChild('copyForm') copyForm!: CopyTranscriptionComponent;
@@ -53,7 +65,17 @@ export class CreateTranscriptionDialogComponent implements OnInit, OnDestroy {
 
   dialog = inject(MatDialog);
 
-  constructor(private store: Store<AppState>) {
+  constructor(
+    private store: Store<AppState>,
+    @Inject(MAT_DIALOG_DATA) public data?: { selectedTab: string }
+  ) {
+    if (this.data?.selectedTab) {
+      this.selectedTabIndex = this.tabs.findIndex(
+        (t) => t === this.data?.selectedTab
+      );
+      this.selectedTab = this.tabs[this.selectedTabIndex];
+    }
+
     this.transcriptionsList$ = this.store.select(
       transcriptionsSelectors.selectTranscriptionList
     );

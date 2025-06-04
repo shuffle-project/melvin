@@ -79,9 +79,6 @@ export class MelvinTranslateService {
   }
 
   async _translate(melvinTranslateDto: MelvinTranslateDto) {
-    console.log(`${this.host}/translate`);
-    console.log(melvinTranslateDto);
-    console.log(JSON.stringify(melvinTranslateDto.transcript.segments));
     const response = await lastValueFrom(
       this.httpService
         .post<{ id: string }>(`${this.host}/translate`, melvinTranslateDto, {
@@ -145,7 +142,7 @@ export class MelvinTranslateService {
       lastSegmentEnd = segment.end;
 
       segment.words.forEach((word, i) => {
-        const startParagraph = i === 0 && secondsToLastSegment > 3;
+        const startParagraph = i === 0 || secondsToLastSegment > 3;
         words.push({
           text: word.text,
           start: word.start * 1000,

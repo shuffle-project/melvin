@@ -48,20 +48,23 @@
         (selectionChange)="onChangeFontsize($event)"
         [disabled]="!(transcriptEnabled$ | ngrxPush)"
       >
-        <mat-option value="{{ SizeOptions.P80 }}"
-          >{{ SizeOptions.P80 }}%
-        </mat-option>
         <mat-option value="{{ SizeOptions.P100 }}"
           >{{ SizeOptions.P100 }}%
         </mat-option>
-        <mat-option value="{{ SizeOptions.P120 }}"
-          >{{ SizeOptions.P120 }}%
+        <mat-option value="{{ SizeOptions.P150 }}"
+          >{{ SizeOptions.P150 }}%
         </mat-option>
-        <mat-option value="{{ SizeOptions.P140 }}"
-          >{{ SizeOptions.P140 }}%
+        <mat-option value="{{ SizeOptions.P200 }}"
+          >{{ SizeOptions.P200 }}%
         </mat-option>
-        <mat-option value="{{ SizeOptions.P160 }}"
-          >{{ SizeOptions.P160 }}%
+        <mat-option value="{{ SizeOptions.P250 }}"
+          >{{ SizeOptions.P250 }}%
+        </mat-option>
+        <mat-option value="{{ SizeOptions.P300 }}"
+          >{{ SizeOptions.P300 }}%
+        </mat-option>
+        <mat-option value="{{ SizeOptions.P400 }}"
+          >{{ SizeOptions.P400 }}%
         </mat-option>
       </mat-select>
     </mat-form-field>

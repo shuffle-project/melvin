@@ -602,9 +602,6 @@
       <trans-unit id="dialogCreateProjectTableHeaderLanguage" datatype="html">
         <source> Language </source>
       </trans-unit>
-      <trans-unit id="dialogCreateProjectLanguageErrorRequired" datatype="html">
-        <source> Language is required </source>
-      </trans-unit>
       <trans-unit id="dialogCreateProjectTableHeaderUseAudio" datatype="html">
         <source> Use Audio </source>
       </trans-unit>
@@ -1883,20 +1880,11 @@
       <trans-unit id="translateTranscriptionTabHeading" datatype="html">
         <source> Translate an existing transcription </source>
       </trans-unit>
-      <trans-unit id="translateTranscriptionTabLanguageErrorRequired" datatype="html">
-        <source>Select a language </source>
-      </trans-unit>
-      <trans-unit id="translateTranscriptionTabLanguageHint" datatype="html">
-        <source>Select a vendor first</source>
-      </trans-unit>
-      <trans-unit id="translateTranscriptionTabLanguageLabel" datatype="html">
+      <trans-unit id="languageAutoCompleteLanguageLabel" datatype="html">
         <source>Language</source>
       </trans-unit>
       <trans-unit id="translateTranscriptionTabNoTranslationVendor" datatype="html">
         <source> There is currently no translation vendor connected to Melvin. Please contact the person who manages this Melvin instance. </source>
-      </trans-unit>
-      <trans-unit id="translateTranscriptionTabTitleErrorRequired" datatype="html">
-        <source>Title is required</source>
       </trans-unit>
       <trans-unit id="translateTranscriptionTabTitleLabel" datatype="html">
         <source>Title</source>
@@ -1904,14 +1892,17 @@
       <trans-unit id="translateTranscriptionTabTranscriptionErrorRequired" datatype="html">
         <source>Select a transcription</source>
       </trans-unit>
-      <trans-unit id="translateTranscriptionTabVendorErrorRequired" datatype="html">
-        <source>Select a vendor</source>
+      <trans-unit id="createTranscriptionDialogTabTranslateLabel" datatype="html">
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;translate&quot; class=&quot;tab-icon&quot; /&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;translate&quot; class=&quot;tab-icon&quot; /&gt;"/> Translate </source>
       </trans-unit>
-      <trans-unit id="translateTranscriptionTabVendorHint" datatype="html">
-        <source>Languages are vendor dependent </source>
+      <trans-unit id="editorMenuTranslateLabel" datatype="html">
+        <source> Translate </source>
       </trans-unit>
-      <trans-unit id="translateTranscriptionTabVendorLabel" datatype="html">
-        <source>Vendor</source>
+      <trans-unit id="languageAutoCompleteErrorMessage" datatype="html">
+        <source>Language is required </source>
+      </trans-unit>
+      <trans-unit id="translateTranscriptionTabTitleHint" datatype="html">
+        <source> Optional (e.g. with audio description) </source>
       </trans-unit>
       <trans-unit id="inviteCollaboratorInviteButtonLabel" datatype="html">
         <source> Invite </source>
