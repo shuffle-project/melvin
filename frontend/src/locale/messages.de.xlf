@@ -2526,7 +2526,6 @@
         <source> Invite </source>
         <target state="final"> Einladen </target>
       </trans-unit>
-<<<<<<< HEAD
       <trans-unit id="tutorialIntroExplanation" datatype="html">
         <source> The following videos show an earlier version of the web application. Minor differences – such as labels or element positions – may therefore occur. However, they still provide reliable guidance. The respective text versions have been updated and reflect the current state. </source>
         <target state="final"> Die folgenden Videos zeigen eine frühere Version der Web-Anwendung. Geringfügige Abweichungen – etwa bei Beschriftungen oder Positionen – sind daher möglich. Sie bieten jedoch weiterhin eine zuverlässige Orientierung. Die jeweiligen Textversionen wurden aktualisiert und spiegeln den aktuellen Stand dar. </target>
@@ -2725,7 +2724,7 @@
       </trans-unit>
       <trans-unit id="tutorialPlayerStep5" datatype="html">
         <source> Use the transcript to navigate the video: clicking a sentence jumps to the corresponding point in the video. </source>
-        <target state="final"> Nutzen Sie das Transkript, um gezielt im Video zu navigieren – ein Klick auf einen Satz springt direkt zur entsprechenden Stelle im Video.  </target>
+        <target state="final"> Nutzen Sie das Transkript, um gezielt im Video zu navigieren – ein Klick auf einen Satz springt direkt zur entsprechenden Stelle im Video. </target>
       </trans-unit>
       <trans-unit id="tutorialShareVideoHeading" datatype="html">
         <source>Share a Video</source>
@@ -2754,7 +2753,7 @@
       <trans-unit id="tutorialShareVideoOption2Step2" datatype="html">
         <source> Under the <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>“Share videoplayer”<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/> tab, click <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>“Copy”<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/> to copy the embed code to your clipboard. </source>
         <target state="final"> Über den Reiter <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>„Player teilen“<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/> können Sie den Code zum Einbetten über den Button <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>„Kopieren“<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/> in ihre Zwischenablage kopieren. </target>
-=======
+      </trans-unit>
       <trans-unit id="languageAutoCompleteErrorMessage" datatype="html">
         <source>Language is required </source>
         <target state="final"> Sprache benötigt </target>
@@ -2770,7 +2769,6 @@
       <trans-unit id="editorMenuTranslateLabel" datatype="html">
         <source> Translate </source>
         <target state="final"> Übersetzen </target>
->>>>>>> origin/main
       </trans-unit>
     </body>
   </file>

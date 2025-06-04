@@ -89,6 +89,9 @@
       <trans-unit id="deleteServiceDeleteAccountDescription" datatype="html">
         <source>If you confirm this, your account with all created projects and data will be deleted. This can NOT be undone!</source>
       </trans-unit>
+      <trans-unit id="headerFeedbackLinkLabel" datatype="html">
+        <source> Provide Feedback ❤️ </source>
+      </trans-unit>
       <trans-unit id="headerToggleDarkmodeToggleMenuButton" datatype="html">
         <source>Open darkmode menu</source>
       </trans-unit>
@@ -119,6 +122,12 @@
       <trans-unit id="headerMenuLogoutButton" datatype="html">
         <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;logout&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/>Logout </source>
       </trans-unit>
+      <trans-unit id="languageAutoCompleteLanguageLabel" datatype="html">
+        <source>Language</source>
+      </trans-unit>
+      <trans-unit id="languageAutoCompleteErrorMessage" datatype="html">
+        <source>Language is required </source>
+      </trans-unit>
       <trans-unit id="logoAltText" datatype="html">
         <source>Melvin Logo, to start page</source>
       </trans-unit>
@@ -136,6 +145,9 @@
       </trans-unit>
       <trans-unit id="inviteCollaboratorInputErrorUserDuplication" datatype="html">
         <source>User already added</source>
+      </trans-unit>
+      <trans-unit id="inviteCollaboratorInviteButtonLabel" datatype="html">
+        <source> Invite </source>
       </trans-unit>
       <trans-unit id="inviteCollaboratorHeadingAllUsers" datatype="html">
         <source>People with access</source>
@@ -212,6 +224,15 @@
       <trans-unit id="dialogProjectShareEditTabLabel" datatype="html">
         <source> Invite collaborators </source>
       </trans-unit>
+      <trans-unit id="uploadAreaFormDropzoneText" datatype="html">
+        <source> Drag and drop files here or select them </source>
+      </trans-unit>
+      <trans-unit id="uploadAreaFormDropzoneFileFormats" datatype="html">
+        <source>Accepted file types:</source>
+      </trans-unit>
+      <trans-unit id="uploadAreaFormSelectFile" datatype="html">
+        <source>Select file </source>
+      </trans-unit>
       <trans-unit id="copyTranscriptionTabHeading" datatype="html">
         <source>Copy an existing transcription</source>
       </trans-unit>
@@ -245,6 +266,21 @@
       <trans-unit id="emptyTranscriptionTabTitleHint" datatype="html">
         <source> Optional (e.g. with audio description) </source>
       </trans-unit>
+      <trans-unit id="translateTranscriptionTabHeading" datatype="html">
+        <source> Translate an existing transcription </source>
+      </trans-unit>
+      <trans-unit id="translateTranscriptionTabTranscriptionErrorRequired" datatype="html">
+        <source>Select a transcription</source>
+      </trans-unit>
+      <trans-unit id="translateTranscriptionTabTitleLabel" datatype="html">
+        <source>Title</source>
+      </trans-unit>
+      <trans-unit id="translateTranscriptionTabTitleHint" datatype="html">
+        <source> Optional (e.g. with audio description) </source>
+      </trans-unit>
+      <trans-unit id="translateTranscriptionTabNoTranslationVendor" datatype="html">
+        <source> There is currently no translation vendor connected to Melvin. Please contact the person who manages this Melvin instance. </source>
+      </trans-unit>
       <trans-unit id="uploadTranscriptionTabHeading" datatype="html">
         <source>Upload a new transcription</source>
       </trans-unit>
@@ -277,6 +313,9 @@
       </trans-unit>
       <trans-unit id="createTranscriptionDialogTabCopyLabel" datatype="html">
         <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;copy-file&quot; class=&quot;tab-icon&quot; /&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;copy-file&quot; class=&quot;tab-icon&quot; /&gt;"/> Copy </source>
+      </trans-unit>
+      <trans-unit id="createTranscriptionDialogTabTranslateLabel" datatype="html">
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;translate&quot; class=&quot;tab-icon&quot; /&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;translate&quot; class=&quot;tab-icon&quot; /&gt;"/> Translate </source>
       </trans-unit>
       <trans-unit id="createTranscriptionDialogTabEmptyFileLabel" datatype="html">
         <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;add&quot; class=&quot;tab-icon&quot; /&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;add&quot; class=&quot;tab-icon&quot; /&gt;"/> Empty file </source>
@@ -443,6 +482,39 @@
       <trans-unit id="editorHelpDialogShortcutCommandToggleComment" datatype="html">
         <source>Toggle Comment</source>
       </trans-unit>
+      <trans-unit id="dialogSpellcheckInfoMainHeadline" datatype="html">
+        <source>Spellcheck browser info</source>
+      </trans-unit>
+      <trans-unit id="dialogSpellcheckInfoCloseAriaLabel" datatype="html">
+        <source>Close</source>
+      </trans-unit>
+      <trans-unit id="dialogSpellcheckInfoFirefoxOne" datatype="html">
+        <source> You must install a dictionary in order to use the Firefox spell checker. Follow the link below for an overview of the available dictionaries. </source>
+      </trans-unit>
+      <trans-unit id="dialogSpellcheckInfoFirefoxTwo" datatype="html">
+        <source> Once you have added the dictionary, you may need to right-click on the transcript here in the Melvin Editor and activate “Check spelling” in the resulting menu and select the appropriate language under “Languages”. </source>
+      </trans-unit>
+      <trans-unit id="dialogSpellcheckInfoFirefoxThree" datatype="html">
+        <source> The words are visually highlighted with reddish dots below. </source>
+      </trans-unit>
+      <trans-unit id="dialogSpellcheckInfoFirefoxLinkLabel" datatype="html">
+        <source>To the Firefox dictionary overview</source>
+      </trans-unit>
+      <trans-unit id="dialogSpellcheckInfoFirefoxLinkNewTab" datatype="html">
+        <source>Opens in new tab</source>
+      </trans-unit>
+      <trans-unit id="dialogSpellcheckInfoSafariOne" datatype="html">
+        <source> The Safari browser automatically uses the integrated spell checker. All you need to do is select the “Spellchecking” option in the Melvin Editor before clicking inside the transcript. However, it may take a few seconds before Safari highlights the first words. </source>
+      </trans-unit>
+      <trans-unit id="dialogSpellcheckInfoSafariTwo" datatype="html">
+        <source> The words are visually highlighted with reddish dots below. </source>
+      </trans-unit>
+      <trans-unit id="dialogSpellcheckInfoChromeOne" datatype="html">
+        <source> The Chrome browser automatically uses the integrated spell checker. All you need to do is select the “Spellchecking” option in the Melvin Editor before clicking inside the transcript. </source>
+      </trans-unit>
+      <trans-unit id="dialogSpellcheckInfoChromeTwo" datatype="html">
+        <source> The words are visually highlighted with reddish dots below. </source>
+      </trans-unit>
       <trans-unit id="editorSettingsHeadline" datatype="html">
         <source>Settings</source>
       </trans-unit>
@@ -455,9 +527,6 @@
       <trans-unit id="tiptap-editorMenuTranscriptionLabel" datatype="html">
         <source>Transcription</source>
       </trans-unit>
-      <trans-unit id="transcriptionMenuContentEditLabel" datatype="html">
-        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;edit&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/> Edit Transcriptions </source>
-      </trans-unit>
       <trans-unit id="editSpeakerMenuNameLabel" datatype="html">
         <source>Speaker name</source>
       </trans-unit>
@@ -466,6 +535,12 @@
       </trans-unit>
       <trans-unit id="editSpeakerMenuAtLeastOneProjectError" datatype="html">
         <source>At least one speaker is required.</source>
+      </trans-unit>
+      <trans-unit id="transcriptionMenuContentEditLabel" datatype="html">
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;edit&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/> Edit Transcriptions </source>
+      </trans-unit>
+      <trans-unit id="transcriptionMenuContentAddLabel" datatype="html">
+        <source> Add Transcription </source>
       </trans-unit>
       <trans-unit id="videoPlaybackSpeedAria" datatype="html">
         <source>Video playback speed</source>
@@ -505,6 +580,9 @@
       </trans-unit>
       <trans-unit id="editorMenuTranscriptionLabel" datatype="html">
         <source> Transcription </source>
+      </trans-unit>
+      <trans-unit id="editorMenuTranslateLabel" datatype="html">
+        <source> Translate </source>
       </trans-unit>
       <trans-unit id="editorShareProjectButtonLabel" datatype="html">
         <source> Share </source>
@@ -632,6 +710,12 @@
       <trans-unit id="dialogCreateProjectUploadProgressLabel" datatype="html">
         <source>Upload-Progress:</source>
       </trans-unit>
+      <trans-unit id="createProjectFailedWithError" datatype="html">
+        <source> Failed with error: <x id="INTERPOLATION" equiv-text="{{ error.message }}"/> <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br /&gt;"/>You can try again. </source>
+      </trans-unit>
+      <trans-unit id="dialogCreateProjectCancelUploadButton" datatype="html">
+        <source> Cancel and close </source>
+      </trans-unit>
       <trans-unit id="dialogCreateProjectCreateButton" datatype="html">
         <source> Create Project </source>
       </trans-unit>
@@ -668,6 +752,18 @@
       <trans-unit id="projectListTableHeaderTitleLabel" datatype="html">
         <source> Title </source>
       </trans-unit>
+      <trans-unit id="projectListTableHeaderEditLabel" datatype="html">
+        <source> Edit </source>
+      </trans-unit>
+      <trans-unit id="projectListEditProjectAriaLabel" datatype="html">
+        <source>Edit</source>
+      </trans-unit>
+      <trans-unit id="projectListTableHeaderWatchLabel" datatype="html">
+        <source> Watch </source>
+      </trans-unit>
+      <trans-unit id="projectListOpenViewerAriaLabel" datatype="html">
+        <source>Open Viewer in new Tab</source>
+      </trans-unit>
       <trans-unit id="projectListTableHeaderLanguagesLabel" datatype="html">
         <source> Languages </source>
       </trans-unit>
@@ -685,9 +781,6 @@
       </trans-unit>
       <trans-unit id="projectListTableHeaderMembersLabel" datatype="html">
         <source> Members </source>
-      </trans-unit>
-      <trans-unit id="projectListOpenViewerAriaLabel" datatype="html">
-        <source>Open Viewer in new Tab</source>
       </trans-unit>
       <trans-unit id="projectListTableHeaderMoreLabel" datatype="html">
         <source> More </source>
@@ -827,6 +920,9 @@
       <trans-unit id="uploadRecordingDiscardButton" datatype="html">
         <source> Discard and close </source>
       </trans-unit>
+      <trans-unit id="uploadRecordingCancelButton" datatype="html">
+        <source> Cancel and close </source>
+      </trans-unit>
       <trans-unit id="uploadRecordingUploadButton" datatype="html">
         <source> Upload and create project </source>
       </trans-unit>
@@ -926,8 +1022,71 @@
       <trans-unit id="inviteJoinAsGuestButtonLabel" datatype="html">
         <source> Join as Guest </source>
       </trans-unit>
-      <trans-unit id="landingSubpageWIPInfo" datatype="html">
-        <source> Sorry, this page is still under development. Please come back at a later time. </source>
+      <trans-unit id="accessibilityStatementMainHeading" datatype="html">
+        <source>Accessibility Statement</source>
+      </trans-unit>
+      <trans-unit id="accessibilityStatementScopeHeading" datatype="html">
+        <source>Scope of application</source>
+      </trans-unit>
+      <trans-unit id="accessibilityStatementScopePartOne" datatype="html">
+        <source> This accessibility statement refers to the current version of the State Act on Equal Opportunities for Persons with Disabilities (Landes-Behindertengleichstellungsgesetz - L-BGG) of December 17, 2014. The SHUFFLE project is committed to making this website accessible in accordance with Section 10 (1) of the State Disability Equality Act (L-BGG). </source>
+      </trans-unit>
+      <trans-unit id="accessibilityStatementScopePartTwo" datatype="html">
+        <source> This accessibility statement applies to this website (www.melvin.shuffle-projekt.de). This statement explicitly does not refer to the other websites and mobile apps of the Hochschule der Medien or the universities involved in the project and not to the content of third-party providers referred to via external links. </source>
+      </trans-unit>
+      <trans-unit id="accessibilityStatementComplianceHeading" datatype="html">
+        <source>Compliance status</source>
+      </trans-unit>
+      <trans-unit id="accessibilityStatementComplianceText" datatype="html">
+        <source> This website is partially compliant with Section 10 (1) L-BGG due to the the following non-compliances. </source>
+      </trans-unit>
+      <trans-unit id="accessibilityStatementNonAccessibleHeading" datatype="html">
+        <source> Non-accessible content </source>
+      </trans-unit>
+      <trans-unit id="accessibilityStatementNonAccessiblePartOne" datatype="html">
+        <source> The Melvin application for creating videos and correcting subtitles is not accessible to screen reader users or people who only use a keyboard. </source>
+      </trans-unit>
+      <trans-unit id="accessibilityStatementNonAccessiblePartTwo" datatype="html">
+        <source> We are working on the accessible implementation of the content mentioned above. </source>
+      </trans-unit>
+      <trans-unit id="accessibilityStatementNonAccessiblePartThree" datatype="html">
+        <source> The homepage and the Melvin video player are accessible. </source>
+      </trans-unit>
+      <trans-unit id="accessibilityStatementPreparationHeading" datatype="html">
+        <source> Preparation of this accessibility statement </source>
+      </trans-unit>
+      <trans-unit id="accessibilityStatementPreparationText" datatype="html">
+        <source> This statement was prepared on 28.02.2025. It is based on a self-assessment that was conducted on 28.02.2025. This declaration was last reviewed on 28.02.2025. </source>
+      </trans-unit>
+      <trans-unit id="accessibilityStatementFeedbackHeading" datatype="html">
+        <source> Feedback and contact information </source>
+      </trans-unit>
+      <trans-unit id="accessibilityStatementFeedbackText" datatype="html">
+        <source> You would like to inform us about existing barriers or request information on the implementation of accessibility? For your feedback and any further information, please get in touch with our contact person: </source>
+      </trans-unit>
+      <trans-unit id="accessibilityStatementEnforcementHeading" datatype="html">
+        <source> Enforcement procedure </source>
+      </trans-unit>
+      <trans-unit id="accessibilityStatementEnforcementPartOne" datatype="html">
+        <source> To ensure that this website meets the requirements described in Section 10 (1) L-BGG, you can contact the SHUFFLE project partners (<x id="START_LINK" ctype="x-a" equiv-text="&lt;a href=&quot;mailto:melvin@shuffle-projekt.de&quot; &gt;"/>melvin@shuffle-projekt.de<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a &gt;"/>) by email and provide appropriate feedback. </source>
+      </trans-unit>
+      <trans-unit id="accessibilityStatementEnforcementPartTwo" datatype="html">
+        <source> If the Melvin project team does not respond to your request within four weeks, you may file a complaint with the National Center for Accessibility (LZ-BARR). </source>
+      </trans-unit>
+      <trans-unit id="accessibilityStatementEnforcementPartThree" datatype="html">
+        <source> You can contact the National Center for Accessibility (LZ-BARR) as follows: <x id="START_LINK" ctype="x-a" equiv-text="&lt;a href=&quot;mailto:schlichtung@barrierefreiheit.bwl.de&quot; &gt;"/>schlichtung@barrierefreiheit.bwl.de<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/> , <x id="START_LINK_1" equiv-text="&lt;a href=&quot;tel:004971112339375&quot;&gt;"/>Tel. +49 711 123 39375<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/>, Address: Landeszentrum Barrierefreiheit, Schlichtungsstelle, Else-Josenhans-Straße 6, 70173 Stuttgart. </source>
+      </trans-unit>
+      <trans-unit id="accessibilityStatementEnforcementPartFour" datatype="html">
+        <source> This procedure is free of charge. </source>
+      </trans-unit>
+      <trans-unit id="accessibilityStatementEnforcementPartFive" datatype="html">
+        <source> The option of bringing an action against associations in accordance with Section 12 (1) sentence 1 no. 4 L-BGG is hereby mentioned. </source>
+      </trans-unit>
+      <trans-unit id="accessibilityStatementCompatibilityHeading" datatype="html">
+        <source> Information on compatibility </source>
+      </trans-unit>
+      <trans-unit id="accessibilityStatementCompatibilityText" datatype="html">
+        <source> Our website is optimized for the following browsers: Chrome, Firefox, Edge, Safari. Internet Explorer is not supported. </source>
       </trans-unit>
       <trans-unit id="guideMainHeading" datatype="html">
         <source>Best Practice</source>
@@ -940,6 +1099,9 @@
       </trans-unit>
       <trans-unit id="guideContentTableWhy" datatype="html">
         <source> Why Didactic Recommendations? </source>
+      </trans-unit>
+      <trans-unit id="guideContentSupportingDocuments" datatype="html">
+        <source> Supporting Documents </source>
       </trans-unit>
       <trans-unit id="guideContentTablePlanningVideo" datatype="html">
         <source> Planning the Video </source>
@@ -964,6 +1126,15 @@
       </trans-unit>
       <trans-unit id="guideWhyPartTwo" datatype="html">
         <source> Melvin, as a video platform, is primarily a tool that offers functionality and allows for creative freedom. Thoughtful consideration of didactic implementation can significantly contribute to ensuring equal and barrier-free access to content for all users. These didactic guidelines aim to encourage a reflective approach when using Melvin. </source>
+      </trans-unit>
+      <trans-unit id="guideSupportingDocumentsHeading" datatype="html">
+        <source> Supporting Documents </source>
+      </trans-unit>
+      <trans-unit id="guideSupportingDocumentsDownloadGermanLabel" datatype="html">
+        <source> German </source>
+      </trans-unit>
+      <trans-unit id="guideSupportingDocumentsDownloadEnglishLabel" datatype="html">
+        <source> English </source>
       </trans-unit>
       <trans-unit id="guidePlanningHeading" datatype="html">
         <source>Planning the Video</source>
@@ -1045,6 +1216,9 @@
       </trans-unit>
       <trans-unit id="guideAccessibleMaterialsDefinition" datatype="html">
         <source> When combining videos with other digital learning formats such as text, images, or interactive tools, ensure that all materials comply with accessibility standards. </source>
+      </trans-unit>
+      <trans-unit id="guideAccessibleMaterialsDocumentLink" datatype="html">
+        <source> See document Tips for Accessible Tools </source>
       </trans-unit>
       <trans-unit id="guideRepetitionHeading" datatype="html">
         <source>Repetition</source>
@@ -1181,6 +1355,9 @@
       <trans-unit id="guideReferencesHeading" datatype="html">
         <source>References</source>
       </trans-unit>
+      <trans-unit id="guideSupportingDocumentTipsAccessibleTools" datatype="html">
+        <source>Tips for Accessible Tools</source>
+      </trans-unit>
       <trans-unit id="imprintMainHeading" datatype="html">
         <source>Imprint</source>
       </trans-unit>
@@ -1244,20 +1421,80 @@
       <trans-unit id="imprintSourceText" datatype="html">
         <source> Source: <x id="START_LINK" ctype="x-a" equiv-text="&lt;a href=&quot;https://www.juraforum.de/&quot;&gt;"/>www.Juraforum.de<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/> - Legal portal with lawyer search as at: August 2017 </source>
       </trans-unit>
+      <trans-unit id="installationMainHeading" datatype="html">
+        <source>Installation</source>
+      </trans-unit>
+      <trans-unit id="installationIntroText" datatype="html">
+        <source> Melvin is an open source project. As such, you can install and use the application on your own server. Follow the GitHub link below for the installation instructions: </source>
+      </trans-unit>
+      <trans-unit id="installationGitHubLinkLabel" datatype="html">
+        <source>To the GitHub Repo</source>
+      </trans-unit>
+      <trans-unit id="installationTableComponentHeading" datatype="html">
+        <source> Component </source>
+      </trans-unit>
+      <trans-unit id="installationTableRequirementHeading" datatype="html">
+        <source> Minimum requirement </source>
+      </trans-unit>
+      <trans-unit id="installationTableGPUComponent" datatype="html">
+        <source>GPU</source>
+      </trans-unit>
+      <trans-unit id="installationTableGPUDescription" datatype="html">
+        <source>CPU can be used for ASR, but is significantly slower.</source>
+      </trans-unit>
+      <trans-unit id="installationTableCPUComponent" datatype="html">
+        <source>CPU</source>
+      </trans-unit>
+      <trans-unit id="installationTableCPURequirement" datatype="html">
+        <source>8 cores / 16 threads</source>
+      </trans-unit>
+      <trans-unit id="installationTableCPUDescription" datatype="html">
+        <source>Melvin uses ffmpeg to convert videos. Having multiple CPU cores available increases processing speed, particularly for long videos with high resolution.</source>
+      </trans-unit>
+      <trans-unit id="installationTableStorageComponent" datatype="html">
+        <source>Storage</source>
+      </trans-unit>
+      <trans-unit id="installationTableStorageDescription" datatype="html">
+        <source>A one-hour video is approximately 1 GB in size</source>
+      </trans-unit>
+      <trans-unit id="installationTableRAMComponent" datatype="html">
+        <source>RAM</source>
+      </trans-unit>
+      <trans-unit id="landingFooterNavAriaLabel" datatype="html">
+        <source>Footer navigation</source>
+      </trans-unit>
+      <trans-unit id="landingFooterSHUFFLELinkLabel" datatype="html">
+        <source> SHUFFLE-Project <x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;new-tab&quot; aria-hidden=&quot;false&quot; i18n-aria-label=&quot;@@landingFooterNewTabAriaLabel&quot; aria-label=&quot;Opens in new tab&quot; class=&quot;icon&quot; /&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;new-tab&quot; aria-hidden=&quot;false&quot; i18n-aria-label=&quot;@@landingFooterNewTabAriaLabel&quot; aria-label=&quot;Opens in new tab&quot; class=&quot;icon&quot; /&gt;"/></source>
+      </trans-unit>
+      <trans-unit id="landingFooterNewTabAriaLabel" datatype="html">
+        <source>Opens in new tab</source>
+      </trans-unit>
+      <trans-unit id="landingFooterLegalHeader" datatype="html">
+        <source>Legal</source>
+      </trans-unit>
       <trans-unit id="landingFooterPrivacyLinkLabel" datatype="html">
         <source> Privacy </source>
       </trans-unit>
       <trans-unit id="landingFooterImprintLinkLabel" datatype="html">
         <source> Imprint </source>
       </trans-unit>
+      <trans-unit id="landingFooterTutorialsHeader" datatype="html">
+        <source>Tutorials</source>
+      </trans-unit>
+      <trans-unit id="landingFooterDidacticGuideLinkLabel" datatype="html">
+        <source> Best Practice </source>
+      </trans-unit>
+      <trans-unit id="landingFooterInstallationLinkLabel" datatype="html">
+        <source> Installation </source>
+      </trans-unit>
+      <trans-unit id="landingFooterAccessibilityHeader" datatype="html">
+        <source>Accessibility</source>
+      </trans-unit>
       <trans-unit id="landingFooterAccessibilityStatementLinkLabel" datatype="html">
         <source> Accessibility statement </source>
       </trans-unit>
-      <trans-unit id="landingFooterNewTabAriaLabel" datatype="html">
-        <source>Opens in new tab</source>
-      </trans-unit>
-      <trans-unit id="landingFooterSHUFFLELinkLabel" datatype="html">
-        <source> SHUFFLE-Project <x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;new-tab&quot; aria-hidden=&quot;false&quot; i18n-aria-label=&quot;@@landingFooterNewTabAriaLabel&quot; aria-label=&quot;Opens in new tab&quot; class=&quot;icon&quot; /&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;new-tab&quot; aria-hidden=&quot;false&quot; i18n-aria-label=&quot;@@landingFooterNewTabAriaLabel&quot; aria-label=&quot;Opens in new tab&quot; class=&quot;icon&quot; /&gt;"/></source>
+      <trans-unit id="landingFooterFoundationLinkAriaLabel" datatype="html">
+        <source>Foundation &apos;Stiftung Innovation in der Hochschullehre&apos;, opens in new tab</source>
       </trans-unit>
       <trans-unit id="loginDialogHeadline" datatype="html">
         <source>Login</source>
@@ -1315,6 +1552,9 @@
       </trans-unit>
       <trans-unit id="landingHeaderTutorialLinkLabel" datatype="html">
         <source> Tutorial </source>
+      </trans-unit>
+      <trans-unit id="landingHeaderFeedbackLinkLabel" datatype="html">
+        <source> Provide Feedback ❤️ </source>
       </trans-unit>
       <trans-unit id="landingHeaderToggleDarkmodeToggleMenuButton" datatype="html">
         <source>Open darkmode menu</source>
@@ -1385,8 +1625,182 @@
       <trans-unit id="privacyMainHeading" datatype="html">
         <source>Privacy</source>
       </trans-unit>
+      <trans-unit id="landingSubpageWIPInfo" datatype="html">
+        <source> Sorry, this page is still under development. Please come back at a later time. </source>
+      </trans-unit>
       <trans-unit id="sitemapListExplanation" datatype="html">
         <source> This sitemap lists all pages that do not require a login in alphabetical order. </source>
+      </trans-unit>
+      <trans-unit id="tutorialIntroExplanation" datatype="html">
+        <source> The following videos show an earlier version of the web application. Minor differences – such as labels or element positions – may therefore occur. However, they still provide reliable guidance. The respective text versions have been updated and reflect the current state. </source>
+      </trans-unit>
+      <trans-unit id="tutorialContentsTableHeading" datatype="html">
+        <source>Table of Contents</source>
+      </trans-unit>
+      <trans-unit id="tutorialCreatingVideosLinkLabel" datatype="html">
+        <source> Creating Videos </source>
+      </trans-unit>
+      <trans-unit id="tutorialRecordLinkLabel" datatype="html">
+        <source> Record Videos in the Browser </source>
+      </trans-unit>
+      <trans-unit id="tutorialUploadLinkLabel" datatype="html">
+        <source> Upload Existing Videos </source>
+      </trans-unit>
+      <trans-unit id="tutorialEditLinkLabel" datatype="html">
+        <source> Edit a Project </source>
+      </trans-unit>
+      <trans-unit id="tutorialCollaborativeEditingLinkLabel" datatype="html">
+        <source> Collaborative Editing </source>
+      </trans-unit>
+      <trans-unit id="tutorialAddTranscriptLinkLabel" datatype="html">
+        <source> Add Additional Transcripts </source>
+      </trans-unit>
+      <trans-unit id="tutorialPlayerLinkLabel" datatype="html">
+        <source> Player </source>
+      </trans-unit>
+      <trans-unit id="tutorialShareVideoLinkLabel" datatype="html">
+        <source> Share a Video </source>
+      </trans-unit>
+      <trans-unit id="tutorialCreatingVideosHeading" datatype="html">
+        <source> Creating Videos </source>
+      </trans-unit>
+      <trans-unit id="tutorialCreatingVideosExplanation" datatype="html">
+        <source> With Melvin, you can record new videos directly in your browser or upload existing ones. </source>
+      </trans-unit>
+      <trans-unit id="tutorialRecordHeading" datatype="html">
+        <source> Record Videos in the Browser </source>
+      </trans-unit>
+      <trans-unit id="tutorialRecordStep1" datatype="html">
+        <source> Click on <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>“New Project”<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/> above your project list and select <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>“Recorder”<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/> from the drop-down menu. </source>
+      </trans-unit>
+      <trans-unit id="tutorialRecordStep2" datatype="html">
+        <source> You are now on the recorder page. Add your desired input sources here (e.g., microphone, camera, or screen). At least <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>one audio source<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/> and <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>one video or screen source<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/> are required to start recording. </source>
+      </trans-unit>
+      <trans-unit id="tutorialRecordStep2Info" datatype="html">
+        <source> The browser will request permission the first time. Allow access when prompted. If no prompt appears, search online for: “[Your browser, e.g., Firefox] [microphone / camera / screen] allow permissions” </source>
+      </trans-unit>
+      <trans-unit id="tutorialRecordStep3" datatype="html">
+        <source> The audio level indicator shows whether your microphone is picking up sound. </source>
+      </trans-unit>
+      <trans-unit id="tutorialRecordStep4" datatype="html">
+        <source> Start recording by clicking <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>“Start recording”<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/>. Please note that you cannot add or remove input sources during the recording. </source>
+      </trans-unit>
+      <trans-unit id="tutorialRecordStep5" datatype="html">
+        <source> After clicking <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>“Stop recording”<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/>, the <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>“Project Creation”<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/> dialog opens automatically. Specify the primary language of the recording to enable file upload and initiate project creation. To save individual files locally, use the download button located beside each file. </source>
+      </trans-unit>
+      <trans-unit id="tutorialRecordStep5Info" datatype="html">
+        <source> If you experience upload issues, save the video locally and use the “Upload Existing Video” function later (see below). </source>
+      </trans-unit>
+      <trans-unit id="tutorialRecordStep6" datatype="html">
+        <source> Once the project is created, your recording will appear in the project list. Processing may take some time depending on the video length. </source>
+      </trans-unit>
+      <trans-unit id="tutorialUploadHeading" datatype="html">
+        <source>Upload Existing Videos</source>
+      </trans-unit>
+      <trans-unit id="tutorialUploadStep1" datatype="html">
+        <source> Click on <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>“New Project”<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/> above your project list and select <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>“Upload File”<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/> from the drop-down menu. </source>
+      </trans-unit>
+      <trans-unit id="tutorialUploadStep2" datatype="html">
+        <source> In the <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>“New Project”<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/> dialog that appears, you can drag and drop files or use the <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>“Select Files”<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/> button to upload one or more files from your computer. </source>
+      </trans-unit>
+      <trans-unit id="tutorialUploadStep3" datatype="html">
+        <source> For each file, select a category and language. </source>
+      </trans-unit>
+      <trans-unit id="tutorialUploadStep4" datatype="html">
+        <source> Check <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>“Use Audio”<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/> for the file that should be transcribed and used as the audio track. </source>
+      </trans-unit>
+      <trans-unit id="tutorialUploadStep5" datatype="html">
+        <source> Set a project title and click <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>“Create Project”<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/>. </source>
+      </trans-unit>
+      <trans-unit id="tutorialUploadStep6" datatype="html">
+        <source> Your project will now appear in the project list. Processing may take some time. </source>
+      </trans-unit>
+      <trans-unit id="tutorialEditHeading" datatype="html">
+        <source>Edit a Project</source>
+      </trans-unit>
+      <trans-unit id="tutorialEditStep1" datatype="html">
+        <source> To edit a project transcript, select a project from the <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>project list.<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/> Click the project title or the <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>“Edit”<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/> button. </source>
+      </trans-unit>
+      <trans-unit id="tutorialEditStep2" datatype="html">
+        <source> You are now in the editor. Click the project name at the top left to rename it. </source>
+      </trans-unit>
+      <trans-unit id="tutorialEditStep3" datatype="html">
+        <source> Edit the transcript directly in the text field. You can navigate the video using the audio waveform. </source>
+      </trans-unit>
+      <trans-unit id="tutorialEditStep4" datatype="html">
+        <source> If a speaker change was not detected, press Enter to create a new paragraph and assign the new speaker. Paragraphs can be merged using Backspace. To change the speaker, click on the name. </source>
+      </trans-unit>
+      <trans-unit id="tutorialCollaborativeEditingHeading" datatype="html">
+        <source> Collaborative Editing </source>
+      </trans-unit>
+      <trans-unit id="tutorialCollaborativeEditingStep1" datatype="html">
+        <source> Click the <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>“Share”<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/> button in the top right corner of the editor. </source>
+      </trans-unit>
+      <trans-unit id="tutorialCollaborativeEditingStep2" datatype="html">
+        <source> Select the <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>“Invite collaborators”<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/> tab. </source>
+      </trans-unit>
+      <trans-unit id="tutorialCollaborativeEditingStep3" datatype="html">
+        <source> Enter the person&apos;s email address and click <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>“Invite”<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/>. If they already have a Melvin account, they’ll be added immediately. Otherwise, an email invitation will be sent. </source>
+      </trans-unit>
+      <trans-unit id="tutorialCollaborativeEditingStep4" datatype="html">
+        <source> Alternatively, use <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>“Copy Link”<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/> to generate a shareable link that allows anonymous collaboration on the project. </source>
+      </trans-unit>
+      <trans-unit id="tutorialAddTranscriptHeading" datatype="html">
+        <source> Add Additional Transcripts </source>
+      </trans-unit>
+      <trans-unit id="tutorialAddTranscriptIntro" datatype="html">
+        <source> A transcript in the video&apos;s primary language is automatically created for each project. To offer subtitles and transcripts in multiple languages, you can add more transcripts to a project. </source>
+      </trans-unit>
+      <trans-unit id="tutorialAddTranscriptStep1" datatype="html">
+        <source> Click on <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>“Transcription”<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/> below the project name in the editor. </source>
+      </trans-unit>
+      <trans-unit id="tutorialAddTranscriptStep2" datatype="html">
+        <source> Here, you&apos;ll see all available transcripts and options to <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>“Add Transcription”<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/> or <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>“Edit Transcription”.<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/></source>
+      </trans-unit>
+      <trans-unit id="tutorialAddTranscriptStep3" datatype="html">
+        <source> Clicking <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>“Edit Transcriptions”<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/> opens a dialog showing all current transcripts. You can download, delete, or edit them using the <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>“More”<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/> button (three dots). </source>
+      </trans-unit>
+      <trans-unit id="tutorialAddTranscriptStep4" datatype="html">
+        <source> Use <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>“Add Transcript”<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/> to upload or copy transcripts. </source>
+      </trans-unit>
+      <trans-unit id="tutorialPlayerHeading" datatype="html">
+        <source>Player</source>
+      </trans-unit>
+      <trans-unit id="tutorialPlayerStep1" datatype="html">
+        <source> Click the <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>“Watch”<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/> button in the project list to open the project in the player (in a new browser tab). </source>
+      </trans-unit>
+      <trans-unit id="tutorialPlayerStep2" datatype="html">
+        <source> Below the video are various buttons to control and configure the player. Hover over a button to see its function, or use the Tab key to navigate to it. </source>
+      </trans-unit>
+      <trans-unit id="tutorialPlayerStep3" datatype="html">
+        <source> Use the <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>“Language menu”<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/> to show/hide and customize the subtitles and the transcript. For more options, click <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>“Settings”<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/> to open the settings dialog. </source>
+      </trans-unit>
+      <trans-unit id="tutorialPlayerStep4" datatype="html">
+        <source> If your project contains multiple videos, you can manage them using the <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>“Video Selection menu”<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/> button, located below the video next to the <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>“Languages menu”<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/>. </source>
+      </trans-unit>
+      <trans-unit id="tutorialPlayerStep5" datatype="html">
+        <source> Use the transcript to navigate the video: clicking a sentence jumps to the corresponding point in the video. </source>
+      </trans-unit>
+      <trans-unit id="tutorialShareVideoHeading" datatype="html">
+        <source>Share a Video</source>
+      </trans-unit>
+      <trans-unit id="tutorialShareVideoOption1Intro" datatype="html">
+        <source> You can easily share your videos using the integrated, accessible player: </source>
+      </trans-unit>
+      <trans-unit id="tutorialShareVideoOption1Step1" datatype="html">
+        <source> In the project list, click the <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>“Watch”<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/> button for your project. The video will open in a new tab using the player. </source>
+      </trans-unit>
+      <trans-unit id="tutorialShareVideoOption1Step2" datatype="html">
+        <source> Copy the <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>browser URL<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/> to share the video. </source>
+      </trans-unit>
+      <trans-unit id="tutorialShareVideoOption2Intro" datatype="html">
+        <source> Alternatively, you can embed the video with the player into your website using an iframe. </source>
+      </trans-unit>
+      <trans-unit id="tutorialShareVideoOption2Step1" datatype="html">
+        <source> In the project list, click the <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>“More”<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/> button of the project and select <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>“Share”<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/>. The sharing dialog will open. </source>
+      </trans-unit>
+      <trans-unit id="tutorialShareVideoOption2Step2" datatype="html">
+        <source> Under the <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>“Share videoplayer”<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/> tab, click <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>“Copy”<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/> to copy the embed code to your clipboard. </source>
       </trans-unit>
       <trans-unit id="landingSidenavMenuHeader" datatype="html">
         <source>Menu</source>
@@ -1408,6 +1822,9 @@
       </trans-unit>
       <trans-unit id="tutorialPageTitle" datatype="html">
         <source>Tutorial - Melvin</source>
+      </trans-unit>
+      <trans-unit id="installationPageTitle" datatype="html">
+        <source>Installation - Melvin</source>
       </trans-unit>
       <trans-unit id="GuidePageTitle" datatype="html">
         <source>Best Practice - Melvin</source>
@@ -1499,14 +1916,20 @@
       <trans-unit id="viewerControlsLanguageMenuTooltip" datatype="html">
         <source>Language menu</source>
       </trans-unit>
+      <trans-unit id="viewerControlsLanguageMenuAriaLabel" datatype="html">
+        <source>Language menu</source>
+      </trans-unit>
       <trans-unit id="viewerControlsGalleryMenuTooltip" datatype="html">
+        <source>Video selection menu</source>
+      </trans-unit>
+      <trans-unit id="viewerControlsGalleryMenuAriaLabel" datatype="html">
         <source>Video selection menu</source>
       </trans-unit>
       <trans-unit id="viewerControlsSettingsMenuTooltip" datatype="html">
         <source>Settings menu</source>
       </trans-unit>
-      <trans-unit id="viewerControlsCloseFullscreenLabel" datatype="html">
-        <source>Close fullscreen</source>
+      <trans-unit id="viewerControlsSettingsMenuAriaLabel" datatype="html">
+        <source>Settings menu</source>
       </trans-unit>
       <trans-unit id="viewerControlsAudioTitle" datatype="html">
         <source>Audiolanguage</source>
@@ -1583,6 +2006,21 @@
       <trans-unit id="viewerControlsPauseLabel" datatype="html">
         <source>Pause</source>
       </trans-unit>
+      <trans-unit id="viewerControlsMuteLabel" datatype="html">
+        <source>Mute</source>
+      </trans-unit>
+      <trans-unit id="viewerControlsUnmuteLabel" datatype="html">
+        <source>Unmute</source>
+      </trans-unit>
+      <trans-unit id="viewerControlsFullscreenLabel" datatype="html">
+        <source>Fullscreen</source>
+      </trans-unit>
+      <trans-unit id="viewerControlsCloseFullscreenLabel" datatype="html">
+        <source>Close fullscreen</source>
+      </trans-unit>
+      <trans-unit id="playerInnerResizerAriaLabel" datatype="html">
+        <source>Move to resize video</source>
+      </trans-unit>
       <trans-unit id="viewerVideoContainerToMainviewAriaHidden" datatype="html">
         <source>Switch</source>
       </trans-unit>
@@ -1625,6 +2063,9 @@
       <trans-unit id="viewerErrorDescription" datatype="html">
         <source> The project is no longer available under this link. The access link may have been changed or the project may no longer exist. </source>
       </trans-unit>
+      <trans-unit id="viewerFeedbackLinkLabel" datatype="html">
+        <source> Provide Feedback ❤️ </source>
+      </trans-unit>
       <trans-unit id="viewerLogoAriaLabel" datatype="html">
         <source>Melvin Logo, to main webpage</source>
       </trans-unit>
@@ -1636,447 +2077,6 @@
       </trans-unit>
       <trans-unit id="transcriptionEffectKickUserFromTranscript" datatype="html">
         <source>The opened transcript was deleted and another one selected.</source>
-      </trans-unit>
-      <trans-unit id="accessibilityStatementCompatibilityHeading" datatype="html">
-        <source> Information on compatibility </source>
-      </trans-unit>
-      <trans-unit id="accessibilityStatementCompatibilityText" datatype="html">
-        <source> Our website is optimized for the following browsers: Chrome, Firefox, Edge, Safari. Internet Explorer is not supported. </source>
-      </trans-unit>
-      <trans-unit id="accessibilityStatementComplianceHeading" datatype="html">
-        <source>Compliance status</source>
-      </trans-unit>
-      <trans-unit id="accessibilityStatementComplianceText" datatype="html">
-        <source> This website is partially compliant with Section 10 (1) L-BGG due to the the following non-compliances. </source>
-      </trans-unit>
-      <trans-unit id="accessibilityStatementEnforcementHeading" datatype="html">
-        <source> Enforcement procedure </source>
-      </trans-unit>
-      <trans-unit id="accessibilityStatementEnforcementPartFive" datatype="html">
-        <source> The option of bringing an action against associations in accordance with Section 12 (1) sentence 1 no. 4 L-BGG is hereby mentioned. </source>
-      </trans-unit>
-      <trans-unit id="accessibilityStatementEnforcementPartFour" datatype="html">
-        <source> This procedure is free of charge. </source>
-      </trans-unit>
-      <trans-unit id="accessibilityStatementEnforcementPartOne" datatype="html">
-        <source> To ensure that this website meets the requirements described in Section 10 (1) L-BGG, you can contact the SHUFFLE project partners (<x id="START_LINK" ctype="x-a" equiv-text="&lt;a href=&quot;mailto:melvin@shuffle-projekt.de&quot; &gt;"/>melvin@shuffle-projekt.de<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a &gt;"/>) by email and provide appropriate feedback. </source>
-      </trans-unit>
-      <trans-unit id="accessibilityStatementEnforcementPartThree" datatype="html">
-        <source> You can contact the National Center for Accessibility (LZ-BARR) as follows: <x id="START_LINK" ctype="x-a" equiv-text="&lt;a href=&quot;mailto:schlichtung@barrierefreiheit.bwl.de&quot; &gt;"/>schlichtung@barrierefreiheit.bwl.de<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/> , <x id="START_LINK_1" equiv-text="&lt;a href=&quot;tel:004971112339375&quot;&gt;"/>Tel. +49 711 123 39375<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/>, Address: Landeszentrum Barrierefreiheit, Schlichtungsstelle, Else-Josenhans-Straße 6, 70173 Stuttgart. </source>
-      </trans-unit>
-      <trans-unit id="accessibilityStatementEnforcementPartTwo" datatype="html">
-        <source> If the Melvin project team does not respond to your request within four weeks, you may file a complaint with the National Center for Accessibility (LZ-BARR). </source>
-      </trans-unit>
-      <trans-unit id="accessibilityStatementFeedbackHeading" datatype="html">
-        <source> Feedback and contact information </source>
-      </trans-unit>
-      <trans-unit id="accessibilityStatementFeedbackText" datatype="html">
-        <source> You would like to inform us about existing barriers or request information on the implementation of accessibility? For your feedback and any further information, please get in touch with our contact person: </source>
-      </trans-unit>
-      <trans-unit id="accessibilityStatementMainHeading" datatype="html">
-        <source>Accessibility Statement</source>
-      </trans-unit>
-      <trans-unit id="accessibilityStatementNonAccessibleHeading" datatype="html">
-        <source> Non-accessible content </source>
-      </trans-unit>
-      <trans-unit id="accessibilityStatementNonAccessiblePartOne" datatype="html">
-        <source> The Melvin application for creating videos and correcting subtitles is not accessible to screen reader users or people who only use a keyboard. </source>
-      </trans-unit>
-      <trans-unit id="accessibilityStatementNonAccessiblePartThree" datatype="html">
-        <source> The homepage and the Melvin video player are accessible. </source>
-      </trans-unit>
-      <trans-unit id="accessibilityStatementNonAccessiblePartTwo" datatype="html">
-        <source> We are working on the accessible implementation of the content mentioned above. </source>
-      </trans-unit>
-      <trans-unit id="accessibilityStatementPreparationHeading" datatype="html">
-        <source> Preparation of this accessibility statement </source>
-      </trans-unit>
-      <trans-unit id="accessibilityStatementPreparationText" datatype="html">
-        <source> This statement was prepared on 28.02.2025. It is based on a self-assessment that was conducted on 28.02.2025. This declaration was last reviewed on 28.02.2025. </source>
-      </trans-unit>
-      <trans-unit id="accessibilityStatementScopeHeading" datatype="html">
-        <source>Scope of application</source>
-      </trans-unit>
-      <trans-unit id="accessibilityStatementScopePartOne" datatype="html">
-        <source> This accessibility statement refers to the current version of the State Act on Equal Opportunities for Persons with Disabilities (Landes-Behindertengleichstellungsgesetz - L-BGG) of December 17, 2014. The SHUFFLE project is committed to making this website accessible in accordance with Section 10 (1) of the State Disability Equality Act (L-BGG). </source>
-      </trans-unit>
-      <trans-unit id="accessibilityStatementScopePartTwo" datatype="html">
-        <source> This accessibility statement applies to this website (www.melvin.shuffle-projekt.de). This statement explicitly does not refer to the other websites and mobile apps of the Hochschule der Medien or the universities involved in the project and not to the content of third-party providers referred to via external links. </source>
-      </trans-unit>
-      <trans-unit id="viewerControlsMuteLabel" datatype="html">
-        <source>Mute</source>
-      </trans-unit>
-      <trans-unit id="viewerControlsUnmuteLabel" datatype="html">
-        <source>Unmute</source>
-      </trans-unit>
-      <trans-unit id="viewerControlsGalleryMenuAriaLabel" datatype="html">
-        <source>Video selection menu</source>
-      </trans-unit>
-      <trans-unit id="viewerControlsLanguageMenuAriaLabel" datatype="html">
-        <source>Language menu</source>
-      </trans-unit>
-      <trans-unit id="viewerControlsSettingsMenuAriaLabel" datatype="html">
-        <source>Settings menu</source>
-      </trans-unit>
-      <trans-unit id="viewerControlsFullscreenLabel" datatype="html">
-        <source>Fullscreen</source>
-      </trans-unit>
-      <trans-unit id="playerInnerResizerAriaLabel" datatype="html">
-        <source>Move to resize video</source>
-      </trans-unit>
-      <trans-unit id="dialogSpellcheckInfoChromeOne" datatype="html">
-        <source> The Chrome browser automatically uses the integrated spell checker. All you need to do is select the “Spellchecking” option in the Melvin Editor before clicking inside the transcript. </source>
-      </trans-unit>
-      <trans-unit id="dialogSpellcheckInfoChromeTwo" datatype="html">
-        <source> The words are visually highlighted with reddish dots below. </source>
-      </trans-unit>
-      <trans-unit id="dialogSpellcheckInfoCloseAriaLabel" datatype="html">
-        <source>Close</source>
-      </trans-unit>
-      <trans-unit id="dialogSpellcheckInfoFirefoxLinkLabel" datatype="html">
-        <source>To the Firefox dictionary overview</source>
-      </trans-unit>
-      <trans-unit id="dialogSpellcheckInfoFirefoxLinkNewTab" datatype="html">
-        <source>Opens in new tab</source>
-      </trans-unit>
-      <trans-unit id="dialogSpellcheckInfoFirefoxOne" datatype="html">
-        <source> You must install a dictionary in order to use the Firefox spell checker. Follow the link below for an overview of the available dictionaries. </source>
-      </trans-unit>
-      <trans-unit id="dialogSpellcheckInfoFirefoxThree" datatype="html">
-        <source> The words are visually highlighted with reddish dots below. </source>
-      </trans-unit>
-      <trans-unit id="dialogSpellcheckInfoFirefoxTwo" datatype="html">
-        <source> Once you have added the dictionary, you may need to right-click on the transcript here in the Melvin Editor and activate “Check spelling” in the resulting menu and select the appropriate language under “Languages”. </source>
-      </trans-unit>
-      <trans-unit id="dialogSpellcheckInfoMainHeadline" datatype="html">
-        <source>Spellcheck browser info</source>
-      </trans-unit>
-      <trans-unit id="dialogSpellcheckInfoSafariOne" datatype="html">
-        <source> The Safari browser automatically uses the integrated spell checker. All you need to do is select the “Spellchecking” option in the Melvin Editor before clicking inside the transcript. However, it may take a few seconds before Safari highlights the first words. </source>
-      </trans-unit>
-      <trans-unit id="dialogSpellcheckInfoSafariTwo" datatype="html">
-        <source> The words are visually highlighted with reddish dots below. </source>
-      </trans-unit>
-      <trans-unit id="headerFeedbackLinkLabel" datatype="html">
-        <source> Provide Feedback ❤️ </source>
-      </trans-unit>
-      <trans-unit id="landingHeaderFeedbackLinkLabel" datatype="html">
-        <source> Provide Feedback ❤️ </source>
-      </trans-unit>
-      <trans-unit id="viewerFeedbackLinkLabel" datatype="html">
-        <source> Provide Feedback ❤️ </source>
-      </trans-unit>
-      <trans-unit id="guideAccessibleMaterialsDocumentLink" datatype="html">
-        <source> See document Tips for Accessible Tools </source>
-      </trans-unit>
-      <trans-unit id="guideContentSupportingDocuments" datatype="html">
-        <source> Supporting Documents </source>
-      </trans-unit>
-      <trans-unit id="guideSupportingDocumentsDownloadEnglishLabel" datatype="html">
-        <source> English </source>
-      </trans-unit>
-      <trans-unit id="guideSupportingDocumentsDownloadGermanLabel" datatype="html">
-        <source> German </source>
-      </trans-unit>
-      <trans-unit id="guideSupportingDocumentsHeading" datatype="html">
-        <source> Supporting Documents </source>
-      </trans-unit>
-      <trans-unit id="guideSupportingDocumentTipsAccessibleTools" datatype="html">
-        <source>Tips for Accessible Tools</source>
-      </trans-unit>
-      <trans-unit id="landingFooterAccessibilityHeader" datatype="html">
-        <source>Accessibility</source>
-      </trans-unit>
-      <trans-unit id="landingFooterDidacticGuideLinkLabel" datatype="html">
-        <source> Best Practice </source>
-      </trans-unit>
-      <trans-unit id="landingFooterFoundationLinkAriaLabel" datatype="html">
-        <source>Foundation &apos;Stiftung Innovation in der Hochschullehre&apos;, opens in new tab</source>
-      </trans-unit>
-      <trans-unit id="landingFooterLegalHeader" datatype="html">
-        <source>Legal</source>
-      </trans-unit>
-      <trans-unit id="landingFooterNavAriaLabel" datatype="html">
-        <source>Footer navigation</source>
-      </trans-unit>
-      <trans-unit id="landingFooterTutorialsHeader" datatype="html">
-        <source>Tutorials</source>
-      </trans-unit>
-      <trans-unit id="installationGitHubLinkLabel" datatype="html">
-        <source>To the GitHub Repo</source>
-      </trans-unit>
-      <trans-unit id="installationMainHeading" datatype="html">
-        <source>Installation</source>
-      </trans-unit>
-      <trans-unit id="installationPageTitle" datatype="html">
-        <source>Installation - Melvin</source>
-      </trans-unit>
-      <trans-unit id="installationTableComponentHeading" datatype="html">
-        <source> Component </source>
-      </trans-unit>
-      <trans-unit id="installationTableCPUComponent" datatype="html">
-        <source>CPU</source>
-      </trans-unit>
-      <trans-unit id="installationTableCPUDescription" datatype="html">
-        <source>Melvin uses ffmpeg to convert videos. Having multiple CPU cores available increases processing speed, particularly for long videos with high resolution.</source>
-      </trans-unit>
-      <trans-unit id="installationTableCPURequirement" datatype="html">
-        <source>8 cores / 16 threads</source>
-      </trans-unit>
-      <trans-unit id="installationTableGPUComponent" datatype="html">
-        <source>GPU</source>
-      </trans-unit>
-      <trans-unit id="installationTableGPUDescription" datatype="html">
-        <source>CPU can be used for ASR, but is significantly slower.</source>
-      </trans-unit>
-      <trans-unit id="installationTableRAMComponent" datatype="html">
-        <source>RAM</source>
-      </trans-unit>
-      <trans-unit id="installationTableRequirementHeading" datatype="html">
-        <source> Minimum requirement </source>
-      </trans-unit>
-      <trans-unit id="installationTableStorageComponent" datatype="html">
-        <source>Storage</source>
-      </trans-unit>
-      <trans-unit id="installationTableStorageDescription" datatype="html">
-        <source>A one-hour video is approximately 1 GB in size</source>
-      </trans-unit>
-      <trans-unit id="landingFooterInstallationLinkLabel" datatype="html">
-        <source> Installation </source>
-      </trans-unit>
-      <trans-unit id="createProjectFailedWithError" datatype="html">
-        <source> Failed with error: <x id="INTERPOLATION" equiv-text="{{ error.message }}"/> <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br /&gt;"/>You can try again. </source>
-      </trans-unit>
-      <trans-unit id="uploadRecordingCancelButton" datatype="html">
-        <source> Cancel and close </source>
-      </trans-unit>
-      <trans-unit id="dialogCreateProjectCancelUploadButton" datatype="html">
-        <source> Cancel and close </source>
-      </trans-unit>
-      <trans-unit id="uploadAreaFormDropzoneFileFormats" datatype="html">
-        <source>Accepted file types:</source>
-      </trans-unit>
-      <trans-unit id="uploadAreaFormDropzoneText" datatype="html">
-        <source> Drag and drop files here or select them </source>
-      </trans-unit>
-      <trans-unit id="uploadAreaFormSelectFile" datatype="html">
-        <source>Select file </source>
-      </trans-unit>
-      <trans-unit id="installationIntroText" datatype="html">
-        <source> Melvin is an open source project. As such, you can install and use the application on your own server. Follow the GitHub link below for the installation instructions: </source>
-      </trans-unit>
-      <trans-unit id="transcriptionMenuContentAddLabel" datatype="html">
-        <source> Add Transcription </source>
-      </trans-unit>
-      <trans-unit id="projectListEditProjectAriaLabel" datatype="html">
-        <source>Edit</source>
-      </trans-unit>
-      <trans-unit id="projectListTableHeaderEditLabel" datatype="html">
-        <source> Edit </source>
-      </trans-unit>
-      <trans-unit id="projectListTableHeaderWatchLabel" datatype="html">
-        <source> Watch </source>
-      </trans-unit>
-      <trans-unit id="translateTranscriptionTabHeading" datatype="html">
-        <source> Translate an existing transcription </source>
-      </trans-unit>
-      <trans-unit id="languageAutoCompleteLanguageLabel" datatype="html">
-        <source>Language</source>
-      </trans-unit>
-      <trans-unit id="translateTranscriptionTabNoTranslationVendor" datatype="html">
-        <source> There is currently no translation vendor connected to Melvin. Please contact the person who manages this Melvin instance. </source>
-      </trans-unit>
-      <trans-unit id="translateTranscriptionTabTitleLabel" datatype="html">
-        <source>Title</source>
-      </trans-unit>
-      <trans-unit id="translateTranscriptionTabTranscriptionErrorRequired" datatype="html">
-        <source>Select a transcription</source>
-      </trans-unit>
-      <trans-unit id="createTranscriptionDialogTabTranslateLabel" datatype="html">
-        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;translate&quot; class=&quot;tab-icon&quot; /&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;translate&quot; class=&quot;tab-icon&quot; /&gt;"/> Translate </source>
-      </trans-unit>
-      <trans-unit id="editorMenuTranslateLabel" datatype="html">
-        <source> Translate </source>
-      </trans-unit>
-      <trans-unit id="languageAutoCompleteErrorMessage" datatype="html">
-        <source>Language is required </source>
-      </trans-unit>
-      <trans-unit id="translateTranscriptionTabTitleHint" datatype="html">
-        <source> Optional (e.g. with audio description) </source>
-      </trans-unit>
-      <trans-unit id="inviteCollaboratorInviteButtonLabel" datatype="html">
-        <source> Invite </source>
-      </trans-unit>
-      <trans-unit id="tutorialAddTranscriptHeading" datatype="html">
-        <source> Add Additional Transcripts </source>
-      </trans-unit>
-      <trans-unit id="tutorialAddTranscriptIntro" datatype="html">
-        <source> A transcript in the video&apos;s primary language is automatically created for each project. To offer subtitles and transcripts in multiple languages, you can add more transcripts to a project. </source>
-      </trans-unit>
-      <trans-unit id="tutorialAddTranscriptLinkLabel" datatype="html">
-        <source> Add Additional Transcripts </source>
-      </trans-unit>
-      <trans-unit id="tutorialAddTranscriptStep1" datatype="html">
-        <source> Click on <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>“Transcription”<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/> below the project name in the editor. </source>
-      </trans-unit>
-      <trans-unit id="tutorialAddTranscriptStep2" datatype="html">
-        <source> Here, you&apos;ll see all available transcripts and options to <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>“Add Transcription”<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/> or <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>“Edit Transcription”.<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/></source>
-      </trans-unit>
-      <trans-unit id="tutorialAddTranscriptStep3" datatype="html">
-        <source> Clicking <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>“Edit Transcriptions”<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/> opens a dialog showing all current transcripts. You can download, delete, or edit them using the <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>“More”<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/> button (three dots). </source>
-      </trans-unit>
-      <trans-unit id="tutorialAddTranscriptStep4" datatype="html">
-        <source> Use <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>“Add Transcript”<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/> to upload or copy transcripts. </source>
-      </trans-unit>
-      <trans-unit id="tutorialCollaborativeEditingHeading" datatype="html">
-        <source> Collaborative Editing </source>
-      </trans-unit>
-      <trans-unit id="tutorialCollaborativeEditingLinkLabel" datatype="html">
-        <source> Collaborative Editing </source>
-      </trans-unit>
-      <trans-unit id="tutorialCollaborativeEditingStep1" datatype="html">
-        <source> Click the <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>“Share”<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/> button in the top right corner of the editor. </source>
-      </trans-unit>
-      <trans-unit id="tutorialCollaborativeEditingStep2" datatype="html">
-        <source> Select the <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>“Invite collaborators”<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/> tab. </source>
-      </trans-unit>
-      <trans-unit id="tutorialCollaborativeEditingStep3" datatype="html">
-        <source> Enter the person&apos;s email address and click <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>“Invite”<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/>. If they already have a Melvin account, they’ll be added immediately. Otherwise, an email invitation will be sent. </source>
-      </trans-unit>
-      <trans-unit id="tutorialCollaborativeEditingStep4" datatype="html">
-        <source> Alternatively, use <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>“Copy Link”<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/> to generate a shareable link that allows anonymous collaboration on the project. </source>
-      </trans-unit>
-      <trans-unit id="tutorialContentsTableHeading" datatype="html">
-        <source>Table of Contents</source>
-      </trans-unit>
-      <trans-unit id="tutorialCreatingVideosExplanation" datatype="html">
-        <source> With Melvin, you can record new videos directly in your browser or upload existing ones. </source>
-      </trans-unit>
-      <trans-unit id="tutorialCreatingVideosHeading" datatype="html">
-        <source> Creating Videos </source>
-      </trans-unit>
-      <trans-unit id="tutorialCreatingVideosLinkLabel" datatype="html">
-        <source> Creating Videos </source>
-      </trans-unit>
-      <trans-unit id="tutorialEditHeading" datatype="html">
-        <source>Edit a Project</source>
-      </trans-unit>
-      <trans-unit id="tutorialEditLinkLabel" datatype="html">
-        <source> Edit a Project </source>
-      </trans-unit>
-      <trans-unit id="tutorialEditStep1" datatype="html">
-        <source> To edit a project transcript, select a project from the <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>project list.<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/> Click the project title or the <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>“Edit”<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/> button. </source>
-      </trans-unit>
-      <trans-unit id="tutorialEditStep2" datatype="html">
-        <source> You are now in the editor. Click the project name at the top left to rename it. </source>
-      </trans-unit>
-      <trans-unit id="tutorialEditStep3" datatype="html">
-        <source> Edit the transcript directly in the text field. You can navigate the video using the audio waveform. </source>
-      </trans-unit>
-      <trans-unit id="tutorialEditStep4" datatype="html">
-        <source> If a speaker change was not detected, press Enter to create a new paragraph and assign the new speaker. Paragraphs can be merged using Backspace. To change the speaker, click on the name. </source>
-      </trans-unit>
-      <trans-unit id="tutorialIntroExplanation" datatype="html">
-        <source> The following videos show an earlier version of the web application. Minor differences – such as labels or element positions – may therefore occur. However, they still provide reliable guidance. The respective text versions have been updated and reflect the current state. </source>
-      </trans-unit>
-      <trans-unit id="tutorialPlayerHeading" datatype="html">
-        <source>Player</source>
-      </trans-unit>
-      <trans-unit id="tutorialPlayerLinkLabel" datatype="html">
-        <source> Player </source>
-      </trans-unit>
-      <trans-unit id="tutorialPlayerStep1" datatype="html">
-        <source> Click the <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>“Watch”<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/> button in the project list to open the project in the player (in a new browser tab). </source>
-      </trans-unit>
-      <trans-unit id="tutorialPlayerStep2" datatype="html">
-        <source> Below the video are various buttons to control and configure the player. Hover over a button to see its function, or use the Tab key to navigate to it. </source>
-      </trans-unit>
-      <trans-unit id="tutorialPlayerStep3" datatype="html">
-        <source> Use the <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>“Language menu”<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/> to show/hide and customize the subtitles and the transcript. For more options, click <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>“Settings”<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/> to open the settings dialog. </source>
-      </trans-unit>
-      <trans-unit id="tutorialPlayerStep4" datatype="html">
-        <source> If your project contains multiple videos, you can manage them using the <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>“Video Selection menu”<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/> button, located below the video next to the <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>“Languages menu”<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/>. </source>
-      </trans-unit>
-      <trans-unit id="tutorialPlayerStep5" datatype="html">
-        <source> Use the transcript to navigate the video: clicking a sentence jumps to the corresponding point in the video. </source>
-      </trans-unit>
-      <trans-unit id="tutorialRecordHeading" datatype="html">
-        <source> Record Videos in the Browser </source>
-      </trans-unit>
-      <trans-unit id="tutorialRecordLinkLabel" datatype="html">
-        <source> Record Videos in the Browser </source>
-      </trans-unit>
-      <trans-unit id="tutorialRecordStep1" datatype="html">
-        <source> Click on <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>“New Project”<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/> above your project list and select <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>“Recorder”<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/> from the drop-down menu. </source>
-      </trans-unit>
-      <trans-unit id="tutorialRecordStep2" datatype="html">
-        <source> You are now on the recorder page. Add your desired input sources here (e.g., microphone, camera, or screen). At least <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>one audio source<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/> and <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>one video or screen source<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/> are required to start recording. </source>
-      </trans-unit>
-      <trans-unit id="tutorialRecordStep2Info" datatype="html">
-        <source> The browser will request permission the first time. Allow access when prompted. If no prompt appears, search online for: “[Your browser, e.g., Firefox] [microphone / camera / screen] allow permissions” </source>
-      </trans-unit>
-      <trans-unit id="tutorialRecordStep3" datatype="html">
-        <source> The audio level indicator shows whether your microphone is picking up sound. </source>
-      </trans-unit>
-      <trans-unit id="tutorialRecordStep4" datatype="html">
-        <source> Start recording by clicking <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>“Start recording”<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/>. Please note that you cannot add or remove input sources during the recording. </source>
-      </trans-unit>
-      <trans-unit id="tutorialRecordStep5" datatype="html">
-        <source> After clicking <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>“Stop recording”<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/>, the <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>“Project Creation”<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/> dialog opens automatically. Specify the primary language of the recording to enable file upload and initiate project creation. To save individual files locally, use the download button located beside each file. </source>
-      </trans-unit>
-      <trans-unit id="tutorialRecordStep5Info" datatype="html">
-        <source> If you experience upload issues, save the video locally and use the “Upload Existing Video” function later (see below). </source>
-      </trans-unit>
-      <trans-unit id="tutorialRecordStep6" datatype="html">
-        <source> Once the project is created, your recording will appear in the project list. Processing may take some time depending on the video length. </source>
-      </trans-unit>
-      <trans-unit id="tutorialShareVideoHeading" datatype="html">
-        <source>Share a Video</source>
-      </trans-unit>
-      <trans-unit id="tutorialShareVideoLinkLabel" datatype="html">
-        <source> Share a Video </source>
-      </trans-unit>
-      <trans-unit id="tutorialShareVideoOption1Intro" datatype="html">
-        <source> You can easily share your videos using the integrated, accessible player: </source>
-      </trans-unit>
-      <trans-unit id="tutorialShareVideoOption1Step1" datatype="html">
-        <source> In the project list, click the <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>“Watch”<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/> button for your project. The video will open in a new tab using the player. </source>
-      </trans-unit>
-      <trans-unit id="tutorialShareVideoOption1Step2" datatype="html">
-        <source> Copy the <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>browser URL<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/> to share the video. </source>
-      </trans-unit>
-      <trans-unit id="tutorialShareVideoOption2Intro" datatype="html">
-        <source> Alternatively, you can embed the video with the player into your website using an iframe. </source>
-      </trans-unit>
-      <trans-unit id="tutorialShareVideoOption2Step1" datatype="html">
-        <source> In the project list, click the <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>“More”<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/> button of the project and select <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>“Share”<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/>. The sharing dialog will open. </source>
-      </trans-unit>
-      <trans-unit id="tutorialShareVideoOption2Step2" datatype="html">
-        <source> Under the <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>“Share videoplayer”<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/> tab, click <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>“Copy”<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/> to copy the embed code to your clipboard. </source>
-      </trans-unit>
-      <trans-unit id="tutorialUploadHeading" datatype="html">
-        <source>Upload Existing Videos</source>
-      </trans-unit>
-      <trans-unit id="tutorialUploadLinkLabel" datatype="html">
-        <source> Upload Existing Videos </source>
-      </trans-unit>
-      <trans-unit id="tutorialUploadStep1" datatype="html">
-        <source> Click on <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>“New Project”<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/> above your project list and select <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>“Upload File”<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/> from the drop-down menu. </source>
-      </trans-unit>
-      <trans-unit id="tutorialUploadStep2" datatype="html">
-        <source> In the <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>“New Project”<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/> dialog that appears, you can drag and drop files or use the <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>“Select Files”<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/> button to upload one or more files from your computer. </source>
-      </trans-unit>
-      <trans-unit id="tutorialUploadStep3" datatype="html">
-        <source> For each file, select a category and language. </source>
-      </trans-unit>
-      <trans-unit id="tutorialUploadStep4" datatype="html">
-        <source> Check <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>“Use Audio”<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/> for the file that should be transcribed and used as the audio track. </source>
-      </trans-unit>
-      <trans-unit id="tutorialUploadStep5" datatype="html">
-        <source> Set a project title and click <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>“Create Project”<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/>. </source>
-      </trans-unit>
-      <trans-unit id="tutorialUploadStep6" datatype="html">
-        <source> Your project will now appear in the project list. Processing may take some time. </source>
       </trans-unit>
     </body>
   </file>
