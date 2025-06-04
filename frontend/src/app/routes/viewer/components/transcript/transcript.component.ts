@@ -93,7 +93,7 @@ export class TranscriptComponent implements OnDestroy, OnInit {
     combineLatest([this.viewerService.currentCaption$, this.captions$])
       .pipe(
         takeUntil(this.destroy$$),
-        throttleTime(1000, undefined, { leading: true, trailing: true }),
+        throttleTime(400, undefined, { leading: true, trailing: true }),
         tap(([currentCaption, captions]) => {
           if (currentCaption && this.autoScroll) {
             const index = captions.findIndex(
@@ -236,7 +236,25 @@ export class TranscriptComponent implements OnDestroy, OnInit {
 
     if (!viewportEle || !captionEle || !captionParentEle) return;
 
-    captionEle.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    // captionEle.scrollIntoView({
+    //   behavior: 'smooth',
+    //   block: 'center',
+    // });
+
+    const containerRect = viewportEle.getBoundingClientRect();
+    const targetRect = captionEle.getBoundingClientRect();
+
+    const scrollPosition =
+      viewportEle.scrollTop +
+      (targetRect.top - containerRect.top) -
+      viewportEle.clientHeight / 2 +
+      captionEle.clientHeight / 2 +
+      viewportEle.clientHeight * 0.2;
+
+    viewportEle.scrollTo({
+      top: scrollPosition,
+      behavior: 'smooth',
+    });
   }
 
   getSpeakerName(speakerId: string, availableSpeakers: SpeakerEntity[]) {
