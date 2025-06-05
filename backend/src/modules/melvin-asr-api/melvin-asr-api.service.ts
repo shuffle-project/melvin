@@ -179,7 +179,6 @@ export class MelvinAsrApiService {
           }),
           catchError((error: AxiosError) => {
             if (error?.response?.status) {
-              console.log(error.response);
               throw new HttpException(
                 error.response.data,
                 error.response.status,
@@ -211,6 +210,7 @@ export class MelvinAsrApiService {
                 error.response.status,
               );
             } else {
+              console.log(error);
               throw new HttpException('unknown error', 500);
             }
           }),
