@@ -139,6 +139,7 @@ export class MelvinAsrApiService {
   }
 
   async getJobResult(job_id: string): Promise<MelvinAsrResultEntity> {
+    console.log(`${this.host}/jobs/${job_id}/result`);
     return await lastValueFrom(
       this.httpService
         .get<MelvinAsrResultEntity>(`${this.host}/jobs/${job_id}/result`, {
@@ -178,6 +179,7 @@ export class MelvinAsrApiService {
           }),
           catchError((error: AxiosError) => {
             if (error?.response?.status) {
+              console.log(error.response);
               throw new HttpException(
                 error.response.data,
                 error.response.status,
