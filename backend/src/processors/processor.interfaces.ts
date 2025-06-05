@@ -1,3 +1,4 @@
+import { MelvinAsrTranscript } from 'src/modules/melvin-asr-api/melvin-asr-api.interfaces';
 import { UploadMetadata } from 'src/modules/upload/upload.interfaces';
 import { CaptionEntity } from 'src/resources/caption/entities/caption.entity';
 import { Audio, Project, Video } from '../modules/db/schemas/project.schema';
@@ -53,7 +54,8 @@ export interface AlignPayload {
   transcriptionId: string;
   audio: Audio;
   // language: string; // take language of project
-  text?: string;
+  // text?: string;
+  transcriptToAlign?: MelvinAsrTranscript;
   syncSpeaker?: CaptionEntity[];
 }
 

@@ -566,7 +566,12 @@ export class TranscriptionService {
 
     // align text from old transcription to new trasncriptiopn
 
-    const text = await this.tiptapService.getPlainText(
+    // const text = await this.tiptapService.getPlainText(
+    //   transcription._id.toString(),
+    // );
+
+    // TODO
+    const transcriptToAlign = await this.tiptapService.getAsMelvinTranscript(
       transcription._id.toString(),
     );
 
@@ -575,7 +580,8 @@ export class TranscriptionService {
       type: SubtitlesType.ALIGN,
       audio: project.audios[0],
       transcriptionId: transcription._id.toString(),
-      text,
+      // text,
+      transcriptToAlign: transcriptToAlign,
     };
     this.subtitlesQueue.add({
       project: project,

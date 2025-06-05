@@ -22,6 +22,7 @@ import {
 import { TranscriptionStatus } from '../db/schemas/transcription.schema';
 import { FfmpegService } from '../ffmpeg/ffmpeg.service';
 import { CustomLogger } from '../logger/logger.service';
+import { MelvinAsrTranscript } from '../melvin-asr-api/melvin-asr-api.interfaces';
 import { PathService } from '../path/path.service';
 import { WhisperSpeechService } from '../speech-to-text/whisper/whisper-speech.service';
 import { TiptapService } from '../tiptap/tiptap.service';
@@ -414,6 +415,20 @@ export class MigrationService {
           })
           .join(' ');
 
+        const transcriptToAlign: MelvinAsrTranscript = {
+          text,
+          segments: [
+            {
+              text,
+              start: 0,
+              end: 0,
+              words: text
+                .split(' ')
+                .map((w) => ({ text: w, start: 0, end: 0 })),
+            },
+          ],
+        };
+
         /**
          *
          */
@@ -430,7 +445,7 @@ export class MigrationService {
             type: SubtitlesType.ALIGN,
             audio: project.audios[0],
             transcriptionId: transcription._id.toString(),
-            text,
+            transcriptToAlign,
             syncSpeaker: captions,
           };
           this.subtitlesQueue.add({

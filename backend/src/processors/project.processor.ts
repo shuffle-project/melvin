@@ -64,7 +64,6 @@ export class ProjectProcessor {
       projectId,
       mainVideo,
     );
-    console.log(file);
 
     if (file.mimetype.includes('audio')) {
       // if its an audio file, convert it to video
@@ -195,7 +194,7 @@ export class ProjectProcessor {
         status: ProjectStatus.PROCESSING,
       });
     } catch (err) {
-      console.log(err);
+      this.logger.error(err);
     }
 
     this.logger.verbose(
@@ -219,12 +218,12 @@ export class ProjectProcessor {
 
     const jobTypes: JobStatus[] = ['active', 'paused', 'waiting', 'delayed'];
     const projectJobs = await job.queue.getJobs(jobTypes);
-    const subtitleJobs = await this.subtitlesQueue.getJobs(jobTypes);
+    // const subtitleJobs = await this.subtitlesQueue.getJobs(jobTypes);
 
     // if there are no more project jobs, set status to draft
     const projectJobExists = jobWithProjectIdExists(
       projectId,
-      subtitleJobs,
+      // subtitleJobs,
       projectJobs,
     );
 

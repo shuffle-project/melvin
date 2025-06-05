@@ -385,7 +385,7 @@ export class SubtitlesProcessor {
         target,
         payload.audio,
         AsrVendors.WHISPER,
-        payload.text,
+        payload.transcriptToAlign,
         payload.syncSpeaker,
       );
     }

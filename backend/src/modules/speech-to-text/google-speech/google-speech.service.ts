@@ -3,6 +3,7 @@ import { SpeechClient } from '@google-cloud/speech';
 import { Bucket, Storage } from '@google-cloud/storage';
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
+import { MelvinAsrTranscript } from 'src/modules/melvin-asr-api/melvin-asr-api.interfaces';
 import { LanguageShort } from '../../../app.interfaces';
 import { GoogleSpeechConfig } from '../../../config/config.interface';
 import { ProjectEntity } from '../../../resources/project/entities/project.entity';
@@ -46,7 +47,11 @@ export class GoogleSpeechService implements ISpeechToTextService {
     this.bucketName = this.googleSpeechConfig?.bucketName;
     // this.keyfile = this.googleSpeechConfig.keyfileContent;
   }
-  runAlign(project: ProjectEntity, text: string, audio: Audio): Promise<any> {
+  runAlign(
+    project: ProjectEntity,
+    text: MelvinAsrTranscript,
+    audio: Audio,
+  ): Promise<any> {
     throw new Error('Method not implemented.');
   }
 

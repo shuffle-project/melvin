@@ -8,7 +8,9 @@ export class WhiInformation {
   keep_data_for_hours: number;
   cleanup_schedule_in_minutes: number;
   transcription_default: any;
-  supported_language_codes: string[];
+
+  transcription_languages: string[];
+  translation_languages: string[];
 }
 
 export class WhiTranscribeDto {

@@ -12,6 +12,10 @@ import { WebSocket } from 'ws';
 import { updateYFragment } from 'y-prosemirror';
 import * as Y from 'yjs';
 import { CustomLogger } from '../logger/logger.service';
+import {
+  MelvinAsrSegment,
+  MelvinAsrTranscript,
+} from '../melvin-asr-api/melvin-asr-api.interfaces';
 import { WordEntity } from '../speech-to-text/speech-to-text.interfaces';
 import { HocuspocusService } from './hocuspocus.service';
 import {
@@ -410,6 +414,43 @@ export class TiptapService {
     });
     tiptapDocument.content.push(tiptapParagraph);
     return tiptapDocument;
+  }
+
+  public async getAsMelvinTranscript(
+    transcriptionId: string,
+  ): Promise<MelvinAsrTranscript> {
+    const connection = await this.hocuspocusService.openDirectConnection(
+      transcriptionId,
+    );
+
+    const document = this.docToJSON(connection.document);
+    connection.disconnect();
+
+    const transcriptDocument: MelvinAsrTranscript = { text: '', segments: [] };
+
+    for (const paragraph of document.content) {
+      const segment: MelvinAsrSegment = {
+        text: '',
+        start: 0,
+        end: 0,
+        words: [],
+      };
+
+      for (let i = 0; i < paragraph.content.length; i++) {
+        const word = paragraph.content[i];
+        segment.text += word.text;
+        segment.words.push({
+          text: word.text,
+          start: word.marks[0]?.attrs.start,
+          end: word.marks[0]?.attrs.end,
+          probability: word.marks[0]?.attrs.confidence,
+        });
+      }
+      transcriptDocument.text += segment.text;
+      transcriptDocument.segments.push(segment);
+    }
+
+    return transcriptDocument;
   }
 
   public async getTiptapDocument(

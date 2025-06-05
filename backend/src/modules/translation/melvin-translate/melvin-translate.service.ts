@@ -1,15 +1,10 @@
 import { HttpService } from '@nestjs/axios';
-import { HttpException, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { AxiosError, AxiosResponse } from 'axios';
-import { catchError, lastValueFrom, map } from 'rxjs';
 import { LanguageShort } from 'src/app.interfaces';
 import { WhisperConfig } from 'src/config/config.interface';
-import { WordEntity } from 'src/modules/speech-to-text/speech-to-text.interfaces';
-import {
-  WhiInformation,
-  WhiTranscriptEntity,
-} from 'src/modules/speech-to-text/whisper/whisper.interfaces';
+import { MelvinAsrResultEntity } from 'src/modules/melvin-asr-api/melvin-asr-api.interfaces';
+import { MelvinAsrApiService } from 'src/modules/melvin-asr-api/melvin-asr-api.service';
 import { MelvinTranslateDto } from './melvin-translate.interfaces';
 
 @Injectable()
@@ -22,6 +17,7 @@ export class MelvinTranslateService {
   constructor(
     private httpService: HttpService,
     private configService: ConfigService,
+    private melvinAsrApiService: MelvinAsrApiService,
   ) {
     this.whisperConfig = this.configService.get<WhisperConfig>('whisper');
 
@@ -34,33 +30,9 @@ export class MelvinTranslateService {
       return null;
     }
     try {
-      const response = await lastValueFrom(
-        this.httpService
-          .get<WhiInformation>(`${this.host}`, {
-            headers: {
-              Authorization: this.apikey,
-              'Content-Type': 'application/json',
-            },
-          })
-          .pipe(
-            map((res: AxiosResponse<WhiInformation>) => {
-              return res.data;
-            }),
-            catchError((error: AxiosError) => {
-              if (error?.response?.status) {
-                console.log(error.response.data);
-                throw new HttpException(
-                  error.response.data,
-                  error.response.status,
-                );
-              } else {
-                throw new HttpException('unknown error', 500);
-              }
-            }),
-          ),
-      );
+      const settings = await this.melvinAsrApiService.getSettings();
 
-      const res = response.supported_language_codes.map((lang) => ({
+      const res = settings.translation_languages.map((lang) => ({
         code: lang,
         name: lang,
       }));
@@ -79,117 +51,36 @@ export class MelvinTranslateService {
   }
 
   async _translate(melvinTranslateDto: MelvinTranslateDto) {
-    const response = await lastValueFrom(
-      this.httpService
-        .post<{ id: string }>(`${this.host}/translate`, melvinTranslateDto, {
-          headers: {
-            Authorization: this.apikey,
-            'Content-Type': 'application/json',
-          },
-        })
-        .pipe(
-          map((res: AxiosResponse<{ id: string }>) => {
-            return res.data;
-          }),
-          catchError((error: AxiosError) => {
-            if (error?.response?.status) {
-              console.log(error.response.data);
-              throw new HttpException(
-                error.response.data,
-                error.response.status,
-              );
-            } else {
-              throw new HttpException('unknown error', 500);
-            }
-          }),
-        ),
-    );
-
-    return response;
+    return this.melvinAsrApiService.runTranslation({
+      source_language: melvinTranslateDto.language,
+      ...melvinTranslateDto,
+    });
   }
 
   // copy from whisper speech service
   private async _fetchResult(id: string) {
-    console.log('_fetchResult');
-    console.log(id);
-    const transcriptEntity: WhiTranscriptEntity = await new Promise(
+    const transcriptEntity: MelvinAsrResultEntity | null = await new Promise(
       (resolve) => {
         const interval = setInterval(async () => {
-          const transcriptEntityTemp = await this._getTranscript(id);
-          if (
-            transcriptEntityTemp.status === 'done' ||
-            transcriptEntityTemp.status === 'finished' ||
-            transcriptEntityTemp.status === 'error'
-          ) {
+          const job = await this.melvinAsrApiService.getJob(id);
+          if (job.status === 'completed' || job.status === 'failed') {
             clearInterval(interval);
-            resolve(transcriptEntityTemp);
+            if (job.status === 'failed') {
+              resolve(null);
+            } else {
+              const result = await this.melvinAsrApiService.getJobResult(id);
+              resolve(result);
+            }
           }
         }, 10000);
       },
     );
-
-    if (transcriptEntity.status === 'error') {
-      throw new Error(transcriptEntity.error_message);
+    if (!transcriptEntity) {
+      // TODO
+      throw new Error('TODO');
     }
 
-    // let currentMS = 0;
-    const words: WordEntity[] = [];
-
-    let lastSegmentEnd = 0;
-    transcriptEntity.transcript.segments.forEach((segment) => {
-      const secondsToLastSegment = segment.start - lastSegmentEnd;
-
-      lastSegmentEnd = segment.end;
-
-      segment.words.forEach((word, i) => {
-        const startParagraph = i === 0 || secondsToLastSegment > 3;
-        words.push({
-          text: word.text,
-          start: word.start * 1000,
-          end: word.end * 1000,
-          confidence: word.probability,
-          startParagraph,
-          speakerId: null,
-        });
-      });
-    });
-
+    const words = this.melvinAsrApiService.toWords(transcriptEntity);
     return { words };
-  }
-
-  // copy from whisper-speech service
-  async _getTranscript(transcriptId: string): Promise<WhiTranscriptEntity> {
-    console.log('_getTranscript');
-    console.log(transcriptId);
-    const response = await lastValueFrom(
-      this.httpService
-        .get<WhiTranscriptEntity>(
-          `${this.host}/transcriptions/${transcriptId}`,
-          {
-            headers: {
-              Authorization: this.apikey,
-              'Content-Type': 'application/json',
-            },
-          },
-        )
-        .pipe(
-          map((res: AxiosResponse<WhiTranscriptEntity>) => {
-            return res.data;
-          }),
-          catchError((error: AxiosError) => {
-            if (error?.response?.status) {
-              console.log(error.response.data);
-              throw new HttpException(
-                error.response.data,
-                error.response.status,
-              );
-            } else {
-              throw new HttpException('unknown error', 500);
-            }
-          }),
-        ),
-    );
-
-    return response;
   }
 }
