@@ -85,6 +85,15 @@
         }
       </button>
 
+      @if(isLoggedIn$ | ngrxPush) {
+      <a
+        i18n="@@landingHeaderToTheProjectsButton"
+        routerLink="/home/projects"
+        mat-flat-button
+        >To the projects</a
+      >
+
+      } @else {
       <button
         (click)="onOpenLoginDialog()"
         mat-flat-button
@@ -92,6 +101,8 @@
       >
         Login
       </button>
+
+      }
       <button
         (click)="onToggleSidebar()"
         mat-icon-button

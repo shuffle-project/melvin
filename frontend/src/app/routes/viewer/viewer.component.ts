@@ -106,9 +106,6 @@ export class ViewerComponent implements OnInit, OnDestroy {
   }
 
   onOpenAdjustLayoutDialog() {
-    this.viewerService.audio?.pause();
-    // TODO do we want to play after closing the dialog??
-
     this.dialog.open(AdjustLayoutDialogComponent, {
       width: '100%',
       maxWidth: '50rem',

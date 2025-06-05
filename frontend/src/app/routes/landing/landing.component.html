@@ -10,32 +10,12 @@
     <nav>
       <ul>
         <li>
-          <a
-            routerLink="/"
-            (click)="drawer.toggle()"
-            i18n="@@landingSidenavStartpageLink"
-          >
-            Startpage
-          </a>
+          <a routerLink="/guide" (click)="drawer.toggle()"> Best Practice </a>
         </li>
         <li>
-          <a
-            routerLink="/tutorial"
-            (click)="drawer.toggle()"
-            i18n="@@landingSidenavTutorialLink"
-          >
-            Tutorial
-          </a>
+          <a routerLink="/tutorial" (click)="drawer.toggle()"> Tutorial </a>
         </li>
-        <li>
-          <a
-            routerLink="/documentation"
-            (click)="drawer.toggle()"
-            i18n="@@landingSidenavDocumentationLink"
-          >
-            Documentation
-          </a>
-        </li>
+
         <li>
           <button
             mat-stroked-button

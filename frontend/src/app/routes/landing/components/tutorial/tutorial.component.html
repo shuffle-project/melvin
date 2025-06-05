@@ -1,7 +1,617 @@
 <div class="landing-subpage-wrapper">
-  <h1>Tutorial</h1>
-  <p i18n="@@landingSubpageWIPInfo">
-    Sorry, this page is still under development. Please come back at a later
-    time.
+  <h1 id="tutorial-heading">Tutorial</h1>
+  <p i18n="@@tutorialIntroExplanation">
+    The following videos show an earlier version of the web application. Minor
+    differences – such as labels or element positions – may therefore occur.
+    However, they still provide reliable guidance. The respective text versions
+    have been updated and reflect the current state.
   </p>
+
+  <nav>
+    <h2 i18n="@@tutorialContentsTableHeading">Table of Contents</h2>
+    <ul>
+      <li>
+        <a
+          routerLink="./"
+          fragment="creating-videos"
+          i18n="@@tutorialCreatingVideosLinkLabel"
+        >
+          Creating Videos
+        </a>
+      </li>
+      <ul>
+        <li>
+          <a routerLink="./" fragment="record" i18n="@@tutorialRecordLinkLabel">
+            Record Videos in the Browser
+          </a>
+        </li>
+        <li>
+          <a routerLink="./" fragment="upload" i18n="@@tutorialUploadLinkLabel">
+            Upload Existing Videos
+          </a>
+        </li>
+      </ul>
+      <li>
+        <a
+          routerLink="./"
+          fragment="edit-project"
+          i18n="@@tutorialEditLinkLabel"
+        >
+          Edit a Project
+        </a>
+      </li>
+      <ul>
+        <li>
+          <a
+            routerLink="./"
+            fragment="collaborative-editing"
+            i18n="@@tutorialCollaborativeEditingLinkLabel"
+          >
+            Collaborative Editing
+          </a>
+        </li>
+        <li>
+          <a
+            routerLink="./"
+            fragment="add-transcript"
+            i18n="@@tutorialAddTranscriptLinkLabel"
+          >
+            Add Additional Transcripts
+          </a>
+        </li>
+      </ul>
+      <li>
+        <a routerLink="./" fragment="player" i18n="@@tutorialPlayerLinkLabel">
+          Player
+        </a>
+      </li>
+      <ul>
+        <li>
+          <a
+            routerLink="./"
+            fragment="share-video"
+            i18n="@@tutorialShareVideoLinkLabel"
+          >
+            Share a Video
+          </a>
+        </li>
+      </ul>
+    </ul>
+  </nav>
+
+  <h2 id="creating-videos" i18n="@@tutorialCreatingVideosHeading">
+    Creating Videos
+  </h2>
+  <p i18n="@@tutorialCreatingVideosExplanation">
+    With Melvin, you can record new videos directly in your browser or upload
+    existing ones.
+  </p>
+  <h3 id="record" i18n="@@tutorialRecordHeading">
+    Record Videos in the Browser
+  </h3>
+  <mat-tab-group>
+    <mat-tab label="Video">
+      <iframe
+        width="800"
+        height="450"
+        src="https://melvin.shuffle-projekt.de/view/kgv2CCDSjXFZhY6V6lJRBOvZkF3wsMhjqaKSbo8NMS00DlgnD2fj5A9qDu12BIlE?embed=true"
+        title="Melvin videoplayer"
+        frameborder="0"
+        allowfullscreen
+        referrerpolicy="strict-origin-when-cross-origin"
+      ></iframe>
+    </mat-tab>
+    <mat-tab label="Text">
+      <ol>
+        <li>
+          <div class="content">
+            <p i18n="@@tutorialRecordStep1">
+              Click on <strong>“New Project”</strong> above your project list
+              and select <strong>“Recorder”</strong> from the drop-down menu.
+            </p>
+
+            <img
+              alt=""
+              aria-hidden="true"
+              src="assets/landing/tutorial/Tutorial_Record_1.png"
+            />
+          </div>
+        </li>
+        <li>
+          <div class="content">
+            <p i18n="@@tutorialRecordStep2">
+              You are now on the recorder page. Add your desired input sources
+              here (e.g., microphone, camera, or screen). At least
+              <strong>one audio source</strong> and
+              <strong>one video or screen source</strong> are required to start
+              recording.
+            </p>
+            <div class="info">
+              <mat-icon svgIcon="info"></mat-icon>
+              <p i18n="@@tutorialRecordStep2Info">
+                The browser will request permission the first time. Allow access
+                when prompted. If no prompt appears, search online for: “[Your
+                browser, e.g., Firefox] [microphone / camera / screen] allow
+                permissions”
+              </p>
+            </div>
+
+            <img
+              alt=""
+              aria-hidden="true"
+              src="assets/landing/tutorial/Tutorial_Record_2.png"
+            />
+          </div>
+        </li>
+        <li>
+          <div class="content">
+            <p i18n="@@tutorialRecordStep3">
+              The audio level indicator shows whether your microphone is picking
+              up sound.
+            </p>
+
+            <img
+              alt=""
+              aria-hidden="true"
+              src="assets/landing/tutorial/Tutorial_Record_3.png"
+            />
+          </div>
+        </li>
+        <li>
+          <div class="content">
+            <p i18n="@@tutorialRecordStep4">
+              Start recording by clicking <strong>“Start recording”</strong>.
+              Please note that you cannot add or remove input sources during the
+              recording.
+            </p>
+          </div>
+        </li>
+        <li>
+          <div class="content">
+            <p i18n="@@tutorialRecordStep5">
+              After clicking <strong>“Stop recording”</strong>, the
+              <strong>“Project Creation”</strong> dialog opens automatically.
+              Specify the primary language of the recording to enable file
+              upload and initiate project creation. To save individual files
+              locally, use the download button located beside each file.
+            </p>
+
+            <div class="info">
+              <mat-icon svgIcon="info"></mat-icon>
+              <p i18n="@@tutorialRecordStep5Info">
+                If you experience upload issues, save the video locally and use
+                the “Upload Existing Video” function later (see below).
+              </p>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="content">
+            <p i18n="@@tutorialRecordStep6">
+              Once the project is created, your recording will appear in the
+              project list. Processing may take some time depending on the video
+              length.
+            </p>
+          </div>
+        </li>
+      </ol>
+    </mat-tab>
+  </mat-tab-group>
+
+  <h3 id="upload" i18n="@@tutorialUploadHeading">Upload Existing Videos</h3>
+  <mat-tab-group>
+    <mat-tab label="Video">
+      <iframe
+        width="800"
+        height="450"
+        src="https://melvin.shuffle-projekt.de/view/XHxfcuRF9mhiGHIYJTSUZ2oASmteMJubXeIvt53Sr4mJHgcmHb18lF2Sutkm9KbU?embed=true"
+        title="Melvin videoplayer"
+        frameborder="0"
+        allowfullscreen
+        referrerpolicy="strict-origin-when-cross-origin"
+      ></iframe>
+    </mat-tab>
+    <mat-tab label="Text">
+      <ol>
+        <li>
+          <div class="content">
+            <p i18n="@@tutorialUploadStep1">
+              Click on <strong>“New Project”</strong> above your project list
+              and select <strong>“Upload File”</strong> from the drop-down menu.
+            </p>
+
+            <img
+              alt=""
+              aria-hidden="true"
+              src="assets/landing/tutorial/Tutorial_Upload_1.png"
+            />
+          </div>
+        </li>
+        <li>
+          <div class="content">
+            <p i18n="@@tutorialUploadStep2">
+              In the <strong>“New Project”</strong> dialog that appears, you can
+              drag and drop files or use the
+              <strong>“Select Files”</strong> button to upload one or more files
+              from your computer.
+            </p>
+          </div>
+        </li>
+        <li>
+          <div class="content">
+            <p i18n="@@tutorialUploadStep3">
+              For each file, select a category and language.
+            </p>
+            <img
+              alt=""
+              aria-hidden="true"
+              src="assets/landing/tutorial/Tutorial_Upload_2.png"
+            />
+          </div>
+        </li>
+        <li>
+          <div class="content">
+            <p i18n="@@tutorialUploadStep4">
+              Check <strong>“Use Audio”</strong> for the file that should be
+              transcribed and used as the audio track.
+            </p>
+          </div>
+        </li>
+        <li>
+          <div class="content">
+            <p i18n="@@tutorialUploadStep5">
+              Set a project title and click <strong>“Create Project”</strong>.
+            </p>
+          </div>
+        </li>
+        <li>
+          <div class="content">
+            <p i18n="@@tutorialUploadStep6">
+              Your project will now appear in the project list. Processing may
+              take some time.
+            </p>
+          </div>
+        </li>
+      </ol>
+    </mat-tab>
+  </mat-tab-group>
+
+  <h2 id="edit-project" i18n="@@tutorialEditHeading">Edit a Project</h2>
+  <mat-tab-group>
+    <mat-tab label="Video">
+      <iframe
+        width="800"
+        height="450"
+        src="https://melvin.shuffle-projekt.de/view/CDGXvxYHbMFKmP2tVPwqrV3xjim6X7TnVKAf5msTt4ergZYt5cX3oKg9wk2CGBzy?embed=true"
+        title="Melvin videoplayer"
+        frameborder="0"
+        allowfullscreen
+        referrerpolicy="strict-origin-when-cross-origin"
+      ></iframe>
+    </mat-tab>
+    <mat-tab label="Text">
+      <ol>
+        <li>
+          <div class="content">
+            <p i18n="@@tutorialEditStep1">
+              To edit a project transcript, select a project from the
+              <strong>project list.</strong> Click the project title or the
+              <strong>“Edit”</strong> button.
+            </p>
+
+            <img
+              alt=""
+              aria-hidden="true"
+              src="assets/landing/tutorial/Tutorial_Edit_1.png"
+            />
+          </div>
+        </li>
+        <li>
+          <div class="content">
+            <p i18n="@@tutorialEditStep2">
+              You are now in the editor. Click the project name at the top left
+              to rename it.
+            </p>
+
+            <img
+              alt=""
+              aria-hidden="true"
+              src="assets/landing/tutorial/Tutorial_Edit_2.png"
+            />
+          </div>
+        </li>
+        <li>
+          <div class="content">
+            <p i18n="@@tutorialEditStep3">
+              Edit the transcript directly in the text field. You can navigate
+              the video using the audio waveform.
+            </p>
+          </div>
+        </li>
+        <li>
+          <div class="content">
+            <p i18n="@@tutorialEditStep4">
+              If a speaker change was not detected, press Enter to create a new
+              paragraph and assign the new speaker. Paragraphs can be merged
+              using Backspace. To change the speaker, click on the name.
+            </p>
+
+            <img
+              alt=""
+              aria-hidden="true"
+              src="assets/landing/tutorial/Tutorial_Edit_3.png"
+            />
+          </div>
+        </li>
+      </ol>
+    </mat-tab>
+  </mat-tab-group>
+
+  <h3 id="collaborative-editing" i18n="@@tutorialCollaborativeEditingHeading">
+    Collaborative Editing
+  </h3>
+  <mat-tab-group>
+    <mat-tab label="Video">
+      <iframe
+        width="800"
+        height="450"
+        src="https://melvin.shuffle-projekt.de/view/Mgn1v7HRF6nitO4U2FHOYIp2zwKRBrdYH7cEXllp3YM6rVAokLDxTzMSb86serAg?embed=true"
+        title="Melvin videoplayer"
+        frameborder="0"
+        allowfullscreen
+        referrerpolicy="strict-origin-when-cross-origin"
+      ></iframe>
+    </mat-tab>
+    <mat-tab label="Text">
+      <ol>
+        <li>
+          <div class="content">
+            <p i18n="@@tutorialCollaborativeEditingStep1">
+              Click the <strong>“Share”</strong> button in the top right corner
+              of the editor.
+            </p>
+
+            <img
+              alt=""
+              aria-hidden="true"
+              src="assets/landing/tutorial/Tutorial_Collab_1.png"
+            />
+          </div>
+        </li>
+        <li>
+          <div class="content">
+            <p i18n="@@tutorialCollaborativeEditingStep2">
+              Select the <strong>“Invite collaborators”</strong> tab.
+            </p>
+          </div>
+        </li>
+        <li>
+          <div class="content">
+            <p i18n="@@tutorialCollaborativeEditingStep3">
+              Enter the person's email address and click
+              <strong>“Invite”</strong>. If they already have a Melvin account,
+              they’ll be added immediately. Otherwise, an email invitation will
+              be sent.
+            </p>
+          </div>
+        </li>
+        <li>
+          <div class="content">
+            <p i18n="@@tutorialCollaborativeEditingStep4">
+              Alternatively, use <strong>“Copy Link”</strong> to generate a
+              shareable link that allows anonymous collaboration on the project.
+            </p>
+          </div>
+        </li>
+      </ol>
+    </mat-tab>
+  </mat-tab-group>
+
+  <h3 id="add-transcript" i18n="@@tutorialAddTranscriptHeading">
+    Add Additional Transcripts
+  </h3>
+  <mat-tab-group>
+    <mat-tab label="Video">
+      <iframe
+        width="800"
+        height="450"
+        src="https://melvin.shuffle-projekt.de/view/nG90fXTDbyAhOKBMgKnmri4Rxr2fQKFY6j5VHqV6OuAbVnxpgq8JzvSkS2UD5Wg7?embed=true"
+        title="Melvin videoplayer"
+        frameborder="0"
+        allowfullscreen
+        referrerpolicy="strict-origin-when-cross-origin"
+      ></iframe>
+    </mat-tab>
+    <mat-tab label="Text">
+      <p i18n="@@tutorialAddTranscriptIntro">
+        A transcript in the video's primary language is automatically created
+        for each project. To offer subtitles and transcripts in multiple
+        languages, you can add more transcripts to a project.
+      </p>
+
+      <ol>
+        <li>
+          <div class="content">
+            <p i18n="@@tutorialAddTranscriptStep1">
+              Click on <strong>“Transcription”</strong> below the project name
+              in the editor.
+            </p>
+
+            <img
+              alt=""
+              aria-hidden="true"
+              src="assets/landing/tutorial/Tutorial_Transcript_1.png"
+            />
+          </div>
+        </li>
+        <li>
+          <div class="content">
+            <p i18n="@@tutorialAddTranscriptStep2">
+              Here, you'll see all available transcripts and options to
+              <strong>“Add Transcription”</strong> or
+              <strong>“Edit Transcription”.</strong>
+            </p>
+          </div>
+        </li>
+        <li>
+          <div class="content">
+            <p i18n="@@tutorialAddTranscriptStep3">
+              Clicking <strong>“Edit Transcriptions”</strong> opens a dialog
+              showing all current transcripts. You can download, delete, or edit
+              them using the <strong>“More”</strong> button (three dots).
+            </p>
+          </div>
+        </li>
+        <li>
+          <div class="content">
+            <p i18n="@@tutorialAddTranscriptStep4">
+              Use <strong>“Add Transcript”</strong> to upload or copy
+              transcripts.
+            </p>
+          </div>
+        </li>
+      </ol>
+    </mat-tab>
+  </mat-tab-group>
+
+  <h2 id="player" i18n="@@tutorialPlayerHeading">Player</h2>
+  <mat-tab-group>
+    <mat-tab label="Video">
+      <iframe
+        width="800"
+        height="450"
+        src="https://melvin.shuffle-projekt.de/view/Lj05D4Jsn4H1eEZpVe10OLxB5ZoZVKu1tiCWmMG1WEfxpUqNDYXfi2WW20YD60HQ?embed=true"
+        title="Melvin videoplayer"
+        frameborder="0"
+        allowfullscreen
+        referrerpolicy="strict-origin-when-cross-origin"
+      ></iframe>
+    </mat-tab>
+    <mat-tab label="Text">
+      <ol>
+        <li>
+          <div class="content">
+            <p i18n="@@tutorialPlayerStep1">
+              Click the <strong>“Watch”</strong> button in the project list to
+              open the project in the player (in a new browser tab).
+            </p>
+
+            <img
+              alt=""
+              aria-hidden="true"
+              src="assets/landing/tutorial/Tutorial_Player_1.png"
+            />
+          </div>
+        </li>
+        <li>
+          <div class="content">
+            <p i18n="@@tutorialPlayerStep2">
+              Below the video are various buttons to control and configure the
+              player. Hover over a button to see its function, or use the Tab
+              key to navigate to it.
+            </p>
+
+            <img
+              alt=""
+              aria-hidden="true"
+              src="assets/landing/tutorial/Tutorial_Player_2.png"
+            />
+          </div>
+        </li>
+        <li>
+          <div class="content">
+            <p i18n="@@tutorialPlayerStep3">
+              Use the <strong>“Language menu”</strong> to show/hide and
+              customize the subtitles and the transcript. For more options,
+              click <strong>“Settings”</strong> to open the settings dialog.
+            </p>
+          </div>
+        </li>
+        <li>
+          <div class="content">
+            <p i18n="@@tutorialPlayerStep4">
+              If your project contains multiple videos, you can manage them
+              using the <strong>“Video Selection menu”</strong> button, located
+              below the video next to the <strong>“Languages menu”</strong>.
+            </p>
+          </div>
+        </li>
+        <li>
+          <div class="content">
+            <p i18n="@@tutorialPlayerStep5">
+              Use the transcript to navigate the video: clicking a sentence
+              jumps to the corresponding point in the video.
+            </p>
+          </div>
+        </li>
+      </ol>
+    </mat-tab>
+  </mat-tab-group>
+
+  <h3 id="share-video" i18n="@@tutorialShareVideoHeading">Share a Video</h3>
+  <mat-tab-group>
+    <mat-tab label="Video">
+      <iframe
+        width="800"
+        height="450"
+        src="https://melvin.shuffle-projekt.de/view/3do58LuBPaEPUydq64RQJPHXVXRuLdO65vmz1Q602it2Kdp2EuVFf9JR0prc58JR?embed=true"
+        title="Melvin videoplayer"
+        frameborder="0"
+        allowfullscreen
+        referrerpolicy="strict-origin-when-cross-origin"
+      ></iframe>
+    </mat-tab>
+    <mat-tab label="Text">
+      <p i18n="@@tutorialShareVideoOption1Intro">
+        You can easily share your videos using the integrated, accessible
+        player:
+      </p>
+      <ol>
+        <li>
+          <div class="content">
+            <p i18n="@@tutorialShareVideoOption1Step1">
+              In the project list, click the <strong>“Watch”</strong> button for
+              your project. The video will open in a new tab using the player.
+            </p>
+          </div>
+        </li>
+        <li>
+          <div class="content">
+            <p i18n="@@tutorialShareVideoOption1Step2">
+              Copy the <strong>browser URL</strong> to share the video.
+            </p>
+          </div>
+        </li>
+      </ol>
+      <p i18n="@@tutorialShareVideoOption2Intro">
+        Alternatively, you can embed the video with the player into your website
+        using an iframe.
+      </p>
+      <ol>
+        <li>
+          <div class="content">
+            <p i18n="@@tutorialShareVideoOption2Step1">
+              In the project list, click the <strong>“More”</strong> button of
+              the project and select <strong>“Share”</strong>. The sharing
+              dialog will open.
+            </p>
+
+            <img
+              alt=""
+              aria-hidden="true"
+              src="assets/landing/tutorial/Tutorial_Share_1.png"
+            />
+          </div>
+        </li>
+        <li>
+          <div class="content">
+            <p i18n="@@tutorialShareVideoOption2Step2">
+              Under the <strong>“Share videoplayer”</strong> tab, click
+              <strong>“Copy”</strong> to copy the embed code to your clipboard.
+            </p>
+          </div>
+        </li>
+      </ol>
+    </mat-tab>
+  </mat-tab-group>
 </div>
