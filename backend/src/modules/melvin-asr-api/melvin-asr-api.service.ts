@@ -152,6 +152,8 @@ export class MelvinAsrApiService {
             return res.data;
           }),
           catchError((error: AxiosError) => {
+            console.log('Error fetching job result:', job_id);
+            console.log(error);
             if (error?.response?.status) {
               throw new HttpException(
                 error.response.data,
@@ -178,6 +180,8 @@ export class MelvinAsrApiService {
             return res.data;
           }),
           catchError((error: AxiosError) => {
+            console.log('Error fetching job:', job_id);
+            console.log(error);
             if (error?.response?.status) {
               throw new HttpException(
                 error.response.data,
@@ -204,6 +208,8 @@ export class MelvinAsrApiService {
             return res.data;
           }),
           catchError((error: AxiosError) => {
+            console.log('Error fetching jobs:');
+            console.log(error);
             if (error?.response?.status) {
               throw new HttpException(
                 error.response.data,
