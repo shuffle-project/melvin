@@ -168,9 +168,10 @@ export class MelvinAsrApiService {
   }
 
   async getJob(job_id: string): Promise<MelvinAsrJobEntity> {
+    console.log(`${this.host}/jobs/${job_id}`);
     return await lastValueFrom(
       this.httpService
-        .get<MelvinAsrJobEntity>(`${this.host}/jobs/${job_id}`, {
+        .get<MelvinAsrJobEntity>(`${this.host}/jobs/${job_id}/`, {
           headers: {
             Authorization: this.apikey,
           },
