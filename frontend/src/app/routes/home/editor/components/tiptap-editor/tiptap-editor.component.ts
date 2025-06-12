@@ -217,6 +217,11 @@ export class TiptapEditorComponent implements AfterViewInit, OnInit, OnDestroy {
         // this.editor?.setEditable(false);
         this.resetIsEditable();
       },
+      onOutgoingMessage(data) {
+        // TODO we could use this message to show a "save" indicator
+        // maybe with a debnounce?
+        console.log('-> onOutgoingMessage', data);
+      },
       onConnect: () => {
         console.log('onConnect');
         this.status = CLIENT_STATUS.CONNECTED;
