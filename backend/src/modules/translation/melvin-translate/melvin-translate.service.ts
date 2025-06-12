@@ -1,8 +1,8 @@
-import { HttpService } from '@nestjs/axios';
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { LanguageShort } from 'src/app.interfaces';
 import { WhisperConfig } from 'src/config/config.interface';
+import { CustomLogger } from 'src/modules/logger/logger.service';
 import { MelvinAsrResultEntity } from 'src/modules/melvin-asr-api/melvin-asr-api.interfaces';
 import { MelvinAsrApiService } from 'src/modules/melvin-asr-api/melvin-asr-api.service';
 import { MelvinTranslateDto } from './melvin-translate.interfaces';
@@ -11,18 +11,13 @@ import { MelvinTranslateDto } from './melvin-translate.interfaces';
 export class MelvinTranslateService {
   private whisperConfig: WhisperConfig;
 
-  private host: string;
-  private apikey: string;
-
   constructor(
-    private httpService: HttpService,
     private configService: ConfigService,
     private melvinAsrApiService: MelvinAsrApiService,
+    private logger: CustomLogger,
   ) {
+    this.logger.setContext(this.constructor.name);
     this.whisperConfig = this.configService.get<WhisperConfig>('whisper');
-
-    this.host = this.whisperConfig.host;
-    this.apikey = this.whisperConfig.apikey;
   }
 
   async fetchLanguages(): Promise<LanguageShort[]> {
@@ -38,7 +33,8 @@ export class MelvinTranslateService {
       }));
       return res;
     } catch (error) {
-      console.log(error);
+      this.logger.info('Could not fetch languages from whisper ');
+      this.logger.info(error);
       return null;
     }
 

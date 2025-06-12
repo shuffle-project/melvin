@@ -139,7 +139,6 @@ export class MelvinAsrApiService {
   }
 
   async getJobResult(job_id: string): Promise<MelvinAsrResultEntity> {
-    console.log(`${this.host}/jobs/${job_id}/result`);
     return await lastValueFrom(
       this.httpService
         .get<MelvinAsrResultEntity>(`${this.host}/jobs/${job_id}/result`, {
@@ -152,8 +151,6 @@ export class MelvinAsrApiService {
             return res.data;
           }),
           catchError((error: AxiosError) => {
-            console.log('Error fetching job result:', job_id);
-            console.log(error);
             if (error?.response?.status) {
               throw new HttpException(
                 error.response.data,
@@ -168,7 +165,6 @@ export class MelvinAsrApiService {
   }
 
   async getJob(job_id: string): Promise<MelvinAsrJobEntity> {
-    console.log(`${this.host}/jobs/${job_id}`);
     return await lastValueFrom(
       this.httpService
         .get<MelvinAsrJobEntity>(`${this.host}/jobs/${job_id}/`, {
@@ -181,8 +177,6 @@ export class MelvinAsrApiService {
             return res.data;
           }),
           catchError((error: AxiosError) => {
-            console.log('Error fetching job:', job_id);
-            console.log(error);
             if (error?.response?.status) {
               throw new HttpException(
                 error.response.data,
@@ -209,15 +203,12 @@ export class MelvinAsrApiService {
             return res.data;
           }),
           catchError((error: AxiosError) => {
-            console.log('Error fetching jobs:');
-            console.log(error);
             if (error?.response?.status) {
               throw new HttpException(
                 error.response.data,
                 error.response.status,
               );
             } else {
-              console.log(error);
               throw new HttpException('unknown error', 500);
             }
           }),
