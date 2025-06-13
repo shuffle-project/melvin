@@ -217,7 +217,6 @@ export class MelvinAsrApiService {
   }
 
   async getSettings(): Promise<WhiInformation> {
-    console.log(`${this.host}/settings`);
     return await lastValueFrom(
       this.httpService
         .get<WhiInformation>(`${this.host}/settings`, {

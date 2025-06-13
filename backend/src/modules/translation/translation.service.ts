@@ -224,6 +224,9 @@ export class TranslationService {
             }),
           };
           text += segment.text;
+
+          segment.start = segment.words[0].start;
+          segment.end = segment.words[segment.words.length - 1].end;
           segments.push(segment);
         });
         //

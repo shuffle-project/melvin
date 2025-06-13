@@ -42,15 +42,11 @@ export class MelvinTranslateService {
   }
 
   async run(melvinTranslateDto: MelvinTranslateDto) {
-    const translate = await this._translate(melvinTranslateDto);
-    return this._fetchResult(translate.id);
-  }
-
-  async _translate(melvinTranslateDto: MelvinTranslateDto) {
-    return this.melvinAsrApiService.runTranslation({
+    const translate = await this.melvinAsrApiService.runTranslation({
       source_language: melvinTranslateDto.language,
       ...melvinTranslateDto,
     });
+    return this._fetchResult(translate.id);
   }
 
   // copy from whisper speech service
@@ -75,7 +71,6 @@ export class MelvinTranslateService {
       // TODO
       throw new Error('TODO');
     }
-
     const words = this.melvinAsrApiService.toWords(transcriptEntity);
     return { words };
   }
