@@ -139,9 +139,9 @@ export class MediaService {
     if (jumpToNearestCaption) {
       this.jumpToCaptionTime$.next(milliseconds);
       const seconds = Math.round(milliseconds / 1000);
-      document
-        .getElementsByClassName(`time-${seconds}`)[0]
-        .scrollIntoView({ behavior: 'smooth', block: 'center' });
+      const foundElement = document.getElementsByClassName(`time-${seconds}`);
+      if (foundElement && foundElement[0])
+        foundElement[0].scrollIntoView({ behavior: 'smooth', block: 'center' });
     }
   }
 
