@@ -70,7 +70,7 @@ export class WhisperSpeechService implements ISpeechToTextService {
       throw new Error('Internal Error in MelvinASR');
     }
 
-    const words = this.melvinAsrApiService.toWords(melvinResultEntity);
+    const words = this.melvinAsrApiService.toWords(melvinResultEntity, true);
     return { words };
   }
 
@@ -112,7 +112,7 @@ export class WhisperSpeechService implements ISpeechToTextService {
       throw new Error('Internal Error in MelvinASR');
     }
 
-    const words = this.melvinAsrApiService.toWords(melvinResultEntity);
+    const words = this.melvinAsrApiService.toWords(melvinResultEntity, true);
     return { words };
   }
 
