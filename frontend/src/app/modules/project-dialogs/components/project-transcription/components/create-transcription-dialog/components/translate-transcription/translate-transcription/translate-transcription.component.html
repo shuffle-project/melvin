@@ -7,7 +7,9 @@
 <form [formGroup]="transcriptionGroup">
   <div class="transcription-language-wrapper">
     <mat-form-field class="transcription-dropdown">
-      <mat-label>Transcription</mat-label>
+      <mat-label i18n="@@translateTranscriptionTabTranscriptionLabel"
+        >Transcription</mat-label
+      >
       <mat-select formControlName="transcription">
         @for (transcription of transcriptionList; track transcription) {
         <mat-option [value]="transcription.id">{{
