@@ -72,7 +72,7 @@ export class MelvinTranslateService {
       // TODO refactor in queue
       throw new Error('Internal Error in MelvinASR');
     }
-    const words = this.melvinAsrApiService.toWords(transcriptEntity);
+    const words = this.melvinAsrApiService.toWords(transcriptEntity, false);
     return { words };
   }
 }

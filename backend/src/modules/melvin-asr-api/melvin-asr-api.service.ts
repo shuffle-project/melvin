@@ -289,7 +289,10 @@ export class MelvinAsrApiService {
     return res;
   }
 
-  toWords(melvinResultEntity: MelvinAsrResultEntity): WordEntity[] {
+  toWords(
+    melvinResultEntity: MelvinAsrResultEntity,
+    paragraphsViaTime: boolean,
+  ): WordEntity[] {
     const words: WordEntity[] = [];
 
     let lastSegmentEnd = 0;
@@ -299,7 +302,14 @@ export class MelvinAsrApiService {
       lastSegmentEnd = segment.end;
 
       segment.words.forEach((word, i) => {
-        const startParagraph = i === 0 && secondsToLastSegment > 3;
+        let startParagraph: boolean;
+
+        if (paragraphsViaTime) {
+          startParagraph = i === 0 && secondsToLastSegment > 3;
+        } else {
+          startParagraph = i === 0;
+        }
+
         words.push({
           text: word.text,
           start: word.start * 1000,
