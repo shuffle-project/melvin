@@ -2087,6 +2087,9 @@
       <trans-unit id="translateTranscriptionTabTranscriptionLabel" datatype="html">
         <source>Transcription</source>
       </trans-unit>
+      <trans-unit id="translateTranscriptionTabInfo" datatype="html">
+        <source> To ensure a more accurate timing of the translation, the transcript should be structured into paragraphs. </source>
+      </trans-unit>
     </body>
   </file>
 </xliff>

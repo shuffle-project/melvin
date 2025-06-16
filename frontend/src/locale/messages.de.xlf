@@ -2782,6 +2782,10 @@
         <source>Transcription</source>
         <target state="final">Transkription</target>
       </trans-unit>
+      <trans-unit id="translateTranscriptionTabInfo" datatype="html">
+        <source> To ensure a more accurate timing of the translation, the transcript should be structured into paragraphs. </source>
+        <target state="final"> Um eine genauere Synchronisation der Übersetzung zu erhalten, sollte das Transkript in Absätze unterteilt werden. </target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
