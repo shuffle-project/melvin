@@ -67,14 +67,14 @@ export class WhisperSpeechService implements ISpeechToTextService {
     );
 
     if (!melvinResultEntity.transcript) {
-      // TODO
-      throw new Error('TODO error');
+      throw new Error('Internal Error in MelvinASR');
     }
 
     const words = this.melvinAsrApiService.toWords(melvinResultEntity);
     return { words };
   }
 
+  // TODO refactor to queue
   async _fetchResult(job: MelvinAsrJobEntity): Promise<MelvinAsrResultEntity> {
     return new Promise((resolve) => {
       const interval = setInterval(async () => {
@@ -89,6 +89,7 @@ export class WhisperSpeechService implements ISpeechToTextService {
     });
   }
 
+  // TODO refactor to queue
   async runAlign(
     project: Project,
     melvinAsrTranscript: MelvinAsrTranscript,
@@ -108,8 +109,7 @@ export class WhisperSpeechService implements ISpeechToTextService {
     const melvinResultEntity = await this._fetchResult(started);
 
     if (!melvinResultEntity.transcript) {
-      // TODO
-      throw new Error('TODO error');
+      throw new Error('Internal Error in MelvinASR');
     }
 
     const words = this.melvinAsrApiService.toWords(melvinResultEntity);

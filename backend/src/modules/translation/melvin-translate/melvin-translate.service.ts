@@ -50,6 +50,7 @@ export class MelvinTranslateService {
   }
 
   // copy from whisper speech service
+  // TODO refactor to queue
   private async _fetchResult(id: string) {
     const transcriptEntity: MelvinAsrResultEntity | null = await new Promise(
       (resolve) => {
@@ -68,8 +69,8 @@ export class MelvinTranslateService {
       },
     );
     if (!transcriptEntity) {
-      // TODO
-      throw new Error('TODO');
+      // TODO refactor in queue
+      throw new Error('Internal Error in MelvinASR');
     }
     const words = this.melvinAsrApiService.toWords(transcriptEntity);
     return { words };
