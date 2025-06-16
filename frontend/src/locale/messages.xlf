@@ -2078,6 +2078,12 @@
       <trans-unit id="transcriptionEffectKickUserFromTranscript" datatype="html">
         <source>The opened transcript was deleted and another one selected.</source>
       </trans-unit>
+      <trans-unit id="editorTranscriptionErrorInfo" datatype="html">
+        <source>| Please try the transcription creation again.</source>
+      </trans-unit>
+      <trans-unit id="editorTranscriptionProcessingInfo" datatype="html">
+        <source>| Please wait for the transcript to be ready for editing.</source>
+      </trans-unit>
     </body>
   </file>
 </xliff>

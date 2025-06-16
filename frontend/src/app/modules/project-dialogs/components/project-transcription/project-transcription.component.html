@@ -106,9 +106,6 @@
         aria-label="more"
         [matMenuTriggerFor]="transcriptionMenu"
         [matMenuTriggerData]="{ transcription: element }"
-        [disabled]="
-          element.status !== undefined && element.status !== tStatus.OK
-        "
       >
         <mat-icon svgIcon="more" />
       </button>
@@ -142,6 +139,10 @@
       [matMenuTriggerFor]="downloadMenu"
       [matMenuTriggerData]="{transcription}"
       i18n="@@projectTranscriptionDownloadButtonLabel"
+      [disabled]="
+        transcription.status !== undefined &&
+        transcription.status !== tStatus.OK
+      "
     >
       <mat-icon svgIcon="download"></mat-icon>
       Download
@@ -153,6 +154,11 @@
         (click)="onClickDeleteTranscription(transcription)"
         i18n="@@projectTranscriptionDeleteButtonLabel"
         mat-menu-item
+        [disabled]="
+          transcription.status !== undefined &&
+          (transcription.status === tStatus.PROCESSING ||
+            transcription.status === tStatus.WAITING)
+        "
       >
         <mat-icon svgIcon="delete"></mat-icon>
         Delete
@@ -162,6 +168,10 @@
         (click)="onClickAlignTranscription(transcription)"
         mat-menu-item
         i18n="@@projectTranscriptionAlignButtonLabel"
+        [disabled]="
+          transcription.status !== undefined &&
+          transcription.status !== tStatus.OK
+        "
       >
         <mat-icon svgIcon="refresh"></mat-icon>
         Synchronize timestamps

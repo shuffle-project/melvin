@@ -44,8 +44,12 @@ import { LetDirective, PushPipe } from '@ngrx/component';
 import { DeleteConfirmationService } from 'src/app/components/delete-confirmation-dialog/delete-confirmation.service';
 import { CreateTranscriptionDialogComponent } from 'src/app/modules/project-dialogs/components/project-transcription/components/create-transcription-dialog/create-transcription-dialog.component';
 import { MediaCategoryPipe } from 'src/app/pipes/media-category-pipe/media-category.pipe';
+import { ProjectStatusPipe } from 'src/app/pipes/project-status-pipe/project-status.pipe';
 import { WrittenOutLanguagePipe } from 'src/app/pipes/written-out-language-pipe/written-out-language.pipe';
-import { SubtitleFormat } from 'src/app/services/api/entities/transcription.entity';
+import {
+  SubtitleFormat,
+  TranscriptionStatus,
+} from 'src/app/services/api/entities/transcription.entity';
 import { HeaderComponent } from '../../../components/header/header.component';
 import { DialogHelpEditorComponent } from './components/dialog-help-editor/dialog-help-editor.component';
 import { EditorSettingsComponent } from './components/editor-settings/editor-settings.component';
@@ -89,6 +93,7 @@ import { WaveformComponent } from './components/waveform/waveform.component';
     ShortcutsComponent,
     TranscriptionMenuContentComponent,
     WrittenOutLanguagePipe,
+    ProjectStatusPipe,
   ],
 })
 export class EditorComponent implements OnInit, OnDestroy {
@@ -133,6 +138,8 @@ export class EditorComponent implements OnInit, OnDestroy {
   public selectedTranscriptionId$ = this.store.select(
     transcriptionsSelectors.selectTranscriptionId
   );
+
+  public transcriptionStatus = TranscriptionStatus;
 
   // Media observables
   public isLiveMode$ = this.store.select(editorSelectors.selectIsLiveMode);

@@ -224,6 +224,42 @@
         <app-video-controls></app-video-controls>
       </div>
 
+      @for (t of transcriptionsList$ | ngrxPush; track t.id) { @if (t.id ===
+      selectedTranscriptionId && t.status !== transcriptionStatus.OK) {
+      <div class="editor-transcription-info" [class]="t.status">
+        <mat-icon
+          class="status-icon"
+          [class]="t.status"
+          [svgIcon]="
+            t.status === transcriptionStatus.WAITING
+              ? 'pause'
+              : t.status === transcriptionStatus.ERROR
+              ? 'warning'
+              : 'setting'
+          "
+        />
+
+        <div class="text-wrapper">
+          <span class="status"> {{ t.status | readableStatus }}: </span>
+
+          <span class="language">
+            {{ t.language | writtenOutLanguage : t.title }}
+            <span class="language-code"> ({{ t.language }}) </span>
+          </span>
+
+          @if (t.status === transcriptionStatus.ERROR) {
+          <span i18n="@@editorTranscriptionErrorInfo"
+            >| Please try the transcription creation again.</span
+          >
+          } @else {
+          <span i18n="@@editorTranscriptionProcessingInfo"
+            >| Please wait for the transcript to be ready for editing.</span
+          >
+          }
+        </div>
+      </div>
+      } }
+
       <ng-container *ngrxLet="project$ as project">
         <ng-container *ngrxLet="editorUsers$ as editorUsers">
           <ng-container *ngrxLet="activeUsers$ as activeUsers">

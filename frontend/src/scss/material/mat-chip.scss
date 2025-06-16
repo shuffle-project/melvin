@@ -1,6 +1,7 @@
 body.dark-theme {
   .mat-mdc-chip,
-  .mat-mdc-menu-item {
+  .mat-mdc-menu-item,
+  .editor-transcription-info {
     &.finished,
     &.draft {
       background-color: var(--color-grey);
@@ -17,7 +18,8 @@ body.dark-theme {
 
 body {
   .mat-mdc-chip,
-  .mat-mdc-menu-item {
+  .mat-mdc-menu-item,
+  .editor-transcription-info {
     * {
       color: var(--color-text);
     }
@@ -37,12 +39,28 @@ body {
     &.processing,
     &.waiting {
       background-color: var(--color-light-yellow);
+
+      &:hover {
+        background-color: color-mix(
+          in srgb,
+          var(--color-light-yellow) 90%,
+          var(--color-black) 10%
+        );
+      }
     }
 
     &.error {
       background-color: var(--color-warn);
       * {
         color: var(--color-white);
+      }
+
+      &:hover {
+        background-color: color-mix(
+          in srgb,
+          var(--color-warn) 90%,
+          var(--color-black) 10%
+        );
       }
     }
 

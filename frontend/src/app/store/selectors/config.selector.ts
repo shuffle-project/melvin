@@ -59,7 +59,14 @@ export const getSupportedTranslationLanguages = createSelector(
     );
 
     const translationLanguages = translationService[0].languages;
+
     const allLanguages = state.languages;
+
+    translationLanguages.forEach((l) => {
+      if (!allLanguages.some((lang) => lang.code === l.code)) {
+        console.log(l.code);
+      }
+    });
 
     return allLanguages.filter((language) => {
       return translationLanguages.some(
