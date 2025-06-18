@@ -197,7 +197,6 @@ export class ProjectController {
     @Param('id', IsValidObjectIdPipe) id: string,
     @Body() uploadMediaDto: UploadVideoDto,
   ): Promise<ProjectEntity> {
-    console.log(uploadMediaDto);
     return this.projectService.createVideo(authUser, id, uploadMediaDto);
   }
 

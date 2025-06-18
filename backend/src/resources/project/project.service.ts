@@ -495,8 +495,8 @@ export class ProjectService {
       rm(projectDir, { recursive: true, force: true });
     } catch (e) {
       // could not delete files
-      console.log('could not delete files ' + id);
-      console.log(e);
+      this.logger.info('could not delete files ' + id);
+      this.logger.info(e);
     }
 
     // Send events
@@ -717,7 +717,6 @@ export class ProjectService {
     projectId: string,
     uploadVideoDto: UploadVideoDto,
   ): Promise<ProjectEntity> {
-    console.log(uploadVideoDto);
     const project = await this.db.findProjectByIdOrThrow(projectId);
 
     const file = await this.uploadService.getUploadMetadata(

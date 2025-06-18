@@ -357,15 +357,6 @@ export class LivestreamService {
       { type: RecordingTimestampType.STOP, timestamp: new Date() },
     ];
 
-    // TODO get duration of recording
-
-    // await move(
-    //   this.pathService.getRecordingFile(dto.projectId),
-    //   this.pathService.getVideoFile(dto.projectId),
-    //   { overwrite: true }, // TODO getVideoFile does not longer exist
-    // );
-
-    // TODO change to correct duration
     const newDuration = this._getNewDuration(recordingTimestamps);
 
     await this.projectSerivce._updatePartial(dto.projectId, {

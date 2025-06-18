@@ -380,21 +380,6 @@ export class SpeechToTextService {
       });
     });
 
-    // for (
-    //   let i = 0;
-    //   i < Math.max(captionWords.length, documentWords.length);
-    //   i++
-    // ) {
-    //   const documentWord = documentWords.at(i);
-    //   const captionWord = captionWords.at(i);
-    //   console.log(
-    //     documentWord?.text,
-    //     documentWord?.pargraphId,
-    //     captionWord?.text,
-    //     captionWord?.speaker,
-    //   );
-    // }
-
     if (documentWords.length !== captionWords.length) {
       throw new Error('Document and caption length mismatch');
     }
