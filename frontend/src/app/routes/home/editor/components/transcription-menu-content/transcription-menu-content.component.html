@@ -4,7 +4,6 @@
     <button
       (click)="onSelectTranscription(t.id)"
       mat-menu-item
-      [disabled]="t.status !== tStatus.OK && t.status !== undefined"
       [class]="t.status"
     >
       @if(t.status !== undefined && t.status !== tStatus.OK) {

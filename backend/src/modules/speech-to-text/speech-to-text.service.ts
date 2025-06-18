@@ -11,6 +11,7 @@ import { DbService } from '../db/db.service';
 import { Caption } from '../db/schemas/caption.schema';
 import { Audio, Project } from '../db/schemas/project.schema';
 import { CustomLogger } from '../logger/logger.service';
+import { MelvinAsrTranscript } from '../melvin-asr-api/melvin-asr-api.interfaces';
 import { PathService } from '../path/path.service';
 import { TiptapDocument } from '../tiptap/tiptap.interfaces';
 import { TiptapService } from '../tiptap/tiptap.service';
@@ -183,7 +184,7 @@ export class SpeechToTextService {
     transcription: TranscriptionEntity,
     audio: Audio,
     vendor: AsrVendors,
-    textToAlign: string,
+    transcriptToAlign: MelvinAsrTranscript,
     syncSpeaker?: CaptionEntity[],
   ) {
     this.logger.verbose(
@@ -191,7 +192,7 @@ export class SpeechToTextService {
     );
 
     // remove all \n and \r
-    textToAlign = textToAlign.replace(/(\r\n|\n|\r|\t)/gm, ' ');
+    // textToAlign = textToAlign.replace(/(\r\n|\n|\r|\t)/gm, ' ');
 
     // let captions: Caption[] = [];
     let res: TranscriptEntity;
@@ -199,7 +200,7 @@ export class SpeechToTextService {
       case AsrVendors.WHISPER:
         res = await this.whisperSpeechService.runAlign(
           project,
-          textToAlign,
+          transcriptToAlign,
           audio,
         );
 

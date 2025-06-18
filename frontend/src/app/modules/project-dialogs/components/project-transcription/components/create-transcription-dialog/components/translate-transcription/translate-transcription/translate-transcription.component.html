@@ -2,12 +2,22 @@
   Translate an existing transcription
 </h2>
 
+<div class="info">
+  <mat-icon svgIcon="info" />
+  <p i18n="@@translateTranscriptionTabInfo">
+    To ensure a more accurate timing of the translation, the transcript should
+    be structured into paragraphs.
+  </p>
+</div>
+
 @if(translationLanguages$ | ngrxPush; as translationLanguages ){ @if
 (translationLanguages.length !== 0){
 <form [formGroup]="transcriptionGroup">
   <div class="transcription-language-wrapper">
     <mat-form-field class="transcription-dropdown">
-      <mat-label>Transcription</mat-label>
+      <mat-label i18n="@@translateTranscriptionTabTranscriptionLabel"
+        >Transcription</mat-label
+      >
       <mat-select formControlName="transcription">
         @for (transcription of transcriptionList; track transcription) {
         <mat-option [value]="transcription.id">{{

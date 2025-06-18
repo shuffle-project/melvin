@@ -2,6 +2,19 @@ h2 {
   padding-top: 1.25rem;
 }
 
+.info {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.375rem;
+
+  margin-bottom: 1.5rem;
+
+  p {
+    margin: 0;
+  }
+}
+
 form {
   width: 100%;
   display: flex;

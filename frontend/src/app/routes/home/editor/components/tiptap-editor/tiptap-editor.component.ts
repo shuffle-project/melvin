@@ -36,6 +36,7 @@ import {
 import { EditorUserEntity } from 'src/app/interfaces/editor-user.interface';
 import { FeatureEnabledPipe } from 'src/app/pipes/feature-enabled-pipe/feature-enabled.pipe';
 import { WrittenOutLanguagePipe } from 'src/app/pipes/written-out-language-pipe/written-out-language.pipe';
+import { TranscriptionStatus } from 'src/app/services/api/entities/transcription.entity';
 import { WSService } from 'src/app/services/ws/ws.service';
 import { AppState } from 'src/app/store/app.state';
 import { EditorUser } from 'src/app/store/reducers/editor.reducer';
@@ -91,7 +92,7 @@ export class TiptapEditorComponent implements AfterViewInit, OnInit, OnDestroy {
 
   public CLIENT_STATUS = CLIENT_STATUS;
   public status: CLIENT_STATUS = CLIENT_STATUS.CONNECTING;
-
+  public transcriptionStatus = TranscriptionStatus.WAITING;
   // public connectedUsers: { name: string; color: string }[] = [];
   public showUsernames = true;
   private captions: HTMLDivElement | undefined;
@@ -130,7 +131,28 @@ export class TiptapEditorComponent implements AfterViewInit, OnInit, OnDestroy {
     private wsService: WSService,
     private injector: Injector,
     private store: Store<AppState>
-  ) {}
+  ) {
+    this.selectedTranscription$
+      .pipe(takeUntil(this.destroy$$))
+      .subscribe((transcription) => {
+        if (transcription) {
+          this.transcriptionStatus = transcription.status;
+
+          this.resetIsEditable();
+        }
+      });
+  }
+
+  private resetIsEditable() {
+    if (
+      this.transcriptionStatus === TranscriptionStatus.OK &&
+      this.status === CLIENT_STATUS.SYNCED
+    ) {
+      this.editor?.setEditable(true);
+    } else {
+      this.editor?.setEditable(false);
+    }
+  }
 
   ngOnInit() {
     combineLatest([this.viewReady$, this.transcriptionId$])
@@ -191,8 +213,14 @@ export class TiptapEditorComponent implements AfterViewInit, OnInit, OnDestroy {
         console.log('onStatus');
         if (status.status.toString() === 'connecting')
           console.log('Connecting to server...');
-        this.editor?.setEditable(false);
         this.status = CLIENT_STATUS.CONNECTING;
+        // this.editor?.setEditable(false);
+        this.resetIsEditable();
+      },
+      onOutgoingMessage(data) {
+        // TODO we could use this message to show a "save" indicator
+        // maybe with a debnounce?
+        console.log('-> onOutgoingMessage', data);
       },
       onConnect: () => {
         console.log('onConnect');
@@ -208,8 +236,9 @@ export class TiptapEditorComponent implements AfterViewInit, OnInit, OnDestroy {
       },
       onDisconnect: () => {
         console.log('onDisconnect');
-        this.editor?.setEditable(false);
         this.status = CLIENT_STATUS.DISCONNECTED;
+        // this.editor?.setEditable(false);
+        this.resetIsEditable();
       },
       onAuthenticated: () => {
         console.log('onAuthenticated');
@@ -217,8 +246,9 @@ export class TiptapEditorComponent implements AfterViewInit, OnInit, OnDestroy {
       },
       onSynced: () => {
         console.log('onSynced');
-        this.editor?.setEditable(true);
         this.status = CLIENT_STATUS.SYNCED;
+        // this.editor?.setEditable(true);
+        this.resetIsEditable();
       },
     });
   }

@@ -2770,6 +2770,22 @@
         <source> Translate </source>
         <target state="final"> Übersetzen </target>
       </trans-unit>
+      <trans-unit id="editorTranscriptionErrorInfo" datatype="html">
+        <source>| Please try the transcription creation again.</source>
+        <target state="final">| Bitte versuchen Sie die Erstellung der Transkription erneut.</target>
+      </trans-unit>
+      <trans-unit id="editorTranscriptionProcessingInfo" datatype="html">
+        <source>| Please wait for the transcript to be ready for editing.</source>
+        <target state="final">| Bitte warten Sie, bis die Transkription zur Bearbeitung bereit ist.</target>
+      </trans-unit>
+      <trans-unit id="translateTranscriptionTabTranscriptionLabel" datatype="html">
+        <source>Transcription</source>
+        <target state="final">Transkription</target>
+      </trans-unit>
+      <trans-unit id="translateTranscriptionTabInfo" datatype="html">
+        <source> To ensure a more accurate timing of the translation, the transcript should be structured into paragraphs. </source>
+        <target state="final"> Um eine genauere Synchronisation der Übersetzung zu erhalten, sollte das Transkript in Absätze unterteilt werden. </target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

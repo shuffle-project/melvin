@@ -121,6 +121,21 @@ button.live {
   min-height: 4rem;
 }
 
+.editor-transcription-info {
+  border-radius: 0.3125rem;
+  margin-block-end: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1.625rem;
+
+  .text-wrapper {
+    .language {
+      font-weight: 500;
+    }
+  }
+}
+
 // 20 * 2 (left max-width + gap * 2) + 52 (right max-width) + 2 (gap + outer spacing) = 96
 // Funktioniert nicht, weil nicht alle Videos gleich breit sind ...
 @media (min-width: 96rem) {
