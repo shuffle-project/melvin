@@ -392,7 +392,7 @@ export class SpeechToTextService {
           paragraph.attrs.speakerId &&
           paragraph.attrs.speakerId !== captionWord.speaker
         ) {
-          // TODO: dont set speaker if its already set? but also dont throw error?
+          // dont set speaker if its already set? but also dont throw error?
           // throw new Error('Speaker already set');
         } else {
           paragraph.attrs.speakerId = captionWord.speaker;
