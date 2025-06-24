@@ -2090,6 +2090,36 @@
       <trans-unit id="translateTranscriptionTabInfo" datatype="html">
         <source> To ensure a more accurate timing of the translation, the transcript should be structured into paragraphs. </source>
       </trans-unit>
+      <trans-unit id="landingFooterFAQLinkLabel" datatype="html">
+        <source> FAQ </source>
+      </trans-unit>
+      <trans-unit id="landingFooterTutorialLinkLabel" datatype="html">
+        <source> Tutorial </source>
+      </trans-unit>
+      <trans-unit id="tutorialFAQAnswer1" datatype="html">
+        <source> No, Melvin currently does not offer any editing or trimming functionality. However, recordings can be edited using an external video editor before being uploaded to Melvin. Depending on the development team&apos;s capacity and priorities, editing features may be added in future versions of Melvin. </source>
+      </trans-unit>
+      <trans-unit id="tutorialFAQAnswer2Part1" datatype="html">
+        <source> Currently, this functionality is not supported by Melvin or web browsers. </source>
+      </trans-unit>
+      <trans-unit id="tutorialFAQAnswer2Part2" datatype="html">
+        <source> However, you can use external software to blur your webcam background before recording. For example, you can use OBS Studio with a virtual camera or other webcam software that supports background blurring. </source>
+      </trans-unit>
+      <trans-unit id="tutorialFAQAnswer2Part3" datatype="html">
+        <source> If you&apos;re using a Mac with Apple silicon and macOS Sequoia or later, you can change your background using the built-in functionality of the operating system. </source>
+      </trans-unit>
+      <trans-unit id="tutorialFAQLinkLabel" datatype="html">
+        <source> FAQ </source>
+      </trans-unit>
+      <trans-unit id="tutorialFAQQuestion1" datatype="html">
+        <source> Can I trim or edit recordings? </source>
+      </trans-unit>
+      <trans-unit id="tutorialFAQQuestion2" datatype="html">
+        <source> Can I blur the background of my webcam in the recorder? </source>
+      </trans-unit>
+      <trans-unit id="tutorialFAQHeading" datatype="html">
+        <source>FAQ</source>
+      </trans-unit>
     </body>
   </file>
 </xliff>

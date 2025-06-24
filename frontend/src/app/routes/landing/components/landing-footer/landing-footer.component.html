@@ -83,6 +83,7 @@
             Best Practice
           </a>
         </li>
+
         @if (('installation' | featureEnabled)) {
         <li>
           <a
@@ -93,9 +94,22 @@
           </a>
         </li>
         }
-        <!-- <li>
-          <a routerLink="/how-to-melvin"> How to Melvin </a>
-        </li> -->
+
+        <li>
+          <a routerLink="/tutorial" i18n="@@landingFooterTutorialLinkLabel">
+            Tutorial
+          </a>
+        </li>
+
+        <li>
+          <a
+            routerLink="/tutorial"
+            fragment="faq"
+            i18n="@@landingFooterFAQLinkLabel"
+          >
+            FAQ
+          </a>
+        </li>
       </ul>
     </div>
 

@@ -76,6 +76,11 @@
           </a>
         </li>
       </ul>
+      <li>
+        <a routerLink="./" fragment="faq" i18n="@@tutorialFAQLinkLabel">
+          FAQ
+        </a>
+      </li>
     </ul>
   </nav>
 
@@ -614,4 +619,47 @@
       </ol>
     </mat-tab>
   </mat-tab-group>
+
+  <h2 id="faq" i18n="@@tutorialFAQHeading">FAQ</h2>
+
+  <mat-accordion>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title i18n="@@tutorialFAQQuestion1">
+          Can I trim or edit recordings?
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <p i18n="@@tutorialFAQAnswer1">
+        No, Melvin currently does not offer any editing or trimming
+        functionality. However, recordings can be edited using an external video
+        editor before being uploaded to Melvin. Depending on the development
+        team's capacity and priorities, editing features may be added in future
+        versions of Melvin.
+      </p>
+    </mat-expansion-panel>
+
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title i18n="@@tutorialFAQQuestion2">
+          Can I blur the background of my webcam in the recorder?
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <p i18n="@@tutorialFAQAnswer2Part1">
+        Currently, this functionality is not supported by Melvin or web
+        browsers.
+      </p>
+
+      <p i18n="@@tutorialFAQAnswer2Part2">
+        However, you can use external software to blur your webcam background
+        before recording. For example, you can use OBS Studio with a virtual
+        camera or other webcam software that supports background blurring.
+      </p>
+
+      <p i18n="@@tutorialFAQAnswer2Part3">
+        If you're using a Mac with Apple silicon and macOS Sequoia or later, you
+        can change your background using the built-in functionality of the
+        operating system.
+      </p>
+    </mat-expansion-panel>
+  </mat-accordion>
 </div>

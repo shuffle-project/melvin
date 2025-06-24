@@ -2786,6 +2786,46 @@
         <source> To ensure a more accurate timing of the translation, the transcript should be structured into paragraphs. </source>
         <target state="final"> Um eine genauere Synchronisation der Übersetzung zu erhalten, sollte das Transkript in Absätze unterteilt werden. </target>
       </trans-unit>
+      <trans-unit id="landingFooterTutorialLinkLabel" datatype="html">
+        <source> Tutorial </source>
+        <target state="final"> Tutorial </target>
+      </trans-unit>
+      <trans-unit id="landingFooterFAQLinkLabel" datatype="html">
+        <source> FAQ </source>
+        <target state="final"> FAQ </target>
+      </trans-unit>
+      <trans-unit id="tutorialFAQLinkLabel" datatype="html">
+        <source> FAQ </source>
+        <target state="final"> FAQ </target>
+      </trans-unit>
+      <trans-unit id="tutorialFAQQuestion1" datatype="html">
+        <source> Can I trim or edit recordings? </source>
+        <target state="final"> Kann ich Aufnahmen schneiden oder bearbeiten? </target>
+      </trans-unit>
+      <trans-unit id="tutorialFAQAnswer1" datatype="html">
+        <source> No, Melvin currently does not offer any editing or trimming functionality. However, recordings can be edited using an external video editor before being uploaded to Melvin. Depending on the development team&apos;s capacity and priorities, editing features may be added in future versions of Melvin. </source>
+        <target state="final"> Nein, Melvin bietet derzeit keine Funktionen zum Schneiden oder Bearbeiten von Aufnahmen an. Allerdings können die Aufnahmen vor dem Hochladen in Melvin mit einem externen Videoeditor bearbeitet werden. Je nach Kapazitäten und Prioritäten des Entwicklerteams könnten Bearbeitungsfunktionen in zukünftigen Versionen von Melvin hinzugefügt werden. </target>
+      </trans-unit>
+      <trans-unit id="tutorialFAQQuestion2" datatype="html">
+        <source> Can I blur the background of my webcam in the recorder? </source>
+        <target state="final">  Kann ich den Hintergrund meiner Webcam im Recorder unscharf stellen? </target>
+      </trans-unit>
+      <trans-unit id="tutorialFAQAnswer2Part1" datatype="html">
+        <source> Currently, this functionality is not supported by Melvin or web browsers. </source>
+        <target state="final"> Derzeit wird diese Funktion weder von Melvin noch von Webbrowsern unterstützt. </target>
+      </trans-unit>
+      <trans-unit id="tutorialFAQAnswer2Part2" datatype="html">
+        <source> However, you can use external software to blur your webcam background before recording. For example, you can use OBS Studio with a virtual camera or other webcam software that supports background blurring. </source>
+        <target state="final"> Es ist jedoch möglich, externe Software zu verwenden, um den Hintergrund Ihrer Webcam bereits vor der Aufnahme unscharf zu stellen. Beispielsweise lässt sich OBS Studio mit einer virtuellen Kamera oder eine andere Webcam-Software einsetzen, die das Weichzeichnen des Hintergrunds unterstützt. </target>
+      </trans-unit>
+      <trans-unit id="tutorialFAQAnswer2Part3" datatype="html">
+        <source> If you&apos;re using a Mac with Apple silicon and macOS Sequoia or later, you can change your background using the built-in functionality of the operating system. </source>
+        <target state="final"> Wenn Sie einen Mac mit Apple Silicon und macOS Sequoia oder neuer verwenden, können Sie den Hintergrund mithilfe der integrierten Funktionalität des Betriebssystems ändern. </target>
+      </trans-unit>
+      <trans-unit id="tutorialFAQHeading" datatype="html">
+        <source>FAQ</source>
+        <target state="final">FAQ</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
