@@ -22,6 +22,10 @@ html {
   );
 }
 
+.dense-category-form-field {
+  @include mat.all-component-densities(-1);
+}
+
 button.editor-back-button {
   @include mat.icon-button-overrides(
     (
@@ -58,12 +62,27 @@ button.big-icon-mat-button {
   );
 }
 
+// .mat-mdc-menu-item.processing {
+//   background-color: red;
+
+//   @include mat.menu-overrides(
+//     (
+//       item-label-text-color: orange,
+//       item-icon-color: red,
+//     )
+//   );
+// }
+
 a.feedback-link {
   @include mat.button-overrides(
     (
       filled-container-color: var(--color-black),
     )
   );
+}
+
+.dense-category-form-field {
+  @include mat.all-component-densities(-1);
 }
 
 mat-slider {

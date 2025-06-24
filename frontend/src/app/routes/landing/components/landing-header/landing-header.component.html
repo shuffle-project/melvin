@@ -8,22 +8,13 @@
           @if ('guide' | featureEnabled) {
           <li>
             <a routerLink="/guide" i18n="@@landingHeaderGuideLinkLabel">
-              Didactic Guide
+              Best Practice
             </a>
           </li>
           } @if ('tutorial' | featureEnabled) {
           <li>
             <a routerLink="/tutorial" i18n="@@landingHeaderTutorialLinkLabel">
               Tutorial
-            </a>
-          </li>
-          } @if (('documentation' | featureEnabled)) {
-          <li>
-            <a
-              routerLink="/documentation"
-              i18n="@@landingHeaderDocumentationLinkLabel"
-            >
-              Documentation
             </a>
           </li>
           }
@@ -94,6 +85,15 @@
         }
       </button>
 
+      @if(isLoggedIn$ | ngrxPush) {
+      <a
+        i18n="@@landingHeaderToTheProjectsButton"
+        routerLink="/home/projects"
+        mat-flat-button
+        >To the projects</a
+      >
+
+      } @else {
       <button
         (click)="onOpenLoginDialog()"
         mat-flat-button
@@ -101,6 +101,8 @@
       >
         Login
       </button>
+
+      }
       <button
         (click)="onToggleSidebar()"
         mat-icon-button

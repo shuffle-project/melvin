@@ -135,8 +135,56 @@
         (click)="onClickTitle(element)"
         mat-cell
         *matCellDef="let element"
+        class="project-title"
       >
         {{ element.title }}
+      </td>
+    </ng-container>
+    <!-- Edit column -->
+    <ng-container matColumnDef="edit">
+      <th
+        mat-header-cell
+        *matHeaderCellDef
+        i18n="@@projectListTableHeaderEditLabel"
+      >
+        Edit
+      </th>
+
+      <td mat-cell *matCellDef="let element">
+        <a
+          mat-icon-button
+          routerLink="/home/editor/{{ element.id }}"
+          aria-label="Edit"
+          i18n-aria-label="@@projectListEditProjectAriaLabel"
+          [disabled]="!isClickable(element)"
+          [class.disabled]="!isClickable(element)"
+        >
+          <mat-icon svgIcon="edit"></mat-icon
+        ></a>
+      </td>
+    </ng-container>
+    <!-- Player column -->
+    <ng-container matColumnDef="player">
+      <th
+        mat-header-cell
+        *matHeaderCellDef
+        i18n="@@projectListTableHeaderWatchLabel"
+      >
+        Watch
+      </th>
+
+      <td mat-cell *matCellDef="let element">
+        <a
+          mat-icon-button
+          href="/view/{{ element.viewerToken }}"
+          aria-label="Open Viewer in new Tab"
+          i18n-aria-label="@@projectListOpenViewerAriaLabel"
+          target="_blank"
+          [disabled]="!isClickable(element)"
+          [class.disabled]="!isClickable(element)"
+        >
+          <mat-icon svgIcon="play" />
+        </a>
       </td>
     </ng-container>
     <!-- Language Column -->
@@ -269,29 +317,7 @@
         />
       </td>
     </ng-container>
-    <!-- Player column -->
-    <ng-container matColumnDef="player">
-      <th
-        mat-header-cell
-        *matHeaderCellDef
-        i18n="@@projectListTableHeaderPlayerLabel"
-      >
-        Videoplayer
-      </th>
 
-      <td mat-cell *matCellDef="let element">
-        <a
-          mat-icon-button
-          href="/view/{{ element.viewerToken }}"
-          aria-label="Open Viewer in new Tab"
-          i18n-aria-label="@@projectListOpenViewerAriaLabel"
-          target="_blank"
-          [class.disabled]="!isClickable(element)"
-        >
-          <mat-icon svgIcon="viewer"></mat-icon
-        ></a>
-      </td>
-    </ng-container>
     <!-- Options Column || Share or download project -->
     <ng-container matColumnDef="more">
       <th

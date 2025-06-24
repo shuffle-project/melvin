@@ -23,7 +23,7 @@
 <mat-dialog-content>
   <div class="content">
     @if (data.description) {
-    <p class="text">{{ data.description }}</p>
+    <p class="text break-long-text">{{ data.description }}</p>
     } @switch (data.type) { @case ('delete') {
     <p i18n="@@deleteConfirmationDialogAreYouSureDelete">
       Are you sure you want to delete this {{ data.subject }}?

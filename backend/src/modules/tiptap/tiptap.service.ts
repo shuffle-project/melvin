@@ -12,10 +12,15 @@ import { WebSocket } from 'ws';
 import { updateYFragment } from 'y-prosemirror';
 import * as Y from 'yjs';
 import { CustomLogger } from '../logger/logger.service';
+import {
+  MelvinAsrSegment,
+  MelvinAsrTranscript,
+} from '../melvin-asr-api/melvin-asr-api.interfaces';
 import { WordEntity } from '../speech-to-text/speech-to-text.interfaces';
 import { HocuspocusService } from './hocuspocus.service';
 import {
   TiptapCaption,
+  TiptapCaptionLine,
   TiptapDocument,
   TiptapParagraph,
 } from './tiptap.interfaces';
@@ -411,6 +416,43 @@ export class TiptapService {
     return tiptapDocument;
   }
 
+  public async getAsMelvinTranscript(
+    transcriptionId: string,
+  ): Promise<MelvinAsrTranscript> {
+    const connection = await this.hocuspocusService.openDirectConnection(
+      transcriptionId,
+    );
+
+    const document = this.docToJSON(connection.document);
+    connection.disconnect();
+
+    const transcriptDocument: MelvinAsrTranscript = { text: '', segments: [] };
+
+    for (const paragraph of document.content) {
+      const segment: MelvinAsrSegment = {
+        text: '',
+        start: 0,
+        end: 0,
+        words: [],
+      };
+
+      for (let i = 0; i < paragraph.content.length; i++) {
+        const word = paragraph.content[i];
+        segment.text += word.text;
+        segment.words.push({
+          text: word.text,
+          start: word.marks[0]?.attrs.start,
+          end: word.marks[0]?.attrs.end,
+          probability: word.marks[0]?.attrs.confidence,
+        });
+      }
+      transcriptDocument.text += segment.text;
+      transcriptDocument.segments.push(segment);
+    }
+
+    return transcriptDocument;
+  }
+
   public async getTiptapDocument(
     transcriptionId: string,
   ): Promise<TiptapDocument> {
@@ -478,66 +520,37 @@ export class TiptapService {
     return captions;
   }
 
-  getCaptions(doc: Y.Doc): TiptapCaption[] {
-    const MIN_CHARACTERS = 40;
-    const MAX_CHARACTERS = 80;
-    const MAX_SILENCE = 5000;
-    const SENTENCE_ENDING_CHARACTERS = ['.', ';', '!', '?'];
+  getInterpolatedCaptions(wordList: WordEntity[]): WordEntity[] {
+    const result = [];
+
     const DEFAULT_WORD_DURATION = 1000;
 
-    const isNewCaptionStarting = (
-      caption: TiptapCaption,
-      word: WordEntity,
-    ): boolean => {
-      if (word.start === 0) {
-        return false;
-      }
+    // Merge words without spaces
+    for (let i = 0; i < wordList.length; i++) {
+      const word = wordList[i];
+      const previousWord = i > 0 ? result[result.length - 1] : null;
 
-      if (word.startParagraph) {
-        return true;
-      }
-
-      if (caption.speakerId && caption.speakerId !== word.speakerId) {
-        return true;
-      }
-
-      const length = caption.text.length;
-
-      if (length === 0) {
-        return false;
-      }
-
-      if (MAX_SILENCE < word.start - caption.start) {
-        return true;
-      }
-
-      if (length < MIN_CHARACTERS) {
-        return false;
-      }
-
-      if (length + word.text.length > MAX_CHARACTERS) {
-        return true;
-      }
-
-      if (length > MIN_CHARACTERS) {
-        const trimmedText = caption.text.trimEnd();
-        const lastCharacter = trimmedText[trimmedText.length - 1];
-        if (SENTENCE_ENDING_CHARACTERS.includes(lastCharacter)) {
-          return true;
+      if (
+        i === 0 ||
+        word.text.startsWith(' ') ||
+        word.startParagraph ||
+        previousWord.text.endsWith(' ')
+      ) {
+        result.push({ ...word });
+      } else {
+        previousWord.text += word.text;
+        if (word.end) {
+          previousWord.end = word.end;
         }
       }
-
-      return false;
-    };
-
-    const wordList = this.docToWordList(doc);
+    }
 
     // Interpolation
     let speakerId = null;
     let lastStart = null;
     let missingTimestamps = 0;
-    for (let i = 0; i < wordList.length; i++) {
-      const word = wordList[i];
+    for (let i = 0; i < result.length; i++) {
+      const word = result[i];
       // Speaker interpolation
       if (word.speakerId) {
         speakerId = word.speakerId;
@@ -554,7 +567,7 @@ export class TiptapService {
 
           const milliseconds = (word.start - lastStart) / missingTimestamps;
           for (let j = 1; j <= missingTimestamps; j++) {
-            wordList[i - j].start = lastStart + j * milliseconds;
+            result[i - j].start = lastStart + j * milliseconds;
           }
         }
         lastStart = word.start;
@@ -562,62 +575,98 @@ export class TiptapService {
       } else {
         missingTimestamps++;
 
-        if (i === wordList.length - 1 && missingTimestamps > 0) {
+        if (i === result.length - 1 && missingTimestamps > 0) {
           if (lastStart === null) {
             lastStart = 0;
           }
           for (let j = 1; j <= missingTimestamps; j++) {
-            wordList[i - j].start = lastStart + j * DEFAULT_WORD_DURATION;
+            result[i - j].start = lastStart + j * DEFAULT_WORD_DURATION;
           }
         }
       }
     }
 
-    // TODO: meaningful breaks (punctuation, sentence end, etc.)
-    // TODO: eventually break captions on comma?
+    return result;
+  }
 
-    // TODO: Replace unicode characters?
-    // export const replaceUnicodeCharacters = (text: string): string => {
-    //   return text.replace(/&#([0-9]{1,4});/gi, (match, numStr) =>
-    //     String.fromCharCode(parseInt(numStr, 10))
-    //   );
-    // };
+  getCaptionLines(wordList: WordEntity[]): TiptapCaptionLine[] {
+    const MIN_LINE_LENGTH = 30;
+    const MAX_LINE_LENGTH = 40;
+    const MAX_SILENCE = 3000;
+    const LINE_ENDING_CHARACTERS = ['.', ';', '!', '?'];
 
-    const captions: TiptapCaption[] = [];
-
-    let id = 1;
-    let currentCaption: TiptapCaption = {
-      id: id.toString(),
-      start: 0,
-      text: '',
-      end: 0,
-      speakerId: null,
-      startParagraph: true,
-    };
+    const lines: TiptapCaptionLine[] = [
+      {
+        speakerId: null,
+        start: 0,
+        end: 0,
+        text: '',
+        startNewCaption: true,
+        startNewParagraph: true,
+      },
+    ];
 
     for (const word of wordList) {
-      if (isNewCaptionStarting(currentCaption, word)) {
-        // End caption
-        currentCaption.end = word.start;
-        if (currentCaption.text.length > 0) captions.push(currentCaption);
+      const line = lines[lines.length - 1];
+      const lineLength = line.text.trim().length;
+      const lastCharacter = line.text.trimEnd().at(-1);
+      const newLength = line.text.length + word.text.trimEnd().length;
 
-        // Start new caption
-        id++;
-        currentCaption = {
-          id: id.toString(),
-          start: word.start,
-          text: word.text,
-          end: 0,
+      const hasRoom = newLength <= MAX_LINE_LENGTH;
+      const lineEnd =
+        lineLength >= MIN_LINE_LENGTH &&
+        LINE_ENDING_CHARACTERS.includes(lastCharacter);
+      const speakerChange = line.speakerId && line.speakerId !== word.speakerId;
+      const longPause = word.start - line.end > MAX_SILENCE;
+      const newParagraph = word.startParagraph;
+
+      if (!hasRoom || speakerChange || longPause || newParagraph || lineEnd) {
+        line.text = line.text.trim();
+        lines.push({
           speakerId: word.speakerId,
-          startParagraph: word.startParagraph,
-        };
+          start: word.start,
+          end: word.end,
+          text: word.text.trimStart(),
+          startNewCaption: speakerChange || longPause || newParagraph,
+          startNewParagraph: newParagraph,
+        });
       } else {
-        currentCaption.text += word.text; // TODO: Check if spaces are already in wordlist
+        line.text += word.text;
+        line.end = word.end;
       }
     }
 
-    // Add last captions
-    captions.push(currentCaption);
+    return lines.filter((o) => o.text.trim().length > 0);
+  }
+
+  getCaptions(doc: Y.Doc): TiptapCaption[] {
+    const wordList = this.docToWordList(doc);
+    const interpolatedWords = this.getInterpolatedCaptions(wordList);
+    const lines = this.getCaptionLines(interpolatedWords);
+
+    const captions: TiptapCaption[] = [];
+
+    let id = 0;
+    let startNewCaption = false;
+    for (const line of lines) {
+      if (captions.length === 0 || line.startNewCaption || startNewCaption) {
+        id++;
+        captions.push({
+          id: id.toString(),
+          start: line.start,
+          end: line.end,
+          text: line.text,
+          speakerId: line.speakerId,
+          startParagraph: line.startNewParagraph,
+        });
+        startNewCaption = false;
+      } else {
+        const lastCaption = captions[captions.length - 1];
+        startNewCaption = true;
+        lastCaption.text += '\n' + line.text;
+        lastCaption.end = line.end;
+      }
+    }
 
     return captions;
   }

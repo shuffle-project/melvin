@@ -14,8 +14,8 @@ export const environment: Environment = {
     projectEdit: true,
     download: true,
     live: false,
-    documentation: false,
-    tutorial: false,
+    installation: true,
+    tutorial: true,
     guide: true,
     feedbackLink: true,
 

@@ -1,8 +1,4 @@
-import {
-  HttpErrorResponse,
-  HttpEvent,
-  HttpEventType,
-} from '@angular/common/http';
+import { HttpErrorResponse } from '@angular/common/http';
 import { AfterViewInit, Component, OnDestroy, ViewChild } from '@angular/core';
 import {
   AbstractControl,
@@ -16,7 +12,10 @@ import {
   ValueChangeEvent,
 } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
-import { MatCheckboxModule } from '@angular/material/checkbox';
+import {
+  MatCheckboxChange,
+  MatCheckboxModule,
+} from '@angular/material/checkbox';
 import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
@@ -28,15 +27,22 @@ import {
   MatTableModule,
 } from '@angular/material/table';
 import { Store } from '@ngrx/store';
-import { filter, Subject, Subscription, takeUntil } from 'rxjs';
+import { filter, lastValueFrom, Subject, takeUntil } from 'rxjs';
+import { UploadAreaComponent } from 'src/app/components/upload-area/upload-area.component';
+import { UploadProgressComponent } from 'src/app/components/upload-progress/upload-progress.component';
 import { MediaCategoryPipe } from 'src/app/pipes/media-category-pipe/media-category.pipe';
 import { ApiService } from 'src/app/services/api/api.service';
 import {
-  MediaCategory,
-  ProjectEntity,
-} from 'src/app/services/api/entities/project.entity';
-import { CreateProjectService } from 'src/app/services/create-project/create-project.service';
+  CreateProjectDto,
+  SubtitleOption,
+  VideoOption,
+} from 'src/app/services/api/dto/create-project.dto';
+import { AsrVendors } from 'src/app/services/api/dto/create-transcription.dto';
+import { MediaCategory } from 'src/app/services/api/entities/project.entity';
+import { UploadHandler } from 'src/app/services/upload/upload-handler';
+import { UploadService } from 'src/app/services/upload/upload.service';
 import { AppState } from 'src/app/store/app.state';
+import { LanguageAutocompleteComponent } from '../../../../../components/language-autocomplete/language-autocomplete/language-autocomplete.component';
 import * as configSelectors from '../../../../../store/selectors/config.selector';
 export interface CreateProjectFormGroup {
   title: FormControl<string>;
@@ -65,6 +71,9 @@ interface FileGroup {
     MatCheckboxModule,
     MediaCategoryPipe,
     MatProgressBarModule,
+    UploadProgressComponent,
+    UploadAreaComponent,
+    LanguageAutocompleteComponent,
   ],
   templateUrl: './dialog-create-project.component.html',
   styleUrl: './dialog-create-project.component.scss',
@@ -80,6 +89,13 @@ export class DialogCreateProjectComponent implements OnDestroy, AfterViewInit {
     'delete',
   ];
 
+  uploadAreaFormGroup = new FormGroup({
+    files: new FormControl<File[]>([], {
+      validators: [Validators.required],
+      nonNullable: true,
+    }),
+  });
+
   acceptedFileFormats: string[] = [
     'audio',
     'video',
@@ -89,15 +105,13 @@ export class DialogCreateProjectComponent implements OnDestroy, AfterViewInit {
     '.vtt',
   ];
 
+  fileFormatsLabel = 'MP4, WebM, MP3, WAV, SRT, VTT';
+
   // calculate eta
   timeStarted!: number;
   eta: undefined | number = undefined;
 
   error: HttpErrorResponse | null = null;
-
-  fileUploadProgress = 0; // value from 0 to 100
-  uploadSubscription!: Subscription;
-  private totalFileSize = 0;
 
   MediaCategory = MediaCategory;
   mediaCategoryArray = Object.entries(MediaCategory)
@@ -111,12 +125,14 @@ export class DialogCreateProjectComponent implements OnDestroy, AfterViewInit {
 
   loading = false;
 
+  uploadHandlers: UploadHandler[] = [];
+
   constructor(
     private fb: NonNullableFormBuilder,
     private api: ApiService,
     private store: Store<AppState>,
-    private createProjectService: CreateProjectService,
-    private dialogRef: MatDialogRef<DialogCreateProjectComponent>
+    private dialogRef: MatDialogRef<DialogCreateProjectComponent>,
+    private uploadService: UploadService
   ) {
     this.store
       .select(configSelectors.getSupportedASRLanguages)
@@ -138,6 +154,16 @@ export class DialogCreateProjectComponent implements OnDestroy, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
+    this.uploadAreaFormGroup.valueChanges
+      .pipe(takeUntil(this.destroy$$))
+      .subscribe((value) => {
+        const { files } = value;
+        if (files?.length === 0) return;
+
+        this.addFiles(files!);
+        this.uploadAreaFormGroup.reset();
+      });
+
     this.formGroup.events
       .pipe(
         filter((e) => e instanceof ValueChangeEvent),
@@ -170,22 +196,13 @@ export class DialogCreateProjectComponent implements OnDestroy, AfterViewInit {
           }
         }
       });
+  }
 
-    this.formGroup.controls.files.valueChanges
-      .pipe(takeUntil(this.destroy$$))
-      .subscribe((files) => {
-        files.forEach((f) => {
-          if (
-            (f.file?.type.includes('audio') ||
-              f.file?.type.includes('video')) &&
-            this.formGroup.controls.title.value === '' &&
-            f.useAudio
-          ) {
-            const cleanName = f.name!.replace(/\.[^/.]+$/, '');
-            this.formGroup.controls.title.setValue(cleanName);
-          }
-        });
-      });
+  onChangeUseAudio(e: MatCheckboxChange, name: string) {
+    if (e.checked && this.formGroup.controls.title.value === '') {
+      const cleanName = name.replace(/\.[^/.]+$/, '');
+      this.formGroup.controls.title.setValue(cleanName);
+    }
   }
 
   public formGroup: FormGroup<CreateProjectFormGroup> = this.fb.group(
@@ -239,10 +256,7 @@ export class DialogCreateProjectComponent implements OnDestroy, AfterViewInit {
     };
   }
 
-  onAddFiles(event: any) {
-    this.formGroup.markAsTouched();
-    const files: File[] = event.target.files;
-
+  addFiles(files: File[]) {
     // TODO snackbar with allowed file formats if wrong format submitted?
     const onlyValidFiles = [...files].filter((file: File) => {
       return this.acceptedFileFormats.find((acceptedFormat) => {
@@ -322,6 +336,11 @@ export class DialogCreateProjectComponent implements OnDestroy, AfterViewInit {
     this.formGroup.markAsTouched();
     this.formGroup.controls.files.removeAt(index);
 
+    if (this.formGroup.controls.files.value.length === 0) {
+      this.uploadAreaFormGroup.markAllAsTouched();
+      this.uploadAreaFormGroup.updateValueAndValidity();
+    }
+
     this.dataSource = new MatTableDataSource(
       (this.formGroup.controls.files as FormArray).controls
     );
@@ -333,59 +352,97 @@ export class DialogCreateProjectComponent implements OnDestroy, AfterViewInit {
     }
   }
 
-  onSubmitForm() {
+  async onSubmitForm() {
+    this.formGroup.controls.files.getRawValue().forEach((fileGroup) => {
+      console.log(fileGroup);
+    });
+
     if (this.formGroup.invalid) {
       this.formGroup.markAllAsTouched();
       this.formGroup.updateValueAndValidity();
+      this.uploadAreaFormGroup.markAllAsTouched();
+      this.uploadAreaFormGroup.updateValueAndValidity();
       return;
     }
 
-    this.totalFileSize = this.formGroup.controls.files.value
-      .map((f) => f.file?.size!)
-      .reduce((total, current) => total + current);
-
     this.loading = true;
-    const formData = this.createProjectService.createVideoProject(
-      this.formGroup
-    );
 
-    this.timeStarted = Date.now();
-    this.uploadSubscription = this.api.createProject(formData).subscribe({
-      next: (event: HttpEvent<ProjectEntity>) => this._handleHttpEvent(event),
-      error: (error: HttpErrorResponse) => this._handleErrorHttpEvent(error),
-    });
-  }
+    try {
+      const allFiles = this.formGroup.controls.files.getRawValue();
+      allFiles.forEach((f) => {
+        this.uploadHandlers.push(this.uploadService.createUpload(f.file));
+      });
 
-  private _handleHttpEvent(event: HttpEvent<ProjectEntity>) {
-    switch (event.type) {
-      case HttpEventType.UploadProgress:
-        this.fileUploadProgress = (event.loaded / this.totalFileSize) * 100;
+      for (const handler of this.uploadHandlers) {
+        await handler.start();
+      }
 
-        const timeElapsedInSeconds = (Date.now() - this.timeStarted) / 1000;
-        const uploadSpeedInSeconds = event.loaded / timeElapsedInSeconds;
+      const subtitleFiles = allFiles.filter((f) => f.fileType === 'text');
+      const subtitleOptions: SubtitleOption[] = subtitleFiles.map((f) => ({
+        language: f.language,
+        uploadId: this.uploadHandlers.find(
+          (uploadHandler) => uploadHandler.file.name === f.name
+        )!.progress$.value.uploadId!,
+      }));
 
-        this.eta = (this.totalFileSize - event.loaded) / uploadSpeedInSeconds;
+      const videoFiles = allFiles.filter((f) => f.fileType === 'video');
+      const videoOptions: VideoOption[] = videoFiles.map((f) => ({
+        category: f.category,
+        useAudio: f.useAudio,
+        uploadId: this.uploadHandlers.find(
+          (uploadHandler) => uploadHandler.file.name === f.name
+        )!.progress$.value.uploadId!,
+      }));
 
-        break;
-      case HttpEventType.Response:
-        // TODO maybe call store method?? -> user will get the ws eveent anyways
-        this.loading = false;
-        this.dialogRef.close();
-        break;
-      default:
-        break;
+      const createProjectDto: CreateProjectDto = {
+        asrVendor: AsrVendors.WHISPER,
+        title: this.formGroup.controls.title.getRawValue(),
+        language: this._getMainLanguage(this.formGroup),
+        videoOptions,
+        subtitleOptions:
+          subtitleOptions.length > 0 ? subtitleOptions : undefined, // TODO fill
+        sourceMode: 'video',
+      };
+
+      await lastValueFrom(this.api.createProject(createProjectDto));
+
+      this.loading = false;
+      this.dialogRef.close();
+    } catch (error) {
+      // TODO error
+      this.loading = false;
+      this.formGroup.enable();
+
+      // should always be an HttpErrorResponse
+      this.error = error as HttpErrorResponse;
+      console.log('error in project creation', error);
     }
   }
 
-  private _handleErrorHttpEvent(error: HttpErrorResponse) {
-    this.loading = false;
-    this.formGroup.enable();
+  public _getMainLanguage(formGroup: FormGroup<CreateProjectFormGroup>) {
+    const useAudioFiles = formGroup.controls.files
+      .getRawValue()
+      .filter((f) => f.useAudio);
 
-    this.error = error;
-    console.log('error in project creation', error);
+    return useAudioFiles[0].language;
   }
 
   ngOnDestroy() {
     this.destroy$$.next();
+  }
+
+  async onCancelUpload() {
+    try {
+      for (const handler of this.uploadHandlers) {
+        const handlerProgress = handler.progress$.value;
+
+        if (handlerProgress.status === 'uploading') {
+          handler.cancel$$.next();
+          await lastValueFrom(this.api.cancelUpload(handlerProgress.uploadId!));
+        }
+      }
+    } finally {
+      this.dialogRef.close();
+    }
   }
 }

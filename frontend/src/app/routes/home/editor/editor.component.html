@@ -119,55 +119,19 @@
           Transcription
         </button>
         }
+
         <mat-menu #transcription="matMenu" class="dense">
-          <div *ngrxLet="transcriptionsList$ as transcriptionList">
-            @for (transcription of transcriptionList; track transcription) {
-            <div>
-              <button
-                (click)="onSelectTranscription(transcription.id)"
-                mat-menu-item
-              >
-                <mat-icon
-                  [class.hidden]="
-                    transcription.id !== (selectedTranscriptionId$ | ngrxPush)
-                  "
-                  svgIcon="done"
-                ></mat-icon>
-                <span>
-                  {{
-                    transcription.language
-                      | writtenOutLanguage : transcription.title
-                  }}
-                </span>
-                <span class="transcription-lang-code">
-                  ({{ transcription.language }})</span
-                >
-              </button>
-            </div>
-            } @if (transcriptionList.length > 0) {
-            <mat-divider class="transcription-mat-divider" />
-            }
-          </div>
-          @if ('editTranscriptions' | featureEnabled) {
-          <div class="transcription-button-wrapper">
-            <button
-              mat-menu-item
-              i18n="@@editorMenuTranscriptionEditLabel"
-              (click)="onClickTranscriptionEdit()"
-            >
-              <mat-icon svgIcon="edit"></mat-icon>
-              Edit Transcriptions
-            </button>
-          </div>
-          }
+          <app-transcription-menu-content [projectId]="projectId" />
         </mat-menu>
-        <!-- Help Menu -->
-        @if ('helpMenu' | featureEnabled) {
-        <!-- TODO removed to make the ui cleaner -->
-        <!-- <button mat-button (click)="onOpenHelpDialog()" i18n="@@editorMenuHelp">
-          Help
-        </button> -->
-        }
+
+        <button
+          mat-button
+          (click)="onOpenTranslationDialog()"
+          i18n="@@editorMenuTranslateLabel"
+          class="editor-action-button highlight-button"
+        >
+          Translate
+        </button>
       </div>
     </div>
   </div>
@@ -259,6 +223,42 @@
       <div class="controls-wide-viewport">
         <app-video-controls></app-video-controls>
       </div>
+
+      @for (t of transcriptionsList$ | ngrxPush; track t.id) { @if (t.id ===
+      selectedTranscriptionId && t.status !== transcriptionStatus.OK) {
+      <div class="editor-transcription-info" [class]="t.status">
+        <mat-icon
+          class="status-icon"
+          [class]="t.status"
+          [svgIcon]="
+            t.status === transcriptionStatus.WAITING
+              ? 'pause'
+              : t.status === transcriptionStatus.ERROR
+              ? 'warning'
+              : 'setting'
+          "
+        />
+
+        <div class="text-wrapper">
+          <span class="status"> {{ t.status | readableStatus }}: </span>
+
+          <span class="language">
+            {{ t.language | writtenOutLanguage : t.title }}
+            <span class="language-code"> ({{ t.language }}) </span>
+          </span>
+
+          @if (t.status === transcriptionStatus.ERROR) {
+          <span i18n="@@editorTranscriptionErrorInfo"
+            >| Please try the transcription creation again.</span
+          >
+          } @else {
+          <span i18n="@@editorTranscriptionProcessingInfo"
+            >| Please wait for the transcript to be ready for editing.</span
+          >
+          }
+        </div>
+      </div>
+      } }
 
       <ng-container *ngrxLet="project$ as project">
         <ng-container *ngrxLet="editorUsers$ as editorUsers">

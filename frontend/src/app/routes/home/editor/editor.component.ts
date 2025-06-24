@@ -42,10 +42,14 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { LetDirective, PushPipe } from '@ngrx/component';
 import { DeleteConfirmationService } from 'src/app/components/delete-confirmation-dialog/delete-confirmation.service';
-import { DialogProjectTranscriptionComponent } from 'src/app/modules/project-dialogs/dialog-project-transcription/dialog-project-transcription.component';
+import { CreateTranscriptionDialogComponent } from 'src/app/modules/project-dialogs/components/project-transcription/components/create-transcription-dialog/create-transcription-dialog.component';
 import { MediaCategoryPipe } from 'src/app/pipes/media-category-pipe/media-category.pipe';
+import { ProjectStatusPipe } from 'src/app/pipes/project-status-pipe/project-status.pipe';
 import { WrittenOutLanguagePipe } from 'src/app/pipes/written-out-language-pipe/written-out-language.pipe';
-import { SubtitleFormat } from 'src/app/services/api/entities/transcription.entity';
+import {
+  SubtitleFormat,
+  TranscriptionStatus,
+} from 'src/app/services/api/entities/transcription.entity';
 import { HeaderComponent } from '../../../components/header/header.component';
 import { DialogHelpEditorComponent } from './components/dialog-help-editor/dialog-help-editor.component';
 import { EditorSettingsComponent } from './components/editor-settings/editor-settings.component';
@@ -53,11 +57,11 @@ import { JoinLivestreamModalComponent } from './components/join-livestream-modal
 import { LiveControlsComponent } from './components/live-controls/live-controls.component';
 import { ShortcutsComponent } from './components/shortcuts/short-cuts/shortcuts.component';
 import { TiptapEditorComponent } from './components/tiptap-editor/tiptap-editor.component';
+import { TranscriptionMenuContentComponent } from './components/transcription-menu-content/transcription-menu-content.component';
 import { UserTestControlsComponent } from './components/user-test-controls/user-test-controls.component';
 import { VideoControlsComponent } from './components/video-controls/video-controls/video-controls.component';
 import { VideoPlayerComponent } from './components/video-player/video-player.component';
 import { WaveformComponent } from './components/waveform/waveform.component';
-import { MediaService } from './service/media/media.service';
 
 @Component({
   selector: 'app-editor',
@@ -84,10 +88,12 @@ import { MediaService } from './service/media/media.service';
     PushPipe,
     FeatureEnabledPipe,
     TiptapEditorComponent,
-    WrittenOutLanguagePipe,
     MediaCategoryPipe,
     VideoControlsComponent,
     ShortcutsComponent,
+    TranscriptionMenuContentComponent,
+    WrittenOutLanguagePipe,
+    ProjectStatusPipe,
   ],
 })
 export class EditorComponent implements OnInit, OnDestroy {
@@ -128,9 +134,12 @@ export class EditorComponent implements OnInit, OnDestroy {
   public transcriptionsList$ = this.store.select(
     transcriptionsSelectors.selectTranscriptionList
   );
+
   public selectedTranscriptionId$ = this.store.select(
     transcriptionsSelectors.selectTranscriptionId
   );
+
+  public transcriptionStatus = TranscriptionStatus;
 
   // Media observables
   public isLiveMode$ = this.store.select(editorSelectors.selectIsLiveMode);
@@ -149,7 +158,6 @@ export class EditorComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private dialog: MatDialog,
     private api: ApiService,
-    private mediaService: MediaService,
     private appService: AppService,
     public livestreamService: LivestreamService,
     public httpClient: HttpClient,
@@ -296,15 +304,6 @@ export class EditorComponent implements OnInit, OnDestroy {
     );
   }
 
-  async onClickTranscriptionEdit() {
-    this.dialog.open(DialogProjectTranscriptionComponent, {
-      data: { projectId: this.projectId },
-      width: '100%',
-      maxWidth: '50rem',
-      maxHeight: '90vh',
-    });
-  }
-
   async onDeleteProject() {
     const project = await firstValueFrom(this.project$);
     const isConfirmed = await this.deleteService.deleteProject(project!);
@@ -318,6 +317,15 @@ export class EditorComponent implements OnInit, OnDestroy {
     this.dialog.open(JoinLivestreamModalComponent, {
       disableClose: !livestreamStarted,
       data: { livestreamStarted, projectId: this.projectId },
+    });
+  }
+
+  onOpenTranslationDialog() {
+    this.dialog.open(CreateTranscriptionDialogComponent, {
+      data: { selectedTab: 'translate' },
+      width: '100%',
+      maxWidth: '50rem',
+      maxHeight: '90vh',
     });
   }
 }

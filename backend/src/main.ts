@@ -3,7 +3,9 @@ import { ConfigService } from '@nestjs/config';
 import { NestFactory } from '@nestjs/core';
 import { WsAdapter } from '@nestjs/platform-ws';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import express from 'express';
 import helmet from 'helmet';
+import { Server } from 'http';
 import { AppModule } from './app.module';
 import { CustomLogger } from './modules/logger/logger.service';
 import { HttpExceptionFilter } from './utils/exception-filter';
@@ -14,9 +16,15 @@ async function bootstrap() {
   // App definition
   const app = await NestFactory.create(AppModule, {
     bufferLogs: true,
-    bodyParser: true,
     cors: true,
   });
+
+  const server = app.getHttpServer() as Server;
+  server.setTimeout(1000 * 60 * 15); // 15 minutes
+
+  app.use(express.json({ limit: '10GB' }));
+  app.use(express.urlencoded({ limit: '10GB' }));
+  app.use(express.raw({ limit: '10GB' }));
 
   const configService = app.get(ConfigService);
 

@@ -3,7 +3,7 @@ services:
     image: ghcr.io/shuffle-project/melvin-backend:${BACKEND_TAG}
     container_name: ${COMPOSE_PROJECT_NAME}-backend
     depends_on:
-      mongodb: 
+      mongodb:
         condition: service_healthy
       redis:
         condition: service_healthy
@@ -20,19 +20,19 @@ services:
     volumes:
       - ./backend.config.yml:/app/config.yml
       - ${DATA_ROOT_PATH}/backend/media:/app/media/projects
-    
+
   frontend:
     image: ghcr.io/shuffle-project/melvin-frontend:${FRONTEND_TAG}
     container_name: ${COMPOSE_PROJECT_NAME}-frontend
-    ports:
-      - 127.0.0.1:4200:80
-    restart: unless-stopped
     depends_on:
       backend:
         condition: service_healthy
+    ports:
+      - 127.0.0.1:8080:80
+    restart: unless-stopped
     environment:
-      - FRONTEND_BASE_URL=http://localhost:4200 # TODO replace
-      - BACKEND_BASE_URL=http://localhost:3000 # TODO replace
+      - FRONTEND_BASE_URL=https://melvin.shuffle-projekt.de
+      - BACKEND_BASE_URL=https://api.melvin.shuffle-projekt.de
 
   mongodb:
     image: mongo:7
@@ -53,7 +53,7 @@ services:
     volumes:
       - ${DATA_ROOT_PATH}/redis:/data
     healthcheck:
-      test: [ "CMD", "redis-cli", "--raw", "incr", "ping" ]
+      test: ["CMD", "redis-cli", "--raw", "incr", "ping"]
       interval: 1s
       timeout: 3s
       retries: 5
@@ -67,18 +67,17 @@ services:
       - ${WHISPER_MODELS_CACHE_PATH}:/asr/models
       - ./asr.config.yml:/asr/config.yml
     ports:
-      - '127.0.0.1:8393:8393' # HTTP
-      - '127.0.0.1:8394:8394' # WebSocket
+      - "127.0.0.1:8393:8393" # HTTP
+      - "127.0.0.1:8394:8394" # WebSocket
     healthcheck:
       test: curl --fail -X OPTIONS http://localhost:8393 || exit 1
       interval: 10s
       retries: 10
       timeout: 3s
-    # TODO uncomment the following lines if you want to use GPU
-    # deploy:
-    #   resources:
-    #     reservations:
-    #       devices:
-    #         - driver: nvidia
-    #           device_ids: [ "0" ]
-    #           capabilities: [ gpu ]
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              device_ids: ["0"]
+              capabilities: [gpu]

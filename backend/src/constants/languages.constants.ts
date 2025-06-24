@@ -147,12 +147,18 @@ export const LANGUAGES: Language[] = [
   //   englishName: 'Chechen',
   //   germanName: 'Tschetschenisch',
   // },
-  // no whisper support
-  // {
-  //   code: 'ny',
-  //   englishName: 'Chichewa, Chewa, Nyanja',
-  //   germanName: 'Chichewa',
-  // },
+  {
+    code: 'ceb',
+    englishName: 'Cebuano',
+    germanName: 'Cebuano',
+  },
+
+  // no whisper support, but seamlessm4t
+  {
+    code: 'ny',
+    englishName: 'Chichewa, Chewa, Nyanja',
+    germanName: 'Chichewa',
+  },
   {
     code: 'zh',
     englishName: 'Chinese',
@@ -273,12 +279,12 @@ export const LANGUAGES: Language[] = [
   //   englishName: 'Western Frisian',
   //   germanName: 'Westfriesisch',
   // },
-  // no whisper support
-  // {
-  //   code: 'ff',
-  //   englishName: 'Fulah',
-  //   germanName: 'Fulfulde',
-  // },
+  // no whisper support, but seamlessm4t
+  {
+    code: 'ff',
+    englishName: 'Fulah',
+    germanName: 'Fulfulde',
+  },
   // no whisper support
   // {
   //   code: 'gd',
@@ -290,12 +296,18 @@ export const LANGUAGES: Language[] = [
     englishName: 'Galician',
     germanName: 'Galicisch, Galegisch',
   },
-  // no whisper support
-  // {
-  //   code: 'lg',
-  //   englishName: 'Ganda',
-  //   germanName: 'Luganda',
-  // },
+  // no whisper support, but seamlessm4t
+  {
+    code: 'lg',
+    englishName: 'Ganda',
+    germanName: 'Luganda',
+  },
+  // no whisper support, but seamlessm4t
+  {
+    code: 'luo',
+    englishName: 'Luo',
+    germanName: 'Luo',
+  },
   {
     code: 'ka',
     englishName: 'Georgian',
@@ -339,6 +351,11 @@ export const LANGUAGES: Language[] = [
     germanName: 'Hausa',
   },
   {
+    code: 'haw',
+    englishName: 'Hawaiian',
+    germanName: 'Hawaiianisch',
+  },
+  {
     code: 'he',
     englishName: 'Hebrew',
     germanName: 'Hebräisch',
@@ -376,12 +393,12 @@ export const LANGUAGES: Language[] = [
   //   englishName: 'Ido',
   //   germanName: 'Ido',
   // },
-  // no whisper support
-  // {
-  //   code: 'ig',
-  //   englishName: 'Igbo',
-  //   germanName: 'Igbo',
-  // },
+  // no whisper support, but seamlessm4t
+  {
+    code: 'ig',
+    englishName: 'Igbo',
+    germanName: 'Igbo',
+  },
   {
     code: 'id',
     englishName: 'Indonesian',
@@ -411,12 +428,12 @@ export const LANGUAGES: Language[] = [
   //   englishName: 'Inupiaq',
   //   germanName: 'Inupiaq',
   // },
-  // no whisper support
-  // {
-  //   code: 'ga',
-  //   englishName: 'Irish',
-  //   germanName: 'Irisch',
-  // },
+  // no whisper support, but seamlessm4t
+  {
+    code: 'ga',
+    englishName: 'Irish',
+    germanName: 'Irisch',
+  },
   {
     code: 'it',
     englishName: 'Italian',
@@ -428,11 +445,11 @@ export const LANGUAGES: Language[] = [
     germanName: 'Japanisch',
   },
   // jv is the new short code for javanese, whisper only supports old one
-  // {
-  //   code: 'jv',
-  //   englishName: 'Javanese',
-  //   germanName: 'Javanisch',
-  // },
+  {
+    code: 'jv',
+    englishName: 'Javanese',
+    germanName: 'Javanisch',
+  },
   {
     code: 'jw',
     englishName: 'Javanese',
@@ -477,12 +494,12 @@ export const LANGUAGES: Language[] = [
   //   englishName: 'Kinyarwanda',
   //   germanName: 'Kinyarwanda, Ruandisch',
   // },
-  // no whisper support
-  // {
-  //   code: 'ky',
-  //   englishName: 'Kirghiz, Kyrgyz',
-  //   germanName: 'Kirgisisch',
-  // },
+  // no whisper support, but seamlessm4t
+  {
+    code: 'ky',
+    englishName: 'Kirghiz, Kyrgyz',
+    germanName: 'Kirgisisch',
+  },
   // no whisper support
   // {
   //   code: 'kv',
@@ -506,23 +523,22 @@ export const LANGUAGES: Language[] = [
   //   englishName: 'Kuanyama, Kwanyama',
   //   germanName: 'oshiKwanyama',
   // },
-  // no whisper support
-  // {
-  //   code: 'ku',
-  //   englishName: 'Kurdish',
-  //   germanName: 'Kurdisch',
-  // },
+  // no whisper support, but seamlessm4t
+  {
+    code: 'ku',
+    englishName: 'Kurdish',
+    germanName: 'Kurdisch',
+  },
   {
     code: 'lo',
     englishName: 'Lao',
     germanName: 'Laotisch',
   },
-  // ancient language
-  // {
-  //   code: 'la',
-  //   englishName: 'Latin',
-  //   germanName: 'Latein',
-  // },
+  {
+    code: 'la',
+    englishName: 'Latin',
+    germanName: 'Latein',
+  },
   {
     code: 'lv',
     englishName: 'Latvian',
@@ -647,12 +663,12 @@ export const LANGUAGES: Language[] = [
     englishName: 'Norwegian',
     germanName: 'Norwegisch',
   },
-  // no whisper support
-  // {
-  //   code: 'nb',
-  //   englishName: 'Norwegian Bokmål',
-  //   germanName: 'Bokmål',
-  // },
+  // no whisper support, but seamlessm4t
+  {
+    code: 'nb',
+    englishName: 'Norwegian Bokmål',
+    germanName: 'Bokmål',
+  },
   {
     code: 'nn',
     englishName: 'Norwegian Nynorsk',
@@ -669,12 +685,12 @@ export const LANGUAGES: Language[] = [
   //   englishName: 'Ojibwa',
   //   germanName: 'Ojibwe',
   // },
-  // no whisper support
-  // {
-  //   code: 'or',
-  //   englishName: 'Oriya',
-  //   germanName: 'Oriya',
-  // },
+  // no whisper support, but seamlessm4t
+  {
+    code: 'or',
+    englishName: 'Oriya',
+    germanName: 'Oriya',
+  },
   // no whisper support
   // {
   //   code: 'om',
@@ -764,12 +780,12 @@ export const LANGUAGES: Language[] = [
   //   englishName: 'Sango',
   //   germanName: 'Sango',
   // },
-  // ancient language
-  // {
-  //   code: 'sa',
-  //   englishName: 'Sanskrit',
-  //   germanName: 'Sanskrit',
-  // },
+
+  {
+    code: 'sa',
+    englishName: 'Sanskrit',
+    germanName: 'Sanskrit',
+  },
   // no whisper support
   // {
   //   code: 'sc',
@@ -854,12 +870,11 @@ export const LANGUAGES: Language[] = [
   //   englishName: 'Tahitian',
   //   germanName: 'Tahitianisch, Tahitisch',
   // },
-  // no whisper support
-  // {
-  //   code: 'tg',
-  //   englishName: 'Tajik',
-  //   germanName: 'Tadschikisch',
-  // },
+  {
+    code: 'tg',
+    englishName: 'Tajik',
+    germanName: 'Tadschikisch',
+  },
   {
     code: 'ta',
     englishName: 'Tamil',
@@ -1002,18 +1017,23 @@ export const LANGUAGES: Language[] = [
     englishName: 'Yoruba',
     germanName: 'Yoruba',
   },
+  {
+    code: 'yue',
+    englishName: 'Yue Chinese',
+    germanName: 'Kantonesisch',
+  },
   // no whisper support
   // {
   //   code: 'za',
   //   englishName: 'Zhuang, Chuang',
   //   germanName: 'Zhuang',
   // },
-  // no whisper support
-  // {
-  //   code: 'zu',
-  //   englishName: 'Zulu',
-  //   germanName: 'isiZulu',
-  // },
+  // no whisper support, but seamlessm4t
+  {
+    code: 'zu',
+    englishName: 'Zulu',
+    germanName: 'isiZulu',
+  },
 ];
 
 export const ASR_TEST_LANGUGAGE: Language[] = [

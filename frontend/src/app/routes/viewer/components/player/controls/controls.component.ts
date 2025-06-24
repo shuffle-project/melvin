@@ -211,8 +211,6 @@ export class ControlsComponent implements OnInit, OnDestroy {
   }
 
   onOpenCaptionsSettingsDialog() {
-    this.viewerService.audio?.pause();
-
     const dialogRef = this.dialog.open(CaptionsSettingsDialogComponent);
 
     dialogRef.afterClosed().subscribe(() => {
@@ -221,8 +219,6 @@ export class ControlsComponent implements OnInit, OnDestroy {
   }
 
   onOpenTranscriptSettingsDialog() {
-    this.viewerService.audio?.pause();
-
     const dialogRef = this.dialog.open(AdjustLayoutDialogComponent);
     dialogRef.afterClosed().subscribe(() => {
       this._restoreFocusById('language-menu-button');
@@ -230,8 +226,6 @@ export class ControlsComponent implements OnInit, OnDestroy {
   }
 
   onOpenHelpDialog() {
-    this.viewerService.audio?.pause();
-
     const dialogRef = this.dialog.open(HelpDialogComponent);
     dialogRef.afterClosed().subscribe(() => {
       this._restoreFocusById('settings-menu-button');

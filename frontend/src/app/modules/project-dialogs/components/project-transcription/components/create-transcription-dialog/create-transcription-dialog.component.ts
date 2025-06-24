@@ -1,6 +1,17 @@
-import { Component, OnDestroy, OnInit, ViewChild, inject } from '@angular/core';
+import {
+  Component,
+  Inject,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+  inject,
+} from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
-import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import {
+  MAT_DIALOG_DATA,
+  MatDialog,
+  MatDialogModule,
+} from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
 import { Observable, Subject, firstValueFrom, takeUntil } from 'rxjs';
 import { TranscriptionEntity } from 'src/app/services/api/entities/transcription.entity';
@@ -13,24 +24,22 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatTabsModule } from '@angular/material/tabs';
 import { CopyTranscriptionComponent } from './components/copy-transcription/copy-transcription/copy-transcription.component';
 import { EmptyFileTranscriptionComponent } from './components/empty-file-transcription/empty-file-transcription/empty-file-transcription.component';
-import { FromMediaTranscriptionComponent } from './components/from-media-transcription/from-media-transcriptions/from-media-transcription.component';
 import { TranslateTranscriptionComponent } from './components/translate-transcription/translate-transcription/translate-transcription.component';
 import { UploadTranscriptionComponent } from './components/upload-transcription/upload-transcription/upload-transcription.component';
 @Component({
-    selector: 'app-create-transcription-dialog',
-    templateUrl: './create-transcription-dialog.component.html',
-    styleUrls: ['./create-transcription-dialog.component.scss'],
-    imports: [
-        MatIconModule,
-        MatButtonModule,
-        MatDialogModule,
-        MatTabsModule,
-        CopyTranscriptionComponent,
-        TranslateTranscriptionComponent,
-        UploadTranscriptionComponent,
-        FromMediaTranscriptionComponent,
-        EmptyFileTranscriptionComponent,
-    ]
+  selector: 'app-create-transcription-dialog',
+  templateUrl: './create-transcription-dialog.component.html',
+  styleUrls: ['./create-transcription-dialog.component.scss'],
+  imports: [
+    MatIconModule,
+    MatButtonModule,
+    MatDialogModule,
+    MatTabsModule,
+    CopyTranscriptionComponent,
+    UploadTranscriptionComponent,
+    TranslateTranscriptionComponent,
+    EmptyFileTranscriptionComponent,
+  ],
 })
 export class CreateTranscriptionDialogComponent implements OnInit, OnDestroy {
   private destroy$$ = new Subject<void>();
@@ -38,13 +47,14 @@ export class CreateTranscriptionDialogComponent implements OnInit, OnDestroy {
   public loading = false;
 
   // tabs = ['upload', 'copy', 'translate', 'from media', 'empty file'];
-  tabs = ['upload', 'copy', 'empty file'];
+  tabs = ['upload', 'copy', 'translate', 'empty file'];
   selectedTab = 'upload';
+  selectedTabIndex = 0;
 
   @ViewChild('uploadForm') uploadForm!: UploadTranscriptionComponent;
   @ViewChild('copyForm') copyForm!: CopyTranscriptionComponent;
   // @ViewChild('asrForm') asrForm!: CopyTranscriptionComponent;
-  // @ViewChild('translateForm') translateForm!: CopyTranscriptionComponent;
+  @ViewChild('translateForm') translateForm!: CopyTranscriptionComponent;
   @ViewChild('emptyFileForm') emptyFileForm!: EmptyFileTranscriptionComponent;
 
   uploadProgress: number = 0;
@@ -55,7 +65,17 @@ export class CreateTranscriptionDialogComponent implements OnInit, OnDestroy {
 
   dialog = inject(MatDialog);
 
-  constructor(private store: Store<AppState>) {
+  constructor(
+    private store: Store<AppState>,
+    @Inject(MAT_DIALOG_DATA) public data?: { selectedTab: string }
+  ) {
+    if (this.data?.selectedTab) {
+      this.selectedTabIndex = this.tabs.findIndex(
+        (t) => t === this.data?.selectedTab
+      );
+      this.selectedTab = this.tabs[this.selectedTabIndex];
+    }
+
     this.transcriptionsList$ = this.store.select(
       transcriptionsSelectors.selectTranscriptionList
     );
@@ -88,9 +108,9 @@ export class CreateTranscriptionDialogComponent implements OnInit, OnDestroy {
       case 'copy':
         this.copyForm.submit(this.project.id);
         break;
-      // case 'translate':
-      // this.translateForm.submit(this.project.id);
-      // break;
+      case 'translate':
+        this.translateForm.submit(this.project.id);
+        break;
       // case 'from media':
       // this.asrForm.submit(this.project.id);
       // break;

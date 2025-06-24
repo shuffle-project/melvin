@@ -1,12 +1,13 @@
-import { HttpEvent } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { UserEntity } from 'src/app/services/api/entities/user.entity';
 import { environment } from '../../../environments/environment';
+import { UploadDto } from '../upload/upload.interfaces';
 import { ChangePasswordDto } from './dto/auth.dto';
 import { BulkRemoveDto } from './dto/bulk-remove.dto';
 import { ConnectLivestreamDto } from './dto/connect-livestream.dto';
 import { CreateCaptionDto } from './dto/create-caption.dto';
+import { CreateProjectDto } from './dto/create-project.dto';
 import { CreateSpeakersDto } from './dto/create-speakers.dto';
 import { CreateTranscriptionDto } from './dto/create-transcription.dto';
 import { PauseLivestreamDto } from './dto/pause-livestream.dto';
@@ -60,6 +61,7 @@ import {
   SubtitleFormat,
   TranscriptionEntity,
 } from './entities/transcription.entity';
+import { UploadEntity } from './entities/upload-file.entity';
 import { WaveformData } from './entities/waveform-data.entity';
 import { FakeApiService } from './fake-api.service';
 import { RealApiService } from './real-api.service';
@@ -114,13 +116,7 @@ export abstract class ApiService {
   abstract deleteAccount(password: string): Observable<void>;
 
   // projects
-  abstract createLegacyProject(
-    project: FormData
-  ): Observable<HttpEvent<ProjectEntity>>;
-
-  abstract createProject(
-    project: FormData
-  ): Observable<HttpEvent<ProjectEntity>>;
+  abstract createProject(project: CreateProjectDto): Observable<ProjectEntity>;
 
   abstract createDefaultProject(): Observable<ProjectEntity>;
 
@@ -148,11 +144,10 @@ export abstract class ApiService {
     mediaId: string
   ): Observable<ProjectMediaEntity>;
 
-  abstract uploadVideo(
+  abstract createAdditionalVideo(
     projectId: string,
-    uploadVideoDto: UploadVideoDto,
-    file: File
-  ): Observable<HttpEvent<ProjectEntity>>;
+    uploadVideoDto: UploadVideoDto
+  ): Observable<ProjectEntity>;
 
   abstract invite(projectId: string, emails: string[]): Observable<void>;
   abstract removeUserFromProject(
@@ -194,10 +189,10 @@ export abstract class ApiService {
     transcription: CreateTranscriptionDto
   ): Observable<TranscriptionEntity>;
 
-  abstract createTranscriptionFromFile(
-    transcription: CreateTranscriptionDto,
-    file: File
-  ): Observable<HttpEvent<TranscriptionEntity>>;
+  // abstract createTranscriptionFromFile(
+  //   transcription: CreateTranscriptionDto,
+  //   file: File
+  // ): Observable<HttpEvent<TranscriptionEntity>>;
 
   abstract findAllTranscriptions(
     projectId: string,
@@ -353,4 +348,9 @@ export abstract class ApiService {
   abstract authenticateLivekit(
     projectId: string
   ): Observable<LivekitAuthEntity>;
+
+  // upload service
+  abstract createUpload(uploadDto: UploadDto): Observable<UploadEntity>;
+  abstract updateUpload(id: string, filePart: Blob): Observable<any>;
+  abstract cancelUpload(id: string): Observable<any>;
 }

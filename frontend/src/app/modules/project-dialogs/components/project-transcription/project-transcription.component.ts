@@ -11,15 +11,17 @@ import { AppState } from 'src/app/store/app.state';
 import * as transcriptionsSelectors from '../../../../store/selectors/transcriptions.selector';
 
 import { LiveAnnouncer } from '@angular/cdk/a11y';
+import { NgClass } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
+import { MatChipsModule } from '@angular/material/chips';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
-import { LetDirective, PushPipe } from '@ngrx/component';
 import { firstValueFrom, lastValueFrom, Subject, take, takeUntil } from 'rxjs';
 import { FormatDatePipe } from 'src/app/pipes/format-date-pipe/format-date.pipe';
+import { ProjectStatusPipe } from 'src/app/pipes/project-status-pipe/project-status.pipe';
 import { WrittenOutLanguagePipe } from 'src/app/pipes/written-out-language-pipe/written-out-language.pipe';
 import { AlertService } from 'src/app/services/alert/alert.service';
 import { ApiService } from 'src/app/services/api/api.service';
@@ -27,6 +29,7 @@ import { ProjectEntity } from 'src/app/services/api/entities/project.entity';
 import {
   SubtitleFormat,
   TranscriptionEntity,
+  TranscriptionStatus,
 } from 'src/app/services/api/entities/transcription.entity';
 import { DeleteConfirmationService } from '../../../../components/delete-confirmation-dialog/delete-confirmation.service';
 import * as transcriptionsActions from '../../../../store/actions/transcriptions.actions';
@@ -41,14 +44,15 @@ import { EditTranscriptionDialogComponent } from './components/edit-transcriptio
   styleUrls: ['./project-transcription.component.scss'],
   imports: [
     MatIconModule,
-    LetDirective,
-    PushPipe,
     MatButtonModule,
     MatTableModule,
     WrittenOutLanguagePipe,
     FormatDatePipe,
     MatMenuModule,
     MatDividerModule,
+    MatChipsModule,
+    NgClass,
+    ProjectStatusPipe,
   ],
 })
 export class ProjectTranscriptionComponent
@@ -56,6 +60,8 @@ export class ProjectTranscriptionComponent
 {
   dataSource = new MatTableDataSource();
   destroy$$ = new Subject<void>();
+
+  tStatus = TranscriptionStatus;
 
   public project!: ProjectEntity;
   private selectedTranscriptionId!: string | null;

@@ -1,99 +1,72 @@
 <div class="wrapper">
-  @if (isOwner$ | ngrxPush) {
   <h2 i18n="@@uploadAdditionalMediaTitle">Upload additional media files</h2>
 
   <form class="upload-form" [formGroup]="formGroup">
-    <div class="first-row">
-      <div
-        class="upload-wrapper"
-        [ngClass]="{
-          error:
-            formGroup.get('file')?.hasError('required') &&
-            formGroup.get('file')?.touched
-        }"
-      >
-        <input
-          #fileUpload
-          formControlName="file"
-          type="file"
-          name="file"
-          single
-          accept="video/*"
-          (change)="onFileChange($event)"
-          aria-describedby="file-error-info"
-        />
-        <div class="file-error-wrapper" aria-live="polite">
-          @if( formGroup.get('file')?.hasError('required') &&
-          formGroup.get('file')?.touched ){
-          <p
-            id="file-error-info"
-            class="file-error"
-            i18n="@@uploadAdditionalMediaVideoFileErrorRequired"
-          >
-            A video file is required
-          </p>
-          }
-        </div>
-      </div>
-
-      <mat-form-field class="category">
-        <mat-label i18n="@@uploadAdditionalMediaVideoCategoryLabel"
-          >Choose a category</mat-label
-        >
-        <mat-select formControlName="category">
-          @for (selectableCategory of selectableMediaCategories; track $index) {
-          <mat-option [value]="selectableCategory">{{
-            selectableCategory | mediaCategory
-          }}</mat-option>
-          }
-        </mat-select>
-
-        @if( formGroup.get('category')?.hasError('required')){
-        <mat-error i18n="@@uploadAdditionalMediaVideoCategoryErrorRequired">
-          Category is required
-        </mat-error>
-        }
-      </mat-form-field>
-    </div>
-    <div class="second-row">
-      <div></div>
-      <button
-        (click)="onClickSubmit()"
-        mat-flat-button
-        i18n="@@uploadAdditionalMediaUploadButton"
-      >
-        <mat-icon svgIcon="upload" />
-        Upload
-      </button>
-    </div>
+    <app-upload-area
+      formControlName="files"
+      [acceptedFileFormats]="acceptedFileFormats"
+      [fileFormatsLabel]="fileFormatsLabel"
+    />
   </form>
-  } @if (fileUploads.length > 0) {
+
   <div>
-    <h3 i18n="@@uploadAdditionalMediaUploadingHeader">Uploading</h3>
     <ul class="upload-list">
       @for (fileUpload of fileUploads; track fileUpload) {
       <li>
-        {{ fileUpload.name }}
-        @if (fileUpload.loaded && fileUpload.totalSize) {
-        <mat-progress-bar
-          mode="determinate"
-          [value]="(fileUpload.loaded / fileUpload.totalSize) * 100"
-        ></mat-progress-bar>
-        }
-        <!-- {{ (fileUpload.loaded / fileUpload.totalSize) * 100 }}% -->
-        <button mat-icon-button (click)="onCancelUpload(fileUpload)">
-          <mat-icon svgIcon="close"></mat-icon>
-        </button>
+        <app-upload-progress
+          [progress$]="fileUpload.uploadHandler.progress$"
+          [fileSize]="fileUpload.uploadHandler.file.size"
+          [customInlinePadding]="2"
+          [title]="fileUpload.name"
+        >
+          <div class="upload-actions">
+            @if (fileUpload.uploadHandler.progress$.value.status === 'pending')
+            {
+
+            <mat-form-field
+              class="dense-category-form-field"
+              subscriptSizing="dynamic"
+            >
+              <mat-label i18n="@@uploadAdditionalMediaVideoCategoryLabel">
+                Category
+              </mat-label>
+              <mat-select
+                [value]="fileUpload.category"
+                (selectionChange)="onCategoryChange(fileUpload, $event.value)"
+              >
+                @for (selectableCategory of selectableMediaCategories; track
+                $index) {
+                <mat-option [value]="selectableCategory">{{
+                  selectableCategory | mediaCategory
+                }}</mat-option>
+                }
+              </mat-select>
+            </mat-form-field>
+
+            <button mat-flat-button (click)="onClickSubmit(fileUpload)">
+              Upload
+            </button>
+
+            }
+            <button
+              class="upload-outline-button"
+              mat-icon-button
+              (click)="onCancelUpload(fileUpload)"
+            >
+              <mat-icon svgIcon="clear" />
+            </button>
+          </div>
+        </app-upload-progress>
       </li>
       }
     </ul>
   </div>
-  }
+
   <ng-container *ngrxLet="project$ as project">
     <ng-container *ngrxLet="media$ as media">
       @if ( project && media) {
-      <div class="uploaded-media-wrapper">
-        <h2 i18n="@@uploadAdditionalMediaListHeader">Uploaded media</h2>
+      <div class="media-files-wrapper">
+        <h2 i18n="@@uploadAdditionalMediaListHeader">Media files</h2>
       </div>
 
       <table
@@ -185,7 +158,7 @@
       <mat-icon svgIcon="download" />
       Download
     </button>
-    @if ((isOwner$ | ngrxPush) && data.media.category !== 'main' ) {
+
     <div>
       <mat-divider />
       <button
@@ -197,6 +170,5 @@
         Delete
       </button>
     </div>
-    }
   </ng-template>
 </mat-menu>

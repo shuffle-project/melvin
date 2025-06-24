@@ -2,6 +2,7 @@ import { BullModule } from '@nestjs/bull';
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
+import { ScheduleModule } from '@nestjs/schedule';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { MongodbConfig, RedisConfig } from './config/config.interface';
@@ -14,6 +15,7 @@ import { MigrationModule } from './modules/migration/migration.module';
 import { PathModule } from './modules/path/path.module';
 import { SpeechToTextModule } from './modules/speech-to-text/speech-to-text.module';
 import { SubtitleFormatModule } from './modules/subtitle-format/subtitle-format.module';
+import { TasksModule } from './modules/tasks/tasks.module';
 import { TranslationModule } from './modules/translation/translation.module';
 import { LivestreamProcessor } from './processors/livestream.processor';
 import { ProjectProcessor } from './processors/project.processor';
@@ -55,11 +57,24 @@ import { UserModule } from './resources/user/user.module';
       inject: [ConfigService],
     }),
     BullModule.registerQueue(
-      { name: 'project' },
-      { name: 'subtitles' },
-      { name: 'livestream' },
-      { name: 'video' },
+      {
+        name: 'project',
+        defaultJobOptions: { removeOnComplete: true, removeOnFail: true },
+      },
+      {
+        name: 'subtitles',
+        defaultJobOptions: { removeOnComplete: true, removeOnFail: true },
+      },
+      {
+        name: 'livestream',
+        defaultJobOptions: { removeOnComplete: true, removeOnFail: true },
+      },
+      {
+        name: 'video',
+        defaultJobOptions: { removeOnComplete: true, removeOnFail: true },
+      },
     ),
+    ScheduleModule.forRoot(),
     DbModule,
     LoggerModule,
     PopulateModule,
@@ -76,6 +91,7 @@ import { UserModule } from './resources/user/user.module';
     PathModule,
     ActivityModule,
     MediaModule,
+    TasksModule,
     // TODO LivestreamModule,
     // generate captions
     SpeechToTextModule,

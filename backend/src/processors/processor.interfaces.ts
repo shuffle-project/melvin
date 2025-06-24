@@ -1,3 +1,5 @@
+import { MelvinAsrTranscript } from 'src/modules/melvin-asr-api/melvin-asr-api.interfaces';
+import { UploadMetadata } from 'src/modules/upload/upload.interfaces';
 import { CaptionEntity } from 'src/resources/caption/entities/caption.entity';
 import { Audio, Project, Video } from '../modules/db/schemas/project.schema';
 import { AuthUser } from '../resources/auth/auth.interfaces';
@@ -7,6 +9,7 @@ export enum TranslateVendors {
   LIBRE = 'libreTranslate',
   DEEPL = 'deepl',
   GOOGLE = 'googleTranslate',
+  MELVIN = 'melvin',
 }
 
 export enum AsrVendors {
@@ -27,7 +30,7 @@ export enum SubtitlesType {
 
 export interface FilePayload {
   type: SubtitlesType.FROM_FILE;
-  file: Express.Multer.File;
+  file: UploadMetadata;
 }
 export interface AsrPayload {
   type: SubtitlesType.FROM_ASR;
@@ -51,7 +54,8 @@ export interface AlignPayload {
   transcriptionId: string;
   audio: Audio;
   // language: string; // take language of project
-  text?: string;
+  // text?: string;
+  transcriptToAlign?: MelvinAsrTranscript;
   syncSpeaker?: CaptionEntity[];
 }
 
@@ -71,7 +75,7 @@ export interface ProcessSubtitlesJob {
 export interface ProcessProjectJob {
   project: Project;
   authUser: AuthUser;
-  file: Express.Multer.File;
+  file: UploadMetadata;
   subsequentJobs: ProcessSubtitlesJob[];
   // videoId: string | null;
   mainVideo: Video;

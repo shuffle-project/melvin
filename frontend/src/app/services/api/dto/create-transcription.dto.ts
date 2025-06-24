@@ -5,6 +5,7 @@ export interface CreateTranscriptionDto {
   translateDto?: TranslateDto;
   asrDto?: AsrDto;
   copyDto?: CopyDto;
+  uploadId?: string;
 }
 
 export interface TranslateDto {
@@ -25,6 +26,7 @@ export enum TranslateVendors {
   LIBRE = 'libreTranslate',
   DEEPL = 'deepl',
   GOOGLE = 'googleTranslate',
+  MELVIN = 'melvin',
 }
 
 export enum AsrVendors {

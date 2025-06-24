@@ -1,5 +1,5 @@
 .controls {
-  height: 100px;
+  height: 6.25rem;
 
   .video-progress-slider-wrapper {
     display: flex;
@@ -28,6 +28,7 @@
   .main-controls {
     display: flex;
     align-items: center;
+    justify-content: space-between;
     margin: 0 1.25rem;
 
     button:focus-visible {
@@ -35,21 +36,13 @@
     }
 
     .left {
-      flex-basis: 33.333%;
       display: flex;
       justify-content: flex-start;
       align-items: center;
       gap: 0.625rem;
     }
-    .center {
-      flex-basis: 33.333%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 0.625rem;
-    }
+
     .right {
-      flex-basis: 33.333%;
       display: flex;
       justify-content: flex-end;
       align-items: center;
@@ -101,6 +94,21 @@
 
       .sound-wrapper {
         gap: 0.125rem;
+      }
+    }
+  }
+}
+
+@media (max-width: 27.5rem) {
+  .controls {
+    height: 100%;
+
+    .main-controls {
+      flex-wrap: wrap;
+
+      .left,
+      .right {
+        gap: 0.25rem;
       }
     }
   }

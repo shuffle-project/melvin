@@ -5,17 +5,15 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
 @Component({
-    selector: 'app-upload-files',
-    templateUrl: './upload-files.component.html',
-    styleUrls: ['./upload-files.component.scss'],
-    imports: [MatIconModule, MatButtonModule, MatTooltipModule]
+  selector: 'app-upload-area',
+  templateUrl: './upload-area.component.html',
+  styleUrls: ['./upload-area.component.scss'],
+  imports: [MatIconModule, MatButtonModule, MatTooltipModule],
 })
-export class UploadFilesComponent implements ControlValueAccessor {
+export class UploadAreaComponent implements ControlValueAccessor {
   @Input() acceptedFileFormats!: string[];
-  @Input() acceptOnlyOneFile = false;
-  @Input() ariaDesribedByIds = '';
-  @Input() label: 'transcription' | 'media' | 'mediaAndTranscription' =
-    'mediaAndTranscription';
+  @Input() fileFormatsLabel!: string;
+  @Input() acceptMultipleFiles = true;
 
   files: File[] = [];
   touched = false;

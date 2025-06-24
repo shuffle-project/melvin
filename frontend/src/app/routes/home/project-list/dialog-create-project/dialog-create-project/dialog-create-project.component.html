@@ -24,22 +24,15 @@
   </p>
   <!-- Several files can be selected this way, which however can result in overlaps. -->
 
+  <form [formGroup]="uploadAreaFormGroup">
+    <app-upload-area
+      formControlName="files"
+      [acceptedFileFormats]="acceptedFileFormats"
+      [fileFormatsLabel]="fileFormatsLabel"
+    />
+  </form>
+
   <form [formGroup]="formGroup">
-    <label class="dropzone">
-      <p class="dropzone-text" i18n="@@dialogCreateProjectDropzoneText">
-        Drop audio, video or subtitle (.vtt/.srt) files * here or
-        <span class="dropzone-label">Select files</span>
-      </p>
-
-      <input
-        (change)="onAddFiles($event)"
-        type="file"
-        #dropzone
-        multiple
-        required
-      />
-    </label>
-
     @if (formGroup.controls.files.value.length !== 0) {
     <table
       mat-table
@@ -109,7 +102,14 @@
           Language
         </th>
         <td mat-cell *matCellDef="let element" [formGroup]="element">
-          <mat-form-field class="select-mat-form-field">
+          <div class="select-mat-form-field">
+            <app-language-autocomplete
+              formControlName="language"
+              [languages]="languages"
+            />
+          </div>
+
+          <!-- <mat-form-field class="select-mat-form-field">
             <mat-select
               formControlName="language"
               i18n-placeholder="@@dialogCreateProjectSelectPlaceholder"
@@ -126,7 +126,7 @@
             <mat-error i18n="@@dialogCreateProjectLanguageErrorRequired">
               Language is required
             </mat-error>
-          </mat-form-field>
+          </mat-form-field> -->
         </td>
       </ng-container>
 
@@ -143,8 +143,11 @@
             class="align-center"
             [class.hidden]="element.controls?.fileType.value !== 'video'"
           >
-            <!-- || element.controls?.category.value === MediaCategory.SIGN_LANGUAGE -->
-            <mat-checkbox formControlName="useAudio" class="checkbox" />
+            <mat-checkbox
+              (change)="onChangeUseAudio($event, element.controls?.name.value)"
+              formControlName="useAudio"
+              class="checkbox"
+            />
           </div>
         </td>
       </ng-container>
@@ -224,13 +227,33 @@
   } @else {
   <div class="upload">
     <p i18n="@@dialogCreateProjectUploadProgressLabel">Upload-Progress:</p>
-    <mat-progress-bar mode="determinate" [value]="fileUploadProgress" />
+    @for (uploadHandler of uploadHandlers; track uploadHandler) {
+    <app-upload-progress
+      [progress$]="uploadHandler.progress$"
+      [title]="uploadHandler.file.name"
+      [fileSize]="uploadHandler.file.size"
+    />
+    }
   </div>
-
+  } @if(error){
+  <div class="upload-state error" i18n="@@createProjectFailedWithError">
+    Failed with error: {{ error.message }} <br />You can try again.
+  </div>
   }
 </mat-dialog-content>
 
 <mat-dialog-actions align="end">
+  @if (loading) {
+  <button
+    mat-stroked-button
+    (click)="onCancelUpload()"
+    class="discard-button mat-warn"
+    i18n="@@dialogCreateProjectCancelUploadButton"
+  >
+    Cancel and close
+  </button>
+  }
+
   <button
     mat-flat-button
     (click)="onSubmitForm()"

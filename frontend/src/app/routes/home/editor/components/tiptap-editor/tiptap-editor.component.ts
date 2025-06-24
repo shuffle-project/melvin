@@ -8,12 +8,10 @@ import {
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule, MatIconButton } from '@angular/material/button';
-import { MatDialog } from '@angular/material/dialog';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatIcon } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { Router } from '@angular/router';
 import { HocuspocusProvider } from '@hocuspocus/provider';
 import { LetDirective, PushPipe } from '@ngrx/component';
 import { Store } from '@ngrx/store';
@@ -36,17 +34,17 @@ import {
   takeUntil,
 } from 'rxjs';
 import { EditorUserEntity } from 'src/app/interfaces/editor-user.interface';
-import { DialogProjectTranscriptionComponent } from 'src/app/modules/project-dialogs/dialog-project-transcription/dialog-project-transcription.component';
 import { FeatureEnabledPipe } from 'src/app/pipes/feature-enabled-pipe/feature-enabled.pipe';
 import { WrittenOutLanguagePipe } from 'src/app/pipes/written-out-language-pipe/written-out-language.pipe';
+import { TranscriptionStatus } from 'src/app/services/api/entities/transcription.entity';
 import { WSService } from 'src/app/services/ws/ws.service';
 import { AppState } from 'src/app/store/app.state';
 import { EditorUser } from 'src/app/store/reducers/editor.reducer';
 import * as editorSelector from 'src/app/store/selectors/editor.selector';
 import { selectQueryParams } from 'src/app/store/selectors/router.selectors';
-import * as transcriptionsActions from '../../../../../store/actions/transcriptions.actions';
 import * as transcriptionsSelectors from '../../../../../store/selectors/transcriptions.selector';
 import { MediaService } from '../../service/media/media.service';
+import { TranscriptionMenuContentComponent } from '../transcription-menu-content/transcription-menu-content.component';
 import { CustomParagraph } from './schema/paragraph.schema';
 import { UserExtension } from './schema/user.extension';
 import { CustomWord } from './schema/word.schema';
@@ -74,6 +72,7 @@ enum CLIENT_STATUS {
     FeatureEnabledPipe,
     PushPipe,
     WrittenOutLanguagePipe,
+    TranscriptionMenuContentComponent,
   ],
   templateUrl: './tiptap-editor.component.html',
   styleUrl: './tiptap-editor.component.scss',
@@ -93,7 +92,7 @@ export class TiptapEditorComponent implements AfterViewInit, OnInit, OnDestroy {
 
   public CLIENT_STATUS = CLIENT_STATUS;
   public status: CLIENT_STATUS = CLIENT_STATUS.CONNECTING;
-
+  public transcriptionStatus = TranscriptionStatus.WAITING;
   // public connectedUsers: { name: string; color: string }[] = [];
   public showUsernames = true;
   private captions: HTMLDivElement | undefined;
@@ -131,10 +130,29 @@ export class TiptapEditorComponent implements AfterViewInit, OnInit, OnDestroy {
     private mediaService: MediaService,
     private wsService: WSService,
     private injector: Injector,
-    private store: Store<AppState>,
-    private dialog: MatDialog,
-    private router: Router
-  ) {}
+    private store: Store<AppState>
+  ) {
+    this.selectedTranscription$
+      .pipe(takeUntil(this.destroy$$))
+      .subscribe((transcription) => {
+        if (transcription) {
+          this.transcriptionStatus = transcription.status;
+
+          this.resetIsEditable();
+        }
+      });
+  }
+
+  private resetIsEditable() {
+    if (
+      this.transcriptionStatus === TranscriptionStatus.OK &&
+      this.status === CLIENT_STATUS.SYNCED
+    ) {
+      this.editor?.setEditable(true);
+    } else {
+      this.editor?.setEditable(false);
+    }
+  }
 
   ngOnInit() {
     combineLatest([this.viewReady$, this.transcriptionId$])
@@ -195,8 +213,14 @@ export class TiptapEditorComponent implements AfterViewInit, OnInit, OnDestroy {
         console.log('onStatus');
         if (status.status.toString() === 'connecting')
           console.log('Connecting to server...');
-        this.editor?.setEditable(false);
         this.status = CLIENT_STATUS.CONNECTING;
+        // this.editor?.setEditable(false);
+        this.resetIsEditable();
+      },
+      onOutgoingMessage(data) {
+        // TODO we could use this message to show a "save" indicator
+        // maybe with a debnounce?
+        console.log('-> onOutgoingMessage', data);
       },
       onConnect: () => {
         console.log('onConnect');
@@ -212,8 +236,9 @@ export class TiptapEditorComponent implements AfterViewInit, OnInit, OnDestroy {
       },
       onDisconnect: () => {
         console.log('onDisconnect');
-        this.editor?.setEditable(false);
         this.status = CLIENT_STATUS.DISCONNECTED;
+        // this.editor?.setEditable(false);
+        this.resetIsEditable();
       },
       onAuthenticated: () => {
         console.log('onAuthenticated');
@@ -221,8 +246,9 @@ export class TiptapEditorComponent implements AfterViewInit, OnInit, OnDestroy {
       },
       onSynced: () => {
         console.log('onSynced');
-        this.editor?.setEditable(true);
         this.status = CLIENT_STATUS.SYNCED;
+        // this.editor?.setEditable(true);
+        this.resetIsEditable();
       },
     });
   }
@@ -383,21 +409,5 @@ export class TiptapEditorComponent implements AfterViewInit, OnInit, OnDestroy {
 
   onClickRedo() {
     this.editor?.commands.redo();
-  }
-
-  async onClickTranscriptionEdit() {
-    this.dialog.open(DialogProjectTranscriptionComponent, {
-      data: { projectId: this.projectId },
-      width: '100%',
-      maxWidth: '50rem',
-      maxHeight: '90vh',
-    });
-  }
-
-  onSelectTranscription(transcriptionId: string) {
-    this.router.navigate([], { queryParams: { transcriptionId } });
-    this.store.dispatch(
-      transcriptionsActions.selectFromEditor({ transcriptionId })
-    );
   }
 }

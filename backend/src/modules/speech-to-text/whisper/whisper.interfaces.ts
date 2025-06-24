@@ -8,7 +8,9 @@ export class WhiInformation {
   keep_data_for_hours: number;
   cleanup_schedule_in_minutes: number;
   transcription_default: any;
-  supported_language_codes: string[];
+
+  transcription_languages: string[];
+  translation_languages: string[];
 }
 
 export class WhiTranscribeDto {
@@ -59,17 +61,17 @@ export class WhiInterface {
 }
 
 export class WhiSegment {
+  text: string;
+  words: WhiWord[];
+  start: number;
+  end: number;
   avg_logprob?: number;
   compression_ratio?: number;
-  end: number;
   id?: number;
   no_speech_prob?: number;
-  seek: number;
-  start: number;
+  seek?: number;
   temperature?: number;
-  text: string;
   tokens?: any[];
-  words: WhiWord[];
 }
 
 export class WhiTranscriptEntity {

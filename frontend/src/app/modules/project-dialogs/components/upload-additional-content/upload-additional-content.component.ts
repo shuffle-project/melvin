@@ -1,19 +1,13 @@
-import {
-  HttpClient,
-  HttpErrorResponse,
-  HttpEvent,
-  HttpEventType,
-} from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Component, Input, OnInit } from '@angular/core';
 import {
   FormControl,
   FormGroup,
   NonNullableFormBuilder,
   ReactiveFormsModule,
-  Validators,
 } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { Subject, Subscription, combineLatest, map, takeUntil } from 'rxjs';
+import { Subject, lastValueFrom, map, takeUntil } from 'rxjs';
 import { ApiService } from '../../../../services/api/api.service';
 import {
   MediaCategory,
@@ -36,19 +30,21 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { LetDirective, PushPipe } from '@ngrx/component';
+import { UploadProgressComponent } from 'src/app/components/upload-progress/upload-progress.component';
+import { UploadHandler } from 'src/app/services/upload/upload-handler';
+import { UploadService } from 'src/app/services/upload/upload.service';
 import * as uuid from 'uuid';
+import { UploadAreaComponent } from '../../../../components/upload-area/upload-area.component';
 import { FormatDatePipe } from '../../../../pipes/format-date-pipe/format-date.pipe';
 import { MediaCategoryPipe } from '../../../../pipes/media-category-pipe/media-category.pipe';
 import * as editorActions from '../../../../store/actions/editor.actions';
-import { selectUserId } from '../../../../store/selectors/auth.selector';
 import * as editorSelector from '../../../../store/selectors/editor.selector';
 
 interface FileUpload {
   id: string;
   name: string;
-  sub: Subscription;
-  loaded?: number;
-  totalSize?: number;
+  uploadHandler: UploadHandler;
+  category: MediaCategory;
 }
 
 @Component({
@@ -72,6 +68,8 @@ interface FileUpload {
     MatTableModule,
     MatMenuModule,
     MatDividerModule,
+    UploadProgressComponent,
+    UploadAreaComponent,
   ],
 })
 export class UploadAdditionalContentComponent implements OnInit {
@@ -84,6 +82,10 @@ export class UploadAdditionalContentComponent implements OnInit {
     MediaCategory.SLIDES,
     MediaCategory.SPEAKER,
   ];
+
+  acceptedFileFormats = ['video/*', 'video'];
+  fileFormatsLabel = 'MP4, WebM';
+
   @Input() projectId!: string;
 
   destroy$$ = new Subject<void>();
@@ -97,16 +99,11 @@ export class UploadAdditionalContentComponent implements OnInit {
   );
   public media$ = this.store.select(editorSelector.selectMedia);
 
-  public isOwner$ = combineLatest([
-    this.store.select(selectUserId),
-    this.project$,
-  ]).pipe(map(([userId, project]) => userId === project?.createdBy.id));
-
-  public formGroup!: FormGroup<{
-    file: FormControl<File | null>;
-    category: FormControl<MediaCategory | null>;
-  }>;
-  private selectedFile: any;
+  public formGroup = new FormGroup({
+    files: new FormControl<File[]>([], {
+      nonNullable: true,
+    }),
+  });
 
   fileUploads: FileUpload[] = [];
 
@@ -115,7 +112,8 @@ export class UploadAdditionalContentComponent implements OnInit {
     private store: Store<AppState>,
     private api: ApiService,
     private httpClient: HttpClient,
-    private liveAnnouncer: LiveAnnouncer
+    private liveAnnouncer: LiveAnnouncer,
+    private uploadService: UploadService
   ) {
     this.media$.pipe(takeUntil(this.destroy$$)).subscribe((media) => {
       if (media) {
@@ -130,97 +128,78 @@ export class UploadAdditionalContentComponent implements OnInit {
       editorActions.findProjectMedia({ projectId: this.projectId })
     );
 
-    this.formGroup = this.fb.group({
-      file: this.fb.control<File | null>(null, [Validators.required]),
-      category: this.fb.control<MediaCategory | null>(null, [
-        Validators.required,
-      ]),
-    });
+    this.formGroup.valueChanges
+      .pipe(takeUntil(this.destroy$$))
+      .subscribe((value) => {
+        const { files } = value;
+
+        if (files?.length === 0) return;
+
+        files?.forEach((file: File) => {
+          const uploadHandler = this.uploadService.createUpload(file);
+          const id = uuid.v4();
+
+          this.fileUploads.push({
+            id,
+            name: file.name,
+            uploadHandler,
+            category: MediaCategory.OTHER,
+          });
+        });
+
+        this.formGroup.reset();
+      });
   }
 
   ngOnDestroy(): void {
     this.destroy$$.next();
   }
 
-  onFileChange(event: any) {
-    this.selectedFile = event.target.files[0];
-  }
+  async onClickSubmit(fileUpload: FileUpload) {
+    const { uploadHandler, category } = fileUpload;
 
-  async onClickSubmit() {
-    if (!this.formGroup.valid) {
-      this.formGroup.markAllAsTouched();
-    } else {
-      const id = uuid.v4();
-      this.fileUploads.push({
-        id,
-        // TODO title?
-        name: '',
-        totalSize: this.selectedFile.size,
-        sub: this.api
-          .uploadVideo(
-            this.projectId,
-            {
-              // TODO title?
-              title: '',
-              category: this.formGroup.value.category!,
-              recorder: false,
-            },
-            this.selectedFile
-          )
-          .subscribe({
-            next: (event: HttpEvent<ProjectEntity>) =>
-              this._handleHttpEvent(id, event),
-            error: (error: HttpErrorResponse) =>
-              this._handleHttpError(id, error),
-          }),
-      });
-      this.formGroup.reset();
+    try {
+      await uploadHandler.start();
+      // TODO use createAdditionalVideo everywhere
+      await lastValueFrom(
+        this.api.createAdditionalVideo(this.projectId, {
+          title: '', // TODO make it optional
+          category,
+          uploadId: uploadHandler.progress$.value.uploadId!,
+          recorder: false,
+        })
+      );
+
+      this.store.dispatch(
+        editorActions.findProjectMedia({ projectId: this.projectId })
+      );
+    } catch (error) {
+      console.log(error);
     }
   }
 
-  onCancelUpload(fileUpload: FileUpload) {
-    fileUpload.sub.unsubscribe();
-
-    this.fileUploads.splice(
-      this.fileUploads.findIndex((element) => element.id === fileUpload.id),
-      1
-    );
-
-    // this.uploadSubscriptions.indexOf(element => element.)
+  onCategoryChange(fileUpload: FileUpload, newCategory: MediaCategory) {
+    this.fileUploads.map((element) => {
+      if (element.id === fileUpload.id) {
+        element.category = newCategory;
+      }
+      return element;
+    });
   }
 
-  private _handleHttpEvent(id: string, event: HttpEvent<ProjectEntity>): void {
-    const fileUpload = this.fileUploads.find((element) => element.id === id);
+  async onCancelUpload(fileUpload: FileUpload) {
+    const handlerProgress = fileUpload.uploadHandler.progress$.value;
 
-    switch (event.type) {
-      case HttpEventType.UploadProgress:
-        if (fileUpload) {
-          fileUpload.loaded = event.loaded;
-        }
-        // this.fileUploadProgress = (event.loaded / this.totalFileSize) * 100;
-        break;
-      case HttpEventType.Response:
-        // TODO maybe call store method?? -> user will get the ws eveent anyways
-        this.fileUploads.splice(
-          this.fileUploads.findIndex((element) => element.id === id),
-          1
-        );
-
-        this.store.dispatch(
-          editorActions.findProjectMedia({ projectId: this.projectId })
-        );
-
-        break;
-      default:
-        break;
+    try {
+      if (handlerProgress.status === 'uploading') {
+        fileUpload.uploadHandler.cancel$$.next();
+        await lastValueFrom(this.api.cancelUpload(handlerProgress.uploadId!));
+      }
+    } finally {
+      this.fileUploads = this.fileUploads.filter(
+        (fp) => fp.id !== fileUpload.id
+      );
     }
-  }
-
-  private _handleHttpError(id: string, error: HttpErrorResponse): void {
-    this.fileUploads.splice(
-      this.fileUploads.findIndex((element) => element.id === id),
-      1
-    );
   }
 
   async onDeleteAdditionalMedia(

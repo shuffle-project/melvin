@@ -3,12 +3,13 @@ import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { Queue } from 'bull';
 import { plainToInstance } from 'class-transformer';
-import { Request, Response } from 'express';
-import { ReadStream, createReadStream } from 'fs';
 import { ensureDir, remove, rm } from 'fs-extra';
 import { stat } from 'fs/promises';
 import { Types } from 'mongoose';
 import { LeanUserDocument } from 'src/modules/db/schemas/user.schema';
+import { MediaService } from 'src/modules/media/media.service';
+import { UploadMetadata } from 'src/modules/upload/upload.interfaces';
+import { UploadService } from 'src/modules/upload/upload.service';
 import { DbService } from '../../modules/db/db.service';
 import {
   Audio,
@@ -37,16 +38,12 @@ import {
 } from '../../utils/exceptions';
 import { getObjectIdAsString, isSameObjectId } from '../../utils/objectid';
 import { ActivityService } from '../activity/activity.service';
-import { AuthUser, MediaAccessUser } from '../auth/auth.interfaces';
+import { AuthUser } from '../auth/auth.interfaces';
 import { AuthService } from '../auth/auth.service';
 import { EventsGateway } from '../events/events.gateway';
 import { TranscriptionService } from '../transcription/transcription.service';
 import { UserRole } from '../user/user.interfaces';
-import { CreateLegacyProjectDto } from './dto/create-legacy-project.dto';
-import {
-  CreateProjectDto,
-  CreateRecorderProjectDto,
-} from './dto/create-project.dto';
+import { CreateProjectDto } from './dto/create-project.dto';
 import { FindAllProjectsQuery } from './dto/find-all-projects.dto';
 import { InviteDto } from './dto/invite.dto';
 import { UpdatePartialProjectDto } from './dto/update-partial-project.dto';
@@ -75,6 +72,8 @@ export class ProjectService {
     private pathService: PathService,
     private transcriptionService: TranscriptionService,
     private configService: ConfigService,
+    private mediaService: MediaService,
+    private uploadService: UploadService,
     private authService: AuthService,
     @InjectQueue('project') private projectQueue: Queue<ProcessProjectJob>,
     @InjectQueue('livestream')
@@ -84,72 +83,55 @@ export class ProjectService {
     this.serverBaseUrl = this.configService.get<string>('baseUrl');
   }
 
-  async createForRecorder(
-    authUser: AuthUser,
-    createProjectDto: CreateRecorderProjectDto,
-  ) {
-    const status = ProjectStatus.LIVE;
+  async create(authUser: AuthUser, createProjectDto: CreateProjectDto) {
+    const status = ProjectStatus.WAITING;
 
-    //create project
-    const project = await this.db.projectModel.create({
-      title: createProjectDto.title,
-      language: createProjectDto.language,
-      createdBy: authUser.id,
-      users: [authUser.id],
-      status,
-      inviteToken: generateSecureToken(),
-      viewerToken: generateSecureToken(),
+    console.log(createProjectDto);
+
+    const videosMetadata: UploadMetadata[] = [];
+    const subtitlesMetadata: UploadMetadata[] = [];
+
+    createProjectDto.videoOptions.forEach(async (video) => {
+      console.log(video);
+      const metadataObject = await this.uploadService.getUploadMetadata(
+        video.uploadId,
+      );
+
+      // check if upload completed
+      const uploadedFile = this.pathService.getUploadFile(
+        metadataObject.uploadId,
+        metadataObject.extension,
+      );
+      const uploadedFileStats = await stat(uploadedFile);
+      console.log(metadataObject, uploadedFileStats);
+
+      if (uploadedFileStats.size < metadataObject.filesize) {
+        throw new CustomBadRequestException('file_upload_not_completed');
+      }
+      videosMetadata.push(metadataObject);
     });
 
-    await ensureDir(
-      this.pathService.getProjectDirectory(project._id.toString()),
-    );
+    if (createProjectDto.subtitleOptions) {
+      createProjectDto.subtitleOptions.forEach(async (subtitle) => {
+        const metadataObject = await this.uploadService.getUploadMetadata(
+          subtitle.uploadId,
+        );
 
-    // add project to owner
-    await this.db.userModel
-      .updateOne({ _id: authUser.id }, { $push: { projects: project._id } })
-      .lean()
-      .exec();
+        const uploadedFile = this.pathService.getUploadFile(
+          metadataObject.uploadId,
+          metadataObject.extension,
+        );
+        const uploadedFileStats = await stat(uploadedFile);
+        console.log(metadataObject, uploadedFileStats);
 
-    // Create activity
-    await this.activityService.create(
-      project.toObject(),
-      getObjectIdAsString(project.createdBy),
-      'project-created',
-      {},
-    );
+        if (uploadedFileStats.size < metadataObject.filesize) {
+          throw new CustomBadRequestException('file_upload_not_completed');
+        }
 
-    // Entity
-    const populatedProject = await this.db.findProjectByIdOrThrow(project._id);
-
-    // handle video and subtitle files / add queue jobs / generate subtitles
-    // await this._handleFilesAndTranscriptions(
-    //   authUser,
-    //   populatedProject,
-    //   videoFiles,
-    //   subtitleFiles,
-    //   createProjectDto,
-    //   mainVideo,
-    //   mainAudio,
-    // );
-
-    const entity = plainToInstance(ProjectEntity, {
-      ...populatedProject,
-    }) as unknown as ProjectEntity;
-
-    // Send events
-
-    this.events.projectCreated(entity);
-    return entity;
-  }
-
-  async create(
-    authUser: AuthUser,
-    createProjectDto: CreateProjectDto,
-    videoFiles: Array<Express.Multer.File> | null = null,
-    subtitleFiles: Array<Express.Multer.File> | null = null,
-  ) {
-    const status = ProjectStatus.WAITING;
+        // check if upload completed
+        subtitlesMetadata.push(metadataObject);
+      });
+    }
 
     if (
       !createProjectDto.videoOptions.some(
@@ -216,8 +198,8 @@ export class ProjectService {
     await this._handleFilesAndTranscriptions(
       authUser,
       populatedProject,
-      videoFiles,
-      subtitleFiles,
+      videosMetadata,
+      subtitlesMetadata,
       createProjectDto,
       mainVideo,
       mainAudio,
@@ -270,27 +252,24 @@ export class ProjectService {
   async _handleFilesAndTranscriptions(
     authUser: AuthUser,
     project: Project,
-    videoFiles: Express.Multer.File[],
-    subtitleFiles: Express.Multer.File[],
+    videosMetadata: UploadMetadata[],
+    subtitlesMetadata: UploadMetadata[],
     createProjectDto: CreateProjectDto,
     mainVideo: Video,
     mainAudio: Audio,
   ) {
     const subsequentJobs: ProcessSubtitlesJob[] = [];
-    if (subtitleFiles) {
+    if (subtitlesMetadata) {
       // use files to generate subtitles
       await Promise.all(
-        subtitleFiles.map((file, i) => {
+        subtitlesMetadata.map((file, i) => {
           const language = createProjectDto.subtitleOptions[i].language;
 
-          this.transcriptionService.create(
-            authUser,
-            {
-              project: new Types.ObjectId(project._id),
-              language: language,
-            },
-            file,
-          );
+          this.transcriptionService.create(authUser, {
+            project: new Types.ObjectId(project._id),
+            language: language,
+            uploadId: file.uploadId,
+          });
         }),
       );
     }
@@ -320,7 +299,7 @@ export class ProjectService {
       (v) => v.category === MediaCategory.MAIN,
     );
 
-    const mainMediaFile = videoFiles[mainVideoIndex];
+    const mainMediaFile = videosMetadata[mainVideoIndex];
 
     await this.projectQueue.add({
       project: project,
@@ -333,7 +312,7 @@ export class ProjectService {
     });
 
     if (createProjectDto.videoOptions.length > 1) {
-      videoFiles.forEach((file, i) => {
+      videosMetadata.forEach((metadata, i) => {
         if (i !== mainVideoIndex) {
           const mediaCategoryKey = Object.entries(MediaCategory).find(
             ([key, value]) => {
@@ -341,225 +320,19 @@ export class ProjectService {
                 return key;
             },
           );
-
-          const title =
-            mediaCategoryKey[1].charAt(0).toUpperCase() +
-            mediaCategoryKey[1].slice(1);
-          this.uploadVideo(
-            authUser,
-            project._id.toString(),
-            {
-              title: title,
-              category: MediaCategory[mediaCategoryKey[0]],
-              recorder: false,
-            },
-            file,
-          );
+          const title = mediaCategoryKey
+            ? mediaCategoryKey[1].charAt(0).toUpperCase() +
+              mediaCategoryKey[1].slice(1)
+            : 'Other';
+          this.createVideo(authUser, project._id.toString(), {
+            title: title,
+            category: mediaCategoryKey
+              ? MediaCategory[mediaCategoryKey[0]]
+              : MediaCategory.OTHER,
+            recorder: false,
+            uploadId: metadata.uploadId,
+          });
         }
-      });
-    }
-  }
-
-  async createLegacy(
-    authUser: AuthUser,
-    createProjectDto: CreateLegacyProjectDto,
-    videoFiles: Array<Express.Multer.File> | null = null,
-    subtitleFiles: Array<Express.Multer.File> | null = null,
-  ): Promise<ProjectEntity> {
-    // const inviteToken = await this._generateInviteToken();
-
-    let users = null;
-    let userIds: Types.ObjectId[] = [];
-    // find all users
-    if (createProjectDto.emails) {
-      users = await this.db.userModel
-        .find({
-          email: {
-            $in: [...createProjectDto.emails],
-          },
-        })
-        .lean()
-        .exec();
-      userIds = users.map((o) => o._id);
-    }
-
-    const status = createProjectDto.url
-      ? ProjectStatus.LIVE
-      : ProjectStatus.WAITING;
-
-    const mainVideo: Video = {
-      _id: new Types.ObjectId(),
-      category: MediaCategory.MAIN,
-      extension: 'mp4',
-      originalFileName: '',
-      status: MediaStatus.WAITING,
-      title: 'Main Video',
-      resolutions: [],
-    };
-
-    const mainAudio: Audio = {
-      _id: new Types.ObjectId(),
-      category: MediaCategory.MAIN,
-      extension: 'mp3',
-      originalFileName: '',
-      status: MediaStatus.WAITING,
-      title: 'Main Audio',
-    };
-
-    //create project
-    const project = await this.db.projectModel.create({
-      ...createProjectDto,
-      createdBy: authUser.id,
-      users: [authUser.id, ...userIds],
-      status,
-      inviteToken: generateSecureToken(),
-      viewerToken: generateSecureToken(),
-      videos: [mainVideo],
-      audios: [mainAudio],
-    });
-
-    await ensureDir(
-      this.pathService.getProjectDirectory(project._id.toString()),
-    );
-
-    // add project to owner and invited users
-    await this.db.userModel
-      .updateMany(
-        {
-          _id: {
-            $in: [authUser.id, ...userIds],
-          },
-        },
-        { $push: { projects: project._id } },
-      )
-      .lean()
-      .exec();
-
-    // filter all unknown emails & send invites
-    if (createProjectDto.emails) {
-      const addedMails = users.map((o) => o.email);
-      const inviteNeeded = createProjectDto.emails.filter(
-        (o) => !addedMails.includes(o),
-      );
-
-      const user = await this.db.userModel.findById(authUser.id);
-      this.mailService.sendInviteEmail(project, user, inviteNeeded);
-    }
-
-    // Create activity
-    await this.activityService.create(
-      project.toObject(),
-      getObjectIdAsString(project.createdBy),
-      // (project.createdBy as Types.ObjectId).toString(),
-      'project-created',
-      {},
-    );
-
-    // Entity
-
-    const populatedProject = await this.db.findProjectByIdOrThrow(project._id);
-    // await project.populate([
-    //   'users',
-    //   'transcriptions',
-    // ]);
-
-    // handle video and subtitle files / add queue jobs / generate subtitles
-    await this._legacyHandleFilesAndTranscriptions(
-      authUser,
-      populatedProject,
-      videoFiles,
-      subtitleFiles,
-      createProjectDto,
-      mainVideo,
-      mainAudio,
-    );
-
-    const entity = plainToInstance(ProjectEntity, {
-      ...populatedProject,
-    }) as unknown as ProjectEntity;
-
-    // Send events
-    this.events.projectCreated(entity);
-
-    return entity;
-  }
-
-  async _legacyHandleFilesAndTranscriptions(
-    authUser: AuthUser,
-    project: Project,
-    videoFiles: Express.Multer.File[],
-    subtitleFiles: Express.Multer.File[],
-    createProjectDto: CreateLegacyProjectDto,
-    mainVideo: Video,
-    mainAudio: Audio,
-  ) {
-    //either add jobs to queue or add to subsequent jobs to run after video processing
-    const subsequentJobs: ProcessSubtitlesJob[] = [];
-    if (subtitleFiles) {
-      // use files to generate subtitles
-      await Promise.all(
-        subtitleFiles.map((file) => {
-          this.transcriptionService.create(
-            authUser,
-            {
-              project: new Types.ObjectId(project._id),
-              language: project.language,
-              title: `${project.title} - ${project.language}`,
-            },
-            file,
-          );
-        }),
-      );
-    } else if (createProjectDto.asrVendor) {
-      const createdTranscription = await this.transcriptionService.create(
-        authUser,
-        {
-          project: new Types.ObjectId(project._id),
-          language: project.language,
-          title: `${project.title} - ${project.language}`,
-        },
-      );
-
-      // generate subtitles
-      subsequentJobs.push({
-        project: project,
-        transcription: createdTranscription,
-        payload: {
-          type: SubtitlesType.FROM_ASR,
-          vendor: createProjectDto.asrVendor,
-          audio: mainAudio,
-        },
-      });
-    } else {
-      //  create empty transcription
-      const emptyTranscription = await this.transcriptionService.create(
-        authUser,
-        {
-          project: new Types.ObjectId(project._id),
-          language: project.language,
-          title: `${project.title} - ${project.language}`,
-        },
-      );
-      await this.transcriptionService.createSpeakers(
-        authUser,
-        emptyTranscription._id.toString(),
-        {
-          names: ['Sprecher 1'],
-        },
-      );
-    }
-
-    // media file
-    if (videoFiles) {
-      const mediaFile = videoFiles[0];
-      await this.projectQueue.add({
-        project: project,
-        authUser,
-        file: mediaFile,
-        subsequentJobs,
-        mainVideo: mainVideo,
-        mainAudio: mainAudio,
-        recorder: true,
       });
     }
   }
@@ -636,7 +409,6 @@ export class ProjectService {
     authUser: AuthUser,
     id: string,
     updateProjectDto: UpdateProjectDto,
-    mediaFile: Express.Multer.File = null,
   ): Promise<ProjectEntity> {
     const project = await this.db.findProjectByIdOrThrow(id);
 
@@ -693,18 +465,6 @@ export class ProjectService {
     // Entity
     const entity = plainToInstance(ProjectEntity, updatedProject);
 
-    // TODO What should happen if someone updates the project with a mediafile
-    if (mediaFile) {
-      //update media file
-      // await this.projectQueue.add({
-      //   project: entity,
-      //   authUser,
-      //   file: mediaFile,
-      //   subsequentJobs: [],
-      //   videoId: null,
-      // });
-    }
-
     // Send events
     this.events.projectUpdated(entity);
 
@@ -735,8 +495,8 @@ export class ProjectService {
       rm(projectDir, { recursive: true, force: true });
     } catch (e) {
       // could not delete files
-      console.log('could not delete files ' + id);
-      console.log(e);
+      this.logger.info('could not delete files ' + id);
+      this.logger.info(e);
     }
 
     // Send events
@@ -783,8 +543,8 @@ export class ProjectService {
   async invite(authUser: AuthUser, id: string, dto: InviteDto): Promise<void> {
     const project = await this.db.findProjectByIdOrThrow(id);
 
-    if (!this.permissions.isProjectOwner(project, authUser)) {
-      throw new CustomForbiddenException('must_be_owner');
+    if (!this.permissions.isProjectMember(project, authUser)) {
+      throw new CustomForbiddenException('access_to_project_denied');
     }
 
     // Filter emails of users that already joined the project
@@ -840,36 +600,28 @@ export class ProjectService {
   ) {
     const project = await this.db.findProjectByIdOrThrow(projectId);
 
-    // NOT allowed to remove project owner
     if (isSameObjectId(userId, project.createdBy)) {
       throw new CustomForbiddenException('cannot_remove_owner');
     }
 
-    // ALLOWED to remove yourself from project as a user or as project owner
-    if (
-      isSameObjectId(userId, authUser.id) ||
-      this.permissions.isProjectOwner(project, authUser)
-    ) {
-      const updatedUserList = project.users.filter(
-        (user) => !isSameObjectId(user._id, userId),
-      );
-
-      await this.db.userModel.findByIdAndUpdate(userId, {
-        $pullAll: { projects: [project._id] },
-      });
-
-      const updatedProject = await this.db.updateProjectByIdAndReturn(
-        projectId,
-        {
-          $set: { users: updatedUserList },
-        },
-      );
-
-      const entity = plainToInstance(ProjectEntity, updatedProject);
-      await this.events.projectUpdated(entity, [userId]);
-    } else {
-      throw new CustomForbiddenException('must_be_owner');
+    if (!this.permissions.isProjectMember(project, authUser)) {
+      throw new CustomForbiddenException('access_to_project_denied');
     }
+
+    const updatedUserList = project.users.filter(
+      (user) => !isSameObjectId(user._id, userId),
+    );
+
+    await this.db.userModel.findByIdAndUpdate(userId, {
+      $pullAll: { projects: [project._id] },
+    });
+
+    const updatedProject = await this.db.updateProjectByIdAndReturn(projectId, {
+      $set: { users: updatedUserList },
+    });
+
+    const entity = plainToInstance(ProjectEntity, updatedProject);
+    await this.events.projectUpdated(entity, [userId]);
   }
 
   async getViewerToken(
@@ -891,8 +643,8 @@ export class ProjectService {
   ): Promise<ProjectViewerTokenEntity> {
     const project = await this.db.findProjectByIdOrThrow(id);
 
-    if (!this.permissions.isProjectOwner(project, authUser)) {
-      throw new CustomForbiddenException('must_be_owner');
+    if (!this.permissions.isProjectMember(project, authUser)) {
+      throw new CustomForbiddenException('access_to_project_denied');
     }
 
     const viewerToken = generateSecureToken();
@@ -910,8 +662,8 @@ export class ProjectService {
   ): Promise<ProjectInviteTokenEntity> {
     const project = await this.db.findProjectByIdOrThrow(id);
 
-    if (!this.permissions.isProjectOwner(project, authUser)) {
-      throw new CustomForbiddenException('must_be_owner');
+    if (!this.permissions.isProjectMember(project, authUser)) {
+      throw new CustomForbiddenException('access_to_project_denied');
     }
 
     return { inviteToken: project.inviteToken };
@@ -923,8 +675,8 @@ export class ProjectService {
   ): Promise<ProjectInviteTokenEntity> {
     const project = await this.db.findProjectByIdOrThrow(id);
 
-    if (!this.permissions.isProjectOwner(project, authUser)) {
-      throw new CustomForbiddenException('must_be_owner');
+    if (!this.permissions.isProjectMember(project, authUser)) {
+      throw new CustomForbiddenException('access_to_project_denied');
     }
 
     const inviteToken = generateSecureToken();
@@ -959,90 +711,20 @@ export class ProjectService {
     ]);
   }
 
-  async getMediaChunk(
-    projectId: string,
-    mediaAccessUser: MediaAccessUser,
-    request: Request,
-    response: Response,
-    filename: string,
-  ) {
-    if (mediaAccessUser.projectId !== projectId) {
-      throw new CustomForbiddenException();
-    }
-
-    const [mediaId, ext] = filename.split('.');
-
-    // https://blog.logrocket.com/full-stack-app-tutorial-nestjs-react/
-    // https://betterprogramming.pub/video-stream-with-node-js-and-html5-320b3191a6b6
-    // https://www.geeksforgeeks.org/how-to-stream-large-mp4-files/
-
-    // const audioFilepath = this.pathService.getMp3File(projectId);
-    const mediaFilepath = this.pathService.getFile(projectId, filename);
-
-    try {
-      const fileStats = await stat(mediaFilepath);
-
-      const { range } = request.headers;
-      let readStream: ReadStream;
-      if (range) {
-        // version 1
-        // send in 1MB chunks
-        // const CHUNK_SIZE2 = 1 * 1e6;
-        // const start = Number(range.replace(/\D/g, ''));
-        // const end = Math.min(start2 + CHUNK_SIZE2, videoStats.size - 1);
-        // const chunksize = end - start + 1;
-
-        // version 2
-        const parts = range.replace(/bytes=/, '').split('-');
-        const start = parseInt(parts[0], 10);
-        // in some cases end may not exists, if its not exists make it end of file
-        const end = parts[1] ? parseInt(parts[1], 10) : fileStats.size - 1;
-        // chunk size is what the part of video we are sending.
-        const chunksize = end - start + 1;
-
-        response.status(206); // Parial content header
-        response.header({
-          'Content-Range': `bytes ${start}-${end}/${fileStats.size}`,
-          'Accept-Ranges': 'bytes',
-          'Content-length': chunksize,
-          'Content-Type': this._getMimetype(ext),
-        });
-        readStream = createReadStream(mediaFilepath, {
-          start: start,
-          end: end,
-        });
-      } else {
-        //if not send the video from start
-        response.status(200);
-        response.header({
-          'Content-Length': fileStats.size,
-          'Content-Type': this._getMimetype(ext),
-        });
-        readStream = createReadStream(mediaFilepath);
-      }
-      // pipe stream to response
-      readStream.pipe(response);
-    } catch (error) {
-      this.logger.error(error.message, { error });
-      response.status(400).send('Bad Request');
-    }
-  }
-
   // upload file
-  async uploadVideo(
+  async createVideo(
     authUser: AuthUser,
     projectId: string,
     uploadVideoDto: UploadVideoDto,
-    file: Express.Multer.File,
   ): Promise<ProjectEntity> {
     const project = await this.db.findProjectByIdOrThrow(projectId);
 
+    const file = await this.uploadService.getUploadMetadata(
+      uploadVideoDto.uploadId,
+    );
+
     if (!this.permissions.isProjectMember(project, authUser)) {
       throw new CustomForbiddenException('access_to_project_denied');
-    }
-
-    if (!this.permissions.isProjectOwner(project, authUser)) {
-      throw new CustomForbiddenException('must_be_owner');
     }
 
     const video: Video = {
@@ -1061,18 +743,6 @@ export class ProjectService {
         videos: video,
       },
     });
-    // const updatedProject = await this.db.projectModel
-    //   .findByIdAndUpdate(
-    //     projectId,
-    //     {
-    //       $push: {
-    //         videos: video,
-    //       },
-    //     },
-    //     { populate: ['users'], new: true },
-    //   )
-    //   .lean()
-    //   .exec();
 
     this.projectQueue.add({
       authUser,
@@ -1120,10 +790,6 @@ export class ProjectService {
       throw new CustomForbiddenException('access_to_project_denied');
     }
 
-    if (!this.permissions.isProjectOwner(project, authUser)) {
-      throw new CustomForbiddenException('must_be_owner');
-    }
-
     const mediaObj = project.videos.find((media) =>
       isSameObjectId(media._id, mediaId),
     );
@@ -1140,9 +806,13 @@ export class ProjectService {
     remove(path);
 
     project.videos.forEach((video) => {
-      video.resolutions.forEach((res) => {
-        remove(this.pathService.getVideoFile(projectId, video, res.resolution));
-      });
+      if (video._id.toString() === mediaId) {
+        video.resolutions.forEach((res) => {
+          remove(
+            this.pathService.getVideoFile(projectId, video, res.resolution),
+          );
+        });
+      }
     });
 
     await this.db.projectModel

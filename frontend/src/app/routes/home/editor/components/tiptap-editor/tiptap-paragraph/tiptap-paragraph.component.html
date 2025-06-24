@@ -4,10 +4,14 @@
     tabindex="-1"
     [contentEditable]="false"
     [matMenuTriggerFor]="speakerMenu"
+    [class.highlight]="isSpeakerSet"
   >
     <span>{{ speakerName }}</span>
+  </div>
 
-    <!-- <span>Test</span> -->
+  <div class="speaker-change-timeline" [class.highlight]="isSpeakerSet">
+    <div class="line"></div>
+    <div class="dot"></div>
   </div>
 </div>
 

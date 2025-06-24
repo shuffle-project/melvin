@@ -8,8 +8,8 @@
     --color-text: #d8e0e7;
     // --color-text: #eef5fb;
 
-    --color-primary: #28a4d1;
-    --color-primary-rgb: 34, 124, 157;
+    --color-primary: #77caf4;
+    --color-primary-rgb: 119, 202, 244;
     --color-accent: #6bd9b1;
     --color-accent-rgb: 107, 217, 177;
     --color-warn: #ffaba1;
@@ -31,8 +31,9 @@
     --color-grey: #2e353d;
     --color-grey-rgb: 46, 53, 61;
 
-    --color-dark-grey: #7b7b7b;
-    --color-dark-grey-rgb: 40, 33, 33;
+    // --color-dark-grey: #7f7f7f;
+    --color-dark-grey: #848484;
+    --color-dark-grey-rgb: 132, 132, 132;
 
     // darkmode specific colors
     --color-dm-chip-waiting-1: #b5b5ba;
@@ -61,8 +62,8 @@
     --color-orange-rgb: 225, 123, 69;
     --color-yellow: #e1ad45;
     --color-yellow-rgb: 225, 173, 69;
-    --color-light-yellow: #e4cb73;
-    --color-light-yellow-rgb: 228, 203, 115;
+    --color-light-yellow: #fade81;
+    --color-light-yellow-rgb: 250, 222, 129;
     --color-gold: #e1b869;
     --color-gold-rgb: 225, 184, 105;
 
@@ -71,10 +72,10 @@
     // Editor colors
     --color-editor-user-0-rgb: 136, 145, 156; // unknown -> grey
     --color-editor-user-1-rgb: 247, 170, 37; // user 1 -> yellow
-    --color-editor-user-2-rgb: 61, 179, 136; // user 2 -> green
-    --color-editor-user-3-rgb: 247, 104, 37; // user 3 -> orange
-    --color-editor-user-4-rgb: 91, 175, 212; // user 4 -> blue
-    --color-editor-user-5-rgb: 211, 132, 239; // user 5 -> purple
+    --color-editor-user-2-rgb: 97, 184, 223; // user 2 -> blue
+    --color-editor-user-3-rgb: 250, 110, 76; // user 3 -> orange
+    --color-editor-user-4-rgb: 147, 210, 144; // user 4 -> green
+    --color-editor-user-5-rgb: 208, 121, 242; // user 5 -> purple
 
     // primary palette
     --color-primary-50: #e5f4f9;

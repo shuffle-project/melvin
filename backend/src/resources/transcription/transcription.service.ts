@@ -3,11 +3,13 @@ import { Injectable, StreamableFile } from '@nestjs/common';
 import { Queue } from 'bull';
 import { plainToInstance } from 'class-transformer';
 import { Types } from 'mongoose';
+import { UploadService } from 'src/modules/upload/upload.service';
 import { DbService } from '../../modules/db/db.service';
 import { LeanProjectDocument } from '../../modules/db/schemas/project.schema';
 import {
   LeanTranscriptionDocument,
   Speaker,
+  TranscriptionStatus,
 } from '../../modules/db/schemas/transcription.schema';
 import { PermissionsService } from '../../modules/permissions/permissions.service';
 import { ExportSubtitlesService } from '../../modules/subtitle-format/export-subtitles.service';
@@ -52,6 +54,7 @@ export class TranscriptionService {
     @InjectQueue('subtitles')
     private subtitlesQueue: Queue<ProcessSubtitlesJob>,
     private tiptapService: TiptapService,
+    private uploadService: UploadService,
   ) {}
 
   /**
@@ -63,7 +66,6 @@ export class TranscriptionService {
   async create(
     authUser: AuthUser,
     createTranscriptionDto: CreateTranscriptionDto,
-    subtitleFile: Express.Multer.File = null,
   ): Promise<TranscriptionEntity> {
     const { project: projectId, ...dto } = createTranscriptionDto;
 
@@ -86,6 +88,7 @@ export class TranscriptionService {
         createdBy: authUser.id,
         _id: transcriptionId,
         project: projectId,
+        status: TranscriptionStatus.WAITING,
       }), // ,{populate:'createdBy'}
       this.db.updateProjectByIdAndReturn(projectId as Types.ObjectId, {
         $push: { transcriptions: transcriptionId },
@@ -124,7 +127,10 @@ export class TranscriptionService {
     ) as unknown as TranscriptionEntity;
 
     // add queue job to fill transcription
-    if (subtitleFile) {
+    if (createTranscriptionDto.uploadId) {
+      const subtitleFile = await this.uploadService.getUploadMetadata(
+        createTranscriptionDto.uploadId,
+      );
       // fill with subtitles file
       this.subtitlesQueue.add({
         project: updatedProject,
@@ -167,6 +173,15 @@ export class TranscriptionService {
       });
     } else {
       // empty transcription
+      await this.db.transcriptionModel
+        .findByIdAndUpdate(transcription._id, {
+          $set: {
+            status: TranscriptionStatus.OK,
+          },
+        })
+        .lean()
+        .exec();
+      entity.status = TranscriptionStatus.OK;
     }
 
     const projectEntity = plainToInstance(ProjectEntity, updatedProject);
@@ -277,13 +292,9 @@ export class TranscriptionService {
       .exec();
 
     const project = transcription.project as LeanProjectDocument;
-    if (
-      !(
-        this.permissions.isProjectOwner(project, authUser) ||
-        this.permissions.isTranscriptionOwner(transcription, authUser)
-      )
-    ) {
-      throw new CustomForbiddenException('must_be_owner');
+
+    if (!this.permissions.isProjectMember(project, authUser)) {
+      throw new CustomForbiddenException('access_to_project_denied');
     }
 
     //TODO als transaction
@@ -504,7 +515,6 @@ export class TranscriptionService {
     // const ydoc = this.tiptapService.toYDoc(transcription.ydoc);
 
     const tiptapCaptions = await this.tiptapService.getCaptionsById(id);
-    // console.log(tiptapCaptions);
     return tiptapCaptions;
   }
 
@@ -555,7 +565,12 @@ export class TranscriptionService {
 
     // align text from old transcription to new trasncriptiopn
 
-    const text = await this.tiptapService.getPlainText(
+    // const text = await this.tiptapService.getPlainText(
+    //   transcription._id.toString(),
+    // );
+
+    // TODO
+    const transcriptToAlign = await this.tiptapService.getAsMelvinTranscript(
       transcription._id.toString(),
     );
 
@@ -564,7 +579,8 @@ export class TranscriptionService {
       type: SubtitlesType.ALIGN,
       audio: project.audios[0],
       transcriptionId: transcription._id.toString(),
-      text,
+      // text,
+      transcriptToAlign: transcriptToAlign,
     };
     this.subtitlesQueue.add({
       project: project,

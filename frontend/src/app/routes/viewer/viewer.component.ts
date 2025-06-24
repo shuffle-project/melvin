@@ -12,8 +12,9 @@ import {
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { Title } from '@angular/platform-browser';
 import { LetDirective } from '@ngrx/component';
-import { Subject } from 'rxjs';
+import { Subject, takeUntil } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { LogoComponent } from '../../components/logo/logo.component';
 import * as viewerActions from '../../store/actions/viewer.actions';
@@ -77,9 +78,13 @@ export class ViewerComponent implements OnInit, OnDestroy {
     private store: Store<AppState>,
     public dialog: MatDialog,
     private viewerService: ViewerService,
-    public overlayService: OverlayService
+    public overlayService: OverlayService,
+    private titleService: Title
   ) {
     this.overlayService.init();
+    this.project$.pipe(takeUntil(this.destroy$$)).subscribe((project) => {
+      if (project) this.titleService.setTitle(project.title + ' - Melvin');
+    });
   }
 
   ngOnInit(): void {
@@ -101,9 +106,6 @@ export class ViewerComponent implements OnInit, OnDestroy {
   }
 
   onOpenAdjustLayoutDialog() {
-    this.viewerService.audio?.pause();
-    // TODO do we want to play after closing the dialog??
-
     this.dialog.open(AdjustLayoutDialogComponent, {
       width: '100%',
       maxWidth: '50rem',

@@ -1,10 +1,28 @@
+import { AsrVendors } from './create-transcription.dto';
+
+export interface VideoOption {
+  uploadId: string;
+  category: string;
+  useAudio: boolean;
+}
+
+export interface SubtitleOption {
+  uploadId: string;
+  language: string;
+}
+
 export interface CreateProjectDto {
+  asrVendor: AsrVendors;
   title: string;
   language: string;
   emails?: string[];
   sourceMode: 'video' | 'live';
   liveProject?: LiveProjectDto;
   videoProject?: VideoProjectDto;
+  recorder?: boolean;
+
+  videoOptions: VideoOption[];
+  subtitleOptions?: SubtitleOption[];
 }
 
 export interface LiveProjectDto {

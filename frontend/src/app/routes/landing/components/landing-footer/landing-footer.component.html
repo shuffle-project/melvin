@@ -1,88 +1,156 @@
+<!-- debug populate -->
+<!-- <button mat-stroked-button (click)="onPopulate()">Populate DB</button> -->
+
 <footer>
-  <div class="footer-content">
-    <!-- TODO Pass app-logo new alt text for the image -->
-    <app-logo class="clickable" [routerLink]="['/']" />
-    <ul>
-      <!-- debug populate -->
-      <!-- <li>
-        <button mat-stroked-button (click)="onPopulate()">Populate DB</button>
-      </li> -->
+  <nav
+    i18n-aria-label="@@landingFooterNavAriaLabel"
+    aria-label="Footer navigation"
+    class="footer-content"
+  >
+    <div class="melvin-wrapper">
+      <h2>
+        <app-logo class="clickable" [routerLink]="['/']" />
+        Melvin
+      </h2>
+      <ul>
+        <li>
+          <a href="mailto:melvin@hdm-stuttgart.de"
+            >melvin&#64;hdm-stuttgart.de</a
+          >
+        </li>
+        <li>
+          <a
+            href="https://shuffle-projekt.de/"
+            i18n="@@landingFooterSHUFFLELinkLabel"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            SHUFFLE-Project
 
-      <li>
-        <a routerLink="/privacy" i18n="@@landingFooterPrivacyLinkLabel">
-          Privacy
-        </a>
-      </li>
-      <li>
-        <a routerLink="/imprint" i18n="@@landingFooterImprintLinkLabel">
-          Imprint
-        </a>
-      </li>
+            <mat-icon
+              svgIcon="new-tab"
+              aria-hidden="false"
+              i18n-aria-label="@@landingFooterNewTabAriaLabel"
+              aria-label="Opens in new tab"
+              class="icon"
+            />
+          </a>
+        </li>
+        <li>
+          <a
+            href="https://github.com/shuffle-project/melvin"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            GitHub
 
-      @if (locale?.includes('de')) {
-      <li>
-        <a routerLink="/plain-language"> Leichte Sprache </a>
-      </li>
-      <li>
-        <a routerLink="/sign-language"> Gebärdensprache (DGS) </a>
-      </li>
-      }
+            <mat-icon
+              svgIcon="new-tab"
+              aria-hidden="false"
+              i18n-aria-label="@@landingFooterNewTabAriaLabel"
+              aria-label="Opens in new tab"
+              class="icon"
+            />
+          </a>
+        </li>
+      </ul>
+    </div>
 
-      <li>
-        <a routerLink="/sitemap"> Sitemap </a>
-      </li>
-      <li>
-        <a
-          routerLink="/accessibility-statement"
-          i18n="@@landingFooterAccessibilityStatementLinkLabel"
-        >
-          Accessibility statement
-        </a>
-      </li>
-      <li>
-        <a
-          href="https://github.com/shuffle-project/melvin"
-          rel="noopener noreferrer"
-          target="_blank"
-        >
-          GitHub
+    <div class="legal-wrapper">
+      <h3 i18n="@@landingFooterLegalHeader">Legal</h3>
+      <ul>
+        <li>
+          <a routerLink="/privacy" i18n="@@landingFooterPrivacyLinkLabel">
+            Privacy
+          </a>
+        </li>
+        <li>
+          <a routerLink="/imprint" i18n="@@landingFooterImprintLinkLabel">
+            Imprint
+          </a>
+        </li>
+      </ul>
+    </div>
 
-          <mat-icon
-            svgIcon="new-tab"
-            aria-hidden="false"
-            i18n-aria-label="@@landingFooterNewTabAriaLabel"
-            aria-label="Opens in new tab"
-            class="icon"
-          />
-        </a>
-      </li>
-      <li>
-        <a
-          href="https://shuffle-projekt.de/"
-          i18n="@@landingFooterSHUFFLELinkLabel"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          SHUFFLE-Project
+    <div class="tutorial-wrapper">
+      <h3 i18n="@@landingFooterTutorialsHeader">Tutorials</h3>
+      <ul>
+        <!-- <li>
+          <a routerLink="/documentation"> Documentation </a>
+        </li> -->
+        <li>
+          <a routerLink="/guide" i18n="@@landingFooterDidacticGuideLinkLabel">
+            Best Practice
+          </a>
+        </li>
 
-          <mat-icon
-            svgIcon="new-tab"
-            aria-hidden="false"
-            i18n-aria-label="@@landingFooterNewTabAriaLabel"
-            aria-label="Opens in new tab"
-            class="icon"
-          />
-        </a>
-      </li>
-    </ul>
+        @if (('installation' | featureEnabled)) {
+        <li>
+          <a
+            routerLink="/installation"
+            i18n="@@landingFooterInstallationLinkLabel"
+          >
+            Installation
+          </a>
+        </li>
+        }
 
-    <a
-      href="https://stiftung-hochschullehre.de/"
-      rel="noopener noreferrer"
-      aria-label="Stiftung Innovation in der Hochschullehre, zur Website"
-      class="footer-foundation-link-dm"
-    >
-      <!-- image added through scss background image in darkmode folder -->
-    </a>
-  </div>
+        <li>
+          <a routerLink="/tutorial" i18n="@@landingFooterTutorialLinkLabel">
+            Tutorial
+          </a>
+        </li>
+
+        <li>
+          <a
+            routerLink="/tutorial"
+            fragment="faq"
+            i18n="@@landingFooterFAQLinkLabel"
+          >
+            FAQ
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <div class="accessibility-wrapper">
+      <h3 i18n="@@landingFooterAccessibilityHeader">Accessibility</h3>
+      <ul>
+        <li>
+          <a
+            routerLink="/accessibility-statement"
+            i18n="@@landingFooterAccessibilityStatementLinkLabel"
+          >
+            Accessibility statement
+          </a>
+        </li>
+        @if (locale?.includes('de')) {
+        <li>
+          <a routerLink="/sign-language"> Gebärdensprache (DGS) </a>
+        </li>
+        <li>
+          <a routerLink="/plain-language"> Leichte Sprache </a>
+        </li>
+
+        }
+
+        <li>
+          <a routerLink="/sitemap"> Sitemap </a>
+        </li>
+      </ul>
+    </div>
+
+    <div class="funding-wrapper">
+      <a
+        href="https://stiftung-hochschullehre.de/"
+        rel="noopener noreferrer"
+        target="_blank"
+        aria-label="Foundation 'Stiftung Innovation in der Hochschullehre', opens in new tab"
+        i18n-aria-label="@@landingFooterFoundationLinkAriaLabel"
+        class="footer-foundation-link-dm"
+      >
+        <!-- image added through scss background image in darkmode folder -->
+      </a>
+    </div>
+  </nav>
 </footer>
