@@ -72,6 +72,10 @@ import { UserModule } from './resources/user/user.module';
         name: 'video',
         defaultJobOptions: { removeOnComplete: true, removeOnFail: true },
       },
+      {
+        name: 'melvinASR',
+        defaultJobOptions: { removeOnComplete: true, removeOnFail: false },
+      },
     ),
     ScheduleModule.forRoot(),
     DbModule,
