@@ -1,22 +1,22 @@
+import { InjectQueue } from '@nestjs/bull';
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
+import { Queue } from 'bull';
 import {
   MelvinAsrAlignByAudioDto,
-  MelvinAsrJobEntity,
-  MelvinAsrResultEntity,
   MelvinAsrTranscript,
 } from 'src/modules/melvin-asr-api/melvin-asr-api.interfaces';
 import { MelvinAsrApiService } from 'src/modules/melvin-asr-api/melvin-asr-api.service';
+import { ProcessMelvinAsrJob } from 'src/processors/melvinAsr.processor';
+import { CaptionEntity } from 'src/resources/caption/entities/caption.entity';
+import { TranscriptionEntity } from 'src/resources/transcription/entities/transcription.entity';
 import { LanguageShort } from '../../../app.interfaces';
 import { WhisperConfig } from '../../../config/config.interface';
 import { DbService } from '../../db/db.service';
 import { Audio, Project } from '../../db/schemas/project.schema';
 import { CustomLogger } from '../../logger/logger.service';
 import { PathService } from '../../path/path.service';
-import {
-  ISpeechToTextService,
-  TranscriptEntity,
-} from '../speech-to-text.interfaces';
+import { ISpeechToTextService } from '../speech-to-text.interfaces';
 
 // npm rebuild bcrypt --build-from-source
 
@@ -30,6 +30,8 @@ export class WhisperSpeechService implements ISpeechToTextService {
     private db: DbService,
     private configService: ConfigService,
     private melvinAsrApiService: MelvinAsrApiService,
+    @InjectQueue('melvinAsr')
+    private melvinAsrQueue: Queue<ProcessMelvinAsrJob>,
   ) {
     this.logger.setContext(this.constructor.name);
 
@@ -54,7 +56,11 @@ export class WhisperSpeechService implements ISpeechToTextService {
     }
   }
 
-  async run(project: Project, audio: Audio): Promise<TranscriptEntity> {
+  async run(
+    project: Project,
+    audio: Audio,
+    transcription: TranscriptionEntity,
+  ) {
     const uploaded = await this.melvinAsrApiService.upload(project, audio);
 
     const started = await this.melvinAsrApiService.runTranscription({
@@ -62,38 +68,46 @@ export class WhisperSpeechService implements ISpeechToTextService {
       language: this._getLanguage(project.language),
     });
 
-    const melvinResultEntity: MelvinAsrResultEntity = await this._fetchResult(
-      started,
+    // Every and jobId need to be identical to the .removeRepeatable options
+    await this.melvinAsrQueue.add(
+      'fetchResult',
+      { id: started.id, transcription, project },
+      { repeat: { every: 10000 }, jobId: started.id },
     );
 
-    if (!melvinResultEntity.transcript) {
-      throw new Error('Internal Error in MelvinASR');
-    }
+    // const melvinResultEntity: MelvinAsrResultEntity = await this._fetchResult(
+    //   started,
+    // );
 
-    const words = this.melvinAsrApiService.toWords(melvinResultEntity, true);
-    return { words };
+    // if (!melvinResultEntity.transcript) {
+    //   throw new Error('Internal Error in MelvinASR');
+    // }
+
+    // const words = this.melvinAsrApiService.toWords(melvinResultEntity, true);
+    // return { words };
   }
 
   // TODO refactor to queue
-  async _fetchResult(job: MelvinAsrJobEntity): Promise<MelvinAsrResultEntity> {
-    return new Promise((resolve) => {
-      const interval = setInterval(async () => {
-        const jobTemp = await this.melvinAsrApiService.getJob(job.id);
-        if (jobTemp.status === 'completed' || jobTemp.status === 'failed') {
-          clearInterval(interval);
+  // async _fetchResult(job: MelvinAsrJobEntity): Promise<MelvinAsrResultEntity> {
+  //   return new Promise((resolve) => {
+  //     const interval = setInterval(async () => {
+  //       const jobTemp = await this.melvinAsrApiService.getJob(job.id);
+  //       if (jobTemp.status === 'completed' || jobTemp.status === 'failed') {
+  //         clearInterval(interval);
 
-          const jobResult = await this.melvinAsrApiService.getJobResult(job.id);
-          resolve(jobResult);
-        }
-      }, 10000);
-    });
-  }
+  //         const jobResult = await this.melvinAsrApiService.getJobResult(job.id);
+  //         resolve(jobResult);
+  //       }
+  //     }, 10000);
+  //   });
+  // }
 
-  // TODO refactor to queue
   async runAlign(
     project: Project,
     melvinAsrTranscript: MelvinAsrTranscript,
     audio: Audio,
+    transcription: TranscriptionEntity,
+    syncSpeaker?: CaptionEntity[],
   ) {
     const uploaded = await this.melvinAsrApiService.upload(project, audio);
 
@@ -106,14 +120,21 @@ export class WhisperSpeechService implements ISpeechToTextService {
     };
     const started = await this.melvinAsrApiService.runAlignment(dto);
 
-    const melvinResultEntity = await this._fetchResult(started);
+    // Every and jobId need to be identical to the .removeRepeatable options
+    await this.melvinAsrQueue.add(
+      'fetchResult',
+      { id: started.id, transcription, syncSpeaker, project },
+      { repeat: { every: 10000 }, jobId: started.id },
+    );
 
-    if (!melvinResultEntity.transcript) {
-      throw new Error('Internal Error in MelvinASR');
-    }
+    // const melvinResultEntity = await this._fetchResult(started);
 
-    const words = this.melvinAsrApiService.toWords(melvinResultEntity, true);
-    return { words };
+    // if (!melvinResultEntity.transcript) {
+    //   throw new Error('Internal Error in MelvinASR');
+    // }
+
+    // const words = this.melvinAsrApiService.toWords(melvinResultEntity, true);
+    // return { words };
   }
 
   private _getLanguage(languageString: string) {

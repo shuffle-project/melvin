@@ -177,14 +177,19 @@ export class SubtitlesProcessor {
     //   });
     // }
 
-    await this.db.transcriptionModel
-      .findByIdAndUpdate(transcription._id, {
-        $set: {
-          status: TranscriptionStatus.OK,
-        },
-      })
-      .lean()
-      .exec();
+    if (
+      job.data.payload.type === SubtitlesType.FROM_COPY ||
+      job.data.payload.type === SubtitlesType.FROM_FILE
+    ) {
+      await this.db.transcriptionModel
+        .findByIdAndUpdate(transcription._id, {
+          $set: {
+            status: TranscriptionStatus.OK,
+          },
+        })
+        .lean()
+        .exec();
+    }
 
     const updatedTranscription = await this.transcriptionService.findOne(
       systemUser,

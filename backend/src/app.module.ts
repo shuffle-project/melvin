@@ -11,13 +11,17 @@ import { DbModule } from './modules/db/db.module';
 import { FfmpegModule } from './modules/ffmpeg/ffmpeg.module';
 import { LoggerModule } from './modules/logger/logger.module';
 import { MediaModule } from './modules/media/media.module';
+import { MelvinAsrApiModule } from './modules/melvin-asr-api/melvin-asr-api.module';
 import { MigrationModule } from './modules/migration/migration.module';
 import { PathModule } from './modules/path/path.module';
 import { SpeechToTextModule } from './modules/speech-to-text/speech-to-text.module';
 import { SubtitleFormatModule } from './modules/subtitle-format/subtitle-format.module';
 import { TasksModule } from './modules/tasks/tasks.module';
+import { HocuspocusService } from './modules/tiptap/hocuspocus.service';
+import { TiptapService } from './modules/tiptap/tiptap.service';
 import { TranslationModule } from './modules/translation/translation.module';
 import { LivestreamProcessor } from './processors/livestream.processor';
+import { MelvinAsrProcessor } from './processors/melvinAsr.processor';
 import { ProjectProcessor } from './processors/project.processor';
 import { SubtitlesProcessor } from './processors/subtitles.processor';
 import { VideoProcessor } from './processors/video.processor';
@@ -73,8 +77,8 @@ import { UserModule } from './resources/user/user.module';
         defaultJobOptions: { removeOnComplete: true, removeOnFail: true },
       },
       {
-        name: 'melvinASR',
-        defaultJobOptions: { removeOnComplete: true, removeOnFail: false },
+        name: 'melvinAsr',
+        defaultJobOptions: { removeOnComplete: true, removeOnFail: true },
       },
     ),
     ScheduleModule.forRoot(),
@@ -100,6 +104,9 @@ import { UserModule } from './resources/user/user.module';
     SpeechToTextModule,
     SubtitleFormatModule,
     TranslationModule,
+
+    // TODO
+    MelvinAsrApiModule,
   ],
   controllers: [AppController],
   providers: [
@@ -107,7 +114,12 @@ import { UserModule } from './resources/user/user.module';
     ProjectProcessor,
     SubtitlesProcessor,
     LivestreamProcessor,
+    MelvinAsrProcessor,
     VideoProcessor,
+
+    //TODO
+    TiptapService,
+    HocuspocusService,
   ],
 })
 export class AppModule {}
