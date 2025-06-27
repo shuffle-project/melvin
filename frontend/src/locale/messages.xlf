@@ -1121,12 +1121,6 @@
       <trans-unit id="guideWhyHeading" datatype="html">
         <source> Why Didactic Recommendations? </source>
       </trans-unit>
-      <trans-unit id="guideWhyPartOne" datatype="html">
-        <source> According to a working group of the Hochschulforum Digitalisierung, digitalization in education should not be &quot;an end in itself&quot; (Persike &amp; Friedrich, 2016, p. 5). Instead, digital learning and teaching concepts should aim to improve teaching quality, enhance effectiveness, and promote equal opportunities in higher education (Hanft et al., 2019, p. 325). Overall, aspects of equal opportunities, inclusion, and digitalization are still rarely considered in combination and insufficiently researched (Bosse et al., 2021; Hafer et al., 2019), particularly in relation to didactic issues. While digital tools offer many possibilities, not everything that is technically feasible is didactically useful or even accessible. </source>
-      </trans-unit>
-      <trans-unit id="guideWhyPartTwo" datatype="html">
-        <source> Melvin, as a video platform, is primarily a tool that offers functionality and allows for creative freedom. Thoughtful consideration of didactic implementation can significantly contribute to ensuring equal and barrier-free access to content for all users. These didactic guidelines aim to encourage a reflective approach when using Melvin. </source>
-      </trans-unit>
       <trans-unit id="guideSupportingDocumentsHeading" datatype="html">
         <source> Supporting Documents </source>
       </trans-unit>
@@ -1155,7 +1149,7 @@
         <source>Self-Regulated Learning</source>
       </trans-unit>
       <trans-unit id="guideSelfRegulationDefinition" datatype="html">
-        <source> Providing videos places more responsibility on students for their own learning. Learning videos should therefore foster strategies for self-regulated learning (SRL<x id="START_SUPERSCRIPT" ctype="x-sup" equiv-text="&lt;sup&gt;"/>1<x id="CLOSE_SUPERSCRIPT" ctype="x-sup" equiv-text="&lt;/sup&gt;"/>) and motivate students to engage actively with the content. </source>
+        <source> Providing videos places more responsibility on students for their own learning. Learning videos should therefore foster strategies for self-regulated learning (SRL) and motivate students to engage actively with the content. </source>
       </trans-unit>
       <trans-unit id="guideOptimalLenghtTerm" datatype="html">
         <source>Optimal Video Length</source>
@@ -1179,7 +1173,7 @@
         <source>Microlearning Units</source>
       </trans-unit>
       <trans-unit id="guideMicroLearningDefinition" datatype="html">
-        <source> If a video is intended to introduce or deepen a specific aspect, a short and focused microlearning unit (also known as a &quot;learning nugget&quot;<x id="START_SUPERSCRIPT" ctype="x-sup" equiv-text="&lt;sup&gt;"/>2<x id="CLOSE_SUPERSCRIPT" ctype="x-sup" equiv-text="&lt;/sup&gt;"/>) may be appropriate. These concise videos effectively present knowledge in just a few minutes. Multiple microlearning units can be organized into a series, with clear titles and sequencing information to enhance clarity. </source>
+        <source> If a video is intended to introduce or deepen a specific aspect, a short and focused microlearning unit (also known as a &quot;learning nugget&quot;) may be appropriate. These concise videos effectively present knowledge in just a few minutes. Multiple microlearning units can be organized into a series, with clear titles and sequencing information to enhance clarity. </source>
       </trans-unit>
       <trans-unit id="guideMicroLearningExampleHeading" datatype="html">
         <source>Examples:</source>
@@ -1209,7 +1203,7 @@
         <source>Verbalizing Visual Elements</source>
       </trans-unit>
       <trans-unit id="guideVerbalizingDefinition" datatype="html">
-        <source> All essential visual elements used in the video should also be described verbally. Ideally, the key content of an image or figure should be integrated into the spoken text. If this is not feasible, a separate audio or text-based description should be provided as an additional resource.<x id="START_SUPERSCRIPT" ctype="x-sup" equiv-text="&lt;sup&gt;"/>3<x id="CLOSE_SUPERSCRIPT" ctype="x-sup" equiv-text="&lt;/sup&gt;"/>. </source>
+        <source> All essential visual elements used in the video should also be described verbally. Ideally, the key content of an image or figure should be integrated into the spoken text. If this is not feasible, a separate audio or text-based description should be provided as an additional resource. </source>
       </trans-unit>
       <trans-unit id="guideAccessibleMaterialsTerm" datatype="html">
         <source> Accessible Digital Materials </source>
@@ -1351,9 +1345,6 @@
       </trans-unit>
       <trans-unit id="guideRepetitionFileNameTwo" datatype="html">
         <source>as a descriptive file name</source>
-      </trans-unit>
-      <trans-unit id="guideReferencesHeading" datatype="html">
-        <source>References</source>
       </trans-unit>
       <trans-unit id="guideSupportingDocumentTipsAccessibleTools" datatype="html">
         <source>Tips for Accessible Tools</source>
@@ -2119,6 +2110,18 @@
       </trans-unit>
       <trans-unit id="tutorialFAQHeading" datatype="html">
         <source>FAQ</source>
+      </trans-unit>
+      <trans-unit id="guideWhyPart1" datatype="html">
+        <source> Digitisation in education must not become an end in itself. The aim of concepts for digital teaching and learning should be to enhance the quality of teaching, improve its effectiveness, and at the same time promote equal opportunities within the higher education system. </source>
+      </trans-unit>
+      <trans-unit id="guideWhyPart2" datatype="html">
+        <source> So far, however, the topics of equal opportunities, inclusion, and digitalisation have rarely been considered in conjunction – especially not from a subject-didactic perspective. While digital tools offer a wide range of possible applications, not everything that is technically feasible is also didactically meaningful or accessible. </source>
+      </trans-unit>
+      <trans-unit id="guideWhyPart3" datatype="html">
+        <source> Melvin, a video platform for teaching, is also first and foremost a tool that offers various functions and creative possibilities. However, what really matters is how these possibilities are implemented from a didactic point of view. Through careful planning and thoughtful use, it is possible to ensure accessible and equitable access to content for all users. </source>
+      </trans-unit>
+      <trans-unit id="guideWhyPart4" datatype="html">
+        <source> The didactic guidelines provided here are intended to support teaching staff in using Melvin in ways that are both inclusive and didactically effective. </source>
       </trans-unit>
     </body>
   </file>

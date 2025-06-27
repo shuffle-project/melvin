@@ -1886,14 +1886,6 @@
         <source> Why Didactic Recommendations? </source>
         <target state="final"> Warum didaktische Hinweise? </target>
       </trans-unit>
-      <trans-unit id="guideWhyPartOne" datatype="html">
-        <source> According to a working group of the Hochschulforum Digitalisierung, digitalization in education should not be &quot;an end in itself&quot; (Persike &amp; Friedrich, 2016, p. 5). Instead, digital learning and teaching concepts should aim to improve teaching quality, enhance effectiveness, and promote equal opportunities in higher education (Hanft et al., 2019, p. 325). Overall, aspects of equal opportunities, inclusion, and digitalization are still rarely considered in combination and insufficiently researched (Bosse et al., 2021; Hafer et al., 2019), particularly in relation to didactic issues. While digital tools offer many possibilities, not everything that is technically feasible is didactically useful or even accessible. </source>
-        <target state="final"> Digitalisierung in der Bildung dürfe „kein Selbstzweck“ sein, so eine Arbeitsgruppe des Hochschulforums Digitalisierung (Persike &amp; Friedrich 2016, 5). Vielmehr müsse das Ziel der Konzepte für digitales Lernen und Lehren sein, die Qualität der Lehre, ihre Leistungsstärke, aber eben auch die Chancengerechtigkeit des Hochschulsystems weiter zu verbessern (Hanft et al 2019, 325) Insgesamt werden jedoch Chancengerechtigkeit, Inklusion und Digitalisierung noch viel zu selten im Zusammenspiel betrachtet und auch noch zu wenig beforscht (Bosse et al. 2021; Hafer et al 2019) – und besonders nicht unter dem Aspekt fachdidaktischer Fragestellungen. Denn für digitale Tools ergeben sich zwar vielfältige Anwendungsmöglichkeiten, aber nicht alles, was technisch machbar ist, ist didaktisch sinnvoll und darüber hinaus barrierefrei. </target>
-      </trans-unit>
-      <trans-unit id="guideWhyPartTwo" datatype="html">
-        <source> Melvin, as a video platform, is primarily a tool that offers functionality and allows for creative freedom. Thoughtful consideration of didactic implementation can significantly contribute to ensuring equal and barrier-free access to content for all users. These didactic guidelines aim to encourage a reflective approach when using Melvin. </source>
-        <target state="final"> Auch Melvin als Videoplattform ist zunächst „nur“ ein Werkzeug, das Funktionen bereitstellt und gestalterische Freiräume eröffnet. Vorausschauende Überlegungen zur didaktischen Umsetzung der technischen Möglichkeiten können entscheidend dazu beitragen, einen barrierefreien und gleichberechtigten Zugang zu den Inhalten für alle Nutzenden zu gewährleisten. Solch ein didaktisch-reflektiertes Vorgehen bei der Anwendung von Melvin möchten diese didaktischen Hinweise befördern. </target>
-      </trans-unit>
       <trans-unit id="guidePlanningHeading" datatype="html">
         <source>Planning the Video</source>
         <target state="final">Planung des Videos</target>
@@ -1919,8 +1911,8 @@
         <target state="final">Selbstgesteuertes Lernen</target>
       </trans-unit>
       <trans-unit id="guideSelfRegulationDefinition" datatype="html">
-        <source> Providing videos places more responsibility on students for their own learning. Learning videos should therefore foster strategies for self-regulated learning (SRL<x id="START_SUPERSCRIPT" ctype="x-sup" equiv-text="&lt;sup&gt;"/>1<x id="CLOSE_SUPERSCRIPT" ctype="x-sup" equiv-text="&lt;/sup&gt;"/>) and motivate students to engage actively with the content. </source>
-        <target state="final">Grundsätzlich führt das Bereitstellen von Videos dazu, dass Studierende stärker für ihr eigenes Lernen verantwortlich sind. Lernvideos sollten daher Strategien des Selbstgesteuerten Lernens (SDL<x id="START_SUPERSCRIPT" ctype="x-sup" equiv-text="&lt;sup&gt;"/>1<x id="CLOSE_SUPERSCRIPT" ctype="x-sup" equiv-text="&lt;/sup&gt;"/>) fördern und dazu motivieren, sich aktiv mit den Inhalten auseinanderzusetzen. </target>
+        <source> Providing videos places more responsibility on students for their own learning. Learning videos should therefore foster strategies for self-regulated learning (SRL) and motivate students to engage actively with the content. </source>
+        <target state="final">Grundsätzlich führt das Bereitstellen von Videos dazu, dass Studierende stärker für ihr eigenes Lernen verantwortlich sind. Lernvideos sollten daher Strategien des Selbstgesteuerten Lernens (SDL) fördern und dazu motivieren, sich aktiv mit den Inhalten auseinanderzusetzen. </target>
       </trans-unit>
       <trans-unit id="guideOptimalLenghtTerm" datatype="html">
         <source>Optimal Video Length</source>
@@ -1951,8 +1943,8 @@
         <target state="final">Lern-Nuggets</target>
       </trans-unit>
       <trans-unit id="guideMicroLearningDefinition" datatype="html">
-        <source> If a video is intended to introduce or deepen a specific aspect, a short and focused microlearning unit (also known as a &quot;learning nugget&quot;<x id="START_SUPERSCRIPT" ctype="x-sup" equiv-text="&lt;sup&gt;"/>2<x id="CLOSE_SUPERSCRIPT" ctype="x-sup" equiv-text="&lt;/sup&gt;"/>) may be appropriate. These concise videos effectively present knowledge in just a few minutes. Multiple microlearning units can be organized into a series, with clear titles and sequencing information to enhance clarity. </source>
-        <target state="final"> Dient das Video (nur) zur Vorstellung oder Vertiefung eines spezifischen Aspekts? Hier lässt sich im Sinne des „Microlearning“ ein eher kurzes und fokussiertes Video – ein sogenannter &quot;Lern-Nugget&quot;<x id="START_SUPERSCRIPT" ctype="x-sup" equiv-text="&lt;sup&gt;"/>2<x id="CLOSE_SUPERSCRIPT" ctype="x-sup" equiv-text="&lt;/sup&gt;"/>- erstellen. In wenigen Minuten kann so pointiert und konzentriert Wissen vermittelt werden. Es können auch mehrere solcher kurzen Lerneinheiten/“Lern-Nuggets“ (als Reihe/Serie) erstellt werden – hier sind eindeutige Titel und ggf. die Information über eine einzuhaltende Reihenfolge besonders wichtig. </target>
+        <source> If a video is intended to introduce or deepen a specific aspect, a short and focused microlearning unit (also known as a &quot;learning nugget&quot;) may be appropriate. These concise videos effectively present knowledge in just a few minutes. Multiple microlearning units can be organized into a series, with clear titles and sequencing information to enhance clarity. </source>
+        <target state="final"> Dient das Video (nur) zur Vorstellung oder Vertiefung eines spezifischen Aspekts? Hier lässt sich im Sinne des „Microlearning“ ein eher kurzes und fokussiertes Video – ein sogenannter &quot;Lern-Nugget&quot;- erstellen. In wenigen Minuten kann so pointiert und konzentriert Wissen vermittelt werden. Es können auch mehrere solcher kurzen Lerneinheiten/“Lern-Nuggets“ (als Reihe/Serie) erstellt werden – hier sind eindeutige Titel und ggf. die Information über eine einzuhaltende Reihenfolge besonders wichtig. </target>
       </trans-unit>
       <trans-unit id="guideMicroLearningExampleHeading" datatype="html">
         <source>Examples:</source>
@@ -1991,8 +1983,8 @@
         <target state="final">Abbildungen</target>
       </trans-unit>
       <trans-unit id="guideVerbalizingDefinition" datatype="html">
-        <source> All essential visual elements used in the video should also be described verbally. Ideally, the key content of an image or figure should be integrated into the spoken text. If this is not feasible, a separate audio or text-based description should be provided as an additional resource.<x id="START_SUPERSCRIPT" ctype="x-sup" equiv-text="&lt;sup&gt;"/>3<x id="CLOSE_SUPERSCRIPT" ctype="x-sup" equiv-text="&lt;/sup&gt;"/>. </source>
-        <target state="final"> Im Video verwendete Abbildungen sollten auch sprachlich vermittelt werden. Im besten Fall können alle zentralen Inhalte einer Abbildung in den Sprechtext integriert werden. Ist dies nicht möglich, kann eine gesonderte Bildbeschreibung/Audiodeskription erstellt werden, die als eigenes Video oder/und Text erstellt und bereitgestellt wird.<x id="START_SUPERSCRIPT" ctype="x-sup" equiv-text="&lt;sup&gt;"/>3<x id="CLOSE_SUPERSCRIPT" ctype="x-sup" equiv-text="&lt;/sup&gt;"/>. </target>
+        <source> All essential visual elements used in the video should also be described verbally. Ideally, the key content of an image or figure should be integrated into the spoken text. If this is not feasible, a separate audio or text-based description should be provided as an additional resource. </source>
+        <target state="new"> Im Video verwendete Abbildungen sollten auch sprachlich vermittelt werden. Im besten Fall können alle zentralen Inhalte einer Abbildung in den Sprechtext integriert werden. Ist dies nicht möglich, kann eine gesonderte Bildbeschreibung/Audiodeskription erstellt werden, die als eigenes Video oder/und Text erstellt und bereitgestellt wird. </target>
       </trans-unit>
       <trans-unit id="guideAccessibleMaterialsTerm" datatype="html">
         <source> Accessible Digital Materials </source>
@@ -2177,10 +2169,6 @@
       <trans-unit id="guideRepetitionFileNameTwo" datatype="html">
         <source>as a descriptive file name</source>
         <target state="final">als Dateiname des Videos</target>
-      </trans-unit>
-      <trans-unit id="guideReferencesHeading" datatype="html">
-        <source>References</source>
-        <target state="final">Literatur</target>
       </trans-unit>
       <trans-unit id="accessibilityStatementMainHeading" datatype="html">
         <source>Accessibility Statement</source>
@@ -2808,7 +2796,7 @@
       </trans-unit>
       <trans-unit id="tutorialFAQQuestion2" datatype="html">
         <source> Can I blur the background of my webcam in the recorder? </source>
-        <target state="final">  Kann ich den Hintergrund meiner Webcam im Recorder unscharf stellen? </target>
+        <target state="final"> Kann ich den Hintergrund meiner Webcam im Recorder unscharf stellen? </target>
       </trans-unit>
       <trans-unit id="tutorialFAQAnswer2Part1" datatype="html">
         <source> Currently, this functionality is not supported by Melvin or web browsers. </source>
@@ -2825,6 +2813,22 @@
       <trans-unit id="tutorialFAQHeading" datatype="html">
         <source>FAQ</source>
         <target state="final">FAQ</target>
+      </trans-unit>
+      <trans-unit id="guideWhyPart1" datatype="html">
+        <source> Digitisation in education must not become an end in itself. The aim of concepts for digital teaching and learning should be to enhance the quality of teaching, improve its effectiveness, and at the same time promote equal opportunities within the higher education system. </source>
+        <target state="final"> Digitalisierung in der Bildung darf kein Selbstzweck sein. Ziel von Konzepten für digitales Lehren und Lernen sollte es sein, die Qualität der Lehre zu steigern, ihre Wirksamkeit zu verbessern und zugleich die Chancengerechtigkeit im Hochschulsystem zu fördern </target>
+      </trans-unit>
+      <trans-unit id="guideWhyPart2" datatype="html">
+        <source> So far, however, the topics of equal opportunities, inclusion, and digitalisation have rarely been considered in conjunction – especially not from a subject-didactic perspective. While digital tools offer a wide range of possible applications, not everything that is technically feasible is also didactically meaningful or accessible. </source>
+        <target state="final"> Bisher werden jedoch die Themen Chancengerechtigkeit, Inklusion und Digitalisierung noch zu selten in ihrem Zusammenspiel betrachtet – insbesondere nicht aus fachdidaktischer Perspektive. Zwar eröffnen digitale Tools vielfältige Einsatzmöglichkeiten, doch nicht alles, was technisch umsetzbar ist, ist auch didaktisch sinnvoll oder barrierefrei. </target>
+      </trans-unit>
+      <trans-unit id="guideWhyPart3" datatype="html">
+        <source> Melvin, a video platform for teaching, is also first and foremost a tool that offers various functions and creative possibilities. However, what really matters is how these possibilities are implemented from a didactic point of view. Through careful planning and thoughtful use, it is possible to ensure accessible and equitable access to content for all users. </source>
+        <target state="final"> Auch Melvin, eine Videoplattform für die Lehre, ist zunächst ein Werkzeug, das verschiedene Funktionen bereitstellt und gestalterische Freiräume eröffnet. Entscheidend ist jedoch, wie diese Möglichkeiten didaktisch umgesetzt werden. Durch vorausschauende Planung und reflektierte Nutzung kann ein barrierefreier und gleichberechtigter Zugang zu den Inhalten für alle Nutzenden geschaffen werden. </target>
+      </trans-unit>
+      <trans-unit id="guideWhyPart4" datatype="html">
+        <source> The didactic guidelines provided here are intended to support teaching staff in using Melvin in ways that are both inclusive and didactically effective. </source>
+        <target state="final"> Die vorliegenden didaktischen Hinweise sollen Lehrende dabei unterstützen, Melvin auf eine Weise einzusetzen, die sowohl inklusiv als auch didaktisch wirksam sind. </target>
       </trans-unit>
     </body>
   </file>

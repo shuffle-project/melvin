@@ -12,6 +12,7 @@ export const HomeRoutes: Routes = [
         path: 'projects',
         canActivate: [HasRoleGuard],
         data: { roles: [UserRole.USER] },
+        title: $localize`:@@projectListPageTitle:Project List - Melvin`,
         loadChildren: () =>
           import('./project-list/project-list.routes').then(
             (m) => m.ProjectListRoutes
@@ -35,6 +36,7 @@ export const HomeRoutes: Routes = [
         path: 'recorder',
         canActivate: [HasRoleGuard],
         data: { roles: [UserRole.USER] },
+        title: $localize`:@@RecorderPageTitle:Recorder - Melvin`,
         loadChildren: () =>
           import('./recorder/recorder.routes').then((m) => m.RecorderRoutes),
       },
@@ -42,6 +44,7 @@ export const HomeRoutes: Routes = [
         path: 'profile',
         canActivate: [HasRoleGuard],
         data: { roles: [UserRole.USER] },
+        title: $localize`:@@profilePageTitle:Profile - Melvin`,
         loadChildren: () =>
           import('./profile/profile.routes').then((m) => m.ProfileRoutes),
       },

@@ -353,15 +353,14 @@ export class DialogCreateProjectComponent implements OnDestroy, AfterViewInit {
   }
 
   async onSubmitForm() {
-    this.formGroup.controls.files.getRawValue().forEach((fileGroup) => {
-      console.log(fileGroup);
-    });
+    this.formGroup.markAllAsTouched();
+    this.formGroup.updateValueAndValidity();
 
     if (this.formGroup.invalid) {
-      this.formGroup.markAllAsTouched();
-      this.formGroup.updateValueAndValidity();
-      this.uploadAreaFormGroup.markAllAsTouched();
-      this.uploadAreaFormGroup.updateValueAndValidity();
+      if (this.formGroup.controls.files.value.length === 0) {
+        this.uploadAreaFormGroup.markAllAsTouched();
+        this.uploadAreaFormGroup.updateValueAndValidity();
+      }
       return;
     }
 
