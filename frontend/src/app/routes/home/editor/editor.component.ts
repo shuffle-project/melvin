@@ -40,6 +40,7 @@ import { HttpClient } from '@angular/common/http';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { Title } from '@angular/platform-browser';
 import { LetDirective, PushPipe } from '@ngrx/component';
 import { DeleteConfirmationService } from 'src/app/components/delete-confirmation-dialog/delete-confirmation.service';
 import { CreateTranscriptionDialogComponent } from 'src/app/modules/project-dialogs/components/project-transcription/components/create-transcription-dialog/create-transcription-dialog.component';
@@ -162,7 +163,8 @@ export class EditorComponent implements OnInit, OnDestroy {
     public livestreamService: LivestreamService,
     public httpClient: HttpClient,
     private deleteService: DeleteConfirmationService,
-    private router: Router
+    private router: Router,
+    private titleService: Title
   ) {}
 
   async ngOnInit() {
@@ -199,6 +201,11 @@ export class EditorComponent implements OnInit, OnDestroy {
           this.showWaveform = true;
         }, 1);
       }
+    });
+
+    this.project$.pipe(takeUntil(this.destroy$$)).subscribe((project) => {
+      if (project)
+        this.titleService.setTitle(project.title + ' - Editor - Melvin');
     });
   }
 
