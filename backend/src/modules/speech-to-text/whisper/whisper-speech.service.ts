@@ -71,36 +71,10 @@ export class WhisperSpeechService implements ISpeechToTextService {
     // Every and jobId need to be identical to the .removeRepeatable options
     await this.melvinAsrQueue.add(
       'fetchResult',
-      { id: started.id, transcription, project },
+      { id: started.id, transcription, project, paragraphsViaTime: true },
       { repeat: { every: 10000 }, jobId: started.id },
     );
-
-    // const melvinResultEntity: MelvinAsrResultEntity = await this._fetchResult(
-    //   started,
-    // );
-
-    // if (!melvinResultEntity.transcript) {
-    //   throw new Error('Internal Error in MelvinASR');
-    // }
-
-    // const words = this.melvinAsrApiService.toWords(melvinResultEntity, true);
-    // return { words };
   }
-
-  // TODO refactor to queue
-  // async _fetchResult(job: MelvinAsrJobEntity): Promise<MelvinAsrResultEntity> {
-  //   return new Promise((resolve) => {
-  //     const interval = setInterval(async () => {
-  //       const jobTemp = await this.melvinAsrApiService.getJob(job.id);
-  //       if (jobTemp.status === 'completed' || jobTemp.status === 'failed') {
-  //         clearInterval(interval);
-
-  //         const jobResult = await this.melvinAsrApiService.getJobResult(job.id);
-  //         resolve(jobResult);
-  //       }
-  //     }, 10000);
-  //   });
-  // }
 
   async runAlign(
     project: Project,
@@ -123,18 +97,15 @@ export class WhisperSpeechService implements ISpeechToTextService {
     // Every and jobId need to be identical to the .removeRepeatable options
     await this.melvinAsrQueue.add(
       'fetchResult',
-      { id: started.id, transcription, syncSpeaker, project },
+      {
+        id: started.id,
+        transcription,
+        syncSpeaker,
+        project,
+        paragraphsViaTime: true,
+      },
       { repeat: { every: 10000 }, jobId: started.id },
     );
-
-    // const melvinResultEntity = await this._fetchResult(started);
-
-    // if (!melvinResultEntity.transcript) {
-    //   throw new Error('Internal Error in MelvinASR');
-    // }
-
-    // const words = this.melvinAsrApiService.toWords(melvinResultEntity, true);
-    // return { words };
   }
 
   private _getLanguage(languageString: string) {

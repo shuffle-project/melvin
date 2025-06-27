@@ -129,14 +129,7 @@ export class SpeechToTextService {
         captions = this._wordsToCaptions(project, transcription, res);
         break;
       case AsrVendors.WHISPER:
-        // res =
         await this.whisperSpeechService.run(project, audio, transcription);
-        // if (res.captions) {
-        //   captions = this._toCaptions(project, transcription, res.captions);
-        // } else {
-        //   await this._saveToTiptap(res.words, transcription);
-        //   captions = this._wordsToCaptions(project, transcription, res);
-        // }
         break;
       case AsrVendors.RANDOM:
         captions = this.populateService._generateRandomCaptions(

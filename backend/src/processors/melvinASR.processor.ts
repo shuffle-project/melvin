@@ -23,8 +23,10 @@ import { CustomLogger } from '../modules/logger/logger.service';
 export interface ProcessMelvinAsrJob {
   id: string;
   transcription: TranscriptionEntity;
+  newSpeakerId?: string;
   syncSpeaker?: CaptionEntity[];
   project: Project;
+  paragraphsViaTime: boolean;
 }
 
 @Processor('melvinAsr')
@@ -81,13 +83,27 @@ export class MelvinAsrProcessor {
           })
           .lean()
           .exec();
+
+        throw new Error('Internal Error in MelvinASR');
       }
 
-      const words = this.melvinAsrApiService.toWords(jobResult, true);
+      const words = this.melvinAsrApiService.toWords(
+        jobResult,
+        job.data.paragraphsViaTime,
+      );
+
+      if (jobTemp.job_type === 'translation') {
+        words.forEach((word) => {
+          if (!word.text.endsWith(' ')) {
+            word.text += ' ';
+          }
+        });
+      }
 
       let document = this.tiptapService.wordsToTiptap(
         words,
-        job.data.transcription.speakers[0]._id.toString(),
+        job.data.newSpeakerId ??
+          job.data.transcription.speakers[0]._id.toString(),
       );
 
       if (job.data.syncSpeaker) {
