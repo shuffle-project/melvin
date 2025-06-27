@@ -2830,6 +2830,18 @@
         <source> The didactic guidelines provided here are intended to support teaching staff in using Melvin in ways that are both inclusive and didactically effective. </source>
         <target state="final"> Die vorliegenden didaktischen Hinweise sollen Lehrende dabei unterstützen, Melvin auf eine Weise einzusetzen, die sowohl inklusiv als auch didaktisch wirksam sind. </target>
       </trans-unit>
+      <trans-unit id="projectListPageTitle" datatype="html">
+        <source>Project List - Melvin</source>
+        <target state="final">Projekt Liste - Melvin</target>
+      </trans-unit>
+      <trans-unit id="RecorderPageTitle" datatype="html">
+        <source>Recorder - Melvin</source>
+        <target state="final">Rekorder - Melvin</target>
+      </trans-unit>
+      <trans-unit id="profilePageTitle" datatype="html">
+        <source>Profile - Melvin</source>
+        <target state="final">Profil - Melvin</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
