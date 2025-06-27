@@ -17,8 +17,7 @@ import { PathModule } from './modules/path/path.module';
 import { SpeechToTextModule } from './modules/speech-to-text/speech-to-text.module';
 import { SubtitleFormatModule } from './modules/subtitle-format/subtitle-format.module';
 import { TasksModule } from './modules/tasks/tasks.module';
-import { HocuspocusService } from './modules/tiptap/hocuspocus.service';
-import { TiptapService } from './modules/tiptap/tiptap.service';
+import { TiptapModule } from './modules/tiptap/tiptap.module';
 import { TranslationModule } from './modules/translation/translation.module';
 import { LivestreamProcessor } from './processors/livestream.processor';
 import { MelvinAsrProcessor } from './processors/melvinAsr.processor';
@@ -104,8 +103,7 @@ import { UserModule } from './resources/user/user.module';
     SpeechToTextModule,
     SubtitleFormatModule,
     TranslationModule,
-
-    // TODO
+    TiptapModule,
     MelvinAsrApiModule,
   ],
   controllers: [AppController],
@@ -116,10 +114,6 @@ import { UserModule } from './resources/user/user.module';
     LivestreamProcessor,
     MelvinAsrProcessor,
     VideoProcessor,
-
-    //TODO
-    TiptapService,
-    HocuspocusService,
   ],
 })
 export class AppModule {}

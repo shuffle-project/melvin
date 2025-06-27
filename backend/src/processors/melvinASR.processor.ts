@@ -40,17 +40,28 @@ export class MelvinAsrProcessor {
     @InjectQueue('melvinAsr')
     private readonly melvinAsrQueue: Queue<ProcessMelvinAsrJob>,
   ) {
-    console.log('vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv');
     this.logger.setContext(this.constructor.name);
   }
 
   @Process('fetchResult')
   async fetchResult(job: Job<ProcessMelvinAsrJob>) {
-    this.logger.verbose(`Fetch Result: Job ${job.id}`);
+    this.logger.verbose(`Start Fetching Result: "${job.id}"`);
 
     const jobTemp = await this.melvinAsrApiService.getJob(job.data.id);
 
-    if (jobTemp.status === 'completed' || jobTemp.status === 'failed') {
+    if (jobTemp.status === 'failed') {
+      // Needs to be identical to the .add options
+      await this.melvinAsrQueue.removeRepeatable('fetchResult', {
+        every: 10000,
+        jobId: job.data.id,
+      });
+
+      throw new Error(
+        'API Service returned JobEntity with State "Failed", ID: ' + jobTemp.id,
+      );
+    }
+
+    if (jobTemp.status === 'completed') {
       const jobResult = await this.melvinAsrApiService.getJobResult(
         job.data.id,
       );
@@ -92,6 +103,15 @@ export class MelvinAsrProcessor {
         job.data.transcription._id.toString(),
         document,
       );
+    }
+
+    return jobTemp.status === 'completed';
+  }
+
+  @OnQueueCompleted()
+  async completeHandler(job: Job<ProcessMelvinAsrJob>, result: boolean) {
+    if (result) {
+      this.logger.verbose(`Fetching Result Completed: "${job.id}"`);
 
       await this.db.transcriptionModel
         .findByIdAndUpdate(job.data.transcription._id, {
@@ -101,7 +121,33 @@ export class MelvinAsrProcessor {
         })
         .lean()
         .exec();
+
+      const systemUser = await this.authService.findSystemAuthUser();
+      const updatedTranscription = await this.transcriptionService.findOne(
+        systemUser,
+        job.data.transcription._id.toString(),
+      );
+      const entity = plainToInstance(TranscriptionEntity, updatedTranscription);
+      this.events.transcriptionUpdated(job.data.project, entity);
+    } else {
+      this.logger.verbose(`Fetching Process Unfinished: "${job.id}`);
     }
+  }
+
+  @OnQueueFailed()
+  async failHandler(job: Job<ProcessMelvinAsrJob>, err: Error) {
+    // TODO Fail Counter? Should we retry one more time? Discussion needed
+
+    this.logger.error('Fetching Result Failed', err);
+
+    await this.db.transcriptionModel
+      .findByIdAndUpdate(job.data.transcription._id, {
+        $set: {
+          status: TranscriptionStatus.ERROR,
+        },
+      })
+      .lean()
+      .exec();
 
     const systemUser = await this.authService.findSystemAuthUser();
     const updatedTranscription = await this.transcriptionService.findOne(
@@ -110,18 +156,6 @@ export class MelvinAsrProcessor {
     );
     const entity = plainToInstance(TranscriptionEntity, updatedTranscription);
     this.events.transcriptionUpdated(job.data.project, entity);
-  }
-
-  @OnQueueCompleted()
-  async completeHandler(job: Job<ProcessMelvinAsrJob>, result: any) {
-    this.logger.verbose(`Melvin ASR Job Completed: ${job.id}`);
-    this.logger.verbose(`Result: ${JSON.stringify(result)}`);
-  }
-
-  @OnQueueFailed()
-  async failHandler(job: Job<ProcessMelvinAsrJob>, err: Error) {
-    this.logger.error('Melvin ASR Job Failed', err);
-    this.logger.error(`Job ID: ${job.id}`);
   }
 
   _syncSpeaker(
@@ -195,22 +229,3 @@ export class MelvinAsrProcessor {
     return document;
   }
 }
-
-// let document = this.tiptapService.wordsToTiptap(
-//   res.words,
-//   transcription.speakers[0]._id.toString(),
-// );
-
-// if (syncSpeaker) {
-//   try {
-//     document = this._syncSpeaker(document, syncSpeaker);
-//   } catch (e) {
-//     this.logger.error(e);
-//     return;
-//   }
-// }
-
-// await this.tiptapService.updateDocument(
-//   transcription._id.toString(),
-//   document,
-// );
