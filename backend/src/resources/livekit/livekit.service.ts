@@ -1,13 +1,6 @@
-import { initializeLogger, Worker, WorkerOptions } from '@livekit/agents';
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import {
-  AccessToken,
-  AgentDispatchClient,
-  RoomServiceClient,
-  VideoGrant,
-} from 'livekit-server-sdk';
-import path from 'path';
+import { AccessToken, RoomServiceClient, VideoGrant } from 'livekit-server-sdk';
 import { LivekitConfig } from 'src/config/config.interface';
 import { AuthUser } from '../auth/auth.interfaces';
 import { LivekitAuthEntity } from './entities/livekit.entity';
@@ -80,52 +73,51 @@ export class LivekitService {
   ): Promise<LivekitAuthEntity> {
     await this.createRoom(projectId);
 
-    AgentDispatchClient;
     // though `production` is defined in WorkerOptions, it will always be overriddden by CLI.
     // const { production: _, ...opts } = { production: true, room: 'projectid' }; // eslint-disable-line @typescript-eslint/no-unused-vars
-    initializeLogger({ pretty: true, level: 'info' });
-    // @ts-ignore
-    const agentPath = path.join(
-      require.main.path,
-      'resources/livekit/agent.js',
-    );
-    const worker = new Worker(
-      new WorkerOptions({
-        production: true,
-        agent: agentPath,
-        apiKey: this.config.apikey,
-        apiSecret: this.config.secret,
-      }),
-    );
+    // initializeLogger({ pretty: true, level: 'info' });
+    // // @ts-ignore
+    // const agentPath = path.join(
+    //   require.main.path,
+    //   'resources/livekit/agent.js',
+    // );
+    // const worker = new Worker(
+    //   new WorkerOptions({
+    //     production: true,
+    //     agent: agentPath,
+    //     apiKey: this.config.apikey,
+    //     apiSecret: this.config.secret,
+    //   }),
+    // );
 
-    if (true) {
-      worker.event.once('worker_registered', () => {
-        console.log(`connecting to room $6200e98c9f6b0de828dbe34a`);
-        worker.simulateJob('6200e98c9f6b0de828dbe34a', authUser.id);
-      });
-    }
+    // if (true) {
+    //   worker.event.once('worker_registered', () => {
+    //     console.log(`connecting to room $6200e98c9f6b0de828dbe34a`);
+    //     worker.simulateJob('6200e98c9f6b0de828dbe34a', authUser.id);
+    //   });
+    // }
 
-    process.once('SIGINT', async () => {
-      // allow C-c C-c for force interrupt
-      // process.once('SIGINT', () => {
-      //   console.log('worker closed forcefully');
-      //   process.exit(130); // SIGINT exit code
-      // });
-      // if (true) {
-      // if (args.production) {
-      await worker.drain();
-      // }
-      await worker.close();
-      console.log('worker closed');
-      // process.exit(130); // SIGINT exit code
-    });
+    // process.once('SIGINT', async () => {
+    //   // allow C-c C-c for force interrupt
+    //   // process.once('SIGINT', () => {
+    //   //   console.log('worker closed forcefully');
+    //   //   process.exit(130); // SIGINT exit code
+    //   // });
+    //   // if (true) {
+    //   // if (args.production) {
+    //   await worker.drain();
+    //   // }
+    //   await worker.close();
+    //   console.log('worker closed');
+    //   // process.exit(130); // SIGINT exit code
+    // });
 
-    try {
-      // await worker.run();
-    } catch {
-      console.log('worker failed');
-      process.exit(1);
-    }
+    // try {
+    //   // await worker.run();
+    // } catch {
+    //   console.log('worker failed');
+    //   process.exit(1);
+    // }
 
     // TODO check if user is allwed to join this project room
     // getProject
