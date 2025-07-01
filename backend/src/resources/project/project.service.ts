@@ -86,13 +86,10 @@ export class ProjectService {
   async create(authUser: AuthUser, createProjectDto: CreateProjectDto) {
     const status = ProjectStatus.WAITING;
 
-    console.log(createProjectDto);
-
     const videosMetadata: UploadMetadata[] = [];
     const subtitlesMetadata: UploadMetadata[] = [];
 
     createProjectDto.videoOptions.forEach(async (video) => {
-      console.log(video);
       const metadataObject = await this.uploadService.getUploadMetadata(
         video.uploadId,
       );
@@ -103,7 +100,6 @@ export class ProjectService {
         metadataObject.extension,
       );
       const uploadedFileStats = await stat(uploadedFile);
-      console.log(metadataObject, uploadedFileStats);
 
       if (uploadedFileStats.size < metadataObject.filesize) {
         throw new CustomBadRequestException('file_upload_not_completed');
@@ -122,7 +118,6 @@ export class ProjectService {
           metadataObject.extension,
         );
         const uploadedFileStats = await stat(uploadedFile);
-        console.log(metadataObject, uploadedFileStats);
 
         if (uploadedFileStats.size < metadataObject.filesize) {
           throw new CustomBadRequestException('file_upload_not_completed');

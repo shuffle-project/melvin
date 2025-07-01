@@ -20,7 +20,7 @@ import { TasksModule } from './modules/tasks/tasks.module';
 import { TiptapModule } from './modules/tiptap/tiptap.module';
 import { TranslationModule } from './modules/translation/translation.module';
 import { LivestreamProcessor } from './processors/livestream.processor';
-import { MelvinAsrProcessor } from './processors/melvinAsr.processor';
+import { MelvinAsrProcessor } from './processors/melvin-asr.processor';
 import { ProjectProcessor } from './processors/project.processor';
 import { SubtitlesProcessor } from './processors/subtitles.processor';
 import { VideoProcessor } from './processors/video.processor';

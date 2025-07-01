@@ -8,7 +8,7 @@ import { Project } from 'src/modules/db/schemas/project.schema';
 import { CustomLogger } from 'src/modules/logger/logger.service';
 import { MelvinAsrResultEntity } from 'src/modules/melvin-asr-api/melvin-asr-api.interfaces';
 import { MelvinAsrApiService } from 'src/modules/melvin-asr-api/melvin-asr-api.service';
-import { ProcessMelvinAsrJob } from 'src/processors/melvinAsr.processor';
+import { ProcessMelvinAsrJob } from 'src/processors/melvin-asr.processor';
 import { TranscriptionEntity } from 'src/resources/transcription/entities/transcription.entity';
 import { MelvinTranslateDto } from './melvin-translate.interfaces';
 

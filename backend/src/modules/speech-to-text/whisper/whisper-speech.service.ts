@@ -7,7 +7,7 @@ import {
   MelvinAsrTranscript,
 } from 'src/modules/melvin-asr-api/melvin-asr-api.interfaces';
 import { MelvinAsrApiService } from 'src/modules/melvin-asr-api/melvin-asr-api.service';
-import { ProcessMelvinAsrJob } from 'src/processors/melvinAsr.processor';
+import { ProcessMelvinAsrJob } from 'src/processors/melvin-asr.processor';
 import { CaptionEntity } from 'src/resources/caption/entities/caption.entity';
 import { TranscriptionEntity } from 'src/resources/transcription/entities/transcription.entity';
 import { LanguageShort } from '../../../app.interfaces';
