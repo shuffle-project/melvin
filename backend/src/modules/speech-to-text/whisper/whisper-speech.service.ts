@@ -41,8 +41,12 @@ export class WhisperSpeechService implements ISpeechToTextService {
       return null;
     }
     try {
-      const settings = await this.melvinAsrApiService.getSettings();
+      this.logger.info('Fetching languages from MelvinASR for transcription');
+      const settings = await this.melvinAsrApiService.getSettingsRetry();
 
+      this.logger.info(
+        'Fetched languages from MelvinASR for transcription successfully',
+      );
       return settings.transcription_languages.map((lang) => ({
         code: lang,
         name: lang,

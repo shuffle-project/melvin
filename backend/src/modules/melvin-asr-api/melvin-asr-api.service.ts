@@ -4,7 +4,7 @@ import { ConfigService } from '@nestjs/config';
 import { AxiosError, AxiosResponse } from 'axios';
 import FormData from 'form-data';
 import { readFile } from 'fs-extra';
-import { catchError, lastValueFrom, map } from 'rxjs';
+import { catchError, lastValueFrom, map, retry, timer } from 'rxjs';
 import { WhisperConfig } from 'src/config/config.interface';
 import { DbService } from '../db/db.service';
 import { Audio, Project } from '../db/schemas/project.schema';
@@ -200,6 +200,45 @@ export class MelvinAsrApiService {
         })
         .pipe(
           map((res: AxiosResponse<MelvinAsrJobEntity[]>) => {
+            return res.data;
+          }),
+          catchError((error: AxiosError) => {
+            if (error?.response?.status) {
+              throw new HttpException(
+                error.response.data,
+                error.response.status,
+              );
+            } else {
+              throw new HttpException('unknown error', 500);
+            }
+          }),
+        ),
+    );
+  }
+
+  async getSettingsRetry(): Promise<WhiInformation> {
+    return await lastValueFrom(
+      this.httpService
+        .get<WhiInformation>(`${this.host}/settings`, {
+          headers: {
+            Authorization: this.apikey,
+          },
+        })
+        .pipe(
+          retry({
+            count: 5,
+            delay: (error, count) => {
+              const delayTime = Math.min(60000, Math.pow(2, count) * 1000);
+              this.logger.info(
+                'error in fetching settings from MelvinASR, retry in ' +
+                  delayTime / 1000 +
+                  ' seconds',
+              );
+              this.logger.info(error.message);
+              return timer(delayTime);
+            },
+          }),
+          map((res: AxiosResponse<WhiInformation>) => {
             return res.data;
           }),
           catchError((error: AxiosError) => {
