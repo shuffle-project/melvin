@@ -32,8 +32,12 @@ export class MelvinTranslateService {
       return null;
     }
     try {
-      const settings = await this.melvinAsrApiService.getSettings();
+      this.logger.info('Fetching languages from MelvinASR for translation');
+      const settings = await this.melvinAsrApiService.getSettingsRetry();
 
+      this.logger.info(
+        'Fetched languages from MelvinASR for translation successfully',
+      );
       const res = settings.translation_languages.map((lang) => ({
         code: lang,
         name: lang,

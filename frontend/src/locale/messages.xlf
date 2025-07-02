@@ -2123,6 +2123,15 @@
       <trans-unit id="guideWhyPart4" datatype="html">
         <source> The didactic guidelines provided here are intended to support teaching staff in using Melvin in ways that are both inclusive and didactically effective. </source>
       </trans-unit>
+      <trans-unit id="profilePageTitle" datatype="html">
+        <source>Profile - Melvin</source>
+      </trans-unit>
+      <trans-unit id="projectListPageTitle" datatype="html">
+        <source>Project List - Melvin</source>
+      </trans-unit>
+      <trans-unit id="RecorderPageTitle" datatype="html">
+        <source>Recorder - Melvin</source>
+      </trans-unit>
     </body>
   </file>
 </xliff>
