@@ -1,0 +1,34 @@
+# config.yml
+# This file is used to configure the service for a production stage in a Docker container
+host: "0.0.0.0"
+port: 8000
+api_keys:
+  - "secret" # TODO replace with your API key
+log_level: info
+batch_workers:
+  # CPU example
+  - device: cpu
+    cpu_threads: 4
+    compute_type: int8
+    num_workers: 1
+    transcription_enabled: True
+    transcription_model: tiny
+    transcription_model_settings:
+      vad_filter: True
+      condition_on_previous_text: False
+    translation_enabled: True
+    translation_model: facebook/seamless-m4t-v2-large
+
+  # GPU example
+  # - device: cuda
+  #   cpu_threads: 4
+  #   compute_type: float16
+  #   num_workers: 1
+  #   device_index: 0
+  #   transcription_enabled: True
+  #   transcription_model: large-v3
+  #   transcription_model_settings:
+  #     vad_filter: True
+  #     condition_on_previous_text: False
+  #   translation_enabled: True
+  #   translation_model: facebook/seamless-m4t-v2-large
