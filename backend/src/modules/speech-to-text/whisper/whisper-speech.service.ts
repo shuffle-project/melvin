@@ -76,7 +76,10 @@ export class WhisperSpeechService implements ISpeechToTextService {
     await this.melvinAsrQueue.add(
       'fetchResult',
       { id: started.id, transcription, project, paragraphsViaTime: true },
-      { repeat: { every: 10000 }, jobId: started.id },
+      {
+        attempts: 10,
+        backoff: 10000,
+      },
     );
   }
 
@@ -108,7 +111,10 @@ export class WhisperSpeechService implements ISpeechToTextService {
         project,
         paragraphsViaTime: true,
       },
-      { repeat: { every: 10000 }, jobId: started.id },
+      {
+        attempts: 10,
+        backoff: 10000,
+      },
     );
   }
 

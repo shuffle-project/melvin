@@ -51,16 +51,30 @@ export class MelvinAsrProcessor {
 
     const jobTemp = await this.melvinAsrApiService.getJob(job.data.id);
 
-    if (jobTemp.status === 'failed') {
-      // Needs to be identical to the .add options
-      await this.melvinAsrQueue.removeRepeatable('fetchResult', {
-        every: 10000,
-        jobId: job.data.id,
-      });
-
-      throw new Error(
-        'API Service returned JobEntity with State "Failed", ID: ' + jobTemp.id,
+    if (jobTemp.status === 'in_progress' || jobTemp.status === 'pending') {
+      await this.melvinAsrQueue.add(
+        'fetchResult',
+        { ...job.data },
+        {
+          delay: 10000, // 10 seconds
+          attempts: 10,
+          backoff: 10000,
+        },
       );
+      return;
+    }
+
+    if (jobTemp.status === 'failed') {
+      await this.db.transcriptionModel
+        .findByIdAndUpdate(job.data.transcription._id, {
+          $set: {
+            status: TranscriptionStatus.ERROR,
+          },
+        })
+        .lean()
+        .exec();
+
+      return;
     }
 
     if (jobTemp.status === 'completed') {
@@ -68,11 +82,14 @@ export class MelvinAsrProcessor {
         job.data.id,
       );
 
-      // Needs to be identical to the .add options
-      await this.melvinAsrQueue.removeRepeatable('fetchResult', {
-        every: 10000,
-        jobId: job.data.id,
-      });
+      await this.db.transcriptionModel
+        .findByIdAndUpdate(job.data.transcription._id, {
+          $set: {
+            status: TranscriptionStatus.OK,
+          },
+        })
+        .lean()
+        .exec();
 
       if (!jobResult.transcript) {
         await this.db.transcriptionModel
@@ -84,7 +101,7 @@ export class MelvinAsrProcessor {
           .lean()
           .exec();
 
-        throw new Error('Internal Error in MelvinASR');
+        return;
       }
 
       const words = this.melvinAsrApiService.toWords(
@@ -111,7 +128,6 @@ export class MelvinAsrProcessor {
           document = this._syncSpeaker(document, job.data.syncSpeaker);
         } catch (e) {
           this.logger.error(e);
-          return;
         }
       }
 
@@ -129,15 +145,6 @@ export class MelvinAsrProcessor {
     if (result) {
       this.logger.verbose(`Fetching Result Completed: "${job.id}"`);
 
-      await this.db.transcriptionModel
-        .findByIdAndUpdate(job.data.transcription._id, {
-          $set: {
-            status: TranscriptionStatus.OK,
-          },
-        })
-        .lean()
-        .exec();
-
       const systemUser = await this.authService.findSystemAuthUser();
       const updatedTranscription = await this.transcriptionService.findOne(
         systemUser,
@@ -152,26 +159,35 @@ export class MelvinAsrProcessor {
 
   @OnQueueFailed()
   async failHandler(job: Job<ProcessMelvinAsrJob>, err: Error) {
-    // TODO Fail Counter? Should we retry one more time? Discussion needed
-
+    this.logger.error(
+      'Error in attempt ' + job.attemptsMade + '/' + job.opts.attempts,
+    );
     this.logger.error('Fetching Result Failed', err);
 
-    await this.db.transcriptionModel
-      .findByIdAndUpdate(job.data.transcription._id, {
-        $set: {
-          status: TranscriptionStatus.ERROR,
-        },
-      })
-      .lean()
-      .exec();
+    if (job.attemptsMade === job.opts.attempts) {
+      this.logger.info(
+        'Job failed after ' +
+          job.attemptsMade +
+          ' attempts, it will not repeat again',
+      );
 
-    const systemUser = await this.authService.findSystemAuthUser();
-    const updatedTranscription = await this.transcriptionService.findOne(
-      systemUser,
-      job.data.transcription._id.toString(),
-    );
-    const entity = plainToInstance(TranscriptionEntity, updatedTranscription);
-    this.events.transcriptionUpdated(job.data.project, entity);
+      await this.db.transcriptionModel
+        .findByIdAndUpdate(job.data.transcription._id, {
+          $set: {
+            status: TranscriptionStatus.ERROR,
+          },
+        })
+        .lean()
+        .exec();
+
+      const systemUser = await this.authService.findSystemAuthUser();
+      const updatedTranscription = await this.transcriptionService.findOne(
+        systemUser,
+        job.data.transcription._id.toString(),
+      );
+      const entity = plainToInstance(TranscriptionEntity, updatedTranscription);
+      this.events.transcriptionUpdated(job.data.project, entity);
+    }
   }
 
   _syncSpeaker(

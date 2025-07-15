@@ -72,7 +72,10 @@ export class MelvinTranslateService {
         newSpeakerId,
         paragraphsViaTime: false,
       },
-      { repeat: { every: 10000 }, jobId: translate.id },
+      {
+        attempts: 10,
+        backoff: 10000,
+      },
     );
 
     // return this._fetchResult(translate.id);
