@@ -47,7 +47,9 @@ export class MelvinAsrProcessor {
 
   @Process('fetchResult')
   async fetchResult(job: Job<ProcessMelvinAsrJob>) {
-    this.logger.verbose(`Start Fetching Result: "${job.id}"`);
+    this.logger.verbose(
+      `Start Fetching Result for transcription: "${job.data.transcription._id.toString()}"`,
+    );
 
     const jobTemp = await this.melvinAsrApiService.getJob(job.data.id);
 
@@ -143,7 +145,9 @@ export class MelvinAsrProcessor {
   @OnQueueCompleted()
   async completeHandler(job: Job<ProcessMelvinAsrJob>, result: boolean) {
     if (result) {
-      this.logger.verbose(`Fetching Result Completed: "${job.id}"`);
+      this.logger.verbose(
+        `Fetching Result Completed for transcription: "${job.data.transcription._id.toString()}"`,
+      );
 
       const systemUser = await this.authService.findSystemAuthUser();
       const updatedTranscription = await this.transcriptionService.findOne(
@@ -153,7 +157,9 @@ export class MelvinAsrProcessor {
       const entity = plainToInstance(TranscriptionEntity, updatedTranscription);
       this.events.transcriptionUpdated(job.data.project, entity);
     } else {
-      this.logger.verbose(`Fetching Process Unfinished: "${job.id}`);
+      this.logger.verbose(
+        `Fetching Process Unfinished for transcription: "${job.data.transcription._id.toString()}`,
+      );
     }
   }
 
