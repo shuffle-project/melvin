@@ -1,4 +1,5 @@
 import { HttpModule } from '@nestjs/axios';
+import { BullModule } from '@nestjs/bull';
 import { Module } from '@nestjs/common';
 import { PopulateModule } from '../../resources/populate/populate.module';
 import { TranscriptionModule } from '../../resources/transcription/transcription.module';
@@ -22,6 +23,10 @@ import { WhisperSpeechService } from './whisper/whisper-speech.service';
     TranscriptionModule,
     TiptapModule,
     MelvinAsrApiModule,
+    BullModule.registerQueue({
+      name: 'melvinAsr',
+      defaultJobOptions: { removeOnComplete: true, removeOnFail: true },
+    }),
   ],
   controllers: [],
   providers: [

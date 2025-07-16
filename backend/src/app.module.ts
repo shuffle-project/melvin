@@ -11,13 +11,16 @@ import { DbModule } from './modules/db/db.module';
 import { FfmpegModule } from './modules/ffmpeg/ffmpeg.module';
 import { LoggerModule } from './modules/logger/logger.module';
 import { MediaModule } from './modules/media/media.module';
+import { MelvinAsrApiModule } from './modules/melvin-asr-api/melvin-asr-api.module';
 import { MigrationModule } from './modules/migration/migration.module';
 import { PathModule } from './modules/path/path.module';
 import { SpeechToTextModule } from './modules/speech-to-text/speech-to-text.module';
 import { SubtitleFormatModule } from './modules/subtitle-format/subtitle-format.module';
 import { TasksModule } from './modules/tasks/tasks.module';
+import { TiptapModule } from './modules/tiptap/tiptap.module';
 import { TranslationModule } from './modules/translation/translation.module';
 import { LivestreamProcessor } from './processors/livestream.processor';
+import { MelvinAsrProcessor } from './processors/melvin-asr.processor';
 import { ProjectProcessor } from './processors/project.processor';
 import { SubtitlesProcessor } from './processors/subtitles.processor';
 import { VideoProcessor } from './processors/video.processor';
@@ -72,6 +75,10 @@ import { UserModule } from './resources/user/user.module';
         name: 'video',
         defaultJobOptions: { removeOnComplete: true, removeOnFail: true },
       },
+      {
+        name: 'melvinAsr',
+        defaultJobOptions: { removeOnComplete: true, removeOnFail: true },
+      },
     ),
     ScheduleModule.forRoot(),
     DbModule,
@@ -96,6 +103,8 @@ import { UserModule } from './resources/user/user.module';
     SpeechToTextModule,
     SubtitleFormatModule,
     TranslationModule,
+    TiptapModule,
+    MelvinAsrApiModule,
   ],
   controllers: [AppController],
   providers: [
@@ -103,6 +112,7 @@ import { UserModule } from './resources/user/user.module';
     ProjectProcessor,
     SubtitlesProcessor,
     LivestreamProcessor,
+    MelvinAsrProcessor,
     VideoProcessor,
   ],
 })

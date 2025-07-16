@@ -13,7 +13,6 @@ import { Audio, Project } from '../db/schemas/project.schema';
 import { CustomLogger } from '../logger/logger.service';
 import { MelvinAsrTranscript } from '../melvin-asr-api/melvin-asr-api.interfaces';
 import { PathService } from '../path/path.service';
-import { TiptapDocument } from '../tiptap/tiptap.interfaces';
 import { TiptapService } from '../tiptap/tiptap.service';
 import { AssemblyAiService } from './assemblyai/assemblyai.service';
 import { GoogleSpeechService } from './google-speech/google-speech.service';
@@ -130,13 +129,7 @@ export class SpeechToTextService {
         captions = this._wordsToCaptions(project, transcription, res);
         break;
       case AsrVendors.WHISPER:
-        res = await this.whisperSpeechService.run(project, audio);
-        if (res.captions) {
-          captions = this._toCaptions(project, transcription, res.captions);
-        } else {
-          await this._saveToTiptap(res.words, transcription);
-          captions = this._wordsToCaptions(project, transcription, res);
-        }
+        await this.whisperSpeechService.run(project, audio, transcription);
         break;
       case AsrVendors.RANDOM:
         captions = this.populateService._generateRandomCaptions(
@@ -198,30 +191,33 @@ export class SpeechToTextService {
     let res: TranscriptEntity;
     switch (vendor) {
       case AsrVendors.WHISPER:
-        res = await this.whisperSpeechService.runAlign(
+        // res =
+        await this.whisperSpeechService.runAlign(
           project,
           transcriptToAlign,
           audio,
+          transcription,
+          syncSpeaker,
         );
 
-        let document = this.tiptapService.wordsToTiptap(
-          res.words,
-          transcription.speakers[0]._id.toString(),
-        );
+        // let document = this.tiptapService.wordsToTiptap(
+        //   res.words,
+        //   transcription.speakers[0]._id.toString(),
+        // );
 
-        if (syncSpeaker) {
-          try {
-            document = this._syncSpeaker(document, syncSpeaker);
-          } catch (e) {
-            this.logger.error(e);
-            return;
-          }
-        }
+        // if (syncSpeaker) {
+        //   try {
+        //     document = this._syncSpeaker(document, syncSpeaker);
+        //   } catch (e) {
+        //     this.logger.error(e);
+        //     return;
+        //   }
+        // }
 
-        await this.tiptapService.updateDocument(
-          transcription._id.toString(),
-          document,
-        );
+        // await this.tiptapService.updateDocument(
+        //   transcription._id.toString(),
+        //   document,
+        // );
 
         break;
 
@@ -330,76 +326,5 @@ export class SpeechToTextService {
         project: project._id,
       });
     });
-  }
-
-  _syncSpeaker(
-    document: TiptapDocument,
-    captionEntities: CaptionEntity[],
-  ): TiptapDocument {
-    const speakerIdsInCaptions = [
-      ...new Set(captionEntities.map((caption) => caption.speakerId)),
-    ];
-
-    if (speakerIdsInCaptions.length === 1) {
-      document.content.at(0).attrs.speakerId = speakerIdsInCaptions[0];
-      return document;
-    }
-
-    const normalize = (text: string) => {
-      return text
-        .toLowerCase()
-        .replace(/[^a-zA-Z0-9]+/g, '')
-        .trim();
-    };
-
-    const documentWords: { pargraphId: number; text: string }[] = [];
-    document.content.forEach((paragraph, i) =>
-      paragraph.content.forEach((node, nodeIndex) => {
-        const previousWord = documentWords.at(-1);
-        const text = normalize(node.text);
-        if (text.length !== 0) {
-          if (node.text.startsWith(' ') || nodeIndex === 0) {
-            documentWords.push({ pargraphId: i, text });
-          } else {
-            previousWord.text += text;
-          }
-        }
-      }),
-    );
-
-    const captionWords: { speaker: string; text: string }[] = [];
-    captionEntities.forEach((caption) => {
-      const splitted = caption.text
-        .replace(/(\r\n|\n|\r|\t)/gm, ' ')
-        .split(' ');
-      splitted.forEach((word) => {
-        const text = normalize(word);
-        if (text.length !== 0) {
-          captionWords.push({ speaker: caption.speakerId, text });
-        }
-      });
-    });
-
-    if (documentWords.length !== captionWords.length) {
-      throw new Error('Document and caption length mismatch');
-    }
-
-    let previousSpeaker = undefined;
-    captionWords.forEach((captionWord, index) => {
-      if (captionWord.speaker !== previousSpeaker) {
-        const paragraph = document.content[documentWords[index].pargraphId];
-        if (
-          paragraph.attrs.speakerId &&
-          paragraph.attrs.speakerId !== captionWord.speaker
-        ) {
-          // dont set speaker if its already set? but also dont throw error?
-          // throw new Error('Speaker already set');
-        } else {
-          paragraph.attrs.speakerId = captionWord.speaker;
-          previousSpeaker = captionWord.speaker;
-        }
-      }
-    });
-    return document;
   }
 }

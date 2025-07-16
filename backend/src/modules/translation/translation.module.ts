@@ -1,4 +1,5 @@
 import { HttpModule } from '@nestjs/axios';
+import { BullModule } from '@nestjs/bull';
 import { Module } from '@nestjs/common';
 import { AuthModule } from '../../resources/auth/auth.module';
 import { CaptionModule } from '../../resources/caption/caption.module';
@@ -21,6 +22,10 @@ import { TranslationService } from './translation.service';
     HttpModule.register({}),
     TiptapModule,
     MelvinAsrApiModule,
+    BullModule.registerQueue({
+      name: 'melvinAsr',
+      defaultJobOptions: { removeOnComplete: true, removeOnFail: true },
+    }),
   ],
   providers: [
     TranslationService,

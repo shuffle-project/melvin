@@ -8,9 +8,9 @@ import {
 } from '../../processors/processor.interfaces';
 import { AuthService } from '../../resources/auth/auth.service';
 import { CaptionService } from '../../resources/caption/caption.service';
-import { ProjectEntity } from '../../resources/project/entities/project.entity';
 import { TranscriptionEntity } from '../../resources/transcription/entities/transcription.entity';
 import { DbService } from '../db/db.service';
+import { Project } from '../db/schemas/project.schema';
 import { CustomLogger } from '../logger/logger.service';
 import { WhiSegment } from '../speech-to-text/whisper/whisper.interfaces';
 import { TiptapService } from '../tiptap/tiptap.service';
@@ -147,7 +147,7 @@ export class TranslationService {
   }
 
   async translateTranscription(
-    project: ProjectEntity,
+    project: Project,
     source: TranscriptionEntity,
     target: TranscriptionEntity,
     translationPayload: TranslationPayload,
@@ -240,36 +240,15 @@ export class TranslationService {
             text,
             segments,
           },
-          // language: string;
-          // target_language: string;
-          // transcript: {
-          //   text: string;
-          //   segments: WhiSegment[];
-          // };
         };
 
-        const trascript = await this.melvinTranslate.run(melvinTranslateDto);
-        trascript.words.forEach((word) => {
-          word.text += ' ';
-        });
-
-        const tiptapobj = this.tiptapService.wordsToTiptap(
-          trascript.words,
+        await this.melvinTranslate.run(
+          melvinTranslateDto,
+          project,
+          target,
           newSpeakers[0]._id.toString(),
         );
 
-        await this.tiptapService.updateDocument(
-          target._id.toString(),
-          tiptapobj,
-        );
-        // const googleEntity = await this.googleTranslate.translateText(
-        //   textsToTranslate,
-        //   source.language,
-        //   translationPayload.targetLanguage,1
-        // );
-        // translatedTexts = googleEntity.data.translations.map(
-        //   (obj) => obj.translatedText,
-        // );
         break;
 
       case TranslateVendors.LIBRE:
