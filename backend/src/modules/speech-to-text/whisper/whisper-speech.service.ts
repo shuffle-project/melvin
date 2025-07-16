@@ -78,7 +78,7 @@ export class WhisperSpeechService implements ISpeechToTextService {
       { id: started.id, transcription, project, paragraphsViaTime: true },
       {
         attempts: 10,
-        backoff: 10000,
+        backoff: { type: 'exponential', delay: 2000 },
       },
     );
   }
@@ -113,7 +113,7 @@ export class WhisperSpeechService implements ISpeechToTextService {
       },
       {
         attempts: 10,
-        backoff: 10000,
+        backoff: { type: 'exponential', delay: 2000 },
       },
     );
   }

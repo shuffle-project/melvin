@@ -74,7 +74,7 @@ export class MelvinTranslateService {
       },
       {
         attempts: 10,
-        backoff: 10000,
+        backoff: { type: 'exponential', delay: 2000 },
       },
     );
 

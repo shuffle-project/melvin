@@ -60,7 +60,7 @@ export class MelvinAsrProcessor {
         {
           delay: 10000, // 10 seconds
           attempts: 10,
-          backoff: 10000,
+          backoff: { type: 'exponential', delay: 2000 },
         },
       );
       return;
@@ -174,7 +174,8 @@ export class MelvinAsrProcessor {
       this.logger.info(
         'Job failed after ' +
           job.attemptsMade +
-          ' attempts, it will not repeat again',
+          ' attempts, it will not repeat again. Transcription id: ' +
+          job.data.transcription._id.toString(),
       );
 
       await this.db.transcriptionModel
