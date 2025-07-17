@@ -2842,6 +2842,30 @@
         <source>Profile - Melvin</source>
         <target state="final">Profil - Melvin</target>
       </trans-unit>
+      <trans-unit id="shortcutsHeading" datatype="html">
+        <source>Shortcuts</source>
+        <target state="final">Tastenkürzel</target>
+      </trans-unit>
+      <trans-unit id="shortcutsTogglePlayPause" datatype="html">
+        <source>Toggle Play / Pause</source>
+        <target state="final">Abspielen / Pausieren</target>
+      </trans-unit>
+      <trans-unit id="shortcutsRewind5Seconds" datatype="html">
+        <source>Rewind 5 Seconds</source>
+        <target state="final">5 Sekunden zurück</target>
+      </trans-unit>
+      <trans-unit id="shortcutsSkip5Seconds" datatype="html">
+        <source>Skip 5 Seconds</source>
+        <target state="final">5 Sekunden vor</target>
+      </trans-unit>
+      <trans-unit id="shortcutsJumpToWord" datatype="html">
+        <source>Jump to Word</source>
+        <target state="final">Zum Wort springen</target>
+      </trans-unit>
+      <trans-unit id="shortcutsJumpToWordMouse" datatype="html">
+        <source>Jump to Word (Mouse)</source>
+        <target state="final">Zum Wort springen (Maus)</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

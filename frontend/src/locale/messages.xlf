@@ -2132,6 +2132,24 @@
       <trans-unit id="RecorderPageTitle" datatype="html">
         <source>Recorder - Melvin</source>
       </trans-unit>
+      <trans-unit id="shortcutsHeading" datatype="html">
+        <source>Shortcuts</source>
+      </trans-unit>
+      <trans-unit id="shortcutsJumpToWord" datatype="html">
+        <source>Jump to Word</source>
+      </trans-unit>
+      <trans-unit id="shortcutsJumpToWordMouse" datatype="html">
+        <source>Jump to Word (Mouse)</source>
+      </trans-unit>
+      <trans-unit id="shortcutsRewind5Seconds" datatype="html">
+        <source>Rewind 5 Seconds</source>
+      </trans-unit>
+      <trans-unit id="shortcutsSkip5Seconds" datatype="html">
+        <source>Skip 5 Seconds</source>
+      </trans-unit>
+      <trans-unit id="shortcutsTogglePlayPause" datatype="html">
+        <source>Toggle Play / Pause</source>
+      </trans-unit>
     </body>
   </file>
 </xliff>
