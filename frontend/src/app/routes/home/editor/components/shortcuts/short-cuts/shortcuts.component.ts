@@ -1,8 +1,15 @@
 import { isPlatformBrowser } from '@angular/common';
-import { Component, HostListener, Inject, PLATFORM_ID } from '@angular/core';
+import {
+  Component,
+  Inject,
+  OnDestroy,
+  OnInit,
+  PLATFORM_ID,
+} from '@angular/core';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatIconModule } from '@angular/material/icon';
 import { Store } from '@ngrx/store';
+import { fromEvent, Subject, takeUntil } from 'rxjs';
 import { AppState } from 'src/app/store/app.state';
 import * as editorActions from '../../../../../../store/actions/editor.actions';
 import { MediaService } from '../../../service/media/media.service';
@@ -13,7 +20,7 @@ import { MediaService } from '../../../service/media/media.service';
   templateUrl: './shortcuts.component.html',
   styleUrl: './shortcuts.component.scss',
 })
-export class ShortcutsComponent {
+export class ShortcutsComponent implements OnDestroy, OnInit {
   isMac = false;
   currentTime = 0;
 
@@ -23,6 +30,8 @@ export class ShortcutsComponent {
   skip5SecondsKeys = '';
   jumpToWordKeys = '';
   jumpoToWordMouseKeys = '';
+
+  private destroy$$ = new Subject<void>();
 
   constructor(
     @Inject(PLATFORM_ID) private platformId: Object,
@@ -53,26 +62,33 @@ export class ShortcutsComponent {
     this.mediaService.currentTime$.pipe().subscribe((time) => {
       this.currentTime = Math.floor(time / 1000);
     });
+
+    fromEvent<KeyboardEvent>(window, 'keydown', { capture: true })
+      .pipe(takeUntil(this.destroy$$))
+      .subscribe((event) => {
+        console.log('Keyboard event - fromEvent:', event);
+        this.handleKeyboardEvent(event);
+      });
   }
 
-  @HostListener('window:keypress', ['$event'])
-  handleKeypressEvent(event: KeyboardEvent) {
-    console.log('handleKeypressEvent', event);
-    if (!this.isMac) {
-      console.log('Not a Mac');
-      if (event.key === 'Enter' && event.ctrlKey) {
-        console.log('enter key pressed with Ctrl');
-        event.preventDefault();
-      }
+  // @HostListener('window:keypress', ['$event'])
+  // handleKeypressEvent(event: KeyboardEvent) {
+  //   console.log('handleKeypressEvent', event);
+  //   if (!this.isMac) {
+  //     console.log('Not a Mac');
+  //     if (event.key === 'Enter' && event.ctrlKey) {
+  //       console.log('enter key pressed with Ctrl');
+  //       event.preventDefault();
+  //     }
 
-      if (event.key === 'Enter' && event.altKey && event.ctrlKey) {
-        console.log('enter key pressed with Alt and Ctrl');
-        event.preventDefault();
-      }
-    }
-  }
+  //     if (event.key === 'Enter' && event.altKey && event.ctrlKey) {
+  //       console.log('enter key pressed with Alt and Ctrl');
+  //       event.preventDefault();
+  //     }
+  //   }
+  // }
 
-  @HostListener('window:keydown', ['$event'])
+  // @HostListener('window:keydown', ['$event'])
   handleKeyboardEvent(event: KeyboardEvent) {
     if (this.isMac && !event.metaKey) return;
     if (!this.isMac && !event.ctrlKey) return;
@@ -161,5 +177,9 @@ export class ShortcutsComponent {
         this.mediaService.seekToTime(+start, false);
       }
     }
+  }
+
+  ngOnDestroy() {
+    this.destroy$$.next();
   }
 }

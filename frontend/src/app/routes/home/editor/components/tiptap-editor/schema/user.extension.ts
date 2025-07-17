@@ -344,7 +344,7 @@ export const UserExtension = (injector: Injector) =>
               );
             },
             handleKeyDown: (view, event) => {
-              console.log('handleKeyDown', event);
+              // console.log('handleKeyDown', event);
 
               // if (event.ctrlKey && event.key === 'Enter') {
               //   console.log('ctrl+enter');
