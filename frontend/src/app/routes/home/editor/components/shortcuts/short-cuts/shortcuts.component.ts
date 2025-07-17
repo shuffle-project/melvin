@@ -111,12 +111,10 @@ export class ShortcutsComponent {
           break;
         case 'Ctrl+Alt+enter':
           event.preventDefault();
-          event.stopPropagation();
           this.jumpToWordKeyboard();
           break;
         case 'Ctrl+enter':
           event.preventDefault();
-          event.stopPropagation();
           this.jumpToWordKeyboard();
           break;
       }

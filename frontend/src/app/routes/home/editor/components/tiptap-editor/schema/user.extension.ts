@@ -344,11 +344,17 @@ export const UserExtension = (injector: Injector) =>
               );
             },
             handleKeyDown: (view, event) => {
-              if (event.metaKey) {
-                // if (event.code === 'Enter') {
-                //   return false;
-                // }
+              if (event.ctrlKey && event.key === 'Enter') {
+                console.log('ctrl+enter');
+                return false;
+              }
 
+              if (event.ctrlKey && event.altKey && event.key === 'Enter') {
+                console.log('ctrl+alt+enter');
+                return false;
+              }
+
+              if (event.metaKey) {
                 return;
               }
 
