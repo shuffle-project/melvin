@@ -71,24 +71,6 @@ export class ShortcutsComponent implements OnDestroy, OnInit {
       });
   }
 
-  // @HostListener('window:keypress', ['$event'])
-  // handleKeypressEvent(event: KeyboardEvent) {
-  //   console.log('handleKeypressEvent', event);
-  //   if (!this.isMac) {
-  //     console.log('Not a Mac');
-  //     if (event.key === 'Enter' && event.ctrlKey) {
-  //       console.log('enter key pressed with Ctrl');
-  //       event.preventDefault();
-  //     }
-
-  //     if (event.key === 'Enter' && event.altKey && event.ctrlKey) {
-  //       console.log('enter key pressed with Alt and Ctrl');
-  //       event.preventDefault();
-  //     }
-  //   }
-  // }
-
-  // @HostListener('window:keydown', ['$event'])
   handleKeyboardEvent(event: KeyboardEvent) {
     if (this.isMac && !event.metaKey) return;
     if (!this.isMac && !event.ctrlKey) return;
