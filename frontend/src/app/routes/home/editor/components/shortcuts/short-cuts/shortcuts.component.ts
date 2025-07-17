@@ -18,7 +18,6 @@ export class ShortcutsComponent {
   currentTime = 0;
 
   // key combinations
-  toCurrentCaptionKeys = '';
   togglePlayPauseKeys = '';
   rewind5SecondsKeys = '';
   skip5SecondsKeys = '';
@@ -38,14 +37,12 @@ export class ShortcutsComponent {
     const localizedCtrl = $localize.locale?.includes('de') ? 'Strg' : 'Ctrl';
 
     if (this.isMac) {
-      this.toCurrentCaptionKeys = `${localizedCtrl} + Cmd + K`;
       this.togglePlayPauseKeys = `${localizedCtrl} + Cmd + P`;
       this.rewind5SecondsKeys = `${localizedCtrl} + Cmd +`;
       this.skip5SecondsKeys = `${localizedCtrl} + Cmd +`;
       this.jumpToWordKeys = `Cmd + Enter`;
       this.jumpoToWordMouseKeys = `Cmd +`;
     } else {
-      this.toCurrentCaptionKeys = `${localizedCtrl} + Alt + K`;
       this.togglePlayPauseKeys = `${localizedCtrl} + Alt + P`;
       this.rewind5SecondsKeys = `${localizedCtrl} + Alt +`;
       this.skip5SecondsKeys = `${localizedCtrl} + Alt +`;
@@ -71,12 +68,6 @@ export class ShortcutsComponent {
       keyCombination = keyCombination += event.key.toLowerCase();
 
       switch (keyCombination) {
-        case 'Ctrl+Cmd+k':
-          event.preventDefault();
-          document
-            .getElementsByClassName(`time-${this.currentTime}`)[0]
-            .scrollIntoView({ behavior: 'smooth', block: 'center' });
-          break;
         case 'Ctrl+Cmd+p':
           event.preventDefault();
           this.store.dispatch(editorActions.ePlayPauseUser());
@@ -106,12 +97,6 @@ export class ShortcutsComponent {
       keyCombination = keyCombination += event.key.toLowerCase();
 
       switch (keyCombination) {
-        case 'Ctrl+Alt+k':
-          event.preventDefault();
-          document
-            .getElementsByClassName(`time-${this.currentTime}`)[0]
-            .scrollIntoView({ behavior: 'smooth', block: 'center' });
-          break;
         case 'Ctrl+Alt+p':
           event.preventDefault();
           this.store.dispatch(editorActions.ePlayPauseUser());
