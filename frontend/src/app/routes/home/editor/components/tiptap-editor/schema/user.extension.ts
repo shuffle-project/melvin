@@ -345,6 +345,10 @@ export const UserExtension = (injector: Injector) =>
             },
             handleKeyDown: (view, event) => {
               if (event.metaKey) {
+                // if (event.code === 'Enter') {
+                //   return false;
+                // }
+
                 return;
               }
 

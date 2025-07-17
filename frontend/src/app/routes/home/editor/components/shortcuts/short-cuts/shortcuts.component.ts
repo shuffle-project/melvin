@@ -37,15 +37,15 @@ export class ShortcutsComponent {
     const localizedCtrl = $localize.locale?.includes('de') ? 'Strg' : 'Ctrl';
 
     if (this.isMac) {
-      this.togglePlayPauseKeys = `${localizedCtrl} + Cmd + P`;
-      this.rewind5SecondsKeys = `${localizedCtrl} + Cmd +`;
-      this.skip5SecondsKeys = `${localizedCtrl} + Cmd +`;
+      this.togglePlayPauseKeys = `${localizedCtrl} + Cmd + K`;
+      this.rewind5SecondsKeys = `${localizedCtrl} + Cmd + J`;
+      this.skip5SecondsKeys = `${localizedCtrl} + Cmd + L`;
       this.jumpToWordKeys = `Cmd + Enter`;
       this.jumpoToWordMouseKeys = `Cmd +`;
     } else {
-      this.togglePlayPauseKeys = `${localizedCtrl} + Alt + P`;
-      this.rewind5SecondsKeys = `${localizedCtrl} + Alt +`;
-      this.skip5SecondsKeys = `${localizedCtrl} + Alt +`;
+      this.togglePlayPauseKeys = `${localizedCtrl} + Alt + K`;
+      this.rewind5SecondsKeys = `${localizedCtrl} + Alt + J`;
+      this.skip5SecondsKeys = `${localizedCtrl} + Alt + L`;
       this.jumpToWordKeys = `${localizedCtrl} + Enter`;
       this.jumpoToWordMouseKeys = `${localizedCtrl} +`;
     }
@@ -68,15 +68,15 @@ export class ShortcutsComponent {
       keyCombination = keyCombination += event.key.toLowerCase();
 
       switch (keyCombination) {
-        case 'Ctrl+Cmd+p':
+        case 'Ctrl+Cmd+k':
           event.preventDefault();
           this.store.dispatch(editorActions.ePlayPauseUser());
           break;
-        case 'Ctrl+Cmd+arrowright':
+        case 'Ctrl+Cmd+l':
           event.preventDefault();
           this.mediaService.skipForward(5000);
           break;
-        case 'Ctrl+Cmd+arrowleft':
+        case 'Ctrl+Cmd+j':
           event.preventDefault();
           this.mediaService.skipBackward(5000);
           break;
@@ -97,24 +97,26 @@ export class ShortcutsComponent {
       keyCombination = keyCombination += event.key.toLowerCase();
 
       switch (keyCombination) {
-        case 'Ctrl+Alt+p':
+        case 'Ctrl+Alt+k':
           event.preventDefault();
           this.store.dispatch(editorActions.ePlayPauseUser());
           break;
-        case 'Ctrl+Alt+arrowright':
+        case 'Ctrl+Alt+l':
           event.preventDefault();
           this.mediaService.skipForward(5000);
           break;
-        case 'Ctrl+Alt+arrowleft':
+        case 'Ctrl+Alt+j':
           event.preventDefault();
           this.mediaService.skipBackward(5000);
           break;
         case 'Ctrl+Alt+enter':
           event.preventDefault();
+          event.stopPropagation();
           this.jumpToWordKeyboard();
           break;
         case 'Ctrl+enter':
           event.preventDefault();
+          event.stopPropagation();
           this.jumpToWordKeyboard();
           break;
       }
