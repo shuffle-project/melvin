@@ -41,6 +41,11 @@ export interface Environment {
   frontendBaseUrl: string;
   baseRestApi: string;
   features: EnabledFeatures;
-  melvinImprintURL?: string;
-  melvinPrivacyURL?: string;
+
+  deployConfig: {
+    footer: {
+      melvinImprintURL: string;
+      melvinPrivacyURL: string;
+    };
+  };
 }

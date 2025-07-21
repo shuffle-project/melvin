@@ -6,6 +6,14 @@ export const environment: Environment = {
   production: false,
   frontendBaseUrl: 'http://localhost:4200',
   baseRestApi: 'http://localhost:3000',
+
+  deployConfig: {
+    footer: {
+      melvinImprintURL: 'local-imprint-url',
+      melvinPrivacyURL: 'local-privacy-url',
+    },
+  },
+
   features: {
     // General
     notifications: true,

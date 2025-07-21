@@ -108,8 +108,6 @@ export class InviteCollaboratorsTabComponent implements OnInit, OnDestroy {
   }
 
   async ngOnInit(): Promise<void> {
-    console.log('test: ', environment.frontendBaseUrl);
-
     this.error = null;
 
     if (this.router.url.includes('/editor/')) {
