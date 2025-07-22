@@ -18,6 +18,5 @@ EXPOSE 80
 
 COPY nginx.sh /nginx.sh
 RUN chmod +x /nginx.sh
-ENTRYPOINT ["/nginx.sh"]
+ENTRYPOINT ["sh", "/nginx.sh"]
 # CMD ["sh", "nginx.sh"]
-CMD []
