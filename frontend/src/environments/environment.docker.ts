@@ -6,14 +6,6 @@ export const environment: Environment = {
   production: true,
   frontendBaseUrl: 'FRONTEND_BASE_URL',
   baseRestApi: 'BACKEND_BASE_URL',
-
-  deployConfig: {
-    footer: {
-      melvinImprintURL: 'MELVIN_IMPRINT_URL',
-      melvinPrivacyURL: 'MELVIN_PRIVACY_URL',
-    },
-  },
-
   features: {
     // General
     notifications: true,

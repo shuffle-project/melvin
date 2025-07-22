@@ -58,8 +58,10 @@ services:
     environment:
       - FRONTEND_BASE_URL=http://localhost:8080 # TODO: replace with your frontend URL
       - BACKEND_BASE_URL=https://localhost:3000 # TODO: replace with your backend URL
-      - MELVIN_IMPRINT_URL=your-imprint-url # TODO: replace
-      - MELVIN_PRIVACY_URL=your-privacy-url # TODO: replace
+      - MELVIN_IMPRINT_URL= # TODO: your default imprint URL
+      - MELVIN_PRIVACY_URL= # TODO: your default privacy URL
+      - MELVIN_DE_IMPRINT_URL= # TODO: optional, if you have a German imprint URL
+      - MELVIN_DE_PRIVACY_URL= # TODO: optional, if you have a German privacy URL
 
   asr:
     image: ghcr.io/shuffle-project/melvin-asr:${ASR_API_TAG}
