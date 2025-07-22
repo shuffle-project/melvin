@@ -16,4 +16,6 @@ COPY ./nginx.conf /etc/nginx/conf.d/default.conf
 COPY ./nginx.sh /nginx.sh
 EXPOSE 80
 
-CMD ["sh", "nginx.sh"]
+# CMD ["sh", "nginx.sh"]
+RUN chmod +x /nginx.sh
+ENTRYPOINT ["/nginx.sh"]
