@@ -62,6 +62,9 @@ services:
       - MELVIN_PRIVACY_URL= # TODO: your default privacy URL
       - MELVIN_DE_IMPRINT_URL= # TODO: optional, if you have a German imprint URL
       - MELVIN_DE_PRIVACY_URL= # TODO: optional, if you have a German privacy URL
+      - MELVIN_EN_IMPRINT_URL= # TODO: optional, if you have a English imprint URL
+      - MELVIN_EN_PRIVACY_URL= # TODO: optional, if you have a English privacy URL
+      # if no language specific imprint or privacy URL is set, the default URLs will be used
 
   asr:
     image: ghcr.io/shuffle-project/melvin-asr:${ASR_API_TAG}

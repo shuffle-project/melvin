@@ -2,3 +2,4 @@ data
 models
 *.DS_Store
 asr.config.yml
+docker-compose.frontend.yml
