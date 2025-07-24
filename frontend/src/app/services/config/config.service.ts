@@ -9,6 +9,7 @@ declare global {
 interface WindowEnvConfig {
   MELVIN_BACKEND_BASE_URL: string;
   MELVIN_FRONTEND_BASE_URL: string;
+  MELVIN_ACCESSIBILITY_STATEMENT_URL: string;
   MELVIN_IMPRINT_URL: string;
   MELVIN_PRIVACY_URL: string;
 }
@@ -45,5 +46,9 @@ export class ConfigService {
 
   getFrontendBaseUrl(): string {
     return this._config.get('MELVIN_FRONTEND_BASE_URL')!;
+  }
+
+  getAccessibilityStatementUrl(): string {
+    return this._config.get('MELVIN_ACCESSIBILITY_STATEMENT_URL') || '';
   }
 }

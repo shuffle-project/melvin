@@ -17,13 +17,13 @@
     <li>
       <a [routerLink]="privacyUrl">Datenschutzerklärung</a>
     </li>
-    }
-
+    } @if (accessibilityStatementUrl) {
     <li>
-      <a routerLink="/accessibility-statement"
+      <a [routerLink]="accessibilityStatementUrl"
         >Erklärung zur Barrierefreiheit</a
       >
     </li>
+    }
     <li>
       <a routerLink="/sign-language">Gebärdensprache (DGS)</a>
     </li>
@@ -54,10 +54,11 @@
   </ul>
   } @else {
   <ul>
+    @if (accessibilityStatementUrl) {
     <li>
-      <a routerLink="/accessibility-statement">Accessibility statement</a>
+      <a [routerLink]="accessibilityStatementUrl">Accessibility statement</a>
     </li>
-    @if ('guide' | featureEnabled) {
+    } @if ('guide' | featureEnabled) {
     <li>
       <a routerLink="/guide"> Best Practice </a>
     </li>

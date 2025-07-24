@@ -14,6 +14,7 @@ export class SitemapComponent {
 
   imprintUrl = this.configService.getImprintUrl();
   privacyUrl = this.configService.getPrivacyUrl();
+  accessibilityStatementUrl = this.configService.getAccessibilityStatementUrl();
 
   constructor(private configService: ConfigService) {}
 }

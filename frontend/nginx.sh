@@ -38,6 +38,7 @@ cat <<EOF > /usr/share/nginx/html/en-US/assets/env.js
 window.env = {
     MELVIN_IMPRINT_URL: "$(get_env_variable "imprint" "en")",
     MELVIN_PRIVACY_URL: "$(get_env_variable "privacy" "en")",
+    MELVIN_ACCESSIBILITY_STATEMENT_URL: "$(get_env_variable "accessibility_statement" "en")",
     MELVIN_BACKEND_BASE_URL: "$backend_base_url",
     MELVIN_FRONTEND_BASE_URL: "$frontend_base_url",
 };
@@ -47,6 +48,7 @@ cat <<EOF > /usr/share/nginx/html/de-DE/assets/env.js
 window.env = {
     MELVIN_IMPRINT_URL: "$(get_env_variable "imprint" "de")",
     MELVIN_PRIVACY_URL: "$(get_env_variable "privacy" "de")",
+    MELVIN_ACCESSIBILITY_STATEMENT_URL: "$(get_env_variable "accessibility_statement" "de")",
     MELVIN_BACKEND_BASE_URL: "$backend_base_url",
     MELVIN_FRONTEND_BASE_URL: "$frontend_base_url",
 };

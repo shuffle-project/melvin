@@ -59,21 +59,19 @@
     <div class="legal-wrapper">
       <h3 i18n="@@landingFooterLegalHeader">Legal</h3>
       <ul>
+        @if (privacyUrl) {
         <li>
-          @if (privacyUrl) {
           <a [routerLink]="privacyUrl" i18n="@@landingFooterPrivacyLinkLabel">
             Privacy
           </a>
-          }
         </li>
-
+        } @if (imprintUrl) {
         <li>
-          @if (imprintUrl) {
           <a [routerLink]="imprintUrl" i18n="@@landingFooterImprintLinkLabel">
             Imprint
           </a>
-          }
         </li>
+        }
       </ul>
     </div>
 
@@ -121,15 +119,16 @@
     <div class="accessibility-wrapper">
       <h3 i18n="@@landingFooterAccessibilityHeader">Accessibility</h3>
       <ul>
+        @if(accessibilityStatementUrl) {
         <li>
           <a
-            routerLink="/accessibility-statement"
+            [routerLink]="accessibilityStatementUrl"
             i18n="@@landingFooterAccessibilityStatementLinkLabel"
           >
             Accessibility statement
           </a>
         </li>
-        @if (locale?.includes('de')) {
+        } @if (locale?.includes('de')) {
         <li>
           <a routerLink="/sign-language"> Gebärdensprache (DGS) </a>
         </li>

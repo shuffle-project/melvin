@@ -20,6 +20,7 @@ export class LandingFooterComponent {
 
   imprintUrl = this.configService.getImprintUrl();
   privacyUrl = this.configService.getPrivacyUrl();
+  accessibilityStatementUrl = this.configService.getAccessibilityStatementUrl();
 
   constructor(private api: ApiService, private configService: ConfigService) {}
 
