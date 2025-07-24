@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { EnvBackupGuard } from 'src/app/guards/env-backup.guard';
 import { AccessibilityStatementComponent } from './components/accessibility-statement/accessibility-statement.component';
 import { GuideComponent } from './components/guide/guide.component';
 import { ImprintComponent } from './components/imprint/imprint.component';
@@ -23,11 +24,13 @@ export const LandingRoutes: Routes = [
       },
       {
         path: 'privacy',
+        canActivate: [EnvBackupGuard],
         component: PrivacyComponent,
         title: $localize`:@@privacyPageTitle:Privacy - Melvin`,
       },
       {
         path: 'imprint',
+        canActivate: [EnvBackupGuard],
         component: ImprintComponent,
         title: $localize`:@@imprintPageTitle:Imprint - Melvin`,
       },

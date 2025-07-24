@@ -60,15 +60,24 @@
       <h3 i18n="@@landingFooterLegalHeader">Legal</h3>
       <ul>
         <li>
-          <a routerLink="/privacy" i18n="@@landingFooterPrivacyLinkLabel">
+          @if (privacyUrl) {
+          <a [routerLink]="privacyUrl" i18n="@@landingFooterPrivacyLinkLabel">
             Privacy
           </a>
+          } @else {
+          <span>Privacy (ToDo)</span>
+          }
         </li>
 
         <li>
-          <a routerLink="/imprint" i18n="@@landingFooterImprintLinkLabel">
+          @if (imprintUrl) {
+
+          <a [routerLink]="imprintUrl" i18n="@@landingFooterImprintLinkLabel">
             Imprint
           </a>
+          } @else {
+          <span>Imprint (ToDo)</span>
+          }
         </li>
       </ul>
     </div>

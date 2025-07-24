@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { firstValueFrom, retry, Subject, takeUntil } from 'rxjs';
 import { webSocket, WebSocketSubject } from 'rxjs/webSocket';
-import { environment } from '../../../environments/environment';
 import { CustomLogger } from '../../classes/logger.class';
 import * as authActions from '../../store/actions/auth.actions';
 import * as captionActions from '../../store/actions/captions.actions';
@@ -11,6 +10,7 @@ import * as notificationActions from '../../store/actions/notifications.actions'
 import * as projectActions from '../../store/actions/projects.actions';
 import * as transcriptionActions from '../../store/actions/transcriptions.actions';
 import * as authSelectors from '../../store/selectors/auth.selector';
+import { ConfigService } from '../config/config.service';
 import {
   ClientToServerEvents,
   EventNames,
@@ -30,12 +30,14 @@ export class WSService {
 
   private logger = new CustomLogger('WS SERVICE');
 
-  constructor(private store: Store) {
+  constructor(private store: Store, private configService: ConfigService) {
     this.createSocket();
   }
 
   public getWebSocketURL(): string {
-    const [scheme, basename] = environment.baseRestApi.split('://');
+    const [scheme, basename] = this.configService
+      .getBackendBaseUrl()
+      .split('://');
     const protocol = scheme === 'https' ? 'wss' : 'ws';
     const [hostname, ...elements] = basename.split('/');
     return `${protocol}://${hostname}`;

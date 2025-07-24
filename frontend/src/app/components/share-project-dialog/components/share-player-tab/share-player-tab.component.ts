@@ -7,7 +7,7 @@ import { lastValueFrom, map } from 'rxjs';
 import { AlertService } from 'src/app/services/alert/alert.service';
 import { ApiService } from 'src/app/services/api/api.service';
 import { ProjectEntity } from 'src/app/services/api/entities/project.entity';
-import { environment } from 'src/environments/environment';
+import { ConfigService } from 'src/app/services/config/config.service';
 
 @Component({
   selector: 'app-share-player-tab',
@@ -20,7 +20,8 @@ export class SharePlayerTabComponent {
 
   viewerToken = signal<string>('');
   viewerLink = computed(
-    () => `${environment.frontendBaseUrl}/view/${this.viewerToken()}`
+    () =>
+      `${this.configService.getFrontendBaseUrl()}/view/${this.viewerToken()}`
   );
 
   width = 650;
@@ -32,7 +33,8 @@ export class SharePlayerTabComponent {
   constructor(
     private apiService: ApiService,
     private clipboard: Clipboard,
-    private alertService: AlertService
+    private alertService: AlertService,
+    private configService: ConfigService
   ) {}
 
   ngOnInit() {

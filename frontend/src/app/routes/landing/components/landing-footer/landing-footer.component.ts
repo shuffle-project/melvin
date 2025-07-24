@@ -16,27 +16,12 @@ export class LandingFooterComponent {
   locale = $localize.locale;
   footerConfigMap!: Map<string, string>;
 
-  constructor(private api: ApiService, private configService: ConfigService) {
-    // TODO: Es reicht nicht aus zu checken, ob es eine URL ist.
-    // TODO: Darüber hinaus prüfen, ob das unsere Melvin Instanz ist? Oder eine zusätzliche Variable?
-    // TODO: Reicht es aus nur einen Link anzugeben, für ein deutschen Impressum? Wenn man dazu noch eine englische Version braucht
-    // TODO: Zum Beispiel haben wir beim Accessibility Statement zwei Versionen
-    // TODO: Wird ein Warning im Terminal überhaupt angezeigt, wenn man docker compose mit "detach" startet?
-    // TODO: Variablen in .env speichern und dann in docker-compose.yml referenzieren?
-    // this.footerConfigMap = new Map(
-    //   Object.entries(environment.deployConfig.footer)
-    // );
-    // this.footerConfigMap.forEach((value, key) => {
-    //   try {
-    //     new URL(value);
-    //   } catch (_) {
-    //     this.footerConfigMap.delete(key);
-    //     console.warn(
-    //       `${key}: Invalid URL "${value}". Check your docker-compose.yml `
-    //     );
-    //   }
-    // });
-  }
+  emptyString = '';
+
+  imprintUrl = this.configService.getImprintUrl();
+  privacyUrl = this.configService.getPrivacyUrl();
+
+  constructor(private api: ApiService, private configService: ConfigService) {}
 
   async onPopulate() {
     this.api.populate().subscribe();

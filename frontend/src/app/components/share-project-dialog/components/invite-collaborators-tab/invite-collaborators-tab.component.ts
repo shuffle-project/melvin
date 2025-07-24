@@ -45,9 +45,9 @@ import { AlertService } from 'src/app/services/alert/alert.service';
 import { ApiService } from 'src/app/services/api/api.service';
 import { ProjectEntity } from 'src/app/services/api/entities/project.entity';
 import { UserEntity } from 'src/app/services/api/entities/user.entity';
-import { environment } from 'src/environments/environment';
 // import * as projectsActions from '../../../../store/actions/projects.actions';
 import { Router } from '@angular/router';
+import { ConfigService } from 'src/app/services/config/config.service';
 import * as authSelectors from '../../../../store/selectors/auth.selector';
 import * as editorSelectors from '../../../../store/selectors/editor.selector';
 import * as projectSelectors from '../../../../store/selectors/projects.selector';
@@ -98,13 +98,16 @@ export class InviteCollaboratorsTabComponent implements OnInit, OnDestroy {
     private alertService: AlertService,
     private clipboard: Clipboard,
     private store: Store,
-    private router: Router
+    private router: Router,
+    private configService: ConfigService
   ) {
     this.authUser$ = this.store.select(authSelectors.selectUser);
   }
 
   inviteLink(): string {
-    return `${environment.frontendBaseUrl}/invite/${this.inviteToken}`;
+    return `${this.configService.getFrontendBaseUrl()}/invite/${
+      this.inviteToken
+    }`;
   }
 
   async ngOnInit(): Promise<void> {

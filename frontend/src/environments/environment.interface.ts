@@ -38,7 +38,6 @@ export interface EnabledFeatures {
 
 export interface Environment {
   production: boolean;
-  frontendBaseUrl: string;
-  baseRestApi: string;
+  env: 'test' | 'local' | 'docker';
   features: EnabledFeatures;
 }

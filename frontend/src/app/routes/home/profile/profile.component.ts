@@ -13,8 +13,8 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { DeleteConfirmationService } from 'src/app/components/delete-confirmation-dialog/delete-confirmation.service';
 import { ApiService } from 'src/app/services/api/api.service';
+import { ConfigService } from 'src/app/services/config/config.service';
 import { logout } from 'src/app/store/actions/auth.actions';
-import { environment } from '../../../../environments/environment';
 import { HeaderComponent } from '../../../components/header/header.component';
 import { AuthUser } from '../../../interfaces/auth.interfaces';
 import * as authSelectors from '../../../store/selectors/auth.selector';
@@ -52,12 +52,15 @@ export class ProfileComponent implements OnInit {
     private dialog: MatDialog,
     private confirmService: DeleteConfirmationService,
     private api: ApiService,
-    private router: Router
+    private router: Router,
+    private configService: ConfigService
   ) {}
 
   onLanguageSwitched(event: MatSelectChange) {
     // TODO
-    document.location.href = `${environment.frontendBaseUrl}/${event.value}/home/profile`;
+    document.location.href = `${this.configService.getFrontendBaseUrl()}/${
+      event.value
+    }/home/profile`;
   }
 
   ngOnInit() {
