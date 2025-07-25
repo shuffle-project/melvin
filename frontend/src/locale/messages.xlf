@@ -2150,6 +2150,15 @@
       <trans-unit id="shortcutsTogglePlayPause" datatype="html">
         <source>Toggle Play / Pause</source>
       </trans-unit>
+      <trans-unit id="landingMainLoggedInHeading" datatype="html">
+        <source>Logged in</source>
+      </trans-unit>
+      <trans-unit id="landingMainLogInHeading" datatype="html">
+        <source>Login</source>
+      </trans-unit>
+      <trans-unit id="landingMainToTheProjectsButton" datatype="html">
+        <source>To the projects</source>
+      </trans-unit>
     </body>
   </file>
 </xliff>
