@@ -9,6 +9,7 @@ import { LetDirective, PushPipe } from '@ngrx/component';
 import { Store } from '@ngrx/store';
 import { LogoComponent } from 'src/app/components/logo/logo.component';
 import { FeatureEnabledPipe } from 'src/app/pipes/feature-enabled-pipe/feature-enabled.pipe';
+import { ConfigService } from 'src/app/services/config/config.service';
 import { ColorTheme } from 'src/app/store/reducers/config.reducer';
 import { environment } from 'src/environments/environment';
 import * as configActions from '../../../../store/actions/config.actions';
@@ -38,9 +39,15 @@ export class LandingHeaderComponent {
   public colorTheme$ = this.store.select(configSelector.colorTheme);
   public isLoggedIn$ = this.store.select(authSelector.selectIsLoggedIn);
 
+  disableLandingPage = this.configService.getDisableLandingPage();
+
   feedbackLink = environment.features.feedbackLink;
 
-  constructor(private dialog: MatDialog, private store: Store) {
+  constructor(
+    private dialog: MatDialog,
+    private store: Store,
+    private configService: ConfigService
+  ) {
     this.colorTheme$.subscribe((colorTheme) => {
       console.log('colorTheme', colorTheme);
     });

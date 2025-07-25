@@ -34,6 +34,8 @@ get_base_url () {
 backend_base_url="$(get_base_url "backend")" 
 frontend_base_url="$(get_base_url "frontend")"
 
+
+
 cat <<EOF > /usr/share/nginx/html/en-US/assets/env.js
 window.env = {
     MELVIN_IMPRINT_URL: "$(get_env_variable "imprint" "en")",
@@ -41,6 +43,8 @@ window.env = {
     MELVIN_ACCESSIBILITY_STATEMENT_URL: "$(get_env_variable "accessibility_statement" "en")",
     MELVIN_BACKEND_BASE_URL: "$backend_base_url",
     MELVIN_FRONTEND_BASE_URL: "$frontend_base_url",
+    MELVIN_DISABLE_LANDING_PAGE: "$MELVIN_DISABLE_LANDING_PAGE",
+    MELVIN_DISABLE_TUTORIAL_VIDEOS: "$MELVIN_DISABLE_TUTORIAL_VIDEOS"
 };
 EOF
 
@@ -51,6 +55,8 @@ window.env = {
     MELVIN_ACCESSIBILITY_STATEMENT_URL: "$(get_env_variable "accessibility_statement" "de")",
     MELVIN_BACKEND_BASE_URL: "$backend_base_url",
     MELVIN_FRONTEND_BASE_URL: "$frontend_base_url",
+    MELVIN_DISABLE_LANDING_PAGE: "$MELVIN_DISABLE_LANDING_PAGE",
+    MELVIN_DISABLE_TUTORIAL_VIDEOS: "$MELVIN_DISABLE_TUTORIAL_VIDEOS"
 };
 EOF
 

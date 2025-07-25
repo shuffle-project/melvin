@@ -3,6 +3,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTabsModule } from '@angular/material/tabs';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { ConfigService } from 'src/app/services/config/config.service';
 
 @Component({
   selector: 'app-tutorial',
@@ -11,20 +12,11 @@ import { ActivatedRoute, Router, RouterLink } from '@angular/router';
   styleUrl: './tutorial.component.scss',
 })
 export class TutorialComponent {
-  constructor(private router: Router, private route: ActivatedRoute) {}
+  disableTutorialVideos = this.configService.getDisableTutorialVideos();
 
-  // ngOnInit(): void {
-  //   this.router.events.subscribe(() => {
-  //     const fragment = this.route.snapshot.fragment;
-  //     if (fragment) {
-  //       console.log(1);
-  //       const element = document.getElementById(fragment);
-  //       if (element) {
-  //         console.log(2);
-
-  //         element.scrollIntoView({ behavior: 'smooth', block: 'center' });
-  //       }
-  //     }
-  //   });
-  // }
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute,
+    private configService: ConfigService
+  ) {}
 }

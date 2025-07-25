@@ -12,6 +12,8 @@ interface WindowEnvConfig {
   MELVIN_ACCESSIBILITY_STATEMENT_URL: string;
   MELVIN_IMPRINT_URL: string;
   MELVIN_PRIVACY_URL: string;
+  MELVIN_DISABLE_LANDING_PAGE: 'true' | 'false';
+  MELVIN_DISABLE_TUTORIAL_VIDEOS: 'true' | 'false';
 }
 
 export type EnvConfigKeys = keyof WindowEnvConfig;
@@ -33,22 +35,34 @@ export class ConfigService {
   }
 
   getPrivacyUrl(): string {
-    return this._config.get('MELVIN_PRIVACY_URL') || '';
+    return (this._config.get('MELVIN_PRIVACY_URL') as string) || '';
   }
 
   getImprintUrl(): string {
-    return this._config.get('MELVIN_IMPRINT_URL') || '';
+    return (this._config.get('MELVIN_IMPRINT_URL') as string) || '';
   }
 
   getBackendBaseUrl(): string {
-    return this._config.get('MELVIN_BACKEND_BASE_URL')!;
+    return (this._config.get('MELVIN_BACKEND_BASE_URL') as string) || '';
   }
 
   getFrontendBaseUrl(): string {
-    return this._config.get('MELVIN_FRONTEND_BASE_URL')!;
+    return (this._config.get('MELVIN_FRONTEND_BASE_URL') as string) || '';
   }
 
   getAccessibilityStatementUrl(): string {
-    return this._config.get('MELVIN_ACCESSIBILITY_STATEMENT_URL') || '';
+    return (
+      (this._config.get('MELVIN_ACCESSIBILITY_STATEMENT_URL') as string) || ''
+    );
+  }
+
+  getDisableLandingPage(): boolean {
+    return this._config.get('MELVIN_DISABLE_LANDING_PAGE') === 'true' || false;
+  }
+
+  getDisableTutorialVideos(): boolean {
+    return (
+      this._config.get('MELVIN_DISABLE_TUTORIAL_VIDEOS') === 'true' || false
+    );
   }
 }
