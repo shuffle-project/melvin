@@ -22,9 +22,13 @@ get_env_variable () {
 get_base_url () {
     local base_type="$1"
     local env_var="MELVIN_${base_type^^}_BASE_URL"
+    local deprecated_var="${base_type^^}_BASE_URL"
 
     if [[ -n "${!env_var:-}" ]]; then
         echo "${!env_var:-}"
+    elif [[ -n "${!deprecated_var:-}" ]]; then
+        echo "${!deprecated_var:-}"
+        echo "Warning: '$deprecated_var' is deprecated! Please use '$env_var' instead." >&2
     else
         echo "ERROR: Required environment variable '$env_var' is not set!" >&2
         exit 1 # Exit with error

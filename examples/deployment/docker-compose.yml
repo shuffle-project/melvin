@@ -56,8 +56,8 @@ services:
     ports:
       - 127.0.0.1:8080:80
     environment:
-      - FRONTEND_BASE_URL=http://localhost:8080 # TODO: replace with your frontend URL
-      - BACKEND_BASE_URL=https://localhost:3000 # TODO: replace with your backend URL
+      - MELVIN_FRONTEND_BASE_URL=http://localhost:8080 # TODO: replace with your frontend URL
+      - MELVIN_BACKEND_BASE_URL=https://localhost:3000 # TODO: replace with your backend URL
       - MELVIN_DISABLE_LANDING_PAGE=false # TODO: set to true if you want to disable the landing page
       - MELVIN_DISABLE_TUTORIAL_VIDEOS=false # TODO: set to true if you want to disable the tutorial videos
       - MELVIN_IMPRINT_URL= # TODO: your default imprint URL
