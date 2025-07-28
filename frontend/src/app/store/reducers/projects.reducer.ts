@@ -95,6 +95,15 @@ export const projectsReducer = createReducer(
       projects = projects.filter((proj) => proj.status !== ProjectStatus.LIVE);
     }
 
+    // TODO discuss if the projects updatedAt should be updated in front or backend
+    projects = projects.map((project) => {
+      const allDates = [
+        project.updatedAt,
+        ...project.transcriptions.map((t) => t.updatedAt),
+      ];
+      return { ...project, updatedAt: allDates.sort().reverse()[0] };
+    });
+
     return {
       ...state,
       projectsList: [...projects],

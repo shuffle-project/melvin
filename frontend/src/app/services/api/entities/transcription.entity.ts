@@ -20,6 +20,8 @@ export interface ShortTranscriptionEntity {
   id: string;
   language: string;
   status: TranscriptionStatus;
+  createdAt: string;
+  updatedAt: string;
 }
 
 export interface SpeakerEntity {

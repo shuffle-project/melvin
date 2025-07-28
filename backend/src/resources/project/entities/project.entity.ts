@@ -18,6 +18,12 @@ export class ProjectTranscriptionEntity extends PickType(Transcription, [
 ] as const) {
   @Expose()
   language: string;
+
+  @Expose()
+  createdAt?: Date;
+
+  @Expose()
+  updatedAt: Date;
 }
 
 // export class VideoLinkEntity {
