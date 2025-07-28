@@ -67,16 +67,14 @@ import { RealApiService } from './real-api.service';
 
 @Injectable({
   providedIn: 'root',
-  useClass: !environment.baseRestApi ? FakeApiService : RealApiService,
+  useClass: environment.env === 'test' ? FakeApiService : RealApiService,
 })
 export abstract class ApiService {
   // populate
   abstract populate(): Observable<void>;
-
   abstract getConfig(): Observable<ConfigEntity>;
 
   // auth
-
   abstract login(
     email: string,
     password: string

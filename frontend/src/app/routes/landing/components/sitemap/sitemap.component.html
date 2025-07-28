@@ -13,25 +13,25 @@
     <li>
       <a routerLink="/guide"> Best Practice </a>
     </li>
-    }
-
+    } @if (privacyUrl) {
     <li>
-      <a routerLink="/privacy">Datenschutzerklärung</a>
+      <a [routerLink]="privacyUrl">Datenschutzerklärung</a>
     </li>
-
+    } @if (accessibilityStatementUrl) {
     <li>
-      <a routerLink="/accessibility-statement"
+      <a [routerLink]="accessibilityStatementUrl"
         >Erklärung zur Barrierefreiheit</a
       >
     </li>
+    }
     <li>
       <a routerLink="/sign-language">Gebärdensprache (DGS)</a>
     </li>
-
+    @if(imprintUrl) {
     <li>
-      <a routerLink="/imprint">Impressum</a>
+      <a [routerLink]="imprintUrl">Impressum</a>
     </li>
-    @if (('installation' | featureEnabled)) {
+    } @if (('installation' | featureEnabled)) {
     <li>
       <a routerLink="/installation"> Installation </a>
     </li>
@@ -54,25 +54,28 @@
   </ul>
   } @else {
   <ul>
+    @if (accessibilityStatementUrl) {
     <li>
-      <a routerLink="/accessibility-statement">Accessibility statement</a>
+      <a [routerLink]="accessibilityStatementUrl">Accessibility statement</a>
     </li>
-    @if ('guide' | featureEnabled) {
+    } @if ('guide' | featureEnabled) {
     <li>
       <a routerLink="/guide"> Best Practice </a>
     </li>
-    }
+    } @if (imprintUrl) {
     <li>
-      <a routerLink="/imprint">Imprint</a>
+      <a [routerLink]="imprintUrl">Imprint</a>
     </li>
-    @if (('installation' | featureEnabled)) {
+    } @if (('installation' | featureEnabled)) {
     <li>
       <a routerLink="/installation"> Installation </a>
     </li>
-    }
+    } @if (privacyUrl) {
     <li>
-      <a routerLink="/privacy">Privacy</a>
+      <a [routerLink]="privacyUrl">Privacy</a>
     </li>
+    }
+
     <li>
       <a routerLink="/">Startpage</a>
     </li>

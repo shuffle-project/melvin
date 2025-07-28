@@ -4,8 +4,7 @@ import { Environment } from './environment.interface';
 
 export const environment: Environment = {
   production: false,
-  frontendBaseUrl: 'http://localhost:4200',
-  baseRestApi: 'http://localhost:3000',
+  env: 'local',
   features: {
     // General
     notifications: true,

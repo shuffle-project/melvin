@@ -1,8 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
+import { LetDirective, PushPipe } from '@ngrx/component';
 import { Store } from '@ngrx/store';
 import { firstValueFrom, map, take, tap } from 'rxjs';
-import { environment } from '../../../../../../environments/environment';
+import { ConfigService } from 'src/app/services/config/config.service';
 import { ApiService } from '../../../../../services/api/api.service';
 import {
   ProjectEntity,
@@ -11,19 +13,12 @@ import {
 import { AppState } from '../../../../../store/app.state';
 import * as authSelectors from '../../../../../store/selectors/auth.selector';
 import * as editorSelectors from '../../../../../store/selectors/editor.selector';
-import { MatButtonModule } from '@angular/material/button';
-import { LetDirective, PushPipe } from '@ngrx/component';
-
 
 @Component({
-    selector: 'app-user-test-controls',
-    templateUrl: './user-test-controls.component.html',
-    styleUrls: ['./user-test-controls.component.scss'],
-    imports: [
-        LetDirective,
-        MatButtonModule,
-        PushPipe
-    ]
+  selector: 'app-user-test-controls',
+  templateUrl: './user-test-controls.component.html',
+  styleUrls: ['./user-test-controls.component.scss'],
+  imports: [LetDirective, MatButtonModule, PushPipe],
 })
 export class UserTestControlsComponent implements OnInit {
   public show$ = this.store
@@ -40,7 +35,8 @@ export class UserTestControlsComponent implements OnInit {
   constructor(
     private store: Store<AppState>,
     private apiService: ApiService,
-    private httpClient: HttpClient
+    private httpClient: HttpClient,
+    private configService: ConfigService
   ) {}
 
   ngOnInit(): void {}
@@ -64,9 +60,14 @@ export class UserTestControlsComponent implements OnInit {
     const project = (await firstValueFrom(this.project$)) as ProjectEntity;
 
     this.httpClient
-      .get(`${environment.baseRestApi}/user-test/download/${project.id}`, {
-        responseType: 'blob' as 'json',
-      })
+      .get(
+        `${this.configService.getBackendBaseUrl()}/user-test/download/${
+          project.id
+        }`,
+        {
+          responseType: 'blob' as 'json',
+        }
+      )
       .pipe(take(1))
       .subscribe((data: any) => {
         const blob = new Blob([data], { type: 'application/json' });

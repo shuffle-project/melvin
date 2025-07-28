@@ -4,8 +4,7 @@ const env: any = (window as any)['env'];
 
 export const environment: Environment = {
   production: true,
-  frontendBaseUrl: 'FRONTEND_BASE_URL',
-  baseRestApi: 'BACKEND_BASE_URL',
+  env: 'docker',
   features: {
     // General
     notifications: true,

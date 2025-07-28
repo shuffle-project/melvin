@@ -95,6 +95,7 @@
     Record Videos in the Browser
   </h3>
   <mat-tab-group>
+    @if (!disableTutorialVideos) {
     <mat-tab label="Video">
       <iframe
         width="800"
@@ -106,6 +107,7 @@
         referrerpolicy="strict-origin-when-cross-origin"
       ></iframe>
     </mat-tab>
+    }
     <mat-tab label="Text">
       <ol>
         <li>
@@ -205,6 +207,7 @@
 
   <h3 id="upload" i18n="@@tutorialUploadHeading">Upload Existing Videos</h3>
   <mat-tab-group>
+    @if (!disableTutorialVideos) {
     <mat-tab label="Video">
       <iframe
         width="800"
@@ -216,6 +219,7 @@
         referrerpolicy="strict-origin-when-cross-origin"
       ></iframe>
     </mat-tab>
+    }
     <mat-tab label="Text">
       <ol>
         <li>
@@ -283,6 +287,7 @@
 
   <h2 id="edit-project" i18n="@@tutorialEditHeading">Edit a Project</h2>
   <mat-tab-group>
+    @if (!disableTutorialVideos) {
     <mat-tab label="Video">
       <iframe
         width="800"
@@ -294,6 +299,7 @@
         referrerpolicy="strict-origin-when-cross-origin"
       ></iframe>
     </mat-tab>
+    }
     <mat-tab label="Text">
       <ol>
         <li>
@@ -356,6 +362,7 @@
     Collaborative Editing
   </h3>
   <mat-tab-group>
+    @if (!disableTutorialVideos) {
     <mat-tab label="Video">
       <iframe
         width="800"
@@ -367,6 +374,7 @@
         referrerpolicy="strict-origin-when-cross-origin"
       ></iframe>
     </mat-tab>
+    }
     <mat-tab label="Text">
       <ol>
         <li>
@@ -416,6 +424,7 @@
     Add Additional Transcripts
   </h3>
   <mat-tab-group>
+    @if (!disableTutorialVideos) {
     <mat-tab label="Video">
       <iframe
         width="800"
@@ -427,6 +436,7 @@
         referrerpolicy="strict-origin-when-cross-origin"
       ></iframe>
     </mat-tab>
+    }
     <mat-tab label="Text">
       <p i18n="@@tutorialAddTranscriptIntro">
         A transcript in the video's primary language is automatically created
@@ -481,6 +491,7 @@
 
   <h2 id="player" i18n="@@tutorialPlayerHeading">Player</h2>
   <mat-tab-group>
+    @if (!disableTutorialVideos) {
     <mat-tab label="Video">
       <iframe
         width="800"
@@ -492,6 +503,7 @@
         referrerpolicy="strict-origin-when-cross-origin"
       ></iframe>
     </mat-tab>
+    }
     <mat-tab label="Text">
       <ol>
         <li>
@@ -555,6 +567,7 @@
 
   <h3 id="share-video" i18n="@@tutorialShareVideoHeading">Share a Video</h3>
   <mat-tab-group>
+    @if (!disableTutorialVideos) {
     <mat-tab label="Video">
       <iframe
         width="800"
@@ -566,6 +579,7 @@
         referrerpolicy="strict-origin-when-cross-origin"
       ></iframe>
     </mat-tab>
+    }
     <mat-tab label="Text">
       <p i18n="@@tutorialShareVideoOption1Intro">
         You can easily share your videos using the integrated, accessible

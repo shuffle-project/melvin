@@ -1,3 +1,26 @@
+@if(disableLandingPage) { @if (isLoggedIn$ | ngrxPush) {
+<div class="login-wrapper">
+  <div class="login">
+    <h1 i18n="@@landingMainLoggedInHeading">Logged in</h1>
+    <a
+      class="to-projects-link"
+      mat-flat-button
+      routerLink="/home/projects"
+      i18n="@@landingMainToTheProjectsButton"
+      >To the projects</a
+    >
+  </div>
+</div>
+
+} @else {
+<div class="login-wrapper">
+  <div class="login">
+    <h1 i18n="@@landingMainLogInHeading">Login</h1>
+    <app-login />
+  </div>
+</div>
+} } @else {
+
 <div class="title-wrapper content-width">
   <h1>
     <span i18n="@@landingMainHeadingAccessibleVideos"
@@ -116,3 +139,4 @@
     </p>
   </div>
 </aside>
+}

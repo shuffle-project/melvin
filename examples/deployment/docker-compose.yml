@@ -56,8 +56,20 @@ services:
     ports:
       - 127.0.0.1:8080:80
     environment:
-      - FRONTEND_BASE_URL=http://localhost:8080 # TODO: replace with your frontend URL
-      - BACKEND_BASE_URL=https://localhost:3000 # TODO: replace with your backend URL
+      - MELVIN_FRONTEND_BASE_URL=http://localhost:8080 # TODO: replace with your frontend URL
+      - MELVIN_BACKEND_BASE_URL=https://localhost:3000 # TODO: replace with your backend URL
+      - MELVIN_DISABLE_LANDING_PAGE=false # TODO: set to true if you want to disable the landing page
+      - MELVIN_DISABLE_TUTORIAL_VIDEOS=false # TODO: set to true if you want to disable the tutorial videos
+      - MELVIN_IMPRINT_URL= # TODO: your default imprint URL
+      - MELVIN_PRIVACY_URL= # TODO: your default privacy URL
+      - MELVIN_ACCESSIBILITY_STATEMENT_URL= # TODO: your default accessibility statement URL
+      - MELVIN_DE_IMPRINT_URL= # TODO: optional, if you have a German imprint URL
+      - MELVIN_DE_PRIVACY_URL= # TODO: optional, if you have a German privacy URL
+      - MELVIN_DE_ACCESSIBILITY_STATEMENT_URL= # TODO: optional, if you have a German accessibility statement URL
+      - MELVIN_EN_IMPRINT_URL= # TODO: optional, if you have a English imprint URL
+      - MELVIN_EN_PRIVACY_URL= # TODO: optional, if you have a English privacy URL
+      - MELVIN_EN_ACCESSIBILITY_STATEMENT_URL= # TODO: optional, if you have a English accessibility statement URL
+      # if no language specific imprint or privacy URL is set, the default URLs will be used
 
   asr:
     image: ghcr.io/shuffle-project/melvin-asr:${ASR_API_TAG}

@@ -2866,6 +2866,18 @@
         <source>Jump to Word (Mouse)</source>
         <target state="final">Zum Wort springen (Maus)</target>
       </trans-unit>
+      <trans-unit id="landingMainLoggedInHeading" datatype="html">
+        <source>Logged in</source>
+        <target state="final">Angemeldet</target>
+      </trans-unit>
+      <trans-unit id="landingMainToTheProjectsButton" datatype="html">
+        <source>To the projects</source>
+        <target state="final">Zu den Projekten</target>
+      </trans-unit>
+      <trans-unit id="landingMainLogInHeading" datatype="html">
+        <source>Login</source>
+        <target state="final">Anmelden</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

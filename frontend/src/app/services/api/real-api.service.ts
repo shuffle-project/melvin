@@ -9,9 +9,9 @@ import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { UserEntity } from 'src/app/services/api/entities/user.entity';
-import { environment } from 'src/environments/environment';
 import * as authSelectors from '../../store/selectors/auth.selector';
 import * as viewerSelector from '../../store/selectors/viewer.selector';
+import { ConfigService } from '../config/config.service';
 import { UploadDto } from '../upload/upload.interfaces';
 import { ApiService } from './api.service';
 import { ChangePasswordDto } from './dto/auth.dto';
@@ -101,7 +101,7 @@ export interface CustomRequestOptions extends RequestOptions {
   providedIn: 'root',
 })
 export class RealApiService implements ApiService {
-  private baseUrl: string = environment.baseRestApi;
+  private baseUrl: string = this.configService.getBackendBaseUrl();
 
   private authToken$ = this.store.select(authSelectors.selectToken);
   private authToken!: string | null;
@@ -109,7 +109,11 @@ export class RealApiService implements ApiService {
   private viewerToken$ = this.store.select(viewerSelector.vAccessToken);
   private viewerToken!: string | null;
 
-  constructor(private httpClient: HttpClient, private store: Store) {
+  constructor(
+    private httpClient: HttpClient,
+    private store: Store,
+    private configService: ConfigService
+  ) {
     this.authToken$.subscribe((token) => {
       this.authToken = token;
     });
