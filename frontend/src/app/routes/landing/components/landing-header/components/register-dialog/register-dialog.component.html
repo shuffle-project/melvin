@@ -126,6 +126,7 @@
       }
     </div>
 
+    // TODO change privacy to new config service variable
     <p class="privacy-info" i18n="@@registerDialogPrivacyNotice">
       We only use your data in accordance with our
       <a routerLink="/privacy" (click)="onJumpToPrivacy()">privacy policy</a>.
@@ -145,15 +146,4 @@
       </div>
     </button>
   </form> -->
-
-  <div class="back-to-login-wrapper">
-    <p i18n="@@registerDialogLoginIntroText">Already have an account?</p>
-    <button
-      mat-stroked-button
-      (click)="onOpenLoginDialog()"
-      i18n="@@registerDialogLoginButton"
-    >
-      Login
-    </button>
-  </div>
 </mat-dialog-content>
