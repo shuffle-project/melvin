@@ -41,7 +41,6 @@
   }
   <mat-divider />
 </div>
-@if ('editTranscriptions' | featureEnabled) {
 
 <button
   mat-menu-item
@@ -51,8 +50,6 @@
   <mat-icon svgIcon="edit"></mat-icon>
   Edit Transcriptions
 </button>
-
-}
 
 <button mat-menu-item (click)="onClickTranscriptionAdd()">
   <mat-icon svgIcon="add"></mat-icon>

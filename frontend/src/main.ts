@@ -27,7 +27,6 @@ import 'dayjs/locale/en';
 import { AppComponent } from './app/app.component';
 import { AppRoutes } from './app/app.routes';
 import { DurationPipe } from './app/pipes/duration-pipe/duration.pipe';
-import { FeatureEnabledPipe } from './app/pipes/feature-enabled-pipe/feature-enabled.pipe';
 import { FormatDatePipe } from './app/pipes/format-date-pipe/format-date.pipe';
 import { LanguageCodePipe } from './app/pipes/language-code-pipe/language-code.pipe';
 import { MediaCategoryPipe } from './app/pipes/media-category-pipe/media-category.pipe';
@@ -93,7 +92,6 @@ bootstrapApplication(AppComponent, {
     // TODO as an alternative to this we could make pipes injectable providedin root
     DurationPipe,
     ProjectStatusPipe,
-    FeatureEnabledPipe,
     FormatDatePipe,
     LanguageCodePipe,
     MediaCategoryPipe,

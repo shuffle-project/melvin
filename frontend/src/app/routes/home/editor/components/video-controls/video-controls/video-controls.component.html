@@ -55,7 +55,6 @@
   </div>
   <div class="middle">
     <div class="play-rewind-buttons">
-      @if ('quickForwardRewind' | featureEnabled) {
       <button
         mat-icon-button
         class="big-icon-mat-button"
@@ -68,7 +67,7 @@
       >
         <mat-icon svgIcon="replay_5"></mat-icon>
       </button>
-      } @if ('playPause' | featureEnabled) {
+
       <button
         mat-icon-button
         class="big-icon-mat-button"
@@ -83,7 +82,7 @@
           [svgIcon]="(isPlaying$ | ngrxPush) ? 'pause_circle' : 'play_circle'"
         ></mat-icon>
       </button>
-      } @if ('quickForwardRewind' | featureEnabled) {
+
       <button
         mat-icon-button
         (click)="onSkipForward()"
@@ -96,11 +95,9 @@
       >
         <mat-icon svgIcon="forward_5"></mat-icon>
       </button>
-      }
     </div>
   </div>
   <div class="right">
-    @if ('showTime' | featureEnabled) {
     <div class="time-container" [class.time-disabled]="!isReady">
       <span class="time-current">
         {{ (currentTime$ | ngrxPush) || 0 | duration }}
@@ -123,7 +120,6 @@
       </button>
       } -->
     </div>
-    }
   </div>
 </div>
 

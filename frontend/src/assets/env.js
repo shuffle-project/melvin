@@ -7,6 +7,6 @@ window.env = {
   MELVIN_ACCESSIBILITY_STATEMENT_URL: '/accessibility-statement',
   MELVIN_FRONTEND_BASE_URL: 'http://localhost:4200',
   MELVIN_BACKEND_BASE_URL: 'http://localhost:3000',
-  MELVIN_DISABLE_LANDING_PAGE: 'true',
+  MELVIN_DISABLE_LANDING_PAGE: 'false',
   MELVIN_DISABLE_TUTORIAL_VIDEOS: 'true',
 };

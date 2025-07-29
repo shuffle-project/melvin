@@ -57,23 +57,22 @@
                 <h1 class="break-long-text">
                   {{ project?.title }}
                 </h1>
-                @if (feedbackLink) {
-                <a
+
+                <!-- <a
                   class="feedback-link"
                   href=""
                   mat-flat-button
                   i18n="@@viewerFeedbackLinkLabel"
                 >
                   Provide Feedback ❤️
-                </a>
-                } @else {
+                </a> -->
+
                 <app-logo
                   class="clickable"
                   [routerLink]="['']"
                   aria-label="Melvin Logo, to main webpage"
                   i18n-aria-label="@@viewerLogoAriaLabel"
                 />
-                }
               </div>
               <app-player [project]="project!" [media]="media!"></app-player>
 

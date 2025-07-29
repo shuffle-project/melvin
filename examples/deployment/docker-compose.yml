@@ -59,7 +59,7 @@ services:
       - MELVIN_FRONTEND_BASE_URL=http://localhost:8080 # TODO: replace with your frontend URL
       - MELVIN_BACKEND_BASE_URL=https://localhost:3000 # TODO: replace with your backend URL
       - MELVIN_DISABLE_LANDING_PAGE=false # TODO: set to true if you want to disable the landing page
-      - MELVIN_DISABLE_TUTORIAL_VIDEOS=false # TODO: set to true if you want to disable the tutorial videos
+      - MELVIN_DISABLE_TUTORIAL_VIDEOS=true # TODO: Videos are hosted on a server, therefore disabled by default
       - MELVIN_IMPRINT_URL= # TODO: your default imprint URL
       - MELVIN_PRIVACY_URL= # TODO: your default privacy URL
       - MELVIN_ACCESSIBILITY_STATEMENT_URL= # TODO: your default accessibility statement URL

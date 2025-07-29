@@ -5,16 +5,14 @@
         <app-logo class="clickable logo" [routerLink]="['/home/projects']" />
         <ng-content />
         <div class="header-buttons" [class.margin-left]="editorView">
-          @if (feedbackLink) {
-          <a
+          <!-- <a
             class="feedback-link"
             href=""
             mat-flat-button
             i18n="@@headerFeedbackLinkLabel"
           >
             Provide Feedback ❤️
-          </a>
-          }
+          </a> -->
 
           <button
             mat-icon-button
@@ -124,18 +122,14 @@
         >
           <mat-icon svgIcon="person"></mat-icon>Profile
         </a>
-        <a mat-menu-item routerLink="/" i18n="@@headerMenuStartpageButton">
-          <mat-icon svgIcon="start"></mat-icon>Startpage
-        </a>
         <a mat-menu-item routerLink="/guide">
           <mat-icon svgIcon="book"></mat-icon>Best Practice
         </a>
-        @if ('tutorial' | featureEnabled) {
+
         <a routerLink="/tutorial" mat-menu-item>
           <mat-icon svgIcon="tutorial"></mat-icon>
           Tutorial
         </a>
-        }
 
         <button
           mat-menu-item

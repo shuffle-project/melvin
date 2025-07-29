@@ -17,7 +17,6 @@ import {
 import { LetDirective } from '@ngrx/component';
 import { Store } from '@ngrx/store';
 import { Subject } from 'rxjs';
-import { FeatureEnabledPipe } from '../../../../../pipes/feature-enabled-pipe/feature-enabled.pipe';
 import * as editorActions from '../../../../../store/actions/editor.actions';
 import { AppState } from '../../../../../store/app.state';
 import * as editorSelectors from '../../../../../store/selectors/editor.selector';
@@ -31,7 +30,6 @@ import { DialogSpellcheckInfoComponent } from '../dialog-spellcheck-info/dialog-
     MatSlideToggleModule,
     MatIconModule,
     MatButtonModule,
-    FeatureEnabledPipe,
     MatSelectModule,
     MatFormFieldModule,
     MatInputModule,

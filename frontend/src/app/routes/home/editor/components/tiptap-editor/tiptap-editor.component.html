@@ -20,7 +20,6 @@
     }
   </div>
 
-  @if ('transcriptionsMenu' | featureEnabled) {
   <button
     mat-button
     [matMenuTriggerFor]="transcription"
@@ -38,7 +37,7 @@
     <span i18n="@@tiptap-editorMenuTranscriptionLabel">Transcription</span>
     }
   </button>
-  }
+
   <mat-menu #transcription="matMenu" class="dense">
     <app-transcription-menu-content [projectId]="projectId" />
   </mat-menu>

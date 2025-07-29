@@ -25,7 +25,7 @@
       </div>
       <div class="actions-menu">
         <!-- File Menu -->
-        @if ('fileMenu' | featureEnabled) {
+
         <button
           mat-button
           [matMenuTriggerFor]="menu"
@@ -34,9 +34,8 @@
         >
           File
         </button>
-        }
+
         <mat-menu #menu="matMenu" class="dense">
-          @if ('download' | featureEnabled) {
           <button
             mat-menu-item
             [matMenuTriggerFor]="downloadMenu"
@@ -45,7 +44,7 @@
             <mat-icon svgIcon="download"></mat-icon>
             Download
           </button>
-          } @if (isOwner$ | ngrxPush) {
+          @if (isOwner$ | ngrxPush) {
           <mat-divider></mat-divider>
           <button
             (click)="onDeleteProject()"
@@ -109,7 +108,7 @@
         </mat-menu>
 
         <!-- Transcription Menu -->
-        @if ('transcriptionsMenu' | featureEnabled) {
+
         <button
           mat-button
           [matMenuTriggerFor]="transcription"
@@ -118,7 +117,6 @@
         >
           Transcription
         </button>
-        }
 
         <mat-menu #transcription="matMenu" class="dense">
           <app-transcription-menu-content [projectId]="projectId" />
@@ -148,7 +146,7 @@
       </div>
       }
     </ng-container>
-    @if ('projectShare' | featureEnabled) {
+
     <button
       mat-flat-button
       style="margin: 0 0.75rem"
@@ -158,24 +156,20 @@
     >
       Share
     </button>
-    }
   </div>
 </app-header>
 <!-- content -->
 <section class="content-section">
-  @if ('editorActions' | featureEnabled) {
   <div class="sticky">
     @if (showWaveform) {
     <div class="flex waveform-wrapper">
-      @if ('showWaveform' | featureEnabled) {
       <app-waveform [zoomActivated]="showZoomedWave"></app-waveform>
-      } @if (isLiveMode$ | ngrxPush) {
+      @if (isLiveMode$ | ngrxPush) {
       <app-live-controls></app-live-controls>
       }
     </div>
     }
   </div>
-  }
 
   <div class="controls-narrow-viewport">
     <app-video-controls></app-video-controls>
@@ -185,12 +179,12 @@
     <div class="left">
       <app-video-player></app-video-player>
       <app-editor-settings></app-editor-settings>
-      @if ('showShortcuts' | featureEnabled) {
+
       <app-shortcuts></app-shortcuts>
-      }
+
       <app-user-test-controls></app-user-test-controls>
-      @if ('live' | featureEnabled) {
-      <div *ngrxLet="project$ as project">
+
+      <!-- <div *ngrxLet="project$ as project">
         <button (click)="livestreamService.start(project?.id!)">Start</button>
         <button (click)="livestreamService.stop(project?.id!)">Stop</button>
         <button (click)="livestreamService.pause(project?.id!)">Pause</button>
@@ -211,10 +205,9 @@
         </button>
         {{ project?.livestream?.recordingStatus }}
         <br />
-        <!-- <button (click)="connect(project?.id!)">Connect</button> -->
+        <button (click)="connect(project?.id!)">Connect</button> 
         <br />
-      </div>
-      }
+      </div> -->
     </div>
     <div
       class="right"
