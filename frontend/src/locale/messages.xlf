@@ -2141,11 +2141,23 @@
       <trans-unit id="landingMainToTheProjectsButton" datatype="html">
         <source>To the projects</source>
       </trans-unit>
-      <trans-unit id="landingBackLinkToLoginPageButton" datatype="html">
+      <trans-unit id="landingToLoginPageButton" datatype="html">
         <source> To the login page </source>
       </trans-unit>
-      <trans-unit id="landingBackLinkToProjectsButton" datatype="html">
+      <trans-unit id="landingToProjectsButton" datatype="html">
         <source> To the projects </source>
+      </trans-unit>
+      <trans-unit id="landingFooterSignLanguageLinkLabel" datatype="html">
+        <source> Sign Language </source>
+      </trans-unit>
+      <trans-unit id="easyLanguagePageTitle" datatype="html">
+        <source>Easy Language - Melvin</source>
+      </trans-unit>
+      <trans-unit id="signLanguagePageTitle" datatype="html">
+        <source>Sign Language - Melvin</source>
+      </trans-unit>
+      <trans-unit id="landingFooterEasyLanguageLinkLabel" datatype="html">
+        <source> Easy Language </source>
       </trans-unit>
     </body>
   </file>

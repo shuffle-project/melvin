@@ -44,11 +44,15 @@ cat <<EOF > /usr/share/nginx/html/en-US/assets/env.js
 window.env = {
     MELVIN_IMPRINT_URL: "$(get_env_variable "imprint" "en")",
     MELVIN_PRIVACY_URL: "$(get_env_variable "privacy" "en")",
+    MELVIN_SIGN_LANGUAGE_URL: "$(get_env_variable "sign_language" "en")",
+    MELVIN_EASY_LANGUAGE_URL: "$(get_env_variable "easy_language" "en")
     MELVIN_ACCESSIBILITY_STATEMENT_URL: "$(get_env_variable "accessibility_statement" "en")",
     MELVIN_BACKEND_BASE_URL: "$backend_base_url",
     MELVIN_FRONTEND_BASE_URL: "$frontend_base_url",
     MELVIN_DISABLE_LANDING_PAGE: "$MELVIN_DISABLE_LANDING_PAGE",
     MELVIN_DISABLE_TUTORIAL_VIDEOS: "$MELVIN_DISABLE_TUTORIAL_VIDEOS"
+    MELVIN_DISABLE_INSTALLATION_PAGE: "$MELVIN_DISABLE_INSTALLATION_PAGE",
+    MELVIN_CONTACT_EMAIL: "$MELVIN_CONTACT_EMAIL"
 };
 EOF
 
@@ -56,11 +60,15 @@ cat <<EOF > /usr/share/nginx/html/de-DE/assets/env.js
 window.env = {
     MELVIN_IMPRINT_URL: "$(get_env_variable "imprint" "de")",
     MELVIN_PRIVACY_URL: "$(get_env_variable "privacy" "de")",
+    MELVIN_SIGN_LANGUAGE_URL: "$(get_env_variable "sign_language" "de")",
+    MELVIN_EASY_LANGUAGE_URL: "$(get_env_variable "easy_language" "de")
     MELVIN_ACCESSIBILITY_STATEMENT_URL: "$(get_env_variable "accessibility_statement" "de")",
     MELVIN_BACKEND_BASE_URL: "$backend_base_url",
     MELVIN_FRONTEND_BASE_URL: "$frontend_base_url",
     MELVIN_DISABLE_LANDING_PAGE: "$MELVIN_DISABLE_LANDING_PAGE",
     MELVIN_DISABLE_TUTORIAL_VIDEOS: "$MELVIN_DISABLE_TUTORIAL_VIDEOS"
+    MELVIN_DISABLE_INSTALLATION_PAGE: "$MELVIN_DISABLE_INSTALLATION_PAGE",
+    MELVIN_CONTACT_EMAIL: "$MELVIN_CONTACT_EMAIL"
 };
 EOF
 

@@ -19,6 +19,8 @@ export class LandingFooterComponent {
 
   imprintUrl = this.configService.getImprintUrl();
   privacyUrl = this.configService.getPrivacyUrl();
+  signLanguageUrl = this.configService.getSignLanguageUrl();
+  easyLanguageUrl = this.configService.getEasyLanguageUrl();
   accessibilityStatementUrl = this.configService.getAccessibilityStatementUrl();
   disableInstallationPage = this.configService.getDisableInstallationPage();
   disableLandingPage = this.configService.getDisableLandingPage();

@@ -127,14 +127,24 @@
             Accessibility statement
           </a>
         </li>
-        } @if (locale?.includes('de') && !disableLandingPage) {
+        } @if (signLanguageUrl) {
         <li>
-          <a routerLink="/sign-language"> Gebärdensprache (DGS) </a>
+          <a
+            [routerLink]="signLanguageUrl"
+            i18n="@@landingFooterSignLanguageLinkLabel"
+          >
+            Sign Language
+          </a>
         </li>
+        } @if (easyLanguageUrl) {
         <li>
-          <a routerLink="/plain-language"> Leichte Sprache </a>
+          <a
+            [routerLink]="easyLanguageUrl"
+            i18n="@@landingFooterEasyLanguageLinkLabel"
+          >
+            Easy Language
+          </a>
         </li>
-
         }
 
         <li>

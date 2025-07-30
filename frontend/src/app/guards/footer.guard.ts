@@ -38,6 +38,26 @@ export class FooterGuard {
           return this.router.createUrlTree(['/']);
         }
         return true;
+      case '/sign-language':
+        if (!this.configService.getSignLanguageUrl()) {
+          return this.router.createUrlTree(['/']);
+        }
+        return true;
+      case '/easy-language':
+        if (!this.configService.getEasyLanguageUrl()) {
+          return this.router.createUrlTree(['/']);
+        }
+        return true;
+      case '/tutorial':
+        if (this.configService.getDisableLandingPage()) {
+          return this.router.createUrlTree(['/']);
+        }
+        return true;
+      case '/guide':
+        if (this.configService.getDisableLandingPage()) {
+          return this.router.createUrlTree(['/']);
+        }
+        return true;
       default:
         return true;
     }

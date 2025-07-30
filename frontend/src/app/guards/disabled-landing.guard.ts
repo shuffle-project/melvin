@@ -35,6 +35,7 @@ export class DisabledLandingGuard {
             if (isLoggedIn && this.disableLandingPage) {
               return this.router.createUrlTree(['/home/projects']);
             }
+
             return true;
           })
         );

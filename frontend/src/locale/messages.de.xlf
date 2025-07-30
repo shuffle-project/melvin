@@ -2854,13 +2854,29 @@
         <source>Login</source>
         <target state="final">Anmelden</target>
       </trans-unit>
-      <trans-unit id="landingBackLinkToProjectsButton" datatype="html">
+      <trans-unit id="landingToProjectsButton" datatype="html">
         <source> To the projects </source>
         <target state="final"> Zu den Projekten </target>
       </trans-unit>
-      <trans-unit id="landingBackLinkToLoginPageButton" datatype="html">
+      <trans-unit id="landingToLoginPageButton" datatype="html">
         <source> To the login page </source>
         <target state="final"> Zu der Anmeldeseite </target>
+      </trans-unit>
+      <trans-unit id="landingFooterSignLanguageLinkLabel" datatype="html">
+        <source> Sign Language </source>
+        <target state="final"> Gebärdensprache (DGS) </target>
+      </trans-unit>
+      <trans-unit id="easyLanguagePageTitle" datatype="html">
+        <source>Easy Language - Melvin</source>
+        <target state="final">Leichte Sprache - Melvin</target>
+      </trans-unit>
+      <trans-unit id="signLanguagePageTitle" datatype="html">
+        <source>Sign Language - Melvin</source>
+        <target state="final">Gebärdensprache (DGS) - Melvin</target>
+      </trans-unit>
+      <trans-unit id="landingFooterEasyLanguageLinkLabel" datatype="html">
+        <source> Easy Language </source>
+        <target state="final"> Leichte Sprache </target>
       </trans-unit>
     </body>
   </file>

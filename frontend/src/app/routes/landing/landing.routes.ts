@@ -2,11 +2,11 @@ import { Routes } from '@angular/router';
 import { DisabledLandingGuard } from 'src/app/guards/disabled-landing.guard';
 import { FooterGuard } from 'src/app/guards/footer.guard';
 import { AccessibilityStatementComponent } from './components/accessibility-statement/accessibility-statement.component';
+import { EasyLanguageComponent } from './components/easy-language/easy-language.component';
 import { GuideComponent } from './components/guide/guide.component';
 import { ImprintComponent } from './components/imprint/imprint.component';
 import { InstallationComponent } from './components/installation/installation.component';
 import { LandingMainComponent } from './components/landing-main/landing-main.component';
-import { PlainLanguageComponent } from './components/plain-language/plain-language.component';
 import { PrivacyComponent } from './components/privacy/privacy.component';
 import { SignLanguageComponent } from './components/sign-language/sign-language.component';
 import { SitemapComponent } from './components/sitemap/sitemap.component';
@@ -37,16 +37,16 @@ export const LandingRoutes: Routes = [
         title: $localize`:@@imprintPageTitle:Imprint - Melvin`,
       },
       {
-        path: 'plain-language',
-        canActivate: [DisabledLandingGuard],
-        component: PlainLanguageComponent,
-        title: 'Leichte Sprache - Melvin',
+        path: 'easy-language',
+        canActivate: [FooterGuard],
+        component: EasyLanguageComponent,
+        title: $localize`:@@easyLanguagePageTitle:Easy Language - Melvin`,
       },
       {
         path: 'sign-language',
-        canActivate: [DisabledLandingGuard],
+        canActivate: [FooterGuard],
         component: SignLanguageComponent,
-        title: 'Gebärdensprache (DGS) - Melvin',
+        title: $localize`:@@signLanguagePageTitle:Sign Language - Melvin`,
       },
       {
         path: 'sitemap',
@@ -61,7 +61,7 @@ export const LandingRoutes: Routes = [
       },
       {
         path: 'tutorial',
-        canActivate: [DisabledLandingGuard],
+        canActivate: [FooterGuard],
         component: TutorialComponent,
         title: $localize`:@@tutorialPageTitle:Tutorial - Melvin`,
       },
@@ -73,7 +73,7 @@ export const LandingRoutes: Routes = [
       },
       {
         path: 'guide',
-        canActivate: [DisabledLandingGuard],
+        canActivate: [FooterGuard],
         component: GuideComponent,
         title: $localize`:@@GuidePageTitle:Best Practice - Melvin`,
       },

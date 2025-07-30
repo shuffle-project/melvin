@@ -12,6 +12,8 @@ interface WindowEnvConfig {
   MELVIN_ACCESSIBILITY_STATEMENT_URL: string;
   MELVIN_IMPRINT_URL: string;
   MELVIN_PRIVACY_URL: string;
+  MELVIN_SIGN_LANGUAGE_URL: string;
+  MELVIN_EASY_LANGUAGE_URL: string;
   MELVIN_DISABLE_LANDING_PAGE: 'true' | 'false';
   MELVIN_DISABLE_TUTORIAL_VIDEOS: 'true' | 'false';
   MELVIN_DISABLE_INSTALLATION_PAGE: 'true' | 'false';
@@ -80,5 +82,13 @@ export class ConfigService {
     );
 
     return disableInstallationPage ? disableInstallationPage === 'true' : true;
+  }
+
+  getSignLanguageUrl(): string {
+    return this._config.get('MELVIN_SIGN_LANGUAGE_URL') || '';
+  }
+
+  getEasyLanguageUrl(): string {
+    return this._config.get('MELVIN_EASY_LANGUAGE_URL') || '';
   }
 }
