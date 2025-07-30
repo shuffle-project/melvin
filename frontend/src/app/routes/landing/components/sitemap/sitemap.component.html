@@ -1,4 +1,5 @@
 <div class="landing-subpage-wrapper">
+  <app-landing-back-link />
   <h1>Sitemap</h1>
 
   <p i18n="@@sitemapListExplanation">
@@ -7,12 +8,12 @@
   </p>
 
   @if (locale?.includes('de')) {
-
   <ul>
+    @if(!disableLandingPage) {
     <li>
       <a routerLink="/guide"> Best Practice </a>
     </li>
-    @if (privacyUrl) {
+    } @if (privacyUrl) {
     <li>
       <a [routerLink]="privacyUrl">Datenschutzerklärung</a>
     </li>
@@ -30,11 +31,11 @@
     <li>
       <a [routerLink]="imprintUrl">Impressum</a>
     </li>
-    }
+    } @if (!disableInstallationPage) {
     <li>
       <a routerLink="/installation"> Installation </a>
     </li>
-
+    }
     <li>
       <a routerLink="/plain-language">Leichte Sprache</a>
     </li>
@@ -64,11 +65,11 @@
     <li>
       <a [routerLink]="imprintUrl">Imprint</a>
     </li>
-    }
+    } @if (!disableInstallationPage) {
     <li>
       <a routerLink="/installation"> Installation </a>
     </li>
-    @if (privacyUrl) {
+    } @if (privacyUrl) {
     <li>
       <a [routerLink]="privacyUrl">Privacy</a>
     </li>

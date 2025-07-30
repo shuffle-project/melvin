@@ -10,7 +10,7 @@ import { ConfigService } from '../services/config/config.service';
 @Injectable({
   providedIn: 'root',
 })
-export class EnvBackupGuard {
+export class FooterGuard {
   constructor(private configService: ConfigService, private router: Router) {}
 
   canActivate(
@@ -25,6 +25,17 @@ export class EnvBackupGuard {
         return true;
       case '/imprint':
         if (!this.configService.getImprintUrl()) {
+          return this.router.createUrlTree(['/']);
+        }
+        return true;
+      case '/accessibility-statement':
+        if (!this.configService.getAccessibilityStatementUrl()) {
+          return this.router.createUrlTree(['/']);
+        }
+        return true;
+      case '/installation':
+        if (this.configService.getDisableInstallationPage()) {
+          console.log(1);
           return this.router.createUrlTree(['/']);
         }
         return true;

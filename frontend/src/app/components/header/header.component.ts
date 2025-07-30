@@ -18,6 +18,7 @@ import { NotificationComponent } from '../notification/notification.component';
 import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { LetDirective, PushPipe } from '@ngrx/component';
+import { ConfigService } from 'src/app/services/config/config.service';
 import * as configActions from '../../store/actions/config.actions';
 import { ColorTheme } from '../../store/reducers/config.reducer';
 import { LogoComponent } from '../logo/logo.component';
@@ -59,10 +60,16 @@ export class HeaderComponent implements OnDestroy, OnInit {
 
   public colorTheme$ = this.store.select(configSelector.colorTheme);
 
+  public disableLandingPage = this.configService.getDisableLandingPage();
+
   totalUnreadNotifications$: Observable<number>;
   recentNotifications$: Observable<readonly NotificationEntity[]>;
 
-  constructor(private store: Store, private router: Router) {
+  constructor(
+    private store: Store,
+    private router: Router,
+    private configService: ConfigService
+  ) {
     this.isLoggedIn$ = store.select(authSelectors.selectIsLoggedIn);
 
     this.totalUnreadNotifications$ = store.select(

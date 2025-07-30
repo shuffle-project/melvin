@@ -20,6 +20,9 @@ export class LandingFooterComponent {
   imprintUrl = this.configService.getImprintUrl();
   privacyUrl = this.configService.getPrivacyUrl();
   accessibilityStatementUrl = this.configService.getAccessibilityStatementUrl();
+  disableInstallationPage = this.configService.getDisableInstallationPage();
+  disableLandingPage = this.configService.getDisableLandingPage();
+  contactEmail = this.configService.getContactEmail();
 
   constructor(private api: ApiService, private configService: ConfigService) {}
 

@@ -1198,14 +1198,6 @@
         <source>Register</source>
         <target state="final">Registrieren</target>
       </trans-unit>
-      <trans-unit id="registerDialogLoginIntroText" datatype="html">
-        <source>Already have an account?</source>
-        <target state="final">Haben Sie bereits ein Account?</target>
-      </trans-unit>
-      <trans-unit id="registerDialogLoginButton" datatype="html">
-        <source> Login </source>
-        <target state="final"> Anmelden </target>
-      </trans-unit>
       <trans-unit id="resetPasswordDialogHeading" datatype="html">
         <source>Reset password</source>
         <target state="final">Passwort zurücksetzen</target>
@@ -1838,10 +1830,6 @@
         <source>Transcripts </source>
         <target state="final">Transkripte </target>
       </trans-unit>
-      <trans-unit id="headerMenuStartpageButton" datatype="html">
-        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;start&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/>Startpage </source>
-        <target state="final"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;start&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/>Startseite </target>
-      </trans-unit>
       <trans-unit id="editorSettingsHeadline" datatype="html">
         <source>Settings</source>
         <target state="final">Einstellungen</target>
@@ -2329,18 +2317,6 @@
       <trans-unit id="dialogSpellcheckInfoChromeTwo" datatype="html">
         <source> The words are visually highlighted with reddish dots below. </source>
         <target state="final"> Die Wörter werden visuell mit rötlichen Punkten darunter hervorgehoben. </target>
-      </trans-unit>
-      <trans-unit id="headerFeedbackLinkLabel" datatype="html">
-        <source> Provide Feedback ❤️ </source>
-        <target state="final"> Feedback geben ❤️ </target>
-      </trans-unit>
-      <trans-unit id="landingHeaderFeedbackLinkLabel" datatype="html">
-        <source> Provide Feedback ❤️ </source>
-        <target state="final"> Feedback geben ❤️ </target>
-      </trans-unit>
-      <trans-unit id="viewerFeedbackLinkLabel" datatype="html">
-        <source> Provide Feedback ❤️ </source>
-        <target state="final"> Feedback geben ❤️ </target>
       </trans-unit>
       <trans-unit id="guideContentSupportingDocuments" datatype="html">
         <source> Supporting Documents </source>
@@ -2877,6 +2853,14 @@
       <trans-unit id="landingMainLogInHeading" datatype="html">
         <source>Login</source>
         <target state="final">Anmelden</target>
+      </trans-unit>
+      <trans-unit id="landingBackLinkToProjectsButton" datatype="html">
+        <source> To the projects </source>
+        <target state="final"> Zu den Projekten </target>
+      </trans-unit>
+      <trans-unit id="landingBackLinkToLoginPageButton" datatype="html">
+        <source> To the login page </source>
+        <target state="final"> Zu der Anmeldeseite </target>
       </trans-unit>
     </body>
   </file>

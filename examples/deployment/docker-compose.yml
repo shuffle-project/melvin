@@ -60,6 +60,7 @@ services:
       - MELVIN_BACKEND_BASE_URL=https://localhost:3000 # TODO: replace with your backend URL
       - MELVIN_DISABLE_LANDING_PAGE=false # TODO: set to true if you want to disable the landing page
       - MELVIN_DISABLE_TUTORIAL_VIDEOS=true # TODO: Videos are hosted on a server, therefore disabled by default
+      - MELVIN_DISABLE_INSTALLATION_PAGE=true # TODO: set to false if you want to enable the installation page in the footer
       - MELVIN_IMPRINT_URL= # TODO: your default imprint URL
       - MELVIN_PRIVACY_URL= # TODO: your default privacy URL
       - MELVIN_ACCESSIBILITY_STATEMENT_URL= # TODO: your default accessibility statement URL
@@ -69,6 +70,7 @@ services:
       - MELVIN_EN_IMPRINT_URL= # TODO: optional, if you have a English imprint URL
       - MELVIN_EN_PRIVACY_URL= # TODO: optional, if you have a English privacy URL
       - MELVIN_EN_ACCESSIBILITY_STATEMENT_URL= # TODO: optional, if you have a English accessibility statement URL
+      - MELVIN_CONTACT_EMAIL= # TODO: optional, your contact email address
       # if no language specific imprint or privacy URL is set, the default URLs will be used
 
   asr:

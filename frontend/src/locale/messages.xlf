@@ -89,9 +89,6 @@
       <trans-unit id="deleteServiceDeleteAccountDescription" datatype="html">
         <source>If you confirm this, your account with all created projects and data will be deleted. This can NOT be undone!</source>
       </trans-unit>
-      <trans-unit id="headerFeedbackLinkLabel" datatype="html">
-        <source> Provide Feedback ❤️ </source>
-      </trans-unit>
       <trans-unit id="headerToggleDarkmodeToggleMenuButton" datatype="html">
         <source>Open darkmode menu</source>
       </trans-unit>
@@ -115,9 +112,6 @@
       </trans-unit>
       <trans-unit id="headerMenuProfileButton" datatype="html">
         <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;person&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/>Profile </source>
-      </trans-unit>
-      <trans-unit id="headerMenuStartpageButton" datatype="html">
-        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;start&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/>Startpage </source>
       </trans-unit>
       <trans-unit id="headerMenuLogoutButton" datatype="html">
         <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;logout&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/>Logout </source>
@@ -1526,12 +1520,6 @@
       <trans-unit id="registerDialogEmailContactInfo" datatype="html">
         <source> Melvin is currently still in a closed test phase. Would you like to test Melvin? Please contact us at <x id="START_LINK" ctype="x-a" equiv-text="&lt;a href=&quot;mailto:melvin@hdm-stuttgart.de&quot;&gt;"/>melvin@hdm-suttgart.de<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/></source>
       </trans-unit>
-      <trans-unit id="registerDialogLoginIntroText" datatype="html">
-        <source>Already have an account?</source>
-      </trans-unit>
-      <trans-unit id="registerDialogLoginButton" datatype="html">
-        <source> Login </source>
-      </trans-unit>
       <trans-unit id="resetPasswordDialogHeading" datatype="html">
         <source>Reset password</source>
       </trans-unit>
@@ -1543,9 +1531,6 @@
       </trans-unit>
       <trans-unit id="landingHeaderTutorialLinkLabel" datatype="html">
         <source> Tutorial </source>
-      </trans-unit>
-      <trans-unit id="landingHeaderFeedbackLinkLabel" datatype="html">
-        <source> Provide Feedback ❤️ </source>
       </trans-unit>
       <trans-unit id="landingHeaderToggleDarkmodeToggleMenuButton" datatype="html">
         <source>Open darkmode menu</source>
@@ -2054,9 +2039,6 @@
       <trans-unit id="viewerErrorDescription" datatype="html">
         <source> The project is no longer available under this link. The access link may have been changed or the project may no longer exist. </source>
       </trans-unit>
-      <trans-unit id="viewerFeedbackLinkLabel" datatype="html">
-        <source> Provide Feedback ❤️ </source>
-      </trans-unit>
       <trans-unit id="viewerLogoAriaLabel" datatype="html">
         <source>Melvin Logo, to main webpage</source>
       </trans-unit>
@@ -2158,6 +2140,12 @@
       </trans-unit>
       <trans-unit id="landingMainToTheProjectsButton" datatype="html">
         <source>To the projects</source>
+      </trans-unit>
+      <trans-unit id="landingBackLinkToLoginPageButton" datatype="html">
+        <source> To the login page </source>
+      </trans-unit>
+      <trans-unit id="landingBackLinkToProjectsButton" datatype="html">
+        <source> To the projects </source>
       </trans-unit>
     </body>
   </file>
