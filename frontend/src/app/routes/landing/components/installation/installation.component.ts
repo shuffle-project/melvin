@@ -2,16 +2,10 @@ import { Component } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTableModule } from '@angular/material/table';
-import { LandingBackLinkComponent } from '../landing-back-link/landing-back-link.component';
 
 @Component({
   selector: 'app-installation',
-  imports: [
-    MatButtonModule,
-    MatIconModule,
-    MatTableModule,
-    LandingBackLinkComponent,
-  ],
+  imports: [MatButtonModule, MatIconModule, MatTableModule],
   templateUrl: './installation.component.html',
   styleUrl: './installation.component.scss',
 })

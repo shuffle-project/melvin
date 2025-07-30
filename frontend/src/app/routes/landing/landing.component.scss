@@ -1,3 +1,19 @@
+.toolbar {
+  background-color: var(--color-white);
+  border-bottom: 1px solid var(--color-border-grey);
+
+  .toolbar-content {
+    padding-inline: 1.25rem;
+    width: 100%;
+    max-width: 87.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-inline: auto;
+    box-sizing: border-box;
+  }
+}
+
 main {
   padding-block: 8rem;
   background-color: var(--color-white);

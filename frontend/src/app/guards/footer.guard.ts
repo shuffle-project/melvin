@@ -35,7 +35,6 @@ export class FooterGuard {
         return true;
       case '/installation':
         if (this.configService.getDisableInstallationPage()) {
-          console.log(1);
           return this.router.createUrlTree(['/']);
         }
         return true;

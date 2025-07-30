@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { ConfigService } from 'src/app/services/config/config.service';
-import { LandingBackLinkComponent } from '../landing-back-link/landing-back-link.component';
 
 @Component({
   selector: 'app-sitemap',
-  imports: [RouterLink, LandingBackLinkComponent],
+  imports: [RouterLink],
   templateUrl: './sitemap.component.html',
   styleUrl: './sitemap.component.scss',
 })
