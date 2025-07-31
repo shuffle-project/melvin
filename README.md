@@ -77,4 +77,4 @@ npm start
 | MELVIN_EN_IMPRINT_URL=              |                        | false    | English Imprint URL*                                                                                         |
 | MELVIN_CONTACT_EMAIL=               |                        | false    | Your contact email will be visible in the footer                                                             |
 
-* The German and English Imprint URLs are provided here as examples. The links for the privacy policy, sign language, easy language, and accessibility statement can also be specified in a language-specific way using \_EN\_ and \_DE\_ in the variable name.
+\* The German and English Imprint URLs are provided here as examples. The links for the privacy policy, sign language, easy language, and accessibility statement can also be specified in a language-specific way using \_EN\_ and \_DE\_ in the variable name.
