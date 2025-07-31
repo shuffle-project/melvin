@@ -1,6 +1,13 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { AccessToken, RoomServiceClient, VideoGrant } from 'livekit-server-sdk';
+import {
+  AccessToken,
+  EgressClient,
+  EncodedFileOutput,
+  EncodedFileType,
+  RoomServiceClient,
+  VideoGrant,
+} from 'livekit-server-sdk';
 import { LivekitConfig } from 'src/config/config.interface';
 import { AuthUser } from '../auth/auth.interfaces';
 import { LivekitAuthEntity } from './entities/livekit.entity';
@@ -9,6 +16,7 @@ import { LivekitAuthEntity } from './entities/livekit.entity';
 export class LivekitService {
   config = this.configService.get<LivekitConfig>('livekit');
   roomService: RoomServiceClient;
+  egressClient: EgressClient;
   constructor(private configService: ConfigService) {}
 
   // opts = new WorkerOptions({
@@ -29,6 +37,12 @@ export class LivekitService {
 
   async onApplicationBootstrap(): Promise<void> {
     this.roomService = new RoomServiceClient(
+      this.config.url,
+      this.config.apikey,
+      this.config.secret,
+    );
+
+    this.egressClient = new EgressClient(
       this.config.url,
       this.config.apikey,
       this.config.secret,
@@ -58,6 +72,21 @@ export class LivekitService {
     };
     this.roomService.createRoom(opts).then((room) => {
       console.log('room created', room);
+
+      //  recording of room
+      this.egressClient
+        .startRoomCompositeEgress(projectId, {
+          file: new EncodedFileOutput({
+            fileType: EncodedFileType.MP4,
+            filepath: './recordings/session.mp4',
+          }),
+        })
+        .then((egress) => {
+          console.log('egress started', egress);
+        })
+        .catch((err) => {
+          console.log('egress error', err);
+        });
     });
   }
 

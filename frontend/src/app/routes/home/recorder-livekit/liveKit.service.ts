@@ -68,6 +68,7 @@ export class LiveKitService {
   async init(projectId: string) {
     this.room = new Room();
 
+    // TODO choose id??
     const res = await firstValueFrom(
       this.api.authenticateLivekit('6200e98c9f6b0de828dbe34a')
     );

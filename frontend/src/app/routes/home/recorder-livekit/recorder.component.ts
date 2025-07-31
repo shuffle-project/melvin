@@ -68,6 +68,7 @@ export class RecorderComponent implements OnInit, OnDestroy {
 
   async ngOnInit() {
     this.loading = false;
+    // TODO set projectId? not known yet
     this.livekitService.init('projectId');
 
     // this.room.emit('chatMessage', 'hello from angular');

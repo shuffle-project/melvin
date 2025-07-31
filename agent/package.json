@@ -1,0 +1,22 @@
+{
+  "name": "melvin-stt-agent",
+  "version": "1.0.0",
+  "main": "stt.ts",
+  "type": "module",
+  "scripts": {
+    "start": "LIVEKIT_URL='wss://melvin-h873wj3h.livekit.cloud' LIVEKIT_API_KEY='APIzHBQBAeRKQn2' LIVEKIT_API_SECRET='lavhelb0csHV2beRpOyFxFXyg6UAHcRDcv6gvWHw4bh' tsx stt.ts dev",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@livekit/agents": "^0.7.9",
+    "@livekit/rtc-node": "^0.13.18",
+    "livekit-server-sdk": "^2.13.1"
+  },
+  "devDependencies": {
+    "@types/node": "^24.1.0",
+    "tsx": "^4.20.3"
+  }
+}
