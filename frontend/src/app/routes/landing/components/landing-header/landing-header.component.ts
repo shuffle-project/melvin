@@ -8,10 +8,8 @@ import { RouterLink } from '@angular/router';
 import { LetDirective, PushPipe } from '@ngrx/component';
 import { Store } from '@ngrx/store';
 import { LogoComponent } from 'src/app/components/logo/logo.component';
-import { FeatureEnabledPipe } from 'src/app/pipes/feature-enabled-pipe/feature-enabled.pipe';
 import { ConfigService } from 'src/app/services/config/config.service';
 import { ColorTheme } from 'src/app/store/reducers/config.reducer';
-import { environment } from 'src/environments/environment';
 import * as configActions from '../../../../store/actions/config.actions';
 import * as authSelector from '../../../../store/selectors/auth.selector';
 import * as configSelector from '../../../../store/selectors/config.selector';
@@ -26,7 +24,6 @@ import { LoginDialogComponent } from './components/login-dialog/login-dialog.com
     MatIconModule,
     MatMenuModule,
     LetDirective,
-    FeatureEnabledPipe,
     PushPipe,
   ],
   templateUrl: './landing-header.component.html',
@@ -40,8 +37,6 @@ export class LandingHeaderComponent {
   public isLoggedIn$ = this.store.select(authSelector.selectIsLoggedIn);
 
   disableLandingPage = this.configService.getDisableLandingPage();
-
-  feedbackLink = environment.features.feedbackLink;
 
   constructor(
     private dialog: MatDialog,

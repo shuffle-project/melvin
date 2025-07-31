@@ -5,31 +5,27 @@
     <nav>
       <ul>
         <div class="links">
-          @if ('guide' | featureEnabled) {
           <li>
             <a routerLink="/guide" i18n="@@landingHeaderGuideLinkLabel">
               Best Practice
             </a>
           </li>
-          } @if ('tutorial' | featureEnabled) {
+
           <li>
             <a routerLink="/tutorial" i18n="@@landingHeaderTutorialLinkLabel">
               Tutorial
             </a>
           </li>
-          }
         </div>
         <div class="right-side-wrapper">
-          @if (feedbackLink) {
-          <a
+          <!-- <a
             class="feedback-link"
             href=""
             mat-flat-button
             i18n="@@landingHeaderFeedbackLinkLabel"
           >
             Provide Feedback ❤️
-          </a>
-          }
+          </a> -->
 
           <button
             mat-icon-button
@@ -54,8 +50,7 @@
             mat-flat-button
             >To the projects</a
           >
-
-          } @else { @if (!disableLandingPage) {
+          } @else {
           <button
             (click)="onOpenLoginDialog()"
             mat-flat-button
@@ -63,7 +58,7 @@
           >
             Login
           </button>
-          } }
+          }
         </div>
       </ul>
     </nav>

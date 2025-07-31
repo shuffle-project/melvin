@@ -15,7 +15,6 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { Title } from '@angular/platform-browser';
 import { LetDirective } from '@ngrx/component';
 import { Subject, takeUntil } from 'rxjs';
-import { environment } from 'src/environments/environment';
 import { LogoComponent } from '../../components/logo/logo.component';
 import * as viewerActions from '../../store/actions/viewer.actions';
 import { AppState } from '../../store/app.state';
@@ -57,8 +56,6 @@ export class ViewerComponent implements OnInit, OnDestroy {
 
   @Input() token!: string;
   @Input() embed!: boolean | undefined;
-
-  feedbackLink = environment.features.feedbackLink;
 
   /**
    * DATA

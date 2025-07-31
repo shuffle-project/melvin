@@ -14,6 +14,13 @@
 
 } @else {
 <div class="login-wrapper">
+  <img
+    width="64"
+    height="64"
+    alt=""
+    aria-hidden="true"
+    src="/assets/logo.svg"
+  />
   <div class="login">
     <h1 i18n="@@landingMainLogInHeading">Login</h1>
     <app-login />
@@ -57,8 +64,9 @@
       <p i18n="@@landingMainRecordingExplanationBottom">
         You already have a recording? Simply upload it and use it too.
       </p>
-      <!-- <a>To the record tutorial</a> -->
     </div>
+    @if (!disableTutorialVideos) {
+
     <iframe
       width="800"
       height="450"
@@ -68,6 +76,13 @@
       allowfullscreen
       referrerpolicy="strict-origin-when-cross-origin"
     ></iframe>
+    } @else {
+    <img
+      alt=""
+      aria-hidden="true"
+      src="/assets/landing/recorder-screenshot-dark.png"
+    />
+    }
   </div>
 </div>
 
@@ -83,9 +98,9 @@
         are created. Using the editor, you can then make the final corrections
         manually, either alone or together with others.
       </p>
-      <!-- <a>To the editor tutorial</a> -->
     </div>
 
+    @if (!disableTutorialVideos) {
     <iframe
       width="800"
       height="450"
@@ -95,6 +110,13 @@
       allowfullscreen
       referrerpolicy="strict-origin-when-cross-origin"
     ></iframe>
+    } @else {
+    <img
+      alt=""
+      aria-hidden="true"
+      src="/assets/landing/editor-screenshot-dark.png"
+    />
+    }
   </div>
 </div>
 
@@ -111,8 +133,9 @@
       <p i18n="@@landingMainSharingExplanationBottom">
         Of course, you can also download your files and upload them elsewhere.
       </p>
-      <!-- <a>To the player tutorial</a> -->
     </div>
+
+    @if (!disableTutorialVideos) {
     <iframe
       width="800"
       height="450"
@@ -122,6 +145,13 @@
       allowfullscreen
       referrerpolicy="strict-origin-when-cross-origin"
     ></iframe>
+    } @else {
+    <img
+      alt=""
+      aria-hidden="true"
+      src="/assets/landing/player-screenshot-dark.png"
+    />
+    }
   </div>
 </div>
 

@@ -1,3 +1,28 @@
+@if (disableLandingPage) { @if (showHeader) {
+<header>
+  <mat-toolbar class="toolbar">
+    <div class="toolbar-content">
+      <app-logo class="clickable" [routerLink]="['/']" />
+
+      <a
+        mat-flat-button
+        [routerLink]="(isLoggedIn$ | ngrxPush) ? '/home/projects' : '/'"
+      >
+        @if(isLoggedIn$ | ngrxPush) {
+        <span i18n="@@landingToProjectsButton"> To the projects </span>
+        } @else {
+        <span i18n="@@landingToLoginPageButton"> To the login page </span>
+        }
+      </a>
+    </div>
+  </mat-toolbar>
+</header>
+}
+<main>
+  <router-outlet />
+</main>
+<app-landing-footer />
+} @else {
 <mat-sidenav-container autosize>
   <mat-sidenav
     #drawer
@@ -36,3 +61,4 @@
     <app-landing-footer />
   </mat-sidenav-content>
 </mat-sidenav-container>
+}

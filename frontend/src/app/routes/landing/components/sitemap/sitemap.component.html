@@ -6,87 +6,11 @@
     order.
   </p>
 
-  @if (locale?.includes('de')) {
-
   <ul>
-    @if ('guide' | featureEnabled) {
+    @for (page of activePages; track page.route) {
     <li>
-      <a routerLink="/guide"> Best Practice </a>
-    </li>
-    } @if (privacyUrl) {
-    <li>
-      <a [routerLink]="privacyUrl">Datenschutzerklärung</a>
-    </li>
-    } @if (accessibilityStatementUrl) {
-    <li>
-      <a [routerLink]="accessibilityStatementUrl"
-        >Erklärung zur Barrierefreiheit</a
-      >
-    </li>
-    }
-    <li>
-      <a routerLink="/sign-language">Gebärdensprache (DGS)</a>
-    </li>
-    @if(imprintUrl) {
-    <li>
-      <a [routerLink]="imprintUrl">Impressum</a>
-    </li>
-    } @if (('installation' | featureEnabled)) {
-    <li>
-      <a routerLink="/installation"> Installation </a>
-    </li>
-    }
-    <li>
-      <a routerLink="/plain-language">Leichte Sprache</a>
-    </li>
-
-    <li>
-      <a routerLink="/">Startseite</a>
-    </li>
-    <li>
-      <a routerLink="/sitemap">Sitemap</a>
-    </li>
-    @if ('tutorial' | featureEnabled) {
-    <li>
-      <a routerLink="/tutorial">Tutorial</a>
+      <a [routerLink]="page.route">{{ page.name }}</a>
     </li>
     }
   </ul>
-  } @else {
-  <ul>
-    @if (accessibilityStatementUrl) {
-    <li>
-      <a [routerLink]="accessibilityStatementUrl">Accessibility statement</a>
-    </li>
-    } @if ('guide' | featureEnabled) {
-    <li>
-      <a routerLink="/guide"> Best Practice </a>
-    </li>
-    } @if (imprintUrl) {
-    <li>
-      <a [routerLink]="imprintUrl">Imprint</a>
-    </li>
-    } @if (('installation' | featureEnabled)) {
-    <li>
-      <a routerLink="/installation"> Installation </a>
-    </li>
-    } @if (privacyUrl) {
-    <li>
-      <a [routerLink]="privacyUrl">Privacy</a>
-    </li>
-    }
-
-    <li>
-      <a routerLink="/">Startpage</a>
-    </li>
-    <li>
-      <a routerLink="/sitemap">Sitemap</a>
-    </li>
-    @if ('tutorial' | featureEnabled) {
-    <li>
-      <a routerLink="/tutorial">Tutorial</a>
-    </li>
-    }
-  </ul>
-  }
 </div>

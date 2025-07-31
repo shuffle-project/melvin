@@ -13,11 +13,11 @@
         Melvin
       </h2>
       <ul>
+        @if (contactEmail) {
         <li>
-          <a href="mailto:melvin@hdm-stuttgart.de"
-            >melvin&#64;hdm-stuttgart.de</a
-          >
+          <a href="mailto:{{ contactEmail }}">{{ contactEmail }}</a>
         </li>
+        }
         <li>
           <a
             href="https://shuffle-projekt.de/"
@@ -75,19 +75,17 @@
       </ul>
     </div>
 
+    @if (!disableLandingPage || !disableInstallationPage) {
     <div class="tutorial-wrapper">
       <h3 i18n="@@landingFooterTutorialsHeader">Tutorials</h3>
       <ul>
-        <!-- <li>
-          <a routerLink="/documentation"> Documentation </a>
-        </li> -->
+        @if (!disableLandingPage) {
         <li>
           <a routerLink="/guide" i18n="@@landingFooterDidacticGuideLinkLabel">
             Best Practice
           </a>
         </li>
-
-        @if (('installation' | featureEnabled)) {
+        } @if (!disableInstallationPage) {
         <li>
           <a
             routerLink="/installation"
@@ -96,14 +94,13 @@
             Installation
           </a>
         </li>
-        }
-
+        } @if (!disableLandingPage) {
         <li>
           <a routerLink="/tutorial" i18n="@@landingFooterTutorialLinkLabel">
             Tutorial
           </a>
         </li>
-
+        } @if (!disableLandingPage) {
         <li>
           <a
             routerLink="/tutorial"
@@ -113,8 +110,10 @@
             FAQ
           </a>
         </li>
+        }
       </ul>
     </div>
+    }
 
     <div class="accessibility-wrapper">
       <h3 i18n="@@landingFooterAccessibilityHeader">Accessibility</h3>
@@ -128,14 +127,24 @@
             Accessibility statement
           </a>
         </li>
-        } @if (locale?.includes('de')) {
+        } @if (signLanguageUrl) {
         <li>
-          <a routerLink="/sign-language"> Gebärdensprache (DGS) </a>
+          <a
+            [routerLink]="signLanguageUrl"
+            i18n="@@landingFooterSignLanguageLinkLabel"
+          >
+            Sign Language
+          </a>
         </li>
+        } @if (easyLanguageUrl) {
         <li>
-          <a routerLink="/plain-language"> Leichte Sprache </a>
+          <a
+            [routerLink]="easyLanguageUrl"
+            i18n="@@landingFooterEasyLanguageLinkLabel"
+          >
+            Easy Language
+          </a>
         </li>
-
         }
 
         <li>

@@ -80,7 +80,6 @@
       </div>
     </div>
     <div class="new-project-button-wrapper">
-      @if ('projectCreate' | featureEnabled) {
       <button
         [matMenuTriggerFor]="newProjectMenu"
         mat-flat-button
@@ -104,8 +103,6 @@
           <span i18n="@@projectListCreateProjectMenuRecorder">Recorder</span>
         </menu>
       </mat-menu>
-
-      }
     </div>
   </div>
   <table
@@ -379,7 +376,6 @@
 
     <mat-menu #projectOptionsMenu="matMenu" class="dense">
       <ng-template matMenuContent let-element="element">
-        @if ('projectEdit' | featureEnabled) {
         <button
           mat-menu-item
           (click)="onClickOpenMediaDialog(element)"
@@ -388,7 +384,7 @@
           <mat-icon svgIcon="media" />
           Media
         </button>
-        }
+
         <button
           mat-menu-item
           (click)="onClickOpenActivityDialog(element)"
@@ -398,7 +394,6 @@
           Activity
         </button>
 
-        @if ('projectShare' | featureEnabled) {
         <button
           mat-menu-item
           (click)="onClickShare(element)"
@@ -407,22 +402,7 @@
           <mat-icon svgIcon="share" />
           Share
         </button>
-        }
 
-        <!-- @if ('download' | featureEnabled) {
-        <button
-          mat-menu-item
-          i18n="@@projectListMoreMenuDownloadLabel"
-          (click)="onDownloadProject(element)"
-        >
-          <mat-icon svgIcon="download"></mat-icon>
-          Download
-        </button>
-        } -->
-        <!-- <button mat-menu-item (click)="onOpenViewer(element)">
-          <mat-icon svgIcon="viewer"></mat-icon>
-          Viewer
-        </button> -->
         <mat-divider />
         @if (element.createdBy.id === (userId$ | ngrxPush)) {
         <button

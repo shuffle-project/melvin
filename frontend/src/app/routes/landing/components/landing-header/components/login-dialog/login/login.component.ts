@@ -53,7 +53,6 @@ export class LoginComponent {
   ngOnInit() {
     this.loading$ = this.store.select(authSelectors.selectLoginLoading);
     this.error$ = this.store.select(authSelectors.selectLoginError);
-
     this.error$.pipe(takeUntil(this.destroy$$)).subscribe((error) => {
       this.error = error || '';
     });
@@ -70,10 +69,8 @@ export class LoginComponent {
 
   onSubmit(): void {
     this.store.dispatch(authActions.clearLoginError());
-
     if (this.formGroup.valid) {
       const { email, password, persistent } = this.formGroup.value;
-
       this.store.dispatch(authActions.login({ email, password, persistent }));
     }
   }

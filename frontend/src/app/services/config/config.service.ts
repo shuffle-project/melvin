@@ -12,8 +12,12 @@ interface WindowEnvConfig {
   MELVIN_ACCESSIBILITY_STATEMENT_URL: string;
   MELVIN_IMPRINT_URL: string;
   MELVIN_PRIVACY_URL: string;
+  MELVIN_SIGN_LANGUAGE_URL: string;
+  MELVIN_EASY_LANGUAGE_URL: string;
   MELVIN_DISABLE_LANDING_PAGE: 'true' | 'false';
   MELVIN_DISABLE_TUTORIAL_VIDEOS: 'true' | 'false';
+  MELVIN_DISABLE_INSTALLATION_PAGE: 'true' | 'false';
+  MELVIN_CONTACT_EMAIL: string;
 }
 
 export type EnvConfigKeys = keyof WindowEnvConfig;
@@ -35,34 +39,56 @@ export class ConfigService {
   }
 
   getPrivacyUrl(): string {
-    return (this._config.get('MELVIN_PRIVACY_URL') as string) || '';
+    return this._config.get('MELVIN_PRIVACY_URL') || '';
   }
 
   getImprintUrl(): string {
-    return (this._config.get('MELVIN_IMPRINT_URL') as string) || '';
+    return this._config.get('MELVIN_IMPRINT_URL') || '';
   }
 
   getBackendBaseUrl(): string {
-    return (this._config.get('MELVIN_BACKEND_BASE_URL') as string) || '';
+    return this._config.get('MELVIN_BACKEND_BASE_URL') || '';
   }
 
   getFrontendBaseUrl(): string {
-    return (this._config.get('MELVIN_FRONTEND_BASE_URL') as string) || '';
+    return this._config.get('MELVIN_FRONTEND_BASE_URL') || '';
   }
 
   getAccessibilityStatementUrl(): string {
-    return (
-      (this._config.get('MELVIN_ACCESSIBILITY_STATEMENT_URL') as string) || ''
-    );
+    return this._config.get('MELVIN_ACCESSIBILITY_STATEMENT_URL') || '';
   }
 
   getDisableLandingPage(): boolean {
-    return this._config.get('MELVIN_DISABLE_LANDING_PAGE') === 'true' || false;
+    const disableLandingPage = this._config.get('MELVIN_DISABLE_LANDING_PAGE');
+
+    return disableLandingPage ? disableLandingPage === 'true' : false;
   }
 
   getDisableTutorialVideos(): boolean {
-    return (
-      this._config.get('MELVIN_DISABLE_TUTORIAL_VIDEOS') === 'true' || false
+    const disableTutorialVideos = this._config.get(
+      'MELVIN_DISABLE_TUTORIAL_VIDEOS'
     );
+
+    return disableTutorialVideos ? disableTutorialVideos === 'true' : true;
+  }
+
+  getContactEmail(): string {
+    return this._config.get('MELVIN_CONTACT_EMAIL') || '';
+  }
+
+  getDisableInstallationPage(): boolean {
+    const disableInstallationPage = this._config.get(
+      'MELVIN_DISABLE_INSTALLATION_PAGE'
+    );
+
+    return disableInstallationPage ? disableInstallationPage === 'true' : true;
+  }
+
+  getSignLanguageUrl(): string {
+    return this._config.get('MELVIN_SIGN_LANGUAGE_URL') || '';
+  }
+
+  getEasyLanguageUrl(): string {
+    return this._config.get('MELVIN_EASY_LANGUAGE_URL') || '';
   }
 }

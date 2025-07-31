@@ -3,11 +3,7 @@ import {
   ProjectFilter,
   ProjectSetEnum,
 } from 'src/app/interfaces/project-filter.interface';
-import { environment } from '../../../environments/environment';
-import {
-  ProjectEntity,
-  ProjectStatus,
-} from '../../services/api/entities/project.entity';
+import { ProjectEntity } from '../../services/api/entities/project.entity';
 import * as projectsActions from '../actions/projects.actions';
 
 export interface ProjectsState {
@@ -91,9 +87,9 @@ export const projectsReducer = createReducer(
   on(projectsActions.findAllSuccess, (state, action) => {
     let projects = action.projectListEntity.projects;
 
-    if (!environment.features.live) {
-      projects = projects.filter((proj) => proj.status !== ProjectStatus.LIVE);
-    }
+    // if (!environment.features.live) {
+    //   projects = projects.filter((proj) => proj.status !== ProjectStatus.LIVE);
+    // }
 
     // TODO discuss if the projects updatedAt should be updated in front or backend
     projects = projects.map((project) => {

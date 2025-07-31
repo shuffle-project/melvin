@@ -47,7 +47,6 @@ import { DeleteConfirmationService } from '../../../components/delete-confirmati
 import { HeaderComponent } from '../../../components/header/header.component';
 import { ShareProjectDialogComponent } from '../../../components/share-project-dialog/share-project-dialog.component';
 import { DurationPipe } from '../../../pipes/duration-pipe/duration.pipe';
-import { FeatureEnabledPipe } from '../../../pipes/feature-enabled-pipe/feature-enabled.pipe';
 import { FormatDatePipe } from '../../../pipes/format-date-pipe/format-date.pipe';
 import { LanguageCodePipe } from '../../../pipes/language-code-pipe/language-code.pipe';
 import { ProjectStatusPipe } from '../../../pipes/project-status-pipe/project-status.pipe';
@@ -87,7 +86,6 @@ import { DialogCreateProjectComponent } from './dialog-create-project/dialog-cre
     DurationPipe,
     LanguageCodePipe,
     ProjectStatusPipe,
-    FeatureEnabledPipe,
     ProjectLanguagesSetPipe,
     WrittenOutLanguagePipe,
     ActivityComponent,

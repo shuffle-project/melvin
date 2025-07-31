@@ -10,7 +10,6 @@ import {
   ViewChild,
 } from '@angular/core';
 import { filter, fromEvent, merge, Subject, takeUntil } from 'rxjs';
-import { environment } from '../../../../../../../environments/environment';
 import { MediaService } from '../../../service/media/media.service';
 import { WaveformCanvasSettings, WaveformService } from '../waveform.service';
 
@@ -37,7 +36,7 @@ export class WaveformCanvasComponent
   public isReady: boolean = false;
 
   get interactive(): boolean {
-    return environment.features.timeNavigation && !this.isZoomed;
+    return !this.isZoomed;
   }
 
   constructor(
@@ -163,10 +162,6 @@ export class WaveformCanvasComponent
   }
 
   onCanvasEvent(event: MouseEvent) {
-    if (!environment.features.timeNavigation) {
-      return;
-    }
-
     const { left, width } = this.canvas.nativeElement.getBoundingClientRect();
     const { clientX } = event;
     const position = Math.min(Math.max(clientX - left, 0), width);

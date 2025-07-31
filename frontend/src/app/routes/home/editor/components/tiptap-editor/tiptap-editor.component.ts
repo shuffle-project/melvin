@@ -34,7 +34,6 @@ import {
   takeUntil,
 } from 'rxjs';
 import { EditorUserEntity } from 'src/app/interfaces/editor-user.interface';
-import { FeatureEnabledPipe } from 'src/app/pipes/feature-enabled-pipe/feature-enabled.pipe';
 import { WrittenOutLanguagePipe } from 'src/app/pipes/written-out-language-pipe/written-out-language.pipe';
 import { TranscriptionStatus } from 'src/app/services/api/entities/transcription.entity';
 import { WSService } from 'src/app/services/ws/ws.service';
@@ -69,7 +68,6 @@ enum CLIENT_STATUS {
     NgxTiptapModule,
     LetDirective,
     MatProgressSpinnerModule,
-    FeatureEnabledPipe,
     PushPipe,
     WrittenOutLanguagePipe,
     TranscriptionMenuContentComponent,

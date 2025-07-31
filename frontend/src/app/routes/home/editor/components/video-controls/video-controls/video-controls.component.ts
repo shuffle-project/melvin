@@ -10,7 +10,6 @@ import { Store } from '@ngrx/store';
 import { combineLatest } from 'rxjs';
 import { MenuItemRadioDirective } from 'src/app/directives/cdkMenuRadio/cdk-menu-item-radio.directive';
 import { DurationPipe } from 'src/app/pipes/duration-pipe/duration.pipe';
-import { FeatureEnabledPipe } from 'src/app/pipes/feature-enabled-pipe/feature-enabled.pipe';
 import * as editorActions from 'src/app/store/actions/editor.actions';
 import { AppState } from 'src/app/store/app.state';
 import * as editorSelectors from 'src/app/store/selectors/editor.selector';
@@ -25,7 +24,6 @@ import { MediaService } from '../../../service/media/media.service';
     MatButtonModule,
     MatSliderModule,
     MatTooltipModule,
-    FeatureEnabledPipe,
     DurationPipe,
     LetDirective,
     CdkMenuModule,

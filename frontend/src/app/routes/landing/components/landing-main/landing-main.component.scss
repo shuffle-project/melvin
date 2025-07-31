@@ -1,8 +1,15 @@
 .login-wrapper {
   display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
   justify-content: center;
   align-items: center;
-  min-height: 50vh;
+  min-height: 40vh;
+
+  img {
+    width: 4rem;
+    height: 4rem;
+  }
 
   .login {
     width: 100%;
@@ -20,6 +27,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    color: var(--color-text);
 
     .to-projects-link {
       margin-block: 2.5rem;

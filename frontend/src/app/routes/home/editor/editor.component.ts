@@ -20,7 +20,6 @@ import { AppState } from 'src/app/store/app.state';
 import { AvatarGroupComponent } from '../../../components/avatar-group/avatar-group.component';
 import { ShareProjectDialogComponent } from '../../../components/share-project-dialog/share-project-dialog.component';
 
-import { FeatureEnabledPipe } from '../../../pipes/feature-enabled-pipe/feature-enabled.pipe';
 import { ApiService } from '../../../services/api/api.service';
 import {
   ProjectEntity,
@@ -87,7 +86,6 @@ import { WaveformComponent } from './components/waveform/waveform.component';
     EditorSettingsComponent,
     UserTestControlsComponent,
     PushPipe,
-    FeatureEnabledPipe,
     TiptapEditorComponent,
     MediaCategoryPipe,
     VideoControlsComponent,

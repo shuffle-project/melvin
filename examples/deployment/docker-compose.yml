@@ -59,16 +59,24 @@ services:
       - MELVIN_FRONTEND_BASE_URL=http://localhost:8080 # TODO: replace with your frontend URL
       - MELVIN_BACKEND_BASE_URL=https://localhost:3000 # TODO: replace with your backend URL
       - MELVIN_DISABLE_LANDING_PAGE=false # TODO: set to true if you want to disable the landing page
-      - MELVIN_DISABLE_TUTORIAL_VIDEOS=false # TODO: set to true if you want to disable the tutorial videos
+      - MELVIN_DISABLE_TUTORIAL_VIDEOS=true # TODO: Videos are hosted on a server, therefore disabled by default
+      - MELVIN_DISABLE_INSTALLATION_PAGE=true # TODO: set to false if you want to enable the installation page in the footer
       - MELVIN_IMPRINT_URL= # TODO: your default imprint URL
       - MELVIN_PRIVACY_URL= # TODO: your default privacy URL
+      - MELVIN_SIGN_LANGUAGE_URL= # TODO: your default sign language URL
+      - MELVIN_EASY_LANGUAGE_URL= # TODO: your default easy language URL
       - MELVIN_ACCESSIBILITY_STATEMENT_URL= # TODO: your default accessibility statement URL
       - MELVIN_DE_IMPRINT_URL= # TODO: optional, if you have a German imprint URL
       - MELVIN_DE_PRIVACY_URL= # TODO: optional, if you have a German privacy URL
+      - MELVIN_DE_SIGN_LANGUAGE_URL= # TODO: optional, if you have a German sign language URL
+      - MELVIN_DE_EASY_LANGUAGE_URL= # TODO: optional, if you have a German easy language URL
       - MELVIN_DE_ACCESSIBILITY_STATEMENT_URL= # TODO: optional, if you have a German accessibility statement URL
       - MELVIN_EN_IMPRINT_URL= # TODO: optional, if you have a English imprint URL
       - MELVIN_EN_PRIVACY_URL= # TODO: optional, if you have a English privacy URL
+      - MELVIN_EN_SIGN_LANGUAGE_URL= # TODO: optional, if you have a English sign language URL
+      - MELVIN_EN_EASY_LANGUAGE_URL= # TODO: optional, if you have a
       - MELVIN_EN_ACCESSIBILITY_STATEMENT_URL= # TODO: optional, if you have a English accessibility statement URL
+      - MELVIN_CONTACT_EMAIL= # TODO: optional, your contact email address
       # if no language specific imprint or privacy URL is set, the default URLs will be used
 
   asr:

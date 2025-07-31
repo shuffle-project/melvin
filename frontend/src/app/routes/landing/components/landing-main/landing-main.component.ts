@@ -22,7 +22,9 @@ import { LoginComponent } from '../landing-header/components/login-dialog/login/
   styleUrl: './landing-main.component.scss',
 })
 export class LandingMainComponent {
-  disableLandingPage = this.configService.getDisableLandingPage();
+  public disableLandingPage = this.configService.getDisableLandingPage();
+  public disableTutorialVideos = this.configService.getDisableTutorialVideos();
+
   public isLoggedIn$ = this.store.select(authSelector.selectIsLoggedIn);
 
   constructor(
