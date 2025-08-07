@@ -103,6 +103,11 @@
           <mat-icon svgIcon="record"></mat-icon>
           <span i18n="@@projectListCreateProjectMenuRecorder">Recorder</span>
         </menu>
+
+        <menu mat-menu-item (click)="onCreateLiveProject()">
+          <mat-icon svgIcon="live"></mat-icon>
+          <span i18n="@@projectListCreateLiveProjectMenu">Live</span>
+        </menu>
       </mat-menu>
 
       }

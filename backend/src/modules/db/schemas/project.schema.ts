@@ -28,9 +28,11 @@ export enum ProjectStatus {
   WAITING = 'waiting',
   PROCESSING = 'processing',
   DRAFT = 'draft',
-  LIVE = 'live',
   FINISHED = 'finished',
   ERROR = 'error',
+  //
+  NOT_STARTED = 'not_started',
+  LIVE = 'live',
 }
 
 export enum MediaStatus {

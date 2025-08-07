@@ -22,6 +22,11 @@ class SubtitleOption {
   language: string;
 }
 
+export class CreateLiveProjectDto extends PickType(Project, [
+  'title',
+  'language',
+] as const) {}
+
 export class CreateProjectDto extends PickType(Project, [
   'title',
   'language',
@@ -50,8 +55,3 @@ export class CreateProjectDto extends PickType(Project, [
   @IsOptional()
   recorder?: boolean = false;
 }
-
-export class CreateRecorderProjectDto extends PickType(Project, [
-  'title',
-  'language',
-] as const) {}

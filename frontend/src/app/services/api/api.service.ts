@@ -7,7 +7,10 @@ import { ChangePasswordDto } from './dto/auth.dto';
 import { BulkRemoveDto } from './dto/bulk-remove.dto';
 import { ConnectLivestreamDto } from './dto/connect-livestream.dto';
 import { CreateCaptionDto } from './dto/create-caption.dto';
-import { CreateProjectDto } from './dto/create-project.dto';
+import {
+  CreateLiveProjectDto,
+  CreateProjectDto,
+} from './dto/create-project.dto';
 import { CreateSpeakersDto } from './dto/create-speakers.dto';
 import { CreateTranscriptionDto } from './dto/create-transcription.dto';
 import { PauseLivestreamDto } from './dto/pause-livestream.dto';
@@ -116,6 +119,9 @@ export abstract class ApiService {
   abstract deleteAccount(password: string): Observable<void>;
 
   // projects
+  abstract createLiveProject(
+    project: CreateLiveProjectDto
+  ): Observable<ProjectEntity>;
   abstract createProject(project: CreateProjectDto): Observable<ProjectEntity>;
 
   abstract createDefaultProject(): Observable<ProjectEntity>;
@@ -347,6 +353,9 @@ export abstract class ApiService {
 
   abstract authenticateLivekit(
     projectId: string
+  ): Observable<LivekitAuthEntity>;
+  abstract authenticateViewerLivekit(
+    viewerToken: string
   ): Observable<LivekitAuthEntity>;
 
   // upload service

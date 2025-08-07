@@ -3,12 +3,12 @@ import { ConfigService } from '@nestjs/config';
 import {
   AccessToken,
   EgressClient,
-  EncodedFileOutput,
-  EncodedFileType,
   RoomServiceClient,
   VideoGrant,
 } from 'livekit-server-sdk';
 import { LivekitConfig } from 'src/config/config.interface';
+import { DbService } from 'src/modules/db/db.service';
+import { ProjectStatus } from 'src/modules/db/schemas/project.schema';
 import { AuthUser } from '../auth/auth.interfaces';
 import { LivekitAuthEntity } from './entities/livekit.entity';
 
@@ -17,7 +17,7 @@ export class LivekitService {
   config = this.configService.get<LivekitConfig>('livekit');
   roomService: RoomServiceClient;
   egressClient: EgressClient;
-  constructor(private configService: ConfigService) {}
+  constructor(private configService: ConfigService, private db: DbService) {}
 
   // opts = new WorkerOptions({
   //   // path to a file that has a default export of defineAgent, dynamically
@@ -74,19 +74,19 @@ export class LivekitService {
       console.log('room created', room);
 
       //  recording of room
-      this.egressClient
-        .startRoomCompositeEgress(projectId, {
-          file: new EncodedFileOutput({
-            fileType: EncodedFileType.MP4,
-            filepath: './recordings/session.mp4',
-          }),
-        })
-        .then((egress) => {
-          console.log('egress started', egress);
-        })
-        .catch((err) => {
-          console.log('egress error', err);
-        });
+      // this.egressClient
+      //   .startRoomCompositeEgress(projectId, {
+      //     file: new EncodedFileOutput({
+      //       fileType: EncodedFileType.MP4,
+      //       filepath: './recordings/session.mp4',
+      //     }),
+      //   })
+      //   .then((egress) => {
+      //     console.log('egress started', egress);
+      //   })
+      //   .catch((err) => {
+      //     console.log('egress error', err);
+      //   });
     });
   }
 
@@ -101,56 +101,10 @@ export class LivekitService {
     projectId: string,
   ): Promise<LivekitAuthEntity> {
     await this.createRoom(projectId);
+    await this.db.projectModel.findByIdAndUpdate(projectId, {
+      $set: { status: ProjectStatus.LIVE },
+    });
 
-    // though `production` is defined in WorkerOptions, it will always be overriddden by CLI.
-    // const { production: _, ...opts } = { production: true, room: 'projectid' }; // eslint-disable-line @typescript-eslint/no-unused-vars
-    // initializeLogger({ pretty: true, level: 'info' });
-    // // @ts-ignore
-    // const agentPath = path.join(
-    //   require.main.path,
-    //   'resources/livekit/agent.js',
-    // );
-    // const worker = new Worker(
-    //   new WorkerOptions({
-    //     production: true,
-    //     agent: agentPath,
-    //     apiKey: this.config.apikey,
-    //     apiSecret: this.config.secret,
-    //   }),
-    // );
-
-    // if (true) {
-    //   worker.event.once('worker_registered', () => {
-    //     console.log(`connecting to room $6200e98c9f6b0de828dbe34a`);
-    //     worker.simulateJob('6200e98c9f6b0de828dbe34a', authUser.id);
-    //   });
-    // }
-
-    // process.once('SIGINT', async () => {
-    //   // allow C-c C-c for force interrupt
-    //   // process.once('SIGINT', () => {
-    //   //   console.log('worker closed forcefully');
-    //   //   process.exit(130); // SIGINT exit code
-    //   // });
-    //   // if (true) {
-    //   // if (args.production) {
-    //   await worker.drain();
-    //   // }
-    //   await worker.close();
-    //   console.log('worker closed');
-    //   // process.exit(130); // SIGINT exit code
-    // });
-
-    // try {
-    //   // await worker.run();
-    // } catch {
-    //   console.log('worker failed');
-    //   process.exit(1);
-    // }
-
-    // TODO check if user is allwed to join this project room
-    // getProject
-    // is owner
     const at = new AccessToken(this.config.apikey, this.config.secret, {
       identity: authUser.id,
     });
@@ -165,6 +119,32 @@ export class LivekitService {
     at.addGrant(videoGrant);
     const authToken = await at.toJwt();
     console.log('authToken for:', authUser, projectId);
+
+    return { url: this.config.url, authToken };
+  }
+
+  public async authenticateViewer(
+    authUser: AuthUser,
+    viewerToken: string,
+  ): Promise<LivekitAuthEntity> {
+    const project = await this.db.projectModel.findOne({ viewerToken });
+
+    // TODO add checks to project
+
+    const at = new AccessToken(this.config.apikey, this.config.secret, {
+      identity: authUser.id,
+    });
+
+    const videoGrant: VideoGrant = {
+      room: project._id.toString(),
+      roomJoin: true,
+      canPublish: false, // if projectowner = true  : false
+      canSubscribe: true, // if projectMember = true
+    };
+
+    at.addGrant(videoGrant);
+    const authToken = await at.toJwt();
+    console.log('authToken for:', authUser, viewerToken);
 
     return { url: this.config.url, authToken };
   }

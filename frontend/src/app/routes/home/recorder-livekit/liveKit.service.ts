@@ -68,10 +68,17 @@ export class LiveKitService {
   async init(projectId: string) {
     this.room = new Room();
 
-    // TODO choose id??
-    const res = await firstValueFrom(
-      this.api.authenticateLivekit('6200e98c9f6b0de828dbe34a')
+    const viewerToken = await firstValueFrom(
+      this.api.getProjectViewerToken(projectId)
     );
+
+    console.log('auth livekit with projectId', projectId);
+
+    const res = await firstValueFrom(this.api.authenticateLivekit(projectId));
+    const res2 = await firstValueFrom(
+      this.api.authenticateViewerLivekit(viewerToken.viewerToken)
+    );
+    console.log(res, res2);
     await this.room.connect(res.url, res.authToken);
 
     this.room.on(

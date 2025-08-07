@@ -120,9 +120,11 @@ export interface ProjectMediaEntity {
 
 export enum ProjectStatus {
   FINISHED = 'finished',
-  LIVE = 'live',
   WAITING = 'waiting',
   DRAFT = 'draft',
   PROCESSING = 'processing',
   ERROR = 'error',
+  //
+  LIVE = 'live',
+  NOT_STARTED = 'not_started',
 }

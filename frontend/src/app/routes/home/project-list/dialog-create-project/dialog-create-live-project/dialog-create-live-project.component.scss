@@ -1,0 +1,86 @@
+.intro-text {
+  line-height: 150%;
+  margin-bottom: 2.5rem;
+}
+
+.file-table {
+  position: relative;
+  z-index: 5;
+  width: 100%;
+  margin-top: 1.875rem;
+  border-radius: 0.5rem;
+  border: 1px solid transparent;
+  transition: border 0.3s ease;
+
+  &.with-error {
+    border: 1px solid var(--color-warn);
+    transition: border 0.3s ease;
+  }
+
+  .file-name {
+    word-break: break-all;
+  }
+
+  .select-mat-form-field {
+    width: 100%;
+    max-width: 10rem;
+  }
+
+  .align-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 3.5rem;
+    box-sizing: border-box;
+  }
+
+  td {
+    padding-top: 0.625rem;
+    padding-bottom: 1.25rem;
+
+    vertical-align: top;
+  }
+
+  .checkbox {
+    z-index: 10;
+  }
+}
+
+.title-form-field {
+  width: 100%;
+}
+
+.error-wrapper {
+  min-height: 2.875rem;
+  padding: 0.125rem 1.125rem;
+  box-sizing: border-box;
+  text-align: left;
+  width: 100%;
+
+  .mat-error {
+    color: var(--color-warn);
+    font-size: 0.75rem;
+    font-weight: 300;
+    margin: 0;
+
+    span {
+      color: var(--color-warn);
+    }
+  }
+}
+
+.hidden {
+  display: none !important;
+}
+
+.upload {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.625rem;
+  min-height: 6rem;
+}
+
+.discard-button {
+  border: 1px solid var(--color-red);
+}

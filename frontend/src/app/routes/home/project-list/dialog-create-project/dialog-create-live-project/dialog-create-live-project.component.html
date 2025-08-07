@@ -1,0 +1,41 @@
+<div mat-dialog-title>
+  <div class="dialog-header">
+    <div>
+      <h1 i18n="@@dialogCreateProjectHeadline">New Project</h1>
+    </div>
+
+    <button
+      mat-icon-button
+      [mat-dialog-close]="true"
+      aria-label="Close"
+      i18n-aria-label="@@dialogCreateProjectCloseButton"
+      [disabled]="loading"
+    >
+      <mat-icon svgIcon="close" />
+    </button>
+  </div>
+</div>
+
+<mat-dialog-content> </mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  @if (loading) {
+  <button
+    mat-stroked-button
+    (click)="onCancelUpload()"
+    class="discard-button mat-warn"
+    i18n="@@dialogCreateLiveProjectCancelUploadButton"
+  >
+    Cancel and close
+  </button>
+  }
+
+  <button
+    mat-flat-button
+    (click)="onSubmitForm()"
+    [disabled]="loading"
+    i18n="@@dialogCreateLiveProjectCreateButton"
+  >
+    Create Project
+  </button>
+</mat-dialog-actions>

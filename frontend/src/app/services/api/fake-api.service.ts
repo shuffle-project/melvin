@@ -16,7 +16,10 @@ import { ChangePasswordDto } from './dto/auth.dto';
 import { BulkRemoveDto } from './dto/bulk-remove.dto';
 import { ConnectLivestreamDto } from './dto/connect-livestream.dto';
 import { CreateCaptionDto } from './dto/create-caption.dto';
-import { CreateProjectDto } from './dto/create-project.dto';
+import {
+  CreateLiveProjectDto,
+  CreateProjectDto,
+} from './dto/create-project.dto';
 import { CreateSpeakersDto } from './dto/create-speakers.dto';
 import { CreateTranscriptionDto } from './dto/create-transcription.dto';
 import { PauseLivestreamDto } from './dto/pause-livestream.dto';
@@ -169,6 +172,11 @@ export class FakeApiService implements ApiService {
   // projects
   createLegacyProject(project: FormData): Observable<any> {
     this.logger.verbose('createProject mocked');
+    return of({ ...PROJECT_ENTITY_MOCK[0] });
+  }
+
+  createLiveProject(project: CreateLiveProjectDto): Observable<ProjectEntity> {
+    this.logger.verbose('createLiveProject mocked');
     return of({ ...PROJECT_ENTITY_MOCK[0] });
   }
 
@@ -528,6 +536,12 @@ export class FakeApiService implements ApiService {
   }
 
   authenticateLivekit(projectId: string): Observable<LivekitAuthEntity> {
+    return of({ url: 'livekiturl', authToken: 'live' });
+  }
+
+  authenticateViewerLivekit(
+    viewerToken: string
+  ): Observable<LivekitAuthEntity> {
     return of({ url: 'livekiturl', authToken: 'live' });
   }
 

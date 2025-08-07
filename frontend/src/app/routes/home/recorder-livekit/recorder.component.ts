@@ -24,6 +24,7 @@ import { AppState } from '../../../store/app.state';
 import * as configSelector from '../../../store/selectors/config.selector';
 import { MediaSourceComponent } from './components/media-source/media-source.component';
 
+import { ActivatedRoute } from '@angular/router';
 import { LetDirective } from '@ngrx/component';
 import { LiveKitService } from './liveKit.service';
 
@@ -63,13 +64,16 @@ export class RecorderComponent implements OnInit, OnDestroy {
   constructor(
     public dialog: MatDialog,
     private store: Store<AppState>,
-    public livekitService: LiveKitService
+    public livekitService: LiveKitService,
+    private route: ActivatedRoute
   ) {}
 
   async ngOnInit() {
     this.loading = false;
+
+    const projectId = this.route.snapshot.paramMap.get('id');
     // TODO set projectId? not known yet
-    this.livekitService.init('projectId');
+    this.livekitService.init(projectId!);
 
     // this.room.emit('chatMessage', 'hello from angular');
 

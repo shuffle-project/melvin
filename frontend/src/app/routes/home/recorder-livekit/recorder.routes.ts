@@ -3,7 +3,7 @@ import { RecorderComponent } from './recorder.component';
 
 export const RecorderRoutes: Routes = [
   {
-    path: '',
+    path: ':id',
     component: RecorderComponent,
   },
 ];

@@ -19,7 +19,10 @@ import { User } from '../auth/auth.decorator';
 import { AuthUser } from '../auth/auth.interfaces';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { PopulateService } from '../populate/populate.service';
-import { CreateProjectDto } from './dto/create-project.dto';
+import {
+  CreateLiveProjectDto,
+  CreateProjectDto,
+} from './dto/create-project.dto';
 import { FindAllProjectsQuery } from './dto/find-all-projects.dto';
 import { InviteDto } from './dto/invite.dto';
 import { UpdateProjectDto } from './dto/update-project.dto';
@@ -44,6 +47,17 @@ export class ProjectController {
   @ApiResponse({ status: HttpStatus.CREATED })
   async createDefault(@User() authUser: AuthUser) {
     return await this.populateService._generateDefaultProject(authUser.id);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Post('live')
+  @ApiResponse({ status: HttpStatus.CREATED, type: ProjectEntity })
+  async createLive(
+    @User() authUser: AuthUser,
+    @Body()
+    createLiveProjectDto: CreateLiveProjectDto,
+  ) {
+    return await this.projectService.createLive(authUser, createLiveProjectDto);
   }
 
   @UseGuards(JwtAuthGuard)

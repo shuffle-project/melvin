@@ -20,4 +20,14 @@ export class LivekitController {
   ): Promise<LivekitAuthEntity> {
     return this.livekitService.authenticate(authUser, id);
   }
+
+  @UseGuards(JwtAuthGuard)
+  @Post('authenticate-viewer/:id')
+  @ApiResponse({ status: HttpStatus.OK })
+  authenticateViewer(
+    @User() authUser: AuthUser,
+    @Param('id') viewerToken: string,
+  ): Promise<LivekitAuthEntity> {
+    return this.livekitService.authenticateViewer(authUser, viewerToken);
+  }
 }

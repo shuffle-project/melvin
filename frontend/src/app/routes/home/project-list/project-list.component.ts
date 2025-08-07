@@ -59,6 +59,7 @@ import * as projectsActions from '../../../store/actions/projects.actions';
 import * as authSelectors from '../../../store/selectors/auth.selector';
 import * as projectsSelectors from '../../../store/selectors/projects.selector';
 import { LandingFooterComponent } from '../../landing/components/landing-footer/landing-footer.component';
+import { DialogCreateLiveProjectComponent } from './dialog-create-project/dialog-create-live-project/dialog-create-live-project.component';
 import { DialogCreateProjectComponent } from './dialog-create-project/dialog-create-project/dialog-create-project.component';
 @Component({
   selector: 'app-project-list',
@@ -193,8 +194,24 @@ export class ProjectListComponent implements OnInit, AfterViewInit, OnDestroy {
 
   onClickTitle(project: ProjectEntity) {
     if (this.isClickable(project)) {
-      this.router.navigate(['/home/editor', project.id]);
+      if (
+        project.status === ProjectStatus.LIVE ||
+        project.status === ProjectStatus.NOT_STARTED
+      ) {
+        this.router.navigate(['/home/recorder-livekit', project.id]);
+      } else {
+        this.router.navigate(['/home/editor', project.id]);
+      }
     }
+  }
+
+  onCreateLiveProject() {
+    this.dialog.open(DialogCreateLiveProjectComponent, {
+      disableClose: true,
+      width: '100%',
+      maxWidth: '50rem',
+      maxHeight: '90vh',
+    });
   }
 
   onOpenDialogCreateProject() {
@@ -297,6 +314,7 @@ export class ProjectListComponent implements OnInit, AfterViewInit, OnDestroy {
         ProjectStatus.DRAFT,
         ProjectStatus.FINISHED,
         ProjectStatus.LIVE,
+        ProjectStatus.NOT_STARTED,
       ].includes(project.status) && project.transcriptions.length > 0
     );
   }

@@ -18,7 +18,10 @@ import { ChangePasswordDto } from './dto/auth.dto';
 import { BulkRemoveDto } from './dto/bulk-remove.dto';
 import { ConnectLivestreamDto } from './dto/connect-livestream.dto';
 import { CreateCaptionDto } from './dto/create-caption.dto';
-import { CreateProjectDto } from './dto/create-project.dto';
+import {
+  CreateLiveProjectDto,
+  CreateProjectDto,
+} from './dto/create-project.dto';
 import { CreateSpeakersDto } from './dto/create-speakers.dto';
 import { CreateTranscriptionDto } from './dto/create-transcription.dto';
 import { PauseLivestreamDto } from './dto/pause-livestream.dto';
@@ -292,6 +295,12 @@ export class RealApiService implements ApiService {
       reportProgress: true,
       observe: 'events' as any,
     });
+  }
+
+  createLiveProject(
+    createLiveProjectDto: CreateLiveProjectDto
+  ): Observable<ProjectEntity> {
+    return this._post<ProjectEntity>(`/projects/live`, createLiveProjectDto);
   }
 
   createProject(createProjectDto: CreateProjectDto): Observable<ProjectEntity> {
@@ -693,6 +702,13 @@ export class RealApiService implements ApiService {
     return this._post('/livekit/authenticate/' + projectId, {});
     // upload service
   }
+  authenticateViewerLivekit(
+    viewerToken: string
+  ): Observable<LivekitAuthEntity> {
+    return this._post('/livekit/authenticate-viewer/' + viewerToken, {});
+    // upload service
+  }
+
   createUpload(uploadDto: UploadDto) {
     return this._post<UploadEntity>('/upload', { ...uploadDto });
   }

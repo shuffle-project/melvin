@@ -43,7 +43,10 @@ import { AuthService } from '../auth/auth.service';
 import { EventsGateway } from '../events/events.gateway';
 import { TranscriptionService } from '../transcription/transcription.service';
 import { UserRole } from '../user/user.interfaces';
-import { CreateProjectDto } from './dto/create-project.dto';
+import {
+  CreateLiveProjectDto,
+  CreateProjectDto,
+} from './dto/create-project.dto';
 import { FindAllProjectsQuery } from './dto/find-all-projects.dto';
 import { InviteDto } from './dto/invite.dto';
 import { UpdatePartialProjectDto } from './dto/update-partial-project.dto';
@@ -83,10 +86,64 @@ export class ProjectService {
     this.serverBaseUrl = this.configService.get<string>('baseUrl');
   }
 
+  async createLive(
+    authUser: AuthUser,
+    createLiveProjectDto: CreateLiveProjectDto,
+  ) {
+    const status = ProjectStatus.NOT_STARTED;
+
+    //create project
+    const project = await this.db.projectModel.create({
+      title: createLiveProjectDto.title,
+      language: createLiveProjectDto.language,
+      createdBy: authUser.id,
+      users: [authUser.id],
+      status,
+      inviteToken: generateSecureToken(),
+      viewerToken: generateSecureToken(),
+      // videos: [mainVideo],
+      // audios: [mainAudio],
+    });
+
+    await this.transcriptionService.create(authUser, {
+      project: project._id,
+      language: createLiveProjectDto.language,
+      // title:'',
+    });
+
+    await ensureDir(
+      this.pathService.getProjectDirectory(project._id.toString()),
+    );
+
+    // add project to owner
+    await this.db.userModel
+      .updateOne({ _id: authUser.id }, { $push: { projects: project._id } })
+      .lean()
+      .exec();
+
+    // Create activity
+    await this.activityService.create(
+      project.toObject(),
+      getObjectIdAsString(project.createdBy),
+      'project-created',
+      {},
+    );
+
+    // Entity
+    const populatedProject = await this.db.findProjectByIdOrThrow(project._id);
+
+    const entity = plainToInstance(ProjectEntity, {
+      ...populatedProject,
+    }) as unknown as ProjectEntity;
+
+    // Send events
+
+    this.events.projectCreated(entity);
+    return entity;
+  }
+
   async create(authUser: AuthUser, createProjectDto: CreateProjectDto) {
     const status = ProjectStatus.WAITING;
-
-    console.log(createProjectDto);
 
     const videosMetadata: UploadMetadata[] = [];
     const subtitlesMetadata: UploadMetadata[] = [];

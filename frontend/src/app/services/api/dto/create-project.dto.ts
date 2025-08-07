@@ -11,6 +11,11 @@ export interface SubtitleOption {
   language: string;
 }
 
+export interface CreateLiveProjectDto {
+  title: string;
+  language: string;
+}
+
 export interface CreateProjectDto {
   asrVendor: AsrVendors;
   title: string;
