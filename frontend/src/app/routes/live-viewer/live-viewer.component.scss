@@ -1,0 +1,25 @@
+.wrapper {
+  display: grid;
+  grid-template-columns: 1fr 25rem;
+  height: 100%;
+}
+
+.video-wrapper {
+  .videos {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+
+    video {
+      width: 100%;
+      max-width: 32rem;
+
+      height: auto;
+    }
+  }
+}
+
+.transcript-wrapper {
+  border-left: 1px solid var(--color-border-grey);
+  padding-inline: 1rem;
+}

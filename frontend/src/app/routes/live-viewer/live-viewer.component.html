@@ -1,0 +1,19 @@
+<audio #audioElement playsinline [srcObject]="audioDestination.stream"></audio>
+
+<div class="wrapper">
+  <div class="video-wrapper">
+    <h1>Live Viewer</h1>
+    <button mat-flat-button (click)="onStartWatching()">Start Audio</button>
+
+    <div class="videos">
+      @for (videoTrack of videoTracks; track videoTrack) {
+      <video #videoElement autoplay playsinline></video>
+      }
+    </div>
+  </div>
+
+  <div class="transcript-wrapper">
+    <h2>Transkript</h2>
+    <p>Test</p>
+  </div>
+</div>

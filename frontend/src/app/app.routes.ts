@@ -29,6 +29,14 @@ export const AppRoutes: Routes = [
       import('./routes/viewer/viewer.routes').then((m) => m.ViewerRoutes),
   },
   {
+    path: 'live',
+    canActivate: [IsConfigLoadedGuard],
+    loadChildren: () =>
+      import('./routes/live-viewer/live-viewer.routes').then(
+        (m) => m.LiveViewerRoutes
+      ),
+  },
+  {
     path: '**',
     redirectTo: '',
   },

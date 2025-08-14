@@ -128,6 +128,7 @@ export class RealApiService implements ApiService {
     const chosenToken = options.useViewerToken
       ? this.viewerToken
       : this.authToken;
+
     return {
       headers: {
         ...(skipJwt || !chosenToken
@@ -705,7 +706,13 @@ export class RealApiService implements ApiService {
   authenticateViewerLivekit(
     viewerToken: string
   ): Observable<LivekitAuthEntity> {
-    return this._post('/livekit/authenticate-viewer/' + viewerToken, {});
+    return this._post(
+      '/livekit/authenticate-viewer/' + viewerToken,
+      {},
+      {
+        useViewerToken: true,
+      }
+    );
     // upload service
   }
 
