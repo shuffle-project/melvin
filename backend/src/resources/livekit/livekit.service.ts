@@ -1,3 +1,4 @@
+import * as livelkitClient from '@livekit/rtc-node';
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import {
@@ -10,6 +11,7 @@ import { LivekitConfig } from 'src/config/config.interface';
 import { DbService } from 'src/modules/db/db.service';
 import { ProjectStatus } from 'src/modules/db/schemas/project.schema';
 import { AuthUser } from '../auth/auth.interfaces';
+import { UserService } from '../user/user.service';
 import { LivekitAuthEntity } from './entities/livekit.entity';
 
 @Injectable()
@@ -17,7 +19,11 @@ export class LivekitService {
   config = this.configService.get<LivekitConfig>('livekit');
   roomService: RoomServiceClient;
   egressClient: EgressClient;
-  constructor(private configService: ConfigService, private db: DbService) {}
+  constructor(
+    private configService: ConfigService,
+    private db: DbService,
+    private userService: UserService,
+  ) {}
 
   // opts = new WorkerOptions({
   //   // path to a file that has a default export of defineAgent, dynamically
@@ -70,23 +76,75 @@ export class LivekitService {
       emptyTimeout: 10 * 60, // 10*60 = 10 minutes
       maxParticipants: 10,
     };
-    this.roomService.createRoom(opts).then((room) => {
+
+    this.roomService.createRoom(opts).then(async (room) => {
       console.log('room created', room);
 
-      //  recording of room
-      // this.egressClient
-      //   .startRoomCompositeEgress(projectId, {
-      //     file: new EncodedFileOutput({
-      //       fileType: EncodedFileType.MP4,
-      //       filepath: './recordings/session.mp4',
-      //     }),
-      //   })
-      //   .then((egress) => {
-      //     console.log('egress started', egress);
-      //   })
-      //   .catch((err) => {
-      //     console.log('egress error', err);
-      //   });
+      const systemUser = await this.userService.findSystemUser();
+      const livekitAuthEntity = await this.authenticate(
+        { role: systemUser.role, id: systemUser._id.toString(), jwtId: '' },
+        projectId,
+      );
+
+      const livekitClientRoom = new livelkitClient.Room();
+      livekitClientRoom.on('participantConnected', (participant) => {
+        console.log(`Participant connected: ${participant.identity}`);
+      });
+
+      livekitClientRoom.on('participantDisconnected', (participant) => {
+        console.log(`Participant disconnected: ${participant.identity}`);
+      });
+
+      livekitClientRoom.on('chatMessage', (message) => {
+        console.log('chat message', message);
+      });
+      livekitClientRoom.on('dataReceived', (data) => {
+        console.log('data received', data);
+      });
+
+      // livekitClientRoom.
+
+      await livekitClientRoom.connect(
+        livekitAuthEntity.url,
+        livekitAuthEntity.authToken,
+      );
+
+      // livekitClientRoom.connect()
+
+      // // Local path inside the egress worker's filesystem
+      // const outputFile = new EncodedFileOutput({
+      //   fileType: EncodedFileType.MP4,
+      //   filepath:
+      //     '/recordings/' +
+      //     room.sid +
+      //     '-' +
+      //     new Date().getMilliseconds() +
+      //     '.mp4', // absolute path is recommended
+      // });
+
+      // const opts: RoomCompositeOptions = {
+      //   layout: 'grid',
+      //   audioOnly: false,
+      //   videoOnly: false,
+      // };
+
+      // //  recording of room
+      // try {
+      //   const egress = await this.egressClient.startRoomCompositeEgress(
+      //     projectId,
+      //     outputFile,
+      //     opts,
+      //   );
+
+      //   console.log('egress started', egress.egressId);
+      //   console.log(egress);
+      // } catch (e: any) {
+      //   console.error(
+      //     'egress error',
+      //     e?.response?.status,
+      //     e?.response?.data || e?.message,
+      //   );
+      // }
     });
   }
 
