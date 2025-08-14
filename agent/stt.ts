@@ -29,7 +29,24 @@ export default defineAgent({
 
       const recvTask = async () => {
         for await (const event of sttStream) {
+          console.log("Received STT event:");
           console.log(event);
+          const message = "Hello, this is your agent bot!";
+          const payload = Buffer.from(message, "utf-8");
+
+          ctx.room.localParticipant?.sendChatMessage(
+            event.alternatives![0].text
+          );
+          // Send a reliable message to all participants
+          // ctx.room.localParticipant!.publishData(payload, {
+          //   reliable: true,
+          // });
+          // ctx.room.emit(RoomEvent.ChatMessage, {
+          //   id: "stt",
+          //   message: event.alternatives![0].text,
+          //   timestamp: Date.now(),
+          // });
+
           //   if (event.type === stt.SpeechEventType.FINAL_TRANSCRIPT) {
           //     console.log(event.alternatives![0].text);
           //   }
