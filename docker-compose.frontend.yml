@@ -1,0 +1,16 @@
+services:
+  frontend:
+    build:
+      context: ./frontend
+    ports:
+      - "8080:80"
+    environment:
+      - MELVIN_FRONTEND_BASE_URL=https://dev.melvin.shuffle-projekt.de
+      - MELVIN_BACKEND_BASE_URL=https://dev.api.melvin.shuffle-projekt.de
+      - FRONTEND_BASE_URL=https://dev.melvin.shuffle-projekt.de
+      - BACKEND_BASE_URL=https://dev.api.melvin.shuffle-projekt.de
+      - MELVIN_ACCESSIBILITY_STATEMENT_URL=/accessibility-statement
+      - MELVIN_IMPRINT_URL=/imprint
+      - MELVIN_PRIVACY_URL=/privacy
+      - MELVIN_DISABLE_LANDING_PAGE=true
+      - MELVIN_DISABLE_TUTORIAL_VIDEOS=true

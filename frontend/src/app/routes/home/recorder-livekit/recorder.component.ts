@@ -50,6 +50,7 @@ import { LiveKitService } from './liveKit.service';
   ],
 })
 export class RecorderComponent implements OnInit, OnDestroy {
+  // TODO ViewChild still necessary? Change ID to be more descriptive?
   @ViewChild('lalelu') lalelu!: ElementRef<HTMLDivElement>;
   @ViewChild('testWrapper') testWrapper!: ElementRef<HTMLDivElement>;
 

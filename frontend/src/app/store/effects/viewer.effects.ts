@@ -58,10 +58,11 @@ export class ViewerEffects {
       ofType(viewerActions.viewerLogin),
       exhaustMap((action) =>
         this.api.viewerLogin(action.token).pipe(
-          map((res: ViewerLoginEntity) =>
-            viewerActions.viewerLoginSuccess({ viewerLoginEntity: res })
-          ),
+          map((res: ViewerLoginEntity) => {
+            return viewerActions.viewerLoginSuccess({ viewerLoginEntity: res });
+          }),
           catchError((res: HttpErrorResponse) => {
+            console.log('2');
             return of(viewerActions.viewerLoginFail({ error: res.error }));
           })
         )

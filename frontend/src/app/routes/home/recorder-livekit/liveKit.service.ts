@@ -75,10 +75,10 @@ export class LiveKitService {
     console.log('auth livekit with projectId', projectId);
 
     const res = await firstValueFrom(this.api.authenticateLivekit(projectId));
-    const res2 = await firstValueFrom(
-      this.api.authenticateViewerLivekit(viewerToken.viewerToken)
-    );
-    console.log(res, res2);
+    // const res2 = await firstValueFrom(
+    //   this.api.authenticateViewerLivekit(viewerToken.viewerToken)
+    // );
+    // console.log(res, res2);
     await this.room.connect(res.url, res.authToken);
 
     this.room.on(
@@ -129,6 +129,7 @@ export class LiveKitService {
 
     const videoTrack = await createLocalVideoTrack({
       deviceId: selectedVideoData.deviceId,
+
     });
 
     const videoPublication = await this.room.localParticipant.publishTrack(
