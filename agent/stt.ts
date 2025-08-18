@@ -34,9 +34,11 @@ export default defineAgent({
           const message = "Hello, this is your agent bot!";
           const payload = Buffer.from(message, "utf-8");
 
+          // ctx.room.localParticipant?.
           ctx.room.localParticipant?.sendChatMessage(
             event.alternatives![0].text
           );
+          // ctx.room.localParticipant?.publishData()
           // Send a reliable message to all participants
           // ctx.room.localParticipant!.publishData(payload, {
           //   reliable: true,

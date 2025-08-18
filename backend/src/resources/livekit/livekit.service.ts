@@ -102,6 +102,12 @@ export class LivekitService {
         console.log('data received', data);
       });
 
+      livekitClientRoom.on('trackPublished', (track, participant) => {
+        console.log(
+          `Track published: ${track.kind} by ${participant.identity}`,
+        );
+      });
+
       // livekitClientRoom.
 
       await livekitClientRoom.connect(
