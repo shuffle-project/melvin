@@ -215,7 +215,9 @@ export class ProjectService {
       // there is only 1 video, make it the main video
       createProjectDto.videoOptions[0].category = MediaCategory.MAIN;
     } else {
-      if (createProjectDto.videoOptions.filter((x) => x.useAudio).length) {
+      if (
+        createProjectDto.videoOptions.filter((x) => x.useAudio).length === 1
+      ) {
         // there is only 1 useAudio video, make it the main video
         createProjectDto.videoOptions.find((v) => v.useAudio).category =
           MediaCategory.MAIN;
@@ -290,11 +292,13 @@ export class ProjectService {
       });
     }
 
-    let mainVideoIndex = createProjectDto.videoOptions.findIndex(
+    let mainVideoOptions = createProjectDto.videoOptions.find(
       (v) => v.category === MediaCategory.MAIN,
     );
 
-    const mainMediaFile = videosMetadata[mainVideoIndex];
+    const mainMediaFile = videosMetadata.find(
+      (v) => v.uploadId === mainVideoOptions.uploadId,
+    );
 
     await this.projectQueue.add({
       project: project,
@@ -308,7 +312,7 @@ export class ProjectService {
 
     if (createProjectDto.videoOptions.length > 1) {
       videosMetadata.forEach((metadata, i) => {
-        if (i !== mainVideoIndex) {
+        if (metadata !== mainMediaFile) {
           const mediaCategoryKey = Object.entries(MediaCategory).find(
             ([key, value]) => {
               if (value === createProjectDto.videoOptions[i].category)
