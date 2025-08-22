@@ -66,7 +66,7 @@ npm start
 | MELVIN_FRONTEND_BASE_URL            | http://localhost:8080  | true     | Frontend URL                                                                                                 |
 | MELVIN_BACKEND_BASE_URL             | https://localhost:3000 | true     | Backend URL                                                                                                  |
 | MELVIN_DISABLE_LANDING_PAGE         | false                  | false    | Show login form instead of the landing page. This will also disable the Tutorial and Best Practice subpages  |
-| MELVIN_DISABLE_TUTORIAL_VIDEOS      | true                   | false    | Videos are server-hosted and might not be  available at Melvin startup, therefore disabled by default        |
+| MELVIN_DISABLE_TUTORIAL_VIDEOS      | true                   | false    | Tutorial videos are server-hosted and might not be  available at Melvin startup, therefore disabled by default        |
 | MELVIN_DISABLE_INSTALLATION_PAGE    | true                   | false    | Disable Installation page                                                                                    |
 | MELVIN_IMPRINT_URL=                 |                        | false    | Default Imprint URL, will be used if no language specific one is set                                         |
 | MELVIN_PRIVACY_URL=                 |                        | false    | Default Privacy URL, will be used if no language specific one is set                                         |
