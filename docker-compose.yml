@@ -1,19 +1,33 @@
 services:
-  mongodb:
-    image: mongo:5
-    container_name: ${COMPOSE_PROJECT_NAME}-mongo
-    restart: unless-stopped
-    volumes:
-      - ./data/mongodb:/data/db
-    ports:
-      - 27017:27017
 
-  redis:
-    image: redis
-    container_name: ${COMPOSE_PROJECT_NAME}-redis
+  livekit:
+    image: livekit/livekit-server:latest
     restart: unless-stopped
-    ports:
-      - 6379:6379
+    network_mode: "host" # simplest networking for UDP media; see notes below
+    volumes:
+      - ./livekit.yaml:/livekit.yaml:ro
+      # - ./certs:/certs:ro         # only if you enable TLS/TURN with cert files
+    command: >
+      --config /livekit.yaml
+      --node-ip 0.0.0.0
+    # environment:
+    #   # Optional but handy: override via env if you template your config
+    #   LIVEKIT_KEYS: "devkey:devsecret"
+  # mongodb:
+  #   image: mongo:5
+  #   container_name: ${COMPOSE_PROJECT_NAME}-mongo
+  #   restart: unless-stopped
+  #   volumes:
+  #     - ./data/mongodb:/data/db
+  #   ports:
+  #     - 27017:27017
+
+  # redis:
+  #   image: redis
+  #   container_name: ${COMPOSE_PROJECT_NAME}-redis
+  #   restart: unless-stopped
+  #   ports:
+  #     - 6379:6379
 
   # asr:
   #   image: ghcr.io/shuffle-project/melvin-asr:dev

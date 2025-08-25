@@ -1,4 +1,4 @@
-import * as livelkitClient from '@livekit/rtc-node';
+import * as livekitClient from '@livekit/rtc-node';
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import {
@@ -100,7 +100,7 @@ export class LivekitService {
         projectId,
       );
 
-      const livekitClientRoom = new livelkitClient.Room();
+      const livekitClientRoom = new livekitClient.Room();
       livekitClientRoom.on('participantConnected', (participant) => {
         console.log(`Participant connected: ${participant.identity}`);
       });
@@ -120,6 +120,21 @@ export class LivekitService {
         console.log(
           `Track published: ${track.kind} by ${participant.identity}, trackSid: ${track.sid}`,
         );
+        switch (track.kind) {
+          //   KIND_AUDIO = 1,
+          //   KIND_VIDEO = 2,
+          case 1:
+            // const audioStream = new livekitClient.AudioStream(track as any);
+
+            break;
+          case 2:
+            // const videoStream = new livekitClient.VideoStream(track as any);
+            // console.log(videoStream);
+            break;
+          default:
+            break;
+        }
+        console.log(track);
       });
 
       await livekitClientRoom.connect(
