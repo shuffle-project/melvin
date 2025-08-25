@@ -10,6 +10,7 @@ import {
 import { LivekitConfig } from 'src/config/config.interface';
 import { DbService } from 'src/modules/db/db.service';
 import { ProjectStatus } from 'src/modules/db/schemas/project.schema';
+import { TiptapService } from 'src/modules/tiptap/tiptap.service';
 import { AuthUser } from '../auth/auth.interfaces';
 import { UserService } from '../user/user.service';
 import { LivekitAuthEntity } from './entities/livekit.entity';
@@ -23,6 +24,7 @@ export class LivekitService {
     private configService: ConfigService,
     private db: DbService,
     private userService: UserService,
+    private tiptapService: TiptapService,
   ) {}
 
   // opts = new WorkerOptions({
@@ -69,6 +71,8 @@ export class LivekitService {
   async createRoom(projectId: string) {
     const rooms = await this.roomService.listRooms([projectId]);
 
+    const project = await this.db.projectModel.findById(projectId);
+
     if (rooms.length > 0) return;
 
     const opts = {
@@ -79,6 +83,16 @@ export class LivekitService {
 
     this.roomService.createRoom(opts).then(async (room) => {
       console.log('room created', room);
+
+      let iterations = 0;
+      let interval = setInterval(() => {
+        iterations++;
+        this.tiptapService.insert(
+          project.transcriptions[0]._id.toString(),
+          'hallo test 123',
+        );
+        if (iterations > 20) clearInterval(interval);
+      }, 5000);
 
       const systemUser = await this.userService.findSystemUser();
       const livekitAuthEntity = await this.authenticate(
@@ -104,11 +118,9 @@ export class LivekitService {
 
       livekitClientRoom.on('trackPublished', (track, participant) => {
         console.log(
-          `Track published: ${track.kind} by ${participant.identity}`,
+          `Track published: ${track.kind} by ${participant.identity}, trackSid: ${track.sid}`,
         );
       });
-
-      // livekitClientRoom.
 
       await livekitClientRoom.connect(
         livekitAuthEntity.url,
