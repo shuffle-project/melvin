@@ -2,7 +2,12 @@
 
 <div class="wrapper">
   <div class="video-wrapper">
-    <h1>Live Viewer</h1>
+    <h1>
+      Live Viewer: @if (project$ | ngrxPush; as project) {
+      {{ project.title }}
+      }
+      <span> </span>
+    </h1>
     <button mat-flat-button (click)="onStartWatching()">Start Audio</button>
 
     <div class="videos">
@@ -14,6 +19,8 @@
 
   <div class="transcript-wrapper">
     <h2>Transkript</h2>
-    <p>Test</p>
+    @if (project$ | ngrxPush; as project) {
+    <app-tiptap-viewer [project]="project"></app-tiptap-viewer>
+    }
   </div>
 </div>

@@ -124,10 +124,11 @@ export class ViewerEffects {
       ofType(viewerActions.findTranscriptions),
       switchMap((action) =>
         this.api.findAllTranscriptions(action.projectId, true).pipe(
-          map((transcriptions: TranscriptionEntity[]) =>
-            viewerActions.findTranscriptionsSuccess({ transcriptions })
-          ),
+          map((transcriptions: TranscriptionEntity[]) => {
+            return viewerActions.findTranscriptionsSuccess({ transcriptions });
+          }),
           catchError((error) => {
+            console.log('fail');
             return of(viewerActions.findTranscriptionsFail({ error }));
           })
         )

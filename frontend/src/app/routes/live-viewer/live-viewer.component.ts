@@ -3,6 +3,7 @@ import {
   Component,
   ElementRef,
   Input,
+  OnDestroy,
   OnInit,
   QueryList,
   ViewChild,
@@ -12,19 +13,27 @@ import { ApiService } from 'src/app/services/api/api.service';
 import * as viewerActions from '../../store/actions/viewer.actions';
 
 import { MatButtonModule } from '@angular/material/button';
+import { Title } from '@angular/platform-browser';
+import { PushPipe } from '@ngrx/component';
 import { Store } from '@ngrx/store';
 import { RemoteTrack, RemoteVideoTrack, Room, RoomEvent } from 'livekit-client';
-import { firstValueFrom } from 'rxjs';
+import { firstValueFrom, Subject, takeUntil } from 'rxjs';
 import { AppState } from 'src/app/store/app.state';
+import * as viewerSelector from '../../store/selectors/viewer.selector';
+import { TiptapViewerComponent } from './components/tiptap-viewer/tiptap-viewer.component';
 
 @Component({
   selector: 'app-live-viewer',
-  imports: [MatButtonModule],
+  imports: [MatButtonModule, PushPipe, TiptapViewerComponent],
   templateUrl: './live-viewer.component.html',
   styleUrl: './live-viewer.component.scss',
 })
-export class LiveViewerComponent implements OnInit, AfterViewInit {
+export class LiveViewerComponent implements OnInit, AfterViewInit, OnDestroy {
   @Input() token!: string;
+
+  private destroy$$ = new Subject<void>();
+
+  public project$ = this.store.select(viewerSelector.vProject);
 
   private room!: Room;
 
@@ -42,13 +51,22 @@ export class LiveViewerComponent implements OnInit, AfterViewInit {
 
   @ViewChild('audioElement') audioElement!: ElementRef<HTMLAudioElement>;
 
-  constructor(private api: ApiService, private store: Store<AppState>) {}
+  constructor(
+    private api: ApiService,
+    private store: Store<AppState>,
+    private titleService: Title
+  ) {
+    this.project$.pipe(takeUntil(this.destroy$$)).subscribe((project) => {
+      if (project) this.titleService.setTitle(project.title + ' - Melvin');
+    });
+  }
 
   async ngOnInit() {
     this.audioContext = new AudioContext();
     this.audioDestination = this.audioContext.createMediaStreamDestination();
 
     this.store.dispatch(viewerActions.viewerLogin({ token: this.token }));
+
     // const result = await firstValueFrom( this.api.viewerLogin(this.token));
 
     this.room = new Room();
@@ -210,5 +228,9 @@ export class LiveViewerComponent implements OnInit, AfterViewInit {
         track.attach(videoEl.nativeElement);
       }
     });
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$$.next();
   }
 }

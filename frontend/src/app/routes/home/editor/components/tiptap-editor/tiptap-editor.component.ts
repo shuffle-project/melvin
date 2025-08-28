@@ -49,7 +49,7 @@ import { CustomParagraph } from './schema/paragraph.schema';
 import { UserExtension } from './schema/user.extension';
 import { CustomWord } from './schema/word.schema';
 
-enum CLIENT_STATUS {
+export enum CLIENT_STATUS {
   CONNECTING,
   CONNECTED,
   AUTHENTICATED,
