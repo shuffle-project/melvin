@@ -1,8 +1,10 @@
+import { initializeLogger } from '@livekit/agents';
 import * as livekitClient from '@livekit/rtc-node';
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import {
   AccessToken,
+  CreateOptions,
   EgressClient,
   RoomServiceClient,
   VideoGrant,
@@ -10,21 +12,27 @@ import {
 import { LivekitConfig } from 'src/config/config.interface';
 import { DbService } from 'src/modules/db/db.service';
 import { ProjectStatus } from 'src/modules/db/schemas/project.schema';
+import { PathService } from 'src/modules/path/path.service';
 import { TiptapService } from 'src/modules/tiptap/tiptap.service';
 import { AuthUser } from '../auth/auth.interfaces';
 import { UserService } from '../user/user.service';
 import { LivekitAuthEntity } from './entities/livekit.entity';
+import { Recorder } from './recorder';
 
 @Injectable()
 export class LivekitService {
   config = this.configService.get<LivekitConfig>('livekit');
   roomService: RoomServiceClient;
   egressClient: EgressClient;
+
+  recorders: Recorder[] = [];
+
   constructor(
     private configService: ConfigService,
     private db: DbService,
     private userService: UserService,
     private tiptapService: TiptapService,
+    private pathService: PathService,
   ) {}
 
   // opts = new WorkerOptions({
@@ -56,6 +64,8 @@ export class LivekitService {
       this.config.secret,
     );
 
+    initializeLogger({ pretty: true, level: 'debug' });
+
     // cli.runApp(optsno);
     // setInterval(() => {
     //   roomService.listRooms().then((rooms) => {
@@ -68,6 +78,71 @@ export class LivekitService {
      */
   }
 
+  async startRecording(authUser: AuthUser, projectId: string) {
+    // TODO check authuser
+    const rooms = await this.roomService.listRooms([projectId]);
+
+    if (rooms.length < 1) {
+      throw new Error('No livekit room found for project');
+    }
+
+    const systemUser = await this.userService.findSystemUser();
+    const livekitAuthEntity = await this.authenticate(
+      { role: systemUser.role, id: systemUser._id.toString(), jwtId: '' },
+      projectId,
+    );
+
+    const livekitClientRoom = new livekitClient.Room();
+    livekitClientRoom.on(
+      'trackSubscribed',
+      (track, publication, participant) => {
+        console.log('subscribed to track', track.kind, participant.identity);
+
+        if (!publication.track) return;
+        const trackRecorder = new Recorder(
+          this.pathService,
+          projectId,
+          publication,
+        );
+        this.recorders.push(trackRecorder);
+        trackRecorder.start();
+      },
+    );
+
+    await livekitClientRoom.connect(
+      livekitAuthEntity.url,
+      livekitAuthEntity.authToken,
+    );
+
+    // livekitClientRoom.remoteParticipants.forEach((participant) => {
+    //   participant.trackPublications.forEach((publication) => {
+    //     // console.log('setSubscribed true');
+    //     // publication.setSubscribed(true);
+    //     console.log(publication.track);
+
+    //     if (!publication.track) return;
+    //     const trackRecorder = new Recorder(
+    //       this.pathService,
+    //       projectId,
+    //       publication,
+    //     );
+    //     this.recorders.push(trackRecorder);
+    //     trackRecorder.start();
+    //   });
+    // });
+  }
+
+  async stopRecording(authUser: AuthUser, projectId: string) {
+    // TODO check authuser
+    this.recorders
+      .filter((recorder) => recorder.projectId === projectId)
+      .forEach((recorder) => recorder.stop());
+
+    this.recorders = this.recorders.filter(
+      (recorder) => recorder.projectId !== projectId,
+    );
+  }
+
   async createRoom(projectId: string) {
     const rooms = await this.roomService.listRooms([projectId]);
 
@@ -75,7 +150,7 @@ export class LivekitService {
 
     if (rooms.length > 0) return;
 
-    const opts = {
+    const opts: CreateOptions = {
       name: projectId,
       emptyTimeout: 10 * 60, // 10*60 = 10 minutes
       maxParticipants: 10,
@@ -93,54 +168,34 @@ export class LivekitService {
         );
         if (iterations > 20) clearInterval(interval);
       }, 5000);
+    });
+  }
 
-      const systemUser = await this.userService.findSystemUser();
-      const livekitAuthEntity = await this.authenticate(
-        { role: systemUser.role, id: systemUser._id.toString(), jwtId: '' },
-        projectId,
-      );
+  async createRoomLegacy(projectId: string) {
+    const rooms = await this.roomService.listRooms([projectId]);
 
-      const livekitClientRoom = new livekitClient.Room();
-      livekitClientRoom.on('participantConnected', (participant) => {
-        console.log(`Participant connected: ${participant.identity}`);
-      });
+    const project = await this.db.projectModel.findById(projectId);
 
-      livekitClientRoom.on('participantDisconnected', (participant) => {
-        console.log(`Participant disconnected: ${participant.identity}`);
-      });
+    if (rooms.length > 0) return;
 
-      livekitClientRoom.on('chatMessage', (message) => {
-        console.log('chat message', message);
-      });
-      livekitClientRoom.on('dataReceived', (data) => {
-        console.log('data received', data);
-      });
+    const opts: CreateOptions = {
+      name: projectId,
+      emptyTimeout: 10 * 60, // 10*60 = 10 minutes
+      maxParticipants: 10,
+    };
 
-      livekitClientRoom.on('trackPublished', (track, participant) => {
-        console.log(
-          `Track published: ${track.kind} by ${participant.identity}, trackSid: ${track.sid}`,
+    this.roomService.createRoom(opts).then(async (room) => {
+      console.log('room created', room);
+
+      let iterations = 0;
+      let interval = setInterval(() => {
+        iterations++;
+        this.tiptapService.insert(
+          project.transcriptions[0]._id.toString(),
+          'hallo test 123',
         );
-        switch (track.kind) {
-          //   KIND_AUDIO = 1,
-          //   KIND_VIDEO = 2,
-          case 1:
-            // const audioStream = new livekitClient.AudioStream(track as any);
-
-            break;
-          case 2:
-            // const videoStream = new livekitClient.VideoStream(track as any);
-            // console.log(videoStream);
-            break;
-          default:
-            break;
-        }
-        console.log(track);
-      });
-
-      await livekitClientRoom.connect(
-        livekitAuthEntity.url,
-        livekitAuthEntity.authToken,
-      );
+        if (iterations > 20) clearInterval(interval);
+      }, 5000);
 
       // livekitClientRoom.connect()
 
@@ -191,7 +246,10 @@ export class LivekitService {
     authUser: AuthUser,
     projectId: string,
   ): Promise<LivekitAuthEntity> {
-    await this.createRoom(projectId);
+    // await this.createRoomLegacy(projectId);
+
+    this.createRoom(projectId);
+
     await this.db.projectModel.findByIdAndUpdate(projectId, {
       $set: { status: ProjectStatus.LIVE },
     });

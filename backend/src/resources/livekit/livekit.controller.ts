@@ -30,4 +30,24 @@ export class LivekitController {
   ): Promise<LivekitAuthEntity> {
     return this.livekitService.authenticateViewer(authUser, viewerToken);
   }
+
+  @UseGuards(JwtAuthGuard)
+  @Post(':id/start')
+  @ApiResponse({ status: HttpStatus.OK })
+  start(
+    @User() authUser: AuthUser,
+    @Param('id', IsValidObjectIdPipe) id: string,
+  ): Promise<void> {
+    return this.livekitService.startRecording(authUser, id);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Post(':id/stop')
+  @ApiResponse({ status: HttpStatus.OK })
+  stop(
+    @User() authUser: AuthUser,
+    @Param('id', IsValidObjectIdPipe) id: string,
+  ): Promise<void> {
+    return this.livekitService.stopRecording(authUser, id);
+  }
 }

@@ -716,6 +716,13 @@ export class RealApiService implements ApiService {
     // upload service
   }
 
+  startRecordingLivekit(projectId: string): Observable<void> {
+    return this._post(`/livekit/${projectId}/start`, {});
+  }
+  stopRecordingLivekit(projectId: string): Observable<void> {
+    return this._post(`/livekit/${projectId}/stop`, {});
+  }
+
   createUpload(uploadDto: UploadDto) {
     return this._post<UploadEntity>('/upload', { ...uploadDto });
   }

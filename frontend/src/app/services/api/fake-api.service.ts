@@ -545,6 +545,13 @@ export class FakeApiService implements ApiService {
     return of({ url: 'livekiturl', authToken: 'live' });
   }
 
+  startRecordingLivekit(projectId: string): Observable<void> {
+    return of();
+  }
+  stopRecordingLivekit(projectId: string): Observable<void> {
+    return of();
+  }
+
   // upload service
 
   createUpload(uploadDto: UploadDto) {

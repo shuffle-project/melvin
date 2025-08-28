@@ -358,6 +358,9 @@ export abstract class ApiService {
     viewerToken: string
   ): Observable<LivekitAuthEntity>;
 
+  abstract startRecordingLivekit(projectId: string): Observable<void>;
+  abstract stopRecordingLivekit(projectId: string): Observable<void>;
+
   // upload service
   abstract createUpload(uploadDto: UploadDto): Observable<UploadEntity>;
   abstract updateUpload(id: string, filePart: Blob): Observable<any>;

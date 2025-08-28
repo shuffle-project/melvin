@@ -27,6 +27,7 @@ import { AudioSource, ScreenSource, VideoSource } from './recorder.interfaces';
 })
 export class LiveKitService {
   private room!: Room;
+  projectId!: string;
 
   private _sessionInProgress = false;
   private _videoAndAudioAvailable = false;
@@ -66,6 +67,7 @@ export class LiveKitService {
   constructor(private api: ApiService, public dialog: MatDialog) {}
 
   async init(projectId: string) {
+    this.projectId = projectId;
     this.room = new Room();
 
     const viewerToken = await firstValueFrom(
@@ -129,7 +131,6 @@ export class LiveKitService {
 
     const videoTrack = await createLocalVideoTrack({
       deviceId: selectedVideoData.deviceId,
-
     });
 
     const videoPublication = await this.room.localParticipant.publishTrack(
@@ -274,18 +275,20 @@ export class LiveKitService {
     this._sessionPaused = false;
   }
 
-  stopSession() {
+  async stopSession() {
     this._sessionInProgress = false;
     this._sessionPaused = false;
+    await firstValueFrom(this.api.stopRecordingLivekit(this.projectId));
   }
 
   pauseSession() {
     this._sessionPaused = true;
   }
 
-  startSession() {
+  async startSession() {
     this._sessionInProgress = true;
     this._startTimer();
+    await firstValueFrom(this.api.startRecordingLivekit(this.projectId));
   }
 
   destroy() {
