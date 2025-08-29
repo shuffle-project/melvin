@@ -9,25 +9,23 @@ import {
 } from 'fs';
 import { join } from 'path';
 import { PathService } from 'src/modules/path/path.service';
-export class Recorder {
+import { Recorder } from './recorder';
+export class AudioRecorder extends Recorder {
   private writer: WriteStream | null = null;
   private isRecording = false;
 
   constructor(
-    private pathService: PathService,
-    public projectId: string,
-    private publication: livekitClient.RemoteTrackPublication,
-  ) {}
+    pathService: PathService,
+    projectId: string,
+    publication: livekitClient.RemoteTrackPublication,
+  ) {
+    super(pathService, projectId, publication);
+  }
 
   getFilePath(): string {
-    const extension =
-      this.publication.track?.kind === livekitClient.TrackKind.KIND_AUDIO
-        ? 'wav'
-        : 'yuv';
-
     const filepath = join(
       this.pathService.getProjectDirectory(this.projectId),
-      `${this.publication.track.sid}.${extension}`,
+      `${this.publication.track.sid}.wav`,
     );
     console.log(filepath);
     return filepath;
@@ -36,76 +34,31 @@ export class Recorder {
   async start() {
     this.isRecording = true;
     // https://github.com/livekit/node-sdks/blob/main/examples/receive-audio/index.ts
-    switch (this.publication.track.kind) {
-      case 1: // audio
-        const audioStream = new livekitClient.AudioStream(
-          this.publication.track,
-        );
 
-        for await (const frame of audioStream) {
-          if (!this.isRecording) {
-            audioStream.close();
-            return;
-          }
+    const audioStream = new livekitClient.AudioStream(this.publication.track);
 
-          if (this.writer === null) {
-            this.writer = createWriteStream(this.getFilePath());
-            this.writeWavHeader(this.writer, frame);
-          }
+    for await (const frame of audioStream) {
+      if (!this.isRecording) {
+        audioStream.close();
+        return;
+      }
 
-          this.writer.write(Buffer.from(frame.data.buffer));
-        }
+      if (this.writer === null) {
+        this.writer = createWriteStream(this.getFilePath());
+        this.writeWavHeader(this.writer, frame);
+      }
 
-        break;
-      case 2: // Video
-        const videoStream = new livekitClient.VideoStream(
-          this.publication.track,
-        );
-
-        let counter = 1;
-        for await (const event of videoStream) {
-          if (!this.isRecording) {
-            videoStream.close();
-            return;
-          }
-          if (!event.frame) continue;
-
-          if (this.writer == null) {
-            this.writer = createWriteStream(this.getFilePath());
-          }
-
-          console.log(
-            'frame',
-            counter++,
-            event.frame.data.length,
-            `${event.frame.width}x${event.frame.height}`,
-          );
-          this.writer.write(event.frame.data);
-        }
-
-        break;
-
-      default:
-        break;
+      this.writer.write(Buffer.from(frame.data.buffer));
     }
   }
 
-  stop(): void {
+  async stop() {
     this.isRecording = false;
     if (!this.writer) return;
 
     this.writer.close();
 
-    switch (this.publication.track.kind) {
-      case 1: // audio
-        this.updateWavHeader(this.getFilePath());
-        break;
-      case 2: // Video
-        // do nothing -> ffmpeg
-        break;
-      default:
-        break;
-    }
+    this.updateWavHeader(this.getFilePath());
   }
 
   // Constants for WAV file

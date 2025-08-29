@@ -17,7 +17,9 @@ import { TiptapService } from 'src/modules/tiptap/tiptap.service';
 import { AuthUser } from '../auth/auth.interfaces';
 import { UserService } from '../user/user.service';
 import { LivekitAuthEntity } from './entities/livekit.entity';
-import { Recorder } from './recorder';
+import { AudioRecorder } from './recorder/audio-recorder';
+import { Recorder } from './recorder/recorder';
+import { VideoRecorder } from './recorder/video-recorder';
 
 @Injectable()
 export class LivekitService {
@@ -99,11 +101,10 @@ export class LivekitService {
         console.log('subscribed to track', track.kind, participant.identity);
 
         if (!publication.track) return;
-        const trackRecorder = new Recorder(
-          this.pathService,
-          projectId,
-          publication,
-        );
+        const trackRecorder =
+          publication.kind === livekitClient.TrackKind.KIND_AUDIO
+            ? new AudioRecorder(this.pathService, projectId, publication)
+            : new VideoRecorder(this.pathService, projectId, publication);
         this.recorders.push(trackRecorder);
         trackRecorder.start();
       },
@@ -138,6 +139,15 @@ export class LivekitService {
       .filter((recorder) => recorder.projectId === projectId)
       .forEach((recorder) => recorder.stop());
 
+    const projectRecorders = this.recorders.filter(
+      (recorder) => recorder.projectId === projectId,
+    );
+
+    const files = projectRecorders.map((recorder) => recorder.getFilePath());
+    console.log(files);
+    // TODO process video with these files
+
+    // remove recorders from list
     this.recorders = this.recorders.filter(
       (recorder) => recorder.projectId !== projectId,
     );
