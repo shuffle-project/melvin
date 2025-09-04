@@ -134,7 +134,8 @@ export class LiveKitService {
     });
 
     const videoPublication = await this.room.localParticipant.publishTrack(
-      videoTrack
+      videoTrack,
+      { simulcast: false }
     );
 
     let newVideoSource: VideoSource = {
@@ -213,7 +214,8 @@ export class LiveKitService {
 
     if (confirm) {
       videoPublication = await this.room.localParticipant.publishTrack(
-        screensharingTracks[0]
+        screensharingTracks[0],
+        { simulcast: false }
       );
 
       let newScreenSource: ScreenSource = {
@@ -226,7 +228,8 @@ export class LiveKitService {
 
       if (screensharingTracks[1]) {
         const audioPublication = await this.room.localParticipant.publishTrack(
-          screensharingTracks[1]
+          screensharingTracks[1],
+          { simulcast: false }
         );
 
         // connect audio to video

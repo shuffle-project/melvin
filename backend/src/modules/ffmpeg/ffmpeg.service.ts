@@ -43,10 +43,11 @@ export class FfmpegService {
   }
 
   public async getWaveformData(
-    project: Project,
+    project: Project | string,
     audio: Audio,
   ): Promise<WaveformData> {
-    const projectId = project._id.toString();
+    const projectId =
+      typeof project === 'string' ? project : project._id.toString();
     // const videoFilepath = this.pathService.getVideoFile(projectId);
     // const audioFilepath = this.pathService.getMp3File(projectId);
     const audioFilepath = this.pathService.getAudioFile(
@@ -346,8 +347,11 @@ export class FfmpegService {
   /**
    *  useVideopath used in migration, it will take this path instead of the high res video
    */
-  async createMp3File(projectId: string, video: Video, audio: Audio) {
-    const videoFilepath = this.pathService.getBaseMediaFile(projectId, video);
+  async createMp3File(projectId: string, video: Video | string, audio: Audio) {
+    const videoFilepath =
+      typeof video === 'string'
+        ? video
+        : this.pathService.getBaseMediaFile(projectId, video);
     // const audioFilepath = this.pathService.getMp3File(projectId);
 
     const audioFilepathStereo = this.pathService.getAudioFile(
@@ -444,6 +448,10 @@ export class FfmpegService {
 
   public async getVideoDuration(projectId: string, video: Video) {
     const videoFilepath = this.pathService.getVideoFile(projectId, video);
+    return await this.getVideoDurationByPath(videoFilepath);
+  }
+
+  public async getVideoDurationByPath(videoFilepath: string) {
     const commands = [
       this.ffprobe, // `ffprobe`,
       '-loglevel',

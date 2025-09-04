@@ -1,7 +1,10 @@
 import { initializeLogger } from '@livekit/agents';
 import * as livekitClient from '@livekit/rtc-node';
+import { InjectQueue } from '@nestjs/bull';
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
+import { Queue } from 'bull';
+import { rename, writeFile } from 'fs/promises';
 import {
   AccessToken,
   CreateOptions,
@@ -9,11 +12,21 @@ import {
   RoomServiceClient,
   VideoGrant,
 } from 'livekit-server-sdk';
+import { Types } from 'mongoose';
 import { LivekitConfig } from 'src/config/config.interface';
 import { DbService } from 'src/modules/db/db.service';
-import { ProjectStatus } from 'src/modules/db/schemas/project.schema';
+import {
+  Audio,
+  MediaCategory,
+  MediaStatus,
+  ProjectStatus,
+  Video,
+} from 'src/modules/db/schemas/project.schema';
+import { WaveformData } from 'src/modules/ffmpeg/ffmpeg.interfaces';
+import { FfmpegService } from 'src/modules/ffmpeg/ffmpeg.service';
 import { PathService } from 'src/modules/path/path.service';
 import { TiptapService } from 'src/modules/tiptap/tiptap.service';
+import { ProcessVideoJob } from 'src/processors/processor.interfaces';
 import { AuthUser } from '../auth/auth.interfaces';
 import { UserService } from '../user/user.service';
 import { LivekitAuthEntity } from './entities/livekit.entity';
@@ -35,6 +48,9 @@ export class LivekitService {
     private userService: UserService,
     private tiptapService: TiptapService,
     private pathService: PathService,
+    @InjectQueue('video')
+    private videoQueue: Queue<ProcessVideoJob>,
+    private ffmpegService: FfmpegService,
   ) {}
 
   // opts = new WorkerOptions({
@@ -99,7 +115,6 @@ export class LivekitService {
       'trackSubscribed',
       (track, publication, participant) => {
         console.log('subscribed to track', track.kind, participant.identity);
-
         if (!publication.track) return;
         const trackRecorder =
           publication.kind === livekitClient.TrackKind.KIND_AUDIO
@@ -144,13 +159,101 @@ export class LivekitService {
     );
 
     const files = projectRecorders.map((recorder) => recorder.getFilePath());
+    const audioPaths = files.filter((file) => file.endsWith('.wav'));
+    const videoPaths = files.filter((file) => file.endsWith('.mp4'));
+
+    const videoEntities: Video[] = videoPaths.map((path, i) => ({
+      category: i === 1 ? MediaCategory.MAIN : MediaCategory.OTHER, // TODO
+      title: '',
+      _id: new Types.ObjectId(),
+      originalFileName: path.split('/').pop(),
+      status: MediaStatus.WAITING,
+      extension: 'mp4',
+      resolutions: [],
+    }));
+
+    const audioEntity: Audio = {
+      title: '',
+      _id: new Types.ObjectId(),
+      originalFileName: audioPaths[0].split('/').pop(),
+      status: MediaStatus.WAITING,
+      extension: 'mp3',
+      category: MediaCategory.MAIN,
+    };
+
+    await this.db.updateProjectByIdAndReturn(projectId, {
+      $push: {
+        videos: { $each: videoEntities },
+      },
+    });
+    await this.db.updateProjectByIdAndReturn(projectId, {
+      $push: {
+        audios: audioEntity,
+      },
+    });
+
+    videoEntities.forEach(async (video, i) => {
+      console.log('add to video queue', video);
+
+      const baseMediaFile = this.pathService.getBaseMediaFile(projectId, video);
+      await rename(videoPaths[i], baseMediaFile);
+      this.videoQueue.add({
+        projectId,
+        video,
+        skipLowestResolution: false,
+      });
+    });
+
+    //get duration via ffprobe
+    const duration = await this.ffmpegService.getVideoDurationByPath(
+      this.pathService.getBaseMediaFile(projectId, videoEntities[0]),
+    );
+
+    // set duration in project
+    await this.db.projectModel.findByIdAndUpdate(projectId, {
+      $set: { duration },
+    });
+
+    // await this.db.projectModel.findByIdAndUpdate(projectId, {});
+    console.log(audioPaths[0], audioEntity);
+    // audios
+    await this.ffmpegService.createMp3File(
+      projectId,
+      audioPaths[0],
+      audioEntity,
+    );
+
+    await this.generateWaveformData(projectId, audioEntity);
+
+    // videos
+    // move video to getBaseMediaFile
+    // add video to project
+
+    // general
+    // get duration via ffprobe
+    // set duration in project
+
     console.log(files);
     // TODO process video with these files
+
+    await this.db.updateProjectByIdAndReturn(projectId, {
+      $set: { status: ProjectStatus.DRAFT },
+    });
 
     // remove recorders from list
     this.recorders = this.recorders.filter(
       (recorder) => recorder.projectId !== projectId,
     );
+  }
+
+  // TODO thats code duplication, copied from project.processor.ts
+  async generateWaveformData(projectId: string, audio: Audio) {
+    const waveformPath = this.pathService.getWaveformFile(projectId, audio);
+
+    const generatedData: WaveformData =
+      await this.ffmpegService.getWaveformData(projectId, audio);
+
+    await writeFile(waveformPath, JSON.stringify(generatedData));
   }
 
   async createRoom(projectId: string) {
