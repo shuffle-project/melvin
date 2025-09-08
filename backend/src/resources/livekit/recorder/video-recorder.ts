@@ -39,7 +39,7 @@ export class VideoRecorder extends Recorder {
       if (!event.frame) continue;
 
       if (this.ffmpegProcess == null) {
-        const args = [
+        const argsFffmpeg = [
           '-y', // overwrite output
           '-f',
           'rawvideo', // input format
@@ -57,7 +57,43 @@ export class VideoRecorder extends Recorder {
           'fast', // encoding speed/quality tradeoff
           this.getFilePath(), // output file
         ];
-        this.ffmpegProcess = spawn(ffmpegPath, args);
+        const argsGstreamer = [
+          '-e',
+          'fdsrc',
+          '!',
+          'videoparse',
+          'format=i420',
+          `width=${event.frame.width}`,
+          `height=${event.frame.height}`,
+          'framerate=25/1',
+          '!',
+          'videoconvert',
+          '!',
+          'videoscale',
+          '!',
+          'videorate',
+          '!',
+          'video/x-raw,format=I420,width=1280,height=720,framerate=25/1',
+          '!',
+          'x264enc',
+          'speed-preset=fast',
+          'tune=zerolatency',
+          'key-int-max=25',
+          '!',
+          'h264parse',
+          '!',
+          'mp4mux',
+          'faststart=true',
+          '!',
+          'filesink',
+          `location=${this.getFilePath()}`,
+        ];
+        this.ffmpegProcess = spawn(ffmpegPath, argsFffmpeg);
+        // this.ffmpegProcess = spawn('gst-launch-1.0', argsGstreamer);
+
+        this.ffmpegProcess.on('message', (msg) => {
+          console.log(msg);
+        });
 
         this.ffmpegProcess.on('close', (code) => {
           console.log('close');
