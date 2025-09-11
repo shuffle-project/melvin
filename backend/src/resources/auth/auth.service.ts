@@ -356,6 +356,7 @@ export class AuthService {
     };
   }
 
+  // TODO delete
   async resetPassword(email: string, newPassword: string): Promise<void> {
     const user = await this.db.userModel
       .findOne({ email: email.toLowerCase() })
@@ -365,10 +366,14 @@ export class AuthService {
       throw new CustomInternalServerException('user_not_found');
     }
 
+    await this.resetPasswortByUserId(user._id.toString(), newPassword);
+    return;
+  }
+
+  async resetPasswortByUserId(userId: string, newPassword: string) {
     const hashedPassword = await bcrypt.hash(newPassword, 10);
     await this.db.userModel
-      .findByIdAndUpdate(user._id, { hashedPassword })
+      .findByIdAndUpdate(userId, { hashedPassword })
       .exec();
-    return;
   }
 }

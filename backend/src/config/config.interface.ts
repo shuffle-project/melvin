@@ -49,6 +49,19 @@ export class BasicAuthConfig {
   password: string;
 }
 
+export class AdminUserConfig {
+  @IsString()
+  username: string;
+
+  @IsString()
+  @IsOptional()
+  hashedPassword?: string;
+
+  @IsString()
+  @IsOptional()
+  password?: string;
+}
+
 export class EmailConfig {
   @IsString()
   smtpServer: string;
@@ -163,6 +176,10 @@ export class Config {
   @ValidateNested({ each: true })
   @IsDefined()
   basicAuth: BasicAuthConfig;
+
+  @ValidateNested({ each: true })
+  @IsDefined()
+  adminUser: AdminUserConfig;
 
   @ValidateNested({ each: true })
   @IsDefined()

@@ -25,6 +25,7 @@ import { ProjectProcessor } from './processors/project.processor';
 import { SubtitlesProcessor } from './processors/subtitles.processor';
 import { VideoProcessor } from './processors/video.processor';
 import { ActivityModule } from './resources/activity/activity.module';
+import { AdminModule } from './resources/admin/admin.module';
 import { AuthModule } from './resources/auth/auth.module';
 import { CaptionModule } from './resources/caption/caption.module';
 import { EventsModule } from './resources/events/events.module';
@@ -97,6 +98,7 @@ import { UserModule } from './resources/user/user.module';
     PathModule,
     ActivityModule,
     MediaModule,
+    AdminModule,
     TasksModule,
     // TODO LivestreamModule,
     // generate captions
