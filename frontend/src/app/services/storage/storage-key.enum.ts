@@ -1,4 +1,5 @@
 export enum StorageKey {
+  ADMIN_TOKEN = 'admin-token',
   ACCESS_TOKEN = 'access-token',
   LOGIN_EMAIL = 'login-email',
   MEDIA_VOLUME = 'media-volume',

@@ -151,7 +151,9 @@ export class AdminService {
 
   private async _getProjectSize(projectId: string) {
     const projectPath = this.pathService.getProjectDirectory(projectId);
+
     const projectFiles = await readdir(projectPath);
+
     const sizes = await Promise.all(
       projectFiles.map(async (file) => {
         const fileStats = await stat(join(projectPath, file));
@@ -159,6 +161,7 @@ export class AdminService {
         return fileStats.size / 1000 / 1000;
       }),
     );
+
     const size = sizes.reduce((a, b) => a + b, 0);
     return size;
   }

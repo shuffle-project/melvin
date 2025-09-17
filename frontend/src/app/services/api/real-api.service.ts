@@ -9,6 +9,7 @@ import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { UserEntity } from 'src/app/services/api/entities/user.entity';
+import * as adminSelectors from '../../store/selectors/admin.selector';
 import * as authSelectors from '../../store/selectors/auth.selector';
 import * as viewerSelector from '../../store/selectors/viewer.selector';
 import { ConfigService } from '../config/config.service';
@@ -95,6 +96,7 @@ export interface RequestOptions {
 export interface CustomRequestOptions extends RequestOptions {
   skipJwt?: boolean;
   useViewerToken?: boolean;
+  useAdminToken?: boolean;
 }
 
 @Injectable({
@@ -109,6 +111,9 @@ export class RealApiService implements ApiService {
   private viewerToken$ = this.store.select(viewerSelector.vAccessToken);
   private viewerToken!: string | null;
 
+  private adminToken$ = this.store.select(adminSelectors.selectToken);
+  private adminToken!: string | null;
+
   constructor(
     private httpClient: HttpClient,
     private store: Store,
@@ -120,6 +125,9 @@ export class RealApiService implements ApiService {
     this.viewerToken$.subscribe((token) => {
       this.viewerToken = token;
     });
+    this.adminToken$.subscribe((token) => {
+      this.adminToken = token;
+    });
   }
 
   _transformRequestOptions(options: CustomRequestOptions): RequestOptions {
@@ -127,7 +135,10 @@ export class RealApiService implements ApiService {
 
     const chosenToken = options.useViewerToken
       ? this.viewerToken
+      : options.useAdminToken
+      ? this.adminToken
       : this.authToken;
+
     return {
       headers: {
         ...(skipJwt || !chosenToken
@@ -700,5 +711,21 @@ export class RealApiService implements ApiService {
   }
   cancelUpload(id: string) {
     return this._delete(`/upload/${id}`);
+  }
+
+  // admin
+  loginAdmin(
+    username: string,
+    password: string
+  ): Observable<{ token: string }> {
+    return this._post<{ token: string }>(
+      `/admin/login`,
+      { username, password },
+      { skipJwt: true }
+    );
+  }
+
+  adminFindAllUsers(): Observable<UserEntity[]> {
+    return this._get<UserEntity[]>(`/admin/users`, { useAdminToken: true });
   }
 }

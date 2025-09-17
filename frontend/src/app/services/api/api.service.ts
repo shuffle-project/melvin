@@ -343,4 +343,11 @@ export abstract class ApiService {
   abstract createUpload(uploadDto: UploadDto): Observable<UploadEntity>;
   abstract updateUpload(id: string, filePart: Blob): Observable<any>;
   abstract cancelUpload(id: string): Observable<any>;
+
+  // admin
+  abstract loginAdmin(
+    username: string,
+    password: string
+  ): Observable<{ token: string }>;
+  abstract adminFindAllUsers(): Observable<UserEntity[]>;
 }

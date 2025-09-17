@@ -11,6 +11,12 @@ export const AppRoutes: Routes = [
       import('./routes/landing/landing.routes').then((m) => m.LandingRoutes),
   },
   {
+    path: 'admin',
+    canActivate: [],
+    loadChildren: () =>
+      import('./routes/admin/admin.routes').then((m) => m.AdminRoutes),
+  },
+  {
     path: 'home',
     canActivate: [LoggedInGuard, IsConfigLoadedGuard],
     loadChildren: () =>

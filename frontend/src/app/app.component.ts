@@ -55,6 +55,7 @@ export class AppComponent implements OnInit, OnDestroy {
     dayjs.locale($localize.locale);
 
     this.store.dispatch(authActions.init());
+
     this.appService.init();
 
     this.colorTheme$

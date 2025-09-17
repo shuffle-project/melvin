@@ -534,4 +534,18 @@ export class FakeApiService implements ApiService {
     this.logger.verbose('cancelUpload mocked');
     return of();
   }
+
+  // admin
+  loginAdmin(
+    username: string,
+    password: string
+  ): Observable<{ token: string }> {
+    this.logger.verbose('admin login mocked');
+    return of();
+  }
+
+  adminFindAllUsers(): Observable<UserEntity[]> {
+    this.logger.verbose('admin find all users mocked');
+    return of(USERS_MOCK);
+  }
 }

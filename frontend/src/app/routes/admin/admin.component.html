@@ -1,0 +1,31 @@
+<div class="wrapper">
+  <main>
+    @if(isLoggedIn$ |ngrxPush) {
+    <div>
+      <h1>Admin Panel</h1>
+      <button mat-flat-button (click)="onHandleLogout()">Logout</button>
+
+      @for(user of allUsers$ | ngrxPush; track user.id) {
+      <p>{{ user.name }}</p>
+      }
+    </div>
+    } @else {
+    <div class="login-wrapper">
+      <div class="login-form">
+        <h1>Admin Login</h1>
+        <mat-form-field>
+          <mat-label>Password</mat-label>
+          <input matInput type="password" [formControl]="password" />
+          @if (password.invalid && (password.dirty || password.touched)) {
+          <mat-error> Password required </mat-error>
+          }
+        </mat-form-field>
+        <button (click)="onHandleLogin()" mat-flat-button>Login</button>
+      </div>
+      <a mat-button [routerLink]="['/']">Back to the Startpage</a>
+    </div>
+    }
+  </main>
+
+  <app-landing-footer />
+</div>

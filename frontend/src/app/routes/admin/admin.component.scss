@@ -1,0 +1,51 @@
+.wrapper {
+  height: 100%;
+  display: grid;
+  grid-template-rows: 1fr auto;
+}
+
+.login-wrapper {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  a {
+    margin-top: 1.25rem;
+  }
+
+  .login-form {
+    width: 100%;
+    max-width: 22rem;
+
+    padding: 2.5rem 1.25rem;
+
+    margin-inline: 1.25rem;
+    box-sizing: border-box;
+
+    border-radius: 1.25rem;
+    border: 2px solid transparent;
+    background: linear-gradient(var(--color-white), var(--color-white))
+        padding-box,
+      linear-gradient(135deg, var(--color-accent) 5%, var(--color-primary))
+        border-box;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    color: var(--color-text);
+
+    h1 {
+      text-align: center;
+      margin-top: 0;
+      margin-bottom: 2.5rem;
+    }
+
+    button {
+      margin-top: 0.5rem;
+    }
+  }
+}
