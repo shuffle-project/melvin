@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { UserEntity } from 'src/app/services/api/entities/user.entity';
+import { UserEntityForAdmin } from 'src/app/services/api/entities/user.entity';
 
 // Login && Logout
 export const loginAdmin = createAction(
@@ -24,7 +24,7 @@ export const findAllUsers = createAction('[ADMIN COMPONENT] Find all users');
 
 export const findAllUsersSuccess = createAction(
   '[ADMIN API] Find all users success',
-  props<{ userList: Readonly<UserEntity[]> }>()
+  props<{ userList: { users: Readonly<UserEntityForAdmin[]> } }>()
 );
 
 export const findAllUsersFail = createAction(

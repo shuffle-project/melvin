@@ -1,13 +1,55 @@
+@if (!disableLandingPage) {
+<app-landing-header />
+}
+
 <div class="wrapper">
   <main>
     @if(isLoggedIn$ |ngrxPush) {
-    <div>
-      <h1>Admin Panel</h1>
-      <button mat-flat-button (click)="onHandleLogout()">Logout</button>
+    <div class="admin-wrapper">
+      <div class="admin-header">
+        <h1>Admin Panel</h1>
+        <button mat-flat-button (click)="onHandleLogout()">Logout</button>
+      </div>
 
-      @for(user of allUsers$ | ngrxPush; track user.id) {
-      <p>{{ user.name }}</p>
-      }
+      <table mat-table [dataSource]="dataSource">
+        <ng-container matColumnDef="username">
+          <th mat-header-cell *matHeaderCellDef>Username</th>
+          <td mat-cell *matCellDef="let element">{{ element.name }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="email">
+          <th mat-header-cell *matHeaderCellDef>Email</th>
+          <td mat-cell *matCellDef="let element">{{ element.email }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="filesize-total">
+          <th mat-header-cell *matHeaderCellDef>Total File Size</th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.mbOnDisc * 1_000_000 | fileSize }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="edit">
+          <th mat-header-cell *matHeaderCellDef>Edit</th>
+          <td mat-cell *matCellDef="let element">
+            <button mat-icon-button (click)="onEditUser(element)">
+              <mat-icon svgIcon="edit" />
+            </button>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="delete">
+          <th mat-header-cell *matHeaderCellDef>Delete</th>
+          <td mat-cell *matCellDef="let element">
+            <button mat-icon-button (click)="onDeleteUser(element)">
+              <mat-icon svgIcon="delete" />
+            </button>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
     </div>
     } @else {
     <div class="login-wrapper">

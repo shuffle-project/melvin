@@ -1,5 +1,5 @@
 import { createReducer, on } from '@ngrx/store';
-import { UserEntity } from 'src/app/services/api/entities/user.entity';
+import { UserEntityForAdmin } from 'src/app/services/api/entities/user.entity';
 import * as adminActions from '../actions/admin.actions';
 
 export interface AdminState {
@@ -7,8 +7,7 @@ export interface AdminState {
   loginError: string | null;
   token: string | null;
 
-  // TODO any
-  userList: Readonly<UserEntity[]>;
+  userList: { users: Readonly<UserEntityForAdmin[]> };
 }
 
 export const initialState: AdminState = {
@@ -16,7 +15,7 @@ export const initialState: AdminState = {
   loginError: null,
   token: null,
 
-  userList: [],
+  userList: { users: [] },
 };
 
 export const adminReducer = createReducer(
@@ -30,9 +29,13 @@ export const adminReducer = createReducer(
 
   on(adminActions.findAllUsersSuccess, (state, { userList }) => ({
     ...state,
-    userList,
+    userList: userList,
   })),
 
   // Logout
-  on(adminActions.logoutAdmin, (state) => ({ ...state, token: null }))
+  on(adminActions.logoutAdmin, (state) => ({
+    ...state,
+    token: null,
+    userList: { users: [] },
+  }))
 );

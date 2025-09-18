@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { UserEntity } from 'src/app/services/api/entities/user.entity';
+import {
+  UserEntity,
+  UserEntityForAdmin,
+} from 'src/app/services/api/entities/user.entity';
 import { environment } from '../../../environments/environment';
 import { UploadDto } from '../upload/upload.interfaces';
 import { ChangePasswordDto } from './dto/auth.dto';
@@ -349,5 +352,7 @@ export abstract class ApiService {
     username: string,
     password: string
   ): Observable<{ token: string }>;
-  abstract adminFindAllUsers(): Observable<UserEntity[]>;
+  abstract adminFindAllUsers(): Observable<{
+    users: Readonly<UserEntityForAdmin[]>;
+  }>;
 }

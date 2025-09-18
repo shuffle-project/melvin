@@ -8,7 +8,10 @@ import {
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { UserEntity } from 'src/app/services/api/entities/user.entity';
+import {
+  UserEntity,
+  UserEntityForAdmin,
+} from 'src/app/services/api/entities/user.entity';
 import * as adminSelectors from '../../store/selectors/admin.selector';
 import * as authSelectors from '../../store/selectors/auth.selector';
 import * as viewerSelector from '../../store/selectors/viewer.selector';
@@ -725,7 +728,12 @@ export class RealApiService implements ApiService {
     );
   }
 
-  adminFindAllUsers(): Observable<UserEntity[]> {
-    return this._get<UserEntity[]>(`/admin/users`, { useAdminToken: true });
+  adminFindAllUsers(): Observable<{ users: Readonly<UserEntityForAdmin[]> }> {
+    return this._get<{ users: Readonly<UserEntityForAdmin[]> }>(
+      `/admin/users`,
+      {
+        useAdminToken: true,
+      }
+    );
   }
 }

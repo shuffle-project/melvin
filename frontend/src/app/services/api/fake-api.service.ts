@@ -3,7 +3,10 @@ import { delay, Observable, of } from 'rxjs';
 import { NOTIFICATION_ENTITY_MOCK } from 'src/app/constants/mocks/notifications.mock';
 import { PROJECT_ENTITY_MOCK } from 'src/app/constants/mocks/project.mock';
 import { USERS_MOCK } from 'src/app/constants/mocks/users.mock';
-import { UserEntity } from 'src/app/services/api/entities/user.entity';
+import {
+  UserEntity,
+  UserEntityForAdmin,
+} from 'src/app/services/api/entities/user.entity';
 import { CustomLogger } from '../../classes/logger.class';
 import { ACTIVITY_ENTITY_MOCK } from '../../constants/mocks/activity.mock';
 import {
@@ -544,8 +547,8 @@ export class FakeApiService implements ApiService {
     return of();
   }
 
-  adminFindAllUsers(): Observable<UserEntity[]> {
+  adminFindAllUsers(): Observable<{ users: Readonly<UserEntityForAdmin[]> }> {
     this.logger.verbose('admin find all users mocked');
-    return of(USERS_MOCK);
+    return of();
   }
 }
