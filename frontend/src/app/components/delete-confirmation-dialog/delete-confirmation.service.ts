@@ -18,6 +18,7 @@ import { DeleteConfirmationDialogComponent } from './delete-confirmation-dialog.
 export enum DeleteConfirmLevel {
   LOW = 'low',
   HIGH_PASSWORD = 'high-password',
+  HIGH_TYPE = 'high-type',
 }
 export interface DeleteConfirmData {
   level: DeleteConfirmLevel;
@@ -171,6 +172,17 @@ export class DeleteConfirmationService implements OnDestroy {
     // if (isConfirmed) {
     //   console.log('delete');
     // }
+
+    return isConfirmed;
+  }
+
+  async adminDeleteAccount(userEmail: string): Promise<boolean> {
+    const isConfirmed = await this.confirm({
+      level: DeleteConfirmLevel.HIGH_TYPE,
+      type: 'deleteAccount',
+      subject: $localize`:@@deleteServiceAdminDeleteAccountSubject:User Account: ${userEmail}`,
+      description: $localize`:@@deleteServiceAdminDeleteAccountDescription:If you confirm this, the account with all created projects and data will be deleted. This can NOT be undone!`,
+    });
 
     return isConfirmed;
   }

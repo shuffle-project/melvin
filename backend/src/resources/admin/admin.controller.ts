@@ -19,7 +19,7 @@ import { AdminService } from './admin.service';
 import { AdminLoginDto } from './dto/admin-login.dto';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { UserListEntity } from './entities/user-list.entity';
+import { UserEntity, UserListEntity } from './entities/user-list.entity';
 
 @Controller('admin')
 export class AdminController {
@@ -59,7 +59,7 @@ export class AdminController {
   async updateUser(
     @Body() dto: UpdateUserDto,
     @Param('id', IsValidObjectIdPipe) id: string,
-  ): Promise<any> {
+  ): Promise<UserEntity> {
     return this.adminService.updateUser(id, dto);
   }
 

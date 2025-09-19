@@ -717,7 +717,7 @@ export class RealApiService implements ApiService {
   }
 
   // admin
-  loginAdmin(
+  adminLogin(
     username: string,
     password: string
   ): Observable<{ token: string }> {
@@ -731,6 +731,26 @@ export class RealApiService implements ApiService {
   adminFindAllUsers(): Observable<{ users: Readonly<UserEntityForAdmin[]> }> {
     return this._get<{ users: Readonly<UserEntityForAdmin[]> }>(
       `/admin/users`,
+      {
+        useAdminToken: true,
+      }
+    );
+  }
+
+  adminDeleteUserAccount(userId: string): Observable<void> {
+    return this._delete<void>(`/admin/users/${userId}`, {
+      useAdminToken: true,
+    });
+  }
+
+  adminUpdateUser(
+    userId: string,
+    email: string,
+    name: string
+  ): Observable<UserEntityForAdmin> {
+    return this._patch<UserEntityForAdmin>(
+      `/admin/users/${userId}`,
+      { email, name },
       {
         useAdminToken: true,
       }

@@ -23,11 +23,11 @@ export class AdminEffects {
 
   adminLogin$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(adminActions.loginAdmin),
+      ofType(adminActions.adminLogin),
       mergeMap(({ username, password }) =>
-        this.api.loginAdmin(username, password).pipe(
-          map(({ token }) => adminActions.loginAdminSuccess({ token })),
-          catchError((error) => of(adminActions.loginAdminFail({ error })))
+        this.api.adminLogin(username, password).pipe(
+          map(({ token }) => adminActions.adminLoginSuccess({ token })),
+          catchError((error) => of(adminActions.adminLoginFail({ error })))
         )
       )
     )
@@ -36,10 +36,10 @@ export class AdminEffects {
   adminLoginSuccess$ = createEffect(
     () =>
       this.actions$.pipe(
-        ofType(adminActions.loginAdminSuccess),
+        ofType(adminActions.adminLoginSuccess),
         tap(({ token }) => {
           this.storage.storeInSessionStorage(StorageKey.ADMIN_TOKEN, token);
-          this.store.dispatch(adminActions.findAllUsers());
+          this.store.dispatch(adminActions.adminFindAllUsers());
         })
       ),
     { dispatch: false }
@@ -50,7 +50,7 @@ export class AdminEffects {
   adminLogout$ = createEffect(
     () =>
       this.actions$.pipe(
-        ofType(adminActions.logoutAdmin),
+        ofType(adminActions.adminLogout),
         tap(() => {
           this.storage.removeFromSessionStorage(StorageKey.ADMIN_TOKEN);
         })
@@ -58,14 +58,46 @@ export class AdminEffects {
     { dispatch: false }
   );
 
-  findAllUsers$ = createEffect(() =>
+  adminFindAllUsers$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(adminActions.findAllUsers),
+      ofType(adminActions.adminFindAllUsers),
       mergeMap(() =>
         this.api.adminFindAllUsers().pipe(
-          map((userList) => adminActions.findAllUsersSuccess({ userList })),
+          map((userList) =>
+            adminActions.adminFindAllUsersSuccess({ userList })
+          ),
           // TODO Catch Error add findAllUsersFail
-          catchError((error) => of(adminActions.findAllUsersFail({ error })))
+          catchError((error) =>
+            of(adminActions.adminFindAllUsersFail({ error }))
+          )
+        )
+      )
+    )
+  );
+
+  adminDeleteUserAccount$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(adminActions.adminDeleteUserAccount),
+      mergeMap(({ userId }) =>
+        this.api.adminDeleteUserAccount(userId).pipe(
+          map(() => {
+            return adminActions.adminDeleteUserAccountSuccess({ userId });
+          }),
+          catchError((error) =>
+            of(adminActions.adminDeleteUserAccountFail({ error }))
+          )
+        )
+      )
+    )
+  );
+
+  adminUpdateUser$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(adminActions.adminUpdateUser),
+      mergeMap(({ userId, email, name }) =>
+        this.api.adminUpdateUser(userId, email, name).pipe(
+          map((user) => adminActions.adminUpdateUserSuccess({ user })),
+          catchError((error) => of(adminActions.adminUpdateUserFail({ error })))
         )
       )
     )

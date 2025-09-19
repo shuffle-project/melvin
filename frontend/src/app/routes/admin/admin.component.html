@@ -2,7 +2,7 @@
 <app-landing-header />
 }
 
-<div class="wrapper">
+<div class="wrapper" [class.showHeader]="!disableLandingPage">
   <main>
     @if(isLoggedIn$ |ngrxPush) {
     <div class="admin-wrapper">
@@ -22,6 +22,13 @@
           <td mat-cell *matCellDef="let element">{{ element.email }}</td>
         </ng-container>
 
+        <ng-container matColumnDef="projects">
+          <th mat-header-cell *matHeaderCellDef>Projects</th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.projects.length }}
+          </td>
+        </ng-container>
+
         <ng-container matColumnDef="filesize-total">
           <th mat-header-cell *matHeaderCellDef>Total File Size</th>
           <td mat-cell *matCellDef="let element">
@@ -29,27 +36,57 @@
           </td>
         </ng-container>
 
-        <ng-container matColumnDef="edit">
-          <th mat-header-cell *matHeaderCellDef>Edit</th>
+        <ng-container matColumnDef="playback-total">
+          <th mat-header-cell *matHeaderCellDef>Total Playback Time</th>
+          <td mat-cell *matCellDef="let element">(Placeholder)</td>
+        </ng-container>
+
+        <ng-container matColumnDef="more">
+          <th mat-header-cell *matHeaderCellDef>More</th>
           <td mat-cell *matCellDef="let element">
-            <button mat-icon-button (click)="onEditUser(element)">
+            <!-- <button mat-icon-button (click)="onEditUser(element)">
               <mat-icon svgIcon="edit" />
+            </button> -->
+            <button
+              mat-icon-button
+              [matMenuTriggerData]="{ user: element }"
+              [matMenuTriggerFor]="menu"
+              aria-label="More"
+            >
+              <mat-icon svgIcon="more" />
             </button>
           </td>
         </ng-container>
 
-        <ng-container matColumnDef="delete">
+        <!-- <ng-container matColumnDef="delete">
           <th mat-header-cell *matHeaderCellDef>Delete</th>
           <td mat-cell *matCellDef="let element">
             <button mat-icon-button (click)="onDeleteUser(element)">
               <mat-icon svgIcon="delete" />
             </button>
           </td>
-        </ng-container>
+        </ng-container> -->
 
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
       </table>
+
+      <mat-menu #menu="matMenu">
+        <ng-template matMenuContent let-user="user">
+          <button mat-menu-item (click)="onOpenEditEmailDialog(user)">
+            <mat-icon svgIcon="edit" />
+            Edit Email
+          </button>
+          <button mat-menu-item>
+            <mat-icon svgIcon="refresh" />
+            Reset Password
+          </button>
+          <button mat-menu-item (click)="onDeleteUser(user)">
+            <mat-icon svgIcon="delete" />
+            Delete User
+          </button>
+        </ng-template>
+      </mat-menu>
     </div>
     } @else {
     <div class="login-wrapper">

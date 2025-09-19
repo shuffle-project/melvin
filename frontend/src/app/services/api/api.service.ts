@@ -348,11 +348,19 @@ export abstract class ApiService {
   abstract cancelUpload(id: string): Observable<any>;
 
   // admin
-  abstract loginAdmin(
+  abstract adminLogin(
     username: string,
     password: string
   ): Observable<{ token: string }>;
   abstract adminFindAllUsers(): Observable<{
     users: Readonly<UserEntityForAdmin[]>;
   }>;
+
+  abstract adminDeleteUserAccount(userId: string): Observable<void>;
+
+  abstract adminUpdateUser(
+    userId: string,
+    email: string,
+    name: string
+  ): Observable<UserEntityForAdmin>;
 }

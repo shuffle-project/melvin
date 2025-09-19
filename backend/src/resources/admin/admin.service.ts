@@ -17,7 +17,7 @@ import { UserService } from '../user/user.service';
 import { AdminLoginDto } from './dto/admin-login.dto';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { UserListEntity } from './entities/user-list.entity';
+import { UserEntity, UserListEntity } from './entities/user-list.entity';
 
 @Injectable()
 export class AdminService {
@@ -83,7 +83,7 @@ export class AdminService {
     return this.authService.register({ ...createUserDto });
   }
 
-  async updateUser(id: string, dto: UpdateUserDto) {
+  async updateUser(id: string, dto: UpdateUserDto): Promise<UserEntity> {
     const user = await this.db.userModel.findById(id).lean().exec();
 
     if (user === null) {
@@ -91,6 +91,30 @@ export class AdminService {
     }
 
     await this.db.userModel.findByIdAndUpdate(id, dto);
+
+    const updatedUser = await this.db.userModel
+      .findById(id)
+      .populate('projects')
+      .lean()
+      .exec();
+
+    const userWithProjects = {
+      id: updatedUser._id.toString(),
+      email: updatedUser.email,
+      name: updatedUser.name,
+      role: updatedUser.role,
+      projects: updatedUser.projects
+        .filter((project) =>
+          isSameObjectId((project as Project).createdBy, user),
+        )
+        .map((p) => p._id.toString()),
+    };
+
+    const usersWithProjectSizes = await this._connectUserWithProjectSizes([
+      userWithProjects,
+    ]);
+
+    return usersWithProjectSizes[0];
   }
 
   async resetPassword(userId: string): Promise<{ password: string }> {
@@ -128,8 +152,19 @@ export class AdminService {
         .map((p) => p._id.toString()),
     }));
 
-    const usersWithProjectSizes = await Promise.all(
-      usersWithProjects.map(async (user) => {
+    const usersWithProjectSizes = await this._connectUserWithProjectSizes(
+      usersWithProjects,
+    );
+
+    return {
+      users: usersWithProjectSizes,
+    };
+  }
+
+  // TODO add type "userEntitiyForAdmin[]" to userWithProjects?
+  private async _connectUserWithProjectSizes(userWithProjects) {
+    return await Promise.all(
+      userWithProjects.map(async (user) => {
         const projects = await Promise.all(
           user.projects.map(async (project) => {
             const size = await this._getProjectSize(project);
@@ -143,10 +178,6 @@ export class AdminService {
         };
       }),
     );
-
-    return {
-      users: usersWithProjectSizes,
-    };
   }
 
   private async _getProjectSize(projectId: string) {

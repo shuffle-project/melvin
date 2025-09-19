@@ -539,7 +539,7 @@ export class FakeApiService implements ApiService {
   }
 
   // admin
-  loginAdmin(
+  adminLogin(
     username: string,
     password: string
   ): Observable<{ token: string }> {
@@ -549,6 +549,20 @@ export class FakeApiService implements ApiService {
 
   adminFindAllUsers(): Observable<{ users: Readonly<UserEntityForAdmin[]> }> {
     this.logger.verbose('admin find all users mocked');
+    return of();
+  }
+
+  adminDeleteUserAccount(userId: string): Observable<void> {
+    this.logger.verbose('adminDeleteUserAccount mocked');
+    return of();
+  }
+
+  adminUpdateUser(
+    userId: string,
+    email: string,
+    name: string
+  ): Observable<UserEntityForAdmin> {
+    this.logger.verbose('adminUpdateUser mocked');
     return of();
   }
 }

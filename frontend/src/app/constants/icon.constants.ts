@@ -22,6 +22,7 @@ export const ICONS = [
   'close-small',
   'clear',
   'clear-inverted',
+  'copy',
   'copy-transcription',
   'delete',
   'done',

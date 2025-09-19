@@ -21,21 +21,37 @@ export const initialState: AdminState = {
 export const adminReducer = createReducer(
   initialState,
 
-  on(adminActions.loginAdminSuccess, (state, { token }) => ({
+  on(adminActions.adminLoginSuccess, (state, { token }) => ({
     ...state,
     token,
     loginLoading: false,
   })),
 
-  on(adminActions.findAllUsersSuccess, (state, { userList }) => ({
+  on(adminActions.adminFindAllUsersSuccess, (state, { userList }) => ({
     ...state,
     userList: userList,
   })),
 
   // Logout
-  on(adminActions.logoutAdmin, (state) => ({
+  on(adminActions.adminLogout, (state) => ({
     ...state,
     token: null,
     userList: { users: [] },
+  })),
+
+  // Delete user by admin
+  on(adminActions.adminDeleteUserAccountSuccess, (state, { userId }) => ({
+    ...state,
+    userList: {
+      users: state.userList.users.filter((user) => user.id !== userId),
+    },
+  })),
+
+  // Update user by admin
+  on(adminActions.adminUpdateUserSuccess, (state, { user }) => ({
+    ...state,
+    userList: {
+      users: state.userList.users.map((u) => (u.id === user.id ? user : u)),
+    },
   }))
 );
