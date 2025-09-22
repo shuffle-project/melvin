@@ -102,6 +102,22 @@ export class AdminEffects {
       )
     )
   );
+
+  adminResetUserPassword$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(adminActions.adminResetUserPassword),
+      mergeMap(({ userId }) =>
+        this.api.adminResetUserPassword(userId).pipe(
+          map(({ password }) =>
+            adminActions.adminResetUserPasswordSuccess({ password })
+          ),
+          catchError((error) =>
+            of(adminActions.adminResetUserPasswordFail({ error }))
+          )
+        )
+      )
+    )
+  );
 }
 
 // fetchProjects$ = createEffect(() =>

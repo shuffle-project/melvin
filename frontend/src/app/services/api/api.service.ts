@@ -363,4 +363,8 @@ export abstract class ApiService {
     email: string,
     name: string
   ): Observable<UserEntityForAdmin>;
+
+  abstract adminResetUserPassword(
+    userId: string
+  ): Observable<{ password: string }>;
 }

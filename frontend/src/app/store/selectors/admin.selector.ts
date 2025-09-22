@@ -17,3 +17,8 @@ export const selectToken = createSelector(
   selectAdminState,
   (state) => state.token
 );
+
+export const selectNewUserPassword = createSelector(
+  selectAdminState,
+  (state) => state.newUserPassword
+);

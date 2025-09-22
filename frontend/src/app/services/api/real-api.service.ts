@@ -756,4 +756,14 @@ export class RealApiService implements ApiService {
       }
     );
   }
+
+  adminResetUserPassword(userId: string): Observable<{ password: string }> {
+    return this._post<{ password: string }>(
+      `/admin/users/${userId}/reset-password`,
+      {},
+      {
+        useAdminToken: true,
+      }
+    );
+  }
 }

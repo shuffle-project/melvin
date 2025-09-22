@@ -161,7 +161,7 @@ export class AdminService {
     };
   }
 
-  // TODO add type "userEntitiyForAdmin[]" to userWithProjects?
+  // TODO add type to userWithProjects?
   private async _connectUserWithProjectSizes(userWithProjects) {
     return await Promise.all(
       userWithProjects.map(async (user) => {

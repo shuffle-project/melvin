@@ -21,6 +21,7 @@ import * as adminSelectors from '../../store/selectors/admin.selector';
 import { LandingFooterComponent } from '../landing/components/landing-footer/landing-footer.component';
 import { LandingHeaderComponent } from '../landing/components/landing-header/landing-header.component';
 import { DialogAdminEditEmailComponent } from './components/dialog-admin-edit-email/dialog-admin-edit-email.component';
+import { DialogAdminResetPasswordComponent } from './components/dialog-admin-reset-password/dialog-admin-reset-password.component';
 
 @Component({
   selector: 'app-admin',
@@ -95,6 +96,16 @@ export class AdminComponent implements OnInit, OnDestroy {
 
   onOpenEditEmailDialog(user: UserEntityForAdmin) {
     this.dialog.open(DialogAdminEditEmailComponent, {
+      data: user,
+      disableClose: true,
+      width: '100%',
+      maxWidth: '30rem',
+      maxHeight: '90vh',
+    });
+  }
+
+  onOpenResetPasswordDialog(user: UserEntityForAdmin) {
+    this.dialog.open(DialogAdminResetPasswordComponent, {
       data: user,
       disableClose: true,
       width: '100%',

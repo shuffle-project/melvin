@@ -65,3 +65,23 @@ export const adminUpdateUserFail = createAction(
   '[ADMIN API] Update user by admin fail',
   props<{ error: string }>()
 );
+
+// Reset password by admin
+export const adminResetUserPassword = createAction(
+  '[ADMIN RESET PASSWORD DIALOG COMPONENT] Reset user password by admin',
+  props<{ userId: string }>()
+);
+
+export const adminResetUserPasswordSuccess = createAction(
+  '[ADMIN API] Reset user password by admin success',
+  props<{ password: string }>()
+);
+
+export const adminResetUserPasswordFail = createAction(
+  '[ADMIN API] Reset user password by admin fail',
+  props<{ error: string }>()
+);
+
+export const adminClearUserPassword = createAction(
+  '[ADMIN RESET PASSWORD DIALOG COMPONENT] Clear user password'
+);
