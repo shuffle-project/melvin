@@ -15,7 +15,7 @@ export class AppController {
 
   @Get('config')
   @ApiResponse({ status: HttpStatus.OK, type: ConfigEntity })
-  getConfig(): ConfigEntity {
+  getConfig(): Promise<ConfigEntity> {
     return this.appService.getConfig();
   }
 }

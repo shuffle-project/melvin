@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsEnum } from 'class-validator';
-import { Environment } from './config/config.interface';
+import { Environment, RegistrationMode } from './config/config.interface';
 import {
   AsrVendors,
   TranslateVendors,
@@ -66,4 +66,8 @@ export class ConfigEntity {
 
   @ApiProperty({ type: [Language] })
   languages: Language[];
+
+  @ApiProperty()
+  @IsEnum(RegistrationMode)
+  registrationMode: RegistrationMode;
 }

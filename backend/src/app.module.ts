@@ -10,6 +10,7 @@ import { configuration } from './config/config.load';
 import { DbModule } from './modules/db/db.module';
 import { FfmpegModule } from './modules/ffmpeg/ffmpeg.module';
 import { LoggerModule } from './modules/logger/logger.module';
+import { MailModule } from './modules/mail/mail.module';
 import { MediaModule } from './modules/media/media.module';
 import { MelvinAsrApiModule } from './modules/melvin-asr-api/melvin-asr-api.module';
 import { MigrationModule } from './modules/migration/migration.module';
@@ -100,6 +101,7 @@ import { UserModule } from './resources/user/user.module';
     MediaModule,
     AdminModule,
     TasksModule,
+    MailModule,
     // TODO LivestreamModule,
     // generate captions
     SpeechToTextModule,

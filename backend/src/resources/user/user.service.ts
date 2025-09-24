@@ -26,7 +26,14 @@ export class UserService {
   async onApplicationBootstrap(): Promise<void> {
     const user = await this.db.userModel.findOne({ role: UserRole.SYSTEM });
 
-    const { mailFrom } = this.configService.get<EmailConfig>('email');
+    const emailConfig = this.configService.get<EmailConfig>('email');
+
+    let mailFrom = emailConfig?.mailFrom;
+
+    if (!mailFrom) {
+      // TODO
+      mailFrom = 'reuter@hdm-stuttgart.de';
+    }
 
     if (user === null) {
       // Create default system user

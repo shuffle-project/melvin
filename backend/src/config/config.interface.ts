@@ -199,7 +199,7 @@ export class Config {
   adminUser: AdminUserConfig;
 
   @ValidateNested({ each: true })
-  @IsDefined()
+  @IsOptional()
   email: EmailConfig;
 
   @IsArray()
