@@ -19,6 +19,7 @@ import { AdminService } from './admin.service';
 import { AdminLoginDto } from './dto/admin-login.dto';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { ResetPasswordEntity } from './entities/reset-password.entity';
 import { UserEntity, UserListEntity } from './entities/user-list.entity';
 
 @Controller('admin')
@@ -49,7 +50,7 @@ export class AdminController {
   @Post('/users/:id/reset-password')
   async resetPasswort(
     @Param('id', IsValidObjectIdPipe) id: string,
-  ): Promise<{ password: string }> {
+  ): Promise<ResetPasswordEntity> {
     return this.adminService.resetPassword(id);
   }
 

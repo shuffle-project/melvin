@@ -3,7 +3,7 @@ import { ConfigService } from '@nestjs/config';
 import { createTransport, Transporter } from 'nodemailer';
 import { EmailConfig } from 'src/config/config.interface';
 import { LeanProjectDocument } from '../db/schemas/project.schema';
-import { LeanUserDocument } from '../db/schemas/user.schema';
+import { LeanUserDocument, User } from '../db/schemas/user.schema';
 import { CustomLogger } from '../logger/logger.service';
 
 @Injectable()
@@ -36,7 +36,6 @@ export class MailService {
       this.transporter.verify().then((v) => {
         console.log('verified:', v);
       });
-
       // this.transporter
       //   .sendMail({
       //     from: `${this.emailConfig.mailFromName} <${this.emailConfig.mailFrom}>`,
@@ -53,15 +52,8 @@ export class MailService {
     }
   }
 
-  async _sendMail(subject: string, text: string, html: string) {
-    return await this.transporter.sendMail({
-      from: `Melvin Admin <${this.emailConfig.mailFrom}>`,
-      // to: `Recipient <${this.emailConfig.mailFrom}>`,
-      to: `Recipient <benedikt.reuter@posteo.de>`,
-      subject,
-      text,
-      html,
-    });
+  async sendPasswordResetMail(user: User, password: string) {
+    return this._sendMail(user.name, user.email, 'Password resetted', password);
   }
 
   async sendInviteEmail(
@@ -70,5 +62,22 @@ export class MailService {
     emails: string[],
   ): Promise<void> {
     this.logger.info(`send invites to ${emails.join(', ')}`);
+  }
+
+  async _sendMail(
+    recipientName: string,
+    recipientMail: string,
+    subject: string,
+    text: string,
+    html?: string,
+  ) {
+    return this.transporter.sendMail({
+      from: `Melvin <${this.emailConfig.mailFrom}>`,
+      // to: `Recipient <${this.emailConfig.mailFrom}>`,
+      to: `${recipientName} <${recipientMail}>`,
+      subject,
+      text,
+      html,
+    });
   }
 }

@@ -6,6 +6,7 @@ import { join } from 'path';
 import { AdminUserConfig } from 'src/config/config.interface';
 import { DbService } from 'src/modules/db/db.service';
 import { Project } from 'src/modules/db/schemas/project.schema';
+import { MailService } from 'src/modules/mail/mail.service';
 import { PathService } from 'src/modules/path/path.service';
 import { generateSecurePassword } from 'src/utils/crypto';
 import { CustomBadRequestException } from 'src/utils/exceptions';
@@ -17,6 +18,10 @@ import { UserService } from '../user/user.service';
 import { AdminLoginDto } from './dto/admin-login.dto';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import {
+  PasswordResetMethod,
+  ResetPasswordEntity,
+} from './entities/reset-password.entity';
 import { UserEntity, UserListEntity } from './entities/user-list.entity';
 
 @Injectable()
@@ -29,6 +34,7 @@ export class AdminService {
     private configService: ConfigService,
     private authService: AuthService,
     private userService: UserService,
+    private mailService: MailService,
   ) {
     this.adminUser = this.configService.get<AdminUserConfig>('adminUser');
   }
@@ -117,7 +123,7 @@ export class AdminService {
     return usersWithProjectSizes[0];
   }
 
-  async resetPassword(userId: string): Promise<{ password: string }> {
+  async resetPassword(userId: string): Promise<ResetPasswordEntity> {
     const user = await this.db.userModel.findById(userId).exec();
 
     if (user === null) {
@@ -126,7 +132,14 @@ export class AdminService {
 
     const password = generateSecurePassword(20);
     this.authService.resetPasswortByUserId(userId, password);
-    return { password: password };
+
+    //TODO send mail only if mail is configured
+    // await this.mailService.sendPasswordResetMail(user, password);
+
+    // await this.mailService._sendMail(user.email, 'New Password', password);
+
+    // TODO Return only if mail is not configured
+    return { method: PasswordResetMethod.RETURN, password: password };
   }
 
   async deleteUser(userId: string) {

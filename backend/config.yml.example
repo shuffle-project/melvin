@@ -21,6 +21,18 @@ basicAuth:
   username: admin
   password: secret
 
+# livekit:
+#   url: ws://localhost:7880
+#   apikey: devkey
+#   secret: secret
+
+
+adminUser:
+  username: admin
+  hashedPassword: admin:$2y$05$jswg1DsryRkK.NUwFQvxqOTC1VAO/CMOp5f6pJ4IPY5gTzm/zyWbu
+  # password: secret
+  # you can either set a cleartext or a hashed password
+
 email:
   smtpServer: 'smtp.example.com'
   smtpPort: 465

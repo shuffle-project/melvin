@@ -1,5 +1,6 @@
 import {
   IsArray,
+  IsBoolean,
   IsDefined,
   IsEmail,
   IsEnum,
@@ -153,12 +154,28 @@ export class PopulateUser {
   email: string;
 }
 
+export enum RegistrationMode {
+  DISABLED = 'disabled',
+  EMAIL = 'email',
+}
+
+export class Registration {
+  @IsEnum(RegistrationMode)
+  mode: RegistrationMode;
+
+  @IsBoolean()
+  requireAdminApproval: boolean;
+}
+
 export class Config {
   @IsEnum(Environment)
   environment: Environment;
 
-  @IsString()
+  @ValidateNested({ each: true })
   @IsDefined()
+  registration: Registration;
+
+  @IsString()
   baseUrl: string;
 
   @ValidateNested({ each: true })
