@@ -3,7 +3,11 @@ import { ConfigService } from '@nestjs/config';
 import { compare } from 'bcrypt';
 import { readdir, stat } from 'fs/promises';
 import { join } from 'path';
-import { AdminUserConfig, RegistrationMode } from 'src/config/config.interface';
+import {
+  AdminUserConfig,
+  RegistrationConfig,
+  RegistrationMode,
+} from 'src/config/config.interface';
 import { DbService } from 'src/modules/db/db.service';
 import { Project } from 'src/modules/db/schemas/project.schema';
 import { MailService } from 'src/modules/mail/mail.service';
@@ -27,7 +31,7 @@ import { UserEntity, UserListEntity } from './entities/user-list.entity';
 @Injectable()
 export class AdminService {
   adminUser: AdminUserConfig;
-  registrationMode: RegistrationMode;
+  registrationConfig: RegistrationConfig;
 
   constructor(
     private pathService: PathService,
@@ -38,8 +42,8 @@ export class AdminService {
     private mailService: MailService,
   ) {
     this.adminUser = this.configService.get<AdminUserConfig>('adminUser');
-    this.registrationMode =
-      this.configService.get<RegistrationMode>('registration');
+    this.registrationConfig =
+      this.configService.get<RegistrationConfig>('registration');
   }
 
   async adminLogin(dto: AdminLoginDto): Promise<AuthLoginResponseDto> {
@@ -94,7 +98,7 @@ export class AdminService {
 
     this.authService.register({ ...createUserDto, password: password });
 
-    if (this.registrationMode === RegistrationMode.EMAIL) {
+    if (this.registrationConfig.mode === RegistrationMode.EMAIL) {
       await this.mailService.sendAdminCreateUserMail(createUserDto, password);
       return { method: PasswordResetMethod.EMAIL };
     } else {
@@ -138,6 +142,7 @@ export class AdminService {
 
   async resetPassword(userId: string): Promise<ResetPasswordEntity> {
     const user = await this.db.userModel.findById(userId).exec();
+    console.log(this.registrationConfig);
 
     if (user === null) {
       throw new CustomBadRequestException('user_not_found');
@@ -146,7 +151,7 @@ export class AdminService {
     const password = generateSecurePassword(20);
     this.authService.resetPasswortByUserId(userId, password);
 
-    if (this.registrationMode === RegistrationMode.EMAIL) {
+    if (this.registrationConfig.mode === RegistrationMode.EMAIL) {
       await this.mailService.sendPasswordResetMail(user, password);
       return { method: PasswordResetMethod.EMAIL };
     } else {
