@@ -126,6 +126,7 @@ export class AdminService {
       email: updatedUser.email,
       name: updatedUser.name,
       role: updatedUser.role,
+      isEmailVerified: user.isEmailVerified,
       projects: updatedUser.projects
         .filter((project) =>
           isSameObjectId((project as Project).createdBy, user),
@@ -142,7 +143,6 @@ export class AdminService {
 
   async resetPassword(userId: string): Promise<ResetPasswordEntity> {
     const user = await this.db.userModel.findById(userId).exec();
-    console.log(this.registrationConfig);
 
     if (user === null) {
       throw new CustomBadRequestException('user_not_found');
@@ -175,6 +175,7 @@ export class AdminService {
       email: user.email,
       name: user.name,
       role: user.role,
+      isEmailVerified: user.isEmailVerified,
       projects: user.projects
         .filter((project) =>
           isSameObjectId((project as Project).createdBy, user),
