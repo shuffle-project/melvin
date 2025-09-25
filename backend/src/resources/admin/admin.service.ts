@@ -10,6 +10,7 @@ import {
 } from 'src/config/config.interface';
 import { DbService } from 'src/modules/db/db.service';
 import { Project } from 'src/modules/db/schemas/project.schema';
+import { User } from 'src/modules/db/schemas/user.schema';
 import { MailService } from 'src/modules/mail/mail.service';
 import { PathService } from 'src/modules/path/path.service';
 import { generateSecurePassword } from 'src/utils/crypto';
@@ -121,24 +122,7 @@ export class AdminService {
       .lean()
       .exec();
 
-    const userWithProjects = {
-      id: updatedUser._id.toString(),
-      email: updatedUser.email,
-      name: updatedUser.name,
-      role: updatedUser.role,
-      isEmailVerified: user.isEmailVerified,
-      projects: updatedUser.projects
-        .filter((project) =>
-          isSameObjectId((project as Project).createdBy, user),
-        )
-        .map((p) => p._id.toString()),
-    };
-
-    const usersWithProjectSizes = await this._connectUserWithProjectSizes([
-      userWithProjects,
-    ]);
-
-    return usersWithProjectSizes[0];
+    return this.toUserEntity(updatedUser);
   }
 
   async resetPassword(userId: string): Promise<ResetPasswordEntity> {
@@ -170,45 +154,42 @@ export class AdminService {
       .lean()
       .exec();
 
-    const usersWithProjects = initialUsers.map((user) => ({
-      id: user._id.toString(),
-      email: user.email,
-      name: user.name,
-      role: user.role,
-      isEmailVerified: user.isEmailVerified,
-      projects: user.projects
-        .filter((project) =>
-          isSameObjectId((project as Project).createdBy, user),
-        )
-        .map((p) => p._id.toString()),
-    }));
+    const users = await Promise.all(
+      initialUsers.map((user) => this.toUserEntity(user)),
+    );
+    return { users };
+  }
 
-    const usersWithProjectSizes = await this._connectUserWithProjectSizes(
-      usersWithProjects,
+  private async toUserEntity(user: User): Promise<UserEntity> {
+    user.projects.forEach((project) => {
+      // TODO evlt nur in der testumgebung? was tun hier?
+      if (
+        (project as Project).duration === undefined ||
+        (project as Project).duration === null
+      )
+        (project as Project).duration = 0;
+    });
+
+    const accumulatedDuration = user.projects
+      .filter((project) => isSameObjectId((project as Project).createdBy, user))
+      .reduce((a, b) => a + (b as Project).duration, 0);
+
+    const projects = await Promise.all(
+      user.projects.map(async (project) => {
+        const size = await this._getProjectSize(project._id.toString());
+        return { project, mbOnDisc: size };
+      }),
     );
 
     return {
-      users: usersWithProjectSizes,
+      id: user._id.toString(),
+      email: user.email,
+      role: user.role,
+      isEmailVerified: user.isEmailVerified,
+      projectCount: projects.length,
+      mbOnDisc: projects.reduce((a, b) => a + b.mbOnDisc, 0),
+      accumulatedDuration,
     };
-  }
-
-  // TODO add type to userWithProjects?
-  private async _connectUserWithProjectSizes(userWithProjects) {
-    return await Promise.all(
-      userWithProjects.map(async (user) => {
-        const projects = await Promise.all(
-          user.projects.map(async (project) => {
-            const size = await this._getProjectSize(project);
-            return { id: project, mbOnDisc: size };
-          }),
-        );
-        return {
-          mbOnDisc: projects.reduce((a, b) => a + b.mbOnDisc, 0),
-          ...user,
-          projects,
-        };
-      }),
-    );
   }
 
   private async _getProjectSize(projectId: string) {

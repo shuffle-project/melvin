@@ -26,9 +26,15 @@ export class UserEntity {
   @ApiProperty()
   mbOnDisc: number;
 
-  @ApiProperty({ type: [ProjectInformation] })
-  @Type(() => ProjectInformation)
-  projects: ProjectInformation[];
+  @ApiProperty()
+  accumulatedDuration: number;
+
+  @ApiProperty()
+  projectCount: number;
+
+  // @ApiProperty({ type: [ProjectInformation] })
+  // @Type(() => ProjectInformation)
+  // projects: ProjectInformation[];
 }
 
 export class UserListEntity {
