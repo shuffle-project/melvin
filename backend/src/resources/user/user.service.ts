@@ -3,7 +3,6 @@ import { ConfigService } from '@nestjs/config';
 import * as bcrypt from 'bcrypt';
 import { plainToInstance } from 'class-transformer';
 import { DbService } from '../..//modules/db/db.service';
-import { EmailConfig } from '../../config/config.interface';
 import { LeanUserDocument } from '../../modules/db/schemas/user.schema';
 import { PathService } from '../../modules/path/path.service';
 import {
@@ -26,27 +25,18 @@ export class UserService {
   async onApplicationBootstrap(): Promise<void> {
     const user = await this.db.userModel.findOne({ role: UserRole.SYSTEM });
 
-    const emailConfig = this.configService.get<EmailConfig>('email');
-
-    let mailFrom = emailConfig?.mailFrom;
-
-    if (!mailFrom) {
-      // TODO
-      mailFrom = 'reuter@hdm-stuttgart.de';
-    }
-
     if (user === null) {
       // Create default system user
       await this.db.userModel.create({
         name: 'System',
-        email: mailFrom,
+        email: 'System',
         role: UserRole.SYSTEM,
         hashedPassword: null,
       });
-    } else if (user.email !== mailFrom) {
+    } else if (user.email !== 'System') {
       // Update system user as config changed
       await this.db.userModel
-        .findByIdAndUpdate(user._id, { email: mailFrom })
+        .findByIdAndUpdate(user._id, { email: 'System' })
         .exec();
     }
   }

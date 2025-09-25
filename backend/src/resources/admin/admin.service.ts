@@ -3,7 +3,7 @@ import { ConfigService } from '@nestjs/config';
 import { compare } from 'bcrypt';
 import { readdir, stat } from 'fs/promises';
 import { join } from 'path';
-import { AdminUserConfig } from 'src/config/config.interface';
+import { AdminUserConfig, RegistrationMode } from 'src/config/config.interface';
 import { DbService } from 'src/modules/db/db.service';
 import { Project } from 'src/modules/db/schemas/project.schema';
 import { MailService } from 'src/modules/mail/mail.service';
@@ -27,6 +27,7 @@ import { UserEntity, UserListEntity } from './entities/user-list.entity';
 @Injectable()
 export class AdminService {
   adminUser: AdminUserConfig;
+  registrationMode: RegistrationMode;
 
   constructor(
     private pathService: PathService,
@@ -37,6 +38,8 @@ export class AdminService {
     private mailService: MailService,
   ) {
     this.adminUser = this.configService.get<AdminUserConfig>('adminUser');
+    this.registrationMode =
+      this.configService.get<RegistrationMode>('registration');
   }
 
   async adminLogin(dto: AdminLoginDto): Promise<AuthLoginResponseDto> {
@@ -81,12 +84,22 @@ export class AdminService {
       name: this.adminUser.username,
       email: 'admin',
       role: UserRole.ADMIN,
+      isEmailVerified: true,
     });
     return { token };
   }
 
   async createUser(createUserDto: CreateUserDto) {
-    return this.authService.register({ ...createUserDto });
+    const password = generateSecurePassword(20);
+
+    this.authService.register({ ...createUserDto, password: password });
+
+    if (this.registrationMode === RegistrationMode.EMAIL) {
+      await this.mailService.sendAdminCreateUserMail(createUserDto, password);
+      return { method: PasswordResetMethod.EMAIL };
+    } else {
+      return { method: PasswordResetMethod.RETURN, password: password };
+    }
   }
 
   async updateUser(id: string, dto: UpdateUserDto): Promise<UserEntity> {
@@ -133,13 +146,12 @@ export class AdminService {
     const password = generateSecurePassword(20);
     this.authService.resetPasswortByUserId(userId, password);
 
-    //TODO send mail only if mail is configured
-    // await this.mailService.sendPasswordResetMail(user, password);
-
-    // await this.mailService._sendMail(user.email, 'New Password', password);
-
-    // TODO Return only if mail is not configured
-    return { method: PasswordResetMethod.RETURN, password: password };
+    if (this.registrationMode === RegistrationMode.EMAIL) {
+      await this.mailService.sendPasswordResetMail(user, password);
+      return { method: PasswordResetMethod.EMAIL };
+    } else {
+      return { method: PasswordResetMethod.RETURN, password: password };
+    }
   }
 
   async deleteUser(userId: string) {

@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
+import { MailModule } from 'src/modules/mail/mail.module';
 import { JwtConfig } from '../../config/config.interface';
 import { DbModule } from '../../modules/db/db.module';
 import { PermissionsModule } from '../../modules/permissions/permissions.module';
@@ -31,6 +32,7 @@ import { JwtStrategy } from './strategies/jwt.strategy';
     DbModule,
     PermissionsModule,
     PopulateModule,
+    MailModule,
   ],
   providers: [AuthService, JwtStrategy, BasicAuthStrategy],
   exports: [AuthService],

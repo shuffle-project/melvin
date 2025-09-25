@@ -3,8 +3,9 @@ import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
 import { Types } from 'mongoose';
+import { MailService } from 'src/modules/mail/mail.service';
 import { v4 } from 'uuid';
-import { JwtConfig } from '../../config/config.interface';
+import { JwtConfig, RegistrationConfig } from '../../config/config.interface';
 import { DbService } from '../../modules/db/db.service';
 import { User } from '../../modules/db/schemas/user.schema';
 import { PermissionsService } from '../../modules/permissions/permissions.service';
@@ -47,20 +48,25 @@ interface SignTokenUser {
   role: UserRole;
   name: string;
   email: string;
+  isEmailVerified: boolean;
 }
 
 @Injectable()
 export class AuthService {
   private config: JwtConfig;
+  private registrationConfig: RegistrationConfig;
 
   constructor(
     private jwtService: JwtService,
     private configService: ConfigService,
     private db: DbService,
+    private mailService: MailService,
     private permissions: PermissionsService,
     private populateService: PopulateService,
   ) {
     this.config = this.configService.get<JwtConfig>('jwt');
+    this.registrationConfig =
+      this.configService.get<RegistrationConfig>('registration');
   }
 
   async changePassword(dto: ChangePasswordDto): Promise<ChangePasswordEntity> {
@@ -158,6 +164,12 @@ export class AuthService {
   }
 
   async register(dto: AuthRegisterDto): Promise<void> {
+    //TODO  block if registration is disabled
+
+    if (this.registrationConfig.mode === 'disabled') {
+      throw new CustomForbiddenException('registration_disabled');
+    }
+
     // Get user by email
     const exists = await this.db.userModel
       .findOne({
@@ -194,6 +206,9 @@ export class AuthService {
     //  Create default project
     // await this.populateService._generateDefaultProject(user);
 
+    if (this.mailService.isActive())
+      await this.mailService.sendVerifyEmail(user);
+
     // TODO: Send email with verificationToken
   }
 
@@ -201,12 +216,15 @@ export class AuthService {
     dto: AuthVerifyEmailDto,
   ): Promise<AuthVerifyEmailResponseDto> {
     // Find user by verification token
+
+    const newVerificationToken = generateSecureToken();
+
     const user = await this.db.userModel.findOneAndUpdate(
       {
         isEmailVerified: false,
         emailVerificationToken: dto.verificationToken,
       },
-      { emailVerificationToken: null, isEmailVerified: true },
+      { emailVerificationToken: newVerificationToken, isEmailVerified: true },
       { new: true },
     );
 
@@ -286,7 +304,8 @@ export class AuthService {
       _id: project._id,
       role: UserRole.VIEWER,
       name: 'viewer',
-      email: 'viewer@shuffle-projekt.de',
+      email: 'viewer',
+      isEmailVerified: true, // TODO,
     });
 
     return { token: accessToken, projectId: project._id.toString() };
@@ -298,6 +317,8 @@ export class AuthService {
       role: user.role,
       name: user.name,
       email: user.email,
+      isEmailVerified: user.isEmailVerified,
+      // email verified
     };
     return this.jwtService.sign(payload, {
       algorithm: 'HS256',
@@ -375,5 +396,22 @@ export class AuthService {
     await this.db.userModel
       .findByIdAndUpdate(userId, { hashedPassword })
       .exec();
+  }
+
+  async forgotPassword(dto: { email: string }): Promise<void> {
+    if (this.registrationConfig.mode === 'disabled') {
+      throw new CustomForbiddenException('forgot_password_disabled');
+    }
+
+    const user = await this.db.userModel
+      .findOne({ email: dto.email.toLowerCase() })
+      .exec();
+
+    await this.mailService.sendForgotPassword(user);
+
+    if (user) {
+    }
+
+    return;
   }
 }

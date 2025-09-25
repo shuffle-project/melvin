@@ -93,4 +93,9 @@ export class AuthController {
   ): Promise<void> {
     return this.authService.resetPassword(dto.email, dto.newPassword);
   }
+
+  @Post('/forgot-password')
+  async forgotPassword(@Body() dto: { email: string }): Promise<void> {
+    return this.authService.forgotPassword(dto);
+  }
 }

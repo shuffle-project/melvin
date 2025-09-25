@@ -5,6 +5,7 @@ export class JwtPayload {
   role: UserRole;
   name: string;
   email: string;
+  isEmailVerified: boolean;
 }
 
 export interface DecodedToken extends JwtPayload {

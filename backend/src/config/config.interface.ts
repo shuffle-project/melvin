@@ -159,7 +159,7 @@ export enum RegistrationMode {
   EMAIL = 'email',
 }
 
-export class Registration {
+export class RegistrationConfig {
   @IsEnum(RegistrationMode)
   mode: RegistrationMode;
 
@@ -173,7 +173,7 @@ export class Config {
 
   @ValidateNested({ each: true })
   @IsDefined()
-  registration: Registration;
+  registration: RegistrationConfig;
 
   @IsString()
   baseUrl: string;

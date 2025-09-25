@@ -21,6 +21,9 @@ export class UserEntity {
   role: UserRole;
 
   @ApiProperty()
+  isEmailVerified: boolean;
+
+  @ApiProperty()
   mbOnDisc: number;
 
   @ApiProperty({ type: [ProjectInformation] })

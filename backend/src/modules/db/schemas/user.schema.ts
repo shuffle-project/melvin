@@ -54,7 +54,8 @@ export class User {
   @IsEnum(UserRole)
   role: UserRole;
 
-  @Exclude()
+  // @Exclude()
+  @ApiProperty({ example: true })
   @Prop({ default: false })
   @IsBoolean()
   isEmailVerified: boolean;
