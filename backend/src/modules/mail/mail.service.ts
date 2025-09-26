@@ -39,8 +39,8 @@ export class MailService {
       !this.emailConfig
     ) {
       // TODO throw? or error log?
-      this.logger.error('email registration enabled but no email config');
-      throw new Error('email registration enabled but no email config');
+      this.logger.error('email registration enabled but no email config set');
+      throw new Error('email registration enabled but no email config set');
     }
 
     console.log('onapplicationBootstrap mail');
@@ -65,7 +65,6 @@ export class MailService {
     createUserDto: CreateUserDto,
     password: string,
   ) {
-    // TODO set on verfied directly? only way the person gets the password is via the mail
     const emailSubject = '[Melvin] Your Account Has Been Created';
     const emailBody = `Hello ${createUserDto.name},
 

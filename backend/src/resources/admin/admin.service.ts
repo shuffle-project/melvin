@@ -99,6 +99,13 @@ export class AdminService {
 
     this.authService.register({ ...createUserDto, password: password });
 
+    await this.db.userModel
+      .findOneAndUpdate(
+        { email: createUserDto.email },
+        { $set: { isEmailVerified: true } },
+      )
+      .exec();
+
     if (this.registrationConfig.mode === RegistrationMode.EMAIL) {
       await this.mailService.sendAdminCreateUserMail(createUserDto, password);
       return { method: PasswordResetMethod.EMAIL };
@@ -184,6 +191,7 @@ export class AdminService {
     return {
       id: user._id.toString(),
       email: user.email,
+      name: user.name,
       role: user.role,
       isEmailVerified: user.isEmailVerified,
       projectCount: projects.length,

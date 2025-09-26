@@ -18,6 +18,9 @@ export class UserEntity {
   email: string;
 
   @ApiProperty()
+  name: string;
+
+  @ApiProperty()
   role: UserRole;
 
   @ApiProperty()
