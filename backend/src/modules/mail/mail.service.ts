@@ -112,7 +112,7 @@ export class MailService {
     const emailBody = `Hello ${user.name},
 
     click the following link to verify your Melvin account with your email address:
-    https://melvin.shuffle-projekt.de/verify-email?token=${user.emailVerificationToken}
+    https://melvin.shuffle-projekt.de/verify-email/${user.emailVerificationToken}?email=${user.email}
 
     
     Kind regards
@@ -128,11 +128,12 @@ export class MailService {
 
     click the following link to reset your password for your Melvin account:
     TODO
+    <baseUrl>/${user.emailVerificationToken}?email=${user.email}
 
     Kind regards
     The Melvin Team`;
 
-    return this._sendMail;
+    return this._sendMail(user.name, user.email, emailSubject, emailBody);
   }
 
   async sendInviteEmail(

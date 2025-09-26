@@ -33,12 +33,11 @@ import {
   AuthRefreshTokenResponseDto,
 } from './dto/auth-refresh-token.dto';
 import { AuthRegisterDto } from './dto/auth-register.dto';
-import {
-  AuthVerifyEmailDto,
-  AuthVerifyEmailResponseDto,
-} from './dto/auth-verify-email.dto';
+import { AuthVerifyEmailResponseDto } from './dto/auth-verify-email.dto';
 import { AuthViewerLoginDto } from './dto/auth-viewer.dto';
 import { ChangePasswordDto } from './dto/change-password.dto';
+import { ForgotPasswordDto } from './dto/forgot-password.dto';
+import { ResetPasswordByTokenDto } from './dto/reset-password-by-token.dto';
 import { AuthInviteEntity } from './entities/auth-invite.entity';
 import { AuthViewerLoginResponseEntity } from './entities/auth-viewer.entity';
 import { ChangePasswordEntity } from './entities/change-password.entity';
@@ -212,31 +211,41 @@ export class AuthService {
     // TODO: Send email with verificationToken
   }
 
+  async sendVerifyEmail(authUser: AuthUser): Promise<void> {
+    const user = await this.db.userModel.findById(authUser.id);
+    await this.mailService.sendVerifyEmail(user);
+  }
+
   async verifyEmail(
-    dto: AuthVerifyEmailDto,
+    verifyToken: string,
+    email: string,
   ): Promise<AuthVerifyEmailResponseDto> {
     // Find user by verification token
 
+    const user = await this.db.userModel
+      .findOne({ email: email.toLowerCase() })
+      .exec();
+
+    // Unknown verificationToken
+    if (!user || user.emailVerificationToken !== verifyToken) {
+      throw new CustomBadRequestException('unkown_verification_token');
+    }
+
     const newVerificationToken = generateSecureToken();
 
-    const user = await this.db.userModel.findOneAndUpdate(
+    const newUser = await this.db.userModel.findOneAndUpdate(
       {
         isEmailVerified: false,
-        emailVerificationToken: dto.verificationToken,
+        emailVerificationToken: verifyToken,
       },
       { emailVerificationToken: newVerificationToken, isEmailVerified: true },
       { new: true },
     );
 
-    // Unknown verificationToken
-    if (!user) {
-      throw new CustomBadRequestException('unkown_verification_token');
-    }
-
     // Create access token
-    const token = this.createAccessToken(user);
+    const accessToken = this.createAccessToken(newUser);
 
-    return { token };
+    return { token: accessToken };
   }
 
   async verifyInvite(inviteToken: string): Promise<AuthInviteEntity> {
@@ -377,8 +386,57 @@ export class AuthService {
     };
   }
 
-  // TODO delete
-  async resetPassword(email: string, newPassword: string): Promise<void> {
+  async resetPasswortByUserId(userId: string, newPassword: string) {
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
+    await this.db.userModel
+      .findByIdAndUpdate(userId, { hashedPassword })
+      .exec();
+  }
+
+  // async resetPassword(email: string, newPassword: string): Promise<void> {
+  //   const user = await this.db.userModel
+  //     .findOne({ email: email.toLowerCase() })
+  //     .exec();
+
+  //   if (user === null) {
+  //     throw new CustomInternalServerException('user_not_found');
+  //   }
+
+  //   await this.resetPasswortByUserId(user._id.toString(), newPassword);
+  //   return;
+  // }
+
+  async forgotPassword(dto: ForgotPasswordDto): Promise<void> {
+    if (this.registrationConfig.mode === 'disabled') {
+      throw new CustomForbiddenException('forgot_password_disabled');
+    }
+
+    let user = await this.db.userModel
+      .findOne({ email: dto.email.toLowerCase() })
+      .exec();
+
+    if (!user.emailVerificationToken) {
+      const newtoken = generateSecureToken();
+      user = await this.db.userModel
+        .findOneAndUpdate(
+          { email: dto.email.toLowerCase() },
+          { $set: { emailVerificationToken: newtoken } },
+          { new: true },
+        )
+        .exec();
+    }
+
+    if (user) {
+      await this.mailService.sendForgotPassword(user);
+    }
+  }
+
+  async resetPasswordByToken(
+    dto: ResetPasswordByTokenDto,
+    email: string,
+    token: string,
+  ): Promise<void> {
+    console.log(dto, email, token);
     const user = await this.db.userModel
       .findOne({ email: email.toLowerCase() })
       .exec();
@@ -387,31 +445,19 @@ export class AuthService {
       throw new CustomInternalServerException('user_not_found');
     }
 
-    await this.resetPasswortByUserId(user._id.toString(), newPassword);
-    return;
-  }
+    if (token !== user.emailVerificationToken) {
+      throw new CustomBadRequestException('invalid_token');
+    }
 
-  async resetPasswortByUserId(userId: string, newPassword: string) {
-    const hashedPassword = await bcrypt.hash(newPassword, 10);
+    await this.resetPasswortByUserId(user._id.toString(), dto.password);
+
+    // reset token
+    const newtoken = generateSecureToken();
     await this.db.userModel
-      .findByIdAndUpdate(userId, { hashedPassword })
+      .findOneAndUpdate(
+        { email: email.toLowerCase() },
+        { $set: { emailVerificationToken: newtoken, isEmailVerified: true } },
+      )
       .exec();
-  }
-
-  async forgotPassword(dto: { email: string }): Promise<void> {
-    if (this.registrationConfig.mode === 'disabled') {
-      throw new CustomForbiddenException('forgot_password_disabled');
-    }
-
-    const user = await this.db.userModel
-      .findOne({ email: dto.email.toLowerCase() })
-      .exec();
-
-    await this.mailService.sendForgotPassword(user);
-
-    if (user) {
-    }
-
-    return;
   }
 }
