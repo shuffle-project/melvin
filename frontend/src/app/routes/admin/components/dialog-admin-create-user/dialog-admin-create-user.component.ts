@@ -1,47 +1,56 @@
-import { Component, inject, OnDestroy } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
+import { Component, OnDestroy } from '@angular/core';
+import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
-import { MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
+import { MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { PushPipe } from '@ngrx/component';
 import { Store } from '@ngrx/store';
-import { UserEntityForAdmin } from 'src/app/services/api/entities/user.entity';
 import { AppState } from 'src/app/store/app.state';
 import * as adminActions from '../../../../store/actions/admin.actions';
 import * as adminSelectors from '../../../../store/selectors/admin.selector';
 import { AdminUserPasswordComponent } from '../admin-user-password/admin-user-password.component';
 
 @Component({
-  selector: 'app-dialog-admin-reset-password',
+  selector: 'app-dialog-admin-create-user',
   imports: [
     MatDialogModule,
     MatButtonModule,
     MatIconModule,
     ReactiveFormsModule,
     MatInputModule,
-    PushPipe,
     MatProgressSpinnerModule,
+    PushPipe,
     AdminUserPasswordComponent,
   ],
-  templateUrl: './dialog-admin-reset-password.component.html',
-  styleUrl: './dialog-admin-reset-password.component.scss',
+  templateUrl: './dialog-admin-create-user.component.html',
+  styleUrl: './dialog-admin-create-user.component.scss',
 })
-export class DialogAdminResetPasswordComponent implements OnDestroy {
+export class DialogAdminCreateUserComponent implements OnDestroy {
   newUserPassword$ = this.store.select(adminSelectors.selectNewUserPassword);
   newUserPasswordLoading$ = this.store.select(
     adminSelectors.selectNewUserPasswordLoading
   );
   passwordMethod$ = this.store.select(adminSelectors.selectPasswordMethod);
 
-  public user = inject<UserEntityForAdmin>(MAT_DIALOG_DATA);
+  emailControl = new FormControl('', [Validators.required, Validators.email]);
+  usernameControl = new FormControl('', [Validators.required]);
 
   constructor(private store: Store<AppState>) {}
 
-  onResetPassword() {
+  onCreateUser() {
+    if (this.emailControl.invalid || this.usernameControl.invalid) {
+      this.emailControl.markAsTouched();
+      this.usernameControl.markAsTouched();
+      return;
+    }
+
+    const email = this.emailControl.value!;
+    const username = this.usernameControl.value!;
+
     this.store.dispatch(
-      adminActions.adminResetUserPassword({ userId: this.user.id })
+      adminActions.adminCreateUser({ email, name: username })
     );
   }
 

@@ -22,3 +22,13 @@ export const selectNewUserPassword = createSelector(
   selectAdminState,
   (state) => state.newUserPassword
 );
+
+export const selectNewUserPasswordLoading = createSelector(
+  selectAdminState,
+  (state) => state.newUserPasswordLoading
+);
+
+export const selectPasswordMethod = createSelector(
+  selectAdminState,
+  (state) => state.passwordMethod
+);

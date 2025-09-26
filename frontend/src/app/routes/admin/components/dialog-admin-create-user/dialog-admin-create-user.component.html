@@ -1,0 +1,60 @@
+<div mat-dialog-title>
+  <div class="dialog-header">
+    <div>
+      <h1>Create User</h1>
+    </div>
+
+    <button mat-icon-button [mat-dialog-close]="true" aria-label="Close">
+      <mat-icon svgIcon="close" />
+    </button>
+  </div>
+</div>
+
+<mat-dialog-content>
+  @if (newUserPasswordLoading$ | ngrxPush) {
+  <mat-spinner diameter="30" />
+  } @else { @let passwordMethod = passwordMethod$ | ngrxPush;
+  @switch(passwordMethod) { @case ('email') {
+  <p>
+    Account created. An automatic email was sent to
+    <strong>{{ emailControl.value }}</strong> with the password. You can close
+    this window.
+  </p>
+  } @case ('return') { @if ( newUserPassword$ | ngrxPush; as newUserPassword) {
+  <p>Account created. Please send the password to the user.</p>
+
+  <app-admin-user-password
+    [username]="usernameControl.value!"
+    [password]="newUserPassword"
+    [email]="emailControl.value!"
+  />
+
+  } } @default {
+  <div class="form-field-wrapper">
+    <mat-form-field>
+      <mat-label>Email</mat-label>
+      <input matInput [formControl]="emailControl" />
+      <mat-error>
+        @if(emailControl.hasError('required')) {
+        <span>Email required</span>
+
+        } @if(emailControl.hasError('email')) {
+        <span>Valid email address required</span>
+        }
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Username</mat-label>
+      <input matInput [formControl]="usernameControl" />
+      <mat-error>
+        @if(usernameControl.hasError('required')) {
+        <span>Username required</span>
+        }
+      </mat-error>
+    </mat-form-field>
+
+    <button mat-flat-button (click)="onCreateUser()">Create User</button>
+  </div>
+  } } }
+</mat-dialog-content>

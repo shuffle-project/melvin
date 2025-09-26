@@ -566,8 +566,18 @@ export class FakeApiService implements ApiService {
     return of();
   }
 
-  adminResetUserPassword(userId: string): Observable<{ password: string }> {
+  adminResetUserPassword(
+    userId: string
+  ): Observable<{ method: 'email' | 'return'; password: string }> {
     this.logger.verbose('adminResetUserPassword mocked');
-    return of({ password: 'newPassword123' });
+    return of({ method: 'return', password: 'newPassword123' });
+  }
+
+  adminCreateUser(
+    email: string,
+    name: string
+  ): Observable<{ method: 'email' | 'return'; password: string }> {
+    this.logger.verbose('adminCreateUser mocked');
+    return of({ method: 'email', password: 'newPassword123' });
   }
 }

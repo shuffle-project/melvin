@@ -8,13 +8,11 @@ export interface UserEntity {
 }
 
 export interface UserEntityForAdmin {
-  projects: {
-    id: string;
-    mbOnDisc: number;
-  }[];
   id: string;
   email: string;
-  name: string;
   role: UserRole;
+  name: string;
+  projectCount: number;
   mbOnDisc: number;
+  accumulatedDuration: number;
 }

@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
@@ -6,7 +6,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatMenuModule } from '@angular/material/menu';
-import { MatTableModule } from '@angular/material/table';
+import { MatSort, MatSortModule } from '@angular/material/sort';
+import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { RouterLink } from '@angular/router';
 import { PushPipe } from '@ngrx/component';
 import { Store } from '@ngrx/store';
@@ -20,6 +21,7 @@ import * as adminActions from '../../store/actions/admin.actions';
 import * as adminSelectors from '../../store/selectors/admin.selector';
 import { LandingFooterComponent } from '../landing/components/landing-footer/landing-footer.component';
 import { LandingHeaderComponent } from '../landing/components/landing-header/landing-header.component';
+import { DialogAdminCreateUserComponent } from './components/dialog-admin-create-user/dialog-admin-create-user.component';
 import { DialogAdminEditEmailComponent } from './components/dialog-admin-edit-email/dialog-admin-edit-email.component';
 import { DialogAdminResetPasswordComponent } from './components/dialog-admin-reset-password/dialog-admin-reset-password.component';
 
@@ -38,6 +40,7 @@ import { DialogAdminResetPasswordComponent } from './components/dialog-admin-res
     MatIconModule,
     LandingHeaderComponent,
     MatMenuModule,
+    MatSortModule,
   ],
   templateUrl: './admin.component.html',
   styleUrl: './admin.component.scss',
@@ -50,7 +53,8 @@ export class AdminComponent implements OnInit, OnDestroy {
 
   private destroy$$ = new Subject<void>();
 
-  password = new FormControl('', [Validators.required]);
+  usernameControl = new FormControl('', [Validators.required]);
+  passwordControl = new FormControl('', [Validators.required]);
 
   displayedColumns: string[] = [
     'username',
@@ -60,7 +64,8 @@ export class AdminComponent implements OnInit, OnDestroy {
     'playback-total',
     'more',
   ];
-  dataSource: UserEntityForAdmin[] = [];
+  dataSource: MatTableDataSource<UserEntityForAdmin> = new MatTableDataSource();
+  @ViewChild(MatSort) sort!: MatSort;
 
   constructor(
     private store: Store<AppState>,
@@ -72,26 +77,43 @@ export class AdminComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.allUsers$.pipe(takeUntil(this.destroy$$)).subscribe((allUsers) => {
       const users = allUsers?.users ?? [];
-      this.dataSource = [...users];
+      this.dataSource = new MatTableDataSource([...users]);
+      this.dataSource.sort = this.sort;
     });
   }
 
   onHandleLogin() {
-    if (this.password.invalid) {
-      this.password.markAsTouched();
+    if (this.passwordControl.invalid || this.usernameControl.invalid) {
+      this.passwordControl.markAsTouched();
+      this.usernameControl.markAsTouched();
       return;
     }
 
-    const username = 'admin'; // TODO Team discussion necessary
-    const password = this.password.value!;
+    const username = this.usernameControl.value!;
+    const password = this.passwordControl.value!;
 
     this.store.dispatch(adminActions.adminLogin({ username, password }));
 
-    this.password.reset();
+    this.passwordControl.reset();
+    this.usernameControl.reset();
   }
 
   onHandleLogout() {
     this.store.dispatch(adminActions.adminLogout());
+  }
+
+  onApplyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
+  onOpenCreateUserDialog() {
+    this.dialog.open(DialogAdminCreateUserComponent, {
+      disableClose: true,
+      width: '100%',
+      maxWidth: '40rem',
+      maxHeight: '90vh',
+    });
   }
 
   onOpenEditEmailDialog(user: UserEntityForAdmin) {
@@ -109,7 +131,7 @@ export class AdminComponent implements OnInit, OnDestroy {
       data: user,
       disableClose: true,
       width: '100%',
-      maxWidth: '30rem',
+      maxWidth: '40rem',
       maxHeight: '90vh',
     });
   }

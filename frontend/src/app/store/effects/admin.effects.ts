@@ -108,12 +108,26 @@ export class AdminEffects {
       ofType(adminActions.adminResetUserPassword),
       mergeMap(({ userId }) =>
         this.api.adminResetUserPassword(userId).pipe(
-          map(({ password }) =>
-            adminActions.adminResetUserPasswordSuccess({ password })
+          map(({ method, password }) =>
+            adminActions.adminResetUserPasswordSuccess({ method, password })
           ),
           catchError((error) =>
             of(adminActions.adminResetUserPasswordFail({ error }))
           )
+        )
+      )
+    )
+  );
+
+  adminCreateUser$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(adminActions.adminCreateUser),
+      mergeMap(({ email, name }) =>
+        this.api.adminCreateUser(email, name).pipe(
+          map(({ method, password }) =>
+            adminActions.adminCreateUserSuccess({ method, password })
+          ),
+          catchError((error) => of(adminActions.adminCreateUserFail({ error })))
         )
       )
     )

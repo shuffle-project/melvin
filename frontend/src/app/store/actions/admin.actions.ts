@@ -74,7 +74,7 @@ export const adminResetUserPassword = createAction(
 
 export const adminResetUserPasswordSuccess = createAction(
   '[ADMIN API] Reset user password by admin success',
-  props<{ password: string }>()
+  props<{ method: 'email' | 'return'; password: string }>()
 );
 
 export const adminResetUserPasswordFail = createAction(
@@ -84,4 +84,20 @@ export const adminResetUserPasswordFail = createAction(
 
 export const adminClearUserPassword = createAction(
   '[ADMIN RESET PASSWORD DIALOG COMPONENT] Clear user password'
+);
+
+// Admin create user
+export const adminCreateUser = createAction(
+  '[ADMIN CREATE USER DIALOG COMPONENT] Create user by admin',
+  props<{ email: string; name: string }>()
+);
+
+export const adminCreateUserSuccess = createAction(
+  '[ADMIN API] Create user by admin success',
+  props<{ method: 'email' | 'return'; password: string }>()
+);
+
+export const adminCreateUserFail = createAction(
+  '[ADMIN API] Create user by admin fail',
+  props<{ error: string }>()
 );

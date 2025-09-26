@@ -7,6 +7,8 @@ export interface AdminState {
   loginError: string | null;
   token: string | null;
 
+  passwordMethod?: 'email' | 'return' | null;
+  newUserPasswordLoading?: boolean;
   newUserPassword: string | null;
 
   userList: { users: Readonly<UserEntityForAdmin[]> };
@@ -17,6 +19,8 @@ export const initialState: AdminState = {
   loginError: null,
   token: null,
 
+  passwordMethod: null,
+  newUserPasswordLoading: false,
   newUserPassword: null,
 
   userList: { users: [] },
@@ -60,13 +64,39 @@ export const adminReducer = createReducer(
   })),
 
   // New user password
-  on(adminActions.adminResetUserPasswordSuccess, (state, { password }) => ({
-    ...state,
-    newUserPassword: password,
-  })),
+  on(
+    adminActions.adminResetUserPassword,
+    adminActions.adminCreateUser,
+    (state) => ({
+      ...state,
+      newUserPasswordLoading: true,
+    })
+  ),
+
+  on(
+    adminActions.adminResetUserPasswordSuccess,
+    adminActions.adminCreateUserSuccess,
+    (state, { method, password }) => ({
+      ...state,
+      passwordMethod: method,
+      newUserPassword: password,
+      newUserPasswordLoading: false,
+    })
+  ),
+
+  on(
+    adminActions.adminResetUserPasswordFail,
+    adminActions.adminCreateUserFail,
+    (state, { error }) => ({
+      ...state,
+      newUserPasswordLoading: false,
+    })
+  ),
 
   on(adminActions.adminClearUserPassword, (state) => ({
     ...state,
     newUserPassword: null,
+    passwordMethod: null,
+    newUserPasswordLoading: false,
   }))
 );

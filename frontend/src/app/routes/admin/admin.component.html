@@ -7,46 +7,58 @@
     @if(isLoggedIn$ |ngrxPush) {
     <div class="admin-wrapper">
       <div class="admin-header">
-        <h1>Admin Panel</h1>
-        <button mat-flat-button (click)="onHandleLogout()">Logout</button>
+        <h1>Administration</h1>
+        <button mat-stroked-button (click)="onHandleLogout()">Logout</button>
       </div>
 
-      <table mat-table [dataSource]="dataSource">
+      <div class="table-actions">
+        <mat-form-field>
+          <mat-label>Filter</mat-label>
+          <input matInput (keyup)="onApplyFilter($event)" #filterInput />
+        </mat-form-field>
+
+        <button mat-flat-button (click)="onOpenCreateUserDialog()">
+          Create User
+        </button>
+      </div>
+
+      <table mat-table [dataSource]="dataSource" matSort>
         <ng-container matColumnDef="username">
-          <th mat-header-cell *matHeaderCellDef>Username</th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Username</th>
           <td mat-cell *matCellDef="let element">{{ element.name }}</td>
         </ng-container>
 
         <ng-container matColumnDef="email">
-          <th mat-header-cell *matHeaderCellDef>Email</th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Email</th>
           <td mat-cell *matCellDef="let element">{{ element.email }}</td>
         </ng-container>
 
         <ng-container matColumnDef="projects">
-          <th mat-header-cell *matHeaderCellDef>Projects</th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Projects</th>
           <td mat-cell *matCellDef="let element">
-            {{ element.projects.length }}
+            {{ element.projectCount }}
           </td>
         </ng-container>
 
         <ng-container matColumnDef="filesize-total">
-          <th mat-header-cell *matHeaderCellDef>Total File Size</th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>
+            Total File Size
+          </th>
           <td mat-cell *matCellDef="let element">
             {{ element.mbOnDisc * 1_000_000 | fileSize }}
           </td>
         </ng-container>
 
         <ng-container matColumnDef="playback-total">
-          <th mat-header-cell *matHeaderCellDef>Total Playback Time</th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>
+            Total Playback Time
+          </th>
           <td mat-cell *matCellDef="let element">(Placeholder)</td>
         </ng-container>
 
         <ng-container matColumnDef="more">
           <th mat-header-cell *matHeaderCellDef>More</th>
           <td mat-cell *matCellDef="let element">
-            <!-- <button mat-icon-button (click)="onEditUser(element)">
-              <mat-icon svgIcon="edit" />
-            </button> -->
             <button
               mat-icon-button
               [matMenuTriggerData]="{ user: element }"
@@ -57,15 +69,6 @@
             </button>
           </td>
         </ng-container>
-
-        <!-- <ng-container matColumnDef="delete">
-          <th mat-header-cell *matHeaderCellDef>Delete</th>
-          <td mat-cell *matCellDef="let element">
-            <button mat-icon-button (click)="onDeleteUser(element)">
-              <mat-icon svgIcon="delete" />
-            </button>
-          </td>
-        </ng-container> -->
 
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
@@ -92,10 +95,19 @@
     <div class="login-wrapper">
       <div class="login-form">
         <h1>Admin Login</h1>
+        <mat-form-field class="username-field">
+          <mat-label>Username</mat-label>
+          <input matInput type="text" [formControl]="usernameControl" />
+          @if (usernameControl.invalid && (usernameControl.dirty ||
+          usernameControl.touched)) {
+          <mat-error> Username required </mat-error>
+          }
+        </mat-form-field>
         <mat-form-field>
           <mat-label>Password</mat-label>
-          <input matInput type="password" [formControl]="password" />
-          @if (password.invalid && (password.dirty || password.touched)) {
+          <input matInput type="password" [formControl]="passwordControl" />
+          @if (passwordControl.invalid && (passwordControl.dirty ||
+          passwordControl.touched)) {
           <mat-error> Password required </mat-error>
           }
         </mat-form-field>
