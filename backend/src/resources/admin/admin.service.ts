@@ -98,21 +98,21 @@ export class AdminService {
   async createUser(createUserDto: CreateUserDto): Promise<CreateUserEntity> {
     const password = generateSecurePassword(20);
 
-    this.authService.register({ ...createUserDto, password: password }, true);
+    await this.authService.register(
+      { ...createUserDto, password: password },
+      true,
+    );
 
     const user = await this.db.userModel
       .findOneAndUpdate(
         { email: createUserDto.email },
         { $set: { isEmailVerified: true } },
+        { new: true },
       )
-      .exec();
-
-    const newUser = await this.db.userModel
-      .findOne({ email: createUserDto.email })
       .populate('projects')
       .exec();
 
-    const userEntity = await this.toUserEntity(newUser);
+    const userEntity = await this.toUserEntity(user);
 
     if (this.registrationConfig.mode === RegistrationMode.EMAIL) {
       await this.mailService.sendAdminCreateUserMail(createUserDto, password);
