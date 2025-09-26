@@ -163,10 +163,10 @@ export class AuthService {
     return { token };
   }
 
-  async register(dto: AuthRegisterDto): Promise<void> {
+  async register(dto: AuthRegisterDto, adminService = false): Promise<void> {
     //TODO  block if registration is disabled
 
-    if (this.registrationConfig.mode === 'disabled') {
+    if (this.registrationConfig.mode === 'disabled' && !adminService) {
       throw new CustomForbiddenException('registration_disabled');
     }
 

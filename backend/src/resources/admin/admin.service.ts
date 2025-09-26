@@ -97,7 +97,7 @@ export class AdminService {
   async createUser(createUserDto: CreateUserDto) {
     const password = generateSecurePassword(20);
 
-    this.authService.register({ ...createUserDto, password: password });
+    this.authService.register({ ...createUserDto, password: password }, true);
 
     await this.db.userModel
       .findOneAndUpdate(
