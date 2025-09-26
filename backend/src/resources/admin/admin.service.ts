@@ -108,7 +108,7 @@ export class AdminService {
       .exec();
 
     const newUser = await this.db.userModel
-      .findById(user._id)
+      .findOne({ email: createUserDto.email })
       .populate('projects')
       .exec();
 
