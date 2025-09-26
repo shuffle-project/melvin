@@ -477,6 +477,13 @@ export class ProjectService {
       throw new CustomForbiddenException('must_be_owner');
     }
 
+    if (
+      project.status === ProjectStatus.WAITING ||
+      project.status === ProjectStatus.PROCESSING
+    ) {
+      throw new CustomForbiddenException('cannot_delete_project_due_status');
+    }
+
     await Promise.all([
       // Delete project
       this.db.projectModel.findByIdAndDelete(id),

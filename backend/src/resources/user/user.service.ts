@@ -11,6 +11,7 @@ import {
 } from '../../utils/exceptions';
 import { AuthUser } from '../auth/auth.interfaces';
 import { FindAllUsersQuery } from './dto/find-all-users.dto';
+import { UpdateUserDto } from './dto/update-user.dto';
 import { UserEntity } from './entities/user.entity';
 import { UserRole } from './user.interfaces';
 
@@ -70,6 +71,16 @@ export class UserService {
     return users.map((o) => plainToInstance(UserEntity, o));
   }
 
+  async update(authUser: AuthUser, dto: UpdateUserDto): Promise<void> {
+    const user = await this.db.userModel.findById(authUser.id).exec();
+
+    if (!user) {
+      throw new CustomInternalServerException('user_not_found');
+    }
+
+    await this.db.userModel.findByIdAndUpdate(user._id, dto).exec();
+  }
+
   async remove(authUser: AuthUser, dto: { password: string }): Promise<void> {
     const user = await this.db.userModel.findById(authUser.id).exec();
 
@@ -77,6 +88,7 @@ export class UserService {
       dto.password,
       user.hashedPassword,
     );
+
     if (!passwordMatch) {
       throw new CustomForbiddenException('password_is_incorrect');
     }
