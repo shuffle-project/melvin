@@ -86,6 +86,11 @@ export class UserService {
   }
 
   async deleteUserById(userId: string) {
+    const user = await this.db.userModel.findById(userId).lean().exec();
+    if (user && user.role === UserRole.SYSTEM) {
+      throw new CustomInternalServerException('cant_delete_system_user');
+    }
+
     await this.db.projectModel.deleteMany({ createdBy: userId }).lean().exec();
 
     // leave all projects of user

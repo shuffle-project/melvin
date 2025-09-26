@@ -23,6 +23,7 @@ import { UserService } from '../user/user.service';
 import { AdminLoginDto } from './dto/admin-login.dto';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { CreateUserEntity } from './entities/create-user.entity';
 import {
   PasswordResetMethod,
   ResetPasswordEntity,
@@ -94,23 +95,30 @@ export class AdminService {
     return { token };
   }
 
-  async createUser(createUserDto: CreateUserDto) {
+  async createUser(createUserDto: CreateUserDto): Promise<CreateUserEntity> {
     const password = generateSecurePassword(20);
 
     this.authService.register({ ...createUserDto, password: password }, true);
 
-    await this.db.userModel
+    const user = await this.db.userModel
       .findOneAndUpdate(
         { email: createUserDto.email },
         { $set: { isEmailVerified: true } },
+        { new: true },
       )
       .exec();
 
+    const userEntity = await this.toUserEntity(user);
+
     if (this.registrationConfig.mode === RegistrationMode.EMAIL) {
       await this.mailService.sendAdminCreateUserMail(createUserDto, password);
-      return { method: PasswordResetMethod.EMAIL };
+      return { method: PasswordResetMethod.EMAIL, user: userEntity };
     } else {
-      return { method: PasswordResetMethod.RETURN, password: password };
+      return {
+        method: PasswordResetMethod.RETURN,
+        password: password,
+        user: userEntity,
+      };
     }
   }
 
@@ -157,13 +165,17 @@ export class AdminService {
   async getUserList(): Promise<UserListEntity> {
     const initialUsers = await this.db.userModel
       .find()
+      .sort({ email: 1 })
       .populate('projects')
       .lean()
       .exec();
 
     const users = await Promise.all(
-      initialUsers.map((user) => this.toUserEntity(user)),
+      initialUsers
+        .filter((user) => user.role !== UserRole.SYSTEM)
+        .map((user) => this.toUserEntity(user)),
     );
+
     return { users };
   }
 
