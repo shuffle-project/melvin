@@ -24,7 +24,9 @@
 
       <table mat-table [dataSource]="dataSource" matSort>
         <ng-container matColumnDef="username">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>Username</th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header="name">
+            Username
+          </th>
           <td mat-cell *matCellDef="let element">{{ element.name }}</td>
         </ng-container>
 
@@ -33,15 +35,34 @@
           <td mat-cell *matCellDef="let element">{{ element.email }}</td>
         </ng-container>
 
+        <ng-container matColumnDef="email-verified">
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header="isEmailVerified"
+          >
+            Email Verified
+          </th>
+          <td mat-cell *matCellDef="let element">
+            @if (element.isEmailVerified) {
+            <span>Yes</span>
+            } @else {
+            <span>No</span>
+            }
+          </td>
+        </ng-container>
+
         <ng-container matColumnDef="projects">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>Projects</th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header="projectCount">
+            Projects
+          </th>
           <td mat-cell *matCellDef="let element">
             {{ element.projectCount }}
           </td>
         </ng-container>
 
         <ng-container matColumnDef="filesize-total">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header="mbOnDisc">
             Total File Size
           </th>
           <td mat-cell *matCellDef="let element">
@@ -50,10 +71,16 @@
         </ng-container>
 
         <ng-container matColumnDef="playback-total">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header="accumulatedDuration"
+          >
             Total Playback Time
           </th>
-          <td mat-cell *matCellDef="let element">(Placeholder)</td>
+          <td mat-cell *matCellDef="let element">
+            {{ element.accumulatedDuration | duration }}
+          </td>
         </ng-container>
 
         <ng-container matColumnDef="more">
@@ -111,6 +138,16 @@
           <mat-error> Password required </mat-error>
           }
         </mat-form-field>
+
+        <div aria-live="polite">
+          @if(loginError$ | ngrxPush; as loginError) {
+          <p class="error-message">
+            <mat-icon svgIcon="warning"></mat-icon>
+            {{ loginError }}
+          </p>
+          }
+        </div>
+
         <button (click)="onHandleLogin()" mat-flat-button>Login</button>
       </div>
       <a mat-button [routerLink]="['/']">Back to the Startpage</a>

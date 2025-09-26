@@ -10,6 +10,7 @@ export interface UserEntity {
 export interface UserEntityForAdmin {
   id: string;
   email: string;
+  isEmailVerified: boolean;
   role: UserRole;
   name: string;
   projectCount: number;

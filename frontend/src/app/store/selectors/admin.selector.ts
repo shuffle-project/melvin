@@ -8,6 +8,11 @@ export const isLoggedIn = createSelector(
   (state) => state.token !== null
 );
 
+export const selectLoginError = createSelector(
+  selectAdminState,
+  (state) => state.loginError
+);
+
 export const selectAllUsers = createSelector(
   selectAdminState,
   (state) => state.userList
@@ -31,4 +36,9 @@ export const selectNewUserPasswordLoading = createSelector(
 export const selectPasswordMethod = createSelector(
   selectAdminState,
   (state) => state.passwordMethod
+);
+
+export const selectNewUserError = createSelector(
+  selectAdminState,
+  (state) => state.newUserError
 );

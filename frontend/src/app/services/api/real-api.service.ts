@@ -772,8 +772,16 @@ export class RealApiService implements ApiService {
   adminCreateUser(
     email: string,
     name: string
-  ): Observable<{ method: 'email' | 'return'; password: string }> {
-    return this._post<{ method: 'email' | 'return'; password: string }>(
+  ): Observable<{
+    method: 'email' | 'return';
+    password: string;
+    user: UserEntityForAdmin;
+  }> {
+    return this._post<{
+      method: 'email' | 'return';
+      password: string;
+      user: UserEntityForAdmin;
+    }>(
       `/admin/users`,
       { email, name },
       {

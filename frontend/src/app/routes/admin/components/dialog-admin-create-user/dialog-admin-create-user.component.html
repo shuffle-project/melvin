@@ -54,6 +54,15 @@
       </mat-error>
     </mat-form-field>
 
+    <div aria-live="polite">
+      @if(newUserError$ | ngrxPush; as newUserError) {
+      <p class="error-message">
+        <mat-icon svgIcon="warning"></mat-icon>
+        {{ newUserError }}
+      </p>
+      }
+    </div>
+
     <button mat-flat-button (click)="onCreateUser()">Create User</button>
   </div>
   } } }

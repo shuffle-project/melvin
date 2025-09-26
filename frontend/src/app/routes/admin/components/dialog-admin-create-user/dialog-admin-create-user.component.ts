@@ -33,6 +33,7 @@ export class DialogAdminCreateUserComponent implements OnDestroy {
     adminSelectors.selectNewUserPasswordLoading
   );
   passwordMethod$ = this.store.select(adminSelectors.selectPasswordMethod);
+  newUserError$ = this.store.select(adminSelectors.selectNewUserError);
 
   emailControl = new FormControl('', [Validators.required, Validators.email]);
   usernameControl = new FormControl('', [Validators.required]);

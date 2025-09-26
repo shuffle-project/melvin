@@ -13,6 +13,7 @@ import { PushPipe } from '@ngrx/component';
 import { Store } from '@ngrx/store';
 import { Subject, takeUntil } from 'rxjs';
 import { DeleteConfirmationService } from 'src/app/components/delete-confirmation-dialog/delete-confirmation.service';
+import { DurationPipe } from 'src/app/pipes/duration-pipe/duration.pipe';
 import { FileSizePipe } from 'src/app/pipes/file-size-pipe/file-size.pipe';
 import { UserEntityForAdmin } from 'src/app/services/api/entities/user.entity';
 import { ConfigService } from 'src/app/services/config/config.service';
@@ -41,6 +42,7 @@ import { DialogAdminResetPasswordComponent } from './components/dialog-admin-res
     LandingHeaderComponent,
     MatMenuModule,
     MatSortModule,
+    DurationPipe,
   ],
   templateUrl: './admin.component.html',
   styleUrl: './admin.component.scss',
@@ -51,6 +53,8 @@ export class AdminComponent implements OnInit, OnDestroy {
 
   disableLandingPage = this.configService.getDisableLandingPage();
 
+  loginError$ = this.store.select(adminSelectors.selectLoginError);
+
   private destroy$$ = new Subject<void>();
 
   usernameControl = new FormControl('', [Validators.required]);
@@ -59,6 +63,7 @@ export class AdminComponent implements OnInit, OnDestroy {
   displayedColumns: string[] = [
     'username',
     'email',
+    'email-verified',
     'projects',
     'filesize-total',
     'playback-total',

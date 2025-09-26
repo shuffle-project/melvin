@@ -10,6 +10,7 @@ export interface AdminState {
   passwordMethod?: 'email' | 'return' | null;
   newUserPasswordLoading?: boolean;
   newUserPassword: string | null;
+  newUserError: string | null;
 
   userList: { users: Readonly<UserEntityForAdmin[]> };
 }
@@ -22,6 +23,7 @@ export const initialState: AdminState = {
   passwordMethod: null,
   newUserPasswordLoading: false,
   newUserPassword: null,
+  newUserError: null,
 
   userList: { users: [] },
 };
@@ -32,6 +34,12 @@ export const adminReducer = createReducer(
   on(adminActions.adminLoginSuccess, (state, { token }) => ({
     ...state,
     token,
+    loginLoading: false,
+  })),
+
+  on(adminActions.adminLoginFail, (state, { error }) => ({
+    ...state,
+    loginError: error,
     loginLoading: false,
   })),
 
@@ -66,7 +74,7 @@ export const adminReducer = createReducer(
   // New user password
   on(
     adminActions.adminResetUserPassword,
-    adminActions.adminCreateUser,
+
     (state) => ({
       ...state,
       newUserPasswordLoading: true,
@@ -75,7 +83,6 @@ export const adminReducer = createReducer(
 
   on(
     adminActions.adminResetUserPasswordSuccess,
-    adminActions.adminCreateUserSuccess,
     (state, { method, password }) => ({
       ...state,
       passwordMethod: method,
@@ -84,19 +91,40 @@ export const adminReducer = createReducer(
     })
   ),
 
-  on(
-    adminActions.adminResetUserPasswordFail,
-    adminActions.adminCreateUserFail,
-    (state, { error }) => ({
-      ...state,
-      newUserPasswordLoading: false,
-    })
-  ),
+  on(adminActions.adminResetUserPasswordFail, (state) => ({
+    ...state,
+    newUserPasswordLoading: false,
+  })),
 
   on(adminActions.adminClearUserPassword, (state) => ({
     ...state,
+    newUserError: null,
     newUserPassword: null,
     passwordMethod: null,
     newUserPasswordLoading: false,
-  }))
+  })),
+
+  on(adminActions.adminCreateUser, (state) => ({
+    ...state,
+    newUserPasswordLoading: true,
+    newUserError: null,
+  })),
+
+  on(adminActions.adminCreateUserFail, (state, { error }) => ({
+    ...state,
+    newUserPasswordLoading: false,
+    newUserError: error,
+  })),
+
+  on(
+    adminActions.adminCreateUserSuccess,
+    (state, { method, password, user }) => ({
+      ...state,
+      newUserError: null,
+      passwordMethod: method,
+      newUserPassword: password,
+      newUserPasswordLoading: false,
+      userList: { users: [user, ...state.userList.users] },
+    })
+  )
 );

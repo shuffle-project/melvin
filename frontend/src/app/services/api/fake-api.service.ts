@@ -576,8 +576,12 @@ export class FakeApiService implements ApiService {
   adminCreateUser(
     email: string,
     name: string
-  ): Observable<{ method: 'email' | 'return'; password: string }> {
+  ): Observable<{
+    method: 'email' | 'return';
+    password: string;
+    user: UserEntityForAdmin;
+  }> {
     this.logger.verbose('adminCreateUser mocked');
-    return of({ method: 'email', password: 'newPassword123' });
+    return of();
   }
 }

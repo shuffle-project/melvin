@@ -371,5 +371,9 @@ export abstract class ApiService {
   abstract adminCreateUser(
     email: string,
     name: string
-  ): Observable<{ method: 'email' | 'return'; password: string }>;
+  ): Observable<{
+    method: 'email' | 'return';
+    password: string;
+    user: UserEntityForAdmin;
+  }>;
 }

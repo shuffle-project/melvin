@@ -27,7 +27,9 @@ export class AdminEffects {
       mergeMap(({ username, password }) =>
         this.api.adminLogin(username, password).pipe(
           map(({ token }) => adminActions.adminLoginSuccess({ token })),
-          catchError((error) => of(adminActions.adminLoginFail({ error })))
+          catchError((error) =>
+            of(adminActions.adminLoginFail({ error: error.error.message }))
+          )
         )
       )
     )
@@ -44,8 +46,6 @@ export class AdminEffects {
       ),
     { dispatch: false }
   );
-
-  // TODO Login Fail
 
   adminLogout$ = createEffect(
     () =>
@@ -124,10 +124,14 @@ export class AdminEffects {
       ofType(adminActions.adminCreateUser),
       mergeMap(({ email, name }) =>
         this.api.adminCreateUser(email, name).pipe(
-          map(({ method, password }) =>
-            adminActions.adminCreateUserSuccess({ method, password })
+          map(({ method, password, user }) =>
+            adminActions.adminCreateUserSuccess({ method, password, user })
           ),
-          catchError((error) => of(adminActions.adminCreateUserFail({ error })))
+          catchError((error) => {
+            return of(
+              adminActions.adminCreateUserFail({ error: error.error.message })
+            );
+          })
         )
       )
     )

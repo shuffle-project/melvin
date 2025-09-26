@@ -96,6 +96,23 @@ export class AdminService {
   }
 
   async createUser(createUserDto: CreateUserDto): Promise<CreateUserEntity> {
+    // Get user by email
+    const exists = await this.db.userModel
+      .findOne({
+        email: createUserDto.email.toLowerCase(),
+      })
+      .lean()
+      .exec();
+
+    console.log('----');
+    console.log(exists);
+    console.log('----');
+
+    // Duplicate email
+    if (exists) {
+      throw new CustomBadRequestException('email_already_taken');
+    }
+
     const password = generateSecurePassword(20);
 
     await this.authService.register(

@@ -94,7 +94,11 @@ export const adminCreateUser = createAction(
 
 export const adminCreateUserSuccess = createAction(
   '[ADMIN API] Create user by admin success',
-  props<{ method: 'email' | 'return'; password: string }>()
+  props<{
+    method: 'email' | 'return';
+    password: string;
+    user: UserEntityForAdmin;
+  }>()
 );
 
 export const adminCreateUserFail = createAction(

@@ -15,16 +15,16 @@ import { AvatarComponent } from '../avatar-group/avatar/avatar.component';
 export type ActivityViewType = 'list' | 'popup' | 'timeline' | 'error-chip';
 
 @Component({
-    selector: 'app-activity',
-    templateUrl: './activity.component.html',
-    styleUrls: ['./activity.component.scss'],
-    imports: [
-        NgClass,
-        MatIconModule,
-        RouterLink,
-        AvatarComponent,
-        TimeDifferencePipe,
-    ]
+  selector: 'app-activity',
+  templateUrl: './activity.component.html',
+  styleUrls: ['./activity.component.scss'],
+  imports: [
+    NgClass,
+    MatIconModule,
+    RouterLink,
+    AvatarComponent,
+    TimeDifferencePipe,
+  ],
 })
 export class ActivityComponent implements OnChanges {
   @Input() activity!: ActivityEntity;
