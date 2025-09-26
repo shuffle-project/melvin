@@ -104,11 +104,15 @@ export class AdminService {
       .findOneAndUpdate(
         { email: createUserDto.email },
         { $set: { isEmailVerified: true } },
-        { new: true },
       )
       .exec();
 
-    const userEntity = await this.toUserEntity(user);
+    const newUser = await this.db.userModel
+      .findById(user._id)
+      .populate('projects')
+      .exec();
+
+    const userEntity = await this.toUserEntity(newUser);
 
     if (this.registrationConfig.mode === RegistrationMode.EMAIL) {
       await this.mailService.sendAdminCreateUserMail(createUserDto, password);
