@@ -38,14 +38,12 @@ export class MailService {
       this.registrationConfig.mode === RegistrationMode.EMAIL &&
       !this.emailConfig
     ) {
-      // TODO throw? or error log?
       this.logger.error('email registration enabled but no email config set');
       throw new Error('email registration enabled but no email config set');
     }
 
-    console.log('onapplicationBootstrap mail');
-    console.log(this.emailConfig);
     if (this.emailConfig) {
+      this.logger.info('MailService is configured. starting up...');
       this.transporter = createTransport({
         host: this.emailConfig.smtpServer,
         port: this.emailConfig.smtpPort,
@@ -56,7 +54,7 @@ export class MailService {
         },
       });
       this.transporter.verify().then((v) => {
-        console.log('verified:', v);
+        this.logger.info('MailService is ready to send mails');
       });
     }
   }
@@ -108,10 +106,10 @@ export class MailService {
   async sendVerifyEmail(user: User) {
     const emailSubject = '[Melvin] Verify E-Mail';
 
-    // TODO
     const emailBody = `Hello ${user.name},
 
     click the following link to verify your Melvin account with your email address:
+    TODO
     https://melvin.shuffle-projekt.de/verify-email/${user.emailVerificationToken}?email=${user.email}
 
     
@@ -151,7 +149,13 @@ export class MailService {
     text: string,
     html?: string,
   ) {
-    if (this.transporter)
+    if (!this.transporter) {
+      this.logger.warn('MailService not configured, cannot send mail');
+      this.logger.warn('Mail was not sent:');
+      this.logger.warn(
+        JSON.stringify({ recipientName, recipientMail, subject, text, html }),
+      );
+    } else {
       return this.transporter.sendMail({
         from: `Melvin <${this.emailConfig.mailFrom}>`,
         to: `${recipientName} <${recipientMail}>`,
@@ -159,5 +163,6 @@ export class MailService {
         text,
         html,
       });
+    }
   }
 }

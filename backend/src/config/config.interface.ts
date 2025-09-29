@@ -1,5 +1,4 @@
 import {
-  IsArray,
   IsBoolean,
   IsDefined,
   IsEmail,
@@ -202,10 +201,10 @@ export class Config {
   @IsOptional()
   email: EmailConfig;
 
-  @IsArray()
-  @ValidateNested({ each: true })
-  @IsDefined()
-  initialUsers: PopulateUser[];
+  // @IsArray()
+  // @ValidateNested({ each: true })
+  // @IsDefined()
+  // initialUsers: PopulateUser[];
 
   @ValidateNested({ each: true })
   deepL: DeepLConfig;

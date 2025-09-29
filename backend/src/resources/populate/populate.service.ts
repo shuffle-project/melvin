@@ -13,11 +13,7 @@ import { Caption } from 'src/modules/db/schemas/caption.schema';
 import { WordEntity } from 'src/modules/speech-to-text/speech-to-text.interfaces';
 import { WhiTranscriptEntity } from 'src/modules/speech-to-text/whisper/whisper.interfaces';
 import { TiptapService } from 'src/modules/tiptap/tiptap.service';
-import {
-  EmailConfig,
-  Environment,
-  PopulateUser,
-} from '../../config/config.interface';
+import { EmailConfig, Environment } from '../../config/config.interface';
 import {
   EXAMPLE_CAPTION,
   EXAMPLE_PROJECT,
@@ -66,10 +62,10 @@ export class PopulateService {
     private tiptapService: TiptapService,
   ) {
     this.logger.setContext(this.constructor.name);
-    const initialUsers = this.configService.get<PopulateUser[]>('initialUsers');
-    if (SPEAKER_NAMES.length < 1) {
-      SPEAKER_NAMES.push(...initialUsers.map((x) => x.name));
-    }
+    // const initialUsers = this.configService.get<PopulateUser[]>('initialUsers');
+    // if (SPEAKER_NAMES.length < 1) {
+    //   SPEAKER_NAMES.push(...initialUsers.map((x) => x.name));
+    // }
   }
 
   _shuffle<T>(array: T[]): T[] {
