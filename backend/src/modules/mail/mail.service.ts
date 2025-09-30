@@ -65,20 +65,17 @@ export class MailService {
     createUserDto: AdminCreateUserDto,
     password: string,
   ) {
-    const emailSubject = '[Melvin] Your Account Has Been Created';
+    const emailSubject = '[Melvin] Your account has been created';
     const emailBody = `Hello ${createUserDto.name},
 
-    an account has been created for you on Melvin.
-    
-    Here are your login details:
+    an account has been created for you. Here are your login details:
     
     Email: ${createUserDto.email}
     Password: ${password}
     
-    Please log in and change your password immediately for security reasons.
+    Please log in and change your password as soon as possible: ${this.baseFrontendUrl}
     
-    Kind regards
-    The Melvin Team`;
+    This is a system-generated email. For any questions please contact the administrator.`;
 
     return this._sendMail(
       createUserDto.name,
@@ -89,45 +86,42 @@ export class MailService {
   }
 
   async sendPasswordResetMail(user: User, password: string) {
-    const emailSubject = '[Melvin] Password Reset';
+    const emailSubject = '[Melvin] Your password has been reset';
     const emailBody = `Hello ${user.name},
 
-    as requested, here is the password for your Melvin account:
+    your password has been reset by an administrator. Your new password is:  
     
     ${password}
     
-    For your security, please change this password immediately after signing in. We recommend choosing a strong, unique password.
+    Please log in and change your password as soon as possible: ${this.baseFrontendUrl}
     
-    Kind regards
-    The Melvin Team`;
+    This is a system-generated email. For any questions please contact the administrator.`;
 
     return this._sendMail(user.name, user.email, emailSubject, emailBody);
   }
 
   async sendVerifyEmail(user: User) {
-    const emailSubject = '[Melvin] Verify E-Mail';
+    const emailSubject = '[Melvin] Please verify your email address';
     const emailBody = `Hello ${user.name},
 
     click the following link to verify your Melvin account with your email address:
-     ${this.baseFrontendUrl}/verify-email?token=${user.emailVerificationToken}&email=${user.email}
 
-    
-    Kind regards
-    The Melvin Team`;
+    ${this.baseFrontendUrl}/verify-email?token=${user.emailVerificationToken}&email=${user.email}
+
+    This is a system-generated email. For any questions please contact the administrator.`;
 
     return this._sendMail(user.name, user.email, emailSubject, emailBody);
   }
 
   async sendForgotPassword(user: User) {
-    const emailSubject = '[Melvin] Password Reset Request';
+    const emailSubject = '[Melvin] A password reset was requested';
     const emailBody = `Hello ${user.name},
 
-
     click the following link to reset your password for your Melvin account:
+
     ${this.baseFrontendUrl}/reset-password?token=${user.emailVerificationToken}&email=${user.email}
 
-    Kind regards
-    The Melvin Team`;
+    This is a system-generated email. For any questions please contact the administrator.`;
 
     return this._sendMail(user.name, user.email, emailSubject, emailBody);
   }
