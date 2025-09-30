@@ -1078,10 +1078,6 @@
         <source>Melvin Logo, to start page</source>
         <target state="final">Melvin Logo, zur Startseite</target>
       </trans-unit>
-      <trans-unit id="landingSubpageWIPInfo" datatype="html">
-        <source> Sorry, this page is still under development. Please come back at a later time. </source>
-        <target state="final"> Diese Seite befindet sich leider noch in der Entwicklung. Bitte schauen Sie zu einem späteren Zeitpunkt wieder vorbei. </target>
-      </trans-unit>
       <trans-unit id="imprintMainHeading" datatype="html">
         <source>Imprint</source>
         <target state="final">Impressum</target>
@@ -1277,10 +1273,6 @@
       <trans-unit id="landingMainWIPExplanationBottom" datatype="html">
         <source> In addition to improvements in accessibility and user experience, we are currently working on a <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>livestream mode<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/>. Stay tuned and feel free to check back regularly. </source>
         <target state="final"> Neben Verbesserungen der Barrierefreiheit und User Experience, arbeiten wir aktuell an einem <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>Livestream-Modus<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/>. Bleiben Sie gespannt und schauen Sie gerne immer wieder Mal vorbei. </target>
-      </trans-unit>
-      <trans-unit id="privacyMainHeading" datatype="html">
-        <source>Privacy</source>
-        <target state="final">Datenschutzerklärung</target>
       </trans-unit>
       <trans-unit id="sitemapListExplanation" datatype="html">
         <source> This sitemap lists all pages that do not require a login in alphabetical order. </source>
@@ -1575,8 +1567,8 @@
         <target state="final">Profil</target>
       </trans-unit>
       <trans-unit id="profilePasswordButtonLabel" datatype="html">
-        <source> Change Passwort </source>
-        <target state="final"> Passwort ändern </target>
+        <source> Change Password </source>
+        <target state="new"> Passwort ändern </target>
       </trans-unit>
       <trans-unit id="profileSelectLabel" datatype="html">
         <source>Interface language</source>
@@ -2877,6 +2869,262 @@
       <trans-unit id="landingFooterEasyLanguageLinkLabel" datatype="html">
         <source> Easy Language </source>
         <target state="final"> Leichte Sprache </target>
+      </trans-unit>
+      <trans-unit id="deleteConfirmationDialogTypeLabel" datatype="html">
+        <source> Type &quot;Delete&quot; to confirm </source>
+        <target state="final"> Geben Sie &quot;Delete&quot; zur Bestätigung ein </target>
+      </trans-unit>
+      <trans-unit id="deleteConfirmationDialogTypeError" datatype="html">
+        <source> You need to type &quot;Delete&quot; to confirm </source>
+        <target state="final"> Sie müssen &quot;Delete&quot; zur Bestätigung eingeben </target>
+      </trans-unit>
+      <trans-unit id="deleteServiceAdminDeleteAccountSubject" datatype="html">
+        <source>User Account: <x id="PH" equiv-text="userEmail"/></source>
+        <target state="final">Nutzer*innen Konto: <x id="PH" equiv-text="userEmail"/></target>
+      </trans-unit>
+      <trans-unit id="deleteServiceAdminDeleteAccountDescription" datatype="html">
+        <source>If you confirm this, the account with all created projects and data will be deleted. This can NOT be undone!</source>
+        <target state="final">Wenn Sie dies bestätigen, wird das Konto mit allen erstellten Projekten und Daten gelöscht. Dies kann NICHT rückgängig gemacht werden!</target>
+      </trans-unit>
+      <trans-unit id="adminLogoutButtonLabel" datatype="html">
+        <source> Logout </source>
+        <target state="final"> Abmelden </target>
+      </trans-unit>
+      <trans-unit id="adminFilterLabel" datatype="html">
+        <source>Filter</source>
+        <target state="final">Filter</target>
+      </trans-unit>
+      <trans-unit id="adminFilterUsersCountLabel" datatype="html">
+        <source>Users</source>
+        <target state="final">Nutzer*innen</target>
+      </trans-unit>
+      <trans-unit id="adminCreateUserButtonLabel" datatype="html">
+        <source> Create User </source>
+        <target state="final"> Nutzer*in erstellen </target>
+      </trans-unit>
+      <trans-unit id="adminTableHeaderName" datatype="html">
+        <source> Name </source>
+        <target state="final"> Name </target>
+      </trans-unit>
+      <trans-unit id="adminTableHeaderEmail" datatype="html">
+        <source> Email </source>
+        <target state="final"> E-Mail </target>
+      </trans-unit>
+      <trans-unit id="adminTableHeaderEmailVerified" datatype="html">
+        <source> Email Verified </source>
+        <target state="final"> E-Mail verifiziert </target>
+      </trans-unit>
+      <trans-unit id="adminTableEmailVerifiedYes" datatype="html">
+        <source>Yes</source>
+        <target state="final">Ja</target>
+      </trans-unit>
+      <trans-unit id="adminTableEmailVerifiedNo" datatype="html">
+        <source>No</source>
+        <target state="final">Nein</target>
+      </trans-unit>
+      <trans-unit id="adminTableHeaderProjects" datatype="html">
+        <source> Projects </source>
+        <target state="final"> Projekte </target>
+      </trans-unit>
+      <trans-unit id="adminTableHeaderTotalFileSize" datatype="html">
+        <source> Total File Size </source>
+        <target state="final"> Gesamtgröße aller Dateien </target>
+      </trans-unit>
+      <trans-unit id="adminTableHeaderTotalVideoLength" datatype="html">
+        <source> Total Video Length </source>
+        <target state="final"> Gesamtdauer aller Videos </target>
+      </trans-unit>
+      <trans-unit id="adminTableHeaderMore" datatype="html">
+        <source> More </source>
+        <target state="final"> Mehr </target>
+      </trans-unit>
+      <trans-unit id="adminTableActionVerifyEmail" datatype="html">
+        <source>Verify Email</source>
+        <target state="final">E-Mail verifizieren</target>
+      </trans-unit>
+      <trans-unit id="adminTableActionEditEmail" datatype="html">
+        <source>Edit Email</source>
+        <target state="final">E-Mail bearbeiten</target>
+      </trans-unit>
+      <trans-unit id="adminTableActionResetPassword" datatype="html">
+        <source>Reset Password</source>
+        <target state="final">Passwort zurücksetzen</target>
+      </trans-unit>
+      <trans-unit id="adminTableActionDeleteUser" datatype="html">
+        <source>Delete User</source>
+        <target state="final">Nutzer*in löschen</target>
+      </trans-unit>
+      <trans-unit id="adminLoginHeader" datatype="html">
+        <source>Admin Login</source>
+        <target state="final">Admin Anmeldung</target>
+      </trans-unit>
+      <trans-unit id="adminLoginFieldName" datatype="html">
+        <source>Name</source>
+        <target state="final">Name</target>
+      </trans-unit>
+      <trans-unit id="adminLoginFieldErrorNameRequired" datatype="html">
+        <source> name required </source>
+        <target state="final"> Name benötigt </target>
+      </trans-unit>
+      <trans-unit id="adminLoginFieldPassword" datatype="html">
+        <source>Password</source>
+        <target state="final">Passwort</target>
+      </trans-unit>
+      <trans-unit id="adminLoginFieldErrorPasswordRequired" datatype="html">
+        <source> Password required </source>
+        <target state="final"> Passwort benötigt </target>
+      </trans-unit>
+      <trans-unit id="adminLoginButtonLabel" datatype="html">
+        <source> Login </source>
+        <target state="final"> Anmelden </target>
+      </trans-unit>
+      <trans-unit id="adminLoginBackToStartpage" datatype="html">
+        <source>Back to the Startpage</source>
+        <target state="final">Zurück zur Startseite</target>
+      </trans-unit>
+      <trans-unit id="adminPageTitle" datatype="html">
+        <source>Admin - Melvin</source>
+        <target state="new">Admin - Melvin</target>
+      </trans-unit>
+      <trans-unit id="adminUserPasswordNewPasswordLabel" datatype="html">
+        <source>New Password</source>
+        <target state="final">Neues Passwort</target>
+      </trans-unit>
+      <trans-unit id="adminUserPasswordCopyToClipboardAriaLabel" datatype="html">
+        <source>Copy to clipboard</source>
+        <target state="final">In die Zwischenablage kopieren</target>
+      </trans-unit>
+      <trans-unit id="adminUserPasswordPreparedEmailTitle" datatype="html">
+        <source>Prepared Email</source>
+        <target state="final">Vorbereitete E-Mail</target>
+      </trans-unit>
+      <trans-unit id="adminUserPasswordSendEmailAriaLabel" datatype="html">
+        <source>Send email</source>
+        <target state="final">E-Mail senden</target>
+      </trans-unit>
+      <trans-unit id="adminUserPasswordCopyEmailTextAriaLabel" datatype="html">
+        <source>Copy email text</source>
+        <target state="final">E-Mail-Text kopieren</target>
+      </trans-unit>
+      <trans-unit id="adminUserPasswordPasswordCopiedToClipboard" datatype="html">
+        <source>Password copied to clipboard</source>
+        <target state="final">Passwort in die Zwischenablage kopiert</target>
+      </trans-unit>
+      <trans-unit id="adminUserPasswordEmailCopiedToClipboard" datatype="html">
+        <source>Email text copied to clipboard</source>
+        <target state="final">E-Mail-Text in die Zwischenablage kopiert</target>
+      </trans-unit>
+      <trans-unit id="dialogAdminCreateUserMainTitle" datatype="html">
+        <source>Create User</source>
+        <target state="final">Nutzer*in erstellen</target>
+      </trans-unit>
+      <trans-unit id="dialogAdminCreateUserCloseAriaLabel" datatype="html">
+        <source>Close</source>
+        <target state="final">Schließen</target>
+      </trans-unit>
+      <trans-unit id="dialogAdminCreateUserAccountCreatedEmailSent" datatype="html">
+        <source> Account created. A system-generated email was sent to <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/><x id="INTERPOLATION" equiv-text="{{ emailControl.value }}"/><x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/> with the password. You can close this window. </source>
+        <target state="final"> Konto erstellt. Eine automatisch generierte E-Mail mit dem neuen Passwort wurde an <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/><x id="INTERPOLATION" equiv-text="{{ emailControl.value }}"/><x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/> gesendet. Sie können dieses Fenster schließen. </target>
+      </trans-unit>
+      <trans-unit id="dialogAdminCreateUserAccountCreatedPleaseSendPassword" datatype="html">
+        <source> Account created. Please send the password to the user. </source>
+        <target state="final"> Konto erstellt. Bitte senden Sie das Passwort an den/die Nutzer*in. </target>
+      </trans-unit>
+      <trans-unit id="dialogAdminCreateUserEmailLabel" datatype="html">
+        <source>Email</source>
+        <target state="final">E-Mail</target>
+      </trans-unit>
+      <trans-unit id="dialogAdminCreateUserErrorEmailRequired" datatype="html">
+        <source>Email required</source>
+        <target state="final">E-Mail benötigt</target>
+      </trans-unit>
+      <trans-unit id="dialogAdminCreateUserErrorEmailValid" datatype="html">
+        <source>Valid email address required</source>
+        <target state="final">Gültige E-Mail-Adresse benötigt</target>
+      </trans-unit>
+      <trans-unit id="dialogAdminCreateUserErrorNameRequired" datatype="html">
+        <source>Name required</source>
+        <target state="final">Name benötigt</target>
+      </trans-unit>
+      <trans-unit id="dialogAdminCreateUserCreateButtonLabel" datatype="html">
+        <source> Create User </source>
+        <target state="final"> Nutzer*in erstellen </target>
+      </trans-unit>
+      <trans-unit id="dialogAdminEditEmailMainTitle" datatype="html">
+        <source>Edit Email</source>
+        <target state="final">E-Mail bearbeiten</target>
+      </trans-unit>
+      <trans-unit id="dialogAdminEditEmailCloseAriaLabel" datatype="html">
+        <source>Close</source>
+        <target state="final">Schließen</target>
+      </trans-unit>
+      <trans-unit id="dialogAdminEditEmailSuccessMessage" datatype="html">
+        <source>Email successfully changed to:</source>
+        <target state="final">E-Mail erfolgreich geändert zu:</target>
+      </trans-unit>
+      <trans-unit id="dialogAdminEditEmailCurrentEmailLabel" datatype="html">
+        <source>Current Email:</source>
+        <target state="final">Aktuelle E-Mail:</target>
+      </trans-unit>
+      <trans-unit id="adminEditEmailDialogNewEmailLabel" datatype="html">
+        <source>New Email</source>
+        <target state="final">Neue E-Mail</target>
+      </trans-unit>
+      <trans-unit id="adminEditEmailDialogErrorEmailRequired" datatype="html">
+        <source>Email required</source>
+        <target state="final">E-Mail benötigt</target>
+      </trans-unit>
+      <trans-unit id="adminEditEmailDialogErrorEmailInvalid" datatype="html">
+        <source>Valid email address required</source>
+        <target state="final">Gültige E-Mail-Adresse benötigt</target>
+      </trans-unit>
+      <trans-unit id="dialogAdminEditEmailChangeButtonLabel" datatype="html">
+        <source> Change </source>
+        <target state="final"> Ändern </target>
+      </trans-unit>
+      <trans-unit id="dialogAdminResetPasswordMainTitle" datatype="html">
+        <source>Reset Password</source>
+        <target state="final">Passwort zurücksetzen</target>
+      </trans-unit>
+      <trans-unit id="dialogAdminResetPasswordCloseAriaLabel" datatype="html">
+        <source>Close</source>
+        <target state="final">Schließen</target>
+      </trans-unit>
+      <trans-unit id="dialogAdminResetPasswordNewPasswordCreated" datatype="html">
+        <source> New password created. Please send the password to the user. </source>
+        <target state="final"> Neues Passwort erstellt. Bitte senden Sie das Passwort an den/die Nutzer*in. </target>
+      </trans-unit>
+      <trans-unit id="dialogAdminResetPasswordPasswordEmailSent" datatype="html">
+        <source> A system-generated email was sent to <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/><x id="INTERPOLATION" equiv-text="{{ user.email }}"/><x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/> with the new password. You can close this window. </source>
+        <target state="final"> Eine automatisch generierte E-Mail mit dem neuen Passwort wurde an <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/><x id="INTERPOLATION" equiv-text="{{ user.email }}"/><x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/> gesendet. Sie können dieses Fenster schließen. </target>
+      </trans-unit>
+      <trans-unit id="dialogAdminResetPasswordConfirmMessage" datatype="html">
+        <source>Are you sure you want to reset the password for </source>
+        <target state="final">Sind Sie sicher, dass Sie das Passwort zurücksetzen möchten für </target>
+      </trans-unit>
+      <trans-unit id="dialogAdminResetPasswordResetButtonLabel" datatype="html">
+        <source> Reset Password </source>
+        <target state="final"> Passwort zurücksetzen </target>
+      </trans-unit>
+      <trans-unit id="dialogChangeUsernameHeader" datatype="html">
+        <source>Change Username</source>
+        <target state="new">Change Username</target>
+      </trans-unit>
+      <trans-unit id="dialogChangeUsernameCloseButton" datatype="html">
+        <source>Close</source>
+        <target state="new">Close</target>
+      </trans-unit>
+      <trans-unit id="dialogChangeUsernameLabel" datatype="html">
+        <source>Username</source>
+        <target state="new">Username</target>
+      </trans-unit>
+      <trans-unit id="dialogChangeUsernameSubmitButtonLabel" datatype="html">
+        <source> Change Username </source>
+        <target state="new"> Change Username </target>
+      </trans-unit>
+      <trans-unit id="profileUsernameButtonLabel" datatype="html">
+        <source> Change Username </source>
+        <target state="new"> Change Username </target>
       </trans-unit>
     </body>
   </file>

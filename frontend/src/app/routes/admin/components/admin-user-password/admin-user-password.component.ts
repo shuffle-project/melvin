@@ -39,7 +39,7 @@ export class AdminUserPasswordComponent {
       .writeText(password)
       .then(() => {
         this.alertService.success(
-          $localize`:@@dialogAdminResetPasswordPasswordCopiedToClipboard:Password copied to clipboard`
+          $localize`:@@adminUserPasswordPasswordCopiedToClipboard:Password copied to clipboard`
         );
       })
       .catch((err) => console.error('Could not copy password: ', err));
@@ -51,7 +51,7 @@ export class AdminUserPasswordComponent {
       .writeText(body)
       .then(() =>
         this.alertService.success(
-          $localize`:@@dialogAdminResetPasswordEmailCopiedToClipboard:Email text copied to clipboard`
+          $localize`:@@adminUserPasswordEmailCopiedToClipboard:Email text copied to clipboard`
         )
       )
       .catch((err) => console.error('Could not copy email text: ', err));
@@ -60,11 +60,11 @@ export class AdminUserPasswordComponent {
   _returnEmailBody(password: string) {
     return `Hello ${this.username},
 
-Your password has been reset by an administrator. Your new password is: 
+your password has been reset by an administrator. Your new password is: 
 ${password}
 
 Please log in and change your password as soon as possible: ${this.frontendBaseURL}
 
-Best regards,`;
+This is a system-generated email. For any questions please contact the administrator.`;
   }
 }

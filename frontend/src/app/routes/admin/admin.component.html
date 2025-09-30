@@ -8,37 +8,62 @@
     <div class="admin-wrapper">
       <div class="admin-header">
         <h1>Administration</h1>
-        <button mat-stroked-button (click)="onHandleLogout()">Logout</button>
+        <button
+          mat-stroked-button
+          (click)="onHandleLogout()"
+          i18n="@@adminLogoutButtonLabel"
+        >
+          Logout
+        </button>
       </div>
 
       <div class="table-actions">
         <div class="filter-wrapper">
           <mat-form-field>
-            <mat-label>Filter</mat-label>
+            <mat-label i18n="@@adminFilterLabel">Filter</mat-label>
             <input
               matInput
               (keyup)="onApplyFilter($event)"
               [formControl]="filterControl"
             />
           </mat-form-field>
-          <p>{{ filteredUsersCount }} Users</p>
+          <p>
+            {{ filteredUsersCount }}
+            <span i18n="@@adminFilterUsersCountLabel">Users</span>
+          </p>
         </div>
 
-        <button mat-flat-button (click)="onOpenCreateUserDialog()">
+        <button
+          mat-flat-button
+          (click)="onOpenCreateUserDialog()"
+          i18n="@@adminCreateUserButtonLabel"
+        >
           Create User
         </button>
       </div>
 
       <table mat-table [dataSource]="dataSource" matSort>
         <ng-container matColumnDef="username">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header="name">
-            Username
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header="name"
+            i18n="@@adminTableHeaderName"
+          >
+            Name
           </th>
           <td mat-cell *matCellDef="let element">{{ element.name }}</td>
         </ng-container>
 
         <ng-container matColumnDef="email">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>Email</th>
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header
+            i18n="@@adminTableHeaderEmail"
+          >
+            Email
+          </th>
           <td mat-cell *matCellDef="let element">{{ element.email }}</td>
         </ng-container>
 
@@ -47,20 +72,26 @@
             mat-header-cell
             *matHeaderCellDef
             mat-sort-header="isEmailVerified"
+            i18n="@@adminTableHeaderEmailVerified"
           >
             Email Verified
           </th>
           <td mat-cell *matCellDef="let element">
             @if (element.isEmailVerified) {
-            <span>Yes</span>
+            <span i18n="@@adminTableEmailVerifiedYes">Yes</span>
             } @else {
-            <span>No</span>
+            <span i18n="@@adminTableEmailVerifiedNo">No</span>
             }
           </td>
         </ng-container>
 
         <ng-container matColumnDef="projects">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header="projectCount">
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header="projectCount"
+            i18n="@@adminTableHeaderProjects"
+          >
             Projects
           </th>
           <td mat-cell *matCellDef="let element">
@@ -69,7 +100,12 @@
         </ng-container>
 
         <ng-container matColumnDef="filesize-total">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header="mbOnDisc">
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header="mbOnDisc"
+            i18n="@@adminTableHeaderTotalFileSize"
+          >
             Total File Size
           </th>
           <td mat-cell *matCellDef="let element">
@@ -77,13 +113,14 @@
           </td>
         </ng-container>
 
-        <ng-container matColumnDef="playback-total">
+        <ng-container matColumnDef="total-video-length">
           <th
             mat-header-cell
             *matHeaderCellDef
             mat-sort-header="accumulatedDuration"
+            i18n="@@adminTableHeaderTotalVideoLength"
           >
-            Total Playback Time
+            Total Video Length
           </th>
           <td mat-cell *matCellDef="let element">
             {{ element.accumulatedDuration | duration }}
@@ -91,7 +128,9 @@
         </ng-container>
 
         <ng-container matColumnDef="more">
-          <th mat-header-cell *matHeaderCellDef>More</th>
+          <th mat-header-cell *matHeaderCellDef i18n="@@adminTableHeaderMore">
+            More
+          </th>
           <td mat-cell *matCellDef="let element">
             <button
               mat-icon-button
@@ -113,21 +152,21 @@
           @if (!user.isEmailVerified) {
           <button mat-menu-item (click)="onVerifyUserEmail(user)">
             <mat-icon svgIcon="person_check" />
-            Verify Email
+            <span i18n="@@adminTableActionVerifyEmail">Verify Email</span>
           </button>
           }
 
           <button mat-menu-item (click)="onOpenEditEmailDialog(user)">
             <mat-icon svgIcon="edit" />
-            Edit Email
+            <span i18n="@@adminTableActionEditEmail">Edit Email</span>
           </button>
           <button mat-menu-item (click)="onOpenResetPasswordDialog(user)">
             <mat-icon svgIcon="refresh" />
-            Reset Password
+            <span i18n="@@adminTableActionResetPassword">Reset Password</span>
           </button>
           <button mat-menu-item (click)="onDeleteUser(user)">
             <mat-icon svgIcon="delete" />
-            Delete User
+            <span i18n="@@adminTableActionDeleteUser">Delete User</span>
           </button>
         </ng-template>
       </mat-menu>
@@ -135,21 +174,25 @@
     } @else {
     <div class="login-wrapper">
       <div class="login-form">
-        <h1>Admin Login</h1>
+        <h1 i18n="@@adminLoginHeader">Admin Login</h1>
         <mat-form-field class="username-field">
-          <mat-label>Username</mat-label>
+          <mat-label i18n="@@adminLoginFieldName">Name</mat-label>
           <input matInput type="text" [formControl]="usernameControl" />
           @if (usernameControl.invalid && (usernameControl.dirty ||
           usernameControl.touched)) {
-          <mat-error> Username required </mat-error>
+          <mat-error i18n="@@adminLoginFieldErrorNameRequired">
+            name required
+          </mat-error>
           }
         </mat-form-field>
         <mat-form-field>
-          <mat-label>Password</mat-label>
+          <mat-label i18n="@@adminLoginFieldPassword">Password</mat-label>
           <input matInput type="password" [formControl]="passwordControl" />
           @if (passwordControl.invalid && (passwordControl.dirty ||
           passwordControl.touched)) {
-          <mat-error> Password required </mat-error>
+          <mat-error i18n="@@adminLoginFieldErrorPasswordRequired">
+            Password required
+          </mat-error>
           }
         </mat-form-field>
 
@@ -162,9 +205,17 @@
           }
         </div>
 
-        <button (click)="onHandleLogin()" mat-flat-button>Login</button>
+        <button
+          (click)="onHandleLogin()"
+          mat-flat-button
+          i18n="@@adminLoginButtonLabel"
+        >
+          Login
+        </button>
       </div>
-      <a mat-button [routerLink]="['/']">Back to the Startpage</a>
+      <a mat-button [routerLink]="['/']" i18n="@@adminLoginBackToStartpage"
+        >Back to the Startpage</a
+      >
     </div>
     }
   </main>

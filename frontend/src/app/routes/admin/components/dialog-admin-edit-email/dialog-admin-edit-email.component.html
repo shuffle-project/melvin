@@ -1,10 +1,15 @@
 <div mat-dialog-title>
   <div class="dialog-header">
     <div>
-      <h1>Edit Email</h1>
+      <h1 i18n="@@dialogAdminEditEmailMainTitle">Edit Email</h1>
     </div>
 
-    <button mat-icon-button [mat-dialog-close]="true" aria-label="Close">
+    <button
+      mat-icon-button
+      [mat-dialog-close]="true"
+      aria-label="Close"
+      i18n-aria-label="@@dialogAdminEditEmailCloseAriaLabel"
+    >
       <mat-icon svgIcon="close" />
     </button>
   </div>
@@ -15,12 +20,15 @@
   <mat-spinner diameter="30" />
   } @else { @if(userWithNewEmail$ | ngrxPush; as userWithNewEmail) {
   <p class="current-email">
-    <span>Email successfully changed to:</span>
+    <span i18n="@@dialogAdminEditEmailSuccessMessage"
+      >Email successfully changed to:</span
+    >
     <span>{{ userWithNewEmail.email }}</span>
   </p>
   } @else {
   <p class="current-email">
-    <span>Current Email:</span> <span>{{ user.email }}</span>
+    <span i18n="@@dialogAdminEditEmailCurrentEmailLabel">Current Email:</span>
+    <span>{{ user.email }}</span>
   </p>
 
   <mat-form-field>
@@ -28,12 +36,12 @@
     <input matInput [formControl]="newEmailControl" />
     <mat-error>
       @if(newEmailControl.hasError('required')) {
-      <span i18n="@@adminEditEmailDialogEmailErrorRequired"
+      <span i18n="@@adminEditEmailDialogErrorEmailRequired"
         >Email required</span
       >
 
       } @if(newEmailControl.hasError('email')) {
-      <span i18n="@@adminEditEmailDialogEmailErrorInvalid"
+      <span i18n="@@adminEditEmailDialogErrorEmailInvalid"
         >Valid email address required</span
       >
       }
@@ -49,6 +57,12 @@
     }
   </div>
 
-  <button mat-flat-button (click)="onChangeEmail()">Change</button>
+  <button
+    mat-flat-button
+    (click)="onChangeEmail()"
+    i18n="@@dialogAdminEditEmailChangeButtonLabel"
+  >
+    Change
+  </button>
   }}
 </mat-dialog-content>

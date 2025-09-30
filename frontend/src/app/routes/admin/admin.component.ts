@@ -66,7 +66,7 @@ export class AdminComponent implements OnInit, OnDestroy {
     'email-verified',
     'projects',
     'filesize-total',
-    'playback-total',
+    'total-video-length',
     'more',
   ];
 
