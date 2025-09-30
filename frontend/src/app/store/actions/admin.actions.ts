@@ -18,6 +18,8 @@ export const adminLoginFail = createAction(
   props<{ error: HttpErrorResponse }>()
 );
 
+export const adminInit = createAction('[ADMIN COMPONENT] Admin init');
+
 export const adminLogout = createAction('[ADMIN COMPONENT] Admin logout');
 
 // Find all users
