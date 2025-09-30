@@ -2,6 +2,8 @@ import { Routes } from '@angular/router';
 import { IsConfigLoadedGuard } from './guards/is-config-loaded.guard';
 import { IsInitializedGuard } from './guards/is-initialized.guard';
 import { LoggedInGuard } from './guards/logged-in.guard';
+import { ResetPasswordComponent } from './routes/reset-password/reset-password.component';
+import { VerifyEmailComponent } from './routes/verify-email/verify-email.component';
 
 export const AppRoutes: Routes = [
   {
@@ -33,6 +35,16 @@ export const AppRoutes: Routes = [
     canActivate: [IsConfigLoadedGuard],
     loadChildren: () =>
       import('./routes/viewer/viewer.routes').then((m) => m.ViewerRoutes),
+  },
+  {
+    path: 'verify-email',
+    component: VerifyEmailComponent,
+    title: $localize`:@@verifyEmailPageTitle:Verify Email - Melvin`,
+  },
+  {
+    path: 'reset-password',
+    component: ResetPasswordComponent,
+    title: $localize`:@@resetPasswordPageTitle:Reset Password - Melvin`,
   },
   {
     path: '**',

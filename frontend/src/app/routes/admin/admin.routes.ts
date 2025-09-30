@@ -5,6 +5,6 @@ export const AdminRoutes: Routes = [
   {
     path: '',
     component: AdminComponent,
-    title: $localize`:@@adminPageTitle:Admin - Melvin`,
+    title: $localize`:@@adminPageTitle:Administration - Melvin`,
   },
 ];

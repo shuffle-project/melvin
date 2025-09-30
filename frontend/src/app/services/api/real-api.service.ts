@@ -805,4 +805,13 @@ export class RealApiService implements ApiService {
       }
     );
   }
+
+  // user verify email
+  verifyEmail(token: string, email: string): Observable<{ token: string }> {
+    return this._post<{ token: string }>(
+      `/auth/verify-email/confirm`,
+      { token, email },
+      { skipJwt: true }
+    );
+  }
 }

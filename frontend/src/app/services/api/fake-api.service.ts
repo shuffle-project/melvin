@@ -594,4 +594,10 @@ export class FakeApiService implements ApiService {
     this.logger.verbose('adminVerifyUserEmail mocked');
     return of();
   }
+
+  // user verify email
+  verifyEmail(token: string, email: string): Observable<{ token: string }> {
+    this.logger.verbose('verifyEmail mocked');
+    return of();
+  }
 }

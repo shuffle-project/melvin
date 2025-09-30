@@ -380,4 +380,10 @@ export abstract class ApiService {
   }>;
 
   abstract adminVerifyUserEmail(userId: string): Observable<UserEntityForAdmin>;
+
+  // user verify email
+  abstract verifyEmail(
+    token: string,
+    email: string
+  ): Observable<{ token: string }>;
 }

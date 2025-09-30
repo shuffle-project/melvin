@@ -1,0 +1,23 @@
+<app-landing-header />
+
+<div class="wrapper">
+  <main>
+    <h1>Verify Email</h1>
+    @if (token && email) { @if (loading) {
+    <mat-spinner diameter="50" />
+    } @else { @if (error) {
+    <p>Error. Shit happens</p>
+    } @else {
+    <p i18n="@@verifyEmailSuccessMessage">
+      Thank you for verifying your email address. You can now close this window
+      and log in.
+    </p>
+    } } } @else {
+    <p i18n="@@verifyEmailNoTokenMessage">
+      No token or email provided. Please check the link in your email.
+    </p>
+    }
+  </main>
+
+  <app-landing-footer />
+</div>

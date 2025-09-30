@@ -1,0 +1,17 @@
+.wrapper {
+  height: 100%;
+  display: grid;
+  grid-template-rows: 1fr auto;
+
+  padding-block-start: 3rem;
+  box-sizing: border-box;
+
+  main {
+    padding: 1.25rem;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+}
