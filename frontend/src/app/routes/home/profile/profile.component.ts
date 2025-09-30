@@ -19,6 +19,7 @@ import { HeaderComponent } from '../../../components/header/header.component';
 import { AuthUser } from '../../../interfaces/auth.interfaces';
 import * as authSelectors from '../../../store/selectors/auth.selector';
 import { DialogChangePasswordComponent } from './components/dialog-change-password/dialog-change-password.component';
+import { DialogChangeUsernameComponent } from './components/dialog-change-username/dialog-change-username.component';
 
 interface PasswordChangeForm {
   currentPassword: string;
@@ -69,6 +70,15 @@ export class ProfileComponent implements OnInit {
 
   onOpenChangePasswordDialog() {
     this.dialog.open(DialogChangePasswordComponent, {
+      disableClose: true,
+      width: '100%',
+      maxWidth: '50rem',
+      maxHeight: '90vh',
+    });
+  }
+
+  onOpenChangeUsernameDialog() {
+    this.dialog.open(DialogChangeUsernameComponent, {
       disableClose: true,
       width: '100%',
       maxWidth: '50rem',

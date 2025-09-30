@@ -18,63 +18,24 @@
 <mat-dialog-content>
   <form [formGroup]="changeUsernameForm">
     <mat-form-field>
-      <mat-label i18n="@@dialogChangePasswordCurrentPasswordLabel"
-        >Current Password</mat-label
-      >
-      <input matInput type="password" formControlName="currentPassword" />
-      @if (changePasswordForm.controls.currentPassword.hasError('required')) {
+      <mat-label i18n="@@dialogChangeUsernameLabel">Username</mat-label>
+      <input matInput type="text" formControlName="username" />
+      <!-- @if (changePasswordForm.controls.currentPassword.hasError('required')) {
       <mat-error i18n="@@dialogChangePasswordCurrentPasswordRequiredError">
         Current password required
       </mat-error>
-      }
-    </mat-form-field>
-
-    <mat-form-field>
-      <mat-label i18n="@@dialogChangePasswordNewPasswordLabel"
-        >New Password</mat-label
-      >
-      <input matInput type="password" formControlName="newPassword" />
-      @if (changePasswordForm.controls.newPassword.hasError('required')) {
-      <mat-error i18n="@@dialogChangePasswordNewPasswordRequiredError">
-        New password required
-      </mat-error>
-      }
-    </mat-form-field>
-    <mat-form-field>
-      <mat-label i18n="@@dialogChangePasswordConfirmPasswordLabel"
-        >Confirm New Password</mat-label
-      >
-      <input matInput type="password" formControlName="confirmPassword" />
-      @if (changePasswordForm.controls.confirmPassword.hasError('required')) {
-      <mat-error i18n="@@dialogChangePasswordConfirmPasswordRequiredError"
-        >Confirm new password required</mat-error
-      >
-      }
+      } -->
     </mat-form-field>
   </form>
-
-  <div class="error-wrapper" aria-live="polite">
-    @if (changePasswordForm.hasError('notSame')){
-    <div class="error">
-      <mat-icon svgIcon="warning" />
-      <p i18n="@@dialogChangePasswordDoNotMatchError">Passwords do not match</p>
-    </div>
-    } @if (changePasswordError) {
-    <div class="error">
-      <mat-icon svgIcon="warning" />
-      <p>{{ changePasswordError }}</p>
-    </div>
-    }
-  </div>
 </mat-dialog-content>
 
 <mat-dialog-actions align="end">
   <button
-    (click)="onSubmitChangePassword()"
+    (click)="onSubmitChangeUsername()"
     mat-flat-button
     type="submit"
-    i18n="@@dialogChangePasswordSubmitButtonLabel"
+    i18n="@@dialogChangeUsernameSubmitButtonLabel"
   >
-    Change Password
+    Change Username
   </button>
 </mat-dialog-actions>

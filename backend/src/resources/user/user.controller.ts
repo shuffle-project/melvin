@@ -47,7 +47,7 @@ export class UserController {
   update(
     @Body() dto: UpdateUserDto,
     @User() authUser: AuthUser,
-  ): Promise<void> {
+  ): Promise<UserEntity> {
     return this.userService.update(authUser, dto);
   }
 }

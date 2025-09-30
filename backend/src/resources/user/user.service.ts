@@ -71,14 +71,19 @@ export class UserService {
     return users.map((o) => plainToInstance(UserEntity, o));
   }
 
-  async update(authUser: AuthUser, dto: UpdateUserDto): Promise<void> {
+  async update(authUser: AuthUser, dto: UpdateUserDto): Promise<UserEntity> {
     const user = await this.db.userModel.findById(authUser.id).exec();
 
     if (!user) {
       throw new CustomInternalServerException('user_not_found');
     }
 
-    await this.db.userModel.findByIdAndUpdate(user._id, dto).exec();
+    const updatedUser = await this.db.userModel
+      .findByIdAndUpdate(user._id, dto, { new: true })
+      .lean()
+      .exec();
+
+    return plainToInstance(UserEntity, updatedUser);
   }
 
   async remove(authUser: AuthUser, dto: { password: string }): Promise<void> {

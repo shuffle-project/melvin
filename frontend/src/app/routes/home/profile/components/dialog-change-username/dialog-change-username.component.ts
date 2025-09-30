@@ -11,8 +11,9 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { PushPipe } from '@ngrx/component';
 import { Store } from '@ngrx/store';
-import { Subject, takeUntil } from 'rxjs';
+import { firstValueFrom, Subject, takeUntil } from 'rxjs';
 import { AuthUser } from 'src/app/interfaces/auth.interfaces';
+import { ApiService } from 'src/app/services/api/api.service';
 import { UpdateUserDto } from 'src/app/services/api/dto/update-user.dto';
 import { AppState } from 'src/app/store/app.state';
 import * as authSelectors from '../../../../../store/selectors/auth.selector';
@@ -31,10 +32,7 @@ import * as authSelectors from '../../../../../store/selectors/auth.selector';
   styleUrl: './dialog-change-username.component.scss',
 })
 export class DialogChangeUsernameComponent implements OnDestroy {
-  userEmail = '';
   private destroy$$ = new Subject<void>();
-
-  changePasswordError = '';
 
   changeUsernameForm = this.formBuilder.group({
     username: new FormControl<string>('', {
@@ -45,24 +43,20 @@ export class DialogChangeUsernameComponent implements OnDestroy {
 
   constructor(
     private store: Store<AppState>,
-    private formBuilder: NonNullableFormBuilder
+    private formBuilder: NonNullableFormBuilder,
+    private api: ApiService
   ) {
     this.store
       .select(authSelectors.selectUser)
       .pipe(takeUntil(this.destroy$$))
       .subscribe((user: AuthUser | null) => {
-        this.userEmail = user?.email || '';
+        if (user?.name) {
+          this.changeUsernameForm.patchValue({ username: user.name });
+        }
       });
-
-    // this.store
-    //   .select(authSelectors.selectChangePasswordError)
-    //   .pipe(takeUntil(this.destroy$$))
-    //   .subscribe((error) => {
-    //     this.changePasswordError = error || '';
-    //   });
   }
 
-  onSubmitChangeUsername() {
+  async onSubmitChangeUsername() {
     if (this.changeUsernameForm.invalid) {
       this.changeUsernameForm.markAllAsTouched();
       return;
@@ -72,7 +66,8 @@ export class DialogChangeUsernameComponent implements OnDestroy {
       name: this.changeUsernameForm.value.username!,
     };
 
-    // this.store.dispatch(authActions.changePassword({ dto }));
+    // TODO
+    const updateUser = await firstValueFrom(this.api.updateUser(dto));
   }
 
   ngOnDestroy(): void {

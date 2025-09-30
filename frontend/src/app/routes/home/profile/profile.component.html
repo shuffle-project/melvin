@@ -9,6 +9,14 @@
   </div>
 
   <button
+    (click)="onOpenChangeUsernameDialog()"
+    mat-stroked-button
+    i18n="@@profileUsernameButtonLabel"
+  >
+    Change Username
+  </button>
+
+  <button
     (click)="onOpenChangePasswordDialog()"
     mat-stroked-button
     i18n="@@profilePasswordButtonLabel"
