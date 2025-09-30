@@ -72,6 +72,9 @@ export class AdminComponent implements OnInit, OnDestroy {
   dataSource: MatTableDataSource<UserEntityForAdmin> = new MatTableDataSource();
   @ViewChild(MatSort) sort!: MatSort;
 
+  filteredUsersCount = 0;
+  filterControl = new FormControl('');
+
   constructor(
     private store: Store<AppState>,
     private configService: ConfigService,
@@ -84,7 +87,14 @@ export class AdminComponent implements OnInit, OnDestroy {
       const users = allUsers?.users ?? [];
       this.dataSource = new MatTableDataSource([...users]);
       this.dataSource.sort = this.sort;
+
+      this.filterControl.reset();
+      this.filteredUsersCount = this.dataSource.filteredData.length;
     });
+  }
+
+  onVerifyUserEmail(user: UserEntityForAdmin) {
+    this.store.dispatch(adminActions.adminVerifyUserEmail({ userId: user.id }));
   }
 
   onHandleLogin() {
@@ -110,6 +120,7 @@ export class AdminComponent implements OnInit, OnDestroy {
   onApplyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
+    this.filteredUsersCount = this.dataSource.filteredData.length;
   }
 
   onOpenCreateUserDialog() {

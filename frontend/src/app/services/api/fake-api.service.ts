@@ -557,10 +557,9 @@ export class FakeApiService implements ApiService {
     return of();
   }
 
-  adminUpdateUser(
+  adminUpdateUserEmail(
     userId: string,
-    email: string,
-    name: string
+    email: string
   ): Observable<UserEntityForAdmin> {
     this.logger.verbose('adminUpdateUser mocked');
     return of();
@@ -582,6 +581,11 @@ export class FakeApiService implements ApiService {
     user: UserEntityForAdmin;
   }> {
     this.logger.verbose('adminCreateUser mocked');
+    return of();
+  }
+
+  adminVerifyUserEmail(userId: string): Observable<UserEntityForAdmin> {
+    this.logger.verbose('adminVerifyUserEmail mocked');
     return of();
   }
 }

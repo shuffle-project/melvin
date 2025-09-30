@@ -3,11 +3,22 @@
     <div>
       <h1>Edit Email</h1>
     </div>
+
+    <button mat-icon-button [mat-dialog-close]="true" aria-label="Close">
+      <mat-icon svgIcon="close" />
+    </button>
   </div>
 </div>
 
 <mat-dialog-content>
-  @if (user) {
+  @if(newEmailLoading$ | ngrxPush) {
+  <mat-spinner diameter="30" />
+  } @else { @if(userWithNewEmail$ | ngrxPush; as userWithNewEmail) {
+  <p class="current-email">
+    <span>Email successfully changed to:</span>
+    <span>{{ userWithNewEmail.email }}</span>
+  </p>
+  } @else {
   <p class="current-email">
     <span>Current Email:</span> <span>{{ user.email }}</span>
   </p>
@@ -28,10 +39,16 @@
       }
     </mat-error>
   </mat-form-field>
-  }
-</mat-dialog-content>
 
-<mat-dialog-actions align="end">
-  <button mat-button (click)="onAbort()">Abort</button>
-  <button mat-flat-button (click)="onConfirm()" cdkFocusInitial>Confirm</button>
-</mat-dialog-actions>
+  <div aria-live="polite">
+    @if(newEmailError$ | ngrxPush; as newEmailError) {
+    <p class="error-message">
+      <mat-icon svgIcon="warning"></mat-icon>
+      {{ newEmailError }}
+    </p>
+    }
+  </div>
+
+  <button mat-flat-button (click)="onChangeEmail()">Change</button>
+  }}
+</mat-dialog-content>

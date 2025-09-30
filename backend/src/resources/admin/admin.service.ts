@@ -104,10 +104,6 @@ export class AdminService {
       .lean()
       .exec();
 
-    console.log('----');
-    console.log(exists);
-    console.log('----');
-
     // Duplicate email
     if (exists) {
       throw new CustomBadRequestException('email_already_taken');
@@ -148,6 +144,20 @@ export class AdminService {
 
     if (user === null) {
       throw new CustomBadRequestException('user_not_found');
+    }
+
+    if (dto.email) {
+      const exists = await this.db.userModel
+        .findOne({
+          email: dto.email.toLowerCase(),
+        })
+        .lean()
+        .exec();
+
+      // Duplicate email
+      if (exists) {
+        throw new CustomBadRequestException('email_already_taken');
+      }
     }
 
     await this.db.userModel.findByIdAndUpdate(id, dto);

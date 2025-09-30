@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { createAction, props } from '@ngrx/store';
 import { UserEntityForAdmin } from 'src/app/services/api/entities/user.entity';
 
@@ -14,7 +15,7 @@ export const adminLoginSuccess = createAction(
 
 export const adminLoginFail = createAction(
   '[ADMIN API] Admin login fail',
-  props<{ error: string }>()
+  props<{ error: HttpErrorResponse }>()
 );
 
 export const adminLogout = createAction('[ADMIN COMPONENT] Admin logout');
@@ -31,7 +32,7 @@ export const adminFindAllUsersSuccess = createAction(
 
 export const adminFindAllUsersFail = createAction(
   '[ADMIN API] Find all users fail',
-  props<{ error: string }>()
+  props<{ error: HttpErrorResponse }>()
 );
 
 // Delete user by admin
@@ -47,23 +48,27 @@ export const adminDeleteUserAccountSuccess = createAction(
 
 export const adminDeleteUserAccountFail = createAction(
   '[ADMIN API] Delete user by admin fail',
-  props<{ error: string }>()
+  props<{ error: HttpErrorResponse }>()
 );
 
 // Update user by admin
-export const adminUpdateUser = createAction(
+export const adminUpdateUserEmail = createAction(
   '[ADMIN EDIT EMAIL DIALOG COMPONENT] Update user by admin',
-  props<{ userId: string; email: string; name: string }>()
+  props<{ userId: string; email: string }>()
 );
 
-export const adminUpdateUserSuccess = createAction(
+export const adminUpdateUserEmailSuccess = createAction(
   '[ADMIN API] Update user by admin success',
   props<{ user: UserEntityForAdmin }>()
 );
 
-export const adminUpdateUserFail = createAction(
+export const adminUpdateUserEmailFail = createAction(
   '[ADMIN API] Update user by admin fail',
-  props<{ error: string }>()
+  props<{ error: HttpErrorResponse }>()
+);
+
+export const adminClearUpdateUserEmail = createAction(
+  '[ADMIN EDIT EMAIL DIALOG COMPONENT] Clear update user email state'
 );
 
 // Reset password by admin
@@ -79,7 +84,7 @@ export const adminResetUserPasswordSuccess = createAction(
 
 export const adminResetUserPasswordFail = createAction(
   '[ADMIN API] Reset user password by admin fail',
-  props<{ error: string }>()
+  props<{ error: HttpErrorResponse }>()
 );
 
 export const adminClearUserPassword = createAction(
@@ -103,5 +108,21 @@ export const adminCreateUserSuccess = createAction(
 
 export const adminCreateUserFail = createAction(
   '[ADMIN API] Create user by admin fail',
-  props<{ error: string }>()
+  props<{ error: HttpErrorResponse }>()
+);
+
+// Verify user email by admin
+export const adminVerifyUserEmail = createAction(
+  '[ADMIN COMPONENT] Verify user email by admin',
+  props<{ userId: string }>()
+);
+
+export const adminVerifyUserEmailSuccess = createAction(
+  '[ADMIN API] Verify user email by admin success',
+  props<{ user: UserEntityForAdmin }>()
+);
+
+export const adminVerifyUserEmailFail = createAction(
+  '[ADMIN API] Verify user email by admin fail',
+  props<{ error: HttpErrorResponse }>()
 );

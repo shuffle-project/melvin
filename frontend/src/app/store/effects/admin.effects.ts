@@ -4,6 +4,7 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { map, mergeMap, of, tap } from 'rxjs';
 import { catchError } from 'rxjs/internal/operators/catchError';
+import { AlertService } from 'src/app/services/alert/alert.service';
 import { ApiService } from 'src/app/services/api/api.service';
 import { StorageKey } from 'src/app/services/storage/storage-key.enum';
 import { StorageService } from 'src/app/services/storage/storage.service';
@@ -18,7 +19,8 @@ export class AdminEffects {
     private api: ApiService,
     private storage: StorageService,
     private router: Router,
-    private store: Store
+    private store: Store,
+    private alertService: AlertService
   ) {}
 
   adminLogin$ = createEffect(() =>
@@ -27,9 +29,7 @@ export class AdminEffects {
       mergeMap(({ username, password }) =>
         this.api.adminLogin(username, password).pipe(
           map(({ token }) => adminActions.adminLoginSuccess({ token })),
-          catchError((error) =>
-            of(adminActions.adminLoginFail({ error: error.error.message }))
-          )
+          catchError((error) => of(adminActions.adminLoginFail({ error })))
         )
       )
     )
@@ -66,7 +66,6 @@ export class AdminEffects {
           map((userList) =>
             adminActions.adminFindAllUsersSuccess({ userList })
           ),
-          // TODO Catch Error add findAllUsersFail
           catchError((error) =>
             of(adminActions.adminFindAllUsersFail({ error }))
           )
@@ -93,11 +92,13 @@ export class AdminEffects {
 
   adminUpdateUser$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(adminActions.adminUpdateUser),
-      mergeMap(({ userId, email, name }) =>
-        this.api.adminUpdateUser(userId, email, name).pipe(
-          map((user) => adminActions.adminUpdateUserSuccess({ user })),
-          catchError((error) => of(adminActions.adminUpdateUserFail({ error })))
+      ofType(adminActions.adminUpdateUserEmail),
+      mergeMap(({ userId, email }) =>
+        this.api.adminUpdateUserEmail(userId, email).pipe(
+          map((user) => adminActions.adminUpdateUserEmailSuccess({ user })),
+          catchError((error) =>
+            of(adminActions.adminUpdateUserEmailFail({ error }))
+          )
         )
       )
     )
@@ -128,29 +129,42 @@ export class AdminEffects {
             adminActions.adminCreateUserSuccess({ method, password, user })
           ),
           catchError((error) => {
-            return of(
-              adminActions.adminCreateUserFail({ error: error.error.message })
-            );
+            return of(adminActions.adminCreateUserFail({ error }));
           })
         )
       )
     )
   );
-}
 
-// fetchProjects$ = createEffect(() =>
-//     this.actions$.pipe(
-//       ofType(projectsActions.findAll),
-//       mergeMap(() =>
-//         this.api.findAllProjects().pipe(
-//           map((projectListEntity: ProjectListEntity) => {
-//             return projectsActions.findAllSuccess({ projectListEntity });
-//           }),
-//           catchError((errorRes) =>
-//             // TODO Add reducer that listens
-//             of(projectsActions.findAllFail({ error: errorRes }))
-//           )
-//         )
-//       )
-//     )
-//   );
+  adminVerifyUserEmail$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(adminActions.adminVerifyUserEmail),
+      mergeMap(({ userId }) =>
+        this.api.adminVerifyUserEmail(userId).pipe(
+          map((user) => adminActions.adminVerifyUserEmailSuccess({ user })),
+          catchError((error) =>
+            of(adminActions.adminVerifyUserEmailFail({ error }))
+          )
+        )
+      )
+    )
+  );
+
+  notifyOnError$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(
+          adminActions.adminVerifyUserEmailFail,
+          adminActions.adminFindAllUsersFail,
+          adminActions.adminDeleteUserAccountFail,
+          adminActions.adminResetUserPasswordFail
+        ),
+        tap((action) =>
+          this.alertService.error(
+            action.error.error?.message || action.error.message
+          )
+        )
+      ),
+    { dispatch: false }
+  );
+}

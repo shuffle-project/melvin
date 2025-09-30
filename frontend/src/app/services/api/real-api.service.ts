@@ -743,14 +743,13 @@ export class RealApiService implements ApiService {
     });
   }
 
-  adminUpdateUser(
+  adminUpdateUserEmail(
     userId: string,
-    email: string,
-    name: string
+    email: string
   ): Observable<UserEntityForAdmin> {
     return this._patch<UserEntityForAdmin>(
       `/admin/users/${userId}`,
-      { email, name },
+      { email },
       {
         useAdminToken: true,
       }
@@ -784,6 +783,18 @@ export class RealApiService implements ApiService {
     }>(
       `/admin/users`,
       { email, name },
+      {
+        useAdminToken: true,
+      }
+    );
+  }
+
+  adminVerifyUserEmail(userId: string): Observable<UserEntityForAdmin> {
+    return this._patch<UserEntityForAdmin>(
+      `/admin/users/${userId}`,
+      {
+        isEmailVerified: true,
+      },
       {
         useAdminToken: true,
       }

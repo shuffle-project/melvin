@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnDestroy } from '@angular/core';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import {
@@ -8,10 +8,13 @@ import {
 } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { PushPipe } from '@ngrx/component';
 import { Store } from '@ngrx/store';
 import { UserEntityForAdmin } from 'src/app/services/api/entities/user.entity';
 import { AppState } from 'src/app/store/app.state';
 import * as adminActions from '../../../../store/actions/admin.actions';
+import * as adminSelectors from '../../../../store/selectors/admin.selector';
 
 @Component({
   selector: 'app-dialog-admin-edit-email',
@@ -21,12 +24,18 @@ import * as adminActions from '../../../../store/actions/admin.actions';
     MatIconModule,
     ReactiveFormsModule,
     MatInputModule,
+    PushPipe,
+    MatProgressSpinnerModule,
   ],
   templateUrl: './dialog-admin-edit-email.component.html',
   styleUrl: './dialog-admin-edit-email.component.scss',
 })
-export class DialogAdminEditEmailComponent {
+export class DialogAdminEditEmailComponent implements OnDestroy {
   public user = inject<UserEntityForAdmin>(MAT_DIALOG_DATA);
+
+  newEmailLoading$ = this.store.select(adminSelectors.selectNewEmailLoading);
+  newEmailError$ = this.store.select(adminSelectors.selectNewEmailError);
+  userWithNewEmail$ = this.store.select(adminSelectors.selectUserWithNewEmail);
 
   newEmailControl = new FormControl('', [
     Validators.required,
@@ -38,15 +47,7 @@ export class DialogAdminEditEmailComponent {
     private store: Store<AppState>
   ) {}
 
-  onSaveChanges() {
-    console.log('Save Changes', this.newEmailControl.value);
-  }
-
-  onAbort() {
-    this.dialogRef.close();
-  }
-
-  onConfirm() {
+  onChangeEmail() {
     if (this.newEmailControl.invalid) {
       this.newEmailControl.markAsTouched();
       return;
@@ -55,14 +56,14 @@ export class DialogAdminEditEmailComponent {
     const newEmail = this.newEmailControl.getRawValue()?.trim();
 
     this.store.dispatch(
-      adminActions.adminUpdateUser({
+      adminActions.adminUpdateUserEmail({
         userId: this.user.id,
         email: newEmail!,
-        name: this.user.name,
       })
     );
+  }
 
-    // TODO wait here for fail or success before closing?
-    this.dialogRef.close();
+  ngOnDestroy(): void {
+    this.store.dispatch(adminActions.adminClearUpdateUserEmail());
   }
 }

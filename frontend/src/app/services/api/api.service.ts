@@ -358,10 +358,9 @@ export abstract class ApiService {
 
   abstract adminDeleteUserAccount(userId: string): Observable<void>;
 
-  abstract adminUpdateUser(
+  abstract adminUpdateUserEmail(
     userId: string,
-    email: string,
-    name: string
+    email: string
   ): Observable<UserEntityForAdmin>;
 
   abstract adminResetUserPassword(
@@ -376,4 +375,6 @@ export abstract class ApiService {
     password: string;
     user: UserEntityForAdmin;
   }>;
+
+  abstract adminVerifyUserEmail(userId: string): Observable<UserEntityForAdmin>;
 }

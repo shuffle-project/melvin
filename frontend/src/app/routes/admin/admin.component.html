@@ -12,10 +12,17 @@
       </div>
 
       <div class="table-actions">
-        <mat-form-field>
-          <mat-label>Filter</mat-label>
-          <input matInput (keyup)="onApplyFilter($event)" #filterInput />
-        </mat-form-field>
+        <div class="filter-wrapper">
+          <mat-form-field>
+            <mat-label>Filter</mat-label>
+            <input
+              matInput
+              (keyup)="onApplyFilter($event)"
+              [formControl]="filterControl"
+            />
+          </mat-form-field>
+          <p>{{ filteredUsersCount }} Users</p>
+        </div>
 
         <button mat-flat-button (click)="onOpenCreateUserDialog()">
           Create User
@@ -103,6 +110,13 @@
 
       <mat-menu #menu="matMenu">
         <ng-template matMenuContent let-user="user">
+          @if (!user.isEmailVerified) {
+          <button mat-menu-item (click)="onVerifyUserEmail(user)">
+            <mat-icon svgIcon="person_check" />
+            Verify Email
+          </button>
+          }
+
           <button mat-menu-item (click)="onOpenEditEmailDialog(user)">
             <mat-icon svgIcon="edit" />
             Edit Email

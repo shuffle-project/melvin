@@ -42,3 +42,18 @@ export const selectNewUserError = createSelector(
   selectAdminState,
   (state) => state.newUserError
 );
+
+export const selectNewEmailLoading = createSelector(
+  selectAdminState,
+  (state) => state.newEmailLoading
+);
+
+export const selectNewEmailError = createSelector(
+  selectAdminState,
+  (state) => state.newEmailError
+);
+
+export const selectUserWithNewEmail = createSelector(
+  selectAdminState,
+  (state) => state.userWithNewEmail
+);

@@ -7,8 +7,12 @@ export interface AdminState {
   loginError: string | null;
   token: string | null;
 
-  passwordMethod?: 'email' | 'return' | null;
-  newUserPasswordLoading?: boolean;
+  newEmailLoading: boolean;
+  newEmailError: string | null;
+  userWithNewEmail: UserEntityForAdmin | null;
+
+  passwordMethod: 'email' | 'return' | null;
+  newUserPasswordLoading: boolean;
   newUserPassword: string | null;
   newUserError: string | null;
 
@@ -19,6 +23,10 @@ export const initialState: AdminState = {
   loginLoading: false,
   loginError: null,
   token: null,
+
+  newEmailLoading: false,
+  newEmailError: null,
+  userWithNewEmail: null,
 
   passwordMethod: null,
   newUserPasswordLoading: false,
@@ -39,7 +47,7 @@ export const adminReducer = createReducer(
 
   on(adminActions.adminLoginFail, (state, { error }) => ({
     ...state,
-    loginError: error,
+    loginError: error.error?.message || error.message,
     loginLoading: false,
   })),
 
@@ -64,11 +72,34 @@ export const adminReducer = createReducer(
   })),
 
   // Update user by admin
-  on(adminActions.adminUpdateUserSuccess, (state, { user }) => ({
+  on(adminActions.adminUpdateUserEmail, (state) => ({
     ...state,
+    newEmailLoading: true,
+    newEmailError: null,
+  })),
+
+  on(adminActions.adminUpdateUserEmailSuccess, (state, { user }) => ({
+    ...state,
+    newEmailLoading: false,
+    newEmailError: null,
+    userWithNewEmail: user,
     userList: {
       users: state.userList.users.map((u) => (u.id === user.id ? user : u)),
     },
+  })),
+
+  on(adminActions.adminUpdateUserEmailFail, (state, { error }) => ({
+    ...state,
+    newEmailLoading: false,
+    newEmailError: error.error?.message || error.message,
+    userWithNewEmail: null,
+  })),
+
+  on(adminActions.adminClearUpdateUserEmail, (state) => ({
+    ...state,
+    newEmailLoading: false,
+    newEmailError: null,
+    userWithNewEmail: null,
   })),
 
   // New user password
@@ -113,7 +144,7 @@ export const adminReducer = createReducer(
   on(adminActions.adminCreateUserFail, (state, { error }) => ({
     ...state,
     newUserPasswordLoading: false,
-    newUserError: error,
+    newUserError: error.error?.message || error.message,
   })),
 
   on(
@@ -126,5 +157,13 @@ export const adminReducer = createReducer(
       newUserPasswordLoading: false,
       userList: { users: [user, ...state.userList.users] },
     })
-  )
+  ),
+
+  // verify user email by admin
+  on(adminActions.adminVerifyUserEmailSuccess, (state, { user }) => ({
+    ...state,
+    userList: {
+      users: state.userList.users.map((u) => (u.id === user.id ? user : u)),
+    },
+  }))
 );

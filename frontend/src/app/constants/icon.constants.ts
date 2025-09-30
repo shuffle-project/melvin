@@ -67,6 +67,7 @@ export const ICONS = [
   'pause',
   'person_add',
   'person_remove',
+  'person_check',
   'person',
   'picture_in_picture',
   'play_circle',
