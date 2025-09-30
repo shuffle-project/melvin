@@ -69,6 +69,7 @@ export class AdminComponent implements OnInit, OnDestroy {
     'playback-total',
     'more',
   ];
+
   dataSource: MatTableDataSource<UserEntityForAdmin> = new MatTableDataSource();
   @ViewChild(MatSort) sort!: MatSort;
 
@@ -83,6 +84,8 @@ export class AdminComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
+    this.store.dispatch(adminActions.adminInit());
+
     this.allUsers$.pipe(takeUntil(this.destroy$$)).subscribe((allUsers) => {
       const users = allUsers?.users ?? [];
       this.dataSource = new MatTableDataSource([...users]);
@@ -163,7 +166,6 @@ export class AdminComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    // TODO logout here?
     this.destroy$$.next();
   }
 }

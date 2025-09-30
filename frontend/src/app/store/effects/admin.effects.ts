@@ -47,6 +47,26 @@ export class AdminEffects {
     { dispatch: false }
   );
 
+  adminInit$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(adminActions.adminInit),
+        tap(() => {
+          const adminToken = this.storage.getFromSessionStorage<string | null>(
+            StorageKey.ADMIN_TOKEN,
+            null
+          );
+
+          if (adminToken) {
+            this.store.dispatch(
+              adminActions.adminLoginSuccess({ token: adminToken })
+            );
+          }
+        })
+      ),
+    { dispatch: false }
+  );
+
   adminLogout$ = createEffect(
     () =>
       this.actions$.pipe(
