@@ -6,7 +6,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
-import { MatDialogModule } from '@angular/material/dialog';
+import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { PushPipe } from '@ngrx/component';
@@ -15,6 +15,7 @@ import { firstValueFrom, Subject, takeUntil } from 'rxjs';
 import { AuthUser } from 'src/app/interfaces/auth.interfaces';
 import { ApiService } from 'src/app/services/api/api.service';
 import { UpdateUserDto } from 'src/app/services/api/dto/update-user.dto';
+import * as authActions from 'src/app/store/actions/auth.actions';
 import { AppState } from 'src/app/store/app.state';
 import * as authSelectors from '../../../../../store/selectors/auth.selector';
 
@@ -44,7 +45,8 @@ export class DialogChangeUsernameComponent implements OnDestroy {
   constructor(
     private store: Store<AppState>,
     private formBuilder: NonNullableFormBuilder,
-    private api: ApiService
+    private api: ApiService,
+    private dialogRef: MatDialogRef<DialogChangeUsernameComponent>
   ) {
     this.store
       .select(authSelectors.selectUser)
@@ -66,8 +68,13 @@ export class DialogChangeUsernameComponent implements OnDestroy {
       name: this.changeUsernameForm.value.username!,
     };
 
-    // TODO
     const updateUser = await firstValueFrom(this.api.updateUser(dto));
+
+    // this.store.dispatch();
+    // TODO refresh token
+    this.store.dispatch(authActions.refreshToken());
+
+    this.dialogRef.close();
   }
 
   ngOnDestroy(): void {

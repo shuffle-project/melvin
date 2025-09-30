@@ -60,6 +60,16 @@ export class AuthEffects {
     )
   );
 
+  refreshToken$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(authActions.refreshToken),
+      withLatestFrom(this.store.select(authSelectors.selectToken)),
+      map(([, token]) => {
+        return authActions.initRefreshToken({ token: token ?? '' });
+      })
+    )
+  );
+
   initRefreshToken = createEffect(() =>
     this.actions$.pipe(
       ofType(authActions.initRefreshToken),

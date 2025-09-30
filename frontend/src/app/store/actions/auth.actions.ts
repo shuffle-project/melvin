@@ -15,6 +15,8 @@ export const initSuccess = createAction(
   props<{ token: string | null }>()
 );
 
+export const refreshToken = createAction('[PROFILE COMPONENT] refresh token');
+
 export const initRefreshToken = createAction(
   '[AUTH EFFECTS] Init refresh token',
   props<{ token: string }>()
