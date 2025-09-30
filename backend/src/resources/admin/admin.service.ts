@@ -20,9 +20,9 @@ import { AuthService } from '../auth/auth.service';
 import { AuthLoginResponseDto } from '../auth/dto/auth-login.dto';
 import { UserRole } from '../user/user.interfaces';
 import { UserService } from '../user/user.service';
+import { AdminCreateUserDto } from './dto/admin-create-user.dto';
 import { AdminLoginDto } from './dto/admin-login.dto';
-import { CreateUserDto } from './dto/create-user.dto';
-import { UpdateUserDto } from './dto/update-user.dto';
+import { AdminUpdateUserDto } from './dto/admin-update-user.dto';
 import { CreateUserEntity } from './entities/create-user.entity';
 import {
   PasswordResetMethod,
@@ -95,7 +95,9 @@ export class AdminService {
     return { token };
   }
 
-  async createUser(createUserDto: CreateUserDto): Promise<CreateUserEntity> {
+  async createUser(
+    createUserDto: AdminCreateUserDto,
+  ): Promise<CreateUserEntity> {
     // Get user by email
     const exists = await this.db.userModel
       .findOne({
@@ -139,7 +141,7 @@ export class AdminService {
     }
   }
 
-  async updateUser(id: string, dto: UpdateUserDto): Promise<UserEntity> {
+  async updateUser(id: string, dto: AdminUpdateUserDto): Promise<UserEntity> {
     const user = await this.db.userModel.findById(id).lean().exec();
 
     if (user === null) {

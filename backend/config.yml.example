@@ -1,5 +1,6 @@
 environment: local
 baseUrl: http://localhost:3000
+baseFrontendUrl: http://localhost:4200
 
 mongodb:
   uri: mongodb://localhost:27017/captioning

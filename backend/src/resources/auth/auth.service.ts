@@ -33,7 +33,10 @@ import {
   AuthRefreshTokenResponseDto,
 } from './dto/auth-refresh-token.dto';
 import { AuthRegisterDto } from './dto/auth-register.dto';
-import { AuthVerifyEmailResponseDto } from './dto/auth-verify-email.dto';
+import {
+  AuthVerifyEmailDto,
+  AuthVerifyEmailResponseDto,
+} from './dto/auth-verify-email.dto';
 import { AuthViewerLoginDto } from './dto/auth-viewer.dto';
 import { ChangePasswordDto } from './dto/change-password.dto';
 import { ForgotPasswordDto } from './dto/forgot-password.dto';
@@ -217,17 +220,16 @@ export class AuthService {
   }
 
   async verifyEmail(
-    verifyToken: string,
-    email: string,
+    dto: AuthVerifyEmailDto,
   ): Promise<AuthVerifyEmailResponseDto> {
     // Find user by verification token
 
     const user = await this.db.userModel
-      .findOne({ email: email.toLowerCase() })
+      .findOne({ email: dto.email.toLowerCase() })
       .exec();
 
     // Unknown verificationToken
-    if (!user || user.emailVerificationToken !== verifyToken) {
+    if (!user || user.emailVerificationToken !== dto.token) {
       throw new CustomBadRequestException('unkown_verification_token');
     }
 
@@ -236,7 +238,7 @@ export class AuthService {
     const newUser = await this.db.userModel.findOneAndUpdate(
       {
         isEmailVerified: false,
-        emailVerificationToken: verifyToken,
+        emailVerificationToken: dto.token,
       },
       { emailVerificationToken: newVerificationToken, isEmailVerified: true },
       { new: true },
@@ -431,21 +433,16 @@ export class AuthService {
     }
   }
 
-  async resetPasswordByToken(
-    dto: ResetPasswordByTokenDto,
-    email: string,
-    token: string,
-  ): Promise<void> {
-    console.log(dto, email, token);
+  async resetPasswordByToken(dto: ResetPasswordByTokenDto): Promise<void> {
     const user = await this.db.userModel
-      .findOne({ email: email.toLowerCase() })
+      .findOne({ email: dto.email.toLowerCase() })
       .exec();
 
     if (user === null) {
       throw new CustomInternalServerException('user_not_found');
     }
 
-    if (token !== user.emailVerificationToken) {
+    if (dto.token !== user.emailVerificationToken) {
       throw new CustomBadRequestException('invalid_token');
     }
 
@@ -455,7 +452,7 @@ export class AuthService {
     const newtoken = generateSecureToken();
     await this.db.userModel
       .findOneAndUpdate(
-        { email: email.toLowerCase() },
+        { email: dto.email.toLowerCase() },
         { $set: { emailVerificationToken: newtoken, isEmailVerified: true } },
       )
       .exec();

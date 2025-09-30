@@ -37,6 +37,7 @@ import {
 import { UpdateProjectDto } from './dto/update-project.dto';
 import { UpdateSpeakerDto } from './dto/update-speaker.dto';
 import { UpdateTranscriptionDto } from './dto/update-transcription.dto';
+import { UpdateUserDto } from './dto/update-user.dto';
 import { UploadVideoDto } from './dto/upload-video.dto';
 import { ActivityListEntity } from './entities/activitiy-list.entity';
 import {
@@ -166,6 +167,11 @@ export class FakeApiService implements ApiService {
   deleteAccount(password: string): Observable<void> {
     this.logger.verbose('deleteAccount mocked');
     return of();
+  }
+
+  updateUser(dto: UpdateUserDto): Observable<UserEntity> {
+    this.logger.verbose('updateUser mocked');
+    return of({ ...USERS_MOCK[0] });
   }
 
   // projects

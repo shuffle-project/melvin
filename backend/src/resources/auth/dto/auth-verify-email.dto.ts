@@ -1,10 +1,14 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsJWT, IsString } from 'class-validator';
+import { IsEmail, IsJWT, IsString } from 'class-validator';
 
 export class AuthVerifyEmailDto {
   @ApiProperty()
   @IsString()
-  verificationToken: string;
+  token: string;
+
+  @ApiProperty()
+  @IsEmail()
+  email: string;
 }
 
 export class AuthVerifyEmailResponseDto {

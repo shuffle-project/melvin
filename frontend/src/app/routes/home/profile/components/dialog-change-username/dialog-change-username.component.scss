@@ -1,0 +1,29 @@
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  padding-top: 0.25rem;
+  gap: 0.25rem;
+}
+
+.error-wrapper {
+  min-height: 3.25rem;
+  max-width: 13.25rem;
+  margin-inline: auto;
+
+  .error {
+    display: flex;
+    align-items: center;
+
+    gap: 0.625rem;
+    background-color: rgba(var(--color-red-rgb), 0.2);
+    padding: 0.625rem 0.75rem;
+    width: 100%;
+    box-sizing: border-box;
+
+    p {
+      margin: 0;
+    }
+  }
+}

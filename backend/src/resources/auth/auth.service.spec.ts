@@ -230,7 +230,7 @@ describe('AuthService', () => {
 
     // Test
     const { token } = await service.verifyEmail({
-      verificationToken: emailVerificationToken,
+      token: emailVerificationToken,
     });
     const decoded = jwtService.decode(token) as DecodedToken;
     expect(decoded.id).toEqual(user.id);
@@ -254,7 +254,7 @@ describe('AuthService', () => {
     let error: CustomBadRequestException;
     try {
       await service.verifyEmail({
-        verificationToken: generateSecureToken(),
+        token: generateSecureToken(),
       });
     } catch (err) {
       error = err;

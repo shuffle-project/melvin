@@ -41,6 +41,7 @@ import {
 import { UpdateProjectDto } from './dto/update-project.dto';
 import { UpdateSpeakerDto } from './dto/update-speaker.dto';
 import { UpdateTranscriptionDto } from './dto/update-transcription.dto';
+import { UpdateUserDto } from './dto/update-user.dto';
 import { UploadVideoDto as CreateVideoDto } from './dto/upload-video.dto';
 import { ActivityListEntity } from './entities/activitiy-list.entity';
 import {
@@ -295,6 +296,10 @@ export class RealApiService implements ApiService {
 
   deleteAccount(password: string): Observable<void> {
     return this._post<void>('/users', { password });
+  }
+
+  updateUser(dto: UpdateUserDto): Observable<UserEntity> {
+    return this._patch<UserEntity>('/users', { ...dto });
   }
 
   createLegacyProject(project: FormData): Observable<HttpEvent<ProjectEntity>> {

@@ -177,6 +177,9 @@ export class Config {
   @IsString()
   baseUrl: string;
 
+  @IsString()
+  baseFrontendUrl: string;
+
   @ValidateNested({ each: true })
   @IsDefined()
   mongodb: MongodbConfig;

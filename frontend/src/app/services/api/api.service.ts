@@ -29,6 +29,7 @@ import {
 import { UpdateProjectDto } from './dto/update-project.dto';
 import { UpdateSpeakerDto } from './dto/update-speaker.dto';
 import { UpdateTranscriptionDto } from './dto/update-transcription.dto';
+import { UpdateUserDto } from './dto/update-user.dto';
 import { UploadVideoDto } from './dto/upload-video.dto';
 import { ActivityListEntity } from './entities/activitiy-list.entity';
 import {
@@ -114,6 +115,8 @@ export abstract class ApiService {
   abstract findAllUsers(search: string): Observable<UserEntity[]>;
 
   abstract deleteAccount(password: string): Observable<void>;
+
+  abstract updateUser(dto: UpdateUserDto): Observable<UserEntity>;
 
   // projects
   abstract createProject(project: CreateProjectDto): Observable<ProjectEntity>;

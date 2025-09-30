@@ -1,12 +1,4 @@
-import {
-  Body,
-  Controller,
-  Get,
-  Param,
-  Post,
-  Query,
-  UseGuards,
-} from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
 import { User } from './auth.decorator';
 import { AuthUser } from './auth.interfaces';
 import { AuthService } from './auth.service';
@@ -20,7 +12,10 @@ import {
   AuthRefreshTokenResponseDto,
 } from './dto/auth-refresh-token.dto';
 import { AuthRegisterDto } from './dto/auth-register.dto';
-import { AuthVerifyEmailResponseDto } from './dto/auth-verify-email.dto';
+import {
+  AuthVerifyEmailDto,
+  AuthVerifyEmailResponseDto,
+} from './dto/auth-verify-email.dto';
 import { AuthViewerLoginDto } from './dto/auth-viewer.dto';
 import { ChangePasswordDto } from './dto/change-password.dto';
 import { ForgotPasswordDto } from './dto/forgot-password.dto';
@@ -68,18 +63,16 @@ export class AuthController {
   }
 
   @UseGuards(JwtAuthGuard)
-  @Post('/verify-email')
+  @Post('/verify-email/request')
   async sendVerifyEmail(@User() authUser: AuthUser) {
     return this.authService.sendVerifyEmail(authUser);
   }
 
-  @Post('/verify-email/:token')
+  @Post('/verify-email/confirm')
   async verifyEmail(
-    // @Body() dto: AuthVerifyEmailDto,
-    @Param('token') token: string,
-    @Query('email') email: string,
+    @Body() dto: AuthVerifyEmailDto,
   ): Promise<AuthVerifyEmailResponseDto> {
-    return this.authService.verifyEmail(token, email);
+    return this.authService.verifyEmail(dto);
   }
 
   @Get('/verify-invite/:inviteToken')
@@ -111,17 +104,13 @@ export class AuthController {
   //   return this.authService.resetPassword(dto.email, dto.newPassword);
   // }
 
-  @Post('/forgot-password')
+  @Post('/reset-password/request')
   forgotPassword(@Body() dto: ForgotPasswordDto): Promise<void> {
     return this.authService.forgotPassword(dto);
   }
 
-  @Post('/reset-password/:token')
-  resetPasswordByToken(
-    @Param('token') token: string,
-    @Query('email') email: string,
-    @Body() dto: ResetPasswordByTokenDto,
-  ): Promise<void> {
-    return this.authService.resetPasswordByToken(dto, email, token);
+  @Post('/reset-password/confirm')
+  resetPasswordByToken(@Body() dto: ResetPasswordByTokenDto): Promise<void> {
+    return this.authService.resetPasswordByToken(dto);
   }
 }

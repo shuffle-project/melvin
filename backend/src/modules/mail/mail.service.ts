@@ -6,7 +6,7 @@ import {
   RegistrationConfig,
   RegistrationMode,
 } from 'src/config/config.interface';
-import { CreateUserDto } from 'src/resources/admin/dto/create-user.dto';
+import { AdminCreateUserDto } from 'src/resources/admin/dto/admin-create-user.dto';
 import { LeanProjectDocument } from '../db/schemas/project.schema';
 import { LeanUserDocument, User } from '../db/schemas/user.schema';
 import { CustomLogger } from '../logger/logger.service';
@@ -15,6 +15,7 @@ import { CustomLogger } from '../logger/logger.service';
 export class MailService {
   emailConfig: EmailConfig;
   registrationConfig: RegistrationConfig;
+  baseFrontendUrl: string;
   transporter: Transporter;
 
   constructor(
@@ -26,6 +27,7 @@ export class MailService {
     this.emailConfig = this.configService.get<EmailConfig>('email');
     this.registrationConfig =
       this.configService.get<RegistrationConfig>('registration');
+    this.baseFrontendUrl = this.configService.get<string>('baseFrontendUrl');
   }
 
   isActive() {
@@ -60,7 +62,7 @@ export class MailService {
   }
 
   async sendAdminCreateUserMail(
-    createUserDto: CreateUserDto,
+    createUserDto: AdminCreateUserDto,
     password: string,
   ) {
     const emailSubject = '[Melvin] Your Account Has Been Created';
@@ -88,7 +90,6 @@ export class MailService {
 
   async sendPasswordResetMail(user: User, password: string) {
     const emailSubject = '[Melvin] Password Reset';
-
     const emailBody = `Hello ${user.name},
 
     as requested, here is the password for your Melvin account:
@@ -105,12 +106,10 @@ export class MailService {
 
   async sendVerifyEmail(user: User) {
     const emailSubject = '[Melvin] Verify E-Mail';
-
     const emailBody = `Hello ${user.name},
 
     click the following link to verify your Melvin account with your email address:
-    TODO
-    https://melvin.shuffle-projekt.de/verify-email/${user.emailVerificationToken}?email=${user.email}
+     ${this.baseFrontendUrl}/verify-email?token=${user.emailVerificationToken}&email=${user.email}
 
     
     Kind regards
@@ -125,8 +124,7 @@ export class MailService {
 
 
     click the following link to reset your password for your Melvin account:
-    TODO
-    <baseUrl>/${user.emailVerificationToken}?email=${user.email}
+    ${this.baseFrontendUrl}/reset-password?token=${user.emailVerificationToken}&email=${user.email}
 
     Kind regards
     The Melvin Team`;
@@ -140,6 +138,20 @@ export class MailService {
     emails: string[],
   ): Promise<void> {
     this.logger.info(`send invites to ${emails.join(', ')}`);
+
+    // TODO thats not project invite, more melvin account invite
+    // emails.forEach(async (email) => {
+    //   const emailSubject = `[Melvin] You got invited to a project`;
+    //   const emailBody = `Hello,
+
+    //   ${user.name} has invited you to join the project "${project.title}" on Melvin.
+
+    //   Kind regards
+    //   The Melvin Team
+    //   `;
+
+    //   await this._sendMail(email, email, emailSubject, emailBody);
+    // });
   }
 
   async _sendMail(

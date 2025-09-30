@@ -16,9 +16,9 @@ import { AuthLoginResponseDto } from '../auth/dto/auth-login.dto';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { UserRole } from '../user/user.interfaces';
 import { AdminService } from './admin.service';
+import { AdminCreateUserDto } from './dto/admin-create-user.dto';
 import { AdminLoginDto } from './dto/admin-login.dto';
-import { CreateUserDto } from './dto/create-user.dto';
-import { UpdateUserDto } from './dto/update-user.dto';
+import { AdminUpdateUserDto } from './dto/admin-update-user.dto';
 import { ResetPasswordEntity } from './entities/reset-password.entity';
 import { UserEntity, UserListEntity } from './entities/user-list.entity';
 
@@ -34,7 +34,7 @@ export class AdminController {
   @Post('/users')
   @UseGuards(JwtAuthGuard)
   @Roles(UserRole.ADMIN)
-  async createUser(@Body() dto: CreateUserDto): Promise<any> {
+  async createUser(@Body() dto: AdminCreateUserDto): Promise<any> {
     return this.adminService.createUser(dto);
   }
 
@@ -58,7 +58,7 @@ export class AdminController {
   @Roles(UserRole.ADMIN)
   @Patch('/users/:id')
   async updateUser(
-    @Body() dto: UpdateUserDto,
+    @Body() dto: AdminUpdateUserDto,
     @Param('id', IsValidObjectIdPipe) id: string,
   ): Promise<UserEntity> {
     return this.adminService.updateUser(id, dto);
