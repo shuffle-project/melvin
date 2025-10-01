@@ -139,6 +139,53 @@ export class MigrationService {
       await settings.save();
       this.logger.info('Migration to version 7 successful');
     }
+
+    if (settings.dbSchemaVersion < 8) {
+      this.logger.info(
+        'Migrate to version 8 - set isEmailVerified for existing users to true',
+      );
+
+      await this.db.userModel
+        .updateMany({}, { $set: { isEmailVerified: true } })
+        .exec();
+
+      settings.dbSchemaVersion = 8;
+      await settings.save();
+      this.logger.info('Migration to version 8 successful');
+    }
+
+    if (settings.dbSchemaVersion < 9) {
+      this.logger.info(
+        'Migrate to version 9 - add sizeInBytes for videos and audios',
+      );
+
+      const projects = await this.db.projectModel.find();
+      projects.forEach(async (project) => {
+        for (let index = 0; index < project.videos.length; index++) {
+          const video = project.videos[index];
+          const videoSize = await this.ffmpegService._getByteSizeByPrefix(
+            project._id.toString(),
+            video._id.toString(),
+          );
+          video.sizeInBytes = videoSize;
+        }
+
+        for (let index = 0; index < project.audios.length; index++) {
+          const audio = project.audios[index];
+          const audioSize = await this.ffmpegService._getByteSizeByPrefix(
+            project._id.toString(),
+            audio._id.toString(),
+          );
+          audio.sizeInBytes = audioSize;
+        }
+
+        await project.save();
+
+        settings.dbSchemaVersion = 9;
+        await settings.save();
+        this.logger.info('Migration to version 9 successful');
+      });
+    }
   }
 
   private async _migrateReprocessVideos() {

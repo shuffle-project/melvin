@@ -210,8 +210,6 @@ export class AuthService {
 
     if (this.mailService.isActive())
       await this.mailService.sendVerifyEmail(user);
-
-    // TODO: Send email with verificationToken
   }
 
   async sendVerifyEmail(authUser: AuthUser): Promise<void> {
@@ -229,6 +227,7 @@ export class AuthService {
       .exec();
 
     if (!user) {
+      // TODO hier ne andere exception werfen?
       throw new CustomBadRequestException('unkown_verification_token');
     }
 

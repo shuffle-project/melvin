@@ -1,8 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { compare } from 'bcrypt';
-import { readdir, stat } from 'fs/promises';
-import { join } from 'path';
 import {
   AdminUserConfig,
   RegistrationConfig,
@@ -226,13 +224,15 @@ export class AdminService {
       .filter((project) => isSameObjectId((project as Project).createdBy, user))
       .reduce((a, b) => a + (b as Project).duration, 0);
 
-    const projects = await Promise.all(
-      user.projects.map(async (project) => {
-        const size = await this._getProjectSize(project._id.toString());
-        return { project, mbOnDisc: size };
-      }),
-    );
+    const projects = user.projects.map((project) => {
+      const proj = project as Project;
+      const audios = proj.audios.reduce((a, b) => a + (b.sizeInBytes || 0), 0);
+      const videos = proj.videos.reduce((a, b) => a + (b.sizeInBytes || 0), 0);
+      const sizeInByte = audios + videos;
+      return { project, sizeInByte };
+    });
 
+    const sizeInByte = projects.reduce((a, b) => a + b.sizeInByte, 0);
     return {
       id: user._id.toString(),
       email: user.email,
@@ -240,25 +240,8 @@ export class AdminService {
       role: user.role,
       isEmailVerified: user.isEmailVerified,
       projectCount: projects.length,
-      mbOnDisc: projects.reduce((a, b) => a + b.mbOnDisc, 0),
+      sizeInByte,
       accumulatedDuration,
     };
-  }
-
-  private async _getProjectSize(projectId: string) {
-    const projectPath = this.pathService.getProjectDirectory(projectId);
-
-    const projectFiles = await readdir(projectPath);
-
-    const sizes = await Promise.all(
-      projectFiles.map(async (file) => {
-        const fileStats = await stat(join(projectPath, file));
-        if (fileStats.isSymbolicLink()) return 0;
-        return fileStats.size / 1000 / 1000;
-      }),
-    );
-
-    const size = sizes.reduce((a, b) => a + b, 0);
-    return size;
   }
 }

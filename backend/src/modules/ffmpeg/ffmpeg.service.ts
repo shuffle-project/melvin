@@ -3,7 +3,7 @@ import { exec, spawn } from 'child_process';
 import ffmpegPath from 'ffmpeg-static';
 import ffprobePath from 'ffprobe-static';
 import { exists, move } from 'fs-extra';
-import { rm } from 'fs/promises';
+import { readdir, rm, stat } from 'fs/promises';
 import { join } from 'path';
 import { isSameObjectId } from 'src/utils/objectid';
 import { DbService } from '../db/db.service';
@@ -340,7 +340,34 @@ export class FfmpegService {
     if (!project.videos[index].resolutions)
       project.videos[index].resolutions = [];
     project.videos[index].resolutions.push(...resolutions);
+
+    // save project size
+    const size = await this._getByteSizeByPrefix(
+      projectId,
+      video._id.toString(),
+    );
+    project.videos[index].sizeInBytes = size;
+
     await project.save();
+  }
+
+  async _getByteSizeByPrefix(projectId: string, prefix: string) {
+    const projectDir = this.pathService.getProjectDirectory(projectId);
+    const projectDirExists = await exists(projectDir);
+    if (!projectDirExists) {
+      return 0;
+    }
+    const projectreaddir = await readdir(projectDir);
+    const videoFiles = projectreaddir.filter((f) => f.startsWith(prefix));
+    const sizes = await Promise.all(
+      videoFiles.map(async (file) => {
+        const fileStats = await stat(join(projectDir, file));
+        if (fileStats.isSymbolicLink()) return 0;
+        return fileStats.size;
+      }),
+    );
+    const size = sizes.reduce((a, b) => a + b, 0);
+    return size;
   }
 
   /**
@@ -381,6 +408,20 @@ export class FfmpegService {
       audioFilepathStereo,
     ];
     await this.execAsStream(commands);
+
+    const audioSize = await this._getByteSizeByPrefix(
+      projectId,
+      audio._id.toString(),
+    );
+
+    await this.db.projectModel
+      .updateOne(
+        { _id: projectId, 'audios._id': audio._id },
+        { $set: { 'audios.$.sizeInBytes': audioSize } },
+      )
+      .exec();
+
+    const project = await this.db.projectModel.findById(projectId);
   }
 
   async bakeSubtitlesInMp4(

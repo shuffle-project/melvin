@@ -2,13 +2,13 @@ import { ApiProperty } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
 import { UserRole } from 'src/resources/user/user.interfaces';
 
-export class ProjectInformation {
-  @ApiProperty()
-  id: string;
+// export class ProjectInformation {
+//   @ApiProperty()
+//   id: string;
 
-  @ApiProperty()
-  mbOnDisc: number;
-}
+//   @ApiProperty()
+//   sizeInByte: number;
+// }
 
 export class UserEntity {
   @ApiProperty()
@@ -27,7 +27,7 @@ export class UserEntity {
   isEmailVerified: boolean;
 
   @ApiProperty()
-  mbOnDisc: number;
+  sizeInByte: number;
 
   @ApiProperty()
   accumulatedDuration: number;

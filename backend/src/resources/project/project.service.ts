@@ -144,6 +144,7 @@ export class ProjectService {
       status: MediaStatus.WAITING,
       title: 'Main Video',
       resolutions: [],
+      sizeInBytes: 0,
     };
 
     const mainAudio: Audio = {
@@ -153,6 +154,7 @@ export class ProjectService {
       originalFileName: '',
       status: MediaStatus.WAITING,
       title: 'Main Audio',
+      sizeInBytes: 0,
     };
 
     //create project
@@ -742,6 +744,7 @@ export class ProjectService {
       status: MediaStatus.WAITING,
       extension: 'mp4',
       resolutions: [],
+      sizeInBytes: 0,
     };
 
     const updatedProject = await this.db.updateProjectByIdAndReturn(projectId, {
