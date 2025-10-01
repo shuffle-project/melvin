@@ -228,13 +228,17 @@ export class AuthService {
       .findOne({ email: dto.email.toLowerCase() })
       .exec();
 
-    // Unknown verificationToken
-    if (!user || user.emailVerificationToken !== dto.token) {
+    if (!user) {
       throw new CustomBadRequestException('unkown_verification_token');
     }
 
     if (user.isEmailVerified) {
       throw new CustomBadRequestException('email_already_verified');
+    }
+
+    // Unknown verificationToken
+    if (!user || user.emailVerificationToken !== dto.token) {
+      throw new CustomBadRequestException('unkown_verification_token');
     }
 
     const newVerificationToken = generateSecureToken();
