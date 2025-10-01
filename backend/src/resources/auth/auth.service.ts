@@ -233,6 +233,10 @@ export class AuthService {
       throw new CustomBadRequestException('unkown_verification_token');
     }
 
+    if (user.isEmailVerified) {
+      throw new CustomBadRequestException('email_already_verified');
+    }
+
     const newVerificationToken = generateSecureToken();
 
     const newUser = await this.db.userModel.findOneAndUpdate(
