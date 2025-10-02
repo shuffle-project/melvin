@@ -2,17 +2,18 @@
 
 <div class="wrapper">
   <main>
-    <h1>Verify Email</h1>
-    @if (token && email) { @if (loading) {
-    <mat-spinner diameter="50" />
-    } @else { @if (error) {
-    <p>Error. Shit happens</p>
-    } @else {
-    <p i18n="@@verifyEmailSuccessMessage">
-      Thank you for verifying your email address. You can now close this window
-      and log in.
+    <h1 i18n="@@verifyEmailMainTitle">Verify Email</h1>
+    @if (token && email) { @if (error) {
+    <p>
+      {{ error }}
     </p>
-    } } } @else {
+    } @else if (success) {
+    <p i18n="@@verifyEmailSuccessMessage">
+      Thank you for verifying your email address. You can now close this window.
+    </p>
+    } @else {
+    <mat-spinner diameter="50" />
+    } } @else {
     <p i18n="@@verifyEmailNoTokenMessage">
       No token or email provided. Please check the link in your email.
     </p>

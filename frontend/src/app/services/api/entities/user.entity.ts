@@ -14,6 +14,6 @@ export interface UserEntityForAdmin {
   role: UserRole;
   name: string;
   projectCount: number;
-  mbOnDisc: number;
+  sizeInByte: number;
   accumulatedDuration: number;
 }

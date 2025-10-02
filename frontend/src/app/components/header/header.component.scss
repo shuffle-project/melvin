@@ -1,11 +1,35 @@
 header {
-  height: 3.75rem;
+  height: var(--header-height);
   width: 100%;
 
   position: sticky;
   top: 0;
 
   z-index: 2;
+
+  .verify-email-wrapper {
+    padding-inline: 1.25rem;
+    background-color: var(--color-grey);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.0625rem;
+    height: 2.25rem;
+
+    button {
+      border: none;
+      background: none;
+      color: var(--color-primary);
+      text-decoration: underline;
+      cursor: pointer;
+    }
+
+    p {
+      margin: 0;
+      font-size: 0.875rem;
+      color: var(--color-text);
+    }
+  }
 
   .logo {
     margin-right: 0.625rem;

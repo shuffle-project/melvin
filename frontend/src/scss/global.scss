@@ -7,7 +7,15 @@ body {
   margin: 0;
   font-family: Roboto, 'Helvetica Neue', sans-serif;
   background: var(--color-white);
+
+  --header-height: var(--header-height-without-banner);
+
+  &.email-not-verified {
+    --header-height: var(--header-height-with-banner);
+  }
 }
+
+// calc(100% - 3.75rem);
 
 input,
 textarea {

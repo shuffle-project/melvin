@@ -103,13 +103,13 @@
           <th
             mat-header-cell
             *matHeaderCellDef
-            mat-sort-header="mbOnDisc"
+            mat-sort-header="sizeInByte"
             i18n="@@adminTableHeaderTotalFileSize"
           >
             Total File Size
           </th>
           <td mat-cell *matCellDef="let element">
-            {{ element.mbOnDisc * 1_000_000 | fileSize }}
+            {{ element.sizeInByte | fileSize }}
           </td>
         </ng-container>
 

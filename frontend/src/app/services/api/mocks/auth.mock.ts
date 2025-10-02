@@ -9,6 +9,7 @@ const authenticatedUser: AuthUser = {
   aud: '',
   iss: '',
   jti: '',
+  isEmailVerified: true,
 };
 export const AUTH_TOKEN_USER_MOCK = `xxx.${btoa(
   JSON.stringify(authenticatedUser)
@@ -23,6 +24,7 @@ const guestUser: AuthUser = {
   aud: '',
   iss: '',
   jti: '',
+  isEmailVerified: false,
 };
 export const AUTH_TOKEN_GUEST_MOCK = `xxx.${btoa(
   JSON.stringify(authenticatedUser)

@@ -172,5 +172,11 @@ export const authReducer = createReducer(
   on(authActions.userConnectedToWebsocket, (state) => ({
     ...state,
     websocketConnected: true,
+  })),
+
+  // verify email success
+  on(authActions.verifyEmailSuccess, (state, action) => ({
+    ...state,
+    token: action.token,
   }))
 );

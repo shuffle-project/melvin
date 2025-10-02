@@ -278,6 +278,18 @@ export class AuthEffects {
     )
   );
 
+  // verify email success
+  verifyEmailSuccess$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(authActions.verifyEmailSuccess),
+        tap((action) => {
+          this._replaceTokenInStorage(action.token);
+        })
+      ),
+    { dispatch: false }
+  );
+
   guestLoginSuccess$ = createEffect(
     () =>
       this.actions$.pipe(

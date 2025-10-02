@@ -814,4 +814,8 @@ export class RealApiService implements ApiService {
       { skipJwt: true }
     );
   }
+
+  requestVerificationEmail(): Observable<void> {
+    return this._post<void>(`/auth/verify-email/request`, {});
+  }
 }

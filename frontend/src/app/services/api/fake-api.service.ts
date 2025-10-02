@@ -600,4 +600,9 @@ export class FakeApiService implements ApiService {
     this.logger.verbose('verifyEmail mocked');
     return of();
   }
+
+  requestVerificationEmail(): Observable<void> {
+    this.logger.verbose('requestVerificationEmail mocked');
+    return of();
+  }
 }

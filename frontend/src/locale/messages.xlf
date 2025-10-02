@@ -1517,9 +1517,6 @@
       <trans-unit id="registerDialogMainHeading" datatype="html">
         <source>Register</source>
       </trans-unit>
-      <trans-unit id="registerDialogEmailContactInfo" datatype="html">
-        <source> Melvin is currently still in a closed test phase. Would you like to test Melvin? Please contact us at <x id="START_LINK" ctype="x-a" equiv-text="&lt;a href=&quot;mailto:melvin@hdm-stuttgart.de&quot;&gt;"/>melvin@hdm-suttgart.de<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/></source>
-      </trans-unit>
       <trans-unit id="resetPasswordDialogHeading" datatype="html">
         <source>Reset password</source>
       </trans-unit>
@@ -2196,7 +2193,7 @@
         <source> Logout </source>
       </trans-unit>
       <trans-unit id="adminPageTitle" datatype="html">
-        <source>Admin - Melvin</source>
+        <source>Administration - Melvin</source>
       </trans-unit>
       <trans-unit id="adminTableActionDeleteUser" datatype="html">
         <source>Delete User</source>
@@ -2344,6 +2341,72 @@
       </trans-unit>
       <trans-unit id="profileUsernameButtonLabel" datatype="html">
         <source> Change Username </source>
+      </trans-unit>
+      <trans-unit id="headerResendVerificationEmailSuccess" datatype="html">
+        <source>Verification email sent successfully.</source>
+      </trans-unit>
+      <trans-unit id="registerDialogEmailErrorNotValid" datatype="html">
+        <source>Email address is not valid</source>
+      </trans-unit>
+      <trans-unit id="registerDialogEmailErrorRequired" datatype="html">
+        <source>Email is required</source>
+      </trans-unit>
+      <trans-unit id="registerDialogEmailLabel" datatype="html">
+        <source>Email</source>
+      </trans-unit>
+      <trans-unit id="registerDialogNameErrorRequired" datatype="html">
+        <source> Name is required </source>
+      </trans-unit>
+      <trans-unit id="registerDialogNameLabel" datatype="html">
+        <source>Name</source>
+      </trans-unit>
+      <trans-unit id="registerDialogPasswordErrorMinimum" datatype="html">
+        <source>Minimum 6 characters</source>
+      </trans-unit>
+      <trans-unit id="registerDialogPasswordErrorRequired" datatype="html">
+        <source>Password is required</source>
+      </trans-unit>
+      <trans-unit id="registerDialogPasswordLabel" datatype="html">
+        <source>Password</source>
+      </trans-unit>
+      <trans-unit id="registerDialogPasswordRepeatErrorMinimum" datatype="html">
+        <source>Minimum 6 characters</source>
+      </trans-unit>
+      <trans-unit id="registerDialogPasswordRepeatErrorRequired" datatype="html">
+        <source>Password (repeat) is required</source>
+      </trans-unit>
+      <trans-unit id="registerDialogPasswordRepeatLabel" datatype="html">
+        <source>Password (repeat)</source>
+      </trans-unit>
+      <trans-unit id="registerDialogPasswordsNotMatch" datatype="html">
+        <source>Passwords do not match</source>
+      </trans-unit>
+      <trans-unit id="registerDialogPrivacyNotice" datatype="html">
+        <source> We only use your data in accordance with our <x id="START_LINK" ctype="x-a" equiv-text="&lt;a [routerLink]=&quot;privacyUrl&quot; (click)=&quot;onJumpToPrivacy()&quot;&gt;"/>privacy policy<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a &gt;"/>. </source>
+      </trans-unit>
+      <trans-unit id="registerDialogRegisterButtonLabel" datatype="html">
+        <source><x id="START_BLOCK_IF" equiv-text="@if (loading$ | ngrxPush) {"/><x id="START_TAG_MAT_SPINNER" ctype="x-mat_spinner" equiv-text="&lt;mat-spinner strokeWidth=&quot;2&quot; diameter=&quot;20&quot; /&gt;"/><x id="CLOSE_TAG_MAT_SPINNER" ctype="x-mat_spinner" equiv-text="&lt;mat-spinner strokeWidth=&quot;2&quot; diameter=&quot;20&quot; /&gt;"/><x id="CLOSE_BLOCK_IF" equiv-text="}"/> Register </source>
+      </trans-unit>
+      <trans-unit id="resetPasswordPageTitle" datatype="html">
+        <source>Reset Password - Melvin</source>
+      </trans-unit>
+      <trans-unit id="verifyEmailErrorAlreadyVerified" datatype="html">
+        <source>Your email address has already been verified.</source>
+      </trans-unit>
+      <trans-unit id="verifyEmailErrorInvalidLink" datatype="html">
+        <source>Link is invalid.</source>
+      </trans-unit>
+      <trans-unit id="verifyEmailMainTitle" datatype="html">
+        <source>Verify Email</source>
+      </trans-unit>
+      <trans-unit id="verifyEmailNoTokenMessage" datatype="html">
+        <source> No token or email provided. Please check the link in your email. </source>
+      </trans-unit>
+      <trans-unit id="verifyEmailPageTitle" datatype="html">
+        <source>Verify Email - Melvin</source>
+      </trans-unit>
+      <trans-unit id="verifyEmailSuccessMessage" datatype="html">
+        <source> Thank you for verifying your email address. You can now close this window. </source>
       </trans-unit>
     </body>
   </file>

@@ -15,15 +15,15 @@
   </div>
 </div>
 <mat-dialog-content class="dialog-content">
-  <p i18n="@@registerDialogEmailContactInfo" class="register-info">
+  <!-- <p i18n="@@registerDialogEmailContactInfo" class="register-info">
     Melvin is currently still in a closed test phase. Would you like to test
     Melvin? Please contact us at
     <a href="mailto:melvin@hdm-stuttgart.de">melvin&#64;hdm-suttgart.de</a>
-  </p>
+  </p> -->
 
-  <!-- <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+  <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
     <mat-form-field appearance="outline">
-      <mat-icon svgIcon="person" matPrefix></mat-icon>
+      <!-- <mat-icon svgIcon="person" matPrefix></mat-icon> -->
       <mat-label i18n="@@registerDialogNameLabel">Name</mat-label>
       <input
         formControlName="name"
@@ -40,7 +40,7 @@
       }
     </mat-form-field>
     <mat-form-field appearance="outline">
-      <mat-icon svgIcon="email" matPrefix></mat-icon>
+      <!-- <mat-icon svgIcon="email" matPrefix></mat-icon> -->
       <mat-label i18n="@@registerDialogEmailLabel">Email</mat-label>
       <input
         formControlName="email"
@@ -61,7 +61,7 @@
       }
     </mat-form-field>
     <mat-form-field appearance="outline">
-      <mat-icon svgIcon="lock" matPrefix></mat-icon>
+      <!-- <mat-icon svgIcon="lock" matPrefix></mat-icon> -->
       <mat-label i18n="@@registerDialogPasswordLabel">Password</mat-label>
       <input
         formControlName="password"
@@ -83,7 +83,7 @@
       }
     </mat-form-field>
     <mat-form-field appearance="outline">
-      <mat-icon svgIcon="lock" matPrefix></mat-icon>
+      <!-- <mat-icon svgIcon="lock" matPrefix></mat-icon> -->
       <mat-label i18n="@@registerDialogPasswordRepeatLabel"
         >Password (repeat)</mat-label
       >
@@ -126,24 +126,23 @@
       }
     </div>
 
-    // TODO change privacy to new config service variable
     <p class="privacy-info" i18n="@@registerDialogPrivacyNotice">
       We only use your data in accordance with our
-      <a routerLink="/privacy" (click)="onJumpToPrivacy()">privacy policy</a>.
+      <a [routerLink]="privacyUrl" (click)="onJumpToPrivacy()">privacy policy</a
+      >.
     </p>
 
     <button
       mat-flat-button
       type="submit"
       [disabled]="loading$ | ngrxPush"
-     
       class="submit-button"
     >
       <div class="flex items-center" i18n="@@registerDialogRegisterButtonLabel">
         @if (loading$ | ngrxPush) {
-        <mat-spinner strokeWidth="2" diameter="20"  />
+        <mat-spinner strokeWidth="2" diameter="20" />
         } Register
       </div>
     </button>
-  </form> -->
+  </form>
 </mat-dialog-content>

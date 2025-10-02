@@ -1,4 +1,11 @@
 <header>
+  @if (isNotUserEmailVerified$ | ngrxPush;) {
+  <div class="verify-email-wrapper">
+    <p>We have sent you an email to verify your email address.</p>
+    <button (click)="onResendVerificationEmail()">Resend?</button>
+  </div>
+  }
+
   <div *ngrxLet="recentNotifications$ as notifications">
     <div *ngrxLet="totalUnreadNotifications$ as totalUnreadNotifications">
       <mat-toolbar>

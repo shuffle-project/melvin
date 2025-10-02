@@ -61,8 +61,7 @@
 .content-section {
   display: flex;
   flex-direction: column;
-  min-height: calc(100vh - 3.8375rem);
-  // container will be 100% of the viewport -  header
+  min-height: calc(100vh - var(--header-height));
 }
 
 .controls-narrow-viewport {

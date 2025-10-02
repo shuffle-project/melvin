@@ -386,4 +386,6 @@ export abstract class ApiService {
     token: string,
     email: string
   ): Observable<{ token: string }>;
+
+  abstract requestVerificationEmail(): Observable<void>;
 }

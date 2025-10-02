@@ -116,3 +116,9 @@ export const guestLoginError = createAction(
 export const userConnectedToWebsocket = createAction(
   '[WS SERVICE] user successfully connected to Websocket'
 );
+
+// verify email success
+export const verifyEmailSuccess = createAction(
+  '[VERIFY EMAIL COMPONENT] verify email success',
+  props<{ token: string }>()
+);

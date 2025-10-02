@@ -14,4 +14,5 @@ export interface AuthUser {
   aud: string;
   iss: string;
   jti: string;
+  isEmailVerified: boolean;
 }
