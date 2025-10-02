@@ -25,7 +25,7 @@ import { ConfigService } from 'src/app/services/config/config.service';
 import { AppState } from 'src/app/store/app.state';
 import * as authActions from '../../../../../../store/actions/auth.actions';
 import * as authSelectors from '../../../../../../store/selectors/auth.selector';
-
+import * as configSelector from '../../../../../../store/selectors/config.selector';
 @Component({
   selector: 'app-register-dialog',
   imports: [
@@ -48,6 +48,11 @@ export class RegisterDialogComponent implements OnInit, OnDestroy {
 
   privacyUrl = this.configService.getPrivacyUrl();
 
+  public registrationMode$ = this.store.select(
+    configSelector.getRegistrationMode
+  );
+  public registrationMode: 'email' | 'disabled' = 'disabled';
+
   constructor(
     private store: Store<AppState>,
     private dialogRefRegisterDialog: MatDialogRef<RegisterDialogComponent>,
@@ -62,6 +67,10 @@ export class RegisterDialogComponent implements OnInit, OnDestroy {
   error = '';
 
   ngOnInit() {
+    this.registrationMode$.pipe(takeUntil(this.destroy$$)).subscribe((mode) => {
+      this.registrationMode = mode;
+    });
+
     this.formGroup = this.fb.group(
       {
         email: ['', [Validators.required, Validators.email]],

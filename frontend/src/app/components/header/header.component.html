@@ -1,8 +1,15 @@
 <header>
   @if (isNotUserEmailVerified$ | ngrxPush;) {
   <div class="verify-email-wrapper">
-    <p>We have sent you an email to verify your email address.</p>
-    <button (click)="onResendVerificationEmail()">Resend?</button>
+    <p i18n="@@headerEmailVerificationMessage">
+      We have sent you an email to verify your email address.
+    </p>
+    <button
+      (click)="onResendVerificationEmail()"
+      i18n="@@headerResendVerificationEmailButtonLabel"
+    >
+      Resend?
+    </button>
   </div>
   }
 

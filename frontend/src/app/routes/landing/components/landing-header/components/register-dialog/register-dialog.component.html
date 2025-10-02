@@ -8,19 +8,23 @@
       mat-icon-button
       [mat-dialog-close]="true"
       aria-label="Close"
-      i18n-aria-label="@@dialogCloseButton"
+      i18n-aria-label="@@registerDialogCloseButton"
     >
       <mat-icon svgIcon="close" />
     </button>
   </div>
 </div>
 <mat-dialog-content class="dialog-content">
-  <!-- <p i18n="@@registerDialogEmailContactInfo" class="register-info">
-    Melvin is currently still in a closed test phase. Would you like to test
-    Melvin? Please contact us at
-    <a href="mailto:melvin@hdm-stuttgart.de">melvin&#64;hdm-suttgart.de</a>
-  </p> -->
+  @if (registrationMode === 'disabled') {
+  <p class="register-info">
+    <span i18n="@@registerDialogEmailContactInfo">
+      Melvin is currently still in a closed test phase. Would you like to test
+      Melvin? Please contact us at
+    </span>
 
+    <a href="mailto:melvin@hdm-stuttgart.de">melvin&#64;hdm-suttgart.de</a>
+  </p>
+  } @else {
   <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
     <mat-form-field appearance="outline">
       <!-- <mat-icon svgIcon="person" matPrefix></mat-icon> -->
@@ -40,7 +44,6 @@
       }
     </mat-form-field>
     <mat-form-field appearance="outline">
-      <!-- <mat-icon svgIcon="email" matPrefix></mat-icon> -->
       <mat-label i18n="@@registerDialogEmailLabel">Email</mat-label>
       <input
         formControlName="email"
@@ -61,7 +64,6 @@
       }
     </mat-form-field>
     <mat-form-field appearance="outline">
-      <!-- <mat-icon svgIcon="lock" matPrefix></mat-icon> -->
       <mat-label i18n="@@registerDialogPasswordLabel">Password</mat-label>
       <input
         formControlName="password"
@@ -83,7 +85,6 @@
       }
     </mat-form-field>
     <mat-form-field appearance="outline">
-      <!-- <mat-icon svgIcon="lock" matPrefix></mat-icon> -->
       <mat-label i18n="@@registerDialogPasswordRepeatLabel"
         >Password (repeat)</mat-label
       >
@@ -126,9 +127,15 @@
       }
     </div>
 
-    <p class="privacy-info" i18n="@@registerDialogPrivacyNotice">
-      We only use your data in accordance with our
-      <a [routerLink]="privacyUrl" (click)="onJumpToPrivacy()">privacy policy</a
+    <p class="privacy-info">
+      <span i18n="@@registerDialogPrivacyNotice">
+        We only use your data in accordance with our</span
+      >
+      <a
+        [routerLink]="privacyUrl"
+        (click)="onJumpToPrivacy()"
+        i18n="@@registerDialogPrivacyLinkLabel"
+        >privacy policy</a
       >.
     </p>
 
@@ -138,11 +145,13 @@
       [disabled]="loading$ | ngrxPush"
       class="submit-button"
     >
-      <div class="flex items-center" i18n="@@registerDialogRegisterButtonLabel">
+      <div class="flex items-center">
         @if (loading$ | ngrxPush) {
         <mat-spinner strokeWidth="2" diameter="20" />
-        } Register
+        }
+        <span i18n="@@registerDialogRegisterButtonLabel"> Register </span>
       </div>
     </button>
   </form>
+  }
 </mat-dialog-content>

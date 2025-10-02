@@ -31,7 +31,7 @@ export interface ConfigState {
   asrServices: AsrServiceConfig[];
   languages: Language[];
 
-  registrationMode: 'mail' | 'disabled';
+  registrationMode: 'email' | 'disabled';
 }
 export const initialState: ConfigState = {
   language: storage.getFromLocalStorage(

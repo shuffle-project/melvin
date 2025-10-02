@@ -3124,75 +3124,75 @@
       </trans-unit>
       <trans-unit id="verifyEmailPageTitle" datatype="html">
         <source>Verify Email - Melvin</source>
-        <target state="new">Verify Email - Melvin</target>
+        <target state="final">E-Mail verifizieren - Melvin</target>
       </trans-unit>
       <trans-unit id="resetPasswordPageTitle" datatype="html">
         <source>Reset Password - Melvin</source>
-        <target state="new">Reset Password - Melvin</target>
+        <target state="final">Passwort zurücksetzen - Melvin</target>
       </trans-unit>
       <trans-unit id="headerResendVerificationEmailSuccess" datatype="html">
         <source>Verification email sent successfully.</source>
-        <target state="new">Verification email sent successfully.</target>
+        <target state="final">Bestätigungs-E-Mail erfolgreich gesendet.</target>
       </trans-unit>
       <trans-unit id="registerDialogNameLabel" datatype="html">
         <source>Name</source>
-        <target state="new">Name</target>
+        <target state="final">Name</target>
       </trans-unit>
       <trans-unit id="registerDialogNameErrorRequired" datatype="html">
         <source> Name is required </source>
-        <target state="new"> Name is required </target>
+        <target state="final"> Name benötigt </target>
       </trans-unit>
       <trans-unit id="registerDialogEmailLabel" datatype="html">
         <source>Email</source>
-        <target state="new">Email</target>
+        <target state="final">E-Mail</target>
       </trans-unit>
       <trans-unit id="registerDialogEmailErrorNotValid" datatype="html">
         <source>Email address is not valid</source>
-        <target state="new">Email address is not valid</target>
+        <target state="final">E-Mail-Adresse nicht valide</target>
       </trans-unit>
       <trans-unit id="registerDialogEmailErrorRequired" datatype="html">
         <source>Email is required</source>
-        <target state="new">Email is required</target>
+        <target state="final">E-Mail benötigt</target>
       </trans-unit>
       <trans-unit id="registerDialogPasswordLabel" datatype="html">
         <source>Password</source>
-        <target state="new">Password</target>
+        <target state="final">Passwort</target>
       </trans-unit>
       <trans-unit id="registerDialogPasswordErrorMinimum" datatype="html">
         <source>Minimum 6 characters</source>
-        <target state="new">Minimum 6 characters</target>
+        <target state="final">Mindestens 6 Zeichen</target>
       </trans-unit>
       <trans-unit id="registerDialogPasswordErrorRequired" datatype="html">
         <source>Password is required</source>
-        <target state="new">Password is required</target>
+        <target state="final">Passwort benötigt</target>
       </trans-unit>
       <trans-unit id="registerDialogPasswordRepeatLabel" datatype="html">
         <source>Password (repeat)</source>
-        <target state="new">Password (repeat)</target>
+        <target state="final">Passwort (Wiederholung)</target>
       </trans-unit>
       <trans-unit id="registerDialogPasswordRepeatErrorMinimum" datatype="html">
         <source>Minimum 6 characters</source>
-        <target state="new">Minimum 6 characters</target>
+        <target state="final">Mindestens 6 Zeichen</target>
       </trans-unit>
       <trans-unit id="registerDialogPasswordRepeatErrorRequired" datatype="html">
         <source>Password (repeat) is required</source>
-        <target state="new">Password (repeat) is required</target>
+        <target state="final">Passwort (Wiederholung) benötigt</target>
       </trans-unit>
       <trans-unit id="registerDialogPasswordsNotMatch" datatype="html">
         <source>Passwords do not match</source>
-        <target state="new">Passwords do not match</target>
+        <target state="final">Passwörter stimmen nicht überein</target>
       </trans-unit>
       <trans-unit id="registerDialogPrivacyNotice" datatype="html">
-        <source> We only use your data in accordance with our <x id="START_LINK" ctype="x-a" equiv-text="&lt;a [routerLink]=&quot;privacyUrl&quot; (click)=&quot;onJumpToPrivacy()&quot;&gt;"/>privacy policy<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a &gt;"/>. </source>
-        <target state="new"> We only use your data in accordance with our <x id="START_LINK" ctype="x-a" equiv-text="&lt;a [routerLink]=&quot;privacyUrl&quot; (click)=&quot;onJumpToPrivacy()&quot;&gt;"/>privacy policy<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a &gt;"/>. </target>
+        <source> We only use your data in accordance with our</source>
+        <target state="final"> Wir verwenden Ihre Daten nur in Übereinstimmung mit unserer</target>
       </trans-unit>
       <trans-unit id="registerDialogRegisterButtonLabel" datatype="html">
-        <source><x id="START_BLOCK_IF" equiv-text="@if (loading$ | ngrxPush) {"/><x id="START_TAG_MAT_SPINNER" ctype="x-mat_spinner" equiv-text="&lt;mat-spinner strokeWidth=&quot;2&quot; diameter=&quot;20&quot; /&gt;"/><x id="CLOSE_TAG_MAT_SPINNER" ctype="x-mat_spinner" equiv-text="&lt;mat-spinner strokeWidth=&quot;2&quot; diameter=&quot;20&quot; /&gt;"/><x id="CLOSE_BLOCK_IF" equiv-text="}"/> Register </source>
-        <target state="new"><x id="START_BLOCK_IF" equiv-text="@if (loading$ | ngrxPush) {"/><x id="START_TAG_MAT_SPINNER" ctype="x-mat_spinner" equiv-text="&lt;mat-spinner strokeWidth=&quot;2&quot; diameter=&quot;20&quot; /&gt;"/><x id="CLOSE_TAG_MAT_SPINNER" ctype="x-mat_spinner" equiv-text="&lt;mat-spinner strokeWidth=&quot;2&quot; diameter=&quot;20&quot; /&gt;"/><x id="CLOSE_BLOCK_IF" equiv-text="}"/> Register </target>
+        <source> Register </source>
+        <target state="final"> Registrieren </target>
       </trans-unit>
       <trans-unit id="verifyEmailMainTitle" datatype="html">
         <source>Verify Email</source>
-        <target state="final">E-Mail bestätigen</target>
+        <target state="final">E-Mail verifizieren</target>
       </trans-unit>
       <trans-unit id="verifyEmailSuccessMessage" datatype="html">
         <source> Thank you for verifying your email address. You can now close this window. </source>
@@ -3200,7 +3200,7 @@
       </trans-unit>
       <trans-unit id="verifyEmailNoTokenMessage" datatype="html">
         <source> No token or email provided. Please check the link in your email. </source>
-        <target state="new">Kein Token oder keine E-Mail angegeben. Bitte prüfen Sie den Link in Ihrer Bestätigungs-E-Mail.</target>
+        <target state="final">Kein Token oder keine E-Mail angegeben. Bitte prüfen Sie den Link in Ihrer Bestätigungs-E-Mail.</target>
       </trans-unit>
       <trans-unit id="verifyEmailErrorAlreadyVerified" datatype="html">
         <source>Your email address has already been verified.</source>
@@ -3209,6 +3209,26 @@
       <trans-unit id="verifyEmailErrorInvalidLink" datatype="html">
         <source>Link is invalid.</source>
         <target state="final">Link ist ungültigt.</target>
+      </trans-unit>
+      <trans-unit id="headerEmailVerificationMessage" datatype="html">
+        <source> We have sent you an email to verify your email address. </source>
+        <target state="final"> Wir haben Ihnen eine E-Mail gesendet, um Ihre E-Mail-Adresse zu bestätigen. </target>
+      </trans-unit>
+      <trans-unit id="headerResendVerificationEmailButtonLabel" datatype="html">
+        <source> Resend? </source>
+        <target state="final"> Erneut senden? </target>
+      </trans-unit>
+      <trans-unit id="registerDialogCloseButton" datatype="html">
+        <source>Close</source>
+        <target state="final">Schließen</target>
+      </trans-unit>
+      <trans-unit id="registerDialogEmailContactInfo" datatype="html">
+        <source> Melvin is currently still in a closed test phase. Would you like to test Melvin? Please contact us at </source>
+        <target state="final"> Melvin befindet sich derzeit noch in einer geschlossenen Testphase. Möchten Sie Melvin testen? Bitte kontaktieren Sie uns unter </target>
+      </trans-unit>
+      <trans-unit id="registerDialogPrivacyLinkLabel" datatype="html">
+        <source>privacy policy</source>
+        <target state="final">Datenschutzerklärung</target>
       </trans-unit>
     </body>
   </file>

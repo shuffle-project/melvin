@@ -104,9 +104,9 @@ export class HeaderComponent implements OnDestroy, OnInit {
       .pipe(takeUntil(this.destroy$$))
       .subscribe((isNotVerified) => {
         if (isNotVerified) {
-          this.renderer.addClass(this.document.body, 'email-not-verified');
+          this.renderer.addClass(this.document.body, 'banner');
         } else {
-          this.renderer.removeClass(this.document.body, 'email-not-verified');
+          this.renderer.removeClass(this.document.body, 'banner');
         }
       });
 

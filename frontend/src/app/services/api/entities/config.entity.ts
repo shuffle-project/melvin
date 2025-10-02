@@ -4,7 +4,7 @@ export interface ConfigEntity {
   translationServices: TranslationServiceConfig[];
   asrServices: AsrServiceConfig[];
   languages: Language[];
-  registrationMode: 'mail' | 'disabled';
+  registrationMode: 'email' | 'disabled';
 }
 
 export interface TranslationServiceConfig {

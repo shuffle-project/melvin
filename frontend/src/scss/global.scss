@@ -10,7 +10,7 @@ body {
 
   --header-height: var(--header-height-without-banner);
 
-  &.email-not-verified {
+  &.banner {
     --header-height: var(--header-height-with-banner);
   }
 }

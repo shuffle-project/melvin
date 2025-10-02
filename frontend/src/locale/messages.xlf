@@ -2382,10 +2382,10 @@
         <source>Passwords do not match</source>
       </trans-unit>
       <trans-unit id="registerDialogPrivacyNotice" datatype="html">
-        <source> We only use your data in accordance with our <x id="START_LINK" ctype="x-a" equiv-text="&lt;a [routerLink]=&quot;privacyUrl&quot; (click)=&quot;onJumpToPrivacy()&quot;&gt;"/>privacy policy<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a &gt;"/>. </source>
+        <source> We only use your data in accordance with our</source>
       </trans-unit>
       <trans-unit id="registerDialogRegisterButtonLabel" datatype="html">
-        <source><x id="START_BLOCK_IF" equiv-text="@if (loading$ | ngrxPush) {"/><x id="START_TAG_MAT_SPINNER" ctype="x-mat_spinner" equiv-text="&lt;mat-spinner strokeWidth=&quot;2&quot; diameter=&quot;20&quot; /&gt;"/><x id="CLOSE_TAG_MAT_SPINNER" ctype="x-mat_spinner" equiv-text="&lt;mat-spinner strokeWidth=&quot;2&quot; diameter=&quot;20&quot; /&gt;"/><x id="CLOSE_BLOCK_IF" equiv-text="}"/> Register </source>
+        <source> Register </source>
       </trans-unit>
       <trans-unit id="resetPasswordPageTitle" datatype="html">
         <source>Reset Password - Melvin</source>
@@ -2407,6 +2407,21 @@
       </trans-unit>
       <trans-unit id="verifyEmailSuccessMessage" datatype="html">
         <source> Thank you for verifying your email address. You can now close this window. </source>
+      </trans-unit>
+      <trans-unit id="headerEmailVerificationMessage" datatype="html">
+        <source> We have sent you an email to verify your email address. </source>
+      </trans-unit>
+      <trans-unit id="headerResendVerificationEmailButtonLabel" datatype="html">
+        <source> Resend? </source>
+      </trans-unit>
+      <trans-unit id="registerDialogCloseButton" datatype="html">
+        <source>Close</source>
+      </trans-unit>
+      <trans-unit id="registerDialogEmailContactInfo" datatype="html">
+        <source> Melvin is currently still in a closed test phase. Would you like to test Melvin? Please contact us at </source>
+      </trans-unit>
+      <trans-unit id="registerDialogPrivacyLinkLabel" datatype="html">
+        <source>privacy policy</source>
       </trans-unit>
     </body>
   </file>
