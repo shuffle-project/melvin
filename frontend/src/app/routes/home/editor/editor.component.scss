@@ -50,7 +50,7 @@
 
 .sticky {
   position: sticky;
-  top: 4rem;
+  top: var(--header-height);
   padding-bottom: 0.375rem;
   border-bottom: 1px solid var(--color-border-grey);
   z-index: 2;
