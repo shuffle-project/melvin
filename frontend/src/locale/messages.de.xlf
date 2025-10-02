@@ -1568,7 +1568,7 @@
       </trans-unit>
       <trans-unit id="profilePasswordButtonLabel" datatype="html">
         <source> Change Password </source>
-        <target state="new"> Passwort ändern </target>
+        <target state="final"> Passwort ändern </target>
       </trans-unit>
       <trans-unit id="profileSelectLabel" datatype="html">
         <source>Interface language</source>
@@ -2980,7 +2980,7 @@
       </trans-unit>
       <trans-unit id="adminPageTitle" datatype="html">
         <source>Administration - Melvin</source>
-        <target state="new">Administration - Melvin</target>
+        <target state="final">Administration - Melvin</target>
       </trans-unit>
       <trans-unit id="adminUserPasswordNewPasswordLabel" datatype="html">
         <source>New Password</source>
@@ -3103,24 +3103,24 @@
         <target state="final"> Passwort zurücksetzen </target>
       </trans-unit>
       <trans-unit id="dialogChangeUsernameHeader" datatype="html">
-        <source>Change Username</source>
-        <target state="new">Change Username</target>
+        <source>Change Name</source>
+        <target state="final">Name ändern</target>
       </trans-unit>
       <trans-unit id="dialogChangeUsernameCloseButton" datatype="html">
         <source>Close</source>
-        <target state="new">Close</target>
+        <target state="final">Schließen</target>
       </trans-unit>
       <trans-unit id="dialogChangeUsernameLabel" datatype="html">
-        <source>Username</source>
-        <target state="new">Username</target>
+        <source>Name</source>
+        <target state="final">Name</target>
       </trans-unit>
       <trans-unit id="dialogChangeUsernameSubmitButtonLabel" datatype="html">
-        <source> Change Username </source>
-        <target state="new"> Change Username </target>
+        <source> Change Name </source>
+        <target state="final"> Name ändern </target>
       </trans-unit>
       <trans-unit id="profileUsernameButtonLabel" datatype="html">
-        <source> Change Username </source>
-        <target state="new"> Change Username </target>
+        <source> Change Name </source>
+        <target state="final"> Name ändern </target>
       </trans-unit>
       <trans-unit id="verifyEmailPageTitle" datatype="html">
         <source>Verify Email - Melvin</source>
@@ -3199,8 +3199,8 @@
         <target state="final">Vielen Dank, dass Sie Ihre E-Mail-Adresse bestätigt haben. Sie können dieses Fenster nun schließen.</target>
       </trans-unit>
       <trans-unit id="verifyEmailNoTokenMessage" datatype="html">
-        <source> No token or email provided. Please check the link in your verification email. </source>
-        <target state="final">Kein Token oder keine E-Mail angegeben. Bitte prüfen Sie den Link in Ihrer Bestätigungs-E-Mail.</target>
+        <source> No token or email provided. Please check the link in your email. </source>
+        <target state="new">Kein Token oder keine E-Mail angegeben. Bitte prüfen Sie den Link in Ihrer Bestätigungs-E-Mail.</target>
       </trans-unit>
       <trans-unit id="verifyEmailErrorAlreadyVerified" datatype="html">
         <source>Your email address has already been verified.</source>

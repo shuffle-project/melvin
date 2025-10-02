@@ -1,7 +1,7 @@
 <div mat-dialog-title>
   <div class="dialog-header">
     <div>
-      <h1 i18n="@@dialogChangeUsernameHeader">Change Username</h1>
+      <h1 i18n="@@dialogChangeUsernameHeader">Change Name</h1>
     </div>
 
     <button
@@ -18,7 +18,7 @@
 <mat-dialog-content>
   <form [formGroup]="changeUsernameForm">
     <mat-form-field>
-      <mat-label i18n="@@dialogChangeUsernameLabel">Username</mat-label>
+      <mat-label i18n="@@dialogChangeUsernameLabel">Name</mat-label>
       <input matInput type="text" formControlName="username" />
       <!-- @if (changePasswordForm.controls.currentPassword.hasError('required')) {
       <mat-error i18n="@@dialogChangePasswordCurrentPasswordRequiredError">
@@ -36,6 +36,6 @@
     type="submit"
     i18n="@@dialogChangeUsernameSubmitButtonLabel"
   >
-    Change Username
+    Change Name
   </button>
 </mat-dialog-actions>

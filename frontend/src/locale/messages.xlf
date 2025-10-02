@@ -2331,16 +2331,16 @@
         <source>Close</source>
       </trans-unit>
       <trans-unit id="dialogChangeUsernameHeader" datatype="html">
-        <source>Change Username</source>
+        <source>Change Name</source>
       </trans-unit>
       <trans-unit id="dialogChangeUsernameLabel" datatype="html">
-        <source>Username</source>
+        <source>Name</source>
       </trans-unit>
       <trans-unit id="dialogChangeUsernameSubmitButtonLabel" datatype="html">
-        <source> Change Username </source>
+        <source> Change Name </source>
       </trans-unit>
       <trans-unit id="profileUsernameButtonLabel" datatype="html">
-        <source> Change Username </source>
+        <source> Change Name </source>
       </trans-unit>
       <trans-unit id="headerResendVerificationEmailSuccess" datatype="html">
         <source>Verification email sent successfully.</source>
