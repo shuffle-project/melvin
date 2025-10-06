@@ -424,6 +424,10 @@ export class AuthService {
       .findOne({ email: dto.email.toLowerCase() })
       .exec();
 
+    if (!user) {
+      throw new CustomBadRequestException('user_not_found');
+    }
+
     if (!user.emailVerificationToken) {
       const newtoken = generateSecureToken();
       user = await this.db.userModel

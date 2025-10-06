@@ -27,6 +27,7 @@ import { CreateSpeakersDto } from './dto/create-speakers.dto';
 import { CreateTranscriptionDto } from './dto/create-transcription.dto';
 import { PauseLivestreamDto } from './dto/pause-livestream.dto';
 import { PauseRecordingDto } from './dto/pause-recording,dto';
+import { ResetPasswordDto } from './dto/reset-password.dto';
 import { ResumeLivestreamDto } from './dto/resume-livestream.dto';
 import { ResumeRecordingDto } from './dto/resume-recording.dto';
 import { StartLivestreamDto } from './dto/start-livestream.dto';
@@ -817,5 +818,21 @@ export class RealApiService implements ApiService {
 
   requestVerificationEmail(): Observable<void> {
     return this._post<void>(`/auth/verify-email/request`, {});
+  }
+
+  requestResetPassword(email: string): Observable<void> {
+    return this._post<void>(
+      `/auth/reset-password/request`,
+      { email },
+      { skipJwt: true }
+    );
+  }
+
+  resetPassword(resetPasswordDto: ResetPasswordDto): Observable<void> {
+    return this._post<void>(
+      `/auth/reset-password/confirm`,
+      { ...resetPasswordDto },
+      { skipJwt: true }
+    );
   }
 }

@@ -24,6 +24,7 @@ import { CreateSpeakersDto } from './dto/create-speakers.dto';
 import { CreateTranscriptionDto } from './dto/create-transcription.dto';
 import { PauseLivestreamDto } from './dto/pause-livestream.dto';
 import { PauseRecordingDto } from './dto/pause-recording,dto';
+import { ResetPasswordDto } from './dto/reset-password.dto';
 import { ResumeLivestreamDto } from './dto/resume-livestream.dto';
 import { ResumeRecordingDto } from './dto/resume-recording.dto';
 import { StartLivestreamDto } from './dto/start-livestream.dto';
@@ -603,6 +604,13 @@ export class FakeApiService implements ApiService {
 
   requestVerificationEmail(): Observable<void> {
     this.logger.verbose('requestVerificationEmail mocked');
+    return of();
+  }
+
+  requestResetPassword(email: string): Observable<void> {
+    return of();
+  }
+  resetPassword(resetPasswordDto: ResetPasswordDto): Observable<void> {
     return of();
   }
 }
