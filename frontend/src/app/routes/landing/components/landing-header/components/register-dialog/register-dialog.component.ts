@@ -47,6 +47,7 @@ export class RegisterDialogComponent implements OnInit, OnDestroy {
   private destroy$$ = new Subject<void>();
 
   privacyUrl = this.configService.getPrivacyUrl();
+  contactEmail = this.configService.getContactEmail();
 
   public registrationMode$ = this.store.select(
     configSelector.getRegistrationMode

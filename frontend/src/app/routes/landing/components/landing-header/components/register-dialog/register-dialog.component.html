@@ -18,11 +18,12 @@
   @if (registrationMode === 'disabled') {
   <p class="register-info">
     <span i18n="@@registerDialogEmailContactInfo">
+      <!-- TODO change text to be more generic -->
       Melvin is currently still in a closed test phase. Would you like to test
       Melvin? Please contact us at
     </span>
 
-    <a href="mailto:melvin@hdm-stuttgart.de">melvin&#64;hdm-suttgart.de</a>
+    <a href="mailto:{{ contactEmail }}">{{ contactEmail }}</a>
   </p>
   } @else {
   <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
