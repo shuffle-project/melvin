@@ -18,7 +18,7 @@ import { AppState } from '../../../../store/app.state';
 import * as projectsSelector from '../../../../store/selectors/projects.selector';
 
 import { LiveAnnouncer } from '@angular/cdk/a11y';
-import { CommonModule } from '@angular/common';
+
 import { MatButtonModule } from '@angular/material/button';
 import { MatOptionModule } from '@angular/material/core';
 import { MatDividerModule } from '@angular/material/divider';
@@ -64,13 +64,12 @@ interface FileUpload {
     PushPipe,
     MediaCategoryPipe,
     FormatDatePipe,
-    CommonModule,
     MatTableModule,
     MatMenuModule,
     MatDividerModule,
     UploadProgressComponent,
-    UploadAreaComponent,
-  ],
+    UploadAreaComponent
+],
 })
 export class UploadAdditionalContentComponent implements OnInit {
   dataSource = new MatTableDataSource();

@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import {
   Component,
   EventEmitter,
@@ -33,7 +33,6 @@ import { CreateTranscriptionDialogComponent } from '../../../create-transcriptio
 @Component({
   selector: 'app-upload-transcription',
   imports: [
-    CommonModule,
     MatFormFieldModule,
     MatSelectModule,
     ReactiveFormsModule,
@@ -42,8 +41,8 @@ import { CreateTranscriptionDialogComponent } from '../../../create-transcriptio
     MatButtonModule,
     MatProgressBarModule,
     UploadProgressComponent,
-    UploadAreaComponent,
-  ],
+    UploadAreaComponent
+],
   templateUrl: './upload-transcription.component.html',
   styleUrl: './upload-transcription.component.scss',
 })

@@ -112,7 +112,7 @@ export const CustomWord = (injector: Injector) => {
 
       if (start != undefined && end != undefined) {
         const timeStart = Math.floor(start / 1000);
-        const timeEnd = Math.floor(end / 1000 ?? start);
+        const timeEnd = Math.floor(end / 1000);
         const classes = new Array(timeEnd - timeStart + 1)
           .fill(0)
           .map((_, i) => `time-${timeStart + i}`);

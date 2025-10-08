@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component, inject } from '@angular/core';
 import {
   FormControl,
@@ -23,15 +23,14 @@ import { CreateTranscriptionDialogComponent } from '../../../create-transcriptio
 @Component({
     selector: 'app-empty-file-transcription',
     imports: [
-        CommonModule,
-        MatFormFieldModule,
-        MatInputModule,
-        MatSelectModule,
-        MatButtonModule,
-        MatIconModule,
-        WrittenOutLanguagePipe,
-        ReactiveFormsModule,
-    ],
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+    MatButtonModule,
+    MatIconModule,
+    WrittenOutLanguagePipe,
+    ReactiveFormsModule
+],
     templateUrl: './empty-file-transcription.component.html',
     styleUrl: './empty-file-transcription.component.scss'
 })

@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import {
   Component,
   ElementRef,
@@ -25,12 +25,11 @@ import { EditSpeakerModalComponent } from './edit-speaker-modal/edit-speaker-mod
   imports: [
     NgxTiptapModule,
     MatMenuModule,
-    CommonModule,
     MatIconModule,
     MatDividerModule,
     MatButtonModule,
-    EditSpeakerModalComponent,
-  ],
+    EditSpeakerModalComponent
+],
   templateUrl: './tiptap-paragraph.component.html',
   styleUrl: './tiptap-paragraph.component.scss',
 })

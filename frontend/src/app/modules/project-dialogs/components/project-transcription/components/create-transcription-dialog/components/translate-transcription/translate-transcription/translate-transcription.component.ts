@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component, Input, OnDestroy, inject } from '@angular/core';
 import {
   FormControl,
@@ -29,7 +29,6 @@ import { CreateTranscriptionDialogComponent } from '../../../create-transcriptio
 @Component({
   selector: 'app-translate-transcription',
   imports: [
-    CommonModule,
     MatFormFieldModule,
     MatSelectModule,
     ReactiveFormsModule,
@@ -38,8 +37,8 @@ import { CreateTranscriptionDialogComponent } from '../../../create-transcriptio
     WrittenOutLanguagePipe,
     MatButtonModule,
     MatIconModule,
-    LanguageAutocompleteComponent,
-  ],
+    LanguageAutocompleteComponent
+],
   templateUrl: './translate-transcription.component.html',
   styleUrl: './translate-transcription.component.scss',
 })

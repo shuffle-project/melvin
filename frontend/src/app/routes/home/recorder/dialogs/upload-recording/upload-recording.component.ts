@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, Inject, OnInit } from '@angular/core';
 import {
@@ -37,7 +37,6 @@ import { Recording } from '../../recorder.interfaces';
 @Component({
   selector: 'app-upload-recording',
   imports: [
-    CommonModule,
     MatDialogModule,
     MatButtonModule,
     MatProgressBarModule,
@@ -46,8 +45,8 @@ import { Recording } from '../../recorder.interfaces';
     MatSelectModule,
     ReactiveFormsModule,
     UploadProgressComponent,
-    MatProgressSpinnerModule,
-  ],
+    MatProgressSpinnerModule
+],
   templateUrl: './upload-recording.component.html',
   styleUrl: './upload-recording.component.scss',
 })
