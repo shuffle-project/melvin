@@ -5,9 +5,10 @@
 }
 
 .box {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
   padding: 1.25rem 0;
+  width: 100%;
 }
 
 .heading-wrapper {
