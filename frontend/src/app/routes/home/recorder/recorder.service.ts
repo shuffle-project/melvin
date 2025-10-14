@@ -121,7 +121,6 @@ export class RecorderService {
       recording.mediaRecorder.stop();
     });
 
-    // TODO
     this.dialog.open(UploadRecordingComponent, {
       data: { title, recordings: this.recordings },
       width: '100%',
@@ -136,7 +135,7 @@ export class RecorderService {
     this.recordingTimestamp = Date.now();
 
     // cleanup;
-    this.recordings = []; // TODO
+    this.recordings = [];
 
     // build main audio + video
 

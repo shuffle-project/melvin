@@ -172,8 +172,6 @@ export class PlayerComponent implements OnDestroy, AfterViewInit, OnInit {
       this.playingAudio = mp3;
     } else if (this.media.audios.length > 0) {
       this.playingAudio = this.media.audios[0];
-    } else {
-      // TODO
     }
   }
 

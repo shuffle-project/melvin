@@ -33,7 +33,7 @@ export const findAllSuccess = createAction(
 );
 
 export const findAllFail = createAction(
-  '[todo] Fetch all Transcriptions of Project fail',
+  '[TRANSCRIPTION EFFECTS] Fetch all Transcriptions of Project fail',
   props<{ error: HttpErrorResponse }>()
 );
 

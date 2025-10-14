@@ -20,14 +20,10 @@
   height: 100%;
   max-height: 100%;
 
-  // TODO set max-height
-
   .main-video-container {
     display: flex;
     position: relative;
     max-height: 100%;
-
-    // min-height: 60vh; // TODO min viewport height of video container adjust here
   }
 
   .inner-resizer-wrapper {

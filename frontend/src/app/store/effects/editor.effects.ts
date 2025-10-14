@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { catchError, map, of, switchMap, tap, withLatestFrom } from 'rxjs';
+import { AlertService } from 'src/app/services/alert/alert.service';
 import { ApiService } from '../../services/api/api.service';
 import { StorageKey } from '../../services/storage/storage-key.enum';
 import { StorageService } from '../../services/storage/storage.service';
@@ -19,7 +20,8 @@ export class EditorEffects {
     private storageService: StorageService,
     private api: ApiService,
     private store: Store<AppState>,
-    private httpClient: HttpClient
+    private httpClient: HttpClient,
+    private alertService: AlertService
   ) {}
 
   changeVolume$ = createEffect(
@@ -74,8 +76,8 @@ export class EditorEffects {
       switchMap((action) =>
         this.api.findOneProject(action.projectId).pipe(
           map((project) => editorActions.findProjectSuccess({ project })),
-          catchError(
-            (errorRes) => of(editorActions.findProjectFail({ error: errorRes })) // TODO
+          catchError((errorRes) =>
+            of(editorActions.findProjectFail({ error: errorRes }))
           )
         )
       )
@@ -92,9 +94,8 @@ export class EditorEffects {
       switchMap((action) =>
         this.api.findProjectMediaEntity(action.projectId).pipe(
           map((media) => editorActions.findProjectMediaSuccess({ media })),
-          catchError(
-            (errorRes) =>
-              of(editorActions.findProjectMediaFail({ error: errorRes })) // TODO
+          catchError((errorRes) =>
+            of(editorActions.findProjectMediaFail({ error: errorRes }))
           )
         )
       )
@@ -107,32 +108,42 @@ export class EditorEffects {
       switchMap((action) =>
         this.api.deleteMedia(action.projectId, action.mediaId).pipe(
           map((media) => editorActions.deleteProjectMediaSuccess({ media })),
-          catchError(
-            (errorRes) =>
-              of(editorActions.deleteProjectMediaFail({ error: errorRes })) // TODO
+          catchError((errorRes) =>
+            of(editorActions.deleteProjectMediaFail({ error: errorRes }))
           )
         )
       )
     )
   );
 
-  // this.httpClient.get(action.media.audios[0].waveform)
+  notifyOnError$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(
+          editorActions.getWaveformFail,
+          editorActions.findProjectFail,
+          editorActions.findProjectMediaFail,
+          editorActions.deleteProjectMediaFail
+        ),
+        tap((action) =>
+          this.alertService.error(
+            action.error.error?.message || action.error.message
+          )
+        )
+      ),
+    { dispatch: false }
+  );
 
   getWaveform$ = createEffect(() =>
     this.actions$.pipe(
       ofType(editorActions.findProjectMediaSuccess),
-      // TODO maybe this should not happen every time after fetching the mediaEntity
-      // and choosing the audio somewhere is at some point necessary
       switchMap((action) =>
-        this.api
-          .getWaveformData(action.media.audios[0].waveform)
-          // this.httpClient.get<WaveformData>(action.media.audios[0].waveform)
-          .pipe(
-            map((data) => editorActions.getWaveformSuccess(data)),
-            catchError((errorRes) =>
-              of(editorActions.getWaveformFail({ error: errorRes }))
-            )
+        this.api.getWaveformData(action.media.audios[0].waveform).pipe(
+          map((data) => editorActions.getWaveformSuccess(data)),
+          catchError((errorRes) =>
+            of(editorActions.getWaveformFail({ error: errorRes }))
           )
+        )
       )
     )
   );

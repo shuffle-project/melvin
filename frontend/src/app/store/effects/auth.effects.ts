@@ -50,7 +50,6 @@ export class AuthEffects {
           null
         );
 
-        // TODO hier den call um die config abzurufen
         if (!token) {
           return authActions.initSuccess({ token: null });
         }

@@ -68,8 +68,8 @@ interface FileUpload {
     MatMenuModule,
     MatDividerModule,
     UploadProgressComponent,
-    UploadAreaComponent
-],
+    UploadAreaComponent,
+  ],
 })
 export class UploadAdditionalContentComponent implements OnInit {
   dataSource = new MatTableDataSource();
@@ -159,10 +159,8 @@ export class UploadAdditionalContentComponent implements OnInit {
 
     try {
       await uploadHandler.start();
-      // TODO use createAdditionalVideo everywhere
       await lastValueFrom(
         this.api.createAdditionalVideo(this.projectId, {
-          title: '', // TODO make it optional
           category,
           uploadId: uploadHandler.progress$.value.uploadId!,
           recorder: false,

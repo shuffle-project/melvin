@@ -192,7 +192,7 @@ export class EditorComponent implements OnInit, OnDestroy {
       .subscribe();
 
     this.isLiveMode$.pipe(takeUntil(this.destroy$$)).subscribe((isLive) => {
-      // TODO remove
+      // TODO live remove
       if (isLive != null) {
         this.showWaveform = false;
         setTimeout(() => {

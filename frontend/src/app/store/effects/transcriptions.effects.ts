@@ -202,7 +202,6 @@ export class TranscriptionsEffects {
             .downloadSubtitles(action.transcriptionId, action.format)
             .pipe(
               map((res) => {
-                //TODO
                 const file = new window.Blob([res]);
 
                 const downloadAncher = document.createElement('a');

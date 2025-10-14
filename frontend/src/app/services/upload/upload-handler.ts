@@ -48,10 +48,11 @@ export class UploadHandler {
         uploadId: uploadEntity.id,
       });
     } catch (error) {
+      // TODO Show error in ui
       this.progress$.next({
         ...this.progress$.value,
         status: 'failed',
-        error: 'failed to create upload', // TODO
+        error: 'failed to create upload',
       });
       throw error;
     }
@@ -69,8 +70,6 @@ export class UploadHandler {
       const chunk = this.file.slice(from, to);
       console.log('from: ' + from + ' to: ' + to);
 
-      // TODO retry backoff
-      // if failes -> retry -> fail again -> retry after 5 seconods
       try {
         await lastValueFrom(
           this.api.updateUpload(uploadEntity.id, chunk).pipe(
@@ -103,7 +102,7 @@ export class UploadHandler {
         this.progress$.next({
           ...this.progress$.value,
           status: 'failed',
-          error: 'failed to upload', // TODO
+          error: 'failed to upload',
         });
         throw error;
       }

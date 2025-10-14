@@ -1,4 +1,3 @@
-
 import {
   Component,
   EventEmitter,
@@ -41,8 +40,8 @@ import { CreateTranscriptionDialogComponent } from '../../../create-transcriptio
     MatButtonModule,
     MatProgressBarModule,
     UploadProgressComponent,
-    UploadAreaComponent
-],
+    UploadAreaComponent,
+  ],
   templateUrl: './upload-transcription.component.html',
   styleUrl: './upload-transcription.component.scss',
 })
@@ -131,7 +130,8 @@ export class UploadTranscriptionComponent implements OnInit, OnDestroy {
       })
     );
 
-    // TODO
+    // TODO: error handling before closing the dialog
+
     this.dialogRef.close();
 
     this.loading = false;

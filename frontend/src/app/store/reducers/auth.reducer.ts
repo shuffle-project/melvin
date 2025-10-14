@@ -21,9 +21,6 @@ export interface AuthState {
   registerError: string | null;
   registerSuccess: boolean;
 
-  // TODO: Password Reset
-
-  // TODO: Invite-Link / Guest-Login
   inviteLoading: boolean;
   inviteError: string | null;
   inviteEntity: InviteEntity | null;

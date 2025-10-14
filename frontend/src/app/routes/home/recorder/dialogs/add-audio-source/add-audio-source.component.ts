@@ -17,19 +17,19 @@ import { AudioSource } from '../../recorder.interfaces';
 import { RecorderService } from '../../recorder.service';
 
 @Component({
-    selector: 'app-add-audio-source',
-    templateUrl: './add-audio-source.component.html',
-    styleUrls: ['./add-audio-source.component.scss'],
-    imports: [
-        AudioMeterComponent,
-        MatIconModule,
-        MatDialogModule,
-        MatButtonModule,
-        MatSelectModule,
-        FormsModule,
-        MatInputModule,
-        MatProgressSpinnerModule,
-    ]
+  selector: 'app-add-audio-source',
+  templateUrl: './add-audio-source.component.html',
+  styleUrls: ['./add-audio-source.component.scss'],
+  imports: [
+    AudioMeterComponent,
+    MatIconModule,
+    MatDialogModule,
+    MatButtonModule,
+    MatSelectModule,
+    FormsModule,
+    MatInputModule,
+    MatProgressSpinnerModule,
+  ],
 })
 export class AddAudioSourceComponent implements OnInit, OnDestroy {
   private destroy$$ = new Subject<void>();
@@ -92,7 +92,6 @@ export class AddAudioSourceComponent implements OnInit, OnDestroy {
       this.currentInput = this.audioinputs[0];
       await this.resetAudioSource(this.audioinputs[0]);
     } else {
-      // TODO permissions ? keine geräte ? show error
       this.loadingError =
         'Es konnten keine Videogeräte gefunden werden. Entweder sind keine Berechtigungen gesetzt oder ist kein Audiogerät angeschlossen!';
     }

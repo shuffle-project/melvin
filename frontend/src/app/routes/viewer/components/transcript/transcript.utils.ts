@@ -28,7 +28,6 @@ export function generateTranscript(captions: TiptapCaption[]) {
     const wayTooLong = tempCurrentTextLength > 1000;
 
     if (speakerChange || captionAtIndex.startParagraph) {
-      //  TODO: old -> || tooLongAndSentenceFinished || wayTooLong
       // speaker change or sentence finished/caption too long -> new Paragraph
       finalTranscriptParagraphs.push(tempTranscriptParagraph);
       tempTranscriptParagraph = [captionAtIndex];

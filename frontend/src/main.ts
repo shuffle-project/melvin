@@ -12,7 +12,6 @@ import {
 } from '@angular/common/http';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { BrowserModule, bootstrapApplication } from '@angular/platform-browser';
-import { provideAnimations } from '@angular/platform-browser/animations';
 import {
   provideRouter,
   withComponentInputBinding,
@@ -79,7 +78,6 @@ bootstrapApplication(AppComponent, {
       // logOnly: environment.production,
       connectInZone: true,
     }),
-    provideAnimations(),
     provideHttpClient(withInterceptorsFromDi()),
 
     // moved form shared module
@@ -89,7 +87,6 @@ bootstrapApplication(AppComponent, {
     },
 
     // Provide pipes
-    // TODO as an alternative to this we could make pipes injectable providedin root
     DurationPipe,
     ProjectStatusPipe,
     FormatDatePipe,

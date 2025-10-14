@@ -1,12 +1,11 @@
-
 import {
   Component,
+  DOCUMENT,
   ElementRef,
   Inject,
   OnDestroy,
   OnInit,
   ViewChild,
-  DOCUMENT
 } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -62,7 +61,7 @@ export class VideoPlayerComponent implements OnInit, OnDestroy {
 
   public media$ = this.store.select(editorSelectors.selectMedia);
 
-  // todo choose audio
+  // take fist audio -> only one supported for now
   public playingAudio$ = this.media$.pipe(map((media) => media?.audios[0]));
 
   public duration$ = this.store.select(editorSelectors.selectDuration);

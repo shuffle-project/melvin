@@ -22,14 +22,13 @@ export class ConfigEffects {
   fetchConfig = createEffect(() =>
     this.actions$.pipe(
       ofType(configActions.fetch),
-      mergeMap(
-        () =>
-          this.api.getConfig().pipe(
-            map((resData) => {
-              return configActions.fetchSuccess({ configEntity: resData });
-            }),
-            catchError((error) => of(configActions.fetchFailed({ error })))
-          ) //TODO further error handling
+      mergeMap(() =>
+        this.api.getConfig().pipe(
+          map((resData) => {
+            return configActions.fetchSuccess({ configEntity: resData });
+          }),
+          catchError((error) => of(configActions.fetchFailed({ error })))
+        )
       )
     )
   );
@@ -44,62 +43,6 @@ export class ConfigEffects {
       ),
     { dispatch: false }
   );
-
-  // changeLanguageFromUrl$ = createEffect(
-  //   () =>
-  //     this.store.select(routerSelectors.selectUrl).pipe(
-  //       withLatestFrom(this.store.select(language)),
-  //       tap(([url, language]) => {
-  //         console.log('====================');
-  //         console.log(url, language);
-  //         $localize.locale;
-  //         if (!url) return;
-
-  //         const languageInUrl = url.split('/')[0];
-  //         if (languageInUrl === language) return;
-
-  //         const availableLanguages: string[] = [
-  //           PageLanguage.DE_DE,
-  //           PageLanguage.EN_US,
-  //         ];
-  //         if (!availableLanguages.includes(languageInUrl)) return;
-
-  //         this.store.dispatch(
-  //           configActions.changeLanguage({
-  //             language: languageInUrl as PageLanguage,
-  //           })
-  //         );
-  //       })
-  //     ),
-  //   { dispatch: false }
-  // );
-
-  // changeLanguage$ = createEffect(
-  //   () =>
-  //     this.actions$.pipe(
-  //       ofType(configActions.changeLanguage),
-  //       tap((action) => {
-  //         this.storageService.storeInLocalStorage(
-  //           StorageKey.LANGUAGE_SETTING,
-  //           action.language
-  //         );
-
-  //         switch (action.language) {
-  //           case PageLanguage.DE_DE:
-  //             dayjs.locale('de');
-  //             break;
-  //           case PageLanguage.EN_US:
-  //             dayjs.locale('en');
-  //             break;
-
-  //           default:
-  //             dayjs.locale('en');
-  //             break;
-  //         }
-  //       })
-  //     ),
-  //   { dispatch: false }
-  // );
 
   toggleColorTheme$ = createEffect(
     () =>

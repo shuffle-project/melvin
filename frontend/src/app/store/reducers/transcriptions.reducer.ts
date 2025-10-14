@@ -1,7 +1,6 @@
 import { createReducer, on } from '@ngrx/store';
 import { TranscriptionEntity } from '../../services/api/entities/transcription.entity';
 import * as transcriptionsActions from '../actions/transcriptions.actions';
-import { A } from '@angular/cdk/keycodes';
 
 export interface TranscriptionsState {
   transcriptionsList: TranscriptionEntity[];
@@ -15,7 +14,6 @@ export const initialState: TranscriptionsState = {
   loading: false,
 };
 
-// TODO Listen/ Add functions to all the __fail actions
 export const transcriptionsReducer = createReducer(
   initialState,
   on(

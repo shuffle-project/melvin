@@ -58,7 +58,6 @@ export class ProfileComponent implements OnInit {
   ) {}
 
   onLanguageSwitched(event: MatSelectChange) {
-    // TODO
     document.location.href = `${this.configService.getFrontendBaseUrl()}/${
       event.value
     }/home/profile`;

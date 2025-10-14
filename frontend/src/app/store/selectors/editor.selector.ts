@@ -90,19 +90,12 @@ export const selectActiveUsers = createSelector(
           (user) => user.id === activeUser.userId
         );
 
-        // TODO move "loading user" to backend
-        // refactor interfaces EditorUser / activeEditorUser etc.
-
         // if project is not yet loaded, show a "Load..."- placeholder instead
         return userEntity
           ? {
               ...userEntity,
               clientId: activeUser.clientId,
               color: activeUser.color,
-              // color:
-              // authUserId === activeUser.id
-              //   ? EditorUserColor.PRIMARY
-              //   : activeUser.color,
             }
           : EDITOR_USER_LOADING;
       });

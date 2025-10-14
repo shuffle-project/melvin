@@ -172,19 +172,21 @@ export class InviteCollaboratorsTabComponent implements OnInit, OnDestroy {
       this.userControl.markAsDirty();
       this.userControl.markAllAsTouched();
     } else {
-      // TODO: handle error
-      const res = await lastValueFrom(
-        this.apiService.invite(this.projectId, [this.userControl.value])
-      );
+      try {
+        const res = await lastValueFrom(
+          this.apiService.invite(this.projectId, [this.userControl.value])
+        );
 
-      this.alertService.success(this.userControl.value + ' invited.');
-      this.inviteResult.nativeElement.innerText =
-        this.userControl.value + ' invited.';
+        this.alertService.success(this.userControl.value + ' invited.');
+        this.inviteResult.nativeElement.innerText =
+          this.userControl.value + ' invited.';
 
-      this.userControl.reset();
-      this.userControl.setErrors([]);
-      // this.userControl.markAsUntouched();
-      // this.userControl.updateValueAndValidity();
+        this.userControl.reset();
+        this.userControl.setErrors([]);
+      } catch (err: unknown) {
+        // TODO: handle error
+        console.log(err);
+      }
     }
   }
 
@@ -203,7 +205,9 @@ export class InviteCollaboratorsTabComponent implements OnInit, OnDestroy {
         $localize`:@@inviteCollaboratorNewLinkSuccess:New link generated`
       );
     } catch (err: unknown) {
-      //TODO handle error
+      this.alertService.error(
+        $localize`:@@inviteCollaboratorNewLinkError:Error during link generation, try again later.`
+      );
       console.error(err);
     }
   }
@@ -225,8 +229,11 @@ export class InviteCollaboratorsTabComponent implements OnInit, OnDestroy {
         this.apiService.removeUserFromProject(this.projectId, user.id)
       );
     } catch (err: unknown) {
-      // TODO handle error
+      this.alertService.error(
+        $localize`:@@inviteCollaboratorRemoveUserFromProject:Error while removing from project, try again later.`
+      );
       this.error = (err as HttpErrorResponse).message;
+      console.log(this.error);
     }
   }
 }

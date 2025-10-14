@@ -70,8 +70,6 @@ export class DialogChangeUsernameComponent implements OnDestroy {
 
     const updateUser = await firstValueFrom(this.api.updateUser(dto));
 
-    // this.store.dispatch();
-    // TODO refresh token
     this.store.dispatch(authActions.refreshToken());
 
     this.dialogRef.close();

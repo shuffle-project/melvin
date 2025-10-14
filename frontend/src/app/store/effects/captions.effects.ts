@@ -69,14 +69,13 @@ export class CaptionsEffects {
         transcriptionsActions.selectFromViewer,
         captionsActions.findAllFromEffect
       ),
-      mergeMap(
-        (action) =>
-          this.api.findAllCaptions(action.transcriptionId).pipe(
-            map((captionListEntity: CaptionListEntity) =>
-              captionsActions.findAllSuccess({ captionListEntity })
-            ),
-            catchError((error) => of(captionsActions.findAllFail({ error })))
-          ) //todo further error handling
+      mergeMap((action) =>
+        this.api.findAllCaptions(action.transcriptionId).pipe(
+          map((captionListEntity: CaptionListEntity) =>
+            captionsActions.findAllSuccess({ captionListEntity })
+          ),
+          catchError((error) => of(captionsActions.findAllFail({ error })))
+        )
       )
     )
   );
@@ -88,22 +87,21 @@ export class CaptionsEffects {
         this.store.select(selectTranscriptionId),
         this.store.select(selectAvailableSpeakers)
       ),
-      mergeMap(
-        ([action, transcriptionId, speakers]) =>
-          this.api
-            .createCaption({
-              start: 0,
-              end: 30000,
-              text: 'First caption!',
-              transcription: transcriptionId,
-              speakerId: speakers[0].id,
-            })
-            .pipe(
-              map((newCaption) => {
-                return captionsActions.createSuccess({ newCaption });
-              }),
-              catchError((error) => of(captionsActions.createFailed({ error })))
-            ) //TODO further error handling
+      mergeMap(([action, transcriptionId, speakers]) =>
+        this.api
+          .createCaption({
+            start: 0,
+            end: 30000,
+            text: 'First caption!',
+            transcription: transcriptionId,
+            speakerId: speakers[0].id,
+          })
+          .pipe(
+            map((newCaption) => {
+              return captionsActions.createSuccess({ newCaption });
+            }),
+            catchError((error) => of(captionsActions.createFailed({ error })))
+          )
       )
     )
   );
@@ -111,14 +109,13 @@ export class CaptionsEffects {
   createCaption$ = createEffect(() =>
     this.actions$.pipe(
       ofType(captionsActions.create),
-      mergeMap(
-        (action) =>
-          this.api.createCaption(action.captionDto).pipe(
-            map((newCaption) => {
-              return captionsActions.createSuccess({ newCaption });
-            }),
-            catchError((error) => of(captionsActions.createFailed({ error })))
-          ) //TODO further error handling
+      mergeMap((action) =>
+        this.api.createCaption(action.captionDto).pipe(
+          map((newCaption) => {
+            return captionsActions.createSuccess({ newCaption });
+          }),
+          catchError((error) => of(captionsActions.createFailed({ error })))
+        )
       )
     )
   );
@@ -130,14 +127,13 @@ export class CaptionsEffects {
         captionsActions.updateAndUnselect,
         captionsActions.updateEffectOnly
       ),
-      mergeMap(
-        ({ id, updateDto }) =>
-          this.api.updateCaption(id, updateDto).pipe(
-            map((updateCaption: CaptionEntity) => {
-              return captionsActions.updateSuccess({ updateCaption });
-            }),
-            catchError((error) => of(captionsActions.updateFailed({ error })))
-          ) //TODO further error handling
+      mergeMap(({ id, updateDto }) =>
+        this.api.updateCaption(id, updateDto).pipe(
+          map((updateCaption: CaptionEntity) => {
+            return captionsActions.updateSuccess({ updateCaption });
+          }),
+          catchError((error) => of(captionsActions.updateFailed({ error })))
+        )
       )
     )
   );
@@ -145,14 +141,13 @@ export class CaptionsEffects {
   removeCaption$ = createEffect(() =>
     this.actions$.pipe(
       ofType(captionsActions.remove),
-      mergeMap(
-        (action) =>
-          this.api.removeCaption(action.removeCaptionId).pipe(
-            map((resData) => {
-              return captionsActions.removeSuccess();
-            }),
-            catchError((error) => of(captionsActions.removeFailed({ error })))
-          ) //TODO further error handling
+      mergeMap((action) =>
+        this.api.removeCaption(action.removeCaptionId).pipe(
+          map((resData) => {
+            return captionsActions.removeSuccess();
+          }),
+          catchError((error) => of(captionsActions.removeFailed({ error })))
+        )
       )
     )
   );

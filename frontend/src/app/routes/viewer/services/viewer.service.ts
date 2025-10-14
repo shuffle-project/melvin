@@ -40,11 +40,6 @@ export class ViewerService {
   public currentTime$ = new BehaviorSubject<number>(0);
   public currentTimeObs$ = new Observable<number>();
 
-  // public play$ = new Subject<void>();
-  // public pause$ = new Subject<void>();
-
-  // public isPlaying$ = new BehaviorSubject<boolean>(false);
-
   public seeking$ = new Subject<number>();
 
   private captions$ = this.store.select(viewerSelector.vCaptions);
@@ -52,7 +47,6 @@ export class ViewerService {
   public currentCaption$: BehaviorSubject<null | undefined | TiptapCaption> =
     new BehaviorSubject<TiptapCaption | undefined | null>(null);
 
-  // TODO new
   public isPlayingUser$ = this.store.select(viewerSelector.vIsPlayingUser);
   public isPlayingMedia$ = this.store.select(viewerSelector.vIsPlayingMedia);
 
@@ -73,39 +67,10 @@ export class ViewerService {
     this.unregisterLoadingEvents('audio');
   }
 
-  // play() {
-  //   console.log('play', this.audio?.paused);
-  //   if (this.audio) {
-  //     // TODO
-  //     /**
-  //      * media loading checken?
-  //      */
-  //     // console.log(this.mediaLoading);
-  //     this.audio.pause();
-  //     // if (this.mediaLoading) {
-  //     //   console.log('settimeout');
-  //     //   setTimeout(() => {
-  //     //     this.play();
-  //     //   }, 250);
-  //     // } else {
-  //     //   console.log('actually play');
-  //     //   this.audio.play();
-  //     // }
-  //   }
-  // }
-
-  // pause() {
-  //   console.log('pause');
-  //   if (this.audio) {
-  //     this.audio.pause();
-  //   }
-  // }
-
   initAudioObservables(audioElement: HTMLAudioElement, projectId: string) {
     this.projectId = projectId;
     this.audio = audioElement;
 
-    // TODO take until destory
     this.loadCurrentTimeFromStorage();
 
     this.isPlayingMedia$
@@ -216,16 +181,6 @@ export class ViewerService {
 
   onJumpInAudio(newSeconds: number) {
     if (this.audio) {
-      // TODO ask Bene, still need this?
-      // this.store.dispatch(
-      //   viewerActions.mediaLoadingMultiple({
-      //     ids: this.loadingEvents.map((e) => e.id),
-      //   })
-      // );
-
-      // action to trigger effect for all video IDs and audio ID
-      // only the videos shown in the viewer
-
       this.audio.currentTime = newSeconds / 1000;
     }
   }

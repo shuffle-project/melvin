@@ -10,34 +10,7 @@ export interface ProjectsState {
   projectsList: ReadonlyArray<ProjectEntity>;
   projectFilter: ProjectFilter;
   projectListLoading: boolean;
-  // selectedProjectId: string;
 }
-
-// export interface ProjectsState2 {
-//   entities: ReadonlyArray<Project>;
-//   total: number;
-//   page: 0;
-//   selectedId: string;
-//   searchFilter: ProjectFilter;
-//   loading: boolean;
-//   // error: ApiError; //{ code: string; message: string }; //todo
-// }
-
-// export interface ProjectsState2 {
-//   list: {
-//     entities: ReadonlyArray<ProjectEntity>;
-//     total: number;
-//     page: 0;
-//     searchFilter: ProjectFilter;
-//     loading: boolean;
-//     error: ApiError;
-//   }
-//   detail: {
-//     entity: ProjectEntity;
-//     loading: boolean;
-//     error: ApiError;
-//   }
-// }
 
 export const initialState: ProjectsState = {
   projectsList: [],
@@ -47,7 +20,6 @@ export const initialState: ProjectsState = {
     selectedProjectStatus: 'all',
   },
   projectListLoading: false,
-  // selectedProjectId: '',
 };
 
 export const projectsReducer = createReducer(
@@ -77,21 +49,10 @@ export const projectsReducer = createReducer(
     }),
   })),
 
-  // selected Project functions --> no longer needed because the selected project id is in the url
-  // on(fromProjectDetailActions.selectProject, (state, { projectId }) => ({
-  //   ...state,
-  //   selectedProjectId: projectId,
-  // })),
-
   // retrieve Data from API functions
   on(projectsActions.findAllSuccess, (state, action) => {
     let projects = action.projectListEntity.projects;
 
-    // if (!environment.features.live) {
-    //   projects = projects.filter((proj) => proj.status !== ProjectStatus.LIVE);
-    // }
-
-    // TODO discuss if the projects updatedAt should be updated in front or backend
     projects = projects.map((project) => {
       const allDates = [
         project.updatedAt,
