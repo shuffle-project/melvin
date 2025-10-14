@@ -70,6 +70,17 @@ export class User {
   //TODO https://github.com/typestack/class-transformer/issues/991
   @Transform(({ obj }) => obj.projects.map((o: Types.ObjectId) => o.toString()))
   projects: PopulatedDoc<Project>[];
+
+  // @ApiProperty({ example: 1024 })
+  // @Prop()
+  // @IsNumber()
+  // sizeLimit: number;
+
+  // @ApiProperty({ type: String, example: EXAMPLE_USER._id })
+  // @Prop({ type: SchemaTypes.ObjectId, ref: 'Team' })
+  // @IsMongoId()
+  // @Transform(({ obj }) => obj.team.toString())
+  // team: PopulatedDoc<Team> | null;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);
