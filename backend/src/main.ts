@@ -40,7 +40,6 @@ async function bootstrap() {
   app.use(
     helmet({
       //https://stackoverflow.com/questions/69243166/err-blocked-by-response-notsameorigin-cors-policy-javascript
-      // TODO ? bentöigt, sonst gibt es Fehler beim Video download
       crossOriginResourcePolicy: false,
     }),
   );

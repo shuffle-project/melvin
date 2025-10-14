@@ -119,7 +119,6 @@ export class EventsGateway
   }
 
   async _unlockAllCaptions(projectId: string, userId: string) {
-    // TODO quickfix, pls refactor me
     const lockedByUser = await this.db.captionModel
       .find({
         project: projectId,

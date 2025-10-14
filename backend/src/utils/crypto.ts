@@ -3,7 +3,6 @@ import { randomInt } from 'crypto';
 const CHARACTERS =
   'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'.split('');
 
-// TODO add more characters?
 const PASSWORD_CHARACTERS =
   'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789#$%&@^`~.,!?'.split(
     '',

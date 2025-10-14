@@ -166,8 +166,6 @@ export class AuthService {
   }
 
   async register(dto: AuthRegisterDto, adminService = false): Promise<void> {
-    //TODO  block if registration is disabled
-
     if (this.registrationConfig.mode === 'disabled' && !adminService) {
       throw new CustomForbiddenException('registration_disabled');
     }
@@ -227,7 +225,6 @@ export class AuthService {
       .exec();
 
     if (!user) {
-      // TODO hier ne andere exception werfen?
       throw new CustomBadRequestException('unkown_verification_token');
     }
 
@@ -323,7 +320,7 @@ export class AuthService {
       role: UserRole.VIEWER,
       name: 'viewer',
       email: 'viewer',
-      isEmailVerified: true, // TODO,
+      isEmailVerified: true,
     });
 
     return { token: accessToken, projectId: project._id.toString() };

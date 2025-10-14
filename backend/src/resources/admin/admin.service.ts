@@ -212,7 +212,7 @@ export class AdminService {
 
   private async toUserEntity(user: User): Promise<UserEntity> {
     user.projects.forEach((project) => {
-      // TODO evlt nur in der testumgebung? was tun hier?
+      //  might be only needed in dev environment
       if (
         (project as Project).duration === undefined ||
         (project as Project).duration === null

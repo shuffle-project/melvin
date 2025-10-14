@@ -202,8 +202,6 @@ export class SubtitlesProcessor {
     if (payload.type === SubtitlesType.FROM_FILE) {
       const { file } = payload;
 
-      // TODO remove directory - correct here?
-
       const uploadDir = this.pathService.getUploadDirectory(file.uploadId);
 
       await rm(uploadDir, { recursive: true });
@@ -380,7 +378,6 @@ export class SubtitlesProcessor {
       : project.language;
 
     if (targetLang !== projectLang) {
-      // TODO disable that in an earlier stepy
       this.logger.error(
         'Language of transcription and project do not match, cannot align',
       );
