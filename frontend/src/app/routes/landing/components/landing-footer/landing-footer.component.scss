@@ -73,10 +73,6 @@ footer {
       margin-top: auto;
 
       grid-area: funding;
-
-      // display: flex;
-      // align-items: end;
-      // justify-content: end;
     }
 
     .legal-wrapper,
@@ -96,6 +92,14 @@ footer {
 
 @media (max-width: 66.25rem) {
   footer {
+    &.no-legal-section {
+      .footer-content {
+        grid-template-areas:
+          'melvin tutorial'
+          'accessibility funding';
+      }
+    }
+
     .footer-content {
       display: grid;
       grid-template-areas:
@@ -128,7 +132,8 @@ footer {
 }
 
 @media (max-width: 27.5rem) {
-  footer {
+  footer,
+  footer.no-legal-section {
     .footer-content {
       grid-template-areas:
         'melvin'

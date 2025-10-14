@@ -1,74 +1,76 @@
 <div class="box">
-  <div class="heading-wrapper">
-    <h2 i18n="@@playerTranscriptHeader">Transcript</h2>
-    <mat-checkbox
-      class="auto-scroll"
-      [(ngModel)]="autoScroll"
-      i18n="@@playerTranscriptAutomaticScrollLabelMobile"
-    >
-      Auto scroll
-    </mat-checkbox>
-  </div>
-  <mat-form-field class="search-form-field">
-    <mat-label i18n="@@playerTranscriptSearchLabel">Search</mat-label>
-    <input
-      matInput
-      [(ngModel)]="searchValue"
-      (input)="onSearchChange($event)"
-      (keydown)="onKeydownSearch($event)"
-    />
-    @if (searchValue.length === 0) {
-    <mat-icon svgIcon="search" matSuffix></mat-icon>
-    } @if (searchValue.length > 0) {
-    <button
-      matSuffix
-      mat-icon-button
-      aria-label="Clear"
-      i18n-aria-label="@@playerTranscriptSearchClearButton"
-      (click)="onClearSearchInput()"
-    >
-      <mat-icon svgIcon="clear" />
-    </button>
-    }
-  </mat-form-field>
-  @if (searchValue.length > 0) {
-  <div class="search-results-wrapper">
-    @if(searchFoundInCaptionIds.length===0){
-    <span i18n="@@playerTranscriptSearchNoMatches">No matches found</span>
-    } @else {
-
-    <p>
-      {{ searchFoundInCaptionIds.length > 0 ? foundItemsNumber : 0 }}
-      <span i18n="@@playerTranscriptSearchOfPart">of</span>
-      {{ searchFoundInCaptionIds.length }}
-      <span i18n="@@playerTranscriptSearchResultsPart">results</span>
-    </p>
-    <div class="buttons-wrapper">
-      <button
-        mat-icon-button
-        class="md"
-        (click)="onGoToRecentFound()"
-        [disabled]="searchFoundInCaptionIds.length === 0"
-        aria-label="Recent find"
-        i18n-aria-label="@@transcriptRecentFindAriaLabel"
+  <div class="transcript-header">
+    <div class="heading-wrapper">
+      <h2 i18n="@@playerTranscriptHeader">Transcript</h2>
+      <mat-checkbox
+        class="auto-scroll"
+        [(ngModel)]="autoScroll"
+        i18n="@@playerTranscriptAutomaticScrollLabelMobile"
       >
-        <mat-icon svgIcon="arrow-up"></mat-icon>
-      </button>
-      <button
-        mat-icon-button
-        class="md"
-        (click)="onGoToNextFound()"
-        [disabled]="searchFoundInCaptionIds.length === 0"
-        aria-label="Next find"
-        i18n-aria-label="@@transcriptNextFindAriaLabel"
-      >
-        <mat-icon svgIcon="arrow-down"></mat-icon>
-      </button>
+        Auto scroll
+      </mat-checkbox>
     </div>
+    <mat-form-field class="search-form-field">
+      <mat-label i18n="@@playerTranscriptSearchLabel">Search</mat-label>
+      <input
+        matInput
+        [(ngModel)]="searchValue"
+        (input)="onSearchChange($event)"
+        (keydown)="onKeydownSearch($event)"
+      />
+      @if (searchValue.length === 0) {
+      <mat-icon svgIcon="search" matSuffix></mat-icon>
+      } @if (searchValue.length > 0) {
+      <button
+        matSuffix
+        mat-icon-button
+        aria-label="Clear"
+        i18n-aria-label="@@playerTranscriptSearchClearButton"
+        (click)="onClearSearchInput()"
+      >
+        <mat-icon svgIcon="clear" />
+      </button>
+      }
+    </mat-form-field>
+    @if (searchValue.length > 0) {
+    <div class="search-results-wrapper">
+      @if(searchFoundInCaptionIds.length===0){
+      <span i18n="@@playerTranscriptSearchNoMatches">No matches found</span>
+      } @else {
 
+      <p>
+        {{ searchFoundInCaptionIds.length > 0 ? foundItemsNumber : 0 }}
+        <span i18n="@@playerTranscriptSearchOfPart">of</span>
+        {{ searchFoundInCaptionIds.length }}
+        <span i18n="@@playerTranscriptSearchResultsPart">results</span>
+      </p>
+      <div class="buttons-wrapper">
+        <button
+          mat-icon-button
+          class="md"
+          (click)="onGoToRecentFound()"
+          [disabled]="searchFoundInCaptionIds.length === 0"
+          aria-label="Recent find"
+          i18n-aria-label="@@transcriptRecentFindAriaLabel"
+        >
+          <mat-icon svgIcon="arrow-up"></mat-icon>
+        </button>
+        <button
+          mat-icon-button
+          class="md"
+          (click)="onGoToNextFound()"
+          [disabled]="searchFoundInCaptionIds.length === 0"
+          aria-label="Next find"
+          i18n-aria-label="@@transcriptNextFindAriaLabel"
+        >
+          <mat-icon svgIcon="arrow-down"></mat-icon>
+        </button>
+      </div>
+
+      }
+    </div>
     }
   </div>
-  }
   <ng-container *ngrxLet="project$ as project">
     <ng-container *ngrxLet="availableSpeakers$ as availableSpeakers">
       <ng-container *ngrxLet="viewerService.currentTime$ as currentTime">

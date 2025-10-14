@@ -6,6 +6,7 @@ import {
   OnDestroy,
   OnInit,
   Renderer2,
+  DOCUMENT
 } from '@angular/core';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatButtonModule } from '@angular/material/button';
@@ -22,7 +23,7 @@ import * as configSelector from '../../store/selectors/config.selector';
 import * as notificationsSelectors from '../../store/selectors/notifications.selector';
 import { NotificationComponent } from '../notification/notification.component';
 
-import { DOCUMENT } from '@angular/common';
+
 import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { LetDirective, PushPipe } from '@ngrx/component';

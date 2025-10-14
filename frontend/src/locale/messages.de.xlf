@@ -1230,10 +1230,6 @@
         <source> Free of charge </source>
         <target state="final">Kostenlos</target>
       </trans-unit>
-      <trans-unit id="landingMainWIPChip" datatype="html">
-        <source>Work in progress</source>
-        <target state="final">In Entwicklung</target>
-      </trans-unit>
       <trans-unit id="landingMainRecordingHeading" datatype="html">
         <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;video&quot; /&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;video&quot; /&gt;"/> Recording </source>
         <target state="final"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;video&quot; /&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;video&quot; /&gt;"/> Aufnehmen </target>
@@ -1265,14 +1261,6 @@
       <trans-unit id="landingMainSharingExplanationBottom" datatype="html">
         <source> Of course, you can also download your files and upload them elsewhere. </source>
         <target state="final"> Natürlich können Sie Ihre Dateien auch herunterladen und an anderer Stelle hochladen. </target>
-      </trans-unit>
-      <trans-unit id="landingMainWIPExplanationTop" datatype="html">
-        <source> Melvin is currently still under development. However, you can already test the application now. </source>
-        <target state="final">Melvin befindet sich aktuell noch in der Entwicklung. Dennoch können Sie bereits jetzt die Anwendung austesten. </target>
-      </trans-unit>
-      <trans-unit id="landingMainWIPExplanationBottom" datatype="html">
-        <source> In addition to improvements in accessibility and user experience, we are currently working on a <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>livestream mode<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/>. Stay tuned and feel free to check back regularly. </source>
-        <target state="final"> Neben Verbesserungen der Barrierefreiheit und User Experience, arbeiten wir aktuell an einem <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>Livestream-Modus<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/>. Bleiben Sie gespannt und schauen Sie gerne immer wieder Mal vorbei. </target>
       </trans-unit>
       <trans-unit id="sitemapListExplanation" datatype="html">
         <source> This sitemap lists all pages that do not require a login in alphabetical order. </source>
@@ -3223,12 +3211,48 @@
         <target state="final">Schließen</target>
       </trans-unit>
       <trans-unit id="registerDialogEmailContactInfo" datatype="html">
-        <source> Melvin is currently still in a closed test phase. Would you like to test Melvin? Please contact us at </source>
-        <target state="final"> Melvin befindet sich derzeit noch in einer geschlossenen Testphase. Möchten Sie Melvin testen? Bitte kontaktieren Sie uns unter </target>
+        <source> Account registration is handled by an administrator. Please send an email to the address below to request an account. </source>
+        <target state="final"> Die Registrierung wird von einem Administrator durchgeführt. Bitte senden Sie eine E-Mail an die unten stehende Adresse, um ein Konto zu beantragen. </target>
       </trans-unit>
       <trans-unit id="registerDialogPrivacyLinkLabel" datatype="html">
         <source>privacy policy</source>
         <target state="final">Datenschutzerklärung</target>
+      </trans-unit>
+      <trans-unit id="resetPasswordMainTitle" datatype="html">
+        <source>Reset password</source>
+        <target state="new">Reset password</target>
+      </trans-unit>
+      <trans-unit id="resetPasswordSuccessMessage" datatype="html">
+        <source> Your password has been reset. You can now close this window. </source>
+        <target state="new"> Your password has been reset. You can now close this window. </target>
+      </trans-unit>
+      <trans-unit id="dialogResetPasswordNewPasswordLabel" datatype="html">
+        <source>New Password</source>
+        <target state="new">New Password</target>
+      </trans-unit>
+      <trans-unit id="dialogResetPasswordNewPasswordRequiredError" datatype="html">
+        <source> New password required </source>
+        <target state="new"> New password required </target>
+      </trans-unit>
+      <trans-unit id="dialogResetPasswordConfirmPasswordLabel" datatype="html">
+        <source>Confirm New Password</source>
+        <target state="new">Confirm New Password</target>
+      </trans-unit>
+      <trans-unit id="dialogResetPasswordConfirmPasswordRequiredError" datatype="html">
+        <source>Confirm new password required</source>
+        <target state="new">Confirm new password required</target>
+      </trans-unit>
+      <trans-unit id="dialogResetPasswordDoNotMatchError" datatype="html">
+        <source> Passwords do not match </source>
+        <target state="new"> Passwords do not match </target>
+      </trans-unit>
+      <trans-unit id="dialogResetPasswordSubmitButtonLabel" datatype="html">
+        <source> Reset Password </source>
+        <target state="new"> Reset Password </target>
+      </trans-unit>
+      <trans-unit id="resetPasswordNoTokenMessage" datatype="html">
+        <source> No token or email provided. Please check the link in your email. </source>
+        <target state="new"> No token or email provided. Please check the link in your email. </target>
       </trans-unit>
     </body>
   </file>

@@ -1562,9 +1562,6 @@
       <trans-unit id="landingMainFreeOfChargeChip" datatype="html">
         <source> Free of charge </source>
       </trans-unit>
-      <trans-unit id="landingMainWIPChip" datatype="html">
-        <source>Work in progress</source>
-      </trans-unit>
       <trans-unit id="landingMainRecordingHeading" datatype="html">
         <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;video&quot; /&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;video&quot; /&gt;"/> Recording </source>
       </trans-unit>
@@ -1588,12 +1585,6 @@
       </trans-unit>
       <trans-unit id="landingMainSharingExplanationBottom" datatype="html">
         <source> Of course, you can also download your files and upload them elsewhere. </source>
-      </trans-unit>
-      <trans-unit id="landingMainWIPExplanationTop" datatype="html">
-        <source> Melvin is currently still under development. However, you can already test the application now. </source>
-      </trans-unit>
-      <trans-unit id="landingMainWIPExplanationBottom" datatype="html">
-        <source> In addition to improvements in accessibility and user experience, we are currently working on a <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>livestream mode<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/>. Stay tuned and feel free to check back regularly. </source>
       </trans-unit>
       <trans-unit id="sitemapListExplanation" datatype="html">
         <source> This sitemap lists all pages that do not require a login in alphabetical order. </source>
@@ -2418,10 +2409,37 @@
         <source>Close</source>
       </trans-unit>
       <trans-unit id="registerDialogEmailContactInfo" datatype="html">
-        <source> Melvin is currently still in a closed test phase. Would you like to test Melvin? Please contact us at </source>
+        <source> Account registration is handled by an administrator. Please send an email to the address below to request an account. </source>
       </trans-unit>
       <trans-unit id="registerDialogPrivacyLinkLabel" datatype="html">
         <source>privacy policy</source>
+      </trans-unit>
+      <trans-unit id="dialogResetPasswordConfirmPasswordLabel" datatype="html">
+        <source>Confirm New Password</source>
+      </trans-unit>
+      <trans-unit id="dialogResetPasswordConfirmPasswordRequiredError" datatype="html">
+        <source>Confirm new password required</source>
+      </trans-unit>
+      <trans-unit id="dialogResetPasswordDoNotMatchError" datatype="html">
+        <source> Passwords do not match </source>
+      </trans-unit>
+      <trans-unit id="dialogResetPasswordNewPasswordLabel" datatype="html">
+        <source>New Password</source>
+      </trans-unit>
+      <trans-unit id="dialogResetPasswordNewPasswordRequiredError" datatype="html">
+        <source> New password required </source>
+      </trans-unit>
+      <trans-unit id="dialogResetPasswordSubmitButtonLabel" datatype="html">
+        <source> Reset Password </source>
+      </trans-unit>
+      <trans-unit id="resetPasswordMainTitle" datatype="html">
+        <source>Reset password</source>
+      </trans-unit>
+      <trans-unit id="resetPasswordNoTokenMessage" datatype="html">
+        <source> No token or email provided. Please check the link in your email. </source>
+      </trans-unit>
+      <trans-unit id="resetPasswordSuccessMessage" datatype="html">
+        <source> Your password has been reset. You can now close this window. </source>
       </trans-unit>
     </body>
   </file>
