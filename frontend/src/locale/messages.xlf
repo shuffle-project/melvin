@@ -83,6 +83,9 @@
       <trans-unit id="deleteServiceSubjectProject" datatype="html">
         <source>project</source>
       </trans-unit>
+      <trans-unit id="deleteServiceLeaveProjectError" datatype="html">
+        <source>Error leaving project, try again later.</source>
+      </trans-unit>
       <trans-unit id="deleteServiceSubjectCaption" datatype="html">
         <source>Caption</source>
       </trans-unit>
@@ -158,6 +161,9 @@
       <trans-unit id="inviteCollaboratorRemoveButton" datatype="html">
         <source> Remove </source>
       </trans-unit>
+      <trans-unit id="inviteCollaboratorRemoveUserFromProject" datatype="html">
+        <source>Error while removing from project, try again later.</source>
+      </trans-unit>
       <trans-unit id="inviteCollaboratorHeadingGeneralAccess" datatype="html">
         <source>General Access</source>
       </trans-unit>
@@ -169,6 +175,9 @@
       </trans-unit>
       <trans-unit id="inviteCollaboratorGenerateNewLinkButton" datatype="html">
         <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;change&quot; /&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;change&quot; /&gt;"/> Generate new link, revoke old one </source>
+      </trans-unit>
+      <trans-unit id="inviteCollaboratorNewLinkError" datatype="html">
+        <source>Error during link generation, try again later.</source>
       </trans-unit>
       <trans-unit id="inviteCollaboratorNewLinkSuccess" datatype="html">
         <source>New link generated</source>
@@ -703,6 +712,9 @@
       </trans-unit>
       <trans-unit id="dialogCreateProjectUploadProgressLabel" datatype="html">
         <source>Upload-Progress:</source>
+      </trans-unit>
+      <trans-unit id="createProjectDialogProjectCreationError" datatype="html">
+        <source>Error during project creation, try again later.</source>
       </trans-unit>
       <trans-unit id="createProjectFailedWithError" datatype="html">
         <source> Failed with error: <x id="INTERPOLATION" equiv-text="{{ error.message }}"/> <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br /&gt;"/>You can try again. </source>
@@ -1517,11 +1529,35 @@
       <trans-unit id="registerDialogMainHeading" datatype="html">
         <source>Register</source>
       </trans-unit>
+      <trans-unit id="resetPasswordDialogCloseButton" datatype="html">
+        <source>Close</source>
+      </trans-unit>
+      <trans-unit id="resetPasswordDialogEmailErrorNotValid" datatype="html">
+        <source>Email address is not valid</source>
+      </trans-unit>
+      <trans-unit id="resetPasswordDialogEmailErrorRequired" datatype="html">
+        <source>Email is required</source>
+      </trans-unit>
+      <trans-unit id="resetPasswordDialogEmailLabel" datatype="html">
+        <source>Email</source>
+      </trans-unit>
+      <trans-unit id="resetPasswordDialogForgotPasswordDisabled" datatype="html">
+        <source>Forgot password is disabled for this app, please contact an administrator</source>
+      </trans-unit>
+      <trans-unit id="resetPasswordDialogGeneralError" datatype="html">
+        <source>Error sending reset password email</source>
+      </trans-unit>
       <trans-unit id="resetPasswordDialogHeading" datatype="html">
         <source>Reset password</source>
       </trans-unit>
-      <trans-unit id="resetPasswordWIPInfo" datatype="html">
-        <source>This feature is still under development.</source>
+      <trans-unit id="resetPasswordDialogSendButtonLabel" datatype="html">
+        <source><x id="START_BLOCK_IF" equiv-text="@if (loading ) {"/><x id="START_TAG_MAT_SPINNER" ctype="x-mat_spinner" equiv-text="&lt;mat-spinner strokeWidth=&quot;2&quot; diameter=&quot;20&quot; /&gt;"/><x id="CLOSE_TAG_MAT_SPINNER" ctype="x-mat_spinner" equiv-text="&lt;mat-spinner strokeWidth=&quot;2&quot; diameter=&quot;20&quot; /&gt;"/><x id="CLOSE_BLOCK_IF" equiv-text="}"/> Send reset link </source>
+      </trans-unit>
+      <trans-unit id="resetPasswordDialogSuccessMessage" datatype="html">
+        <source>A password reset email has been sent. You can now close this window.</source>
+      </trans-unit>
+      <trans-unit id="resetPasswordDialogUserNotFoundError" datatype="html">
+        <source>No user found with that email</source>
       </trans-unit>
       <trans-unit id="landingHeaderGuideLinkLabel" datatype="html">
         <source> Best Practice </source>
@@ -1977,7 +2013,7 @@
         <source>Close fullscreen</source>
       </trans-unit>
       <trans-unit id="playerInnerResizerAriaLabel" datatype="html">
-        <source>Move to resize video</source>
+        <source>Use arrow keys to resize the videos</source>
       </trans-unit>
       <trans-unit id="viewerVideoContainerToMainviewAriaHidden" datatype="html">
         <source>Switch</source>

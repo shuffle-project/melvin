@@ -670,6 +670,10 @@
         <source>transcription</source>
         <target state="final">Transkription</target>
       </trans-unit>
+      <trans-unit id="deleteServiceLeaveProjectError" datatype="html">
+        <source>Error leaving project, try again later.</source>
+        <target state="final">Fehler beim verlassen des Projekts, versuche es später erneut.</target>
+      </trans-unit>
       <trans-unit id="deleteServiceSubjectCaption" datatype="html">
         <source>Caption</source>
         <target state="final">Caption</target>
@@ -1046,6 +1050,10 @@
         <source> Remove </source>
         <target state="final"> Entfernen </target>
       </trans-unit>
+      <trans-unit id="inviteCollaboratorRemoveUserFromProject" datatype="html">
+        <source>Error while removing from project, try again later.</source>
+        <target state="final">Der User konnte nicht aus dem Projekt entfernt werden, versuche es später erneut.</target>
+      </trans-unit>
       <trans-unit id="inviteCollaboratorHeadingGeneralAccess" datatype="html">
         <source>General Access</source>
         <target state="final">Allgemeiner Zugriff</target>
@@ -1061,6 +1069,10 @@
       <trans-unit id="inviteCollaboratorGenerateNewLinkButton" datatype="html">
         <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;change&quot; /&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;change&quot; /&gt;"/> Generate new link, revoke old one </source>
         <target state="final"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="Genera"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="link, revoke old"/> Neuen Link erstellen, alten widerrufen </target>
+      </trans-unit>
+      <trans-unit id="inviteCollaboratorNewLinkError" datatype="html">
+        <source>Error during link generation, try again later.</source>
+        <target state="final">Link konnte nicht erstellt werden, versuche es später erneut.</target>
       </trans-unit>
       <trans-unit id="inviteCollaboratorNewLinkSuccess" datatype="html">
         <source>New link generated</source>
@@ -1194,13 +1206,45 @@
         <source>Register</source>
         <target state="final">Registrieren</target>
       </trans-unit>
+      <trans-unit id="resetPasswordDialogCloseButton" datatype="html">
+        <source>Close</source>
+        <target state="final">Schließen</target>
+      </trans-unit>
+      <trans-unit id="resetPasswordDialogEmailErrorNotValid" datatype="html">
+        <source>Email address is not valid</source>
+        <target state="final">E-Mail-Adresse nicht valide.</target>
+      </trans-unit>
+      <trans-unit id="resetPasswordDialogEmailErrorRequired" datatype="html">
+        <source>Email is required</source>
+        <target state="final">E-Mail-Adresse ist verpflichtend</target>
+      </trans-unit>
+      <trans-unit id="resetPasswordDialogEmailLabel" datatype="html">
+        <source>Email</source>
+        <target state="final">Email</target>
+      </trans-unit>
+      <trans-unit id="resetPasswordDialogForgotPasswordDisabled" datatype="html">
+        <source>Forgot password is disabled for this app, please contact an administrator</source>
+        <target state="final">Die Passwort-Wiederherstellung ist für diese App deaktiviert. Bitte wenden Sie sich an einen Administrator.</target>
+      </trans-unit>
+      <trans-unit id="resetPasswordDialogGeneralError" datatype="html">
+        <source>Error sending reset password email</source>
+        <target state="final">Fehler beim Senden der E-Mail zum Zurücksetzen des Passworts.</target>
+      </trans-unit>
       <trans-unit id="resetPasswordDialogHeading" datatype="html">
         <source>Reset password</source>
         <target state="final">Passwort zurücksetzen</target>
       </trans-unit>
-      <trans-unit id="resetPasswordWIPInfo" datatype="html">
-        <source>This feature is still under development.</source>
-        <target state="final">Diese Funktion befindet sich noch in der Entwicklung.</target>
+      <trans-unit id="resetPasswordDialogSendButtonLabel" datatype="html">
+        <source><x id="START_BLOCK_IF" equiv-text="@if (loading ) {"/><x id="START_TAG_MAT_SPINNER" ctype="x-mat_spinner" equiv-text="&lt;mat-spinner strokeWidth=&quot;2&quot; diameter=&quot;20&quot; /&gt;"/><x id="CLOSE_TAG_MAT_SPINNER" ctype="x-mat_spinner" equiv-text="&lt;mat-spinner strokeWidth=&quot;2&quot; diameter=&quot;20&quot; /&gt;"/><x id="CLOSE_BLOCK_IF" equiv-text="}"/> Send reset link </source>
+        <target state="final"><x id="START_BLOCK_IF" equiv-text="@if (loading ) {"/><x id="START_TAG_MAT_SPINNER" ctype="x-mat_spinner" equiv-text="&lt;mat-spinner strokeWidth=&quot;2&quot; diameter=&quot;20&quot; /&gt;"/><x id="CLOSE_TAG_MAT_SPINNER" ctype="x-mat_spinner" equiv-text="&lt;mat-spinner strokeWidth=&quot;2&quot; diameter=&quot;20&quot; /&gt;"/><x id="CLOSE_BLOCK_IF" equiv-text="}"/> Link zum Zurücksetzen senden </target>
+      </trans-unit>
+      <trans-unit id="resetPasswordDialogSuccessMessage" datatype="html">
+        <source>A password reset email has been sent. You can now close this window.</source>
+        <target state="final">Eine E-Mail zum Zurücksetzen des Passworts wurde versendet.</target>
+      </trans-unit>
+      <trans-unit id="resetPasswordDialogUserNotFoundError" datatype="html">
+        <source>No user found with that email</source>
+        <target state="final">Kein Benutzer mit dieser E-Mail-Adresse gefunden</target>
       </trans-unit>
       <trans-unit id="landingHeaderTutorialLinkLabel" datatype="html">
         <source> Tutorial </source>
@@ -1948,7 +1992,7 @@
       </trans-unit>
       <trans-unit id="guideVerbalizingDefinition" datatype="html">
         <source> All essential visual elements used in the video should also be described verbally. Ideally, the key content of an image or figure should be integrated into the spoken text. If this is not feasible, a separate audio or text-based description should be provided as an additional resource. </source>
-        <target state="new"> Im Video verwendete Abbildungen sollten auch sprachlich vermittelt werden. Im besten Fall können alle zentralen Inhalte einer Abbildung in den Sprechtext integriert werden. Ist dies nicht möglich, kann eine gesonderte Bildbeschreibung/Audiodeskription erstellt werden, die als eigenes Video oder/und Text erstellt und bereitgestellt wird. </target>
+        <target state="final"> Im Video verwendete Abbildungen sollten auch sprachlich vermittelt werden. Im besten Fall können alle zentralen Inhalte einer Abbildung in den Sprechtext integriert werden. Ist dies nicht möglich, kann eine gesonderte Bildbeschreibung/Audiodeskription erstellt werden, die als eigenes Video oder/und Text erstellt und bereitgestellt wird. </target>
       </trans-unit>
       <trans-unit id="guideAccessibleMaterialsTerm" datatype="html">
         <source> Accessible Digital Materials </source>
@@ -2247,8 +2291,8 @@
         <target state="final">Vollbild</target>
       </trans-unit>
       <trans-unit id="playerInnerResizerAriaLabel" datatype="html">
-        <source>Move to resize video</source>
-        <target state="final">Verschieben, um die Größe des Videos zu ändern</target>
+        <source>Use arrow keys to resize the videos</source>
+        <target state="final">Benutze die Pfleiltasten um die Größe des Videos anzupassen.</target>
       </trans-unit>
       <trans-unit id="dialogSpellcheckInfoMainHeadline" datatype="html">
         <source>Spellcheck browser info</source>
@@ -2398,6 +2442,10 @@
         <source>Installation - Melvin</source>
         <target state="final">Installation - Melvin</target>
       </trans-unit>
+      <trans-unit id="createProjectDialogProjectCreationError" datatype="html">
+        <source>Error during project creation, try again later.</source>
+        <target state="final">Fehler bei der Projekterstellung, versuche es später erneut.</target>
+      </trans-unit>
       <trans-unit id="createProjectFailedWithError" datatype="html">
         <source> Failed with error: <x id="INTERPOLATION" equiv-text="{{ error.message }}"/> <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br /&gt;"/>You can try again. </source>
         <target state="final"> Mit dem folgenden Fehler fehlgeschlagen: <x id="INTERPOLATION" equiv-text="{{ error.message }}"/> <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br /&gt;"/>Du kannst es nochmal probieren. </target>
@@ -2448,7 +2496,7 @@
       </trans-unit>
       <trans-unit id="translateTranscriptionTabNoTranslationVendor" datatype="html">
         <source> There is currently no translation vendor connected to Melvin. Please contact the person who manages this Melvin instance. </source>
-        <target state="new"> There is currently no translation vendor connected to Melvin. Please contact the person who manages this Melvin instance. </target>
+        <target state="final"> Derzeit ist kein Übersetzungsanbieter mit Melvin verbunden. Bitte wenden Sie sich an die Person, die diese Melvin-Instanz verwaltet. </target>
       </trans-unit>
       <trans-unit id="projectListTableHeaderEditLabel" datatype="html">
         <source> Edit </source>
@@ -3220,39 +3268,39 @@
       </trans-unit>
       <trans-unit id="resetPasswordMainTitle" datatype="html">
         <source>Reset password</source>
-        <target state="new">Reset password</target>
+        <target state="final">Passwort zurücksetzen</target>
       </trans-unit>
       <trans-unit id="resetPasswordSuccessMessage" datatype="html">
         <source> Your password has been reset. You can now close this window. </source>
-        <target state="new"> Your password has been reset. You can now close this window. </target>
+        <target state="final"> Ihr Passwort wurde zurückgesetzt. Sie können dieses Fenster nun schließen. </target>
       </trans-unit>
       <trans-unit id="dialogResetPasswordNewPasswordLabel" datatype="html">
         <source>New Password</source>
-        <target state="new">New Password</target>
+        <target state="final">Neues Passwort</target>
       </trans-unit>
       <trans-unit id="dialogResetPasswordNewPasswordRequiredError" datatype="html">
         <source> New password required </source>
-        <target state="new"> New password required </target>
+        <target state="final"> Neues Passwort benötigt </target>
       </trans-unit>
       <trans-unit id="dialogResetPasswordConfirmPasswordLabel" datatype="html">
         <source>Confirm New Password</source>
-        <target state="new">Confirm New Password</target>
+        <target state="final">Neues Passwort (Wiederholung)</target>
       </trans-unit>
       <trans-unit id="dialogResetPasswordConfirmPasswordRequiredError" datatype="html">
         <source>Confirm new password required</source>
-        <target state="new">Confirm new password required</target>
+        <target state="final">Neues Passwort (Wiederholung) benötigt</target>
       </trans-unit>
       <trans-unit id="dialogResetPasswordDoNotMatchError" datatype="html">
         <source> Passwords do not match </source>
-        <target state="new"> Passwords do not match </target>
+        <target state="final"> Passwörter stimmen nicht überein </target>
       </trans-unit>
       <trans-unit id="dialogResetPasswordSubmitButtonLabel" datatype="html">
         <source> Reset Password </source>
-        <target state="new"> Reset Password </target>
+        <target state="final"> Passwort zurücksetzen </target>
       </trans-unit>
       <trans-unit id="resetPasswordNoTokenMessage" datatype="html">
         <source> No token or email provided. Please check the link in your email. </source>
-        <target state="new"> No token or email provided. Please check the link in your email. </target>
+        <target state="final"> Es wurde kein Token oder keine E-Mail bereitgestellt. Bitte überprüfen Sie den Link in Ihrer E-Mail. </target>
       </trans-unit>
     </body>
   </file>

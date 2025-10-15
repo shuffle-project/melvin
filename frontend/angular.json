@@ -91,7 +91,7 @@
         "extract-i18n": {
           "builder": "ng-extract-i18n-merge:ng-extract-i18n-merge",
           "options": {
-            "browserTarget": "editor-frontend:build",
+            "buildTarget": "editor-frontend:build",
             "format": "xlf",
             "outputPath": "src/locale",
             "targetFiles": ["messages.de.xlf"]

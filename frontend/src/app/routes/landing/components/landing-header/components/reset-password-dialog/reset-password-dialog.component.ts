@@ -57,11 +57,12 @@ export class ResetPasswordDialogComponent implements OnInit {
         this.api.requestResetPassword(newEmail!)
       );
       this.error = null;
-      this.success = $localize`:@@resetPasswordDialogSuccessMessage:A password reset email has been sent.`;
+      this.success = $localize`:@@resetPasswordDialogSuccessMessage:A password reset email has been sent. You can now close this window.`;
     } catch (err) {
       this.success = null;
       let error = err as HttpErrorResponse;
       if (error?.error?.code === 'user_not_found') {
+        // TODO fehlermeldung anzeigen?
         this.error = $localize`:@@resetPasswordDialogUserNotFoundError:No user found with that email`;
       } else if (error?.error?.code === 'forgot_password_disabled') {
         this.error = $localize`:@@resetPasswordDialogForgotPasswordDisabled:Forgot password is disabled for this app, please contact an administrator`;
