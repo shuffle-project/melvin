@@ -1,5 +1,11 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  FormGroup,
+  NonNullableFormBuilder,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
@@ -24,32 +30,47 @@ import { ApiService } from 'src/app/services/api/api.service';
   styleUrl: './reset-password-dialog.component.scss',
 })
 export class ResetPasswordDialogComponent implements OnInit {
-  newEmailControl = new FormControl('', [
-    Validators.required,
-    Validators.email,
-  ]);
+  public formGroup!: FormGroup;
+  error: null | string = null;
+  success: null | string = null;
 
-  constructor(private api: ApiService) {}
+  loading = false;
+
+  constructor(private fb: NonNullableFormBuilder, private api: ApiService) {}
 
   async ngOnInit() {
-    // await this.api.requestResetPassword();
+    this.formGroup = this.fb.group({
+      email: this.fb.control('', [Validators.required, Validators.email]),
+    });
   }
 
-  async onResetPasswordRequest() {
-    if (this.newEmailControl.invalid) {
-      this.newEmailControl.markAsTouched();
+  async onSubmit() {
+    if (this.formGroup.controls['email'].invalid) {
+      this.formGroup.controls['email'].markAsTouched();
       return;
     }
+    this.loading = true;
 
-    const newEmail = this.newEmailControl.getRawValue()?.trim();
-
-    await firstValueFrom(this.api.requestResetPassword(newEmail!));
-
-    // this.store.dispatch(
-    //   adminActions.adminUpdateUserEmail({
-    //     userId: this.user.id,
-    //     email: newEmail!,
-    //   })
-    // );
+    const newEmail = this.formGroup.controls['email'].getRawValue()?.trim();
+    try {
+      const res = await firstValueFrom(
+        this.api.requestResetPassword(newEmail!)
+      );
+      this.error = null;
+      this.success = $localize`:@@resetPasswordDialogSuccessMessage:A password reset email has been sent.`;
+    } catch (err) {
+      this.success = null;
+      let error = err as HttpErrorResponse;
+      if (error?.error?.code === 'user_not_found') {
+        this.error = $localize`:@@resetPasswordDialogUserNotFoundError:No user found with that email`;
+      } else if (error?.error?.code === 'forgot_password_disabled') {
+        this.error = $localize`:@@resetPasswordDialogForgotPasswordDisabled:Forgot password is disabled for this app, please contact an administrator`;
+      } else {
+        this.error = $localize`:@@resetPasswordDialogGeneralError:Error sending reset password email`;
+      }
+      console.log(error);
+    } finally {
+      this.loading = false;
+    }
   }
 }
