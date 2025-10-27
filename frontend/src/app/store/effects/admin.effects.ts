@@ -42,6 +42,7 @@ export class AdminEffects {
         tap(({ token }) => {
           this.storage.storeInSessionStorage(StorageKey.ADMIN_TOKEN, token);
           this.store.dispatch(adminActions.adminFindAllUsers());
+          this.store.dispatch(adminActions.adminFindAllTeams());
         })
       ),
     { dispatch: false }
@@ -170,6 +171,23 @@ export class AdminEffects {
     )
   );
 
+  adminFindAllTeams$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(adminActions.adminFindAllTeams),
+      mergeMap(() =>
+        this.api.adminFindAllTeams().pipe(
+          map((teamList) => {
+            console.log(teamList);
+            return adminActions.adminFindAllTeamsSuccess({ teamList });
+          }),
+          catchError((error) =>
+            of(adminActions.adminFindAllTeamsFail({ error }))
+          )
+        )
+      )
+    )
+  );
+
   notifyOnError$ = createEffect(
     () =>
       this.actions$.pipe(
@@ -177,7 +195,8 @@ export class AdminEffects {
           adminActions.adminVerifyUserEmailFail,
           adminActions.adminFindAllUsersFail,
           adminActions.adminDeleteUserAccountFail,
-          adminActions.adminResetUserPasswordFail
+          adminActions.adminResetUserPasswordFail,
+          adminActions.adminFindAllTeamsFail
         ),
         tap((action) =>
           this.alertService.error(

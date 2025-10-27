@@ -6,6 +6,7 @@ import {
 } from 'src/app/services/api/entities/user.entity';
 import { environment } from '../../../environments/environment';
 import { UploadDto } from '../upload/upload.interfaces';
+import { AdminUpdateUserDto } from './dto/admin-update-user.dto';
 import { ChangePasswordDto } from './dto/auth.dto';
 import { BulkRemoveDto } from './dto/bulk-remove.dto';
 import { ConnectLivestreamDto } from './dto/connect-livestream.dto';
@@ -22,6 +23,7 @@ import { StartLivestreamDto } from './dto/start-livestream.dto';
 import { StartRecordingDto } from './dto/start-recording.dto';
 import { StopLivestreamDto } from './dto/stop-livestream.dto';
 import { StopRecordingDto } from './dto/stop-recording.dto';
+import { CreateTeamDto, UpdateTeamDto } from './dto/team.dto';
 import { UpdateCaptionDto } from './dto/update-caption.dto';
 import {
   UpdateManyNotificationsDto,
@@ -61,6 +63,7 @@ import { StartLivestreamEntity } from './entities/start-livestream.entity';
 import { StartRecordingEntity } from './entities/start-recording.entity';
 import { StopLivestreamEntity } from './entities/stop-livestream.entity';
 import { StopRecordingEntity } from './entities/stop-recording.entity';
+import { TeamEntity, TeamListEntity } from './entities/team.entity';
 import {
   SubtitleFormat,
   TranscriptionEntity,
@@ -367,6 +370,11 @@ export abstract class ApiService {
     email: string
   ): Observable<UserEntityForAdmin>;
 
+  abstract adminUpdateUser(
+    userId: string,
+    dto: AdminUpdateUserDto
+  ): Observable<UserEntityForAdmin>;
+
   abstract adminResetUserPassword(
     userId: string
   ): Observable<{ method: 'email' | 'return'; password: string }>;
@@ -392,4 +400,17 @@ export abstract class ApiService {
 
   abstract requestResetPassword(email: string): Observable<void>;
   abstract resetPassword(resetPasswordDto: ResetPasswordDto): Observable<void>;
+
+  // teams
+  abstract adminFindAllTeams(): Observable<TeamListEntity>;
+  abstract adminCreateTeam(
+    createTeamDto: CreateTeamDto
+  ): Observable<TeamEntity>;
+
+  abstract adminUpdateTeam(
+    id: string,
+    updateTeamDto: UpdateTeamDto
+  ): Observable<TeamEntity>;
+
+  abstract adminRemoveTeam(id: string): Observable<void>;
 }

@@ -174,6 +174,11 @@ export class Config {
   @IsDefined()
   registration: RegistrationConfig;
 
+  @IsNumber()
+  @IsOptional()
+  @IsNumber()
+  defaultUserSizeLimit: number = -1;
+
   @IsString()
   baseUrl: string;
 

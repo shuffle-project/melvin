@@ -1,4 +1,5 @@
 import { UserRole } from 'src/app/interfaces/auth.interfaces';
+import { TeamEntity } from './team.entity';
 
 export interface UserEntity {
   id: string;
@@ -15,5 +16,7 @@ export interface UserEntityForAdmin {
   name: string;
   projectCount: number;
   sizeInByte: number;
+  sizeLimit: number;
+  team: TeamEntity | null;
   accumulatedDuration: number;
 }

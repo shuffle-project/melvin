@@ -190,4 +190,14 @@ export class DeleteConfirmationService implements OnDestroy {
 
     return isConfirmed;
   }
+
+  async adminDeleteTeam(teamname: string): Promise<boolean> {
+    const isConfirmed = await this.confirm({
+      level: DeleteConfirmLevel.HIGH_TYPE,
+      subject: $localize`:@@deleteServiceAdminDeleteTeamSubject:Teamname: ${teamname}`,
+      description: $localize`:@@deleteServiceAdminDeleteTeamDescription:If you confirm this, this team will be deleted and users with that team will no longer have a size limit!`,
+    });
+
+    return isConfirmed;
+  }
 }

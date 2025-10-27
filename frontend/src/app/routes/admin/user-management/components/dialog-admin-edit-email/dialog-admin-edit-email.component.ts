@@ -12,9 +12,9 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { PushPipe } from '@ngrx/component';
 import { Store } from '@ngrx/store';
 import { UserEntityForAdmin } from 'src/app/services/api/entities/user.entity';
+import * as adminActions from 'src/app/store/actions/admin.actions';
 import { AppState } from 'src/app/store/app.state';
-import * as adminActions from '../../../../store/actions/admin.actions';
-import * as adminSelectors from '../../../../store/selectors/admin.selector';
+import * as adminSelector from 'src/app/store/selectors/admin.selector';
 
 @Component({
   selector: 'app-dialog-admin-edit-email',
@@ -33,9 +33,9 @@ import * as adminSelectors from '../../../../store/selectors/admin.selector';
 export class DialogAdminEditEmailComponent implements OnDestroy {
   public user = inject<UserEntityForAdmin>(MAT_DIALOG_DATA);
 
-  newEmailLoading$ = this.store.select(adminSelectors.selectNewEmailLoading);
-  newEmailError$ = this.store.select(adminSelectors.selectNewEmailError);
-  userWithNewEmail$ = this.store.select(adminSelectors.selectUserWithNewEmail);
+  newEmailLoading$ = this.store.select(adminSelector.selectNewEmailLoading);
+  newEmailError$ = this.store.select(adminSelector.selectNewEmailError);
+  userWithNewEmail$ = this.store.select(adminSelector.selectUserWithNewEmail);
 
   newEmailControl = new FormControl('', [
     Validators.required,

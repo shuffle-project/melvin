@@ -6,6 +6,9 @@ export class JwtPayload {
   name: string;
   email: string;
   isEmailVerified: boolean;
+  size: number;
+  sizeLimit: number;
+  team: string | null;
 }
 
 export interface DecodedToken extends JwtPayload {

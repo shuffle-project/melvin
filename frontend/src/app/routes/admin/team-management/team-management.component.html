@@ -1,0 +1,102 @@
+<div class="table-actions">
+  <div class="filter-wrapper">
+    <mat-form-field>
+      <mat-label i18n="@@adminFilterLabel">Filter</mat-label>
+      <input
+        matInput
+        (keyup)="onApplyFilter($event)"
+        [formControl]="filterControl"
+      />
+    </mat-form-field>
+    <p>
+      {{ filteredTeamsCount }}
+      <span i18n="@@adminFilterTeamsCountLabel">Teams</span>
+    </p>
+  </div>
+
+  <button
+    mat-flat-button
+    (click)="onOpenCreateTeamDialog()"
+    i18n="@@adminCreateTeamButtonLabel"
+  >
+    Create Team
+  </button>
+</div>
+
+<table mat-table [dataSource]="dataSource" matSort>
+  <ng-container matColumnDef="name">
+    <th
+      mat-header-cell
+      *matHeaderCellDef
+      mat-sort-header="name"
+      i18n="@@adminTeamTableHeaderTeamName"
+    >
+      Name
+    </th>
+    <td mat-cell *matCellDef="let element">{{ element.name }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="size">
+    <th
+      mat-header-cell
+      *matHeaderCellDef
+      mat-sort-header="size"
+      i18n="@@adminTableHeaderTeamSize"
+    >
+      Total File Size
+    </th>
+    <td mat-cell *matCellDef="let element">
+      {{ element.size | fileSize }}
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="sizelimit">
+    <th
+      mat-header-cell
+      *matHeaderCellDef
+      mat-sort-header="sizeLimit"
+      i18n="@@adminTableHeaderTeamSizeLimit"
+    >
+      Size Limit
+    </th>
+    <td mat-cell *matCellDef="let element">
+      @if(element.sizeLimit === -1) {
+      <span i18n="@@adminTableTeamSizeLimitUnlimited">Unlimited</span>
+      }@else{
+      {{ element.sizeLimit | fileSize }}
+      }
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="more">
+    <th mat-header-cell *matHeaderCellDef i18n="@@adminTeamTableHeaderMore">
+      More
+    </th>
+    <td mat-cell *matCellDef="let element">
+      <button
+        mat-icon-button
+        [matMenuTriggerData]="{ team: element }"
+        [matMenuTriggerFor]="menu"
+        aria-label="More"
+      >
+        <mat-icon svgIcon="more" />
+      </button>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+</table>
+
+<mat-menu #menu="matMenu">
+  <ng-template matMenuContent let-team="team">
+    <button mat-menu-item (click)="onOpenDialogEditTeam(team)">
+      <mat-icon svgIcon="edit" />
+      <span i18n="@@adminTableEditTeam">Edit Team</span>
+    </button>
+    <button mat-menu-item (click)="onDeleteTeam(team)">
+      <mat-icon svgIcon="delete" />
+      <span i18n="@@adminTableActionDeleteTeam">Delete Team</span>
+    </button>
+  </ng-template>
+</mat-menu>

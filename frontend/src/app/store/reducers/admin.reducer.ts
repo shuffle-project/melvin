@@ -1,4 +1,5 @@
 import { createReducer, on } from '@ngrx/store';
+import { TeamEntity } from 'src/app/services/api/entities/team.entity';
 import { UserEntityForAdmin } from 'src/app/services/api/entities/user.entity';
 import * as adminActions from '../actions/admin.actions';
 
@@ -17,6 +18,8 @@ export interface AdminState {
   newUserError: string | null;
 
   userList: { users: Readonly<UserEntityForAdmin[]> };
+
+  teamList: { teams: TeamEntity[] };
 }
 
 export const initialState: AdminState = {
@@ -34,6 +37,8 @@ export const initialState: AdminState = {
   newUserError: null,
 
   userList: { users: [] },
+
+  teamList: { teams: [] },
 };
 
 export const adminReducer = createReducer(
@@ -165,5 +170,11 @@ export const adminReducer = createReducer(
     userList: {
       users: state.userList.users.map((u) => (u.id === user.id ? user : u)),
     },
+  })),
+
+  // Teams
+  on(adminActions.adminFindAllTeamsSuccess, (state, { teamList }) => ({
+    ...state,
+    teamList: { ...teamList },
   }))
 );

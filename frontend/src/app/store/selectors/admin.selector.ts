@@ -18,6 +18,11 @@ export const selectAllUsers = createSelector(
   (state) => state.userList
 );
 
+export const selectAllTeams = createSelector(
+  selectAdminState,
+  (state) => state.teamList
+);
+
 export const selectToken = createSelector(
   selectAdminState,
   (state) => state.token

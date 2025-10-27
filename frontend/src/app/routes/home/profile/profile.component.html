@@ -8,6 +8,18 @@
     <p class="email">{{ user?.email }}</p>
   </div>
 
+  <div class="size">
+    @if(user?.team){
+    <p>
+      {{ user?.team }}
+    </p>
+    }
+    <p>
+      {{ user?.size }} /
+      {{ user?.sizeLimit }}
+    </p>
+  </div>
+
   <button
     (click)="onOpenChangeUsernameDialog()"
     mat-stroked-button

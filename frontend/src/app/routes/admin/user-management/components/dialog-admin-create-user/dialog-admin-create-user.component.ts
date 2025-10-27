@@ -7,10 +7,10 @@ import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { PushPipe } from '@ngrx/component';
 import { Store } from '@ngrx/store';
+import * as adminActions from 'src/app/store/actions/admin.actions';
 import { AppState } from 'src/app/store/app.state';
-import * as adminActions from '../../../../store/actions/admin.actions';
-import * as adminSelectors from '../../../../store/selectors/admin.selector';
-import { AdminUserPasswordComponent } from '../admin-user-password/admin-user-password.component';
+import * as adminSelector from 'src/app/store/selectors/admin.selector';
+import { AdminUserPasswordComponent } from '../../../components/admin-user-password/admin-user-password.component';
 
 @Component({
   selector: 'app-dialog-admin-create-user',
@@ -28,12 +28,12 @@ import { AdminUserPasswordComponent } from '../admin-user-password/admin-user-pa
   styleUrl: './dialog-admin-create-user.component.scss',
 })
 export class DialogAdminCreateUserComponent implements OnDestroy {
-  newUserPassword$ = this.store.select(adminSelectors.selectNewUserPassword);
+  newUserPassword$ = this.store.select(adminSelector.selectNewUserPassword);
   newUserPasswordLoading$ = this.store.select(
-    adminSelectors.selectNewUserPasswordLoading
+    adminSelector.selectNewUserPasswordLoading
   );
-  passwordMethod$ = this.store.select(adminSelectors.selectPasswordMethod);
-  newUserError$ = this.store.select(adminSelectors.selectNewUserError);
+  passwordMethod$ = this.store.select(adminSelector.selectPasswordMethod);
+  newUserError$ = this.store.select(adminSelector.selectNewUserError);
 
   emailControl = new FormControl('', [Validators.required, Validators.email]);
   usernameControl = new FormControl('', [Validators.required]);

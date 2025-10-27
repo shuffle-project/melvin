@@ -15,27 +15,6 @@
   padding-inline: 1.25rem;
   box-sizing: border-box;
 
-  .table-actions {
-    justify-content: space-between;
-    margin-block-start: 1.5rem;
-    display: flex;
-    gap: 1.5rem;
-
-    .filter-wrapper {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-
-      p {
-        margin: 0;
-        padding-top: 1.25rem;
-        box-sizing: border-box;
-        height: 100%;
-        font-weight: 500;
-      }
-    }
-  }
-
   .admin-header {
     display: flex;
     align-items: center;

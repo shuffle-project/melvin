@@ -11,6 +11,7 @@ import {
 } from './schemas/notification.schema';
 import { Project, ProjectSchema } from './schemas/project.schema';
 import { Settings, SettingsSchema } from './schemas/settings.schema';
+import { Team, TeamSchema } from './schemas/team.schema';
 import {
   Transcription,
   TranscriptionSchema,
@@ -29,6 +30,7 @@ import { User, UserSchema } from './schemas/user.schema';
       { name: Notification.name, schema: NotificationSchema },
       { name: Notification.name, schema: NotificationSchema },
       { name: Settings.name, schema: SettingsSchema },
+      { name: Team.name, schema: TeamSchema },
     ]),
     LoggerModule,
   ],

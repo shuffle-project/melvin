@@ -15,6 +15,7 @@ import {
 } from '../../constants/mocks/captions.mock';
 import { UploadDto } from '../upload/upload.interfaces';
 import { ApiService } from './api.service';
+import { AdminUpdateUserDto } from './dto/admin-update-user.dto';
 import { ChangePasswordDto } from './dto/auth.dto';
 import { BulkRemoveDto } from './dto/bulk-remove.dto';
 import { ConnectLivestreamDto } from './dto/connect-livestream.dto';
@@ -31,6 +32,7 @@ import { StartLivestreamDto } from './dto/start-livestream.dto';
 import { StartRecordingDto } from './dto/start-recording.dto';
 import { StopLivestreamDto } from './dto/stop-livestream.dto';
 import { StopRecordingDto } from './dto/stop-recording.dto';
+import { CreateTeamDto, UpdateTeamDto } from './dto/team.dto';
 import {
   UpdateManyNotificationsDto,
   UpdateNotificationDto,
@@ -63,6 +65,7 @@ import { StartLivestreamEntity } from './entities/start-livestream.entity';
 import { StartRecordingEntity } from './entities/start-recording.entity';
 import { StopLivestreamEntity } from './entities/stop-livestream.entity';
 import { StopRecordingEntity } from './entities/stop-recording.entity';
+import { TeamEntity, TeamListEntity } from './entities/team.entity';
 import {
   SubtitleFormat,
   TranscriptionEntity,
@@ -572,6 +575,14 @@ export class FakeApiService implements ApiService {
     return of();
   }
 
+  adminUpdateUser(
+    userId: string,
+    dto: AdminUpdateUserDto
+  ): Observable<UserEntityForAdmin> {
+    this.logger.verbose('adminUpdateUser mocked');
+    return of();
+  }
+
   adminResetUserPassword(
     userId: string
   ): Observable<{ method: 'email' | 'return'; password: string }> {
@@ -611,6 +622,30 @@ export class FakeApiService implements ApiService {
     return of();
   }
   resetPassword(resetPasswordDto: ResetPasswordDto): Observable<void> {
+    return of();
+  }
+
+  // teams
+  adminFindAllTeams(): Observable<TeamListEntity> {
+    return of();
+  }
+
+  adminfindOneTeam(id: string): Observable<TeamEntity> {
+    return of();
+  }
+
+  adminCreateTeam(createTeamDto: CreateTeamDto): Observable<TeamEntity> {
+    return of();
+  }
+
+  adminUpdateTeam(
+    id: string,
+    updateTeamDto: UpdateTeamDto
+  ): Observable<TeamEntity> {
+    return of();
+  }
+
+  adminRemoveTeam(id: string): Observable<void> {
     return of();
   }
 }

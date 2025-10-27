@@ -1,5 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
+import { TeamEntity } from 'src/resources/team/entities/team.entity';
 import { UserRole } from 'src/resources/user/user.interfaces';
 
 // export class ProjectInformation {
@@ -34,6 +35,12 @@ export class UserEntity {
 
   @ApiProperty()
   projectCount: number;
+
+  @ApiProperty()
+  sizeLimit: number | null;
+
+  @ApiProperty()
+  team: TeamEntity | null;
 
   // @ApiProperty({ type: [ProjectInformation] })
   // @Type(() => ProjectInformation)

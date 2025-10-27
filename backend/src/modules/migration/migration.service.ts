@@ -178,11 +178,10 @@ export class MigrationService {
         }
 
         await project.save();
-
-        settings.dbSchemaVersion = 9;
-        await settings.save();
-        this.logger.info('Migration to version 9 successful');
       });
+      settings.dbSchemaVersion = 9;
+      await settings.save();
+      this.logger.info('Migration to version 9 successful');
     }
   }
 

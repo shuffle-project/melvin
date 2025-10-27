@@ -2,7 +2,8 @@ import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
-import { Types } from 'mongoose';
+import { PopulatedDoc, Types } from 'mongoose';
+import { Team } from 'src/modules/db/schemas/team.schema';
 import { MailService } from 'src/modules/mail/mail.service';
 import { v4 } from 'uuid';
 import { JwtConfig, RegistrationConfig } from '../../config/config.interface';
@@ -51,6 +52,8 @@ interface SignTokenUser {
   name: string;
   email: string;
   isEmailVerified: boolean;
+  sizeLimit: number;
+  team: PopulatedDoc<Team> | null;
 }
 
 @Injectable()
@@ -107,7 +110,7 @@ export class AuthService {
     );
 
     // Create access token
-    const token = this.createAccessToken(updatedUser);
+    const token = await this.createAccessToken(updatedUser);
 
     return { token };
   }
@@ -137,7 +140,7 @@ export class AuthService {
     }
 
     // Create access token
-    const token = this.createAccessToken(user);
+    const token = await this.createAccessToken(user);
 
     return { token };
   }
@@ -160,7 +163,7 @@ export class AuthService {
     }
 
     // Create access token
-    const token = this.createAccessToken(user);
+    const token = await this.createAccessToken(user);
 
     return { token };
   }
@@ -249,7 +252,7 @@ export class AuthService {
     );
 
     // Create access token
-    const accessToken = this.createAccessToken(newUser);
+    const accessToken = await this.createAccessToken(newUser);
 
     return { token: accessToken };
   }
@@ -292,6 +295,7 @@ export class AuthService {
       isEmailVerified: false,
       emailVerificationToken: null,
       projects: [project._id],
+      team: null,
     });
 
     // Add guest user to project
@@ -299,7 +303,7 @@ export class AuthService {
     await project.save();
 
     // Create access token
-    const token = this.createAccessToken(user);
+    const token = await this.createAccessToken(user);
 
     return { token, projectId: project._id.toString() };
   }
@@ -315,25 +319,43 @@ export class AuthService {
       throw new CustomBadRequestException('Unknown viewer token');
     }
 
-    const accessToken = this.createAccessToken({
+    const accessToken = await this.createAccessToken({
       _id: project._id,
       role: UserRole.VIEWER,
       name: 'viewer',
       email: 'viewer',
       isEmailVerified: true,
+      // size: 0,
+      sizeLimit: 0,
+      team: null,
     });
 
     return { token: accessToken, projectId: project._id.toString() };
   }
 
-  createAccessToken(user: SignTokenUser): string {
+  async createAccessToken(user: SignTokenUser): Promise<string> {
+    let team: Team | null = null;
+    let size = 0;
+    if (user.team) {
+      team = await this.db.teamModel.findById(user.team._id).lean().exec();
+      size = await this.db.getTeamSize(team._id.toString());
+    } else {
+      size = await this.db.getUserSize(user._id.toString());
+    }
+
+    const defaultSizeLimit = this.configService.get<number>(
+      'defaultUserSizeLimit',
+    );
+
     const payload: JwtPayload = {
       id: user._id.toString(),
       role: user.role,
       name: user.name,
       email: user.email,
       isEmailVerified: user.isEmailVerified,
-      // email verified
+      sizeLimit: team ? team.sizeLimit : user.sizeLimit ?? defaultSizeLimit,
+      size: size,
+      team: team?.name ?? null,
     };
     return this.jwtService.sign(payload, {
       algorithm: 'HS256',

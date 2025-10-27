@@ -1,5 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { createAction, props } from '@ngrx/store';
+import { TeamListEntity } from 'src/app/services/api/entities/team.entity';
 import { UserEntityForAdmin } from 'src/app/services/api/entities/user.entity';
 
 // Login && Logout
@@ -126,5 +127,18 @@ export const adminVerifyUserEmailSuccess = createAction(
 
 export const adminVerifyUserEmailFail = createAction(
   '[ADMIN API] Verify user email by admin fail',
+  props<{ error: HttpErrorResponse }>()
+);
+
+// teams
+export const adminFindAllTeams = createAction(
+  '[ADMIN COMPONENT] Find all Teams'
+);
+export const adminFindAllTeamsSuccess = createAction(
+  '[ADMIN API] Find all Teams Success',
+  props<{ teamList: TeamListEntity }>()
+);
+export const adminFindAllTeamsFail = createAction(
+  '[ADMIN API] Find all Teams Fail',
   props<{ error: HttpErrorResponse }>()
 );

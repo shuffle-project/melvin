@@ -18,6 +18,7 @@ import * as viewerSelector from '../../store/selectors/viewer.selector';
 import { ConfigService } from '../config/config.service';
 import { UploadDto } from '../upload/upload.interfaces';
 import { ApiService } from './api.service';
+import { AdminUpdateUserDto } from './dto/admin-update-user.dto';
 import { ChangePasswordDto } from './dto/auth.dto';
 import { BulkRemoveDto } from './dto/bulk-remove.dto';
 import { ConnectLivestreamDto } from './dto/connect-livestream.dto';
@@ -34,6 +35,7 @@ import { StartLivestreamDto } from './dto/start-livestream.dto';
 import { StartRecordingDto } from './dto/start-recording.dto';
 import { StopLivestreamDto } from './dto/stop-livestream.dto';
 import { StopRecordingDto } from './dto/stop-recording.dto';
+import { CreateTeamDto, UpdateTeamDto } from './dto/team.dto';
 import { UpdateCaptionDto } from './dto/update-caption.dto';
 import {
   UpdateManyNotificationsDto,
@@ -69,6 +71,7 @@ import { StartLivestreamEntity } from './entities/start-livestream.entity';
 import { StartRecordingEntity } from './entities/start-recording.entity';
 import { StopLivestreamEntity } from './entities/stop-livestream.entity';
 import { StopRecordingEntity } from './entities/stop-recording.entity';
+import { TeamEntity, TeamListEntity } from './entities/team.entity';
 import {
   SubtitleFormat,
   TranscriptionEntity,
@@ -762,6 +765,19 @@ export class RealApiService implements ApiService {
     );
   }
 
+  adminUpdateUser(
+    userId: string,
+    dto: AdminUpdateUserDto
+  ): Observable<UserEntityForAdmin> {
+    return this._patch<UserEntityForAdmin>(
+      `/admin/users/${userId}`,
+      { ...dto },
+      {
+        useAdminToken: true,
+      }
+    );
+  }
+
   adminResetUserPassword(
     userId: string
   ): Observable<{ method: 'email' | 'return'; password: string }> {
@@ -834,5 +850,41 @@ export class RealApiService implements ApiService {
       { ...resetPasswordDto },
       { skipJwt: true }
     );
+  }
+
+  // teams
+  adminFindAllTeams(): Observable<TeamListEntity> {
+    return this._get<TeamListEntity>(`/teams`, {
+      useAdminToken: true,
+    });
+  }
+
+  adminfindOneTeam(id: string): Observable<TeamEntity> {
+    return this._get<TeamEntity>(`/teams/${id}`, {
+      useAdminToken: true,
+    });
+  }
+
+  adminCreateTeam(createTeamDto: CreateTeamDto): Observable<TeamEntity> {
+    return this._post<TeamEntity>(
+      `/teams`,
+      { ...createTeamDto },
+      { useAdminToken: true }
+    );
+  }
+
+  adminUpdateTeam(
+    id: string,
+    updateTeamDto: UpdateTeamDto
+  ): Observable<TeamEntity> {
+    return this._patch<TeamEntity>(
+      `/teams/${id}`,
+      { ...updateTeamDto },
+      { useAdminToken: true }
+    );
+  }
+
+  adminRemoveTeam(id: string): Observable<void> {
+    return this._delete<void>(`/teams/${id}`, { useAdminToken: true });
   }
 }

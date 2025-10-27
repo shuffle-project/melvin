@@ -1,11 +1,20 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { ApiProperty } from '@nestjs/swagger';
 import { Exclude, Expose, Transform } from 'class-transformer';
-import { IsBoolean, IsDate, IsEmail, IsEnum, IsString } from 'class-validator';
+import {
+  IsBoolean,
+  IsDate,
+  IsEmail,
+  IsEnum,
+  IsMongoId,
+  IsNumber,
+  IsString,
+} from 'class-validator';
 import { HydratedDocument, PopulatedDoc, SchemaTypes, Types } from 'mongoose';
 import { EXAMPLE_USER } from '../../../constants/example.constants';
 import { UserRole } from '../../../resources/user/user.interfaces';
 import { Project } from './project.schema';
+import { Team } from './team.schema';
 
 export type UserDocument = HydratedDocument<User>;
 
@@ -35,7 +44,7 @@ export class User {
   updatedAt?: Date;
 
   @ApiProperty({ example: EXAMPLE_USER.email })
-  @Prop()
+  @Prop({ index: true })
   @IsEmail()
   email: string;
 
@@ -61,7 +70,7 @@ export class User {
   isEmailVerified: boolean;
 
   @Exclude()
-  @Prop()
+  @Prop({ index: true })
   @IsString()
   emailVerificationToken: string;
 
@@ -71,16 +80,16 @@ export class User {
   @Transform(({ obj }) => obj.projects.map((o: Types.ObjectId) => o.toString()))
   projects: PopulatedDoc<Project>[];
 
-  // @ApiProperty({ example: 1024 })
-  // @Prop()
-  // @IsNumber()
-  // sizeLimit: number;
+  @ApiProperty({ example: -1 })
+  @Prop()
+  @IsNumber()
+  sizeLimit: number | null;
 
-  // @ApiProperty({ type: String, example: EXAMPLE_USER._id })
-  // @Prop({ type: SchemaTypes.ObjectId, ref: 'Team' })
-  // @IsMongoId()
-  // @Transform(({ obj }) => obj.team.toString())
-  // team: PopulatedDoc<Team> | null;
+  @ApiProperty({ type: String, example: EXAMPLE_USER._id })
+  @Prop({ type: SchemaTypes.ObjectId, ref: 'Team', index: true })
+  @IsMongoId()
+  @Transform(({ obj }) => obj.team?.toString() ?? null)
+  team: PopulatedDoc<Team> | null;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);

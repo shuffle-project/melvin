@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { compare } from 'bcrypt';
+import { plainToInstance } from 'class-transformer';
 import {
   AdminUserConfig,
   RegistrationConfig,
@@ -16,6 +17,7 @@ import { CustomBadRequestException } from 'src/utils/exceptions';
 import { isSameObjectId } from 'src/utils/objectid';
 import { AuthService } from '../auth/auth.service';
 import { AuthLoginResponseDto } from '../auth/dto/auth-login.dto';
+import { TeamEntity } from '../team/entities/team.entity';
 import { UserRole } from '../user/user.interfaces';
 import { UserService } from '../user/user.service';
 import { AdminCreateUserDto } from './dto/admin-create-user.dto';
@@ -83,12 +85,14 @@ export class AdminService {
     if (!isMatch) {
       throw new CustomBadRequestException('invalid_credentials');
     }
-    const token = this.authService.createAccessToken({
+    const token = await this.authService.createAccessToken({
       _id: 'admin',
       name: this.adminUser.username,
       email: 'admin',
       role: UserRole.ADMIN,
       isEmailVerified: true,
+      sizeLimit: -1,
+      team: null,
     });
     return { token };
   }
@@ -159,7 +163,6 @@ export class AdminService {
         throw new CustomBadRequestException('email_already_taken');
       }
     }
-
     await this.db.userModel.findByIdAndUpdate(id, dto);
 
     const updatedUser = await this.db.userModel
@@ -233,6 +236,17 @@ export class AdminService {
     });
 
     const sizeInByte = projects.reduce((a, b) => a + b.sizeInByte, 0);
+
+    // TODO switch to populate team
+    let team: TeamEntity | null = null;
+    if (user.team) {
+      const foundTeam = await this.db.teamModel
+        .findById(user.team)
+        .lean()
+        .exec();
+      if (foundTeam) team = plainToInstance(TeamEntity, foundTeam);
+    }
+
     return {
       id: user._id.toString(),
       email: user.email,
@@ -242,6 +256,10 @@ export class AdminService {
       projectCount: projects.length,
       sizeInByte,
       accumulatedDuration,
+      sizeLimit:
+        user.sizeLimit ??
+        this.configService.get<number>('defaultUserSizeLimit'),
+      team,
     };
   }
 }

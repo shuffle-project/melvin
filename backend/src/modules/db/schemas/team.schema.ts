@@ -1,9 +1,13 @@
-import { Prop, Schema } from '@nestjs/mongoose';
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { ApiProperty } from '@nestjs/swagger';
 import { Exclude, Expose, Transform } from 'class-transformer';
 import { IsDate, IsNumber, IsString } from 'class-validator';
-import { Types } from 'mongoose';
+import { HydratedDocument, Types } from 'mongoose';
 import { EXAMPLE_USER } from '../../../constants/example.constants';
+
+export type TeamDocument = HydratedDocument<Team>;
+
+export type LeanTeamDocument = Team;
 
 @Schema({
   timestamps: true,
@@ -33,8 +37,10 @@ export class Team {
   @IsString()
   name: string;
 
-  @ApiProperty({ example: 1024 })
+  @ApiProperty({ example: -1 })
   @Prop()
   @IsNumber()
   sizeLimit: number;
 }
+
+export const TeamSchema = SchemaFactory.createForClass(Team);
