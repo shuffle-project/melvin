@@ -1,0 +1,56 @@
+@use '@angular/material' as mat;
+
+:host {
+  display: block;
+  min-width: 20rem;
+  padding: 1rem;
+  padding-top: 0.5rem;
+  box-sizing: border-box;
+}
+
+.info {
+  display: flex;
+  margin-bottom: 1rem;
+  align-items: center;
+}
+
+.name {
+  font-weight: 500;
+  margin-left: 0.5rem;
+}
+
+.email {
+  font-weight: 400;
+  margin-left: 0.5rem;
+}
+
+mat-progress-bar {
+  margin-bottom: 0.25rem;
+}
+
+mat-progress-bar.primary {
+  @include mat.progress-bar-overrides(
+    (
+      active-indicator-color: var(--color-primary),
+      track-color: rgba(var(--color-accent-primary), 0.3),
+    )
+  );
+}
+
+mat-progress-bar.orange {
+  @include mat.progress-bar-overrides(
+    (
+      active-indicator-color: var(--color-orange),
+      track-color: rgba(var(--color-accent-orange), 0.3),
+    )
+  );
+}
+
+mat-progress-bar.red {
+  @include mat.progress-bar-overrides(
+    (
+      active-indicator-color: var(--color-red),
+      track-color: rgba(var(--color-accent-red), 0.3),
+    )
+  );
+}

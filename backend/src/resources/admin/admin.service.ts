@@ -85,14 +85,8 @@ export class AdminService {
     if (!isMatch) {
       throw new CustomBadRequestException('invalid_credentials');
     }
-    const token = await this.authService.createAccessToken({
-      _id: 'admin',
+    const token = await this.authService.createAdminAccessToken({
       name: this.adminUser.username,
-      email: 'admin',
-      role: UserRole.ADMIN,
-      isEmailVerified: true,
-      sizeLimit: -1,
-      team: null,
     });
     return { token };
   }

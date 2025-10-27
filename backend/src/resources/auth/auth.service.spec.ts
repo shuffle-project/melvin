@@ -142,7 +142,7 @@ describe('AuthService', () => {
       email: TEST_DATA.email,
       hashedPassword: TEST_DATA.hashedPassword,
     });
-    const oldToken = service.createAccessToken(user.toJSON() as any);
+    const oldToken = service.createUserAccessToken(user.toJSON() as any);
 
     // Test
     const { token: newToken } = await service.refreshToken({ token: oldToken });
@@ -158,7 +158,7 @@ describe('AuthService', () => {
       email: TEST_DATA.email,
       hashedPassword: TEST_DATA.hashedPassword,
     });
-    const token = service.createAccessToken(user.toJSON() as any);
+    const token = service.createUserAccessToken(user.toJSON() as any);
     // await user.delete();
     await dbService.userModel.findByIdAndDelete(user._id);
 

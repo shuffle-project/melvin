@@ -75,7 +75,7 @@ describe('ProjectController (e2e)', () => {
     });
 
     const authService = module.get<AuthService>(AuthService);
-    const token = authService.createAccessToken(predefinedUser);
+    const token = authService.createUserAccessToken(predefinedUser);
     authHeader = { Authorization: `Bearer ${token}` };
     authUser = { id: predefinedUser._id.toString(), role: UserRole.USER };
   });

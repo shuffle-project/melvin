@@ -12,6 +12,7 @@ import { LetDirective } from '@ngrx/component';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { DeleteConfirmationService } from 'src/app/components/delete-confirmation-dialog/delete-confirmation.service';
+import { UserInfoComponent } from 'src/app/components/user-info/user-info.component';
 import { ApiService } from 'src/app/services/api/api.service';
 import { ConfigService } from 'src/app/services/config/config.service';
 import { logout } from 'src/app/store/actions/auth.actions';
@@ -41,6 +42,7 @@ interface PasswordChangeForm {
     MatButtonModule,
     MatProgressSpinnerModule,
     MatDividerModule,
+    UserInfoComponent,
   ],
 })
 export class ProfileComponent implements OnInit {

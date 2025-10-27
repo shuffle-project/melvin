@@ -23,7 +23,7 @@ async function bootstrap() {
   server.setTimeout(1000 * 60 * 15); // 15 minutes
 
   app.use(express.json({ limit: '10GB' }));
-  app.use(express.urlencoded({ limit: '10GB' }));
+  app.use(express.urlencoded({ limit: '10GB', extended: true }));
   app.use(express.raw({ limit: '10GB' }));
 
   const configService = app.get(ConfigService);

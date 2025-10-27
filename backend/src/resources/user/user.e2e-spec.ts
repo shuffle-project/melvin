@@ -54,7 +54,7 @@ describe('UserController (e2e)', () => {
     });
 
     const authService = module.get<AuthService>(AuthService);
-    const token = authService.createAccessToken(predefinedUser);
+    const token = authService.createUserAccessToken(predefinedUser);
     authHeader = { Authorization: `Bearer ${token}` };
   });
 

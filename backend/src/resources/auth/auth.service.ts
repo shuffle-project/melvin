@@ -110,7 +110,7 @@ export class AuthService {
     );
 
     // Create access token
-    const token = await this.createAccessToken(updatedUser);
+    const token = await this.createUserAccessToken(updatedUser);
 
     return { token };
   }
@@ -140,7 +140,7 @@ export class AuthService {
     }
 
     // Create access token
-    const token = await this.createAccessToken(user);
+    const token = await this.createUserAccessToken(user);
 
     return { token };
   }
@@ -163,7 +163,7 @@ export class AuthService {
     }
 
     // Create access token
-    const token = await this.createAccessToken(user);
+    const token = await this.createUserAccessToken(user);
 
     return { token };
   }
@@ -252,7 +252,7 @@ export class AuthService {
     );
 
     // Create access token
-    const accessToken = await this.createAccessToken(newUser);
+    const accessToken = await this.createUserAccessToken(newUser);
 
     return { token: accessToken };
   }
@@ -303,7 +303,7 @@ export class AuthService {
     await project.save();
 
     // Create access token
-    const token = await this.createAccessToken(user);
+    const token = await this.createUserAccessToken(user);
 
     return { token, projectId: project._id.toString() };
   }
@@ -319,7 +319,7 @@ export class AuthService {
       throw new CustomBadRequestException('Unknown viewer token');
     }
 
-    const accessToken = await this.createAccessToken({
+    const accessToken = await this.createUserAccessToken({
       _id: project._id,
       role: UserRole.VIEWER,
       name: 'viewer',
@@ -333,7 +333,7 @@ export class AuthService {
     return { token: accessToken, projectId: project._id.toString() };
   }
 
-  async createAccessToken(user: SignTokenUser): Promise<string> {
+  async createUserAccessToken(user: SignTokenUser): Promise<string> {
     let team: Team | null = null;
     let size = 0;
     if (user.team) {
@@ -363,6 +363,22 @@ export class AuthService {
       issuer: this.config.issuer,
       jwtid: v4(),
     });
+  }
+
+  async createAdminAccessToken(payload: { name: string }): Promise<string> {
+    return this.jwtService.sign(
+      {
+        id: 'admin',
+        role: UserRole.ADMIN,
+        name: payload.name,
+      },
+      {
+        algorithm: 'HS256',
+        audience: this.config.audience,
+        issuer: this.config.issuer,
+        jwtid: v4(),
+      },
+    );
   }
 
   verifyToken(token: string): any {

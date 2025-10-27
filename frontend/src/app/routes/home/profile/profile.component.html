@@ -2,57 +2,55 @@
   <h1 i18n="@@profileHeader">Profile</h1>
 </app-header>
 
-<div *ngrxLet="user$ as user" class="wrapper">
-  <div class="profile-user-dm-color user">
-    <h2 class="name">{{ user?.name }}</h2>
-    <p class="email">{{ user?.email }}</p>
+<div *ngrxLet="user$ as user" class="container">
+  <div class="inner">
+    <app-user-info></app-user-info>
+
+    <div class="section">
+      <h3 i18n="@@profileSettingsHeader">Settings</h3>
+
+      <mat-form-field class="language-select">
+        <mat-label i18n="@@profileSelectLabel">Interface language</mat-label>
+        <mat-select
+          [value]="locale"
+          (selectionChange)="onLanguageSwitched($event)"
+        >
+          <mat-option value="en-US" i18n="@@profileSelectEnglishOption">
+            English
+          </mat-option>
+          <mat-option value="de-DE" i18n="@@profileSelectGermanOption">
+            German
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div class="section">
+      <h3 i18n="@@profileAccountHeader">Account</h3>
+
+      <button
+        (click)="onOpenChangeUsernameDialog()"
+        mat-stroked-button
+        i18n="@@profileUsernameButtonLabel"
+      >
+        Change Name
+      </button>
+
+      <button
+        (click)="onOpenChangePasswordDialog()"
+        mat-stroked-button
+        i18n="@@profilePasswordButtonLabel"
+      >
+        Change Password
+      </button>
+
+      <button
+        (click)="onDeleteAccount()"
+        mat-stroked-button
+        i18n="@@profileDeleteAccountButtonLabel"
+      >
+        Delete Account
+      </button>
+    </div>
   </div>
-
-  <div class="size">
-    @if(user?.team){
-    <p>
-      {{ user?.team }}
-    </p>
-    }
-    <p>
-      {{ user?.size }} /
-      {{ user?.sizeLimit }}
-    </p>
-  </div>
-
-  <button
-    (click)="onOpenChangeUsernameDialog()"
-    mat-stroked-button
-    i18n="@@profileUsernameButtonLabel"
-  >
-    Change Name
-  </button>
-
-  <button
-    (click)="onOpenChangePasswordDialog()"
-    mat-stroked-button
-    i18n="@@profilePasswordButtonLabel"
-  >
-    Change Password
-  </button>
-
-  <button
-    (click)="onDeleteAccount()"
-    mat-stroked-button
-    i18n="@@profileDeleteAccountButtonLabel"
-  >
-    Delete Account
-  </button>
-
-  <mat-form-field class="language-select">
-    <mat-label i18n="@@profileSelectLabel">Interface language</mat-label>
-    <mat-select [value]="locale" (selectionChange)="onLanguageSwitched($event)">
-      <mat-option value="en-US" i18n="@@profileSelectEnglishOption">
-        English
-      </mat-option>
-      <mat-option value="de-DE" i18n="@@profileSelectGermanOption">
-        German
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
 </div>

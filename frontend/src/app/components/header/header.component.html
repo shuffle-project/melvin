@@ -129,6 +129,10 @@
         </ng-template>
       </mat-menu>
       <mat-menu #usermenu="matMenu">
+        @if(isLoggedIn$ | ngrxPush) {
+        <app-user-info></app-user-info>
+        <hr />
+        }
         <a
           mat-menu-item
           i18n="@@headerMenuProfileButton"

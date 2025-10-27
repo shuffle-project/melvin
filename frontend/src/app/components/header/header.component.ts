@@ -1,12 +1,12 @@
 import { animate, style, transition, trigger } from '@angular/animations';
 import {
   Component,
+  DOCUMENT,
   Inject,
   Input,
   OnDestroy,
   OnInit,
   Renderer2,
-  DOCUMENT
 } from '@angular/core';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatButtonModule } from '@angular/material/button';
@@ -23,7 +23,6 @@ import * as configSelector from '../../store/selectors/config.selector';
 import * as notificationsSelectors from '../../store/selectors/notifications.selector';
 import { NotificationComponent } from '../notification/notification.component';
 
-
 import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { LetDirective, PushPipe } from '@ngrx/component';
@@ -33,6 +32,7 @@ import { ConfigService } from 'src/app/services/config/config.service';
 import * as configActions from '../../store/actions/config.actions';
 import { ColorTheme } from '../../store/reducers/config.reducer';
 import { LogoComponent } from '../logo/logo.component';
+import { UserInfoComponent } from '../user-info/user-info.component';
 
 @Component({
   selector: 'app-header',
@@ -58,6 +58,7 @@ import { LogoComponent } from '../logo/logo.component';
     NotificationComponent,
     MatTooltipModule,
     PushPipe,
+    UserInfoComponent,
   ],
 })
 export class HeaderComponent implements OnDestroy, OnInit {
