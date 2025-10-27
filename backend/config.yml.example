@@ -2,6 +2,12 @@ environment: local
 baseUrl: http://localhost:3000
 baseFrontendUrl: http://localhost:4200
 
+registration:
+  mode: email
+  requireAdminApproval: false
+
+defaultUserSizeLimit: -1
+
 mongodb:
   uri: mongodb://localhost:27017/captioning
 
