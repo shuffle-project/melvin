@@ -118,6 +118,10 @@ export class Audio {
   @Prop()
   @IsEnum(MediaStatus)
   status: MediaStatus;
+
+  @Exclude()
+  @Prop()
+  sizeInBytes: number;
 }
 const AudioSchema = SchemaFactory.createForClass(Audio);
 
@@ -190,6 +194,10 @@ export class Video {
   @Prop()
   @IsEnum(MediaStatus)
   status: MediaStatus;
+
+  @Exclude()
+  @Prop()
+  sizeInBytes: number;
 }
 const VideoSchema = SchemaFactory.createForClass(Video);
 

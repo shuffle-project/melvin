@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import {
   Component,
   EventEmitter,
@@ -33,7 +32,6 @@ import { CreateTranscriptionDialogComponent } from '../../../create-transcriptio
 @Component({
   selector: 'app-upload-transcription',
   imports: [
-    CommonModule,
     MatFormFieldModule,
     MatSelectModule,
     ReactiveFormsModule,
@@ -132,7 +130,8 @@ export class UploadTranscriptionComponent implements OnInit, OnDestroy {
       })
     );
 
-    // TODO
+    // TODO: error handling before closing the dialog
+
     this.dialogRef.close();
 
     this.loading = false;

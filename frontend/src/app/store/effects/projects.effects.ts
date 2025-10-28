@@ -39,7 +39,6 @@ export class ProjectEffects {
             return projectsActions.findAllSuccess({ projectListEntity });
           }),
           catchError((errorRes) =>
-            // TODO Add reducer that listens
             of(projectsActions.findAllFail({ error: errorRes }))
           )
         )
@@ -56,7 +55,6 @@ export class ProjectEffects {
             projectsActions.findOneSuccess({ project: project })
           ),
           catchError((errorRes) =>
-            // TODO Add reducer that listens
             of(projectsActions.findOneFail({ error: errorRes }))
           )
         )
@@ -75,7 +73,6 @@ export class ProjectEffects {
             })
           ),
           catchError((errorRes) =>
-            // TODO Add reducer that listens
             of(projectsActions.removeFail({ error: errorRes }))
           )
         )
@@ -100,7 +97,6 @@ export class ProjectEffects {
               });
             }),
             catchError((errorRes) =>
-              // TODO Add reducer that listens
               of(projectsActions.updateFail({ error: errorRes }))
             )
           )

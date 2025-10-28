@@ -1,4 +1,18 @@
 <header>
+  @if (isNotUserEmailVerified$ | ngrxPush;) {
+  <div class="verify-email-wrapper">
+    <p i18n="@@headerEmailVerificationMessage">
+      We have sent you an email to verify your email address.
+    </p>
+    <button
+      (click)="onResendVerificationEmail()"
+      i18n="@@headerResendVerificationEmailButtonLabel"
+    >
+      Resend?
+    </button>
+  </div>
+  }
+
   <div *ngrxLet="recentNotifications$ as notifications">
     <div *ngrxLet="totalUnreadNotifications$ as totalUnreadNotifications">
       <mat-toolbar>
@@ -37,9 +51,9 @@
             (onMenuClose)="isMenuOpen = false"
           >
             @if (!isMenuOpen) {
-            <mat-icon @fadeIn svgIcon="menu"></mat-icon>
+            <mat-icon svgIcon="menu"></mat-icon>
             } @if (isMenuOpen) {
-            <mat-icon @fadeIn svgIcon="clear"></mat-icon>
+            <mat-icon svgIcon="clear"></mat-icon>
             }
           </button>
           }
@@ -115,6 +129,10 @@
         </ng-template>
       </mat-menu>
       <mat-menu #usermenu="matMenu">
+        @if(isLoggedIn$ | ngrxPush) {
+        <app-user-info></app-user-info>
+        <hr />
+        }
         <a
           mat-menu-item
           i18n="@@headerMenuProfileButton"

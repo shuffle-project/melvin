@@ -12,6 +12,7 @@ import { LetDirective } from '@ngrx/component';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { DeleteConfirmationService } from 'src/app/components/delete-confirmation-dialog/delete-confirmation.service';
+import { UserInfoComponent } from 'src/app/components/user-info/user-info.component';
 import { ApiService } from 'src/app/services/api/api.service';
 import { ConfigService } from 'src/app/services/config/config.service';
 import { logout } from 'src/app/store/actions/auth.actions';
@@ -19,6 +20,7 @@ import { HeaderComponent } from '../../../components/header/header.component';
 import { AuthUser } from '../../../interfaces/auth.interfaces';
 import * as authSelectors from '../../../store/selectors/auth.selector';
 import { DialogChangePasswordComponent } from './components/dialog-change-password/dialog-change-password.component';
+import { DialogChangeUsernameComponent } from './components/dialog-change-username/dialog-change-username.component';
 
 interface PasswordChangeForm {
   currentPassword: string;
@@ -40,6 +42,7 @@ interface PasswordChangeForm {
     MatButtonModule,
     MatProgressSpinnerModule,
     MatDividerModule,
+    UserInfoComponent,
   ],
 })
 export class ProfileComponent implements OnInit {
@@ -57,7 +60,6 @@ export class ProfileComponent implements OnInit {
   ) {}
 
   onLanguageSwitched(event: MatSelectChange) {
-    // TODO
     document.location.href = `${this.configService.getFrontendBaseUrl()}/${
       event.value
     }/home/profile`;
@@ -69,6 +71,15 @@ export class ProfileComponent implements OnInit {
 
   onOpenChangePasswordDialog() {
     this.dialog.open(DialogChangePasswordComponent, {
+      disableClose: true,
+      width: '100%',
+      maxWidth: '50rem',
+      maxHeight: '90vh',
+    });
+  }
+
+  onOpenChangeUsernameDialog() {
+    this.dialog.open(DialogChangeUsernameComponent, {
       disableClose: true,
       width: '100%',
       maxWidth: '50rem',

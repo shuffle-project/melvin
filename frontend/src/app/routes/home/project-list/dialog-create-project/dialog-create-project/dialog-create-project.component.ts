@@ -31,6 +31,7 @@ import { filter, lastValueFrom, Subject, takeUntil } from 'rxjs';
 import { UploadAreaComponent } from 'src/app/components/upload-area/upload-area.component';
 import { UploadProgressComponent } from 'src/app/components/upload-progress/upload-progress.component';
 import { MediaCategoryPipe } from 'src/app/pipes/media-category-pipe/media-category.pipe';
+import { AlertService } from 'src/app/services/alert/alert.service';
 import { ApiService } from 'src/app/services/api/api.service';
 import {
   CreateProjectDto,
@@ -132,7 +133,8 @@ export class DialogCreateProjectComponent implements OnDestroy, AfterViewInit {
     private api: ApiService,
     private store: Store<AppState>,
     private dialogRef: MatDialogRef<DialogCreateProjectComponent>,
-    private uploadService: UploadService
+    private uploadService: UploadService,
+    private alertService: AlertService
   ) {
     this.store
       .select(configSelectors.getSupportedASRLanguages)
@@ -257,7 +259,6 @@ export class DialogCreateProjectComponent implements OnDestroy, AfterViewInit {
   }
 
   addFiles(files: File[]) {
-    // TODO snackbar with allowed file formats if wrong format submitted?
     const onlyValidFiles = [...files].filter((file: File) => {
       return this.acceptedFileFormats.find((acceptedFormat) => {
         if (acceptedFormat.includes('.')) {
@@ -399,7 +400,7 @@ export class DialogCreateProjectComponent implements OnDestroy, AfterViewInit {
         language: this._getMainLanguage(this.formGroup),
         videoOptions,
         subtitleOptions:
-          subtitleOptions.length > 0 ? subtitleOptions : undefined, // TODO fill
+          subtitleOptions.length > 0 ? subtitleOptions : undefined,
         sourceMode: 'video',
       };
 
@@ -408,13 +409,15 @@ export class DialogCreateProjectComponent implements OnDestroy, AfterViewInit {
       this.loading = false;
       this.dialogRef.close();
     } catch (error) {
-      // TODO error
       this.loading = false;
       this.formGroup.enable();
 
       // should always be an HttpErrorResponse
       this.error = error as HttpErrorResponse;
       console.log('error in project creation', error);
+      this.alertService.error(
+        $localize`:@@createProjectDialogProjectCreationError:Error during project creation, try again later.`
+      );
     }
   }
 

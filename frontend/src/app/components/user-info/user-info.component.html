@@ -1,0 +1,24 @@
+<ng-container *ngrxLet="user$ as user">
+  @if(user) {
+  <div class="info">
+    <app-avatar [user]="{ name: user.name }"></app-avatar>
+    <div class="flex flex-col">
+      @if(user.team) {
+      <span class="name">{{ user.name }} ({{ user.team }})</span>
+      } @else {
+      <span class="name">{{ user.name }}</span>
+      }
+      <span class="email">{{ user.email }}</span>
+    </div>
+  </div>
+  @if (user.sizeLimit !== -1) {
+  <mat-progress-bar
+    mode="determinate"
+    [value]="percentage$ | ngrxPush"
+    [ngClass]="color$ | ngrxPush"
+  ></mat-progress-bar>
+  <span i18n="@@userInfoStorageUsage"
+    >{{ user.size | fileSize }} from {{ user.sizeLimit | fileSize }} used</span
+  >
+  } }
+</ng-container>

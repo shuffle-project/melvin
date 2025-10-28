@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { ConfigEntity, Hello } from './app.interfaces';
-import { Environment } from './config/config.interface';
+import { Environment, RegistrationConfig } from './config/config.interface';
 import { LANGUAGES } from './constants/languages.constants';
 import { SpeechToTextService } from './modules/speech-to-text/speech-to-text.service';
 import { TranslationService } from './modules/translation/translation.service';
@@ -27,14 +27,19 @@ export class AppService {
     };
   }
 
-  getConfig(): ConfigEntity {
+  async getConfig(): Promise<ConfigEntity> {
+    const registrationConfig =
+      this.configService.get<RegistrationConfig>('registration');
+
     const translationServices = this.translationService.getConfig();
     const asrServices = this.speechToTextService.getConfig();
+
     const languages = LANGUAGES;
     return {
       translationServices,
       asrServices,
       languages,
+      registrationMode: registrationConfig.mode,
     };
   }
 }

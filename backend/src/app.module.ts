@@ -10,6 +10,7 @@ import { configuration } from './config/config.load';
 import { DbModule } from './modules/db/db.module';
 import { FfmpegModule } from './modules/ffmpeg/ffmpeg.module';
 import { LoggerModule } from './modules/logger/logger.module';
+import { MailModule } from './modules/mail/mail.module';
 import { MediaModule } from './modules/media/media.module';
 import { MelvinAsrApiModule } from './modules/melvin-asr-api/melvin-asr-api.module';
 import { MigrationModule } from './modules/migration/migration.module';
@@ -25,12 +26,14 @@ import { ProjectProcessor } from './processors/project.processor';
 import { SubtitlesProcessor } from './processors/subtitles.processor';
 import { VideoProcessor } from './processors/video.processor';
 import { ActivityModule } from './resources/activity/activity.module';
+import { AdminModule } from './resources/admin/admin.module';
 import { AuthModule } from './resources/auth/auth.module';
 import { CaptionModule } from './resources/caption/caption.module';
 import { EventsModule } from './resources/events/events.module';
 import { NotificationModule } from './resources/notification/notification.module';
 import { PopulateModule } from './resources/populate/populate.module';
 import { ProjectModule } from './resources/project/project.module';
+import { TeamModule } from './resources/team/team.module';
 import { TranscriptionModule } from './resources/transcription/transcription.module';
 import { UserModule } from './resources/user/user.module';
 
@@ -88,6 +91,7 @@ import { UserModule } from './resources/user/user.module';
     // Resources
     AuthModule,
     ProjectModule,
+    TeamModule,
     UserModule,
     CaptionModule,
     TranscriptionModule,
@@ -97,7 +101,9 @@ import { UserModule } from './resources/user/user.module';
     PathModule,
     ActivityModule,
     MediaModule,
+    AdminModule,
     TasksModule,
+    MailModule,
     // TODO LivestreamModule,
     // generate captions
     SpeechToTextModule,

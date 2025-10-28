@@ -49,8 +49,6 @@ export class CreateTranscriptionDto extends PickType(Transcription, [
   'title',
   'language',
 ] as const) {
-  // TODO nach möglichkeit darf nur eines der werte gesetzt werden
-
   @ApiPropertyOptional()
   @IsOptional()
   @ValidateNested({ each: true })

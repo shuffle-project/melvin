@@ -7,7 +7,15 @@ body {
   margin: 0;
   font-family: Roboto, 'Helvetica Neue', sans-serif;
   background: var(--color-white);
+
+  --header-height: var(--header-height-without-banner);
+
+  &.banner {
+    --header-height: var(--header-height-with-banner);
+  }
 }
+
+// calc(100% - 3.75rem);
 
 input,
 textarea {
@@ -141,6 +149,6 @@ a {
 
 // NG-Content for Upload Progess Component
 button.upload-outline-button {
-  border: 1px solid var(--color-dark-grey);
-  color: var(--color-dark-grey);
+  border: 1px solid var(--color-black);
+  color: var(--color-black);
 }

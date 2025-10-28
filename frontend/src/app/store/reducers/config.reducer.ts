@@ -30,6 +30,8 @@ export interface ConfigState {
   translationServices: TranslationServiceConfig[];
   asrServices: AsrServiceConfig[];
   languages: Language[];
+
+  registrationMode: 'email' | 'disabled';
 }
 export const initialState: ConfigState = {
   language: storage.getFromLocalStorage(
@@ -47,6 +49,8 @@ export const initialState: ConfigState = {
   translationServices: [],
   asrServices: [],
   languages: [],
+
+  registrationMode: 'disabled',
 };
 
 export const configReducer = createReducer(
@@ -57,6 +61,7 @@ export const configReducer = createReducer(
     asrServices: action.configEntity.asrServices,
     languages: action.configEntity.languages,
     isInitialized: true,
+    registrationMode: action.configEntity.registrationMode,
   })),
 
   on(

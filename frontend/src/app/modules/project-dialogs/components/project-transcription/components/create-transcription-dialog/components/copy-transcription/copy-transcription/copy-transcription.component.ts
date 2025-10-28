@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component, Input, inject } from '@angular/core';
 import {
   FormControl,
@@ -23,15 +23,14 @@ import { CreateTranscriptionDialogComponent } from '../../../create-transcriptio
 @Component({
   selector: 'app-copy-transcription',
   imports: [
-    CommonModule,
     MatFormFieldModule,
     MatSelectModule,
     ReactiveFormsModule,
     MatInputModule,
     MatIconModule,
     MatButtonModule,
-    WrittenOutLanguagePipe,
-  ],
+    WrittenOutLanguagePipe
+],
   templateUrl: './copy-transcription.component.html',
   styleUrl: './copy-transcription.component.scss',
 })

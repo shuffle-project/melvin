@@ -1,4 +1,6 @@
 import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
+import { User } from './auth.decorator';
+import { AuthUser } from './auth.interfaces';
 import { AuthService } from './auth.service';
 import {
   AuthGuestLoginDto,
@@ -16,10 +18,12 @@ import {
 } from './dto/auth-verify-email.dto';
 import { AuthViewerLoginDto } from './dto/auth-viewer.dto';
 import { ChangePasswordDto } from './dto/change-password.dto';
+import { ForgotPasswordDto } from './dto/forgot-password.dto';
+import { ResetPasswordByTokenDto } from './dto/reset-password-by-token.dto';
 import { AuthInviteEntity } from './entities/auth-invite.entity';
 import { AuthViewerLoginResponseEntity } from './entities/auth-viewer.entity';
 import { ChangePasswordEntity } from './entities/change-password.entity';
-import { BasicAuthGuard } from './guards/basic-auth.guard';
+import { JwtAuthGuard } from './guards/jwt-auth.guard';
 
 @Controller('auth')
 export class AuthController {
@@ -58,7 +62,13 @@ export class AuthController {
     return this.authService.register(dto);
   }
 
-  @Post('/verify-email')
+  @UseGuards(JwtAuthGuard)
+  @Post('/verify-email/request')
+  async sendVerifyEmail(@User() authUser: AuthUser) {
+    return this.authService.sendVerifyEmail(authUser);
+  }
+
+  @Post('/verify-email/confirm')
   async verifyEmail(
     @Body() dto: AuthVerifyEmailDto,
   ): Promise<AuthVerifyEmailResponseDto> {
@@ -86,11 +96,21 @@ export class AuthController {
     return this.authService.viewerLogin(dto);
   }
 
-  @UseGuards(BasicAuthGuard)
-  @Post('reset-password')
-  resetPassword(
-    @Body() dto: { email: string; newPassword: string },
-  ): Promise<void> {
-    return this.authService.resetPassword(dto.email, dto.newPassword);
+  // @UseGuards(BasicAuthGuard)
+  // @Post('reset-password')
+  // resetPassword(
+  //   @Body() dto: { email: string; newPassword: string },
+  // ): Promise<void> {
+  //   return this.authService.resetPassword(dto.email, dto.newPassword);
+  // }
+
+  @Post('/reset-password/request')
+  forgotPassword(@Body() dto: ForgotPasswordDto): Promise<void> {
+    return this.authService.forgotPassword(dto);
+  }
+
+  @Post('/reset-password/confirm')
+  resetPasswordByToken(@Body() dto: ResetPasswordByTokenDto): Promise<void> {
+    return this.authService.resetPasswordByToken(dto);
   }
 }

@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component, inject } from '@angular/core';
 import {
   FormControl,
@@ -13,7 +13,6 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { Store } from '@ngrx/store';
-import { WrittenOutLanguagePipe } from 'src/app/pipes/written-out-language-pipe/written-out-language.pipe';
 import { CreateTranscriptionDto } from 'src/app/services/api/dto/create-transcription.dto';
 import { LanguageService } from 'src/app/services/language/language.service';
 import { AppState } from 'src/app/store/app.state';
@@ -23,15 +22,13 @@ import { CreateTranscriptionDialogComponent } from '../../../create-transcriptio
 @Component({
     selector: 'app-empty-file-transcription',
     imports: [
-        CommonModule,
-        MatFormFieldModule,
-        MatInputModule,
-        MatSelectModule,
-        MatButtonModule,
-        MatIconModule,
-        WrittenOutLanguagePipe,
-        ReactiveFormsModule,
-    ],
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+    MatButtonModule,
+    MatIconModule,
+    ReactiveFormsModule
+],
     templateUrl: './empty-file-transcription.component.html',
     styleUrl: './empty-file-transcription.component.scss'
 })

@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import {
   Component,
   DestroyRef,
@@ -33,14 +33,13 @@ import { CreateTranscriptionDialogComponent } from '../../../create-transcriptio
 @Component({
   selector: 'app-from-media-transcription',
   imports: [
-    CommonModule,
     ReactiveFormsModule,
     MatInputModule,
     MatSelectModule,
     MatIconModule,
     MatButtonModule,
-    MatProgressBarModule,
-  ],
+    MatProgressBarModule
+],
   templateUrl: './from-media-transcription.component.html',
   styleUrl: './from-media-transcription.component.scss',
 })

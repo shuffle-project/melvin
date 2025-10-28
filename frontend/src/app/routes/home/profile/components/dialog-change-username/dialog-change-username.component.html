@@ -1,0 +1,41 @@
+<div mat-dialog-title>
+  <div class="dialog-header">
+    <div>
+      <h1 i18n="@@dialogChangeUsernameHeader">Change Name</h1>
+    </div>
+
+    <button
+      mat-icon-button
+      [mat-dialog-close]="true"
+      aria-label="Close"
+      i18n-aria-label="@@dialogChangeUsernameCloseButton"
+    >
+      <mat-icon svgIcon="close" />
+    </button>
+  </div>
+</div>
+
+<mat-dialog-content>
+  <form [formGroup]="changeUsernameForm">
+    <mat-form-field>
+      <mat-label i18n="@@dialogChangeUsernameLabel">Name</mat-label>
+      <input matInput type="text" formControlName="username" />
+      <!-- @if (changePasswordForm.controls.currentPassword.hasError('required')) {
+      <mat-error i18n="@@dialogChangePasswordCurrentPasswordRequiredError">
+        Current password required
+      </mat-error>
+      } -->
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button
+    (click)="onSubmitChangeUsername()"
+    mat-flat-button
+    type="submit"
+    i18n="@@dialogChangeUsernameSubmitButtonLabel"
+  >
+    Change Name
+  </button>
+</mat-dialog-actions>

@@ -1,5 +1,4 @@
 import {
-  IsArray,
   IsDefined,
   IsEmail,
   IsEnum,
@@ -47,6 +46,19 @@ export class BasicAuthConfig {
 
   @IsString()
   password: string;
+}
+
+export class AdminUserConfig {
+  @IsString()
+  username: string;
+
+  @IsString()
+  @IsOptional()
+  hashedPassword?: string;
+
+  @IsString()
+  @IsOptional()
+  password?: string;
 }
 
 export class EmailConfig {
@@ -123,7 +135,7 @@ export class GoogleSpeechConfig {
   client_email: string;
 }
 
-export class WhisperConfig {
+export class MelvinAsrConfig {
   @IsString()
   @IsDefined()
   host: string;
@@ -140,13 +152,34 @@ export class PopulateUser {
   email: string;
 }
 
+export enum RegistrationMode {
+  DISABLED = 'disabled',
+  EMAIL = 'email',
+}
+
+export class RegistrationConfig {
+  @IsEnum(RegistrationMode)
+  mode: RegistrationMode;
+}
+
 export class Config {
   @IsEnum(Environment)
   environment: Environment;
 
-  @IsString()
+  @ValidateNested({ each: true })
   @IsDefined()
+  registration: RegistrationConfig;
+
+  @IsNumber()
+  @IsOptional()
+  @IsNumber()
+  defaultUserSizeLimitGB: number = -1;
+
+  @IsString()
   baseUrl: string;
+
+  @IsString()
+  baseFrontendUrl: string;
 
   @ValidateNested({ each: true })
   @IsDefined()
@@ -166,12 +199,16 @@ export class Config {
 
   @ValidateNested({ each: true })
   @IsDefined()
+  adminUser: AdminUserConfig;
+
+  @ValidateNested({ each: true })
+  @IsOptional()
   email: EmailConfig;
 
-  @IsArray()
-  @ValidateNested({ each: true })
-  @IsDefined()
-  initialUsers: PopulateUser[];
+  // @IsArray()
+  // @ValidateNested({ each: true })
+  // @IsDefined()
+  // initialUsers: PopulateUser[];
 
   @ValidateNested({ each: true })
   deepL: DeepLConfig;
@@ -189,5 +226,5 @@ export class Config {
   googleSpeech: GoogleSpeechConfig;
 
   @ValidateNested({ each: true })
-  whisper: WhisperConfig;
+  melvinAsr: MelvinAsrConfig;
 }

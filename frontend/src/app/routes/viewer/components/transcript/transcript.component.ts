@@ -1,4 +1,3 @@
-import { NgStyle } from '@angular/common';
 import {
   ChangeDetectorRef,
   Component,
@@ -47,7 +46,6 @@ import { generateTranscript } from './transcript.utils';
     MatIconModule,
     MatButtonModule,
     LetDirective,
-    NgStyle,
     MatCheckboxModule,
     PushPipe,
     UserScrollDirective,

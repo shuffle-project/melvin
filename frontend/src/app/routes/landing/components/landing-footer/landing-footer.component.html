@@ -1,7 +1,7 @@
 <!-- debug populate -->
 <!-- <button mat-stroked-button (click)="onPopulate()">Populate DB</button> -->
 
-<footer>
+<footer [class.no-legal-section]="!privacyUrl && !imprintUrl">
   <nav
     i18n-aria-label="@@landingFooterNavAriaLabel"
     aria-label="Footer navigation"
@@ -53,8 +53,13 @@
             />
           </a>
         </li>
+        <li>
+          <a [routerLink]="['/admin']"> Admin </a>
+        </li>
       </ul>
     </div>
+
+    @if (privacyUrl || imprintUrl) {
 
     <div class="legal-wrapper">
       <h3 i18n="@@landingFooterLegalHeader">Legal</h3>
@@ -74,8 +79,7 @@
         }
       </ul>
     </div>
-
-    @if (!disableLandingPage || !disableInstallationPage) {
+    } @if (!disableLandingPage || !disableInstallationPage) {
     <div class="tutorial-wrapper">
       <h3 i18n="@@landingFooterTutorialsHeader">Tutorials</h3>
       <ul>

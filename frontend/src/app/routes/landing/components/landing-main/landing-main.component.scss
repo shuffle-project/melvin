@@ -16,6 +16,7 @@
     max-width: 28rem;
     margin-inline: 1.25rem;
     padding: 1.25rem 1.25rem;
+    box-sizing: border-box;
 
     border-radius: 1.25rem;
     border: 2px solid transparent;
@@ -103,36 +104,6 @@ main {
 
   iFrame {
     border-radius: 0.375rem;
-  }
-}
-
-.development-warning-wrapper {
-  margin-block: 7.5rem;
-  display: flex;
-  justify-content: center;
-
-  .development-warning {
-    padding: 2.5rem clamp(1.25rem, 5vw + 0.25rem, 3.75rem) 3.75rem;
-
-    max-width: 33.75rem;
-    box-sizing: border-box;
-    margin-inline: 1.25rem;
-
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-
-    border: 2px solid var(--color-primary);
-    border-radius: 0.375rem;
-    font-size: 1rem;
-    line-height: 150%;
-
-    .icon {
-      width: 5rem;
-      height: 5rem;
-      aspect-ratio: 1;
-      margin-bottom: 1.25rem;
-    }
   }
 }
 

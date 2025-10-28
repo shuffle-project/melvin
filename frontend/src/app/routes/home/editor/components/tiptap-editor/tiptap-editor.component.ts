@@ -212,30 +212,15 @@ export class TiptapEditorComponent implements AfterViewInit, OnInit, OnDestroy {
         if (status.status.toString() === 'connecting')
           console.log('Connecting to server...');
         this.status = CLIENT_STATUS.CONNECTING;
-        // this.editor?.setEditable(false);
         this.resetIsEditable();
-      },
-      onOutgoingMessage(data) {
-        // TODO we could use this message to show a "save" indicator
-        // maybe with a debnounce?
-        console.log('-> onOutgoingMessage', data);
       },
       onConnect: () => {
         console.log('onConnect');
         this.status = CLIENT_STATUS.CONNECTED;
       },
-      onAwarenessChange: (awareness) => {
-        // console.log('onAwarenessChange');
-        // console.log(awareness.states);
-      },
-      onAwarenessUpdate: (awareness) => {
-        // console.log('onAwarenessUpdate');
-        // console.log(awareness.states);
-      },
       onDisconnect: () => {
         console.log('onDisconnect');
         this.status = CLIENT_STATUS.DISCONNECTED;
-        // this.editor?.setEditable(false);
         this.resetIsEditable();
       },
       onAuthenticated: () => {
@@ -245,7 +230,6 @@ export class TiptapEditorComponent implements AfterViewInit, OnInit, OnDestroy {
       onSynced: () => {
         console.log('onSynced');
         this.status = CLIENT_STATUS.SYNCED;
-        // this.editor?.setEditable(true);
         this.resetIsEditable();
       },
     });

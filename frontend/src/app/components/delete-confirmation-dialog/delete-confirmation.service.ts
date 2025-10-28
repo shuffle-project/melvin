@@ -4,6 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
 import { lastValueFrom, map, Subject, takeUntil } from 'rxjs';
 import { WrittenOutLanguagePipe } from 'src/app/pipes/written-out-language-pipe/written-out-language.pipe';
+import { AlertService } from 'src/app/services/alert/alert.service';
 import { ApiService } from 'src/app/services/api/api.service';
 import { CaptionEntity } from 'src/app/services/api/entities/caption.entity';
 import { TranscriptionEntity } from 'src/app/services/api/entities/transcription.entity';
@@ -18,6 +19,7 @@ import { DeleteConfirmationDialogComponent } from './delete-confirmation-dialog.
 export enum DeleteConfirmLevel {
   LOW = 'low',
   HIGH_PASSWORD = 'high-password',
+  HIGH_TYPE = 'high-type',
 }
 export interface DeleteConfirmData {
   level: DeleteConfirmLevel;
@@ -41,7 +43,8 @@ export class DeleteConfirmationService implements OnDestroy {
     private dialog: MatDialog,
     private store: Store<AppState>,
     private apiService: ApiService,
-    private writtenOutLanguagePipe: WrittenOutLanguagePipe
+    private writtenOutLanguagePipe: WrittenOutLanguagePipe,
+    private alertService: AlertService
   ) {
     this.store
       .select(authSelectors.selectUserId)
@@ -135,9 +138,11 @@ export class DeleteConfirmationService implements OnDestroy {
           this.apiService.removeUserFromProject(project.id, this.userId)
         );
       } catch (err: unknown) {
-        // TODO handle error
         const error = (err as HttpErrorResponse).message;
         console.log(error);
+        this.alertService.error(
+          $localize`:@@deleteServiceLeaveProjectError:Error leaving project, try again later.`
+        );
       }
     }
 
@@ -171,6 +176,27 @@ export class DeleteConfirmationService implements OnDestroy {
     // if (isConfirmed) {
     //   console.log('delete');
     // }
+
+    return isConfirmed;
+  }
+
+  async adminDeleteAccount(userEmail: string): Promise<boolean> {
+    const isConfirmed = await this.confirm({
+      level: DeleteConfirmLevel.HIGH_TYPE,
+      type: 'deleteAccount',
+      subject: $localize`:@@deleteServiceAdminDeleteAccountSubject:User Account: ${userEmail}`,
+      description: $localize`:@@deleteServiceAdminDeleteAccountDescription:If you confirm this, the account with all created projects and data will be deleted. This can NOT be undone!`,
+    });
+
+    return isConfirmed;
+  }
+
+  async adminDeleteTeam(teamname: string): Promise<boolean> {
+    const isConfirmed = await this.confirm({
+      level: DeleteConfirmLevel.HIGH_TYPE,
+      subject: $localize`:@@deleteServiceAdminDeleteTeamSubject:Teamname: ${teamname}`,
+      description: $localize`:@@deleteServiceAdminDeleteTeamDescription:If you confirm this, this team will be deleted and users with that team will no longer have a size limit!`,
+    });
 
     return isConfirmed;
   }

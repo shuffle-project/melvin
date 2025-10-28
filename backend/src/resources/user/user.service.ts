@@ -2,20 +2,16 @@ import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import * as bcrypt from 'bcrypt';
 import { plainToInstance } from 'class-transformer';
-import { readdir, stat } from 'fs-extra';
-import { join } from 'path';
 import { DbService } from '../..//modules/db/db.service';
-import { EmailConfig } from '../../config/config.interface';
-import { Project } from '../../modules/db/schemas/project.schema';
 import { LeanUserDocument } from '../../modules/db/schemas/user.schema';
 import { PathService } from '../../modules/path/path.service';
 import {
   CustomForbiddenException,
   CustomInternalServerException,
 } from '../../utils/exceptions';
-import { isSameObjectId } from '../../utils/objectid';
 import { AuthUser } from '../auth/auth.interfaces';
 import { FindAllUsersQuery } from './dto/find-all-users.dto';
+import { UpdateUserDto } from './dto/update-user.dto';
 import { UserEntity } from './entities/user.entity';
 import { UserRole } from './user.interfaces';
 
@@ -30,20 +26,18 @@ export class UserService {
   async onApplicationBootstrap(): Promise<void> {
     const user = await this.db.userModel.findOne({ role: UserRole.SYSTEM });
 
-    const { mailFrom } = this.configService.get<EmailConfig>('email');
-
     if (user === null) {
       // Create default system user
       await this.db.userModel.create({
         name: 'System',
-        email: mailFrom,
+        email: 'System',
         role: UserRole.SYSTEM,
         hashedPassword: null,
       });
-    } else if (user.email !== mailFrom) {
+    } else if (user.email !== 'System') {
       // Update system user as config changed
       await this.db.userModel
-        .findByIdAndUpdate(user._id, { email: mailFrom })
+        .findByIdAndUpdate(user._id, { email: 'System' })
         .exec();
     }
   }
@@ -77,6 +71,21 @@ export class UserService {
     return users.map((o) => plainToInstance(UserEntity, o));
   }
 
+  async update(authUser: AuthUser, dto: UpdateUserDto): Promise<UserEntity> {
+    const user = await this.db.userModel.findById(authUser.id).exec();
+
+    if (!user) {
+      throw new CustomInternalServerException('user_not_found');
+    }
+
+    const updatedUser = await this.db.userModel
+      .findByIdAndUpdate(user._id, dto, { new: true })
+      .lean()
+      .exec();
+
+    return plainToInstance(UserEntity, updatedUser);
+  }
+
   async remove(authUser: AuthUser, dto: { password: string }): Promise<void> {
     const user = await this.db.userModel.findById(authUser.id).exec();
 
@@ -84,77 +93,30 @@ export class UserService {
       dto.password,
       user.hashedPassword,
     );
+
     if (!passwordMatch) {
       throw new CustomForbiddenException('password_is_incorrect');
     }
 
     // remove all ownded projects of user
-    await this.db.projectModel
-      .deleteMany({ createdBy: authUser.id })
-      .lean()
-      .exec();
+    await this.deleteUserById(authUser.id);
+  }
+
+  async deleteUserById(userId: string) {
+    const user = await this.db.userModel.findById(userId).lean().exec();
+    if (user && user.role === UserRole.SYSTEM) {
+      throw new CustomInternalServerException('cant_delete_system_user');
+    }
+
+    await this.db.projectModel.deleteMany({ createdBy: userId }).lean().exec();
 
     // leave all projects of user
     await this.db.projectModel.updateMany(
-      { users: { $in: [authUser.id] } },
-      { $pull: { users: authUser.id } },
+      { users: { $in: [userId] } },
+      { $pull: { users: userId } },
     );
 
     // remove user
-    await this.db.userModel
-      .findOneAndDelete({ _id: authUser.id })
-      .lean()
-      .exec();
-  }
-
-  async getAdminInfo(): Promise<any> {
-    const initialUsers = await this.db.userModel
-      .find()
-      .populate('projects')
-      .lean()
-      .exec();
-
-    const usersWithProjects = initialUsers.map((o) => ({
-      id: o._id.toString(),
-      email: o.email,
-      role: o.role,
-      projects: o.projects
-        .filter((p) => isSameObjectId((p as Project).createdBy, o))
-        .map((p) => p._id.toString()),
-    }));
-
-    const usersWithProjectSizes = await Promise.all(
-      usersWithProjects.map(async (user) => {
-        const projects = await Promise.all(
-          user.projects.map(async (project) => {
-            const size = await this._getProjectSize(project);
-            return { id: project, mbOnDisc: size };
-          }),
-        );
-        return {
-          mbOnDisc: projects.reduce((a, b) => a + b.mbOnDisc, 0),
-          ...user,
-          projects,
-        };
-      }),
-    );
-
-    return {
-      users: usersWithProjectSizes,
-    };
-  }
-
-  private async _getProjectSize(project: string) {
-    const projectPath = this.pathService.getProjectDirectory(project);
-    const projectFiles = await readdir(projectPath);
-    const sizes = await Promise.all(
-      projectFiles.map(async (file) => {
-        const fileStats = await stat(join(projectPath, file));
-        if (fileStats.isSymbolicLink()) return 0;
-        return fileStats.size / 1000 / 1000;
-      }),
-    );
-    const size = sizes.reduce((a, b) => a + b, 0);
-    return size;
+    await this.db.userModel.findOneAndDelete({ _id: userId }).lean().exec();
   }
 }

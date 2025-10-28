@@ -52,7 +52,6 @@ export class WSService {
   async connect() {
     this.logger.verbose('connect()');
 
-    // TODO: Check if reconnect works after one disconnect from the server and one from the client
     this.socket
       .pipe(
         takeUntil(this.disconnected$),

@@ -2,9 +2,12 @@ import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
-import { Types } from 'mongoose';
+import { PopulatedDoc, Types } from 'mongoose';
+import { Team } from 'src/modules/db/schemas/team.schema';
+import { MailService } from 'src/modules/mail/mail.service';
+import { gbToBytes } from 'src/utils/storage';
 import { v4 } from 'uuid';
-import { JwtConfig } from '../../config/config.interface';
+import { JwtConfig, RegistrationConfig } from '../../config/config.interface';
 import { DbService } from '../../modules/db/db.service';
 import { User } from '../../modules/db/schemas/user.schema';
 import { PermissionsService } from '../../modules/permissions/permissions.service';
@@ -38,6 +41,8 @@ import {
 } from './dto/auth-verify-email.dto';
 import { AuthViewerLoginDto } from './dto/auth-viewer.dto';
 import { ChangePasswordDto } from './dto/change-password.dto';
+import { ForgotPasswordDto } from './dto/forgot-password.dto';
+import { ResetPasswordByTokenDto } from './dto/reset-password-by-token.dto';
 import { AuthInviteEntity } from './entities/auth-invite.entity';
 import { AuthViewerLoginResponseEntity } from './entities/auth-viewer.entity';
 import { ChangePasswordEntity } from './entities/change-password.entity';
@@ -47,20 +52,27 @@ interface SignTokenUser {
   role: UserRole;
   name: string;
   email: string;
+  isEmailVerified: boolean;
+  sizeLimit: number;
+  team: PopulatedDoc<Team> | null;
 }
 
 @Injectable()
 export class AuthService {
   private config: JwtConfig;
+  private registrationConfig: RegistrationConfig;
 
   constructor(
     private jwtService: JwtService,
     private configService: ConfigService,
     private db: DbService,
+    private mailService: MailService,
     private permissions: PermissionsService,
     private populateService: PopulateService,
   ) {
     this.config = this.configService.get<JwtConfig>('jwt');
+    this.registrationConfig =
+      this.configService.get<RegistrationConfig>('registration');
   }
 
   async changePassword(dto: ChangePasswordDto): Promise<ChangePasswordEntity> {
@@ -99,7 +111,7 @@ export class AuthService {
     );
 
     // Create access token
-    const token = this.createAccessToken(updatedUser);
+    const token = await this.createUserAccessToken(updatedUser);
 
     return { token };
   }
@@ -129,7 +141,7 @@ export class AuthService {
     }
 
     // Create access token
-    const token = this.createAccessToken(user);
+    const token = await this.createUserAccessToken(user);
 
     return { token };
   }
@@ -152,12 +164,16 @@ export class AuthService {
     }
 
     // Create access token
-    const token = this.createAccessToken(user);
+    const token = await this.createUserAccessToken(user);
 
     return { token };
   }
 
-  async register(dto: AuthRegisterDto): Promise<void> {
+  async register(dto: AuthRegisterDto, adminService = false): Promise<void> {
+    if (this.registrationConfig.mode === 'disabled' && !adminService) {
+      throw new CustomForbiddenException('registration_disabled');
+    }
+
     // Get user by email
     const exists = await this.db.userModel
       .findOne({
@@ -194,31 +210,52 @@ export class AuthService {
     //  Create default project
     // await this.populateService._generateDefaultProject(user);
 
-    // TODO: Send email with verificationToken
+    if (this.mailService.isActive())
+      await this.mailService.sendVerifyEmail(user);
+  }
+
+  async sendVerifyEmail(authUser: AuthUser): Promise<void> {
+    const user = await this.db.userModel.findById(authUser.id);
+    await this.mailService.sendVerifyEmail(user);
   }
 
   async verifyEmail(
     dto: AuthVerifyEmailDto,
   ): Promise<AuthVerifyEmailResponseDto> {
     // Find user by verification token
-    const user = await this.db.userModel.findOneAndUpdate(
-      {
-        isEmailVerified: false,
-        emailVerificationToken: dto.verificationToken,
-      },
-      { emailVerificationToken: null, isEmailVerified: true },
-      { new: true },
-    );
 
-    // Unknown verificationToken
+    const user = await this.db.userModel
+      .findOne({ email: dto.email.toLowerCase() })
+      .exec();
+
     if (!user) {
       throw new CustomBadRequestException('unkown_verification_token');
     }
 
-    // Create access token
-    const token = this.createAccessToken(user);
+    if (user.isEmailVerified) {
+      throw new CustomBadRequestException('email_already_verified');
+    }
 
-    return { token };
+    // Unknown verificationToken
+    if (!user || user.emailVerificationToken !== dto.token) {
+      throw new CustomBadRequestException('unkown_verification_token');
+    }
+
+    const newVerificationToken = generateSecureToken();
+
+    const newUser = await this.db.userModel.findOneAndUpdate(
+      {
+        isEmailVerified: false,
+        emailVerificationToken: dto.token,
+      },
+      { emailVerificationToken: newVerificationToken, isEmailVerified: true },
+      { new: true },
+    );
+
+    // Create access token
+    const accessToken = await this.createUserAccessToken(newUser);
+
+    return { token: accessToken };
   }
 
   async verifyInvite(inviteToken: string): Promise<AuthInviteEntity> {
@@ -259,6 +296,7 @@ export class AuthService {
       isEmailVerified: false,
       emailVerificationToken: null,
       projects: [project._id],
+      team: null,
     });
 
     // Add guest user to project
@@ -266,7 +304,7 @@ export class AuthService {
     await project.save();
 
     // Create access token
-    const token = this.createAccessToken(user);
+    const token = await this.createUserAccessToken(user);
 
     return { token, projectId: project._id.toString() };
   }
@@ -282,22 +320,43 @@ export class AuthService {
       throw new CustomBadRequestException('Unknown viewer token');
     }
 
-    const accessToken = this.createAccessToken({
+    const accessToken = await this.createUserAccessToken({
       _id: project._id,
       role: UserRole.VIEWER,
       name: 'viewer',
-      email: 'viewer@shuffle-projekt.de',
+      email: 'viewer',
+      isEmailVerified: true,
+      // size: 0,
+      sizeLimit: 0,
+      team: null,
     });
 
     return { token: accessToken, projectId: project._id.toString() };
   }
 
-  createAccessToken(user: SignTokenUser): string {
+  async createUserAccessToken(user: SignTokenUser): Promise<string> {
+    let team: Team | null = null;
+    let size = 0;
+    if (user.team) {
+      team = await this.db.teamModel.findById(user.team._id).lean().exec();
+      size = await this.db.getTeamSize(team._id.toString());
+    } else {
+      size = await this.db.getUserSize(user._id.toString());
+    }
+
+    const defaultSizeLimit = gbToBytes(
+      this.configService.get<number>('defaultUserSizeLimitGB'),
+    );
+
     const payload: JwtPayload = {
       id: user._id.toString(),
       role: user.role,
       name: user.name,
       email: user.email,
+      isEmailVerified: user.isEmailVerified,
+      sizeLimit: team ? team.sizeLimit : user.sizeLimit ?? defaultSizeLimit,
+      size: size,
+      team: team?.name ?? null,
     };
     return this.jwtService.sign(payload, {
       algorithm: 'HS256',
@@ -305,6 +364,22 @@ export class AuthService {
       issuer: this.config.issuer,
       jwtid: v4(),
     });
+  }
+
+  async createAdminAccessToken(payload: { name: string }): Promise<string> {
+    return this.jwtService.sign(
+      {
+        id: 'admin',
+        role: UserRole.ADMIN,
+        name: payload.name,
+      },
+      {
+        algorithm: 'HS256',
+        audience: this.config.audience,
+        issuer: this.config.issuer,
+        jwtid: v4(),
+      },
+    );
   }
 
   verifyToken(token: string): any {
@@ -356,19 +431,77 @@ export class AuthService {
     };
   }
 
-  async resetPassword(email: string, newPassword: string): Promise<void> {
+  async resetPasswortByUserId(userId: string, newPassword: string) {
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
+    await this.db.userModel
+      .findByIdAndUpdate(userId, { hashedPassword })
+      .exec();
+  }
+
+  // async resetPassword(email: string, newPassword: string): Promise<void> {
+  //   const user = await this.db.userModel
+  //     .findOne({ email: email.toLowerCase() })
+  //     .exec();
+
+  //   if (user === null) {
+  //     throw new CustomInternalServerException('user_not_found');
+  //   }
+
+  //   await this.resetPasswortByUserId(user._id.toString(), newPassword);
+  //   return;
+  // }
+
+  async forgotPassword(dto: ForgotPasswordDto): Promise<void> {
+    if (this.registrationConfig.mode === 'disabled') {
+      throw new CustomForbiddenException('forgot_password_disabled');
+    }
+
+    let user = await this.db.userModel
+      .findOne({ email: dto.email.toLowerCase() })
+      .exec();
+
+    if (!user) {
+      throw new CustomBadRequestException('user_not_found');
+    }
+
+    if (!user.emailVerificationToken) {
+      const newtoken = generateSecureToken();
+      user = await this.db.userModel
+        .findOneAndUpdate(
+          { email: dto.email.toLowerCase() },
+          { $set: { emailVerificationToken: newtoken } },
+          { new: true },
+        )
+        .exec();
+    }
+
+    if (user) {
+      await this.mailService.sendForgotPassword(user);
+    }
+  }
+
+  async resetPasswordByToken(dto: ResetPasswordByTokenDto): Promise<void> {
     const user = await this.db.userModel
-      .findOne({ email: email.toLowerCase() })
+      .findOne({ email: dto.email.toLowerCase() })
       .exec();
 
     if (user === null) {
       throw new CustomInternalServerException('user_not_found');
     }
 
-    const hashedPassword = await bcrypt.hash(newPassword, 10);
+    if (dto.token !== user.emailVerificationToken) {
+      throw new CustomBadRequestException('invalid_token');
+    }
+
+    await this.resetPasswortByUserId(user._id.toString(), dto.password);
+
+    // reset token
+    const newtoken = generateSecureToken();
     await this.db.userModel
-      .findByIdAndUpdate(user._id, { hashedPassword })
+      .findOneAndUpdate(
+        { email: dto.email.toLowerCase() },
+        { $set: { emailVerificationToken: newtoken, isEmailVerified: true } },
+      )
       .exec();
-    return;
   }
 }

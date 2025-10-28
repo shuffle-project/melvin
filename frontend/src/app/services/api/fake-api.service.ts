@@ -3,7 +3,10 @@ import { delay, Observable, of } from 'rxjs';
 import { NOTIFICATION_ENTITY_MOCK } from 'src/app/constants/mocks/notifications.mock';
 import { PROJECT_ENTITY_MOCK } from 'src/app/constants/mocks/project.mock';
 import { USERS_MOCK } from 'src/app/constants/mocks/users.mock';
-import { UserEntity } from 'src/app/services/api/entities/user.entity';
+import {
+  UserEntity,
+  UserEntityForAdmin,
+} from 'src/app/services/api/entities/user.entity';
 import { CustomLogger } from '../../classes/logger.class';
 import { ACTIVITY_ENTITY_MOCK } from '../../constants/mocks/activity.mock';
 import {
@@ -12,6 +15,7 @@ import {
 } from '../../constants/mocks/captions.mock';
 import { UploadDto } from '../upload/upload.interfaces';
 import { ApiService } from './api.service';
+import { AdminUpdateUserDto } from './dto/admin-update-user.dto';
 import { ChangePasswordDto } from './dto/auth.dto';
 import { BulkRemoveDto } from './dto/bulk-remove.dto';
 import { ConnectLivestreamDto } from './dto/connect-livestream.dto';
@@ -21,12 +25,14 @@ import { CreateSpeakersDto } from './dto/create-speakers.dto';
 import { CreateTranscriptionDto } from './dto/create-transcription.dto';
 import { PauseLivestreamDto } from './dto/pause-livestream.dto';
 import { PauseRecordingDto } from './dto/pause-recording,dto';
+import { ResetPasswordDto } from './dto/reset-password.dto';
 import { ResumeLivestreamDto } from './dto/resume-livestream.dto';
 import { ResumeRecordingDto } from './dto/resume-recording.dto';
 import { StartLivestreamDto } from './dto/start-livestream.dto';
 import { StartRecordingDto } from './dto/start-recording.dto';
 import { StopLivestreamDto } from './dto/stop-livestream.dto';
 import { StopRecordingDto } from './dto/stop-recording.dto';
+import { CreateTeamDto, UpdateTeamDto } from './dto/team.dto';
 import {
   UpdateManyNotificationsDto,
   UpdateNotificationDto,
@@ -34,6 +40,7 @@ import {
 import { UpdateProjectDto } from './dto/update-project.dto';
 import { UpdateSpeakerDto } from './dto/update-speaker.dto';
 import { UpdateTranscriptionDto } from './dto/update-transcription.dto';
+import { UpdateUserDto } from './dto/update-user.dto';
 import { UploadVideoDto } from './dto/upload-video.dto';
 import { ActivityListEntity } from './entities/activitiy-list.entity';
 import {
@@ -58,6 +65,7 @@ import { StartLivestreamEntity } from './entities/start-livestream.entity';
 import { StartRecordingEntity } from './entities/start-recording.entity';
 import { StopLivestreamEntity } from './entities/stop-livestream.entity';
 import { StopRecordingEntity } from './entities/stop-recording.entity';
+import { TeamEntity, TeamListEntity } from './entities/team.entity';
 import {
   SubtitleFormat,
   TranscriptionEntity,
@@ -163,6 +171,11 @@ export class FakeApiService implements ApiService {
   deleteAccount(password: string): Observable<void> {
     this.logger.verbose('deleteAccount mocked');
     return of();
+  }
+
+  updateUser(dto: UpdateUserDto): Observable<UserEntity> {
+    this.logger.verbose('updateUser mocked');
+    return of({ ...USERS_MOCK[0] });
   }
 
   // projects
@@ -532,6 +545,107 @@ export class FakeApiService implements ApiService {
 
   cancelUpload(id: string) {
     this.logger.verbose('cancelUpload mocked');
+    return of();
+  }
+
+  // admin
+  adminLogin(
+    username: string,
+    password: string
+  ): Observable<{ token: string }> {
+    this.logger.verbose('admin login mocked');
+    return of();
+  }
+
+  adminFindAllUsers(): Observable<{ users: Readonly<UserEntityForAdmin[]> }> {
+    this.logger.verbose('admin find all users mocked');
+    return of();
+  }
+
+  adminDeleteUserAccount(userId: string): Observable<void> {
+    this.logger.verbose('adminDeleteUserAccount mocked');
+    return of();
+  }
+
+  adminUpdateUserEmail(
+    userId: string,
+    email: string
+  ): Observable<UserEntityForAdmin> {
+    this.logger.verbose('adminUpdateUser mocked');
+    return of();
+  }
+
+  adminUpdateUser(
+    userId: string,
+    dto: AdminUpdateUserDto
+  ): Observable<UserEntityForAdmin> {
+    this.logger.verbose('adminUpdateUser mocked');
+    return of();
+  }
+
+  adminResetUserPassword(
+    userId: string
+  ): Observable<{ method: 'email' | 'return'; password: string }> {
+    this.logger.verbose('adminResetUserPassword mocked');
+    return of({ method: 'return', password: 'newPassword123' });
+  }
+
+  adminCreateUser(
+    email: string,
+    name: string
+  ): Observable<{
+    method: 'email' | 'return';
+    password: string;
+    user: UserEntityForAdmin;
+  }> {
+    this.logger.verbose('adminCreateUser mocked');
+    return of();
+  }
+
+  adminVerifyUserEmail(userId: string): Observable<UserEntityForAdmin> {
+    this.logger.verbose('adminVerifyUserEmail mocked');
+    return of();
+  }
+
+  // user verify email
+  verifyEmail(token: string, email: string): Observable<{ token: string }> {
+    this.logger.verbose('verifyEmail mocked');
+    return of();
+  }
+
+  requestVerificationEmail(): Observable<void> {
+    this.logger.verbose('requestVerificationEmail mocked');
+    return of();
+  }
+
+  requestResetPassword(email: string): Observable<void> {
+    return of();
+  }
+  resetPassword(resetPasswordDto: ResetPasswordDto): Observable<void> {
+    return of();
+  }
+
+  // teams
+  adminFindAllTeams(): Observable<TeamListEntity> {
+    return of();
+  }
+
+  adminfindOneTeam(id: string): Observable<TeamEntity> {
+    return of();
+  }
+
+  adminCreateTeam(createTeamDto: CreateTeamDto): Observable<TeamEntity> {
+    return of();
+  }
+
+  adminUpdateTeam(
+    id: string,
+    updateTeamDto: UpdateTeamDto
+  ): Observable<TeamEntity> {
+    return of();
+  }
+
+  adminRemoveTeam(id: string): Observable<void> {
     return of();
   }
 }

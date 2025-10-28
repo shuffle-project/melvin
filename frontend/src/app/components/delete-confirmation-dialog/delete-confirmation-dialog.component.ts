@@ -1,6 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, inject } from '@angular/core';
 import {
+  FormControl,
   FormGroup,
   NonNullableFormBuilder,
   ReactiveFormsModule,
@@ -26,18 +27,18 @@ import {
 } from './delete-confirmation.service';
 
 @Component({
-    selector: 'app-delete-confirmation-dialog',
-    imports: [
-        MatDialogTitle,
-        MatDialogContent,
-        MatDialogActions,
-        MatButtonModule,
-        MatInputModule,
-        MatIconModule,
-        ReactiveFormsModule,
-    ],
-    templateUrl: './delete-confirmation-dialog.component.html',
-    styleUrl: './delete-confirmation-dialog.component.scss'
+  selector: 'app-delete-confirmation-dialog',
+  imports: [
+    MatDialogTitle,
+    MatDialogContent,
+    MatDialogActions,
+    MatButtonModule,
+    MatInputModule,
+    MatIconModule,
+    ReactiveFormsModule,
+  ],
+  templateUrl: './delete-confirmation-dialog.component.html',
+  styleUrl: './delete-confirmation-dialog.component.scss',
 })
 export class DeleteConfirmationDialogComponent {
   data = inject<DeleteConfirmData>(MAT_DIALOG_DATA);
@@ -47,6 +48,11 @@ export class DeleteConfirmationDialogComponent {
   public passwordFormGroup: FormGroup = this.fb.group({
     password: this.fb.control('', Validators.required),
   });
+
+  public typeControl = new FormControl('', [
+    Validators.required,
+    Validators.pattern(/^Delete$/),
+  ]);
 
   constructor(
     private dialogRef: MatDialogRef<
@@ -62,6 +68,12 @@ export class DeleteConfirmationDialogComponent {
     this.error = '';
 
     if (
+      this.data.level === DeleteConfirmLevel.HIGH_TYPE &&
+      this.typeControl.invalid
+    ) {
+      this.typeControl.markAsTouched();
+      return;
+    } else if (
       this.data.level === DeleteConfirmLevel.HIGH_PASSWORD &&
       this.passwordFormGroup.invalid
     ) {

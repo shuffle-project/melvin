@@ -15,6 +15,8 @@ export const initSuccess = createAction(
   props<{ token: string | null }>()
 );
 
+export const refreshToken = createAction('[PROFILE COMPONENT] refresh token');
+
 export const initRefreshToken = createAction(
   '[AUTH EFFECTS] Init refresh token',
   props<{ token: string }>()
@@ -113,4 +115,10 @@ export const guestLoginError = createAction(
 // connect user to websocket
 export const userConnectedToWebsocket = createAction(
   '[WS SERVICE] user successfully connected to Websocket'
+);
+
+// verify email success
+export const verifyEmailSuccess = createAction(
+  '[VERIFY EMAIL COMPONENT] verify email success',
+  props<{ token: string }>()
 );

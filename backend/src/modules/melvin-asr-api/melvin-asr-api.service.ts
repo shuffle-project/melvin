@@ -5,7 +5,7 @@ import { AxiosError, AxiosResponse } from 'axios';
 import FormData from 'form-data';
 import { readFile } from 'fs-extra';
 import { catchError, lastValueFrom, map, retry, timer } from 'rxjs';
-import { WhisperConfig } from 'src/config/config.interface';
+import { MelvinAsrConfig } from 'src/config/config.interface';
 import { DbService } from '../db/db.service';
 import { Audio, Project } from '../db/schemas/project.schema';
 import { CustomLogger } from '../logger/logger.service';
@@ -25,7 +25,7 @@ import {
 
 @Injectable()
 export class MelvinAsrApiService {
-  private whisperConfig: WhisperConfig;
+  private whisperConfig: MelvinAsrConfig;
 
   private host: string;
   private apikey: string;
@@ -39,7 +39,7 @@ export class MelvinAsrApiService {
   ) {
     this.logger.setContext(this.constructor.name);
 
-    this.whisperConfig = this.configService.get<WhisperConfig>('whisper');
+    this.whisperConfig = this.configService.get<MelvinAsrConfig>('melvinAsr');
 
     this.host = this.whisperConfig.host;
     this.apikey = this.whisperConfig.apikey;

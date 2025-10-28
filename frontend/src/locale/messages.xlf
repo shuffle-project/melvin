@@ -83,6 +83,9 @@
       <trans-unit id="deleteServiceSubjectProject" datatype="html">
         <source>project</source>
       </trans-unit>
+      <trans-unit id="deleteServiceLeaveProjectError" datatype="html">
+        <source>Error leaving project, try again later.</source>
+      </trans-unit>
       <trans-unit id="deleteServiceSubjectCaption" datatype="html">
         <source>Caption</source>
       </trans-unit>
@@ -158,6 +161,9 @@
       <trans-unit id="inviteCollaboratorRemoveButton" datatype="html">
         <source> Remove </source>
       </trans-unit>
+      <trans-unit id="inviteCollaboratorRemoveUserFromProject" datatype="html">
+        <source>Error while removing from project, try again later.</source>
+      </trans-unit>
       <trans-unit id="inviteCollaboratorHeadingGeneralAccess" datatype="html">
         <source>General Access</source>
       </trans-unit>
@@ -169,6 +175,9 @@
       </trans-unit>
       <trans-unit id="inviteCollaboratorGenerateNewLinkButton" datatype="html">
         <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;change&quot; /&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;change&quot; /&gt;"/> Generate new link, revoke old one </source>
+      </trans-unit>
+      <trans-unit id="inviteCollaboratorNewLinkError" datatype="html">
+        <source>Error during link generation, try again later.</source>
       </trans-unit>
       <trans-unit id="inviteCollaboratorNewLinkSuccess" datatype="html">
         <source>New link generated</source>
@@ -286,6 +295,9 @@
       </trans-unit>
       <trans-unit id="uploadTranscriptionTabTitleLabel" datatype="html">
         <source>Title</source>
+      </trans-unit>
+      <trans-unit id="userInfoStorageUsage" datatype="html">
+        <source><x id="INTERPOLATION" equiv-text="{{ user.size | fileSize }}"/> from <x id="INTERPOLATION_1" equiv-text="{{ user.sizeLimit | fileSize }}"/> used</source>
       </trans-unit>
       <trans-unit id="uploadTranscriptionTabTitleHint" datatype="html">
         <source> Optional (e.g. with audio description) </source>
@@ -636,13 +648,19 @@
         <source>Profile</source>
       </trans-unit>
       <trans-unit id="profilePasswordButtonLabel" datatype="html">
-        <source> Change Passwort </source>
+        <source> Change Password </source>
+      </trans-unit>
+      <trans-unit id="profileAccountHeader" datatype="html">
+        <source>Account</source>
       </trans-unit>
       <trans-unit id="profileDeleteAccountButtonLabel" datatype="html">
         <source> Delete Account </source>
       </trans-unit>
       <trans-unit id="profileSelectLabel" datatype="html">
         <source>Interface language</source>
+      </trans-unit>
+      <trans-unit id="profileSettingsHeader" datatype="html">
+        <source>Settings</source>
       </trans-unit>
       <trans-unit id="profileSelectEnglishOption" datatype="html">
         <source> English </source>
@@ -703,6 +721,9 @@
       </trans-unit>
       <trans-unit id="dialogCreateProjectUploadProgressLabel" datatype="html">
         <source>Upload-Progress:</source>
+      </trans-unit>
+      <trans-unit id="createProjectDialogProjectCreationError" datatype="html">
+        <source>Error during project creation, try again later.</source>
       </trans-unit>
       <trans-unit id="createProjectFailedWithError" datatype="html">
         <source> Failed with error: <x id="INTERPOLATION" equiv-text="{{ error.message }}"/> <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br /&gt;"/>You can try again. </source>
@@ -1517,14 +1538,35 @@
       <trans-unit id="registerDialogMainHeading" datatype="html">
         <source>Register</source>
       </trans-unit>
-      <trans-unit id="registerDialogEmailContactInfo" datatype="html">
-        <source> Melvin is currently still in a closed test phase. Would you like to test Melvin? Please contact us at <x id="START_LINK" ctype="x-a" equiv-text="&lt;a href=&quot;mailto:melvin@hdm-stuttgart.de&quot;&gt;"/>melvin@hdm-suttgart.de<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/></source>
+      <trans-unit id="resetPasswordDialogCloseButton" datatype="html">
+        <source>Close</source>
+      </trans-unit>
+      <trans-unit id="resetPasswordDialogEmailErrorNotValid" datatype="html">
+        <source>Email address is not valid</source>
+      </trans-unit>
+      <trans-unit id="resetPasswordDialogEmailErrorRequired" datatype="html">
+        <source>Email is required</source>
+      </trans-unit>
+      <trans-unit id="resetPasswordDialogEmailLabel" datatype="html">
+        <source>Email</source>
+      </trans-unit>
+      <trans-unit id="resetPasswordDialogForgotPasswordDisabled" datatype="html">
+        <source>Forgot password is disabled for this app, please contact an administrator</source>
+      </trans-unit>
+      <trans-unit id="resetPasswordDialogGeneralError" datatype="html">
+        <source>Error sending reset password email</source>
       </trans-unit>
       <trans-unit id="resetPasswordDialogHeading" datatype="html">
         <source>Reset password</source>
       </trans-unit>
-      <trans-unit id="resetPasswordWIPInfo" datatype="html">
-        <source>This feature is still under development.</source>
+      <trans-unit id="resetPasswordDialogSendButtonLabel" datatype="html">
+        <source><x id="START_BLOCK_IF" equiv-text="@if (loading ) {"/><x id="START_TAG_MAT_SPINNER" ctype="x-mat_spinner" equiv-text="&lt;mat-spinner strokeWidth=&quot;2&quot; diameter=&quot;20&quot; /&gt;"/><x id="CLOSE_TAG_MAT_SPINNER" ctype="x-mat_spinner" equiv-text="&lt;mat-spinner strokeWidth=&quot;2&quot; diameter=&quot;20&quot; /&gt;"/><x id="CLOSE_BLOCK_IF" equiv-text="}"/> Send reset link </source>
+      </trans-unit>
+      <trans-unit id="resetPasswordDialogSuccessMessage" datatype="html">
+        <source>A password reset email has been sent. You can now close this window.</source>
+      </trans-unit>
+      <trans-unit id="resetPasswordDialogUserNotFoundError" datatype="html">
+        <source>No user found with that email</source>
       </trans-unit>
       <trans-unit id="landingHeaderGuideLinkLabel" datatype="html">
         <source> Best Practice </source>
@@ -1565,9 +1607,6 @@
       <trans-unit id="landingMainFreeOfChargeChip" datatype="html">
         <source> Free of charge </source>
       </trans-unit>
-      <trans-unit id="landingMainWIPChip" datatype="html">
-        <source>Work in progress</source>
-      </trans-unit>
       <trans-unit id="landingMainRecordingHeading" datatype="html">
         <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;video&quot; /&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;video&quot; /&gt;"/> Recording </source>
       </trans-unit>
@@ -1591,18 +1630,6 @@
       </trans-unit>
       <trans-unit id="landingMainSharingExplanationBottom" datatype="html">
         <source> Of course, you can also download your files and upload them elsewhere. </source>
-      </trans-unit>
-      <trans-unit id="landingMainWIPExplanationTop" datatype="html">
-        <source> Melvin is currently still under development. However, you can already test the application now. </source>
-      </trans-unit>
-      <trans-unit id="landingMainWIPExplanationBottom" datatype="html">
-        <source> In addition to improvements in accessibility and user experience, we are currently working on a <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>livestream mode<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/>. Stay tuned and feel free to check back regularly. </source>
-      </trans-unit>
-      <trans-unit id="privacyMainHeading" datatype="html">
-        <source>Privacy</source>
-      </trans-unit>
-      <trans-unit id="landingSubpageWIPInfo" datatype="html">
-        <source> Sorry, this page is still under development. Please come back at a later time. </source>
       </trans-unit>
       <trans-unit id="sitemapListExplanation" datatype="html">
         <source> This sitemap lists all pages that do not require a login in alphabetical order. </source>
@@ -1995,7 +2022,7 @@
         <source>Close fullscreen</source>
       </trans-unit>
       <trans-unit id="playerInnerResizerAriaLabel" datatype="html">
-        <source>Move to resize video</source>
+        <source>Use arrow keys to resize the videos</source>
       </trans-unit>
       <trans-unit id="viewerVideoContainerToMainviewAriaHidden" datatype="html">
         <source>Switch</source>
@@ -2158,6 +2185,381 @@
       </trans-unit>
       <trans-unit id="landingFooterEasyLanguageLinkLabel" datatype="html">
         <source> Easy Language </source>
+      </trans-unit>
+      <trans-unit id="adminCreateTeamButtonLabel" datatype="html">
+        <source> Create Team </source>
+      </trans-unit>
+      <trans-unit id="adminCreateUserButtonLabel" datatype="html">
+        <source> Create User </source>
+      </trans-unit>
+      <trans-unit id="adminEditEmailDialogErrorEmailInvalid" datatype="html">
+        <source>Valid email address required</source>
+      </trans-unit>
+      <trans-unit id="adminEditEmailDialogErrorEmailRequired" datatype="html">
+        <source>Email required</source>
+      </trans-unit>
+      <trans-unit id="adminEditEmailDialogNewEmailLabel" datatype="html">
+        <source>New Email</source>
+      </trans-unit>
+      <trans-unit id="adminFilterLabel" datatype="html">
+        <source>Filter</source>
+      </trans-unit>
+      <trans-unit id="adminFilterTeamsCountLabel" datatype="html">
+        <source>Teams</source>
+      </trans-unit>
+      <trans-unit id="adminFilterUsersCountLabel" datatype="html">
+        <source>Users</source>
+      </trans-unit>
+      <trans-unit id="adminLoginBackToStartpage" datatype="html">
+        <source>Back to the Startpage</source>
+      </trans-unit>
+      <trans-unit id="adminLoginButtonLabel" datatype="html">
+        <source> Login </source>
+      </trans-unit>
+      <trans-unit id="adminLoginFieldErrorNameRequired" datatype="html">
+        <source> name required </source>
+      </trans-unit>
+      <trans-unit id="adminLoginFieldErrorPasswordRequired" datatype="html">
+        <source> Password required </source>
+      </trans-unit>
+      <trans-unit id="adminLoginFieldName" datatype="html">
+        <source>Name</source>
+      </trans-unit>
+      <trans-unit id="adminLoginFieldPassword" datatype="html">
+        <source>Password</source>
+      </trans-unit>
+      <trans-unit id="adminLoginHeader" datatype="html">
+        <source>Admin Login</source>
+      </trans-unit>
+      <trans-unit id="adminLogoutButtonLabel" datatype="html">
+        <source> Logout </source>
+      </trans-unit>
+      <trans-unit id="adminPageTitle" datatype="html">
+        <source>Administration - Melvin</source>
+      </trans-unit>
+      <trans-unit id="adminTableActionDeleteTeam" datatype="html">
+        <source>Delete Team</source>
+      </trans-unit>
+      <trans-unit id="adminTableActionDeleteUser" datatype="html">
+        <source>Delete User</source>
+      </trans-unit>
+      <trans-unit id="adminTableActionEditEmail" datatype="html">
+        <source>Edit Email</source>
+      </trans-unit>
+      <trans-unit id="adminTableActionEditUser" datatype="html">
+        <source>Edit User</source>
+      </trans-unit>
+      <trans-unit id="adminTableActionResetPassword" datatype="html">
+        <source>Reset Password</source>
+      </trans-unit>
+      <trans-unit id="adminTableActionVerifyEmail" datatype="html">
+        <source>Verify Email</source>
+      </trans-unit>
+      <trans-unit id="adminTableEditTeam" datatype="html">
+        <source>Edit Team</source>
+      </trans-unit>
+      <trans-unit id="adminTableEmailVerifiedNo" datatype="html">
+        <source>No</source>
+      </trans-unit>
+      <trans-unit id="adminTableEmailVerifiedYes" datatype="html">
+        <source>Yes</source>
+      </trans-unit>
+      <trans-unit id="adminTableHeaderEmail" datatype="html">
+        <source> Email </source>
+      </trans-unit>
+      <trans-unit id="adminTableHeaderEmailVerified" datatype="html">
+        <source> Email Verified </source>
+      </trans-unit>
+      <trans-unit id="adminTableHeaderMore" datatype="html">
+        <source> More </source>
+      </trans-unit>
+      <trans-unit id="adminTableHeaderName" datatype="html">
+        <source> Name </source>
+      </trans-unit>
+      <trans-unit id="adminTableHeaderProjects" datatype="html">
+        <source> Projects </source>
+      </trans-unit>
+      <trans-unit id="adminTableHeaderTeamSize" datatype="html">
+        <source> Total File Size </source>
+      </trans-unit>
+      <trans-unit id="adminTableHeaderTeamSizeLimit" datatype="html">
+        <source> Size Limit </source>
+      </trans-unit>
+      <trans-unit id="adminTableHeaderTotalFileSize" datatype="html">
+        <source> Total File Size </source>
+      </trans-unit>
+      <trans-unit id="adminTableHeaderTotalVideoLength" datatype="html">
+        <source> Total Video Length </source>
+      </trans-unit>
+      <trans-unit id="adminTableHeaderUserSizeLimit" datatype="html">
+        <source> Sizelimit </source>
+      </trans-unit>
+      <trans-unit id="adminTableSizeLimitUnlimited" datatype="html">
+        <source>Unlimited</source>
+      </trans-unit>
+      <trans-unit id="adminTableTeamSizeLimitUnlimited" datatype="html">
+        <source>Unlimited</source>
+      </trans-unit>
+      <trans-unit id="adminTeamTableHeaderMore" datatype="html">
+        <source> More </source>
+      </trans-unit>
+      <trans-unit id="adminTeamTableHeaderTeamName" datatype="html">
+        <source> Name </source>
+      </trans-unit>
+      <trans-unit id="adminUserPasswordCopyEmailTextAriaLabel" datatype="html">
+        <source>Copy email text</source>
+      </trans-unit>
+      <trans-unit id="adminUserPasswordCopyToClipboardAriaLabel" datatype="html">
+        <source>Copy to clipboard</source>
+      </trans-unit>
+      <trans-unit id="adminUserPasswordEmailCopiedToClipboard" datatype="html">
+        <source>Email text copied to clipboard</source>
+      </trans-unit>
+      <trans-unit id="adminUserPasswordNewPasswordLabel" datatype="html">
+        <source>New Password</source>
+      </trans-unit>
+      <trans-unit id="adminUserPasswordPasswordCopiedToClipboard" datatype="html">
+        <source>Password copied to clipboard</source>
+      </trans-unit>
+      <trans-unit id="adminUserPasswordPreparedEmailTitle" datatype="html">
+        <source>Prepared Email</source>
+      </trans-unit>
+      <trans-unit id="adminUserPasswordSendEmailAriaLabel" datatype="html">
+        <source>Send email</source>
+      </trans-unit>
+      <trans-unit id="deleteConfirmationDialogTypeError" datatype="html">
+        <source> You need to type &quot;Delete&quot; to confirm </source>
+      </trans-unit>
+      <trans-unit id="deleteConfirmationDialogTypeLabel" datatype="html">
+        <source> Type &quot;Delete&quot; to confirm </source>
+      </trans-unit>
+      <trans-unit id="deleteServiceAdminDeleteAccountDescription" datatype="html">
+        <source>If you confirm this, the account with all created projects and data will be deleted. This can NOT be undone!</source>
+      </trans-unit>
+      <trans-unit id="deleteServiceAdminDeleteAccountSubject" datatype="html">
+        <source>User Account: <x id="PH" equiv-text="userEmail"/></source>
+      </trans-unit>
+      <trans-unit id="deleteServiceAdminDeleteTeamDescription" datatype="html">
+        <source>If you confirm this, this team will be deleted and users with that team will no longer have a size limit!</source>
+      </trans-unit>
+      <trans-unit id="deleteServiceAdminDeleteTeamSubject" datatype="html">
+        <source>Teamname: <x id="PH" equiv-text="teamname"/></source>
+      </trans-unit>
+      <trans-unit id="dialogAdminCreateTeamCloseAriaLabel" datatype="html">
+        <source>Close</source>
+      </trans-unit>
+      <trans-unit id="dialogAdminCreateTeamCreateButtonLabel" datatype="html">
+        <source> Create Team </source>
+      </trans-unit>
+      <trans-unit id="dialogAdminCreateTeamErrorNameRequired" datatype="html">
+        <source>Name required</source>
+      </trans-unit>
+      <trans-unit id="dialogAdminCreateTeamErrorSizelimitRequired" datatype="html">
+        <source>Sizelimit required</source>
+      </trans-unit>
+      <trans-unit id="dialogAdminCreateTeamMainTitle" datatype="html">
+        <source>Create Team</source>
+      </trans-unit>
+      <trans-unit id="dialogAdminCreateUserAccountCreatedEmailSent" datatype="html">
+        <source> Account created. A system-generated email was sent to <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/><x id="INTERPOLATION" equiv-text="{{ emailControl.value }}"/><x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/> with the password. You can close this window. </source>
+      </trans-unit>
+      <trans-unit id="dialogAdminCreateUserAccountCreatedPleaseSendPassword" datatype="html">
+        <source> Account created. Please send the password to the user. </source>
+      </trans-unit>
+      <trans-unit id="dialogAdminCreateUserCloseAriaLabel" datatype="html">
+        <source>Close</source>
+      </trans-unit>
+      <trans-unit id="dialogAdminCreateUserCreateButtonLabel" datatype="html">
+        <source> Create User </source>
+      </trans-unit>
+      <trans-unit id="dialogAdminCreateUserEmailLabel" datatype="html">
+        <source>Email</source>
+      </trans-unit>
+      <trans-unit id="dialogAdminCreateUserErrorEmailRequired" datatype="html">
+        <source>Email required</source>
+      </trans-unit>
+      <trans-unit id="dialogAdminCreateUserErrorEmailValid" datatype="html">
+        <source>Valid email address required</source>
+      </trans-unit>
+      <trans-unit id="dialogAdminCreateUserErrorNameRequired" datatype="html">
+        <source>Name required</source>
+      </trans-unit>
+      <trans-unit id="dialogAdminCreateUserMainTitle" datatype="html">
+        <source>Create User</source>
+      </trans-unit>
+      <trans-unit id="dialogAdminEditEmailChangeButtonLabel" datatype="html">
+        <source> Change </source>
+      </trans-unit>
+      <trans-unit id="dialogAdminEditEmailCloseAriaLabel" datatype="html">
+        <source>Close</source>
+      </trans-unit>
+      <trans-unit id="dialogAdminEditEmailCurrentEmailLabel" datatype="html">
+        <source>Current Email:</source>
+      </trans-unit>
+      <trans-unit id="dialogAdminEditEmailMainTitle" datatype="html">
+        <source>Edit Email</source>
+      </trans-unit>
+      <trans-unit id="dialogAdminEditEmailSuccessMessage" datatype="html">
+        <source>Email successfully changed to:</source>
+      </trans-unit>
+      <trans-unit id="dialogAdminEditTeamButtonLabel" datatype="html">
+        <source> Edit Team </source>
+      </trans-unit>
+      <trans-unit id="dialogAdminEditTeamCloseAriaLabel" datatype="html">
+        <source>Close</source>
+      </trans-unit>
+      <trans-unit id="dialogAdminEditTeamMainTitle" datatype="html">
+        <source>Edit Team</source>
+      </trans-unit>
+      <trans-unit id="dialogAdminEditUserButtonLabel" datatype="html">
+        <source> Edit User </source>
+      </trans-unit>
+      <trans-unit id="dialogAdminEditUserCloseAriaLabel" datatype="html">
+        <source>Close</source>
+      </trans-unit>
+      <trans-unit id="dialogAdminEditUserMainTitle" datatype="html">
+        <source>Edit User</source>
+      </trans-unit>
+      <trans-unit id="dialogAdminResetPasswordCloseAriaLabel" datatype="html">
+        <source>Close</source>
+      </trans-unit>
+      <trans-unit id="dialogAdminResetPasswordConfirmMessage" datatype="html">
+        <source>Are you sure you want to reset the password for </source>
+      </trans-unit>
+      <trans-unit id="dialogAdminResetPasswordMainTitle" datatype="html">
+        <source>Reset Password</source>
+      </trans-unit>
+      <trans-unit id="dialogAdminResetPasswordNewPasswordCreated" datatype="html">
+        <source> New password created. Please send the password to the user. </source>
+      </trans-unit>
+      <trans-unit id="dialogAdminResetPasswordPasswordEmailSent" datatype="html">
+        <source> A system-generated email was sent to <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/><x id="INTERPOLATION" equiv-text="{{ user.email }}"/><x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/> with the new password. You can close this window. </source>
+      </trans-unit>
+      <trans-unit id="dialogAdminResetPasswordResetButtonLabel" datatype="html">
+        <source> Reset Password </source>
+      </trans-unit>
+      <trans-unit id="dialogChangeUsernameCloseButton" datatype="html">
+        <source>Close</source>
+      </trans-unit>
+      <trans-unit id="dialogChangeUsernameHeader" datatype="html">
+        <source>Change Name</source>
+      </trans-unit>
+      <trans-unit id="dialogChangeUsernameLabel" datatype="html">
+        <source>Name</source>
+      </trans-unit>
+      <trans-unit id="dialogChangeUsernameSubmitButtonLabel" datatype="html">
+        <source> Change Name </source>
+      </trans-unit>
+      <trans-unit id="profileUsernameButtonLabel" datatype="html">
+        <source> Change Name </source>
+      </trans-unit>
+      <trans-unit id="headerResendVerificationEmailSuccess" datatype="html">
+        <source>Verification email sent successfully.</source>
+      </trans-unit>
+      <trans-unit id="registerDialogEmailErrorNotValid" datatype="html">
+        <source>Email address is not valid</source>
+      </trans-unit>
+      <trans-unit id="registerDialogEmailErrorRequired" datatype="html">
+        <source>Email is required</source>
+      </trans-unit>
+      <trans-unit id="registerDialogEmailLabel" datatype="html">
+        <source>Email</source>
+      </trans-unit>
+      <trans-unit id="registerDialogNameErrorRequired" datatype="html">
+        <source> Name is required </source>
+      </trans-unit>
+      <trans-unit id="registerDialogNameLabel" datatype="html">
+        <source>Name</source>
+      </trans-unit>
+      <trans-unit id="registerDialogPasswordErrorMinimum" datatype="html">
+        <source>Minimum 6 characters</source>
+      </trans-unit>
+      <trans-unit id="registerDialogPasswordErrorRequired" datatype="html">
+        <source>Password is required</source>
+      </trans-unit>
+      <trans-unit id="registerDialogPasswordLabel" datatype="html">
+        <source>Password</source>
+      </trans-unit>
+      <trans-unit id="registerDialogPasswordRepeatErrorMinimum" datatype="html">
+        <source>Minimum 6 characters</source>
+      </trans-unit>
+      <trans-unit id="registerDialogPasswordRepeatErrorRequired" datatype="html">
+        <source>Password (repeat) is required</source>
+      </trans-unit>
+      <trans-unit id="registerDialogPasswordRepeatLabel" datatype="html">
+        <source>Password (repeat)</source>
+      </trans-unit>
+      <trans-unit id="registerDialogPasswordsNotMatch" datatype="html">
+        <source>Passwords do not match</source>
+      </trans-unit>
+      <trans-unit id="registerDialogPrivacyNotice" datatype="html">
+        <source> We only use your data in accordance with our</source>
+      </trans-unit>
+      <trans-unit id="registerDialogRegisterButtonLabel" datatype="html">
+        <source> Register </source>
+      </trans-unit>
+      <trans-unit id="resetPasswordPageTitle" datatype="html">
+        <source>Reset Password - Melvin</source>
+      </trans-unit>
+      <trans-unit id="verifyEmailErrorAlreadyVerified" datatype="html">
+        <source>Your email address has already been verified.</source>
+      </trans-unit>
+      <trans-unit id="verifyEmailErrorInvalidLink" datatype="html">
+        <source>Link is invalid.</source>
+      </trans-unit>
+      <trans-unit id="verifyEmailMainTitle" datatype="html">
+        <source>Verify Email</source>
+      </trans-unit>
+      <trans-unit id="verifyEmailNoTokenMessage" datatype="html">
+        <source> No token or email provided. Please check the link in your email. </source>
+      </trans-unit>
+      <trans-unit id="verifyEmailPageTitle" datatype="html">
+        <source>Verify Email - Melvin</source>
+      </trans-unit>
+      <trans-unit id="verifyEmailSuccessMessage" datatype="html">
+        <source> Thank you for verifying your email address. You can now close this window. </source>
+      </trans-unit>
+      <trans-unit id="headerEmailVerificationMessage" datatype="html">
+        <source> We have sent you an email to verify your email address. </source>
+      </trans-unit>
+      <trans-unit id="headerResendVerificationEmailButtonLabel" datatype="html">
+        <source> Resend? </source>
+      </trans-unit>
+      <trans-unit id="registerDialogCloseButton" datatype="html">
+        <source>Close</source>
+      </trans-unit>
+      <trans-unit id="registerDialogEmailContactInfo" datatype="html">
+        <source> Account registration is handled by an administrator. Please send an email to the address below to request an account. </source>
+      </trans-unit>
+      <trans-unit id="registerDialogPrivacyLinkLabel" datatype="html">
+        <source>privacy policy</source>
+      </trans-unit>
+      <trans-unit id="dialogResetPasswordConfirmPasswordLabel" datatype="html">
+        <source>Confirm New Password</source>
+      </trans-unit>
+      <trans-unit id="dialogResetPasswordConfirmPasswordRequiredError" datatype="html">
+        <source>Confirm new password required</source>
+      </trans-unit>
+      <trans-unit id="dialogResetPasswordDoNotMatchError" datatype="html">
+        <source> Passwords do not match </source>
+      </trans-unit>
+      <trans-unit id="dialogResetPasswordNewPasswordLabel" datatype="html">
+        <source>New Password</source>
+      </trans-unit>
+      <trans-unit id="dialogResetPasswordNewPasswordRequiredError" datatype="html">
+        <source> New password required </source>
+      </trans-unit>
+      <trans-unit id="dialogResetPasswordSubmitButtonLabel" datatype="html">
+        <source> Reset Password </source>
+      </trans-unit>
+      <trans-unit id="resetPasswordMainTitle" datatype="html">
+        <source>Reset password</source>
+      </trans-unit>
+      <trans-unit id="resetPasswordNoTokenMessage" datatype="html">
+        <source> No token or email provided. Please check the link in your email. </source>
+      </trans-unit>
+      <trans-unit id="resetPasswordSuccessMessage" datatype="html">
+        <source> Your password has been reset. You can now close this window. </source>
       </trans-unit>
     </body>
   </file>

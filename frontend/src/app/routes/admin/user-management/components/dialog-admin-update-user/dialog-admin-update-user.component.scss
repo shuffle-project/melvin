@@ -1,0 +1,16 @@
+.form-field-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  align-items: center;
+
+  padding-top: 0.625rem;
+}
+
+.error-message {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  background-color: rgba(var(--color-red-rgb), 0.2);
+  padding: 0.625rem 0.75rem;
+}

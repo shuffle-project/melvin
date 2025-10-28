@@ -1,6 +1,6 @@
-import { DOCUMENT } from '@angular/common';
 import {
   Component,
+  DOCUMENT,
   ElementRef,
   Inject,
   OnDestroy,
@@ -61,7 +61,7 @@ export class VideoPlayerComponent implements OnInit, OnDestroy {
 
   public media$ = this.store.select(editorSelectors.selectMedia);
 
-  // todo choose audio
+  // take fist audio -> only one supported for now
   public playingAudio$ = this.media$.pipe(map((media) => media?.audios[0]));
 
   public duration$ = this.store.select(editorSelectors.selectDuration);

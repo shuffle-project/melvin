@@ -1,0 +1,64 @@
+<div mat-dialog-title>
+  <div class="dialog-header">
+    <div>
+      <h1 i18n="@@dialogAdminEditUserMainTitle">Edit User</h1>
+    </div>
+
+    <button
+      mat-icon-button
+      [mat-dialog-close]="true"
+      aria-label="Close"
+      i18n-aria-label="@@dialogAdminEditUserCloseAriaLabel"
+    >
+      <mat-icon svgIcon="close" />
+    </button>
+  </div>
+</div>
+
+<mat-dialog-content>
+  @if (loading) {
+  <mat-spinner diameter="30" />
+  } @else{
+
+  <div class="form-field-wrapper">
+    <mat-form-field>
+      <mat-label>Name</mat-label>
+      <input matInput [formControl]="nameControl" />
+      <mat-error>
+        <!-- @if(nameControl.hasError('required')) {
+          <span i18n="@@dialogAdminEditTeamErrorNameRequired">Name required</span>
+          } -->
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Size limit in GB</mat-label>
+      <input matInput type="number" min="-1" [formControl]="sizelimitControl" />
+      <mat-error>
+        <!-- @if(sizelimitControl.hasError('required')) {
+          <span i18n="@@dialogAdminEditTeamErrorSizelimitRequired"
+            >Sizelimit required</span
+          >
+          } -->
+      </mat-error>
+    </mat-form-field>
+
+    <div aria-live="polite">
+      @if(error) {
+      <p class="error-message">
+        <mat-icon svgIcon="warning"></mat-icon>
+        {{ error }}
+      </p>
+      }
+    </div>
+
+    <button
+      mat-flat-button
+      (click)="onEditUser()"
+      i18n="@@dialogAdminEditUserButtonLabel"
+    >
+      Edit User
+    </button>
+  </div>
+  }
+</mat-dialog-content>

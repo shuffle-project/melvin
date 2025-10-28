@@ -18,7 +18,7 @@ import { AppState } from '../../../../store/app.state';
 import * as projectsSelector from '../../../../store/selectors/projects.selector';
 
 import { LiveAnnouncer } from '@angular/cdk/a11y';
-import { CommonModule } from '@angular/common';
+
 import { MatButtonModule } from '@angular/material/button';
 import { MatOptionModule } from '@angular/material/core';
 import { MatDividerModule } from '@angular/material/divider';
@@ -29,7 +29,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
-import { LetDirective, PushPipe } from '@ngrx/component';
+import { LetDirective } from '@ngrx/component';
 import { UploadProgressComponent } from 'src/app/components/upload-progress/upload-progress.component';
 import { UploadHandler } from 'src/app/services/upload/upload-handler';
 import { UploadService } from 'src/app/services/upload/upload.service';
@@ -61,10 +61,8 @@ interface FileUpload {
     MatIconModule,
     MatProgressBarModule,
     LetDirective,
-    PushPipe,
     MediaCategoryPipe,
     FormatDatePipe,
-    CommonModule,
     MatTableModule,
     MatMenuModule,
     MatDividerModule,
@@ -160,10 +158,8 @@ export class UploadAdditionalContentComponent implements OnInit {
 
     try {
       await uploadHandler.start();
-      // TODO use createAdditionalVideo everywhere
       await lastValueFrom(
         this.api.createAdditionalVideo(this.projectId, {
-          title: '', // TODO make it optional
           category,
           uploadId: uploadHandler.progress$.value.uploadId!,
           recorder: false,

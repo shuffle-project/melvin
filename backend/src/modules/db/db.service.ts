@@ -16,6 +16,7 @@ import {
   ProjectDocument,
 } from './schemas/project.schema';
 import { Settings, SettingsDocument } from './schemas/settings.schema';
+import { Team, TeamDocument } from './schemas/team.schema';
 import {
   Transcription,
   TranscriptionDocument,
@@ -42,6 +43,8 @@ export class DbService {
     public readonly notificationModel: Model<NotificationDocument>,
     @InjectModel(Settings.name)
     public readonly settingsModel: Model<SettingsDocument>,
+    @InjectModel(Team.name)
+    public readonly teamModel: Model<TeamDocument>,
   ) {
     this.logger.setContext(this.constructor.name);
   }
@@ -80,5 +83,45 @@ export class DbService {
       .exec();
 
     return updatedProject;
+  }
+
+  async getUserSize(userId: string): Promise<number> {
+    return this._getSizeByUserIDs([userId]);
+  }
+  async getTeamSize(teamId: string): Promise<number> {
+    const team = await this.teamModel.findById(teamId).lean().exec();
+
+    const docs = await this.userModel
+      .find({ team: team._id }, { _id: 1 })
+      .lean()
+      .exec();
+    const users = docs.map((doc) => doc._id.toString());
+    return this._getSizeByUserIDs(users);
+  }
+
+  async _getSizeByUserIDs(userIds: string[]): Promise<number> {
+    const users: Types.ObjectId[] = userIds.map((id) => new Types.ObjectId(id));
+
+    const result = await this.projectModel.aggregate([
+      { $match: { createdBy: { $in: users } } },
+
+      // compute sum per-project
+      {
+        $project: {
+          sizeVideo: { $sum: '$videos.sizeInBytes' },
+          sizeAudio: { $sum: '$audios.sizeInBytes' },
+        },
+      },
+      // sum across all projects
+      {
+        $group: {
+          _id: null,
+          totalSize: { $sum: { $add: ['$sizeVideo', '$sizeAudio'] } },
+        },
+      },
+    ]);
+
+    const size: number = result.length > 0 ? result[0]?.totalSize ?? 0 : 0;
+    return size;
   }
 }

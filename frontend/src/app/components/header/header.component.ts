@@ -1,12 +1,20 @@
 import { animate, style, transition, trigger } from '@angular/animations';
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import {
+  Component,
+  DOCUMENT,
+  Inject,
+  Input,
+  OnDestroy,
+  OnInit,
+  Renderer2,
+} from '@angular/core';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatButtonModule } from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { Router, RouterLink } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { Observable, Subject, lastValueFrom, take } from 'rxjs';
+import { Observable, Subject, lastValueFrom, map, take, takeUntil } from 'rxjs';
 import { NotificationEntity } from 'src/app/services/api/entities/notification.entity';
 import * as authActions from 'src/app/store/actions/auth.actions';
 import * as notificationsActions from '../../store/actions/notifications.actions';
@@ -18,10 +26,13 @@ import { NotificationComponent } from '../notification/notification.component';
 import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { LetDirective, PushPipe } from '@ngrx/component';
+import { AlertService } from 'src/app/services/alert/alert.service';
+import { ApiService } from 'src/app/services/api/api.service';
 import { ConfigService } from 'src/app/services/config/config.service';
 import * as configActions from '../../store/actions/config.actions';
 import { ColorTheme } from '../../store/reducers/config.reducer';
 import { LogoComponent } from '../logo/logo.component';
+import { UserInfoComponent } from '../user-info/user-info.component';
 
 @Component({
   selector: 'app-header',
@@ -47,6 +58,7 @@ import { LogoComponent } from '../logo/logo.component';
     NotificationComponent,
     MatTooltipModule,
     PushPipe,
+    UserInfoComponent,
   ],
 })
 export class HeaderComponent implements OnDestroy, OnInit {
@@ -62,13 +74,21 @@ export class HeaderComponent implements OnDestroy, OnInit {
 
   public disableLandingPage = this.configService.getDisableLandingPage();
 
+  isNotUserEmailVerified$ = this.store
+    .select(authSelectors.selectIsUserEmailVerified)
+    .pipe(map((isVerified) => !isVerified));
+
   totalUnreadNotifications$: Observable<number>;
   recentNotifications$: Observable<readonly NotificationEntity[]>;
 
   constructor(
     private store: Store,
     private router: Router,
-    private configService: ConfigService
+    private api: ApiService,
+    private configService: ConfigService,
+    private alertService: AlertService,
+    @Inject(DOCUMENT) private document: Document,
+    private renderer: Renderer2
   ) {
     this.isLoggedIn$ = store.select(authSelectors.selectIsLoggedIn);
 
@@ -82,6 +102,16 @@ export class HeaderComponent implements OnDestroy, OnInit {
   }
 
   async ngOnInit() {
+    this.isNotUserEmailVerified$
+      .pipe(takeUntil(this.destroy$$))
+      .subscribe((isNotVerified) => {
+        if (isNotVerified) {
+          this.renderer.addClass(this.document.body, 'banner');
+        } else {
+          this.renderer.removeClass(this.document.body, 'banner');
+        }
+      });
+
     const userId = await lastValueFrom(
       this.store.select(authSelectors.selectUserId).pipe(take(1))
     );
@@ -95,6 +125,17 @@ export class HeaderComponent implements OnDestroy, OnInit {
 
   ngOnDestroy() {
     this.destroy$$.next();
+  }
+
+  async onResendVerificationEmail() {
+    try {
+      await lastValueFrom(this.api.requestVerificationEmail());
+      this.alertService.success(
+        $localize`:@@headerResendVerificationEmailSuccess:Verification email sent successfully.`
+      );
+    } catch (e) {
+      console.error(e);
+    }
   }
 
   onClickNotificationRead(notificationId: string, event: Event) {

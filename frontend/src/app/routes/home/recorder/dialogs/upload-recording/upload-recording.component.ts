@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, Inject, OnInit } from '@angular/core';
 import {
@@ -37,7 +36,6 @@ import { Recording } from '../../recorder.interfaces';
 @Component({
   selector: 'app-upload-recording',
   imports: [
-    CommonModule,
     MatDialogModule,
     MatButtonModule,
     MatProgressBarModule,
@@ -164,7 +162,7 @@ export class UploadRecordingComponent implements OnInit {
         asrVendor: AsrVendors.WHISPER,
         title: this.data.title,
         language: this.formGroup.value.language,
-        videoOptions, // TODO fill
+        videoOptions,
         subtitleOptions: undefined,
         sourceMode: 'video',
         recorder: true,

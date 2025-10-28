@@ -113,3 +113,9 @@ export const selectIsUserConnectedToWs = createSelector(
   authState,
   (state) => state.websocketConnected
 );
+
+// email verification
+
+export const selectIsUserEmailVerified = createSelector(authState, (state) =>
+  state.token ? decodeJWT<AuthUser>(state.token).isEmailVerified : null
+);

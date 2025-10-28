@@ -35,9 +35,20 @@ get_base_url () {
     fi
 }
 
+get_contact_email () {
+    local env_var="MELVIN_CONTACT_EMAIL"
+    if [[ -n "${!env_var:-}" ]]; then
+        echo "${!env_var:-}"
+    else
+        echo "ERROR: Melvin contact email is not set." >&2
+        exit 1 # Exit with error
+    fi
+}
+
 backend_base_url="$(get_base_url "backend")" 
 frontend_base_url="$(get_base_url "frontend")"
 
+contact_email="$(get_contact_email)"
 
 
 cat <<EOF > /usr/share/nginx/html/en-US/assets/env.js
@@ -52,7 +63,7 @@ window.env = {
     MELVIN_DISABLE_LANDING_PAGE: "$MELVIN_DISABLE_LANDING_PAGE",
     MELVIN_DISABLE_TUTORIAL_VIDEOS: "$MELVIN_DISABLE_TUTORIAL_VIDEOS",
     MELVIN_DISABLE_INSTALLATION_PAGE: "$MELVIN_DISABLE_INSTALLATION_PAGE",
-    MELVIN_CONTACT_EMAIL: "$MELVIN_CONTACT_EMAIL"
+    MELVIN_CONTACT_EMAIL: "$contact_email"
 };
 EOF
 
@@ -68,7 +79,7 @@ window.env = {
     MELVIN_DISABLE_LANDING_PAGE: "$MELVIN_DISABLE_LANDING_PAGE",
     MELVIN_DISABLE_TUTORIAL_VIDEOS: "$MELVIN_DISABLE_TUTORIAL_VIDEOS",
     MELVIN_DISABLE_INSTALLATION_PAGE: "$MELVIN_DISABLE_INSTALLATION_PAGE",
-    MELVIN_CONTACT_EMAIL: "$MELVIN_CONTACT_EMAIL"
+    MELVIN_CONTACT_EMAIL: "$contact_email"
 };
 EOF
 

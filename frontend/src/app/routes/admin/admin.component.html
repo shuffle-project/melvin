@@ -1,0 +1,83 @@
+@if (!disableLandingPage) {
+<app-landing-header />
+}
+
+<div class="wrapper" [class.showHeader]="!disableLandingPage">
+  <main>
+    @if(isLoggedIn$ |ngrxPush) {
+    <div class="admin-wrapper">
+      <div class="admin-header">
+        <h1>Administration</h1>
+        <button
+          mat-stroked-button
+          (click)="onHandleLogout()"
+          i18n="@@adminLogoutButtonLabel"
+        >
+          Logout
+        </button>
+      </div>
+
+      <mat-tab-group>
+        <mat-tab label="User Management">
+          <ng-template matTabContent>
+            <app-user-management></app-user-management>
+          </ng-template>
+        </mat-tab>
+        <mat-tab label="Team Management">
+          <ng-template matTabContent>
+            <app-team-management></app-team-management>
+          </ng-template>
+        </mat-tab>
+      </mat-tab-group>
+    </div>
+    } @else {
+    <div class="login-wrapper">
+      <div class="login-form">
+        <h1 i18n="@@adminLoginHeader">Admin Login</h1>
+        <mat-form-field class="username-field">
+          <mat-label i18n="@@adminLoginFieldName">Name</mat-label>
+          <input matInput type="text" [formControl]="usernameControl" />
+          @if (usernameControl.invalid && (usernameControl.dirty ||
+          usernameControl.touched)) {
+          <mat-error i18n="@@adminLoginFieldErrorNameRequired">
+            name required
+          </mat-error>
+          }
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label i18n="@@adminLoginFieldPassword">Password</mat-label>
+          <input matInput type="password" [formControl]="passwordControl" />
+          @if (passwordControl.invalid && (passwordControl.dirty ||
+          passwordControl.touched)) {
+          <mat-error i18n="@@adminLoginFieldErrorPasswordRequired">
+            Password required
+          </mat-error>
+          }
+        </mat-form-field>
+
+        <div aria-live="polite">
+          @if(loginError$ | ngrxPush; as loginError) {
+          <p class="error-message">
+            <mat-icon svgIcon="warning"></mat-icon>
+            {{ loginError }}
+          </p>
+          }
+        </div>
+
+        <button
+          (click)="onHandleLogin()"
+          mat-flat-button
+          i18n="@@adminLoginButtonLabel"
+        >
+          Login
+        </button>
+      </div>
+      <a mat-button [routerLink]="['/']" i18n="@@adminLoginBackToStartpage"
+        >Back to the Startpage</a
+      >
+    </div>
+    }
+  </main>
+
+  <app-landing-footer />
+</div>

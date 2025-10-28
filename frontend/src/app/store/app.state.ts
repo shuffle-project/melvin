@@ -1,5 +1,6 @@
 import { routerReducer, RouterState } from '@ngrx/router-store';
 import { ActionReducer, ActionReducerMap, MetaReducer } from '@ngrx/store';
+import { AdminEffects } from './effects/admin.effects';
 import { AuthEffects } from './effects/auth.effects';
 import { CaptionsEffects } from './effects/captions.effects';
 import { ConfigEffects } from './effects/config.effects';
@@ -9,6 +10,7 @@ import { ProjectEffects } from './effects/projects.effects';
 import { TranscriptionsEffects } from './effects/transcriptions.effects';
 import { UserTestEffects } from './effects/user-test.effects';
 import { ViewerEffects } from './effects/viewer.effects';
+import { adminReducer, AdminState } from './reducers/admin.reducer';
 import { authReducer, AuthState } from './reducers/auth.reducer';
 import { captionsReducer, CaptionsState } from './reducers/captions.reducer';
 import { configReducer, ConfigState } from './reducers/config.reducer';
@@ -34,6 +36,7 @@ export interface AppState {
   notification: NotificationsState;
   transcriptions: TranscriptionsState;
   config: ConfigState;
+  admin: AdminState;
 }
 
 export const actionReducerMap: ActionReducerMap<AppState> = {
@@ -46,6 +49,7 @@ export const actionReducerMap: ActionReducerMap<AppState> = {
   notification: notificationReducer,
   transcriptions: transcriptionsReducer,
   config: configReducer,
+  admin: adminReducer,
 };
 
 export const effectsList = [
@@ -58,6 +62,7 @@ export const effectsList = [
   NotificationsEffects,
   ConfigEffects,
   UserTestEffects,
+  AdminEffects,
 ];
 
 //meta reducers

@@ -1,5 +1,9 @@
 :root {
   body {
+    --header-height-without-banner: 3.75rem;
+    --header-height-with-banner: 6rem;
+    --header-height: var(--header-height-without-banner);
+
     color-scheme: light;
     --color-white: #ffffff;
     --color-white-rgb: 255, 255, 255;

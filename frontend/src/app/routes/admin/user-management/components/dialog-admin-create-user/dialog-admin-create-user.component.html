@@ -1,0 +1,88 @@
+<div mat-dialog-title>
+  <div class="dialog-header">
+    <div>
+      <h1 i18n="@@dialogAdminCreateUserMainTitle">Create User</h1>
+    </div>
+
+    <button
+      mat-icon-button
+      [mat-dialog-close]="true"
+      aria-label="Close"
+      i18n-aria-label="@@dialogAdminCreateUserCloseAriaLabel"
+    >
+      <mat-icon svgIcon="close" />
+    </button>
+  </div>
+</div>
+
+<mat-dialog-content>
+  @if (newUserPasswordLoading$ | ngrxPush) {
+  <mat-spinner diameter="30" />
+  } @else { @let passwordMethod = passwordMethod$ | ngrxPush;
+  @switch(passwordMethod) { @case ('email') {
+  <p i18n="@@dialogAdminCreateUserAccountCreatedEmailSent">
+    Account created. A system-generated email was sent to
+    <strong>{{ emailControl.value }}</strong> with the password. You can close
+    this window.
+  </p>
+  } @case ('return') { @if ( newUserPassword$ | ngrxPush; as newUserPassword) {
+  <p i18n="@@dialogAdminCreateUserAccountCreatedPleaseSendPassword">
+    Account created. Please send the password to the user.
+  </p>
+
+  <app-admin-user-password
+    [username]="usernameControl.value!"
+    [password]="newUserPassword"
+    [email]="emailControl.value!"
+  />
+
+  } } @default {
+  <div class="form-field-wrapper">
+    <mat-form-field>
+      <mat-label i18n="@@dialogAdminCreateUserEmailLabel">Email</mat-label>
+      <input matInput [formControl]="emailControl" />
+      <mat-error>
+        @if(emailControl.hasError('required')) {
+        <span i18n="@@dialogAdminCreateUserErrorEmailRequired"
+          >Email required</span
+        >
+
+        } @if(emailControl.hasError('email')) {
+        <span i18n="@@dialogAdminCreateUserErrorEmailValid"
+          >Valid email address required</span
+        >
+        }
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Name</mat-label>
+      <input matInput [formControl]="usernameControl" />
+      <mat-error>
+        @if(usernameControl.hasError('required')) {
+        <span i18n="@@dialogAdminCreateUserErrorNameRequired"
+          >Name required</span
+        >
+        }
+      </mat-error>
+    </mat-form-field>
+
+    <div aria-live="polite">
+      @if(newUserError$ | ngrxPush; as newUserError) {
+      <p class="error-message">
+        <mat-icon svgIcon="warning"></mat-icon>
+        {{ newUserError }}
+      </p>
+      }
+    </div>
+
+    <button
+      mat-flat-button
+      (click)="onCreateUser()"
+      i18n="@@dialogAdminCreateUserCreateButtonLabel"
+    >
+      Create User
+    </button>
+  </div>
+  } } }
+</mat-dialog-content>

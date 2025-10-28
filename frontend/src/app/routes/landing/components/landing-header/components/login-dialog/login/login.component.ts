@@ -7,7 +7,7 @@ import {
 } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
@@ -21,6 +21,7 @@ import * as authActions from '../../../../../../../store/actions/auth.actions';
 import * as authSelectors from '../../../../../../../store/selectors/auth.selector';
 import { RegisterDialogComponent } from '../../register-dialog/register-dialog.component';
 import { ResetPasswordDialogComponent } from '../../reset-password-dialog/reset-password-dialog.component';
+import { LoginDialogComponent } from '../login-dialog.component';
 
 @Component({
   selector: 'app-login',
@@ -47,7 +48,8 @@ export class LoginComponent {
     private fb: NonNullableFormBuilder,
     private store: Store<AppState>,
     private storageService: StorageService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private dialogRefLoginDialog: MatDialogRef<LoginDialogComponent>
   ) {}
 
   ngOnInit() {
@@ -76,7 +78,7 @@ export class LoginComponent {
   }
 
   onOpenRegisterDialog() {
-    // this.dialogRefLoginDialog.close();
+    this.dialogRefLoginDialog.close();
     this.dialog.open(RegisterDialogComponent, {
       width: '100%',
       maxWidth: '50rem',
@@ -85,7 +87,7 @@ export class LoginComponent {
   }
 
   onOpenResetPasswordDialog() {
-    // this.dialogRefLoginDialog.close();
+    this.dialogRefLoginDialog.close();
     this.dialog.open(ResetPasswordDialogComponent, {
       width: '100%',
       maxWidth: '50rem',

@@ -21,9 +21,6 @@ export interface AuthState {
   registerError: string | null;
   registerSuccess: boolean;
 
-  // TODO: Password Reset
-
-  // TODO: Invite-Link / Guest-Login
   inviteLoading: boolean;
   inviteError: string | null;
   inviteEntity: InviteEntity | null;
@@ -172,5 +169,11 @@ export const authReducer = createReducer(
   on(authActions.userConnectedToWebsocket, (state) => ({
     ...state,
     websocketConnected: true,
+  })),
+
+  // verify email success
+  on(authActions.verifyEmailSuccess, (state, action) => ({
+    ...state,
+    token: action.token,
   }))
 );

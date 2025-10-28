@@ -84,6 +84,13 @@ export class ProjectService {
   }
 
   async create(authUser: AuthUser, createProjectDto: CreateProjectDto) {
+    const userlimitReached = await this.permissions.isUserSizeLimitReached(
+      authUser,
+    );
+    if (userlimitReached) {
+      throw new CustomForbiddenException('user_size_limit_reached');
+    }
+
     const status = ProjectStatus.WAITING;
 
     const videosMetadata: UploadMetadata[] = [];
@@ -144,6 +151,7 @@ export class ProjectService {
       status: MediaStatus.WAITING,
       title: 'Main Video',
       resolutions: [],
+      sizeInBytes: 0,
     };
 
     const mainAudio: Audio = {
@@ -153,6 +161,7 @@ export class ProjectService {
       originalFileName: '',
       status: MediaStatus.WAITING,
       title: 'Main Audio',
+      sizeInBytes: 0,
     };
 
     //create project
@@ -477,6 +486,13 @@ export class ProjectService {
       throw new CustomForbiddenException('must_be_owner');
     }
 
+    if (
+      project.status === ProjectStatus.WAITING ||
+      project.status === ProjectStatus.PROCESSING
+    ) {
+      throw new CustomForbiddenException('cannot_delete_project_due_status');
+    }
+
     await Promise.all([
       // Delete project
       this.db.projectModel.findByIdAndDelete(id),
@@ -735,6 +751,7 @@ export class ProjectService {
       status: MediaStatus.WAITING,
       extension: 'mp4',
       resolutions: [],
+      sizeInBytes: 0,
     };
 
     const updatedProject = await this.db.updateProjectByIdAndReturn(projectId, {

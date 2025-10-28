@@ -144,13 +144,4 @@ export class MediaService {
         foundElement[0].scrollIntoView({ behavior: 'smooth', block: 'center' });
     }
   }
-
-  loop(start: number, end: number) {
-    // TODO: Real endless loop logic
-    this.store.dispatch(editorActions.playFromMediaService());
-    this.seekToTime(start, false);
-    setTimeout(() => {
-      this.seekToTime(start, false);
-    }, (end - start) * 1000);
-  }
 }

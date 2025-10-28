@@ -1,0 +1,207 @@
+<div class="table-actions">
+  <div class="filter-wrapper">
+    <mat-form-field>
+      <mat-label i18n="@@adminFilterLabel">Filter</mat-label>
+      <input
+        matInput
+        (keyup)="onApplyFilter($event)"
+        [formControl]="filterControl"
+      />
+    </mat-form-field>
+    <p>
+      {{ filteredUsersCount }}
+      <span i18n="@@adminFilterUsersCountLabel">Users</span>
+    </p>
+  </div>
+
+  <button
+    mat-flat-button
+    (click)="onOpenCreateUserDialog()"
+    i18n="@@adminCreateUserButtonLabel"
+  >
+    Create User
+  </button>
+</div>
+
+<table mat-table [dataSource]="dataSource" matSort>
+  <ng-container matColumnDef="username">
+    <th
+      mat-header-cell
+      *matHeaderCellDef
+      mat-sort-header="name"
+      i18n="@@adminTableHeaderName"
+    >
+      Name
+    </th>
+    <td mat-cell *matCellDef="let element">{{ element.name }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="email">
+    <th
+      mat-header-cell
+      *matHeaderCellDef
+      mat-sort-header
+      i18n="@@adminTableHeaderEmail"
+    >
+      Email
+    </th>
+    <td mat-cell *matCellDef="let element">{{ element.email }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="email-verified">
+    <th
+      mat-header-cell
+      *matHeaderCellDef
+      mat-sort-header="isEmailVerified"
+      i18n="@@adminTableHeaderEmailVerified"
+    >
+      Email Verified
+    </th>
+    <td mat-cell *matCellDef="let element">
+      @if (element.isEmailVerified) {
+      <span i18n="@@adminTableEmailVerifiedYes">Yes</span>
+      } @else {
+      <span i18n="@@adminTableEmailVerifiedNo">No</span>
+      }
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="projects">
+    <th
+      mat-header-cell
+      *matHeaderCellDef
+      mat-sort-header="projectCount"
+      i18n="@@adminTableHeaderProjects"
+    >
+      Projects
+    </th>
+    <td mat-cell *matCellDef="let element">
+      {{ element.projectCount }}
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="filesize-total">
+    <th
+      mat-header-cell
+      *matHeaderCellDef
+      mat-sort-header="sizeInByte"
+      i18n="@@adminTableHeaderTotalFileSize"
+    >
+      Total File Size
+    </th>
+    <td mat-cell *matCellDef="let element">
+      {{ element.sizeInByte | fileSize }}
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="total-video-length">
+    <th
+      mat-header-cell
+      *matHeaderCellDef
+      mat-sort-header="accumulatedDuration"
+      i18n="@@adminTableHeaderTotalVideoLength"
+    >
+      Total Video Length
+    </th>
+    <td mat-cell *matCellDef="let element">
+      {{ element.accumulatedDuration | duration }}
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="user-size-limit">
+    <th
+      mat-header-cell
+      *matHeaderCellDef
+      mat-sort-header="sizeLimit"
+      i18n="@@adminTableHeaderUserSizeLimit"
+    >
+      Sizelimit
+    </th>
+    <td mat-cell *matCellDef="let element">
+      @if(element.sizeLimit === -1) {
+      <span i18n="@@adminTableSizeLimitUnlimited">Unlimited</span>
+      }@else{
+      {{ element.team?.sizeLimit ?? element.sizeLimit | fileSize }}
+      }
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="user-team">
+    <ng-container *ngrxLet="allTeams$ as teams">
+      <th
+        mat-header-cell
+        *matHeaderCellDef
+        mat-sort-header="team.name"
+        i18n="@@adminTableHeaderTotalVideoLength"
+      >
+        Team
+      </th>
+      <td mat-cell *matCellDef="let element" class="team-seletion">
+        <!-- @if(element?.team?.name) {
+        {{ element.team.name }}
+        }@else{ - } -->
+        <!-- <mat-label>Team selection</mat-label> -->
+        <mat-form-field>
+          <mat-select
+            [value]="element?.team?._id ?? undefined"
+            (selectionChange)="onChangeTeam($event, element)"
+            canSelectNullableOptions
+            aria-label="Select Team for user {{ element.name }}"
+          >
+            <mat-option>None</mat-option>
+            @for (team of teams.teams; track team) {
+            <mat-option value="{{ team.id }}"> {{ team.name }}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+      </td>
+    </ng-container>
+  </ng-container>
+
+  <ng-container matColumnDef="more">
+    <th mat-header-cell *matHeaderCellDef i18n="@@adminTableHeaderMore">
+      More
+    </th>
+    <td mat-cell *matCellDef="let element">
+      <button
+        mat-icon-button
+        [matMenuTriggerData]="{ user: element }"
+        [matMenuTriggerFor]="menu"
+        aria-label="More"
+      >
+        <mat-icon svgIcon="more" />
+      </button>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+</table>
+
+<mat-menu #menu="matMenu">
+  <ng-template matMenuContent let-user="user">
+    @if (!user.isEmailVerified) {
+    <button mat-menu-item (click)="onVerifyUserEmail(user)">
+      <mat-icon svgIcon="person_check" />
+      <span i18n="@@adminTableActionVerifyEmail">Verify Email</span>
+    </button>
+    }
+
+    <button mat-menu-item (click)="onOpenUpdateUserDialog(user)">
+      <mat-icon svgIcon="edit" />
+      <span i18n="@@adminTableActionEditUser">Edit User</span>
+    </button>
+    <button mat-menu-item (click)="onOpenEditEmailDialog(user)">
+      <mat-icon svgIcon="edit" />
+      <span i18n="@@adminTableActionEditEmail">Edit Email</span>
+    </button>
+    <button mat-menu-item (click)="onOpenResetPasswordDialog(user)">
+      <mat-icon svgIcon="refresh" />
+      <span i18n="@@adminTableActionResetPassword">Reset Password</span>
+    </button>
+    <button mat-menu-item (click)="onDeleteUser(user)">
+      <mat-icon svgIcon="delete" />
+      <span i18n="@@adminTableActionDeleteUser">Delete User</span>
+    </button>
+  </ng-template>
+</mat-menu>

@@ -92,7 +92,6 @@ export class ProjectProcessor {
           ' Processing file to mp4 file, flags: ' +
           recorder,
       );
-      // TODO if recorder -> use flags -> if no dont use flag
       // make it an mp4 file otherwise
       await this.ffmpegService.processBaseFile(
         project._id.toString(),
@@ -102,7 +101,6 @@ export class ProjectProcessor {
       );
     }
 
-    // TODO clear upload directory here -> is this correct?
     const uploadDir = this.pathService.getUploadDirectory(file.uploadId);
     await rm(uploadDir, { recursive: true });
 

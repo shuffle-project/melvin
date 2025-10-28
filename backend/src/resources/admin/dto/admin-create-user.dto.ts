@@ -1,0 +1,13 @@
+import { ApiProperty } from '@nestjs/swagger';
+import { IsEmail, IsString } from 'class-validator';
+import { EXAMPLE_USER } from 'src/constants/example.constants';
+
+export class AdminCreateUserDto {
+  @ApiProperty({ example: EXAMPLE_USER.email })
+  @IsEmail()
+  email: string;
+
+  @ApiProperty({ example: EXAMPLE_USER.name })
+  @IsString()
+  name: string;
+}

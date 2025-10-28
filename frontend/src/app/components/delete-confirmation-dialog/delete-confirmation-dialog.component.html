@@ -66,6 +66,16 @@
       }
     </div>
   </div>
+  } @if(data.level === DeleteConfirmLevel.HIGH_TYPE) {
+  <mat-form-field class="type-confirm-field">
+    <mat-label i18n="@@deleteConfirmationDialogTypeLabel">
+      Type "Delete" to confirm
+    </mat-label>
+    <input matInput [formControl]="typeControl" />
+    <mat-error i18n="@@deleteConfirmationDialogTypeError">
+      You need to type "Delete" to confirm
+    </mat-error>
+  </mat-form-field>
   }
 </mat-dialog-content>
 <mat-dialog-actions align="end">

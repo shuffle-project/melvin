@@ -76,3 +76,8 @@ export const getSupportedTranslationLanguages = createSelector(
     });
   }
 );
+
+export const getRegistrationMode = createSelector(
+  configState,
+  (state: ConfigState) => state.registrationMode
+);

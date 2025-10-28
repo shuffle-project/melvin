@@ -14,4 +14,8 @@ export interface AuthUser {
   aud: string;
   iss: string;
   jti: string;
+  isEmailVerified: boolean;
+  size: number;
+  sizeLimit: number;
+  team: string | null;
 }

@@ -28,8 +28,6 @@ export class UploadService {
     authUser: AuthUser,
     createUploadDto: CreateUploadDto,
   ): Promise<UploadEntity> {
-    // TODO check max file size
-
     // upload only allowed for admins, systems and users
     if (
       ![UserRole.ADMIN, UserRole.SYSTEM, UserRole.USER].includes(authUser.role)

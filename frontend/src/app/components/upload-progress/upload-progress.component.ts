@@ -5,21 +5,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { LetDirective } from '@ngrx/component';
 import { Subject } from 'rxjs';
+import { FileSizePipe } from 'src/app/pipes/file-size-pipe/file-size.pipe';
 import { UploadProgress } from 'src/app/services/upload/upload.interfaces';
-
-function toCorrectSizeUnit(n: number) {
-  const ONE_KB = 1000;
-  const ONE_MB = 1000 * 1000;
-  const ONE_GB = ONE_MB * 1000;
-
-  if (n >= ONE_GB) {
-    return `${(n / ONE_GB).toFixed(2)} GB`;
-  } else if (n >= ONE_MB) {
-    return `${(n / ONE_MB).toFixed(2)} MB`;
-  } else {
-    return `${(n / ONE_KB).toFixed(2)} KB`;
-  }
-}
 
 @Component({
   selector: 'app-upload-progress',
@@ -29,6 +16,7 @@ function toCorrectSizeUnit(n: number) {
     LetDirective,
     MatButtonModule,
     DecimalPipe,
+    FileSizePipe,
   ],
   templateUrl: './upload-progress.component.html',
   styleUrl: './upload-progress.component.scss',
@@ -36,7 +24,7 @@ function toCorrectSizeUnit(n: number) {
 export class UploadProgressComponent implements OnInit {
   @Input() progress$!: Subject<UploadProgress>;
   @Input() title!: string;
-  @Input({ transform: toCorrectSizeUnit }) fileSize!: string;
+  @Input() fileSize!: number;
   @Input() customInlinePadding = 1;
 
   constructor() {

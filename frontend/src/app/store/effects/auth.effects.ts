@@ -50,12 +50,21 @@ export class AuthEffects {
           null
         );
 
-        // TODO hier den call um die config abzurufen
         if (!token) {
           return authActions.initSuccess({ token: null });
         }
 
         return authActions.initRefreshToken({ token });
+      })
+    )
+  );
+
+  refreshToken$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(authActions.refreshToken),
+      withLatestFrom(this.store.select(authSelectors.selectToken)),
+      map(([, token]) => {
+        return authActions.initRefreshToken({ token: token ?? '' });
       })
     )
   );
@@ -266,6 +275,18 @@ export class AuthEffects {
         )
       )
     )
+  );
+
+  // verify email success
+  verifyEmailSuccess$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(authActions.verifyEmailSuccess),
+        tap((action) => {
+          this._replaceTokenInStorage(action.token);
+        })
+      ),
+    { dispatch: false }
   );
 
   guestLoginSuccess$ = createEffect(

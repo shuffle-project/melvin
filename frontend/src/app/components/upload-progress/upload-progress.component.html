@@ -10,8 +10,10 @@
 
         @switch (progress.status) { @case ('uploading') {
         <span class="message">
-          {{ this.fileSize }} ({{ progress.eta | number : '1.0-0' }} seconds
-          remaining)
+          {{ this.fileSize | fileSize }} ({{
+            progress.eta | number : '1.0-0'
+          }}
+          seconds remaining)
         </span>
         } @case ('completed') {
         <span class="message success">Upload completed</span>
@@ -19,7 +21,7 @@
         <span class="message error">Upload failed</span>
         } @default {
         <span class="message">
-          {{ this.fileSize }}
+          {{ this.fileSize | fileSize }}
         </span>
         } }
       </div>

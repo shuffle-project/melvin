@@ -1,8 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { UserEntity } from 'src/app/services/api/entities/user.entity';
+import {
+  UserEntity,
+  UserEntityForAdmin,
+} from 'src/app/services/api/entities/user.entity';
 import { environment } from '../../../environments/environment';
 import { UploadDto } from '../upload/upload.interfaces';
+import { AdminUpdateUserDto } from './dto/admin-update-user.dto';
 import { ChangePasswordDto } from './dto/auth.dto';
 import { BulkRemoveDto } from './dto/bulk-remove.dto';
 import { ConnectLivestreamDto } from './dto/connect-livestream.dto';
@@ -12,12 +16,14 @@ import { CreateSpeakersDto } from './dto/create-speakers.dto';
 import { CreateTranscriptionDto } from './dto/create-transcription.dto';
 import { PauseLivestreamDto } from './dto/pause-livestream.dto';
 import { PauseRecordingDto } from './dto/pause-recording,dto';
+import { ResetPasswordDto } from './dto/reset-password.dto';
 import { ResumeLivestreamDto } from './dto/resume-livestream.dto';
 import { ResumeRecordingDto } from './dto/resume-recording.dto';
 import { StartLivestreamDto } from './dto/start-livestream.dto';
 import { StartRecordingDto } from './dto/start-recording.dto';
 import { StopLivestreamDto } from './dto/stop-livestream.dto';
 import { StopRecordingDto } from './dto/stop-recording.dto';
+import { CreateTeamDto, UpdateTeamDto } from './dto/team.dto';
 import { UpdateCaptionDto } from './dto/update-caption.dto';
 import {
   UpdateManyNotificationsDto,
@@ -26,6 +32,7 @@ import {
 import { UpdateProjectDto } from './dto/update-project.dto';
 import { UpdateSpeakerDto } from './dto/update-speaker.dto';
 import { UpdateTranscriptionDto } from './dto/update-transcription.dto';
+import { UpdateUserDto } from './dto/update-user.dto';
 import { UploadVideoDto } from './dto/upload-video.dto';
 import { ActivityListEntity } from './entities/activitiy-list.entity';
 import {
@@ -56,6 +63,7 @@ import { StartLivestreamEntity } from './entities/start-livestream.entity';
 import { StartRecordingEntity } from './entities/start-recording.entity';
 import { StopLivestreamEntity } from './entities/stop-livestream.entity';
 import { StopRecordingEntity } from './entities/stop-recording.entity';
+import { TeamEntity, TeamListEntity } from './entities/team.entity';
 import {
   SubtitleFormat,
   TranscriptionEntity,
@@ -111,6 +119,8 @@ export abstract class ApiService {
   abstract findAllUsers(search: string): Observable<UserEntity[]>;
 
   abstract deleteAccount(password: string): Observable<void>;
+
+  abstract updateUser(dto: UpdateUserDto): Observable<UserEntity>;
 
   // projects
   abstract createProject(project: CreateProjectDto): Observable<ProjectEntity>;
@@ -343,4 +353,64 @@ export abstract class ApiService {
   abstract createUpload(uploadDto: UploadDto): Observable<UploadEntity>;
   abstract updateUpload(id: string, filePart: Blob): Observable<any>;
   abstract cancelUpload(id: string): Observable<any>;
+
+  // admin
+  abstract adminLogin(
+    username: string,
+    password: string
+  ): Observable<{ token: string }>;
+  abstract adminFindAllUsers(): Observable<{
+    users: Readonly<UserEntityForAdmin[]>;
+  }>;
+
+  abstract adminDeleteUserAccount(userId: string): Observable<void>;
+
+  abstract adminUpdateUserEmail(
+    userId: string,
+    email: string
+  ): Observable<UserEntityForAdmin>;
+
+  abstract adminUpdateUser(
+    userId: string,
+    dto: AdminUpdateUserDto
+  ): Observable<UserEntityForAdmin>;
+
+  abstract adminResetUserPassword(
+    userId: string
+  ): Observable<{ method: 'email' | 'return'; password: string }>;
+
+  abstract adminCreateUser(
+    email: string,
+    name: string
+  ): Observable<{
+    method: 'email' | 'return';
+    password: string;
+    user: UserEntityForAdmin;
+  }>;
+
+  abstract adminVerifyUserEmail(userId: string): Observable<UserEntityForAdmin>;
+
+  // user verify email
+  abstract verifyEmail(
+    token: string,
+    email: string
+  ): Observable<{ token: string }>;
+
+  abstract requestVerificationEmail(): Observable<void>;
+
+  abstract requestResetPassword(email: string): Observable<void>;
+  abstract resetPassword(resetPasswordDto: ResetPasswordDto): Observable<void>;
+
+  // teams
+  abstract adminFindAllTeams(): Observable<TeamListEntity>;
+  abstract adminCreateTeam(
+    createTeamDto: CreateTeamDto
+  ): Observable<TeamEntity>;
+
+  abstract adminUpdateTeam(
+    id: string,
+    updateTeamDto: UpdateTeamDto
+  ): Observable<TeamEntity>;
+
+  abstract adminRemoveTeam(id: string): Observable<void>;
 }

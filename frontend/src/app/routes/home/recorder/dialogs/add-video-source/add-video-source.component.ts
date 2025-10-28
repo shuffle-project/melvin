@@ -12,6 +12,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSelectModule } from '@angular/material/select';
 import { Subject } from 'rxjs';
 import { MediaCategoryPipe } from 'src/app/pipes/media-category-pipe/media-category.pipe';
+import { AlertService } from 'src/app/services/alert/alert.service';
 import { v4 } from 'uuid';
 import { MediaCategory } from '../../../../../services/api/entities/project.entity';
 import { VideoSource } from '../../recorder.interfaces';
@@ -62,7 +63,8 @@ export class AddVideoSourceComponent implements OnInit, OnDestroy {
     public dialogRef: MatDialogRef<AddVideoSourceComponent>,
     @Inject(MAT_DIALOG_DATA)
     public data: {},
-    public recorderService: RecorderService
+    public recorderService: RecorderService,
+    private alertService: AlertService
   ) {}
 
   async ngOnInit() {
@@ -100,7 +102,6 @@ export class AddVideoSourceComponent implements OnInit, OnDestroy {
       this.currentInput = this.videoinputs[0];
       await this.resetVideoSourceDevice(this.videoinputs[0]);
     } else {
-      // TODO permissions ? keine geräte ? show error
       this.loadingError =
         'Es konnten keine Videogeräte gefunden werden. Entweder sind keine Berechtigungen gesetzt oder ist kein Videogerät angeschlossen!';
     }
@@ -127,7 +128,7 @@ export class AddVideoSourceComponent implements OnInit, OnDestroy {
         video: { deviceId: mediaDeviceInfo.deviceId, frameRate: 30 },
       });
     } catch (error) {
-      this.deviceError = error; // TODO
+      this.deviceError = error;
     }
   }
 

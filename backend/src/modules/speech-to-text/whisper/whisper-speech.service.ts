@@ -11,7 +11,7 @@ import { ProcessMelvinAsrJob } from 'src/processors/melvin-asr.processor';
 import { CaptionEntity } from 'src/resources/caption/entities/caption.entity';
 import { TranscriptionEntity } from 'src/resources/transcription/entities/transcription.entity';
 import { LanguageShort } from '../../../app.interfaces';
-import { WhisperConfig } from '../../../config/config.interface';
+import { MelvinAsrConfig } from '../../../config/config.interface';
 import { DbService } from '../../db/db.service';
 import { Audio, Project } from '../../db/schemas/project.schema';
 import { CustomLogger } from '../../logger/logger.service';
@@ -22,7 +22,7 @@ import { ISpeechToTextService } from '../speech-to-text.interfaces';
 
 @Injectable()
 export class WhisperSpeechService implements ISpeechToTextService {
-  private whisperConfig: WhisperConfig;
+  private whisperConfig: MelvinAsrConfig;
 
   constructor(
     private logger: CustomLogger,
@@ -35,7 +35,7 @@ export class WhisperSpeechService implements ISpeechToTextService {
   ) {
     this.logger.setContext(this.constructor.name);
 
-    this.whisperConfig = this.configService.get<WhisperConfig>('whisper');
+    this.whisperConfig = this.configService.get<MelvinAsrConfig>('melvinAsr');
   }
 
   async fetchLanguages(): Promise<LanguageShort[]> {
