@@ -297,7 +297,7 @@
         <source>Title</source>
       </trans-unit>
       <trans-unit id="userInfoStorageUsage" datatype="html">
-        <source><x id="INTERPOLATION" equiv-text="{{ user.size | fileSize }}"/> von <x id="INTERPOLATION_1" equiv-text="{{ user.sizeLimit | fileSize }}"/> belegt</source>
+        <source><x id="INTERPOLATION" equiv-text="{{ user.size | fileSize }}"/> from <x id="INTERPOLATION_1" equiv-text="{{ user.sizeLimit | fileSize }}"/> used</source>
       </trans-unit>
       <trans-unit id="uploadTranscriptionTabTitleHint" datatype="html">
         <source> Optional (e.g. with audio description) </source>

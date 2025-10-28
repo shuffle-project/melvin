@@ -32,7 +32,9 @@
     </mat-form-field>
 
     <mat-form-field>
-      <mat-label>Size limit in GB</mat-label>
+      <mat-label @@dialogAdminEditTeamSizeLimitInputLabel
+        >Size limit in GB</mat-label
+      >
       <input matInput type="number" min="-1" [formControl]="sizelimitControl" />
       <mat-error>
         <!-- @if(sizelimitControl.hasError('required')) {

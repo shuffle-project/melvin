@@ -599,7 +599,7 @@
         <target state="final">Titel</target>
       </trans-unit>
       <trans-unit id="userInfoStorageUsage" datatype="html">
-        <source><x id="INTERPOLATION" equiv-text="{{ user.size | fileSize }}"/> von <x id="INTERPOLATION_1" equiv-text="{{ user.sizeLimit | fileSize }}"/> belegt</source>
+        <source><x id="INTERPOLATION" equiv-text="{{ user.size | fileSize }}"/> from <x id="INTERPOLATION_1" equiv-text="{{ user.sizeLimit | fileSize }}"/> used</source>
         <target state="new"><x id="INTERPOLATION" equiv-text="{{ user.size | fileSize }}"/> von <x id="INTERPOLATION_1" equiv-text="{{ user.sizeLimit | fileSize }}"/> belegt</target>
       </trans-unit>
       <trans-unit id="uploadTranscriptionTabFileErrorMaximum" datatype="html">
@@ -2980,7 +2980,7 @@
       </trans-unit>
       <trans-unit id="adminTableEditTeam" datatype="html">
         <source>Edit Team</source>
-        <target state="new">Team editieren</target>
+        <target state="final">Team editieren</target>
       </trans-unit>
       <trans-unit id="adminTableEmailVerifiedNo" datatype="html">
         <source>No</source>
