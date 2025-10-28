@@ -1,5 +1,4 @@
 import {
-  IsBoolean,
   IsDefined,
   IsEmail,
   IsEnum,
@@ -136,7 +135,7 @@ export class GoogleSpeechConfig {
   client_email: string;
 }
 
-export class WhisperConfig {
+export class MelvinAsrConfig {
   @IsString()
   @IsDefined()
   host: string;
@@ -161,9 +160,6 @@ export enum RegistrationMode {
 export class RegistrationConfig {
   @IsEnum(RegistrationMode)
   mode: RegistrationMode;
-
-  @IsBoolean()
-  requireAdminApproval: boolean;
 }
 
 export class Config {
@@ -177,7 +173,7 @@ export class Config {
   @IsNumber()
   @IsOptional()
   @IsNumber()
-  defaultUserSizeLimit: number = -1;
+  defaultUserSizeLimitGB: number = -1;
 
   @IsString()
   baseUrl: string;
@@ -230,5 +226,5 @@ export class Config {
   googleSpeech: GoogleSpeechConfig;
 
   @ValidateNested({ each: true })
-  whisper: WhisperConfig;
+  melvinAsr: MelvinAsrConfig;
 }

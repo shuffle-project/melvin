@@ -5,6 +5,7 @@ import * as bcrypt from 'bcrypt';
 import { PopulatedDoc, Types } from 'mongoose';
 import { Team } from 'src/modules/db/schemas/team.schema';
 import { MailService } from 'src/modules/mail/mail.service';
+import { gbToBytes } from 'src/utils/storage';
 import { v4 } from 'uuid';
 import { JwtConfig, RegistrationConfig } from '../../config/config.interface';
 import { DbService } from '../../modules/db/db.service';
@@ -343,8 +344,8 @@ export class AuthService {
       size = await this.db.getUserSize(user._id.toString());
     }
 
-    const defaultSizeLimit = this.configService.get<number>(
-      'defaultUserSizeLimit',
+    const defaultSizeLimit = gbToBytes(
+      this.configService.get<number>('defaultUserSizeLimitGB'),
     );
 
     const payload: JwtPayload = {

@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
+import { gbToBytes } from 'src/utils/storage';
 import { AuthUser } from '../../resources/auth/auth.interfaces';
 import { UserRole } from '../../resources/user/user.interfaces';
 import { getObjectIdAsString, isSameObjectId } from '../../utils/objectid';
@@ -27,7 +28,7 @@ export class PermissionsService {
     const sizeLimit =
       (user.team as Team)?.sizeLimit ??
       user.sizeLimit ??
-      this.configService.get<number>('defaultUserSizeLimit');
+      gbToBytes(this.configService.get<number>('defaultUserSizeLimitGB'));
     if (sizeLimit === -1) {
       return false;
     }

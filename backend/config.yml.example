@@ -3,10 +3,9 @@ baseUrl: http://localhost:3000
 baseFrontendUrl: http://localhost:4200
 
 registration:
-  mode: email # email | disabled
-  requireAdminApproval: false
+  mode: disabled # email = registration via email/smtp | disabled = registration via adminpanel
 
-defaultUserSizeLimit: -1
+defaultUserSizeLimitGB: -1 # -1 = unlimited 
 
 mongodb:
   uri: mongodb://localhost:27017/captioning
@@ -20,7 +19,7 @@ jwt:
   issuer: http://localhost:3000
   audience: http://localhost:4200
 
-whisper:
+melvinAsr:
   host: localhost
   apikey: shuffle2024
 
@@ -28,43 +27,16 @@ basicAuth:
   username: admin
   password: secret
 
-# livekit:
-#   url: ws://localhost:7880
-#   apikey: devkey
-#   secret: secret
-
-
 adminUser:
   username: admin
-  hashedPassword: admin:$2y$05$jswg1DsryRkK.NUwFQvxqOTC1VAO/CMOp5f6pJ4IPY5gTzm/zyWbu
-  # password: secret
-  # you can either set a cleartext or a hashed password
+  # you can either set a cleartext or a hashed password (-> htpasswd -nbB admin secret) 
+  password: secret
+  # hashedPassword: admin:$2y$05$jswg1DsryRkK.NUwFQvxqOTC1VAO/CMOp5f6pJ4IPY5gTzm/zyWbu
 
-email:
-  smtpServer: 'smtp.example.com'
-  smtpPort: 465
-  user: 'info@example.com'
-  password: 'secret'
-  mailFrom: info@example.com
-  mailFromName: Melvin
-
-# deepL:
-#   url: https://api-free.deepl.com/v2
-#   apikey: xxx
-
-# libreTranslate:
-#   url: http://libretranslate:5000
-
-# googleTranslate:
-#   url: https://translation.googleapis.com/language/translate/v2
-#   apikey: xxx
-
-# assemblyAi:
-#   url: https://api.assemblyai.com/v2
-#   apikey: xxx
-
-# googleSpeech:
-#   private_key: 'xxx'
-#   client_email: 'xxx'
-#   project_id: 'xxx'
-#   bucketName: 'xxx'
+# email:
+#  smtpServer: 'smtp.example.com'
+#  smtpPort: 465
+#  user: 'info@example.com'
+#  password: 'secret'
+#  mailFrom: info@example.com
+#  mailFromName: Melvin

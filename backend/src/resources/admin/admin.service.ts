@@ -15,6 +15,7 @@ import { PathService } from 'src/modules/path/path.service';
 import { generateSecurePassword } from 'src/utils/crypto';
 import { CustomBadRequestException } from 'src/utils/exceptions';
 import { isSameObjectId } from 'src/utils/objectid';
+import { gbToBytes } from 'src/utils/storage';
 import { AuthService } from '../auth/auth.service';
 import { AuthLoginResponseDto } from '../auth/dto/auth-login.dto';
 import { TeamEntity } from '../team/entities/team.entity';
@@ -252,7 +253,7 @@ export class AdminService {
       accumulatedDuration,
       sizeLimit:
         user.sizeLimit ??
-        this.configService.get<number>('defaultUserSizeLimit'),
+        gbToBytes(this.configService.get<number>('defaultUserSizeLimitGB')),
       team,
     };
   }

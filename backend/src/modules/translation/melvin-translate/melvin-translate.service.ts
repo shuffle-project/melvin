@@ -3,7 +3,7 @@ import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { Queue } from 'bull';
 import { LanguageShort } from 'src/app.interfaces';
-import { WhisperConfig } from 'src/config/config.interface';
+import { MelvinAsrConfig } from 'src/config/config.interface';
 import { Project } from 'src/modules/db/schemas/project.schema';
 import { CustomLogger } from 'src/modules/logger/logger.service';
 import { MelvinAsrApiService } from 'src/modules/melvin-asr-api/melvin-asr-api.service';
@@ -13,7 +13,7 @@ import { MelvinTranslateDto } from './melvin-translate.interfaces';
 
 @Injectable()
 export class MelvinTranslateService {
-  private whisperConfig: WhisperConfig;
+  private whisperConfig: MelvinAsrConfig;
 
   constructor(
     private configService: ConfigService,
@@ -23,7 +23,7 @@ export class MelvinTranslateService {
     private melvinAsrQueue: Queue<ProcessMelvinAsrJob>,
   ) {
     this.logger.setContext(this.constructor.name);
-    this.whisperConfig = this.configService.get<WhisperConfig>('whisper');
+    this.whisperConfig = this.configService.get<MelvinAsrConfig>('melvinAsr');
   }
 
   async fetchLanguages(): Promise<LanguageShort[]> {
