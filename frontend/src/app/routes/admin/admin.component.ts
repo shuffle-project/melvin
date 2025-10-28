@@ -12,8 +12,6 @@ import { RouterLink } from '@angular/router';
 import { PushPipe } from '@ngrx/component';
 import { Store } from '@ngrx/store';
 import { Subject } from 'rxjs';
-import { DurationPipe } from 'src/app/pipes/duration-pipe/duration.pipe';
-import { FileSizePipe } from 'src/app/pipes/file-size-pipe/file-size.pipe';
 import { ConfigService } from 'src/app/services/config/config.service';
 import { AppState } from 'src/app/store/app.state';
 import * as adminActions from '../../store/actions/admin.actions';
@@ -34,12 +32,10 @@ import { UserManagementComponent } from './user-management/user-management.compo
     PushPipe,
     ReactiveFormsModule,
     MatTableModule,
-    FileSizePipe,
     MatIconModule,
     LandingHeaderComponent,
     MatMenuModule,
     MatSortModule,
-    DurationPipe,
     MatTabsModule,
     TeamManagementComponent,
     UserManagementComponent,

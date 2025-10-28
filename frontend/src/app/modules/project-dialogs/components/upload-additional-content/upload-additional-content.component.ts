@@ -29,7 +29,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
-import { LetDirective, PushPipe } from '@ngrx/component';
+import { LetDirective } from '@ngrx/component';
 import { UploadProgressComponent } from 'src/app/components/upload-progress/upload-progress.component';
 import { UploadHandler } from 'src/app/services/upload/upload-handler';
 import { UploadService } from 'src/app/services/upload/upload.service';
@@ -61,7 +61,6 @@ interface FileUpload {
     MatIconModule,
     MatProgressBarModule,
     LetDirective,
-    PushPipe,
     MediaCategoryPipe,
     FormatDatePipe,
     MatTableModule,

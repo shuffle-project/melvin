@@ -11,7 +11,6 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
-import { PushPipe } from '@ngrx/component';
 import { Store } from '@ngrx/store';
 import { Subject, takeUntil } from 'rxjs';
 import { AuthUser } from 'src/app/interfaces/auth.interfaces';
@@ -21,17 +20,16 @@ import * as authActions from '../../../../../store/actions/auth.actions';
 import * as authSelectors from '../../../../../store/selectors/auth.selector';
 
 @Component({
-    selector: 'app-dialog-change-password',
-    imports: [
-        MatDialogModule,
-        MatButtonModule,
-        MatIconModule,
-        MatInputModule,
-        ReactiveFormsModule,
-        PushPipe,
-    ],
-    templateUrl: './dialog-change-password.component.html',
-    styleUrl: './dialog-change-password.component.scss'
+  selector: 'app-dialog-change-password',
+  imports: [
+    MatDialogModule,
+    MatButtonModule,
+    MatIconModule,
+    MatInputModule,
+    ReactiveFormsModule,
+  ],
+  templateUrl: './dialog-change-password.component.html',
+  styleUrl: './dialog-change-password.component.scss',
 })
 export class DialogChangePasswordComponent implements OnDestroy {
   userEmail = '';

@@ -10,8 +10,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatSelectChange, MatSelectModule } from '@angular/material/select';
 import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
-import { RouterLink } from '@angular/router';
-import { LetDirective, PushPipe } from '@ngrx/component';
+import { LetDirective } from '@ngrx/component';
 import { Store } from '@ngrx/store';
 import { firstValueFrom, Subject, takeUntil } from 'rxjs';
 import { DeleteConfirmationService } from 'src/app/components/delete-confirmation-dialog/delete-confirmation.service';
@@ -24,8 +23,6 @@ import { ConfigService } from 'src/app/services/config/config.service';
 import * as adminActions from 'src/app/store/actions/admin.actions';
 import { AppState } from 'src/app/store/app.state';
 import * as adminSelectors from 'src/app/store/selectors/admin.selector';
-import { LandingFooterComponent } from '../../landing/components/landing-footer/landing-footer.component';
-import { LandingHeaderComponent } from '../../landing/components/landing-header/landing-header.component';
 import { DialogAdminCreateUserComponent } from './components/dialog-admin-create-user/dialog-admin-create-user.component';
 import { DialogAdminEditEmailComponent } from './components/dialog-admin-edit-email/dialog-admin-edit-email.component';
 import { DialogAdminResetPasswordComponent } from './components/dialog-admin-reset-password/dialog-admin-reset-password.component';
@@ -37,14 +34,10 @@ import { DialogAdminUpdateUserComponent } from './components/dialog-admin-update
     MatButtonModule,
     MatFormFieldModule,
     MatInputModule,
-    LandingFooterComponent,
-    RouterLink,
-    PushPipe,
     ReactiveFormsModule,
     MatTableModule,
     FileSizePipe,
     MatIconModule,
-    LandingHeaderComponent,
     MatMenuModule,
     MatSortModule,
     DurationPipe,

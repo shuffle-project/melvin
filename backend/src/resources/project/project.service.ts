@@ -84,6 +84,13 @@ export class ProjectService {
   }
 
   async create(authUser: AuthUser, createProjectDto: CreateProjectDto) {
+    const userlimitReached = await this.permissions.isUserSizeLimitReached(
+      authUser,
+    );
+    if (userlimitReached) {
+      throw new CustomForbiddenException('user_size_limit_reached');
+    }
+
     const status = ProjectStatus.WAITING;
 
     const videosMetadata: UploadMetadata[] = [];

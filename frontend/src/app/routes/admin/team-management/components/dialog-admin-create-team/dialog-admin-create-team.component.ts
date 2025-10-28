@@ -6,7 +6,6 @@ import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { PushPipe } from '@ngrx/component';
 import { Store } from '@ngrx/store';
 import { firstValueFrom } from 'rxjs';
 import { ApiService } from 'src/app/services/api/api.service';
@@ -23,7 +22,6 @@ import { gbToBytes } from '../../../utils';
     ReactiveFormsModule,
     MatInputModule,
     MatProgressSpinnerModule,
-    PushPipe,
   ],
   templateUrl: './dialog-admin-create-team.component.html',
   styleUrl: './dialog-admin-create-team.component.scss',

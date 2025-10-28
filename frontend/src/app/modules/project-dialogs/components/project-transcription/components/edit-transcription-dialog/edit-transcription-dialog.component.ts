@@ -27,7 +27,6 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatSelectModule } from '@angular/material/select';
 import { PushPipe } from '@ngrx/component';
 import { DialogProjectTranscriptionComponent } from 'src/app/modules/project-dialogs/dialog-project-transcription/dialog-project-transcription.component';
-import { WrittenOutLanguagePipe } from 'src/app/pipes/written-out-language-pipe/written-out-language.pipe';
 import { LanguageService } from 'src/app/services/language/language.service';
 
 @Component({
@@ -44,7 +43,6 @@ import { LanguageService } from 'src/app/services/language/language.service';
     MatButtonModule,
     MatIconModule,
     PushPipe,
-    WrittenOutLanguagePipe,
   ],
 })
 export class EditTranscriptionDialogComponent implements OnInit {

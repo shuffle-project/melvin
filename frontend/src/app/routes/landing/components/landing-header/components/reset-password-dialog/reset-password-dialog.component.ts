@@ -11,7 +11,6 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { PushPipe } from '@ngrx/component';
 import { firstValueFrom } from 'rxjs';
 import { ApiService } from 'src/app/services/api/api.service';
 
@@ -23,7 +22,6 @@ import { ApiService } from 'src/app/services/api/api.service';
     MatIconModule,
     ReactiveFormsModule,
     MatInputModule,
-    PushPipe,
     MatProgressSpinnerModule,
   ],
   templateUrl: './reset-password-dialog.component.html',

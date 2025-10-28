@@ -17,7 +17,7 @@
     [value]="percentage$ | ngrxPush"
     [ngClass]="color$ | ngrxPush"
   ></mat-progress-bar>
-  <span
+  <span i18n="@@userInfoStorageUsage"
     >{{ user.size | fileSize }} von {{ user.sizeLimit | fileSize }} belegt</span
   >
   } }

@@ -598,6 +598,10 @@
         <source>Title</source>
         <target state="final">Titel</target>
       </trans-unit>
+      <trans-unit id="userInfoStorageUsage" datatype="html">
+        <source><x id="INTERPOLATION" equiv-text="{{ user.size | fileSize }}"/> von <x id="INTERPOLATION_1" equiv-text="{{ user.sizeLimit | fileSize }}"/> belegt</source>
+        <target state="new"><x id="INTERPOLATION" equiv-text="{{ user.size | fileSize }}"/> von <x id="INTERPOLATION_1" equiv-text="{{ user.sizeLimit | fileSize }}"/> belegt</target>
+      </trans-unit>
       <trans-unit id="uploadTranscriptionTabFileErrorMaximum" datatype="html">
         <source> Maximum 1 file </source>
         <target state="final"> Maximal eine Datei </target>
@@ -1606,6 +1610,10 @@
         <source>Interface language</source>
         <target state="final">Sprache der Benutzeroberfläche</target>
       </trans-unit>
+      <trans-unit id="profileSettingsHeader" datatype="html">
+        <source>Settings</source>
+        <target state="final">Einstellungen</target>
+      </trans-unit>
       <trans-unit id="profileSelectEnglishOption" datatype="html">
         <source> English </source>
         <target state="final"> Englisch </target>
@@ -1673,6 +1681,10 @@
       <trans-unit id="uploadAdditionalMediaDeleteButtonLabel" datatype="html">
         <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;delete&quot; /&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;delete&quot; /&gt;"/> Delete </source>
         <target state="final"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="Delete"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="/button&gt; &lt;/di"/> Löschen </target>
+      </trans-unit>
+      <trans-unit id="profileAccountHeader" datatype="html">
+        <source>Account</source>
+        <target state="final">Account</target>
       </trans-unit>
       <trans-unit id="profileDeleteAccountButtonLabel" datatype="html">
         <source> Delete Account </source>
@@ -2914,6 +2926,14 @@
         <source>User Account: <x id="PH" equiv-text="userEmail"/></source>
         <target state="final">Nutzer*innen Konto: <x id="PH" equiv-text="userEmail"/></target>
       </trans-unit>
+      <trans-unit id="deleteServiceAdminDeleteTeamDescription" datatype="html">
+        <source>If you confirm this, this team will be deleted and users with that team will no longer have a size limit!</source>
+        <target state="final">Wenn Sie dies bestätigen, wird dieses Team gelöscht und Benutzer mit diesem Team haben möglicherweose keine Speicherplatzbeschränkungen mehr!</target>
+      </trans-unit>
+      <trans-unit id="deleteServiceAdminDeleteTeamSubject" datatype="html">
+        <source>Teamname: <x id="PH" equiv-text="teamname"/></source>
+        <target state="final">Teamname: <x id="PH" equiv-text="teamname"/></target>
+      </trans-unit>
       <trans-unit id="deleteServiceAdminDeleteAccountDescription" datatype="html">
         <source>If you confirm this, the account with all created projects and data will be deleted. This can NOT be undone!</source>
         <target state="final">Wenn Sie dies bestätigen, wird das Konto mit allen erstellten Projekten und Daten gelöscht. Dies kann NICHT rückgängig gemacht werden!</target>
@@ -2926,9 +2946,17 @@
         <source>Filter</source>
         <target state="final">Filter</target>
       </trans-unit>
+      <trans-unit id="adminFilterTeamsCountLabel" datatype="html">
+        <source>Teams</source>
+        <target state="final">Teams</target>
+      </trans-unit>
       <trans-unit id="adminFilterUsersCountLabel" datatype="html">
         <source>Users</source>
         <target state="final">Nutzer*innen</target>
+      </trans-unit>
+      <trans-unit id="adminCreateTeamButtonLabel" datatype="html">
+        <source> Create Team </source>
+        <target state="final"> Team erstellen </target>
       </trans-unit>
       <trans-unit id="adminCreateUserButtonLabel" datatype="html">
         <source> Create User </source>
@@ -2950,6 +2978,10 @@
         <source>Yes</source>
         <target state="final">Ja</target>
       </trans-unit>
+      <trans-unit id="adminTableEditTeam" datatype="html">
+        <source>Edit Team</source>
+        <target state="new">Team editieren</target>
+      </trans-unit>
       <trans-unit id="adminTableEmailVerifiedNo" datatype="html">
         <source>No</source>
         <target state="final">Nein</target>
@@ -2958,6 +2990,14 @@
         <source> Projects </source>
         <target state="final"> Projekte </target>
       </trans-unit>
+      <trans-unit id="adminTableHeaderTeamSize" datatype="html">
+        <source> Total File Size </source>
+        <target state="final"> Gesamtgröße aller Dateien </target>
+      </trans-unit>
+      <trans-unit id="adminTableHeaderTeamSizeLimit" datatype="html">
+        <source> Size Limit </source>
+        <target state="final"> Maximalser Speicherplatz </target>
+      </trans-unit>
       <trans-unit id="adminTableHeaderTotalFileSize" datatype="html">
         <source> Total File Size </source>
         <target state="final"> Gesamtgröße aller Dateien </target>
@@ -2965,6 +3005,26 @@
       <trans-unit id="adminTableHeaderTotalVideoLength" datatype="html">
         <source> Total Video Length </source>
         <target state="final"> Gesamtdauer aller Videos </target>
+      </trans-unit>
+      <trans-unit id="adminTableHeaderUserSizeLimit" datatype="html">
+        <source> Sizelimit </source>
+        <target state="final"> Maximalser Speicherplatz </target>
+      </trans-unit>
+      <trans-unit id="adminTableSizeLimitUnlimited" datatype="html">
+        <source>Unlimited</source>
+        <target state="final">Unbegrenzt</target>
+      </trans-unit>
+      <trans-unit id="adminTableTeamSizeLimitUnlimited" datatype="html">
+        <source>Unlimited</source>
+        <target state="final">Unbegrenzt</target>
+      </trans-unit>
+      <trans-unit id="adminTeamTableHeaderMore" datatype="html">
+        <source> More </source>
+        <target state="final"> Mehr </target>
+      </trans-unit>
+      <trans-unit id="adminTeamTableHeaderTeamName" datatype="html">
+        <source> Name </source>
+        <target state="final"> Name </target>
       </trans-unit>
       <trans-unit id="adminTableHeaderMore" datatype="html">
         <source> More </source>
@@ -2978,9 +3038,17 @@
         <source>Edit Email</source>
         <target state="final">E-Mail bearbeiten</target>
       </trans-unit>
+      <trans-unit id="adminTableActionEditUser" datatype="html">
+        <source>Edit User</source>
+        <target state="final">Benutzer editieren</target>
+      </trans-unit>
       <trans-unit id="adminTableActionResetPassword" datatype="html">
         <source>Reset Password</source>
         <target state="final">Passwort zurücksetzen</target>
+      </trans-unit>
+      <trans-unit id="adminTableActionDeleteTeam" datatype="html">
+        <source>Delete Team</source>
+        <target state="final">Team löschen</target>
       </trans-unit>
       <trans-unit id="adminTableActionDeleteUser" datatype="html">
         <source>Delete User</source>
@@ -3054,6 +3122,26 @@
         <source>Close</source>
         <target state="final">Schließen</target>
       </trans-unit>
+      <trans-unit id="dialogAdminCreateTeamCloseAriaLabel" datatype="html">
+        <source>Close</source>
+        <target state="final">Schließen</target>
+      </trans-unit>
+      <trans-unit id="dialogAdminCreateTeamCreateButtonLabel" datatype="html">
+        <source> Create Team </source>
+        <target state="final"> Team erstellen </target>
+      </trans-unit>
+      <trans-unit id="dialogAdminCreateTeamErrorNameRequired" datatype="html">
+        <source>Name required</source>
+        <target state="final">Name verpflichtend</target>
+      </trans-unit>
+      <trans-unit id="dialogAdminCreateTeamErrorSizelimitRequired" datatype="html">
+        <source>Sizelimit required</source>
+        <target state="final">Maximaler Speicherplatz verpflichtend</target>
+      </trans-unit>
+      <trans-unit id="dialogAdminCreateTeamMainTitle" datatype="html">
+        <source>Create Team</source>
+        <target state="final">Team erstellen</target>
+      </trans-unit>
       <trans-unit id="dialogAdminCreateUserAccountCreatedEmailSent" datatype="html">
         <source> Account created. A system-generated email was sent to <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/><x id="INTERPOLATION" equiv-text="{{ emailControl.value }}"/><x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/> with the password. You can close this window. </source>
         <target state="final"> Konto erstellt. Eine automatisch generierte E-Mail mit dem neuen Passwort wurde an <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/><x id="INTERPOLATION" equiv-text="{{ emailControl.value }}"/><x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/> gesendet. Sie können dieses Fenster schließen. </target>
@@ -3093,6 +3181,30 @@
       <trans-unit id="dialogAdminEditEmailSuccessMessage" datatype="html">
         <source>Email successfully changed to:</source>
         <target state="final">E-Mail erfolgreich geändert zu:</target>
+      </trans-unit>
+      <trans-unit id="dialogAdminEditTeamButtonLabel" datatype="html">
+        <source> Edit Team </source>
+        <target state="final"> Team editieren </target>
+      </trans-unit>
+      <trans-unit id="dialogAdminEditTeamCloseAriaLabel" datatype="html">
+        <source>Close</source>
+        <target state="final">Schließen</target>
+      </trans-unit>
+      <trans-unit id="dialogAdminEditTeamMainTitle" datatype="html">
+        <source>Edit Team</source>
+        <target state="final">Team editieren</target>
+      </trans-unit>
+      <trans-unit id="dialogAdminEditUserButtonLabel" datatype="html">
+        <source> Edit User </source>
+        <target state="final"> Team editieren </target>
+      </trans-unit>
+      <trans-unit id="dialogAdminEditUserCloseAriaLabel" datatype="html">
+        <source>Close</source>
+        <target state="final">Schließen</target>
+      </trans-unit>
+      <trans-unit id="dialogAdminEditUserMainTitle" datatype="html">
+        <source>Edit User</source>
+        <target state="final">Team editieren</target>
       </trans-unit>
       <trans-unit id="dialogAdminEditEmailCurrentEmailLabel" datatype="html">
         <source>Current Email:</source>

@@ -9,7 +9,6 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
-import { PushPipe } from '@ngrx/component';
 import { Store } from '@ngrx/store';
 import { firstValueFrom, Subject, takeUntil } from 'rxjs';
 import { AuthUser } from 'src/app/interfaces/auth.interfaces';
@@ -27,7 +26,6 @@ import * as authSelectors from '../../../../../store/selectors/auth.selector';
     MatIconModule,
     MatInputModule,
     ReactiveFormsModule,
-    PushPipe,
   ],
   templateUrl: './dialog-change-username.component.html',
   styleUrl: './dialog-change-username.component.scss',

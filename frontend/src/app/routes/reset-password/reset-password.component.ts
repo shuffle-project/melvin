@@ -12,7 +12,6 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { PushPipe } from '@ngrx/component';
 import { Store } from '@ngrx/store';
 import { lastValueFrom, Subject } from 'rxjs';
 import { ApiService } from 'src/app/services/api/api.service';
@@ -30,7 +29,6 @@ import { LandingHeaderComponent } from '../landing/components/landing-header/lan
     MatButtonModule,
     MatInputModule,
     ReactiveFormsModule,
-    PushPipe,
   ],
   templateUrl: './reset-password.component.html',
   styleUrl: './reset-password.component.scss',
