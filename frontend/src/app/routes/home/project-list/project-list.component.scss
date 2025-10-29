@@ -38,6 +38,19 @@ section {
   }
 }
 
+.size-limit-reached-wrapper {
+  display: flex;
+  justify-content: end;
+
+  .size-limit-reached {
+    display: flex;
+    align-items: center;
+    gap: 0.625rem;
+    background-color: rgba(var(--color-red-rgb), 0.2);
+    padding: 0.625rem 0.75rem;
+  }
+}
+
 .new-default-project-button-wrapper {
   width: 100%;
   margin-top: 3rem;

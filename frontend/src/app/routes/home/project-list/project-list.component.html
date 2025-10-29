@@ -88,7 +88,6 @@
         [matMenuTriggerFor]="newProjectMenu"
         mat-flat-button
         class="new-project-button"
-        disabled="{{ sizeLimitReached }}"
         i18n="@@projectListCreateProjectButtonLabel"
       >
         <mat-icon svgIcon="plus"></mat-icon>
@@ -96,20 +95,40 @@
       </button>
 
       <mat-menu #newProjectMenu xPosition="before">
-        <menu mat-menu-item (click)="onOpenDialogCreateProject()">
+        <div
+          class="size-limit-reached-wrapper"
+          *ngrxLet="sizeLimitReached$ as sizeLimitReached"
+        >
+          @if (sizeLimitReached) {
+          <div class="size-limit-reached">
+            <mat-icon svgIcon="warning"></mat-icon>
+            <span> Storage limit reached </span>
+          </div>
+          }
+        </div>
+        <menu
+          mat-menu-item
+          (click)="onOpenDialogCreateProject(sizeLimitReached)"
+          [disabled]="sizeLimitReached"
+        >
           <mat-icon svgIcon="upload"></mat-icon>
           <span i18n="@@projectListCreateProjectMenuUpload">Upload file</span>
         </menu>
         <!-- <menu mat-menu-item (click)="onOpenDialogCreateProject()"
           ><mat-icon svgIcon="recording"></mat-icon>Live</menu
           > -->
-        <menu mat-menu-item (click)="onOpenRecorder()">
+        <menu
+          mat-menu-item
+          (click)="onOpenRecorder(sizeLimitReached)"
+          [disabled]="sizeLimitReached"
+        >
           <mat-icon svgIcon="record"></mat-icon>
           <span i18n="@@projectListCreateProjectMenuRecorder">Recorder</span>
         </menu>
       </mat-menu>
     </div>
   </div>
+
   <table
     mat-table
     [dataSource]="tableDataSource"

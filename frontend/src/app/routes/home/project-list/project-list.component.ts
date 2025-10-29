@@ -199,7 +199,9 @@ export class ProjectListComponent implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
-  onOpenDialogCreateProject() {
+  onOpenDialogCreateProject(sizeLimitReached: boolean) {
+    if (sizeLimitReached) return;
+
     this.dialog.open(DialogCreateProjectComponent, {
       disableClose: true,
       width: '100%',
@@ -289,7 +291,9 @@ export class ProjectListComponent implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
-  onOpenRecorder() {
+  onOpenRecorder(sizeLimitReached: boolean) {
+    if (sizeLimitReached) return;
+
     this.router.navigate(['/home/recorder']);
   }
 
