@@ -132,7 +132,7 @@
         mat-header-cell
         *matHeaderCellDef
         mat-sort-header="team.name"
-        i18n="@@adminTableHeaderTotalVideoLength"
+        i18n="@@adminTableHeaderUserTeam"
       >
         Team
       </th>
@@ -147,8 +147,11 @@
             (selectionChange)="onChangeTeam($event, element)"
             canSelectNullableOptions
             aria-label="Select Team for user {{ element.name }}"
+            i18n-aria-label="@@adminTableTeamSelectionAriaLabel"
           >
-            <mat-option>None</mat-option>
+            <mat-option i18n="@@adminTableTeamSelectionNoneOption"
+              >None</mat-option
+            >
             @for (team of teams.teams; track team) {
             <mat-option value="{{ team.id }}"> {{ team.name }}</mat-option>
             }

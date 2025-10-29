@@ -600,7 +600,7 @@
       </trans-unit>
       <trans-unit id="userInfoStorageUsage" datatype="html">
         <source><x id="INTERPOLATION" equiv-text="{{ user.size | fileSize }}"/> from <x id="INTERPOLATION_1" equiv-text="{{ user.sizeLimit | fileSize }}"/> used</source>
-        <target state="new"><x id="INTERPOLATION" equiv-text="{{ user.size | fileSize }}"/> von <x id="INTERPOLATION_1" equiv-text="{{ user.sizeLimit | fileSize }}"/> belegt</target>
+        <target state="final"><x id="INTERPOLATION" equiv-text="{{ user.size | fileSize }}"/> von <x id="INTERPOLATION_1" equiv-text="{{ user.sizeLimit | fileSize }}"/> belegt</target>
       </trans-unit>
       <trans-unit id="uploadTranscriptionTabFileErrorMaximum" datatype="html">
         <source> Maximum 1 file </source>
@@ -2928,7 +2928,7 @@
       </trans-unit>
       <trans-unit id="deleteServiceAdminDeleteTeamDescription" datatype="html">
         <source>If you confirm this, this team will be deleted and users with that team will no longer have a size limit!</source>
-        <target state="final">Wenn Sie dies bestätigen, wird dieses Team gelöscht und Benutzer mit diesem Team haben möglicherweose keine Speicherplatzbeschränkungen mehr!</target>
+        <target state="final">Wenn Sie dies bestätigen, wird dieses Team gelöscht und Benutzer mit diesem Team haben möglicherweise keine Speicherplatzbeschränkungen mehr!</target>
       </trans-unit>
       <trans-unit id="deleteServiceAdminDeleteTeamSubject" datatype="html">
         <source>Teamname: <x id="PH" equiv-text="teamname"/></source>
@@ -2996,7 +2996,7 @@
       </trans-unit>
       <trans-unit id="adminTableHeaderTeamSizeLimit" datatype="html">
         <source> Size Limit </source>
-        <target state="final"> Maximalser Speicherplatz </target>
+        <target state="final"> Maximaler Speicherplatz </target>
       </trans-unit>
       <trans-unit id="adminTableHeaderTotalFileSize" datatype="html">
         <source> Total File Size </source>
@@ -3010,9 +3010,21 @@
         <source> Sizelimit </source>
         <target state="final"> Maximalser Speicherplatz </target>
       </trans-unit>
+      <trans-unit id="adminTableHeaderUserTeam" datatype="html">
+        <source> Team </source>
+        <target state="final"> Team </target>
+      </trans-unit>
       <trans-unit id="adminTableSizeLimitUnlimited" datatype="html">
         <source>Unlimited</source>
         <target state="final">Unbegrenzt</target>
+      </trans-unit>
+      <trans-unit id="adminTableTeamSelectionAriaLabel" datatype="html">
+        <source>Select Team for user <x id="INTERPOLATION" equiv-text="{{ element.name }}"/></source>
+        <target state="final">Wähle ein Team für den User <x id="INTERPOLATION" equiv-text="{{ element.name }}"/></target>
+      </trans-unit>
+      <trans-unit id="adminTableTeamSelectionNoneOption" datatype="html">
+        <source>None</source>
+        <target state="final">Ohne Team</target>
       </trans-unit>
       <trans-unit id="adminTableTeamSizeLimitUnlimited" datatype="html">
         <source>Unlimited</source>
@@ -3196,7 +3208,7 @@
       </trans-unit>
       <trans-unit id="dialogAdminEditUserButtonLabel" datatype="html">
         <source> Edit User </source>
-        <target state="final"> Team editieren </target>
+        <target state="final"> User editieren </target>
       </trans-unit>
       <trans-unit id="dialogAdminEditUserCloseAriaLabel" datatype="html">
         <source>Close</source>
@@ -3204,7 +3216,7 @@
       </trans-unit>
       <trans-unit id="dialogAdminEditUserMainTitle" datatype="html">
         <source>Edit User</source>
-        <target state="final">Team editieren</target>
+        <target state="final">User editieren</target>
       </trans-unit>
       <trans-unit id="dialogAdminEditEmailCurrentEmailLabel" datatype="html">
         <source>Current Email:</source>

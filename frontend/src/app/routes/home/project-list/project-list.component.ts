@@ -95,6 +95,10 @@ import { DialogCreateProjectComponent } from './dialog-create-project/dialog-cre
   ],
 })
 export class ProjectListComponent implements OnInit, AfterViewInit, OnDestroy {
+  sizeLimitReached$: Observable<boolean> = this.store.select(
+    authSelectors.selectSizelimitReached
+  );
+
   ProjectSetEnum = ProjectSetEnum;
 
   public displayedColumns: string[] = [

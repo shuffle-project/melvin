@@ -2294,8 +2294,17 @@
       <trans-unit id="adminTableHeaderUserSizeLimit" datatype="html">
         <source> Sizelimit </source>
       </trans-unit>
+      <trans-unit id="adminTableHeaderUserTeam" datatype="html">
+        <source> Team </source>
+      </trans-unit>
       <trans-unit id="adminTableSizeLimitUnlimited" datatype="html">
         <source>Unlimited</source>
+      </trans-unit>
+      <trans-unit id="adminTableTeamSelectionAriaLabel" datatype="html">
+        <source>Select Team for user <x id="INTERPOLATION" equiv-text="{{ element.name }}"/></source>
+      </trans-unit>
+      <trans-unit id="adminTableTeamSelectionNoneOption" datatype="html">
+        <source>None</source>
       </trans-unit>
       <trans-unit id="adminTableTeamSizeLimitUnlimited" datatype="html">
         <source>Unlimited</source>

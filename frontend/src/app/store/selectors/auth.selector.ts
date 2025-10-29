@@ -33,6 +33,7 @@ export const selectUser = createSelector(authState, (state) =>
 export const selectUserId = createSelector(authState, (state) =>
   state.token ? decodeJWT<AuthUser>(state.token).id : null
 );
+
 export const selectToken = createSelector(authState, (state) => state.token);
 
 // Initialization
@@ -118,4 +119,13 @@ export const selectIsUserConnectedToWs = createSelector(
 
 export const selectIsUserEmailVerified = createSelector(authState, (state) =>
   state.token ? decodeJWT<AuthUser>(state.token).isEmailVerified : null
+);
+
+export const selectSizelimitReached = createSelector(authState, (state) =>
+  state.token
+    ? decodeJWT<AuthUser>(state.token).sizeLimit === -1
+      ? false
+      : decodeJWT<AuthUser>(state.token).size >
+        decodeJWT<AuthUser>(state.token).sizeLimit
+    : true
 );

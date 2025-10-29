@@ -80,11 +80,15 @@
         </mat-button-toggle-group>
       </div>
     </div>
-    <div class="new-project-button-wrapper">
+    <div
+      class="new-project-button-wrapper"
+      *ngrxLet="sizeLimitReached$ as sizeLimitReached"
+    >
       <button
         [matMenuTriggerFor]="newProjectMenu"
         mat-flat-button
         class="new-project-button"
+        disabled="{{ sizeLimitReached }}"
         i18n="@@projectListCreateProjectButtonLabel"
       >
         <mat-icon svgIcon="plus"></mat-icon>
@@ -98,7 +102,7 @@
         </menu>
         <!-- <menu mat-menu-item (click)="onOpenDialogCreateProject()"
           ><mat-icon svgIcon="recording"></mat-icon>Live</menu
-        > -->
+          > -->
         <menu mat-menu-item (click)="onOpenRecorder()">
           <mat-icon svgIcon="record"></mat-icon>
           <span i18n="@@projectListCreateProjectMenuRecorder">Recorder</span>

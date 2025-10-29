@@ -39,7 +39,7 @@
     </div>
 
     <!-- setup buttons -->
-    <div class="buttons">
+    <div class="buttons" *ngrxLet="sizeLimitReached$ as sizeLimitReached">
       <!-- record buttons -->
 
       @if (recorderService.recording) { @if(recorderService.recordingPaused){
@@ -69,7 +69,9 @@
         class="action-btn"
         mat-flat-button
         (click)="onClickStartRecord()"
-        [disabled]="recordingDisabled() || recorderService.recording"
+        [disabled]="
+          recordingDisabled() || recorderService.recording || sizeLimitReached
+        "
         i18n="@@recorderStartRecordingButton"
       >
         Start recording

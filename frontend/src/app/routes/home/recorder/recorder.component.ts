@@ -8,7 +8,10 @@ import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { LetDirective } from '@ngrx/component';
 import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import * as authSelector from 'src/app/store/selectors/auth.selector';
 import { HeaderComponent } from '../../../components/header/header.component';
 import { DurationPipe } from '../../../pipes/duration-pipe/duration.pipe';
 import { AppState } from '../../../store/app.state';
@@ -37,9 +40,14 @@ import { RecorderService } from './recorder.service';
     MatSelectModule,
     DurationPipe,
     MatSlideToggleModule,
+    LetDirective,
   ],
 })
 export class RecorderComponent implements OnInit, OnDestroy {
+  sizeLimitReached$: Observable<boolean> = this.store.select(
+    authSelector.selectSizelimitReached
+  );
+
   public languages$ = this.store.select(configSelector.languagesConfig);
 
   locale = $localize.locale;
