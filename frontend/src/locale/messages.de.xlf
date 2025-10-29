@@ -2932,7 +2932,7 @@
       </trans-unit>
       <trans-unit id="deleteServiceAdminDeleteTeamDescription" datatype="html">
         <source>If you confirm this, this team will be deleted and users with that team will no longer have a size limit!</source>
-        <target state="final">Wenn Sie dies bestätigen, wird dieses Team gelöscht und Benutzer mit diesem Team haben möglicherweise keine Speicherplatzbeschränkungen mehr!</target>
+        <target state="final">Wenn Sie dies bestätigen, wird dieses Team gelöscht und Nutzer*innen mit diesem Team haben möglicherweise keine Speicherplatzbeschränkungen mehr!</target>
       </trans-unit>
       <trans-unit id="deleteServiceAdminDeleteTeamSubject" datatype="html">
         <source>Teamname: <x id="PH" equiv-text="teamname"/></source>
@@ -3024,7 +3024,7 @@
       </trans-unit>
       <trans-unit id="adminTableTeamSelectionAriaLabel" datatype="html">
         <source>Select Team for user <x id="INTERPOLATION" equiv-text="{{ element.name }}"/></source>
-        <target state="final">Wähle ein Team für den User <x id="INTERPOLATION" equiv-text="{{ element.name }}"/></target>
+        <target state="final">Wähle ein Team für die Nutzer*in <x id="INTERPOLATION" equiv-text="{{ element.name }}"/></target>
       </trans-unit>
       <trans-unit id="adminTableTeamSelectionNoneOption" datatype="html">
         <source>None</source>
@@ -3056,7 +3056,7 @@
       </trans-unit>
       <trans-unit id="adminTableActionEditUser" datatype="html">
         <source>Edit User</source>
-        <target state="final">Benutzer editieren</target>
+        <target state="final">Nutzer*in editieren</target>
       </trans-unit>
       <trans-unit id="adminTableActionResetPassword" datatype="html">
         <source>Reset Password</source>
@@ -3212,7 +3212,7 @@
       </trans-unit>
       <trans-unit id="dialogAdminEditUserButtonLabel" datatype="html">
         <source> Edit User </source>
-        <target state="final"> User editieren </target>
+        <target state="final"> Nutzer*in editieren </target>
       </trans-unit>
       <trans-unit id="dialogAdminEditUserCloseAriaLabel" datatype="html">
         <source>Close</source>
