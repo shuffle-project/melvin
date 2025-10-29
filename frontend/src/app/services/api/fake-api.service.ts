@@ -41,8 +41,8 @@ import { UploadVideoDto } from './dto/upload-video.dto';
 import { ActivityListEntity } from './entities/activitiy-list.entity';
 import {
   ChangePasswordEntity,
-  GuestLoginEntity,
   InviteEntity,
+  ViewerLoginEntity,
 } from './entities/auth.entity';
 import { ConnectLivestreamEntity } from './entities/connect-livestream.entity';
 import { NotificationListEntity } from './entities/notification-list.entity';
@@ -64,7 +64,7 @@ import {
   SubtitleFormat,
   TranscriptionEntity,
 } from './entities/transcription.entity';
-import { AUTH_TOKEN_GUEST_MOCK, AUTH_TOKEN_USER_MOCK } from './mocks/auth.mock';
+import { AUTH_TOKEN_USER_MOCK } from './mocks/auth.mock';
 
 @Injectable({
   providedIn: 'root',
@@ -127,19 +127,11 @@ export class FakeApiService implements ApiService {
     return of();
   }
 
-  guestLogin(token: string, name: string): Observable<GuestLoginEntity> {
-    this.logger.verbose('guestLogin mocked');
-    return of({
-      projectId: PROJECT_ENTITY_MOCK[0].id,
-      token: AUTH_TOKEN_GUEST_MOCK,
-    });
-  }
-
-  viewerLogin(token: string): Observable<GuestLoginEntity> {
+  viewerLogin(token: string): Observable<ViewerLoginEntity> {
     this.logger.verbose('viewerLogin mocked');
     return of({
       projectId: PROJECT_ENTITY_MOCK[0].id,
-      token: AUTH_TOKEN_GUEST_MOCK,
+      token: AUTH_TOKEN_USER_MOCK,
     });
   }
 

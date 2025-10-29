@@ -21,7 +21,7 @@ export const HomeRoutes: Routes = [
       {
         path: 'editor',
         canActivate: [HasRoleGuard],
-        data: { roles: [UserRole.USER, UserRole.GUEST] },
+        data: { roles: [UserRole.USER] },
         loadChildren: () =>
           import('./editor/editor.routes').then((m) => m.EditorRoutes),
       },

@@ -12,7 +12,6 @@ import { ApiService } from '../../services/api/api.service';
 import { AppState } from '../../store/app.state';
 import * as authSelectors from '../../store/selectors/auth.selector';
 import * as authActions from './../../store/actions/auth.actions';
-import { GuestLoginDialogComponent } from './components/guest-login/guest-login-dialog.component';
 
 import { LetDirective } from '@ngrx/component';
 @Component({
@@ -68,16 +67,5 @@ export class InviteComponent implements OnInit, OnDestroy {
 
   onClickAuth() {
     this.router.navigate(['/']);
-  }
-
-  onClickJoinAsGuest() {
-    const dialog = this.dialog.open(GuestLoginDialogComponent);
-
-    const subscription = dialog.afterClosed().subscribe((data) => {
-      if (data) {
-        this.store.dispatch(authActions.guestLogin({ name: data.name }));
-      }
-      subscription.unsubscribe();
-    });
   }
 }

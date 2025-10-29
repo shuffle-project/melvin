@@ -35,7 +35,6 @@ import { UploadVideoDto } from './dto/upload-video.dto';
 import { ActivityListEntity } from './entities/activitiy-list.entity';
 import {
   ChangePasswordEntity,
-  GuestLoginEntity,
   InviteEntity,
   ViewerLoginEntity,
 } from './entities/auth.entity';
@@ -96,11 +95,6 @@ export abstract class ApiService {
   abstract verifyInviteToken(token: string): Observable<InviteEntity>;
 
   abstract joinViaInviteToken(token: string): Observable<void>;
-
-  abstract guestLogin(
-    token?: string,
-    name?: string
-  ): Observable<GuestLoginEntity>;
 
   abstract viewerLogin(viewerToken: string): Observable<ViewerLoginEntity>;
 

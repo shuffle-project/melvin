@@ -47,7 +47,6 @@ import { UploadVideoDto as CreateVideoDto } from './dto/upload-video.dto';
 import { ActivityListEntity } from './entities/activitiy-list.entity';
 import {
   ChangePasswordEntity,
-  GuestLoginEntity,
   InviteEntity,
   ViewerLoginEntity,
 } from './entities/auth.entity';
@@ -256,14 +255,6 @@ export class RealApiService implements ApiService {
 
   joinViaInviteToken(token: string): Observable<void> {
     return this._post<void>(`/projects/invite-token`, { inviteToken: token });
-  }
-
-  guestLogin(token: string, name: string): Observable<GuestLoginEntity> {
-    return this._post<GuestLoginEntity>(
-      `/auth/guest-login`,
-      { inviteToken: token, name },
-      { skipJwt: true }
-    );
   }
 
   viewerLogin(token: string): Observable<ViewerLoginEntity> {

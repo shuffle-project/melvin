@@ -17,21 +17,3 @@ const authenticatedUser: AuthUser = {
 export const AUTH_TOKEN_USER_MOCK = `xxx.${btoa(
   JSON.stringify(authenticatedUser)
 )}.zzz`;
-
-const guestUser: AuthUser = {
-  id: '',
-  name: 'Anonymes Axolotl',
-  email: null,
-  role: UserRole.GUEST,
-  iat: Date.now(),
-  aud: '',
-  iss: '',
-  jti: '',
-  isEmailVerified: false,
-  size: 0,
-  sizeLimit: -1,
-  team: null,
-};
-export const AUTH_TOKEN_GUEST_MOCK = `xxx.${btoa(
-  JSON.stringify(authenticatedUser)
-)}.zzz`;
