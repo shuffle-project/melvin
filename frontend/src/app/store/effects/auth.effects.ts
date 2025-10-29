@@ -204,7 +204,6 @@ export class AuthEffects {
       exhaustMap((action) =>
         this.api.register(action.email, action.password, action.name).pipe(
           map(() => {
-            // TODO refactor login after register
             this.store.dispatch(
               authActions.login({
                 email: action.email,

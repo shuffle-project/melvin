@@ -183,31 +183,6 @@
       <app-shortcuts></app-shortcuts>
 
       <app-user-test-controls></app-user-test-controls>
-
-      <!-- <div *ngrxLet="project$ as project">
-        <button (click)="livestreamService.start(project?.id!)">Start</button>
-        <button (click)="livestreamService.stop(project?.id!)">Stop</button>
-        <button (click)="livestreamService.pause(project?.id!)">Pause</button>
-        <button (click)="livestreamService.resume(project?.id!)">Resume</button>
-        {{ project?.livestream?.livestreamStatus }}
-        <br />
-        <button (click)="livestreamService.startRecording(project?.id!)">
-          Start Recording
-        </button>
-        <button (click)="livestreamService.stopRecording(project?.id!)">
-          Stop Recording
-        </button>
-        <button (click)="livestreamService.pauseRecording(project?.id!)">
-          Pause Recording
-        </button>
-        <button (click)="livestreamService.resumeRecording(project?.id!)">
-          Resume Recording
-        </button>
-        {{ project?.livestream?.recordingStatus }}
-        <br />
-        <button (click)="connect(project?.id!)">Connect</button> 
-        <br />
-      </div> -->
     </div>
     <div
       class="right"
@@ -256,8 +231,6 @@
       <ng-container *ngrxLet="project$ as project">
         <ng-container *ngrxLet="editorUsers$ as editorUsers">
           <ng-container *ngrxLet="activeUsers$ as activeUsers">
-            <!-- <app-captions></app-captions> -->
-            <!-- ADD FULLTEXT EDITOR HERE -->
             @if(selectedTranscriptionId && activeUsers.length > 0 &&
             activeUsers[0].id.length>0){
             <app-tiptap-editor
@@ -268,7 +241,6 @@
               [projectId]="projectId"
             ></app-tiptap-editor>
             }
-            <!-- ADD FULLTEXT EDITOR HERE -->
           </ng-container>
         </ng-container>
       </ng-container>

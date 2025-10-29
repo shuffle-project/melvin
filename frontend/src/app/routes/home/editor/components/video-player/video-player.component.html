@@ -1,15 +1,3 @@
-<!-- <audio
-  #viewerAudio
-  (loadedmetadata)="onAudioLoadMetadata($event)"
-  [volume]="volume$ | ngrxPush"
-  [muted]="muted$ | ngrxPush"
-  [playbackRate]="currentSpeed$ | ngrxPush"
->
-  @if (playingAudio) {
-  <source src="{{ playingAudio.url }}" type="{{ playingAudio.mimetype }}" />
-  }
-</audio> -->
-
 <ng-container *ngrxLet="playingAudio$ as playingAudio">
   <audio
     #audio
@@ -25,19 +13,3 @@
 </ng-container>
 
 <app-video-player-media-element #mediaElement> </app-video-player-media-element>
-<!-- Actions -->
-<!-- <div class="controls" *ngrxLet="currentSpeed$ as currentSpeed">
-  @if (showPictureInPictureButton) {
-  <button
-    mat-icon-button
-    (click)="onClickPictureInPicture()"
-    i18n-matTooltip="@@videoPictureInPictureTooltip"
-    matTooltip="Show video in seperate window"
-    i18n-aria-label="@@videoPictureInPictureTooltip"
-    aria-label="Show video in seperate window"
-    [matTooltipShowDelay]="500"
-  >
-    <mat-icon svgIcon="picture_in_picture"></mat-icon>
-  </button>
-  }
-</div> -->

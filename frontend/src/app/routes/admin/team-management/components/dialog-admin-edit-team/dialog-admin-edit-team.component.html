@@ -24,11 +24,6 @@
     <mat-form-field>
       <mat-label>Name</mat-label>
       <input matInput [formControl]="teamnameControl" />
-      <mat-error>
-        <!-- @if(teamnameControl.hasError('required')) {
-        <span i18n="@@dialogAdminEditTeamErrorNameRequired">Name required</span>
-        } -->
-      </mat-error>
     </mat-form-field>
 
     <mat-form-field>
@@ -36,13 +31,6 @@
         >Size limit in GB</mat-label
       >
       <input matInput type="number" min="-1" [formControl]="sizelimitControl" />
-      <mat-error>
-        <!-- @if(sizelimitControl.hasError('required')) {
-        <span i18n="@@dialogAdminEditTeamErrorSizelimitRequired"
-          >Sizelimit required</span
-        >
-        } -->
-      </mat-error>
     </mat-form-field>
 
     <div aria-live="polite">

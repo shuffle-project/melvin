@@ -44,7 +44,6 @@
 </div>
 
 @if (editor && CLIENT_STATUS[status] === 'SYNCED') {
-<!-- @if (editor && CLIENT_STATUS[status] === 'SYNCED') { -->
 <ng-container *ngrxLet="spellchecking$ as spellchecking">
   <div class="editor-container" [spellcheck]="spellchecking">
     <tiptap-editor [editor]="editor" class="editor"></tiptap-editor>

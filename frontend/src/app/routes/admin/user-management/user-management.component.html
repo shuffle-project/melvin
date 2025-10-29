@@ -137,10 +137,6 @@
         Team
       </th>
       <td mat-cell *matCellDef="let element" class="team-seletion">
-        <!-- @if(element?.team?.name) {
-        {{ element.team.name }}
-        }@else{ - } -->
-        <!-- <mat-label>Team selection</mat-label> -->
         <mat-form-field>
           <mat-select
             [value]="element?.team?._id ?? undefined"
