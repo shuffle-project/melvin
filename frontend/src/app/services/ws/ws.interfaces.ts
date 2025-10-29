@@ -1,5 +1,4 @@
 import { EditorUser } from 'src/app/store/reducers/editor.reducer';
-import { CaptionEntity } from '../api/entities/caption.entity';
 import { NotificationEntity } from '../api/entities/notification.entity';
 import { ProjectEntity } from '../api/entities/project.entity';
 import { TranscriptionEntity } from '../api/entities/transcription.entity';
@@ -59,11 +58,6 @@ export interface ServerToClientEvents {
     transcription: TranscriptionEntity;
   }) => void;
   'transcription:removed': (payload: { transcriptionId: string }) => void;
-
-  // Caption
-  'caption:created': (payload: { caption: CaptionEntity }) => void;
-  'caption:updated': (payload: { caption: CaptionEntity }) => void;
-  'caption:removed': (payload: { captionId: string }) => void;
 
   // Livestream
   // 'livestream:server-ice-candidate': (payload: { candidate: string }) => void;

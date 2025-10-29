@@ -9,17 +9,13 @@ import {
 } from 'src/app/services/api/entities/user.entity';
 import { CustomLogger } from '../../classes/logger.class';
 import { ACTIVITY_ENTITY_MOCK } from '../../constants/mocks/activity.mock';
-import {
-  CAPTIONS_ENTITY_MOCK,
-  TRANSCIRPTIONS_ENITITY_MOCK,
-} from '../../constants/mocks/captions.mock';
+import { TRANSCIRPTIONS_ENITITY_MOCK } from '../../constants/mocks/captions.mock';
 import { UploadDto } from '../upload/upload.interfaces';
 import { ApiService } from './api.service';
 import { AdminUpdateUserDto } from './dto/admin-update-user.dto';
 import { ChangePasswordDto } from './dto/auth.dto';
 import { BulkRemoveDto } from './dto/bulk-remove.dto';
 import { ConnectLivestreamDto } from './dto/connect-livestream.dto';
-import { CreateCaptionDto } from './dto/create-caption.dto';
 import { CreateProjectDto } from './dto/create-project.dto';
 import { CreateSpeakersDto } from './dto/create-speakers.dto';
 import { CreateTranscriptionDto } from './dto/create-transcription.dto';
@@ -48,8 +44,6 @@ import {
   GuestLoginEntity,
   InviteEntity,
 } from './entities/auth.entity';
-import { CaptionListEntity } from './entities/caption-list.entity';
-import { CaptionEntity } from './entities/caption.entity';
 import { ConnectLivestreamEntity } from './entities/connect-livestream.entity';
 import { NotificationListEntity } from './entities/notification-list.entity';
 import { NotificationEntity } from './entities/notification.entity';
@@ -370,36 +364,6 @@ export class FakeApiService implements ApiService {
   }
 
   transcriptionGetCaptions(transcriptionId: string): Observable<any> {
-    return of();
-  }
-
-  // captions
-
-  createCaption(captionDto: CreateCaptionDto): Observable<CaptionEntity> {
-    this.logger.verbose('createCaption mocked');
-    return of(CAPTIONS_ENTITY_MOCK[0]);
-  }
-
-  findAllCaptions(): Observable<CaptionListEntity> {
-    this.logger.verbose('findAllCaptions mocked');
-    return of({
-      total: 0,
-      page: 0,
-      captions: CAPTIONS_ENTITY_MOCK,
-    });
-  }
-  //findOneCaption() {}
-  updateCaption() {
-    this.logger.verbose('updateCaption mocked');
-    return of(CAPTIONS_ENTITY_MOCK[0]);
-  }
-  removeCaption(): Observable<void> {
-    this.logger.verbose('removeCaption mocked');
-    return of();
-  }
-
-  getCaptionHistory() {
-    this.logger.verbose('getCaptionHistory mocked');
     return of();
   }
 

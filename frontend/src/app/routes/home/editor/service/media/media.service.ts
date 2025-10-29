@@ -13,9 +13,7 @@ import {
   tap,
 } from 'rxjs';
 import { VideoEntity } from 'src/app/services/api/entities/project.entity';
-import { CaptionEntity } from '../../../../../services/api/entities/caption.entity';
 import * as editorActions from '../../../../../store/actions/editor.actions';
-import * as captionsSelectors from '../../../../../store/selectors/captions.selector';
 import * as editorSelectors from '../../../../../store/selectors/editor.selector';
 import { VideoPlayerMediaElementComponent } from '../../components/video-player/video-player-media-element/video-player-media-element.component';
 
@@ -28,11 +26,8 @@ export class MediaService {
   public isReady$ = new BehaviorSubject<boolean>(false);
   public duration$ = new BehaviorSubject<number>(0);
   public currentTime$ = new BehaviorSubject<number>(0);
-  public currentCaption$ = new BehaviorSubject<
-    CaptionEntity | undefined | null
-  >(null);
+
   public jumpToCaptionTime$ = new BehaviorSubject<number | null>(null);
-  public captionCreated$ = new Subject<CaptionEntity>();
 
   public seeking$ = new Subject<number>();
 
@@ -48,25 +43,6 @@ export class MediaService {
         tap(([isReady, duration]) =>
           this.duration$.next(isReady ? duration : 0)
         )
-      )
-      .subscribe();
-
-    // Current caption
-    combineLatest([
-      this.isReady$,
-      this.currentTime$,
-      this.store.select(captionsSelectors.selectCaptions),
-    ])
-      .pipe(
-        tap(([isReady, currentTime, captions]) => {
-          const caption = isReady
-            ? captions.find(
-                (caption) =>
-                  currentTime >= caption.start && currentTime <= caption.end
-              )
-            : null;
-          this.currentCaption$.next(caption);
-        })
       )
       .subscribe();
   }

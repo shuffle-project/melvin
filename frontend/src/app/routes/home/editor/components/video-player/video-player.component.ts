@@ -70,7 +70,6 @@ export class VideoPlayerComponent implements OnInit, OnDestroy {
   public muted$ = this.store.select(editorSelectors.selectMuted);
   public currentSpeed$ = this.store.select(editorSelectors.selectCurrentSpeed);
   public currentTime$ = this.mediaService.currentTime$;
-  public currentCaption$ = this.mediaService.currentCaption$;
 
   public subtitlesEnabled$ = this.store.select(
     editorSelectors.selectSubtitlesEnabledInVideo

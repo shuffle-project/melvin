@@ -22,7 +22,6 @@ import { AdminUpdateUserDto } from './dto/admin-update-user.dto';
 import { ChangePasswordDto } from './dto/auth.dto';
 import { BulkRemoveDto } from './dto/bulk-remove.dto';
 import { ConnectLivestreamDto } from './dto/connect-livestream.dto';
-import { CreateCaptionDto } from './dto/create-caption.dto';
 import { CreateProjectDto } from './dto/create-project.dto';
 import { CreateSpeakersDto } from './dto/create-speakers.dto';
 import { CreateTranscriptionDto } from './dto/create-transcription.dto';
@@ -36,7 +35,6 @@ import { StartRecordingDto } from './dto/start-recording.dto';
 import { StopLivestreamDto } from './dto/stop-livestream.dto';
 import { StopRecordingDto } from './dto/stop-recording.dto';
 import { CreateTeamDto, UpdateTeamDto } from './dto/team.dto';
-import { UpdateCaptionDto } from './dto/update-caption.dto';
 import {
   UpdateManyNotificationsDto,
   UpdateNotificationDto,
@@ -53,8 +51,6 @@ import {
   InviteEntity,
   ViewerLoginEntity,
 } from './entities/auth.entity';
-import { CaptionListEntity } from './entities/caption-list.entity';
-import { CaptionEntity, CaptionHistoryEntity } from './entities/caption.entity';
 import { ConfigEntity } from './entities/config.entity';
 import { ConnectLivestreamEntity } from './entities/connect-livestream.entity';
 import { NotificationListEntity } from './entities/notification-list.entity';
@@ -561,39 +557,6 @@ export class RealApiService implements ApiService {
     return this._get<any>(`/transcriptions/${transcriptionId}/getCaptions`, {
       useViewerToken,
     });
-  }
-
-  // captions
-
-  createCaption(captionDto: CreateCaptionDto): Observable<CaptionEntity> {
-    return this._post<CaptionEntity>(`/captions`, { ...captionDto });
-  }
-
-  findAllCaptions(
-    transcriptionId: string,
-    useViewerToken?: boolean
-  ): Observable<CaptionListEntity> {
-    return this._get<CaptionListEntity>(`/captions`, {
-      params: { transcriptionId },
-      useViewerToken,
-    });
-  }
-  //findOneCaption() {}
-  updateCaption(
-    captionId: string,
-    updateCaptionDto: UpdateCaptionDto
-  ): Observable<CaptionEntity> {
-    return this._patch<CaptionEntity>(`/captions/${captionId}`, {
-      ...updateCaptionDto,
-    });
-  }
-
-  removeCaption(captionId: string): Observable<void> {
-    return this._delete<void>(`/captions/${captionId}`);
-  }
-
-  getCaptionHistory(captionId: string): Observable<CaptionHistoryEntity[]> {
-    return this._get<CaptionHistoryEntity[]>(`/captions/${captionId}/history`);
   }
 
   // Notifications

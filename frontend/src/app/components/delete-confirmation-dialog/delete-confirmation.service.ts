@@ -6,10 +6,8 @@ import { lastValueFrom, map, Subject, takeUntil } from 'rxjs';
 import { WrittenOutLanguagePipe } from 'src/app/pipes/written-out-language-pipe/written-out-language.pipe';
 import { AlertService } from 'src/app/services/alert/alert.service';
 import { ApiService } from 'src/app/services/api/api.service';
-import { CaptionEntity } from 'src/app/services/api/entities/caption.entity';
 import { TranscriptionEntity } from 'src/app/services/api/entities/transcription.entity';
 import { ProjectEntity } from '../../services/api/entities/project.entity';
-import * as captionsActions from '../../store/actions/captions.actions';
 import * as projectsActions from '../../store/actions/projects.actions';
 import * as transcriptionsActions from '../../store/actions/transcriptions.actions';
 import { AppState } from '../../store/app.state';
@@ -144,22 +142,6 @@ export class DeleteConfirmationService implements OnDestroy {
           $localize`:@@deleteServiceLeaveProjectError:Error leaving project, try again later.`
         );
       }
-    }
-
-    return isConfirmed;
-  }
-
-  async deleteCaption(caption: CaptionEntity): Promise<boolean> {
-    const isConfirmed = await this.confirm({
-      level: DeleteConfirmLevel.LOW,
-      subject: $localize`:@@deleteServiceSubjectCaption:Caption`,
-      description: caption.text,
-    });
-
-    if (isConfirmed) {
-      this.store.dispatch(
-        captionsActions.remove({ removeCaptionId: caption.id })
-      );
     }
 
     return isConfirmed;

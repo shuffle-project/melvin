@@ -10,7 +10,6 @@ import { AdminUpdateUserDto } from './dto/admin-update-user.dto';
 import { ChangePasswordDto } from './dto/auth.dto';
 import { BulkRemoveDto } from './dto/bulk-remove.dto';
 import { ConnectLivestreamDto } from './dto/connect-livestream.dto';
-import { CreateCaptionDto } from './dto/create-caption.dto';
 import { CreateProjectDto } from './dto/create-project.dto';
 import { CreateSpeakersDto } from './dto/create-speakers.dto';
 import { CreateTranscriptionDto } from './dto/create-transcription.dto';
@@ -24,7 +23,6 @@ import { StartRecordingDto } from './dto/start-recording.dto';
 import { StopLivestreamDto } from './dto/stop-livestream.dto';
 import { StopRecordingDto } from './dto/stop-recording.dto';
 import { CreateTeamDto, UpdateTeamDto } from './dto/team.dto';
-import { UpdateCaptionDto } from './dto/update-caption.dto';
 import {
   UpdateManyNotificationsDto,
   UpdateNotificationDto,
@@ -41,12 +39,7 @@ import {
   InviteEntity,
   ViewerLoginEntity,
 } from './entities/auth.entity';
-import { CaptionListEntity } from './entities/caption-list.entity';
-import {
-  CaptionEntity,
-  CaptionHistoryEntity,
-  TiptapCaption,
-} from './entities/caption.entity';
+import { TiptapCaption } from './entities/caption.entity';
 import { ConfigEntity } from './entities/config.entity';
 import { ConnectLivestreamEntity } from './entities/connect-livestream.entity';
 import { NotificationListEntity } from './entities/notification-list.entity';
@@ -246,30 +239,6 @@ export abstract class ApiService {
     transcriptionId: string,
     useViewerToken?: boolean
   ): Observable<TiptapCaption[]>;
-
-  // captions
-
-  abstract createCaption(
-    captionDto: CreateCaptionDto
-  ): Observable<CaptionEntity>;
-
-  abstract findAllCaptions(
-    transcriptionId: string,
-    useViewerToken?: boolean
-  ): Observable<CaptionListEntity>;
-
-  //findOneCaption() {}
-
-  abstract updateCaption(
-    captionId: string,
-    updateCaptionDto: UpdateCaptionDto
-  ): Observable<CaptionEntity>;
-
-  abstract removeCaption(captionId: string): Observable<void>;
-
-  abstract getCaptionHistory(
-    captionId: string
-  ): Observable<CaptionHistoryEntity[]>;
 
   // Notifications
 
