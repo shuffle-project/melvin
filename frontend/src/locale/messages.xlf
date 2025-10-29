@@ -764,6 +764,9 @@
       <trans-unit id="projectListCreateProjectMenuRecorder" datatype="html">
         <source>Recorder</source>
       </trans-unit>
+      <trans-unit id="projectListCreateProjectMenuStorageLimit" datatype="html">
+        <source> Storage limit reached </source>
+      </trans-unit>
       <trans-unit id="projectListTableHeaderTitleLabel" datatype="html">
         <source> Title </source>
       </trans-unit>

@@ -1790,6 +1790,10 @@
         <source>Recorder</source>
         <target state="final">Recorder</target>
       </trans-unit>
+      <trans-unit id="projectListCreateProjectMenuStorageLimit" datatype="html">
+        <source> Storage limit reached </source>
+        <target state="final"> Speicherplatz limit erreicht </target>
+      </trans-unit>
       <trans-unit id="loginDialogPasswordLabel" datatype="html">
         <source> Password </source>
         <target state="final"> Passwort </target>
