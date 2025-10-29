@@ -93,10 +93,6 @@ export abstract class ApiService {
 
   abstract refreshToken(token: string): Observable<{ token: string }>;
 
-  // abstract mediaAccessToken(projectId: string): Observable<{ token: string }>;
-
-  // verifyEmail() {}
-
   abstract verifyInviteToken(token: string): Observable<InviteEntity>;
 
   abstract joinViaInviteToken(token: string): Observable<void>;
@@ -173,9 +169,7 @@ export abstract class ApiService {
 
   abstract uploadMedia(projectId: string, file: File): Observable<void>;
 
-  // abstract getWaveformData(projectId: string): Observable<WaveformData>;
   abstract getWaveformData(waveformUrl: string): Observable<WaveformData>;
-  // joinProject(inviteLink: string): Observable<Project> {}
 
   abstract subscribeProject(projectId: string): Observable<void>;
   abstract unsubscribeProject(projectId: string): Observable<void>;
@@ -188,11 +182,6 @@ export abstract class ApiService {
   abstract createTranscription(
     transcription: CreateTranscriptionDto
   ): Observable<TranscriptionEntity>;
-
-  // abstract createTranscriptionFromFile(
-  //   transcription: CreateTranscriptionDto,
-  //   file: File
-  // ): Observable<HttpEvent<TranscriptionEntity>>;
 
   abstract findAllTranscriptions(
     projectId: string,
@@ -265,13 +254,6 @@ export abstract class ApiService {
   abstract bulkRemoveNotifications(
     bulkRemoveDto: BulkRemoveDto
   ): Observable<void>;
-
-  // abstract updateNotification(
-  //   notificationId: string,
-  //   notification: UpdateNotificationDto
-  // ): Observable<NotificationEntity>;
-
-  // abstract removeNotification(notificationId: string): Observable<void>;
 
   abstract findAllActivities(projectId: string): Observable<ActivityListEntity>;
 

@@ -16,17 +16,17 @@ import { GuestLoginDialogComponent } from './components/guest-login/guest-login-
 
 import { LetDirective } from '@ngrx/component';
 @Component({
-    selector: 'app-invite',
-    templateUrl: './invite.component.html',
-    styleUrls: ['./invite.component.scss'],
-    imports: [
-        LetDirective,
-        MatProgressSpinnerModule,
-        MatCardModule,
-        MatIconModule,
-        MatButtonModule,
-        MatDividerModule,
-    ]
+  selector: 'app-invite',
+  templateUrl: './invite.component.html',
+  styleUrls: ['./invite.component.scss'],
+  imports: [
+    LetDirective,
+    MatProgressSpinnerModule,
+    MatCardModule,
+    MatIconModule,
+    MatButtonModule,
+    MatDividerModule,
+  ],
 })
 export class InviteComponent implements OnInit, OnDestroy {
   private destroy$$ = new Subject<void>();
@@ -48,39 +48,11 @@ export class InviteComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.store.dispatch(authActions.verifyInviteToken());
-
-    // // this.store
-    // //   .select(authSelectors.getInviteToken)
-    // //   .pipe(
-    // //     takeUntil(this.destroy$$),
-    // //     exhaustMap((token) =>
-    // //       this.api.verifyInviteToken(token).pipe(
-    // //         map((project) => project),
-    // //         catchError((err: HttpErrorResponse) => of(err.message))
-    // //       )
-    // //     )
-    // //   )
-    // //   .subscribe((project) => {
-    // //     if (project) {
-    // //       console.log(project);
-    // //     } else {
-    // //       this.router.navigate(['/']);
-    // //     }
-    // //   });
   }
 
   ngOnDestroy() {
     this.destroy$$.next();
   }
-
-  // private async verifyToken(token: string): Promise<void> {
-  //   try {
-  //     const res = await this.api.verifyInviteToken(token);
-  //   } catch (err) {
-  //   } finally {
-  //     this.loading = false;
-  //   }
-  // }
 
   onClickAbort() {
     this.router.navigate(['/home']);

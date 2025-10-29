@@ -184,7 +184,6 @@ export class PlayerComponent implements OnDestroy, AfterViewInit, OnInit {
   onMouseDown(event: MouseEvent) {
     event.preventDefault();
 
-    // console.log(event.clientX);
     this.initialClientX = event.clientX;
     this.initialMainVideoContainerWidth =
       this.mainVideoContainer.getBoundingClientRect().width;

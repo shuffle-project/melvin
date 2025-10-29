@@ -101,10 +101,7 @@ export class TranscriptionsEffects {
 
   updateTranscription$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(
-        transcriptionsActions.updateFromEditor
-        // transcriptionsActions.updateFromEditSpeaker
-      ),
+      ofType(transcriptionsActions.updateFromEditor),
       mergeMap((action) =>
         this.api
           .updateTranscription(action.transcriptionId, action.transcription)
@@ -246,45 +243,6 @@ export class TranscriptionsEffects {
       ),
     { dispatch: false }
   );
-
-  // downloadTranscript$ = createEffect(
-  //   () =>
-  //     this.actions$.pipe(
-  //       ofType(transcriptionsActions.downloadTranscript),
-  //       withLatestFrom(this.store.select(captionsSelector.selectCaptions)),
-  //       tap(([action, captions]) => {
-  //         // TODO maybe refactor
-  //         const transcript = old_generateTranscript(captions);
-
-  //         let text = '';
-
-  //         const formatDatePipe = new DurationPipe();
-  //         transcript.forEach((entitiesList) => {
-  //           const formattedDate = formatDatePipe.transform(
-  //             entitiesList[0].start
-  //           );
-  //           text += formattedDate + '\n';
-  //           entitiesList.forEach((entity) => {
-  //             text += entity.text + ' ';
-  //           });
-
-  //           text += '\n';
-  //         });
-
-  //         const file = new Blob([text], { type: 'text/plain' });
-
-  //         const downloadAnchor = document.createElement('a');
-  //         downloadAnchor.style.display = 'none';
-
-  //         const fileURL = URL.createObjectURL(file);
-  //         downloadAnchor.href = fileURL;
-  //         downloadAnchor.download = 'transcript.txt';
-  //         downloadAnchor.click();
-  //         downloadAnchor.remove();
-  //       })
-  //     ),
-  //   { dispatch: false }
-  // );
 
   notifyOnError$ = createEffect(
     () =>

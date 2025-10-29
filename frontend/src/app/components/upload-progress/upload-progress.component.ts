@@ -31,31 +31,5 @@ export class UploadProgressComponent implements OnInit {
     this.progress$ = new Subject();
   }
 
-  ngOnInit() {
-    // const stepDuration = 10;
-    // for (let i = 0; i < 100; i++) {
-    //   this.progress$.next({
-    //     progress: i,
-    //     bytesSent: i * 1000,
-    //     bytesTotal: 100000,
-    //     status: 'uploading',
-    //     eta: ((stepDuration - i) * 1000) / stepDuration,
-    //   });
-    //   await new Promise((resolve) => setTimeout(resolve, stepDuration));
-    // }
-    // this.progress$.next({
-    //   value: 1,
-    //   bytesSent: 100000,
-    //   bytesTotal: 100000,
-    //   status: 'completed',
-    //   eta: 0,
-    // });
-    // this.progress$.next({
-    //   value: 1,
-    //   bytesSent: 100000,
-    //   bytesTotal: 100000,
-    //   status: 'failed',
-    //   eta: 0,
-    // });
-  }
+  ngOnInit() {}
 }

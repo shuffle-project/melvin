@@ -78,13 +78,6 @@ export class FakeApiService implements ApiService {
     throw new Error('Method not implemented.');
   }
 
-  // createTranscriptionFromFile(
-  //   transcription: CreateTranscriptionDto,
-  //   file: File
-  // ): Observable<any> {
-  //   throw new Error('Method not implemented.');
-  // }
-
   getConfig(): Observable<any> {
     this.logger.verbose('config mocked');
     return of();
@@ -119,12 +112,6 @@ export class FakeApiService implements ApiService {
     this.logger.verbose('refreshToken mocked');
     return of({ token });
   }
-
-  // mediaAccessToken(projectId: string): Observable<{ token: string }> {
-  //   return of();
-  // }
-
-  // verifyEmail() {}
 
   verifyInviteToken(token: string): Observable<InviteEntity> {
     this.logger.verbose('verifyInviteToken mocked');
@@ -289,8 +276,6 @@ export class FakeApiService implements ApiService {
     return;
   }
 
-  // joinProject(inviteLink: string): Observable<Project> {}
-
   subscribeProject(projectId: string): Observable<void> {
     return of();
   }
@@ -300,7 +285,6 @@ export class FakeApiService implements ApiService {
 
   // transcriptions
 
-  //createTranscription() {}
   createTranscription(
     transcription: CreateTranscriptionDto
   ): Observable<TranscriptionEntity> {

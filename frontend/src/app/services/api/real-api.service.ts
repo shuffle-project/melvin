@@ -248,15 +248,6 @@ export class RealApiService implements ApiService {
     return this._post<{ token: string }>(`/auth/refresh-token`, { token });
   }
 
-  // mediaAccessToken(projectId: string): Observable<{ token: string }> {
-  //   return this._post<{ token: string }>(`/auth/media-access-token`, {
-  //     projectId,
-  //   });
-  // }
-
-  // verifyEmail() {}
-  // guestLogin() {}
-
   verifyInviteToken(token: string): Observable<InviteEntity> {
     return this._get<InviteEntity>(`/auth/verify-invite/${token}`, {
       skipJwt: true,
@@ -264,13 +255,7 @@ export class RealApiService implements ApiService {
   }
 
   joinViaInviteToken(token: string): Observable<void> {
-    return this._post<void>(
-      `/projects/invite-token`,
-      { inviteToken: token }
-      // {
-      //   skipJwt: true,
-      // }
-    );
+    return this._post<void>(`/projects/invite-token`, { inviteToken: token });
   }
 
   guestLogin(token: string, name: string): Observable<GuestLoginEntity> {
@@ -385,10 +370,7 @@ export class RealApiService implements ApiService {
       observe: 'events' as any,
     });
   }
-  //  old
-  // getWaveformData(projectId: string): Observable<WaveformData> {
-  //   return this._get<WaveformData>(`/projects/${projectId}/media/waveform`);
-  // }
+
   getWaveformData(waveformUrl: string): Observable<WaveformData> {
     return this.httpClient.get<WaveformData>(waveformUrl);
   }
@@ -435,8 +417,6 @@ export class RealApiService implements ApiService {
     );
   }
 
-  // joinProject(inviteLink: string): Observable<Project> {}
-
   subscribeProject(projectId: string): Observable<void> {
     return this._post<void>(`/projects/${projectId}/subscribe`, {});
   }
@@ -457,26 +437,6 @@ export class RealApiService implements ApiService {
       ...transcription,
     });
   }
-
-  // createTranscriptionFromFile(
-  //   transcription: CreateTranscriptionDto,
-  //   file: File
-  // ): Observable<HttpEvent<TranscriptionEntity>> {
-  //   const formData = new FormData();
-  //   formData.append('project', transcription.project);
-  //   formData.append('title', transcription.title);
-  //   formData.append('language', transcription.language);
-  //   formData.append('file', file);
-
-  //   return this._post<HttpEvent<TranscriptionEntity>>(
-  //     `/transcriptions`,
-  //     formData,
-  //     {
-  //       reportProgress: true,
-  //       observe: 'events' as any,
-  //     }
-  //   );
-  // }
 
   findAllTranscriptions(
     projectId: string,

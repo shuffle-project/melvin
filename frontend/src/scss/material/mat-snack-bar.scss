@@ -1,17 +1,14 @@
-// .mat-mdc-snack-bar-action:not(:disabled)
 .mat-mdc-snack-bar-container.info {
   * {
     color: var(--color-white);
   }
 }
 
-// .mat-mdc-snack-bar-action:not(:disabled)
 .mat-mdc-snack-bar-container.success {
   * {
     color: var(--color-success-dark-bg);
   }
 }
-// .mat-mdc-snack-bar-action:not(:disabled)
 .mat-mdc-snack-bar-container.error {
   * {
     color: var(--color-warn-dark-bg);

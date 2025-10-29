@@ -1,4 +1,3 @@
-
 import {
   Component,
   DestroyRef,
@@ -38,8 +37,8 @@ import { CreateTranscriptionDialogComponent } from '../../../create-transcriptio
     MatSelectModule,
     MatIconModule,
     MatButtonModule,
-    MatProgressBarModule
-],
+    MatProgressBarModule,
+  ],
   templateUrl: './from-media-transcription.component.html',
   styleUrl: './from-media-transcription.component.scss',
 })
@@ -117,7 +116,6 @@ export class FromMediaTranscriptionComponent {
     const uploadHandler = this.uploadService.createUpload(file![0]);
     await uploadHandler.start();
 
-    // TODO
     const createdTranscription = await lastValueFrom(
       this.api.createTranscription({
         ...newTranscription,

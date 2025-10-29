@@ -53,7 +53,6 @@ export class CreateTranscriptionDialogComponent implements OnInit, OnDestroy {
 
   @ViewChild('uploadForm') uploadForm!: UploadTranscriptionComponent;
   @ViewChild('copyForm') copyForm!: CopyTranscriptionComponent;
-  // @ViewChild('asrForm') asrForm!: CopyTranscriptionComponent;
   @ViewChild('translateForm') translateForm!: CopyTranscriptionComponent;
   @ViewChild('emptyFileForm') emptyFileForm!: EmptyFileTranscriptionComponent;
 
@@ -111,9 +110,6 @@ export class CreateTranscriptionDialogComponent implements OnInit, OnDestroy {
       case 'translate':
         this.translateForm.submit(this.project.id);
         break;
-      // case 'from media':
-      // this.asrForm.submit(this.project.id);
-      // break;
       case 'empty file':
         this.emptyFileForm.submit(this.project.id);
         break;

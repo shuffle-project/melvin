@@ -86,9 +86,6 @@
       <trans-unit id="deleteServiceLeaveProjectError" datatype="html">
         <source>Error leaving project, try again later.</source>
       </trans-unit>
-      <trans-unit id="deleteServiceSubjectCaption" datatype="html">
-        <source>Caption</source>
-      </trans-unit>
       <trans-unit id="deleteServiceDeleteAccountDescription" datatype="html">
         <source>If you confirm this, your account with all created projects and data will be deleted. This can NOT be undone!</source>
       </trans-unit>

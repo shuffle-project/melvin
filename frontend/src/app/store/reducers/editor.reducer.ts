@@ -105,17 +105,6 @@ export const editorReducer = createReducer(
     })
   ),
 
-  // Toggle Play/Pause
-  // on(
-  //   editorActions.togglePlayPauseFromEditor,
-  //   editorActions.togglePlayPauseFromVideo,
-  //   (state) => ({
-  //     ...state,
-  //     isPlaying: !state.isPlaying,
-  //     isLiveInSync: false,
-  //   })
-  // ),
-
   on(editorActions.backToLive, (state) => ({
     ...state,
     isPlaying: true,

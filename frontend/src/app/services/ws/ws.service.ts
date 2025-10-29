@@ -121,32 +121,7 @@ export class WSService {
           );
           break;
         }
-        // case 'project:user-joined': {
-        //   const payload = args as EventParams<
-        //     ServerToClientEvents,
-        //     'project:user-joined'
-        //   >;
-        //   this.logger.verbose('project:user-joined', payload);
-        //   this.store.dispatch(
-        //     editorActions.updateActiveUsers({
-        //       activeUsers: payload.activeUsers,
-        //     })
-        //   );
-        //   break;
-        // }
-        // case 'project:user-left': {
-        //   const payload = args as EventParams<
-        //     ServerToClientEvents,
-        //     'project:user-left'
-        //   >;
-        //   this.logger.verbose('project:user-left', payload);
-        //   this.store.dispatch(
-        //     editorActions.updateActiveUsers({
-        //       activeUsers: payload.activeUsers,
-        //     })
-        //   );
-        //   break;
-        // }
+
         case 'project:created': {
           const payload = args as EventParams<
             ServerToClientEvents,

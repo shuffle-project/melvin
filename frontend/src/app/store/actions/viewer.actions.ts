@@ -72,8 +72,6 @@ export const findProjectMediaFail = createAction(
   props<{ error: HttpErrorResponse }>()
 );
 
-// findOneTranscription ?
-
 // findAllTranscription
 export const findTranscriptions = createAction(
   '[VIEWER EFFECTS] Fetch all Transcriptions of Project',

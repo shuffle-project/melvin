@@ -678,10 +678,6 @@
         <source>Error leaving project, try again later.</source>
         <target state="final">Fehler beim verlassen des Projekts, versuche es später erneut.</target>
       </trans-unit>
-      <trans-unit id="deleteServiceSubjectCaption" datatype="html">
-        <source>Caption</source>
-        <target state="final">Caption</target>
-      </trans-unit>
       <trans-unit id="recorderTitle" datatype="html">
         <source> Recorder </source>
         <target state="final"> Rekorder </target>
