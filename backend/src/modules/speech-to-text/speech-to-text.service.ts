@@ -1,7 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { AsrServiceConfig } from '../../app.interfaces';
 import { AsrVendors } from '../../processors/processor.interfaces';
-import { PopulateService } from '../../resources/populate/populate.service';
 import { TranscriptionEntity } from '../../resources/transcription/entities/transcription.entity';
 import { DbService } from '../db/db.service';
 import { Audio, Project } from '../db/schemas/project.schema';
@@ -20,7 +19,6 @@ export class SpeechToTextService {
     private logger: CustomLogger,
     private db: DbService,
     private pathService: PathService,
-    private populateService: PopulateService,
     private assemblyAiService: AssemblyAiService,
     private googleSpeechService: GoogleSpeechService,
     private whisperSpeechService: WhisperSpeechService,
@@ -89,13 +87,6 @@ export class SpeechToTextService {
     if (this.serviceConfigs.whisper) {
       asrServiceConfigs.push(this.serviceConfigs.whisper);
     }
-
-    //  only for random populate
-    // asrServiceConfigs.push({
-    //   asrVendor: AsrVendors.RANDOM,
-    //   fullName: 'Random texts',
-    //   languages: ASR_TEST_LANGUGAGE,
-    // });
 
     return asrServiceConfigs;
   }

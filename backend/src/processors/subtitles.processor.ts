@@ -120,9 +120,6 @@ export class SubtitlesProcessor {
     const { project, transcription } = job.data;
 
     if (transcription.status !== TranscriptionStatus.PROCESSING) {
-      // await this.projectService.update(systemUser, project._id.toString(), {
-      //   status: ProjectStatus.PROCESSING,
-      // });
       await this.db.transcriptionModel
         .findByIdAndUpdate(transcription._id, {
           $set: {
@@ -159,22 +156,6 @@ export class SubtitlesProcessor {
       'subtitles-processing-finished',
       { transcription: job.data.transcription },
     );
-
-    // const jobTypes: JobStatus[] = ['active', 'paused', 'waiting', 'delayed'];
-    // const subtitleJobs = await job.queue.getJobs(jobTypes);
-    // const projectJobs = await this.projectQueue.getJobs(jobTypes);
-    // // if there are no more project jobs, set status to draft
-    // const projectJobExists = jobWithProjectIdExists(
-    //   project._id.toString(),
-    //   subtitleJobs,
-    //   projectJobs,
-    // );
-
-    // if (!projectJobExists) {
-    //   await this.projectService.update(systemUser, project._id.toString(), {
-    //     status: ProjectStatus.DRAFT,
-    //   });
-    // }
 
     if (
       job.data.payload.type === SubtitlesType.FROM_COPY ||
@@ -227,9 +208,6 @@ export class SubtitlesProcessor {
     );
 
     try {
-      // await this.projectService.update(systemUser, project._id.toString(), {
-      //   status: ProjectStatus.ERROR,
-      // });
       await this.db.transcriptionModel
         .findByIdAndUpdate(transcription._id, {
           $set: {

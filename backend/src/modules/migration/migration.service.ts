@@ -7,7 +7,6 @@ import {
   ProcessSubtitlesJob,
   ProcessVideoJob,
 } from '../../processors/processor.interfaces';
-import { PopulateService } from '../../resources/populate/populate.service';
 import { generateSecureToken } from '../../utils/crypto';
 import { DbService } from '../db/db.service';
 import {
@@ -29,7 +28,6 @@ export class MigrationService {
   constructor(
     private logger: CustomLogger,
     private db: DbService,
-    private populateService: PopulateService,
     private tiptapService: TiptapService,
     private whisper: WhisperSpeechService,
     private ffmpegService: FfmpegService,
@@ -49,8 +47,6 @@ export class MigrationService {
     if (settings === null) {
       this.logger.info('First application start');
       settings = await this.db.settingsModel.create({ dbSchemaVersion: 1 });
-      this.logger.info('Create example project');
-      await this.populateService.populate([], 1);
     }
 
     // Fix for legacy migration

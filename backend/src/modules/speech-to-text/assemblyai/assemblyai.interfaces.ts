@@ -6,7 +6,6 @@ export class AaTranscriptDto {
   audio_url: string;
   language_code: string;
   language_detection?: boolean;
-  // TODO keywords?
 }
 
 export class AaWordEntity {

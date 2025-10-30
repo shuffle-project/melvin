@@ -14,8 +14,6 @@ import { MediaService } from './media.service';
 
 import { Request, Response } from 'express';
 
-// return `${this.serverBaseUrl}/media/${viewerToken}/${mediaId}.${mediaExtension}`;
-
 @UseInterceptors(ClassSerializerInterceptor)
 @Controller('media')
 export class MediaController {

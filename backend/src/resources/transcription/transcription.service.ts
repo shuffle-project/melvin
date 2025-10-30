@@ -95,23 +95,7 @@ export class TranscriptionService {
 
     const json: TiptapDocument = {
       type: 'doc',
-      content: [
-        // {
-        //   type: 'paragraph',
-        //   content: [
-        //     {
-        //       type: 'text',
-        //       marks: [
-        //         {
-        //           type: 'word',
-        //           attrs: {},
-        //         },
-        //       ],
-        //       text: 'This is your transcript!',
-        //     },
-        //   ],
-        // },
-      ],
+      content: [],
     };
 
     await this.tiptapService.updateDocument(transcription._id.toString(), json);
@@ -203,7 +187,6 @@ export class TranscriptionService {
       .exec();
 
     if (!this.permissions.isProjectReadable(project, authUser)) {
-      // if (!this.permissions.isProjectMember(project, authUser)) {
       throw new CustomForbiddenException('access_to_project_denied');
     }
 
@@ -227,7 +210,6 @@ export class TranscriptionService {
       .exec();
 
     const project = transcription.project as LeanProjectDocument;
-    // if (!this.permissions.isProjectMember(project, authUser)) {
     if (!this.permissions.isProjectReadable(project, authUser)) {
       throw new CustomForbiddenException('access_to_transcription_denied');
     }
@@ -501,12 +483,9 @@ export class TranscriptionService {
       .exec();
 
     const project = transcription.project as LeanProjectDocument;
-    // if (!this.permissions.isProjectMember(project, authUser)) {
     if (!this.permissions.isProjectReadable(project, authUser)) {
       throw new CustomForbiddenException('access_to_transcription_denied');
     }
-
-    // const ydoc = this.tiptapService.toYDoc(transcription.ydoc);
 
     const tiptapCaptions = await this.tiptapService.getCaptionsById(id);
     return tiptapCaptions;
@@ -551,19 +530,12 @@ export class TranscriptionService {
             _id: new Types.ObjectId(),
           })),
         ],
-      }), // ,{populate:'createdBy'}
+      }),
       this.db.updateProjectByIdAndReturn(projectId, {
         $push: { transcriptions: transcriptionId },
       }),
     ]);
 
-    // align text from old transcription to new trasncriptiopn
-
-    // const text = await this.tiptapService.getPlainText(
-    //   transcription._id.toString(),
-    // );
-
-    // TODO
     const transcriptToAlign = await this.tiptapService.getAsMelvinTranscript(
       transcription._id.toString(),
     );

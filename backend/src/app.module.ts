@@ -30,7 +30,6 @@ import { AdminModule } from './resources/admin/admin.module';
 import { AuthModule } from './resources/auth/auth.module';
 import { EventsModule } from './resources/events/events.module';
 import { NotificationModule } from './resources/notification/notification.module';
-import { PopulateModule } from './resources/populate/populate.module';
 import { ProjectModule } from './resources/project/project.module';
 import { TeamModule } from './resources/team/team.module';
 import { TranscriptionModule } from './resources/transcription/transcription.module';
@@ -85,7 +84,6 @@ import { UserModule } from './resources/user/user.module';
     ScheduleModule.forRoot(),
     DbModule,
     LoggerModule,
-    PopulateModule,
     MigrationModule,
     // Resources
     AuthModule,

@@ -31,7 +31,6 @@ export class MailService {
   }
 
   isActive() {
-    // TODO
     return this.emailConfig !== undefined && this.transporter;
   }
 

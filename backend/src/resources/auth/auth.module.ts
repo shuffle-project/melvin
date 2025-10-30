@@ -6,7 +6,6 @@ import { MailModule } from 'src/modules/mail/mail.module';
 import { JwtConfig } from '../../config/config.interface';
 import { DbModule } from '../../modules/db/db.module';
 import { PermissionsModule } from '../../modules/permissions/permissions.module';
-import { PopulateModule } from '../populate/populate.module';
 import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
 import { BasicAuthStrategy } from './strategies/basic-auth.strategy';
@@ -31,7 +30,6 @@ import { JwtStrategy } from './strategies/jwt.strategy';
     }),
     DbModule,
     PermissionsModule,
-    PopulateModule,
     MailModule,
   ],
   providers: [AuthService, JwtStrategy, BasicAuthStrategy],

@@ -1,7 +1,6 @@
 import { HttpModule } from '@nestjs/axios';
 import { BullModule } from '@nestjs/bull';
 import { Module } from '@nestjs/common';
-import { PopulateModule } from '../../resources/populate/populate.module';
 import { TranscriptionModule } from '../../resources/transcription/transcription.module';
 import { DbModule } from '../db/db.module';
 import { LoggerModule } from '../logger/logger.module';
@@ -16,7 +15,6 @@ import { WhisperSpeechService } from './whisper/whisper-speech.service';
 @Module({
   imports: [
     LoggerModule,
-    PopulateModule,
     DbModule,
     PathModule,
     HttpModule.register({}),

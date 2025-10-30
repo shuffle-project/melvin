@@ -52,8 +52,6 @@ export interface AlignPayload {
   type: SubtitlesType.ALIGN;
   transcriptionId: string;
   audio: Audio;
-  // language: string; // take language of project
-  // text?: string;
   transcriptToAlign?: MelvinAsrTranscript;
 }
 

@@ -26,44 +26,6 @@ export class ProjectTranscriptionEntity extends PickType(Transcription, [
   updatedAt: Date;
 }
 
-// export class VideoLinkEntity {
-//   @ApiProperty({ type: String })
-//   @Type(() => String)
-//   id: string;
-
-//   @ApiProperty({ type: String })
-//   @Type(() => String)
-//   url: string;
-
-//   @ApiProperty({ type: String })
-//   @Type(() => String)
-//   title: string;
-
-//   @ApiProperty({ type: String })
-//   @Type(() => String)
-//   originalFileName: string;
-
-//   @ApiProperty({ enum: MediaStatus, example: MediaStatus.FINISHED })
-//   status: MediaStatus;
-
-//   @ApiProperty({ enum: MediaCategory, example: MediaCategory.OTHER })
-//   category: MediaCategory;
-// }
-
-// export class MediaLinksEntity {
-//   @ApiProperty({ type: String })
-//   @Type(() => String)
-//   video: string;
-
-//   @ApiProperty({ type: String })
-//   @Type(() => String)
-//   audio: string;
-
-//   @ApiProperty({ type: [VideoLinkEntity] })
-//   @Type(() => VideoLinkEntity)
-//   videos: VideoLinkEntity[];
-// }
-
 export class Resolution {
   @ApiProperty({ example: '1080p' })
   @Prop()
@@ -93,9 +55,6 @@ export class VideoEntity extends Video {
   @ApiProperty({ type: String })
   @Type(() => String)
   mimetype: string;
-  // @ApiProperty({ type: String })
-  // @Type(() => String)
-  // url: string;
 }
 
 export class AudioEntity extends Audio {
@@ -142,16 +101,4 @@ export class ProjectEntity extends OmitType(Project, [
   @ApiProperty({ type: [UserEntity] })
   @Type(() => UserEntity)
   users: PopulatedDoc<UserEntity>[];
-
-  // @ApiPropertyOptional({ type: MediaLinksEntity })
-  // @Type(() => MediaLinksEntity)
-  // media?: MediaLinksEntity;
-
-  // @ApiProperty({ type: [AudioEntity] })
-  // @Type(() => AudioEntity)
-  // audios: AudioEntity[];
-
-  // @ApiProperty({ type: [VideoEntity] })
-  // @Type(() => VideoEntity)
-  // videos: VideoEntity[];
 }

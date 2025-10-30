@@ -56,10 +56,6 @@ export class UploadService {
   }
 
   async updateUpload(authUser: AuthUser, id: string, filePart: Buffer) {
-    // if (Math.random() > 0.5) {
-    //   throw new CustomBadRequestException('random_error');
-    // }
-
     const metadataPath = this.pathService.getUploadMetadataFile(id);
 
     const metadataFileExists = await exists(metadataPath);

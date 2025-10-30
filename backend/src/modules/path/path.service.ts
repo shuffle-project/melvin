@@ -95,11 +95,6 @@ export class PathService {
     return join(this.getProjectDirectory(projectId), filename);
   }
 
-  // getMediaFile(projectId: string, media: Audio | Export): string {
-  //   const filename = media._id + '.' + media.extension;
-  //   return join(this.getProjectDirectory(projectId), filename);
-  // }
-
   getFileWithExt(projectId: string, fileId: string, extension: string): string {
     return join(this.getProjectDirectory(projectId), fileId + '.' + extension);
   }

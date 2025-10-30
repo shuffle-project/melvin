@@ -889,12 +889,6 @@ export class ProjectService {
           res.resolution,
         ),
       })),
-      // url: this._buildUrl(
-      //   project._id.toString(),
-      //   project.viewerToken,
-      //   video._id.toString(),
-      //   video.extension,
-      // ),
     }));
 
     return plainToInstance(ProjectMediaEntity, { audios, videos });

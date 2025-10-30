@@ -321,7 +321,6 @@ export class Project {
   @IsString()
   inviteToken: string;
 
-  // @Exclude()
   @ApiProperty({ example: EXAMPLE_PROJECT.viewerToken })
   @Prop()
   @IsString()
@@ -336,13 +335,11 @@ export class Project {
   @ApiProperty({ type: [Audio] })
   @Prop({ type: [AudioSchema] })
   @Type(() => Audio)
-  // @Exclude()
   audios: Audio[];
 
   @ApiProperty({ type: [Video] })
   @Prop({ type: [VideoSchema] })
   @Type(() => Video)
-  // @Exclude()
   videos: Video[];
 }
 

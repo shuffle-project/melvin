@@ -71,15 +71,10 @@ export class VideoProcessor {
   async completeHandler(job: Job<ProcessVideoJob>, result: any) {
     let { projectId, video } = job.data;
 
-    // // remove basefile
-    // const filepath = this.pathService.getBaseMediaFile(projectId, video);
-    // await rm(filepath);
-
     this.logger.verbose(
       `Video processing DONE: Job ${job.id}, ProjectId: ${projectId}, Result: ${result}, Video ${video._id}`,
     );
 
-    // const jobTypes: JobStatus[] = ['active', 'paused', 'waiting', 'delayed'];
     const count = await job.queue.getJobCounts();
     this.logger.info(
       'VideoJobs left: ' + (count.active + count.waiting + count.delayed),

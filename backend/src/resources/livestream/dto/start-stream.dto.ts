@@ -6,8 +6,4 @@ export class StartLivestreamDto {
   @ApiProperty({ example: EXAMPLE_PROJECT._id, required: true })
   @IsMongoId()
   projectId: string;
-
-  // @ApiProperty({ required: true })
-  // @IsString()
-  // sdpOffer: string;
 }

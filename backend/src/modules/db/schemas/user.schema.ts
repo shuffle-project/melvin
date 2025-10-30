@@ -63,7 +63,6 @@ export class User {
   @IsEnum(UserRole)
   role: UserRole;
 
-  // @Exclude()
   @ApiProperty({ example: true })
   @Prop({ default: false })
   @IsBoolean()

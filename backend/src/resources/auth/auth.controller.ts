@@ -44,15 +44,6 @@ export class AuthController {
     return this.authService.refreshToken(dto);
   }
 
-  // @UseGuards(JwtAuthGuard)
-  // @Post('/media-access-token')
-  // async createMediaAccessToken(
-  //   @User() authUser: AuthUser,
-  //   @Body() dto: AuthMediaAccessTokenDto,
-  // ): Promise<{ token: string }> {
-  //   return this.authService.createMediaAccessToken(authUser, dto);
-  // }
-
   @Post('/register')
   async register(@Body() dto: AuthRegisterDto): Promise<any> {
     return this.authService.register(dto);

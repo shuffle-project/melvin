@@ -63,15 +63,8 @@ export class EventsGateway
       for (const project of projects) {
         const room = `project:${project._id.toString()}`;
         this.socketService.broadcast(room, 'project:user-changed', {
-          // userId: (client as AuthorizedWebSocket).data.userId,
-          // clientId: (client as AuthorizedWebSocket).data.clientId,
           users: this._getUsers(room, project),
         });
-        // this.socketService.broadcast(room, 'project:user-left', {
-        //   userId: (client as AuthorizedWebSocket).data.userId,
-        //   clientId: (client as AuthorizedWebSocket).data.clientId,
-        //   activeUsers: this._getActiveUsers(room, project),
-        // });
       }
 
       // Unlock captions
