@@ -5,16 +5,11 @@ import { AuthUser } from '../resources/auth/auth.interfaces';
 import { TranscriptionEntity } from '../resources/transcription/entities/transcription.entity';
 
 export enum TranslateVendors {
-  LIBRE = 'libreTranslate',
-  DEEPL = 'deepl',
-  GOOGLE = 'googleTranslate',
   MELVIN = 'melvin',
 }
 
 export enum AsrVendors {
   RANDOM = 'random',
-  GOOGLE = 'google',
-  ASSEMBLYAI = 'assemblyai',
   WHISPER = 'whisper',
 }
 

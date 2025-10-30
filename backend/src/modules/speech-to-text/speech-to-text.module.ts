@@ -7,8 +7,6 @@ import { LoggerModule } from '../logger/logger.module';
 import { MelvinAsrApiModule } from '../melvin-asr-api/melvin-asr-api.module';
 import { PathModule } from '../path/path.module';
 import { TiptapModule } from '../tiptap/tiptap.module';
-import { AssemblyAiService } from './assemblyai/assemblyai.service';
-import { GoogleSpeechService } from './google-speech/google-speech.service';
 import { SpeechToTextService } from './speech-to-text.service';
 import { WhisperSpeechService } from './whisper/whisper-speech.service';
 
@@ -27,12 +25,7 @@ import { WhisperSpeechService } from './whisper/whisper-speech.service';
     }),
   ],
   controllers: [],
-  providers: [
-    SpeechToTextService,
-    AssemblyAiService,
-    GoogleSpeechService,
-    WhisperSpeechService,
-  ],
+  providers: [SpeechToTextService, WhisperSpeechService],
   exports: [SpeechToTextService, WhisperSpeechService],
 })
 export class SpeechToTextModule {}

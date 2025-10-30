@@ -70,15 +70,6 @@ export class MigrationService {
       this.logger.info('Migration to version 2 successful');
     }
 
-    // if (settings.dbSchemaVersion < 3) {
-    //   this.logger.info('Migrate to version 3');
-    //   await this._migrateToV3Tiptap();
-
-    //   settings.dbSchemaVersion = 3;
-    //   await settings.save();
-    //   this.logger.info('Migration to version 3 successful');
-    // }
-
     if (settings.dbSchemaVersion < 4) {
       this.logger.info('Migrate to version 4 - language tags');
       await this._migrateLanguageTags();
@@ -430,70 +421,4 @@ export class MigrationService {
       this.logger.error(e);
     }
   }
-
-  // private async _migrateToV3Tiptap() {
-  //   const transcriptions = await this.db.transcriptionModel.find({});
-  //   for (const transcription of transcriptions) {
-  //     const captions = await this.db.captionModel.find({
-  //       transcription: transcription._id,
-  //     });
-
-  //     if (
-  //       captions.length > 0 &&
-  //       (transcription.ydoc === undefined || transcription.ydoc === null)
-  //     ) {
-  //       const project = await this.db.projectModel
-  //         .findById(transcription.project)
-  //         .exec();
-
-  //       const text = captions
-  //         .map((caption) => {
-  //           return caption.text;
-  //         })
-  //         .join(' ');
-
-  //       const transcriptToAlign: MelvinAsrTranscript = {
-  //         text,
-  //         segments: [
-  //           {
-  //             text,
-  //             start: 0,
-  //             end: 0,
-  //             words: text
-  //               .split(' ')
-  //               .map((w) => ({ text: w, start: 0, end: 0 })),
-  //           },
-  //         ],
-  //       };
-
-  //       /**
-  //        *
-  //        */
-
-  //       this.logger.info(
-  //         'Add align job to queue for transcription ' +
-  //           transcription._id.toString(),
-  //       );
-  //       if (project) {
-  //         project.status = ProjectStatus.WAITING;
-  //         await project.save();
-
-  //         const payload: AlignPayload = {
-  //           type: SubtitlesType.ALIGN,
-  //           audio: project.audios[0],
-  //           transcriptionId: transcription._id.toString(),
-  //           transcriptToAlign,
-  //           syncSpeaker: captions,
-  //         };
-  //         this.subtitlesQueue.add({
-  //           project: project,
-  //           transcription: transcription,
-  //           payload,
-  //         });
-  //       } else {
-  //         console.log('project does not exist', transcription.project, project);
-  //       }
-  //     }
-  //   }
-  // }
 }

@@ -278,13 +278,6 @@ export class RealApiService implements ApiService {
     return this._patch<UserEntity>('/users', { ...dto });
   }
 
-  createLegacyProject(project: FormData): Observable<HttpEvent<ProjectEntity>> {
-    return this._post<HttpEvent<ProjectEntity>>(`/projects/legacy`, project, {
-      reportProgress: true,
-      observe: 'events' as any,
-    });
-  }
-
   createProjectOld(project: FormData): Observable<HttpEvent<ProjectEntity>> {
     return this._post<HttpEvent<ProjectEntity>>(`/projects`, project, {
       reportProgress: true,

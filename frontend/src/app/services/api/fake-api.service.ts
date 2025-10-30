@@ -152,10 +152,6 @@ export class FakeApiService implements ApiService {
   }
 
   // projects
-  createLegacyProject(project: FormData): Observable<any> {
-    this.logger.verbose('createProject mocked');
-    return of({ ...PROJECT_ENTITY_MOCK[0] });
-  }
 
   createProject(project: CreateProjectDto): Observable<ProjectEntity> {
     this.logger.verbose('createProject mocked');

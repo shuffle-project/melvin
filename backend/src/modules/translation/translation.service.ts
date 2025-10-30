@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { Types } from 'mongoose';
+import { MelvinAsrConfig } from 'src/config/config.interface';
 import { TranslationServiceConfig } from '../../app.interfaces';
 import {
   TranslateVendors,
@@ -13,9 +14,6 @@ import { Project } from '../db/schemas/project.schema';
 import { CustomLogger } from '../logger/logger.service';
 import { WhiSegment } from '../speech-to-text/whisper/whisper.interfaces';
 import { TiptapService } from '../tiptap/tiptap.service';
-import { DeepLService } from './deepl/deepl.service';
-import { GoogleTranslateService } from './google-translate/google-translate.service';
-import { LibreTranslateService } from './libre-translate/libre-translate.service';
 import { MelvinTranslateDto } from './melvin-translate/melvin-translate.interfaces';
 import { MelvinTranslateService } from './melvin-translate/melvin-translate.service';
 
@@ -25,9 +23,6 @@ export class TranslationService {
     private logger: CustomLogger,
     private authService: AuthService,
     private db: DbService,
-    private libreTranslate: LibreTranslateService,
-    private deepL: DeepLService,
-    private googleTranslate: GoogleTranslateService,
     private configService: ConfigService,
     private melvinTranslate: MelvinTranslateService,
     private tiptapService: TiptapService,
@@ -36,23 +31,17 @@ export class TranslationService {
   }
 
   private serviceConfigs: {
-    deepl: TranslationServiceConfig | null;
-    libre: TranslationServiceConfig | null;
-    googleTranslate: TranslationServiceConfig | null;
     melvinTranslate: TranslationServiceConfig | null;
   } = {
-    deepl: null,
-    libre: null,
-    googleTranslate: null,
     melvinTranslate: null,
   };
 
   async initServices() {
-    if (this.configService.get('whisper')) {
+    if (this.configService.get<MelvinAsrConfig>('melvinAsr')) {
       try {
         const melvin = (await this.melvinTranslate.fetchLanguages()) || null;
         if (melvin) {
-          this.serviceConfigs.libre = {
+          this.serviceConfigs.melvinTranslate = {
             fullName: 'Melvin',
             translateVendor: TranslateVendors.MELVIN,
             languages: melvin.map((obj) => ({
@@ -65,77 +54,10 @@ export class TranslationService {
         //do nothing, languages will be null = service not initialized
       }
     }
-
-    if (this.configService.get('libreTranslate')) {
-      try {
-        const libre = (await this.libreTranslate.fetchLanguages()) || null;
-        if (libre) {
-          this.serviceConfigs.libre = {
-            fullName: 'LibreTranslate',
-            translateVendor: TranslateVendors.LIBRE,
-            languages: libre.map((obj) => ({
-              code: obj.code,
-              name: obj.name,
-            })),
-          };
-        }
-      } catch (error) {
-        //do nothing, languages will be null = service not initialized
-      }
-    }
-
-    if (this.configService.get('deepL')) {
-      try {
-        const deepl = (await this.deepL.fetchLanguages()) || null;
-        if (deepl) {
-          this.serviceConfigs.deepl = {
-            fullName: 'DeepL',
-            translateVendor: TranslateVendors.DEEPL,
-            languages: deepl.map((obj) => ({
-              code: obj.language,
-              name: obj.name,
-            })),
-          };
-        }
-      } catch (error) {
-        //do nothing, languages will be null = service not initialized
-      }
-    }
-
-    if (this.configService.get('googleTranslate')) {
-      try {
-        const googleTranslate =
-          (await this.googleTranslate.fetchLanguages()) || null;
-        if (googleTranslate) {
-          this.serviceConfigs.googleTranslate = {
-            fullName: 'Google Translate',
-            translateVendor: TranslateVendors.GOOGLE,
-            languages: googleTranslate.data.languages.map((obj) => ({
-              code: obj.language,
-              name: obj.name,
-            })),
-          };
-        }
-      } catch (error) {
-        //do nothing, languages will be null = service not initialized
-      }
-    }
   }
 
   getConfig(): TranslationServiceConfig[] {
     const translationServices: TranslationServiceConfig[] = [];
-
-    if (this.serviceConfigs.deepl) {
-      translationServices.push(this.serviceConfigs.deepl);
-    }
-
-    if (this.serviceConfigs.libre) {
-      translationServices.push(this.serviceConfigs.libre);
-    }
-
-    if (this.serviceConfigs.googleTranslate) {
-      translationServices.push(this.serviceConfigs.googleTranslate);
-    }
 
     if (this.serviceConfigs.melvinTranslate) {
       translationServices.push(this.serviceConfigs.melvinTranslate);
@@ -247,41 +169,6 @@ export class TranslationService {
           newSpeakers[0]._id.toString(),
         );
 
-        break;
-
-      case TranslateVendors.LIBRE:
-        this.logger.info('Translate with ' + TranslateVendors.LIBRE);
-        throw new Error('not_implemented');
-        // const libreEntity = await this.libreTranslate.translateText(
-        //   textsToTranslate,
-        //   source.language,
-        //   translationPayload.targetLanguage,
-        // );
-        // translatedTexts = libreEntity.translatedText;
-        break;
-
-      case TranslateVendors.DEEPL:
-        this.logger.info('Translate with ' + TranslateVendors.DEEPL);
-        throw new Error('not_implemented');
-        // const deeplEntity = await this.deepL.translateText(
-        //   textsToTranslate,
-        //   source.language,
-        //   translationPayload.targetLanguage,
-        // );
-        // translatedTexts = deeplEntity.translations.map((obj) => obj.text);
-        break;
-
-      case TranslateVendors.GOOGLE:
-        this.logger.info('Translate with ' + TranslateVendors.GOOGLE);
-        throw new Error('not_implemented');
-        // const googleEntity = await this.googleTranslate.translateText(
-        //   textsToTranslate,
-        //   source.language,
-        //   translationPayload.targetLanguage,
-        // );
-        // translatedTexts = googleEntity.data.translations.map(
-        //   (obj) => obj.translatedText,
-        // );
         break;
     }
   }
