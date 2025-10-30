@@ -2,10 +2,6 @@ import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
 import { User } from './auth.decorator';
 import { AuthUser } from './auth.interfaces';
 import { AuthService } from './auth.service';
-import {
-  AuthGuestLoginDto,
-  AuthGuestLoginResponseDto,
-} from './dto/auth-guest-login.dto';
 import { AuthLoginDto, AuthLoginResponseDto } from './dto/auth-login.dto';
 import {
   AuthRefreshTokenDto,
@@ -82,27 +78,12 @@ export class AuthController {
     return this.authService.verifyInvite(token);
   }
 
-  @Post('/guest-login')
-  async guestLogin(
-    @Body() dto: AuthGuestLoginDto,
-  ): Promise<AuthGuestLoginResponseDto> {
-    return this.authService.guestLogin(dto);
-  }
-
   @Post('/viewer-login')
   async viewerLogin(
     @Body() dto: AuthViewerLoginDto,
   ): Promise<AuthViewerLoginResponseEntity> {
     return this.authService.viewerLogin(dto);
   }
-
-  // @UseGuards(BasicAuthGuard)
-  // @Post('reset-password')
-  // resetPassword(
-  //   @Body() dto: { email: string; newPassword: string },
-  // ): Promise<void> {
-  //   return this.authService.resetPassword(dto.email, dto.newPassword);
-  // }
 
   @Post('/reset-password/request')
   forgotPassword(@Body() dto: ForgotPasswordDto): Promise<void> {

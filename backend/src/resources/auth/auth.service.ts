@@ -25,10 +25,6 @@ import {
   JwtPayload,
   MediaAccessJwtPayload,
 } from './auth.interfaces';
-import {
-  AuthGuestLoginDto,
-  AuthGuestLoginResponseDto,
-} from './dto/auth-guest-login.dto';
 import { AuthLoginDto, AuthLoginResponseDto } from './dto/auth-login.dto';
 import {
   AuthRefreshTokenDto,
@@ -275,38 +271,6 @@ export class AuthService {
       projectTitle: project.title,
       userName: (project.createdBy as User).name,
     };
-  }
-
-  async guestLogin(dto: AuthGuestLoginDto): Promise<AuthGuestLoginResponseDto> {
-    // Verify invite token
-    const project = await this.db.projectModel.findOne({
-      inviteToken: dto.inviteToken,
-    });
-
-    if (!project) {
-      throw new CustomBadRequestException('Unknown invite token');
-    }
-
-    // Create new guest user
-    const user = await this.db.userModel.create({
-      email: null,
-      hashedPassword: null,
-      role: UserRole.GUEST,
-      name: dto.name,
-      isEmailVerified: false,
-      emailVerificationToken: null,
-      projects: [project._id],
-      team: null,
-    });
-
-    // Add guest user to project
-    project.users.push(user._id);
-    await project.save();
-
-    // Create access token
-    const token = await this.createUserAccessToken(user);
-
-    return { token, projectId: project._id.toString() };
   }
 
   async viewerLogin(
