@@ -28,9 +28,6 @@ const addModifiedMarksAt = (
   });
 };
 
-// getpreviousword range?
-// getnextword
-
 const setPreviousWordAsModified = (
   userId: string,
   schema: Schema,

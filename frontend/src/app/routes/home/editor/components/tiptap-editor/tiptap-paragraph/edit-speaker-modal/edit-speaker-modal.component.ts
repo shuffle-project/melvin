@@ -68,8 +68,6 @@ export class EditSpeakerModalComponent implements OnInit, OnDestroy {
 
   availableSpeaker$!: Observable<SpeakerEntity[]>;
 
-  // ___________
-
   formGroup = this.fb.group({
     speakers: this.fb.array([]),
   });

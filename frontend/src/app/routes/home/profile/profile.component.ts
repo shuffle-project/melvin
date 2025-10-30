@@ -91,10 +91,7 @@ export class ProfileComponent implements OnInit {
     const deleteAccount = await this.confirmService.deleteAccount();
 
     if (deleteAccount) {
-      // try {
-      // await lastValueFrom(this.api.deleteAccount());
       this.store.dispatch(logout());
-      // } catch (error) {}
     }
   }
 }
