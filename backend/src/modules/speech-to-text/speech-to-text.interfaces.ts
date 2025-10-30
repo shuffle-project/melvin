@@ -1,4 +1,3 @@
-import { CaptionEntity } from 'src/resources/caption/entities/caption.entity';
 import { TranscriptionEntity } from 'src/resources/transcription/entities/transcription.entity';
 import { LanguageShort } from '../../app.interfaces';
 import { ProjectEntity } from '../../resources/project/entities/project.entity';
@@ -17,7 +16,6 @@ export interface ISpeechToTextService {
     transcript: MelvinAsrTranscript,
     audio: Audio,
     transcription: TranscriptionEntity,
-    syncSpeaker?: CaptionEntity[],
   ): void;
 }
 

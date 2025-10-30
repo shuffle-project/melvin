@@ -29,7 +29,6 @@ import {
 } from '../../utils/exceptions';
 import { isSameObjectId } from '../../utils/objectid';
 import { AuthUser } from '../auth/auth.interfaces';
-import { CaptionService } from '../caption/caption.service';
 import { EventsGateway } from '../events/events.gateway';
 import { ProjectEntity } from '../project/entities/project.entity';
 import { CreateSpeakersDto } from './dto/create-speakers.dto';
@@ -50,7 +49,6 @@ export class TranscriptionService {
     private permissions: PermissionsService,
     private events: EventsGateway,
     private exportSubtitlesService: ExportSubtitlesService,
-    private captionService: CaptionService,
     @InjectQueue('subtitles')
     private subtitlesQueue: Queue<ProcessSubtitlesJob>,
     private tiptapService: TiptapService,
@@ -331,10 +329,6 @@ export class TranscriptionService {
     if (!this.permissions.isProjectMember(project, authUser)) {
       throw new CustomForbiddenException('access_to_transcription_denied');
     }
-
-    const captions = await this.captionService.findAll(authUser, {
-      transcriptionId,
-    });
 
     let streamableFile: StreamableFile;
     switch (downloadSubtitlesquery.type) {

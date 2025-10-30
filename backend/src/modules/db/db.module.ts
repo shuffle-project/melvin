@@ -3,7 +3,6 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { LoggerModule } from '../logger/logger.module';
 import { DbService } from './db.service';
 import { Activity, ActivitySchema } from './schemas/activity.schema';
-import { Caption, CaptionSchema } from './schemas/caption.schema';
 import { Export, ExportSchema } from './schemas/export.schema';
 import {
   Notification,
@@ -24,7 +23,6 @@ import { User, UserSchema } from './schemas/user.schema';
       { name: User.name, schema: UserSchema },
       { name: Project.name, schema: ProjectSchema },
       { name: Transcription.name, schema: TranscriptionSchema },
-      { name: Caption.name, schema: CaptionSchema },
       { name: Export.name, schema: ExportSchema },
       { name: Activity.name, schema: ActivitySchema },
       { name: Notification.name, schema: NotificationSchema },

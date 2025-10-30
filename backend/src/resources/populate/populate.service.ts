@@ -1,7 +1,6 @@
 import { InjectQueue } from '@nestjs/bull';
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { parse } from '@plussub/srt-vtt-parser';
 import { Queue } from 'bull';
 import { plainToInstance } from 'class-transformer';
 import dayjs from 'dayjs';
@@ -9,13 +8,11 @@ import { emptyDir, ensureDir, readFile, symlink } from 'fs-extra';
 import { copyFile, readdir } from 'fs/promises';
 import { Types } from 'mongoose';
 import { basename, join } from 'path';
-import { Caption } from 'src/modules/db/schemas/caption.schema';
 import { WordEntity } from 'src/modules/speech-to-text/speech-to-text.interfaces';
 import { WhiTranscriptEntity } from 'src/modules/speech-to-text/whisper/whisper.interfaces';
 import { TiptapService } from 'src/modules/tiptap/tiptap.service';
 import { EmailConfig, Environment } from '../../config/config.interface';
 import {
-  EXAMPLE_CAPTION,
   EXAMPLE_PROJECT,
   EXAMPLE_TRANSCRIPTION,
   EXAMPLE_USER,
@@ -41,7 +38,7 @@ import { CreateActivityDto } from '../activity/dto/create-activity.dto';
 import { ProjectEntity } from '../project/entities/project.entity';
 import { UserRole } from '../user/user.interfaces';
 import { Person } from './populate.interfaces';
-import { CAPTION_TEXTS, LANGUAGES, TITLES } from './random-data.constants';
+import { LANGUAGES, TITLES } from './random-data.constants';
 
 const MAX_TRANSCRIPTIONS_PER_PROJECT = 3;
 const MIN_PROJECT_DURATION_IN_SECONDS = 20;
@@ -86,7 +83,6 @@ export class PopulateService {
     await Promise.all([
       this.db.userModel.deleteMany({}),
       this.db.projectModel.deleteMany({}),
-      this.db.captionModel.deleteMany({}),
       this.db.exportModel.deleteMany({}),
       this.db.transcriptionModel.deleteMany({}),
       this.db.activityModel.deleteMany({}),
@@ -219,71 +215,6 @@ export class PopulateService {
           title: `${language} Untertitel`,
         });
       });
-  }
-
-  async _generateDefaultCaptions(
-    project: Project,
-    transcription: Transcription,
-  ): Promise<Caption[]> {
-    const content = await readFile(
-      join(
-        this.pathService.getAssetsDirectory(),
-        'subtitles',
-        'erklaervideoUDL_De.vtt',
-      ),
-      'utf-8',
-    );
-    const { entries } = parse(content);
-
-    return entries.map(
-      (o) =>
-        new this.db.captionModel({
-          initialText: o.text,
-          text: o.text,
-          start: o.from,
-          end: o.to,
-          speakerId: transcription.speakers[0]._id,
-          transcription: transcription._id,
-          project: project._id,
-        }),
-    );
-  }
-
-  _generateRandomCaptions(
-    project: Project,
-    transcription: Transcription,
-  ): Caption[] {
-    const captions: Caption[] = [];
-
-    let start = 0;
-    while (start < project.duration) {
-      const text = CAPTION_TEXTS[this._random(0, CAPTION_TEXTS.length - 1)];
-      const speaker =
-        transcription.speakers[
-          this._random(0, transcription.speakers.length - 1)
-        ];
-      const end = Math.min(
-        project.duration,
-        this._random(start + 1000, start + 8000),
-      );
-
-      captions.push(
-        new this.db.captionModel({
-          ...EXAMPLE_CAPTION,
-          _id: new Types.ObjectId(),
-          project: project._id,
-          transcription: transcription._id,
-          text,
-          initialText: text,
-          speakerId: speaker._id,
-          start,
-          end,
-        }),
-      );
-
-      start = end;
-    }
-    return captions;
   }
 
   _generateActivities(systemUser: User, project: Project): Activity[] {
@@ -465,28 +396,6 @@ export class PopulateService {
       // Add transcription references to project
       project.transcriptions = projectTranscriptions.map((o) => o._id);
     }
-
-    // // Captions
-    // this.logger.verbose('Generate captions');
-    // const captions: Caption[] = [];
-    // for (let i = 0; i < transcriptions.length; i++) {
-    //   const transcription = transcriptions[i];
-    //   const project = projects.find((o) =>
-    //     isSameObjectId(o._id, transcription.project._id),
-    //   );
-    //   this.logger.verbose(
-    //     `Generate captions for transcription (${i + 1} / ${
-    //       transcriptions.length
-    //     })`,
-    //   );
-
-    //   const transcriptionCaptions =
-    //     i === 0
-    //       ? await this._generateDefaultCaptions(project, transcription)
-    //       : this._generateRandomCaptions(project, transcription);
-
-    //   captions.push(...transcriptionCaptions);
-    // }
 
     // Activities
     const activities: Activity[] = [];

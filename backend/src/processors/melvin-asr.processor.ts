@@ -11,10 +11,8 @@ import { DbService } from 'src/modules/db/db.service';
 import { Project } from 'src/modules/db/schemas/project.schema';
 import { TranscriptionStatus } from 'src/modules/db/schemas/transcription.schema';
 import { MelvinAsrApiService } from 'src/modules/melvin-asr-api/melvin-asr-api.service';
-import { TiptapDocument } from 'src/modules/tiptap/tiptap.interfaces';
 import { TiptapService } from 'src/modules/tiptap/tiptap.service';
 import { AuthService } from 'src/resources/auth/auth.service';
-import { CaptionEntity } from 'src/resources/caption/entities/caption.entity';
 import { EventsGateway } from 'src/resources/events/events.gateway';
 import { TranscriptionEntity } from 'src/resources/transcription/entities/transcription.entity';
 import { TranscriptionService } from 'src/resources/transcription/transcription.service';
@@ -24,7 +22,6 @@ export interface ProcessMelvinAsrJob {
   id: string;
   transcription: TranscriptionEntity;
   newSpeakerId?: string;
-  syncSpeaker?: CaptionEntity[];
   project: Project;
   paragraphsViaTime: boolean;
 }
@@ -125,14 +122,6 @@ export class MelvinAsrProcessor {
           job.data.transcription.speakers[0]._id.toString(),
       );
 
-      if (job.data.syncSpeaker) {
-        try {
-          document = this._syncSpeaker(document, job.data.syncSpeaker);
-        } catch (e) {
-          this.logger.error(e);
-        }
-      }
-
       await this.tiptapService.updateDocument(
         job.data.transcription._id.toString(),
         document,
@@ -195,76 +184,5 @@ export class MelvinAsrProcessor {
       const entity = plainToInstance(TranscriptionEntity, updatedTranscription);
       this.events.transcriptionUpdated(job.data.project, entity);
     }
-  }
-
-  _syncSpeaker(
-    document: TiptapDocument,
-    captionEntities: CaptionEntity[],
-  ): TiptapDocument {
-    const speakerIdsInCaptions = [
-      ...new Set(captionEntities.map((caption) => caption.speakerId)),
-    ];
-
-    if (speakerIdsInCaptions.length === 1) {
-      document.content.at(0).attrs.speakerId = speakerIdsInCaptions[0];
-      return document;
-    }
-
-    const normalize = (text: string) => {
-      return text
-        .toLowerCase()
-        .replace(/[^a-zA-Z0-9]+/g, '')
-        .trim();
-    };
-
-    const documentWords: { pargraphId: number; text: string }[] = [];
-    document.content.forEach((paragraph, i) =>
-      paragraph.content.forEach((node, nodeIndex) => {
-        const previousWord = documentWords.at(-1);
-        const text = normalize(node.text);
-        if (text.length !== 0) {
-          if (node.text.startsWith(' ') || nodeIndex === 0) {
-            documentWords.push({ pargraphId: i, text });
-          } else {
-            previousWord.text += text;
-          }
-        }
-      }),
-    );
-
-    const captionWords: { speaker: string; text: string }[] = [];
-    captionEntities.forEach((caption) => {
-      const splitted = caption.text
-        .replace(/(\r\n|\n|\r|\t)/gm, ' ')
-        .split(' ');
-      splitted.forEach((word) => {
-        const text = normalize(word);
-        if (text.length !== 0) {
-          captionWords.push({ speaker: caption.speakerId, text });
-        }
-      });
-    });
-
-    if (documentWords.length !== captionWords.length) {
-      throw new Error('Document and caption length mismatch');
-    }
-
-    let previousSpeaker = undefined;
-    captionWords.forEach((captionWord, index) => {
-      if (captionWord.speaker !== previousSpeaker) {
-        const paragraph = document.content[documentWords[index].pargraphId];
-        if (
-          paragraph.attrs.speakerId &&
-          paragraph.attrs.speakerId !== captionWord.speaker
-        ) {
-          // dont set speaker if its already set? but also dont throw error?
-          // throw new Error('Speaker already set');
-        } else {
-          paragraph.attrs.speakerId = captionWord.speaker;
-          previousSpeaker = captionWord.speaker;
-        }
-      }
-    });
-    return document;
   }
 }

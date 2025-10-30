@@ -9,7 +9,6 @@ import { PermissionsModule } from '../../modules/permissions/permissions.module'
 import { SubtitleFormatModule } from '../../modules/subtitle-format/subtitle-format.module';
 import { TiptapModule } from '../../modules/tiptap/tiptap.module';
 import { TranslationModule } from '../../modules/translation/translation.module';
-import { CaptionModule } from '../caption/caption.module';
 import { EventsModule } from '../events/events.module';
 import { TranscriptionController } from './transcription.controller';
 import { TranscriptionService } from './transcription.service';
@@ -20,7 +19,6 @@ import { TranscriptionService } from './transcription.service';
     EventsModule,
     PermissionsModule,
     SubtitleFormatModule,
-    CaptionModule,
     PathModule,
     BullModule.registerQueue({
       name: 'subtitles',

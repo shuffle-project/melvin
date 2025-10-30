@@ -1,4 +1,3 @@
-import { CaptionEntity } from '../caption/entities/caption.entity';
 import { NotificationEntity } from '../notification/entities/notification.entity';
 import { ProjectEntity } from '../project/entities/project.entity';
 import { TranscriptionEntity } from '../transcription/entities/transcription.entity';
@@ -70,11 +69,6 @@ export interface ServerToClientEvents {
     transcription: TranscriptionEntity;
   }) => void;
   'transcription:removed': (payload: { transcriptionId: string }) => void;
-
-  // Caption
-  'caption:created': (payload: { caption: CaptionEntity }) => void;
-  'caption:updated': (payload: { caption: CaptionEntity }) => void;
-  'caption:removed': (payload: { captionId: string }) => void;
 
   // Livestream
   // 'livestream:server-ice-candidate': (payload: { candidate: string }) => void;

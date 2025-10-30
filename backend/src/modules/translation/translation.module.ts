@@ -2,7 +2,6 @@ import { HttpModule } from '@nestjs/axios';
 import { BullModule } from '@nestjs/bull';
 import { Module } from '@nestjs/common';
 import { AuthModule } from '../../resources/auth/auth.module';
-import { CaptionModule } from '../../resources/caption/caption.module';
 import { DbModule } from '../db/db.module';
 import { LoggerModule } from '../logger/logger.module';
 import { MelvinAsrApiModule } from '../melvin-asr-api/melvin-asr-api.module';
@@ -17,7 +16,6 @@ import { TranslationService } from './translation.service';
   imports: [
     LoggerModule,
     DbModule,
-    CaptionModule,
     AuthModule,
     HttpModule.register({}),
     TiptapModule,

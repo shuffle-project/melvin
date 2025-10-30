@@ -8,7 +8,6 @@ import {
 } from 'src/modules/melvin-asr-api/melvin-asr-api.interfaces';
 import { MelvinAsrApiService } from 'src/modules/melvin-asr-api/melvin-asr-api.service';
 import { ProcessMelvinAsrJob } from 'src/processors/melvin-asr.processor';
-import { CaptionEntity } from 'src/resources/caption/entities/caption.entity';
 import { TranscriptionEntity } from 'src/resources/transcription/entities/transcription.entity';
 import { LanguageShort } from '../../../app.interfaces';
 import { MelvinAsrConfig } from '../../../config/config.interface';
@@ -88,7 +87,6 @@ export class WhisperSpeechService implements ISpeechToTextService {
     melvinAsrTranscript: MelvinAsrTranscript,
     audio: Audio,
     transcription: TranscriptionEntity,
-    syncSpeaker?: CaptionEntity[],
   ) {
     const uploaded = await this.melvinAsrApiService.upload(project, audio);
 
@@ -107,7 +105,6 @@ export class WhisperSpeechService implements ISpeechToTextService {
       {
         id: started.id,
         transcription,
-        syncSpeaker,
         project,
         paragraphsViaTime: true,
       },

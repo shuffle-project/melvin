@@ -7,7 +7,6 @@ import {
   TranslationPayload,
 } from '../../processors/processor.interfaces';
 import { AuthService } from '../../resources/auth/auth.service';
-import { CaptionService } from '../../resources/caption/caption.service';
 import { TranscriptionEntity } from '../../resources/transcription/entities/transcription.entity';
 import { DbService } from '../db/db.service';
 import { Project } from '../db/schemas/project.schema';
@@ -25,7 +24,6 @@ export class TranslationService {
   constructor(
     private logger: CustomLogger,
     private authService: AuthService,
-    private captionService: CaptionService,
     private db: DbService,
     private libreTranslate: LibreTranslateService,
     private deepL: DeepLService,
@@ -253,7 +251,7 @@ export class TranslationService {
 
       case TranslateVendors.LIBRE:
         this.logger.info('Translate with ' + TranslateVendors.LIBRE);
-        throw new Error('no_implemented');
+        throw new Error('not_implemented');
         // const libreEntity = await this.libreTranslate.translateText(
         //   textsToTranslate,
         //   source.language,
@@ -264,7 +262,7 @@ export class TranslationService {
 
       case TranslateVendors.DEEPL:
         this.logger.info('Translate with ' + TranslateVendors.DEEPL);
-        throw new Error('no_implemented');
+        throw new Error('not_implemented');
         // const deeplEntity = await this.deepL.translateText(
         //   textsToTranslate,
         //   source.language,
@@ -275,7 +273,7 @@ export class TranslationService {
 
       case TranslateVendors.GOOGLE:
         this.logger.info('Translate with ' + TranslateVendors.GOOGLE);
-        throw new Error('no_implemented');
+        throw new Error('not_implemented');
         // const googleEntity = await this.googleTranslate.translateText(
         //   textsToTranslate,
         //   source.language,
@@ -286,54 +284,6 @@ export class TranslationService {
         // );
         break;
     }
-
-    // const allTextsFinal = [];
-
-    // for (let i = 0; i < translatedTexts.length; i++) {
-    //   const translatedText = translatedTexts[i];
-    //   const textSourceLang = textsToTranslate[i];
-
-    //   const sectionCountSourceLang = this._countWords(textSourceLang);
-    //   const sectionCountTargetLang = this._countWords(translatedText);
-
-    //   const splitInCaptionsCounter = counterPerSection[i];
-    //   const textSplittedInWords = translatedText.split(' ');
-
-    //   let internalWordCounter = 0;
-    //   for (let index = 0; index < splitInCaptionsCounter; index++) {
-    //     const dtoIndex = allTextsFinal.length;
-    //     const sourceTextWordCount = this._countWords(
-    //       createCaptionDtos[dtoIndex].text,
-    //     );
-
-    //     const percentOfWordsInSection =
-    //       (sourceTextWordCount * 100) / sectionCountSourceLang;
-    //     const targetTextWordCount =
-    //       (sectionCountTargetLang / 100) * percentOfWordsInSection;
-
-    //     let endOfCaption = internalWordCounter + targetTextWordCount;
-    //     if (index === splitInCaptionsCounter - 1) {
-    //       endOfCaption = textSplittedInWords.length;
-    //     }
-    //     allTextsFinal.push(
-    //       textSplittedInWords
-    //         .slice(internalWordCounter, endOfCaption)
-    //         .join(' '),
-    //     );
-    //     internalWordCounter = internalWordCounter + targetTextWordCount;
-    //   }
-    // }
-
-    // for (let index = 0; index < createCaptionDtos.length; index++) {
-    //   createCaptionDtos[index].text = allTextsFinal[index];
-    // }
-
-    // // create captions
-    // await this.captionService.createMany(
-    //   systemUser,
-    //   createCaptionDtos,
-    //   project._id.toString(),
-    // );
   }
 
   _countWords(text: string): number {

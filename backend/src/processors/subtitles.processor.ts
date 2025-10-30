@@ -10,6 +10,7 @@ import { Job, Queue } from 'bull';
 import { plainToInstance } from 'class-transformer';
 import { rm } from 'fs/promises';
 import { TranscriptionStatus } from 'src/modules/db/schemas/transcription.schema';
+import { TiptapService } from 'src/modules/tiptap/tiptap.service';
 import { DbService } from '../modules/db/db.service';
 import { Project } from '../modules/db/schemas/project.schema';
 import { CustomLogger } from '../modules/logger/logger.service';
@@ -20,8 +21,6 @@ import { TranslationService } from '../modules/translation/translation.service';
 import { ActivityService } from '../resources/activity/activity.service';
 import { AuthUser } from '../resources/auth/auth.interfaces';
 import { AuthService } from '../resources/auth/auth.service';
-import { CaptionService } from '../resources/caption/caption.service';
-import { CreateCaptionDto } from '../resources/caption/dto/create-caption.dto';
 import { EventsGateway } from '../resources/events/events.gateway';
 import { ProjectService } from '../resources/project/project.service';
 import { TranscriptionEntity } from '../resources/transcription/entities/transcription.entity';
@@ -49,10 +48,10 @@ export class SubtitlesProcessor {
     private projectService: ProjectService,
     private pathService: PathService,
     private translationService: TranslationService,
-    private captionService: CaptionService,
     private activityService: ActivityService,
     private events: EventsGateway,
     private db: DbService,
+    private tiptapService: TiptapService,
     @InjectQueue('project') private projectQueue: Queue<ProcessProjectJob>,
   ) {
     this.logger.setContext(this.constructor.name);
@@ -327,9 +326,6 @@ export class SubtitlesProcessor {
       sysUser,
       payload.sourceTranscriptionId,
     );
-    const sourceCaptions = await this.captionService.findAll(sysUser, {
-      transcriptionId: payload.sourceTranscriptionId,
-    });
 
     target = await this.transcriptionService.createSpeakers(
       sysUser,
@@ -337,31 +333,31 @@ export class SubtitlesProcessor {
       { names: sourceTranscription.speakers.map((obj) => obj.name) },
     );
 
-    const createDtos: CreateCaptionDto[] = sourceCaptions.captions.map(
-      (caption) => {
-        // mapping speakerid
-        const sourceSpeaker = sourceTranscription.speakers.find(
-          (obj) => obj._id.toString() === caption.speakerId,
-        );
-        const targetSpeaker = target.speakers.find(
-          (obj) => obj.name === sourceSpeaker.name,
-        );
+    const mappedSpeaker = target.speakers.map((targetSpeaker) => {
+      return {
+        source: sourceTranscription.speakers.find(
+          (sourceSpeaker) => sourceSpeaker.name === targetSpeaker.name,
+        )._id,
+        target: targetSpeaker._id,
+      };
+    });
 
-        return {
-          projectId: project._id.toString(),
-          transcription: target._id,
-          speakerId: targetSpeaker._id.toString(),
-          start: caption.start,
-          end: caption.end,
-          text: caption.text,
-        };
-      },
+    const sourceTiptapDoc = await this.tiptapService.getTiptapDocument(
+      sourceTranscription._id.toString(),
     );
 
-    await this.captionService.createMany(
-      sysUser,
-      createDtos,
-      project._id.toString(),
+    sourceTiptapDoc.content.forEach((node) => {
+      if (node.attrs.speakerId) {
+        const mapped = mappedSpeaker.find(
+          (mapping) => mapping.source.toString() === node.attrs.speakerId,
+        );
+        if (mapped) node.attrs.speakerId = mapped.target.toString();
+      }
+    });
+
+    await this.tiptapService.updateDocument(
+      target._id.toString(),
+      sourceTiptapDoc,
     );
   }
 
@@ -388,7 +384,6 @@ export class SubtitlesProcessor {
         payload.audio,
         AsrVendors.WHISPER,
         payload.transcriptToAlign,
-        payload.syncSpeaker,
       );
     }
   }

@@ -466,7 +466,7 @@ export class TiptapService {
     return document;
   }
 
-  private docToJSON(doc: Y.Doc): TiptapDocument {
+  public docToJSON(doc: Y.Doc): TiptapDocument {
     const pmDocJSON = TiptapTransformer.fromYdoc(doc, 'default');
 
     const editorState = EditorState.create({
