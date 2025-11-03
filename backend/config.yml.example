@@ -26,7 +26,7 @@ melvinAsr:
 basicAuth:
   username: admin
   password: secret
-
+  
 adminUser:
   username: admin
   # you can either set a cleartext or a hashed password (-> htpasswd -nbB admin secret) 
