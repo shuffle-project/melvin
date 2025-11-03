@@ -7,7 +7,6 @@ import { ensureDir, remove, rm } from 'fs-extra';
 import { stat } from 'fs/promises';
 import { Types } from 'mongoose';
 import { LeanUserDocument } from 'src/modules/db/schemas/user.schema';
-import { MediaService } from 'src/modules/media/media.service';
 import { UploadMetadata } from 'src/modules/upload/upload.interfaces';
 import { UploadService } from 'src/modules/upload/upload.service';
 import { DbService } from '../../modules/db/db.service';
@@ -72,7 +71,6 @@ export class ProjectService {
     private pathService: PathService,
     private transcriptionService: TranscriptionService,
     private configService: ConfigService,
-    private mediaService: MediaService,
     private uploadService: UploadService,
     private authService: AuthService,
     @InjectQueue('project') private projectQueue: Queue<ProcessProjectJob>,

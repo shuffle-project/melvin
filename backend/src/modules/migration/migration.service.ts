@@ -3,10 +3,7 @@ import { Injectable } from '@nestjs/common';
 import { Queue } from 'bull';
 import { exists, move } from 'fs-extra';
 import { rm, statfs } from 'fs/promises';
-import {
-  ProcessSubtitlesJob,
-  ProcessVideoJob,
-} from '../../processors/processor.interfaces';
+import { ProcessVideoJob } from '../../processors/processor.interfaces';
 import { generateSecureToken } from '../../utils/crypto';
 import { DbService } from '../db/db.service';
 import {
@@ -20,20 +17,14 @@ import { TranscriptionStatus } from '../db/schemas/transcription.schema';
 import { FfmpegService } from '../ffmpeg/ffmpeg.service';
 import { CustomLogger } from '../logger/logger.service';
 import { PathService } from '../path/path.service';
-import { WhisperSpeechService } from '../speech-to-text/whisper/whisper-speech.service';
-import { TiptapService } from '../tiptap/tiptap.service';
 
 @Injectable()
 export class MigrationService {
   constructor(
     private logger: CustomLogger,
     private db: DbService,
-    private tiptapService: TiptapService,
-    private whisper: WhisperSpeechService,
     private ffmpegService: FfmpegService,
     private pathService: PathService,
-    @InjectQueue('subtitles')
-    private subtitlesQueue: Queue<ProcessSubtitlesJob>,
     @InjectQueue('video')
     private videoQueue: Queue<ProcessVideoJob>,
   ) {
@@ -167,6 +158,33 @@ export class MigrationService {
       await settings.save();
       this.logger.info('Migration to version 9 successful');
     }
+
+    if (settings.dbSchemaVersion < 10) {
+      this.logger.info('Migrate to version 10 - remove guests');
+
+      await this.removeAllGuests();
+
+      settings.dbSchemaVersion = 10;
+      await settings.save();
+      this.logger.info('Migration to version 10 successful');
+    }
+  }
+
+  private async removeAllGuests() {
+    const allGuests = await this.db.userModel.find({ role: 'guest' });
+
+    allGuests.forEach(async (guest) => {
+      const userId = guest._id.toString();
+
+      // leave all projects of user
+      await this.db.projectModel.updateMany(
+        { users: { $in: [userId] } },
+        { $pull: { users: userId } },
+      );
+
+      // remove user
+      await this.db.userModel.findOneAndDelete({ _id: userId }).lean().exec();
+    });
   }
 
   private async _migrateReprocessVideos() {
