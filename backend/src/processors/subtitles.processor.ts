@@ -117,97 +117,105 @@ export class SubtitlesProcessor {
 
   @OnQueueActive()
   async activeHandler(job: Job<ProcessSubtitlesJob>) {
-    const { project, transcription } = job.data;
+    try {
+      const { project, transcription } = job.data;
 
-    if (transcription.status !== TranscriptionStatus.PROCESSING) {
-      await this.db.transcriptionModel
-        .findByIdAndUpdate(transcription._id, {
-          $set: {
-            status: TranscriptionStatus.PROCESSING,
-          },
-        })
-        .lean()
-        .exec();
+      if (transcription.status !== TranscriptionStatus.PROCESSING) {
+        await this.db.transcriptionModel
+          .findByIdAndUpdate(transcription._id, {
+            $set: {
+              status: TranscriptionStatus.PROCESSING,
+            },
+          })
+          .lean()
+          .exec();
+      }
+
+      const systemUser = await this.authService.findSystemAuthUser();
+      const updatedTranscription = await this.transcriptionService.findOne(
+        systemUser,
+        transcription._id.toString(),
+      );
+      const entity = plainToInstance(TranscriptionEntity, updatedTranscription);
+      this.events.transcriptionUpdated(project, entity);
+
+      this.logger.verbose(
+        `Subtitle creation START: Job ${
+          job.id
+        }, ProjectId: ${project._id.toString()}`,
+      );
+    } catch (error) {
+      this.logger.error(error);
     }
-
-    const systemUser = await this.authService.findSystemAuthUser();
-    const updatedTranscription = await this.transcriptionService.findOne(
-      systemUser,
-      transcription._id.toString(),
-    );
-    const entity = plainToInstance(TranscriptionEntity, updatedTranscription);
-    this.events.transcriptionUpdated(project, entity);
-
-    this.logger.verbose(
-      `Subtitle creation START: Job ${
-        job.id
-      }, ProjectId: ${project._id.toString()}`,
-    );
   }
 
   @OnQueueCompleted()
   async completeHandler(job: Job<ProcessSubtitlesJob>, result: any) {
-    const { project, payload, transcription } = job.data;
-    const systemUser = await this.authService.findSystemAuthUser();
+    try {
+      const { project, payload, transcription } = job.data;
+      const systemUser = await this.authService.findSystemAuthUser();
 
-    await this.activityService.create(
-      project,
-      systemUser.id,
-      'subtitles-processing-finished',
-      { transcription: job.data.transcription },
-    );
+      await this.activityService.create(
+        project,
+        systemUser.id,
+        'subtitles-processing-finished',
+        { transcription: job.data.transcription },
+      );
 
-    if (
-      job.data.payload.type === SubtitlesType.FROM_COPY ||
-      job.data.payload.type === SubtitlesType.FROM_FILE
-    ) {
-      await this.db.transcriptionModel
-        .findByIdAndUpdate(transcription._id, {
-          $set: {
-            status: TranscriptionStatus.OK,
-          },
-        })
-        .lean()
-        .exec();
+      if (
+        job.data.payload.type === SubtitlesType.FROM_COPY ||
+        job.data.payload.type === SubtitlesType.FROM_FILE
+      ) {
+        await this.db.transcriptionModel
+          .findByIdAndUpdate(transcription._id, {
+            $set: {
+              status: TranscriptionStatus.OK,
+            },
+          })
+          .lean()
+          .exec();
+      }
+
+      const updatedTranscription = await this.transcriptionService.findOne(
+        systemUser,
+        transcription._id.toString(),
+      );
+      const entity = plainToInstance(TranscriptionEntity, updatedTranscription);
+      this.events.transcriptionUpdated(project, entity);
+
+      // remove temp file
+      if (payload.type === SubtitlesType.FROM_FILE) {
+        const { file } = payload;
+
+        const uploadDir = this.pathService.getUploadDirectory(file.uploadId);
+
+        await rm(uploadDir, { recursive: true });
+      }
+
+      this.logger.verbose(
+        `Subtitle creation DONE: Job ${
+          job.id
+        }, ProjectId: ${project._id.toString()}, Result: ${result}`,
+      );
+    } catch (error) {
+      this.logger.error(error);
     }
-
-    const updatedTranscription = await this.transcriptionService.findOne(
-      systemUser,
-      transcription._id.toString(),
-    );
-    const entity = plainToInstance(TranscriptionEntity, updatedTranscription);
-    this.events.transcriptionUpdated(project, entity);
-
-    // remove temp file
-    if (payload.type === SubtitlesType.FROM_FILE) {
-      const { file } = payload;
-
-      const uploadDir = this.pathService.getUploadDirectory(file.uploadId);
-
-      await rm(uploadDir, { recursive: true });
-    }
-
-    this.logger.verbose(
-      `Subtitle creation DONE: Job ${
-        job.id
-      }, ProjectId: ${project._id.toString()}, Result: ${result}`,
-    );
   }
 
   @OnQueueFailed()
   async failHandler(job: Job<ProcessSubtitlesJob>, err: Error) {
-    const { project, transcription } = job.data;
-
-    const systemUser = await this.authService.findSystemAuthUser();
-
-    await this.activityService.create(
-      project,
-      systemUser.id,
-      'subtitles-processing-failed',
-      { error: err },
-    );
-
     try {
+      const { project, transcription } = job.data;
+
+      const systemUser = await this.authService.findSystemAuthUser();
+
+      await this.activityService.create(
+        project,
+        systemUser.id,
+        'subtitles-processing-failed',
+        { error: err },
+      );
+
       await this.db.transcriptionModel
         .findByIdAndUpdate(transcription._id, {
           $set: {
@@ -225,8 +233,8 @@ export class SubtitlesProcessor {
         }`,
       );
       this.logger.error(err.stack);
-    } catch (err) {
-      this.logger.error(err);
+    } catch (error) {
+      this.logger.error(error);
     }
   }
 

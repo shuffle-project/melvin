@@ -26,41 +26,45 @@ export class HttpExceptionFilter implements ExceptionFilter {
   }
 
   catch(_exception: HttpException | CustomHttpException, host: ArgumentsHost) {
-    const ctx = host.switchToHttp();
-    const response = ctx.getResponse<Response>();
-    const request = ctx.getRequest<Request>();
-    const status = _exception.getStatus();
+    try {
+      const ctx = host.switchToHttp();
+      const response = ctx.getResponse<Response>();
+      const request = ctx.getRequest<Request>();
+      const status = _exception.getStatus();
 
-    let exception: HttpException | CustomHttpException;
-    switch (status) {
-      case 401:
-        exception = new CustomUnauthorizedException();
-        break;
-      case 404:
-        exception = new CustomNotFoundException();
-        break;
-      default:
-        exception = _exception;
+      let exception: HttpException | CustomHttpException;
+      switch (status) {
+        case 401:
+          exception = new CustomUnauthorizedException();
+          break;
+        case 404:
+          exception = new CustomNotFoundException();
+          break;
+        default:
+          exception = _exception;
+      }
+
+      response.status(status).json(exception.getResponse());
+
+      const method = request.method;
+      const url = request.url;
+
+      const message = `${method.toUpperCase()} ${url} - ${status} ${
+        exception.message
+      }`;
+
+      const details =
+        exception instanceof CustomHttpException
+          ? exception.getLogDetails()
+          : exception.getResponse();
+
+      if (this.environment === Environment.DOCKER && status < 500) {
+        this.logger.verbose(message, details);
+      } else {
+        this.logger.error(message, details);
+      }
+    } catch (error) {
+      this.logger.error(error.message, error);
     }
-
-    response.status(status).json(exception.getResponse());
-
-    if (status === 400 && this.environment !== Environment.LOCAL) {
-      return;
-    }
-
-    const method = request.method;
-    const url = request.url;
-
-    const message = `${method.toUpperCase()} ${url} - ${status} ${
-      exception.message
-    }`;
-
-    const details =
-      exception instanceof CustomHttpException
-        ? exception.getLogDetails()
-        : exception.getResponse();
-
-    this.logger.error(message, details);
   }
 }

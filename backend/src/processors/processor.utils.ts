@@ -6,5 +6,7 @@ export function jobWithProjectIdExists(
   projectId: string,
   projectJobs: Job<ProcessProjectJob>[],
 ): boolean {
-  return projectJobs.some((job) => isSameObjectId(job.data.project, projectId));
+  return projectJobs.some((job) =>
+    isSameObjectId(job?.data?.project, projectId),
+  );
 }

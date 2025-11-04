@@ -486,7 +486,17 @@ export class ProjectService {
 
     if (
       project.status === ProjectStatus.WAITING ||
-      project.status === ProjectStatus.PROCESSING
+      project.status === ProjectStatus.PROCESSING ||
+      project.videos.some(
+        (v) =>
+          v.status === MediaStatus.PROCESSING ||
+          v.status === MediaStatus.WAITING,
+      ) ||
+      project.audios.some(
+        (a) =>
+          a.status === MediaStatus.PROCESSING ||
+          a.status === MediaStatus.WAITING,
+      )
     ) {
       throw new CustomForbiddenException('cannot_delete_project_due_status');
     }

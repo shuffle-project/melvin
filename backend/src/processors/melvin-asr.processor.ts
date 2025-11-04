@@ -133,56 +133,70 @@ export class MelvinAsrProcessor {
 
   @OnQueueCompleted()
   async completeHandler(job: Job<ProcessMelvinAsrJob>, result: boolean) {
-    if (result) {
-      this.logger.verbose(
-        `Fetching Result Completed for transcription: "${job.data.transcription._id.toString()}"`,
-      );
+    try {
+      if (result) {
+        this.logger.verbose(
+          `Fetching Result Completed for transcription: "${job.data.transcription._id.toString()}"`,
+        );
 
-      const systemUser = await this.authService.findSystemAuthUser();
-      const updatedTranscription = await this.transcriptionService.findOne(
-        systemUser,
-        job.data.transcription._id.toString(),
-      );
-      const entity = plainToInstance(TranscriptionEntity, updatedTranscription);
-      this.events.transcriptionUpdated(job.data.project, entity);
-    } else {
-      this.logger.verbose(
-        `Fetching Process Unfinished for transcription: "${job.data.transcription._id.toString()}`,
-      );
+        const systemUser = await this.authService.findSystemAuthUser();
+        const updatedTranscription = await this.transcriptionService.findOne(
+          systemUser,
+          job.data.transcription._id.toString(),
+        );
+        const entity = plainToInstance(
+          TranscriptionEntity,
+          updatedTranscription,
+        );
+        this.events.transcriptionUpdated(job.data.project, entity);
+      } else {
+        this.logger.verbose(
+          `Fetching Process Unfinished for transcription: "${job.data.transcription._id.toString()}`,
+        );
+      }
+    } catch (error) {
+      this.logger.error(error);
     }
   }
 
   @OnQueueFailed()
   async failHandler(job: Job<ProcessMelvinAsrJob>, err: Error) {
-    this.logger.error(
-      'Error in attempt ' + job.attemptsMade + '/' + job.opts.attempts,
-    );
-    this.logger.error('Fetching Result Failed', err);
+    try {
+      this.logger.error(
+        'Error in attempt ' + job.attemptsMade + '/' + job.opts.attempts,
+      );
+      this.logger.error('Fetching Result Failed', err);
 
-    if (job.attemptsMade === job.opts.attempts) {
-      this.logger.info(
-        'Job failed after ' +
-          job.attemptsMade +
-          ' attempts, it will not repeat again. Transcription id: ' +
+      if (job.attemptsMade === job.opts.attempts) {
+        this.logger.info(
+          'Job failed after ' +
+            job.attemptsMade +
+            ' attempts, it will not repeat again. Transcription id: ' +
+            job.data.transcription._id.toString(),
+        );
+
+        await this.db.transcriptionModel
+          .findByIdAndUpdate(job.data.transcription._id, {
+            $set: {
+              status: TranscriptionStatus.ERROR,
+            },
+          })
+          .lean()
+          .exec();
+
+        const systemUser = await this.authService.findSystemAuthUser();
+        const updatedTranscription = await this.transcriptionService.findOne(
+          systemUser,
           job.data.transcription._id.toString(),
-      );
-
-      await this.db.transcriptionModel
-        .findByIdAndUpdate(job.data.transcription._id, {
-          $set: {
-            status: TranscriptionStatus.ERROR,
-          },
-        })
-        .lean()
-        .exec();
-
-      const systemUser = await this.authService.findSystemAuthUser();
-      const updatedTranscription = await this.transcriptionService.findOne(
-        systemUser,
-        job.data.transcription._id.toString(),
-      );
-      const entity = plainToInstance(TranscriptionEntity, updatedTranscription);
-      this.events.transcriptionUpdated(job.data.project, entity);
+        );
+        const entity = plainToInstance(
+          TranscriptionEntity,
+          updatedTranscription,
+        );
+        this.events.transcriptionUpdated(job.data.project, entity);
+      }
+    } catch (error) {
+      this.logger.error(error);
     }
   }
 }

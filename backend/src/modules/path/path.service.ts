@@ -33,7 +33,7 @@ export class PathService {
   }
 
   getUploadFile(id: string, ext: string): string {
-    const filename = 'file' + ext.startsWith('.') ? ext : '.' + ext;
+    const filename = 'file' + (ext.startsWith('.') ? ext : '.' + ext);
     return join(this.getUploadDirectory(id), filename);
   }
 

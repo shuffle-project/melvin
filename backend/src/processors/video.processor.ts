@@ -60,35 +60,46 @@ export class VideoProcessor {
 
   @OnQueueActive()
   async activeHandler(job: Job<ProcessVideoJob>) {
-    let { projectId, video } = job.data;
+    try {
+      let { projectId, video } = job.data;
 
-    this.logger.verbose(
-      `Video processing START: Job ${job.id}, ProjectId: ${projectId}, Video ${video._id}`,
-    );
+      this.logger.verbose(
+        `Video processing START: Job ${job.id}, ProjectId: ${projectId}, Video ${video._id}`,
+      );
+    } catch (error) {
+      this.logger.error(error);
+    }
   }
 
   @OnQueueCompleted()
   async completeHandler(job: Job<ProcessVideoJob>, result: any) {
-    let { projectId, video } = job.data;
+    try {
+      let { projectId, video } = job.data;
 
-    this.logger.verbose(
-      `Video processing DONE: Job ${job.id}, ProjectId: ${projectId}, Result: ${result}, Video ${video._id}`,
-    );
+      this.logger.verbose(
+        `Video processing DONE: Job ${job.id}, ProjectId: ${projectId}, Result: ${result}, Video ${video._id}`,
+      );
 
-    const count = await job.queue.getJobCounts();
-    this.logger.info(
-      'VideoJobs left: ' + (count.active + count.waiting + count.delayed),
-    );
+      const count = await job.queue.getJobCounts();
+      this.logger.info(
+        'VideoJobs left: ' + (count.active + count.waiting + count.delayed),
+      );
+    } catch (error) {
+      this.logger.error(error);
+    }
   }
 
   @OnQueueFailed()
   async failHandler(job: Job<ProcessVideoJob>, err: Error) {
-    let { projectId, video } = job.data;
+    try {
+      let { projectId, video } = job.data;
 
-    this.logger.error(
-      `Video processing FAIL: Job ${job.id}, ProjectId: ${projectId}, Video: ${video._id} , Errormessage: ${err.message}`,
-    );
-    this.logger.error('Stack:');
-    this.logger.error(err.stack);
+      this.logger.error(
+        `Video processing FAIL: Job ${job.id}, ProjectId: ${projectId}, Video: ${video._id} , Errormessage: ${err.message}`,
+        err,
+      );
+    } catch (error) {
+      this.logger.error(error);
+    }
   }
 }

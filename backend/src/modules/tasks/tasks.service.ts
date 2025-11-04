@@ -23,7 +23,7 @@ export class TasksService {
   // @Cron(CronExpression.EVERY_HOUR) // testing
   @Cron(CronExpression.EVERY_DAY_AT_4AM) // every day at 4:00 AM
   async cleanupTempDirectory() {
-    this.logger.log('Cleanup temp directory via Cronjob');
+    this.logger.info('Cleanup temp directory via Cronjob');
     const rootTempDir = this.pathService.getRootTempDirectory();
 
     const readTempDir = await readdir(rootTempDir);
