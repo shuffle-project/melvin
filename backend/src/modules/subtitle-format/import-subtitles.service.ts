@@ -3,6 +3,7 @@ import { parse } from '@plussub/srt-vtt-parser';
 import { Entry } from '@plussub/srt-vtt-parser/dist/src/types';
 import { readFile } from 'fs-extra';
 import { AuthUser } from '../../resources/auth/auth.interfaces';
+import { CustomLogger } from '../logger/logger.service';
 import { PathService } from '../path/path.service';
 import { WordEntity } from '../speech-to-text/speech-to-text.interfaces';
 import { TiptapService } from '../tiptap/tiptap.service';
@@ -13,6 +14,7 @@ export class ImportSubtitlesService {
   constructor(
     private pathService: PathService,
     private tiptapService: TiptapService,
+    private logger: CustomLogger,
   ) {}
 
   async fromFile(
@@ -61,7 +63,7 @@ export class ImportSubtitlesService {
         await this.tiptapService.updateDocument(transcriptionId, document);
       }
     } catch (error: any) {
-      console.log(error);
+      this.logger.error(error);
     }
   }
 

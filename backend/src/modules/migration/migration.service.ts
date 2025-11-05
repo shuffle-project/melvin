@@ -200,15 +200,6 @@ export class MigrationService {
 
     const processVideoJobs: ProcessVideoJob[] = [];
     for (const project of projects) {
-      // projects.forEach(async (project) => {
-      // const projectDir = this.pathService.getProjectDirectory(
-      //   project._id.toString(),
-      // );
-      // const dirExists = await exists(projectDir);
-      // console.log(
-      //   'dirExists ' + project.title + ' - ' + project._id.toString(),
-      //   dirExists,
-      // );
       for (const video of project.videos) {
         // project.videos.forEach(async (video) => {
         try {

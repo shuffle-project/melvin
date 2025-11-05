@@ -14,16 +14,6 @@ export const createInitialCaption = createAction(
   '[CAPTIONS COMPONENT] Create initial empty caption'
 );
 
-export const createSuccess = createAction(
-  '[CAPTION API] Add caption success',
-  props<{ newCaption: CaptionEntity }>()
-);
-
-export const createFromWS = createAction(
-  '[CAPTION WS] Add caption from WebSocket',
-  props<{ newCaption: CaptionEntity }>()
-);
-
 export const createFailed = createAction(
   '[CAPTION API] Add caption failure',
   props<{ error: HttpErrorResponse }>()
@@ -58,11 +48,6 @@ export const findAllFromEffect = createAction(
   props<{ transcriptionId: string }>()
 );
 
-export const findAllSuccess = createAction(
-  '[CAPTION API] Fetch Captions of Transcription success',
-  props<{ captionListEntity: CaptionListEntity }>()
-);
-
 export const findAllFail = createAction(
   '[CAPTION API] Fetch Captions of Transcription fail',
   props<{ error: HttpErrorResponse }>()
@@ -90,19 +75,9 @@ export const updateAndUnselect = createAction(
   props<{ id: string; updateDto: UpdateCaptionDto }>()
 );
 
-export const updateSuccess = createAction(
-  '[CAPTION API] Update Caption success',
-  props<{ updateCaption: CaptionEntity }>()
-);
-
 export const updateFailed = createAction(
   '[CAPTION API] Update Caption failed',
   props<{ error: HttpErrorResponse }>()
-);
-
-export const updateFromWS = createAction(
-  '[CAPTION WS] Caption updated from WS',
-  props<{ updateCaption: CaptionEntity }>()
 );
 
 // others

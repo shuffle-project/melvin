@@ -94,7 +94,6 @@ export class TeamService {
       .exec();
 
     const size = await this.db.getTeamSize(id);
-    console.log(newTeam);
     return plainToInstance(TeamEntity, { ...newTeam, size });
   }
 
