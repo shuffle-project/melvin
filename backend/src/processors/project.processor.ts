@@ -52,6 +52,9 @@ export class ProjectProcessor {
   @Process()
   async processProject(job: Job<ProcessProjectJob>) {
     let { project, file, mainVideo, mainAudio, recorder } = job.data;
+
+    await this.db.findProjectByIdOrThrow(project._id.toString());
+
     const filePath = this.pathService.getUploadFile(
       file.uploadId,
       file.extension,
@@ -182,92 +185,99 @@ export class ProjectProcessor {
 
   @OnQueueActive()
   async activeHandler(job: Job<ProcessProjectJob>) {
-    const { project } = job.data;
-    const projectId = project._id.toString();
-
-    const systemUser = await this.authService.findSystemAuthUser();
-
     try {
+      const { project } = job.data;
+      const projectId = project._id.toString();
+
+      const systemUser = await this.authService.findSystemAuthUser();
+
       await this.projectService.update(systemUser, projectId, {
         status: ProjectStatus.PROCESSING,
       });
+
+      this.logger.verbose(
+        `Project processing START: Job ${job.id}, ProjectId: ${projectId}`,
+      );
     } catch (err) {
       this.logger.error(err);
     }
-
-    this.logger.verbose(
-      `Project processing START: Job ${job.id}, ProjectId: ${projectId}`,
-    );
   }
 
   @OnQueueCompleted()
   async completeHandler(job: Job<ProcessProjectJob>, result: any) {
-    const { project, file, mainVideo } = job.data;
-    const projectId = project._id.toString();
+    try {
+      const { project, file, mainVideo } = job.data;
+      const projectId = project._id.toString();
 
-    const systemUser = await this.authService.findSystemAuthUser();
+      const systemUser = await this.authService.findSystemAuthUser();
 
-    await this.activityService.create(
-      project,
-      systemUser.id,
-      'video-processing-finished',
-      {},
-    );
+      await this.activityService.create(
+        project,
+        systemUser.id,
+        'video-processing-finished',
+        {},
+      );
 
-    const jobTypes: JobStatus[] = ['active', 'paused', 'waiting', 'delayed'];
-    const projectJobs = await job.queue.getJobs(jobTypes);
-    // const subtitleJobs = await this.subtitlesQueue.getJobs(jobTypes);
+      const jobTypes: JobStatus[] = ['active', 'paused', 'waiting', 'delayed'];
+      const projectJobs = await job.queue.getJobs(jobTypes);
+      // const subtitleJobs = await this.subtitlesQueue.getJobs(jobTypes);
 
-    // if there are no more project jobs, set status to draft
-    const projectJobExists = jobWithProjectIdExists(
-      projectId,
-      // subtitleJobs,
-      projectJobs,
-    );
+      // if there are no more project jobs, set status to draft
+      const projectJobExists = jobWithProjectIdExists(
+        projectId,
+        // subtitleJobs,
+        projectJobs,
+      );
 
-    if (!projectJobExists) {
-      await this.projectService.update(systemUser, projectId, {
-        status: ProjectStatus.DRAFT,
+      if (!projectJobExists) {
+        await this.projectService.update(systemUser, projectId, {
+          status: ProjectStatus.DRAFT,
+        });
+      }
+
+      // start processing video in all resolutions
+      this.videoQueue.add({
+        projectId,
+        video: mainVideo,
+        skipLowestResolution: true,
       });
+
+      this.logger.verbose(
+        `Project processing DONE: Job ${job.id}, ProjectId: ${projectId}, Result: ${result}`,
+      );
+
+      this.logger.info('ProjectJobs left: ' + projectJobs.length);
+    } catch (error) {
+      this.logger.error(error);
     }
-
-    // start processing video in all resolutions
-    this.videoQueue.add({
-      projectId,
-      video: mainVideo,
-      skipLowestResolution: true,
-    });
-
-    this.logger.verbose(
-      `Project processing DONE: Job ${job.id}, ProjectId: ${projectId}, Result: ${result}`,
-    );
-
-    this.logger.info('ProjectJobs left: ' + projectJobs.length);
   }
 
   @OnQueueFailed()
   async failHandler(job: Job<ProcessProjectJob>, err: Error) {
-    const { project } = job.data;
-    const projectId = project._id.toString();
+    try {
+      const { project } = job.data;
+      const projectId = project._id.toString();
 
-    const systemUser = await this.authService.findSystemAuthUser();
+      const systemUser = await this.authService.findSystemAuthUser();
 
-    await this.activityService.create(
-      project,
-      systemUser.id,
-      'video-processing-failed',
-      { error: err },
-    );
+      await this.activityService.create(
+        project,
+        systemUser.id,
+        'video-processing-failed',
+        { error: err },
+      );
 
-    await this.projectService.update(systemUser, projectId, {
-      status: ProjectStatus.ERROR,
-    });
+      await this.projectService.update(systemUser, projectId, {
+        status: ProjectStatus.ERROR,
+      });
 
-    this.logger.error(
-      `Project processing FAIL: Job ${job.id}, ProjectId: ${projectId}, Errormessage: ${err.message}`,
-    );
-    this.logger.error('Stack:');
-    this.logger.error(err.stack);
+      this.logger.error(
+        `Project processing FAIL: Job ${job.id}, ProjectId: ${projectId}, Errormessage: ${err.message}`,
+        err,
+      );
+    } catch (error) {
+      this.logger.error(error);
+    }
   }
 
   async generateWaveformData(data: ProcessProjectJob, audio: Audio) {

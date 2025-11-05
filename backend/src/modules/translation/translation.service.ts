@@ -1,22 +1,19 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { Types } from 'mongoose';
+import { MelvinAsrConfig } from 'src/config/config.interface';
 import { TranslationServiceConfig } from '../../app.interfaces';
 import {
   TranslateVendors,
   TranslationPayload,
 } from '../../processors/processor.interfaces';
 import { AuthService } from '../../resources/auth/auth.service';
-import { CaptionService } from '../../resources/caption/caption.service';
 import { TranscriptionEntity } from '../../resources/transcription/entities/transcription.entity';
 import { DbService } from '../db/db.service';
 import { Project } from '../db/schemas/project.schema';
 import { CustomLogger } from '../logger/logger.service';
 import { WhiSegment } from '../speech-to-text/whisper/whisper.interfaces';
 import { TiptapService } from '../tiptap/tiptap.service';
-import { DeepLService } from './deepl/deepl.service';
-import { GoogleTranslateService } from './google-translate/google-translate.service';
-import { LibreTranslateService } from './libre-translate/libre-translate.service';
 import { MelvinTranslateDto } from './melvin-translate/melvin-translate.interfaces';
 import { MelvinTranslateService } from './melvin-translate/melvin-translate.service';
 
@@ -25,11 +22,7 @@ export class TranslationService {
   constructor(
     private logger: CustomLogger,
     private authService: AuthService,
-    private captionService: CaptionService,
     private db: DbService,
-    private libreTranslate: LibreTranslateService,
-    private deepL: DeepLService,
-    private googleTranslate: GoogleTranslateService,
     private configService: ConfigService,
     private melvinTranslate: MelvinTranslateService,
     private tiptapService: TiptapService,
@@ -38,23 +31,17 @@ export class TranslationService {
   }
 
   private serviceConfigs: {
-    deepl: TranslationServiceConfig | null;
-    libre: TranslationServiceConfig | null;
-    googleTranslate: TranslationServiceConfig | null;
     melvinTranslate: TranslationServiceConfig | null;
   } = {
-    deepl: null,
-    libre: null,
-    googleTranslate: null,
     melvinTranslate: null,
   };
 
   async initServices() {
-    if (this.configService.get('whisper')) {
+    if (this.configService.get<MelvinAsrConfig>('melvinAsr')) {
       try {
         const melvin = (await this.melvinTranslate.fetchLanguages()) || null;
         if (melvin) {
-          this.serviceConfigs.libre = {
+          this.serviceConfigs.melvinTranslate = {
             fullName: 'Melvin',
             translateVendor: TranslateVendors.MELVIN,
             languages: melvin.map((obj) => ({
@@ -67,77 +54,10 @@ export class TranslationService {
         //do nothing, languages will be null = service not initialized
       }
     }
-
-    if (this.configService.get('libreTranslate')) {
-      try {
-        const libre = (await this.libreTranslate.fetchLanguages()) || null;
-        if (libre) {
-          this.serviceConfigs.libre = {
-            fullName: 'LibreTranslate',
-            translateVendor: TranslateVendors.LIBRE,
-            languages: libre.map((obj) => ({
-              code: obj.code,
-              name: obj.name,
-            })),
-          };
-        }
-      } catch (error) {
-        //do nothing, languages will be null = service not initialized
-      }
-    }
-
-    if (this.configService.get('deepL')) {
-      try {
-        const deepl = (await this.deepL.fetchLanguages()) || null;
-        if (deepl) {
-          this.serviceConfigs.deepl = {
-            fullName: 'DeepL',
-            translateVendor: TranslateVendors.DEEPL,
-            languages: deepl.map((obj) => ({
-              code: obj.language,
-              name: obj.name,
-            })),
-          };
-        }
-      } catch (error) {
-        //do nothing, languages will be null = service not initialized
-      }
-    }
-
-    if (this.configService.get('googleTranslate')) {
-      try {
-        const googleTranslate =
-          (await this.googleTranslate.fetchLanguages()) || null;
-        if (googleTranslate) {
-          this.serviceConfigs.googleTranslate = {
-            fullName: 'Google Translate',
-            translateVendor: TranslateVendors.GOOGLE,
-            languages: googleTranslate.data.languages.map((obj) => ({
-              code: obj.language,
-              name: obj.name,
-            })),
-          };
-        }
-      } catch (error) {
-        //do nothing, languages will be null = service not initialized
-      }
-    }
   }
 
   getConfig(): TranslationServiceConfig[] {
     const translationServices: TranslationServiceConfig[] = [];
-
-    if (this.serviceConfigs.deepl) {
-      translationServices.push(this.serviceConfigs.deepl);
-    }
-
-    if (this.serviceConfigs.libre) {
-      translationServices.push(this.serviceConfigs.libre);
-    }
-
-    if (this.serviceConfigs.googleTranslate) {
-      translationServices.push(this.serviceConfigs.googleTranslate);
-    }
 
     if (this.serviceConfigs.melvinTranslate) {
       translationServices.push(this.serviceConfigs.melvinTranslate);
@@ -250,90 +170,7 @@ export class TranslationService {
         );
 
         break;
-
-      case TranslateVendors.LIBRE:
-        this.logger.info('Translate with ' + TranslateVendors.LIBRE);
-        throw new Error('no_implemented');
-        // const libreEntity = await this.libreTranslate.translateText(
-        //   textsToTranslate,
-        //   source.language,
-        //   translationPayload.targetLanguage,
-        // );
-        // translatedTexts = libreEntity.translatedText;
-        break;
-
-      case TranslateVendors.DEEPL:
-        this.logger.info('Translate with ' + TranslateVendors.DEEPL);
-        throw new Error('no_implemented');
-        // const deeplEntity = await this.deepL.translateText(
-        //   textsToTranslate,
-        //   source.language,
-        //   translationPayload.targetLanguage,
-        // );
-        // translatedTexts = deeplEntity.translations.map((obj) => obj.text);
-        break;
-
-      case TranslateVendors.GOOGLE:
-        this.logger.info('Translate with ' + TranslateVendors.GOOGLE);
-        throw new Error('no_implemented');
-        // const googleEntity = await this.googleTranslate.translateText(
-        //   textsToTranslate,
-        //   source.language,
-        //   translationPayload.targetLanguage,
-        // );
-        // translatedTexts = googleEntity.data.translations.map(
-        //   (obj) => obj.translatedText,
-        // );
-        break;
     }
-
-    // const allTextsFinal = [];
-
-    // for (let i = 0; i < translatedTexts.length; i++) {
-    //   const translatedText = translatedTexts[i];
-    //   const textSourceLang = textsToTranslate[i];
-
-    //   const sectionCountSourceLang = this._countWords(textSourceLang);
-    //   const sectionCountTargetLang = this._countWords(translatedText);
-
-    //   const splitInCaptionsCounter = counterPerSection[i];
-    //   const textSplittedInWords = translatedText.split(' ');
-
-    //   let internalWordCounter = 0;
-    //   for (let index = 0; index < splitInCaptionsCounter; index++) {
-    //     const dtoIndex = allTextsFinal.length;
-    //     const sourceTextWordCount = this._countWords(
-    //       createCaptionDtos[dtoIndex].text,
-    //     );
-
-    //     const percentOfWordsInSection =
-    //       (sourceTextWordCount * 100) / sectionCountSourceLang;
-    //     const targetTextWordCount =
-    //       (sectionCountTargetLang / 100) * percentOfWordsInSection;
-
-    //     let endOfCaption = internalWordCounter + targetTextWordCount;
-    //     if (index === splitInCaptionsCounter - 1) {
-    //       endOfCaption = textSplittedInWords.length;
-    //     }
-    //     allTextsFinal.push(
-    //       textSplittedInWords
-    //         .slice(internalWordCounter, endOfCaption)
-    //         .join(' '),
-    //     );
-    //     internalWordCounter = internalWordCounter + targetTextWordCount;
-    //   }
-    // }
-
-    // for (let index = 0; index < createCaptionDtos.length; index++) {
-    //   createCaptionDtos[index].text = allTextsFinal[index];
-    // }
-
-    // // create captions
-    // await this.captionService.createMany(
-    //   systemUser,
-    //   createCaptionDtos,
-    //   project._id.toString(),
-    // );
   }
 
   _countWords(text: string): number {

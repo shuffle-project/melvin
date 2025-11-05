@@ -4,7 +4,7 @@ export interface InviteEntity {
   userName: string;
 }
 
-export interface GuestLoginEntity {
+export interface ViewerLoginEntity {
   token: string;
   projectId: string;
 }

@@ -217,32 +217,7 @@ export class VideoContainerComponent
       switch (event.key) {
         case ' ':
           this.store.dispatch(viewerActions.playPauseUser());
-          // if (this.viewerService.audio.paused) {
-          //   this.viewerService.play();
-          // } else {
-          //   this.viewerService.pause();
-          // }
           break;
-        // case 'ArrowRight':
-        //   if (
-        //     this.viewerService.audio.currentTime + 3000 <
-        //     this.viewerService.audio.duration
-        //   )
-        //     this.viewerService.audio.currentTime += 3000;
-        //   break;
-        // case 'ArrowLeft':
-        //   if (this.viewerService.audio.currentTime - 3000 > 0)
-        //     this.viewerService.audio.currentTime -= 3000;
-
-        //   break;
-        // case 'ArrowUp':
-        //   if (this.viewerService.audio.volume < 1)
-        //     this.viewerService.audio.volume += 0.1;
-        //   break;
-        // case 'ArrowDown':
-        //   if (this.viewerService.audio.volume > 0)
-        //     this.viewerService.audio.volume -= 0.1;
-        //   break;
       }
     }
   }
@@ -289,22 +264,6 @@ export class VideoContainerComponent
         tap((seekTo: number) => (this.viewerVideoElement.currentTime = seekTo))
       )
       .subscribe();
-
-    // sync to audio
-    // this.viewerService.currentTime$
-    //   .pipe(
-    //     takeUntil(this.destroy$$),
-    //     throttleTime(2000),
-    //     tap((audioCurrentTime: number) => {
-    //       // return if viewerVideo duration is already reached
-
-    //       const audioTime = audioCurrentTime;
-    //       const videoTime = this.viewerVideoElement.currentTime;
-
-    //       // this._resyncIfNeeded(audioTime, videoTime);
-    //     })
-    //   )
-    //   .subscribe();
   }
 
   private _resyncIfNeeded(audioTime: number, videoTime: number) {

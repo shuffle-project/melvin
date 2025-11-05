@@ -151,11 +151,6 @@ export class ViewerEffects {
     { dispatch: false }
   );
 
-  // this.api
-  // .transcriptionGetCaptions(transcriptions[0].id, true)
-  // .subscribe((res) => {
-  //   console.log(res);
-  // });
   // fetchCaptions
   fetchTiptapCaptions$ = createEffect(() =>
     this.actions$.pipe(
@@ -170,20 +165,6 @@ export class ViewerEffects {
       )
     )
   );
-
-  // fetchCaptions$ = createEffect(() =>
-  //   this.actions$.pipe(
-  //     ofType(viewerActions.findCaptions, viewerActions.changeTranscriptionId),
-  //     switchMap((action) =>
-  //       this.api.findAllCaptions(action.transcriptionId, true).pipe(
-  //         map((captionListEntity: CaptionListEntity) =>
-  //           viewerActions.findCaptionsSuccess({ captionListEntity })
-  //         ),
-  //         catchError((error) => of(viewerActions.findCaptionsFail({ error })))
-  //       )
-  //     )
-  //   )
-  // );
 
   /**
    * ERRORS
@@ -204,39 +185,6 @@ export class ViewerEffects {
       ),
     { dispatch: false }
   );
-
-  /**
-   * SETTINGS
-   */
-
-  // changeTranscriptEnabled$ = createEffect(
-  //   () =>
-  //     this.actions$.pipe(
-  //       ofType(viewerActions.changeTranscriptEnabled),
-  //       tap((action) => {
-  //         this.storageService.storeInLocalStorage(
-  //           StorageKey.VIEWER_TRANSCRIPT_ENABLED,
-  //           action.transcriptEnabled
-  //         );
-  //       })
-  //     ),
-  //   { dispatch: false }
-  // );
-
-  // toggleTranscriptEnabled$ = createEffect(
-  //   () =>
-  //     this.actions$.pipe(
-  //       ofType(viewerActions.toggleTranscript),
-  //       withLatestFrom(this.store.select(viewerSelector.vTranscriptEnabled)),
-  //       tap(([action, transcriptEnabled]) => {
-  //         this.storageService.storeInLocalStorage(
-  //           StorageKey.VIEWER_TRANSCRIPT_ENABLED,
-  //           transcriptEnabled
-  //         );
-  //       })
-  //     ),
-  //   { dispatch: false }
-  // );
 
   changeTranscriptFontsize$ = createEffect(
     () =>

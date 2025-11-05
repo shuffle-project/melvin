@@ -1,6 +1,5 @@
 import { BullModule } from '@nestjs/bull';
 import { Module } from '@nestjs/common';
-import { PopulateModule } from '../../resources/populate/populate.module';
 import { DbModule } from '../db/db.module';
 import { FfmpegModule } from '../ffmpeg/ffmpeg.module';
 import { LoggerModule } from '../logger/logger.module';
@@ -12,7 +11,6 @@ import { MigrationService } from './migration.service';
 @Module({
   imports: [
     DbModule,
-    PopulateModule,
     LoggerModule,
     TiptapModule,
     SpeechToTextModule,

@@ -3,14 +3,6 @@ import { Type } from 'class-transformer';
 import { TeamEntity } from 'src/resources/team/entities/team.entity';
 import { UserRole } from 'src/resources/user/user.interfaces';
 
-// export class ProjectInformation {
-//   @ApiProperty()
-//   id: string;
-
-//   @ApiProperty()
-//   sizeInByte: number;
-// }
-
 export class UserEntity {
   @ApiProperty()
   id: string;
@@ -41,10 +33,6 @@ export class UserEntity {
 
   @ApiProperty()
   team: TeamEntity | null;
-
-  // @ApiProperty({ type: [ProjectInformation] })
-  // @Type(() => ProjectInformation)
-  // projects: ProjectInformation[];
 }
 
 export class UserListEntity {

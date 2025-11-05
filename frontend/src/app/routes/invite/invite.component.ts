@@ -12,21 +12,20 @@ import { ApiService } from '../../services/api/api.service';
 import { AppState } from '../../store/app.state';
 import * as authSelectors from '../../store/selectors/auth.selector';
 import * as authActions from './../../store/actions/auth.actions';
-import { GuestLoginDialogComponent } from './components/guest-login/guest-login-dialog.component';
 
 import { LetDirective } from '@ngrx/component';
 @Component({
-    selector: 'app-invite',
-    templateUrl: './invite.component.html',
-    styleUrls: ['./invite.component.scss'],
-    imports: [
-        LetDirective,
-        MatProgressSpinnerModule,
-        MatCardModule,
-        MatIconModule,
-        MatButtonModule,
-        MatDividerModule,
-    ]
+  selector: 'app-invite',
+  templateUrl: './invite.component.html',
+  styleUrls: ['./invite.component.scss'],
+  imports: [
+    LetDirective,
+    MatProgressSpinnerModule,
+    MatCardModule,
+    MatIconModule,
+    MatButtonModule,
+    MatDividerModule,
+  ],
 })
 export class InviteComponent implements OnInit, OnDestroy {
   private destroy$$ = new Subject<void>();
@@ -48,39 +47,11 @@ export class InviteComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.store.dispatch(authActions.verifyInviteToken());
-
-    // // this.store
-    // //   .select(authSelectors.getInviteToken)
-    // //   .pipe(
-    // //     takeUntil(this.destroy$$),
-    // //     exhaustMap((token) =>
-    // //       this.api.verifyInviteToken(token).pipe(
-    // //         map((project) => project),
-    // //         catchError((err: HttpErrorResponse) => of(err.message))
-    // //       )
-    // //     )
-    // //   )
-    // //   .subscribe((project) => {
-    // //     if (project) {
-    // //       console.log(project);
-    // //     } else {
-    // //       this.router.navigate(['/']);
-    // //     }
-    // //   });
   }
 
   ngOnDestroy() {
     this.destroy$$.next();
   }
-
-  // private async verifyToken(token: string): Promise<void> {
-  //   try {
-  //     const res = await this.api.verifyInviteToken(token);
-  //   } catch (err) {
-  //   } finally {
-  //     this.loading = false;
-  //   }
-  // }
 
   onClickAbort() {
     this.router.navigate(['/home']);
@@ -96,16 +67,5 @@ export class InviteComponent implements OnInit, OnDestroy {
 
   onClickAuth() {
     this.router.navigate(['/']);
-  }
-
-  onClickJoinAsGuest() {
-    const dialog = this.dialog.open(GuestLoginDialogComponent);
-
-    const subscription = dialog.afterClosed().subscribe((data) => {
-      if (data) {
-        this.store.dispatch(authActions.guestLogin({ name: data.name }));
-      }
-      subscription.unsubscribe();
-    });
   }
 }

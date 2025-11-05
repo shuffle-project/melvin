@@ -5,7 +5,7 @@ import {
   OnGatewayInit,
   WebSocketGateway,
 } from '@nestjs/websockets';
-import { instanceToPlain, plainToInstance } from 'class-transformer';
+import { instanceToPlain } from 'class-transformer';
 import { IncomingMessage } from 'http';
 import { Server, WebSocket } from 'ws';
 import {
@@ -18,7 +18,6 @@ import { LeanProjectDocument } from '../../modules/db/schemas/project.schema';
 import { TiptapService } from '../../modules/tiptap/tiptap.service';
 import { getObjectIdAsString } from '../../utils/objectid';
 import { AuthUser } from '../auth/auth.interfaces';
-import { CaptionEntity } from '../caption/entities/caption.entity';
 import { NotificationEntity } from '../notification/entities/notification.entity';
 import { UpdatePartialProjectDto } from '../project/dto/update-partial-project.dto';
 import { ProjectEntity } from '../project/entities/project.entity';
@@ -64,15 +63,8 @@ export class EventsGateway
       for (const project of projects) {
         const room = `project:${project._id.toString()}`;
         this.socketService.broadcast(room, 'project:user-changed', {
-          // userId: (client as AuthorizedWebSocket).data.userId,
-          // clientId: (client as AuthorizedWebSocket).data.clientId,
           users: this._getUsers(room, project),
         });
-        // this.socketService.broadcast(room, 'project:user-left', {
-        //   userId: (client as AuthorizedWebSocket).data.userId,
-        //   clientId: (client as AuthorizedWebSocket).data.clientId,
-        //   activeUsers: this._getActiveUsers(room, project),
-        // });
       }
 
       // Unlock captions
@@ -116,37 +108,6 @@ export class EventsGateway
       }));
     const combined = [...activeUsers, ...otherUsers];
     return combined;
-  }
-
-  async _unlockAllCaptions(projectId: string, userId: string) {
-    const lockedByUser = await this.db.captionModel
-      .find({
-        project: projectId,
-        lockedBy: userId,
-      })
-      .lean()
-      .exec();
-
-    await this.db.captionModel
-      .updateMany(
-        { project: projectId, lockedBy: userId },
-        {
-          $set: {
-            lockedBy: null,
-          },
-        },
-      )
-      .exec();
-
-    await Promise.all(
-      lockedByUser.map((caption) => {
-        caption.lockedBy = null;
-        return this.captionUpdatedProjId(
-          projectId,
-          plainToInstance(CaptionEntity, caption),
-        );
-      }),
-    );
   }
 
   async joinProjectRoom(authUser: AuthUser, project: LeanProjectDocument) {
@@ -320,49 +281,4 @@ export class EventsGateway
       },
     );
   }
-
-  async captionCreated(project: LeanProjectDocument, caption: CaptionEntity) {
-    this.socketService.broadcast(
-      `project:${project._id.toString()}`,
-      'caption:created',
-      {
-        caption: instanceToPlain(caption) as CaptionEntity,
-      },
-    );
-  }
-
-  async captionUpdatedProjId(projectId: string, caption: CaptionEntity) {
-    this.socketService.broadcast(`project:${projectId}`, 'caption:updated', {
-      caption: instanceToPlain(caption) as CaptionEntity,
-    });
-  }
-
-  async captionUpdated(project: LeanProjectDocument, caption: CaptionEntity) {
-    this.socketService.broadcast(
-      `project:${project._id.toString()}`,
-      'caption:updated',
-      {
-        caption: instanceToPlain(caption) as CaptionEntity,
-      },
-    );
-  }
-
-  async captionRemoved(project: LeanProjectDocument, caption: CaptionEntity) {
-    this.socketService.broadcast(
-      `project:${project._id.toString()}`,
-      'caption:removed',
-      {
-        captionId: getObjectIdAsString(caption._id),
-      },
-    );
-  }
-
-  // Kurento
-  //   async serverIceCandidate(authUser: AuthUser, candidate: string) {
-  //     const rooms = this._getUserRooms([authUser.id]);
-
-  //     this.socketService.broadcast(rooms, 'livestream:server-ice-candidate', {
-  //       candidate,
-  //     });
-  //   }
 }

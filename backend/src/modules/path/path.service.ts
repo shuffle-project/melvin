@@ -33,7 +33,7 @@ export class PathService {
   }
 
   getUploadFile(id: string, ext: string): string {
-    const filename = 'file' + ext.startsWith('.') ? ext : '.' + ext;
+    const filename = 'file' + (ext.startsWith('.') ? ext : '.' + ext);
     return join(this.getUploadDirectory(id), filename);
   }
 
@@ -94,11 +94,6 @@ export class PathService {
     const filename = media._id + '.' + media.extension;
     return join(this.getProjectDirectory(projectId), filename);
   }
-
-  // getMediaFile(projectId: string, media: Audio | Export): string {
-  //   const filename = media._id + '.' + media.extension;
-  //   return join(this.getProjectDirectory(projectId), filename);
-  // }
 
   getFileWithExt(projectId: string, fileId: string, extension: string): string {
     return join(this.getProjectDirectory(projectId), fileId + '.' + extension);

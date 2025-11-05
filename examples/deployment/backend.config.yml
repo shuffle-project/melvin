@@ -1,5 +1,12 @@
 environment: docker
 baseUrl: http://localhost:3000 # TODO replace
+baseFrontendUrl: http://localhost:4200 // TODO replace
+
+registration:
+  mode: disabled # email = registration via email/smtp | disabled = registration via adminpanel
+
+defaultUserSizeLimitGB: -1 # -1 = unlimited
+
 mongodb:
   uri: mongodb://mongodb:27017/captioning
 
@@ -12,7 +19,7 @@ jwt:
   issuer: http://localhost:3000 # TODO replace
   audience: http://localhost:4200 # TODO replace
 
-whisper:
+melvinAsr:
   host: http://localhost:8000
   apikey: YOUR_ASR_SECRET # TODO replace
 
@@ -20,12 +27,15 @@ basicAuth:
   username: melvin
   password: YOUR_BASIC_AUTH_SECRET # TODO replace
 
-email:
-  smtpServer: "smtp.example.com"
-  smtpPort: 465
-  user: "info@example.com"
-  password: "secret"
-  mailFrom: info@example.com
-  mailFromName: Melvin
-
-initialUsers: [{ name: "Jane Doe", email: "jane.doe@example.com" }] # TODO add users
+adminUser:
+  username: admin
+  # you can either set a cleartext or a hashed password (-> htpasswd -nbB admin secret)
+  password: secret
+  # hashedPassword: admin:$2y$05$jswg1DsryRkK.NUwFQvxqOTC1VAO/CMOp5f6pJ4IPY5gTzm/zyWbu
+#email:
+#  smtpServer: "smtp.example.com"
+#  smtpPort: 465
+#  user: "info@example.com"
+#  password: "secret"
+#  mailFrom: info@example.com
+#  mailFromName: Melvin

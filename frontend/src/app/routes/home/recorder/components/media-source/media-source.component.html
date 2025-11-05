@@ -72,32 +72,6 @@
       </button>
     </mat-menu>
     <div class="header-buttons">
-      <!-- <div
-        *ngIf="
-        screensharingSource &&
-        screensharingSource.mediaStream &&
-        screensharingSource.sound === true
-        "
-        class="flex"
-        > -->
-      <!-- <div class="meter-wrapper">
-        <app-audio-meter
-          [mediaStream]="screensharingSource.mediaStream"
-        ></app-audio-meter>
-      </div> -->
-      <!-- <button mat-icon-button class="md" matTooltip="">
-      <mat-icon svgIcon="volume"></mat-icon>
-    </button> -->
-      <!-- </div> -->
-      <!-- <button
-  *ngIf="screensharingSource && screensharingSource.sound === false"
-  mat-icon-button
-  class="md"
-  matTooltip="Ton wurde nicht genehmigt. Bitte neu hinzufügen."
-  >
-  <mat-icon svgIcon="volume_off"></mat-icon>
-</button> -->
-
       @if (!recorderService.recording) {
       <button mat-icon-button class="md" (click)="onRemoveMediaSource()">
         <mat-icon svgIcon="delete"></mat-icon>

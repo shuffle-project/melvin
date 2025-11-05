@@ -10,6 +10,7 @@ import { Job, Queue } from 'bull';
 import { plainToInstance } from 'class-transformer';
 import { rm } from 'fs/promises';
 import { TranscriptionStatus } from 'src/modules/db/schemas/transcription.schema';
+import { TiptapService } from 'src/modules/tiptap/tiptap.service';
 import { DbService } from '../modules/db/db.service';
 import { Project } from '../modules/db/schemas/project.schema';
 import { CustomLogger } from '../modules/logger/logger.service';
@@ -20,8 +21,6 @@ import { TranslationService } from '../modules/translation/translation.service';
 import { ActivityService } from '../resources/activity/activity.service';
 import { AuthUser } from '../resources/auth/auth.interfaces';
 import { AuthService } from '../resources/auth/auth.service';
-import { CaptionService } from '../resources/caption/caption.service';
-import { CreateCaptionDto } from '../resources/caption/dto/create-caption.dto';
 import { EventsGateway } from '../resources/events/events.gateway';
 import { ProjectService } from '../resources/project/project.service';
 import { TranscriptionEntity } from '../resources/transcription/entities/transcription.entity';
@@ -49,10 +48,10 @@ export class SubtitlesProcessor {
     private projectService: ProjectService,
     private pathService: PathService,
     private translationService: TranslationService,
-    private captionService: CaptionService,
     private activityService: ActivityService,
     private events: EventsGateway,
     private db: DbService,
+    private tiptapService: TiptapService,
     @InjectQueue('project') private projectQueue: Queue<ProcessProjectJob>,
   ) {
     this.logger.setContext(this.constructor.name);
@@ -118,119 +117,105 @@ export class SubtitlesProcessor {
 
   @OnQueueActive()
   async activeHandler(job: Job<ProcessSubtitlesJob>) {
-    const { project, transcription } = job.data;
+    try {
+      const { project, transcription } = job.data;
 
-    if (transcription.status !== TranscriptionStatus.PROCESSING) {
-      // await this.projectService.update(systemUser, project._id.toString(), {
-      //   status: ProjectStatus.PROCESSING,
-      // });
-      await this.db.transcriptionModel
-        .findByIdAndUpdate(transcription._id, {
-          $set: {
-            status: TranscriptionStatus.PROCESSING,
-          },
-        })
-        .lean()
-        .exec();
+      if (transcription.status !== TranscriptionStatus.PROCESSING) {
+        await this.db.transcriptionModel
+          .findByIdAndUpdate(transcription._id, {
+            $set: {
+              status: TranscriptionStatus.PROCESSING,
+            },
+          })
+          .lean()
+          .exec();
+      }
+
+      const systemUser = await this.authService.findSystemAuthUser();
+      const updatedTranscription = await this.transcriptionService.findOne(
+        systemUser,
+        transcription._id.toString(),
+      );
+      const entity = plainToInstance(TranscriptionEntity, updatedTranscription);
+      this.events.transcriptionUpdated(project, entity);
+
+      this.logger.verbose(
+        `Subtitle creation START: Job ${
+          job.id
+        }, ProjectId: ${project._id.toString()}`,
+      );
+    } catch (error) {
+      this.logger.error(error);
     }
-
-    const systemUser = await this.authService.findSystemAuthUser();
-    const updatedTranscription = await this.transcriptionService.findOne(
-      systemUser,
-      transcription._id.toString(),
-    );
-    const entity = plainToInstance(TranscriptionEntity, updatedTranscription);
-    this.events.transcriptionUpdated(project, entity);
-
-    this.logger.verbose(
-      `Subtitle creation START: Job ${
-        job.id
-      }, ProjectId: ${project._id.toString()}`,
-    );
   }
 
   @OnQueueCompleted()
   async completeHandler(job: Job<ProcessSubtitlesJob>, result: any) {
-    const { project, payload, transcription } = job.data;
-    const systemUser = await this.authService.findSystemAuthUser();
+    try {
+      const { project, payload, transcription } = job.data;
+      const systemUser = await this.authService.findSystemAuthUser();
 
-    await this.activityService.create(
-      project,
-      systemUser.id,
-      'subtitles-processing-finished',
-      { transcription: job.data.transcription },
-    );
+      await this.activityService.create(
+        project,
+        systemUser.id,
+        'subtitles-processing-finished',
+        { transcription: job.data.transcription },
+      );
 
-    // const jobTypes: JobStatus[] = ['active', 'paused', 'waiting', 'delayed'];
-    // const subtitleJobs = await job.queue.getJobs(jobTypes);
-    // const projectJobs = await this.projectQueue.getJobs(jobTypes);
-    // // if there are no more project jobs, set status to draft
-    // const projectJobExists = jobWithProjectIdExists(
-    //   project._id.toString(),
-    //   subtitleJobs,
-    //   projectJobs,
-    // );
+      if (
+        job.data.payload.type === SubtitlesType.FROM_COPY ||
+        job.data.payload.type === SubtitlesType.FROM_FILE
+      ) {
+        await this.db.transcriptionModel
+          .findByIdAndUpdate(transcription._id, {
+            $set: {
+              status: TranscriptionStatus.OK,
+            },
+          })
+          .lean()
+          .exec();
+      }
 
-    // if (!projectJobExists) {
-    //   await this.projectService.update(systemUser, project._id.toString(), {
-    //     status: ProjectStatus.DRAFT,
-    //   });
-    // }
+      const updatedTranscription = await this.transcriptionService.findOne(
+        systemUser,
+        transcription._id.toString(),
+      );
+      const entity = plainToInstance(TranscriptionEntity, updatedTranscription);
+      this.events.transcriptionUpdated(project, entity);
 
-    if (
-      job.data.payload.type === SubtitlesType.FROM_COPY ||
-      job.data.payload.type === SubtitlesType.FROM_FILE
-    ) {
-      await this.db.transcriptionModel
-        .findByIdAndUpdate(transcription._id, {
-          $set: {
-            status: TranscriptionStatus.OK,
-          },
-        })
-        .lean()
-        .exec();
+      // remove temp file
+      if (payload.type === SubtitlesType.FROM_FILE) {
+        const { file } = payload;
+
+        const uploadDir = this.pathService.getUploadDirectory(file.uploadId);
+
+        await rm(uploadDir, { recursive: true });
+      }
+
+      this.logger.verbose(
+        `Subtitle creation DONE: Job ${
+          job.id
+        }, ProjectId: ${project._id.toString()}, Result: ${result}`,
+      );
+    } catch (error) {
+      this.logger.error(error);
     }
-
-    const updatedTranscription = await this.transcriptionService.findOne(
-      systemUser,
-      transcription._id.toString(),
-    );
-    const entity = plainToInstance(TranscriptionEntity, updatedTranscription);
-    this.events.transcriptionUpdated(project, entity);
-
-    // remove temp file
-    if (payload.type === SubtitlesType.FROM_FILE) {
-      const { file } = payload;
-
-      const uploadDir = this.pathService.getUploadDirectory(file.uploadId);
-
-      await rm(uploadDir, { recursive: true });
-    }
-
-    this.logger.verbose(
-      `Subtitle creation DONE: Job ${
-        job.id
-      }, ProjectId: ${project._id.toString()}, Result: ${result}`,
-    );
   }
 
   @OnQueueFailed()
   async failHandler(job: Job<ProcessSubtitlesJob>, err: Error) {
-    const { project, transcription } = job.data;
-
-    const systemUser = await this.authService.findSystemAuthUser();
-
-    await this.activityService.create(
-      project,
-      systemUser.id,
-      'subtitles-processing-failed',
-      { error: err },
-    );
-
     try {
-      // await this.projectService.update(systemUser, project._id.toString(), {
-      //   status: ProjectStatus.ERROR,
-      // });
+      const { project, transcription } = job.data;
+
+      const systemUser = await this.authService.findSystemAuthUser();
+
+      await this.activityService.create(
+        project,
+        systemUser.id,
+        'subtitles-processing-failed',
+        { error: err },
+      );
+
       await this.db.transcriptionModel
         .findByIdAndUpdate(transcription._id, {
           $set: {
@@ -248,8 +233,8 @@ export class SubtitlesProcessor {
         }`,
       );
       this.logger.error(err.stack);
-    } catch (err) {
-      this.logger.error(err);
+    } catch (error) {
+      this.logger.error(error);
     }
   }
 
@@ -327,9 +312,6 @@ export class SubtitlesProcessor {
       sysUser,
       payload.sourceTranscriptionId,
     );
-    const sourceCaptions = await this.captionService.findAll(sysUser, {
-      transcriptionId: payload.sourceTranscriptionId,
-    });
 
     target = await this.transcriptionService.createSpeakers(
       sysUser,
@@ -337,31 +319,31 @@ export class SubtitlesProcessor {
       { names: sourceTranscription.speakers.map((obj) => obj.name) },
     );
 
-    const createDtos: CreateCaptionDto[] = sourceCaptions.captions.map(
-      (caption) => {
-        // mapping speakerid
-        const sourceSpeaker = sourceTranscription.speakers.find(
-          (obj) => obj._id.toString() === caption.speakerId,
-        );
-        const targetSpeaker = target.speakers.find(
-          (obj) => obj.name === sourceSpeaker.name,
-        );
+    const mappedSpeaker = target.speakers.map((targetSpeaker) => {
+      return {
+        source: sourceTranscription.speakers.find(
+          (sourceSpeaker) => sourceSpeaker.name === targetSpeaker.name,
+        )._id,
+        target: targetSpeaker._id,
+      };
+    });
 
-        return {
-          projectId: project._id.toString(),
-          transcription: target._id,
-          speakerId: targetSpeaker._id.toString(),
-          start: caption.start,
-          end: caption.end,
-          text: caption.text,
-        };
-      },
+    const sourceTiptapDoc = await this.tiptapService.getTiptapDocument(
+      sourceTranscription._id.toString(),
     );
 
-    await this.captionService.createMany(
-      sysUser,
-      createDtos,
-      project._id.toString(),
+    sourceTiptapDoc.content.forEach((node) => {
+      if (node.attrs.speakerId) {
+        const mapped = mappedSpeaker.find(
+          (mapping) => mapping.source.toString() === node.attrs.speakerId,
+        );
+        if (mapped) node.attrs.speakerId = mapped.target.toString();
+      }
+    });
+
+    await this.tiptapService.updateDocument(
+      target._id.toString(),
+      sourceTiptapDoc,
     );
   }
 
@@ -388,7 +370,6 @@ export class SubtitlesProcessor {
         payload.audio,
         AsrVendors.WHISPER,
         payload.transcriptToAlign,
-        payload.syncSpeaker,
       );
     }
   }

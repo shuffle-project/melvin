@@ -9,17 +9,13 @@ import {
 } from 'src/app/services/api/entities/user.entity';
 import { CustomLogger } from '../../classes/logger.class';
 import { ACTIVITY_ENTITY_MOCK } from '../../constants/mocks/activity.mock';
-import {
-  CAPTIONS_ENTITY_MOCK,
-  TRANSCIRPTIONS_ENITITY_MOCK,
-} from '../../constants/mocks/captions.mock';
+import { TRANSCIRPTIONS_ENITITY_MOCK } from '../../constants/mocks/captions.mock';
 import { UploadDto } from '../upload/upload.interfaces';
 import { ApiService } from './api.service';
 import { AdminUpdateUserDto } from './dto/admin-update-user.dto';
 import { ChangePasswordDto } from './dto/auth.dto';
 import { BulkRemoveDto } from './dto/bulk-remove.dto';
 import { ConnectLivestreamDto } from './dto/connect-livestream.dto';
-import { CreateCaptionDto } from './dto/create-caption.dto';
 import { CreateProjectDto } from './dto/create-project.dto';
 import { CreateSpeakersDto } from './dto/create-speakers.dto';
 import { CreateTranscriptionDto } from './dto/create-transcription.dto';
@@ -45,11 +41,9 @@ import { UploadVideoDto } from './dto/upload-video.dto';
 import { ActivityListEntity } from './entities/activitiy-list.entity';
 import {
   ChangePasswordEntity,
-  GuestLoginEntity,
   InviteEntity,
+  ViewerLoginEntity,
 } from './entities/auth.entity';
-import { CaptionListEntity } from './entities/caption-list.entity';
-import { CaptionEntity } from './entities/caption.entity';
 import { ConnectLivestreamEntity } from './entities/connect-livestream.entity';
 import { NotificationListEntity } from './entities/notification-list.entity';
 import { NotificationEntity } from './entities/notification.entity';
@@ -70,7 +64,7 @@ import {
   SubtitleFormat,
   TranscriptionEntity,
 } from './entities/transcription.entity';
-import { AUTH_TOKEN_GUEST_MOCK, AUTH_TOKEN_USER_MOCK } from './mocks/auth.mock';
+import { AUTH_TOKEN_USER_MOCK } from './mocks/auth.mock';
 
 @Injectable({
   providedIn: 'root',
@@ -83,13 +77,6 @@ export class FakeApiService implements ApiService {
   alignTranscription(transcriptionId: string): Observable<void> {
     throw new Error('Method not implemented.');
   }
-
-  // createTranscriptionFromFile(
-  //   transcription: CreateTranscriptionDto,
-  //   file: File
-  // ): Observable<any> {
-  //   throw new Error('Method not implemented.');
-  // }
 
   getConfig(): Observable<any> {
     this.logger.verbose('config mocked');
@@ -126,12 +113,6 @@ export class FakeApiService implements ApiService {
     return of({ token });
   }
 
-  // mediaAccessToken(projectId: string): Observable<{ token: string }> {
-  //   return of();
-  // }
-
-  // verifyEmail() {}
-
   verifyInviteToken(token: string): Observable<InviteEntity> {
     this.logger.verbose('verifyInviteToken mocked');
     return of({
@@ -146,19 +127,11 @@ export class FakeApiService implements ApiService {
     return of();
   }
 
-  guestLogin(token: string, name: string): Observable<GuestLoginEntity> {
-    this.logger.verbose('guestLogin mocked');
-    return of({
-      projectId: PROJECT_ENTITY_MOCK[0].id,
-      token: AUTH_TOKEN_GUEST_MOCK,
-    });
-  }
-
-  viewerLogin(token: string): Observable<GuestLoginEntity> {
+  viewerLogin(token: string): Observable<ViewerLoginEntity> {
     this.logger.verbose('viewerLogin mocked');
     return of({
       projectId: PROJECT_ENTITY_MOCK[0].id,
-      token: AUTH_TOKEN_GUEST_MOCK,
+      token: AUTH_TOKEN_USER_MOCK,
     });
   }
 
@@ -179,10 +152,6 @@ export class FakeApiService implements ApiService {
   }
 
   // projects
-  createLegacyProject(project: FormData): Observable<any> {
-    this.logger.verbose('createProject mocked');
-    return of({ ...PROJECT_ENTITY_MOCK[0] });
-  }
 
   createProject(project: CreateProjectDto): Observable<ProjectEntity> {
     this.logger.verbose('createProject mocked');
@@ -295,8 +264,6 @@ export class FakeApiService implements ApiService {
     return;
   }
 
-  // joinProject(inviteLink: string): Observable<Project> {}
-
   subscribeProject(projectId: string): Observable<void> {
     return of();
   }
@@ -306,7 +273,6 @@ export class FakeApiService implements ApiService {
 
   // transcriptions
 
-  //createTranscription() {}
   createTranscription(
     transcription: CreateTranscriptionDto
   ): Observable<TranscriptionEntity> {
@@ -370,36 +336,6 @@ export class FakeApiService implements ApiService {
   }
 
   transcriptionGetCaptions(transcriptionId: string): Observable<any> {
-    return of();
-  }
-
-  // captions
-
-  createCaption(captionDto: CreateCaptionDto): Observable<CaptionEntity> {
-    this.logger.verbose('createCaption mocked');
-    return of(CAPTIONS_ENTITY_MOCK[0]);
-  }
-
-  findAllCaptions(): Observable<CaptionListEntity> {
-    this.logger.verbose('findAllCaptions mocked');
-    return of({
-      total: 0,
-      page: 0,
-      captions: CAPTIONS_ENTITY_MOCK,
-    });
-  }
-  //findOneCaption() {}
-  updateCaption() {
-    this.logger.verbose('updateCaption mocked');
-    return of(CAPTIONS_ENTITY_MOCK[0]);
-  }
-  removeCaption(): Observable<void> {
-    this.logger.verbose('removeCaption mocked');
-    return of();
-  }
-
-  getCaptionHistory() {
-    this.logger.verbose('getCaptionHistory mocked');
     return of();
   }
 

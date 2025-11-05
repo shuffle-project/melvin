@@ -56,7 +56,6 @@ export class TranscriptComponent implements OnDestroy, OnInit {
 
   debugMode = false;
 
-  // @ViewChild(CdkVirtualScrollViewport) viewPort!: CdkVirtualScrollViewport;
   @ViewChildren('.match') matches!: QueryList<HTMLElement>;
 
   project$ = this.store.select(viewerSelector.vProject);
@@ -133,9 +132,6 @@ export class TranscriptComponent implements OnDestroy, OnInit {
                   ...matches.map(() => entity.id)
                 );
 
-                // this.transcriptNew[indexParagraph][indexCaption].text =
-                //   entity.text.replace(regex, '<mark>$1</mark>');
-
                 this.transcriptNew[indexParagraph][indexCaption].text =
                   entity.text.replace(
                     regex,
@@ -152,9 +148,6 @@ export class TranscriptComponent implements OnDestroy, OnInit {
           this.searchFoundInCaptionIds = searchFoundInCaptionIdsTemp;
 
           if (searchValue.length > 0) {
-            // this.searchFoundInCaptionId = null;
-            // this.foundItemsNumber = 1;
-            // this.scrollToMark(this.foundItemsNumber - 1);
             this.scrollToCaption(
               searchFoundInCaptionIdsTemp[this.foundItemsNumber - 1]
             );
@@ -198,9 +191,6 @@ export class TranscriptComponent implements OnDestroy, OnInit {
       this.foundItemsNumber = 1;
     }
     this.scrollToMark(this.foundItemsNumber - 1);
-    // this.scrollToCaption(
-    //   this.searchFoundInCaptionIds[this.foundItemsIndex - 1]
-    // );
   }
 
   onGoToRecentFound() {
@@ -210,17 +200,11 @@ export class TranscriptComponent implements OnDestroy, OnInit {
       this.foundItemsNumber = this.searchFoundInCaptionIds.length;
     }
     this.scrollToMark(this.foundItemsNumber - 1);
-    // this.scrollToCaption(
-    //   this.searchFoundInCaptionIds[this.foundItemsIndex - 1]
-    // );
   }
 
   scrollToMark(index: number) {
     const mark = document.getElementsByClassName(`mark-${index}`).item(0);
     if (mark) {
-      // mark.
-      // mark.classList.add('active-mark');
-      // mark.setAttribute('style', 'color: red;');
       mark.scrollIntoView();
     }
   }
@@ -233,11 +217,6 @@ export class TranscriptComponent implements OnDestroy, OnInit {
     const captionParentEle = captionEle?.parentElement;
 
     if (!viewportEle || !captionEle || !captionParentEle) return;
-
-    // captionEle.scrollIntoView({
-    //   behavior: 'smooth',
-    //   block: 'center',
-    // });
 
     const containerRect = viewportEle.getBoundingClientRect();
     const targetRect = captionEle.getBoundingClientRect();

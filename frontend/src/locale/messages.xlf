@@ -86,9 +86,6 @@
       <trans-unit id="deleteServiceLeaveProjectError" datatype="html">
         <source>Error leaving project, try again later.</source>
       </trans-unit>
-      <trans-unit id="deleteServiceSubjectCaption" datatype="html">
-        <source>Caption</source>
-      </trans-unit>
       <trans-unit id="deleteServiceDeleteAccountDescription" datatype="html">
         <source>If you confirm this, your account with all created projects and data will be deleted. This can NOT be undone!</source>
       </trans-unit>
@@ -1004,15 +1001,6 @@
       <trans-unit id="recorderAddScreensharingButton" datatype="html">
         <source> Add screensharing source </source>
       </trans-unit>
-      <trans-unit id="guestLoginDialogHeader" datatype="html">
-        <source>Login as Guest</source>
-      </trans-unit>
-      <trans-unit id="guestLoginNamePlaceholder" datatype="html">
-        <source>Name</source>
-      </trans-unit>
-      <trans-unit id="guestLoginJoinButtonLabel" datatype="html">
-        <source> Join </source>
-      </trans-unit>
       <trans-unit id="inviteCardSubtitleInvalidInvite" datatype="html">
         <source>Project invitation</source>
       </trans-unit>
@@ -1036,9 +1024,6 @@
       </trans-unit>
       <trans-unit id="inviteLoginOrRegisterButtonLabel" datatype="html">
         <source> Login / Register </source>
-      </trans-unit>
-      <trans-unit id="inviteJoinAsGuestButtonLabel" datatype="html">
-        <source> Join as Guest </source>
       </trans-unit>
       <trans-unit id="accessibilityStatementMainHeading" datatype="html">
         <source>Accessibility Statement</source>

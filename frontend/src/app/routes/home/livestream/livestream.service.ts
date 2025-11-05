@@ -54,17 +54,8 @@ export class LivestreamService implements OnDestroy {
     streamTo: ElementRef<HTMLVideoElement>
   ): Promise<void> {
     this.streamTo = streamTo;
-    // const stream = await navigator.mediaDevices.getUserMedia({
-    //   audio: true,
-    //   video: true,
-    // });
-    // this.clientVideo.nativeElement.srcObject = stream;
 
     this.connection = new RTCPeerConnection();
-
-    // stream.getTracks().forEach((track) => {
-    //   this.connection.addTrack(track, stream);
-    // });
 
     this.connection.ontrack = (ev) => {
       const stream = ev.streams[0];
@@ -72,9 +63,6 @@ export class LivestreamService implements OnDestroy {
         streamTo.nativeElement.srcObject = stream;
       }
     };
-
-    // this.connection.onicecandidate = (event) =>
-    //   this.ws.clientIceCandidate(JSON.stringify(event.candidate), projectId);
 
     const offer = await this.connection.createOffer({
       offerToReceiveAudio: true,

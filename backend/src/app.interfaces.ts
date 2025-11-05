@@ -31,13 +31,13 @@ export class LanguageShort {
 }
 
 export class TranslationServiceConfig {
-  @ApiProperty({ example: 'LibreTranslate' })
+  @ApiProperty({ example: 'Melvin' })
   fullName: string;
 
   @IsEnum(TranslateVendors)
   @ApiProperty({
     enum: TranslateVendors,
-    example: TranslateVendors.LIBRE,
+    example: TranslateVendors.MELVIN,
   })
   translateVendor: TranslateVendors;
 
@@ -46,11 +46,11 @@ export class TranslationServiceConfig {
 }
 
 export class AsrServiceConfig {
-  @ApiProperty({ example: 'AssemblyAi' })
+  @ApiProperty({ example: 'WhisperAI' })
   fullName: string;
 
   @IsEnum(AsrVendors)
-  @ApiProperty({ enum: AsrVendors, example: AsrVendors.ASSEMBLYAI })
+  @ApiProperty({ enum: AsrVendors, example: AsrVendors.WHISPER })
   asrVendor: AsrVendors;
 
   @ApiProperty({ type: [LanguageShort] })

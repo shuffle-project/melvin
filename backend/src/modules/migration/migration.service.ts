@@ -3,13 +3,7 @@ import { Injectable } from '@nestjs/common';
 import { Queue } from 'bull';
 import { exists, move } from 'fs-extra';
 import { rm, statfs } from 'fs/promises';
-import {
-  AlignPayload,
-  ProcessSubtitlesJob,
-  ProcessVideoJob,
-  SubtitlesType,
-} from '../../processors/processor.interfaces';
-import { PopulateService } from '../../resources/populate/populate.service';
+import { ProcessVideoJob } from '../../processors/processor.interfaces';
 import { generateSecureToken } from '../../utils/crypto';
 import { DbService } from '../db/db.service';
 import {
@@ -22,23 +16,15 @@ import {
 import { TranscriptionStatus } from '../db/schemas/transcription.schema';
 import { FfmpegService } from '../ffmpeg/ffmpeg.service';
 import { CustomLogger } from '../logger/logger.service';
-import { MelvinAsrTranscript } from '../melvin-asr-api/melvin-asr-api.interfaces';
 import { PathService } from '../path/path.service';
-import { WhisperSpeechService } from '../speech-to-text/whisper/whisper-speech.service';
-import { TiptapService } from '../tiptap/tiptap.service';
 
 @Injectable()
 export class MigrationService {
   constructor(
     private logger: CustomLogger,
     private db: DbService,
-    private populateService: PopulateService,
-    private tiptapService: TiptapService,
-    private whisper: WhisperSpeechService,
     private ffmpegService: FfmpegService,
     private pathService: PathService,
-    @InjectQueue('subtitles')
-    private subtitlesQueue: Queue<ProcessSubtitlesJob>,
     @InjectQueue('video')
     private videoQueue: Queue<ProcessVideoJob>,
   ) {
@@ -52,8 +38,6 @@ export class MigrationService {
     if (settings === null) {
       this.logger.info('First application start');
       settings = await this.db.settingsModel.create({ dbSchemaVersion: 1 });
-      this.logger.info('Create example project');
-      await this.populateService.populate([], 1);
     }
 
     // Fix for legacy migration
@@ -75,15 +59,6 @@ export class MigrationService {
       settings.dbSchemaVersion = 2;
       await settings.save();
       this.logger.info('Migration to version 2 successful');
-    }
-
-    if (settings.dbSchemaVersion < 3) {
-      this.logger.info('Migrate to version 3');
-      await this._migrateToV3Tiptap();
-
-      settings.dbSchemaVersion = 3;
-      await settings.save();
-      this.logger.info('Migration to version 3 successful');
     }
 
     if (settings.dbSchemaVersion < 4) {
@@ -183,6 +158,33 @@ export class MigrationService {
       await settings.save();
       this.logger.info('Migration to version 9 successful');
     }
+
+    if (settings.dbSchemaVersion < 10) {
+      this.logger.info('Migrate to version 10 - remove guests');
+
+      await this.removeAllGuests();
+
+      settings.dbSchemaVersion = 10;
+      await settings.save();
+      this.logger.info('Migration to version 10 successful');
+    }
+  }
+
+  private async removeAllGuests() {
+    const allGuests = await this.db.userModel.find({ role: 'guest' });
+
+    allGuests.forEach(async (guest) => {
+      const userId = guest._id.toString();
+
+      // leave all projects of user
+      await this.db.projectModel.updateMany(
+        { users: { $in: [userId] } },
+        { $pull: { users: userId } },
+      );
+
+      // remove user
+      await this.db.userModel.findOneAndDelete({ _id: userId }).lean().exec();
+    });
   }
 
   private async _migrateReprocessVideos() {
@@ -198,15 +200,6 @@ export class MigrationService {
 
     const processVideoJobs: ProcessVideoJob[] = [];
     for (const project of projects) {
-      // projects.forEach(async (project) => {
-      // const projectDir = this.pathService.getProjectDirectory(
-      //   project._id.toString(),
-      // );
-      // const dirExists = await exists(projectDir);
-      // console.log(
-      //   'dirExists ' + project.title + ' - ' + project._id.toString(),
-      //   dirExists,
-      // );
       for (const video of project.videos) {
         // project.videos.forEach(async (video) => {
         try {
@@ -435,72 +428,6 @@ export class MigrationService {
           project._id.toString(),
       );
       this.logger.error(e);
-    }
-  }
-
-  private async _migrateToV3Tiptap() {
-    const transcriptions = await this.db.transcriptionModel.find({});
-    for (const transcription of transcriptions) {
-      const captions = await this.db.captionModel.find({
-        transcription: transcription._id,
-      });
-
-      if (
-        captions.length > 0 &&
-        (transcription.ydoc === undefined || transcription.ydoc === null)
-      ) {
-        const project = await this.db.projectModel
-          .findById(transcription.project)
-          .exec();
-
-        const text = captions
-          .map((caption) => {
-            return caption.text;
-          })
-          .join(' ');
-
-        const transcriptToAlign: MelvinAsrTranscript = {
-          text,
-          segments: [
-            {
-              text,
-              start: 0,
-              end: 0,
-              words: text
-                .split(' ')
-                .map((w) => ({ text: w, start: 0, end: 0 })),
-            },
-          ],
-        };
-
-        /**
-         *
-         */
-
-        this.logger.info(
-          'Add align job to queue for transcription ' +
-            transcription._id.toString(),
-        );
-        if (project) {
-          project.status = ProjectStatus.WAITING;
-          await project.save();
-
-          const payload: AlignPayload = {
-            type: SubtitlesType.ALIGN,
-            audio: project.audios[0],
-            transcriptionId: transcription._id.toString(),
-            transcriptToAlign,
-            syncSpeaker: captions,
-          };
-          this.subtitlesQueue.add({
-            project: project,
-            transcription: transcription,
-            payload,
-          });
-        } else {
-          console.log('project does not exist', transcription.project, project);
-        }
-      }
     }
   }
 }

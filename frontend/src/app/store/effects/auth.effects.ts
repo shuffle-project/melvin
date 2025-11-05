@@ -15,10 +15,7 @@ import {
 import { CustomLogger } from '../../classes/logger.class';
 import { AlertService } from '../../services/alert/alert.service';
 import { ApiService } from '../../services/api/api.service';
-import {
-  ChangePasswordEntity,
-  GuestLoginEntity,
-} from '../../services/api/entities/auth.entity';
+import { ChangePasswordEntity } from '../../services/api/entities/auth.entity';
 import { StorageKey } from '../../services/storage/storage-key.enum';
 import { StorageService } from '../../services/storage/storage.service';
 import * as authActions from '../actions/auth.actions';
@@ -204,7 +201,6 @@ export class AuthEffects {
       exhaustMap((action) =>
         this.api.register(action.email, action.password, action.name).pipe(
           map(() => {
-            // TODO refactor login after register
             this.store.dispatch(
               authActions.login({
                 email: action.email,
@@ -252,31 +248,6 @@ export class AuthEffects {
     )
   );
 
-  // withLatestFrom(authSelectors.selectInviteTokenRoute)
-
-  guestLogin$ = createEffect(() =>
-    this.actions$.pipe(
-      ofType(authActions.guestLogin),
-      switchMap((action) =>
-        of(action).pipe(
-          withLatestFrom(
-            this.store.select(authSelectors.selectInviteTokenRoute)
-          ),
-          exhaustMap(([action, token]) =>
-            this.api.guestLogin(token, action.name).pipe(
-              map((res) => {
-                return authActions.guestLoginSuccess(res);
-              }),
-              catchError((res: HttpErrorResponse) => {
-                return of(authActions.guestLoginError({ error: res.error }));
-              })
-            )
-          )
-        )
-      )
-    )
-  );
-
   // verify email success
   verifyEmailSuccess$ = createEffect(
     () =>
@@ -284,18 +255,6 @@ export class AuthEffects {
         ofType(authActions.verifyEmailSuccess),
         tap((action) => {
           this._replaceTokenInStorage(action.token);
-        })
-      ),
-    { dispatch: false }
-  );
-
-  guestLoginSuccess$ = createEffect(
-    () =>
-      this.actions$.pipe(
-        ofType(authActions.guestLoginSuccess),
-        tap((guestLoginEntity: GuestLoginEntity) => {
-          console.log(guestLoginEntity);
-          this.router.navigate(['/home/editor/' + guestLoginEntity.projectId]);
         })
       ),
     { dispatch: false }

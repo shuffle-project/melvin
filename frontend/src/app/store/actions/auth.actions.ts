@@ -2,7 +2,6 @@ import { createAction, props } from '@ngrx/store';
 import { ChangePasswordDto } from '../../services/api/dto/auth.dto';
 import {
   ChangePasswordEntity,
-  GuestLoginEntity,
   InviteEntity,
 } from '../../services/api/entities/auth.entity';
 
@@ -94,21 +93,6 @@ export const verifyInviteTokenSuccess = createAction(
 
 export const verifyInviteTokenError = createAction(
   '[AUTH EFFECTS] Verify invite token error',
-  props<{ error: Error }>()
-);
-
-export const guestLogin = createAction(
-  '[INVITE COMPONENT] Guest Login',
-  props<{ name?: string }>()
-);
-
-export const guestLoginSuccess = createAction(
-  '[AUTH EFFECTS] Guest Login success',
-  props<GuestLoginEntity>()
-);
-
-export const guestLoginError = createAction(
-  '[AUTH EFFECTS] Guest Login error',
   props<{ error: Error }>()
 );
 

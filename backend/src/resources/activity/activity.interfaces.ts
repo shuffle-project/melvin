@@ -18,7 +18,6 @@ export interface ActivitiesMap {
   };
   'project-user-joined': { user: UserEntity };
   'project-user-left': { user: UserEntity };
-  // 'export-ready':{linkToResource:string}
 }
 
 export type ActivityAction = keyof ActivitiesMap;

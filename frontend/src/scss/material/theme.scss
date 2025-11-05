@@ -62,17 +62,6 @@ button.big-icon-mat-button {
   );
 }
 
-// .mat-mdc-menu-item.processing {
-//   background-color: red;
-
-//   @include mat.menu-overrides(
-//     (
-//       item-label-text-color: orange,
-//       item-icon-color: red,
-//     )
-//   );
-// }
-
 a.feedback-link {
   @include mat.button-overrides(
     (

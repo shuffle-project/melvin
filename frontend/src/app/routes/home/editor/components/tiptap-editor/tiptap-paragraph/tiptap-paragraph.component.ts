@@ -1,4 +1,3 @@
-
 import {
   Component,
   ElementRef,
@@ -28,8 +27,8 @@ import { EditSpeakerModalComponent } from './edit-speaker-modal/edit-speaker-mod
     MatIconModule,
     MatDividerModule,
     MatButtonModule,
-    EditSpeakerModalComponent
-],
+    EditSpeakerModalComponent,
+  ],
   templateUrl: './tiptap-paragraph.component.html',
   styleUrl: './tiptap-paragraph.component.scss',
 })
@@ -124,21 +123,5 @@ export class TiptapParagraphComponent
     }
   }
 
-  onClickParagraph(event: MouseEvent) {
-    // console.log(event);
-    // console.log(this);
-    // const pos = this.getPos();
-    // const nodeAt = this.editor.state.doc.nodeAt(pos);
-    // if (nodeAt?.content) {
-    //   for (let i = 0; i < nodeAt.content.childCount; i++) {
-    //     const child = nodeAt?.content.child(i);
-    //     console.log(child);
-    //     if (child.marks?.length > 0) {
-    //       const start = child.marks[0].attrs['start'];
-    //       this.mediaService.seekToTime(start, false);
-    //       i = nodeAt.content.childCount;
-    //     }
-    //   }
-    // }
-  }
+  onClickParagraph(event: MouseEvent) {}
 }

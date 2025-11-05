@@ -2,7 +2,6 @@ import { routerReducer, RouterState } from '@ngrx/router-store';
 import { ActionReducer, ActionReducerMap, MetaReducer } from '@ngrx/store';
 import { AdminEffects } from './effects/admin.effects';
 import { AuthEffects } from './effects/auth.effects';
-import { CaptionsEffects } from './effects/captions.effects';
 import { ConfigEffects } from './effects/config.effects';
 import { EditorEffects } from './effects/editor.effects';
 import { NotificationsEffects } from './effects/notifications.effects';
@@ -12,7 +11,6 @@ import { UserTestEffects } from './effects/user-test.effects';
 import { ViewerEffects } from './effects/viewer.effects';
 import { adminReducer, AdminState } from './reducers/admin.reducer';
 import { authReducer, AuthState } from './reducers/auth.reducer';
-import { captionsReducer, CaptionsState } from './reducers/captions.reducer';
 import { configReducer, ConfigState } from './reducers/config.reducer';
 import { editorReducer, EditorState } from './reducers/editor.reducer';
 import {
@@ -30,7 +28,6 @@ export interface AppState {
   router: RouterState;
   editor: EditorState;
   viewer: ViewerState;
-  captions: CaptionsState;
   projects: ProjectsState;
   auth: AuthState;
   notification: NotificationsState;
@@ -43,7 +40,6 @@ export const actionReducerMap: ActionReducerMap<AppState> = {
   router: routerReducer,
   editor: editorReducer,
   viewer: viewerReducer,
-  captions: captionsReducer,
   projects: projectsReducer,
   auth: authReducer,
   notification: notificationReducer,
@@ -53,7 +49,6 @@ export const actionReducerMap: ActionReducerMap<AppState> = {
 };
 
 export const effectsList = [
-  CaptionsEffects,
   ProjectEffects,
   EditorEffects,
   ViewerEffects,
@@ -66,12 +61,8 @@ export const effectsList = [
 ];
 
 //meta reducers
-// console.log all actions
 export function debug(reducer: ActionReducer<any>): ActionReducer<any> {
   return function (state, action) {
-    // console.log('state', state);
-    // console.log('action', action);
-
     return reducer(state, action);
   };
 }

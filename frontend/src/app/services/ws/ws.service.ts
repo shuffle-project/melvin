@@ -4,7 +4,6 @@ import { firstValueFrom, retry, Subject, takeUntil } from 'rxjs';
 import { webSocket, WebSocketSubject } from 'rxjs/webSocket';
 import { CustomLogger } from '../../classes/logger.class';
 import * as authActions from '../../store/actions/auth.actions';
-import * as captionActions from '../../store/actions/captions.actions';
 import * as editorActions from '../../store/actions/editor.actions';
 import * as notificationActions from '../../store/actions/notifications.actions';
 import * as projectActions from '../../store/actions/projects.actions';
@@ -122,32 +121,7 @@ export class WSService {
           );
           break;
         }
-        // case 'project:user-joined': {
-        //   const payload = args as EventParams<
-        //     ServerToClientEvents,
-        //     'project:user-joined'
-        //   >;
-        //   this.logger.verbose('project:user-joined', payload);
-        //   this.store.dispatch(
-        //     editorActions.updateActiveUsers({
-        //       activeUsers: payload.activeUsers,
-        //     })
-        //   );
-        //   break;
-        // }
-        // case 'project:user-left': {
-        //   const payload = args as EventParams<
-        //     ServerToClientEvents,
-        //     'project:user-left'
-        //   >;
-        //   this.logger.verbose('project:user-left', payload);
-        //   this.store.dispatch(
-        //     editorActions.updateActiveUsers({
-        //       activeUsers: payload.activeUsers,
-        //     })
-        //   );
-        //   break;
-        // }
+
         case 'project:created': {
           const payload = args as EventParams<
             ServerToClientEvents,
@@ -247,39 +221,6 @@ export class WSService {
             transcriptionActions.removeFromWS({
               removedTranscriptionId: payload.transcriptionId,
             })
-          );
-          break;
-        }
-        case 'caption:created': {
-          const payload = args as EventParams<
-            ServerToClientEvents,
-            'caption:created'
-          >;
-          this.logger.verbose('caption:created', payload);
-          this.store.dispatch(
-            captionActions.createFromWS({ newCaption: payload.caption })
-          );
-          break;
-        }
-        case 'caption:updated': {
-          const payload = args as EventParams<
-            ServerToClientEvents,
-            'caption:updated'
-          >;
-          this.logger.verbose('caption:updated', payload);
-          this.store.dispatch(
-            captionActions.updateFromWS({ updateCaption: payload.caption })
-          );
-          break;
-        }
-        case 'caption:removed': {
-          const payload = args as EventParams<
-            ServerToClientEvents,
-            'caption:removed'
-          >;
-          this.logger.verbose('caption:removed', payload);
-          this.store.dispatch(
-            captionActions.removeFromWS({ removeCaptionId: payload.captionId })
           );
           break;
         }

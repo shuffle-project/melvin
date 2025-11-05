@@ -25,6 +25,10 @@ const WAVEFORM_ANALYZING_SAMPLERATE = 8000;
 const WAVEFORM_STORED_SAMPLES_PER_SECOND = 100;
 const WAVEFORM_NORMALIZED_MAXIMUM = 100;
 
+// error = Show all errors, including ones which can be recovered from.
+// fatal = Only show fatal errors which could lead the process to crash, such as an assertion failure.
+const LOG_LEVEL = 'fatal';
+
 @Injectable()
 export class FfmpegService {
   //  HOW MUCH THREADS
@@ -55,11 +59,10 @@ export class FfmpegService {
       false,
     );
     const args = [
+      '-hide_banner',
       // logging
       '-loglevel',
-      'fatal',
-      // error = Show all errors, including ones which can be recovered from.
-      // fatal = Only show fatal errors which could lead the process to crash, such as an assertion failure.
+      LOG_LEVEL,
       // input file
       '-i',
       `${audioFilepath}`,
@@ -158,8 +161,9 @@ export class FfmpegService {
 
     const commands = [
       // this.ffmpeg,
+      '-hide_banner',
       '-loglevel',
-      'error',
+      LOG_LEVEL,
       // error = Show all errors, including ones which can be recovered from.
       // fatal = Only show fatal errors which could lead the process to crash, such as an assertion failure.
       '-loop',
@@ -206,8 +210,9 @@ export class FfmpegService {
     if (useFlags) {
       commands = [
         // this.ffmpeg,
+        '-hide_banner',
         '-loglevel',
-        'error',
+        LOG_LEVEL,
         // error = Show all errors, including ones which can be recovered from.
         // fatal = Only show fatal errors which could lead the process to crash, such as an assertion failure.
         '-i',
@@ -235,8 +240,9 @@ export class FfmpegService {
     } else {
       commands = [
         // this.ffmpeg,
+        '-hide_banner',
         '-loglevel',
-        'error',
+        LOG_LEVEL,
         // error = Show all errors, including ones which can be recovered from.
         // fatal = Only show fatal errors which could lead the process to crash, such as an assertion failure.
         '-i',
@@ -280,8 +286,9 @@ export class FfmpegService {
 
     const commands = [
       // this.ffmpeg,
+      '-hide_banner',
       '-loglevel',
-      'error',
+      LOG_LEVEL,
       // error = Show all errors, including ones which can be recovered from.
       // fatal = Only show fatal errors which could lead the process to crash, such as an assertion failure.
       '-i',
@@ -454,8 +461,9 @@ export class FfmpegService {
     try {
       const commands = [
         this.ffprobe, // `ffprobe`,
+        '-hide_banner',
         '-loglevel',
-        'fatal',
+        LOG_LEVEL,
         // error = Show all errors, including ones which can be recovered from.
         // fatal = Only show fatal errors which could lead the process to crash, such as an assertion failure.
         '-i',
@@ -487,8 +495,9 @@ export class FfmpegService {
     const videoFilepath = this.pathService.getVideoFile(projectId, video);
     const commands = [
       this.ffprobe, // `ffprobe`,
+      '-hide_banner',
       '-loglevel',
-      'fatal',
+      LOG_LEVEL,
       // error = Show all errors, including ones which can be recovered from.
       // fatal = Only show fatal errors which could lead the process to crash, such as an assertion failure.
       '-i',

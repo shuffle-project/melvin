@@ -9,8 +9,6 @@ export interface UploadMetadata extends CreateUploadDto {
   createdBy: string;
   extension: string;
   mimetype: string;
-  // createdAt: string;
-  // modifiedAt: string;
 }
 
 export interface UploadEntity {

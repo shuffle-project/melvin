@@ -31,12 +31,6 @@ export class UserScrollDirective {
           event.offsetY > targetHtmlElement.clientHeight ||
           event.offsetX > targetHtmlElement.offsetWidth - 16;
 
-        // console.log(event.offsetX, targetHtmlElement.clientWidth);
-        // console.log(event.offsetX > targetHtmlElement.clientWidth);
-        // console.log(targetHtmlElement.offsetWidth);
-        // console.log(targetHtmlElement.scrollWidth);
-        // console.log(targetHtmlElement.clientWidth);
-
         if (clickOnScrollbar) {
           this.appUserScroll.emit();
         }

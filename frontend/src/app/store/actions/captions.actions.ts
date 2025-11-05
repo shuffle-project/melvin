@@ -2,8 +2,6 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { createAction, props } from '@ngrx/store';
 import { CreateCaptionDto } from 'src/app/services/api/dto/create-caption.dto';
 import { UpdateCaptionDto } from '../../services/api/dto/update-caption.dto';
-import { CaptionListEntity } from '../../services/api/entities/caption-list.entity';
-import { CaptionEntity } from '../../services/api/entities/caption.entity';
 
 // edit captions list
 
@@ -14,16 +12,6 @@ export const create = createAction(
 
 export const createInitialCaption = createAction(
   '[CAPTIONS COMPONENT] Create initial empty caption'
-);
-
-export const createSuccess = createAction(
-  '[CAPTION API] Add caption success',
-  props<{ newCaption: CaptionEntity }>()
-);
-
-export const createFromWS = createAction(
-  '[CAPTION WS] Add caption from WebSocket',
-  props<{ newCaption: CaptionEntity }>()
 );
 
 export const createFailed = createAction(
@@ -60,11 +48,6 @@ export const findAllFromEffect = createAction(
   props<{ transcriptionId: string }>()
 );
 
-export const findAllSuccess = createAction(
-  '[CAPTION API] Fetch Captions of Transcription success',
-  props<{ captionListEntity: CaptionListEntity }>()
-);
-
 export const findAllFail = createAction(
   '[CAPTION API] Fetch Captions of Transcription fail',
   props<{ error: HttpErrorResponse }>()
@@ -92,19 +75,9 @@ export const updateAndUnselect = createAction(
   props<{ id: string; updateDto: UpdateCaptionDto }>()
 );
 
-export const updateSuccess = createAction(
-  '[CAPTION API] Update Caption success',
-  props<{ updateCaption: CaptionEntity }>()
-);
-
 export const updateFailed = createAction(
   '[CAPTION API] Update Caption failed',
   props<{ error: HttpErrorResponse }>()
-);
-
-export const updateFromWS = createAction(
-  '[CAPTION WS] Caption updated from WS',
-  props<{ updateCaption: CaptionEntity }>()
 );
 
 // others

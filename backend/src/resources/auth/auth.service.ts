@@ -17,7 +17,6 @@ import {
   CustomForbiddenException,
   CustomInternalServerException,
 } from '../../utils/exceptions';
-import { PopulateService } from '../populate/populate.service';
 import { UserRole } from '../user/user.interfaces';
 import {
   AuthUser,
@@ -25,10 +24,6 @@ import {
   JwtPayload,
   MediaAccessJwtPayload,
 } from './auth.interfaces';
-import {
-  AuthGuestLoginDto,
-  AuthGuestLoginResponseDto,
-} from './dto/auth-guest-login.dto';
 import { AuthLoginDto, AuthLoginResponseDto } from './dto/auth-login.dto';
 import {
   AuthRefreshTokenDto,
@@ -68,7 +63,6 @@ export class AuthService {
     private db: DbService,
     private mailService: MailService,
     private permissions: PermissionsService,
-    private populateService: PopulateService,
   ) {
     this.config = this.configService.get<JwtConfig>('jwt');
     this.registrationConfig =
@@ -202,14 +196,6 @@ export class AuthService {
       projects: [],
     });
 
-    // Add user to default project
-    // await this.db.projectModel.findByIdAndUpdate(EXAMPLE_PROJECT._id, {
-    //   $push: { users: user._id.toString() },
-    // });
-
-    //  Create default project
-    // await this.populateService._generateDefaultProject(user);
-
     if (this.mailService.isActive())
       await this.mailService.sendVerifyEmail(user);
   }
@@ -275,38 +261,6 @@ export class AuthService {
       projectTitle: project.title,
       userName: (project.createdBy as User).name,
     };
-  }
-
-  async guestLogin(dto: AuthGuestLoginDto): Promise<AuthGuestLoginResponseDto> {
-    // Verify invite token
-    const project = await this.db.projectModel.findOne({
-      inviteToken: dto.inviteToken,
-    });
-
-    if (!project) {
-      throw new CustomBadRequestException('Unknown invite token');
-    }
-
-    // Create new guest user
-    const user = await this.db.userModel.create({
-      email: null,
-      hashedPassword: null,
-      role: UserRole.GUEST,
-      name: dto.name,
-      isEmailVerified: false,
-      emailVerificationToken: null,
-      projects: [project._id],
-      team: null,
-    });
-
-    // Add guest user to project
-    project.users.push(user._id);
-    await project.save();
-
-    // Create access token
-    const token = await this.createUserAccessToken(user);
-
-    return { token, projectId: project._id.toString() };
   }
 
   async viewerLogin(
@@ -390,16 +344,7 @@ export class AuthService {
     return this.jwtService.decode(token);
   }
 
-  createMediaAccessToken(
-    // authUser: AuthUser,
-    projectId: string,
-  ): string {
-    // const project = await this.db.findProjectByIdOrThrow(dto.projectId);
-
-    // if (!this.permissions.isProjectMember(project, authUser)) {
-    //   throw new CustomForbiddenException('access_to_project_denied');
-    // }
-
+  createMediaAccessToken(projectId: string): string {
     const payload: MediaAccessJwtPayload = {
       projectId,
     };
@@ -437,19 +382,6 @@ export class AuthService {
       .findByIdAndUpdate(userId, { hashedPassword })
       .exec();
   }
-
-  // async resetPassword(email: string, newPassword: string): Promise<void> {
-  //   const user = await this.db.userModel
-  //     .findOne({ email: email.toLowerCase() })
-  //     .exec();
-
-  //   if (user === null) {
-  //     throw new CustomInternalServerException('user_not_found');
-  //   }
-
-  //   await this.resetPasswortByUserId(user._id.toString(), newPassword);
-  //   return;
-  // }
 
   async forgotPassword(dto: ForgotPasswordDto): Promise<void> {
     if (this.registrationConfig.mode === 'disabled') {

@@ -7,21 +7,20 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { ProjectEntity } from 'src/app/services/api/entities/project.entity';
 import { AppState } from 'src/app/store/app.state';
-// import * as projectsActions from '../../../store/actions/projects.actions';
 import * as editorSelectors from '../../../store/selectors/editor.selector';
 import { ProjectTranscriptionComponent } from '../components/project-transcription/project-transcription.component';
 
 @Component({
-    selector: 'app-dialog-project-transcription',
-    imports: [
-        MatDialogModule,
-        PushPipe,
-        MatIconModule,
-        MatButtonModule,
-        ProjectTranscriptionComponent,
-    ],
-    templateUrl: './dialog-project-transcription.component.html',
-    styleUrl: './dialog-project-transcription.component.scss'
+  selector: 'app-dialog-project-transcription',
+  imports: [
+    MatDialogModule,
+    PushPipe,
+    MatIconModule,
+    MatButtonModule,
+    ProjectTranscriptionComponent,
+  ],
+  templateUrl: './dialog-project-transcription.component.html',
+  styleUrl: './dialog-project-transcription.component.scss',
 })
 export class DialogProjectTranscriptionComponent {
   public project$: Observable<ProjectEntity | null>;

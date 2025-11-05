@@ -134,10 +134,6 @@ export const CustomWord = (injector: Injector) => {
         }
       }
 
-      // attrs.style = attrs.style
-      //   ? attrs + 'border-left: 1px solid black;'
-      //   : 'border-left: 1px solid black;';
-
       return ['span', mergeAttributes(HTMLAttributes, attrs), 0];
     },
   });

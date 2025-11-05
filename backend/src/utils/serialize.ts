@@ -13,6 +13,10 @@ export const serialize = (value: any, objects: any[] = [], depth = 10): any => {
     return value;
   }
 
+  if (value instanceof Date) {
+    return value.toISOString();
+  }
+
   if (value instanceof Error) {
     objects.push(value);
     const ret = {};

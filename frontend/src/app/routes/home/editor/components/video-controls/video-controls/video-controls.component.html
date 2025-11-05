@@ -106,19 +106,6 @@
       <span class="time-total">
         {{ (duration$ | ngrxPush) || 0 | duration }}
       </span>
-      <!-- @if (('playPause' | featureEnabled) && (isLiveMode$ | ngrxPush)) {
-      <button
-        *ngrxLet="isLiveInSync$ as isLiveInSync"
-        mat-stroked-button
-        (click)="onClickBackToLive()"
-        [disabled]="!isReady"
-        class="live"
-        [class.active]="isLiveInSync"
-      >
-        <mat-icon svgIcon="record"></mat-icon>
-        <span>{{ isLiveInSync ? 'LIVE' : 'Zurück zu LIVE' }}</span>
-      </button>
-      } -->
     </div>
   </div>
 </div>

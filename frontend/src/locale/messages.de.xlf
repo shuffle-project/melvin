@@ -174,14 +174,6 @@
         <source> You were invited by <x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span class=&quot;bold&quot;&gt;"/><x id="INTERPOLATION" equiv-text="{{ invite.userName }}"/><x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span&gt;"/> participate in a project. </source>
         <target state="final">Sie wurden von <x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span class=&quot;bold&quot;&gt;"/><x id="INTERPOLATION" equiv-text="}}"/><x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="to join a"/> zu einem Projekt eingeladen. </target>
       </trans-unit>
-      <trans-unit id="guestLoginDialogHeader" datatype="html">
-        <source>Login as Guest</source>
-        <target state="final">Als Gast anmelden</target>
-      </trans-unit>
-      <trans-unit id="guestLoginJoinButtonLabel" datatype="html">
-        <source> Join </source>
-        <target state="final"> Beitreten </target>
-      </trans-unit>
       <trans-unit id="inviteCancelButtonLabel" datatype="html">
         <source> Cancel </source>
         <target state="final"> Abbrechen </target>
@@ -189,10 +181,6 @@
       <trans-unit id="inviteLoginOrRegisterButtonLabel" datatype="html">
         <source> Login / Register </source>
         <target state="final"> Anmelden / Registrieren </target>
-      </trans-unit>
-      <trans-unit id="inviteJoinAsGuestButtonLabel" datatype="html">
-        <source> Join as Guest </source>
-        <target state="final"> Als Gast beitreten </target>
       </trans-unit>
       <trans-unit id="sharePlayerLinkCopiedMessage" datatype="html">
         <source>Link copied</source>
@@ -225,10 +213,6 @@
       <trans-unit id="projectListSearchWithTitleTooltip" datatype="html">
         <source>Search with Projecttitle</source>
         <target state="final">Suche anhand des Projekttitels</target>
-      </trans-unit>
-      <trans-unit id="guestLoginNamePlaceholder" datatype="html">
-        <source>Name</source>
-        <target state="final">Name</target>
       </trans-unit>
       <trans-unit id="editorHelpDialogShortcutCommandSaveProject" datatype="html">
         <source>Save project</source>
@@ -677,10 +661,6 @@
       <trans-unit id="deleteServiceLeaveProjectError" datatype="html">
         <source>Error leaving project, try again later.</source>
         <target state="final">Fehler beim verlassen des Projekts, versuche es später erneut.</target>
-      </trans-unit>
-      <trans-unit id="deleteServiceSubjectCaption" datatype="html">
-        <source>Caption</source>
-        <target state="final">Caption</target>
       </trans-unit>
       <trans-unit id="recorderTitle" datatype="html">
         <source> Recorder </source>

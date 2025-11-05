@@ -1,13 +1,11 @@
 import { Database } from '@hocuspocus/extension-database';
-import { Document, Hocuspocus } from '@hocuspocus/server';
+import { Hocuspocus } from '@hocuspocus/server';
 import { DirectConnection } from '@hocuspocus/server/dist/packages/server/src/DirectConnection';
 import { Injectable } from '@nestjs/common';
 import { IncomingMessage } from 'http';
 import { WebSocket } from 'ws';
 import { DbService } from '../db/db.service';
 import { CustomLogger } from '../logger/logger.service';
-import * as Y from 'yjs';
-import { TiptapTransformer } from '@hocuspocus/transformer';
 
 @Injectable()
 export class HocuspocusService {

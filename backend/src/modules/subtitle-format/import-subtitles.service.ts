@@ -2,10 +2,8 @@ import { Injectable } from '@nestjs/common';
 import { parse } from '@plussub/srt-vtt-parser';
 import { Entry } from '@plussub/srt-vtt-parser/dist/src/types';
 import { readFile } from 'fs-extra';
-import { Types } from 'mongoose';
 import { AuthUser } from '../../resources/auth/auth.interfaces';
-import { CaptionService } from '../../resources/caption/caption.service';
-import { CreateCaptionDto } from '../../resources/caption/dto/create-caption.dto';
+import { CustomLogger } from '../logger/logger.service';
 import { PathService } from '../path/path.service';
 import { WordEntity } from '../speech-to-text/speech-to-text.interfaces';
 import { TiptapService } from '../tiptap/tiptap.service';
@@ -15,8 +13,8 @@ import { UploadMetadata } from '../upload/upload.interfaces';
 export class ImportSubtitlesService {
   constructor(
     private pathService: PathService,
-    private captionService: CaptionService,
     private tiptapService: TiptapService,
+    private logger: CustomLogger,
   ) {}
 
   async fromFile(
@@ -63,21 +61,9 @@ export class ImportSubtitlesService {
 
         const document = this.tiptapService.wordsToTiptap(words, speakerId);
         await this.tiptapService.updateDocument(transcriptionId, document);
-
-        await Promise.all(
-          entries.map((element: Entry) =>
-            this.captionService.create(authUser, {
-              end: element.to,
-              speakerId,
-              start: element.from,
-              text: element.text,
-              transcription: new Types.ObjectId(transcriptionId),
-            }),
-          ),
-        );
       }
     } catch (error: any) {
-      console.log(error);
+      this.logger.error(error);
     }
   }
 
@@ -93,28 +79,18 @@ export class ImportSubtitlesService {
         words: { word: string; start_time: number; duration: number }[];
       }[];
     } = JSON.parse(content);
-    const dtos: CreateCaptionDto[] = [];
-    let text = '';
-    let lastStart = 0;
-    data.transcripts[0].words.forEach((word) => {
-      if (lastStart + 6 > word.start_time) {
-        text = text + ' ' + word.word;
-      } else {
-        dtos.push({
-          start: lastStart * 1000,
-          end: word.start_time * 1000,
-          speakerId,
-          text,
-          transcription: new Types.ObjectId(transcriptionId),
-        });
-        lastStart = word.start_time;
-        text = word.word + '';
-      }
-    });
 
-    await Promise.all(
-      dtos.map((dto) => this.captionService.create(authUser, dto)),
-    );
+    const words: WordEntity[] = data.transcripts[0].words.map((word) => {
+      return {
+        text: word.word,
+        start: word.start_time,
+        end: word.start_time + word.duration,
+        speakerId: null,
+        startParagraph: false,
+      };
+    });
+    const document = this.tiptapService.wordsToTiptap(words, speakerId);
+    await this.tiptapService.updateDocument(transcriptionId, document);
   }
 
   fromVtt(lines: string[]) {

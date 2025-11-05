@@ -77,10 +77,6 @@ export const LandingRoutes: Routes = [
         component: GuideComponent,
         title: $localize`:@@GuidePageTitle:Best Practice - Melvin`,
       },
-      //   {
-      //     path: '**',
-      //     redirectTo: '',
-      //   },
     ],
   },
 ];

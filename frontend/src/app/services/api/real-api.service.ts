@@ -22,7 +22,6 @@ import { AdminUpdateUserDto } from './dto/admin-update-user.dto';
 import { ChangePasswordDto } from './dto/auth.dto';
 import { BulkRemoveDto } from './dto/bulk-remove.dto';
 import { ConnectLivestreamDto } from './dto/connect-livestream.dto';
-import { CreateCaptionDto } from './dto/create-caption.dto';
 import { CreateProjectDto } from './dto/create-project.dto';
 import { CreateSpeakersDto } from './dto/create-speakers.dto';
 import { CreateTranscriptionDto } from './dto/create-transcription.dto';
@@ -36,7 +35,6 @@ import { StartRecordingDto } from './dto/start-recording.dto';
 import { StopLivestreamDto } from './dto/stop-livestream.dto';
 import { StopRecordingDto } from './dto/stop-recording.dto';
 import { CreateTeamDto, UpdateTeamDto } from './dto/team.dto';
-import { UpdateCaptionDto } from './dto/update-caption.dto';
 import {
   UpdateManyNotificationsDto,
   UpdateNotificationDto,
@@ -49,12 +47,9 @@ import { UploadVideoDto as CreateVideoDto } from './dto/upload-video.dto';
 import { ActivityListEntity } from './entities/activitiy-list.entity';
 import {
   ChangePasswordEntity,
-  GuestLoginEntity,
   InviteEntity,
   ViewerLoginEntity,
 } from './entities/auth.entity';
-import { CaptionListEntity } from './entities/caption-list.entity';
-import { CaptionEntity, CaptionHistoryEntity } from './entities/caption.entity';
 import { ConfigEntity } from './entities/config.entity';
 import { ConnectLivestreamEntity } from './entities/connect-livestream.entity';
 import { NotificationListEntity } from './entities/notification-list.entity';
@@ -252,15 +247,6 @@ export class RealApiService implements ApiService {
     return this._post<{ token: string }>(`/auth/refresh-token`, { token });
   }
 
-  // mediaAccessToken(projectId: string): Observable<{ token: string }> {
-  //   return this._post<{ token: string }>(`/auth/media-access-token`, {
-  //     projectId,
-  //   });
-  // }
-
-  // verifyEmail() {}
-  // guestLogin() {}
-
   verifyInviteToken(token: string): Observable<InviteEntity> {
     return this._get<InviteEntity>(`/auth/verify-invite/${token}`, {
       skipJwt: true,
@@ -268,21 +254,7 @@ export class RealApiService implements ApiService {
   }
 
   joinViaInviteToken(token: string): Observable<void> {
-    return this._post<void>(
-      `/projects/invite-token`,
-      { inviteToken: token }
-      // {
-      //   skipJwt: true,
-      // }
-    );
-  }
-
-  guestLogin(token: string, name: string): Observable<GuestLoginEntity> {
-    return this._post<GuestLoginEntity>(
-      `/auth/guest-login`,
-      { inviteToken: token, name },
-      { skipJwt: true }
-    );
+    return this._post<void>(`/projects/invite-token`, { inviteToken: token });
   }
 
   viewerLogin(token: string): Observable<ViewerLoginEntity> {
@@ -304,13 +276,6 @@ export class RealApiService implements ApiService {
 
   updateUser(dto: UpdateUserDto): Observable<UserEntity> {
     return this._patch<UserEntity>('/users', { ...dto });
-  }
-
-  createLegacyProject(project: FormData): Observable<HttpEvent<ProjectEntity>> {
-    return this._post<HttpEvent<ProjectEntity>>(`/projects/legacy`, project, {
-      reportProgress: true,
-      observe: 'events' as any,
-    });
   }
 
   createProjectOld(project: FormData): Observable<HttpEvent<ProjectEntity>> {
@@ -389,10 +354,7 @@ export class RealApiService implements ApiService {
       observe: 'events' as any,
     });
   }
-  //  old
-  // getWaveformData(projectId: string): Observable<WaveformData> {
-  //   return this._get<WaveformData>(`/projects/${projectId}/media/waveform`);
-  // }
+
   getWaveformData(waveformUrl: string): Observable<WaveformData> {
     return this.httpClient.get<WaveformData>(waveformUrl);
   }
@@ -439,8 +401,6 @@ export class RealApiService implements ApiService {
     );
   }
 
-  // joinProject(inviteLink: string): Observable<Project> {}
-
   subscribeProject(projectId: string): Observable<void> {
     return this._post<void>(`/projects/${projectId}/subscribe`, {});
   }
@@ -461,26 +421,6 @@ export class RealApiService implements ApiService {
       ...transcription,
     });
   }
-
-  // createTranscriptionFromFile(
-  //   transcription: CreateTranscriptionDto,
-  //   file: File
-  // ): Observable<HttpEvent<TranscriptionEntity>> {
-  //   const formData = new FormData();
-  //   formData.append('project', transcription.project);
-  //   formData.append('title', transcription.title);
-  //   formData.append('language', transcription.language);
-  //   formData.append('file', file);
-
-  //   return this._post<HttpEvent<TranscriptionEntity>>(
-  //     `/transcriptions`,
-  //     formData,
-  //     {
-  //       reportProgress: true,
-  //       observe: 'events' as any,
-  //     }
-  //   );
-  // }
 
   findAllTranscriptions(
     projectId: string,
@@ -561,39 +501,6 @@ export class RealApiService implements ApiService {
     return this._get<any>(`/transcriptions/${transcriptionId}/getCaptions`, {
       useViewerToken,
     });
-  }
-
-  // captions
-
-  createCaption(captionDto: CreateCaptionDto): Observable<CaptionEntity> {
-    return this._post<CaptionEntity>(`/captions`, { ...captionDto });
-  }
-
-  findAllCaptions(
-    transcriptionId: string,
-    useViewerToken?: boolean
-  ): Observable<CaptionListEntity> {
-    return this._get<CaptionListEntity>(`/captions`, {
-      params: { transcriptionId },
-      useViewerToken,
-    });
-  }
-  //findOneCaption() {}
-  updateCaption(
-    captionId: string,
-    updateCaptionDto: UpdateCaptionDto
-  ): Observable<CaptionEntity> {
-    return this._patch<CaptionEntity>(`/captions/${captionId}`, {
-      ...updateCaptionDto,
-    });
-  }
-
-  removeCaption(captionId: string): Observable<void> {
-    return this._delete<void>(`/captions/${captionId}`);
-  }
-
-  getCaptionHistory(captionId: string): Observable<CaptionHistoryEntity[]> {
-    return this._get<CaptionHistoryEntity[]>(`/captions/${captionId}/history`);
   }
 
   // Notifications

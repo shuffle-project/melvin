@@ -49,10 +49,7 @@ export class MediaSourceComponent implements OnInit {
   videoSource: VideoSource | null = null;
   screensharingSource: ScreensharingSource | null = null;
 
-  constructor(public recorderService: RecorderService) {
-    // if( this.mediaSource instanceof AudioSource){
-    // }
-  }
+  constructor(public recorderService: RecorderService) {}
 
   ngOnInit() {
     switch (this.mediaSource['type']) {

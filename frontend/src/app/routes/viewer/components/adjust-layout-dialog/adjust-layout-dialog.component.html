@@ -18,26 +18,6 @@
     The settings are applied directly.
   </div>
 
-  <!-- <h3>Video</h3>
-    <mat-radio-group
-      aria-label="Anordnung"
-      [value]="videoArrangement$ | ngrxPush"
-      (change)="onChangeVideoArrangement($event)"
-    >
-      <mat-radio-button value="{{ VideoArrangement.CENTERED }}"
-        >Ein zentrales Video
-      </mat-radio-button>
-      <mat-radio-button value="{{ VideoArrangement.SMALL_BIG }}">
-        Kleines Video links und großes rechts
-      </mat-radio-button>
-      <mat-radio-button value="{{ VideoArrangement.BIG_SMALL }}">
-        Großes Video links und kleines rechts
-      </mat-radio-button>
-      <mat-radio-button value="{{ VideoArrangement.MEDIUM_MEDIUM }}">
-        Zwei gleichgroße Videos nebeneinander
-      </mat-radio-button>
-    </mat-radio-group> -->
-
   <div class="input-wrapper">
     <mat-form-field>
       <mat-label i18n="@@viewerAdjustLayoutDialogFontsizeLabel"
@@ -69,36 +49,4 @@
       </mat-select>
     </mat-form-field>
   </div>
-
-  <!-- <div class="input-wrapper">
-    <mat-radio-group
-      aria-label="Position"
-      [value]="transcriptPosition$ | ngrxPush"
-      (change)="onTranscriptPositionChanged($event)"
-      [disabled]="!(transcriptEnabled$ | ngrxPush)"
-    >
-      <mat-radio-button
-        value="{{ TranscriptPosition.LEFT }}"
-        i18n="@@viewerAdjustLayoutDialogTranscriptPositionLeft"
-      >
-        Transcript left
-      </mat-radio-button>
-      <mat-radio-button
-        value="{{ TranscriptPosition.RIGHT }}"
-        i18n="@@viewerAdjustLayoutDialogTranscriptPositionRight"
-      >
-        Transcript right
-      </mat-radio-button>
-
-    </mat-radio-group>
-  </div> -->
-
-  <!-- <div class="input-wrapper">
-    <mat-slide-toggle
-      [checked]="transcriptOnlyMode$ | ngrxPush"
-      (change)="onTranscriptOnlyModeChanged($event)"
-    >
-      Transcript only mode</mat-slide-toggle
-    >
-  </div> -->
 </div>

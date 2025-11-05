@@ -107,13 +107,10 @@ export class OverlayService implements OnDestroy {
 
   private _showOrHide(isPlaying: boolean, isMenuOpen: boolean) {
     if (isMenuOpen) {
-      // console.log('show bc menu open');
       this._show();
     } else if (isPlaying) {
-      // console.log('hide bc playing');
       this._hide();
     } else {
-      // console.log('show bc not playing');
       this._show();
     }
   }

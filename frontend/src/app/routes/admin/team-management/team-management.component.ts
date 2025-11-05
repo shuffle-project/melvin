@@ -77,10 +77,6 @@ export class TeamManagementComponent implements OnInit, AfterViewInit {
     this.dataSource.sort = this.sort;
   }
 
-  // onVerifyUserEmail(user: UserEntityForAdmin) {
-  //   this.store.dispatch(adminVerifyUserEmail({ userId: user.id }));
-  // }
-
   onApplyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();

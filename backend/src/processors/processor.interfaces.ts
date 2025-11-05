@@ -1,21 +1,15 @@
 import { MelvinAsrTranscript } from 'src/modules/melvin-asr-api/melvin-asr-api.interfaces';
 import { UploadMetadata } from 'src/modules/upload/upload.interfaces';
-import { CaptionEntity } from 'src/resources/caption/entities/caption.entity';
 import { Audio, Project, Video } from '../modules/db/schemas/project.schema';
 import { AuthUser } from '../resources/auth/auth.interfaces';
 import { TranscriptionEntity } from '../resources/transcription/entities/transcription.entity';
 
 export enum TranslateVendors {
-  LIBRE = 'libreTranslate',
-  DEEPL = 'deepl',
-  GOOGLE = 'googleTranslate',
   MELVIN = 'melvin',
 }
 
 export enum AsrVendors {
   RANDOM = 'random',
-  GOOGLE = 'google',
-  ASSEMBLYAI = 'assemblyai',
   WHISPER = 'whisper',
 }
 
@@ -53,10 +47,7 @@ export interface AlignPayload {
   type: SubtitlesType.ALIGN;
   transcriptionId: string;
   audio: Audio;
-  // language: string; // take language of project
-  // text?: string;
   transcriptToAlign?: MelvinAsrTranscript;
-  syncSpeaker?: CaptionEntity[];
 }
 
 export interface ProcessSubtitlesJob {

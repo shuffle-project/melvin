@@ -4,7 +4,6 @@ import { Model, Types, UpdateQuery } from 'mongoose';
 import { CustomBadRequestException } from '../../utils/exceptions';
 import { CustomLogger } from '../logger/logger.service';
 import { Activity, ActivityDocument } from './schemas/activity.schema';
-import { Caption, CaptionDocument } from './schemas/caption.schema';
 import { Export, ExportDocument } from './schemas/export.schema';
 import {
   Notification,
@@ -33,8 +32,6 @@ export class DbService {
     public readonly projectModel: Model<ProjectDocument>,
     @InjectModel(Transcription.name)
     public readonly transcriptionModel: Model<TranscriptionDocument>,
-    @InjectModel(Caption.name)
-    public readonly captionModel: Model<CaptionDocument>,
     @InjectModel(Export.name)
     public readonly exportModel: Model<ExportDocument>,
     @InjectModel(Activity.name)

@@ -301,8 +301,6 @@ export class MelvinAsrApiService {
       this.httpService
         .post<MelvinAsrUploadEntity>(`${this.host}/upload`, formData, {
           headers: {
-            // authorization: this.apikey,
-            // 'Transfer-Encoding': 'chunked',
             Authorization: this.apikey,
             'Content-Type': 'multipart/form-data',
             ...formData.getHeaders(),

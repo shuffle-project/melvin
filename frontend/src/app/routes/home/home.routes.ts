@@ -21,17 +21,10 @@ export const HomeRoutes: Routes = [
       {
         path: 'editor',
         canActivate: [HasRoleGuard],
-        data: { roles: [UserRole.USER, UserRole.GUEST] },
+        data: { roles: [UserRole.USER] },
         loadChildren: () =>
           import('./editor/editor.routes').then((m) => m.EditorRoutes),
       },
-      // {
-      //   path: 'viewer',
-      //   canActivate: [HasRoleGuard],
-      //   data: { roles: [UserRole.USER, UserRole.GUEST, UserRole.VIEWER] },
-      //   loadChildren: () =>
-      //     import('./viewer/viewer.routes').then((m) => m.ViewerRoutes),
-      // },
       {
         path: 'recorder',
         canActivate: [HasRoleGuard],
@@ -71,9 +64,3 @@ export const HomeRoutes: Routes = [
     ],
   },
 ];
-
-// @NgModule({
-//   imports: [RouterModule.forChild(routes)],
-//   exports: [RouterModule],
-// })
-// export class HomeRoutingModule {}

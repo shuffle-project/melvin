@@ -81,60 +81,6 @@ export class EmailConfig {
   mailFromName: string;
 }
 
-export class DeepLConfig {
-  @IsString()
-  @IsDefined()
-  url: string;
-
-  @IsString()
-  @IsDefined()
-  apikey: string;
-}
-
-export class LibreTranslateConfig {
-  @IsString()
-  @IsDefined()
-  url: string;
-}
-
-export class GoogleTranslateConfig {
-  @IsString()
-  @IsDefined()
-  url: string;
-
-  @IsString()
-  @IsDefined()
-  apikey: string;
-}
-
-export class AssmeblyAiConfig {
-  @IsString()
-  @IsDefined()
-  url: string;
-
-  @IsString()
-  @IsDefined()
-  apikey: string;
-}
-
-export class GoogleSpeechConfig {
-  @IsString()
-  @IsDefined()
-  bucketName: string;
-
-  @IsString()
-  @IsDefined()
-  project_id: string;
-
-  @IsString()
-  @IsDefined()
-  private_key: string;
-
-  @IsString()
-  @IsDefined()
-  client_email: string;
-}
-
 export class MelvinAsrConfig {
   @IsString()
   @IsDefined()
@@ -204,26 +150,6 @@ export class Config {
   @ValidateNested({ each: true })
   @IsOptional()
   email: EmailConfig;
-
-  // @IsArray()
-  // @ValidateNested({ each: true })
-  // @IsDefined()
-  // initialUsers: PopulateUser[];
-
-  @ValidateNested({ each: true })
-  deepL: DeepLConfig;
-
-  @ValidateNested({ each: true })
-  libreTranslate: LibreTranslateConfig;
-
-  @ValidateNested({ each: true })
-  googleTranslate: GoogleTranslateConfig;
-
-  @ValidateNested({ each: true })
-  assemblyAi: AssmeblyAiConfig;
-
-  @ValidateNested({ each: true })
-  googleSpeech: GoogleSpeechConfig;
 
   @ValidateNested({ each: true })
   melvinAsr: MelvinAsrConfig;

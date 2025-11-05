@@ -12,11 +12,6 @@ export const editorState = createSelector(
   (state: EditorState) => state
 );
 
-// export const selectIsPlaying = createSelector(
-//   selectEditorState,
-//   (state: EditorState) => state.isPlaying
-// );
-
 export const selectIsLiveMode = createSelector(
   selectEditorState,
   (state: EditorState) => {

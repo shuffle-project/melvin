@@ -3,9 +3,6 @@ import { ProjectSetEnum } from '../../interfaces/project-filter.interface';
 import { ProjectsState } from '../reducers/projects.reducer';
 import * as authSelectors from '../selectors/auth.selector';
 
-// export const selectRouter = createFeatureSelector<RouterState>('router');
-// export const selectQueryParam = getSelector(selectRouter);
-
 export const selectProjectsState =
   createFeatureSelector<ProjectsState>('projects');
 

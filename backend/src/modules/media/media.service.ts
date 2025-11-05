@@ -32,13 +32,7 @@ export class MediaService {
       throw new CustomBadRequestException('unknown_viewer_token');
     }
 
-    // if (mediaAccessUser.projectId !== projectId) {
-    //   throw new CustomForbiddenException();
-    // }
-
     const [mediaId, ext] = filename.split('.');
-
-    // const [mediaId, resolution] = mediaIdResolution.split('_');
 
     // https://blog.logrocket.com/full-stack-app-tutorial-nestjs-react/
     // https://betterprogramming.pub/video-stream-with-node-js-and-html5-320b3191a6b6
