@@ -218,17 +218,26 @@ export class AdminService {
         (project as Project).duration = 0;
     });
 
-    const accumulatedDuration = user.projects
-      .filter((project) => isSameObjectId((project as Project).createdBy, user))
-      .reduce((a, b) => a + (b as Project).duration, 0);
+    const accumulatedDuration = user.projects.reduce(
+      (a, b) => a + (b as Project).duration,
+      0,
+    );
 
-    const projects = user.projects.map((project) => {
-      const proj = project as Project;
-      const audios = proj.audios.reduce((a, b) => a + (b.sizeInBytes || 0), 0);
-      const videos = proj.videos.reduce((a, b) => a + (b.sizeInBytes || 0), 0);
-      const sizeInByte = audios + videos;
-      return { project, sizeInByte };
-    });
+    const projects = user.projects
+      .filter((project) => isSameObjectId((project as Project).createdBy, user))
+      .map((project) => {
+        const proj = project as Project;
+        const audios = proj.audios.reduce(
+          (a, b) => a + (b.sizeInBytes || 0),
+          0,
+        );
+        const videos = proj.videos.reduce(
+          (a, b) => a + (b.sizeInBytes || 0),
+          0,
+        );
+        const sizeInByte = audios + videos;
+        return { project, sizeInByte };
+      });
 
     const sizeInByte = projects.reduce((a, b) => a + b.sizeInByte, 0);
 
