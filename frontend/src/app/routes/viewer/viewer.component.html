@@ -41,8 +41,9 @@
             >
               <div
                 #titleoverlay
-                class="title-wrapper overlay"
-                [@fade]="overlayService.showOverlay ? 'show' : 'hide'"
+                class="title-wrapper overlay {{
+                  overlayService.showOverlay ? 'show-animated' : 'hide-animated'
+                }}"
               >
                 <h1 class="break-long-text">
                   {{ project?.title }}
@@ -68,8 +69,9 @@
 
               <div
                 #controlsoverlay
-                class="controls-wrapper overlay"
-                [@fade]="overlayService.showOverlay ? 'show' : 'hide'"
+                class="controls-wrapper overlay {{
+                  overlayService.showOverlay ? 'show-animated' : 'hide-animated'
+                }}"
               >
                 <app-controls [media]="media!"> </app-controls>
               </div>

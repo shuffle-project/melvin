@@ -194,3 +194,12 @@
     }
   }
 }
+
+.show-animated {
+  transition: all 1s;
+  opacity: 1;
+}
+.hide-animated {
+  transition: all 1s;
+  opacity: 0;
+}

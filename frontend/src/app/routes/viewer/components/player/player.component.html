@@ -54,7 +54,9 @@
           aria-orientation="vertical"
           aria-label="Use arrow keys to resize the videos"
           i18n-aria-label="@@playerInnerResizerAriaLabel"
-          [@fade]="overlayService.showOverlay ? 'show' : 'hide'"
+          class="{{
+            overlayService.showOverlay ? 'show-animated' : 'hide-animated'
+          }}"
         >
           <div class="inner-resizer">
             <div class="visual-resize-handle"></div>
