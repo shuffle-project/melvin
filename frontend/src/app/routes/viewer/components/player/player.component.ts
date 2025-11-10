@@ -1,11 +1,4 @@
 import {
-  animate,
-  state,
-  style,
-  transition,
-  trigger,
-} from '@angular/animations';
-import {
   FullscreenOverlayContainer,
   OverlayContainer,
 } from '@angular/cdk/overlay';
@@ -64,14 +57,6 @@ export interface ViewerVideo extends VideoEntity {
     VideoContainerComponent,
     NgStyle,
     PushPipe,
-  ],
-  animations: [
-    trigger('fade', [
-      state('show', style({ opacity: 1 })),
-      state('hide', style({ opacity: 0 })),
-      transition('hide => show', [style({ opacity: 1 })]),
-      transition('show => hide', [animate(0, style({ opacity: 0 }))]),
-    ]),
   ],
 })
 export class PlayerComponent implements OnDestroy, AfterViewInit, OnInit {

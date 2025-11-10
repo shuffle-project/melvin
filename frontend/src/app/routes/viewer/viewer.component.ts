@@ -2,13 +2,6 @@ import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { Store } from '@ngrx/store';
 // use own viewer actions
-import {
-  animate,
-  state,
-  style,
-  transition,
-  trigger,
-} from '@angular/animations';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
@@ -41,14 +34,6 @@ import { TranscriptPosition } from './viewer.interfaces';
     LogoComponent,
     RouterLink,
     ControlsComponent,
-  ],
-  animations: [
-    trigger('fade', [
-      state('show', style({ opacity: 1 })),
-      state('hide', style({ opacity: 0 })),
-      transition('hide => show', [style({ opacity: 1 })]),
-      transition('show => hide', [animate(0, style({ opacity: 0 }))]),
-    ]),
   ],
 })
 export class ViewerComponent implements OnInit, OnDestroy {

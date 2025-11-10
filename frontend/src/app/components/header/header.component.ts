@@ -1,4 +1,3 @@
-import { animate, style, transition, trigger } from '@angular/animations';
 import {
   Component,
   DOCUMENT,
@@ -38,14 +37,6 @@ import { UserInfoComponent } from '../user-info/user-info.component';
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
-  animations: [
-    trigger('fadeIn', [
-      transition(':enter', [
-        style({ opacity: 0 }),
-        animate('100ms', style({ opacity: 1 })),
-      ]),
-    ]),
-  ],
   imports: [
     LetDirective,
     MatToolbarModule,

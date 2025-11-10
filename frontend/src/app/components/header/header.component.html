@@ -42,9 +42,9 @@
             (onMenuClose)="isMenuOpen = false"
           >
             @if (!isMenuOpen) {
-            <mat-icon svgIcon="menu"></mat-icon>
+            <mat-icon svgIcon="menu" class="enter-animation"></mat-icon>
             } @if (isMenuOpen) {
-            <mat-icon svgIcon="clear"></mat-icon>
+            <mat-icon svgIcon="clear" class="enter-animation"></mat-icon>
             }
           </button>
           }

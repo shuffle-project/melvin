@@ -141,3 +141,16 @@ hr {
   border-bottom: 1px solid var(--color-border-grey);
   margin: 0;
 }
+
+.enter-animation {
+  animation: slide-fade 300ms;
+}
+
+@keyframes slide-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
