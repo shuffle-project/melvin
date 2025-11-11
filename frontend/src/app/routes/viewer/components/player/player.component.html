@@ -82,14 +82,10 @@
     @if (subtitlesEnabled$ | ngrxPush) {
     <div
       *ngrxLet="combinedCaptionsStyling$ as combined"
-      class="viewer-caption {{ combined.position }} overlay-shown
-      "
+      class="viewer-caption {{ combined.position }} overlay-shown {{
+        overlayService.showOverlay ? 'translate-top' : ''
+      }}"
     >
-      <!-- TODO subtitles should always show?  -->
-      <!--      {{
-        overlayService.showOverlay ? 'overlay-shown' : 'overlay-hidden'
-      }}
-         -->
       <!-- over / under -->
       <span
         *ngrxLet="currentCaptionText$ as currentCaptionText"

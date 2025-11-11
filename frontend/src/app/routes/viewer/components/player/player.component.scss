@@ -158,11 +158,7 @@
     right: 0.625rem;
     bottom: 0.625rem;
     text-align: center;
-    transition: transform 0.2s;
-
-    &.overlay-shown {
-      transform: translate(0, -6.25rem);
-    }
+    transition: transform 0.5s;
   }
 
   &.under-video {
@@ -182,7 +178,7 @@
   }
 
   &.translate-top {
-    transform: translate(0, -3.75rem);
+    transform: translate(0, -6.25rem);
   }
 
   span {
