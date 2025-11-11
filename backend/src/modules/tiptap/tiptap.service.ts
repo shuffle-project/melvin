@@ -56,9 +56,8 @@ export class TiptapService {
   }
 
   async updateDocument(transcriptionId: string, jsonDoc: TiptapDocument) {
-    const connection = await this.hocuspocusService.openDirectConnection(
-      transcriptionId,
-    );
+    const connection =
+      await this.hocuspocusService.openDirectConnection(transcriptionId);
 
     await connection.transact((doc) => {
       const stateVector = Y.encodeStateVector(doc);
@@ -85,9 +84,8 @@ export class TiptapService {
 
   async insert(transcriptionId: string, text: string) {
     this.logger.verbose('insert');
-    const connection = await this.hocuspocusService.openDirectConnection(
-      transcriptionId,
-    );
+    const connection =
+      await this.hocuspocusService.openDirectConnection(transcriptionId);
 
     await connection.transact((doc) => {
       const pmDocJSON = TiptapTransformer.fromYdoc(doc, 'default');
@@ -122,9 +120,8 @@ export class TiptapService {
   async insertStream(transcriptionId: string) {
     this.logger.verbose('insertStream');
 
-    const connection = await this.hocuspocusService.openDirectConnection(
-      transcriptionId,
-    );
+    const connection =
+      await this.hocuspocusService.openDirectConnection(transcriptionId);
     const lorem =
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.';
     const words = lorem.split(' ');
@@ -220,9 +217,8 @@ export class TiptapService {
   async insertPartial(transcriptionId: string) {
     this.logger.verbose('insertPartial');
 
-    const connection = await this.hocuspocusService.openDirectConnection(
-      transcriptionId,
-    );
+    const connection =
+      await this.hocuspocusService.openDirectConnection(transcriptionId);
 
     const lorem =
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.';
@@ -419,9 +415,8 @@ export class TiptapService {
   public async getAsMelvinTranscript(
     transcriptionId: string,
   ): Promise<MelvinAsrTranscript> {
-    const connection = await this.hocuspocusService.openDirectConnection(
-      transcriptionId,
-    );
+    const connection =
+      await this.hocuspocusService.openDirectConnection(transcriptionId);
 
     const document = this.docToJSON(connection.document);
     connection.disconnect();
@@ -456,9 +451,8 @@ export class TiptapService {
   public async getTiptapDocument(
     transcriptionId: string,
   ): Promise<TiptapDocument> {
-    const connection = await this.hocuspocusService.openDirectConnection(
-      transcriptionId,
-    );
+    const connection =
+      await this.hocuspocusService.openDirectConnection(transcriptionId);
 
     const document = this.docToJSON(connection.document);
     connection.disconnect();
@@ -502,18 +496,16 @@ export class TiptapService {
   }
 
   async getPlainText(transcriptionId: string) {
-    const connection = await this.hocuspocusService.openDirectConnection(
-      transcriptionId,
-    );
+    const connection =
+      await this.hocuspocusService.openDirectConnection(transcriptionId);
     const words = this.docToWordList(connection.document);
     connection.disconnect();
     return words.map((word) => word.text.trim()).join(' ');
   }
 
   async getCaptionsById(transcriptionId: string): Promise<TiptapCaption[]> {
-    const connection = await this.hocuspocusService.openDirectConnection(
-      transcriptionId,
-    );
+    const connection =
+      await this.hocuspocusService.openDirectConnection(transcriptionId);
 
     const captions = this.getCaptions(connection.document);
     connection.disconnect();
@@ -609,7 +601,7 @@ export class TiptapService {
     for (const word of wordList) {
       const line = lines[lines.length - 1];
       const lineLength = line.text.trim().length;
-      const lastCharacter = line.text.trimEnd().at(-1);
+      const lastCharacter = line.text.trimEnd().charAt(-1);
       const newLength = line.text.length + word.text.trimEnd().length;
 
       const hasRoom = newLength <= MAX_LINE_LENGTH;
