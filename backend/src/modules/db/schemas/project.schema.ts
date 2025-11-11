@@ -186,7 +186,7 @@ export class Video {
   @IsEnum(MediaCategory)
   category: MediaCategory;
 
-  @ApiProperty({ type: [ResolutionSchema] })
+  @ApiProperty({ type: [Resolution] })
   @Prop()
   resolutions: Resolution[];
 
