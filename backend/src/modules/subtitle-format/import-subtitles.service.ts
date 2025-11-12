@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { parse } from '@plussub/srt-vtt-parser';
-import { Entry } from '@plussub/srt-vtt-parser/dist/src/types';
+import { Entry } from '@plussub/srt-vtt-parser/dist/types';
 import { readFile } from 'fs-extra';
 import { AuthUser } from '../../resources/auth/auth.interfaces';
 import { CustomLogger } from '../logger/logger.service';

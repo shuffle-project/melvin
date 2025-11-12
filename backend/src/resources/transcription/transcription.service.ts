@@ -278,8 +278,7 @@ export class TranscriptionService {
     }
 
     //TODO als transaction
-
-    await this.db.transcriptionModel.findByIdAndRemove(id);
+    await this.db.transcriptionModel.findByIdAndDelete(id);
 
     await this.db.updateProjectByIdAndReturn(project._id, {
       $pullAll: { transcriptions: [transcription._id] },
@@ -315,19 +314,16 @@ export class TranscriptionService {
     let streamableFile: StreamableFile;
     switch (downloadSubtitlesquery.type) {
       case SubtitleExportType.VTT:
-        streamableFile = await this.exportSubtitlesService.toVttFile(
-          transcription,
-        );
+        streamableFile =
+          await this.exportSubtitlesService.toVttFile(transcription);
         break;
       case SubtitleExportType.SRT:
-        streamableFile = await this.exportSubtitlesService.toSrtFile(
-          transcription,
-        );
+        streamableFile =
+          await this.exportSubtitlesService.toSrtFile(transcription);
         break;
       case SubtitleExportType.TXT:
-        streamableFile = await this.exportSubtitlesService.toTxtFile(
-          transcription,
-        );
+        streamableFile =
+          await this.exportSubtitlesService.toTxtFile(transcription);
         break;
     }
 
