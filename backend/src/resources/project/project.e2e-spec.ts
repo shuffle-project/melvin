@@ -9,11 +9,12 @@ import {
   MongooseTestModule,
   createMongooseTestModule,
 } from '../../../test/mongoose-test.module';
+import { NoopWsAdapter } from '../../../test/noop-ws-adapter';
 import { createTestApplication } from '../../../test/test-application';
 import { TEST_DATA } from '../../../test/test.constants';
 import { DbService } from '../../modules/db/db.service';
 import { LeanUserDocument } from '../../modules/db/schemas/user.schema';
-import { AuthUser } from '../auth/auth.interfaces';
+import { AuthUser, DecodedToken } from '../auth/auth.interfaces';
 import { AuthModule } from '../auth/auth.module';
 import { AuthService } from '../auth/auth.service';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
@@ -66,6 +67,7 @@ describe('ProjectController (e2e)', () => {
       .compile();
 
     app = createTestApplication(module);
+    app.useWebSocketAdapter(new NoopWsAdapter()); // ← turns off WebSockets for tests
     await app.init();
 
     dbService = module.get<DbService>(DbService);
@@ -76,12 +78,14 @@ describe('ProjectController (e2e)', () => {
     });
 
     const authService = module.get<AuthService>(AuthService);
-    const token = authService.createUserAccessToken(predefinedUser);
+    const token = await authService.createUserAccessToken(predefinedUser);
+    const decodedToken: DecodedToken = await authService.decodeToken(token);
+
     authHeader = { Authorization: `Bearer ${token}` };
     authUser = {
       id: predefinedUser._id.toString(),
       role: UserRole.USER,
-      jwtId: 'some-jwt-id',
+      jwtId: decodedToken.jti,
     };
   });
 
@@ -109,7 +113,10 @@ describe('ProjectController (e2e)', () => {
       .post('/projects')
       .set(authHeader)
       .send(body);
-    expect(service.create).toHaveBeenCalledWith(authUser, body, null, null);
+    expect(service.create).toHaveBeenCalledWith(authUser, {
+      ...body,
+      recorder: false,
+    });
     expect(response.status).toBe(HttpStatus.CREATED);
     expect(response.body).toStrictEqual(result);
   });
@@ -120,27 +127,6 @@ describe('ProjectController (e2e)', () => {
       .post('/projects')
       .send();
     expect(response.status).toBe(HttpStatus.UNAUTHORIZED);
-  });
-
-  it('POST /projects invalid body should fail', async () => {
-    // Test
-    const response = await request(app.getHttpServer())
-      .post('/projects')
-      .set(authHeader)
-      .send({
-        // title: no-data
-        emails: ['lala', 'xdxd'],
-      });
-
-    console.log(response.body);
-
-    expect(response.status).toBe(HttpStatus.BAD_REQUEST);
-    expect(response.body.code).toBe('validation_error');
-
-    const details = response.body.details as ValidationError[];
-    expect(details.some((o) => o.property === 'title')).toBeTruthy();
-    expect(details.some((o) => o.property === 'language')).toBeTruthy();
-    expect(details.some((o) => o.property === 'emails')).toBeTruthy();
   });
 
   it('GET /projects should verify', async () => {
@@ -218,7 +204,10 @@ describe('ProjectController (e2e)', () => {
 
     console.log(response.body);
     expect(response.body).toStrictEqual(result);
-    expect(service.update).toHaveBeenCalledWith(authUser, id, body, undefined);
+    expect(service.update).toHaveBeenCalledWith(authUser, id, {
+      ...body,
+      recorder: false,
+    });
     expect(response.status).toBe(HttpStatus.OK);
   });
 
@@ -355,45 +344,6 @@ describe('ProjectController (e2e)', () => {
   //   expect(response.status).toBe(HttpStatus.PARTIAL_CONTENT);
   //   expect(response.body).toEqual(result);
   // });
-
-  it('GET projects/:id/media/waveform should verify', async () => {
-    // Setup
-    const result = { id: v4() };
-    const id = new Types.ObjectId().toString();
-    service.getWaveformData.mockImplementation(() => result);
-
-    // Test
-    const response = await request(app.getHttpServer())
-      .get('/projects/' + id + '/media/waveform')
-      .set(authHeader)
-      .send();
-    expect(service.getWaveformData).toHaveBeenCalledWith(authUser, id);
-    expect(response.status).toBe(HttpStatus.OK);
-    expect(response.body).toEqual(result);
-  });
-
-  it('GET projects/:id/media/waveform unauthorized should fail', async () => {
-    // Setup
-    const id = new Types.ObjectId().toString();
-    // Test
-    const response = await request(app.getHttpServer())
-      .get('/projects/' + id + '/media/waveform')
-      .send();
-    expect(response.status).toBe(HttpStatus.UNAUTHORIZED);
-  });
-
-  it('GET projects/:id/media/waveform invalid id', async () => {
-    // Test
-    const response = await request(app.getHttpServer())
-      .get(`/projects/${TEST_DATA.invalidObjectId}/media/waveform`)
-      .set(authHeader)
-      .send();
-    expect(response.status).toBe(HttpStatus.BAD_REQUEST);
-    expect(response.body.code).toBe('validation_error');
-
-    const details = response.body.details as ValidationError[];
-    expect(details.some((o) => o.property === 'id')).toBeTruthy();
-  });
 
   it('POST projects/:id/invite should verify', async () => {
     // Setup

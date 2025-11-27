@@ -8,6 +8,7 @@ import {
   createMongooseTestModule,
   MongooseTestModule,
 } from '../../../test/mongoose-test.module';
+import { NoopWsAdapter } from '../../../test/noop-ws-adapter';
 import { createTestApplication } from '../../../test/test-application';
 import { TEST_DATA } from '../../../test/test.constants';
 import { DbService } from '../../modules/db/db.service';
@@ -44,6 +45,7 @@ describe('UserController (e2e)', () => {
       .compile();
 
     app = createTestApplication(module);
+    app.useWebSocketAdapter(new NoopWsAdapter()); // ← turns off WebSockets for tests
     await app.init();
 
     dbService = module.get<DbService>(DbService);
@@ -54,7 +56,8 @@ describe('UserController (e2e)', () => {
     });
 
     const authService = module.get<AuthService>(AuthService);
-    const token = authService.createUserAccessToken(predefinedUser);
+    const token = await authService.createUserAccessToken(predefinedUser);
+
     authHeader = { Authorization: `Bearer ${token}` };
   });
 

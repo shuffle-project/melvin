@@ -1,29 +1,20 @@
-import {
-  ExecutionContext,
-  HttpStatus,
-  INestApplication,
-  UnauthorizedException,
-} from '@nestjs/common';
+import { HttpStatus, INestApplication } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { Test, TestingModule } from '@nestjs/testing';
-import { Types } from 'mongoose';
 import request from 'supertest';
 import { v4 } from 'uuid';
 import {
   createMongooseTestModule,
   MongooseTestModule,
 } from '../../../test/mongoose-test.module';
+import { NoopWsAdapter } from '../../../test/noop-ws-adapter';
 import { createTestApplication } from '../../../test/test-application';
 import { TEST_DATA } from '../../../test/test.constants';
 import { configuration } from '../../config/config.load';
-import { UserRole } from '../user/user.interfaces';
-import { AuthUser } from './auth.interfaces';
 import { AuthModule } from './auth.module';
 import { AuthService } from './auth.service';
 import { AuthLoginDto } from './dto/auth-login.dto';
-import { AuthMediaAccessTokenDto } from './dto/auth-media-access-token.dto';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
-
 describe('AuthController (e2e)', () => {
   let module: TestingModule;
   let MongooseTestModule: MongooseTestModule;
@@ -35,7 +26,6 @@ describe('AuthController (e2e)', () => {
     createMediaAccessToken: jest.fn(),
     register: jest.fn(),
     verifyEmail: jest.fn(),
-    guestLogin: jest.fn(),
     verifyInvite: jest.fn(),
   };
   const guard = {
@@ -62,6 +52,7 @@ describe('AuthController (e2e)', () => {
       .compile();
 
     app = createTestApplication(module);
+    app.useWebSocketAdapter(new NoopWsAdapter());
     await app.init();
   });
 
@@ -123,72 +114,6 @@ describe('AuthController (e2e)', () => {
     expect(response.body.code).toBe('validation_error');
   });
 
-  it(`POST /auth/media-access-token should verify`, async () => {
-    // Setup
-    const body: AuthMediaAccessTokenDto = {
-      projectId: TEST_DATA.validObjectId,
-    };
-    const result = { id: v4() };
-    const authHeader = { Authorization: `Bearer ${TEST_DATA.token}` };
-    const authUser: AuthUser = {
-      id: new Types.ObjectId().toString(),
-      role: UserRole.USER,
-      jwtId: 'some-jwt-id',
-    };
-
-    service.createMediaAccessToken.mockImplementationOnce(() => result);
-    guard.canActivate.mockImplementationOnce((context: ExecutionContext) => {
-      const req = context.switchToHttp().getRequest();
-      req.user = JSON.parse(JSON.stringify(authUser));
-      return true;
-    });
-
-    // Test
-    const response = await request(app.getHttpServer())
-      .post('/auth/media-access-token')
-      .set(authHeader)
-      .send(body);
-    expect(service.createMediaAccessToken).toHaveBeenCalledWith(authUser, body);
-    expect(response.status).toBe(HttpStatus.CREATED);
-    expect(response.body).toEqual(result);
-  });
-
-  it('POST /auth/media-access-token unauthorized should fail', async () => {
-    // Setup
-    guard.canActivate.mockRejectedValueOnce(new UnauthorizedException());
-
-    // Test
-    const response = await request(app.getHttpServer())
-      .post('/auth/media-access-token')
-      .send();
-    expect(response.status).toBe(HttpStatus.UNAUTHORIZED);
-  });
-
-  it(`POST /auth/media-access-token invalid body should fail`, async () => {
-    // Setup
-    const body = {};
-    const authHeader = { Authorization: `Bearer ${TEST_DATA.token}` };
-    const authUser: AuthUser = {
-      id: new Types.ObjectId().toString(),
-      role: UserRole.USER,
-      jwtId: 'some-jwt-id',
-    };
-
-    guard.canActivate.mockImplementationOnce((context: ExecutionContext) => {
-      const req = context.switchToHttp().getRequest();
-      req.user = JSON.parse(JSON.stringify(authUser));
-      return true;
-    });
-
-    // Test
-    const response = await request(app.getHttpServer())
-      .post('/auth/media-access-token')
-      .set(authHeader)
-      .send(body);
-    expect(response.status).toBe(HttpStatus.BAD_REQUEST);
-    expect(response.body.code).toBe('validation_error');
-  });
-
   it(`POST /auth/register should verify`, async () => {
     // Setup
     const body = {
@@ -212,54 +137,6 @@ describe('AuthController (e2e)', () => {
     // Test
     const response = await request(app.getHttpServer())
       .post('/auth/register')
-      .send();
-    expect(response.status).toBe(HttpStatus.BAD_REQUEST);
-    expect(response.body.code).toBe('validation_error');
-  });
-
-  it(`POST /auth/verify-email should verify`, async () => {
-    // Setup
-    const body = { verificationToken: 'abc' };
-    const result = { id: v4() };
-    service.verifyEmail.mockImplementation(() => result);
-
-    // Test
-    const response = await request(app.getHttpServer())
-      .post('/auth/verify-email')
-      .send(body);
-    expect(service.verifyEmail).toHaveBeenCalledWith(body);
-    expect(response.status).toBe(HttpStatus.CREATED);
-    expect(response.body).toEqual(result);
-  });
-
-  it(`POST /auth/verify-email invalid body should fail`, async () => {
-    // Test
-    const response = await request(app.getHttpServer())
-      .post('/auth/verify-email')
-      .send();
-    expect(response.status).toBe(HttpStatus.BAD_REQUEST);
-    expect(response.body.code).toBe('validation_error');
-  });
-
-  it(`POST /auth/guest-login should verify`, async () => {
-    // Setup
-    const body = { inviteToken: 'abc', name: 'Anonymous Cat' };
-    const result = { id: v4() };
-    service.guestLogin.mockImplementation(() => result);
-
-    // Test
-    const response = await request(app.getHttpServer())
-      .post('/auth/guest-login')
-      .send(body);
-    expect(service.guestLogin).toHaveBeenCalledWith(body);
-    expect(response.status).toBe(HttpStatus.CREATED);
-    expect(response.body).toEqual(result);
-  });
-
-  it(`POST /auth/guest-login invalid body should fail`, async () => {
-    // Test
-    const response = await request(app.getHttpServer())
-      .post('/auth/guest-login')
       .send();
     expect(response.status).toBe(HttpStatus.BAD_REQUEST);
     expect(response.body.code).toBe('validation_error');

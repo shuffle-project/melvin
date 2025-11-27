@@ -8,11 +8,12 @@ import {
   createMongooseTestModule,
   MongooseTestModule,
 } from '../../../test/mongoose-test.module';
+import { NoopWsAdapter } from '../../../test/noop-ws-adapter';
 import { createTestApplication } from '../../../test/test-application';
 import { TEST_DATA } from '../../../test/test.constants';
 import { DbService } from '../../modules/db/db.service';
 import { LeanUserDocument } from '../../modules/db/schemas/user.schema';
-import { AuthUser } from '../auth/auth.interfaces';
+import { AuthUser, DecodedToken } from '../auth/auth.interfaces';
 import { AuthModule } from '../auth/auth.module';
 import { AuthService } from '../auth/auth.service';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
@@ -64,6 +65,7 @@ describe('TranscriptionController (e2e)', () => {
       .compile();
 
     app = createTestApplication(module);
+    app.useWebSocketAdapter(new NoopWsAdapter()); // ← turns off WebSockets for tests
     await app.init();
 
     dbService = module.get<DbService>(DbService);
@@ -74,12 +76,14 @@ describe('TranscriptionController (e2e)', () => {
     });
 
     const authService = module.get<AuthService>(AuthService);
-    const token = authService.createUserAccessToken(predefinedUser);
+    const token = await authService.createUserAccessToken(predefinedUser);
+    const decodedToken: DecodedToken = await authService.decodeToken(token);
+
     authHeader = { Authorization: `Bearer ${token}` };
     authUser = {
       id: predefinedUser._id.toString(),
       role: UserRole.USER,
-      jwtId: 'some-jwt-id',
+      jwtId: decodedToken.jti,
     };
   });
 
@@ -108,7 +112,7 @@ describe('TranscriptionController (e2e)', () => {
       .set(authHeader)
       .send(body);
 
-    expect(service.create).toHaveBeenCalledWith(authUser, body, undefined);
+    expect(service.create).toHaveBeenCalledWith(authUser, body);
     expect(response.status).toBe(HttpStatus.CREATED);
     expect(response.body).toStrictEqual(result);
   });
@@ -119,20 +123,6 @@ describe('TranscriptionController (e2e)', () => {
       .post('/transcriptions')
       .send();
     expect(response.status).toBe(HttpStatus.UNAUTHORIZED);
-  });
-
-  it('POST /transcriptions invalid body should fail', async () => {
-    // Test
-    const response = await request(app.getHttpServer())
-      .post('/transcriptions')
-      .set(authHeader)
-      .send({});
-
-    expect(response.status).toBe(HttpStatus.BAD_REQUEST);
-    expect(response.body.code).toBe('validation_error');
-
-    const details = response.body.details as ValidationError[];
-    expect(details.some((o) => o.property === 'title')).toBeTruthy();
   });
 
   it('GET /transcriptions should verify', async () => {

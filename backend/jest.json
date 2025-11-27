@@ -4,7 +4,8 @@
   "moduleNameMapper": {
     "^src/(.*)$": "<rootDir>/src/$1"
   },
-  "testRegex": ".*\\.spec\\.ts$",
+  "_testRegex": ".*\\.e2e-spec\\.ts$",
+  "testRegex": ".*\\.(spec|e2e-spec)\\.ts$",
   "transform": {
     "^.+\\.(t|j)s$": "ts-jest"
   },

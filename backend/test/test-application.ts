@@ -16,6 +16,5 @@ export const createTestApplication = (
         new CustomValidationException(errors),
     }),
   );
-
   return app;
 };
