@@ -1,6 +1,7 @@
 import { HttpStatus, INestApplication, ValidationError } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import { Types } from 'mongoose';
+import { AsrVendors } from 'src/processors/processor.interfaces';
 import request from 'supertest';
 import { v4 } from 'uuid';
 import { ConfigTestModule } from '../../../test/config-test.module';
@@ -17,7 +18,7 @@ import { AuthModule } from '../auth/auth.module';
 import { AuthService } from '../auth/auth.service';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { UserRole } from '../user/user.interfaces';
-import { CreateProjectDto } from './dto/create-legacy-project.dto';
+import { CreateProjectDto } from './dto/create-project.dto';
 import { FindAllProjectsQuery } from './dto/find-all-projects.dto';
 import { InviteDto } from './dto/invite.dto';
 import { ProjectModule } from './project.module';
@@ -94,8 +95,11 @@ describe('ProjectController (e2e)', () => {
     const body: CreateProjectDto = {
       title: TEST_DATA.project.title,
       language: TEST_DATA.languageCodeDE,
-      emails: [TEST_DATA.email, TEST_DATA.email2],
-      sourceMode: 'video',
+      asrVendor: AsrVendors.WHISPER,
+      videoOptions: [],
+
+      // emails: [TEST_DATA.email, TEST_DATA.email2],
+      // sourceMode: 'video',
     };
     const result = { id: v4() };
     service.create.mockImplementation(() => result);
