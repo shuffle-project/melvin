@@ -51,14 +51,9 @@ describe('ProjectController', () => {
 
     // Test
     const result = await controller.create(authUser, createProjectDto);
-    expect(service.createLegacy).toBeCalledTimes(1);
-    expect(service.createLegacy).toBeCalledWith(
-      authUser,
-      createProjectDto,
-      null,
-      null,
-    );
-    expect(result).toStrictEqual([authUser, createProjectDto, null, null]);
+    expect(service.create).toHaveBeenCalledTimes(1);
+    expect(service.create).toHaveBeenCalledWith(authUser, createProjectDto);
+    expect(result).toStrictEqual([authUser, createProjectDto]);
   });
 
   it('findAll() should call service.findAll()', async () => {
@@ -68,8 +63,8 @@ describe('ProjectController', () => {
 
     // Test
     const result = await controller.findAll(authUser, query);
-    expect(service.findAll).toBeCalledTimes(1);
-    expect(service.findAll).toBeCalledWith(authUser, query);
+    expect(service.findAll).toHaveBeenCalledTimes(1);
+    expect(service.findAll).toHaveBeenCalledWith(authUser, query);
     expect(result).toStrictEqual([authUser, query]);
   });
 
@@ -80,8 +75,8 @@ describe('ProjectController', () => {
 
     // Test
     const result = await controller.findOne(authUser, id);
-    expect(service.findOne).toBeCalledTimes(1);
-    expect(service.findOne).toBeCalledWith(authUser, id);
+    expect(service.findOne).toHaveBeenCalledTimes(1);
+    expect(service.findOne).toHaveBeenCalledWith(authUser, id);
     expect(result).toStrictEqual([authUser, id]);
   });
 
@@ -93,14 +88,9 @@ describe('ProjectController', () => {
 
     // Test
     const result = await controller.update(authUser, id, updateProjectDto);
-    expect(service.update).toBeCalledTimes(1);
-    expect(service.update).toBeCalledWith(
-      authUser,
-      id,
-      updateProjectDto,
-      undefined,
-    );
-    expect(result).toStrictEqual([authUser, id, updateProjectDto, undefined]);
+    expect(service.update).toHaveBeenCalledTimes(1);
+    expect(service.update).toHaveBeenCalledWith(authUser, id, updateProjectDto);
+    expect(result).toStrictEqual([authUser, id, updateProjectDto]);
   });
 
   it('remove() should call service.remove()', async () => {
@@ -110,8 +100,8 @@ describe('ProjectController', () => {
 
     // Test
     const result = await controller.remove(authUser, id);
-    expect(service.remove).toBeCalledTimes(1);
-    expect(service.remove).toBeCalledWith(authUser, id);
+    expect(service.remove).toHaveBeenCalledTimes(1);
+    expect(service.remove).toHaveBeenCalledWith(authUser, id);
     expect(result).toStrictEqual([authUser, id]);
   });
 
@@ -122,8 +112,8 @@ describe('ProjectController', () => {
 
     // Test
     const result = await controller.subscribe(authUser, id);
-    expect(service.subscribe).toBeCalledTimes(1);
-    expect(service.subscribe).toBeCalledWith(authUser, id);
+    expect(service.subscribe).toHaveBeenCalledTimes(1);
+    expect(service.subscribe).toHaveBeenCalledWith(authUser, id);
     expect(result).toStrictEqual([authUser, id]);
   });
 
@@ -134,8 +124,8 @@ describe('ProjectController', () => {
 
     // Test
     const result = await controller.unsubscribe(authUser, id);
-    expect(service.unsubscribe).toBeCalledTimes(1);
-    expect(service.unsubscribe).toBeCalledWith(authUser, id);
+    expect(service.unsubscribe).toHaveBeenCalledTimes(1);
+    expect(service.unsubscribe).toHaveBeenCalledWith(authUser, id);
     expect(result).toStrictEqual([authUser, id]);
   });
 
@@ -147,8 +137,8 @@ describe('ProjectController', () => {
 
     // Test
     const result = await controller.invite(authUser, id, inviteDto);
-    expect(service.invite).toBeCalledTimes(1);
-    expect(service.invite).toBeCalledWith(authUser, id, inviteDto);
+    expect(service.invite).toHaveBeenCalledTimes(1);
+    expect(service.invite).toHaveBeenCalledWith(authUser, id, inviteDto);
     expect(result).toStrictEqual([authUser, id, inviteDto]);
   });
 
@@ -159,8 +149,8 @@ describe('ProjectController', () => {
 
     // Test
     const result = await controller.getInviteToken(authUser, id);
-    expect(service.getInviteToken).toBeCalledTimes(1);
-    expect(service.getInviteToken).toBeCalledWith(authUser, id);
+    expect(service.getInviteToken).toHaveBeenCalledTimes(1);
+    expect(service.getInviteToken).toHaveBeenCalledWith(authUser, id);
     expect(result).toStrictEqual([authUser, id]);
   });
 
@@ -171,34 +161,8 @@ describe('ProjectController', () => {
 
     // Test
     const result = await controller.updateInviteToken(authUser, id);
-    expect(service.updateInviteToken).toBeCalledTimes(1);
-    expect(service.updateInviteToken).toBeCalledWith(authUser, id);
+    expect(service.updateInviteToken).toHaveBeenCalledTimes(1);
+    expect(service.updateInviteToken).toHaveBeenCalledWith(authUser, id);
     expect(result).toStrictEqual([authUser, id]);
-  });
-
-  it('getWaveformData() should call service.getWaveformData()', async () => {
-    // Setup
-    const authUser: any = v4();
-    const id: any = v4();
-
-    // Test
-    const result = await controller.getWaveformData(authUser, id);
-    expect(service.getWaveformData).toBeCalledTimes(1);
-    expect(service.getWaveformData).toBeCalledWith(authUser, id);
-    expect(result).toStrictEqual([authUser, id]);
-  });
-
-  it('getVideoChunk() should call service.getVideoChunk()', async () => {
-    // Setup
-    const mediaAccess: any = v4();
-    const id: any = v4();
-    const req: any = v4();
-    const res: any = v4();
-
-    // Test
-    const result = await controller.getVideoChunk(mediaAccess, id, req, res);
-    expect(service.getVideoChunk).toBeCalledTimes(1);
-    expect(service.getVideoChunk).toBeCalledWith(mediaAccess, id, req, res);
-    expect(result).toStrictEqual([mediaAccess, id, req, res]);
   });
 });

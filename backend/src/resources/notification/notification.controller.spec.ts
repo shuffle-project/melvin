@@ -39,8 +39,8 @@ describe('NotificationController', () => {
 
     // Test
     const result = await controller.findAll(authUser, query);
-    expect(service.findAll).toBeCalledTimes(1);
-    expect(service.findAll).toBeCalledWith(authUser, query);
+    expect(service.findAll).toHaveBeenCalledTimes(1);
+    expect(service.findAll).toHaveBeenCalledWith(authUser, query);
     expect(result).toStrictEqual([authUser, query]);
   });
 
@@ -52,8 +52,12 @@ describe('NotificationController', () => {
 
     // Test
     const result = await controller.update(authUser, id, updateNotificationDto);
-    expect(service.update).toBeCalledTimes(1);
-    expect(service.update).toBeCalledWith(authUser, id, updateNotificationDto);
+    expect(service.update).toHaveBeenCalledTimes(1);
+    expect(service.update).toHaveBeenCalledWith(
+      authUser,
+      id,
+      updateNotificationDto,
+    );
     expect(result).toStrictEqual([authUser, id, updateNotificationDto]);
   });
 
@@ -64,8 +68,8 @@ describe('NotificationController', () => {
 
     // Test
     const result = await controller.remove(authUser, id);
-    expect(service.remove).toBeCalledTimes(1);
-    expect(service.remove).toBeCalledWith(authUser, id);
+    expect(service.remove).toHaveBeenCalledTimes(1);
+    expect(service.remove).toHaveBeenCalledWith(authUser, id);
     expect(result).toStrictEqual([authUser, id]);
   });
 
@@ -76,8 +80,8 @@ describe('NotificationController', () => {
 
     // Test
     const result = await controller.bulkRemove(authUser, id);
-    expect(service.bulkRemove).toBeCalledTimes(1);
-    expect(service.bulkRemove).toBeCalledWith(authUser, id);
+    expect(service.bulkRemove).toHaveBeenCalledTimes(1);
+    expect(service.bulkRemove).toHaveBeenCalledWith(authUser, id);
     expect(result).toStrictEqual([authUser, id]);
   });
 
@@ -88,8 +92,8 @@ describe('NotificationController', () => {
 
     // Test
     const result = await controller.updateMany(authUser, id);
-    expect(service.updateMany).toBeCalledTimes(1);
-    expect(service.updateMany).toBeCalledWith(authUser, id);
+    expect(service.updateMany).toHaveBeenCalledTimes(1);
+    expect(service.updateMany).toHaveBeenCalledWith(authUser, id);
     expect(result).toStrictEqual([authUser, id]);
   });
 });

@@ -6,7 +6,6 @@ import {
   createMongooseTestModule,
   MongooseTestModule,
 } from '../../../test/mongoose-test.module';
-import { EmailConfig } from '../../config/config.interface';
 import { DbService } from '../../modules/db/db.service';
 import { UserDocument } from '../../modules/db/schemas/user.schema';
 import { CustomInternalServerException } from '../../utils/exceptions';
@@ -58,7 +57,7 @@ describe('UserService', () => {
     const user = await dbService.userModel.create({
       role: UserRole.SYSTEM,
       name: 'System',
-      email: configService.get<EmailConfig>('email').mailFrom,
+      email: 'System',
       hashedPassword: null,
     });
 
@@ -87,7 +86,7 @@ describe('UserService', () => {
     expect(users[0]).toMatchObject({
       role: UserRole.SYSTEM,
       name: 'System',
-      email: configService.get<EmailConfig>('email').mailFrom,
+      email: 'System',
       hashedPassword: null,
     });
   });
@@ -109,7 +108,7 @@ describe('UserService', () => {
     expect(users.length).toBe(1);
     expect(users[0]).toMatchObject({
       _id: user._id,
-      email: configService.get<EmailConfig>('email').mailFrom,
+      email: 'System',
     });
   });
 

@@ -61,6 +61,7 @@ describe('NotificationService', () => {
     authUser = {
       id: predefinedUser._id.toString(),
       role: predefinedUser.role,
+      jwtId: 'some-id',
     };
   });
 
@@ -93,12 +94,12 @@ describe('NotificationService', () => {
     // Test
     const notifications = await service.create(project, activity);
 
-    expect(eventsGateway.notificationCreated).toBeCalledTimes(2);
-    expect(eventsGateway.notificationCreated).nthCalledWith(
+    expect(eventsGateway.notificationCreated).toHaveBeenCalledTimes(2);
+    expect(eventsGateway.notificationCreated).toHaveBeenNthCalledWith(
       1,
       notifications[0],
     );
-    expect(eventsGateway.notificationCreated).nthCalledWith(
+    expect(eventsGateway.notificationCreated).toHaveBeenNthCalledWith(
       2,
       notifications[1],
     );
@@ -203,8 +204,8 @@ describe('NotificationService', () => {
       dto,
     );
 
-    expect(eventsGateway.notificationsUpdated).toBeCalledTimes(1);
-    expect(eventsGateway.notificationsUpdated).toBeCalledWith(
+    expect(eventsGateway.notificationsUpdated).toHaveBeenCalledTimes(1);
+    expect(eventsGateway.notificationsUpdated).toHaveBeenCalledWith(
       predefinedUser._id.toString(),
       [entity],
     );
@@ -247,10 +248,11 @@ describe('NotificationService', () => {
 
     const notificationsCount =
       await dbService.notificationModel.countDocuments();
-    expect(eventsGateway.notificationsRemoved).toBeCalledTimes(1);
-    expect(eventsGateway.notificationsRemoved).toBeCalledWith(authUser.id, [
-      notification._id.toString(),
-    ]);
+    expect(eventsGateway.notificationsRemoved).toHaveBeenCalledTimes(1);
+    expect(eventsGateway.notificationsRemoved).toHaveBeenCalledWith(
+      authUser.id,
+      [notification._id.toString()],
+    );
     expect(notificationsCount).toBe(0);
   });
 
@@ -312,7 +314,7 @@ describe('NotificationService', () => {
       );
     });
 
-    expect(eventsGateway.notificationsUpdated).toBeCalledWith(
+    expect(eventsGateway.notificationsUpdated).toHaveBeenCalledWith(
       authUser.id,
       expect.anything(),
     );
@@ -336,7 +338,7 @@ describe('NotificationService', () => {
 
     const countAfter = await dbService.notificationModel.countDocuments();
     expect(countAfter).toBe(0);
-    expect(eventsGateway.notificationsRemoved).toBeCalledWith(
+    expect(eventsGateway.notificationsRemoved).toHaveBeenCalledWith(
       authUser.id,
       notificationIds,
     );

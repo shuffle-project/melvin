@@ -1,4 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
+import { ConfigTestModule } from '../../../test/config-test.module';
+import { UploadModule } from './upload.module';
 import { UploadService } from './upload.service';
 
 describe('UploadService', () => {
@@ -6,7 +8,7 @@ describe('UploadService', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [UploadService],
+      imports: [UploadModule, ConfigTestModule],
     }).compile();
 
     service = module.get<UploadService>(UploadService);

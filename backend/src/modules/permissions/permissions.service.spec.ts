@@ -45,6 +45,7 @@ describe('PermissionsService', () => {
     authUser = {
       id: predefinedUser._id.toString(),
       role: predefinedUser.role,
+      jwtId: TEST_DATA.validObjectId,
     };
   });
 

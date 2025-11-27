@@ -1,18 +1,37 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { ConfigTestModule } from '../../../test/config-test.module';
+import {
+  createMongooseTestModule,
+  MongooseTestModule,
+} from '../../../test/mongoose-test.module';
 import { LoggerModule } from '../logger/logger.module';
 import { PathModule } from '../path/path.module';
+import { FfmpegModule } from './ffmpeg.module';
 import { FfmpegService } from './ffmpeg.service';
 
 describe('FfmpegService', () => {
+  let module: TestingModule;
+  let MongooseTestModule: MongooseTestModule;
   let service: FfmpegService;
+
   beforeEach(async () => {
-    const module: TestingModule = await Test.createTestingModule({
-      imports: [ConfigTestModule, LoggerModule, PathModule],
-      providers: [FfmpegService],
+    MongooseTestModule = await createMongooseTestModule();
+
+    module = await Test.createTestingModule({
+      imports: [
+        ConfigTestModule,
+        MongooseTestModule,
+        LoggerModule,
+        PathModule,
+        FfmpegModule,
+      ],
     }).compile();
 
     service = module.get<FfmpegService>(FfmpegService);
+  });
+
+  afterEach(async () => {
+    await MongooseTestModule.close(module);
   });
 
   it('should be defined', () => {

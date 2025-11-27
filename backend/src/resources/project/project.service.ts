@@ -18,6 +18,7 @@ import {
   ProjectStatus,
   Video,
 } from '../../modules/db/schemas/project.schema';
+
 import { CustomLogger } from '../../modules/logger/logger.service';
 import { MailService } from '../../modules/mail/mail.service';
 import { PathService } from '../../modules/path/path.service';
@@ -40,6 +41,7 @@ import { ActivityService } from '../activity/activity.service';
 import { AuthUser } from '../auth/auth.interfaces';
 import { AuthService } from '../auth/auth.service';
 import { EventsGateway } from '../events/events.gateway';
+import { PopulateService } from '../populate/populate.service';
 import { TranscriptionService } from '../transcription/transcription.service';
 import { UserRole } from '../user/user.interfaces';
 import { CreateProjectDto } from './dto/create-project.dto';
@@ -76,15 +78,18 @@ export class ProjectService {
     @InjectQueue('project') private projectQueue: Queue<ProcessProjectJob>,
     @InjectQueue('livestream')
     private livestreamQueue: Queue<ProcessLivestreamJob>,
+    private populateService: PopulateService,
   ) {
     this.logger.setContext(this.constructor.name);
     this.serverBaseUrl = this.configService.get<string>('baseUrl');
   }
+  async generateDefaultProject(userid: string) {
+    return this.populateService._generateDefaultProject(userid);
+  }
 
   async create(authUser: AuthUser, createProjectDto: CreateProjectDto) {
-    const userlimitReached = await this.permissions.isUserSizeLimitReached(
-      authUser,
-    );
+    const userlimitReached =
+      await this.permissions.isUserSizeLimitReached(authUser);
     if (userlimitReached) {
       throw new CustomForbiddenException('user_size_limit_reached');
     }

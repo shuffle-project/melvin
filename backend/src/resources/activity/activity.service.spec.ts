@@ -63,6 +63,7 @@ describe('ActivityService', () => {
     authUser = {
       id: predefinedUser._id.toString(),
       role: predefinedUser.role,
+      jwtId: new Types.ObjectId().toString(),
     };
   });
 
@@ -88,8 +89,8 @@ describe('ActivityService', () => {
     // Test
     const activity = await service.create(project, createdBy, action, details);
 
-    expect(notificationService.create).toBeCalledTimes(1);
-    expect(notificationService.create).toBeCalledWith(project, activity);
+    expect(notificationService.create).toHaveBeenCalledTimes(1);
+    expect(notificationService.create).toHaveBeenCalledWith(project, activity);
 
     expect({
       project: activity.project,
@@ -143,8 +144,8 @@ describe('ActivityService', () => {
       .lean()
       .exec();
 
-    expect(spy_findProjectByIdOrThrow).toBeCalledTimes(1);
-    expect(spy_isProjectMember).toBeCalledTimes(1);
+    expect(spy_findProjectByIdOrThrow).toHaveBeenCalledTimes(1);
+    expect(spy_isProjectMember).toHaveBeenCalledTimes(1);
 
     expect(result).toEqual(
       plainToInstance(ActivityListEntity, {

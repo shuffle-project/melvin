@@ -65,7 +65,11 @@ describe('ActivityController (e2e)', () => {
     const authService = module.get<AuthService>(AuthService);
     const token = authService.createUserAccessToken(predefinedUser);
     authHeader = { Authorization: `Bearer ${token}` };
-    authUser = { id: predefinedUser._id.toString(), role: UserRole.USER };
+    authUser = {
+      id: predefinedUser._id.toString(),
+      role: UserRole.USER,
+      jwtId: 'some-jwt-id',
+    };
   });
 
   afterAll(async () => {
@@ -87,7 +91,7 @@ describe('ActivityController (e2e)', () => {
       .query(query)
       .set(authHeader)
       .send();
-    expect(service.findAll).toBeCalledWith(authUser, query);
+    expect(service.findAll).toHaveBeenCalledWith(authUser, query);
     expect(response.status).toBe(HttpStatus.OK);
     expect(response.body).toEqual(result);
   });

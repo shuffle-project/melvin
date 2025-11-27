@@ -77,7 +77,11 @@ describe('ProjectController (e2e)', () => {
     const authService = module.get<AuthService>(AuthService);
     const token = authService.createUserAccessToken(predefinedUser);
     authHeader = { Authorization: `Bearer ${token}` };
-    authUser = { id: predefinedUser._id.toString(), role: UserRole.USER };
+    authUser = {
+      id: predefinedUser._id.toString(),
+      role: UserRole.USER,
+      jwtId: 'some-jwt-id',
+    };
   });
 
   afterAll(async () => {
@@ -101,7 +105,7 @@ describe('ProjectController (e2e)', () => {
       .post('/projects')
       .set(authHeader)
       .send(body);
-    expect(service.create).toBeCalledWith(authUser, body, null, null);
+    expect(service.create).toHaveBeenCalledWith(authUser, body, null, null);
     expect(response.status).toBe(HttpStatus.CREATED);
     expect(response.body).toStrictEqual(result);
   });
@@ -147,7 +151,7 @@ describe('ProjectController (e2e)', () => {
       .query(query)
       .set(authHeader)
       .send();
-    expect(service.findAll).toBeCalledWith(authUser, query);
+    expect(service.findAll).toHaveBeenCalledWith(authUser, query);
     expect(response.status).toBe(HttpStatus.OK);
     expect(response.body).toEqual(result);
   });
@@ -169,7 +173,7 @@ describe('ProjectController (e2e)', () => {
       .get(`/projects/${id}`)
       .set(authHeader)
       .send();
-    expect(service.findOne).toBeCalledWith(authUser, id);
+    expect(service.findOne).toHaveBeenCalledWith(authUser, id);
     expect(response.status).toBe(HttpStatus.OK);
     expect(response.body).toEqual(result);
   });
@@ -210,7 +214,7 @@ describe('ProjectController (e2e)', () => {
 
     console.log(response.body);
     expect(response.body).toStrictEqual(result);
-    expect(service.update).toBeCalledWith(authUser, id, body, undefined);
+    expect(service.update).toHaveBeenCalledWith(authUser, id, body, undefined);
     expect(response.status).toBe(HttpStatus.OK);
   });
 
@@ -265,7 +269,7 @@ describe('ProjectController (e2e)', () => {
       .delete(`/projects/${id}`)
       .set(authHeader)
       .send();
-    expect(service.remove).toBeCalledWith(authUser, id);
+    expect(service.remove).toHaveBeenCalledWith(authUser, id);
     expect(response.status).toBe(HttpStatus.OK);
     expect(response.body).toStrictEqual(result);
   });
@@ -302,7 +306,7 @@ describe('ProjectController (e2e)', () => {
       .get('/projects/' + id + '/invite-token')
       .set(authHeader)
       .send();
-    expect(service.getInviteToken).toBeCalledWith(authUser, id);
+    expect(service.getInviteToken).toHaveBeenCalledWith(authUser, id);
     expect(response.status).toBe(HttpStatus.OK);
     expect(response.body).toEqual(result);
   });
@@ -343,7 +347,7 @@ describe('ProjectController (e2e)', () => {
   //     .get('/projects/' + id + '/media/video')
   //     .set(authHeader)
   //     .send();
-  //   expect(service.getVideoChunk).toBeCalledWith(id, mediaAccessUser);
+  //   expect(service.getVideoChunk).toHaveBeenCalledWith(id, mediaAccessUser);
   //   expect(response.status).toBe(HttpStatus.PARTIAL_CONTENT);
   //   expect(response.body).toEqual(result);
   // });
@@ -359,7 +363,7 @@ describe('ProjectController (e2e)', () => {
       .get('/projects/' + id + '/media/waveform')
       .set(authHeader)
       .send();
-    expect(service.getWaveformData).toBeCalledWith(authUser, id);
+    expect(service.getWaveformData).toHaveBeenCalledWith(authUser, id);
     expect(response.status).toBe(HttpStatus.OK);
     expect(response.body).toEqual(result);
   });
@@ -399,7 +403,7 @@ describe('ProjectController (e2e)', () => {
       .post('/projects/' + id + '/invite')
       .set(authHeader)
       .send(body);
-    expect(service.invite).toBeCalledWith(authUser, id, body);
+    expect(service.invite).toHaveBeenCalledWith(authUser, id, body);
     expect(response.status).toBe(HttpStatus.CREATED);
     expect(response.body).toStrictEqual(result);
   });
@@ -451,7 +455,7 @@ describe('ProjectController (e2e)', () => {
       .post('/projects/' + id + '/subscribe')
       .set(authHeader)
       .send({});
-    expect(service.subscribe).toBeCalledWith(authUser, id);
+    expect(service.subscribe).toHaveBeenCalledWith(authUser, id);
     expect(response.status).toBe(HttpStatus.CREATED);
     expect(response.body).toStrictEqual(result);
   });
@@ -490,7 +494,7 @@ describe('ProjectController (e2e)', () => {
       .post('/projects/' + id + '/unsubscribe')
       .set(authHeader)
       .send({});
-    expect(service.unsubscribe).toBeCalledWith(authUser, id);
+    expect(service.unsubscribe).toHaveBeenCalledWith(authUser, id);
     expect(response.status).toBe(HttpStatus.CREATED);
     expect(response.body).toStrictEqual(result);
   });
@@ -529,7 +533,7 @@ describe('ProjectController (e2e)', () => {
       .post('/projects/' + id + '/invite-token')
       .set(authHeader)
       .send({});
-    expect(service.updateInviteToken).toBeCalledWith(authUser, id);
+    expect(service.updateInviteToken).toHaveBeenCalledWith(authUser, id);
     expect(response.status).toBe(HttpStatus.CREATED);
     expect(response.body).toStrictEqual(result);
   });

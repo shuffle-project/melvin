@@ -85,7 +85,7 @@ describe('UserController (e2e)', () => {
       .set(authHeader)
       .send();
 
-    expect(service.findAll).toBeCalledWith(query);
+    expect(service.findAll).toHaveBeenCalledWith(query);
     expect(response.status).toBe(HttpStatus.OK);
     expect(response.body).toEqual(expectedResult);
   });

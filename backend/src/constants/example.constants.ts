@@ -9,11 +9,40 @@ const ids = {
   captionHistory: '6200e9a58611285852f49e14',
   activity: '627262598bfefa43dd1c9d82',
   notification: '627262598bfefa43dd1c9d8b',
+  audio: '6200e9a6d4f1f5b1c8e4f9a0',
+  video: '6200e9b0d4f1f5b1c8e4f9a1',
 };
 
 export const EXAMPLE_EXPORT = {
   _id: ids.export,
   extension: 'zip',
+};
+
+export const EXAMPLE_AUDIO = {
+  _id: ids.audio,
+  category: 'main',
+  sizeInBytes: 52428800,
+  extension: 'mp3',
+  status: 'finished',
+  originalFileName: '',
+  title: 'mainaudio',
+};
+
+export const EXAMPLE_VIDEO = {
+  _id: ids.video,
+  category: 'main',
+  sizeInBytes: 104857600,
+  extension: 'mp4',
+  status: 'finished',
+  originalFileName: '',
+  title: 'mainvideo',
+  resolutions: [
+    { resolution: '240p', width: 428, height: 240 },
+    { resolution: '360p', width: 640, height: 360 },
+    { resolution: '480p', width: 854, height: 480 },
+    { resolution: '720p', width: 1280, height: 720 },
+    { resolution: '1080p', width: 1920, height: 1080 },
+  ],
 };
 
 export const EXAMPLE_PROJECT = {

@@ -76,7 +76,11 @@ describe('TranscriptionController (e2e)', () => {
     const authService = module.get<AuthService>(AuthService);
     const token = authService.createUserAccessToken(predefinedUser);
     authHeader = { Authorization: `Bearer ${token}` };
-    authUser = { id: predefinedUser._id.toString(), role: UserRole.USER };
+    authUser = {
+      id: predefinedUser._id.toString(),
+      role: UserRole.USER,
+      jwtId: 'some-jwt-id',
+    };
   });
 
   afterAll(async () => {
@@ -104,7 +108,7 @@ describe('TranscriptionController (e2e)', () => {
       .set(authHeader)
       .send(body);
 
-    expect(service.create).toBeCalledWith(authUser, body, undefined);
+    expect(service.create).toHaveBeenCalledWith(authUser, body, undefined);
     expect(response.status).toBe(HttpStatus.CREATED);
     expect(response.body).toStrictEqual(result);
   });
@@ -145,7 +149,7 @@ describe('TranscriptionController (e2e)', () => {
       .query(query)
       .set(authHeader)
       .send();
-    expect(service.findAll).toBeCalledWith(authUser, query);
+    expect(service.findAll).toHaveBeenCalledWith(authUser, query);
     expect(response.status).toBe(HttpStatus.OK);
     expect(response.body).toEqual(result);
   });
@@ -169,7 +173,7 @@ describe('TranscriptionController (e2e)', () => {
       .get(`/transcriptions/${id}`)
       .set(authHeader)
       .send();
-    expect(service.findOne).toBeCalledWith(authUser, id);
+    expect(service.findOne).toHaveBeenCalledWith(authUser, id);
     expect(response.status).toBe(HttpStatus.OK);
     expect(response.body).toEqual(result);
   });
@@ -208,7 +212,7 @@ describe('TranscriptionController (e2e)', () => {
       .patch(`/transcriptions/${id}`)
       .set(authHeader)
       .send(body);
-    expect(service.update).toBeCalledWith(authUser, id, body);
+    expect(service.update).toHaveBeenCalledWith(authUser, id, body);
     expect(response.status).toBe(HttpStatus.OK);
     expect(response.body).toStrictEqual(result);
   });
@@ -264,7 +268,7 @@ describe('TranscriptionController (e2e)', () => {
       .delete(`/transcriptions/${id}`)
       .set(authHeader)
       .send();
-    expect(service.remove).toBeCalledWith(authUser, id);
+    expect(service.remove).toHaveBeenCalledWith(authUser, id);
     expect(response.status).toBe(HttpStatus.OK);
     expect(response.body).toStrictEqual(result);
   });
@@ -303,7 +307,7 @@ describe('TranscriptionController (e2e)', () => {
       .set(authHeader)
       .send(body);
 
-    expect(service.createSpeakers).toBeCalledWith(authUser, id, body);
+    expect(service.createSpeakers).toHaveBeenCalledWith(authUser, id, body);
     expect(response.status).toBe(HttpStatus.CREATED);
     expect(response.body).toStrictEqual(result);
   });
@@ -359,7 +363,12 @@ describe('TranscriptionController (e2e)', () => {
       .patch(`/transcriptions/${id}/speakers/${speakerId}`)
       .set(authHeader)
       .send(body);
-    expect(service.updateSpeaker).toBeCalledWith(authUser, id, speakerId, body);
+    expect(service.updateSpeaker).toHaveBeenCalledWith(
+      authUser,
+      id,
+      speakerId,
+      body,
+    );
     expect(response.status).toBe(HttpStatus.OK);
     expect(response.body).toStrictEqual(result);
   });
@@ -434,7 +443,9 @@ describe('TranscriptionController (e2e)', () => {
       .get(`/transcriptions/${id}/downloadSubtitles?type=${type}`)
       .set(authHeader)
       .send();
-    expect(service.downloadSubtitles).toBeCalledWith(authUser, id, { type });
+    expect(service.downloadSubtitles).toHaveBeenCalledWith(authUser, id, {
+      type,
+    });
     expect(response.status).toBe(HttpStatus.OK);
     expect(response.body).toEqual(result);
   });

@@ -38,13 +38,12 @@ describe('TranscriptionController', () => {
     const createTranscriptionDto: any = v4();
     // Test
     const result = await controller.create(authUser, createTranscriptionDto);
-    expect(service.create).toBeCalledTimes(1);
-    expect(service.create).toBeCalledWith(
+    expect(service.create).toHaveBeenCalledTimes(1);
+    expect(service.create).toHaveBeenCalledWith(
       authUser,
       createTranscriptionDto,
-      undefined,
     );
-    expect(result).toStrictEqual([authUser, createTranscriptionDto, undefined]);
+    expect(result).toStrictEqual([authUser, createTranscriptionDto]);
   });
   it('findAll() should call service.findAll()', async () => {
     // Setup
@@ -52,8 +51,8 @@ describe('TranscriptionController', () => {
     const projectId: any = v4();
     // Test
     const result = await controller.findAll(authUser, projectId);
-    expect(service.findAll).toBeCalledTimes(1);
-    expect(service.findAll).toBeCalledWith(authUser, projectId);
+    expect(service.findAll).toHaveBeenCalledTimes(1);
+    expect(service.findAll).toHaveBeenCalledWith(authUser, projectId);
     expect(result).toStrictEqual([authUser, projectId]);
   });
   it('findOne() should call service.findOne()', async () => {
@@ -62,8 +61,8 @@ describe('TranscriptionController', () => {
     const id: any = v4();
     // Test
     const result = await controller.findOne(authUser, id);
-    expect(service.findOne).toBeCalledTimes(1);
-    expect(service.findOne).toBeCalledWith(authUser, id);
+    expect(service.findOne).toHaveBeenCalledTimes(1);
+    expect(service.findOne).toHaveBeenCalledWith(authUser, id);
     expect(result).toStrictEqual([authUser, id]);
   });
   it('update() should call service.update()', async () => {
@@ -77,8 +76,12 @@ describe('TranscriptionController', () => {
       id,
       updateTranscriptionDto,
     );
-    expect(service.update).toBeCalledTimes(1);
-    expect(service.update).toBeCalledWith(authUser, id, updateTranscriptionDto);
+    expect(service.update).toHaveBeenCalledTimes(1);
+    expect(service.update).toHaveBeenCalledWith(
+      authUser,
+      id,
+      updateTranscriptionDto,
+    );
     expect(result).toStrictEqual([authUser, id, updateTranscriptionDto]);
   });
   it('remove() should call service.remove()', async () => {
@@ -87,8 +90,8 @@ describe('TranscriptionController', () => {
     const id: any = v4();
     // Test
     const result = await controller.remove(authUser, id);
-    expect(service.remove).toBeCalledTimes(1);
-    expect(service.remove).toBeCalledWith(authUser, id);
+    expect(service.remove).toHaveBeenCalledTimes(1);
+    expect(service.remove).toHaveBeenCalledWith(authUser, id);
     expect(result).toStrictEqual([authUser, id]);
   });
 
@@ -104,8 +107,8 @@ describe('TranscriptionController', () => {
       id,
       createSpeakersDto,
     );
-    expect(service.createSpeakers).toBeCalledTimes(1);
-    expect(service.createSpeakers).toBeCalledWith(
+    expect(service.createSpeakers).toHaveBeenCalledTimes(1);
+    expect(service.createSpeakers).toHaveBeenCalledWith(
       authUser,
       id,
       createSpeakersDto,
@@ -125,8 +128,8 @@ describe('TranscriptionController', () => {
       idSpeaker,
       updateSpeakerDto,
     );
-    expect(service.updateSpeaker).toBeCalledTimes(1);
-    expect(service.updateSpeaker).toBeCalledWith(
+    expect(service.updateSpeaker).toHaveBeenCalledTimes(1);
+    expect(service.updateSpeaker).toHaveBeenCalledWith(
       authUser,
       id,
       idSpeaker,

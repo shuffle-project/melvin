@@ -83,7 +83,7 @@ describe('AuthController (e2e)', () => {
     const response = await request(app.getHttpServer())
       .post('/auth/login')
       .send(body);
-    expect(service.login).toBeCalledWith(body);
+    expect(service.login).toHaveBeenCalledWith(body);
     expect(response.status).toBe(HttpStatus.CREATED);
     expect(response.body).toStrictEqual(result);
   });
@@ -109,7 +109,7 @@ describe('AuthController (e2e)', () => {
     const response = await request(app.getHttpServer())
       .post('/auth/refresh-token')
       .send(body);
-    expect(service.refreshToken).toBeCalledWith(body);
+    expect(service.refreshToken).toHaveBeenCalledWith(body);
     expect(response.status).toBe(HttpStatus.CREATED);
     expect(response.body).toEqual(result);
   });
@@ -133,6 +133,7 @@ describe('AuthController (e2e)', () => {
     const authUser: AuthUser = {
       id: new Types.ObjectId().toString(),
       role: UserRole.USER,
+      jwtId: 'some-jwt-id',
     };
 
     service.createMediaAccessToken.mockImplementationOnce(() => result);
@@ -147,7 +148,7 @@ describe('AuthController (e2e)', () => {
       .post('/auth/media-access-token')
       .set(authHeader)
       .send(body);
-    expect(service.createMediaAccessToken).toBeCalledWith(authUser, body);
+    expect(service.createMediaAccessToken).toHaveBeenCalledWith(authUser, body);
     expect(response.status).toBe(HttpStatus.CREATED);
     expect(response.body).toEqual(result);
   });
@@ -170,6 +171,7 @@ describe('AuthController (e2e)', () => {
     const authUser: AuthUser = {
       id: new Types.ObjectId().toString(),
       role: UserRole.USER,
+      jwtId: 'some-jwt-id',
     };
 
     guard.canActivate.mockImplementationOnce((context: ExecutionContext) => {
@@ -201,7 +203,7 @@ describe('AuthController (e2e)', () => {
     const response = await request(app.getHttpServer())
       .post('/auth/register')
       .send(body);
-    expect(service.register).toBeCalledWith(body);
+    expect(service.register).toHaveBeenCalledWith(body);
     expect(response.status).toBe(HttpStatus.CREATED);
     expect(response.body).toEqual(result);
   });
@@ -225,7 +227,7 @@ describe('AuthController (e2e)', () => {
     const response = await request(app.getHttpServer())
       .post('/auth/verify-email')
       .send(body);
-    expect(service.verifyEmail).toBeCalledWith(body);
+    expect(service.verifyEmail).toHaveBeenCalledWith(body);
     expect(response.status).toBe(HttpStatus.CREATED);
     expect(response.body).toEqual(result);
   });
@@ -249,7 +251,7 @@ describe('AuthController (e2e)', () => {
     const response = await request(app.getHttpServer())
       .post('/auth/guest-login')
       .send(body);
-    expect(service.guestLogin).toBeCalledWith(body);
+    expect(service.guestLogin).toHaveBeenCalledWith(body);
     expect(response.status).toBe(HttpStatus.CREATED);
     expect(response.body).toEqual(result);
   });
@@ -273,7 +275,7 @@ describe('AuthController (e2e)', () => {
     const response = await request(app.getHttpServer()).get(
       '/auth/verify-invite/' + inviteToken,
     );
-    expect(service.verifyInvite).toBeCalledWith(inviteToken);
+    expect(service.verifyInvite).toHaveBeenCalledWith(inviteToken);
     expect(response.status).toBe(HttpStatus.OK);
     expect(response.body).toEqual(result);
   });

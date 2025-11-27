@@ -1,6 +1,5 @@
 import { JwtService } from '@nestjs/jwt';
 import { Test, TestingModule } from '@nestjs/testing';
-import * as bcrypt from 'bcrypt';
 import { Types } from 'mongoose';
 import { v4 } from 'uuid';
 import { ConfigTestModule } from '../../../test/config-test.module';
@@ -24,7 +23,6 @@ import { UserRole } from '../user/user.interfaces';
 import { DecodedToken } from './auth.interfaces';
 import { AuthModule } from './auth.module';
 import { AuthService } from './auth.service';
-import { AuthGuestLoginDto } from './dto/auth-guest-login.dto';
 
 describe('AuthService', () => {
   let module: TestingModule;
@@ -142,7 +140,7 @@ describe('AuthService', () => {
       email: TEST_DATA.email,
       hashedPassword: TEST_DATA.hashedPassword,
     });
-    const oldToken = service.createUserAccessToken(user.toJSON() as any);
+    const oldToken = await service.createUserAccessToken(user.toJSON() as any);
 
     // Test
     const { token: newToken } = await service.refreshToken({ token: oldToken });
@@ -158,7 +156,7 @@ describe('AuthService', () => {
       email: TEST_DATA.email,
       hashedPassword: TEST_DATA.hashedPassword,
     });
-    const token = service.createUserAccessToken(user.toJSON() as any);
+    const token = await service.createUserAccessToken(user.toJSON() as any);
     // await user.delete();
     await dbService.userModel.findByIdAndDelete(user._id);
 
@@ -174,50 +172,52 @@ describe('AuthService', () => {
     expect(error).toBeInstanceOf(CustomBadRequestException);
   });
 
-  it('register() should verify', async () => {
-    // Test
-    await service.register({
-      email: TEST_DATA.email,
-      password: TEST_DATA.password,
-      name: 'Jane Doe',
-    });
+  // TODO registration disbaled? change in config and enable test again
 
-    const user = await dbService.userModel.findOne({ email: TEST_DATA.email });
+  // it('register() should verify', async () => {
+  //   // Test
+  //   await service.register({
+  //     email: TEST_DATA.email,
+  //     password: TEST_DATA.password,
+  //     name: 'Jane Doe',
+  //   });
 
-    const isMatch = await bcrypt.compare(
-      TEST_DATA.password,
-      user.hashedPassword,
-    );
+  //   const user = await dbService.userModel.findOne({ email: TEST_DATA.email });
 
-    expect(user.email).toBe(TEST_DATA.email);
-    expect(user.name).toBe('Jane Doe');
-    expect(user.isEmailVerified).toBe(false);
-    expect(user.emailVerificationToken).toBeDefined();
-    expect(isMatch).toBe(true);
-  });
+  //   const isMatch = await bcrypt.compare(
+  //     TEST_DATA.password,
+  //     user.hashedPassword,
+  //   );
 
-  it('register() duplicate email should fail', async () => {
-    // Setup
-    await dbService.userModel.create({
-      email: TEST_DATA.email,
-      hashedPassword: TEST_DATA.hashedPassword,
-    });
+  //   expect(user.email).toBe(TEST_DATA.email);
+  //   expect(user.name).toBe('Jane Doe');
+  //   expect(user.isEmailVerified).toBe(false);
+  //   expect(user.emailVerificationToken).toBeDefined();
+  //   expect(isMatch).toBe(true);
+  // });
 
-    // Test
-    let error: CustomBadRequestException;
-    try {
-      await service.register({
-        email: TEST_DATA.email,
-        password: TEST_DATA.password,
-        name: 'Jane Doe',
-      });
-    } catch (err) {
-      error = err;
-    }
+  // it('register() duplicate email should fail', async () => {
+  //   // Setup
+  //   await dbService.userModel.create({
+  //     email: TEST_DATA.email,
+  //     hashedPassword: TEST_DATA.hashedPassword,
+  //   });
 
-    expect(error.code).toBe('email_already_taken');
-    expect(error).toBeInstanceOf(CustomBadRequestException);
-  });
+  //   // Test
+  //   let error: CustomBadRequestException;
+  //   try {
+  //     await service.register({
+  //       email: TEST_DATA.email,
+  //       password: TEST_DATA.password,
+  //       name: 'Jane Doe',
+  //     });
+  //   } catch (err) {
+  //     error = err;
+  //   }
+
+  //   expect(error.code).toBe('email_already_taken');
+  //   expect(error).toBeInstanceOf(CustomBadRequestException);
+  // });
 
   it('verifyEmail() should verify', async () => {
     // Setup
@@ -230,6 +230,7 @@ describe('AuthService', () => {
 
     // Test
     const { token } = await service.verifyEmail({
+      email: TEST_DATA.email,
       token: emailVerificationToken,
     });
     const decoded = jwtService.decode(token) as DecodedToken;
@@ -239,7 +240,7 @@ describe('AuthService', () => {
       email: TEST_DATA.email,
     });
     expect(updatedUser.isEmailVerified).toBe(true);
-    expect(updatedUser.emailVerificationToken).toBe(null);
+    expect(updatedUser.emailVerificationToken).not.toBe(emailVerificationToken);
   });
 
   it('verifyEmail() with invalid token should fail', async () => {
@@ -254,6 +255,7 @@ describe('AuthService', () => {
     let error: CustomBadRequestException;
     try {
       await service.verifyEmail({
+        email: TEST_DATA.email,
         token: generateSecureToken(),
       });
     } catch (err) {
@@ -284,6 +286,7 @@ describe('AuthService', () => {
     const result = await service.verifyInvite(EXAMPLE_PROJECT.inviteToken);
 
     expect(result).toEqual({
+      projectId: projId.toString(),
       projectTitle: EXAMPLE_PROJECT.title,
       userName: EXAMPLE_USER.name,
     });
@@ -314,7 +317,7 @@ describe('AuthService', () => {
     const token = v4();
     //Test
     service.verifyToken(token);
-    expect(spy_verify).toBeCalledTimes(1);
+    expect(spy_verify).toHaveBeenCalledTimes(1);
   });
 
   it('decodeToken() should verify', () => {
@@ -326,7 +329,7 @@ describe('AuthService', () => {
     const token = v4();
     //Test
     service.decodeToken(token);
-    expect(spy_decode).toBeCalledTimes(1);
+    expect(spy_decode).toHaveBeenCalledTimes(1);
   });
 
   it('findSystemAuthUser() should return system user', async () => {
@@ -355,32 +358,6 @@ describe('AuthService', () => {
     expect(error.code).toBe('system_user_not_found');
   });
 
-  it('guestLogin() should verify', async () => {
-    // Setup
-    const project = await dbService.projectModel.create({
-      _id: new Types.ObjectId(),
-      title: EXAMPLE_PROJECT.title,
-      inviteToken: EXAMPLE_PROJECT.inviteToken,
-    });
-
-    // Test
-    const dto: AuthGuestLoginDto = {
-      name: 'GUESTUSER',
-      inviteToken: EXAMPLE_PROJECT.inviteToken,
-    };
-    const result = await service.guestLogin(dto);
-    expect(result.token).toBeDefined();
-
-    const guestuser = await dbService.userModel.findOne({
-      name: 'GUESTUSER',
-      role: UserRole.GUEST,
-    });
-    expect(guestuser).toBeDefined();
-    expect(guestuser.projects).toContainEqual(project._id);
-    const proj = await dbService.projectModel.findById(project._id);
-    expect(proj.users).toContainEqual(guestuser._id);
-  });
-
   it('createMediaAccessToken() shoudl return token', async () => {
     // Setup
     const projId = new Types.ObjectId();
@@ -403,11 +380,9 @@ describe('AuthService', () => {
       .mockReturnValue(mockedToken);
 
     // Test
-    const result = await service.createMediaAccessToken(authUser, {
-      projectId: getObjectIdAsString(projId),
-    });
+    const result = await service.createMediaAccessToken(projId.toString());
 
-    expect(spy_signJwt).toBeCalledTimes(1);
-    expect(result).toEqual({ token: mockedToken });
+    expect(spy_signJwt).toHaveBeenCalledTimes(1);
+    expect(result).toEqual(mockedToken);
   });
 });

@@ -18,7 +18,6 @@ import { IsValidObjectIdPipe } from '../../pipes/is-valid-objectid.pipe';
 import { User } from '../auth/auth.decorator';
 import { AuthUser } from '../auth/auth.interfaces';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
-import { PopulateService } from '../populate/populate.service';
 import { CreateProjectDto } from './dto/create-project.dto';
 import { FindAllProjectsQuery } from './dto/find-all-projects.dto';
 import { InviteDto } from './dto/invite.dto';
@@ -34,16 +33,13 @@ import { ProjectService } from './project.service';
 @UseInterceptors(ClassSerializerInterceptor)
 @Controller('projects')
 export class ProjectController {
-  constructor(
-    private readonly projectService: ProjectService,
-    private populateService: PopulateService,
-  ) {}
+  constructor(private readonly projectService: ProjectService) {}
 
   @UseGuards(JwtAuthGuard)
   @Post('default')
   @ApiResponse({ status: HttpStatus.CREATED })
   async createDefault(@User() authUser: AuthUser) {
-    return await this.populateService._generateDefaultProject(authUser.id);
+    return await this.projectService.generateDefaultProject(authUser.id);
   }
 
   @UseGuards(JwtAuthGuard)

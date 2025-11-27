@@ -1,0 +1,29 @@
+environment: test
+baseUrl: http://localhost:3000
+baseFrontendUrl: http://localhost:4200
+
+registration:
+  mode: disabled
+
+defaultUserSizeLimitGB: 1
+
+mongodb:
+  uri: mongodb://localhost:27017/captioning
+
+jwt:
+  secret: secret
+  issuer: http://localhost:3000
+  audience: http://localhost:4200
+
+basicAuth:
+  username: admin
+  password: secret
+
+melvinAsr:
+  host: http://asr.localhost:3000
+  apikey: secret
+
+adminUser:
+  username: admin
+  hashedPassword: admin:$2y$05$jswg1DsryRkK.NUwFQvxqOTC1VAO/CMOp5f6pJ4IPY5gTzm/zyWbu
+  # password: secret

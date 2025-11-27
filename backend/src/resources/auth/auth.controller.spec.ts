@@ -43,8 +43,8 @@ describe('AuthController', () => {
 
     // Test
     const result = await controller.login(dto);
-    expect(service.login).toBeCalledTimes(1);
-    expect(service.login).toBeCalledWith(dto);
+    expect(service.login).toHaveBeenCalledTimes(1);
+    expect(service.login).toHaveBeenCalledWith(dto);
     expect(result).toStrictEqual(dto);
   });
 
@@ -54,21 +54,9 @@ describe('AuthController', () => {
 
     // Test
     const result = await controller.refreshToken(dto);
-    expect(service.refreshToken).toBeCalledTimes(1);
-    expect(service.refreshToken).toBeCalledWith(dto);
+    expect(service.refreshToken).toHaveBeenCalledTimes(1);
+    expect(service.refreshToken).toHaveBeenCalledWith(dto);
     expect(result).toStrictEqual(dto);
-  });
-
-  it('createMediaAccessToken() should call authService.createMediaAccessToken()', async () => {
-    // Setup
-    const authUser: any = v4();
-    const dto: any = v4();
-
-    // Test
-    const result = await controller.createMediaAccessToken(authUser, dto);
-    expect(service.createMediaAccessToken).toBeCalledTimes(1);
-    expect(service.createMediaAccessToken).toBeCalledWith(authUser, dto);
-    expect(result).toStrictEqual([authUser, dto]);
   });
 
   it('register() should call authService.register()', async () => {
@@ -77,8 +65,8 @@ describe('AuthController', () => {
 
     // Test
     const result = await controller.register(dto);
-    expect(service.register).toBeCalledTimes(1);
-    expect(service.register).toBeCalledWith(dto);
+    expect(service.register).toHaveBeenCalledTimes(1);
+    expect(service.register).toHaveBeenCalledWith(dto);
     expect(result).toStrictEqual(dto);
   });
 
@@ -88,19 +76,8 @@ describe('AuthController', () => {
 
     // Test
     const result = await controller.verifyEmail(dto);
-    expect(service.verifyEmail).toBeCalledTimes(1);
-    expect(service.verifyEmail).toBeCalledWith(dto);
-    expect(result).toStrictEqual(dto);
-  });
-
-  it('guestLogin() should call authService.guestLogin()', async () => {
-    // Setup
-    const dto: any = v4();
-
-    // Test
-    const result = await controller.guestLogin(dto);
-    expect(service.guestLogin).toBeCalledTimes(1);
-    expect(service.guestLogin).toBeCalledWith(dto);
+    expect(service.verifyEmail).toHaveBeenCalledTimes(1);
+    expect(service.verifyEmail).toHaveBeenCalledWith(dto);
     expect(result).toStrictEqual(dto);
   });
 
@@ -110,8 +87,8 @@ describe('AuthController', () => {
 
     // Test
     const result = await controller.verifyInvite(inviteToken);
-    expect(service.verifyInvite).toBeCalledTimes(1);
-    expect(service.verifyInvite).toBeCalledWith(inviteToken);
+    expect(service.verifyInvite).toHaveBeenCalledTimes(1);
+    expect(service.verifyInvite).toHaveBeenCalledWith(inviteToken);
     expect(result).toStrictEqual(inviteToken);
   });
 });

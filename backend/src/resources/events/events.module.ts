@@ -9,6 +9,6 @@ import { SocketService } from './socket.service';
 @Module({
   imports: [AuthModule, LoggerModule, DbModule, TiptapModule],
   providers: [EventsGateway, SocketService],
-  exports: [EventsGateway],
+  exports: [EventsGateway, SocketService],
 })
 export class EventsModule {}

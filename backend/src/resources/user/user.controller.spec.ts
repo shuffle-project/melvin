@@ -33,8 +33,8 @@ describe('UserController', () => {
 
     // Test
     const result = await controller.findAll({ search });
-    expect(service.findAll).toBeCalledTimes(1);
-    expect(service.findAll).toBeCalledWith({ search });
+    expect(service.findAll).toHaveBeenCalledTimes(1);
+    expect(service.findAll).toHaveBeenCalledWith({ search });
     expect(result).toStrictEqual([{ search }]);
   });
 });

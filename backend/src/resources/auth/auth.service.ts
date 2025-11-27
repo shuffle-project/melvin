@@ -308,7 +308,7 @@ export class AuthService {
       name: user.name,
       email: user.email,
       isEmailVerified: user.isEmailVerified,
-      sizeLimit: team ? team.sizeLimit : user.sizeLimit ?? defaultSizeLimit,
+      sizeLimit: team ? team.sizeLimit : (user.sizeLimit ?? defaultSizeLimit),
       size: size,
       team: team?.name ?? null,
     };

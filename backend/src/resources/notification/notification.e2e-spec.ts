@@ -68,7 +68,11 @@ describe('NotificationController (e2e)', () => {
     const authService = module.get<AuthService>(AuthService);
     const token = authService.createUserAccessToken(predefinedUser);
     authHeader = { Authorization: `Bearer ${token}` };
-    authUser = { id: predefinedUser._id.toString(), role: UserRole.USER };
+    authUser = {
+      id: predefinedUser._id.toString(),
+      role: UserRole.USER,
+      jwtId: 'some-jwt-id',
+    };
   });
 
   afterAll(async () => {
@@ -90,7 +94,7 @@ describe('NotificationController (e2e)', () => {
       .query(query)
       .set(authHeader)
       .send();
-    expect(service.findAll).toBeCalledWith(authUser, query);
+    expect(service.findAll).toHaveBeenCalledWith(authUser, query);
     expect(response.status).toBe(HttpStatus.OK);
     expect(response.body).toEqual(result);
   });
@@ -133,7 +137,7 @@ describe('NotificationController (e2e)', () => {
       .patch(`/notifications/${id}`)
       .set(authHeader)
       .send(body);
-    expect(service.update).toBeCalledWith(authUser, id, body);
+    expect(service.update).toHaveBeenCalledWith(authUser, id, body);
     expect(response.status).toBe(HttpStatus.OK);
     expect(response.body).toStrictEqual(result);
   });
@@ -187,7 +191,7 @@ describe('NotificationController (e2e)', () => {
       .delete(`/notifications/${id}`)
       .set(authHeader)
       .send();
-    expect(service.remove).toBeCalledWith(authUser, id);
+    expect(service.remove).toHaveBeenCalledWith(authUser, id);
     expect(response.status).toBe(HttpStatus.OK);
     expect(response.body).toStrictEqual(result);
   });
@@ -224,7 +228,7 @@ describe('NotificationController (e2e)', () => {
       .patch(`/notifications`)
       .set(authHeader)
       .send(body);
-    expect(service.updateMany).toBeCalledWith(authUser, body);
+    expect(service.updateMany).toHaveBeenCalledWith(authUser, body);
     expect(response.status).toBe(HttpStatus.OK);
     expect(response.body).toStrictEqual(result);
   });
@@ -266,7 +270,7 @@ describe('NotificationController (e2e)', () => {
       .post(`/notifications/bulk-remove`)
       .set(authHeader)
       .send(body);
-    expect(service.bulkRemove).toBeCalledWith(authUser, body);
+    expect(service.bulkRemove).toHaveBeenCalledWith(authUser, body);
     expect(response.status).toBe(HttpStatus.CREATED);
     expect(response.body).toStrictEqual(result);
   });
