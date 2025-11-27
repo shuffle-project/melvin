@@ -17,7 +17,7 @@
     "test": "jest --config ./jest.json --coverage=false",
     "test:ci": "jest --config ./jest.json --coverage=false --ci --forceExit",
     "test:openHandles": "jest --config ./jest.json --coverage=false --detectOpenHandles",
-    "test:coverage": "jest --config ./jest.json",
+    "test:coverage": "jest --config ./jest.json  --coverage=true",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:watch": "jest --config ./jest.json --coverage=false --watch"
   },

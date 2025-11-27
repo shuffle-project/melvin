@@ -420,4 +420,161 @@ describe('ProjectService', () => {
     const updatedProj = await dbService.projectModel.findById(projectId);
     expect(updatedProj.inviteToken).toEqual(response.inviteToken);
   });
+
+  it('_getMimetype() should return correct MIME type', () => {
+    // Setup
+    const validExtensions = [
+      { extension: 'mp4', expectedMimetype: 'video/mp4' },
+      { extension: 'mp3', expectedMimetype: 'audio/mp3' },
+      { extension: 'wav', expectedMimetype: 'audio/wav' },
+      { extension: 'json', expectedMimetype: 'application/json' },
+    ];
+
+    validExtensions.forEach(({ extension, expectedMimetype }) => {
+      // Test
+      const mimetype = service._getMimetype(extension);
+      expect(mimetype).toBe(expectedMimetype);
+    });
+
+    // Test for unsupported extension
+    const unsupportedExtension = 'txt';
+    const unsupportedMimetype = service._getMimetype(unsupportedExtension);
+    expect(unsupportedMimetype).toBe('text/plain');
+  });
+
+  it('getViewerToken() should return a valid viewer token', async () => {
+    // Setup
+    const initialProject = await dbService.projectModel.create({
+      title: TEST_DATA.project.title,
+      users: [authUser.id],
+      createdBy: authUser.id,
+      viewerToken: EXAMPLE_PROJECT.viewerToken,
+    });
+    const projectId = initialProject._id.toString();
+    await dbService.userModel.findByIdAndUpdate(authUser.id, {
+      $push: { projects: projectId },
+    });
+
+    const spy_findProjectByIdOrThrow = jest.spyOn(
+      dbService,
+      'findProjectByIdOrThrow',
+    );
+    const spy_isProjectOwner = jest.spyOn(permissionsService, 'isProjectOwner');
+
+    // Test
+    const response = await service.getViewerToken(authUser, projectId);
+
+    expect(spy_findProjectByIdOrThrow).toHaveBeenCalledTimes(1);
+    expect(spy_isProjectOwner).toHaveBeenCalledTimes(1);
+    expect(response.viewerToken).toEqual(EXAMPLE_PROJECT.viewerToken);
+  });
+
+  it('updateViewerToken() should generate a new viewer token', async () => {
+    // Setup
+    const initialProject = await dbService.projectModel.create({
+      title: TEST_DATA.project.title,
+      users: [authUser.id],
+      createdBy: authUser.id,
+      viewerToken: EXAMPLE_PROJECT.viewerToken,
+    });
+    const projectId = initialProject._id.toString();
+    await dbService.userModel.findByIdAndUpdate(authUser.id, {
+      $push: { projects: projectId },
+    });
+
+    const spy_findProjectByIdOrThrow = jest.spyOn(
+      dbService,
+      'findProjectByIdOrThrow',
+    );
+    const spy_isProjectMember = jest.spyOn(
+      permissionsService,
+      'isProjectMember',
+    );
+
+    // Test
+    const response = await service.updateViewerToken(authUser, projectId);
+
+    expect(spy_findProjectByIdOrThrow).toHaveBeenCalledTimes(1);
+    expect(spy_isProjectMember).toHaveBeenCalledTimes(1);
+    expect(response.viewerToken).not.toEqual(EXAMPLE_PROJECT.viewerToken);
+
+    const updatedProj = await dbService.projectModel.findById(projectId);
+    expect(updatedProj.viewerToken).toEqual(response.viewerToken);
+  });
+
+  it('_buildUrl() should construct the correct URL', () => {
+    // Setup
+    const viewerToken = 'viewer-token';
+    const mediaId = 'media-id';
+    const mediaExtension = 'mp4';
+    const addition = 'extra-path';
+
+    // Test
+    const url = service._buildUrl(
+      viewerToken,
+      mediaId,
+      mediaExtension,
+      addition,
+    );
+
+    expect(url).toBe(
+      `${service['serverBaseUrl']}/media/${viewerToken}/${mediaId}_${addition}.${mediaExtension}`,
+    );
+  });
+
+  it('_buildUrl() should construct URL without addition', () => {
+    // Setup
+    const viewerToken = 'viewer-token';
+    const mediaId = 'media-id';
+    const mediaExtension = 'mp4';
+
+    // Test
+    const url = service._buildUrl(viewerToken, mediaId, mediaExtension);
+
+    expect(url).toBe(
+      `${service['serverBaseUrl']}/media/${viewerToken}/${mediaId}.${mediaExtension}`,
+    );
+  });
+
+  it('_setDefaultMainCategory() should set default category if not provided', () => {
+    // Setup
+    const createProjectDto: CreateProjectDto = {
+      title: TEST_DATA.project.title,
+      language: TEST_DATA.languageCodeDE,
+      asrVendor: AsrVendors.WHISPER,
+      videoOptions: [
+        {
+          uploadId: 'some-id',
+          useAudio: true,
+          category: MediaCategory.MAIN,
+        },
+      ],
+    };
+
+    // Test
+    service['_setDefaultMainCategory'](createProjectDto);
+
+    expect(createProjectDto.videoOptions[0].category).toBe(MediaCategory.MAIN);
+  });
+
+  it('_setDefaultMainCategory() should not overwrite existing category', () => {
+    // Setup
+    const createProjectDto: CreateProjectDto = {
+      title: TEST_DATA.project.title,
+      language: TEST_DATA.languageCodeDE,
+      asrVendor: AsrVendors.WHISPER,
+      videoOptions: [
+        {
+          uploadId: 'some-id',
+          category: MediaCategory.OTHER,
+          useAudio: true,
+        },
+      ],
+    };
+
+    // Test
+    service['_setDefaultMainCategory'](createProjectDto);
+
+    expect(createProjectDto.videoOptions[0].category).toBe(MediaCategory.MAIN);
+  });
 });

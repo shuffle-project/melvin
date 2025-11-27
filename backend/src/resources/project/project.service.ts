@@ -907,7 +907,7 @@ export class ProjectService {
     return plainToInstance(ProjectMediaEntity, { audios, videos });
   }
 
-  private _buildUrl(
+  _buildUrl(
     viewerToken: string,
     mediaId: string,
     mediaExtension: string,
@@ -918,7 +918,7 @@ export class ProjectService {
       : `${this.serverBaseUrl}/media/${viewerToken}/${mediaId}.${mediaExtension}`;
   }
 
-  private _getMimetype(extension: string) {
+  _getMimetype(extension: string) {
     switch (extension) {
       // AUDIO
       case 'mp3':

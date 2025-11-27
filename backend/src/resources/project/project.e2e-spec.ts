@@ -202,7 +202,6 @@ describe('ProjectController (e2e)', () => {
       .set(authHeader)
       .send(body);
 
-    console.log(response.body);
     expect(response.body).toStrictEqual(result);
     expect(service.update).toHaveBeenCalledWith(authUser, id, {
       ...body,
