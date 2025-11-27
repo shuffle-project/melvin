@@ -1,6 +1,6 @@
 # Build stage
 
-FROM node:18 as builder
+FROM node:22 as builder
 
 ENV NODE_ENV build
 
@@ -10,7 +10,7 @@ RUN npm ci && npm run build && npm prune --production
 
 # Final image
 
-FROM node:18-alpine
+FROM node:22-alpine
 
 # RUN apt-get update || : && apt-get install python3 python3-pip git ffmpeg -y
 #  https://pythonspeed.com/articles/externally-managed-environment-pep-668/
