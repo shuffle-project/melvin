@@ -1589,6 +1589,15 @@
       <trans-unit id="landingMainHeadingWithMelvin" datatype="html">
         <source>with Melvin</source>
       </trans-unit>
+      <trans-unit id="landingMainIntroExplanationBottom" datatype="html">
+        <source> Whether recording, transcribing, editing, or viewing comfortably, Melvin helps you use videos easily and accessibly. Have fun exploring! </source>
+      </trans-unit>
+      <trans-unit id="landingMainIntroExplanationTop" datatype="html">
+        <source> Melvin is an intuitive tool for recording, editing, and providing accessible videos. In this short introductory video, you will get an initial overview of how to create, edit, and publish your own videos — or how you can use the Melvin player as a viewer. </source>
+      </trans-unit>
+      <trans-unit id="landingMainIntroHeading" datatype="html">
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;video&quot; /&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;video&quot; /&gt;"/> Welcome to Melvin! </source>
+      </trans-unit>
       <trans-unit id="landingMainOpenSourceChip" datatype="html">
         <source> Open-Source </source>
       </trans-unit>
