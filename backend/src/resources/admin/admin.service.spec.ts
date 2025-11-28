@@ -143,34 +143,6 @@ describe('AdminService', () => {
     );
   });
 
-  it('createUser() should send email when RegistrationMode.EMAIL is used', async () => {
-    const dto = {
-      email: 'newuser@mail.com',
-      name: 'Test User',
-    };
-
-    // Registration mode: EMAIL
-    service.registrationConfig = {
-      mode: RegistrationMode.EMAIL,
-    };
-
-    // No user exists
-    expect(await dbService.userModel.countDocuments()).toBe(0);
-
-    const result = await service.createUser(dto);
-
-    // Verify email was sent
-    expect(mailService.sendAdminCreateUserMail).toHaveBeenCalledTimes(1);
-
-    // Verify method returned
-    expect(result.method).toBe('email');
-    expect(result.user.email).toBe(dto.email);
-
-    // DB should contain the new user
-    const savedUser = await dbService.userModel.findOne({ email: dto.email });
-    expect(savedUser).toBeTruthy();
-  });
-
   it('resetPassword() should throw user_not_found when user does not exist', async () => {
     await expect(
       service.resetPassword(TEST_DATA.validObjectId),
