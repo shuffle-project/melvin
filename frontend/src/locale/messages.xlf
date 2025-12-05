@@ -1139,6 +1139,9 @@
       <trans-unit id="guideDidacticHeading" datatype="html">
         <source> Didactic Planning </source>
       </trans-unit>
+      <trans-unit id="guideDownloadPdfHeader" datatype="html">
+        <source> Download PDF </source>
+      </trans-unit>
       <trans-unit id="guideFrameworkTerm" datatype="html">
         <source>General Instructional Framework</source>
       </trans-unit>
@@ -1163,11 +1166,11 @@
       <trans-unit id="guideStructuringVideoDefinition" datatype="html">
         <source> The longer the video, the more important it is to maintain a <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>clear structure and include pauses<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/> to support comprehension. Planning recognizable sections (introduction, main part, conclusion) in advance is advisable. Creating <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>a script, storyboard,<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/> or screenplay can help structure the content and voiceover effectively. </source>
       </trans-unit>
-      <trans-unit id="guideInvertedClassroomTerm" datatype="html">
-        <source>Inverted Classroom</source>
+      <trans-unit id="guideFlippedClassroomDefinition" datatype="html">
+        <source> When videos are used as part of an Flipped Classroom model, <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>clear incentives<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/> should be provided for students to prepare for deeper engagement during in-person sessions. If a video is assigned to a specific session, this should be clearly communicated, and students should have <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>sufficient time<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/> to review the content and any accompanying materials. </source>
       </trans-unit>
-      <trans-unit id="guideInvertedClassroomDefinition" datatype="html">
-        <source> When videos are used as part of an Inverted Classroom model, <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>clear incentives<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/> should be provided for students to prepare for deeper engagement during in-person sessions. If a video is assigned to a specific session, this should be clearly communicated, and students should have <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>sufficient time<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/> to review the content and any accompanying materials. </source>
+      <trans-unit id="guideFlippedClassroomTerm" datatype="html">
+        <source>Flipped Classroom</source>
       </trans-unit>
       <trans-unit id="guideMicroLearningTerm" datatype="html">
         <source>Microlearning Units</source>
@@ -1194,7 +1197,7 @@
         <source> Example: A video explaining the fundamentals of qualitative or quantitative research methods in social sciences. </source>
       </trans-unit>
       <trans-unit id="guideUDLTerm" datatype="html">
-        <source> Ensuring Accessibility – Universal Design for Learning (UDL)/Multi-Sensory Design Principle </source>
+        <source> Ensuring Accessibility – Universal Design for Learning (UDL)/Multisensory Design Principle </source>
       </trans-unit>
       <trans-unit id="guideUDLDefinition" datatype="html">
         <source> To promote accessibility, information should be presented in multiple formats—for example, through both auditory and visual means. <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>Tools like Melvin<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/>, which automatically generate subtitles and transcripts, can facilitate this approach. </source>
@@ -1266,7 +1269,7 @@
         <source>Reviewing Acquired Knowledge</source>
       </trans-unit>
       <trans-unit id="guideAcquiredKnowledgeDefinition" datatype="html">
-        <source> Where can students test their newly acquired knowledge? <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>Quizzes<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/> or targeted exercises can be embedded in the video or incorporated into follow-up in-person sessions. </source>
+        <source> Where can students test their newly acquired knowledge? <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>Quizzes<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/> or targeted exercises can be embedded in the video or included in follow-up in-person sessions. </source>
       </trans-unit>
       <trans-unit id="guideTechnicalTermsTerm" datatype="html">
         <source>Clarifying Technical Terms</source>
@@ -1299,13 +1302,13 @@
         <source>to encourage participation </source>
       </trans-unit>
       <trans-unit id="guideTechnicalHeading" datatype="html">
-        <source> Technical planning </source>
+        <source> Technical Planning </source>
       </trans-unit>
       <trans-unit id="guideHighQualityMediaTerm" datatype="html">
         <source> Ensuring High-Quality Audio and Video </source>
       </trans-unit>
       <trans-unit id="guideHighQualityMediaDefinition" datatype="html">
-        <source> Both image and sound quality should be optimal, with good lighting and a distraction-free recording environment. A calm and clear speaking style, with sufficient pauses, enhances comprehensibility. A neutral background helps keep the focus on the content. </source>
+        <source> Both video and sound quality should be optimal, with good lighting and a distraction-free recording environment. A calm and clear speaking style, with sufficient pauses, enhances comprehensibility. A neutral background helps keep the focus on the content. </source>
       </trans-unit>
       <trans-unit id="guideTechnicalEquipmentTerm" datatype="html">
         <source> Technical Equipment Considerations </source>
