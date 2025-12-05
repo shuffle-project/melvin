@@ -1118,9 +1118,6 @@
       <trans-unit id="guideContentTableTechnical" datatype="html">
         <source> Technical Planning </source>
       </trans-unit>
-      <trans-unit id="guideContentTableReferences" datatype="html">
-        <source> References </source>
-      </trans-unit>
       <trans-unit id="guideWhyHeading" datatype="html">
         <source> Why Didactic Recommendations? </source>
       </trans-unit>
@@ -1158,7 +1155,7 @@
         <source>Optimal Video Length</source>
       </trans-unit>
       <trans-unit id="guideOptimalLenghtDefinition" datatype="html">
-        <source> Depending on the purpose, learning videos can vary in length, but they should not exceed a certain duration to avoid cognitive overload. Empirical research suggests a <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>maximum duration of 20 minutes<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/> (Brück 2023). </source>
+        <source> Depending on the purpose, learning videos can vary in length, but they should not exceed a certain duration to avoid cognitive overload. Empirical research suggests a <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>maximum duration of 20 minutes<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/>. </source>
       </trans-unit>
       <trans-unit id="guideStructuringVideoTerm" datatype="html">
         <source>Structuring the Video</source>
@@ -1892,12 +1889,6 @@
       <trans-unit id="viewerCaptionsSettingsDialogFontsize" datatype="html">
         <source> Captions fontsize </source>
       </trans-unit>
-      <trans-unit id="viewerCaptionsSettingsDialogPositionLabel" datatype="html">
-        <source> Captions position </source>
-      </trans-unit>
-      <trans-unit id="viewerCaptionsSettingsDialogPositionOptionOver" datatype="html">
-        <source> In front of the video </source>
-      </trans-unit>
       <trans-unit id="viewerCaptionsSettingsDialogExampletext" datatype="html">
         <source> Example text: This is what the subtitles will look like. </source>
       </trans-unit>
@@ -2094,7 +2085,7 @@
         <source> Tutorial </source>
       </trans-unit>
       <trans-unit id="tutorialFAQAnswer1" datatype="html">
-        <source> No, Melvin currently does not offer any editing or trimming functionality. However, recordings can be edited using an external video editor before being uploaded to Melvin. Depending on the development team&apos;s capacity and priorities, editing features may be added in future versions of Melvin. </source>
+        <source> No, Melvin currently does not offer any editing or trimming functionality. However, recordings can be edited using an external video editor before being uploaded to Melvin. </source>
       </trans-unit>
       <trans-unit id="tutorialFAQAnswer2Part1" datatype="html">
         <source> Currently, this functionality is not supported by Melvin or web browsers. </source>

@@ -430,14 +430,6 @@
         <source> Captions fontsize </source>
         <target state="final"> Schriftgröße </target>
       </trans-unit>
-      <trans-unit id="viewerCaptionsSettingsDialogPositionLabel" datatype="html">
-        <source> Captions position </source>
-        <target state="final"> Position </target>
-      </trans-unit>
-      <trans-unit id="viewerCaptionsSettingsDialogPositionOptionOver" datatype="html">
-        <source> In front of the video </source>
-        <target state="final"> Vor dem Video </target>
-      </trans-unit>
       <trans-unit id="viewerCaptionsSettingsDialogExampletext" datatype="html">
         <source> Example text: This is what the subtitles will look like. </source>
         <target state="final"> Beispieltext: So werden die Untertitel aussehen. </target>
@@ -672,7 +664,7 @@
       </trans-unit>
       <trans-unit id="recorderNotRecordingHints" datatype="html">
         <source> You can add or delete sources. <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br /&gt;"/> To start the recording you need at least 1 visual and 1 auditive source. </source>
-        <target state="final"> Sie können Quellen hinzufügen oder entfernen. <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br /&gt;"/> Zum starten wird mindestens eine visuelle und eine auditive Quelle benötigt. </target>
+        <target state="final"> Sie können Quellen hinzufügen oder entfernen. <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br /&gt;"/> Zum Starten wird mindestens eine visuelle und eine auditive Quelle benötigt. </target>
       </trans-unit>
       <trans-unit id="recorderRecordingHints" datatype="html">
         <source> Recording ongoing. Press Stop recording if you want to save or dismiss your recording. </source>
@@ -1256,7 +1248,7 @@
       </trans-unit>
       <trans-unit id="landingMainIntroExplanationTop" datatype="html">
         <source> Melvin is an intuitive tool for recording, editing, and providing accessible videos. In this short introductory video, you will get an initial overview of how to create, edit, and publish your own videos — or how you can use the Melvin player as a viewer. </source>
-        <target state="final"> Melvin ist ein intuitives Tool zum Aufzeichnen, Bearbeiten und Bereitstellen barrierefreier Videos. In diesem kurzen Einführungsvideo erhalten Sie einen ersten Überblick darüber, wie Sie Ihre eigenen Videos erstellen, bearbeiten und veröffentlichen können – oder wie Sie den Melvin-Player als Viewer nutzen können.  </target>
+        <target state="final"> Melvin ist ein intuitives Tool zum Aufzeichnen, Bearbeiten und Bereitstellen barrierefreier Videos. In diesem kurzen Einführungsvideo erhalten Sie einen ersten Überblick darüber, wie Sie Ihre eigenen Videos erstellen, bearbeiten und veröffentlichen können – oder wie Sie den Melvin-Player als Viewer nutzen können. </target>
       </trans-unit>
       <trans-unit id="landingMainIntroHeading" datatype="html">
         <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;video&quot; /&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;video&quot; /&gt;"/> Welcome to Melvin! </source>
@@ -1894,10 +1886,6 @@
         <source> Technical Planning </source>
         <target state="final"> Technische Planung </target>
       </trans-unit>
-      <trans-unit id="guideContentTableReferences" datatype="html">
-        <source> References </source>
-        <target state="final"> Literatur </target>
-      </trans-unit>
       <trans-unit id="guideWhyHeading" datatype="html">
         <source> Why Didactic Recommendations? </source>
         <target state="final"> Warum didaktische Hinweise? </target>
@@ -1935,8 +1923,8 @@
         <target state="final">Länge des Videos</target>
       </trans-unit>
       <trans-unit id="guideOptimalLenghtDefinition" datatype="html">
-        <source> Depending on the purpose, learning videos can vary in length, but they should not exceed a certain duration to avoid cognitive overload. Empirical research suggests a <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>maximum duration of 20 minutes<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/> (Brück 2023). </source>
-        <target state="final"> Je nach Zielsetzung und Zweck sind Lernvideos unterschiedlich lang, sollten aber - um einen „cognitive overload“ zu vermeiden - eine bestimmte Länge nicht überschreiten. Basierend auf Erfahrungswerten beträgt die empfohlene <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/> maximale Dauer 20 Minuten<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/> (Brück 2023). </target>
+        <source> Depending on the purpose, learning videos can vary in length, but they should not exceed a certain duration to avoid cognitive overload. Empirical research suggests a <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>maximum duration of 20 minutes<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/>. </source>
+        <target state="final"> Je nach Zielsetzung und Zweck sind Lernvideos unterschiedlich lang, sollten aber - um einen „cognitive overload“ zu vermeiden - eine bestimmte Länge nicht überschreiten. Basierend auf Erfahrungswerten beträgt die empfohlene <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/> maximale Dauer 20 Minuten<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/>. </target>
       </trans-unit>
       <trans-unit id="guideStructuringVideoTerm" datatype="html">
         <source>Structuring the Video</source>
@@ -2524,7 +2512,7 @@
       </trans-unit>
       <trans-unit id="tutorialIntroExplanation" datatype="html">
         <source> The following videos show an earlier version of the web application. Minor differences – such as labels or element positions – may therefore occur. However, they still provide reliable guidance. The respective text versions have been updated and reflect the current state. </source>
-        <target state="final"> Die folgenden Videos zeigen eine frühere Version der Web-Anwendung. Geringfügige Abweichungen – etwa bei Beschriftungen oder Positionen – sind daher möglich. Sie bieten jedoch weiterhin eine zuverlässige Orientierung. Die jeweiligen Textversionen wurden aktualisiert und spiegeln den aktuellen Stand dar. </target>
+        <target state="final"> Die folgenden Videos zeigen eine frühere Version der Web-Anwendung. Geringfügige Abweichungen – etwa bei Beschriftungen oder Positionen – sind daher möglich. Sie bieten jedoch weiterhin eine zuverlässige Orientierung. Die jeweiligen Textversionen wurden aktualisiert und spiegeln den aktuellen Stand wider. </target>
       </trans-unit>
       <trans-unit id="tutorialContentsTableHeading" datatype="html">
         <source>Table of Contents</source>
@@ -2548,7 +2536,7 @@
       </trans-unit>
       <trans-unit id="tutorialCollaborativeEditingLinkLabel" datatype="html">
         <source> Collaborative Editing </source>
-        <target state="final"> Projekte gemeinsam bearbeiten </target>
+        <target state="final"> Projekt gemeinsam bearbeiten </target>
       </trans-unit>
       <trans-unit id="tutorialAddTranscriptLinkLabel" datatype="html">
         <source> Add Additional Transcripts </source>
@@ -2656,7 +2644,7 @@
       </trans-unit>
       <trans-unit id="tutorialCollaborativeEditingHeading" datatype="html">
         <source> Collaborative Editing </source>
-        <target state="final"> Projekte gemeinsam bearbeiten </target>
+        <target state="final"> Projekt gemeinsam bearbeiten </target>
       </trans-unit>
       <trans-unit id="tutorialCollaborativeEditingStep1" datatype="html">
         <source> Click the <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>“Share”<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/> button in the top right corner of the editor. </source>
@@ -2799,8 +2787,8 @@
         <target state="final"> Kann ich Aufnahmen schneiden oder bearbeiten? </target>
       </trans-unit>
       <trans-unit id="tutorialFAQAnswer1" datatype="html">
-        <source> No, Melvin currently does not offer any editing or trimming functionality. However, recordings can be edited using an external video editor before being uploaded to Melvin. Depending on the development team&apos;s capacity and priorities, editing features may be added in future versions of Melvin. </source>
-        <target state="final"> Nein, Melvin bietet derzeit keine Funktionen zum Schneiden oder Bearbeiten von Aufnahmen an. Allerdings können die Aufnahmen vor dem Hochladen in Melvin mit einem externen Videoeditor bearbeitet werden. Je nach Kapazitäten und Prioritäten des Entwicklerteams könnten Bearbeitungsfunktionen in zukünftigen Versionen von Melvin hinzugefügt werden. </target>
+        <source> No, Melvin currently does not offer any editing or trimming functionality. However, recordings can be edited using an external video editor before being uploaded to Melvin. </source>
+        <target state="final"> Nein, Melvin bietet derzeit keine Funktionen zum Schneiden oder Bearbeiten von Aufnahmen an. Allerdings können die Aufnahmen vor dem Hochladen in Melvin mit einem externen Videoeditor bearbeitet werden. </target>
       </trans-unit>
       <trans-unit id="tutorialFAQQuestion2" datatype="html">
         <source> Can I blur the background of my webcam in the recorder? </source>
