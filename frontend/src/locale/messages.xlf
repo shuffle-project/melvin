@@ -1071,7 +1071,7 @@
         <source> Enforcement procedure </source>
       </trans-unit>
       <trans-unit id="accessibilityStatementEnforcementPartOne" datatype="html">
-        <source> To ensure that this website meets the requirements described in Section 10 (1) L-BGG, you can contact the SHUFFLE project partners (<x id="START_LINK" ctype="x-a" equiv-text="&lt;a href=&quot;mailto:melvin@shuffle-projekt.de&quot; &gt;"/>melvin@shuffle-projekt.de<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a &gt;"/>) by email and provide appropriate feedback. </source>
+        <source> To ensure that this website meets the requirements described in Section 10 (1) L-BGG, you can contact the SHUFFLE project partners (<x id="START_LINK" ctype="x-a" equiv-text="&lt;a href=&quot;mailto:melvin@hdm-stuttgart.de&quot; &gt;"/>melvin@hdm-stuttgart.de<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a &gt;"/>) by email and provide appropriate feedback. </source>
       </trans-unit>
       <trans-unit id="accessibilityStatementEnforcementPartTwo" datatype="html">
         <source> If the Melvin project team does not respond to your request within four weeks, you may file a complaint with the National Center for Accessibility (LZ-BARR). </source>
