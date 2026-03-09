@@ -1071,13 +1071,13 @@
         <source> Enforcement procedure </source>
       </trans-unit>
       <trans-unit id="accessibilityStatementEnforcementPartOne" datatype="html">
-        <source> To ensure that this website meets the requirements described in Section 10 (1) L-BGG, you can contact the SHUFFLE project partners (<x id="START_LINK" ctype="x-a" equiv-text="&lt;a href=&quot;mailto:melvin@hdm-stuttgart.de&quot; &gt;"/>melvin@hdm-stuttgart.de<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a &gt;"/>) by email and provide appropriate feedback. </source>
+        <source> To ensure that this website meets the requirements described in Section 10 (1) L-BGG, you can contact the SHUFFLE project partners (<x id="START_LINK" ctype="x-a" equiv-text="&lt;a href=&quot;mailto:melvin@hdm-stuttgart.de&quot;&gt;"/>melvin@hdm-stuttgart.de<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/>) by email and provide appropriate feedback. </source>
       </trans-unit>
       <trans-unit id="accessibilityStatementEnforcementPartTwo" datatype="html">
         <source> If the Melvin project team does not respond to your request within four weeks, you may file a complaint with the National Center for Accessibility (LZ-BARR). </source>
       </trans-unit>
       <trans-unit id="accessibilityStatementEnforcementPartThree" datatype="html">
-        <source> You can contact the National Center for Accessibility (LZ-BARR) as follows: <x id="START_LINK" ctype="x-a" equiv-text="&lt;a href=&quot;mailto:schlichtung@barrierefreiheit.bwl.de&quot; &gt;"/>schlichtung@barrierefreiheit.bwl.de<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/> , <x id="START_LINK_1" equiv-text="&lt;a href=&quot;tel:004971112339375&quot;&gt;"/>Tel. +49 711 123 39375<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/>, Address: Landeszentrum Barrierefreiheit, Schlichtungsstelle, Else-Josenhans-Straße 6, 70173 Stuttgart. </source>
+        <source> You can contact the National Center for Accessibility (LZ-BARR) as follows: <x id="START_LINK" ctype="x-a" equiv-text="&lt;a href=&quot;mailto:schlichtung@barrierefreiheit.bwl.de&quot;&gt;"/>schlichtung@barrierefreiheit.bwl.de<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/> , <x id="START_LINK_1" equiv-text="&lt;a href=&quot;tel:004971112339375&quot;&gt;"/>Tel. +49 711 123 39375<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/>, Address: Landeszentrum Barrierefreiheit, Schlichtungsstelle, Else-Josenhans-Straße 6, 70173 Stuttgart. </source>
       </trans-unit>
       <trans-unit id="accessibilityStatementEnforcementPartFour" datatype="html">
         <source> This procedure is free of charge. </source>
@@ -1475,6 +1475,9 @@
       <trans-unit id="landingFooterTutorialsHeader" datatype="html">
         <source>Tutorials</source>
       </trans-unit>
+      <trans-unit id="landingFooterContactLinkLabel" datatype="html">
+        <source> Feedback &amp; Support </source>
+      </trans-unit>
       <trans-unit id="landingFooterDidacticGuideLinkLabel" datatype="html">
         <source> Best Practice </source>
       </trans-unit>
@@ -1597,12 +1600,6 @@
       </trans-unit>
       <trans-unit id="landingMainIntroHeading" datatype="html">
         <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;video&quot; /&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;video&quot; /&gt;"/> Welcome to Melvin! </source>
-      </trans-unit>
-      <trans-unit id="landingMainOpenSourceChip" datatype="html">
-        <source> Open-Source </source>
-      </trans-unit>
-      <trans-unit id="landingMainFreeOfChargeChip" datatype="html">
-        <source> Free of charge </source>
       </trans-unit>
       <trans-unit id="landingMainRecordingHeading" datatype="html">
         <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;video&quot; /&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon svgIcon=&quot;video&quot; /&gt;"/> Recording </source>
