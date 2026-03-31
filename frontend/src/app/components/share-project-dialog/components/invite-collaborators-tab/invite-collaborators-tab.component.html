@@ -10,12 +10,10 @@
       <input
         type="email"
         matInput
-        [matAutocomplete]="auto"
         [formControl]="userControl"
       />
-      <mat-hint i18n="@@inviteCollaboratorAddUserInputHint"
-        >Addresses that are not linked to an account will be invited to the
-        project via email.
+      <mat-hint i18n="@@inviteCollaboratorAddUserInputHint">
+        If the specified email address belongs to an account, the person will be notified or added.
       </mat-hint>
       @if (userControl.touched && userControl.dirty) { @if
       (userControl.hasError('required')) {
@@ -31,18 +29,6 @@
         >User already added</mat-error
       >
       } }
-      <mat-autocomplete
-        #auto="matAutocomplete"
-        (optionSelected)="onAddMemberThroughSelect($event)"
-      >
-        @for (autoCompleteUser of autoCompleteUsers; track autoCompleteUser) {
-        <mat-option [value]="autoCompleteUser">
-          <span class="user-name">{{ autoCompleteUser.name }}</span>
-          <br />
-          <span class="user-email">{{ autoCompleteUser.email }}</span>
-        </mat-option>
-        }
-      </mat-autocomplete>
     </mat-form-field>
     <button
       mat-flat-button

@@ -129,7 +129,7 @@
         <source>Collaborator email</source>
       </trans-unit>
       <trans-unit id="inviteCollaboratorAddUserInputHint" datatype="html">
-        <source>Addresses that are not linked to an account will be invited to the project via email. </source>
+        <source> If the specified email address belongs to an account, the person will be notified or added. </source>
       </trans-unit>
       <trans-unit id="inviteCollaboratorInputErrorEmailRequired" datatype="html">
         <source>Email is required</source>
