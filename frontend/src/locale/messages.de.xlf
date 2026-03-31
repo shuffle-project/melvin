@@ -991,8 +991,8 @@
         <target state="final">E-Mail der Person</target>
       </trans-unit>
       <trans-unit id="inviteCollaboratorAddUserInputHint" datatype="html">
-        <source>Addresses that are not linked to an account will be invited to the project via email. </source>
-        <target state="final">Adressen, die nicht mit einem Konto verknüpft sind, werden per E-Mail zu dem Projekt eingeladen.</target>
+        <source> If the specified email address belongs to an account, the person will be notified or added. </source>
+        <target state="new">Falls die angegebene E-Mail-Adresse einem Konto zugeordnet ist, wird die Person zum Projekt hinzugefügt.</target>
       </trans-unit>
       <trans-unit id="inviteCollaboratorInputErrorEmailRequired" datatype="html">
         <source>Email is required</source>
